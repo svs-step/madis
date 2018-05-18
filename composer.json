@@ -9,6 +9,7 @@
         }
     ],
     "require": {
+        "symfony/orm-pack": "^1.0",
         "symfony/skeleton": "^3.4"
     },
     "require-dev": {

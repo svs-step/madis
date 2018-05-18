@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    env_file:
+      - .env
+
+  nginx:
+    build: docker/nginx
+    ports:
+      - ${HTTPD_PORT}:8080
+    volumes:
+      - ./docker/nginx/default:/etc/nginx/sites-available/default:ro
+      - .:/var/www/gestion-rgpd/:delegated
+    depends_on:
+      - php-fpm
+
+  php-fpm:
+    build: docker/php-fpm
+    ports:
+      - ${PHP_FPM_PORT}:9000
+    volumes:
+      - ./docker/php-fpm/fpm-pool.conf:/etc/php/7.1/fpm/pool.d/www.conf:ro
+      - .:/var/www/gestion-rgpd/:delegated
+    working_dir: /var/www/gestion-rgpd/
+    depends_on:
+      - db
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - ${PMA_PORT}:80
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=${MYSQL_USER}
+      - PMA_PASSWORD=${MYSQL_PASSWORD}
+    depends_on:
+      - db
