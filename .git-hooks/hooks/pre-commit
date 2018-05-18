@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo Running $BASH_SOURCE
+
+FILES=$(find .git/hooks/pre-commit-scripts -type f|grep "pre-commit-*")
+for FILE in $FILES
+do
+    echo "Execution of pre-commit hook: $FILE"
+    ./$FILE
+
+    if [ $? -eq 1 ]
+    then
+    	exit 1
+    fi
+done
