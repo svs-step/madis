@@ -45,6 +45,8 @@ initialize() {
 }
 
 build() {
+    docker build docker/nginx -t nginx
+    docker build docker/php-fpm -t php-fpm
     docker-compose -f docker-compose"$env".yml build
 }
 
@@ -86,14 +88,14 @@ csFixer() {
 
     if [ "$#" -ge 1 ]; then
         paths="$1"
-        docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ php-fpm:latest bash -c "php -l $paths"
+        docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ php-fpm bash -c "php -l $paths"
 
         if [ "$#" -eq 2 ]; then
             config="$2"
         fi
     fi
 
-    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ php-fpm:latest bash -c "vendor/bin/php-cs-fixer fix --config=$config $paths -vv"
+    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ php-fpm bash -c "vendor/bin/php-cs-fixer fix --config=$config $paths -vv"
 }
 
 # Tests
@@ -105,7 +107,7 @@ tests() {
 
 unitTests() {
     echo -e "\n\n\nUnit Test : Apps/benevoles-back/"
-    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ php-fpm:latest bash -c "vendor/bin/phpunit"
+    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ php-fpm bash -c "vendor/bin/phpunit"
 }
 
 qualityTests() {
