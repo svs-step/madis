@@ -1,0 +1,2 @@
+_domain_user:
+    resource: ../domain/user/routes/_index.yaml

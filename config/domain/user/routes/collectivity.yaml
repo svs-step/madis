@@ -1,0 +1,6 @@
+user_collectivity_list:
+    path: '/liste'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\User\Controller\CollectivityController:listAction'
+
