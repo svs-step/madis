@@ -1,0 +1,27 @@
+<ol class="breadcrumb">
+
+    <li {% if not breadcrumb|length > 0 %}class="active"{% endif %}>
+        {% if breadcrumb|length > 0 %}
+        <a href="#">
+        {% endif %}
+            <i class="fa fa-dashboard"></i>
+            TODO Tableau de bord
+        {% if breadcrumb|length > 0 %}
+        </a>
+        {% endif %}
+    </li>
+
+    {% for item in breadcrumb %}
+        <li {% if loop.last %}class="active"{% endif %}>
+            {% if item.link is defined %}
+            <a href="{{ item.link }}">
+            {% endif %}
+
+                {{ item.name }}
+
+            {% if item.link is defined %}
+            </a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ol>

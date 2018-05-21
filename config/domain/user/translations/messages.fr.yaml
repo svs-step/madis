@@ -1,3 +1,20 @@
-title:
+user:
     collectivity:
-        list: Liste des collectivités
+        action:
+            back_to_list: Retour à la liste
+            new: Nouvelle collectivité
+        breadcrumb:
+            list: Liste des collectivités
+            create: Créer
+            edit: Éditer "%name%"
+        form:
+            name: Nom
+        list:
+            id: ID
+            name: Nom
+        title:
+            create: Créer une collectivité
+            edit: Éditer une collectivité
+            list: Liste des collectivités
+
+

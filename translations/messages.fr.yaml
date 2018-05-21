@@ -1,0 +1,8 @@
+action:
+    create: Créer
+    edit: Éditer
+    delete: Supprimer
+    submit: Soumettre
+
+label:
+    actions: Actions

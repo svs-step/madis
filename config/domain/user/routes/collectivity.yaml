@@ -4,3 +4,14 @@ user_collectivity_list:
     defaults:
         _controller: 'App\Domain\User\Controller\CollectivityController:listAction'
 
+user_collectivity_create:
+    path: '/creer'
+    methods: ['GET', 'POST']
+    defaults:
+        _controller: 'App\Domain\User\Controller\CollectivityController:createAction'
+
+user_collectivity_edit:
+    path: '/editer/{id}'
+    methods: ['GET', 'POST']
+    defaults:
+        _controller: 'App\Domain\User\Controller\CollectivityController:editAction'

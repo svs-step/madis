@@ -1,0 +1,11 @@
+<section class="sidebar">
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">Espace d'administration</li>
+        <li {% if bodyClass == 'user_collectivity' %}class="active"{% endif %}>
+            <a href="{{ path('user_collectivity_list') }}">
+                <i class="fa fa-cogs"></i>
+                <span>Collectivités</span>
+            </a>
+        </li>
+    </ul>
+</section>
