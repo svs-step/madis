@@ -1,7 +1,11 @@
 action:
+    close: Fermer
     create: Créer
+    confirm: Confirmer
+    confirm_delete: Confirmer la suppression
     edit: Éditer
     delete: Supprimer
+    deletion: Suppression
     submit: Soumettre
 
 label:

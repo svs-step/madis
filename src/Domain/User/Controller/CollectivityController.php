@@ -13,58 +13,35 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Controller;
 
+use App\Application\Controller\CRUDController;
 use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Model\Collectivity;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Doctrine\Common\Persistence\ObjectRepository;
 
-class CollectivityController extends Controller
+class CollectivityController extends CRUDController
 {
-    public function listAction(): Response
+    protected function getDomain(): string
     {
-        $objects = $this->getDoctrine()->getRepository(Collectivity::class)->findAll();
-
-        return $this->render('User/Collectivity/list.html.twig', [
-            'objects' => $objects,
-        ]);
+        return 'user';
     }
 
-    public function createAction(Request $request): Response
+    protected function getModel(): string
     {
-        $object = new Collectivity();
-        $form   = $this->createForm(CollectivityType::class, $object);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($object);
-            $em->flush();
-
-            return $this->redirectToRoute('user_collectivity_list');
-        }
-
-        return $this->render('User/Collectivity/create.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return 'collectivity';
     }
 
-    public function editAction(Request $request, string $id): Response
+    protected function getModelClass(): string
     {
-        $object = $this->getDoctrine()->getRepository(Collectivity::class)->find($id);
-        $form   = $this->createForm(CollectivityType::class, $object);
+        return Collectivity::class;
+    }
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($object);
-            $em->flush();
+    protected function getRepository(): ObjectRepository
+    {
+        return $this->entityManager->getRepository(Collectivity::class);
+    }
 
-            return $this->redirectToRoute('user_collectivity_list');
-        }
-
-        return $this->render('User/Collectivity/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+    protected function getFormType(): string
+    {
+        return CollectivityType::class;
     }
 }

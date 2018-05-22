@@ -20,10 +20,10 @@
 {% endblock %}
 
 {% block body %}
-
     <div class="row">
         <div class="col-xs-12">
             <a href="{{ path('user_collectivity_create') }}" class="btn btn-default">
+                <i class="fa fa-plus"></i>
                 {{ 'user.collectivity.action.new'|trans }}
             </a>
         </div>
@@ -51,10 +51,10 @@
                                     <i class="fa fa-pencil-alt"></i>
                                     {{ 'action.edit'|trans }}
                                 </a>
-                                {#<a href="#">
+                                <a href="{{ path('user_collectivity_delete', { 'id': object.id }) }}">
                                     <i class="fa fa-trash"></i>
                                     {{ 'action.delete'|trans }}
-                                </a>#}
+                                </a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -80,9 +80,12 @@
                 'lengthChange': false,
                 'searching'   : true,
                 'ordering'    : true,
-                'info'        : true,
+                'info'        : false,
                 'autoWidth'   : false,
             })
-        })
+        });
+
+        $('#modal-deletion').modal()
+        $('#myModal').modal()
     </script>
 {% endblock %}

@@ -15,3 +15,15 @@ user_collectivity_edit:
     methods: ['GET', 'POST']
     defaults:
         _controller: 'App\Domain\User\Controller\CollectivityController:editAction'
+
+user_collectivity_delete:
+    path: '/supprimer/{id}'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\User\Controller\CollectivityController:deleteAction'
+
+user_collectivity_delete_confirm:
+    path: '/supprimer/{id}/confirmation'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\User\Controller\CollectivityController:deleteConfirmationAction'
