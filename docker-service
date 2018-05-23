@@ -69,9 +69,7 @@ install() {
 }
 
 populate() {
-# TODO: Revmove echo when uncomment populate one
-echo "POPULATE"
-#    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm "bin/console hautelook:fixtures:load -n"
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm "bin/console hautelook:fixtures:load -n"
 }
 
 stop() {

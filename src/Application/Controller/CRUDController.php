@@ -46,8 +46,6 @@ abstract class CRUDController extends Controller
 
     abstract protected function getModelClass(): string;
 
-    abstract protected function getRepository(): ObjectRepository;
-
     abstract protected function getFormType(): string;
 
     protected function getTemplatingBasePath(string $template = null): string
@@ -74,6 +72,11 @@ abstract class CRUDController extends Controller
     protected function getRouteName(string $template = null): string
     {
         return "{$this->getDomain()}_{$this->getModel()}_{$template}";
+    }
+
+    protected function getRepository(): ObjectRepository
+    {
+        return $this->entityManager->getRepository($this->getModelClass());
     }
 
     public function listAction(): Response

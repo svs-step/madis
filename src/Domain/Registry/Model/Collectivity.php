@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Model;
+namespace App\Domain\Registry\Model;
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;

@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'user_collectivity' %}
+{% set bodyClass = 'registry_collectivity' %}
 
-{% block title %}{{ 'user.collectivity.title.delete'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'registry.collectivity.title.delete'|trans }} - {{ parent() }}{% endblock %}
 
 {% block body_head %}
     <h1>
-        {{ 'user.collectivity.title.delete'|trans }}
+        {{ 'registry.collectivity.title.delete'|trans }}
         <small>{{ object }}</small>
     </h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'user.collectivity.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
-        { 'name': 'user.collectivity.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'registry.collectivity.breadcrumb.list'|trans, 'link': path('registry_collectivity_list') },
+        { 'name': 'registry.collectivity.breadcrumb.delete'|trans({'%name%': object}) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -28,10 +28,10 @@
                     Souhaitez vous vraiment supprimer la collectivité "{{ object }}" ?
                 </div>
                 <div class="box-footer">
-                    <a href="{{ path('user_collectivity_list') }}" class="btn btn-default">
-                        {{ 'user.collectivity.action.back_to_list'|trans }}
+                    <a href="{{ path('registry_collectivity_list') }}" class="btn btn-default">
+                        {{ 'registry.collectivity.action.back_to_list'|trans }}
                     </a>
-                    <a href="{{ path('user_collectivity_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                    <a href="{{ path('registry_collectivity_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
                         {{ 'action.confirm_delete'|trans }}
                     </a>
                 </div>

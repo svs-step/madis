@@ -11,18 +11,17 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Controller;
+namespace App\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
-use App\Domain\User\Form\Type\CollectivityType;
-use App\Domain\User\Model\Collectivity;
-use Doctrine\Common\Persistence\ObjectRepository;
+use App\Domain\Registry\Form\Type\CollectivityType;
+use App\Domain\Registry\Model\Collectivity;
 
 class CollectivityController extends CRUDController
 {
     protected function getDomain(): string
     {
-        return 'user';
+        return 'registry';
     }
 
     protected function getModel(): string
@@ -33,11 +32,6 @@ class CollectivityController extends CRUDController
     protected function getModelClass(): string
     {
         return Collectivity::class;
-    }
-
-    protected function getRepository(): ObjectRepository
-    {
-        return $this->entityManager->getRepository(Collectivity::class);
     }
 
     protected function getFormType(): string

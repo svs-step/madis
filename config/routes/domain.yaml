@@ -1,2 +1,2 @@
-_domain_user:
-    resource: ../domain/user/routes/_index.yaml
+_domain_registry:
+    resource: ../domain/registry/routes/_index.yaml
