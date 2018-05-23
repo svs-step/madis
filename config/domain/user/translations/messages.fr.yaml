@@ -1,0 +1,34 @@
+user:
+    user:
+        action:
+            back_to_list: Retour à la liste
+            new: Nouvel utilisateur
+        breadcrumb:
+            list: Liste des utilisateurs
+            create: Créer
+            edit: Éditer "%name%"
+            delete: Supprimer "%name%"
+        form:
+            email: E-mail
+            first_name: Prénom
+            last_name: Nom
+            password: Mot de passe
+            roles: Role(s)
+        flashbag:
+            success:
+                create: Utilisateur "%object%" créée avec succès
+                edit: Utilisateur "%object%" éditée avec succès
+                delete: Utilisateur "%object%" supprimée avec succès
+        list:
+            email: E-mail
+            first_name: Prénom
+            id: ID
+            last_name: Nom
+            roles: Role(s)
+        modal:
+            confirm_deletion: Voulez-vous vraiment supprimer cet utilisateur ?
+        title:
+            create: Créer un utilisateur
+            edit: Éditer un utilisateur
+            list: Liste des utilisateurs
+            delete: Supprimer un utilisateur

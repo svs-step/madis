@@ -1,0 +1,21 @@
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+
+<div class="box box-primary">
+    <div class="box-header"></div>
+    {{ form_start(form, {'class': 'form-horizontal'}) }}
+    <div class="box-body">
+        {{ form_row(form.firstName) }}
+        {{ form_row(form.lastName) }}
+        {{ form_row(form.email) }}
+        {{ form_rest(form) }}
+    </div>
+    <div class="box-footer text-center">
+        <a href="{{ path('user_user_list') }}" class="btn btn-default">
+            {{ 'user.user.action.back_to_list'|trans }}
+        </a>
+        <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+    </div>
+    {{ form_end(form) }}
+</div>
+
+

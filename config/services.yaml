@@ -13,3 +13,4 @@ services:
 
 imports:
     - { resource: services/controller.yaml }
+    - { resource: services/dictionary.yaml }

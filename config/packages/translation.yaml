@@ -5,5 +5,6 @@ framework:
             - '%kernel.project_dir%/translations'
             - '%kernel.project_dir%/config/domain/admin/translations'
             - '%kernel.project_dir%/config/domain/reporting/translations'
+            - '%kernel.project_dir%/config/domain/user/translations'
         fallbacks:
             - '%locale%'

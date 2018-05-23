@@ -1,0 +1,3 @@
+_user_user:
+    resource: 'user.yaml'
+    prefix: '/utilisateurs'

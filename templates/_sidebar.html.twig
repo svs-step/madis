@@ -12,8 +12,14 @@
         <li class="header">Espace d'administration</li>
         <li {% if bodyClass == 'admin_collectivity' %}class="active"{% endif %}>
             <a href="{{ path('admin_collectivity_list') }}">
-                <i class="fa fa-cogs"></i>
+                <i class="fa fa-briefcase"></i>
                 <span>Collectivités</span>
+            </a>
+        </li>
+        <li {% if bodyClass == 'user_user' %}class="active"{% endif %}>
+            <a href="{{ path('user_user_list') }}">
+                <i class="fa fa-users"></i>
+                <span>Utilisateurs</span>
             </a>
         </li>
     </ul>
