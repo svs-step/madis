@@ -1,7 +1,91 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'title.collectivity.list'|trans() }} - {{ parent() }}{% endblock %}
+{% set bodyClass = 'user_collectivity' %}
+
+{% block title %}{{ 'user.collectivity.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'user.collectivity.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'user.collectivity.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
 
 {% block body %}
-    <h1>COLLECTIVITY LIST</h1>
+    <div class="row">
+        <div class="col-xs-12">
+            <a href="{{ path('user_collectivity_create') }}" class="btn btn-default">
+                <i class="fa fa-plus"></i>
+                {{ 'user.collectivity.action.new'|trans }}
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>{{ 'user.collectivity.list.id'|trans }}</th>
+                            <th>{{ 'user.collectivity.list.name'|trans }}</th>
+                            <th>{{ 'label.actions'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+                        <tr>
+                            <td>{{ object.id }}</td>
+                            <td>{{ object.name }}</td>
+                            <td>
+                                <a href="{{ path('user_collectivity_edit', { 'id': object.id }) }}">
+                                    <i class="fa fa-pencil-alt"></i>
+                                    {{ 'action.edit'|trans }}
+                                </a>
+                                <a href="{{ path('user_collectivity_delete', { 'id': object.id }) }}">
+                                    <i class="fa fa-trash"></i>
+                                    {{ 'action.delete'|trans }}
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(function () {
+            $('#table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
+                },
+                'paging'      : true,
+                'lengthChange': false,
+                'searching'   : true,
+                'ordering'    : true,
+                'info'        : false,
+                'autoWidth'   : false,
+            })
+        });
+
+        $('#modal-deletion').modal()
+        $('#myModal').modal()
+    </script>
 {% endblock %}
