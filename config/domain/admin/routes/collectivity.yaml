@@ -1,0 +1,29 @@
+admin_collectivity_list:
+    path: '/liste'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Admin\Controller\CollectivityController:listAction'
+
+admin_collectivity_create:
+    path: '/creer'
+    methods: ['GET', 'POST']
+    defaults:
+        _controller: 'App\Domain\Admin\Controller\CollectivityController:createAction'
+
+admin_collectivity_edit:
+    path: '/editer/{id}'
+    methods: ['GET', 'POST']
+    defaults:
+        _controller: 'App\Domain\Admin\Controller\CollectivityController:editAction'
+
+admin_collectivity_delete:
+    path: '/supprimer/{id}'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Admin\Controller\CollectivityController:deleteAction'
+
+admin_collectivity_delete_confirm:
+    path: '/supprimer/{id}/confirmation'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Admin\Controller\CollectivityController:deleteConfirmationAction'

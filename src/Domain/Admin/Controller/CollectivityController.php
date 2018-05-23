@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Registry\Controller;
+namespace App\Domain\Admin\Controller;
 
 use App\Application\Controller\CRUDController;
-use App\Domain\Registry\Form\Type\CollectivityType;
-use App\Domain\Registry\Model\Collectivity;
+use App\Domain\Admin\Form\Type\CollectivityType;
+use App\Domain\Admin\Model\Collectivity;
 
 class CollectivityController extends CRUDController
 {
     protected function getDomain(): string
     {
-        return 'registry';
+        return 'admin';
     }
 
     protected function getModel(): string

@@ -1,4 +1,4 @@
-registry:
+admin:
     collectivity:
         action:
             back_to_list: Retour à la liste

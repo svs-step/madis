@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'registry_collectivity' %}
+{% set bodyClass = 'admin_collectivity' %}
 
-{% block title %}{{ 'registry.collectivity.title.create'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'admin.collectivity.title.create'|trans }} - {{ parent() }}{% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'registry.collectivity.title.create'|trans }}</h1>
+    <h1>{{ 'admin.collectivity.title.create'|trans }}</h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'registry.collectivity.breadcrumb.list'|trans, 'link': path('registry_collectivity_list') },
-        { 'name': 'registry.collectivity.breadcrumb.create'|trans }
+        { 'name': 'admin.collectivity.breadcrumb.list'|trans, 'link': path('admin_collectivity_list') },
+        { 'name': 'admin.collectivity.breadcrumb.create'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}

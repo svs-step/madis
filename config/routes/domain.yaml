@@ -1,5 +1,5 @@
-_domain_registry:
-    resource: ../domain/registry/routes/_index.yaml
+_domain_admin:
+    resource: ../domain/admin/routes/_index.yaml
 
 _domain_reporting:
     resource: ../domain/reporting/routes/_index.yaml

@@ -1,0 +1,3 @@
+App\Domain\Admin\Model\Collectivity:
+    admin_collectivity_soluris:
+        name: Soluris

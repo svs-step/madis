@@ -1,3 +1,3 @@
-_registry_collectivity:
+_admin_collectivity:
     resource: 'collectivity.yaml'
     prefix:   '/collectivite'
