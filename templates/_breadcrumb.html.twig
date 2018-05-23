@@ -2,10 +2,10 @@
 
     <li {% if not breadcrumb|length > 0 %}class="active"{% endif %}>
         {% if breadcrumb|length > 0 %}
-        <a href="#">
+        <a href="{{ path('reporting_dashboard_index') }}">
         {% endif %}
-            <i class="fa fa-dashboard"></i>
-            TODO Tableau de bord
+            <i class="fa fa-tachometer-alt"></i>
+            {{ 'reporting.dashboard.breadcrumb.index'|trans }}
         {% if breadcrumb|length > 0 %}
         </a>
         {% endif %}

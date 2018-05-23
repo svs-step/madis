@@ -1,5 +1,14 @@
 <section class="sidebar">
     <ul class="sidebar-menu" data-widget="tree">
+
+        <li {% if bodyClass == 'reporting_dashboard' %}class="active"{% endif %}>
+            <a href="{{ path('reporting_dashboard_index') }}">
+                <i class="fa fa-tachometer-alt"></i>
+                <span>Tableau de bord</span>
+            </a>
+        </li>
+
+        {# ADMINISTRATION #}
         <li class="header">Espace d'administration</li>
         <li {% if bodyClass == 'registry_collectivity' %}class="active"{% endif %}>
             <a href="{{ path('registry_collectivity_list') }}">
