@@ -3,6 +3,7 @@ action:
     create: Créer
     confirm: Confirmer
     confirm_delete: Confirmer la suppression
+    connexion: Connexion
     edit: Éditer
     delete: Supprimer
     deletion: Suppression

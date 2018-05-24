@@ -1,0 +1,8 @@
+login:
+    path: '/connexion'
+    defaults:
+        _controller: 'App\Domain\User\Controller\SecurityController:loginAction'
+
+
+logout:
+    path: /deconnexion
