@@ -1,4 +1,9 @@
 user:
+    login:
+        verbatim: Connectez vous pour accéder à l'application
+        remember_me: Se souvenir de moi
+        password: Mot de passe
+        username: Email
     user:
         action:
             back_to_list: Retour à la liste

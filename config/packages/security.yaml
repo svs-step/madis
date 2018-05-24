@@ -1,24 +1,38 @@
 security:
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Domain\User\Model\User: plaintext
+#        App\Domain\User\Model\User:
+#            algorithm: bcrypt
+#            cost: 13
     providers:
-        in_memory: { memory: ~ }
+        user_provider:
+            entity:
+                class: App\Domain\User\Model\User
+                property: email
+
+    role_hierarchy:
+        ROLE_USER: [ROLE_PREVIEW]
+        ROLE_ADMIN: [ROLE_USER]
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
+            pattern: ^/
+            form_login:
+                login_path: /connexion
+                check_path: /connexion
+            logout:
+                path: /deconnexion
+                target: /
+            remember_me:
+                secret: '%env(APP_SECRET)%'
+                lifetime: 604800 # 1 week in seconds
+            anonymous: ~
+            provider: user_provider
 
-            # activate different ways to authenticate
-
-            # http_basic: true
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: true
-            # https://symfony.com/doc/current/security/form_login_setup.html
-
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/deconnexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
