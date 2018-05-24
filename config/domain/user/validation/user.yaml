@@ -1,0 +1,10 @@
+App\Domain\User\Model\User:
+    properties:
+        firstName:
+            - NotNull: { message: 'user_user.first_name.not_null' }
+        lastName:
+            - NotNull: { message: 'user_user.last_name.not_null' }
+        email:
+            - NotNull: { message: 'user_user.email.not_null' }
+        roles:
+            - Count: { min: 1, minMessage: 'user_user.roles.min_count'}

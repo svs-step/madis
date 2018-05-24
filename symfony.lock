@@ -119,6 +119,15 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "knplabs/dictionary-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "fdf88f39d4c2ad0197bfeff8af4539220c4ce8d3"
+        }
+    },
     "monolog/monolog": {
         "version": "1.23.0"
     },

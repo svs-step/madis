@@ -1,0 +1,9 @@
+user_user:
+    first_name:
+        not_null: Vous devez renseigner un prénom
+    last_name:
+        not_null: Vous devez renseigner un nom
+    email:
+        not_null: Vous devez renseigner un email
+    roles:
+        min_count: Vous devez sélectionner au minimum {{ limit }} role

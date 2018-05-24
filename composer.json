@@ -10,6 +10,7 @@
     ],
     "require": {
         "php": "^7.1",
+        "knplabs/dictionary-bundle": "^2.1",
         "ramsey/uuid": "^3.7",
         "ramsey/uuid-doctrine": "^1.4",
         "sensiolabs/security-checker": "^4.1",
@@ -57,5 +58,10 @@
         "post-update-cmd": [
             "@auto-scripts"
         ]
+    }, "repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/biig-io/DictionaryBundle"
     }
+]
 }

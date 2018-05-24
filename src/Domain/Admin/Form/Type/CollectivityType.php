@@ -23,7 +23,7 @@ class CollectivityType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'user.collectivity.form.name',
+                'label' => 'admin.collectivity.form.name',
             ])
         ;
     }

@@ -3,3 +3,6 @@ _domain_admin:
 
 _domain_reporting:
     resource: ../domain/reporting/routes/_index.yaml
+
+_domain_user:
+    resource: ../domain/user/routes/_index.yaml
