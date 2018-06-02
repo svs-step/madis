@@ -73,7 +73,7 @@ class User implements UserInterface
      */
     public function __toString(): string
     {
-        return "{$this->firstName} {$this->lastName}";
+        return $this->getFullName();
     }
 
     /**
@@ -106,6 +106,11 @@ class User implements UserInterface
     public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
+    }
+
+    public function getFullName(): string
+    {
+        return "{$this->firstName} {$this->lastName}";
     }
 
     /**

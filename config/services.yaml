@@ -9,8 +9,9 @@ services:
 
     App\Application\:
         resource: '../src/Application/*'
-        exclude: '../src/Application/{Controller,Entity,Migrations,Tests,Kernel.php}'
+        exclude: '../src/Application/{Controller,Entity,Migrations,Symfony/EventSubscriber,Tests,Kernel.php}'
 
 imports:
     - { resource: services/controller.yaml }
     - { resource: services/dictionary.yaml }
+    - { resource: services/event_subscriber.yaml }

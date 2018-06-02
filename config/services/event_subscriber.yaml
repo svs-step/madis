@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+#    App\Application\Symfony\EventSubscriber\:
+#        resource: '../../src/Application/Symfony/EventSubscriber'
+#        tags:
+#            - { name: 'doctrine.event_subscriber' }
+
+    App\Domain\:
+        resource: '../../src/Domain/*/Symfony/EventSubscriber'
+        tags:
+            - { name: 'doctrine.event_subscriber' }
