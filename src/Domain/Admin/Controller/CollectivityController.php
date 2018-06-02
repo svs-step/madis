@@ -15,10 +15,21 @@ namespace App\Domain\Admin\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Domain\Admin\Form\Type\CollectivityType;
-use App\Domain\Admin\Model\Collectivity;
+use App\Domain\Admin\Model;
+use App\Domain\Admin\Repository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class CollectivityController extends CRUDController
 {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        TranslatorInterface $translator,
+        Repository\Collectivity $repository
+    ) {
+        parent::__construct($entityManager, $translator, $repository);
+    }
+
     protected function getDomain(): string
     {
         return 'admin';
@@ -31,7 +42,7 @@ class CollectivityController extends CRUDController
 
     protected function getModelClass(): string
     {
-        return Collectivity::class;
+        return Model\Collectivity::class;
     }
 
     protected function getFormType(): string

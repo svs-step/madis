@@ -15,10 +15,21 @@ namespace App\Domain\User\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Domain\User\Form\Type\UserType;
-use App\Domain\User\Model\User;
+use App\Domain\User\Model;
+use App\Domain\User\Repository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class UserController extends CRUDController
 {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        TranslatorInterface $translator,
+        Repository\User $repository
+    ) {
+        parent::__construct($entityManager, $translator, $repository);
+    }
+
     protected function getDomain(): string
     {
         return 'user';
@@ -31,7 +42,7 @@ class UserController extends CRUDController
 
     protected function getModelClass(): string
     {
-        return User::class;
+        return Model\User::class;
     }
 
     protected function getFormType(): string

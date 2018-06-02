@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\Application\Controller;
 
-use Doctrine\Common\Persistence\ObjectRepository;
+use App\Application\DDD\Repository\RepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,30 +32,77 @@ abstract class CRUDController extends Controller
      */
     protected $translator;
 
+    /**
+     * @var RepositoryInterface
+     */
+    protected $repository;
+
     public function __construct(
         EntityManagerInterface $entityManager,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        RepositoryInterface $repository
     ) {
         $this->entityManager = $entityManager;
         $this->translator    = $translator;
+        $this->repository    = $repository;
     }
 
+    /**
+     * Get the domain of the object.
+     * (Formatted as string word).
+     *
+     * @return string
+     */
     abstract protected function getDomain(): string;
 
+    /**
+     * Get the model of the object.
+     * (Formatted as string word).
+     *
+     * @return string
+     */
     abstract protected function getModel(): string;
 
+    /**
+     * Get the model class name of the object.
+     * This methods return the class name with it namespace.
+     *
+     * @return string
+     */
     abstract protected function getModelClass(): string;
 
+    /**
+     * Get the form type class name to use during create & edit action.
+     *
+     * @return string
+     */
     abstract protected function getFormType(): string;
 
+    /**
+     * Generate the templating base path dynamically depending on the domain, model & template.
+     *
+     * @param string|null $template The template to display
+     *
+     * @return string The generated templating base path
+     */
     protected function getTemplatingBasePath(string $template = null): string
     {
+        // TODO: Check template existence
         $domain = \ucfirst($this->getDomain());
         $model  = \ucfirst($this->getModel());
 
         return "{$domain}/{$model}/{$template}.html.twig";
     }
 
+    /**
+     * Generate the flashbag message dynamically depending on the domain, model & object.
+     *
+     * @param string      $type     The flashbag type
+     * @param string|null $template The related template to use
+     * @param null|mixed  $object   The object to use to generate flashbag (eg. show object name)
+     *
+     * @return string The generated flashbag
+     */
     protected function getFlashbagMessage(string $type, string $template = null, $object = null): string
     {
         $params = [];
@@ -69,25 +116,41 @@ abstract class CRUDController extends Controller
         );
     }
 
+    /**
+     * Generate route name depending on the template.
+     *
+     * @param string|null $template The template to use for generation
+     *
+     * @return string The generated route name
+     */
     protected function getRouteName(string $template = null): string
     {
         return "{$this->getDomain()}_{$this->getModel()}_{$template}";
     }
 
-    protected function getRepository(): ObjectRepository
-    {
-        return $this->entityManager->getRepository($this->getModelClass());
-    }
-
+    /**
+     * The list action view
+     * Get data & display them.
+     *
+     * @return Response
+     */
     public function listAction(): Response
     {
-        $objects = $this->getRepository()->findAll();
+        $objects = $this->repository->findAll();
 
         return $this->render($this->getTemplatingBasePath('list'), [
             'objects' => $objects,
         ]);
     }
 
+    /**
+     * The creation action view
+     * Create a new data.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function createAction(Request $request): Response
     {
         $modelClass = $this->getModelClass();
@@ -110,9 +173,18 @@ abstract class CRUDController extends Controller
         ]);
     }
 
+    /**
+     * The edition action view
+     * Edit an existing data.
+     *
+     * @param Request $request
+     * @param string  $id      The ID of the data to edit
+     *
+     * @return Response
+     */
     public function editAction(Request $request, string $id): Response
     {
-        $object = $this->getRepository()->find($id);
+        $object = $this->repository->findOneById($id);
         $form   = $this->createForm($this->getFormType(), $object);
 
         $form->handleRequest($request);
@@ -130,18 +202,34 @@ abstract class CRUDController extends Controller
         ]);
     }
 
+    /**
+     * The delete action view
+     * Display a confirmation message to confirm data deletion.
+     *
+     * @param string $id
+     *
+     * @return Response
+     */
     public function deleteAction(string $id): Response
     {
-        $object = $this->getRepository()->find($id);
+        $object = $this->repository->findOneById($id);
 
         return $this->render($this->getTemplatingBasePath('delete'), [
             'object' => $object,
         ]);
     }
 
+    /**
+     * The deletion action
+     * Delete the data.
+     *
+     * @param string $id
+     *
+     * @return Response
+     */
     public function deleteConfirmationAction(string $id): Response
     {
-        $object = $this->getRepository()->find($id);
+        $object = $this->repository->findOneById($id);
         $this->entityManager->remove($object);
         $this->entityManager->flush();
 
