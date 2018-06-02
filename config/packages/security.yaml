@@ -1,9 +1,6 @@
 security:
     encoders:
-        App\Domain\User\Model\User: plaintext
-#        App\Domain\User\Model\User:
-#            algorithm: bcrypt
-#            cost: 13
+        App\Domain\User\Model\User: bcrypt
     providers:
         user_provider:
             entity:

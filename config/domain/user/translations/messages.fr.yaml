@@ -18,7 +18,7 @@ user:
             first_name: Prénom
             last_name: Nom
             password: Mot de passe
-            roles: Role(s)
+            roles: Role
         flashbag:
             success:
                 create: Utilisateur "%object%" créée avec succès

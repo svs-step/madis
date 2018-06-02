@@ -8,3 +8,4 @@ App\Domain\User\Model\User:
             - NotNull: { message: 'user_user.email.not_null' }
         roles:
             - Count: { min: 1, minMessage: 'user_user.roles.min_count'}
+            - Count: { max: 1, minMessage: 'user_user.roles.max_count'}

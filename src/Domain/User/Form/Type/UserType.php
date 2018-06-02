@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Form\Type;
 
 use App\Domain\User\Dictionary\RoleDictionary;
+use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -38,17 +39,22 @@ class UserType extends AbstractType
                 'label'    => 'user.user.form.email',
                 'required' => true,
             ])
-            ->add('password', PasswordType::class, [
+            ->add('plainPassword', PasswordType::class, [
                 'label'    => 'user.user.form.password',
-                'required' => true,
+                'required' => false,
             ])
             ->add('roles', ChoiceType::class, [
                 'label'    => 'user.user.form.roles',
                 'choices'  => \array_flip(RoleDictionary::getRoles()),
                 'required' => true,
-                'multiple' => true,
+                'multiple' => false,
                 'expanded' => true,
             ])
+        ;
+
+        $builder
+            ->get('roles')
+            ->addModelTransformer(new RoleTransformer())
         ;
     }
 }

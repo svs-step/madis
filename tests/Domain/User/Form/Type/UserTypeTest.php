@@ -13,8 +13,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\User\Form\Type;
 
+use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Form\Type\UserType;
 use App\Tests\Utils\FormTypeHelper;
+use Prophecy\Argument;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -31,13 +33,20 @@ class UserTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'firstName' => TextType::class,
-            'lastName'  => TextType::class,
-            'email'     => EmailType::class,
-            'password'  => PasswordType::class,
-            'roles'     => ChoiceType::class,
+            'firstName'     => TextType::class,
+            'lastName'      => TextType::class,
+            'email'         => EmailType::class,
+            'plainPassword' => PasswordType::class,
+            'roles'         => ChoiceType::class,
         ];
 
-        (new UserType())->buildForm($this->prophesizeBuilder($builder), []);
+        $builderProphecy = $this->prophesizeBuilder($builder, false);
+        $builderProphecy->get('roles')->shouldBeCalled()->willReturn($builderProphecy);
+        $builderProphecy
+            ->addModelTransformer(Argument::type(RoleTransformer::class))
+            ->shouldBeCalled()
+        ;
+
+        (new UserType())->buildForm($builderProphecy->reveal(), []);
     }
 }

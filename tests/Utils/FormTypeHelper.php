@@ -15,6 +15,7 @@ namespace App\Tests\Utils;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class FormTypeHelper extends TestCase
@@ -24,9 +25,9 @@ class FormTypeHelper extends TestCase
      *
      * @param array $data The array of field to add. Key is field name, value field type.
      *
-     * @return FormBuilderInterface The prophesized FormBuilderInterface
+     * @return FormBuilderInterface|ObjectProphecy The prophesized FormBuilderInterface, revealled or not
      */
-    protected function prophesizeBuilder(array $data): FormBuilderInterface
+    protected function prophesizeBuilder(array $data, bool $reveal = true)
     {
         $builderProphecy = $this->prophesize(FormBuilderInterface::class);
 
@@ -38,6 +39,10 @@ class FormTypeHelper extends TestCase
             ;
         }
 
-        return $builderProphecy->reveal();
+        if ($reveal) {
+            return $builderProphecy->reveal();
+        }
+
+        return $builderProphecy;
     }
 }
