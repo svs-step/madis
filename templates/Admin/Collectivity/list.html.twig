@@ -38,6 +38,7 @@
                         <tr>
                             <th>{{ 'admin.collectivity.list.id'|trans }}</th>
                             <th>{{ 'admin.collectivity.list.name'|trans }}</th>
+                            <th>{{ 'admin.collectivity.list.users'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -46,6 +47,9 @@
                         <tr>
                             <td>{{ object.id }}</td>
                             <td>{{ object.name }}</td>
+                            <td>
+                                {{ object.users|length }}
+                            </td>
                             <td>
                                 <a href="{{ path('admin_collectivity_edit', { 'id': object.id }) }}">
                                     <i class="fa fa-pencil-alt"></i>

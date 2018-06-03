@@ -1,7 +1,8 @@
 App\Domain\User\Model\User:
     user_user_admin:
+        collectivity: '@admin_collectivity_awkan'
+        email: admin@awkan.fr
         firstName: <firstName()>
         lastName: <lastName()>
-        email: admin@awkan.fr
         plainPassword: 111111
         roles: ['ROLE_ADMIN']

@@ -15,6 +15,8 @@
         <field name="password" column="password"/>
         <field name="roles" column="roles" type="json_array"/>
 
+        <many-to-one field="collectivity" target-entity="App\Domain\Admin\Model\Collectivity" inversed-by="users"/>
+
     </entity>
 
 </doctrine-mapping>

@@ -11,6 +11,8 @@
 
         <field name="name" column="name"/>
 
+        <one-to-many field="users" target-entity="App\Domain\User\Model\User" mapped-by="collectivity"/>
+
     </entity>
 
 </doctrine-mapping>

@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Admin\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -25,9 +27,15 @@ class Collectivity
      */
     private $name;
 
+    /**
+     * @var Collection
+     */
+    private $users;
+
     public function __construct()
     {
-        $this->id = Uuid::uuid4();
+        $this->id    = Uuid::uuid4();
+        $this->users = new ArrayCollection();
     }
 
     /**
@@ -60,5 +68,21 @@ class Collectivity
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param Collection $users
+     */
+    public function setUsers(Collection $users): void
+    {
+        $this->users = $users;
     }
 }

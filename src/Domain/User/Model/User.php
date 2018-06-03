@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Model;
 
+use App\Domain\Admin\Model\Collectivity;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -53,6 +54,11 @@ class User implements UserInterface
      * @var array
      */
     private $roles;
+
+    /**
+     * @var Collectivity
+     */
+    private $collectivity;
 
     public function __construct()
     {
@@ -193,5 +199,21 @@ class User implements UserInterface
     public function getSalt()
     {
         return null;
+    }
+
+    /**
+     * @return Collectivity|null
+     */
+    public function getCollectivity(): ?Collectivity
+    {
+        return $this->collectivity;
+    }
+
+    /**
+     * @param Collectivity $collectivity
+     */
+    public function setCollectivity(Collectivity $collectivity): void
+    {
+        $this->collectivity = $collectivity;
     }
 }

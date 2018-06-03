@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Admin\Model;
 
 use App\Domain\Admin\Model\Collectivity;
+use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 
@@ -24,5 +25,6 @@ class CollectivityTest extends TestCase
         $model = new Collectivity();
 
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
+        $this->assertInstanceOf(ArrayCollection::class, $model->getUsers());
     }
 }

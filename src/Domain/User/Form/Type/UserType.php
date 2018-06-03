@@ -13,8 +13,10 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
+use App\Domain\Admin\Model\Collectivity;
 use App\Domain\User\Dictionary\RoleDictionary;
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -39,9 +41,10 @@ class UserType extends AbstractType
                 'label'    => 'user.user.form.email',
                 'required' => true,
             ])
-            ->add('plainPassword', PasswordType::class, [
-                'label'    => 'user.user.form.password',
-                'required' => false,
+            ->add('collectivity', EntityType::class, [
+                'class'    => Collectivity::class,
+                'label'    => 'user.user.form.collectivity',
+                'required' => true,
             ])
             ->add('roles', ChoiceType::class, [
                 'label'    => 'user.user.form.roles',
@@ -49,6 +52,10 @@ class UserType extends AbstractType
                 'required' => true,
                 'multiple' => false,
                 'expanded' => true,
+            ])
+            ->add('plainPassword', PasswordType::class, [
+                'label'    => 'user.user.form.password',
+                'required' => false,
             ])
         ;
 

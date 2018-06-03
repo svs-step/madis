@@ -40,6 +40,7 @@
                             <th>{{ 'user.user.list.first_name'|trans }}</th>
                             <th>{{ 'user.user.list.last_name'|trans }}</th>
                             <th>{{ 'user.user.list.email'|trans }}</th>
+                            <th>{{ 'user.user.list.collectivity'|trans }}</th>
                             <th>{{ 'user.user.list.roles'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
@@ -51,6 +52,7 @@
                             <td>{{ object.firstName }}</td>
                             <td>{{ object.lastName }}</td>
                             <td>{{ object.email }}</td>
+                            <td>{{ object.collectivity }}</td>
                             <td>
                                 {% for role in object.roles %}
                                     {% if 'ROLE_ADMIN' == role %}
