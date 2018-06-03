@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_treatment' %}
+
+{% block title %}{{ 'registry.treatment.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'registry.treatment.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.treatment.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <a href="{{ path('registry_treatment_create') }}" class="btn btn-default">
+                <i class="fa fa-plus"></i>
+                {{ 'registry.treatment.action.new'|trans }}
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>{{ 'registry.treatment.list.id'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.name'|trans }}</th>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>{{ 'registry.treatment.list.collectivity'|trans }}</th>
+                            {% endif %}
+                            <th>{{ 'registry.treatment.list.created_at'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.updated_at'|trans }}</th>
+                            <th>{{ 'label.actions'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+                        <tr>
+                            <td>{{ object.id }}</td>
+                            <td>{{ object.name }}</td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td>{{ object.collectivity }}</td>
+                            {% endif %}
+                            <td>{{ object.createdAt|date('d/m/Y H:i', timezone) }}</td>
+                            <td>{{ object.updatedAt|date('d/m/Y H:i', timezone) }}</td>
+                            <td>
+                                <a href="{{ path('registry_treatment_edit', { 'id': object.id }) }}">
+                                    <i class="fa fa-pencil-alt"></i>
+                                    {{ 'action.edit'|trans }}
+                                </a>
+                                <a href="{{ path('registry_treatment_delete', { 'id': object.id }) }}">
+                                    <i class="fa fa-trash"></i>
+                                    {{ 'action.delete'|trans }}
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(function () {
+            $('#table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
+                },
+                'paging'      : true,
+                'lengthChange': false,
+                'searching'   : true,
+                'ordering'    : true,
+                'info'        : false,
+                'autoWidth'   : false,
+            })
+        });
+    </script>
+{% endblock %}

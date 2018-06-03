@@ -25,7 +25,7 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
     /**
      * @var RegistryInterface
      */
-    private $registry;
+    protected $registry;
 
     public function __construct(RegistryInterface $registry)
     {

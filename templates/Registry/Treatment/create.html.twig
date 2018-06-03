@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_treatment' %}
+
+{% block title %}{{ 'registry.treatment.title.create'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'registry.treatment.title.create'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.treatment.breadcrumb.list'|trans, 'link': path('registry_treatment_list') },
+        { 'name': 'registry.treatment.breadcrumb.create'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            {{ include('Admin/Collectivity/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

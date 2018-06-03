@@ -14,4 +14,5 @@ return [
     Hautelook\AliceBundle\HautelookAliceBundle::class                          => ['dev' => true, 'test' => true],
     Symfony\Bundle\SecurityBundle\SecurityBundle::class                        => ['all' => true],
     Knp\DictionaryBundle\KnpDictionaryBundle::class                            => ['all' => true],
+    Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class          => ['all' => true],
 ];
