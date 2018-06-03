@@ -5,3 +5,7 @@ twig:
 
     form_themes:
         - '_theme/form/fields.html.twig'
+
+    globals:
+        timezone: 'Europe/Paris'
+

@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\Infrastructure\ORM\Registry\Repository\:
+        resource: '../../../../src/Infrastructure/ORM/Registry/Repository'
+
+    App\Domain\Registry\Repository\Treatment: '@App\Infrastructure\ORM\Registry\Repository\Treatment'

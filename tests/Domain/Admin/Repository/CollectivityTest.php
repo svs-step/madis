@@ -17,7 +17,7 @@ use App\Application\DDD\Repository\CRUDRepositoryInterface;
 use App\Domain\Admin\Repository;
 use PHPUnit\Framework\TestCase;
 
-class Collectivity extends TestCase
+class CollectivityTest extends TestCase
 {
     public function testInstanceOf()
     {

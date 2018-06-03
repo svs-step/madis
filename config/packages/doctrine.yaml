@@ -26,6 +26,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/ORM/Admin/Mapping'
                 prefix: App\Domain\Admin\Model
                 alias: Admin
+            Registry:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/ORM/Registry/Mapping'
+                prefix: App\Domain\Registry\Model
+                alias: Registry
             User:
                 is_bundle: false
                 type: xml

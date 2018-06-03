@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_treatment' %}
+
+{% block title %}{{ 'registry.treatment.title.delete'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'registry.treatment.title.delete'|trans }}
+        <small>{{ object }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.treatment.breadcrumb.list'|trans, 'link': path('registry_treatment_list') },
+        { 'name': 'registry.treatment.breadcrumb.delete'|trans({'%name%': object}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header"></div>
+                <div class="box-body">
+                    Souhaitez vous vraiment supprimer la collectivité "{{ object }}" ?
+                </div>
+                <div class="box-footer">
+                    <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">
+                        {{ 'registry.treatment.action.back_to_list'|trans }}
+                    </a>
+                    <a href="{{ path('registry_treatment_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'action.confirm_delete'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

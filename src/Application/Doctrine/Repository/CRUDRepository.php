@@ -25,7 +25,7 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
     /**
      * @var RegistryInterface
      */
-    private $registry;
+    protected $registry;
 
     public function __construct(RegistryInterface $registry)
     {
@@ -38,6 +38,21 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
      * @return string
      */
     abstract protected function getModelClass(): string;
+
+    /**
+     * Create the base of QueryBuilder to use for repository calls.
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    protected function createQueryBuilder()
+    {
+        return $this->registry
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('o')
+            ->from($this->getModelClass(), 'o')
+        ;
+    }
 
     /**
      * Insert an object.

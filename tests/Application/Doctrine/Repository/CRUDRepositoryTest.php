@@ -16,20 +16,24 @@ namespace App\Tests\Application\Doctrine\Repository;
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
 use App\Application\DDD\Repository\RepositoryInterface;
 use App\Application\Doctrine\Repository\CRUDRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Tests\Utils\ReflectionTrait;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class CRUDRepositoryTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
      * @var RegistryInterface
      */
     private $registryProphecy;
 
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     private $managerProphecy;
 
@@ -46,7 +50,7 @@ class CRUDRepositoryTest extends TestCase
     public function setUp()
     {
         $this->registryProphecy         = $this->prophesize(RegistryInterface::class);
-        $this->managerProphecy          = $this->prophesize(ObjectManager::class);
+        $this->managerProphecy          = $this->prophesize(EntityManagerInterface::class);
         $this->objectRepositoryProphecy = $this->prophesize(ObjectRepository::class);
 
         $this->repository = new DummyRepository(
@@ -59,6 +63,42 @@ class CRUDRepositoryTest extends TestCase
         $this->assertInstanceOf(CRUDRepository::class, $this->repository);
         $this->assertInstanceOf(CRUDRepositoryInterface::class, $this->repository);
         $this->assertInstanceOf(RepositoryInterface::class, $this->repository);
+    }
+
+    public function testCreateQueryBuilder()
+    {
+        // Registry
+        $this->registryProphecy
+            ->getEntityManager()
+            ->shouldBeCalled()
+            ->willReturn($this->managerProphecy->reveal())
+        ;
+
+        // QueryBuilder
+        $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
+        $queryBuilderProphecy
+            ->select('o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+
+        $queryBuilderProphecy
+            ->from(DummyModelClass::class, 'o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+
+        // Manager
+        $this->managerProphecy
+            ->createQueryBuilder()
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy->reveal())
+        ;
+
+        $this->assertEquals(
+            $queryBuilderProphecy->reveal(),
+            $this->invokeMethod($this->repository, 'createQueryBuilder')
+        );
     }
 
     public function testInsert()

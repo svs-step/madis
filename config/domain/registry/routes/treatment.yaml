@@ -1,0 +1,29 @@
+registry_treatment_list:
+    path: '/liste'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\TreatmentController:listAction'
+
+registry_treatment_create:
+    path: '/creer'
+    methods: ['GET', 'POST']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\TreatmentController:createAction'
+
+registry_treatment_edit:
+    path: '/editer/{id}'
+    methods: ['GET', 'POST']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\TreatmentController:editAction'
+
+registry_treatment_delete:
+    path: '/supprimer/{id}'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\TreatmentController:deleteAction'
+
+registry_treatment_delete_confirm:
+    path: '/supprimer/{id}/confirmation'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\TreatmentController:deleteConfirmationAction'
