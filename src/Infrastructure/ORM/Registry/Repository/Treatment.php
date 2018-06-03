@@ -34,10 +34,8 @@ class Treatment extends CRUDRepository implements Repository\Treatment
      */
     public function findAllByCollectivity(Collectivity $collectivity)
     {
-        return $this->registry
-            ->getEntityManager()
-            ->createQueryBuilder()
-            ->andWhere('collectivity = :collectivity')
+        return $this->createQueryBuilder()
+            ->andWhere('o.collectivity = :collectivity')
             ->setParameter('collectivity', $collectivity)
             ->getQuery()
             ->getResult()

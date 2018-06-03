@@ -21,12 +21,14 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-xs-12">
-            <a href="{{ path('registry_treatment_create') }}" class="btn btn-default">
-                <i class="fa fa-plus"></i>
-                {{ 'registry.treatment.action.new'|trans }}
-            </a>
-        </div>
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="col-xs-12">
+                <a href="{{ path('registry_treatment_create') }}" class="btn btn-default">
+                    <i class="fa fa-plus"></i>
+                    {{ 'registry.treatment.action.new'|trans }}
+                </a>
+            </div>
+        {% endif %}
     </div>
 
     <div class="row">
@@ -43,7 +45,9 @@
                             {% endif %}
                             <th>{{ 'registry.treatment.list.created_at'|trans }}</th>
                             <th>{{ 'registry.treatment.list.updated_at'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            {% if is_granted('ROLE_USER') %}
+                                <th>{{ 'label.actions'|trans }}</th>
+                            {% endif %}
                         </tr>
                         </thead>
                         <tbody>
@@ -56,16 +60,18 @@
                             {% endif %}
                             <td>{{ object.createdAt|date('d/m/Y H:i', timezone) }}</td>
                             <td>{{ object.updatedAt|date('d/m/Y H:i', timezone) }}</td>
-                            <td>
-                                <a href="{{ path('registry_treatment_edit', { 'id': object.id }) }}">
-                                    <i class="fa fa-pencil-alt"></i>
-                                    {{ 'action.edit'|trans }}
-                                </a>
-                                <a href="{{ path('registry_treatment_delete', { 'id': object.id }) }}">
-                                    <i class="fa fa-trash"></i>
-                                    {{ 'action.delete'|trans }}
-                                </a>
-                            </td>
+                            {% if is_granted('ROLE_USER') %}
+                                <td>
+                                    <a href="{{ path('registry_treatment_edit', { 'id': object.id }) }}">
+                                        <i class="fa fa-pencil-alt"></i>
+                                        {{ 'action.edit'|trans }}
+                                    </a>
+                                    <a href="{{ path('registry_treatment_delete', { 'id': object.id }) }}">
+                                        <i class="fa fa-trash"></i>
+                                        {{ 'action.delete'|trans }}
+                                    </a>
+                                </td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
                         </tbody>

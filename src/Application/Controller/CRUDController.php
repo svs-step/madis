@@ -129,6 +129,16 @@ abstract class CRUDController extends Controller
     }
 
     /**
+     * Get data to use in List view.
+     *
+     * @return array
+     */
+    protected function getListData()
+    {
+        return $this->repository->findAll();
+    }
+
+    /**
      * The list action view
      * Get data & display them.
      *
@@ -136,10 +146,8 @@ abstract class CRUDController extends Controller
      */
     public function listAction(): Response
     {
-        $objects = $this->repository->findAll();
-
         return $this->render($this->getTemplatingBasePath('list'), [
-            'objects' => $objects,
+            'objects' => $this->getListData(),
         ]);
     }
 

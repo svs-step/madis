@@ -80,15 +80,26 @@ class TreatmentTest extends TestCase
     public function testFindAllByCollectivity()
     {
         $collectivity = new Collectivity();
+        $results      = ['dummyResult'];
 
         // Query
         $queryProphecy = $this->prophesize(AbstractQuery::class);
-        $queryProphecy->getResult()->shouldBeCalled()->willReturn(['dummyResult']);
+        $queryProphecy->getResult()->shouldBeCalled()->willReturn($results);
 
         // QueryBuilder
         $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
         $queryBuilderProphecy
-            ->andWhere('collectivity = :collectivity')
+            ->select('o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->from(Model\Treatment::class, 'o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->andWhere('o.collectivity = :collectivity')
             ->shouldBeCalled()
             ->willReturn($queryBuilderProphecy)
         ;
@@ -116,6 +127,9 @@ class TreatmentTest extends TestCase
             ->willReturn($this->entityManagerProphecy->reveal())
         ;
 
-        $this->infraRepo->findAllByCollectivity($collectivity);
+        $this->assertEquals(
+            $results,
+            $this->infraRepo->findAllByCollectivity($collectivity)
+        );
     }
 }

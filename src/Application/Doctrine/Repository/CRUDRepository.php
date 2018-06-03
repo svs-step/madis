@@ -40,6 +40,21 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
     abstract protected function getModelClass(): string;
 
     /**
+     * Create the base of QueryBuilder to use for repository calls.
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    protected function createQueryBuilder()
+    {
+        return $this->registry
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('o')
+            ->from($this->getModelClass(), 'o')
+        ;
+    }
+
+    /**
      * Insert an object.
      *
      * @param mixed $object
