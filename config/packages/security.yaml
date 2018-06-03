@@ -31,6 +31,11 @@ security:
             provider: user_provider
 
     access_control:
+        # Authentication routes
         - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/deconnexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # Admin routes
+        - { path: ^/collectivites, roles: ROLE_ADMIN }
+        - { path: ^/utilisateurs, roles: ROLE_ADMIN }
+        # Others
         - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
