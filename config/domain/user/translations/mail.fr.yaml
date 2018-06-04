@@ -1,0 +1,6 @@
+user:
+    forget_password:
+        subject: Réinitialisation de votre mot de passe
+        title: Réinitialisation de votre mot de passe
+        message1: Vous venez de demander une réinitialisation de votre mot de passe pour l'application <strong>%application_name%</strong>.
+        message2: Cliquez ici pour choisir un nouveau mot de passe

@@ -7,5 +7,6 @@ twig:
         - '_theme/form/fields.html.twig'
 
     globals:
+        applicationName: '%env(APP_APPLICATION_NAME)%'
         timezone: 'Europe/Paris'
 

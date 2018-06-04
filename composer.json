@@ -10,6 +10,7 @@
     ],
     "require": {
         "php": "^7.1",
+        "ircmaxell/random-lib": "^1.2",
         "knplabs/dictionary-bundle": "^2.1",
         "ramsey/uuid": "^3.7",
         "ramsey/uuid-doctrine": "^1.4",
@@ -21,6 +22,7 @@
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "^3.4",
         "symfony/skeleton": "^3.4",
+        "symfony/swiftmailer-bundle": "^3.2",
         "symfony/twig-bundle": "^3.4",
         "symfony/validator": "^3.4"
     },

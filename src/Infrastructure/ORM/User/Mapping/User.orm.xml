@@ -7,6 +7,10 @@
 
     <entity name="App\Domain\User\Model\User" table="user_user">
 
+        <unique-constraints>
+            <unique-constraint columns="email"/>
+        </unique-constraints>
+
         <id name="id" column="id" type="uuid"/>
 
         <field name="firstName" column="first_name"/>
@@ -14,6 +18,7 @@
         <field name="email" column="email"/>
         <field name="password" column="password"/>
         <field name="roles" column="roles" type="json_array"/>
+        <field name="forgetPasswordToken" column="forget_password_token" nullable="true"/>
 
         <many-to-one field="collectivity" target-entity="App\Domain\Admin\Model\Collectivity" inversed-by="users"/>
 
