@@ -21,7 +21,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class UserTypeTest extends FormTypeHelper
@@ -39,7 +38,6 @@ class UserTypeTest extends FormTypeHelper
             'email'         => EmailType::class,
             'collectivity'  => EntityType::class,
             'roles'         => ChoiceType::class,
-            'plainPassword' => PasswordType::class,
         ];
 
         $builderProphecy = $this->prophesizeBuilder($builder, false);
