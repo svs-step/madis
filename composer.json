@@ -21,6 +21,7 @@
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "^3.4",
         "symfony/skeleton": "^3.4",
+        "symfony/twig-bundle": "^3.4",
         "symfony/validator": "^3.4"
     },
     "require-dev": {
