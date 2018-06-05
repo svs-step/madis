@@ -1,0 +1,43 @@
+security:
+    encoders:
+        App\Domain\User\Model\User: bcrypt
+    providers:
+        user_provider:
+            entity:
+                class: App\Domain\User\Model\User
+                property: email
+
+    role_hierarchy:
+        ROLE_USER: [ROLE_PREVIEW]
+        ROLE_ADMIN: [ROLE_USER]
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern: ^/
+            form_login:
+                login_path: /connexion
+                check_path: /connexion
+            logout:
+                path: /deconnexion
+                target: /
+            remember_me:
+                secret: '%env(APP_SECRET)%'
+                lifetime: 604800 # 1 week in seconds
+            logout_on_user_change: true
+            anonymous: ~
+            provider: user_provider
+
+    access_control:
+        # Authentication routes
+        - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/deconnexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # Admin routes
+        - { path: ^/.+/creer$, roles: ROLE_USER }
+        - { path: ^/.+/editer/.+$, roles: ROLE_USER }
+        - { path: ^/collectivites, roles: ROLE_ADMIN }
+        - { path: ^/utilisateurs, roles: ROLE_ADMIN }
+        # Others
+        - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }

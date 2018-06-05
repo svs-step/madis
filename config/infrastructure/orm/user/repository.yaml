@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\Infrastructure\ORM\User\Repository\:
+        resource: '../../../../src/Infrastructure/ORM/User/Repository'
+
+    App\Domain\User\Repository\User: '@App\Infrastructure\ORM\User\Repository\User'

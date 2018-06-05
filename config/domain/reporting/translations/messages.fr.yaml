@@ -1,0 +1,6 @@
+reporting:
+    dashboard:
+        breadcrumb:
+            index: Tableau de bord
+        title:
+            index: Tableau de bord

@@ -1,0 +1,40 @@
+user:
+    login:
+        verbatim: Connectez vous pour accéder à l'application
+        remember_me: Se souvenir de moi
+        password: Mot de passe
+        username: Email
+    user:
+        action:
+            back_to_list: Retour à la liste
+            new: Nouvel utilisateur
+        breadcrumb:
+            list: Liste des utilisateurs
+            create: Créer
+            edit: Éditer "%name%"
+            delete: Supprimer "%name%"
+        form:
+            collectivity: Collectivité
+            email: E-mail
+            first_name: Prénom
+            last_name: Nom
+            roles: Role
+        flashbag:
+            success:
+                create: Utilisateur "%object%" créée avec succès
+                edit: Utilisateur "%object%" éditée avec succès
+                delete: Utilisateur "%object%" supprimée avec succès
+        list:
+            collectivity: Collectivité
+            email: E-mail
+            first_name: Prénom
+            id: ID
+            last_name: Nom
+            roles: Role(s)
+        modal:
+            confirm_deletion: Voulez-vous vraiment supprimer cet utilisateur ?
+        title:
+            create: Créer un utilisateur
+            edit: Éditer un utilisateur
+            list: Liste des utilisateurs
+            delete: Supprimer un utilisateur

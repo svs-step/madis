@@ -1,0 +1,6 @@
+_user_security:
+    resource: 'security.yaml'
+
+_user_user:
+    resource: 'user.yaml'
+    prefix: '/utilisateurs'

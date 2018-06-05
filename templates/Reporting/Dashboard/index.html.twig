@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'reporting_dashboard' %}
+
+{% block body_head %}
+    <h1>{{ 'reporting.dashboard.title.index'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-briefcase"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Collectivités</span>
+                <span class="info-box-number">{{ nbCollectivity }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Utilisateurs</span>
+                <span class="info-box-number">{{ nbUser }}</span>
+            </div>
+        </div>
+    </div>
+{% endblock %}

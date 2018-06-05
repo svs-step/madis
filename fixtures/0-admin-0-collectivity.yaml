@@ -1,0 +1,6 @@
+App\Domain\Admin\Model\Collectivity:
+    admin_collectivity_awkan:
+        name: Awkan
+
+    admin_collectivity_soluris:
+        name: Soluris

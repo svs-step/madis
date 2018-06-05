@@ -1,0 +1,249 @@
+#!/bin/bash
+set -o nounset
+set -o errexit
+
+# Reset in case getopts has been used previously in the shell.
+OPTIND=1
+
+# Initialize variables
+env=''
+
+# Get cli options
+while getopts "he:" opt; do
+  case $opt in
+    h)
+        show_help
+        exit 0
+        ;;
+    e)
+        env=".$OPTARG"
+        ;;
+    *)
+        show_help >&2
+        exit 1
+        ;;
+  esac
+done
+
+# Shift off the options and optional --.
+shift "$((OPTIND-1))"
+
+if [ "$env" == '' ]; then
+    [ ! -f .env ] && cp .env.dist .env;
+  else
+    [ ! -f .env ] && cp .env"$env" .env;
+  fi
+  source .env
+
+# Common operations
+initialize() {
+    down
+    build
+    start
+    install
+    populate
+}
+
+build() {
+    docker build docker/nginx -t nginx
+    docker build docker/php-fpm -t php-fpm
+    docker-compose -f docker-compose"$env".yml build
+}
+
+start() {
+    docker-compose -f docker-compose"$env".yml up -d --remove-orphans
+    sleep 1
+    docker-compose -f docker-compose"$env".yml ps
+}
+
+
+
+install() {
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm 'until nc -z db 3306; do sleep 1; echo "Waiting for DB to come up..."; done'
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm "composer install --prefer-dist --no-interaction --optimize-autoloader &&
+                                                                                                                          bin/console doctrine:database:create --if-not-exists &&
+                                                                                                                          bin/console doctrine:schema:create &&
+#                                                                                                                          bin/console doctrine:migration:migrate -n &&
+                                                                                                                          bin/console cache:clear --env=prod --no-debug &&
+                                                                                                                          bin/console cache:warmup --env=prod --no-debug"
+}
+
+populate() {
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm "bin/console hautelook:fixtures:load -n"
+}
+
+stop() {
+    docker-compose -f docker-compose"$env".yml stop
+}
+
+down() {
+    docker-compose -f docker-compose"$env".yml down --remove-orphans
+}
+
+csFixer() {
+    paths=""
+    config=".php_cs.dist"
+
+    if [ "$#" -ge 1 ]; then
+        paths="$1"
+        docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ php-fpm bash -c "php -l $paths"
+
+        if [ "$#" -eq 2 ]; then
+            config="$2"
+        fi
+    fi
+
+    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ php-fpm bash -c "vendor/bin/php-cs-fixer fix --config=$config $paths -vv"
+}
+
+# Tests
+tests() {
+    unitTests
+    qualityTests
+    functionalTests
+}
+
+unitTests() {
+    echo -e "\n\n\nUnit Test : Apps/benevoles-back/"
+    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ php-fpm bash -c "vendor/bin/phpunit"
+}
+
+qualityTests() {
+    docker-compose -f docker-compose.test.yml up -d php-fpm
+
+    # Code Style
+
+    echo -e "\n\n\nCs Fixer :"
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm vendor/bin/php-cs-fixer fix --config=.php_cs.dist --dry-run --diff -vv
+
+    # Lint PHP files
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm php -l src/
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm php -l features/
+
+    # Lint YAML files
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bin/console lint:yaml --env=prod config/
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bin/console lint:yaml --env=prod src/
+
+    # Lint Twig files
+    #docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bin/console lint:twig --env=prod app/Resources/views/
+
+    # Bundles security check
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bin/console security:check
+
+    docker-compose -f docker-compose.test.yml down
+}
+
+
+functionalTests() {
+    if [ "$#" -ne 1 ]; then
+        format='progress'
+        paths=''
+    else
+        format='pretty'
+        paths="$1"
+    fi
+
+    docker-compose -f docker-compose.test.yml up -d benevoles-back
+    docker-compose -f docker-compose.test.yml ps
+
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bash -c 'until nc -z db 3306; do sleep 1; echo "Waiting for DB to come up..."; done'
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bash -c "bin/console doctrine:database:create --if-not-exists"
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bash -c "bin/console doctrine:schema:update --force"
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bash -c "vendor/bin/behat $paths -v --format=$format"
+
+    docker-compose -f docker-compose.test.yml down
+}
+
+
+debug(){
+  docker-compose -f docker-compose"$env".yml run -T --user=www-data --no-deps --entrypoint="/bin/bash -c" -e XDEBUG_CONFIG="idekey=PHPSTORM" -e PHP_IDE_CONFIG="serverName=localhost" php-fpm  "php -dxdebug.remote_host=docker.for.mac.host.internal $@"
+}
+
+# Usage info
+show_help() {
+cat << EOF
+Usage:  ${0##*/} [-e] [COMMAND]
+Options:
+  -e string        Specify env ("test"|"dev") (default "dev")
+
+Commands:
+  initialize                  Start the project no matter what state it is in
+  build                       Build docker containers
+  start                       Start docker containers
+  install                     Run app installation scripts
+  populate                    Load data fixtures in app
+  stop                        Stop docker containers
+  down                        Remove docker containers
+  serveFront                  Serve Angular files for local dev
+  dbFront                     Serve front node to mock data
+  debug                       XDebug
+  csFixer                     Execute php-cs-fixer and php lint
+  tests                       Run unit tests and functional tests
+  unitTests                   Run unit tests
+  qualityTests                Run quality tests
+  functionalTests             Run functional tests
+EOF
+}
+
+# Show help if no argument was supplied
+if [ $# -eq 0 ]
+  then
+    show_help >&2
+    exit 1
+fi
+
+case "$1" in
+ initialize)
+        initialize
+        ;;
+ build)
+        build
+        ;;
+ start)
+        start
+        ;;
+ stop)
+        stop
+        ;;
+ down)
+        down
+        ;;
+ restart)
+        stop
+        start
+        ;;
+ install)
+        install
+        ;;
+ populate)
+        populate
+        ;;
+ tests)
+        tests
+        ;;
+ unitTests)
+        unitTests
+        ;;
+ qualityTests)
+        qualityTests
+        ;;
+ functionalTests)
+        if [ "$#" -ne 2 ]; then
+            functionalTests
+        else
+            functionalTests $2
+        fi
+        ;;
+ csFixer)
+        if [ "$#" -ne 2 ]; then
+            csFixer
+        else
+            csFixer $2
+        fi
+        ;;
+ *)
+        show_help >&2
+        exit 1
+esac
+
+exit 0

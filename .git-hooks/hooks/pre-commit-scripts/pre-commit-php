@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# PHP CodeSniffer pre-commit hook for git
+#
+# @author Soenke Ruempler <soenke@ruempler.eu>
+# @author Sebastian Kaspari <s.kaspari@googlemail.com>
+# Updated to BiiG usage by Elisabeth Blancon
+
+function checkFile
+{
+    echo "Checking file: $1"
+
+    # Set config file depending on file
+    CONFIG_FILE=""
+
+    # Launch csfixer
+    PATHTOFOLDER=$('PWD')
+    FILE_WITHOUT_DIR=`echo $1`
+
+    # Exec command
+    echo "Command csfixer: bash $PATHTOFOLDER/docker-service csFixer \"$FILE_WITHOUT_DIR $CONFIG_FILE\""
+    OUTPUT=$(bash $PATHTOFOLDER/docker-service csFixer "$FILE_WITHOUT_DIR $CONFIG_FILE")
+    EXEC_SUCCESS=$?
+
+    # Add file to git or show error
+    if [ "$EXEC_SUCCESS" -gt "1" ]
+    then
+        echo "An error occured while php-cs-fixer on file: $FILE_WITHOUT_DIR, error msg: $OUTPUT"
+        exit "$EXEC_SUCCESS"
+    else
+        GITADD="git add $1"
+        $($GITADD)
+    fi
+}
+
+
+# this is the magic:
+# retrieve all files in staging area that are added, modified or renamed
+# but no deletions etc
+FILES=$(git diff-index --name-only --cached --diff-filter=ACMR HEAD -- | grep -e "\.php$")
+if [ "$FILES" == "" ]; then
+    exit 0
+fi
+
+# match files against whitelist
+for FILE in $FILES
+do
+    RETVAL=$?
+    if [ "$RETVAL" -eq "0" ]
+    then
+        checkFile "$FILE"
+    fi
+done
+
+exit 0

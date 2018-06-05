@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'user_user' %}
+
+{% block title %}{{ 'user.user.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'user.user.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'user.user.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <a href="{{ path('user_user_create') }}" class="btn btn-default">
+                <i class="fa fa-plus"></i>
+                {{ 'user.user.action.new'|trans }}
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>{{ 'user.user.list.id'|trans }}</th>
+                            <th>{{ 'user.user.list.first_name'|trans }}</th>
+                            <th>{{ 'user.user.list.last_name'|trans }}</th>
+                            <th>{{ 'user.user.list.email'|trans }}</th>
+                            <th>{{ 'user.user.list.collectivity'|trans }}</th>
+                            <th>{{ 'user.user.list.roles'|trans }}</th>
+                            <th>{{ 'label.actions'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+                        <tr>
+                            <td>{{ object.id }}</td>
+                            <td>{{ object.firstName }}</td>
+                            <td>{{ object.lastName }}</td>
+                            <td>{{ object.email }}</td>
+                            <td>{{ object.collectivity }}</td>
+                            <td>
+                                {% for role in object.roles %}
+                                    {% if 'ROLE_ADMIN' == role %}
+                                        <span class="badge bg-red">
+                                    {% elseif 'ROLE_USER' == role %}
+                                        <span class="badge bg-blue">
+                                    {% else %}
+                                        <span class="badge bg-green">
+                                    {% endif %}
+                                            {{ role|dictionary('user_role') }}
+                                        </span>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a href="{{ path('user_user_edit', { 'id': object.id }) }}">
+                                    <i class="fa fa-pencil-alt"></i>
+                                    {{ 'action.edit'|trans }}
+                                </a>
+                                <a href="{{ path('user_user_delete', { 'id': object.id }) }}">
+                                    <i class="fa fa-trash"></i>
+                                    {{ 'action.delete'|trans }}
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(function () {
+            $('#table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
+                },
+                'paging'      : true,
+                'lengthChange': false,
+                'searching'   : true,
+                'ordering'    : true,
+                'info'        : false,
+                'autoWidth'   : false,
+            })
+        });
+    </script>
+{% endblock %}

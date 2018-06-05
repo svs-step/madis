@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'user_user' %}
+
+{% block title %}{{ 'user.user.title.edit'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'user.user.title.edit'|trans }}
+        <small>{{ form.vars.value }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'user.user.breadcrumb.list'|trans, 'link': path('user_user_list') },
+        { 'name': 'user.user.breadcrumb.edit'|trans({'%name%': form.vars.value}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            {{ include('User/User/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
