@@ -11,7 +11,15 @@ services:
         resource: '../src/Application/*'
         exclude: '../src/Application/{Controller,Entity,Migrations,Symfony/EventSubscriber,Tests,Kernel.php}'
 
+    App\Domain\:
+        resource: '../src/Domain/*'
+        exclude: '../src/Domain/*/{Component/Mailer.php,Controller,Model,Symfony/EventSubscriber,Tests}'
+
+    RandomLib\Factory: ~
+    Symfony\Bundle\TwigBundle\TwigEngine: ~
+
 imports:
     - { resource: services/controller.yaml }
     - { resource: services/dictionary.yaml }
     - { resource: services/event_subscriber.yaml }
+    - { resource: services/mail.yaml }

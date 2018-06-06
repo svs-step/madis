@@ -23,4 +23,19 @@ class User extends CRUDRepository implements Repository\User
     {
         return Model\User::class;
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneOrNullByEmail(string $email): ?Model\User
+    {
+        return $this->createQueryBuilder()
+            ->andWhere('o.email = :email')
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

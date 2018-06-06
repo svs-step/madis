@@ -51,6 +51,11 @@ class User implements UserInterface
     private $plainPassword;
 
     /**
+     * @var string
+     */
+    private $forgetPasswordToken;
+
+    /**
      * @var array
      */
     private $roles;
@@ -194,6 +199,22 @@ class User implements UserInterface
     public function setRoles(array $roles): void
     {
         $this->roles = $roles;
+    }
+
+    /**
+     * @return string
+     */
+    public function getForgetPasswordToken(): string
+    {
+        return $this->forgetPasswordToken;
+    }
+
+    /**
+     * @param string $forgetPasswordToken
+     */
+    public function setForgetPasswordToken(string $forgetPasswordToken): void
+    {
+        $this->forgetPasswordToken = $forgetPasswordToken;
     }
 
     public function getSalt()

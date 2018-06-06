@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\Domain\User\Component\Mailer:
+        arguments:
+            $senderEmail: '%env(APP_MAIL_SENDER_EMAIL)%'
+            $senderName: '%env(APP_MAIL_SENDER_NAME)%'

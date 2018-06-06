@@ -69,7 +69,7 @@ class CRUDRepositoryTest extends TestCase
     {
         // Registry
         $this->registryProphecy
-            ->getEntityManager()
+            ->getManager()
             ->shouldBeCalled()
             ->willReturn($this->managerProphecy->reveal())
         ;

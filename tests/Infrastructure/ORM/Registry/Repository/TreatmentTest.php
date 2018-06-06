@@ -122,7 +122,7 @@ class TreatmentTest extends TestCase
 
         // Registry
         $this->registryProphecy
-            ->getEntityManager()
+            ->getManager()
             ->shouldBeCalled()
             ->willReturn($this->entityManagerProphecy->reveal())
         ;

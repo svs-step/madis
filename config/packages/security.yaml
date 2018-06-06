@@ -34,6 +34,7 @@ security:
         # Authentication routes
         - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/deconnexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/mot-de-passe-oublie, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # Admin routes
         - { path: ^/.+/creer$, roles: ROLE_USER }
         - { path: ^/.+/editer/.+$, roles: ROLE_USER }
