@@ -38,4 +38,19 @@ class User extends CRUDRepository implements Repository\User
             ->getOneOrNullResult()
         ;
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneOrNullByForgetPasswordToken(string $token): ?Model\User
+    {
+        return $this->createQueryBuilder()
+            ->andWhere('o.forgetPasswordToken = :forgetPasswordToken')
+            ->setParameter('forgetPasswordToken', $token)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 }
