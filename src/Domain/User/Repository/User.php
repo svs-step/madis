@@ -26,4 +26,13 @@ interface User extends CRUDRepositoryInterface
      * @return Model\User|null The related user or null if not exists
      */
     public function findOneOrNullByEmail(string $email): ?Model\User;
+
+    /**
+     * Get a user by it forgetPasswordToken.
+     *
+     * @param string $token The token to search
+     *
+     * @return Model\User|null The related user or null if not exists
+     */
+    public function findOneOrNullByForgetPasswordToken(string $token): ?Model\User;
 }

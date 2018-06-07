@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Application\Controller;
 
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -27,6 +28,11 @@ class ControllerHelper
      * @var Environment
      */
     private $twig;
+
+    /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
 
     /**
      * @var RouterInterface
@@ -46,13 +52,15 @@ class ControllerHelper
     public function __construct(
         Environment $twig,
         RouterInterface $router,
+        FormFactoryInterface $formFactory,
         FlashBagInterface $flashBag,
         TranslatorInterface $translator
     ) {
-        $this->twig       = $twig;
-        $this->router     = $router;
-        $this->flashBag   = $flashBag;
-        $this->translator = $translator;
+        $this->twig        = $twig;
+        $this->formFactory = $formFactory;
+        $this->router      = $router;
+        $this->flashBag    = $flashBag;
+        $this->translator  = $translator;
     }
 
     /**
@@ -117,5 +125,19 @@ class ControllerHelper
     public function trans(string $key, array $parameters = [], ?string $domain = null): string
     {
         return $this->translator->trans($key, $parameters, $domain);
+    }
+
+    /**
+     * Create a FormType.
+     *
+     * @param string      $type    The FormType name
+     * @param null|object $data    The data to use to create FormType
+     * @param array       $options The FormType options
+     *
+     * @return \Symfony\Component\Form\FormInterface The generated FormType
+     */
+    public function createForm(string $type, $data = null, array $options = [])
+    {
+        return $this->formFactory->create($type, $data, $options);
     }
 }

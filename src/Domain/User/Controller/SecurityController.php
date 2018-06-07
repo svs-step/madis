@@ -16,6 +16,7 @@ namespace App\Domain\User\Controller;
 use App\Application\Controller\ControllerHelper;
 use App\Domain\User\Component\Mailer;
 use App\Domain\User\Component\TokenGenerator;
+use App\Domain\User\Form\Type\ResetPasswordType;
 use App\Domain\User\Repository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -137,5 +138,48 @@ class SecurityController extends Controller
         $this->mailer->sendForgetPassword($user);
 
         return $this->helper->render('User/Security/forget_password_confirm.html.twig');
+    }
+
+    /**
+     * Reset user password
+     * - Token does not exists in DB: redirect to login page with flashbag error
+     * - Token exists in DB: show reset password form for related user.
+     *
+     * @param Request $request The Request
+     * @param string  $token   The forgetPasswordToken to search the user with
+     *
+     * @return Response
+     */
+    public function resetPasswordAction(Request $request, string $token): Response
+    {
+        $user = $this->userRepository->findOneOrNullByForgetPasswordToken($token);
+
+        // If user doesn't exists, add flashbag error & return to login page
+        if (!$user) {
+            $this->helper->addFlash(
+                'danger',
+                $this->helper->trans('user.security.reset_password.flashbag.error')
+            );
+
+            return $this->helper->redirectToRoute('login');
+        }
+
+        // User exist, display reset password form
+        $form = $this->helper->createForm(ResetPasswordType::class, $user);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Remove forgetPasswordToken on user since password is not reset
+            $user->setForgetPasswordToken(null);
+            $this->userRepository->update($user);
+
+            $this->helper->addFlash('success', $this->helper->trans('user.security.reset_password.flashbag.success'));
+
+            return $this->redirectToRoute('login');
+        }
+
+        return $this->render('User/Security/reset_password.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

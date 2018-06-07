@@ -210,9 +210,9 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $forgetPasswordToken
+     * @param string|null $forgetPasswordToken
      */
-    public function setForgetPasswordToken(string $forgetPasswordToken): void
+    public function setForgetPasswordToken(?string $forgetPasswordToken): void
     {
         $this->forgetPasswordToken = $forgetPasswordToken;
     }

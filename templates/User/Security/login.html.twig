@@ -1,6 +1,6 @@
 {% extends 'User/Security/base.html.twig' %}
 
-{% block title %}{{ parent() }} - {{ 'user.security.login.title'|trans }}{% endblock %}
+{% block title %}{{ parent() }} - {{ 'user.security.title.login'|trans }}{% endblock %}
 
 {% block body %}
     <div class="login-logo">
@@ -9,12 +9,15 @@
     <div class="login-box-body">
         <p class="login-box-msg">{{ 'user.security.login.verbatim'|trans }}</p>
         <form action="{{ path('login') }}" method="POST">
+
             {% if error %}
                 <div class="alert alert-danger">
                     <i class="icon fa fa-ban"></i>
                     {{ error.messageKey|trans(error.messageData, 'security') }}
                 </div>
             {% endif %}
+            {{ include('_flashbag.html.twig') }}
+
             <div class="form-group has-feedback">
                 <input type="email" id="username" name="_username" class="form-control" placeholder="{{ 'user.security.login.username'|trans }}" value="{{ last_username }}" />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -35,6 +38,8 @@
             </div>
         </form>
 
-        <a href="{{ path('forget_password') }}">{{ 'user.security.login.forget_password'|trans }}</a><br>
+        <div class="text-center">
+            <a href="{{ path('forget_password') }}">{{ 'user.security.login.forget_password'|trans }}</a><br>
+        </div>
     </div>
 {% endblock %}

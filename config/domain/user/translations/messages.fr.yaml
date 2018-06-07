@@ -3,22 +3,29 @@ user:
         forget_password:
             back_to_login: Retour à la page de connexion
             email: Email
-            title: Mot de passe oublié
             verbatim: Réinitialisation du mot de passe
         forget_password_confirm:
             back_to_login: Retour à la page de connexion
             flashbag:
-                error: L'adresse email %email% n'existe pas
+                error: Aucun compte n'est associé à l'email %email%
             message: Cliquez sur le lien présent dans ce dernier pour réinitialiser votre mot de passe.
-            title: Mot de passe oublié
             verbatim: Un email vient de vous être envoyé !
         login:
             forget_password: Mot de passe oublié ?
             password: Mot de passe
             remember_me: Se souvenir de moi
-            title: Connexion
             username: Email
             verbatim: Connectez vous pour accéder à l'application
+        reset_password:
+          flashbag:
+              error: Aucun compte associé à cette clé d'authentification
+              success: Votre mot de passe vient d'être réinitialisé
+          verbatim: Réinitialisation de votre mot de passe
+        title:
+            forget_password: Mot de passe oublié
+            forget_password_confirm: Mot de passe oublié
+            login: Connexion
+            reset_password: Réinitialisation de mot de passe
     user:
         action:
             back_to_list: Retour à la liste
@@ -33,6 +40,8 @@ user:
             email: E-mail
             first_name: Prénom
             last_name: Nom
+            password: Mot de passe
+            password_repeat: Répéter le mot de passe
             roles: Role
         flashbag:
             success:
