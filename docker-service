@@ -66,10 +66,19 @@ install() {
 #                                                                                                                          bin/console doctrine:migration:migrate -n &&
                                                                                                                           bin/console cache:clear --env=prod --no-debug &&
                                                                                                                           bin/console cache:warmup --env=prod --no-debug"
+    # Load CSS & JS compilation
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm "yarn && yarn run encore production"
 }
 
 populate() {
     docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm "bin/console hautelook:fixtures:load -n"
+}
+
+serve() {
+    if [ "$#" -ge 1 ]; then
+        docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm "yarn && yarn run encore dev --$1"
+    fi
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm "yarn && yarn run encore dev"
 }
 
 stop() {
@@ -172,10 +181,9 @@ Commands:
   start                       Start docker containers
   install                     Run app installation scripts
   populate                    Load data fixtures in app
+  serve                       Serve Webpack Encore files for local dev
   stop                        Stop docker containers
   down                        Remove docker containers
-  serveFront                  Serve Angular files for local dev
-  dbFront                     Serve front node to mock data
   debug                       XDebug
   csFixer                     Execute php-cs-fixer and php lint
   tests                       Run unit tests and functional tests
@@ -217,6 +225,13 @@ case "$1" in
         ;;
  populate)
         populate
+        ;;
+ serve)
+        if [ "$#" -ne 2 ]; then
+            serve
+        else
+            serve $2
+        fi
         ;;
  tests)
         tests
