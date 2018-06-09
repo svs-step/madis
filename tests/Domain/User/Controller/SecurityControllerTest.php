@@ -17,11 +17,14 @@ use App\Application\Controller\ControllerHelper;
 use App\Domain\User\Component\Mailer;
 use App\Domain\User\Component\TokenGenerator;
 use App\Domain\User\Controller\SecurityController;
+use App\Domain\User\Form\Type\ResetPasswordType;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -235,6 +238,177 @@ class SecurityControllerTest extends TestCase
         $this->assertEquals(
             $response,
             $this->controller->forgetPasswordConfirmAction($request)
+        );
+    }
+
+    /**
+     * Test resetPasswordAction
+     * Method GET.
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function testResetPasswordActionMethodGet()
+    {
+        $forgetPasswordToken = 'foo';
+        $user                = new Model\User();
+        $user->setForgetPasswordToken($forgetPasswordToken);
+        $response = new Response();
+
+        $this->userRepositoryProphecy
+            ->findOneOrNullByForgetPasswordToken($forgetPasswordToken)
+            ->shouldBeCalled()
+            ->willReturn($user)
+        ;
+        $this->userRepositoryProphecy
+            ->update($user)
+            ->shouldNotBeCalled()
+        ;
+
+        // FlashBag & Translation (only display, no flashbag)
+        $this->helperProphecy->addFlash('danger', Argument::any())->shouldNotBeCalled();
+        $this->helperProphecy->addFlash('success', Argument::any())->shouldNotBeCalled();
+        $this->helperProphecy->trans('user.security.reset_password.flashbag.error')->shouldNotBeCalled();
+        $this->helperProphecy->trans('user.security.reset_password.flashbag.success')->shouldNotBeCalled();
+
+        // Form
+        $formView     = $this->prophesize(FormView::class)->reveal();
+        $formProphecy = $this->prophesize(FormInterface::class);
+        $formProphecy->createView()->shouldBeCalled()->willReturn($formView);
+        $formProphecy->handleRequest(Argument::type(Request::class))->shouldBeCalled();
+        $formProphecy->isSubmitted()->shouldBeCalled()->willReturn(false);
+        $this->helperProphecy
+            ->createForm(ResetPasswordType::class, $user)
+            ->shouldBeCalled()
+            ->willReturn($formProphecy->reveal())
+        ;
+
+        // Routing & rendering
+        $this->helperProphecy->redirectToRoute('login')->shouldNotBeCalled();
+        $this->helperProphecy
+            ->render(
+                'User/Security/reset_password.html.twig',
+                [
+                    'form' => $formView,
+                ]
+            )
+            ->shouldBeCalled()
+            ->willReturn($response)
+        ;
+
+        $this->assertEquals(
+            $response,
+            $this->controller->resetPasswordAction(new Request(), $forgetPasswordToken)
+        );
+    }
+
+    /**
+     * Test resetPasswordAction
+     * Method POST.
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function testResetPasswordActionMethodPost()
+    {
+        $forgetPasswordToken = 'foo';
+        $response            = $this->prophesize(RedirectResponse::class)->reveal();
+        $userProphecy        = $this->prophesize(Model\User::class);
+        $userProphecy->setForgetPasswordToken(null)->shouldBeCalled();
+
+        $this->userRepositoryProphecy
+            ->findOneOrNullByForgetPasswordToken($forgetPasswordToken)
+            ->shouldBeCalled()
+            ->willReturn($userProphecy->reveal())
+        ;
+        $this->userRepositoryProphecy
+            ->update($userProphecy->reveal())
+            ->shouldBeCalled()
+        ;
+
+        // FlashBag & Translation (only display, no flashbag)
+        $this->helperProphecy->addFlash('danger', Argument::any())->shouldNotBeCalled();
+        $this->helperProphecy->addFlash('success', Argument::any())->shouldBeCalled();
+        $this->helperProphecy->trans('user.security.reset_password.flashbag.error')->shouldNotBeCalled();
+        $this->helperProphecy->trans('user.security.reset_password.flashbag.success')->shouldBeCalled()->willReturn('Foo');
+
+        // Form
+        $formProphecy = $this->prophesize(FormInterface::class);
+        $formProphecy->createView()->shouldNotBeCalled();
+        $formProphecy->handleRequest(Argument::type(Request::class))->shouldBeCalled();
+        $formProphecy->isSubmitted()->shouldBeCalled()->willReturn(true);
+        $formProphecy->isValid()->shouldBeCalled()->willReturn(true);
+        $this->helperProphecy
+            ->createForm(ResetPasswordType::class, $userProphecy->reveal())
+            ->shouldBeCalled()
+            ->willReturn($formProphecy->reveal())
+        ;
+
+        // Routing & rendering
+        $this->helperProphecy->redirectToRoute('login')->shouldBeCalled()->willReturn($response);
+        $this->helperProphecy
+            ->render('User/Security/reset_password.html.twig', Argument::type('array'))
+            ->shouldNotBeCalled()
+        ;
+
+        $this->assertEquals(
+            $response,
+            $this->controller->resetPasswordAction(new Request(), $forgetPasswordToken)
+        );
+    }
+
+    /**
+     * Test resetPasswordAction
+     * User isn't found.
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function testResetPasswordActionUserNotFound()
+    {
+        $forgetPasswordToken = 'foo';
+        $response            = $this->prophesize(RedirectResponse::class)->reveal();
+
+        $this->userRepositoryProphecy
+            ->findOneOrNullByForgetPasswordToken($forgetPasswordToken)
+            ->shouldBeCalled()
+            ->willReturn(null)
+        ;
+        $this->userRepositoryProphecy
+            ->update(Argument::type(Model\User::class))
+            ->shouldNotBeCalled()
+        ;
+
+        // FlashBag & Translation (only display, no flashbag)
+        $this->helperProphecy->addFlash('danger', Argument::any())->shouldBeCalled();
+        $this->helperProphecy->addFlash('success', Argument::any())->shouldNotBeCalled();
+        $this->helperProphecy->trans('user.security.reset_password.flashbag.error')->shouldBeCalled()->willReturn('Foo');
+        $this->helperProphecy->trans('user.security.reset_password.flashbag.success')->shouldNotBeCalled();
+
+        // Form
+        $formProphecy = $this->prophesize(FormInterface::class);
+        $formProphecy->createView()->shouldNotBeCalled();
+        $formProphecy->handleRequest(Argument::type(Request::class))->shouldNotBeCalled();
+        $formProphecy->isSubmitted()->shouldNotBeCalled();
+        $formProphecy->isValid()->shouldNotBeCalled();
+        $this->helperProphecy
+            ->createForm(ResetPasswordType::class, Argument::type(Model\User::class))
+            ->shouldNotBeCalled()
+        ;
+
+        // Routing & rendering
+        $this->helperProphecy->redirectToRoute('login')->shouldBeCalled()->willReturn($response);
+        $this->helperProphecy
+            ->render('User/Security/reset_password.html.twig', Argument::type('array'))
+            ->shouldNotBeCalled()
+        ;
+
+        $this->assertEquals(
+            $response,
+            $this->controller->resetPasswordAction(new Request(), $forgetPasswordToken)
         );
     }
 }

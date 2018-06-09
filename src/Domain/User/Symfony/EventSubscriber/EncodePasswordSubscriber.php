@@ -69,8 +69,6 @@ class EncodePasswordSubscriber implements EventSubscriber
             return;
         }
 
-        dump('ENCODE');
-
         $this->process($args);
     }
 

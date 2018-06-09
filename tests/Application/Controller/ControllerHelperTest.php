@@ -15,6 +15,8 @@ namespace App\Tests\Application\Controller;
 
 use App\Application\Controller\ControllerHelper;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -36,6 +38,11 @@ class ControllerHelperTest extends TestCase
     private $routerProphecy;
 
     /**
+     * @var FormFactoryInterface
+     */
+    private $formFactoryProphecy;
+
+    /**
      * @var FlashBagInterface
      */
     private $flashBagProphecy;
@@ -52,14 +59,16 @@ class ControllerHelperTest extends TestCase
 
     public function setUp()
     {
-        $this->twigProphecy       = $this->prophesize(Environment::class);
-        $this->routerProphecy     = $this->prophesize(RouterInterface::class);
-        $this->flashBagProphecy   = $this->prophesize(FlashBagInterface::class);
-        $this->translatorProphecy = $this->prophesize(TranslatorInterface::class);
+        $this->twigProphecy        = $this->prophesize(Environment::class);
+        $this->routerProphecy      = $this->prophesize(RouterInterface::class);
+        $this->formFactoryProphecy = $this->prophesize(FormFactoryInterface::class);
+        $this->flashBagProphecy    = $this->prophesize(FlashBagInterface::class);
+        $this->translatorProphecy  = $this->prophesize(TranslatorInterface::class);
 
         $this->helper = new ControllerHelper(
             $this->twigProphecy->reveal(),
             $this->routerProphecy->reveal(),
+            $this->formFactoryProphecy->reveal(),
             $this->flashBagProphecy->reveal(),
             $this->translatorProphecy->reveal()
         );
@@ -157,8 +166,8 @@ class ControllerHelperTest extends TestCase
     }
 
     /**
-     * Test trans
-     * omplete whole params.
+     * Test trans.
+     * Complete whole params.
      */
     public function testTransWithWholeParams()
     {
@@ -170,5 +179,51 @@ class ControllerHelperTest extends TestCase
         $this->translatorProphecy->trans($key, $params, $domain)->shouldBeCalled()->willReturn($translatedKey);
 
         $this->assertEquals($translatedKey, $this->helper->trans($key, $params, $domain));
+    }
+
+    /**
+     * Test createForm.
+     */
+    public function testCreateForm()
+    {
+        $formType = 'dummyFormTypeClassName';
+        $form     = $this->prophesize(FormInterface::class)->reveal();
+
+        $this->formFactoryProphecy
+            ->create($formType, null, [])
+            ->shouldBeCalled()
+            ->willReturn($form)
+        ;
+
+        $this->assertEquals(
+            $form,
+            $this->helper->createForm($formType)
+        );
+    }
+
+    /**
+     * Test createForm.
+     * Complete whole params.
+     */
+    public function testCreateFormWithWholeParams()
+    {
+        $formType = 'dummyFormTypeClassName';
+        $data     = 'dummyObject';
+        $options  = [
+            'foo' => 'bar',
+        ];
+
+        $form = $this->prophesize(FormInterface::class)->reveal();
+
+        $this->formFactoryProphecy
+            ->create($formType, $data, $options)
+            ->shouldBeCalled()
+            ->willReturn($form)
+        ;
+
+        $this->assertEquals(
+            $form,
+            $this->helper->createForm($formType, $data, $options)
+        );
     }
 }

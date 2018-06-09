@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Application\Controller;
 
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -134,7 +135,7 @@ class ControllerHelper
      * @param null|object $data    The data to use to create FormType
      * @param array       $options The FormType options
      *
-     * @return \Symfony\Component\Form\FormInterface The generated FormType
+     * @return FormInterface The generated FormType
      */
     public function createForm(string $type, $data = null, array $options = [])
     {

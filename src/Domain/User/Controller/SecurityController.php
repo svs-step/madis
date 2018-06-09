@@ -175,10 +175,10 @@ class SecurityController extends Controller
 
             $this->helper->addFlash('success', $this->helper->trans('user.security.reset_password.flashbag.success'));
 
-            return $this->redirectToRoute('login');
+            return $this->helper->redirectToRoute('login');
         }
 
-        return $this->render('User/Security/reset_password.html.twig', [
+        return $this->helper->render('User/Security/reset_password.html.twig', [
             'form' => $form->createView(),
         ]);
     }

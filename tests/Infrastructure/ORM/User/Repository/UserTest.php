@@ -73,6 +73,11 @@ class UserTest extends TestCase
         );
     }
 
+    /**
+     * Test findOneOrNullByEmail.
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function testFindOneOrNullByEmail()
     {
         $user  = $this->prophesize(Model\User::class)->reveal();
@@ -126,6 +131,67 @@ class UserTest extends TestCase
         $this->assertEquals(
             $user,
             $this->infraRepo->findOneOrNullByEmail($email)
+        );
+    }
+
+    /**
+     * Test findOneOrNullByToken.
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function testFindOneOrNullByToken()
+    {
+        $user  = $this->prophesize(Model\User::class)->reveal();
+        $token = 'fooToken';
+
+        // Query
+        $queryProphecy = $this->prophesize(AbstractQuery::class);
+        $queryProphecy->getOneOrNullResult()->shouldBeCalled()->willReturn($user);
+
+        // QueryBuilder
+        $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
+        $queryBuilderProphecy
+            ->select('o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->from(Model\User::class, 'o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->andWhere('o.forgetPasswordToken = :forgetPasswordToken')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->setParameter('forgetPasswordToken', $token)
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->getQuery()
+            ->shouldBeCalled()
+            ->willReturn($queryProphecy->reveal())
+        ;
+
+        // EntityManager
+        $this->entityManagerProphecy
+            ->createQueryBuilder()
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy->reveal());
+
+        // Registry
+        $this->registryProphecy
+            ->getManager()
+            ->shouldBeCalled()
+            ->willReturn($this->entityManagerProphecy->reveal())
+        ;
+
+        $this->assertEquals(
+            $user,
+            $this->infraRepo->findOneOrNullByForgetPasswordToken($token)
         );
     }
 }
