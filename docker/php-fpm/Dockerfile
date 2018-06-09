@@ -8,6 +8,12 @@ RUN apt-get install -y libssl-dev php7.1-apcu php7.1-common php-fdomdocument php
     php7.1-mbstring php7.1-mysql php7.1-opcache php7.1-readline php7.1-soap \
     php7.1-xml php7.1-xdebug curl npm git zip sqlite3 php7.1-sqlite netcat
 
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+    apt-get install -y nodejs && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+        curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+        apt-get update && apt-get install -y yarn
+
 RUN usermod -s /bin/bash www-data
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
