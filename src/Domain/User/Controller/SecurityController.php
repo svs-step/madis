@@ -148,6 +148,10 @@ class SecurityController extends Controller
      * @param Request $request The Request
      * @param string  $token   The forgetPasswordToken to search the user with
      *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     *
      * @return Response
      */
     public function resetPasswordAction(Request $request, string $token): Response
