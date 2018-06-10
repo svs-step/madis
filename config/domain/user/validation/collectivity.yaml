@@ -1,0 +1,4 @@
+App\Domain\User\Model\Collectivity:
+    properties:
+        name:
+            - NotNull: { message: 'user_collectivity.name.not_null' }

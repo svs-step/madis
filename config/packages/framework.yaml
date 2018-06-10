@@ -21,5 +21,4 @@ framework:
     validation:
         mapping:
             paths:
-                - '%kernel.project_dir%/config/domain/admin/validation'
                 - '%kernel.project_dir%/config/domain/user/validation'

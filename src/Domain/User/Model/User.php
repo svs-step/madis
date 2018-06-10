@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Model;
 
-use App\Domain\Admin\Model\Collectivity;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;

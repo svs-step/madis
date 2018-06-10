@@ -7,4 +7,5 @@ services:
     App\Infrastructure\ORM\User\Repository\:
         resource: '../../../../src/Infrastructure/ORM/User/Repository'
 
+    App\Domain\User\Repository\Collectivity: '@App\Infrastructure\ORM\User\Repository\Collectivity'
     App\Domain\User\Repository\User: '@App\Infrastructure\ORM\User\Repository\User'

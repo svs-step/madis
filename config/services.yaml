@@ -16,7 +16,6 @@ services:
         exclude: '../src/Domain/*/{Component/Mailer.php,Controller,Model,Symfony/EventSubscriber,Tests}'
 
     RandomLib\Factory: ~
-    Symfony\Bundle\TwigBundle\TwigEngine: ~
 
 imports:
     - { resource: services/controller.yaml }

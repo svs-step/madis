@@ -1,3 +1,7 @@
+user_collectivity:
+    name:
+        not_null: Vous devez renseigner un nom
+
 user_user:
     first_name:
         not_null: Vous devez renseigner un prénom

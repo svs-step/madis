@@ -1,3 +1,0 @@
-_admin_collectivity:
-    resource: 'collectivity.yaml'
-    prefix:   '/collectivites'

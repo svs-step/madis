@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'user_user' %}
+{% set bodyClass = 'user_collectivity' %}
 
-{% block title %}{{ 'user.user.title.list'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'user.collectivity.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'user.user.title.list'|trans }}</h1>
+    <h1>{{ 'user.collectivity.title.list'|trans }}</h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'user.user.title.list'|trans }
+        { 'name': 'user.collectivity.title.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -22,9 +22,9 @@
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
-            <a href="{{ path('user_user_create') }}" class="btn btn-default">
+            <a href="{{ path('user_collectivity_create') }}" class="btn btn-default">
                 <i class="fa fa-plus"></i>
-                {{ 'user.user.action.new'|trans }}
+                {{ 'user.collectivity.action.new'|trans }}
             </a>
         </div>
     </div>
@@ -36,45 +36,40 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>{{ 'user.user.list.id'|trans }}</th>
-                            <th>{{ 'user.user.list.first_name'|trans }}</th>
-                            <th>{{ 'user.user.list.last_name'|trans }}</th>
-                            <th>{{ 'user.user.list.email'|trans }}</th>
-                            <th>{{ 'user.user.list.collectivity'|trans }}</th>
-                            <th>{{ 'user.user.list.roles'|trans }}</th>
+                            <th>{{ 'user.collectivity.list.name'|trans }}</th>
+                            <th>{{ 'user.collectivity.list.short_name'|trans }}</th>
+                            <th>{{ 'user.collectivity.list.type'|trans }}</th>
+                            <th>{{ 'user.collectivity.list.siren'|trans }}</th>
+                            <th>{{ 'user.collectivity.list.active'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for object in objects %}
                         <tr>
-                            <td>{{ object.id }}</td>
-                            <td>{{ object.firstName }}</td>
-                            <td>{{ object.lastName }}</td>
-                            <td>{{ object.email }}</td>
-                            <td>{{ object.collectivity }}</td>
+                            <td>{{ object.name }}</td>
+                            <td>{{ object.shortName }}</td>
+                            <td>{{ object.type|dictionary('user_collectivity_type') }}</td>
+                            <td>{{ object.siren|number_format(0, '.', ' ') }}</td>
                             <td>
-                                {% for role in object.roles %}
-                                    {% if 'ROLE_ADMIN' == role %}
-                                        <span class="badge bg-red">
-                                    {% elseif 'ROLE_USER' == role %}
-                                        <span class="badge bg-blue">
-                                    {% else %}
-                                        <span class="badge bg-green">
-                                    {% endif %}
-                                            {{ role|dictionary('user_user_role') }}
-                                        </span>
-                                {% endfor %}
+                                {% if object.active %}
+                                    <span class="label label-success">{{ 'label.active'|trans }}</span>
+                                {% else %}
+                                    <span class="label label-danger">{{ 'label.inactive'|trans }}</span>
+                                {% endif %}
+
                             </td>
                             <td>
-                                <a href="{{ path('user_user_edit', { 'id': object.id }) }}">
+                                <a href="{{ path('user_collectivity_edit', { 'id': object.id }) }}">
                                     <i class="fa fa-pencil-alt"></i>
                                     {{ 'action.edit'|trans }}
                                 </a>
-                                <a href="{{ path('user_user_delete', { 'id': object.id }) }}">
-                                    <i class="fa fa-trash"></i>
-                                    {{ 'action.delete'|trans }}
-                                </a>
+                                {% if 0 == object.users|length %}
+                                    <a href="{{ path('user_collectivity_delete', { 'id': object.id }) }}">
+                                        <i class="fa fa-trash"></i>
+                                        {{ 'action.delete'|trans }}
+                                    </a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
