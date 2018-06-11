@@ -22,6 +22,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserTypeTest extends FormTypeHelper
 {
@@ -48,5 +49,17 @@ class UserTypeTest extends FormTypeHelper
         ;
 
         (new UserType())->buildForm($builderProphecy->reveal(), []);
+    }
+
+    public function testConfigureOptions(): void
+    {
+        $defaults = [
+            'validation_groups' => 'default',
+        ];
+
+        $resolverProphecy = $this->prophesize(OptionsResolver::class);
+        $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
+
+        (new UserType())->configureOptions($resolverProphecy->reveal());
     }
 }

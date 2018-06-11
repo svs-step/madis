@@ -1,18 +1,84 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
 
-<div class="box box-primary">
-    <div class="box-header"></div>
-    {{ form_start(form, {'class': 'form-horizontal'}) }}
-    <div class="box-body">
-        {{ form_row(form.name) }}
-        {{ form_rest(form) }}
+<div class="row">
+    {{ form_start(form) }}
+
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.general'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.name) }}
+                {{ form_row(form.shortName) }}
+                {{ form_row(form.type) }}
+                {{ form_row(form.siren) }}
+                {{ form_row(form.active) }}
+                {{ form_row(form.website) }}
+            </div>
+        </div>
     </div>
-    <div class="box-footer text-center">
-        <a href="{{ path('user_collectivity_list') }}" class="btn btn-default">
-            {{ 'user.collectivity.action.back_to_list'|trans }}
-        </a>
-        <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.address'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_widget(form.address) }}
+            </div>
+        </div>
     </div>
+
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.legal_manager'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_widget(form.legalManager) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.referent'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_widget(form.referent) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.it_manager'|trans }}</h3></div>
+            <div class="box-body">
+                <blockquote>
+                    <small>{{ 'user.collectivity.form.help.it_manager'|trans }}</small>
+                </blockquote>
+                {{ form_widget(form.itManager) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.dpo'|trans }}</h3></div>
+            <div class="box-body">
+                <blockquote>
+                    <small>{{ 'user.collectivity.form.help.dpo'|trans }}</small>
+                </blockquote>
+                {{ form_widget(form.dpo) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="box box-solid">
+                <div class="box-body text-center">
+                <a href="{{ path('user_collectivity_list') }}" class="btn btn-default">
+                    {{ 'user.collectivity.action.back_to_list'|trans }}
+                </a>
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+            </div>
+        </div>
+    </div>
+
     {{ form_end(form) }}
 </div>
 

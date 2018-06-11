@@ -1,4 +1,43 @@
 App\Domain\User\Model\Collectivity:
     properties:
         name:
-            - NotNull: { message: 'user_collectivity.name.not_null' }
+            - NotBlank:
+                message: 'user_collectivity.name.not_blank'
+                groups: ['default']
+            - Length:
+                max: 80
+                maxMessage: 'user_collectivity.name.max_length'
+                groups: ['default']
+        shortName:
+            - NotBlank:
+                message: 'user_collectivity.short_name.not_blank'
+                groups: ['default']
+            - Length:
+                max: 20
+                maxMessage: 'user_collectivity.short_name.max_length'
+                groups: ['default']
+        siren:
+            - NotBlank:
+                message: 'user_collectivity.siren.not_blank'
+                groups: ['default']
+        type:
+            - NotBlank:
+                message: 'user_collectivity.type.not_blank'
+                groups: ['default']
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'user_collectivity_type'
+                groups: ['default']
+        website:
+            - Url:
+                message: 'user_collectivity.website.url'
+                groups: ['default']
+        address:
+            - Valid: ~
+        legalManager:
+            - Valid: ~
+        referent:
+            - Valid: ~
+        dpo:
+            - Valid: ~
+        itManager:
+            - Valid: ~

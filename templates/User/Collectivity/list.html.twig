@@ -22,10 +22,12 @@
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
-            <a href="{{ path('user_collectivity_create') }}" class="btn btn-default">
-                <i class="fa fa-plus"></i>
-                {{ 'user.collectivity.action.new'|trans }}
-            </a>
+            <div class="action-bar">
+                <a href="{{ path('user_collectivity_create') }}" class="btn btn-default">
+                    <i class="fa fa-plus"></i>
+                    {{ 'user.collectivity.action.new'|trans }}
+                </a>
+            </div>
         </div>
     </div>
 

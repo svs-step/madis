@@ -20,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CollectivityType extends AbstractType
 {
@@ -59,9 +60,39 @@ class CollectivityType extends AbstractType
                 'label'    => 'user.collectivity.form.website',
                 'required' => false,
                 'attr'     => [
-                    'placeholder' => 'https://',
+                    'placeholder' => 'user.collectivity.form.placeholder.website',
                 ],
             ])
+            ->add('address', AddressType::class, [
+                'label'    => 'user.collectivity.form.address',
+                'required' => true,
+            ])
+            ->add('legalManager', ContactType::class, [
+                'label'             => 'user.collectivity.form.legal_manager',
+                'required'          => true,
+                'validation_groups' => ['default', 'collectivity_legal_manager'],
+            ])
+            ->add('referent', ContactType::class, [
+                'label'             => 'user.collectivity.form.referent',
+                'required'          => true,
+                'validation_groups' => ['default', 'collectivity_referent'],
+            ])
+            ->add('dpo', ContactType::class, [
+                'label'    => 'user.collectivity.form.dpo',
+                'required' => false,
+            ])
+            ->add('itManager', ContactType::class, [
+                'label'    => 'user.collectivity.form.it_manager',
+                'required' => false,
+            ])
         ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver
+            ->setDefaults([
+                'validation_groups' => 'default',
+            ]);
     }
 }

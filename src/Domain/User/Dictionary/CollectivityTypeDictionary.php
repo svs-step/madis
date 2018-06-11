@@ -30,7 +30,7 @@ class CollectivityTypeDictionary extends SimpleDictionary
     }
 
     /**
-     * Get an array of Roles.
+     * Get an array of Types.
      *
      * @return array
      */
@@ -47,7 +47,7 @@ class CollectivityTypeDictionary extends SimpleDictionary
     }
 
     /**
-     * Get keys of the Roles array.
+     * Get keys of the Types array.
      *
      * @return array
      */

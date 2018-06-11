@@ -22,10 +22,12 @@
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
-            <a href="{{ path('user_user_create') }}" class="btn btn-default">
-                <i class="fa fa-plus"></i>
-                {{ 'user.user.action.new'|trans }}
-            </a>
+            <div class="action-bar">
+                <a href="{{ path('user_user_create') }}" class="btn btn-default">
+                    <i class="fa fa-plus"></i>
+                    {{ 'user.user.action.new'|trans }}
+                </a>
+            </div>
         </div>
     </div>
 

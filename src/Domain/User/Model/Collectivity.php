@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Model;
 
+use App\Domain\User\Model\Embeddable\Address;
+use App\Domain\User\Model\Embeddable\Contact;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
@@ -51,6 +53,31 @@ class Collectivity
      * @var string
      */
     private $website;
+
+    /**
+     * @var Address|null
+     */
+    private $address;
+
+    /**
+     * @var Contact
+     */
+    private $legalManager;
+
+    /**
+     * @var Contact
+     */
+    private $referent;
+
+    /**
+     * @var Contact
+     */
+    private $dpo;
+
+    /**
+     * @var Contact
+     */
+    private $itManager;
 
     /**
      * @var Collection
@@ -174,6 +201,86 @@ class Collectivity
     public function setWebsite(string $website): void
     {
         $this->website = $website;
+    }
+
+    /**
+     * @return Address|null
+     */
+    public function getAddress(): ?Address
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param Address $address
+     */
+    public function setAddress(Address $address): void
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return Contact|null
+     */
+    public function getLegalManager(): ?Contact
+    {
+        return $this->legalManager;
+    }
+
+    /**
+     * @param Contact $legalManager
+     */
+    public function setLegalManager(Contact $legalManager): void
+    {
+        $this->legalManager = $legalManager;
+    }
+
+    /**
+     * @return Contact|null
+     */
+    public function getReferent(): ?Contact
+    {
+        return $this->referent;
+    }
+
+    /**
+     * @param Contact $referent
+     */
+    public function setReferent(Contact $referent): void
+    {
+        $this->referent = $referent;
+    }
+
+    /**
+     * @return Contact|null
+     */
+    public function getDpo(): ?Contact
+    {
+        return $this->dpo;
+    }
+
+    /**
+     * @param Contact $dpo
+     */
+    public function setDpo(Contact $dpo): void
+    {
+        $this->dpo = $dpo;
+    }
+
+    /**
+     * @return Contact|null
+     */
+    public function getItManager(): ?Contact
+    {
+        return $this->itManager;
+    }
+
+    /**
+     * @param Contact $itManager
+     */
+    public function setItManager(Contact $itManager): void
+    {
+        $this->itManager = $itManager;
     }
 
     /**

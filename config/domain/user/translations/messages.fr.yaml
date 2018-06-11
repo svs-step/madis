@@ -1,4 +1,21 @@
 user:
+    address:
+        form:
+            insee: INSEE
+            line_one: Ligne 1
+            line_two: Ligne 2
+            city: Ville
+            zip_code: Code postal
+
+    contact:
+        form:
+            civility: Civilité
+            first_name: Prénom
+            last_name: Nom
+            job: Fonction
+            mail: Email
+            phone_number: Téléphone
+
     collectivity:
         action:
             back_to_list: Retour à la liste
@@ -10,7 +27,13 @@ user:
             delete: Supprimer "%name%"
         form:
             active: Statut
+            address: Adresse
+            help:
+              dpo: Ces informations sont facultatives. À défaut, le DPO renseigné par SOLURIS sera utilisé.
+              it_manager: Si différent du référent RGPD
             name: Nom
+            placeholder:
+                website: https://
             short_name: Nom court
             siren: SIREN
             type: Type
@@ -28,6 +51,13 @@ user:
             type: Type
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cette collectivité ?
+        tab:
+          address: Adresse
+          dpo: DPO
+          legal_manager: Responsable légal
+          it_manager: Responsable informatique
+          referent: Référent RGPD
+          general: Informations générales
         title:
             create: Créer une collectivité
             edit: Éditer une collectivité
