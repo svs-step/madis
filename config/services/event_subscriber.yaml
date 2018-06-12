@@ -13,3 +13,7 @@ services:
         resource: '../../src/Domain/*/Symfony/EventSubscriber'
         tags:
             - { name: 'doctrine.event_subscriber' }
+
+    App\Domain\User\Symfony\EventSubscriber\DefinePasswordSubscriber:
+        tags:
+            - { name: 'doctrine.event_subscriber', priority: 2 }
