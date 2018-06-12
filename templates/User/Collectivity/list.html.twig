@@ -49,7 +49,11 @@
                         <tbody>
                         {% for object in objects %}
                         <tr>
-                            <td>{{ object.name }}</td>
+                            <td>
+                                <a href="{{ path('user_collectivity_show', {'id': object.id}) }}">
+                                    {{ object.name }}
+                                </a>
+                            </td>
                             <td>{{ object.shortName }}</td>
                             <td>{{ object.type|dictionary('user_collectivity_type') }}</td>
                             <td>{{ object.siren|number_format(0, '.', ' ') }}</td>
