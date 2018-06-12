@@ -10,6 +10,7 @@
         <field name="civility" column="civility" nullable="true"/>
         <field name="firstName" column="first_name" nullable="true"/>
         <field name="lastName" column="last_name" nullable="true"/>
+        <field name="job" column="job" nullable="true"/>
         <field name="mail" column="mail" nullable="true"/>
         <field name="phoneNumber" column="phone_number" length="10" nullable="true"/>
 
