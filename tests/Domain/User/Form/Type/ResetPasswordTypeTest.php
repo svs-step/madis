@@ -18,6 +18,7 @@ use App\Domain\User\Form\Type\UserType;
 use App\Tests\Utils\FormTypeHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ResetPasswordTypeTest extends FormTypeHelper
 {
@@ -35,5 +36,17 @@ class ResetPasswordTypeTest extends FormTypeHelper
         $builderProphecy = $this->prophesizeBuilder($builder, false);
 
         (new ResetPasswordType())->buildForm($builderProphecy->reveal(), []);
+    }
+
+    public function testConfigureOptions(): void
+    {
+        $defaults = [
+            'validation_groups' => 'default',
+        ];
+
+        $resolverProphecy = $this->prophesize(OptionsResolver::class);
+        $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
+
+        (new ResetPasswordType())->configureOptions($resolverProphecy->reveal());
     }
 }

@@ -13,15 +13,15 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
-use App\Domain\Admin\Model\Collectivity;
-use App\Domain\User\Dictionary\RoleDictionary;
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
+use App\Domain\User\Model\Collectivity;
+use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
 {
@@ -45,10 +45,10 @@ class UserType extends AbstractType
                 'label'    => 'user.user.form.collectivity',
                 'required' => true,
             ])
-            ->add('roles', ChoiceType::class, [
+            ->add('roles', DictionaryType::class, [
                 'label'    => 'user.user.form.roles',
-                'choices'  => \array_flip(RoleDictionary::getRoles()),
                 'required' => true,
+                'name'     => 'user_user_role',
                 'multiple' => false,
                 'expanded' => true,
             ])
@@ -58,5 +58,13 @@ class UserType extends AbstractType
             ->get('roles')
             ->addModelTransformer(new RoleTransformer())
         ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver
+            ->setDefaults([
+                'validation_groups' => 'default',
+            ]);
     }
 }

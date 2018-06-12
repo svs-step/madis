@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Controller;
 
-use App\Domain\Admin\Model\Collectivity;
+use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

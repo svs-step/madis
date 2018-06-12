@@ -1,4 +1,0 @@
-App\Domain\Admin\Model\Collectivity:
-    properties:
-        name:
-            - NotNull: { message: 'admin_collectivity.name.not_null' }

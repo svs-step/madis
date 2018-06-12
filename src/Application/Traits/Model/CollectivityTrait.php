@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\Application\Traits\Model;
 
-use App\Domain\Admin\Model\Collectivity;
+use App\Domain\User\Model\Collectivity;
 
 trait CollectivityTrait
 {

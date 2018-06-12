@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Infrastructure\ORM\Admin\Repository;
+namespace App\Tests\Infrastructure\ORM\User\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
-use App\Domain\Admin\Model;
-use App\Domain\Admin\Repository as DomainRepo;
-use App\Infrastructure\ORM\Admin\Repository as InfraRepo;
+use App\Domain\User\Model;
+use App\Domain\User\Repository as DomainRepo;
+use App\Infrastructure\ORM\User\Repository as InfraRepo;
 use App\Tests\Utils\ReflectionTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Doctrine\RegistryInterface;

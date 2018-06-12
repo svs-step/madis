@@ -1,10 +1,38 @@
+user_contact:
+    civility:
+        not_blank: La civilité est obligatoire
+    firstName:
+        not_blank: Le prénom est obligatoire
+    lastName:
+        not_blank: le nom est obligatoire
+    mail:
+        email: L'adresse email doit être valide
+        not_blank: l'adresse email est obligatoire
+    phoneNumber:
+        length: Le numéro de téléphone doit être composé de {{ limit }} chiffres
+        not_blank: Le numéro de téléphone est obligatoire
+        type: Le numéro de téléphone ne doit être composé que par des chiffres
+user_collectivity:
+    name:
+        max_length: Le nom doit faire au maximum {{ limit }} caractères
+        not_blank: Vous devez renseigner un nom
+    short_name:
+        max_length: Le nom doit faire au maximum {{ limit }} caractères
+        not_blank: Vous devez renseigner un nom court
+    siren:
+        not_blank: Vous devez renseigner un numéro de SIREN
+    type:
+        not_blank: Vous devez renseigner un type de collectivité
+    website:
+        url: Vous devez renseigner un site web valide
+
 user_user:
     first_name:
-        not_null: Vous devez renseigner un prénom
+        not_blank: Vous devez renseigner un prénom
     last_name:
-        not_null: Vous devez renseigner un nom
+        not_blank: Vous devez renseigner un nom
     email:
-        not_null: Vous devez renseigner un email
+        not_blank: Vous devez renseigner un email
     roles:
         max_count: Vous devez sélectionner au maximum {{ limit }} role
         min_count: Vous devez sélectionner au minimum {{ limit }} role

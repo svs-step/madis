@@ -1,4 +1,69 @@
 user:
+    address:
+        form:
+            insee: INSEE
+            line_one: Ligne 1
+            line_two: Ligne 2
+            city: Ville
+            zip_code: Code postal
+
+    contact:
+        form:
+            civility: Civilité
+            first_name: Prénom
+            last_name: Nom
+            job: Fonction
+            mail: Email
+            phone_number: Téléphone
+
+    collectivity:
+        action:
+            back_to_list: Retour à la liste
+            new: Nouvelle collectivité
+        breadcrumb:
+            list: Liste des collectivités
+            create: Créer
+            edit: Éditer "%name%"
+            delete: Supprimer "%name%"
+        form:
+            active: Statut
+            address: Adresse
+            help:
+              dpo: Ces informations sont facultatives. À défaut, le DPO renseigné par SOLURIS sera utilisé.
+              it_manager: Si différent du référent RGPD
+            name: Nom
+            placeholder:
+                website: https://
+            short_name: Nom court
+            siren: SIREN
+            type: Type
+            website: Site internet
+        flashbag:
+            success:
+                create: Collectivité "%object%" créée avec succès
+                edit: Collectivité "%object%" éditée avec succès
+                delete: Collectivité "%object%" supprimée avec succès
+        list:
+            active: Statut
+            name: Nom
+            short_name: Nom court
+            siren: SIREN
+            type: Type
+        modal:
+            confirm_deletion: Voulez-vous vraiment supprimer cette collectivité ?
+        tab:
+          address: Adresse
+          dpo: DPO
+          legal_manager: Responsable légal
+          it_manager: Responsable informatique
+          referent: Référent RGPD
+          general: Informations générales
+        title:
+            create: Créer une collectivité
+            edit: Éditer une collectivité
+            list: Liste des collectivités
+            delete: Supprimer une collectivité
+
     security:
         forget_password:
             back_to_login: Retour à la page de connexion
@@ -26,6 +91,7 @@ user:
             forget_password_confirm: Mot de passe oublié
             login: Connexion
             reset_password: Réinitialisation de mot de passe
+
     user:
         action:
             back_to_list: Retour à la liste
@@ -54,7 +120,7 @@ user:
             first_name: Prénom
             id: ID
             last_name: Nom
-            roles: Role(s)
+            roles: Role
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cet utilisateur ?
         title:

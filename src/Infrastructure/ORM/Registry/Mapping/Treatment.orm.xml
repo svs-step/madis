@@ -12,7 +12,7 @@
 
         <field name="name" column="name"/>
 
-        <many-to-one field="collectivity" target-entity="App\Domain\Admin\Model\Collectivity"/>
+        <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity"/>
 
         <!-- History -->
         <field name="createdAt" column="created_at" type="datetime_immutable">

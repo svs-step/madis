@@ -1,0 +1,41 @@
+App\Domain\User\Model\Embeddable\Contact:
+    properties:
+        civility:
+            - NotBlank:
+                message: 'user_contact.civility.not_blank'
+                groups: ['collectivity_legal_manager', 'collectivity_referent']
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'user_contact_civility'
+                groups: ['default']
+        firstName:
+            - NotBlank:
+                message: 'user_contact.first_name.not_blank'
+                groups: ['collectivity_legal_manager', 'collectivity_referent']
+        job:
+            - NotBlank:
+                message: 'user_contact.job.not_blank'
+                groups: ['collectivity_legal_manager', 'collectivity_referent']
+        lastName:
+            - NotBlank:
+                message: 'user_contact.last_name.not_blank'
+                groups: ['collectivity_legal_manager', 'collectivity_referent']
+        mail:
+            - NotBlank:
+                message: 'user_contact.mail.not_blank'
+                groups: ['collectivity_legal_manager', 'collectivity_referent']
+            - Email:
+                message: 'user_contact.mail.email'
+                groups: ['default']
+        phoneNumber:
+            - NotBlank:
+                message: 'user_contact.phone_number.not_blank'
+                groups: ['collectivity_legal_manager', 'collectivity_referent']
+            - Length:
+                min: 10
+                max: 10
+                exactMessage: 'user_contact.phone_number.length'
+                groups: ['default']
+            - Type:
+                type: int
+                message: 'user_contact.phone_number.type'
+                groups: ['default']

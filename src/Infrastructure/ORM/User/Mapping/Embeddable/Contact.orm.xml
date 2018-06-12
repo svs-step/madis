@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                            https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <embeddable name="App\Domain\User\Model\Embeddable\Contact">
+
+        <field name="civility" column="civility" nullable="true"/>
+        <field name="firstName" column="first_name" nullable="true"/>
+        <field name="lastName" column="last_name" nullable="true"/>
+        <field name="mail" column="mail" nullable="true"/>
+        <field name="phoneNumber" column="phone_number" length="10" nullable="true"/>
+
+    </embeddable>
+
+</doctrine-mapping>

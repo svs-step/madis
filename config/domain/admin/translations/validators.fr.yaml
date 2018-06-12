@@ -1,3 +1,0 @@
-admin_collectivity:
-    name:
-        not_null: Vous devez renseigner un nom
