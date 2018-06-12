@@ -20,12 +20,6 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         mappings:
-            Admin:
-                is_bundle: false
-                type: xml
-                dir: '%kernel.project_dir%/src/Infrastructure/ORM/Admin/Mapping'
-                prefix: App\Domain\Admin\Model
-                alias: Admin
             Registry:
                 is_bundle: false
                 type: xml
@@ -38,4 +32,10 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/ORM/User/Mapping'
                 prefix: App\Domain\User\Model
                 alias: User
+            UserEmbeddable:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/ORM/User/Mapping/Embeddable'
+                prefix: App\Domain\User\Model\Embeddable
+                alias: UserEmbeddable
 

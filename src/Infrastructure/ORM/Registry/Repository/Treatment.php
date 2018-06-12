@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\Registry\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
-use App\Domain\Admin\Model\Collectivity;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
+use App\Domain\User\Model\Collectivity;
 
 class Treatment extends CRUDRepository implements Repository\Treatment
 {

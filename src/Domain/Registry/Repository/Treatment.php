@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace App\Domain\Registry\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
-use App\Domain\Admin\Model\Collectivity;
+use App\Domain\User\Model\Collectivity;
 
 interface Treatment extends CRUDRepositoryInterface
 {

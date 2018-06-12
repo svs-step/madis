@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                            https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\User\Model\Collectivity" table="user_collectivity">
+
+        <id name="id" column="id" type="uuid"/>
+
+        <field name="name" column="name" length="80"/>
+        <field name="shortName" column="short_name" length="80"/>
+        <field name="type" column="type"/>
+        <field name="siren" column="siren" type="integer"/>
+        <field name="active" column="active" type="boolean"/>
+
+        <embedded name="address" class="App\Domain\User\Model\Embeddable\Address" column-prefix="address_"/>
+        <embedded name="legalManager" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="legal_manager_"/>
+        <embedded name="referent" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="referent_"/>
+        <embedded name="dpo" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="dpo_"/>
+        <embedded name="itManager" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="it_manager_"/>
+
+        <one-to-many field="users" target-entity="App\Domain\User\Model\User" mapped-by="collectivity"/>
+
+    </entity>
+
+</doctrine-mapping>

@@ -16,12 +16,13 @@ namespace App\Tests\Domain\User\Form\Type;
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Form\Type\UserType;
 use App\Tests\Utils\FormTypeHelper;
+use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Prophecy\Argument;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserTypeTest extends FormTypeHelper
 {
@@ -37,7 +38,7 @@ class UserTypeTest extends FormTypeHelper
             'lastName'      => TextType::class,
             'email'         => EmailType::class,
             'collectivity'  => EntityType::class,
-            'roles'         => ChoiceType::class,
+            'roles'         => DictionaryType::class,
         ];
 
         $builderProphecy = $this->prophesizeBuilder($builder, false);
@@ -48,5 +49,17 @@ class UserTypeTest extends FormTypeHelper
         ;
 
         (new UserType())->buildForm($builderProphecy->reveal(), []);
+    }
+
+    public function testConfigureOptions(): void
+    {
+        $defaults = [
+            'validation_groups' => 'default',
+        ];
+
+        $resolverProphecy = $this->prophesize(OptionsResolver::class);
+        $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
+
+        (new UserType())->configureOptions($resolverProphecy->reveal());
     }
 }

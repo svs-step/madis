@@ -1,3 +1,7 @@
+_user_collectivity:
+    resource: 'collectivity.yaml'
+    prefix:   '/collectivites'
+
 _user_security:
     resource: 'security.yaml'
 

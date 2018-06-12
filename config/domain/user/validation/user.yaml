@@ -1,11 +1,23 @@
 App\Domain\User\Model\User:
     properties:
         firstName:
-            - NotNull: { message: 'user_user.first_name.not_null' }
+            - NotBlank:
+                message: 'user_user.first_name.not_blank'
+                groups: ['default']
         lastName:
-            - NotNull: { message: 'user_user.last_name.not_null' }
+            - NotBlank:
+                message: 'user_user.last_name.not_blank'
+                groups: ['default']
         email:
-            - NotNull: { message: 'user_user.email.not_null' }
+            - NotBlank:
+                message: 'user_user.email.not_blank'
+                groups: ['default']
         roles:
-            - Count: { min: 1, minMessage: 'user_user.roles.min_count'}
-            - Count: { max: 1, minMessage: 'user_user.roles.max_count'}
+            - Count:
+                min: 1
+                minMessage: 'user_user.roles.min_count'
+                groups: ['default']
+            - Count:
+                max: 1
+                minMessage: 'user_user.roles.max_count'
+                groups: ['default']

@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace App\Tests\Infrastructure\ORM\Registry\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
-use App\Domain\Admin\Model\Collectivity;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository as DomainRepo;
+use App\Domain\User\Model\Collectivity;
 use App\Infrastructure\ORM\Registry\Repository as InfraRepo;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\AbstractQuery;
@@ -122,7 +122,7 @@ class TreatmentTest extends TestCase
 
         // Registry
         $this->registryProphecy
-            ->getEntityManager()
+            ->getManager()
             ->shouldBeCalled()
             ->willReturn($this->entityManagerProphecy->reveal())
         ;

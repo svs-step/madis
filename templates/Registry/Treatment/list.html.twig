@@ -23,17 +23,19 @@
     <div class="row">
         {% if is_granted('ROLE_ADMIN') %}
             <div class="col-xs-12">
-                <a href="{{ path('registry_treatment_create') }}" class="btn btn-default">
-                    <i class="fa fa-plus"></i>
-                    {{ 'registry.treatment.action.new'|trans }}
-                </a>
+                <div class="action-bar">
+                    <a href="{{ path('registry_treatment_create') }}" class="btn btn-default">
+                        <i class="fa fa-plus"></i>
+                        {{ 'registry.treatment.action.new'|trans }}
+                    </a>
+                </div>
             </div>
         {% endif %}
     </div>
 
     <div class="row">
         <div class="col-xs-12">
-            <div class="box box-primary">
+            <div class="box box-solid">
                 <div class="box-body">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>

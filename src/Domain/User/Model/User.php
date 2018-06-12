@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Model;
 
-use App\Domain\Admin\Model\Collectivity;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -49,6 +48,11 @@ class User implements UserInterface
      * @var string
      */
     private $plainPassword;
+
+    /**
+     * @var string
+     */
+    private $forgetPasswordToken;
 
     /**
      * @var array
@@ -194,6 +198,22 @@ class User implements UserInterface
     public function setRoles(array $roles): void
     {
         $this->roles = $roles;
+    }
+
+    /**
+     * @return string
+     */
+    public function getForgetPasswordToken(): string
+    {
+        return $this->forgetPasswordToken;
+    }
+
+    /**
+     * @param string|null $forgetPasswordToken
+     */
+    public function setForgetPasswordToken(?string $forgetPasswordToken): void
+    {
+        $this->forgetPasswordToken = $forgetPasswordToken;
     }
 
     public function getSalt()

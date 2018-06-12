@@ -1,13 +1,16 @@
 action:
     close: Fermer
-    create: Créer
     confirm: Confirmer
     confirm_delete: Confirmer la suppression
     connexion: Connexion
-    edit: Éditer
+    create: Créer
     delete: Supprimer
     deletion: Suppression
+    edit: Éditer
+    reinitialize: Réinitialisation
     submit: Soumettre
 
 label:
     actions: Actions
+    active: Actif
+    inactive: Inactif

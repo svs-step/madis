@@ -1,0 +1,63 @@
+App\Domain\User\Model\Embeddable\Contact:
+
+    # ------------------
+    # COLLECTIVITY AWKAN
+    # ------------------
+    user_contact_collectivity_awkan_manager_legal:
+        civility: '<(App\Domain\User\Dictionary\ContactCivilityDictionary::CIVILITY_MISTER)>'
+        firstName: <firstName()>
+        lastName: <lastName()>
+        job: <word()>
+        mail: <email()>
+        phoneNumber: 0<randomNumber(9)>
+
+    user_contact_collectivity_awkan_referent:
+        civility: '<(App\Domain\User\Dictionary\ContactCivilityDictionary::CIVILITY_MISS)>'
+        firstName: <firstName()>
+        lastName: <lastName()>
+        job: <word()>
+        mail: <email()>
+        phoneNumber: 0<randomNumber(9)>
+
+    user_contact_collectivity_awkan_dpo:
+        civility: '<(App\Domain\User\Dictionary\ContactCivilityDictionary::CIVILITY_MISTER)>'
+        firstName: <firstName()>
+        lastName: <lastName()>
+        job: <word()>
+        mail: <email()>
+        phoneNumber: 0<randomNumber(9)>
+
+    user_contact_collectivity_awkan_manager_it:
+        civility: '<(App\Domain\User\Dictionary\ContactCivilityDictionary::CIVILITY_MISTER)>'
+        firstName: <firstName()>
+        lastName: <lastName()>
+        job: <word()>
+        mail: <email()>
+        phoneNumber: 0<randomNumber(9)>
+
+    # --------------------
+    # COLLECTIVITY SOLURIS
+    # --------------------
+    user_contact_collectivity_soluris_manager_legal:
+        civility: '<(App\Domain\User\Dictionary\ContactCivilityDictionary::CIVILITY_MISTER)>'
+        firstName: <firstName()>
+        lastName: <lastName()>
+        job: <word()>
+        mail: <email()>
+        phoneNumber: 0<randomNumber(9)>
+
+    user_contact_collectivity_soluris_referent:
+        civility: '<(App\Domain\User\Dictionary\ContactCivilityDictionary::CIVILITY_MISS)>'
+        firstName: <firstName()>
+        lastName: <lastName()>
+        job: <word()>
+        mail: <email()>
+        phoneNumber: 0<randomNumber(9)>
+
+    user_contact_collectivity_soluris_manager_it:
+        civility: '<(App\Domain\User\Dictionary\ContactCivilityDictionary::CIVILITY_MISTER)>'
+        firstName: <firstName()>
+        lastName: <lastName()>
+        job: <word()>
+        mail: <email()>
+        phoneNumber: 0<randomNumber(9)>

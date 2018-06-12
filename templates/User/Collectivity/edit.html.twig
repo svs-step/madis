@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'user_collectivity' %}
+
+{% block title %}{{ 'user.collectivity.title.edit'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'user.collectivity.title.edit'|trans }}
+        <small>{{ form.vars.value }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'user.collectivity.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
+        { 'name': 'user.collectivity.breadcrumb.edit'|trans({'%name%': form.vars.value}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('User/Collectivity/_form.html.twig') }}
+{% endblock %}

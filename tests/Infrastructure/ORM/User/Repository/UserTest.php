@@ -18,6 +18,9 @@ use App\Domain\User\Model;
 use App\Domain\User\Repository as DomainRepo;
 use App\Infrastructure\ORM\User\Repository as InfraRepo;
 use App\Tests\Utils\ReflectionTrait;
+use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -31,13 +34,19 @@ class UserTest extends TestCase
     private $registryProphecy;
 
     /**
+     * @var EntityManagerInterface
+     */
+    private $entityManagerProphecy;
+
+    /**
      * @var InfraRepo\User
      */
     private $infraRepo;
 
     public function setUp()
     {
-        $this->registryProphecy = $this->prophesize(RegistryInterface::class);
+        $this->registryProphecy      = $this->prophesize(RegistryInterface::class);
+        $this->entityManagerProphecy = $this->prophesize(EntityManagerInterface::class);
 
         $this->infraRepo = new InfraRepo\User($this->registryProphecy->reveal());
     }
@@ -61,6 +70,128 @@ class UserTest extends TestCase
         $this->assertEquals(
             Model\User::class,
             $this->invokeMethod($this->infraRepo, 'getModelClass')
+        );
+    }
+
+    /**
+     * Test findOneOrNullByEmail.
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function testFindOneOrNullByEmail()
+    {
+        $user  = $this->prophesize(Model\User::class)->reveal();
+        $email = 'foo@email.com';
+
+        // Query
+        $queryProphecy = $this->prophesize(AbstractQuery::class);
+        $queryProphecy->getOneOrNullResult()->shouldBeCalled()->willReturn($user);
+
+        // QueryBuilder
+        $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
+        $queryBuilderProphecy
+            ->select('o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->from(Model\User::class, 'o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->andWhere('o.email = :email')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->setParameter('email', $email)
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->getQuery()
+            ->shouldBeCalled()
+            ->willReturn($queryProphecy->reveal())
+        ;
+
+        // EntityManager
+        $this->entityManagerProphecy
+            ->createQueryBuilder()
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy->reveal());
+
+        // Registry
+        $this->registryProphecy
+            ->getManager()
+            ->shouldBeCalled()
+            ->willReturn($this->entityManagerProphecy->reveal())
+        ;
+
+        $this->assertEquals(
+            $user,
+            $this->infraRepo->findOneOrNullByEmail($email)
+        );
+    }
+
+    /**
+     * Test findOneOrNullByToken.
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function testFindOneOrNullByToken()
+    {
+        $user  = $this->prophesize(Model\User::class)->reveal();
+        $token = 'fooToken';
+
+        // Query
+        $queryProphecy = $this->prophesize(AbstractQuery::class);
+        $queryProphecy->getOneOrNullResult()->shouldBeCalled()->willReturn($user);
+
+        // QueryBuilder
+        $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
+        $queryBuilderProphecy
+            ->select('o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->from(Model\User::class, 'o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->andWhere('o.forgetPasswordToken = :forgetPasswordToken')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->setParameter('forgetPasswordToken', $token)
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->getQuery()
+            ->shouldBeCalled()
+            ->willReturn($queryProphecy->reveal())
+        ;
+
+        // EntityManager
+        $this->entityManagerProphecy
+            ->createQueryBuilder()
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy->reveal());
+
+        // Registry
+        $this->registryProphecy
+            ->getManager()
+            ->shouldBeCalled()
+            ->willReturn($this->entityManagerProphecy->reveal())
+        ;
+
+        $this->assertEquals(
+            $user,
+            $this->infraRepo->findOneOrNullByForgetPasswordToken($token)
         );
     }
 }

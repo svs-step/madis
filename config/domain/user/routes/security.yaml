@@ -1,8 +1,26 @@
 login:
     path: '/connexion'
+    methods: ['GET', 'POST']
     defaults:
         _controller: 'App\Domain\User\Controller\SecurityController:loginAction'
 
-
 logout:
-    path: /deconnexion
+    path: '/deconnexion'
+
+forget_password:
+    path: '/mot-de-passe-oublie'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\User\Controller\SecurityController:forgetPasswordAction'
+
+forget_password_confirm:
+    path: '/mot-de-passe-oublie'
+    methods: ['POST']
+    defaults:
+        _controller: 'App\Domain\User\Controller\SecurityController:forgetPasswordConfirmAction'
+
+reset_password:
+    path: '/reinitialisation-de-mot-de-passe/{token}'
+    methods: ['GET', 'POST']
+    defaults:
+        _controller: 'App\Domain\User\Controller\SecurityController:resetPasswordAction'

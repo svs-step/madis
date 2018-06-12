@@ -14,7 +14,25 @@ declare(strict_types=1);
 namespace App\Domain\User\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
+use App\Domain\User\Model;
 
 interface User extends CRUDRepositoryInterface
 {
+    /**
+     * Get a user by it email.
+     *
+     * @param string $email The email to search
+     *
+     * @return Model\User|null The related user or null if not exists
+     */
+    public function findOneOrNullByEmail(string $email): ?Model\User;
+
+    /**
+     * Get a user by it forgetPasswordToken.
+     *
+     * @param string $token The token to search
+     *
+     * @return Model\User|null The related user or null if not exists
+     */
+    public function findOneOrNullByForgetPasswordToken(string $token): ?Model\User;
 }

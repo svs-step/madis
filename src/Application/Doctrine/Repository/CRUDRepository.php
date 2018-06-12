@@ -47,7 +47,7 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
     protected function createQueryBuilder()
     {
         return $this->registry
-            ->getEntityManager()
+            ->getManager()
             ->createQueryBuilder()
             ->select('o')
             ->from($this->getModelClass(), 'o')

@@ -1,0 +1,12 @@
+App\Domain\User\Model\Embeddable\Address:
+    user_address_collectivity_awkan:
+        lineOne: <words(3, true)>
+        lineTwo: <words(3, true)>
+        city: <word()>
+        zipCode: <randomNumber(5)>
+        insee: <word()>
+    user_address_collectivity_soluris:
+        lineOne: <words(3, true)>
+        city: <word()>
+        zipCode: <randomNumber(5)>
+        insee: <word()>

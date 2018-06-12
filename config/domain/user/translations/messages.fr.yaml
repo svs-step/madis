@@ -1,9 +1,97 @@
 user:
-    login:
-        verbatim: Connectez vous pour accéder à l'application
-        remember_me: Se souvenir de moi
-        password: Mot de passe
-        username: Email
+    address:
+        form:
+            insee: INSEE
+            line_one: Ligne 1
+            line_two: Ligne 2
+            city: Ville
+            zip_code: Code postal
+
+    contact:
+        form:
+            civility: Civilité
+            first_name: Prénom
+            last_name: Nom
+            job: Fonction
+            mail: Email
+            phone_number: Téléphone
+
+    collectivity:
+        action:
+            back_to_list: Retour à la liste
+            new: Nouvelle collectivité
+        breadcrumb:
+            list: Liste des collectivités
+            create: Créer
+            edit: Éditer "%name%"
+            delete: Supprimer "%name%"
+        form:
+            active: Statut
+            address: Adresse
+            help:
+              dpo: Ces informations sont facultatives. À défaut, le DPO renseigné par SOLURIS sera utilisé.
+              it_manager: Si différent du référent RGPD
+            name: Nom
+            placeholder:
+                website: https://
+            short_name: Nom court
+            siren: SIREN
+            type: Type
+            website: Site internet
+        flashbag:
+            success:
+                create: Collectivité "%object%" créée avec succès
+                edit: Collectivité "%object%" éditée avec succès
+                delete: Collectivité "%object%" supprimée avec succès
+        list:
+            active: Statut
+            name: Nom
+            short_name: Nom court
+            siren: SIREN
+            type: Type
+        modal:
+            confirm_deletion: Voulez-vous vraiment supprimer cette collectivité ?
+        tab:
+          address: Adresse
+          dpo: DPO
+          legal_manager: Responsable légal
+          it_manager: Responsable informatique
+          referent: Référent RGPD
+          general: Informations générales
+        title:
+            create: Créer une collectivité
+            edit: Éditer une collectivité
+            list: Liste des collectivités
+            delete: Supprimer une collectivité
+
+    security:
+        forget_password:
+            back_to_login: Retour à la page de connexion
+            email: Email
+            verbatim: Réinitialisation du mot de passe
+        forget_password_confirm:
+            back_to_login: Retour à la page de connexion
+            flashbag:
+                error: Aucun compte n'est associé à l'email %email%
+            message: Cliquez sur le lien présent dans ce dernier pour réinitialiser votre mot de passe.
+            verbatim: Un email vient de vous être envoyé !
+        login:
+            forget_password: Mot de passe oublié ?
+            password: Mot de passe
+            remember_me: Se souvenir de moi
+            username: Email
+            verbatim: Connectez vous pour accéder à l'application
+        reset_password:
+          flashbag:
+              error: Aucun compte associé à cette clé d'authentification
+              success: Votre mot de passe vient d'être réinitialisé
+          verbatim: Réinitialisation de votre mot de passe
+        title:
+            forget_password: Mot de passe oublié
+            forget_password_confirm: Mot de passe oublié
+            login: Connexion
+            reset_password: Réinitialisation de mot de passe
+
     user:
         action:
             back_to_list: Retour à la liste
@@ -18,6 +106,8 @@ user:
             email: E-mail
             first_name: Prénom
             last_name: Nom
+            password: Mot de passe
+            password_repeat: Répéter le mot de passe
             roles: Role
         flashbag:
             success:
@@ -28,9 +118,8 @@ user:
             collectivity: Collectivité
             email: E-mail
             first_name: Prénom
-            id: ID
             last_name: Nom
-            roles: Role(s)
+            roles: Role
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cet utilisateur ?
         title:
