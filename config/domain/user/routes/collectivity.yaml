@@ -16,6 +16,12 @@ user_collectivity_edit:
     defaults:
         _controller: 'App\Domain\User\Controller\CollectivityController:editAction'
 
+user_collectivity_show:
+    path: '/visualiser/{id}'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\User\Controller\CollectivityController:showAction'
+
 user_collectivity_delete:
     path: '/supprimer/{id}'
     methods: ['GET']

@@ -1,0 +1,262 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'user_collectivity' %}
+
+{% block title %}{{ 'user.collectivity.title.show'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'user.collectivity.title.show'|trans }}
+        <small>{{ object }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'user.collectivity.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
+        { 'name': 'user.collectivity.breadcrumb.show'|trans({'%name%': object}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="action-bar">
+                <a href="{{ path('user_collectivity_edit', {'id': object.id}) }}" class="btn btn-default">
+                    <i class="fa fa-pencil-alt"></i>
+                    {{ 'user.collectivity.action.edit'|trans }}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.general'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.name'|trans }}</strong></td>
+                            <td>{{ object.name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.short_name'|trans }}</strong></td>
+                            <td>{{ object.shortName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.type'|trans }}</strong></td>
+                            <td>{{ object.type }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.siren'|trans }}</strong></td>
+                            <td>{{ object.siren|number_format(0, '.', ' ') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.active'|trans }}</strong></td>
+                            <td>
+                                {% if object.active %}
+                                    <span class="label label-success">{{ 'label.active'|trans }}</span>
+                                {% else %}
+                                    <span class="label label-danger">{{ 'label.inactive'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.website'|trans }}</strong></td>
+                            <td>{{ object.website }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.address'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.address_line_one'|trans }}</strong></td>
+                            <td>{{ object.address.lineOne }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.address_line_two'|trans }}</strong></td>
+                            <td>{{ object.address.lineTwo }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.address_zip_code'|trans }}</strong></td>
+                            <td>{{ object.address.zipCode }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.address_city'|trans }}</strong></td>
+                            <td>{{ object.address.city }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.address_insee'|trans }}</strong></td>
+                            <td>{{ object.address.insee }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.legal_manager'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
+                            <td>{{ object.legalManager.civility|dictionary('user_contact_civility') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
+                            <td>{{ object.legalManager.firstName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
+                            <td>{{ object.legalManager.lastName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
+                            <td>{{ object.legalManager.job }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
+                            <td>{{ object.legalManager.mail }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
+                            <td>{{ object.legalManager.phoneNumber }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.it_manager'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
+                            <td>{{ object.itManager.civility|dictionary('user_contact_civility') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
+                            <td>{{ object.itManager.firstName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
+                            <td>{{ object.itManager.lastName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
+                            <td>{{ object.itManager.job }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
+                            <td>{{ object.itManager.mail }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
+                            <td>{{ object.itManager.phoneNumber }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.referent'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
+                            <td>{{ object.referent.civility|dictionary('user_contact_civility') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
+                            <td>{{ object.referent.firstName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
+                            <td>{{ object.referent.lastName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
+                            <td>{{ object.referent.job }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
+                            <td>{{ object.referent.mail }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
+                            <td>{{ object.referent.phoneNumber }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.dpo'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
+                            <td>
+                                {% if object.dpo.firstname is not null %}
+                                    {{ object.dpo.civility|dictionary('user_contact_civility') }}
+                                {% else %}
+                                    {{ default_dpo_civility|dictionary('user_contact_civility') }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
+                            <td>{{ object.dpo.firstName|default(default_dpo_firstName) }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
+                            <td>{{ object.dpo.lastName|default(default_dpo_lastName) }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
+                            <td>{{ object.dpo.job|default(default_dpo_job) }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
+                            <td>{{ object.dpo.mail|default(default_dpo_mail) }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
+                            <td>{{ object.dpo.phoneNumber|default(default_dpo_phoneNumber) }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

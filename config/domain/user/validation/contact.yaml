@@ -35,7 +35,3 @@ App\Domain\User\Model\Embeddable\Contact:
                 max: 10
                 exactMessage: 'user_contact.phone_number.length'
                 groups: ['default']
-            - Type:
-                type: int
-                message: 'user_contact.phone_number.type'
-                groups: ['default']
