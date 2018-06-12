@@ -118,7 +118,6 @@ user:
             collectivity: Collectivité
             email: E-mail
             first_name: Prénom
-            id: ID
             last_name: Nom
             roles: Role
         modal:

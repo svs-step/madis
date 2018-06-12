@@ -38,7 +38,6 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>{{ 'user.user.list.id'|trans }}</th>
                             <th>{{ 'user.user.list.first_name'|trans }}</th>
                             <th>{{ 'user.user.list.last_name'|trans }}</th>
                             <th>{{ 'user.user.list.email'|trans }}</th>
@@ -50,7 +49,6 @@
                         <tbody>
                         {% for object in objects %}
                         <tr>
-                            <td>{{ object.id }}</td>
                             <td>{{ object.firstName }}</td>
                             <td>{{ object.lastName }}</td>
                             <td>{{ object.email }}</td>
