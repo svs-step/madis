@@ -215,6 +215,26 @@ abstract class CRUDController extends Controller
     }
 
     /**
+     * The show action view
+     * Display the object information.
+     *
+     * @param string $id The ID of the data to display
+     *
+     * @return Response
+     */
+    public function showAction(string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        return $this->render($this->getTemplatingBasePath('show'), [
+            'object' => $object,
+        ]);
+    }
+
+    /**
      * The delete action view
      * Display a confirmation message to confirm data deletion.
      *

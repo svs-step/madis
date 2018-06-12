@@ -8,10 +8,11 @@ user_contact:
     mail:
         email: L'adresse email doit être valide
         not_blank: l'adresse email est obligatoire
-    phoneNumber:
+    phone_number:
         length: Le numéro de téléphone doit être composé de {{ limit }} chiffres
         not_blank: Le numéro de téléphone est obligatoire
         type: Le numéro de téléphone ne doit être composé que par des chiffres
+
 user_collectivity:
     name:
         max_length: Le nom doit faire au maximum {{ limit }} caractères
@@ -21,8 +22,6 @@ user_collectivity:
         not_blank: Vous devez renseigner un nom court
     siren:
         not_blank: Vous devez renseigner un numéro de SIREN
-    type:
-        not_blank: Vous devez renseigner un type de collectivité
     website:
         url: Vous devez renseigner un site web valide
 

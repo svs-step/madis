@@ -20,11 +20,13 @@ user:
         action:
             back_to_list: Retour à la liste
             new: Nouvelle collectivité
+            edit: Éditer
         breadcrumb:
-            list: Liste des collectivités
             create: Créer
-            edit: Éditer "%name%"
             delete: Supprimer "%name%"
+            edit: Éditer "%name%"
+            list: Liste des collectivités
+            show: Visualiser "%name%"
         form:
             active: Statut
             address: Adresse
@@ -51,6 +53,24 @@ user:
             type: Type
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cette collectivité ?
+        show:
+            address_line_one: Adresse
+            address_line_two: Complément d'adresse
+            address_zip_code: Code postal
+            address_city: Ville
+            address_insee: N° INSEE
+            contact_civility: Civilité
+            contact_first_name: Prénom
+            contact_last_name: Nom
+            contact_job: Fonction
+            contact_mail: Email
+            contact_phone_number: N° tél.
+            name: Nom
+            short_name: Nom court
+            type: Type
+            siren: SIREN
+            active: Statut
+            website: Site internet
         tab:
           address: Adresse
           dpo: DPO
@@ -60,9 +80,10 @@ user:
           general: Informations générales
         title:
             create: Créer une collectivité
+            delete: Supprimer une collectivité
             edit: Éditer une collectivité
             list: Liste des collectivités
-            delete: Supprimer une collectivité
+            show: Visualiser une collectivité
 
     security:
         forget_password:
