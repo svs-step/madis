@@ -18,6 +18,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Translation\TranslatorInterface;
 
 abstract class CRUDController extends Controller
@@ -193,7 +194,10 @@ abstract class CRUDController extends Controller
     public function editAction(Request $request, string $id): Response
     {
         $object = $this->repository->findOneById($id);
-        $form   = $this->createForm($this->getFormType(), $object);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+        $form = $this->createForm($this->getFormType(), $object);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -221,6 +225,9 @@ abstract class CRUDController extends Controller
     public function deleteAction(string $id): Response
     {
         $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
 
         return $this->render($this->getTemplatingBasePath('delete'), [
             'object' => $object,
@@ -238,6 +245,10 @@ abstract class CRUDController extends Controller
     public function deleteConfirmationAction(string $id): Response
     {
         $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
         $this->entityManager->remove($object);
         $this->entityManager->flush();
 
