@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Composer
+composer install --prefer-dist --no-interaction --optimize-autoloader
+
+# CSS & JS
+yarn
+yarn run encore production
+
+# Cache
+bin/console cache:clear --env=prod --no-debug
+bin/console cache:warmup --env=prod --no-debug
