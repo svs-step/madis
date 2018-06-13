@@ -6,6 +6,10 @@ twig:
     form_themes:
         - 'bootstrap_3_horizontal_layout.html.twig'
 
+    date:
+        format: d/m/Y H:i
+        timezone: Europe/Paris
+
     globals:
         applicationName: '%env(APP_APPLICATION_NAME)%'
         default_dpo_civility: '%env(APP_DPO_CIVILITY)%'

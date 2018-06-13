@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\User\Model;
 
+use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
@@ -20,6 +21,16 @@ use Ramsey\Uuid\UuidInterface;
 
 class CollectivityTest extends TestCase
 {
+    public function testTraits()
+    {
+        $this->assertEquals(
+            [
+                HistoryTrait::class => HistoryTrait::class,
+            ],
+            \class_uses(Collectivity::class)
+        );
+    }
+
     public function testConstruct()
     {
         $model = new Collectivity();

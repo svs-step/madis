@@ -13,34 +13,24 @@ declare(strict_types=1);
 
 namespace App\Application\Symfony\EventSubscriber;
 
-use App\Application\Symfony\Security\UserProvider;
-use App\Application\Traits\Model\CollectivityTrait;
-use App\Domain\User\Model\User;
+use App\Application\Traits\Model\HistoryTrait;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
-class LinkCollectivitySubscriber implements EventSubscriber
+class HistorySubscriber implements EventSubscriber
 {
-    /**
-     * @var UserProvider
-     */
-    private $userProvider;
-
-    public function __construct(UserProvider $userProvider)
-    {
-        $this->userProvider = $userProvider;
-    }
-
     public function getSubscribedEvents()
     {
         return [
             'prePersist',
+            'preUpdate',
         ];
     }
 
     /**
      * PrePersist
-     * Link user collectivity to object.
+     * - Add createdAt date
+     * - Add updatedAt date.
      *
      * @param LifecycleEventArgs $args
      *
@@ -49,11 +39,28 @@ class LinkCollectivitySubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args): void
     {
         $object = $args->getObject();
-        $user   = $this->userProvider->getAuthenticatedUser();
         $uses   = \class_uses($object);
 
-        if (\in_array(CollectivityTrait::class, $uses) && $user instanceof User) {
-            $object->setCollectivity($user->getCollectivity());
+        if (\in_array(HistoryTrait::class, $uses)) {
+            $object->setCreatedAt(new \DateTimeImmutable());
+            $object->setUpdatedAt(new \DateTimeImmutable());
+        }
+    }
+
+    /**
+     * PreUpdate
+     * - Update updatedAt date.
+     *
+     * @param LifecycleEventArgs $args
+     *
+     * @throws \Exception
+     */
+    public function preUpdate(LifecycleEventArgs $args): void
+    {
+        $object = $args->getObject();
+
+        if (\method_exists($object, 'setUpdatedAt')) {
+            $object->setUpdatedAt(new \DateTimeImmutable());
         }
     }
 }

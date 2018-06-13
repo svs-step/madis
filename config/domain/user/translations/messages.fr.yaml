@@ -54,6 +54,7 @@ user:
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cette collectivité ?
         show:
+            active: Statut
             address_line_one: Adresse
             address_line_two: Complément d'adresse
             address_zip_code: Code postal
@@ -65,19 +66,21 @@ user:
             contact_job: Fonction
             contact_mail: Email
             contact_phone_number: N° tél.
+            created_at: Date de création
             name: Nom
             short_name: Nom court
-            type: Type
             siren: SIREN
-            active: Statut
+            type: Type
+            updated_at: Date de dernière modification
             website: Site internet
         tab:
           address: Adresse
           dpo: DPO
-          legal_manager: Responsable légal
-          it_manager: Responsable informatique
-          referent: Référent RGPD
           general: Informations générales
+          historic: Historique
+          it_manager: Responsable informatique
+          legal_manager: Responsable légal
+          referent: Référent RGPD
         title:
             create: Créer une collectivité
             delete: Supprimer une collectivité

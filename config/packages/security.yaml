@@ -36,9 +36,10 @@ security:
         - { path: ^/deconnexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/mot-de-passe-oublie, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reinitialisation-de-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        # Admin routes
+        # Manager routes
         - { path: ^/.+/creer$, roles: ROLE_USER }
         - { path: ^/.+/editer/.+$, roles: ROLE_USER }
+        # Admin routes
         - { path: ^/collectivites, roles: ROLE_ADMIN }
         - { path: ^/utilisateurs, roles: ROLE_ADMIN }
         # Others
