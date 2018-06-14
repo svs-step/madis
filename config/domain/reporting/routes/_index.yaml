@@ -1,2 +1,6 @@
 _reporting_dashboard:
     resource: 'dashboard.yaml'
+
+_reporting_review:
+    resource: 'review.yaml'
+    prefix: '/bilan'
