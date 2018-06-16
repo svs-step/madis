@@ -1,0 +1,19 @@
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+
+<div class="box box-solid">
+    <div class="box-header"></div>
+    {{ form_start(form) }}
+    <div class="box-body">
+        {{ form_row(form.name) }}
+        {{ form_rest(form) }}
+    </div>
+    <div class="box-footer text-center">
+        <a href="{{ path('registry_contractor_list') }}" class="btn btn-default">
+            {{ 'registry.contractor.action.back_to_list'|trans }}
+        </a>
+        <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+    </div>
+    {{ form_end(form) }}
+</div>
+
+

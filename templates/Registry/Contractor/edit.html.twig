@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_contractor' %}
+
+{% block title %}{{ 'registry.contractor.title.edit'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'registry.contractor.title.edit'|trans }}
+        <small>{{ form.vars.value }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.contractor.breadcrumb.list'|trans, 'link': path('registry_contractor_list') },
+        { 'name': 'registry.contractor.breadcrumb.edit'|trans({'%name%': form.vars.value}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            {{ include('Registry/contractor/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

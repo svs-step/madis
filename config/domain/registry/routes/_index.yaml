@@ -1,3 +1,7 @@
+_registry_contractor:
+    resource: 'contractor.yaml'
+    prefix:   '/sous-traitants'
+
 _registry_treatment:
     resource: 'treatment.yaml'
     prefix:   '/traitements'

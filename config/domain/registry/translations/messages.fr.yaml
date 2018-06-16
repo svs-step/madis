@@ -1,4 +1,32 @@
 registry:
+
+    contractor:
+        action:
+            back_to_list: Retour à la liste
+            new: Nouveau sous-traitant
+        breadcrumb:
+            list: Liste des sous-traitants
+            create: Créer
+            edit: Éditer "%name%"
+            delete: Supprimer "%name%"
+        form:
+            name: Nom
+        flashbag:
+            success:
+                create: Sous-traitant "%object%" créé avec succès
+                edit: Sous-traitant "%object%" édité avec succès
+                delete: Sous-traitant "%object%" supprimé avec succès
+        list:
+            collectivity: Collectivité
+            name: Nom
+        modal:
+            confirm_deletion: Voulez-vous vraiment supprimer ce sous-traitant ?
+        title:
+            create: Créer un sous-traitant
+            edit: Éditer un sous-traitant
+            list: Liste des sous-traitants
+            delete: Supprimer un sous-traitant
+
     treatment:
         action:
             back_to_list: Retour à la liste
