@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Domain\Registry\Model\Treatment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TreatmentType extends AbstractType
 {
@@ -27,5 +29,17 @@ class TreatmentType extends AbstractType
                 'required' => true,
             ])
         ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver
+            ->setDefaults([
+                'data_class'        => Treatment::class,
+                'validation_groups' => [
+                    'default',
+                    'treatment',
+                ],
+            ]);
     }
 }

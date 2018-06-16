@@ -1,3 +1,14 @@
+user_address:
+    city:
+        not_blank: Vous devez renseigner une ville
+    line_one:
+        not_blank: Vous devez renseigner une adresse
+    insee:
+        not_blank: Vous devez renseigner un numéro INSEE
+    zip_code:
+        length: Le code postal doit être composé de {{ limit }} chiffres
+        not_blank: Vous devez renseigner un code postal
+
 user_contact:
     civility:
         not_blank: La civilité est obligatoire
@@ -22,6 +33,8 @@ user_collectivity:
         not_blank: Vous devez renseigner un nom court
     siren:
         not_blank: Vous devez renseigner un numéro de SIREN
+    type:
+        not_blank: Vous devez renseigner le type de la collectivité
     website:
         url: Vous devez renseigner un site web valide
 
@@ -31,6 +44,7 @@ user_user:
     last_name:
         not_blank: Vous devez renseigner un nom
     email:
+        email: L'adresse email doit être valide
         not_blank: Vous devez renseigner un email
     roles:
         max_count: Vous devez sélectionner au maximum {{ limit }} role

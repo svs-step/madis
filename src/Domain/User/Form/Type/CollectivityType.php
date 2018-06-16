@@ -92,7 +92,11 @@ class CollectivityType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'validation_groups' => 'default',
+                'validation_groups' => [
+                    'default',
+                    'collectivity_legal_manager',
+                    'collectivity_referent',
+                ],
             ]);
     }
 }

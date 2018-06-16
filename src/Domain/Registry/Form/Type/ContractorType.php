@@ -13,9 +13,12 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Domain\Registry\Model\Contractor;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContractorType extends AbstractType
 {
@@ -26,6 +29,35 @@ class ContractorType extends AbstractType
                 'label'    => 'registry.contractor.form.name',
                 'required' => true,
             ])
+            ->add('referent', TextType::class, [
+                'label'    => 'registry.contractor.form.referent',
+                'required' => true,
+            ])
+            ->add('contractualClausesVerified', CheckboxType::class, [
+                'label'    => 'registry.contractor.form.contractual_clauses_verified',
+                'required' => false,
+            ])
+            ->add('conform', CheckboxType::class, [
+                'label'    => 'registry.contractor.form.conform',
+                'required' => false,
+            ])
+            ->add('address', AddressType::class, [
+                'label'             => 'registry.contractor.form.address',
+                'required'          => true,
+                'validation_groups' => ['default', 'contractor'],
+            ])
         ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver
+            ->setDefaults([
+                'data_class'        => Contractor::class,
+                'validation_groups' => [
+                    'default',
+                    'contractor',
+                ],
+            ]);
     }
 }

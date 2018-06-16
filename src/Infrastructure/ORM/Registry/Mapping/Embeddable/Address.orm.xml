@@ -5,13 +5,14 @@
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                             https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <embeddable name="App\Domain\User\Model\Embeddable\Address">
+    <embeddable name="App\Domain\Registry\Model\Embeddable\Address">
 
         <field name="lineOne" column="line_one"/>
         <field name="lineTwo" column="line_two" nullable="true"/>
         <field name="city" column="city"/>
         <field name="zipCode" column="zip_code" type="integer"/>
-        <field name="insee" column="insee"/>
+        <field name="mail" column="mail"/>
+        <field name="phoneNumber" column="phone_number" length="10" nullable="true"/>
 
     </embeddable>
 

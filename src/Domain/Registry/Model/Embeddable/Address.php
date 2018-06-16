@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Model\Embeddable;
+namespace App\Domain\Registry\Model\Embeddable;
 
 class Address
 {
@@ -38,7 +38,12 @@ class Address
     /**
      * @var string
      */
-    private $insee;
+    private $mail;
+
+    /**
+     * @var string
+     */
+    private $phoneNumber;
 
     /**
      * @return string|null
@@ -107,16 +112,32 @@ class Address
     /**
      * @return string|null
      */
-    public function getInsee(): ?string
+    public function getMail(): ?string
     {
-        return $this->insee;
+        return $this->mail;
     }
 
     /**
-     * @param string|null $insee
+     * @param string|null $mail
      */
-    public function setInsee(?string $insee): void
+    public function setMail(?string $mail): void
     {
-        $this->insee = $insee;
+        $this->mail = $mail;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    /**
+     * @param string|null $phoneNumber
+     */
+    public function setPhoneNumber(?string $phoneNumber): void
+    {
+        $this->phoneNumber = $phoneNumber;
     }
 }

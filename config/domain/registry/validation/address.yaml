@@ -1,0 +1,35 @@
+App\Domain\Registry\Model\Embeddable\Address:
+    properties:
+        city:
+            - NotBlank:
+                message: 'registry_address.city.not_blank'
+                groups: ['contractor']
+        lineOne:
+            - NotBlank:
+                message: 'registry_address.line_one.not_blank'
+                groups: ['contractor']
+        mail:
+            - Email:
+                message: 'registry_address.mail.email'
+                groups: ['default']
+            - NotBlank:
+                message: 'registry_address.mail.not_blank'
+                groups: ['contractor']
+        phoneNumber:
+            - NotBlank:
+                message: 'registry_address.phone_number.not_blank'
+                groups: ['contractor']
+            - Length:
+                min: 10
+                max: 10
+                exactMessage: 'registry_address.phone_number.length'
+                groups: ['default']
+        zipCode:
+            - NotBlank:
+                message: 'registry_address.zip_code.not_blank'
+                groups: ['contractor']
+            - Length:
+                min: 5
+                max: 5
+                exactMessage: 'registry_address.zip_code.length'
+                groups: ['default']

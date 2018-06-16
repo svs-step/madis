@@ -15,6 +15,7 @@ namespace App\Tests\Domain\User\Form\Type;
 
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Form\Type\UserType;
+use App\Domain\User\Model\User;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Prophecy\Argument;
@@ -54,7 +55,11 @@ class UserTypeTest extends FormTypeHelper
     public function testConfigureOptions(): void
     {
         $defaults = [
-            'validation_groups' => 'default',
+            'data_class'        => User::class,
+            'validation_groups' => [
+                'default',
+                'user',
+            ],
         ];
 
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
