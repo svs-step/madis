@@ -26,6 +26,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/ORM/Registry/Mapping'
                 prefix: App\Domain\Registry\Model
                 alias: Registry
+            RegistryEmbeddable:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/ORM/Registry/Mapping/Embeddable'
+                prefix: App\Domain\Registry\Model\Embeddable
+                alias: RegistryEmbeddable
             User:
                 is_bundle: false
                 type: xml

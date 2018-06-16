@@ -1,6 +1,27 @@
+registry_address:
+    city:
+        not_blank: Vous devez renseigner une ville
+    line_one:
+        not_blank: Vous devez renseigner une adresse
+    mail:
+        email: Vous devez renseigner un email valide
+        not_blank: Vous devez renseigner un email
+    phone_number:
+        length: Le numéro de téléphone doit être composé de {{ limit }} chiffres
+        not_blank: Vous devez renseigner un numéro de téléphone
+    zip_code:
+        length: Le code postal doit être composé de {{ limit }} chiffres
+        not_blank: Vous devez renseigner un code postal
+
 registry_contractor:
+    conform:
+        not_null: La conformité RGPD doit être renseignée
+    contractual_clauses_verified:
+        not_null: Les clauses contractuelles doivent être renseignées
     name:
         not_blank: Vous devez renseigner un nom
+    referent:
+        not_blank: Vous devez renseigner le nom de la personne référente
 
 registry_treatment:
     name:

@@ -14,9 +14,11 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Registry\Form\Type;
 
 use App\Domain\Registry\Form\Type\TreatmentType;
+use App\Domain\Registry\Model\Treatment;
 use App\Tests\Utils\FormTypeHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TreatmentTypeTest extends FormTypeHelper
 {
@@ -32,5 +34,21 @@ class TreatmentTypeTest extends FormTypeHelper
         ];
 
         (new TreatmentType())->buildForm($this->prophesizeBuilder($builder), []);
+    }
+
+    public function testConfigureOptions(): void
+    {
+        $defaults = [
+            'data_class'        => Treatment::class,
+            'validation_groups' => [
+                'default',
+                'treatment',
+            ],
+        ];
+
+        $resolverProphecy = $this->prophesize(OptionsResolver::class);
+        $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
+
+        (new TreatmentType())->configureOptions($resolverProphecy->reveal());
     }
 }

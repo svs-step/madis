@@ -15,6 +15,7 @@ namespace App\Domain\User\Form\Type;
 
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -64,7 +65,11 @@ class UserType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'validation_groups' => 'default',
+                'data_class'        => User::class,
+                'validation_groups' => [
+                    'default',
+                    'user',
+                ],
             ]);
     }
 }

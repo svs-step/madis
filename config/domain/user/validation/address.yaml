@@ -1,0 +1,23 @@
+App\Domain\User\Model\Embeddable\Address:
+    properties:
+        city:
+            - NotBlank:
+                message: 'user_address.city.not_blank'
+                groups: ['default']
+        lineOne:
+            - NotBlank:
+                message: 'user_address.line_one.not_blank'
+                groups: ['default']
+        insee:
+            - NotBlank:
+                message: 'user_address.insee.not_blank'
+                groups: ['default']
+        zipCode:
+            - NotBlank:
+                message: 'user_address.zip_code.not_blank'
+                groups: ['default']
+            - Length:
+                min: 5
+                max: 5
+                exactMessage: 'user_address.zip_code.length'
+                groups: ['default']

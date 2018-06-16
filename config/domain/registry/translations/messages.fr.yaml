@@ -1,5 +1,15 @@
 registry:
 
+    address:
+        form:
+            city: Ville
+            line_one: Adresse
+            line_two: Compl. adresse
+            mail: Email
+            phone_number: N° de tel
+            zip_code: Code postal
+
+
     contractor:
         action:
             back_to_list: Retour à la liste
@@ -11,6 +21,9 @@ registry:
             delete: Supprimer "%name%"
         form:
             name: Nom
+            contractual_clauses_verified: Clauses contractuelles vérifiées
+            conform: Conforme RGPD
+            referent: Personne référente
         flashbag:
             success:
                 create: Sous-traitant "%object%" créé avec succès
@@ -21,6 +34,10 @@ registry:
             name: Nom
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce sous-traitant ?
+        tab:
+            address: Adresse
+            contact: Contact
+            general: Informations générales
         title:
             create: Créer un sous-traitant
             edit: Éditer un sous-traitant

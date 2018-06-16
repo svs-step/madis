@@ -11,6 +11,11 @@
         <id name="id" column="id" type="uuid"/>
 
         <field name="name" column="name"/>
+        <field name="referent" column="referent"/>
+        <field name="contractualClausesVerified" column="contractual_clauses_verified" type="boolean"/>
+        <field name="conform" column="conform" type="boolean"/>
+
+        <embedded name="address" class="App\Domain\Registry\Model\Embeddable\Address" column-prefix="address_"/>
 
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity"/>
