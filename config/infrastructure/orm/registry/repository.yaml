@@ -7,4 +7,5 @@ services:
     App\Infrastructure\ORM\Registry\Repository\:
         resource: '../../../../src/Infrastructure/ORM/Registry/Repository'
 
+    App\Domain\Registry\Repository\Contractor: '@App\Infrastructure\ORM\Registry\Repository\Contractor'
     App\Domain\Registry\Repository\Treatment: '@App\Infrastructure\ORM\Registry\Repository\Treatment'

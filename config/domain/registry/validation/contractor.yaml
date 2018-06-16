@@ -1,0 +1,4 @@
+App\Domain\Registry\Model\Contractor:
+    properties:
+        name:
+            - NotBlank: { message: 'registry_contractor.name.not_blank' }

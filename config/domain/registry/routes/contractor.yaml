@@ -1,0 +1,29 @@
+registry_contractor_list:
+    path: '/liste'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\ContractorController:listAction'
+
+registry_contractor_create:
+    path: '/creer'
+    methods: ['GET', 'POST']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\ContractorController:createAction'
+
+registry_contractor_edit:
+    path: '/editer/{id}'
+    methods: ['GET', 'POST']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\ContractorController:editAction'
+
+registry_contractor_delete:
+    path: '/supprimer/{id}'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\ContractorController:deleteAction'
+
+registry_contractor_delete_confirm:
+    path: '/supprimer/{id}/confirmation'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\ContractorController:deleteConfirmationAction'

@@ -1,3 +1,7 @@
+registry_contractor:
+    name:
+        not_blank: Vous devez renseigner un nom
+
 registry_treatment:
     name:
-        not_null: Vous devez renseigner un nom
+        not_blank: Vous devez renseigner un nom

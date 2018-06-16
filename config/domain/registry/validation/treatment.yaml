@@ -1,0 +1,4 @@
+App\Domain\Registry\Model\Treatment:
+    properties:
+        name:
+            - NotBlank: { message: 'registry_treatment.name.not_blank' }

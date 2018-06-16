@@ -1,4 +1,0 @@
-App\Domain\Registry\Model\Treatment:
-    properties:
-        name:
-            - NotNull: { message: 'registry_treatment.name.not_null' }

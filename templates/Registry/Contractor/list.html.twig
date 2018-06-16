@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'registry_treatment' %}
+{% set bodyClass = 'registry_contractor' %}
 
-{% block title %}{{ 'registry.treatment.title.list'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'registry.contractor.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'registry.treatment.title.list'|trans }}</h1>
+    <h1>{{ 'registry.contractor.title.list'|trans }}</h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'registry.treatment.title.list'|trans }
+        { 'name': 'registry.contractor.title.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -24,9 +24,9 @@
         {% if is_granted('ROLE_USER') %}
             <div class="col-xs-12">
                 <div class="action-bar">
-                    <a href="{{ path('registry_treatment_create') }}" class="btn btn-default">
+                    <a href="{{ path('registry_contractor_create') }}" class="btn btn-default">
                         <i class="fa fa-plus"></i>
-                        {{ 'registry.treatment.action.new'|trans }}
+                        {{ 'registry.contractor.action.new'|trans }}
                     </a>
                 </div>
             </div>
@@ -40,13 +40,10 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>{{ 'registry.treatment.list.id'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.name'|trans }}</th>
+                            <th>{{ 'registry.contractor.list.name'|trans }}</th>
                             {% if is_granted('ROLE_ADMIN') %}
-                                <th>{{ 'registry.treatment.list.collectivity'|trans }}</th>
+                                <th>{{ 'registry.contractor.list.collectivity'|trans }}</th>
                             {% endif %}
-                            <th>{{ 'registry.treatment.list.created_at'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.updated_at'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th>{{ 'label.actions'|trans }}</th>
                             {% endif %}
@@ -55,20 +52,17 @@
                         <tbody>
                         {% for object in objects %}
                         <tr>
-                            <td>{{ object.id }}</td>
                             <td>{{ object.name }}</td>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <td>{{ object.collectivity }}</td>
                             {% endif %}
-                            <td>{{ object.createdAt|date('d/m/Y H:i', timezone) }}</td>
-                            <td>{{ object.updatedAt|date('d/m/Y H:i', timezone) }}</td>
                             {% if is_granted('ROLE_USER') %}
                                 <td>
-                                    <a href="{{ path('registry_treatment_edit', { 'id': object.id }) }}">
+                                    <a href="{{ path('registry_contractor_edit', { 'id': object.id }) }}">
                                         <i class="fa fa-pencil-alt"></i>
                                         {{ 'action.edit'|trans }}
                                     </a>
-                                    <a href="{{ path('registry_treatment_delete', { 'id': object.id }) }}">
+                                    <a href="{{ path('registry_contractor_delete', { 'id': object.id }) }}">
                                         <i class="fa fa-trash"></i>
                                         {{ 'action.delete'|trans }}
                                     </a>
