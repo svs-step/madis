@@ -8,17 +8,25 @@ registry:
             mail: Email
             phone_number: N° de tel
             zip_code: Code postal
-
+        show:
+            city: Ville
+            line_one: Adresse
+            line_two: Complément d'adresse
+            mail: Email
+            phone_number: N° de tel
+            zip_code: Code postal
 
     contractor:
         action:
             back_to_list: Retour à la liste
+            edit: Éditer
             new: Nouveau sous-traitant
         breadcrumb:
-            list: Liste des sous-traitants
             create: Créer
-            edit: Éditer "%name%"
             delete: Supprimer "%name%"
+            edit: Éditer "%name%"
+            list: Liste des sous-traitants
+            show: Visualiser "%name%"
         form:
             name: Nom
             contractual_clauses_verified: Clauses contractuelles vérifiées
@@ -34,15 +42,26 @@ registry:
             name: Nom
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce sous-traitant ?
+        show:
+            collectivity: Collectivité
+            contractual_clauses_verified: Clauses contractuelles vérifiées
+            conform: Conforme RGPD
+            created_at: Date de création
+            creator: Créateur
+            name: Nom
+            referent: Personne référente
+            updated_at: Dernière mise à jour
         tab:
             address: Adresse
             contact: Contact
             general: Informations générales
+            historic: Historique
         title:
             create: Créer un sous-traitant
+            delete: Supprimer un sous-traitant
             edit: Éditer un sous-traitant
             list: Liste des sous-traitants
-            delete: Supprimer un sous-traitant
+            show: Visualiser un sous-traitant
 
     treatment:
         action:
