@@ -52,7 +52,11 @@
                         <tbody>
                         {% for object in objects %}
                         <tr>
-                            <td>{{ object.name }}</td>
+                            <td>
+                                <a href="{{ path('registry_contractor_show', {'id': object.id}) }}">
+                                    {{ object.name }}
+                                </a>
+                            </td>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <td>{{ object.collectivity }}</td>
                             {% endif %}
