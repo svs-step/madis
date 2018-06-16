@@ -1,7 +1,14 @@
+/* Sidebar */
+.main-header .sidebar-toggle:before {
+  content: "";
+}
+
+/* Form */
 .form-group>label.required:after {
   content: '*';
 }
 
+/* Pages */
 div.action-bar {
   margin-bottom: 1em;
 }
