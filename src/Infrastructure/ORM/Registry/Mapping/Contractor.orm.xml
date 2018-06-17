@@ -17,6 +17,8 @@
 
         <embedded name="address" class="App\Domain\Registry\Model\Embeddable\Address" column-prefix="address_"/>
 
+        <many-to-many field="treatments" target-entity="App\Domain\Registry\Model\Treatment" mapped-by="contractors"/>
+
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity"/>
         <many-to-one field="creator" target-entity="App\Domain\User\Model\User"/>

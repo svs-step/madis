@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'user_collectivity' %}
+{% set bodyClass = 'user_collectivity list' %}
 
 {% block title %}{{ 'user.collectivity.title.list'|trans }} - {{ parent() }}{% endblock %}
 
@@ -59,9 +59,9 @@
                             <td>{{ object.siren|number_format(0, '.', ' ') }}</td>
                             <td>
                                 {% if object.active %}
-                                    <span class="label label-success">{{ 'label.active'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'label.active'|trans }}</span>
                                 {% else %}
-                                    <span class="label label-danger">{{ 'label.inactive'|trans }}</span>
+                                    <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
                                 {% endif %}
 
                             </td>
