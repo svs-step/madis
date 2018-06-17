@@ -4,6 +4,7 @@ user_address:
     line_one:
         not_blank: Vous devez renseigner une adresse
     insee:
+        length: Le numéro INSEE doit être composé de {{ limit }} chiffres
         not_blank: Vous devez renseigner un numéro INSEE
     zip_code:
         length: Le code postal doit être composé de {{ limit }} chiffres
