@@ -56,8 +56,6 @@ class CollectivityTypeTest extends FormTypeHelper
         $defaults = [
             'validation_groups' => [
                 'default',
-                'collectivity_legal_manager',
-                'collectivity_referent',
             ],
         ];
 

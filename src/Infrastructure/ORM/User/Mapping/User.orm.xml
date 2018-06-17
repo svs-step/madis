@@ -18,6 +18,7 @@
         <field name="email" column="email"/>
         <field name="password" column="password"/>
         <field name="roles" column="roles" type="json_array"/>
+        <field name="enabled" column="enabled" type="boolean"/>
         <field name="forgetPasswordToken" column="forget_password_token" nullable="true"/>
 
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity" inversed-by="users"/>

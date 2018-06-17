@@ -60,14 +60,20 @@ class User implements UserInterface
     private $roles;
 
     /**
+     * @var bool
+     */
+    private $enabled;
+
+    /**
      * @var Collectivity
      */
     private $collectivity;
 
     public function __construct()
     {
-        $this->id    = Uuid::uuid4();
-        $this->roles = [];
+        $this->id      = Uuid::uuid4();
+        $this->roles   = [];
+        $this->enabled = true;
     }
 
     /**
@@ -185,22 +191,6 @@ class User implements UserInterface
     }
 
     /**
-     * @return array
-     */
-    public function getRoles(): array
-    {
-        return $this->roles;
-    }
-
-    /**
-     * @param array $roles
-     */
-    public function setRoles(array $roles): void
-    {
-        $this->roles = $roles;
-    }
-
-    /**
      * @return string
      */
     public function getForgetPasswordToken(): string
@@ -219,6 +209,46 @@ class User implements UserInterface
     public function getSalt()
     {
         return null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabledOrCollectivityActive(): bool
+    {
+        return $this->enabled && $this->getCollectivity()->isActive();
+    }
+
+    /**
+     * @param bool $enabled
+     */
+    public function setEnabled(bool $enabled): void
+    {
+        $this->enabled = $enabled;
     }
 
     /**

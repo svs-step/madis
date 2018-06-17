@@ -85,6 +85,7 @@ user:
             create: Créer une collectivité
             delete: Supprimer une collectivité
             edit: Éditer une collectivité
+            label: Collectivité
             list: Liste des collectivités
             show: Visualiser une collectivité
 
@@ -141,6 +142,7 @@ user:
         list:
             collectivity: Collectivité
             email: E-mail
+            enabled: Actif
             first_name: Prénom
             last_name: Nom
             roles: Role
@@ -149,5 +151,6 @@ user:
         title:
             create: Créer un utilisateur
             edit: Éditer un utilisateur
+            label: Utilisateur
             list: Liste des utilisateurs
             delete: Supprimer un utilisateur

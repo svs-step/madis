@@ -43,6 +43,7 @@
                             <th>{{ 'user.user.list.email'|trans }}</th>
                             <th>{{ 'user.user.list.collectivity'|trans }}</th>
                             <th>{{ 'user.user.list.roles'|trans }}</th>
+                            <th>{{ 'user.user.list.enabled'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -65,6 +66,18 @@
                                             {{ role|dictionary('user_user_role') }}
                                         </span>
                                 {% endfor %}
+                            </td>
+                            <td>
+                                {% if object.enabled %}
+                                    <span class="badge bg-green">{{ 'user.user.title.label'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-red">{{ 'user.user.title.label'|trans }}</span>
+                                {% endif %}
+                                {% if object.collectivity.active %}
+                                    <span class="badge bg-green">{{ 'user.collectivity.title.label'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-red">{{ 'user.collectivity.title.label'|trans }}</span>
+                                {% endif %}
                             </td>
                             <td>
                                 <a href="{{ path('user_user_edit', { 'id': object.id }) }}">

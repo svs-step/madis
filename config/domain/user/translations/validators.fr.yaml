@@ -13,9 +13,9 @@ user_address:
 user_contact:
     civility:
         not_blank: La civilité est obligatoire
-    firstName:
+    first_name:
         not_blank: Le prénom est obligatoire
-    lastName:
+    last_name:
         not_blank: le nom est obligatoire
     mail:
         email: L'adresse email doit être valide
