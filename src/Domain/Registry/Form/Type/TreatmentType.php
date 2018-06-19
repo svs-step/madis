@@ -97,6 +97,7 @@ class TreatmentType extends AbstractType
             ->add('contractors', EntityType::class, [
                 'label'         => 'registry.treatment.form.contractors',
                 'class'         => Contractor::class,
+                'required'      => false,
                 'multiple'      => true,
                 'expanded'      => false,
                 'query_builder' => function (EntityRepository $er) {
