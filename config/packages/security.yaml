@@ -40,6 +40,8 @@ security:
         # Manager routes
         - { path: ^/.+/creer$, roles: ROLE_USER }
         - { path: ^/.+/editer/.+$, roles: ROLE_USER }
+        - { path: ^/.+/supprimer/.+$, roles: ROLE_USER }
+        - { path: ^/.+/supprimer/.+/confirmation$, roles: ROLE_USER }
         # Admin routes
         - { path: ^/collectivites, roles: ROLE_ADMIN }
         - { path: ^/utilisateurs, roles: ROLE_ADMIN }

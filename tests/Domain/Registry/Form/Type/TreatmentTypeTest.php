@@ -13,27 +13,64 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model\Treatment;
 use App\Tests\Utils\FormTypeHelper;
+use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TreatmentTypeTest extends FormTypeHelper
 {
+    /**
+     * @var UserProvider
+     */
+    private $userProviderProphecy;
+
+    /**
+     * @var TreatmentType
+     */
+    private $formType;
+
+    protected function setUp()
+    {
+        $this->userProviderProphecy = $this->prophesize(UserProvider::class);
+
+        $this->formType = new TreatmentType(
+            $this->userProviderProphecy->reveal()
+        );
+    }
+
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, new TreatmentType());
+        $this->assertInstanceOf(AbstractType::class, $this->formType);
     }
 
     public function testBuildForm()
     {
         $builder = [
-            'name' => TextType::class,
+            'name'                    => TextType::class,
+            'goal'                    => TextareaType::class,
+            'software'                => TextType::class,
+            'legalBasis'              => DictionaryType::class,
+            'legalBasisJustification' => TextareaType::class,
+            'concernedPeople'         => DictionaryType::class,
+            'dataCategory'            => TextareaType::class,
+            'sensibleInformations'    => CheckboxType::class,
+            'recipientCategory'       => TextareaType::class,
+            'contractors'             => EntityType::class,
+            'delay'                   => DelayType::class,
+            'active'                  => ChoiceType::class,
         ];
 
-        (new TreatmentType())->buildForm($this->prophesizeBuilder($builder), []);
+        $this->formType->buildForm($this->prophesizeBuilder($builder), []);
     }
 
     public function testConfigureOptions(): void
@@ -49,6 +86,6 @@ class TreatmentTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new TreatmentType())->configureOptions($resolverProphecy->reveal());
+        $this->formType->configureOptions($resolverProphecy->reveal());
     }
 }

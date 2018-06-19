@@ -66,29 +66,67 @@ registry:
     treatment:
         action:
             back_to_list: Retour à la liste
+            edit: Éditer
             new: Nouveau traitement
         breadcrumb:
-            list: Liste des traitements
             create: Créer
-            edit: Éditer "%name%"
             delete: Supprimer "%name%"
+            edit: Éditer "%name%"
+            list: Liste des traitements
+            show: Visualiser "%name%"
         form:
+            active: Statut
+            concerned_people: Personnes concernées
+            contractors: Sous-traitants
+            data_category: Catégorie de données
+            delay: Délai de conservation
             name: Nom
+            goal: Objectif
+            legal_basis: Base légale
+            legal_basis_justification: Justification de la base légale
+            recipient_category: Catégorie de destinataires
+            sensible_informations: Contient des données sensibles
+            software: Logiciel
         flashbag:
             success:
                 create: Traitement "%object%" créé avec succès
                 edit: Traitement "%object%" édité avec succès
                 delete: Traitement "%object%" supprimé avec succès
         list:
+            active: Statut
             collectivity: Collectivité
-            created_at: Date de création
-            id: ID
             name: Nom
-            updated_at: Date de modification
+            software: Logiciel
+            completion: Taux de complétion
+            contractors: Sous-traitants
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce traitement ?
+        show:
+            active: Statut
+            concerned_people: Personnes concernées
+            collectivity: Collectivité
+            contractors: Sous-traitants
+            created_at: Date de création
+            creator: Créateur
+            data_category: Catégorie de données
+            delay: Délai de conservation
+            goal: Objectif
+            legal_basis: Base légale
+            legal_basis_justification: Justification de la base légale
+            name: Nom
+            recipient_category: Catégorie de destinataires
+            sensible_informations: Données à caractère sensible
+            updated_at: Dernière mise à jour
         title:
             create: Créer un traitement
+            delete: Supprimer un traitement
             edit: Éditer un traitement
             list: Liste des traitements
-            delete: Supprimer un traitement
+            show: Visualiser un traitement
+        tab:
+          data_category: Catégorie des données
+          details: Détails
+          general: Informations générales
+          security: Mesures de sécurité
+          historic: Historique
+          recipients: Finalité

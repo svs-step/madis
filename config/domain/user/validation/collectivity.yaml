@@ -20,6 +20,11 @@ App\Domain\User\Model\Collectivity:
             - NotBlank:
                 message: 'user_collectivity.siren.not_blank'
                 groups: ['default']
+            - Length:
+                min: 9
+                max: 9
+                exactMessage: 'user_collectivity.siren.length'
+                groups: ['default']
         type:
             - NotBlank:
                 message: 'user_collectivity.type.not_blank'

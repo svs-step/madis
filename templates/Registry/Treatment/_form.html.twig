@@ -1,19 +1,75 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
 
-<div class="box box-solid">
-    <div class="box-header"></div>
+<div class="row">
     {{ form_start(form) }}
-    <div class="box-body">
-        {{ form_row(form.name) }}
-        {{ form_rest(form) }}
+
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.name) }}
+                {{ form_row(form.goal) }}
+                {{ form_row(form.active) }}
+                {{ form_row(form.legalBasis) }}
+                {{ form_row(form.legalBasisJustification) }}
+            </div>
+        </div>
     </div>
-    <div class="box-footer text-center">
-        <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">
-            {{ 'registry.treatment.action.back_to_list'|trans }}
-        </a>
-        <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.concernedPeople) }}
+                {{ form_row(form.software) }}
+                <div style="vertical-align: middle">
+                    <div style="display: inline-block; vertical-align: middle; width: 25%;">{{ form_label(form.delay) }}</div>
+                    <div style="display: inline-block; vertical-align: middle; width: 20%;">{{ form_widget(form.delay.number) }}</div>
+                    <div style="display: inline-block; vertical-align: middle;">{{ form_widget(form.delay.period) }}</div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.dataCategory) }}
+                {{ form_row(form.sensibleInformations) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
+            <div class="box-body">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.recipientCategory) }}
+                {{ form_row(form.contractors) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">
+                    {{ 'registry.treatment.action.back_to_list'|trans }}
+                </a>
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+            </div>
+        </div>
+    </div>
+
     {{ form_end(form) }}
 </div>
-
 

@@ -12,11 +12,6 @@ App\Domain\User\Model\Embeddable\Address:
             - NotBlank:
                 message: 'user_address.insee.not_blank'
                 groups: ['default']
-            - Length:
-                min: 9
-                max: 9
-                exactMessage: 'user_address.insee.length'
-                groups: ['default']
         zipCode:
             - NotBlank:
                 message: 'user_address.zip_code.not_blank'

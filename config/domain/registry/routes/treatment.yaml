@@ -16,6 +16,12 @@ registry_treatment_edit:
     defaults:
         _controller: 'App\Domain\Registry\Controller\TreatmentController:editAction'
 
+registry_treatment_show:
+    path: '/visualiser/{id}'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\TreatmentController:showAction'
+
 registry_treatment_delete:
     path: '/supprimer/{id}'
     methods: ['GET']

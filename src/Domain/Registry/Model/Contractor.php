@@ -17,6 +17,8 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Embeddable\Address;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -56,11 +58,17 @@ class Contractor
      */
     private $address;
 
+    /**
+     * @var Collection
+     */
+    private $treatments;
+
     public function __construct()
     {
         $this->id                         = Uuid::uuid4();
         $this->contractualClausesVerified = false;
         $this->conform                    = false;
+        $this->treatments                 = new ArrayCollection();
     }
 
     public function __toString()
@@ -154,5 +162,29 @@ class Contractor
     public function setAddress(Address $address): void
     {
         $this->address = $address;
+    }
+
+    /**
+     * @param Treatment $treatment
+     */
+    public function addTreatment(Treatment $treatment)
+    {
+        $this->treatments->add($treatment);
+    }
+
+    /**
+     * @param Treatment $treatment
+     */
+    public function removeTreatment(Treatment $treatment)
+    {
+        $this->treatments->removeElement($treatment);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTreatments()
+    {
+        return $this->treatments;
     }
 }

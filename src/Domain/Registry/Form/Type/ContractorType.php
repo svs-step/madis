@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Domain\Registry\Form\Type\Embeddable\AddressType;
 use App\Domain\Registry\Model\Contractor;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Domain\Registry\Form\Type;
+namespace App\Tests\Domain\Registry\Form\Type\Embeddable;
 
-use App\Domain\Registry\Form\Type\AddressType;
+use App\Domain\Registry\Form\Type\Embeddable\AddressType;
 use App\Domain\Registry\Model\Embeddable\Address;
 use App\Tests\Utils\FormTypeHelper;
 use Symfony\Component\Form\AbstractType;

@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
-use App\Domain\Registry\Form\Type\AddressType;
 use App\Domain\Registry\Form\Type\ContractorType;
+use App\Domain\Registry\Form\Type\Embeddable\AddressType;
 use App\Domain\Registry\Model\Contractor;
 use App\Tests\Utils\FormTypeHelper;
 use Symfony\Component\Form\AbstractType;
