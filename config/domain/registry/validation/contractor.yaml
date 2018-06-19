@@ -1,0 +1,20 @@
+App\Domain\Registry\Model\Contractor:
+    properties:
+        conform:
+            - NotNull:
+                message: 'registry_contractor.conform.not_null'
+                groups: ['contractor']
+        contractualClausesVerified:
+            - NotNull:
+                message: 'registry_contractor.contractual_clauses_verified.not_null'
+                groups: ['contractor']
+        name:
+            - NotBlank:
+                message: 'registry_contractor.name.not_blank'
+                groups: ['contractor']
+        referent:
+            - NotBlank:
+                message: 'registry_contractor.referent.not_blank'
+                groups: ['contractor']
+        address:
+            - Valid: ~

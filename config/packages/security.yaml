@@ -29,6 +29,7 @@ security:
             logout_on_user_change: true
             anonymous: ~
             provider: user_provider
+            user_checker: App\Domain\User\Symfony\Security\UserChecker
 
     access_control:
         # Authentication routes
@@ -36,9 +37,12 @@ security:
         - { path: ^/deconnexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/mot-de-passe-oublie, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reinitialisation-de-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        # Admin routes
+        # Manager routes
         - { path: ^/.+/creer$, roles: ROLE_USER }
         - { path: ^/.+/editer/.+$, roles: ROLE_USER }
+        - { path: ^/.+/supprimer/.+$, roles: ROLE_USER }
+        - { path: ^/.+/supprimer/.+/confirmation$, roles: ROLE_USER }
+        # Admin routes
         - { path: ^/collectivites, roles: ROLE_ADMIN }
         - { path: ^/utilisateurs, roles: ROLE_ADMIN }
         # Others

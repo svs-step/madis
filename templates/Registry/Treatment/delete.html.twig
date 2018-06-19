@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'registry_treatment' %}
+{% set bodyClass = 'registry_treatment delete' %}
 
 {% block title %}{{ 'registry.treatment.title.delete'|trans }} - {{ parent() }}{% endblock %}
 
@@ -25,7 +25,7 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer la collectivité "{{ object }}" ?
+                    Souhaitez vous vraiment supprimer le traitement "{{ object }}" ?
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">

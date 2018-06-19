@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'registry_treatment' %}
+{% set bodyClass = 'registry_treatment form edit' %}
 
 {% block title %}{{ 'registry.treatment.title.edit'|trans }} - {{ parent() }}{% endblock %}
 
@@ -20,9 +20,5 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-xs-12">
-            {{ include('Registry/Treatment/_form.html.twig') }}
-        </div>
-    </div>
+    {{ include('Registry/Treatment/_form.html.twig') }}
 {% endblock %}

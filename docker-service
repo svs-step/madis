@@ -62,8 +62,7 @@ install() {
     docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm 'until nc -z db 3306; do sleep 1; echo "Waiting for DB to come up..."; done'
     docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm "composer install --prefer-dist --no-interaction --optimize-autoloader &&
                                                                                                                           bin/console doctrine:database:create --if-not-exists &&
-                                                                                                                          bin/console doctrine:schema:create &&
-#                                                                                                                          bin/console doctrine:migration:migrate -n &&
+                                                                                                                          bin/console doctrine:migration:migrate -n &&
                                                                                                                           bin/console cache:clear --env=prod --no-debug &&
                                                                                                                           bin/console cache:warmup --env=prod --no-debug"
     # Load CSS & JS compilation

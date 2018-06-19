@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Model;
 
+use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\User\Model\Embeddable\Address;
 use App\Domain\User\Model\Embeddable\Contact;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,6 +23,8 @@ use Ramsey\Uuid\UuidInterface;
 
 class Collectivity
 {
+    use HistoryTrait;
+
     private $id;
 
     /**

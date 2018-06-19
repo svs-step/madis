@@ -8,6 +8,8 @@ RUN apt-get install -y libssl-dev php7.1-apcu php7.1-common php-fdomdocument php
     php7.1-mbstring php7.1-mysql php7.1-opcache php7.1-readline php7.1-soap \
     php7.1-xml php7.1-xdebug curl npm git zip sqlite3 php7.1-sqlite netcat
 
+RUN apt-get update && apt-get install -y php7.1-zip
+
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     apt-get install -y nodejs && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \

@@ -40,7 +40,7 @@ class LinkCollectivitySubscriber implements EventSubscriber
 
     /**
      * PrePersist
-     * - User : If plainPassword is set, hash it and set password.
+     * Link user collectivity to object.
      *
      * @param LifecycleEventArgs $args
      *

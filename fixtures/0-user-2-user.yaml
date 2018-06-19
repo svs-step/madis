@@ -30,3 +30,12 @@ App\Domain\User\Model\User:
         lastName: <lastName()>
         plainPassword: 111111
         roles: ['ROLE_PREVIEW']
+
+    user_user_blocked:
+        collectivity: '@user_collectivity_soluris'
+        email: inactif@awkan.fr
+        firstName: <firstName()>
+        lastName: <lastName()>
+        plainPassword: 111111
+        enabled: false
+        roles: ['ROLE_PREVIEW']

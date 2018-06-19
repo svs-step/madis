@@ -54,7 +54,9 @@ class CollectivityTypeTest extends FormTypeHelper
     public function testConfigureOptions(): void
     {
         $defaults = [
-            'validation_groups' => 'default',
+            'validation_groups' => [
+                'default',
+            ],
         ];
 
         $resolverProphecy = $this->prophesize(OptionsResolver::class);

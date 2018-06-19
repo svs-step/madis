@@ -1,4 +1,10 @@
 App\Domain\User\Model\User:
+
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: ['email']
+            groups: ['default']
+
     properties:
         firstName:
             - NotBlank:
@@ -9,6 +15,9 @@ App\Domain\User\Model\User:
                 message: 'user_user.last_name.not_blank'
                 groups: ['default']
         email:
+            - Email:
+                message: 'user_user.email.email'
+                groups: ['default']
             - NotBlank:
                 message: 'user_user.email.not_blank'
                 groups: ['default']

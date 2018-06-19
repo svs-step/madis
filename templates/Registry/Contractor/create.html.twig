@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_contractor form create' %}
+
+{% block title %}{{ 'registry.contractor.title.create'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'registry.contractor.title.create'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.contractor.breadcrumb.list'|trans, 'link': path('registry_contractor_list') },
+        { 'name': 'registry.contractor.breadcrumb.create'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('Registry/contractor/_form.html.twig') }}
+{% endblock %}

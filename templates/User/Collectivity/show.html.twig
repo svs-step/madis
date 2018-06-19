@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'user_collectivity' %}
+{% set bodyClass = 'user_collectivity show' %}
 
 {% block title %}{{ 'user.collectivity.title.show'|trans }} - {{ parent() }}{% endblock %}
 
@@ -20,6 +20,7 @@
 {% endblock %}
 
 {% block body %}
+    {% if is_granted('ROLE_USER') %}
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
@@ -30,6 +31,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 
     <div class="row">
         <div class="col-md-6">
@@ -251,6 +253,25 @@
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
                             <td>{{ object.dpo.phoneNumber|default(default_dpo_phoneNumber) }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.historic'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.created_at'|trans }}</strong></td>
+                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                        </tr><tr>
+                            <td><strong>{{ 'user.collectivity.show.updated_at'|trans }}</strong></td>
+                            <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
                         </tr>
                         </tbody>
                     </table>

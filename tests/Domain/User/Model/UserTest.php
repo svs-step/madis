@@ -31,5 +31,6 @@ class UserTest extends TestCase
 
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
         $this->assertEquals([], $model->getRoles());
+        $this->assertTrue($model->isEnabled());
     }
 }

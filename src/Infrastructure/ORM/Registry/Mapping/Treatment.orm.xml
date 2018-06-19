@@ -11,10 +11,35 @@
         <id name="id" column="id" type="uuid"/>
 
         <field name="name" column="name"/>
+        <field name="goal" column="goal" type="text"/>
+        <field name="software" column="software" nullable="true"/>
+        <field name="legalBasis" column="legal_basis" type="json_array"/>
+        <field name="legalBasisJustification" column="legal_basis_justification" type="text" nullable="true"/>
+        <field name="concernedPeople" column="concerned_people" type="json_array"/>
+        <field name="dataCategory" column="data_category" type="text"/>
+        <field name="sensibleInformations" column="sensible_informations" type="boolean"/>
+        <field name="recipientCategory" column="recipient_category" type="text"/>
+        <field name="active" column="active" type="boolean"/>
 
+        <embedded name="delay" class="App\Domain\Registry\Model\Embeddable\Delay" column-prefix="delay_"/>
+
+        <many-to-many field="contractors" target-entity="App\Domain\Registry\Model\Contractor" inversed-by="treatments">
+            <join-table name="treatment_contractor">
+                <join-columns>
+                    <join-column/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column/>
+                </inverse-join-columns>
+            </join-table>
+            <order-by>
+                <order-by-field name="name" direction="ASC"/>
+            </order-by>
+        </many-to-many>
+
+        <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity"/>
-
-        <!-- History -->
+        <many-to-one field="creator" target-entity="App\Domain\User\Model\User"/>
         <field name="createdAt" column="created_at" type="datetime_immutable">
             <gedmo:timestampable on="create"/>
         </field>

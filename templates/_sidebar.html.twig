@@ -8,6 +8,7 @@
             </a>
         </li>
 
+        {# REGISTRIES #}
         <li class="header">Registres</li>
         <li {% if bodyClass == 'registry_treatment' %}class="active"{% endif %}>
             <a href="{{ path('registry_treatment_list') }}">
@@ -15,6 +16,23 @@
                 <span>Traitements</span>
             </a>
         </li>
+        <li {% if bodyClass == 'registry_contractor' %}class="active"{% endif %}>
+            <a href="{{ path('registry_contractor_list') }}">
+                <i class="fa fa-users"></i>
+                <span>Sous-traitants</span>
+            </a>
+        </li>
+
+        {# REPORTING #}
+        {#{% if not is_granted('ROLE_ADMIN') %}#}
+        <li class="header">Rapports</li>
+        <li {% if bodyClass == 'reporting_review' %}class="active"{% endif %}>
+            <a href="{{ path('reporting_review_index', {'id': app.user.collectivity.id}) }}">
+                <i class="fa fa-file"></i>
+                <span>Générer un rapport</span>
+            </a>
+        </li>
+        {#{% endif %}#}
 
         {# ADMINISTRATION #}
         {% if is_granted('ROLE_ADMIN') %}

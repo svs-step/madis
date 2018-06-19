@@ -6,11 +6,16 @@ twig:
     form_themes:
         - 'bootstrap_3_horizontal_layout.html.twig'
 
+    date:
+        format: d/m/Y H:i
+        timezone: Europe/Paris
+
     globals:
         applicationName: '%env(APP_APPLICATION_NAME)%'
         default_dpo_civility: '%env(APP_DPO_CIVILITY)%'
         default_dpo_firstName: '%env(APP_DPO_FIRST_NAME)%'
         default_dpo_lastName: '%env(APP_DPO_LAST_NAME)%'
+        default_dpo_company: '%env(APP_DPO_COMPANY)%'
         default_dpo_job: '%env(APP_DPO_JOB)%'
         default_dpo_mail: '%env(APP_DPO_MAIL)%'
         default_dpo_phoneNumber: '%env(APP_DPO_PHONE_NUMBER)%'

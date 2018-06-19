@@ -1,0 +1,5 @@
+reporting_review_index:
+    path: '{id}'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Reporting\Controller\ReviewController:indexAction'
