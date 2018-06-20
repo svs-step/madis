@@ -7,7 +7,7 @@
 
     <embeddable name="App\Domain\Registry\Model\Embeddable\Delay">
 
-        <field name="number" column="number" nullable="true"/>
+        <field name="number" column="number" type="integer" nullable="true"/>
         <field name="period" column="period" nullable="true"/>
 
     </embeddable>

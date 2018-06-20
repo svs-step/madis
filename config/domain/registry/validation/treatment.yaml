@@ -1,4 +1,33 @@
 App\Domain\Registry\Model\Treatment:
     properties:
         name:
-            - NotBlank: { message: 'registry_treatment.name.not_blank' }
+            - NotBlank:
+                message: 'registry_treatment.name.not_blank'
+                groups: ['default']
+        legalBasis:
+            - NotBlank:
+                message: 'registry_treatment.legal_basis.not_blank'
+                groups: ['default']
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'registry_treatment_legal_basis'
+                groups: ['default']
+        concernedPeople:
+            - Count:
+                min: 1
+                minMessage: 'registry_treatment.concerned_people.min_count'
+                groups: ['default']
+# TMP commented for bug of array validation
+# https://github.com/biig-io/DictionaryBundle/issues/25
+#            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+#                name: 'registry_treatment_concerned_people'
+#                groups: ['default']
+        sensibleInformations:
+            - NotNull:
+                message: 'registry_treatment.sensible_informations.not_null'
+                groups: ['default']
+        active:
+            - NotNull:
+                message: 'registry_treatment.active.not_null'
+                groups: ['default']
+        delay:
+            - Valid: ~

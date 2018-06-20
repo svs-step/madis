@@ -1,0 +1,15 @@
+App\Domain\Registry\Model\Embeddable\Delay:
+    properties:
+        number:
+            - Range:
+                min: 0
+                minMessage: 'registry_delay.number.min_range'
+                groups: ['default']
+            - Type:
+                type: 'integer'
+                message: 'registry_delay.number.type'
+                groups: ['default']
+        period:
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'registry_delay_period'
+                groups: ['default']

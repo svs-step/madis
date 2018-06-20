@@ -11,14 +11,14 @@
         <id name="id" column="id" type="uuid"/>
 
         <field name="name" column="name"/>
-        <field name="goal" column="goal" type="text"/>
+        <field name="goal" column="goal" type="text" nullable="true"/>
         <field name="software" column="software" nullable="true"/>
         <field name="legalBasis" column="legal_basis" type="json_array"/>
         <field name="legalBasisJustification" column="legal_basis_justification" type="text" nullable="true"/>
         <field name="concernedPeople" column="concerned_people" type="json_array"/>
-        <field name="dataCategory" column="data_category" type="text"/>
+        <field name="dataCategory" column="data_category" type="text" nullable="true"/>
         <field name="sensibleInformations" column="sensible_informations" type="boolean"/>
-        <field name="recipientCategory" column="recipient_category" type="text"/>
+        <field name="recipientCategory" column="recipient_category" type="text" nullable="true"/>
         <field name="active" column="active" type="boolean"/>
 
         <embedded name="delay" class="App\Domain\Registry\Model\Embeddable\Delay" column-prefix="delay_"/>
