@@ -23,6 +23,19 @@ registry_contractor:
     referent:
         not_blank: Vous devez renseigner le nom de la personne référente
 
+registry_delay:
+    number:
+        min_range: La plus petite valeur possible est {{ limit }}
+        type: Vous devez reseigner un chiffre
+
 registry_treatment:
+    active:
+        not_null: Le statut du traitement doit être renseigné
+    concerned_people:
+        min_count: Vous devez sélectionner au moins une personne concernée
+    legal_basis:
+        not_blank: Vous devez renseigner une base légale
     name:
         not_blank: Vous devez renseigner un nom
+    sensible_informations:
+        not_null: La valeur doit être renseignée
