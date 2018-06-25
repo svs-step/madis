@@ -17,6 +17,7 @@ use App\Domain\Registry\Form\Type\Embeddable\AddressType;
 use App\Domain\Registry\Model\Contractor;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -41,6 +42,13 @@ class ContractorType extends AbstractType
             ->add('conform', CheckboxType::class, [
                 'label'    => 'registry.contractor.form.conform',
                 'required' => false,
+            ])
+            ->add('otherInformations', TextareaType::class, [
+                'label'    => 'registry.contractor.form.other_informations',
+                'required' => false,
+                'attr'     => [
+                    'rows' => 4,
+                ],
             ])
             ->add('address', AddressType::class, [
                 'label'             => 'registry.contractor.form.address',

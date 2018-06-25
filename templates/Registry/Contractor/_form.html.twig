@@ -9,31 +9,24 @@
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.general'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.name) }}
+                {{ form_row(form.referent) }}
                 {{ form_row(form.contractualClausesVerified) }}
                 {{ form_row(form.conform) }}
+                {{ form_row(form.otherInformations) }}
             </div>
         </div>
     </div>
 
     <div class="col-md-6">
         <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.contact'|trans }}</h3></div>
-            <div class="box-body">
-                {{ form_row(form.referent) }}
-                {{ form_row(form.address.mail) }}
-                {{ form_row(form.address.phoneNumber) }}
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.address'|trans }}</h3></div>
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.coordinates'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.address.lineOne) }}
                 {{ form_row(form.address.lineTwo) }}
                 {{ form_row(form.address.city) }}
                 {{ form_row(form.address.zipCode) }}
+                {{ form_row(form.address.mail) }}
+                {{ form_row(form.address.phoneNumber) }}
             </div>
         </div>
     </div>

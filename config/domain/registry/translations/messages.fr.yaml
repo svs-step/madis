@@ -28,9 +28,10 @@ registry:
             list: Liste des sous-traitants
             show: Visualiser "%name%"
         form:
-            name: Nom
             contractual_clauses_verified: Clauses contractuelles vérifiées
             conform: Conforme RGPD
+            name: Nom
+            other_informations: Autres informations
             referent: Personne référente
         flashbag:
             success:
@@ -49,13 +50,13 @@ registry:
             created_at: Date de création
             creator: Créateur
             name: Nom
+            other_informations: Autres informations
             referent: Personne référente
             updated_at: Dernière mise à jour
         tab:
-            address: Adresse
-            contact: Contact
             general: Informations générales
             historic: Historique
+            coordinates: Coordonnées
         title:
             create: Créer un sous-traitant
             delete: Supprimer un sous-traitant

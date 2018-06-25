@@ -14,6 +14,7 @@
         <field name="referent" column="referent"/>
         <field name="contractualClausesVerified" column="contractual_clauses_verified" type="boolean"/>
         <field name="conform" column="conform" type="boolean"/>
+        <field name="otherInformations" column="other_informations" type="text" nullable="true"/>
 
         <embedded name="address" class="App\Domain\Registry\Model\Embeddable\Address" column-prefix="address_"/>
 
