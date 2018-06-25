@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% set bodyClass = 'registry_treatment show' %}
+{% set menuItem = 'registry_treatment' %}
 
 {% block title %}{{ 'registry.treatment.title.show'|trans }} - {{ parent() }}{% endblock %}
 
@@ -47,7 +48,11 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.goal'|trans }}</strong></td>
-                            <td>{{ object.goal }}</td>
+                            <td>{{ object.goal|nl2br }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.manager'|trans }}</strong></td>
+                            <td>{{ object.manager }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.active'|trans }}</strong></td>
@@ -65,7 +70,7 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.legal_basis_justification'|trans }}</strong></td>
-                            <td>{{ object.legalBasisJustification }}</td>
+                            <td>{{ object.legalBasisJustification|nl2br }}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -110,7 +115,7 @@
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.data_category'|trans }}</strong></td>
-                            <td>{{ object.dataCategory }}</td>
+                            <td>{{ object.dataCategory|nl2br }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.sensible_informations'|trans }}</strong></td>
@@ -152,7 +157,7 @@
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.recipient_category'|trans }}</strong></td>
-                            <td>{{ object.recipientCategory }}</td>
+                            <td>{{ object.recipientCategory|nl2br }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.contractors'|trans }}</strong></td>

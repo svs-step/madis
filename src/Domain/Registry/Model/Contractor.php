@@ -54,6 +54,11 @@ class Contractor
     private $conform;
 
     /**
+     * @var string
+     */
+    private $otherInformations;
+
+    /**
      * @var Address
      */
     private $address;
@@ -146,6 +151,22 @@ class Contractor
     public function setConform(bool $conform): void
     {
         $this->conform = $conform;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getOtherInformations(): ?string
+    {
+        return $this->otherInformations;
+    }
+
+    /**
+     * @param string|null $otherInformations
+     */
+    public function setOtherInformations(?string $otherInformations): void
+    {
+        $this->otherInformations = $otherInformations;
     }
 
     /**

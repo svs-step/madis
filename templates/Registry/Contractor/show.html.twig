@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% set bodyClass = 'registry_contractor show' %}
+{% set menuItem = 'registry_contractor' %}
 
 {% block title %}{{ 'registry.contractor.title.show'|trans }} - {{ parent() }}{% endblock %}
 
@@ -46,6 +47,10 @@
                             <td>{{ object.name }}</td>
                         </tr>
                         <tr>
+                            <td><strong>{{ 'registry.contractor.show.referent'|trans }}</strong></td>
+                            <td>{{ object.referent }}</td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'registry.contractor.show.contractual_clauses_verified'|trans }}</strong></td>
                             <td>
                                 {% if object.contractualClausesVerified %}
@@ -65,17 +70,19 @@
                                 {% endif %}
                             </td>
                         </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.other_informations'|trans }}</strong></td>
+                            <td>{{ object.otherInformations|nl2br }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <div class="clearfix"></div>
-
         <div class="col-md-6">
             <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.address'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.coordinates'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
                         <tbody>
@@ -94,22 +101,6 @@
                         <tr>
                             <td><strong>{{ 'registry.address.show.city'|trans }}</strong></td>
                             <td>{{ object.address.city }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.contact'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.contractor.show.referent'|trans }}</strong></td>
-                            <td>{{ object.referent }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.address.show.mail'|trans }}</strong></td>

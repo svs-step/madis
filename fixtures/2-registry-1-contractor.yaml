@@ -4,6 +4,7 @@ App\Domain\Registry\Model\Contractor:
         referent: <firstName()> <lastName()>
         contractualClausesVerified: false
         conform: true
+        otherInformations: '50%? <text()>'
         address: '@registry_address_contractor_awkan_<current()>'
         collectivity: '@user_collectivity_awkan'
         creator: '@user_user_manager_1'
@@ -13,6 +14,7 @@ App\Domain\Registry\Model\Contractor:
         referent: <firstName()> <lastName()>
         contractualClausesVerified: true
         conform: false
+        otherInformations: '50%? <text()>'
         address: '@registry_address_contractor_soluris_<current()>'
         collectivity: '@user_collectivity_soluris'
         creator: '@user_user_manager_2'

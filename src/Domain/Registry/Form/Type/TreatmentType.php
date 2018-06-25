@@ -54,6 +54,10 @@ class TreatmentType extends AbstractType
                     'rows' => 4,
                 ],
             ])
+            ->add('manager', TextType::class, [
+                'label'    => 'registry.treatment.form.manager',
+                'required' => false,
+            ])
             ->add('software', TextType::class, [
                 'label'    => 'registry.treatment.form.software',
                 'required' => false,
