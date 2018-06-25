@@ -31,7 +31,7 @@ user:
             active: Statut
             address: Adresse
             help:
-              dpo: Ces informations sont facultatives. À défaut, le DPO renseigné par SOLURIS sera utilisé.
+              dpo: Ces informations sont facultatives. À défaut, le DPD renseigné par SOLURIS sera utilisé.
               it_manager: Si différent du référent RGPD
             name: Nom
             placeholder:
@@ -75,7 +75,7 @@ user:
             website: Site internet
         tab:
           address: Adresse
-          dpo: DPO
+          dpo: DPD
           general: Informations générales
           historic: Historique
           it_manager: Responsable informatique

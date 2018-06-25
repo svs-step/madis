@@ -4,7 +4,10 @@
 {% set menuItem = 'reporting_dashboard' %}
 
 {% block body_head %}
-    <h1>{{ 'reporting.dashboard.title.index'|trans }}</h1>
+    <h1>
+        {{ 'reporting.dashboard.title.index'|trans }}
+        <small>{{ app.user.collectivity }}</small>
+    </h1>
 {% endblock %}
 
 {% block breadcrumb %}
