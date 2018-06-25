@@ -80,10 +80,11 @@ registry:
             contractors: Sous-traitants
             data_category: Catégorie de données
             delay: Délai de conservation
-            name: Nom
-            goal: Objectif
+            goal: Finalité
             legal_basis: Base légale
             legal_basis_justification: Justification de la base légale
+            manager: Gestionnaire
+            name: Nom
             recipient_category: Catégorie de destinataires
             sensible_informations: Contient des données sensibles
             software: Logiciel
@@ -110,9 +111,10 @@ registry:
             creator: Créateur
             data_category: Catégorie de données
             delay: Délai de conservation
-            goal: Objectif
+            goal: Finalité
             legal_basis: Base légale
             legal_basis_justification: Justification de la base légale
+            manager: Gestionnaire
             name: Nom
             recipient_category: Catégorie de destinataires
             sensible_informations: Données à caractère sensible

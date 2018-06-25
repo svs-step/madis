@@ -12,6 +12,7 @@
 
         <field name="name" column="name"/>
         <field name="goal" column="goal" type="text" nullable="true"/>
+        <field name="manager" column="manager" nullable="true"/>
         <field name="software" column="software" nullable="true"/>
         <field name="legalBasis" column="legal_basis" type="json_array"/>
         <field name="legalBasisJustification" column="legal_basis_justification" type="text" nullable="true"/>

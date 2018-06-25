@@ -1,7 +1,7 @@
 <section class="sidebar">
     <ul class="sidebar-menu" data-widget="tree">
 
-        <li {% if bodyClass == 'reporting_dashboard' %}class="active"{% endif %}>
+        <li {% if menuItem == 'reporting_dashboard' %}class="active"{% endif %}>
             <a href="{{ path('reporting_dashboard_index') }}">
                 <i class="fa fa-tachometer-alt"></i>
                 <span>Tableau de bord</span>
@@ -10,13 +10,13 @@
 
         {# REGISTRIES #}
         <li class="header">Registres</li>
-        <li {% if bodyClass == 'registry_treatment' %}class="active"{% endif %}>
+        <li {% if menuItem == 'registry_treatment' %}class="active"{% endif %}>
             <a href="{{ path('registry_treatment_list') }}">
                 <i class="fa fa-file"></i>
                 <span>Traitements</span>
             </a>
         </li>
-        <li {% if bodyClass == 'registry_contractor' %}class="active"{% endif %}>
+        <li {% if menuItem == 'registry_contractor' %}class="active"{% endif %}>
             <a href="{{ path('registry_contractor_list') }}">
                 <i class="fa fa-users"></i>
                 <span>Sous-traitants</span>
@@ -26,7 +26,7 @@
         {# REPORTING #}
         {#{% if not is_granted('ROLE_ADMIN') %}#}
         <li class="header">Rapports</li>
-        <li {% if bodyClass == 'reporting_review' %}class="active"{% endif %}>
+        <li {% if menuItem == 'reporting_review' %}class="active"{% endif %}>
             <a href="{{ path('reporting_review_index', {'id': app.user.collectivity.id}) }}">
                 <i class="fa fa-file"></i>
                 <span>Générer un rapport</span>
@@ -37,13 +37,13 @@
         {# ADMINISTRATION #}
         {% if is_granted('ROLE_ADMIN') %}
             <li class="header">Espace d'administration</li>
-            <li {% if bodyClass == 'user_collectivity' %}class="active"{% endif %}>
+            <li {% if menuItem == 'user_collectivity' %}class="active"{% endif %}>
                 <a href="{{ path('user_collectivity_list') }}">
                     <i class="fa fa-briefcase"></i>
                     <span>Collectivités</span>
                 </a>
             </li>
-            <li {% if bodyClass == 'user_user' %}class="active"{% endif %}>
+            <li {% if menuItem == 'user_user' %}class="active"{% endif %}>
                 <a href="{{ path('user_user_list') }}">
                     <i class="fa fa-users"></i>
                     <span>Utilisateurs</span>

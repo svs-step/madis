@@ -58,6 +58,7 @@ class TreatmentTypeTest extends FormTypeHelper
         $builder = [
             'name'                    => TextType::class,
             'goal'                    => TextareaType::class,
+            'manager'                 => TextType::class,
             'software'                => TextType::class,
             'legalBasis'              => DictionaryType::class,
             'legalBasisJustification' => TextareaType::class,

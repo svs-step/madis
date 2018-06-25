@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% set bodyClass = 'registry_treatment show' %}
+{% set menuItem = 'registry_treatment' %}
 
 {% block title %}{{ 'registry.treatment.title.show'|trans }} - {{ parent() }}{% endblock %}
 
@@ -48,6 +49,10 @@
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.goal'|trans }}</strong></td>
                             <td>{{ object.goal }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.manager'|trans }}</strong></td>
+                            <td>{{ object.manager }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.active'|trans }}</strong></td>

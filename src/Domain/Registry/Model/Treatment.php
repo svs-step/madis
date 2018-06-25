@@ -39,11 +39,18 @@ class Treatment
     private $name;
 
     /**
-     * FR: Objectif.
+     * FR: Finalité (Objectif).
      *
      * @var string
      */
     private $goal;
+
+    /**
+     * FR: Gestionnaire.
+     *
+     * @var string
+     */
+    private $manager;
 
     /**
      * FR: Logiciel.
@@ -164,6 +171,22 @@ class Treatment
     public function setGoal(string $goal): void
     {
         $this->goal = $goal;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getManager(): ?string
+    {
+        return $this->manager;
+    }
+
+    /**
+     * @param string|null $manager
+     */
+    public function setManager(?string $manager): void
+    {
+        $this->manager = $manager;
     }
 
     /**
