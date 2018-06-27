@@ -71,4 +71,21 @@ trait ReflectionTrait
         $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue($object, $value);
     }
+
+    /**
+     * Sets a protected method on a given object via reflection.
+     *
+     * @param $object - instance in which protected value is being modified
+     * @param $method - property on instance being modified
+     * @param $value - new value of the property being modified
+     *
+     * @throws \ReflectionException
+     */
+    protected function setProtectedMethod(&$object, $method, $value)
+    {
+        $reflectionClass    = new \ReflectionClass(\get_class($object));
+        $reflectionProperty = $reflectionClass->getProperty($method);
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue($object, $value);
+    }
 }
