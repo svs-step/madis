@@ -21,6 +21,7 @@ registry:
             back_to_list: Retour à la liste
             edit: Éditer
             new: Nouveau sous-traitant
+            report: Générer un rapport
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"

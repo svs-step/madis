@@ -18,6 +18,7 @@ use App\Domain\User\Model as UserModel;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class WordGenerator
@@ -28,16 +29,41 @@ class WordGenerator
     private $document;
 
     /**
+     * @var ContractorGenerator
+     */
+    private $contractorGenerator;
+
+    /**
      * @var array
      */
     private $dpo;
 
     public function __construct(
         PhpWord $document,
+        ContractorGenerator $contractorGenerator,
         array $dpo
     ) {
-        $this->document = $document;
-        $this->dpo      = $dpo;
+        $this->document            = $document;
+        $this->contractorGenerator = $contractorGenerator;
+        $this->dpo                 = $dpo;
+    }
+
+    /**
+     * Generate contractor report.
+     *
+     * @param array $contractors contractors to use for generation
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     *
+     * @return Response The generated Word file
+     */
+    public function generateRegistryContractorReport(array $contractors): Response
+    {
+        $this->contractorGenerator->generateHeader($this->document);
+        $this->contractorGenerator->generateOverview($this->document, $contractors);
+        $this->contractorGenerator->generateDetails($this->document, $contractors);
+
+        return $this->contractorGenerator->generateResponse($this->document, 'sous-traitant');
     }
 
     public function generateHeader(): void
