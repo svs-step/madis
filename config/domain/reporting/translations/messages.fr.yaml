@@ -2,5 +2,12 @@ reporting:
     dashboard:
         breadcrumb:
             index: Tableau de bord
+        tab:
+          contractor: Sous-traitants
         title:
             index: Tableau de bord
+        contractor:
+            contractual_clauses_verified:
+                title: Clauses contractuelles vérifiées
+            conform:
+                title: Conforme RGPD
