@@ -19,6 +19,7 @@ use App\Domain\User\Model\User;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -52,6 +53,10 @@ class UserType extends AbstractType
                 'name'     => 'user_user_role',
                 'multiple' => false,
                 'expanded' => true,
+            ])
+            ->add('enabled', CheckboxType::class, [
+                'label'    => 'user.user.form.enabled',
+                'required' => false,
             ])
         ;
 
