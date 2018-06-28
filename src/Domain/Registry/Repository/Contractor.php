@@ -22,8 +22,9 @@ interface Contractor extends CRUDRepositoryInterface
      * Find all contractors by associated collectivity.
      *
      * @param Collectivity $collectivity The collectivity to search with
+     * @param array        $order        Order results
      *
      * @return array The array of contractors given by the collectivity
      */
-    public function findAllByCollectivity(Collectivity $collectivity);
+    public function findAllByCollectivity(Collectivity $collectivity, array $order = []);
 }

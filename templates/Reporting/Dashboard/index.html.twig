@@ -16,25 +16,76 @@
 {% endblock %}
 
 {% block body %}
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box">
-            <span class="info-box-icon bg-yellow"><i class="fa fa-briefcase"></i></span>
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="fa fa-briefcase"></i></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">Collectivités</span>
-                <span class="info-box-number">{{ nbCollectivity }}</span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Collectivités</span>
+                    <span class="info-box-number">{{ data.collectivity }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Utilisateurs</span>
+                    <span class="info-box-number">{{ data.user }}</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">Utilisateurs</span>
-                <span class="info-box-number">{{ nbUser }}</span>
+    <div class="row">
+        <div class="col-xs-6 col-lg-3">
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'reporting.dashboard.tab.contractor'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <div class="col-sm-6 text-center">
+                        <canvas id="contractor-clauses" width="400" height="400"></canvas>
+                        <p>{{ 'reporting.dashboard.contractor.contractual_clauses_verified.title'|trans }}</p>
+                    </div>
+                    <div class="col-sm-6 text-center">
+                        <canvas id="contractor-conform" width="400" height="400"></canvas>
+                        <p>{{ 'reporting.dashboard.contractor.conform.title'|trans }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+    <script>
+        var labelYes = '{{ 'label.yes'|trans }}';
+        var labelNo = '{{ 'label.no'|trans }}';
+    </script>
+    <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+    <script>
+        var colorBlue = 'rgba(54, 162, 235, 1)';
+        var colorRed = 'rgba(255, 99, 132, 1)';
+
+        var contractorClausesData = [{{ data.contractor.clauses.yes }}, {{ data.contractor.clauses.no }}];
+        var contractorConformData = [{{ data.contractor.conform.yes }}, {{ data.contractor.conform.no }}];
+
+        $(document).ready(function() {
+            doughnutChart(
+                'contractor-clauses',
+                contractorClausesData,
+                [colorBlue, colorRed]
+            );
+
+            doughnutChart(
+                'contractor-conform',
+                contractorConformData,
+                [colorBlue, colorRed]
+            );
+        });
+    </script>
 {% endblock %}

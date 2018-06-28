@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+git pull origin master
+
 # Composer
 composer install --prefer-dist --no-interaction --optimize-autoloader
 
@@ -10,3 +12,5 @@ yarn run encore production
 # Cache
 bin/console cache:clear --env=prod --no-debug
 bin/console cache:warmup --env=prod --no-debug
+
+bin/console doctrine:migration:migrate -n

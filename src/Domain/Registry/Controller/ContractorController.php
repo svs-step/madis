@@ -18,12 +18,19 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Form\Type\ContractorType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
+use App\Domain\Reporting\Generator\WordGenerator;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class ContractorController extends CRUDController
 {
+    /**
+     * @var WordGenerator
+     */
+    protected $wordGenerator;
+
     /**
      * @var AuthorizationCheckerInterface
      */
@@ -38,10 +45,12 @@ class ContractorController extends CRUDController
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Contractor $repository,
+        WordGenerator $wordGenerator,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider
     ) {
         parent::__construct($entityManager, $translator, $repository);
+        $this->wordGenerator        = $wordGenerator;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
     }
@@ -76,5 +85,15 @@ class ContractorController extends CRUDController
         }
 
         return $this->repository->findAllByCollectivity($this->userProvider->getAuthenticatedUser()->getCollectivity());
+    }
+
+    public function reportAction(): Response
+    {
+        $objects = $this->repository->findAllByCollectivity(
+            $this->userProvider->getAuthenticatedUser()->getCollectivity(),
+            ['name' => 'asc']
+        );
+
+        return $this->wordGenerator->generateRegistryContractorReport($objects);
     }
 }

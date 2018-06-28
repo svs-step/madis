@@ -22,6 +22,12 @@ registry_contractor_show:
     defaults:
         _controller: 'App\Domain\Registry\Controller\ContractorController:showAction'
 
+registry_contractor_report:
+    path: '/bilan'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\ContractorController:reportAction'
+
 registry_contractor_delete:
     path: '/supprimer/{id}'
     methods: ['GET']

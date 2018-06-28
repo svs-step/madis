@@ -19,11 +19,13 @@ use App\Domain\Registry\Controller\ContractorController;
 use App\Domain\Registry\Form\Type\ContractorType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
+use App\Domain\Reporting\Generator\WordGenerator;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -47,6 +49,11 @@ class ContractorControllerTest extends TestCase
     private $repositoryProphecy;
 
     /**
+     * @var WordGenerator
+     */
+    private $wordGeneratorProphecy;
+
+    /**
      * @var AuthorizationCheckerInterface
      */
     private $authenticationCheckerProphecy;
@@ -66,6 +73,7 @@ class ContractorControllerTest extends TestCase
         $this->managerProphecy               = $this->prophesize(EntityManagerInterface::class);
         $this->translatorProphecy            = $this->prophesize(TranslatorInterface::class);
         $this->repositoryProphecy            = $this->prophesize(Repository\Contractor::class);
+        $this->wordGeneratorProphecy         = $this->prophesize(WordGenerator::class);
         $this->authenticationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProvierProphecy           = $this->prophesize(UserProvider::class);
 
@@ -73,6 +81,7 @@ class ContractorControllerTest extends TestCase
             $this->managerProphecy->reveal(),
             $this->translatorProphecy->reveal(),
             $this->repositoryProphecy->reveal(),
+            $this->wordGeneratorProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProvierProphecy->reveal()
         );
@@ -191,6 +200,41 @@ class ContractorControllerTest extends TestCase
         $this->assertEquals(
             $valueReturnedByRepository,
             $this->invokeMethod($this->controller, 'getListData')
+        );
+    }
+
+    public function testReportAction()
+    {
+        $orderKey    = 'name';
+        $orderDir    = 'asc';
+        $contractors = [];
+        $response    = $this->prophesize(BinaryFileResponse::class)->reveal();
+
+        $collectivity = $this->prophesize(Collectivity::class)->reveal();
+        $userProphecy = $this->prophesize(User::class);
+        $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($collectivity);
+        $this->userProvierProphecy
+            ->getAuthenticatedUser()
+            ->shouldBeCalled()
+            ->willReturn($userProphecy->reveal())
+        ;
+
+        // findAllByCollectivity must be called but not findAll
+        $this->repositoryProphecy
+            ->findAllByCollectivity($collectivity, [$orderKey => $orderDir])
+            ->shouldBeCalled()
+            ->willReturn($contractors)
+        ;
+
+        $this->wordGeneratorProphecy
+            ->generateRegistryContractorReport($contractors)
+            ->shouldBeCalled()
+            ->willReturn($response)
+        ;
+
+        $this->assertEquals(
+            $response,
+            $this->controller->reportAction()
         );
     }
 }
