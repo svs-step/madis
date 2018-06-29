@@ -1,7 +1,23 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
 
+{{ form_start(form) }}
+<style>
+    .complex-choice-group label.col-sm-2 {
+        text-align: left;
+        width: 100%;
+    }
+</style>
+
+{% macro complex_choice(field) %}
+<div class="col-sm-12 complex-choice-group">
+    <div class="col-sm-1 check">{{ form_row(field.check) }}</div>
+    <div class="col-sm-3">{{ form_label(field) }}</div>
+    <div class="col-sm-8 comment">{{ form_widget(field.comment) }}</div>
+</div>
+{% endmacro %}
+{% import _self as macro %}
+
 <div class="row">
-    {{ form_start(form) }}
 
     <div class="col-md-6">
         <div class="box box-solid">
@@ -41,11 +57,19 @@
             </div>
         </div>
     </div>
+</div>
 
+<div class="row">
     <div class="col-md-6">
         <div class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
             <div class="box-body">
+                {{ macro.complex_choice(form.securityAccessControl) }}
+                {{ macro.complex_choice(form.securityTracability) }}
+                {{ macro.complex_choice(form.securitySaving) }}
+                {{ macro.complex_choice(form.securityUpdate) }}
+                {{ macro.complex_choice(form.securityEncryption) }}
+                {{ macro.complex_choice(form.securityOther) }}
             </div>
         </div>
     </div>
@@ -59,7 +83,9 @@
             </div>
         </div>
     </div>
+</div>
 
+<div class="row">
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
@@ -70,7 +96,7 @@
             </div>
         </div>
     </div>
-
-    {{ form_end(form) }}
 </div>
+
+{{ form_end(form) }}
 

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Domain\Registry\Form\Type;
 
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Treatment;
@@ -114,6 +115,30 @@ class TreatmentType extends AbstractType
             ])
             ->add('delay', DelayType::class, [
                 'label'    => 'registry.treatment.form.delay',
+                'required' => false,
+            ])
+            ->add('securityAccessControl', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.security_access_control',
+                'required' => false,
+            ])
+            ->add('securityTracability', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.security_tracability',
+                'required' => false,
+            ])
+            ->add('securitySaving', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.security_saving',
+                'required' => false,
+            ])
+            ->add('securityUpdate', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.security_update',
+                'required' => false,
+            ])
+            ->add('securityEncryption', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.security_encryption',
+                'required' => false,
+            ])
+            ->add('securityOther', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.security_other',
                 'required' => false,
             ])
             ->add('active', ChoiceType::class, [
