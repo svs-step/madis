@@ -16,6 +16,7 @@ namespace App\Tests\Domain\Registry\Model;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\Registry\Model\Embeddable\ComplexChoice;
 use App\Domain\Registry\Model\Embeddable\Delay;
 use App\Domain\Registry\Model\Treatment;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -34,6 +35,12 @@ class TreatmentTest extends TestCase
         $this->assertInstanceOf(ArrayCollection::class, $model->getContractors());
         $this->assertInstanceOf(Delay::class, $model->getDelay());
         $this->assertTrue($model->isActive());
+        $this->assertInstanceOf(ComplexChoice::class, $model->getSecurityAccessControl());
+        $this->assertInstanceOf(ComplexChoice::class, $model->getSecurityTracability());
+        $this->assertInstanceOf(ComplexChoice::class, $model->getSecuritySaving());
+        $this->assertInstanceOf(ComplexChoice::class, $model->getSecurityUpdate());
+        $this->assertInstanceOf(ComplexChoice::class, $model->getSecurityEncryption());
+        $this->assertInstanceOf(ComplexChoice::class, $model->getSecurityOther());
     }
 
     public function testTraits()

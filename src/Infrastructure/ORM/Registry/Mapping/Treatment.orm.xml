@@ -23,6 +23,12 @@
         <field name="active" column="active" type="boolean"/>
 
         <embedded name="delay" class="App\Domain\Registry\Model\Embeddable\Delay" column-prefix="delay_"/>
+        <embedded name="securityAccessControl" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_access_control_"/>
+        <embedded name="securityTracability" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_tracability_"/>
+        <embedded name="securitySaving" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_saving_"/>
+        <embedded name="securityEncryption" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_encryption"/>
+        <embedded name="securityUpdate" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_update_"/>
+        <embedded name="securityOther" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_other_"/>
 
         <many-to-many field="contractors" target-entity="App\Domain\Registry\Model\Contractor" inversed-by="treatments">
             <join-table name="treatment_contractor">

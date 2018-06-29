@@ -88,6 +88,12 @@ registry:
             manager: Gestionnaire
             name: Nom
             recipient_category: Catégorie de destinataires
+            security_access_control: Contrôle d'accès
+            security_encryption: Chiffrement
+            security_other: Autres
+            security_saving: Sauvegarde
+            security_tracability: Tracabilité
+            security_update: Mise à jour
             sensible_informations: Contient des données sensibles
             software: Logiciel
         flashbag:
@@ -119,6 +125,12 @@ registry:
             manager: Gestionnaire
             name: Nom
             recipient_category: Catégorie de destinataires
+            security_access_control: Contrôle d'accès
+            security_encryption: Chiffrement
+            security_other: Autres
+            security_saving: Sauvegarde
+            security_tracability: Tracabilité
+            security_update: Mise à jour
             sensible_informations: Données à caractère sensible
             updated_at: Dernière mise à jour
         title:
