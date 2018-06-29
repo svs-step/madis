@@ -16,6 +16,7 @@ namespace App\Domain\Registry\Model;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\Registry\Model\Embeddable\ComplexChoice;
 use App\Domain\Registry\Model\Embeddable\Delay;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -114,18 +115,54 @@ class Treatment
     private $delay;
 
     /**
+     * @var ComplexChoice
+     */
+    private $securityAccessControl;
+
+    /**
+     * @var ComplexChoice
+     */
+    private $securityTracability;
+
+    /**
+     * @var ComplexChoice
+     */
+    private $securitySaving;
+
+    /**
+     * @var ComplexChoice
+     */
+    private $securityUpdate;
+
+    /**
+     * @var ComplexChoice
+     */
+    private $securityEncryption;
+
+    /**
+     * @var ComplexChoice
+     */
+    private $securityOther;
+
+    /**
      * @var bool
      */
     private $active;
 
     public function __construct()
     {
-        $this->id                   = Uuid::uuid4();
-        $this->concernedPeople      = [];
-        $this->sensibleInformations = false;
-        $this->contractors          = new ArrayCollection();
-        $this->delay                = new Delay();
-        $this->active               = true;
+        $this->id                    = Uuid::uuid4();
+        $this->concernedPeople       = [];
+        $this->sensibleInformations  = false;
+        $this->contractors           = new ArrayCollection();
+        $this->delay                 = new Delay();
+        $this->securityAccessControl = new ComplexChoice();
+        $this->securityTracability   = new ComplexChoice();
+        $this->securitySaving        = new ComplexChoice();
+        $this->securityEncryption    = new ComplexChoice();
+        $this->securityUpdate        = new ComplexChoice();
+        $this->securityOther         = new ComplexChoice();
+        $this->active                = true;
     }
 
     public function __toString()
@@ -341,6 +378,102 @@ class Treatment
     public function setDelay(Delay $delay): void
     {
         $this->delay = $delay;
+    }
+
+    /**
+     * @return ComplexChoice
+     */
+    public function getSecurityAccessControl(): ComplexChoice
+    {
+        return $this->securityAccessControl;
+    }
+
+    /**
+     * @param ComplexChoice $securityAccessControl
+     */
+    public function setSecurityAccessControl(ComplexChoice $securityAccessControl): void
+    {
+        $this->securityAccessControl = $securityAccessControl;
+    }
+
+    /**
+     * @return ComplexChoice
+     */
+    public function getSecurityTracability(): ComplexChoice
+    {
+        return $this->securityTracability;
+    }
+
+    /**
+     * @param ComplexChoice $securityTracability
+     */
+    public function setSecurityTracability(ComplexChoice $securityTracability): void
+    {
+        $this->securityTracability = $securityTracability;
+    }
+
+    /**
+     * @return ComplexChoice
+     */
+    public function getSecuritySaving(): ComplexChoice
+    {
+        return $this->securitySaving;
+    }
+
+    /**
+     * @param ComplexChoice $securitySaving
+     */
+    public function setSecuritySaving(ComplexChoice $securitySaving): void
+    {
+        $this->securitySaving = $securitySaving;
+    }
+
+    /**
+     * @return ComplexChoice
+     */
+    public function getSecurityUpdate(): ComplexChoice
+    {
+        return $this->securityUpdate;
+    }
+
+    /**
+     * @param ComplexChoice $securityUpdate
+     */
+    public function setSecurityUpdate(ComplexChoice $securityUpdate): void
+    {
+        $this->securityUpdate = $securityUpdate;
+    }
+
+    /**
+     * @return ComplexChoice
+     */
+    public function getSecurityEncryption(): ComplexChoice
+    {
+        return $this->securityEncryption;
+    }
+
+    /**
+     * @param ComplexChoice $securityEncryption
+     */
+    public function setSecurityEncryption(ComplexChoice $securityEncryption): void
+    {
+        $this->securityEncryption = $securityEncryption;
+    }
+
+    /**
+     * @return ComplexChoice
+     */
+    public function getSecurityOther(): ComplexChoice
+    {
+        return $this->securityOther;
+    }
+
+    /**
+     * @param ComplexChoice $securityOther
+     */
+    public function setSecurityOther(ComplexChoice $securityOther): void
+    {
+        $this->securityOther = $securityOther;
     }
 
     /**

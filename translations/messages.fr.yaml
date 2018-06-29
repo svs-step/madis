@@ -16,3 +16,6 @@ label:
     inactive: Inactif
     no: Non
     yes: Oui
+
+placeholder:
+    precision: Précisez

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Registry\Form\Type;
 
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model\Treatment;
@@ -68,6 +69,12 @@ class TreatmentTypeTest extends FormTypeHelper
             'recipientCategory'       => TextareaType::class,
             'contractors'             => EntityType::class,
             'delay'                   => DelayType::class,
+            'securityAccessControl'   => ComplexChoiceType::class,
+            'securityTracability'     => ComplexChoiceType::class,
+            'securitySaving'          => ComplexChoiceType::class,
+            'securityUpdate'          => ComplexChoiceType::class,
+            'securityEncryption'      => ComplexChoiceType::class,
+            'securityOther'           => ComplexChoiceType::class,
             'active'                  => ChoiceType::class,
         ];
 
