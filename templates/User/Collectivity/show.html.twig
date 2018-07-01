@@ -231,7 +231,7 @@
                                 {% if object.dpo.firstname is not null %}
                                     {{ object.dpo.civility|dictionary('user_contact_civility') }}
                                 {% else %}
-                                    {{ default_dpo_civility|dictionary('user_contact_civility') }}
+                                    {{ default_dpo_civility }}
                                 {% endif %}
                             </td>
                         </tr>

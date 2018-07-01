@@ -128,8 +128,8 @@ class WordGenerator
         $cell->addText($contact->getPhoneNumber());
 
         // DPO
-        $dpo         = $collectivity->getReferent();
-        $civility    = ContactCivilityDictionary::getCivilities()[$dpo->getCivility() ?? $this->dpo['civility']];
+        $dpo         = $collectivity->getDpo();
+        $civility    = $dpo->getCivility() ? ContactCivilityDictionary::getCivilities()[$dpo->getCivility()] : $this->dpo['civility'];
         $firstName   = $dpo->getFirstName() ?? $this->dpo['firstName'];
         $lastName    = $dpo->getFirstName() ?? $this->dpo['lastName'];
         $fullName    = "{$firstName} {$lastName}";
