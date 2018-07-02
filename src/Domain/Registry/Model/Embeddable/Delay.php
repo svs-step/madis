@@ -26,6 +26,21 @@ class Delay
     private $period;
 
     /**
+     * @var bool
+     */
+    private $otherDelay;
+
+    /**
+     * @var string
+     */
+    private $comment;
+
+    public function __construct()
+    {
+        $this->otherDelay = false;
+    }
+
+    /**
      * @return int|null
      */
     public function getNumber(): ?int
@@ -55,5 +70,37 @@ class Delay
     public function setPeriod(?string $period): void
     {
         $this->period = $period;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOtherDelay(): bool
+    {
+        return $this->otherDelay;
+    }
+
+    /**
+     * @param bool $otherDelay
+     */
+    public function setOtherDelay(bool $otherDelay): void
+    {
+        $this->otherDelay = $otherDelay;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string|null $comment
+     */
+    public function setComment(?string $comment): void
+    {
+        $this->comment = $comment;
     }
 }

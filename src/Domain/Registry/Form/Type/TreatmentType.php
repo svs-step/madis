@@ -77,7 +77,7 @@ class TreatmentType extends AbstractType
             ->add('concernedPeople', DictionaryType::class, [
                 'label'    => 'registry.treatment.form.concerned_people',
                 'name'     => 'registry_treatment_concerned_people',
-                'required' => false,
+                'required' => true,
                 'expanded' => true,
                 'multiple' => true,
             ])

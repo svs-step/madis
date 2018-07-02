@@ -9,7 +9,20 @@ App\Domain\Registry\Model\Embeddable\Delay:
                 type: 'integer'
                 message: 'registry_delay.number.type'
                 groups: ['default']
+            - Expression:
+                expression: "this.getNumber() == null or this.getNumber() and this.isOtherDelay() == false"
+                message: 'registry_delay.number.expression'
+                groups: ['default']
         period:
             - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
                 name: 'registry_delay_period'
+                groups: ['default']
+        otherDelay:
+            - NotNull:
+                message: 'registry_delay.other_delay.not_null'
+                groups: ['default']
+        comment:
+            - Expression:
+                expression: "this.getComment() == null or this.getComment() and this.isOtherDelay() == true"
+                message: 'registry_delay.comment.expression'
                 groups: ['default']
