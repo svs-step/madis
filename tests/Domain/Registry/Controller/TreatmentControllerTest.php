@@ -19,11 +19,13 @@ use App\Domain\Registry\Controller\TreatmentController;
 use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
+use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -47,6 +49,11 @@ class TreatmentControllerTest extends TestCase
     private $repositoryProphecy;
 
     /**
+     * @var WordHandler
+     */
+    private $wordHandlerProphecy;
+
+    /**
      * @var AuthorizationCheckerInterface
      */
     private $authenticationCheckerProphecy;
@@ -54,7 +61,7 @@ class TreatmentControllerTest extends TestCase
     /**
      * @var UserProvider
      */
-    private $userProvierProphecy;
+    private $userProviderProphecy;
 
     /**
      * @var TreatmentController
@@ -63,18 +70,20 @@ class TreatmentControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->managerProphecy               = $this->prophesize(EntityManagerInterface::class);
-        $this->translatorProphecy            = $this->prophesize(TranslatorInterface::class);
-        $this->repositoryProphecy            = $this->prophesize(Repository\Treatment::class);
-        $this->authenticationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
-        $this->userProvierProphecy           = $this->prophesize(UserProvider::class);
+        $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
+        $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);
+        $this->repositoryProphecy             = $this->prophesize(Repository\Treatment::class);
+        $this->wordHandlerProphecy            = $this->prophesize(WordHandler::class);
+        $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
+        $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
 
         $this->controller = new TreatmentController(
             $this->managerProphecy->reveal(),
             $this->translatorProphecy->reveal(),
             $this->repositoryProphecy->reveal(),
+            $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
-            $this->userProvierProphecy->reveal()
+            $this->userProviderProphecy->reveal()
         );
     }
 
@@ -131,7 +140,7 @@ class TreatmentControllerTest extends TestCase
         ;
 
         // No need to restrict query to collectivity
-        $this->userProvierProphecy
+        $this->userProviderProphecy
             ->getAuthenticatedUser()
             ->shouldNotBeCalled()
         ;
@@ -171,7 +180,7 @@ class TreatmentControllerTest extends TestCase
         $collectivity = $this->prophesize(Collectivity::class)->reveal();
         $userProphecy = $this->prophesize(User::class);
         $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($collectivity);
-        $this->userProvierProphecy
+        $this->userProviderProphecy
             ->getAuthenticatedUser()
             ->shouldBeCalled()
             ->willReturn($userProphecy->reveal())
@@ -191,6 +200,46 @@ class TreatmentControllerTest extends TestCase
         $this->assertEquals(
             $valueReturnedByRepository,
             $this->invokeMethod($this->controller, 'getListData')
+        );
+    }
+
+    /**
+     * Test reportAction.
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     */
+    public function testReportAction()
+    {
+        $orderKey    = 'name';
+        $orderDir    = 'asc';
+        $treatments  = [];
+        $response    = $this->prophesize(BinaryFileResponse::class)->reveal();
+
+        $collectivity = $this->prophesize(Collectivity::class)->reveal();
+        $userProphecy = $this->prophesize(User::class);
+        $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($collectivity);
+        $this->userProviderProphecy
+            ->getAuthenticatedUser()
+            ->shouldBeCalled()
+            ->willReturn($userProphecy->reveal())
+        ;
+
+        // findAllByCollectivity must be called but not findAll
+        $this->repositoryProphecy
+            ->findAllByCollectivity($collectivity, [$orderKey => $orderDir])
+            ->shouldBeCalled()
+            ->willReturn($treatments)
+        ;
+
+        $this->wordHandlerProphecy
+            ->generateRegistryTreatmentReport($treatments)
+            ->shouldBeCalled()
+            ->willReturn($response)
+        ;
+
+        $this->assertEquals(
+            $response,
+            $this->controller->reportAction()
         );
     }
 }

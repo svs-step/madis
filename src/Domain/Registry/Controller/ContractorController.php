@@ -18,7 +18,7 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Form\Type\ContractorType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
-use App\Domain\Reporting\Generator\WordGenerator;
+use App\Domain\Reporting\Handler\WordHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -27,9 +27,9 @@ use Symfony\Component\Translation\TranslatorInterface;
 class ContractorController extends CRUDController
 {
     /**
-     * @var WordGenerator
+     * @var WordHandler
      */
-    protected $wordGenerator;
+    protected $wordHandler;
 
     /**
      * @var AuthorizationCheckerInterface
@@ -45,12 +45,12 @@ class ContractorController extends CRUDController
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Contractor $repository,
-        WordGenerator $wordGenerator,
+        WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider
     ) {
         parent::__construct($entityManager, $translator, $repository);
-        $this->wordGenerator        = $wordGenerator;
+        $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
     }
@@ -87,6 +87,13 @@ class ContractorController extends CRUDController
         return $this->repository->findAllByCollectivity($this->userProvider->getAuthenticatedUser()->getCollectivity());
     }
 
+    /**
+     * Generate a word report of contractors.
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     *
+     * @return Response
+     */
     public function reportAction(): Response
     {
         $objects = $this->repository->findAllByCollectivity(
@@ -94,6 +101,6 @@ class ContractorController extends CRUDController
             ['name' => 'asc']
         );
 
-        return $this->wordGenerator->generateRegistryContractorReport($objects);
+        return $this->wordHandler->generateRegistryContractorReport($objects);
     }
 }

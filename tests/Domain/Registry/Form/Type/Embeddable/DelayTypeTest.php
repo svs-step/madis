@@ -18,7 +18,9 @@ use App\Domain\Registry\Model\Embeddable\Delay;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DelayTypeTest extends FormTypeHelper
@@ -31,8 +33,10 @@ class DelayTypeTest extends FormTypeHelper
     public function testBuildForm(): void
     {
         $builder = [
-            'number' => IntegerType::class,
-            'period' => DictionaryType::class,
+            'number'     => IntegerType::class,
+            'period'     => DictionaryType::class,
+            'otherDelay' => CheckboxType::class,
+            'comment'    => TextareaType::class,
         ];
 
         (new DelayType())->buildForm($this->prophesizeBuilder($builder), []);

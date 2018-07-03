@@ -1,12 +1,6 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
 
 {{ form_start(form) }}
-<style>
-    .complex-choice-group label.col-sm-2 {
-        text-align: left;
-        width: 100%;
-    }
-</style>
 
 {% macro complex_choice(field) %}
 <div class="col-sm-12 complex-choice-group">
@@ -39,10 +33,14 @@
             <div class="box-body">
                 {{ form_row(form.concernedPeople) }}
                 {{ form_row(form.software) }}
-                <div style="vertical-align: middle">
-                    <div style="display: inline-block; vertical-align: middle; width: 25%;">{{ form_label(form.delay) }}</div>
-                    <div style="display: inline-block; vertical-align: middle; width: 20%;">{{ form_row(form.delay.number) }}</div>
-                    <div style="display: inline-block; vertical-align: middle;">{{ form_row(form.delay.period) }}</div>
+                <div class="delay-group">
+                    <div class="one-line">
+                        <div>{{ form_label(form.delay) }}</div>
+                        <div>{{ form_row(form.delay.number) }}</div>
+                        <div>{{ form_row(form.delay.period) }}</div>
+                    </div>
+                    {{ form_row(form.delay.otherDelay) }}
+                    {{ form_row(form.delay.comment) }}
                 </div>
             </div>
         </div>

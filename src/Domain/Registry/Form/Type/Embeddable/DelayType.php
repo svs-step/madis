@@ -16,7 +16,9 @@ namespace App\Domain\Registry\Form\Type\Embeddable;
 use App\Domain\Registry\Model\Embeddable\Delay;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,6 +38,14 @@ class DelayType extends AbstractType
                 'label'    => false,
                 'name'     => 'registry_delay_period',
                 'required' => true,
+            ])
+            ->add('otherDelay', CheckboxType::class, [
+                'label'    => 'registry.delay.form.other_delay',
+                'required' => false,
+            ])
+            ->add('comment', TextareaType::class, [
+                'label'    => false,
+                'required' => false,
             ])
         ;
     }

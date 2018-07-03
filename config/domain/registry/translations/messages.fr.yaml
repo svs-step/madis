@@ -65,11 +65,16 @@ registry:
             list: Liste des sous-traitants
             show: Visualiser un sous-traitant
 
+    delay:
+        form:
+            other_delay: Autre délai
+
     treatment:
         action:
             back_to_list: Retour à la liste
             edit: Éditer
             new: Nouveau traitement
+            report: Générer une impression
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"

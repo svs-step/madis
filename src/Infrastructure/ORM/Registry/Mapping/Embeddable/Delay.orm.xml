@@ -9,6 +9,8 @@
 
         <field name="number" column="number" type="integer" nullable="true"/>
         <field name="period" column="period" nullable="true"/>
+        <field name="otherDelay" column="other_delay" type="boolean"/>
+        <field name="comment" column="comment" type="text" nullable="true"/>
 
     </embeddable>
 

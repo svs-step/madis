@@ -18,12 +18,19 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
+use App\Domain\Reporting\Handler\WordHandler;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class TreatmentController extends CRUDController
 {
+    /**
+     * @var WordHandler
+     */
+    protected $wordHandler;
+
     /**
      * @var AuthorizationCheckerInterface
      */
@@ -38,10 +45,12 @@ class TreatmentController extends CRUDController
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Treatment $repository,
+        WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider
     ) {
         parent::__construct($entityManager, $translator, $repository);
+        $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
     }
@@ -76,5 +85,22 @@ class TreatmentController extends CRUDController
         }
 
         return $this->repository->findAllByCollectivity($this->userProvider->getAuthenticatedUser()->getCollectivity());
+    }
+
+    /**
+     * Generate a word report of contractors.
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     *
+     * @return Response
+     */
+    public function reportAction(): Response
+    {
+        $objects = $this->repository->findAllByCollectivity(
+            $this->userProvider->getAuthenticatedUser()->getCollectivity(),
+            ['name' => 'asc']
+        );
+
+        return $this->wordHandler->generateRegistryTreatmentReport($objects);
     }
 }

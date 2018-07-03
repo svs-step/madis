@@ -25,8 +25,13 @@ registry_contractor:
 
 registry_delay:
     number:
+        expression: Vous ne pouvez saisir un jour puisque vous avez sélectionné une autre durée
         min_range: La plus petite valeur possible est {{ limit }}
         type: Vous devez reseigner un chiffre
+    other_delay:
+        not_null: Vous devez saisir une valeur
+    comment:
+        expression: Vous ne pouvez saisir de détail puisque d'une durée spécifique doit être saisie
 
 registry_treatment:
     active:

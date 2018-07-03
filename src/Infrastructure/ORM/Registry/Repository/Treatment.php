@@ -29,16 +29,24 @@ class Treatment extends CRUDRepository implements Repository\Treatment
      * Find all treatments by associated collectivity.
      *
      * @param Collectivity $collectivity The collectivity to search with
+     * @param array        $order        Order the data
      *
      * @return array The array of treatments given by the collectivity
      */
-    public function findAllByCollectivity(Collectivity $collectivity)
+    public function findAllByCollectivity(Collectivity $collectivity, array $order = [])
     {
-        return $this->createQueryBuilder()
+        $qb = $this->createQueryBuilder()
             ->andWhere('o.collectivity = :collectivity')
             ->setParameter('collectivity', $collectivity)
+        ;
+
+        foreach ($order as $key => $dir) {
+            $qb->addOrderBy("o.{$key}", $dir);
+        }
+
+        return $qb
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
 }

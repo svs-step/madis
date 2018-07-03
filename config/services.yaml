@@ -22,6 +22,10 @@ services:
         arguments:
             $dpo: { civility: '%env(APP_DPO_CIVILITY)%', firstName: '%env(APP_DPO_FIRST_NAME)%', lastName: '%env(APP_DPO_LAST_NAME)%', company: '%env(APP_DPO_COMPANY)%', job: '%env(APP_DPO_JOB)%', mail: '%env(APP_DPO_MAIL)%', phoneNumber: '%env(APP_DPO_PHONE_NUMBER)%' }
 
+    App\Domain\Reporting\Handler\WordHandler:
+        arguments:
+            $dpo: { civility: '%env(APP_DPO_CIVILITY)%', firstName: '%env(APP_DPO_FIRST_NAME)%', lastName: '%env(APP_DPO_LAST_NAME)%', company: '%env(APP_DPO_COMPANY)%', job: '%env(APP_DPO_JOB)%', mail: '%env(APP_DPO_MAIL)%', phoneNumber: '%env(APP_DPO_PHONE_NUMBER)%' }
+
 imports:
     - { resource: services/controller.yaml }
     - { resource: services/dictionary.yaml }

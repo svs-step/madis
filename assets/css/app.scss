@@ -11,6 +11,18 @@
   text-align: left;
   width: 100%;
 }
+.delay-group .one-line {
+  vertical-align: middle;
+  > div {
+    display: inline-block; vertical-align: middle;
+  }
+  > div:nth-child(1) {
+    width: 25%;
+  }
+  > div:nth-child(2) {
+    width: 20%;
+  }
+}
 
 /* Pages */
 div.action-bar {
