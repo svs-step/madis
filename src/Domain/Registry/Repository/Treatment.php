@@ -22,8 +22,9 @@ interface Treatment extends CRUDRepositoryInterface
      * Find all treatments by associated collectivity.
      *
      * @param Collectivity $collectivity The collectivity to search with
+     * @param array        $order        Order results
      *
      * @return array The array of treatments given by the collectivity
      */
-    public function findAllByCollectivity(Collectivity $collectivity);
+    public function findAllByCollectivity(Collectivity $collectivity, array $order = []);
 }

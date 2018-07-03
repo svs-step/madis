@@ -80,6 +80,8 @@ class TreatmentTest extends TestCase
     public function testFindAllByCollectivity()
     {
         $collectivity = new Collectivity();
+        $orderKey     = 'key';
+        $orderDir     = 'asc';
         $results      = ['dummyResult'];
 
         // Query
@@ -109,6 +111,11 @@ class TreatmentTest extends TestCase
             ->willReturn($queryBuilderProphecy)
         ;
         $queryBuilderProphecy
+            ->addOrderBy("o.{$orderKey}", $orderDir)
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
             ->getQuery()
             ->shouldBeCalled()
             ->willReturn($queryProphecy->reveal())
@@ -129,7 +136,7 @@ class TreatmentTest extends TestCase
 
         $this->assertEquals(
             $results,
-            $this->infraRepo->findAllByCollectivity($collectivity)
+            $this->infraRepo->findAllByCollectivity($collectivity, [$orderKey => $orderDir])
         );
     }
 }

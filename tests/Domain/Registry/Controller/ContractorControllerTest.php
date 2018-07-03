@@ -19,7 +19,7 @@ use App\Domain\Registry\Controller\ContractorController;
 use App\Domain\Registry\Form\Type\ContractorType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
-use App\Domain\Reporting\Generator\WordGenerator;
+use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use App\Tests\Utils\ReflectionTrait;
@@ -49,9 +49,9 @@ class ContractorControllerTest extends TestCase
     private $repositoryProphecy;
 
     /**
-     * @var WordGenerator
+     * @var WordHandler
      */
-    private $wordGeneratorProphecy;
+    private $wordHandlerProphecy;
 
     /**
      * @var AuthorizationCheckerInterface
@@ -61,7 +61,7 @@ class ContractorControllerTest extends TestCase
     /**
      * @var UserProvider
      */
-    private $userProvierProphecy;
+    private $userProviderProphecy;
 
     /**
      * @var ContractorController
@@ -70,20 +70,20 @@ class ContractorControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->managerProphecy               = $this->prophesize(EntityManagerInterface::class);
-        $this->translatorProphecy            = $this->prophesize(TranslatorInterface::class);
-        $this->repositoryProphecy            = $this->prophesize(Repository\Contractor::class);
-        $this->wordGeneratorProphecy         = $this->prophesize(WordGenerator::class);
-        $this->authenticationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
-        $this->userProvierProphecy           = $this->prophesize(UserProvider::class);
+        $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
+        $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);
+        $this->repositoryProphecy             = $this->prophesize(Repository\Contractor::class);
+        $this->wordHandlerProphecy            = $this->prophesize(WordHandler::class);
+        $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
+        $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
 
         $this->controller = new ContractorController(
             $this->managerProphecy->reveal(),
             $this->translatorProphecy->reveal(),
             $this->repositoryProphecy->reveal(),
-            $this->wordGeneratorProphecy->reveal(),
+            $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
-            $this->userProvierProphecy->reveal()
+            $this->userProviderProphecy->reveal()
         );
     }
 
@@ -140,7 +140,7 @@ class ContractorControllerTest extends TestCase
         ;
 
         // No need to restrict query to collectivity
-        $this->userProvierProphecy
+        $this->userProviderProphecy
             ->getAuthenticatedUser()
             ->shouldNotBeCalled()
         ;
@@ -180,7 +180,7 @@ class ContractorControllerTest extends TestCase
         $collectivity = $this->prophesize(Collectivity::class)->reveal();
         $userProphecy = $this->prophesize(User::class);
         $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($collectivity);
-        $this->userProvierProphecy
+        $this->userProviderProphecy
             ->getAuthenticatedUser()
             ->shouldBeCalled()
             ->willReturn($userProphecy->reveal())
@@ -203,6 +203,11 @@ class ContractorControllerTest extends TestCase
         );
     }
 
+    /**
+     * Test reportAction.
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     */
     public function testReportAction()
     {
         $orderKey    = 'name';
@@ -213,7 +218,7 @@ class ContractorControllerTest extends TestCase
         $collectivity = $this->prophesize(Collectivity::class)->reveal();
         $userProphecy = $this->prophesize(User::class);
         $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($collectivity);
-        $this->userProvierProphecy
+        $this->userProviderProphecy
             ->getAuthenticatedUser()
             ->shouldBeCalled()
             ->willReturn($userProphecy->reveal())
@@ -226,7 +231,7 @@ class ContractorControllerTest extends TestCase
             ->willReturn($contractors)
         ;
 
-        $this->wordGeneratorProphecy
+        $this->wordHandlerProphecy
             ->generateRegistryContractorReport($contractors)
             ->shouldBeCalled()
             ->willReturn($response)

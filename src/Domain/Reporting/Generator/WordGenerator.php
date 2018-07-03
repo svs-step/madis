@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Generator;
 
+use App\Domain\Reporting\Generator\Word\ContractorGenerator;
 use App\Domain\User\Dictionary\ContactCivilityDictionary;
 use App\Domain\User\Model as UserModel;
 use PhpOffice\PhpWord\IOFactory;
@@ -59,7 +60,7 @@ class WordGenerator
      */
     public function generateRegistryContractorReport(array $contractors): Response
     {
-        $this->contractorGenerator->generateHeader($this->document);
+        $this->contractorGenerator->generateHeader($this->document, 'Sous-traitants');
         $this->contractorGenerator->generateOverview($this->document, $contractors);
         $this->contractorGenerator->generateDetails($this->document, $contractors);
 
