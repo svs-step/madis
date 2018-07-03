@@ -74,6 +74,7 @@ registry:
             back_to_list: Retour à la liste
             edit: Éditer
             new: Nouveau traitement
+            report: Générer une impression
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"

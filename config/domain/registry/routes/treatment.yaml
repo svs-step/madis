@@ -22,6 +22,12 @@ registry_treatment_show:
     defaults:
         _controller: 'App\Domain\Registry\Controller\TreatmentController:showAction'
 
+registry_treatment_report:
+    path: '/bilan'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\TreatmentController:reportAction'
+
 registry_treatment_delete:
     path: '/supprimer/{id}'
     methods: ['GET']

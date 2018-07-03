@@ -22,16 +22,20 @@
 
 {% block body %}
     <div class="row">
-        {% if is_granted('ROLE_USER') %}
             <div class="col-xs-12">
                 <div class="action-bar">
+                    {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('registry_treatment_create') }}" class="btn btn-default">
                         <i class="fa fa-plus"></i>
                         {{ 'registry.treatment.action.new'|trans }}
                     </a>
+                    {% endif %}
+                    <a href="{{ path('registry_treatment_report') }}" class="btn btn-default">
+                        <i class="fa fa-clipboard-list"></i>
+                        {{ 'registry.treatment.action.report'|trans }}
+                    </a>
                 </div>
             </div>
-        {% endif %}
     </div>
 
     <div class="row">
