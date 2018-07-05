@@ -1,7 +1,7 @@
 user:
     address:
         form:
-            insee: INSEE
+            insee: Code INSEE
             line_one: Ligne 1
             line_two: Ligne 2
             city: Ville
@@ -20,7 +20,6 @@ user:
         action:
             back_to_list: Retour à la liste
             new: Nouvelle collectivité
-            edit: Éditer
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
@@ -59,7 +58,7 @@ user:
             address_line_two: Complément d'adresse
             address_zip_code: Code postal
             address_city: Ville
-            address_insee: N° INSEE
+            address_insee: Code INSEE
             contact_civility: Civilité
             contact_first_name: Prénom
             contact_last_name: Nom

@@ -13,7 +13,7 @@ services:
 
     App\Domain\:
         resource: '../src/Domain/*'
-        exclude: '../src/Domain/*/{Component/Mailer.php,Controller,Model,Symfony/EventSubscriber,Tests}'
+        exclude: '../src/Domain/*/{Component/Mailer.php,Controller,Generator,Model,Symfony/EventSubscriber,Tests}'
 
     PhpOffice\PhpWord\PhpWord: ~
     RandomLib\Factory: ~
@@ -30,4 +30,5 @@ imports:
     - { resource: services/controller.yaml }
     - { resource: services/dictionary.yaml }
     - { resource: services/event_subscriber.yaml }
+    - { resource: services/generator.yaml }
     - { resource: services/mail.yaml }

@@ -13,10 +13,24 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Generator\Word;
 
+use App\Application\Symfony\Security\UserProvider;
 use PhpOffice\PhpWord\PhpWord;
 
 class ContractorGenerator extends Generator
 {
+    /**
+     * @var string
+     */
+    private $defaultReferent;
+
+    public function __construct(
+        UserProvider $userProvider,
+        string $defaultReferent
+    ) {
+        parent::__construct($userProvider);
+        $this->defaultReferent = $defaultReferent;
+    }
+
     public function generateOverview(PhpWord $document, array $data): void
     {
         $section = $document->addSection();
@@ -37,7 +51,7 @@ class ContractorGenerator extends Generator
         foreach ($data as $contractor) {
             $tableData[] = [
                 $contractor->getName(),
-                $contractor->getReferent(),
+                $contractor->getReferent() ?? $this->defaultReferent,
                 $contractor->isContractualClausesVerified() ? 'Oui' : 'Non',
                 $contractor->isConform() ? 'Oui' : 'Non',
             ];
@@ -55,7 +69,7 @@ class ContractorGenerator extends Generator
             $generalInformationsData = [
                 [
                     'Personne référente',
-                    $contractor->getReferent(),
+                    $contractor->getReferent() ?? $this->defaultReferent,
                 ],
                 [
                     'Clauses contractuelles vérifiées',

@@ -19,7 +19,6 @@ registry:
     contractor:
         action:
             back_to_list: Retour à la liste
-            edit: Éditer
             new: Nouveau sous-traitant
             report: Générer une impression
         breadcrumb:
@@ -72,7 +71,6 @@ registry:
     treatment:
         action:
             back_to_list: Retour à la liste
-            edit: Éditer
             new: Nouveau traitement
             report: Générer une impression
         breadcrumb:

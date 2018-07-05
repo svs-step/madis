@@ -11,7 +11,7 @@
         <id name="id" column="id" type="uuid"/>
 
         <field name="name" column="name"/>
-        <field name="referent" column="referent"/>
+        <field name="referent" column="referent" nullable="true"/>
         <field name="contractualClausesVerified" column="contractual_clauses_verified" type="boolean"/>
         <field name="conform" column="conform" type="boolean"/>
         <field name="otherInformations" column="other_informations" type="text" nullable="true"/>

@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\Domain\:
+        resource: '../../src/Domain/*/Generator'
+
+    App\Domain\Reporting\Generator\Word\ContractorGenerator:
+        arguments:
+            $defaultReferent: "%env(APP_DEFAULT_REFERENT)%"

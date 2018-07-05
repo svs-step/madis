@@ -20,8 +20,6 @@ registry_contractor:
         not_null: Les clauses contractuelles doivent être renseignées
     name:
         not_blank: Vous devez renseigner un nom
-    referent:
-        not_blank: Vous devez renseigner le nom de la personne référente
 
 registry_delay:
     number:

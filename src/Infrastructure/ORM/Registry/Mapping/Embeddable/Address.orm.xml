@@ -7,11 +7,11 @@
 
     <embeddable name="App\Domain\Registry\Model\Embeddable\Address">
 
-        <field name="lineOne" column="line_one"/>
+        <field name="lineOne" column="line_one" nullable="true"/>
         <field name="lineTwo" column="line_two" nullable="true"/>
-        <field name="city" column="city"/>
-        <field name="zipCode" column="zip_code" type="integer"/>
-        <field name="mail" column="mail"/>
+        <field name="city" column="city" nullable="true"/>
+        <field name="zipCode" column="zip_code" type="integer" nullable="true"/>
+        <field name="mail" column="mail" nullable="true"/>
         <field name="phoneNumber" column="phone_number" length="10" nullable="true"/>
 
     </embeddable>

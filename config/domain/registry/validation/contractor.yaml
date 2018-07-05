@@ -12,9 +12,5 @@ App\Domain\Registry\Model\Contractor:
             - NotBlank:
                 message: 'registry_contractor.name.not_blank'
                 groups: ['contractor']
-        referent:
-            - NotBlank:
-                message: 'registry_contractor.referent.not_blank'
-                groups: ['contractor']
         address:
             - Valid: ~
