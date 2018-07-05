@@ -47,7 +47,7 @@ class TreatmentGenerator extends Generator
 
     public function generateDetails(PhpWord $document, array $data): void
     {
-        /**
+        /*
          * @var Treatment
          */
         foreach ($data as $treatment) {
@@ -167,7 +167,7 @@ class TreatmentGenerator extends Generator
             $section->addTitle('Catégorie de données', 3);
             $this->addTable($section, $categoryData, true, self::TABLE_ORIENTATION_VERTICAL);
 
-            $section->addTitle('Finalité', 3);
+            $section->addTitle('Destination', 3);
             $this->addTable($section, $goalData, true, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Mesures de sécurité', 3);
