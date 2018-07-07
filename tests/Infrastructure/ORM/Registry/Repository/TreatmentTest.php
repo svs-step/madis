@@ -139,4 +139,81 @@ class TreatmentTest extends TestCase
             $this->infraRepo->findAllByCollectivity($collectivity, [$orderKey => $orderDir])
         );
     }
+
+    /**
+     * Test findAllActiveByCollectivity.
+     */
+    public function testFindAllActiveByCollectivity()
+    {
+        $collectivity = new Collectivity();
+        $active       = true;
+        $orderKey     = 'key';
+        $orderDir     = 'asc';
+        $results      = ['dummyResult'];
+
+        // Query
+        $queryProphecy = $this->prophesize(AbstractQuery::class);
+        $queryProphecy->getResult()->shouldBeCalled()->willReturn($results);
+
+        // QueryBuilder
+        $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
+        $queryBuilderProphecy
+            ->select('o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->from(Model\Treatment::class, 'o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->andWhere('o.collectivity = :collectivity')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->setParameter('collectivity', $collectivity)
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->andWhere('o.active = :active')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->setParameter('active', $active)
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->addOrderBy("o.{$orderKey}", $orderDir)
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->getQuery()
+            ->shouldBeCalled()
+            ->willReturn($queryProphecy->reveal())
+        ;
+
+        // EntityManager
+        $this->entityManagerProphecy
+            ->createQueryBuilder()
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy->reveal());
+
+        // Registry
+        $this->registryProphecy
+            ->getManager()
+            ->shouldBeCalled()
+            ->willReturn($this->entityManagerProphecy->reveal())
+        ;
+
+        $this->assertEquals(
+            $results,
+            $this->infraRepo->findAllActiveByCollectivity($collectivity, $active, [$orderKey => $orderDir])
+        );
+    }
 }

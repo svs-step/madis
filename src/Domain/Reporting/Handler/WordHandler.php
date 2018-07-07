@@ -63,7 +63,7 @@ class WordHandler
      */
     public function generateRegistryContractorReport(array $contractors = []): Response
     {
-        $this->contractorGenerator->generateHeader($this->document, 'Sous-traitants');
+        $this->contractorGenerator->generateHeader($this->document, 'Registre des sous-traitants');
         $this->contractorGenerator->generateOverview($this->document, $contractors);
         $this->contractorGenerator->generateDetails($this->document, $contractors);
 
@@ -81,7 +81,7 @@ class WordHandler
      */
     public function generateRegistryTreatmentReport(array $treatments = [])
     {
-        $this->treatmentGenerator->generateHeader($this->document, 'Traitements');
+        $this->treatmentGenerator->generateHeader($this->document, 'Registre des traitements');
         $this->treatmentGenerator->generateOverview($this->document, $treatments);
         $this->treatmentGenerator->generateDetails($this->document, $treatments);
 

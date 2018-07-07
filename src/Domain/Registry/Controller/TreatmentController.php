@@ -96,8 +96,9 @@ class TreatmentController extends CRUDController
      */
     public function reportAction(): Response
     {
-        $objects = $this->repository->findAllByCollectivity(
+        $objects = $this->repository->findAllActiveByCollectivity(
             $this->userProvider->getAuthenticatedUser()->getCollectivity(),
+            true,
             ['name' => 'asc']
         );
 

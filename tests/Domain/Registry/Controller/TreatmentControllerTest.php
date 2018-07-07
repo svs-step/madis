@@ -226,7 +226,7 @@ class TreatmentControllerTest extends TestCase
 
         // findAllByCollectivity must be called but not findAll
         $this->repositoryProphecy
-            ->findAllByCollectivity($collectivity, [$orderKey => $orderDir])
+            ->findAllActiveByCollectivity($collectivity, true, [$orderKey => $orderDir])
             ->shouldBeCalled()
             ->willReturn($treatments)
         ;

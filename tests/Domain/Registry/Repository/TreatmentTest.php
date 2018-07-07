@@ -32,5 +32,6 @@ class TreatmentTest extends TestCase
         $repository = $this->prophesize(Repository\Treatment::class)->reveal();
 
         $this->assertTrue(\method_exists($repository, 'findAllByCollectivity'));
+        $this->assertTrue(\method_exists($repository, 'findAllActiveByCollectivity'));
     }
 }

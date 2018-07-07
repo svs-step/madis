@@ -13,11 +13,24 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Generator\Word;
 
-use App\Domain\Registry\Model\Treatment;
+use App\Application\Symfony\Security\UserProvider;
 use PhpOffice\PhpWord\PhpWord;
 
 class TreatmentGenerator extends Generator
 {
+    /**
+     * @var string
+     */
+    private $defaultReferent;
+
+    public function __construct(
+        UserProvider $userProvider,
+        string $defaultReferent
+    ) {
+        parent::__construct($userProvider);
+        $this->defaultReferent = $defaultReferent;
+    }
+
     public function generateOverview(PhpWord $document, array $data): void
     {
         $section = $document->addSection();
@@ -37,7 +50,7 @@ class TreatmentGenerator extends Generator
         foreach ($data as $treatment) {
             $tableData[] = [
                 $treatment->getName(),
-                $treatment->getManager(),
+                $treatment->getManager() ?? $this->defaultReferent,
                 $treatment->isActive() ? 'Actif' : 'Inactif',
             ];
         }
@@ -61,7 +74,7 @@ class TreatmentGenerator extends Generator
                 ],
                 [
                     'Gestionnaire',
-                    $treatment->getManager(),
+                    $treatment->getManager() ?? $this->defaultReferent,
                 ],
                 [
                     'Statut',
