@@ -19,6 +19,16 @@ use App\Domain\User\Model\Collectivity;
 interface Treatment extends CRUDRepositoryInterface
 {
     /**
+     * Find all treatments.
+     *
+     * @param bool  $active Get active / inactive treatments
+     * @param array $order  Order results
+     *
+     * @return array The array of treatments
+     */
+    public function findAllActive(bool $active = true, array $order = []);
+
+    /**
      * Find all treatments by associated collectivity.
      *
      * @param Collectivity $collectivity The collectivity to search with

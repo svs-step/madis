@@ -70,7 +70,9 @@ registry:
 
     treatment:
         action:
+            active: Voir les traitements actifs
             back_to_list: Retour à la liste
+            inactive: Voir les traitements inactifs
             new: Nouveau traitement
             report: Générer une impression
         breadcrumb:
