@@ -52,6 +52,27 @@ class Treatment extends CRUDRepository implements Repository\Treatment
     }
 
     /**
+     * Find all treatments.
+     *
+     * @param bool  $active Get active / inactive treatments
+     * @param array $order  Order results
+     *
+     * @return array The array of treatments
+     */
+    public function findAllActive(bool $active = true, array $order = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        $this->addActiveClause($qb, $active);
+        $this->addOrder($qb, $order);
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
      * Find all treatments by associated collectivity.
      *
      * @param Collectivity $collectivity The collectivity to search with
@@ -69,7 +90,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
