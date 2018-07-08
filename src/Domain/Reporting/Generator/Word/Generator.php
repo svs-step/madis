@@ -182,13 +182,19 @@ abstract class Generator
         foreach ($data as $nbLine => $line) {
             $table->addRow();
             foreach ($line as $nbCol => $col) {
+                $col = \is_array($col) ? $col : [$col];
+
                 if ($header && self::TABLE_ORIENTATION_HORIZONTAL === $orientation && 0 === $nbLine
                     || $header && self::TABLE_ORIENTATION_VERTICAL === $orientation && 0 === $nbCol) {
                     $cell = $table->addCell(2500, $this->cellHeadStyle);
-                    $cell->addText($col, $this->textHeadStyle);
+                    foreach ($col as $item) {
+                        $cell->addText($item, $this->textHeadStyle);
+                    }
                 } else {
                     $cell = $table->addCell();
-                    $cell->addText($col);
+                    foreach ($col as $item) {
+                        $cell->addText($item);
+                    }
                 }
             }
         }

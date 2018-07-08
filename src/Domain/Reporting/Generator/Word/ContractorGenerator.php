@@ -88,19 +88,12 @@ class ContractorGenerator extends Generator
             $addressData = [
                 [
                     'Adresse',
-                    $contractor->getAddress()->getLineOne(),
-                ],
-                [
-                    'Compl. d\'adresse',
-                    $contractor->getAddress()->getLineTwo(),
-                ],
-                [
-                    'Code postal',
-                    $contractor->getAddress()->getZipCode(),
-                ],
-                [
-                    'Ville',
-                    $contractor->getAddress()->getCity(),
+                    [
+                        $contractor->getAddress()->getLineOne(),
+                        $contractor->getAddress()->getLineTwo(),
+                        $contractor->getAddress()->getZipCode(),
+                        $contractor->getAddress()->getCity(),
+                    ],
                 ],
                 [
                     'Email',
