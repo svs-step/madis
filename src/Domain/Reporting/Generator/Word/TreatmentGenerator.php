@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Word;
 
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary;
+use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use PhpOffice\PhpWord\PhpWord;
 
 class TreatmentGenerator extends Generator
@@ -82,7 +84,7 @@ class TreatmentGenerator extends Generator
                 ],
                 [
                     'Base légale',
-                    $treatment->getLegalBasis(),
+                    TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()],
                 ],
                 [
                     'Justification de la base légale',
@@ -93,13 +95,27 @@ class TreatmentGenerator extends Generator
             $detailsData = [
                 [
                     'Personnes référentes',
-                    \implode(', ', $treatment->getConcernedPeople()),
+                    // Values are added below
+                ],
+                [
+                    'Logiciel',
+                    $treatment->getSoftware(),
+                ],
+                [
+                    'Gestion papier',
+                    $treatment->isPaperProcessing() ? 'Oui' : 'Non',
                 ],
                 [
                     'Délai de conservation',
                     $treatment->getDelay()->getComment() ?: "{$treatment->getDelay()->getNumber()} {$treatment->getDelay()->getPeriod()}",
                 ],
             ];
+            // Add Concerned people
+            $concernedPeople = [];
+            foreach ($treatment->getConcernedPeople() as $people) {
+                $concernedPeople[] = TreatmentConcernedPeopleDictionary::getTypes()[$people];
+            }
+            $detailsData[0][] = $concernedPeople;
 
             $categoryData = [
                 [
@@ -143,11 +159,6 @@ class TreatmentGenerator extends Generator
                     'Mise à jour',
                     $treatment->getSecurityUpdate()->isCheck() ? 'Oui' : 'Non',
                     $treatment->getSecurityUpdate()->getComment(),
-                ],
-                [
-                    'Chiffrement',
-                    $treatment->getSecurityEncryption()->isCheck() ? 'Oui' : 'Non',
-                    $treatment->getSecurityEncryption()->getComment(),
                 ],
                 [
                     'Autres',

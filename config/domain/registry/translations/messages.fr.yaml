@@ -86,15 +86,16 @@ registry:
             concerned_people: Personnes concernées
             contractors: Sous-traitants
             data_category: Catégorie de données
+            data_category_other: Autres catégories
             delay: Délai de conservation
             goal: Finalité
             legal_basis: Base légale
             legal_basis_justification: Justification de la base légale
             manager: Gestionnaire
             name: Nom
+            paper_processing: Traitement papier
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
-            security_encryption: Chiffrement
             security_other: Autres
             security_saving: Sauvegarde
             security_tracability: Tracabilité
@@ -123,19 +124,21 @@ registry:
             created_at: Date de création
             creator: Créateur
             data_category: Catégorie de données
+            data_category_other: Autres catégories
             delay: Délai de conservation
             goal: Finalité
             legal_basis: Base légale
             legal_basis_justification: Justification de la base légale
             manager: Gestionnaire
             name: Nom
+            paper_processing: Traitement papier
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
-            security_encryption: Chiffrement
             security_other: Autres
             security_saving: Sauvegarde
             security_tracability: Tracabilité
             security_update: Mise à jour
+            software: Logiciel
             sensible_informations: Données à caractère sensible
             updated_at: Dernière mise à jour
         title:

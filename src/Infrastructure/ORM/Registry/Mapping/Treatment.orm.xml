@@ -14,10 +14,12 @@
         <field name="goal" column="goal" type="text" nullable="true"/>
         <field name="manager" column="manager" nullable="true"/>
         <field name="software" column="software" nullable="true"/>
+        <field name="paperProcessing" column="paper_processing" type="boolean"/>
         <field name="legalBasis" column="legal_basis" type="json_array"/>
         <field name="legalBasisJustification" column="legal_basis_justification" type="text" nullable="true"/>
         <field name="concernedPeople" column="concerned_people" type="json_array"/>
-        <field name="dataCategory" column="data_category" type="text" nullable="true"/>
+        <field name="dataCategory" column="data_category" type="json_array"/>
+        <field name="dataCategoryOther" column="data_category_other" type="text" nullable="true"/>
         <field name="sensibleInformations" column="sensible_informations" type="boolean"/>
         <field name="recipientCategory" column="recipient_category" type="text" nullable="true"/>
         <field name="active" column="active" type="boolean"/>
@@ -26,7 +28,6 @@
         <embedded name="securityAccessControl" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_access_control_"/>
         <embedded name="securityTracability" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_tracability_"/>
         <embedded name="securitySaving" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_saving_"/>
-        <embedded name="securityEncryption" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_encryption"/>
         <embedded name="securityUpdate" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_update_"/>
         <embedded name="securityOther" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_other_"/>
 

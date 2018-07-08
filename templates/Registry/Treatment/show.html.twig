@@ -87,7 +87,17 @@
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.data_category'|trans }}</strong></td>
-                            <td>{{ object.dataCategory|nl2br }}</td>
+                            <td>
+                                <ul>
+                                {% for category in object.dataCategory %}
+                                    <li>{{ category|dictionary('registry_treatment_data_category') }}</li>
+                                {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.data_category_other'|trans }}</strong></td>
+                            <td>{{ object.dataCategoryOther|nl2br }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.sensible_informations'|trans }}</strong></td>
@@ -149,6 +159,20 @@
                             </td>
                         </tr>
                         <tr>
+                            <td><strong>{{ 'registry.treatment.show.software'|trans }}</strong></td>
+                            <td>{{ object.software }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.paper_processing'|trans }}</strong></td>
+                            <td>
+                                {% if object.paperProcessing %}
+                                    <span class="badge bg-gray">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'registry.treatment.show.delay'|trans }}</strong></td>
                             <td>
                                 {% if object.delay.number and object.delay.period %}
@@ -205,17 +229,6 @@
                                 {% if object.securityUpdate.check %}
                                     <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
                                     <p>{{ object.securityUpdate.comment }}</p>
-                                {% else %}
-                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.treatment.show.security_encryption'|trans }}</strong></td>
-                            <td>
-                                {% if object.securityEncryption.check %}
-                                    <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
-                                    <p>{{ object.securityEncryption.comment }}</p>
                                 {% else %}
                                     <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
                                 {% endif %}

@@ -61,6 +61,13 @@ class Treatment
     private $software;
 
     /**
+     * FR: Traitement papier.
+     *
+     * @var bool
+     */
+    private $paperProcessing;
+
+    /**
      * FR: Base légale du traitement.
      *
      * @var string
@@ -82,11 +89,18 @@ class Treatment
     private $concernedPeople;
 
     /**
-     * FR: Catégorie de données.
+     * FR: Catégories de données.
+     *
+     * @var array
+     */
+    private $dataCategory;
+
+    /**
+     * FR: Autres catégories.
      *
      * @var string
      */
-    private $dataCategory;
+    private $dataCategoryOther;
 
     /**
      * FR: Données sensibles.
@@ -137,11 +151,6 @@ class Treatment
     /**
      * @var ComplexChoice
      */
-    private $securityEncryption;
-
-    /**
-     * @var ComplexChoice
-     */
     private $securityOther;
 
     /**
@@ -152,14 +161,15 @@ class Treatment
     public function __construct()
     {
         $this->id                    = Uuid::uuid4();
+        $this->paperProcessing       = false;
         $this->concernedPeople       = [];
+        $this->dataCategory          = [];
         $this->sensibleInformations  = false;
         $this->contractors           = new ArrayCollection();
         $this->delay                 = new Delay();
         $this->securityAccessControl = new ComplexChoice();
         $this->securityTracability   = new ComplexChoice();
         $this->securitySaving        = new ComplexChoice();
-        $this->securityEncryption    = new ComplexChoice();
         $this->securityUpdate        = new ComplexChoice();
         $this->securityOther         = new ComplexChoice();
         $this->active                = true;
@@ -243,6 +253,22 @@ class Treatment
     }
 
     /**
+     * @return bool
+     */
+    public function isPaperProcessing(): bool
+    {
+        return $this->paperProcessing;
+    }
+
+    /**
+     * @param bool $paperProcessing
+     */
+    public function setPaperProcessing(bool $paperProcessing): void
+    {
+        $this->paperProcessing = $paperProcessing;
+    }
+
+    /**
      * @return string|null
      */
     public function getLegalBasis(): ?string
@@ -291,19 +317,35 @@ class Treatment
     }
 
     /**
-     * @return string|null
+     * @return array
      */
-    public function getDataCategory(): ?string
+    public function getDataCategory(): array
     {
         return $this->dataCategory;
     }
 
     /**
-     * @param string|null $dataCategory
+     * @param array $dataCategory
      */
-    public function setDataCategory(?string $dataCategory): void
+    public function setDataCategory(array $dataCategory): void
     {
         $this->dataCategory = $dataCategory;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDataCategoryOther(): ?string
+    {
+        return $this->dataCategoryOther;
+    }
+
+    /**
+     * @param string|null $dataCategoryOther
+     */
+    public function setDataCategoryOther(?string $dataCategoryOther): void
+    {
+        $this->dataCategoryOther = $dataCategoryOther;
     }
 
     /**
@@ -442,22 +484,6 @@ class Treatment
     public function setSecurityUpdate(ComplexChoice $securityUpdate): void
     {
         $this->securityUpdate = $securityUpdate;
-    }
-
-    /**
-     * @return ComplexChoice
-     */
-    public function getSecurityEncryption(): ComplexChoice
-    {
-        return $this->securityEncryption;
-    }
-
-    /**
-     * @param ComplexChoice $securityEncryption
-     */
-    public function setSecurityEncryption(ComplexChoice $securityEncryption): void
-    {
-        $this->securityEncryption = $securityEncryption;
     }
 
     /**

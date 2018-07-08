@@ -63,6 +63,10 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.software',
                 'required' => false,
             ])
+            ->add('paperProcessing', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.paper_processing',
+                'required' => false,
+            ])
             ->add('legalBasis', DictionaryType::class, [
                 'label'    => 'registry.treatment.form.legal_basis',
                 'name'     => 'registry_treatment_legal_basis',
@@ -81,8 +85,15 @@ class TreatmentType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
             ])
-            ->add('dataCategory', TextareaType::class, [
+            ->add('dataCategory', DictionaryType::class, [
                 'label'    => 'registry.treatment.form.data_category',
+                'name'     => 'registry_treatment_data_category',
+                'required' => false,
+                'expanded' => false,
+                'multiple' => true,
+            ])
+            ->add('dataCategoryOther', TextareaType::class, [
+                'label'    => 'registry.treatment.form.data_category_other',
                 'required' => false,
                 'attr'     => [
                     'rows' => 3,
@@ -131,10 +142,6 @@ class TreatmentType extends AbstractType
             ])
             ->add('securityUpdate', ComplexChoiceType::class, [
                 'label'    => 'registry.treatment.form.security_update',
-                'required' => false,
-            ])
-            ->add('securityEncryption', ComplexChoiceType::class, [
-                'label'    => 'registry.treatment.form.security_encryption',
                 'required' => false,
             ])
             ->add('securityOther', ComplexChoiceType::class, [
