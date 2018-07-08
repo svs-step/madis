@@ -27,7 +27,7 @@ class TreatmentConcernedPeopleDictionaryTest extends TestCase
         $this->assertEquals(TreatmentConcernedPeopleDictionary::getTypes(), $roleDictionary->getValues());
     }
 
-    public function testGetRoles()
+    public function testGetTypes()
     {
         $data = [
             TreatmentConcernedPeopleDictionary::TYPE_PARTICULAR => 'Particuliers',
@@ -41,7 +41,7 @@ class TreatmentConcernedPeopleDictionaryTest extends TestCase
         $this->assertEquals($data, TreatmentConcernedPeopleDictionary::getTypes());
     }
 
-    public function testGetRolesKeys()
+    public function testGetTypesKeys()
     {
         $data = [
             TreatmentConcernedPeopleDictionary::TYPE_PARTICULAR,

@@ -14,6 +14,7 @@
 <div class="row">
 
     <div class="col-md-6">
+        {# GENERAL INFORMATIONS #}
         <div class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
             <div class="box-body">
@@ -25,14 +26,35 @@
                 {{ form_row(form.legalBasisJustification) }}
             </div>
         </div>
+
+        {# DATA CATEGORY #}
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.dataCategory) }}
+                {{ form_row(form.dataCategoryOther) }}
+                {{ form_row(form.sensibleInformations) }}
+            </div>
+        </div>
+
+        {# RECIPIENTS #}
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.recipientCategory) }}
+                {{ form_row(form.contractors) }}
+            </div>
+        </div>
     </div>
 
     <div class="col-md-6">
+        {# DETAILS #}
         <div class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.concernedPeople) }}
                 {{ form_row(form.software) }}
+                {{ form_row(form.paperProcessing) }}
                 <div class="delay-group">
                     <div class="one-line">
                         <div>{{ form_label(form.delay) }}</div>
@@ -44,31 +66,8 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-6">
-        <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
-            <div class="box-body">
-                {{ form_row(form.dataCategory) }}
-                {{ form_row(form.sensibleInformations) }}
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
-            <div class="box-body">
-                {{ form_row(form.recipientCategory) }}
-                {{ form_row(form.contractors) }}
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-6">
+        {# SECURITY #}
         <div class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
             <div class="box-body">
@@ -76,11 +75,11 @@
                 {{ macro.complex_choice(form.securityTracability) }}
                 {{ macro.complex_choice(form.securitySaving) }}
                 {{ macro.complex_choice(form.securityUpdate) }}
-                {{ macro.complex_choice(form.securityEncryption) }}
                 {{ macro.complex_choice(form.securityOther) }}
             </div>
         </div>
     </div>
+
 </div>
 
 <div class="row">

@@ -27,7 +27,7 @@ class DelayPeriodDictionaryTest extends TestCase
         $this->assertEquals(DelayPeriodDictionary::getPeriods(), $roleDictionary->getValues());
     }
 
-    public function testGetRoles()
+    public function testGetPeriods()
     {
         $data = [
             DelayPeriodDictionary::PERIOD_DAY   => 'Jour(s)',
@@ -38,7 +38,7 @@ class DelayPeriodDictionaryTest extends TestCase
         $this->assertEquals($data, DelayPeriodDictionary::getPeriods());
     }
 
-    public function testGetRolesKeys()
+    public function testGetPeriodsKeys()
     {
         $data = [
             DelayPeriodDictionary::PERIOD_DAY,
