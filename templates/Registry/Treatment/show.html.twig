@@ -28,7 +28,7 @@
             <div class="action-bar">
                 <a href="{{ path('registry_treatment_edit', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-pencil-alt"></i>
-                    {{ 'registry.treatment.action.edit'|trans }}
+                    {{ 'action.edit'|trans }}
                 </a>
             </div>
         </div>
@@ -36,7 +36,9 @@
     {% endif %}
 
     <div class="row">
+        {# LEFT #}
         <div class="col-md-6">
+            {# GENERAL INFORMATIONS #}
             <div class="box box-solid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
                 <div class="box-body no-padding">
@@ -76,9 +78,61 @@
                     </table>
                 </div>
             </div>
+
+            {# DATA CATEGORY #}
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.data_category'|trans }}</strong></td>
+                            <td>{{ object.dataCategory|nl2br }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.sensible_informations'|trans }}</strong></td>
+                            <td>
+                                {% if object.sensibleInformations %}
+                                    <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {# RECIPIENTS #}
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.recipient_category'|trans }}</strong></td>
+                            <td>{{ object.recipientCategory|nl2br }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.contractors'|trans }}</strong></td>
+                            <td>
+                                <ul>
+                                    {% for contractor in object.contractors %}
+                                        <li>{{ contractor }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
+        {# RIGHT #}
         <div class="col-md-6">
+            {# DETAILS #}
             <div class="box box-solid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
                 <div class="box-body no-padding">
@@ -105,23 +159,74 @@
                     </table>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-6">
+            {# SECURITY #}
             <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.data_category'|trans }}</strong></td>
-                            <td>{{ object.dataCategory|nl2br }}</td>
+                            <td><strong>{{ 'registry.treatment.show.security_access_control'|trans }}</strong></td>
+                            <td>
+                                {% if object.securityAccessControl.check %}
+                                    <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.securityAccessControl.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.sensible_informations'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.show.security_tracability'|trans }}</strong></td>
                             <td>
-                                {% if object.sensibleInformations %}
+                                {% if object.securitytracability.check %}
                                     <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.securitytracability.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.security_saving'|trans }}</strong></td>
+                            <td>
+                                {% if object.securitySaving.check %}
+                                    <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.securitySaving.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.security_update'|trans }}</strong></td>
+                            <td>
+                                {% if object.securityUpdate.check %}
+                                    <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.securityUpdate.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.security_encryption'|trans }}</strong></td>
+                            <td>
+                                {% if object.securityEncryption.check %}
+                                    <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.securityEncryption.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.security_other'|trans }}</strong></td>
+                            <td>
+                                {% if object.securityOther.check %}
+                                    <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.securityOther.comment }}</p>
                                 {% else %}
                                     <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
                                 {% endif %}
@@ -131,117 +236,8 @@
                     </table>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6">
-        <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
-            <div class="box-body no-padding">
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <td><strong>{{ 'registry.treatment.show.security_access_control'|trans }}</strong></td>
-                        <td>
-                            {% if object.securityAccessControl.check %}
-                                <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
-                                <p>{{ object.securityAccessControl.comment }}</p>
-                            {% else %}
-                                <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{ 'registry.treatment.show.security_tracability'|trans }}</strong></td>
-                        <td>
-                            {% if object.securitytracability.check %}
-                                <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
-                                <p>{{ object.securitytracability.comment }}</p>
-                            {% else %}
-                                <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{ 'registry.treatment.show.security_saving'|trans }}</strong></td>
-                        <td>
-                            {% if object.securitySaving.check %}
-                                <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
-                                <p>{{ object.securitySaving.comment }}</p>
-                            {% else %}
-                                <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{ 'registry.treatment.show.security_update'|trans }}</strong></td>
-                        <td>
-                            {% if object.securityUpdate.check %}
-                                <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
-                                <p>{{ object.securityUpdate.comment }}</p>
-                            {% else %}
-                                <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{ 'registry.treatment.show.security_encryption'|trans }}</strong></td>
-                        <td>
-                            {% if object.securityEncryption.check %}
-                                <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
-                                <p>{{ object.securityEncryption.comment }}</p>
-                            {% else %}
-                                <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{ 'registry.treatment.show.security_other'|trans }}</strong></td>
-                        <td>
-                            {% if object.securityOther.check %}
-                                <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
-                                <p>{{ object.securityOther.comment }}</p>
-                            {% else %}
-                                <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-        <div class="col-md-6">
-        <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
-            <div class="box-body no-padding">
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <td><strong>{{ 'registry.treatment.show.recipient_category'|trans }}</strong></td>
-                        <td>{{ object.recipientCategory|nl2br }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{ 'registry.treatment.show.contractors'|trans }}</strong></td>
-                        <td>
-                            <ul>
-                                {% for contractor in object.contractors %}
-                                <li>{{ contractor }}</li>
-                                {% endfor %}
-                            </ul>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
+            {# HISTORIC #}
             <div class="box box-solid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3></div>
                 <div class="box-body no-padding">

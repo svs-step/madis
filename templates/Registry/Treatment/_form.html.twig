@@ -60,6 +60,16 @@
 <div class="row">
     <div class="col-md-6">
         <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.recipientCategory) }}
+                {{ form_row(form.contractors) }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
             <div class="box-body">
                 {{ macro.complex_choice(form.securityAccessControl) }}
@@ -68,16 +78,6 @@
                 {{ macro.complex_choice(form.securityUpdate) }}
                 {{ macro.complex_choice(form.securityEncryption) }}
                 {{ macro.complex_choice(form.securityOther) }}
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
-            <div class="box-body">
-                {{ form_row(form.recipientCategory) }}
-                {{ form_row(form.contractors) }}
             </div>
         </div>
     </div>

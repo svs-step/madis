@@ -19,6 +19,7 @@ use App\Domain\Registry\Repository as DomainRepo;
 use App\Domain\User\Model\Collectivity;
 use App\Infrastructure\ORM\Registry\Repository as InfraRepo;
 use App\Tests\Utils\ReflectionTrait;
+use App\Tests\Utils\RepositoryTrait;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -28,6 +29,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class TreatmentTest extends TestCase
 {
     use ReflectionTrait;
+    use RepositoryTrait;
 
     /**
      * @var RegistryInterface
@@ -77,9 +79,117 @@ class TreatmentTest extends TestCase
     /**
      * Test findAllByCollectivity.
      */
+    public function testFindAllActive()
+    {
+        $active       = true;
+        $results      = ['dummyResult'];
+
+        // Query
+        $queryProphecy = $this->prophesize(AbstractQuery::class);
+        $queryProphecy->getResult()->shouldBeCalled()->willReturn($results);
+
+        // QueryBuilder
+        $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
+        $queryBuilderProphecy
+            ->select('o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->from(Model\Treatment::class, 'o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+
+        $this->addActiveClause($queryBuilderProphecy, $active);
+
+        $queryBuilderProphecy
+            ->getQuery()
+            ->shouldBeCalled()
+            ->willReturn($queryProphecy->reveal())
+        ;
+
+        // EntityManager
+        $this->entityManagerProphecy
+            ->createQueryBuilder()
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy->reveal());
+
+        // Registry
+        $this->registryProphecy
+            ->getManager()
+            ->shouldBeCalled()
+            ->willReturn($this->entityManagerProphecy->reveal())
+        ;
+
+        $this->assertEquals(
+            $results,
+            $this->infraRepo->findAllActive($active)
+        );
+    }
+
+    /**
+     * Test findAllByCollectivity.
+     */
     public function testFindAllByCollectivity()
     {
         $collectivity = new Collectivity();
+        $orderKey     = 'key';
+        $orderDir     = 'asc';
+        $results      = ['dummyResult'];
+
+        // Query
+        $queryProphecy = $this->prophesize(AbstractQuery::class);
+        $queryProphecy->getResult()->shouldBeCalled()->willReturn($results);
+
+        // QueryBuilder
+        $queryBuilderProphecy = $this->prophesize(QueryBuilder::class);
+        $queryBuilderProphecy
+            ->select('o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->from(Model\Treatment::class, 'o')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+
+        $this->addCollectivityClause($queryBuilderProphecy, $collectivity);
+        $this->addOrderClause($queryBuilderProphecy, $orderKey, $orderDir);
+
+        $queryBuilderProphecy
+            ->getQuery()
+            ->shouldBeCalled()
+            ->willReturn($queryProphecy->reveal())
+        ;
+
+        // EntityManager
+        $this->entityManagerProphecy
+            ->createQueryBuilder()
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy->reveal());
+
+        // Registry
+        $this->registryProphecy
+            ->getManager()
+            ->shouldBeCalled()
+            ->willReturn($this->entityManagerProphecy->reveal())
+        ;
+
+        $this->assertEquals(
+            $results,
+            $this->infraRepo->findAllByCollectivity($collectivity, [$orderKey => $orderDir])
+        );
+    }
+
+    /**
+     * Test findAllActiveByCollectivity.
+     */
+    public function testFindAllActiveByCollectivity()
+    {
+        $collectivity = new Collectivity();
+        $active       = true;
         $orderKey     = 'key';
         $orderDir     = 'asc';
         $results      = ['dummyResult'];
@@ -111,6 +221,16 @@ class TreatmentTest extends TestCase
             ->willReturn($queryBuilderProphecy)
         ;
         $queryBuilderProphecy
+            ->andWhere('o.active = :active')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->setParameter('active', $active)
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
             ->addOrderBy("o.{$orderKey}", $orderDir)
             ->shouldBeCalled()
             ->willReturn($queryBuilderProphecy)
@@ -136,7 +256,7 @@ class TreatmentTest extends TestCase
 
         $this->assertEquals(
             $results,
-            $this->infraRepo->findAllByCollectivity($collectivity, [$orderKey => $orderDir])
+            $this->infraRepo->findAllActiveByCollectivity($collectivity, $active, [$orderKey => $orderDir])
         );
     }
 }

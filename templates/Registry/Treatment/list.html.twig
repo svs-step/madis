@@ -10,7 +10,16 @@
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'registry.treatment.title.list'|trans }}</h1>
+    <h1>
+        {{ 'registry.treatment.title.list'|trans }}
+        <small>
+            {% if app.request.query.get('active') == 'false' %}
+                {{ 'label.inactive'|trans }}
+            {% else %}
+                {{ 'label.active'|trans }}
+            {% endif %}
+        </small>
+    </h1>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -34,6 +43,17 @@
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.treatment.action.report'|trans }}
                     </a>
+                    {% if app.request.query.get('active') == 'false' %}
+                        <a href="{{ path('registry_treatment_list', {'active' : 'true'}) }}" class="btn btn-default">
+                            <i class="fa fa-list"></i>
+                            {{ 'registry.treatment.action.active'|trans }}
+                        </a>
+                    {% else %}
+                        <a href="{{ path('registry_treatment_list', {'active' : 'false'}) }}" class="btn btn-default">
+                            <i class="fa fa-list"></i>
+                            {{ 'registry.treatment.action.inactive'|trans }}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
     </div>
@@ -49,10 +69,8 @@
                             {% if is_granted('ROLE_ADMIN') %}
                                 <th>{{ 'registry.treatment.list.collectivity'|trans }}</th>
                             {% endif %}
-                            <th>{{ 'registry.treatment.list.active'|trans }}</th>
                             <th>{{ 'registry.treatment.list.contractors'|trans }}</th>
                             <th>{{ 'registry.treatment.list.software'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.completion'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th>{{ 'label.actions'|trans }}</th>
                             {% endif %}
@@ -70,13 +88,6 @@
                                 <td>{{ object.collectivity }}</td>
                             {% endif %}
                             <td>
-                                {% if object.active %}
-                                    <span class="badge bg-green">{{ 'label.active'|trans }}</span>
-                                {% else %}
-                                    <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
-                                {% endif %}
-                            </td>
-                            <td>
                                 <ul>
                                 {% for contractor in object.contractors %}
                                     <li>{{ contractor }}</li>
@@ -84,7 +95,6 @@
                                 </ul>
                             </td>
                             <td>{{ object.software }}</td>
-                            <td>{{ object.completionPercent|number_format(2) }} %</td>
                             {% if is_granted('ROLE_USER') %}
                                 <td>
                                     <a href="{{ path('registry_treatment_edit', { 'id': object.id }) }}">

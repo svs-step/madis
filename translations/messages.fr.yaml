@@ -6,7 +6,7 @@ action:
     create: Créer
     delete: Supprimer
     deletion: Suppression
-    edit: Éditer
+    edit: Modifier
     reinitialize: Réinitialisation
     submit: Soumettre
 

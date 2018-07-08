@@ -33,7 +33,7 @@ class ContractorType extends AbstractType
             ])
             ->add('referent', TextType::class, [
                 'label'    => 'registry.contractor.form.referent',
-                'required' => true,
+                'required' => false,
             ])
             ->add('contractualClausesVerified', CheckboxType::class, [
                 'label'    => 'registry.contractor.form.contractual_clauses_verified',
@@ -52,7 +52,7 @@ class ContractorType extends AbstractType
             ])
             ->add('address', AddressType::class, [
                 'label'             => 'registry.contractor.form.address',
-                'required'          => true,
+                'required'          => false,
                 'validation_groups' => ['default', 'contractor'],
             ])
         ;

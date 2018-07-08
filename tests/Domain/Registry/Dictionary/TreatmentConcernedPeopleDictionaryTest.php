@@ -30,12 +30,12 @@ class TreatmentConcernedPeopleDictionaryTest extends TestCase
     public function testGetRoles()
     {
         $data = [
-            TreatmentConcernedPeopleDictionary::TYPE_ADMINISTRATION => 'Administrés',
-            TreatmentConcernedPeopleDictionary::TYPE_USER           => 'Internautes',
-            TreatmentConcernedPeopleDictionary::TYPE_AGENT          => 'Agents',
-            TreatmentConcernedPeopleDictionary::TYPE_ELECTED        => 'Élus',
-            TreatmentConcernedPeopleDictionary::TYPE_COMPANY        => 'Entreprises',
-            TreatmentConcernedPeopleDictionary::TYPE_PARTNER        => 'Partenaires',
+            TreatmentConcernedPeopleDictionary::TYPE_PARTICULAR => 'Particuliers',
+            TreatmentConcernedPeopleDictionary::TYPE_USER       => 'Internautes',
+            TreatmentConcernedPeopleDictionary::TYPE_AGENT      => 'Agents',
+            TreatmentConcernedPeopleDictionary::TYPE_ELECTED    => 'Élus',
+            TreatmentConcernedPeopleDictionary::TYPE_COMPANY    => 'Entreprises',
+            TreatmentConcernedPeopleDictionary::TYPE_PARTNER    => 'Partenaires',
         ];
 
         $this->assertEquals($data, TreatmentConcernedPeopleDictionary::getTypes());
@@ -44,7 +44,7 @@ class TreatmentConcernedPeopleDictionaryTest extends TestCase
     public function testGetRolesKeys()
     {
         $data = [
-            TreatmentConcernedPeopleDictionary::TYPE_ADMINISTRATION,
+            TreatmentConcernedPeopleDictionary::TYPE_PARTICULAR,
             TreatmentConcernedPeopleDictionary::TYPE_USER,
             TreatmentConcernedPeopleDictionary::TYPE_AGENT,
             TreatmentConcernedPeopleDictionary::TYPE_ELECTED,

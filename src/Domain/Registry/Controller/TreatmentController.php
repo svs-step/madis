@@ -20,12 +20,18 @@ use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class TreatmentController extends CRUDController
 {
+    /**
+     * @var RequestStack
+     */
+    protected $requestStack;
+
     /**
      * @var WordHandler
      */
@@ -45,11 +51,13 @@ class TreatmentController extends CRUDController
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Treatment $repository,
+        RequestStack $requestStack,
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider
     ) {
         parent::__construct($entityManager, $translator, $repository);
+        $this->requestStack         = $requestStack;
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
@@ -80,11 +88,20 @@ class TreatmentController extends CRUDController
      */
     protected function getListData()
     {
+        $request = $this->requestStack->getMasterRequest();
+        $active  = 'true' === $request->query->get('active') || \is_null($request->query->get('active'))
+            ? true
+            : false
+        ;
+
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return $this->repository->findAll();
+            return $this->repository->findAllActive($active);
         }
 
-        return $this->repository->findAllByCollectivity($this->userProvider->getAuthenticatedUser()->getCollectivity());
+        return $this->repository->findAllActiveByCollectivity(
+            $this->userProvider->getAuthenticatedUser()->getCollectivity(),
+            $active
+        );
     }
 
     /**
@@ -96,8 +113,9 @@ class TreatmentController extends CRUDController
      */
     public function reportAction(): Response
     {
-        $objects = $this->repository->findAllByCollectivity(
+        $objects = $this->repository->findAllActiveByCollectivity(
             $this->userProvider->getAuthenticatedUser()->getCollectivity(),
+            true,
             ['name' => 'asc']
         );
 

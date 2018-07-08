@@ -40,7 +40,7 @@ class AddressTypeTest extends FormTypeHelper
             'phoneNumber' => TextType::class,
         ];
 
-        (new AddressType())->buildForm($this->prophesizeBuilder($builder), []);
+        (new AddressType())->buildForm($this->prophesizeBuilder($builder), ['validation_groups' => []]);
     }
 
     public function testConfigureOptions(): void

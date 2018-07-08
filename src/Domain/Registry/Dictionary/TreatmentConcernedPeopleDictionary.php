@@ -17,12 +17,12 @@ use Knp\DictionaryBundle\Dictionary\SimpleDictionary;
 
 class TreatmentConcernedPeopleDictionary extends SimpleDictionary
 {
-    const TYPE_ADMINISTRATION = 'administration';
-    const TYPE_USER           = 'user';
-    const TYPE_AGENT          = 'agent';
-    const TYPE_ELECTED        = 'elected';
-    const TYPE_COMPANY        = 'company';
-    const TYPE_PARTNER        = 'partner';
+    const TYPE_PARTICULAR = 'particular';
+    const TYPE_USER       = 'user';
+    const TYPE_AGENT      = 'agent';
+    const TYPE_ELECTED    = 'elected';
+    const TYPE_COMPANY    = 'company';
+    const TYPE_PARTNER    = 'partner';
 
     public function __construct()
     {
@@ -37,12 +37,12 @@ class TreatmentConcernedPeopleDictionary extends SimpleDictionary
     public static function getTypes()
     {
         return [
-            self::TYPE_ADMINISTRATION => 'Administrés',
-            self::TYPE_USER           => 'Internautes',
-            self::TYPE_AGENT          => 'Agents',
-            self::TYPE_ELECTED        => 'Élus',
-            self::TYPE_COMPANY        => 'Entreprises',
-            self::TYPE_PARTNER        => 'Partenaires',
+            self::TYPE_PARTICULAR => 'Particuliers',
+            self::TYPE_USER       => 'Internautes',
+            self::TYPE_AGENT      => 'Agents',
+            self::TYPE_ELECTED    => 'Élus',
+            self::TYPE_COMPANY    => 'Entreprises',
+            self::TYPE_PARTNER    => 'Partenaires',
         ];
     }
 

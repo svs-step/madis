@@ -14,7 +14,7 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'registry.contractor.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
+        { 'name': 'registry.contractor.breadcrumb.list'|trans, 'link': path('registry_contractor_list') },
         { 'name': 'registry.contractor.breadcrumb.show'|trans({'%name%': object}) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
@@ -28,7 +28,7 @@
             <div class="action-bar">
                 <a href="{{ path('registry_contractor_edit', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-pencil-alt"></i>
-                    {{ 'registry.contractor.action.edit'|trans }}
+                    {{ 'action.edit'|trans }}
                 </a>
             </div>
         </div>

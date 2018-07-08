@@ -25,10 +25,12 @@ class AddressType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $required = \in_array('contractor', $options['validation_groups']);
+
         $builder
             ->add('lineOne', TextType::class, [
                 'label'    => 'registry.address.form.line_one',
-                'required' => true,
+                'required' => $required,
             ])
             ->add('lineTwo', TextType::class, [
                 'label'    => 'registry.address.form.line_two',
@@ -36,19 +38,19 @@ class AddressType extends AbstractType
             ])
             ->add('city', TextType::class, [
                 'label'    => 'registry.address.form.city',
-                'required' => true,
+                'required' => $required,
             ])
             ->add('zipCode', NumberType::class, [
                 'label'    => 'registry.address.form.zip_code',
-                'required' => true,
+                'required' => $required,
             ])
             ->add('mail', EmailType::class, [
                 'label'    => 'registry.address.form.mail',
-                'required' => true,
+                'required' => $required,
             ])
             ->add('phoneNumber', TextType::class, [
                 'label'    => 'registry.address.form.phone_number',
-                'required' => true,
+                'required' => $required,
             ]);
     }
 

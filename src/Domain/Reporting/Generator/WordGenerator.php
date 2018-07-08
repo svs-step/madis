@@ -60,7 +60,7 @@ class WordGenerator
      */
     public function generateRegistryContractorReport(array $contractors): Response
     {
-        $this->contractorGenerator->generateHeader($this->document, 'Sous-traitants');
+        $this->contractorGenerator->generateHeader($this->document, 'Registre des sous-traitants');
         $this->contractorGenerator->generateOverview($this->document, $contractors);
         $this->contractorGenerator->generateDetails($this->document, $contractors);
 

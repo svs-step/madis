@@ -25,7 +25,11 @@ use App\Domain\User\Model\User;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -47,6 +51,11 @@ class TreatmentControllerTest extends TestCase
      * @var Repository\Treatment
      */
     private $repositoryProphecy;
+
+    /**
+     * @var RequestStack
+     */
+    private $requestStackProphecy;
 
     /**
      * @var WordHandler
@@ -73,6 +82,7 @@ class TreatmentControllerTest extends TestCase
         $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
         $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);
         $this->repositoryProphecy             = $this->prophesize(Repository\Treatment::class);
+        $this->requestStackProphecy           = $this->prophesize(RequestStack::class);
         $this->wordHandlerProphecy            = $this->prophesize(WordHandler::class);
         $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
@@ -81,6 +91,7 @@ class TreatmentControllerTest extends TestCase
             $this->managerProphecy->reveal(),
             $this->translatorProphecy->reveal(),
             $this->repositoryProphecy->reveal(),
+            $this->requestStackProphecy->reveal(),
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProviderProphecy->reveal()
@@ -131,6 +142,14 @@ class TreatmentControllerTest extends TestCase
     public function testGetListDataForRoleGranted()
     {
         $valueReturnedByRepository = ['dummyValues'];
+        $active                    = false;
+
+        // Get not active (same as active so only one test)
+        $request        = new Request();
+        $request->query = new ParameterBag([
+            'active' => "{$active}",
+        ]);
+        $this->requestStackProphecy->getMasterRequest()->willReturn($request);
 
         // Granted
         $this->authenticationCheckerProphecy
@@ -147,12 +166,12 @@ class TreatmentControllerTest extends TestCase
 
         // findAll must be called but not findAllByCollectivity
         $this->repositoryProphecy
-            ->findAll()
+            ->findAllActive($active)
             ->shouldBeCalled()
             ->willReturn($valueReturnedByRepository)
         ;
         $this->repositoryProphecy
-            ->findAllByCollectivity()
+            ->findAllActiveByCollectivity(Argument::cetera())
             ->shouldNotBeCalled()
         ;
 
@@ -169,6 +188,14 @@ class TreatmentControllerTest extends TestCase
     public function testGetListDataForRoleNotGranted()
     {
         $valueReturnedByRepository = ['dummyValues'];
+        $active                    = false;
+
+        // Get not active (same as active so only one test)
+        $request        = new Request();
+        $request->query = new ParameterBag([
+            'active' => "{$active}",
+        ]);
+        $this->requestStackProphecy->getMasterRequest()->willReturn($request);
 
         // Not granted
         $this->authenticationCheckerProphecy
@@ -188,12 +215,12 @@ class TreatmentControllerTest extends TestCase
 
         // findAllByCollectivity must be called but not findAll
         $this->repositoryProphecy
-            ->findAllByCollectivity($collectivity)
+            ->findAllActiveByCollectivity($collectivity, $active)
             ->shouldBeCalled()
             ->willReturn($valueReturnedByRepository)
         ;
         $this->repositoryProphecy
-            ->findAll()
+            ->findAllActive(Argument::cetera())
             ->shouldNotBeCalled()
         ;
 
@@ -226,7 +253,7 @@ class TreatmentControllerTest extends TestCase
 
         // findAllByCollectivity must be called but not findAll
         $this->repositoryProphecy
-            ->findAllByCollectivity($collectivity, [$orderKey => $orderDir])
+            ->findAllActiveByCollectivity($collectivity, true, [$orderKey => $orderDir])
             ->shouldBeCalled()
             ->willReturn($treatments)
         ;
