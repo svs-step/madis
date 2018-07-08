@@ -109,7 +109,7 @@ abstract class Generator
             [
                 'bold'  => true,
                 'color' => '3c8dbc',
-                'size'  => 40,
+                'size'  => 36,
             ],
             [
                 'alignment'   => Jc::CENTER,
