@@ -15,6 +15,7 @@ namespace App\Domain\Reporting\Generator\Word;
 
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary;
+use App\Domain\Registry\Dictionary\TreatmentDataCategoryDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use PhpOffice\PhpWord\PhpWord;
 
@@ -120,13 +121,23 @@ class TreatmentGenerator extends Generator
             $categoryData = [
                 [
                     'Catégorie de données',
-                    $treatment->getDataCategory(),
+                    // Values are added below
+                ],
+                [
+                    'Autres catégories',
+                    $treatment->getDataCategoryOther(),
                 ],
                 [
                     'Données à caractère sensible',
                     $treatment->isSensibleInformations() ? 'Oui' : 'Non',
                 ],
             ];
+            // Add data categories
+            $dataCategories = [];
+            foreach ($treatment->getDataCategory() as $category) {
+                $dataCategories[] = TreatmentDataCategoryDictionary::getCategories()[$category];
+            }
+            $categoryData[0][] = $dataCategories;
 
             $goalData = [
                 [
