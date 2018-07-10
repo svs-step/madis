@@ -37,7 +37,8 @@
 
     <div class="row">
         <div class="col-md-6">
-            <div class="box box-solid">
+            {# GENERAL #}
+            <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.general'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -78,10 +79,46 @@
                     </table>
                 </div>
             </div>
+
+            {# HISTORIC #}
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.historic'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.creator'|trans }}</strong></td>
+                            <td>
+                                {{ object.creator }}
+                            </td>
+                        </tr>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <tr>
+                                <td><strong>{{ 'registry.contractor.show.collectivity'|trans }}</strong></td>
+                                <td>
+                                    <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                        {{ object.collectivity }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.created_at'|trans }}</strong></td>
+                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.updated_at'|trans }}</strong></td>
+                            <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-6">
-            <div class="box box-solid">
+            {# COORDINATES #}
+            <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.coordinates'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -109,44 +146,6 @@
                         <tr>
                             <td><strong>{{ 'registry.address.show.phone_number'|trans }}</strong></td>
                             <td>{{ object.address.phoneNumber }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="col-md-6">
-            <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.historic'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.contractor.show.creator'|trans }}</strong></td>
-                            <td>
-                                {{ object.creator }}
-                            </td>
-                        </tr>
-                        {% if is_granted('ROLE_ADMIN') %}
-                        <tr>
-                            <td><strong>{{ 'registry.contractor.show.collectivity'|trans }}</strong></td>
-                            <td>
-                                <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
-                                    {{ object.collectivity }}
-                                </a>
-                            </td>
-                        </tr>
-                        {% endif %}
-                        <tr>
-                            <td><strong>{{ 'registry.contractor.show.created_at'|trans }}</strong></td>
-                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.contractor.show.updated_at'|trans }}</strong></td>
-                            <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
                         </tr>
                         </tbody>
                     </table>
