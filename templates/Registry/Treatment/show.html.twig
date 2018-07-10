@@ -39,7 +39,7 @@
         {# LEFT #}
         <div class="col-md-6">
             {# GENERAL INFORMATIONS #}
-            <div class="box box-solid">
+            <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -80,7 +80,7 @@
             </div>
 
             {# DATA CATEGORY #}
-            <div class="box box-solid">
+            <div class="box box-solid box-warning">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -115,7 +115,7 @@
             </div>
 
             {# RECIPIENTS #}
-            <div class="box box-solid">
+            <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -143,7 +143,7 @@
         {# RIGHT #}
         <div class="col-md-6">
             {# DETAILS #}
-            <div class="box box-solid">
+            <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -185,7 +185,7 @@
             </div>
 
             {# SECURITY #}
-            <div class="box box-solid">
+            <div class="box box-solid box-success">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -194,7 +194,7 @@
                             <td><strong>{{ 'registry.treatment.show.security_access_control'|trans }}</strong></td>
                             <td>
                                 {% if object.securityAccessControl.check %}
-                                    <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     <p>{{ object.securityAccessControl.comment }}</p>
                                 {% else %}
                                     <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
@@ -205,7 +205,7 @@
                             <td><strong>{{ 'registry.treatment.show.security_tracability'|trans }}</strong></td>
                             <td>
                                 {% if object.securitytracability.check %}
-                                    <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     <p>{{ object.securitytracability.comment }}</p>
                                 {% else %}
                                     <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
@@ -216,7 +216,7 @@
                             <td><strong>{{ 'registry.treatment.show.security_saving'|trans }}</strong></td>
                             <td>
                                 {% if object.securitySaving.check %}
-                                    <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     <p>{{ object.securitySaving.comment }}</p>
                                 {% else %}
                                     <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
@@ -227,7 +227,7 @@
                             <td><strong>{{ 'registry.treatment.show.security_update'|trans }}</strong></td>
                             <td>
                                 {% if object.securityUpdate.check %}
-                                    <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     <p>{{ object.securityUpdate.comment }}</p>
                                 {% else %}
                                     <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
@@ -238,7 +238,7 @@
                             <td><strong>{{ 'registry.treatment.show.security_other'|trans }}</strong></td>
                             <td>
                                 {% if object.securityOther.check %}
-                                    <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     <p>{{ object.securityOther.comment }}</p>
                                 {% else %}
                                     <span class="badge bg-gray">{{ 'label.no'|trans }}</span>

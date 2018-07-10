@@ -15,7 +15,7 @@
 
     <div class="col-md-6">
         {# GENERAL INFORMATIONS #}
-        <div class="box box-solid">
+        <div class="box box-solid box-info">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.name) }}
@@ -28,7 +28,7 @@
         </div>
 
         {# DATA CATEGORY #}
-        <div class="box box-solid">
+        <div class="box box-solid box-warning">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.dataCategory) }}
@@ -38,7 +38,7 @@
         </div>
 
         {# RECIPIENTS #}
-        <div class="box box-solid">
+        <div class="box box-solid box-primary">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.recipientCategory) }}
@@ -49,7 +49,7 @@
 
     <div class="col-md-6">
         {# DETAILS #}
-        <div class="box box-solid">
+        <div class="box box-solid box-primary">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.concernedPeople) }}
@@ -68,7 +68,7 @@
         </div>
 
         {# SECURITY #}
-        <div class="box box-solid">
+        <div class="box box-solid box-success">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
             <div class="box-body">
                 {{ macro.complex_choice(form.securityAccessControl) }}
