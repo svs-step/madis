@@ -9,20 +9,16 @@ services:
 
     App\Application\:
         resource: '../src/Application/*'
-        exclude: '../src/Application/{Controller,Entity,Migrations,Symfony/EventSubscriber,Tests,Kernel.php}'
+        exclude: '../src/Application/{Controller,Entity,Migrations,Symfony/EventSubscriber,Symfony/Form,Tests,Kernel.php}'
 
     App\Domain\:
         resource: '../src/Domain/*'
-        exclude: '../src/Domain/*/{Component/Mailer.php,Controller,Generator,Model,Symfony/EventSubscriber,Tests}'
+        exclude: '../src/Domain/*/{Component/Mailer.php,Controller,Generator,Handler,Model,Symfony/EventSubscriber,Symfony/Form,Tests}'
 
     PhpOffice\PhpWord\PhpWord: ~
     RandomLib\Factory: ~
 
     App\Domain\Reporting\Generator\WordGenerator:
-        arguments:
-            $dpo: { civility: '%env(APP_DPO_CIVILITY)%', firstName: '%env(APP_DPO_FIRST_NAME)%', lastName: '%env(APP_DPO_LAST_NAME)%', company: '%env(APP_DPO_COMPANY)%', job: '%env(APP_DPO_JOB)%', mail: '%env(APP_DPO_MAIL)%', phoneNumber: '%env(APP_DPO_PHONE_NUMBER)%' }
-
-    App\Domain\Reporting\Handler\WordHandler:
         arguments:
             $dpo: { civility: '%env(APP_DPO_CIVILITY)%', firstName: '%env(APP_DPO_FIRST_NAME)%', lastName: '%env(APP_DPO_LAST_NAME)%', company: '%env(APP_DPO_COMPANY)%', job: '%env(APP_DPO_JOB)%', mail: '%env(APP_DPO_MAIL)%', phoneNumber: '%env(APP_DPO_PHONE_NUMBER)%' }
 

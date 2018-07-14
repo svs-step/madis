@@ -1,0 +1,51 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: bourlard
+ * Date: 02/06/2018
+ * Time: 11:32.
+ */
+
+namespace App\Tests\Domain\Registry\Dictionary;
+
+use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
+use Knp\DictionaryBundle\Dictionary\SimpleDictionary;
+use PHPUnit\Framework\TestCase;
+
+class MesurementStatusDictionaryTest extends TestCase
+{
+    public function testInstanceOf()
+    {
+        $this->assertInstanceOf(SimpleDictionary::class, new MesurementStatusDictionary());
+    }
+
+    public function testConstruct()
+    {
+        $roleDictionary = new MesurementStatusDictionary();
+
+        $this->assertEquals('registry_mesurement_status', $roleDictionary->getName());
+        $this->assertEquals(MesurementStatusDictionary::getStatus(), $roleDictionary->getValues());
+    }
+
+    public function testGetStatus()
+    {
+        $data = [
+            MesurementStatusDictionary::STATUS_APPLIED        => 'Appliquée',
+            MesurementStatusDictionary::STATUS_NOT_APPLIED    => 'Non appliquée',
+            MesurementStatusDictionary::STATUS_NOT_APPLICABLE => 'Non applicable',
+        ];
+
+        $this->assertEquals($data, MesurementStatusDictionary::getStatus());
+    }
+
+    public function testGetStatusKeys()
+    {
+        $data = [
+            MesurementStatusDictionary::STATUS_APPLIED,
+            MesurementStatusDictionary::STATUS_NOT_APPLIED,
+            MesurementStatusDictionary::STATUS_NOT_APPLICABLE,
+        ];
+
+        $this->assertEquals($data, MesurementStatusDictionary::getStatusKeys());
+    }
+}

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Reporting\Handler;
 
 use App\Domain\Reporting\Generator\Word\ContractorGenerator;
+use App\Domain\Reporting\Generator\Word\MesurementGenerator;
 use App\Domain\Reporting\Generator\Word\TreatmentGenerator;
 use App\Domain\Reporting\Handler\WordHandler;
 use PhpOffice\PhpWord\PhpWord;
@@ -31,6 +32,11 @@ class WordHandlerTest extends TestCase
      * @var ContractorGenerator
      */
     private $contractorGeneratorProphecy;
+
+    /**
+     * @var MesurementGenerator
+     */
+    private $mesurementGeneratorProphecy;
 
     /**
      * @var TreatmentGenerator
@@ -51,12 +57,14 @@ class WordHandlerTest extends TestCase
     {
         $this->phpWordProphecy             = $this->prophesize(PhpWord::class);
         $this->contractorGeneratorProphecy = $this->prophesize(ContractorGenerator::class);
+        $this->mesurementGeneratorProphecy = $this->prophesize(MesurementGenerator::class);
         $this->treatmentGeneratorProphecy  = $this->prophesize(TreatmentGenerator::class);
         $this->dpo                         = [];
 
         $this->handler = new WordHandler(
             $this->phpWordProphecy->reveal(),
             $this->contractorGeneratorProphecy->reveal(),
+            $this->mesurementGeneratorProphecy->reveal(),
             $this->treatmentGeneratorProphecy->reveal(),
             $this->dpo
         );
@@ -91,6 +99,38 @@ class WordHandlerTest extends TestCase
         $this->assertEquals(
             $response,
             $this->handler->generateRegistryContractorReport($contractors)
+        );
+    }
+
+    /**
+     * Test generateRegistryMesurementReport.
+     */
+    public function testGenerateRegistryMesurementReport()
+    {
+        $contractors = [];
+        $response    = $this->prophesize(BinaryFileResponse::class)->reveal();
+
+        $this->mesurementGeneratorProphecy
+            ->generateHeader($this->phpWordProphecy->reveal(), 'Registre des mesures')
+            ->shouldBeCalled()
+        ;
+        $this->mesurementGeneratorProphecy
+            ->generateOverview($this->phpWordProphecy->reveal(), $contractors)
+            ->shouldBeCalled()
+        ;
+        $this->mesurementGeneratorProphecy
+            ->generateDetails($this->phpWordProphecy->reveal(), $contractors)
+            ->shouldBeCalled()
+        ;
+        $this->mesurementGeneratorProphecy
+            ->generateResponse($this->phpWordProphecy->reveal(), 'mesures')
+            ->shouldBeCalled()
+            ->willReturn($response)
+        ;
+
+        $this->assertEquals(
+            $response,
+            $this->handler->generateRegistryMesurementReport($contractors)
         );
     }
 

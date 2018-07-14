@@ -22,6 +22,12 @@
                 <span>Sous-traitants</span>
             </a>
         </li>
+        <li {% if menuItem == 'registry_mesurement' %}class="active"{% endif %}>
+            <a href="{{ path('registry_mesurement_list') }}">
+                <i class="fa fa-adjust"></i>
+                <span>Mesures</span>
+            </a>
+        </li>
 
         {# REPORTING #}
         {#{% if not is_granted('ROLE_ADMIN') %}#}

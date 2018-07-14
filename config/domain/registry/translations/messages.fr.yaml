@@ -24,7 +24,7 @@ registry:
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
-            edit: Éditer "%name%"
+            edit: Modifier "%name%"
             list: Liste des sous-traitants
             show: Visualiser "%name%"
         form:
@@ -36,7 +36,7 @@ registry:
         flashbag:
             success:
                 create: Sous-traitant "%object%" créé avec succès
-                edit: Sous-traitant "%object%" édité avec succès
+                edit: Sous-traitant "%object%" modifié avec succès
                 delete: Sous-traitant "%object%" supprimé avec succès
         list:
             collectivity: Collectivité
@@ -60,13 +60,71 @@ registry:
         title:
             create: Créer un sous-traitant
             delete: Supprimer un sous-traitant
-            edit: Éditer un sous-traitant
+            edit: Modifier un sous-traitant
             list: Liste des sous-traitants
             show: Visualiser un sous-traitant
 
     delay:
         form:
             other_delay: Autre délai
+
+    mesurement:
+        action:
+            back_to_list: Retour à la liste
+            new: Nouvelle mesure
+        breadcrumb:
+            create: Créer
+            delete: Supprimer "%name%"
+            edit: Modifier "%name%"
+            list: Liste des mesures
+            show: Visualiser "%name%"
+        form:
+            charge: Charge
+            cost: Coût
+            description: Description
+            etablished: Mise en place
+            name: Nom
+            planification_date: Planification
+            status: Statut
+            type: Type
+        flashbag:
+            success:
+                create: Mesure "%object%" créé avec succès
+                edit: Mesure "%object%" modifié avec succès
+                delete: Mesure "%object%" supprimé avec succès
+        list:
+            charge: Charge
+            collectivity: Collectivité
+            cost: Coût
+            name: Nom
+            status: Statut
+            type:
+                legal: Mesures juridiques
+                organisational: Mesures organisationnelles
+                technical: Mesures techniques
+        show:
+            charge: Charge
+            collectivity: Collectivité
+            created_at: Date de création
+            creator: Créateur
+            cost: Coût
+            description: Description
+            etablished: Mise en place
+            name: Nom
+            planification_date: Planification
+            status: Statut
+            type: Type
+            updated_at: Dernière mise à jour
+        tab:
+            application: Application
+            general: Informations générales
+            historic: Historique
+        title:
+            create: Créer une mesure
+            delete: Supprimer une mesure
+            edit: Modifier une mesure
+            list: Liste des mesures
+            show: Visualiser une mesure
 
     treatment:
         action:
@@ -78,7 +136,7 @@ registry:
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
-            edit: Éditer "%name%"
+            edit: Modifier "%name%"
             list: Liste des traitements
             show: Visualiser "%name%"
         form:
@@ -105,7 +163,7 @@ registry:
         flashbag:
             success:
                 create: Traitement "%object%" créé avec succès
-                edit: Traitement "%object%" édité avec succès
+                edit: Traitement "%object%" modifié avec succès
                 delete: Traitement "%object%" supprimé avec succès
         list:
             active: Statut
@@ -144,7 +202,7 @@ registry:
         title:
             create: Créer un traitement
             delete: Supprimer un traitement
-            edit: Éditer un traitement
+            edit: Modifier un traitement
             list: Liste des traitements
             show: Visualiser un traitement
         tab:
