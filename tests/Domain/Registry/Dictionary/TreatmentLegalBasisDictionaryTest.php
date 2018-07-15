@@ -27,7 +27,7 @@ class TreatmentLegalBasisDictionaryTest extends TestCase
         $this->assertEquals(TreatmentLegalBasisDictionary::getBasis(), $roleDictionary->getValues());
     }
 
-    public function testGetRoles()
+    public function testGetBasis()
     {
         $data = [
             TreatmentLegalBasisDictionary::BASE_CONSENT                 => 'Le consentement',
@@ -40,7 +40,7 @@ class TreatmentLegalBasisDictionaryTest extends TestCase
         $this->assertEquals($data, TreatmentLegalBasisDictionary::getBasis());
     }
 
-    public function testGetRolesKeys()
+    public function testGetBasisKeys()
     {
         $data = [
             TreatmentLegalBasisDictionary::BASE_CONSENT,

@@ -77,19 +77,19 @@ class User implements UserInterface
     }
 
     /**
-     * @return UuidInterface
-     */
-    public function getId(): UuidInterface
-    {
-        return $this->id;
-    }
-
-    /**
      * @return string
      */
     public function __toString(): string
     {
         return $this->getFullName();
+    }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getId(): UuidInterface
+    {
+        return $this->id;
     }
 
     /**

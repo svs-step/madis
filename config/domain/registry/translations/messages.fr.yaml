@@ -24,7 +24,7 @@ registry:
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
-            edit: Éditer "%name%"
+            edit: Modifier "%name%"
             list: Liste des sous-traitants
             show: Visualiser "%name%"
         form:
@@ -36,7 +36,7 @@ registry:
         flashbag:
             success:
                 create: Sous-traitant "%object%" créé avec succès
-                edit: Sous-traitant "%object%" édité avec succès
+                edit: Sous-traitant "%object%" modifié avec succès
                 delete: Sous-traitant "%object%" supprimé avec succès
         list:
             collectivity: Collectivité
@@ -60,13 +60,71 @@ registry:
         title:
             create: Créer un sous-traitant
             delete: Supprimer un sous-traitant
-            edit: Éditer un sous-traitant
+            edit: Modifier un sous-traitant
             list: Liste des sous-traitants
             show: Visualiser un sous-traitant
 
     delay:
         form:
             other_delay: Autre délai
+
+    mesurement:
+        action:
+            back_to_list: Retour à la liste
+            new: Nouvelle action
+        breadcrumb:
+            create: Créer
+            delete: Supprimer "%name%"
+            edit: Modifier "%name%"
+            list: Liste des actions
+            show: Visualiser "%name%"
+        form:
+            charge: Charge
+            cost: Coût
+            description: Description
+            etablished: Mise en place
+            name: Nom
+            planification_date: Planification
+            status: Statut
+            type: Type
+        flashbag:
+            success:
+                create: Action de protection "%object%" créé avec succès
+                edit: Action de protection "%object%" modifié avec succès
+                delete: Action de protection "%object%" supprimé avec succès
+        list:
+            charge: Charge
+            collectivity: Collectivité
+            cost: Coût
+            name: Nom
+            status: Statut
+            type:
+                legal: Actions juridiques
+                organisational: Actions organisationnelles
+                technical: Actions techniques
+        show:
+            charge: Charge
+            collectivity: Collectivité
+            created_at: Date de création
+            creator: Créateur
+            cost: Coût
+            description: Description
+            etablished: Mise en place
+            name: Nom
+            planification_date: Planification
+            status: Statut
+            type: Type
+            updated_at: Dernière mise à jour
+        tab:
+            application: Application
+            general: Informations générales
+            historic: Historique
+        title:
+            create: Créer une action de protection
+            delete: Supprimer une action de protection
+            edit: Modifier une action de protection
+            list: Liste des actions de protection
+            show: Visualiser une action de protection
 
     treatment:
         action:
@@ -78,17 +136,19 @@ registry:
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
-            edit: Éditer "%name%"
+            edit: Modifier "%name%"
             list: Liste des traitements
             show: Visualiser "%name%"
         form:
             active: Statut
             concerned_people: Personnes concernées
             contractors: Sous-traitants
+            data_crossing: Croisement de données
             data_category: Catégorie de données
             data_category_other: Autres catégories
             delay: Délai de conservation
             goal: Finalité
+            large_scale_collection: Collecte à large échelle
             legal_basis: Base légale
             legal_basis_justification: Justification de la base légale
             manager: Gestionnaire
@@ -101,11 +161,13 @@ registry:
             security_tracability: Tracabilité
             security_update: Mise à jour
             sensible_informations: Contient des données sensibles
+            systematic_monitoring: Surveillance systématique
             software: Logiciel
+            vulnerable_people: Personnes vulnérables
         flashbag:
             success:
                 create: Traitement "%object%" créé avec succès
-                edit: Traitement "%object%" édité avec succès
+                edit: Traitement "%object%" modifié avec succès
                 delete: Traitement "%object%" supprimé avec succès
         list:
             active: Statut
@@ -123,10 +185,12 @@ registry:
             contractors: Sous-traitants
             created_at: Date de création
             creator: Créateur
+            data_crossing: Croisement de données
             data_category: Catégorie de données
             data_category_other: Autres catégories
             delay: Délai de conservation
             goal: Finalité
+            large_scale_collection: Collecte à large échelle
             legal_basis: Base légale
             legal_basis_justification: Justification de la base légale
             manager: Gestionnaire
@@ -140,17 +204,20 @@ registry:
             security_update: Mise à jour
             software: Logiciel
             sensible_informations: Données à caractère sensible
+            systematic_monitoring: Surveillance systématique
             updated_at: Dernière mise à jour
+            vulnerable_people: Personnes vulnérables
         title:
             create: Créer un traitement
             delete: Supprimer un traitement
-            edit: Éditer un traitement
+            edit: Modifier un traitement
             list: Liste des traitements
             show: Visualiser un traitement
         tab:
           data_category: Catégorie des données
           details: Détails
           general: Informations générales
-          security: Mesures de sécurité
           historic: Historique
+          security: Mesures de sécurité
+          specific: Traitement spéficique
           recipients: Destination

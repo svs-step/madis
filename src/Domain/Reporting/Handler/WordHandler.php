@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Handler;
 
 use App\Domain\Reporting\Generator\Word\ContractorGenerator;
+use App\Domain\Reporting\Generator\Word\MesurementGenerator;
 use App\Domain\Reporting\Generator\Word\TreatmentGenerator;
 use PhpOffice\PhpWord\PhpWord;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,6 +32,11 @@ class WordHandler
     private $contractorGenerator;
 
     /**
+     * @var MesurementGenerator
+     */
+    private $mesurementGenerator;
+
+    /**
      * @var TreatmentGenerator
      */
     private $treatmentGenerator;
@@ -43,11 +49,13 @@ class WordHandler
     public function __construct(
         PhpWord $document,
         ContractorGenerator $contractorGenerator,
+        MesurementGenerator $mesurementGenerator,
         TreatmentGenerator $treatmentGenerator,
         array $dpo
     ) {
         $this->document            = $document;
         $this->contractorGenerator = $contractorGenerator;
+        $this->mesurementGenerator = $mesurementGenerator;
         $this->treatmentGenerator  = $treatmentGenerator;
         $this->dpo                 = $dpo;
     }
@@ -68,6 +76,24 @@ class WordHandler
         $this->contractorGenerator->generateDetails($this->document, $contractors);
 
         return $this->contractorGenerator->generateResponse($this->document, 'sous-traitants');
+    }
+
+    /**
+     * Generate mesurement report.
+     *
+     * @param array $mesurements mesurements to use for generation
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     *
+     * @return Response The generated Word file
+     */
+    public function generateRegistryMesurementReport(array $mesurements = []): Response
+    {
+        $this->mesurementGenerator->generateHeader($this->document, 'Registre des actions de protection');
+        $this->mesurementGenerator->generateOverview($this->document, $mesurements);
+        $this->mesurementGenerator->generateDetails($this->document, $mesurements);
+
+        return $this->mesurementGenerator->generateResponse($this->document, 'actions-de-protection');
     }
 
     /**
