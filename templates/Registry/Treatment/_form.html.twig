@@ -78,6 +78,17 @@
                 {{ macro.complex_choice(form.securityOther) }}
             </div>
         </div>
+
+        {# SPECIFIC #}
+        <div class="box box-solid box-info">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.systematicMonitoring) }}
+                {{ form_row(form.largeScaleCollection) }}
+                {{ form_row(form.vulnerablePeople) }}
+                {{ form_row(form.dataCrossing) }}
+            </div>
+        </div>
     </div>
 
 </div>

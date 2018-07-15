@@ -60,7 +60,7 @@ class MesurementGenerator extends Generator
                 ],
                 [
                     'Description',
-                    $mesurement->getDescription() ? preg_split('/\R/', $mesurement->getDescription()) : null,
+                    $mesurement->getDescription() ? \preg_split('/\R/', $mesurement->getDescription()) : null,
                 ],
                 [
                     'Coût',

@@ -129,29 +129,67 @@ class Treatment
     private $delay;
 
     /**
+     * FR: Contrôle d'accès (mesure de sécurité).
+     *
      * @var ComplexChoice
      */
     private $securityAccessControl;
 
     /**
+     * FR: Tracabilité (mesure de sécurité).
+     *
      * @var ComplexChoice
      */
     private $securityTracability;
 
     /**
+     * FR: Sauvegarde (mesure de sécurité).
+     *
      * @var ComplexChoice
      */
     private $securitySaving;
 
     /**
+     * FR: Mises à jour (mesure de sécurité).
+     *
      * @var ComplexChoice
      */
     private $securityUpdate;
 
     /**
+     * FR: Autres (mesure de sécurité).
+     *
      * @var ComplexChoice
      */
     private $securityOther;
+
+    /**
+     * FR: Surveillance systématique (traitement spécifique).
+     *
+     * @var bool
+     */
+    private $systematicMonitoring;
+
+    /**
+     * FR: Collecte à grande échelle (traitement spécifique).
+     *
+     * @var bool
+     */
+    private $largeScaleCollection;
+
+    /**
+     * FR: Personnes vulnérables (traitement spécifique).
+     *
+     * @var bool
+     */
+    private $vulnerablePeople;
+
+    /**
+     * FR: Croisement de données (traitement spécifique).
+     *
+     * @var bool
+     */
+    private $dataCrossing;
 
     /**
      * @var bool
@@ -172,6 +210,10 @@ class Treatment
         $this->securitySaving        = new ComplexChoice();
         $this->securityUpdate        = new ComplexChoice();
         $this->securityOther         = new ComplexChoice();
+        $this->systematicMonitoring  = false;
+        $this->largeScaleCollection  = false;
+        $this->vulnerablePeople      = false;
+        $this->dataCrossing          = false;
         $this->active                = true;
     }
 
@@ -500,6 +542,70 @@ class Treatment
     public function setSecurityOther(ComplexChoice $securityOther): void
     {
         $this->securityOther = $securityOther;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSystematicMonitoring(): bool
+    {
+        return $this->systematicMonitoring;
+    }
+
+    /**
+     * @param bool $systematicMonitoring
+     */
+    public function setSystematicMonitoring(bool $systematicMonitoring): void
+    {
+        $this->systematicMonitoring = $systematicMonitoring;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLargeScaleCollection(): bool
+    {
+        return $this->largeScaleCollection;
+    }
+
+    /**
+     * @param bool $largeScaleCollection
+     */
+    public function setLargeScaleCollection(bool $largeScaleCollection): void
+    {
+        $this->largeScaleCollection = $largeScaleCollection;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVulnerablePeople(): bool
+    {
+        return $this->vulnerablePeople;
+    }
+
+    /**
+     * @param bool $vulnerablePeople
+     */
+    public function setVulnerablePeople(bool $vulnerablePeople): void
+    {
+        $this->vulnerablePeople = $vulnerablePeople;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDataCrossing(): bool
+    {
+        return $this->dataCrossing;
+    }
+
+    /**
+     * @param bool $dataCrossing
+     */
+    public function setDataCrossing(bool $dataCrossing): void
+    {
+        $this->dataCrossing = $dataCrossing;
     }
 
     /**

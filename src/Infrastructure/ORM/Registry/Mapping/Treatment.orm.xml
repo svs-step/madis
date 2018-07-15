@@ -22,6 +22,10 @@
         <field name="dataCategoryOther" column="data_category_other" type="text" nullable="true"/>
         <field name="sensibleInformations" column="sensible_informations" type="boolean"/>
         <field name="recipientCategory" column="recipient_category" type="text" nullable="true"/>
+        <field name="systematicMonitoring" column="systematic_monitoring" type="boolean"/>
+        <field name="largeScaleCollection" column="large_scale_collection" type="boolean"/>
+        <field name="vulnerablePeople" column="vulnerable_people" type="boolean"/>
+        <field name="dataCrossing" column="data_crossing" type="boolean"/>
         <field name="active" column="active" type="boolean"/>
 
         <embedded name="delay" class="App\Domain\Registry\Model\Embeddable\Delay" column-prefix="delay_"/>

@@ -35,12 +35,16 @@ class TreatmentTest extends TestCase
         $this->assertFalse($model->isSensibleInformations());
         $this->assertInstanceOf(ArrayCollection::class, $model->getContractors());
         $this->assertInstanceOf(Delay::class, $model->getDelay());
-        $this->assertTrue($model->isActive());
         $this->assertInstanceOf(ComplexChoice::class, $model->getSecurityAccessControl());
         $this->assertInstanceOf(ComplexChoice::class, $model->getSecurityTracability());
         $this->assertInstanceOf(ComplexChoice::class, $model->getSecuritySaving());
         $this->assertInstanceOf(ComplexChoice::class, $model->getSecurityUpdate());
         $this->assertInstanceOf(ComplexChoice::class, $model->getSecurityOther());
+        $this->assertFalse($model->isSystematicMonitoring());
+        $this->assertFalse($model->isLargeScaleCollection());
+        $this->assertFalse($model->isVulnerablePeople());
+        $this->assertFalse($model->isDataCrossing());
+        $this->assertTrue($model->isActive());
     }
 
     public function testTraits()
