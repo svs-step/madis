@@ -17,6 +17,7 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary;
 use App\Domain\Registry\Dictionary\TreatmentDataCategoryDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
+use App\Domain\Registry\Model\Treatment;
 use PhpOffice\PhpWord\PhpWord;
 
 class TreatmentGenerator extends Generator
@@ -46,7 +47,6 @@ class TreatmentGenerator extends Generator
             [
                 'Nom',
                 'Gestionnaire',
-                'Statut',
             ],
         ];
         // Add content
@@ -54,7 +54,6 @@ class TreatmentGenerator extends Generator
             $tableData[] = [
                 $treatment->getName(),
                 $treatment->getManager() ?? $this->defaultReferent,
-                $treatment->isActive() ? 'Actif' : 'Inactif',
             ];
         }
 
@@ -64,7 +63,7 @@ class TreatmentGenerator extends Generator
     public function generateDetails(PhpWord $document, array $data): void
     {
         /*
-         * @var Treatment
+         * @var Treatment $treatment
          */
         foreach ($data as $treatment) {
             $section = $document->addSection();
@@ -73,7 +72,7 @@ class TreatmentGenerator extends Generator
             $generalInformationsData = [
                 [
                     'Finalité',
-                    $treatment->getGoal(),
+                    $treatment->getGoal() ? \preg_split('/\R/', $treatment->getGoal()) : null,
                 ],
                 [
                     'Gestionnaire',
@@ -89,7 +88,7 @@ class TreatmentGenerator extends Generator
                 ],
                 [
                     'Justification de la base légale',
-                    $treatment->getLegalBasisJustification(),
+                    $treatment->getLegalBasisJustification() ? \preg_split('/\R/', $treatment->getLegalBasisJustification()) : null,
                 ],
             ];
 
@@ -108,7 +107,9 @@ class TreatmentGenerator extends Generator
                 ],
                 [
                     'Délai de conservation',
-                    $treatment->getDelay()->getComment() ?: "{$treatment->getDelay()->getNumber()} {$treatment->getDelay()->getPeriod()}",
+                    $treatment->getDelay()->getComment()
+                        ? \preg_split('/\R/', $treatment->getDelay()->getComment())
+                        : "{$treatment->getDelay()->getNumber()} {$treatment->getDelay()->getPeriod()}",
                 ],
             ];
             // Add Concerned people
@@ -142,7 +143,7 @@ class TreatmentGenerator extends Generator
             $goalData = [
                 [
                     'Catégorie de destinataires',
-                    $treatment->getRecipientCategory(),
+                    $treatment->getRecipientCategory() ? \preg_split('/\R/', $treatment->getRecipientCategory()) : null,
                 ],
                 [
                     'Sous-traitant(s)',
@@ -178,6 +179,28 @@ class TreatmentGenerator extends Generator
                 ],
             ];
 
+            /**
+             * @var Treatment
+             */
+            $specificData = [
+                [
+                    'Surveillance systématique',
+                    $treatment->isSystematicMonitoring() ? 'Oui' : 'Non',
+                ],
+                [
+                    'Collecte à large échelle',
+                    $treatment->isLargeScaleCollection() ? 'Oui' : 'Non',
+                ],
+                [
+                    'Personnes vulnérables',
+                    $treatment->isVulnerablePeople() ? 'Oui' : 'Non',
+                ],
+                [
+                    'Croisement de données',
+                    $treatment->isDataCrossing() ? 'Oui' : 'Non',
+                ],
+            ];
+
             $historyData = [
                 [
                     'Créateur',
@@ -207,6 +230,9 @@ class TreatmentGenerator extends Generator
 
             $section->addTitle('Mesures de sécurité', 3);
             $this->addTable($section, $securityData, true, self::TABLE_ORIENTATION_VERTICAL);
+
+            $section->addTitle('Traitement spécifique', 3);
+            $this->addTable($section, $specificData, true, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Historique', 3);
             $this->addTable($section, $historyData, true, self::TABLE_ORIENTATION_VERTICAL);

@@ -143,10 +143,12 @@ registry:
             active: Statut
             concerned_people: Personnes concernées
             contractors: Sous-traitants
+            data_crossing: Croisement de données
             data_category: Catégorie de données
             data_category_other: Autres catégories
             delay: Délai de conservation
             goal: Finalité
+            large_scale_collection: Collecte à large échelle
             legal_basis: Base légale
             legal_basis_justification: Justification de la base légale
             manager: Gestionnaire
@@ -159,7 +161,9 @@ registry:
             security_tracability: Tracabilité
             security_update: Mise à jour
             sensible_informations: Contient des données sensibles
+            systematic_monitoring: Surveillance systématique
             software: Logiciel
+            vulnerable_people: Personnes vulnérables
         flashbag:
             success:
                 create: Traitement "%object%" créé avec succès
@@ -181,10 +185,12 @@ registry:
             contractors: Sous-traitants
             created_at: Date de création
             creator: Créateur
+            data_crossing: Croisement de données
             data_category: Catégorie de données
             data_category_other: Autres catégories
             delay: Délai de conservation
             goal: Finalité
+            large_scale_collection: Collecte à large échelle
             legal_basis: Base légale
             legal_basis_justification: Justification de la base légale
             manager: Gestionnaire
@@ -198,7 +204,9 @@ registry:
             security_update: Mise à jour
             software: Logiciel
             sensible_informations: Données à caractère sensible
+            systematic_monitoring: Surveillance systématique
             updated_at: Dernière mise à jour
+            vulnerable_people: Personnes vulnérables
         title:
             create: Créer un traitement
             delete: Supprimer un traitement
@@ -209,6 +217,7 @@ registry:
           data_category: Catégorie des données
           details: Détails
           general: Informations générales
-          security: Mesures de sécurité
           historic: Historique
+          security: Mesures de sécurité
+          specific: Traitement spéficique
           recipients: Destination

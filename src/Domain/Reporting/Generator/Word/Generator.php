@@ -117,7 +117,7 @@ abstract class Generator
             ]
         );
         $section->addText(
-            $this->userProvider->getAuthenticatedUser()->getCollectivity(),
+            \utf8_decode((string) $this->userProvider->getAuthenticatedUser()->getCollectivity()),
             [
                 'bold'   => true,
                 'italic' => true,

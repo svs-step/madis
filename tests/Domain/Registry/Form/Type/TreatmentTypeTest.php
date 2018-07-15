@@ -76,6 +76,10 @@ class TreatmentTypeTest extends FormTypeHelper
             'securitySaving'          => ComplexChoiceType::class,
             'securityUpdate'          => ComplexChoiceType::class,
             'securityOther'           => ComplexChoiceType::class,
+            'systematicMonitoring'    => CheckboxType::class,
+            'largeScaleCollection'    => CheckboxType::class,
+            'vulnerablePeople'        => CheckboxType::class,
+            'dataCrossing'            => CheckboxType::class,
             'active'                  => ChoiceType::class,
         ];
 

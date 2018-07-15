@@ -148,6 +148,22 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.security_other',
                 'required' => false,
             ])
+            ->add('systematicMonitoring', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.systematic_monitoring',
+                'required' => false,
+            ])
+            ->add('largeScaleCollection', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.large_scale_collection',
+                'required' => false,
+            ])
+            ->add('vulnerablePeople', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.vulnerable_people',
+                'required' => false,
+            ])
+            ->add('dataCrossing', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.data_crossing',
+                'required' => false,
+            ])
             ->add('active', ChoiceType::class, [
                 'label'    => 'registry.treatment.form.active',
                 'required' => true,
