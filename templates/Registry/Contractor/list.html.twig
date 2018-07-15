@@ -72,10 +72,12 @@
                                         <i class="fa fa-pencil-alt"></i>
                                         {{ 'action.edit'|trans }}
                                     </a>
+                                    {% if object.treatments|length == 0 %}
                                     <a href="{{ path('registry_contractor_delete', { 'id': object.id }) }}">
                                         <i class="fa fa-trash"></i>
                                         {{ 'action.delete'|trans }}
                                     </a>
+                                    {% endif %}
                                 </td>
                             {% endif %}
                         </tr>
