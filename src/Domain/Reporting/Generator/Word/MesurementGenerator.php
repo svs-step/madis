@@ -23,7 +23,7 @@ class MesurementGenerator extends Generator
     {
         $section = $document->addSection();
 
-        $section->addTitle('Liste des mesures', 2);
+        $section->addTitle('Liste des actions de protection', 2);
 
         // Table data
         // Add header
@@ -46,7 +46,7 @@ class MesurementGenerator extends Generator
 
     public function generateDetails(PhpWord $document, array $data): void
     {
-        /**
+        /*
          * @var Mesurement
          */
         foreach ($data as $mesurement) {

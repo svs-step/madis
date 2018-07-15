@@ -89,11 +89,11 @@ class WordHandler
      */
     public function generateRegistryMesurementReport(array $mesurements = []): Response
     {
-        $this->mesurementGenerator->generateHeader($this->document, 'Registre des mesures');
+        $this->mesurementGenerator->generateHeader($this->document, 'Registre des actions de protection');
         $this->mesurementGenerator->generateOverview($this->document, $mesurements);
         $this->mesurementGenerator->generateDetails($this->document, $mesurements);
 
-        return $this->mesurementGenerator->generateResponse($this->document, 'mesures');
+        return $this->mesurementGenerator->generateResponse($this->document, 'actions-de-protection');
     }
 
     /**

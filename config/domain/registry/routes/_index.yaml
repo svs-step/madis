@@ -4,7 +4,7 @@ _registry_contractor:
 
 _registry_mesurement:
     resource: 'mesurement.yaml'
-    prefix:   '/mesures'
+    prefix:   '/actions-de-protection'
 
 _registry_treatment:
     resource: 'treatment.yaml'

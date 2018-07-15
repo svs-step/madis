@@ -71,12 +71,12 @@ registry:
     mesurement:
         action:
             back_to_list: Retour à la liste
-            new: Nouvelle mesure
+            new: Nouvelle action
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
             edit: Modifier "%name%"
-            list: Liste des mesures
+            list: Liste des actions
             show: Visualiser "%name%"
         form:
             charge: Charge
@@ -89,9 +89,9 @@ registry:
             type: Type
         flashbag:
             success:
-                create: Mesure "%object%" créé avec succès
-                edit: Mesure "%object%" modifié avec succès
-                delete: Mesure "%object%" supprimé avec succès
+                create: Action de protection "%object%" créé avec succès
+                edit: Action de protection "%object%" modifié avec succès
+                delete: Action de protection "%object%" supprimé avec succès
         list:
             charge: Charge
             collectivity: Collectivité
@@ -99,9 +99,9 @@ registry:
             name: Nom
             status: Statut
             type:
-                legal: Mesures juridiques
-                organisational: Mesures organisationnelles
-                technical: Mesures techniques
+                legal: Actions juridiques
+                organisational: Actions organisationnelles
+                technical: Actions techniques
         show:
             charge: Charge
             collectivity: Collectivité
@@ -120,11 +120,11 @@ registry:
             general: Informations générales
             historic: Historique
         title:
-            create: Créer une mesure
-            delete: Supprimer une mesure
-            edit: Modifier une mesure
-            list: Liste des mesures
-            show: Visualiser une mesure
+            create: Créer une action de protection
+            delete: Supprimer une action de protection
+            edit: Modifier une action de protection
+            list: Liste des actions de protection
+            show: Visualiser une action de protection
 
     treatment:
         action:

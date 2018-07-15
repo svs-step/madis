@@ -111,7 +111,7 @@ class WordHandlerTest extends TestCase
         $response    = $this->prophesize(BinaryFileResponse::class)->reveal();
 
         $this->mesurementGeneratorProphecy
-            ->generateHeader($this->phpWordProphecy->reveal(), 'Registre des mesures')
+            ->generateHeader($this->phpWordProphecy->reveal(), 'Registre des actions de protection')
             ->shouldBeCalled()
         ;
         $this->mesurementGeneratorProphecy
@@ -123,7 +123,7 @@ class WordHandlerTest extends TestCase
             ->shouldBeCalled()
         ;
         $this->mesurementGeneratorProphecy
-            ->generateResponse($this->phpWordProphecy->reveal(), 'mesures')
+            ->generateResponse($this->phpWordProphecy->reveal(), 'actions-de-protection')
             ->shouldBeCalled()
             ->willReturn($response)
         ;
