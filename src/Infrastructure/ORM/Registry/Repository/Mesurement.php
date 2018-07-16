@@ -26,7 +26,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         return Model\Mesurement::class;
     }
 
-    protected function addWhereClause(QueryBuilder $qb, string $key, string $value): QueryBuilder
+    protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
     {
         return $qb
             ->andWhere("o.{$key} = :{$key}_value")
