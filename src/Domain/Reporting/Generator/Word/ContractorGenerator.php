@@ -112,11 +112,11 @@ class ContractorGenerator extends Generator
                 ],
                 [
                     'Date de création',
-                    $contractor->getCreatedAt()->format(self::DATE_TIME_FORMAT),
+                    $this->getDate($contractor->getCreatedAt()),
                 ],
                 [
                     'Dernière mise à jour',
-                    $contractor->getUpdatedAt()->format(self::DATE_TIME_FORMAT),
+                    $this->getDate($contractor->getUpdatedAt()),
                 ],
             ];
 

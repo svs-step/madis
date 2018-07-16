@@ -129,7 +129,7 @@ abstract class Generator
             ]
         );
         $section->addText(
-            "Édition du {$currentDateTime->format(self::DATE_TIME_FORMAT)}",
+            "Édition du {$this->getDate(new \DateTimeImmutable())}",
             [
                 'size' => 15,
             ],
@@ -200,5 +200,23 @@ abstract class Generator
         }
 
         $section->addTextBreak(2);
+    }
+
+    /**
+     * Format a date for Word document.
+     *
+     * @param \DateTimeInterface $dateTime The date to parse
+     *
+     * @throws \Exception
+     *
+     * @return string The parsed date with the good timezone
+     */
+    protected function getDate(\DateTimeInterface $dateTime): string
+    {
+        $parsedDateTime = new \DateTimeImmutable();
+        $parsedDateTime = $parsedDateTime->setTimestamp($dateTime->getTimestamp());
+        $parsedDateTime = $parsedDateTime->setTimezone(new \DateTimeZone(self::DATE_TIME_ZONE));
+
+        return $parsedDateTime->format(self::DATE_TIME_FORMAT);
     }
 }

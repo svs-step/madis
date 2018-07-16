@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Word;
 
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
-use App\Domain\Registry\Model\Mesurement;
 use PhpOffice\PhpWord\PhpWord;
 
 class MesurementGenerator extends Generator
@@ -78,15 +77,9 @@ class MesurementGenerator extends Generator
                     MesurementStatusDictionary::getStatus()[$mesurement->getStatus()],
                 ],
                 [
-                    'Mise en place',
-                    MesurementStatusDictionary::STATUS_NOT_APPLICABLE !== $mesurement->getStatus()
-                    ? ($mesurement->isEtablished() ? 'Oui' : 'Non')
-                    : 'Non applicable',
-                ],
-                [
                     'Planification',
                     MesurementStatusDictionary::STATUS_NOT_APPLICABLE !== $mesurement->getStatus()
-                        ? ($mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_TIME_FORMAT) : null)
+                        ? ($mesurement->getPlanificationDate() ? $this->getDate($mesurement->getPlanificationDate()) : null)
                         : 'Non applicable',
                 ],
             ];
@@ -98,11 +91,11 @@ class MesurementGenerator extends Generator
                 ],
                 [
                     'Date de création',
-                    $mesurement->getCreatedAt()->format(self::DATE_TIME_FORMAT),
+                    $this->getDate($mesurement->getCreatedAt()),
                 ],
                 [
                     'Dernière mise à jour',
-                    $mesurement->getUpdatedAt()->format(self::DATE_TIME_FORMAT),
+                    $this->getDate($mesurement->getUpdatedAt()),
                 ],
             ];
 

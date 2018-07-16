@@ -120,18 +120,6 @@
                             <td>{{ object.status|dictionary('registry_mesurement_status') }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.mesurement.show.etablished'|trans }}</strong></td>
-                            <td>
-                                {% if object.status != constant('App\\Domain\\Registry\\Dictionary\\MesurementStatusDictionary::STATUS_NOT_APPLICABLE') %}
-                                    {% if object.etablished %}
-                                        <span class="label label-success">{{ 'label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="label label-danger">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
                             <td><strong>{{ 'registry.mesurement.show.planification_date'|trans }}</strong></td>
                             <td>
                                 {% if object.planificationDate is not null %}

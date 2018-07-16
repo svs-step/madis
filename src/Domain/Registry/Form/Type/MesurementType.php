@@ -16,7 +16,6 @@ namespace App\Domain\Registry\Form\Type;
 use App\Domain\Registry\Model\Mesurement;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -62,10 +61,6 @@ class MesurementType extends AbstractType
                 'required' => true,
                 'multiple' => false,
                 'expanded' => true,
-            ])
-            ->add('etablished', CheckboxType::class, [
-                'label'    => 'registry.mesurement.form.etablished',
-                'required' => false,
             ])
             ->add('planificationDate', DateType::class, [
                 'label'             => 'registry.mesurement.form.planification_date',

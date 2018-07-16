@@ -208,11 +208,11 @@ class TreatmentGenerator extends Generator
                 ],
                 [
                     'Date de création',
-                    $treatment->getCreatedAt()->format(self::DATE_TIME_FORMAT),
+                    $this->getDate($treatment->getCreatedAt()),
                 ],
                 [
                     'Dernière mise à jour',
-                    $treatment->getUpdatedAt()->format(self::DATE_TIME_FORMAT),
+                    $this->getDate($treatment->getUpdatedAt()),
                 ],
             ];
 
