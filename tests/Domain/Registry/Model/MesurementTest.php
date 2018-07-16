@@ -27,7 +27,6 @@ class MesurementTest extends TestCase
         $model = new Mesurement();
 
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
-        $this->assertFalse($model->isEtablished());
     }
 
     public function testTraits()

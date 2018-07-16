@@ -82,7 +82,6 @@ registry:
             charge: Charge
             cost: Coût
             description: Description
-            etablished: Mise en place
             name: Nom
             planification_date: Planification
             status: Statut
@@ -109,7 +108,6 @@ registry:
             creator: Créateur
             cost: Coût
             description: Description
-            etablished: Mise en place
             name: Nom
             planification_date: Planification
             status: Statut

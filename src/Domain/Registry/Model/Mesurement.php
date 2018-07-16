@@ -73,13 +73,6 @@ class Mesurement
     private $status;
 
     /**
-     * FR: Mise en place.
-     *
-     * @var bool
-     */
-    private $etablished;
-
-    /**
      * FR: Date de planification.
      *
      * @var \DateTime
@@ -89,7 +82,6 @@ class Mesurement
     public function __construct()
     {
         $this->id         = Uuid::uuid4();
-        $this->etablished = false;
     }
 
     public function __toString()
@@ -199,22 +191,6 @@ class Mesurement
     public function setStatus(?string $status): void
     {
         $this->status = $status;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEtablished(): bool
-    {
-        return $this->etablished;
-    }
-
-    /**
-     * @param bool $etablished
-     */
-    public function setEtablished(bool $etablished): void
-    {
-        $this->etablished = $etablished;
     }
 
     /**

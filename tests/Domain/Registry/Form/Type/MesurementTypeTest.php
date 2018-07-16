@@ -18,7 +18,6 @@ use App\Domain\Registry\Model\Mesurement;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -39,7 +38,6 @@ class MesurementTypeTest extends FormTypeHelper
             'cost'              => TextType::class,
             'charge'            => TextType::class,
             'status'            => DictionaryType::class,
-            'etablished'        => CheckboxType::class,
             'planificationDate' => DateType::class,
         ];
 

@@ -16,7 +16,6 @@
         <field name="cost" column="cost" nullable="true"/>
         <field name="charge" column="charge" nullable="true"/>
         <field name="status" column="status" nullable="true"/>
-        <field name="etablished" column="etablished" type="boolean"/>
         <field name="planificationDate" column="planification_date" type="date" nullable="true"/>
 
         <!-- Traits -->
