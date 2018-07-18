@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                            https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\Maturity\Model\Domain" table="maturity_domain">
+
+        <id name="id" column="id" type="uuid"/>
+
+        <field name="name" column="name" length="80"/>
+
+        <one-to-many field="questions" target-entity="App\Domain\Maturity\Model\Question" mapped-by="domain"/>
+        <one-to-many field="maturity" target-entity="App\Domain\Maturity\Model\Maturity" mapped-by="domain"/>
+    </entity>
+
+</doctrine-mapping>
