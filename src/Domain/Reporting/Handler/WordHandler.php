@@ -15,8 +15,10 @@ namespace App\Domain\Reporting\Handler;
 
 use App\Domain\Reporting\Generator\Word\ContractorGenerator;
 use App\Domain\Reporting\Generator\Word\MesurementGenerator;
+use App\Domain\Reporting\Generator\Word\OverviewGenerator;
 use App\Domain\Reporting\Generator\Word\TreatmentGenerator;
 use PhpOffice\PhpWord\PhpWord;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class WordHandler
@@ -32,6 +34,11 @@ class WordHandler
     private $contractorGenerator;
 
     /**
+     * @var OverviewGenerator
+     */
+    private $overviewGenerator;
+
+    /**
      * @var MesurementGenerator
      */
     private $mesurementGenerator;
@@ -41,23 +48,38 @@ class WordHandler
      */
     private $treatmentGenerator;
 
-    /**
-     * @var array
-     */
-    private $dpo;
-
     public function __construct(
         PhpWord $document,
         ContractorGenerator $contractorGenerator,
         MesurementGenerator $mesurementGenerator,
-        TreatmentGenerator $treatmentGenerator,
-        array $dpo
+        OverviewGenerator $overviewGenerator,
+        TreatmentGenerator $treatmentGenerator
     ) {
         $this->document            = $document;
         $this->contractorGenerator = $contractorGenerator;
+        $this->overviewGenerator   = $overviewGenerator;
         $this->mesurementGenerator = $mesurementGenerator;
         $this->treatmentGenerator  = $treatmentGenerator;
-        $this->dpo                 = $dpo;
+    }
+
+    public function generateOverviewReport(
+        array $treatments = [],
+        array $contractors = []
+    ): BinaryFileResponse {
+        $this->overviewGenerator->generateFirstPage($this->document);
+        $contentSection = $this->overviewGenerator->createContentSection($this->document);
+        $this->overviewGenerator->generateTableOfContent($contentSection);
+
+        // Object
+        $this->overviewGenerator->generateObjectPart($contentSection);
+
+        // Organism introduction
+        $this->overviewGenerator->generateOrganismIntroductionPart($contentSection);
+
+        // Registries
+        $this->overviewGenerator->generateRegistries($contentSection, $treatments, $contractors);
+
+        return $this->overviewGenerator->generateResponse($this->document, 'bilan');
     }
 
     /**

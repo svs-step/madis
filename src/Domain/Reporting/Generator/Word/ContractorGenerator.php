@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Word;
 
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Registry\Model\Contractor;
+use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\PhpWord;
 
 class ContractorGenerator extends Generator
@@ -29,6 +31,52 @@ class ContractorGenerator extends Generator
     ) {
         parent::__construct($userProvider);
         $this->defaultReferent = $defaultReferent;
+    }
+
+    /**
+     * @param Section      $section
+     * @param Contractor[] $data
+     */
+    public function generateGlobalOverview(Section $section, array $data): void
+    {
+        $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+
+        $overview = [
+            [
+                'Nom',
+                'Référent',
+                'Clauses contractuelles vérifiées',
+                'Conforme RGPD',
+            ],
+        ];
+        $nbContractors                = \count($data);
+        $nbVerifiedContractualClauses = 0;
+        $nbConform                    = 0;
+
+        // Make a loop to get all data. Make all data processing in one loop to avoid several loops
+        foreach ($data as $contractor) {
+            // Overview
+            $overview[] = [
+                $contractor->getName(),
+                $contractor->getReferent() ?? $this->defaultReferent,
+                $contractor->isContractualClausesVerified() ? 'Oui' : 'Non',
+                $contractor->isConform() ? 'Oui' : 'Non',
+            ];
+
+            // Verified contractual clauses
+            if ($contractor->isContractualClausesVerified()) {
+                ++$nbVerifiedContractualClauses;
+            }
+            // Conform
+            if ($contractor->isConform()) {
+                ++$nbConform;
+            }
+        }
+
+        $section->addTitle('Registre des sous-traitants', 3);
+        $section->addText("Un recensement des sous-traitants gérants des données à caractère personnel de '{$collectivity}' a été effectué.");
+        $section->addText("Il y a {$nbContractors} sous-traitants identifiés, les clauses contractuelles de {$nbVerifiedContractualClauses} d’entre eux ont été vérifiées. {$nbConform} sous-traitants sont conforme au RGPD.");
+        $this->addTable($section, $overview, true, self::TABLE_ORIENTATION_HORIZONTAL);
     }
 
     public function generateOverview(PhpWord $document, array $data): void

@@ -18,7 +18,7 @@ use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\SimpleType\Jc;
-use PhpOffice\PhpWord\Style;
+use PhpOffice\PhpWord\SimpleType\TblWidth;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
@@ -58,7 +58,7 @@ abstract class Generator
             'borderColor' => '006699',
             'borderSize'  => 6,
             'cellMargin'  => 100,
-            'unit'        => Style\Table::WIDTH_PERCENT,
+            'unit'        => TblWidth::PERCENT,
             'width'       => 100 * 50,
         ];
 
@@ -102,8 +102,7 @@ abstract class Generator
     {
         $this->defineStyle($document);
 
-        $currentDateTime = new \DateTimeImmutable('now', new \DateTimeZone(self::DATE_TIME_ZONE));
-        $section         = $document->addSection();
+        $section = $document->addSection();
         $section->addText(
             $title,
             [

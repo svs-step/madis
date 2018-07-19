@@ -15,14 +15,20 @@ namespace App\Tests\Domain\Reporting\Handler;
 
 use App\Domain\Reporting\Generator\Word\ContractorGenerator;
 use App\Domain\Reporting\Generator\Word\MesurementGenerator;
+use App\Domain\Reporting\Generator\Word\OverviewGenerator;
 use App\Domain\Reporting\Generator\Word\TreatmentGenerator;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Tests\Utils\ReflectionTrait;
+use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\PhpWord;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class WordHandlerTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
      * @var PhpWord
      */
@@ -39,14 +45,14 @@ class WordHandlerTest extends TestCase
     private $mesurementGeneratorProphecy;
 
     /**
+     * @var OverviewGenerator
+     */
+    private $overviewGeneratorProphecy;
+
+    /**
      * @var TreatmentGenerator
      */
     private $treatmentGeneratorProphecy;
-
-    /**
-     * @var array
-     */
-    private $dpo;
 
     /**
      * @var WordHandler
@@ -58,15 +64,53 @@ class WordHandlerTest extends TestCase
         $this->phpWordProphecy             = $this->prophesize(PhpWord::class);
         $this->contractorGeneratorProphecy = $this->prophesize(ContractorGenerator::class);
         $this->mesurementGeneratorProphecy = $this->prophesize(MesurementGenerator::class);
+        $this->overviewGeneratorProphecy   = $this->prophesize(OverviewGenerator::class);
         $this->treatmentGeneratorProphecy  = $this->prophesize(TreatmentGenerator::class);
-        $this->dpo                         = [];
 
         $this->handler = new WordHandler(
             $this->phpWordProphecy->reveal(),
             $this->contractorGeneratorProphecy->reveal(),
             $this->mesurementGeneratorProphecy->reveal(),
-            $this->treatmentGeneratorProphecy->reveal(),
-            $this->dpo
+            $this->overviewGeneratorProphecy->reveal(),
+            $this->treatmentGeneratorProphecy->reveal()
+        );
+    }
+
+    /**
+     * Test generateOverviewReport.
+     */
+    public function testGenerateOverviewReport(): void
+    {
+        $section          = Argument::type(Section::class);
+        $treatments       = [];
+        $contractors      = [];
+        $responseProphecy = $this->prophesize(BinaryFileResponse::class);
+
+        $phpWord = $this->phpWordProphecy->reveal();
+
+        $this->overviewGeneratorProphecy->generateFirstPage($phpWord)->shouldBeCalled();
+        $this->overviewGeneratorProphecy->createContentSection($phpWord)->shouldBeCalled();
+        $this->overviewGeneratorProphecy->generateTableOfContent($section)->shouldBeCalled();
+
+        // Object
+        $this->overviewGeneratorProphecy->generateObjectPart($section)->shouldBeCalled();
+
+        // Organism introduction
+        $this->overviewGeneratorProphecy->generateOrganismIntroductionPart($section)->shouldBeCalled();
+
+        // Registries
+        $this->overviewGeneratorProphecy->generateRegistries($section, $treatments, $contractors)->shouldBeCalled();
+
+        // Generation
+        $this->overviewGeneratorProphecy
+            ->generateResponse($phpWord, 'bilan')
+            ->shouldBeCalled()
+            ->willReturn($responseProphecy->reveal())
+        ;
+
+        $this->assertEquals(
+            $responseProphecy->reveal(),
+            $this->handler->generateOverviewReport($treatments, $contractors)
         );
     }
 
