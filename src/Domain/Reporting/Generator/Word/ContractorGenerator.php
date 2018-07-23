@@ -16,9 +16,8 @@ namespace App\Domain\Reporting\Generator\Word;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Model\Contractor;
 use PhpOffice\PhpWord\Element\Section;
-use PhpOffice\PhpWord\PhpWord;
 
-class ContractorGenerator extends Generator
+class ContractorGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
     /**
      * @var string
@@ -37,7 +36,7 @@ class ContractorGenerator extends Generator
      * @param Section      $section
      * @param Contractor[] $data
      */
-    public function generateGlobalOverview(Section $section, array $data): void
+    public function addGlobalOverview(Section $section, array $data): void
     {
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
 
@@ -73,17 +72,15 @@ class ContractorGenerator extends Generator
             }
         }
 
-        $section->addTitle('Registre des sous-traitants', 3);
+        $section->addTitle('Registre des sous-traitants', 2);
         $section->addText("Un recensement des sous-traitants gérants des données à caractère personnel de '{$collectivity}' a été effectué.");
         $section->addText("Il y a {$nbContractors} sous-traitants identifiés, les clauses contractuelles de {$nbVerifiedContractualClauses} d’entre eux ont été vérifiées. {$nbConform} sous-traitants sont conforme au RGPD.");
         $this->addTable($section, $overview, true, self::TABLE_ORIENTATION_HORIZONTAL);
     }
 
-    public function generateOverview(PhpWord $document, array $data): void
+    public function addSyntheticView(Section $section, array $data): void
     {
-        $section = $document->addSection();
-
-        $section->addTitle('Liste des sous-traitants', 2);
+        $section->addTitle('Liste des sous-traitants', 1);
 
         // Table data
         // Add header
@@ -106,12 +103,17 @@ class ContractorGenerator extends Generator
         }
 
         $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
+        $section->addPageBreak();
     }
 
-    public function generateDetails(PhpWord $document, array $data): void
+    public function addDetailedView(Section $section, array $data): void
     {
-        foreach ($data as $contractor) {
-            $section = $document->addSection();
+        $section->addTitle('Détail des sous-traitants', 1);
+
+        foreach ($data as $key => $contractor) {
+            if (0 !== $key) {
+                $section->addPageBreak();
+            }
             $section->addTitle($contractor->getName(), 2);
 
             $generalInformationsData = [
@@ -128,7 +130,7 @@ class ContractorGenerator extends Generator
                     $contractor->isConform() ? 'Oui' : 'Non',
                 ],
                 [
-                    'Autres inforamtions',
+                    'Autres informations',
                     $contractor->getOtherInformations(),
                 ],
             ];
@@ -148,7 +150,7 @@ class ContractorGenerator extends Generator
                     $contractor->getAddress()->getMail(),
                 ],
                 [
-                    'Numéro de téléphone',
+                    'N° de téléphone',
                     $contractor->getAddress()->getPhoneNumber(),
                 ],
             ];

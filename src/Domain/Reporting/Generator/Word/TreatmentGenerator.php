@@ -19,10 +19,9 @@ use App\Domain\Registry\Dictionary\TreatmentDataCategoryDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use App\Domain\Registry\Model\Treatment;
 use PhpOffice\PhpWord\Element\Section;
-use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Shared\Converter;
 
-class TreatmentGenerator extends Generator
+class TreatmentGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
     /**
      * @var string
@@ -37,7 +36,7 @@ class TreatmentGenerator extends Generator
         $this->defaultReferent = $defaultReferent;
     }
 
-    public function generateGlobalOverview(Section $section, array $data): void
+    public function addGlobalOverview(Section $section, array $data): void
     {
         // GENERATE ALL DATA BEFORE WORD GENERATION IN ORDER TO AVOID SEVERAL LOOP
         $nbTreatments = \count($data);
@@ -109,16 +108,13 @@ class TreatmentGenerator extends Generator
             }
         }
 
-        $section->addTitle('Registre des traitements', 3);
+        $section->addTitle('Registre des traitements', 2);
         $section->addText('Une collecte des traitements a été réalisée. Chaque fiche de registre est établie sur une base de 20 critères. Les critères exigés par le règlement sont pris en compte.');
-
-        // Table data
-        // Add header
 
         $this->addTable($section, $overview, true, self::TABLE_ORIENTATION_HORIZONTAL);
         $section->addText('Une version plus complète et à valeur de preuve figure en annexe.');
 
-        $section->addTitle('Analyse du registre des traitements', 3);
+        $section->addTitle('Analyse du registre des traitements', 2);
         $section->addText("Il y a aujourd’hui {$nbTreatments} traitements de données à caractère personnel inventoriés");
         $section->addText("Sur les {$nbTreatments} traitements : ");
         $section->addListItem("{$completion['100']} sont complétés à plus de 100%");
@@ -133,8 +129,8 @@ class TreatmentGenerator extends Generator
             $categories,
             $digitalisation,
             [
-                'height'         => Converter::cmToEmu(11),
-                'width'          => Converter::cmToEmu(15),
+                'height' => Converter::cmToEmu(11),
+                'width'  => Converter::cmToEmu(15),
             ]
         );
 
@@ -147,7 +143,7 @@ class TreatmentGenerator extends Generator
             $section->addListItem("{$digitalisation['other']} ne sont pas renseignés");
         }
 
-        $section->addTitle('Sécurité de base des traitements informatisés', 3);
+        $section->addTitle('Sécurité de base des traitements informatisés', 2);
         $section->addText("Sur les {$digitalisation['digital']} traitements informatisés :");
         // TODO Graph
         $section->addListItem("{$security['accessControl']} ont un contrôle d'accès");
@@ -161,11 +157,9 @@ class TreatmentGenerator extends Generator
         //$section->addText('Les traitements sensibles nécessitent une attention particulière et des actions de protections spécifiques.');
     }
 
-    public function generateOverview(PhpWord $document, array $data): void
+    public function addSyntheticView(Section $section, array $data): void
     {
-        $section = $document->addSection();
-
-        $section->addTitle('Liste des traitements', 2);
+        $section->addTitle('Liste des traitements', 1);
 
         // Table data
         // Add header
@@ -184,15 +178,19 @@ class TreatmentGenerator extends Generator
         }
 
         $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
+        $section->addPageBreak();
     }
 
-    public function generateDetails(PhpWord $document, array $data): void
+    public function addDetailedView(Section $section, array $data): void
     {
+        $section->addTitle('Détail des traitements', 1);
         /*
          * @var Treatment $treatment
          */
-        foreach ($data as $treatment) {
-            $section = $document->addSection();
+        foreach ($data as $key => $treatment) {
+            if (0 !== $key) {
+                $section->addPageBreak();
+            }
             $section->addTitle($treatment->getName(), 2);
 
             $generalInformationsData = [
