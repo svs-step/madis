@@ -59,6 +59,10 @@ class TreatmentGenerator extends Generator
             'saving'        => 0,
             'update'        => 0,
         ];
+        $completion = [
+            '100' => 0,
+            '80'  => 0,
+        ];
 
         /*
          * @var Treatment
@@ -96,6 +100,13 @@ class TreatmentGenerator extends Generator
                     ++$security['update'];
                 }
             }
+
+            // Completion
+            if (100 === $treatment->getCompletion()) {
+                ++$completion['100'];
+            } elseif (80 >= $treatment->getCompletion()) {
+                ++$completion['80'];
+            }
         }
 
         $section->addTitle('Registre des traitements', 3);
@@ -107,12 +118,11 @@ class TreatmentGenerator extends Generator
         $this->addTable($section, $overview, true, self::TABLE_ORIENTATION_HORIZONTAL);
         $section->addText('Une version plus complète et à valeur de preuve figure en annexe.');
 
-        // TODO : Completion
         $section->addTitle('Analyse du registre des traitements', 3);
         $section->addText("Il y a aujourd’hui {$nbTreatments} traitements de données à caractère personnel inventoriés");
         $section->addText("Sur les {$nbTreatments} traitements : ");
-        $section->addListItem('FOO sont complétés à plus de 100%');
-        $section->addListItem('FOO sont complétés à plus de 80%');
+        $section->addListItem("{$completion['100']} sont complétés à plus de 100%");
+        $section->addListItem("{$completion['80']} sont complétés à plus de 80%");
 
         $section->addTextBreak();
         $section->addText('Informatisation des traitements :');
@@ -124,10 +134,6 @@ class TreatmentGenerator extends Generator
             $digitalisation,
             [
                 'height'         => Converter::cmToEmu(11),
-                'showAxisLabels' => true,
-                'showGridLines'  => true,
-                'showGridX'      => true,
-                'showGridY'      => true,
                 'width'          => Converter::cmToEmu(15),
             ]
         );
