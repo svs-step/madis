@@ -1,0 +1,4 @@
+_maturity_survey:
+    resource: 'survey.yaml'
+    prefix:   '/indice-de-maturite'
+

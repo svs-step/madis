@@ -11,16 +11,7 @@
 
         <field name="response" column="response" type="integer"/>
         
-        <many-to-many field="question" target-entity="App\Domain\Maturity\Model\Question">
-            <join-table name="question_answer">
-                <join-columns>
-                    <join-column/>
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column/>
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
+        <many-to-one field="question" target-entity="App\Domain\Maturity\Model\Question"/>
 
         <many-to-one field="survey" target-entity="App\Domain\Maturity\Model\Survey" inversed-by="answers"/>
 

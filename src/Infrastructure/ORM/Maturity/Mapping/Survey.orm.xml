@@ -10,7 +10,12 @@
 
         <id name="id" column="id" type="uuid"/>
 
-        <one-to-many field="answers" target-entity="App\Domain\Maturity\Model\Answer" mapped-by="survey"/>
+        <one-to-many field="answers" target-entity="App\Domain\Maturity\Model\Answer" mapped-by="survey" orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
 
         <!-- Traits -->
         <many-to-one field="creator" target-entity="App\Domain\User\Model\User"/>

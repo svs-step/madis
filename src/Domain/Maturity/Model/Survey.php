@@ -46,6 +46,11 @@ class Survey
         $this->maturity = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return 'Indice de maturité';
+    }
+
     /**
      * @return UuidInterface
      */

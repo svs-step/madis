@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_contractor list' %}
+{% set menuItem = 'registry_contractor' %}
+
+{% block title %}{{ 'registry.contractor.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'registry.contractor.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.contractor.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+            <div class="col-xs-12">
+                <div class="action-bar">
+                    {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('registry_contractor_create') }}" class="btn btn-default">
+                        <i class="fa fa-plus"></i>
+                        {{ 'registry.contractor.action.new'|trans }}
+                    </a>
+                    {% endif %}
+                    <a href="{{ path('registry_contractor_report') }}" class="btn btn-default">
+                        <i class="fa fa-clipboard-list"></i>
+                        {{ 'registry.contractor.action.report'|trans }}
+                    </a>
+                </div>
+            </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>{{ 'registry.contractor.list.name'|trans }}</th>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>{{ 'registry.contractor.list.collectivity'|trans }}</th>
+                            {% endif %}
+                            {% if is_granted('ROLE_USER') %}
+                                <th>{{ 'label.actions'|trans }}</th>
+                            {% endif %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+                        <tr>
+                            <td>
+                                {{ object.id }}
+                            </td>
+                            {% if is_granted('ROLE_USER') %}
+                                <td>
+                                    <a href="{{ path('maturity_survey_edit', { 'id': object.id }) }}">
+                                        <i class="fa fa-pencil-alt"></i>
+                                        {{ 'action.edit'|trans }}
+                                    </a>
+                                    <a href="{{ path('registry_contractor_delete', { 'id': object.id }) }}">
+                                        <i class="fa fa-trash"></i>
+                                        {{ 'action.delete'|trans }}
+                                    </a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(function () {
+            $('#table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
+                },
+                'paging'      : true,
+                'lengthChange': false,
+                'searching'   : true,
+                'ordering'    : true,
+                'info'        : false,
+                'autoWidth'   : false,
+            })
+        });
+    </script>
+{% endblock %}

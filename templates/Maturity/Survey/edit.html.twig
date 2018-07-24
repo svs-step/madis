@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'maturity_survey form create' %}
+{% set menuItem = 'maturity_survey' %}
+
+{% block title %}{{ 'maturity.survey.title.create'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'maturity.survey.title.create'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'maturity.survey.breadcrumb.list'|trans, 'link': path('maturity_survey_list') },
+        { 'name': 'maturity.survey.breadcrumb.create'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('Maturity/Survey/_form.html.twig') }}
+{% endblock %}

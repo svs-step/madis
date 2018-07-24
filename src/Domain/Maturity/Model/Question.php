@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -33,9 +34,15 @@ class Question
      */
     private $domain;
 
+    /**
+     * @var iterable
+     */
+    private $answers;
+
     public function __construct()
     {
-        $this->id = Uuid::uuid4();
+        $this->id      = Uuid::uuid4();
+        $this->answers = new ArrayCollection();
     }
 
     /**
@@ -76,5 +83,13 @@ class Question
     public function setDomain(?Domain $domain): void
     {
         $this->domain = $domain;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getAnswers(): iterable
+    {
+        return $this->answers;
     }
 }

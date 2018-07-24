@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\Infrastructure\ORM\Maturity\Repository\:
+        resource: '../../../../src/Infrastructure/ORM/Maturity/Repository'
+
+    App\Domain\Maturity\Repository\Question: '@App\Infrastructure\ORM\Maturity\Repository\Question'
+    App\Domain\Maturity\Repository\Survey: '@App\Infrastructure\ORM\Maturity\Repository\Survey'
