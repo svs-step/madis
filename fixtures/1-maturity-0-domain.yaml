@@ -1,0 +1,7 @@
+App\Domain\Maturity\Model\Domain:
+
+    maturity_domain_1:
+        name: Domaine 1
+
+    maturity_domain_2:
+        name: Domaine 2

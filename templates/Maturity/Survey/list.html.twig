@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'registry_contractor list' %}
-{% set menuItem = 'registry_contractor' %}
+{% set bodyClass = 'maturity_survey list' %}
+{% set menuItem = 'maturity_survey' %}
 
-{% block title %}{{ 'registry.contractor.title.list'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'maturity.survey.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'registry.contractor.title.list'|trans }}</h1>
+    <h1>{{ 'maturity.survey.title.list'|trans }}</h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'registry.contractor.title.list'|trans }
+        { 'name': 'maturity.survey.title.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -25,15 +25,11 @@
             <div class="col-xs-12">
                 <div class="action-bar">
                     {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('registry_contractor_create') }}" class="btn btn-default">
+                    <a href="{{ path('maturity_survey_create') }}" class="btn btn-default">
                         <i class="fa fa-plus"></i>
-                        {{ 'registry.contractor.action.new'|trans }}
+                        {{ 'maturity.survey.action.new'|trans }}
                     </a>
                     {% endif %}
-                    <a href="{{ path('registry_contractor_report') }}" class="btn btn-default">
-                        <i class="fa fa-clipboard-list"></i>
-                        {{ 'registry.contractor.action.report'|trans }}
-                    </a>
                 </div>
             </div>
 
@@ -46,10 +42,10 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>{{ 'registry.contractor.list.name'|trans }}</th>
                             {% if is_granted('ROLE_ADMIN') %}
-                                <th>{{ 'registry.contractor.list.collectivity'|trans }}</th>
+                                <th>{{ 'maturity.survey.list.collectivity'|trans }}</th>
                             {% endif %}
+                            <th>{{ 'maturity.survey.list.created_at'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th>{{ 'label.actions'|trans }}</th>
                             {% endif %}
@@ -58,18 +54,15 @@
                         <tbody>
                         {% for object in objects %}
                         <tr>
-                            <td>
-                                {{ object.id }}
-                            </td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td>{{ object.collectivity }}</td>
+                            {% endif %}
+                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
                             {% if is_granted('ROLE_USER') %}
                                 <td>
                                     <a href="{{ path('maturity_survey_edit', { 'id': object.id }) }}">
                                         <i class="fa fa-pencil-alt"></i>
                                         {{ 'action.edit'|trans }}
-                                    </a>
-                                    <a href="{{ path('registry_contractor_delete', { 'id': object.id }) }}">
-                                        <i class="fa fa-trash"></i>
-                                        {{ 'action.delete'|trans }}
                                     </a>
                                 </td>
                             {% endif %}

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Model;
 
+use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -21,6 +22,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class Survey
 {
+    use CollectivityTrait;
     use CreatorTrait;
     use HistoryTrait;
 

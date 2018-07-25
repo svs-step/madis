@@ -1,0 +1,30 @@
+App\Domain\Maturity\Model\Survey:
+
+    # ------------------
+    # COLLECTIVITY AWKAN
+    # ------------------
+    maturity_survey_awkan_1:
+        answers:
+            - '@maturity_survey_awkan_1_answer_1'
+            - '@maturity_survey_awkan_1_answer_2'
+            - '@maturity_survey_awkan_1_answer_3'
+        collectivity: '@user_collectivity_awkan'
+        creator: '@user_user_manager_1'
+    maturity_survey_awkan_2:
+        answers:
+            - '@maturity_survey_awkan_2_answer_1'
+            - '@maturity_survey_awkan_2_answer_2'
+            - '@maturity_survey_awkan_2_answer_3'
+        collectivity: '@user_collectivity_awkan'
+        creator: '@user_user_manager_1'
+
+    # --------------------
+    # COLLECTIVITY_SOLURIS
+    # --------------------
+    maturity_survey_soluris_1:
+        answers:
+            - '@maturity_survey_soluris_1_answer_1'
+            - '@maturity_survey_soluris_1_answer_2'
+            - '@maturity_survey_soluris_1_answer_3'
+        collectivity: '@user_collectivity_soluris'
+        creator: '@user_user_manager_2'

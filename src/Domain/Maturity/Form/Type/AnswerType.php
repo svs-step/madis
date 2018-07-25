@@ -17,31 +17,23 @@ use App\Domain\Maturity\Model;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AnswerType extends AbstractType
 {
-    private $options = [
-        'label'   => false,
-        'choices' => [
-            'Nul'   => 1,
-            'Moyen' => 2,
-            'Bon'   => 3,
-        ],
-    ];
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('response', ChoiceType::class, $this->options)
+            ->add('response', ChoiceType::class, [
+                'label'   => false,
+                'choices' => [
+                    'Non / Je ne sais pas' => 0,
+                    'En partie'            => 1,
+                    'Oui / Complètement'   => 2,
+                ],
+                'expanded' => true,
+            ])
         ;
-
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($builder) {
-            $builder
-                ->remove('response');
-        }, 300);
     }
 
     public function configureOptions(OptionsResolver $resolver)

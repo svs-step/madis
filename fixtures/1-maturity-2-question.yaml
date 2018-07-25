@@ -1,0 +1,19 @@
+App\Domain\Maturity\Model\Question:
+
+    # --------
+    # DOMAIN 1
+    # --------
+    maturity_domain_1_question_1:
+        name: Question 1
+        domain: '@maturity_domain_1'
+
+    maturity_domain_1_question_2:
+        name: Question 2
+        domain: '@maturity_domain_1'
+
+    # --------
+    # DOMAIN 2
+    # --------
+    maturity_domain_2_question_1:
+        name: Question 1
+        domain: '@maturity_domain_2'

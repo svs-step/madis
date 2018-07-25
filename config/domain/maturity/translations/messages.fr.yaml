@@ -1,0 +1,16 @@
+maturity:
+    survey:
+        action:
+            back_to_list: Retour à la liste
+            new: Nouvel indice de maturité
+        breadcrumb:
+            create: Nouvel indice de maturité
+            list: Liste des indices de maturité
+            edit: Modifier un indice de maturité
+        list:
+            collectivity: Collectivité
+            created_at: Date de création
+        title:
+            create: Nouvel indice de maturité
+            list: Liste des indices de maturité
+            edit: Modifier un indice de maturité
