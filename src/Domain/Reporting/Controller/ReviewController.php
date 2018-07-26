@@ -14,20 +14,19 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Controller;
 
 use App\Application\Symfony\Security\UserProvider;
-use App\Domain\Reporting\Generator\WordGenerator;
-use App\Domain\User\Repository as UserRepository;
+use App\Domain\Registry\Repository;
+use App\Domain\Reporting\Handler\WordHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ReviewController extends Controller
 {
     /**
-     * @var WordGenerator
+     * @var WordHandler
      */
-    private $generator;
+    private $wordHandler;
 
     /**
      * @var UserProvider
@@ -40,20 +39,27 @@ class ReviewController extends Controller
     private $authorizationChecker;
 
     /**
-     * @var UserRepository\Collectivity;
+     * @var Repository\Treatment;
      */
-    private $collectivityRepository;
+    private $treatmentRepository;
+
+    /**
+     * @var Repository\Contractor;
+     */
+    private $contractorRepository;
 
     public function __construct(
-        WordGenerator $generator,
+        WordHandler $wordHandler,
         UserProvider $userProvider,
         AuthorizationCheckerInterface $authorizationChecker,
-        UserRepository\Collectivity $collectivityRepository
+        Repository\Treatment $treatmentRepository,
+        Repository\Contractor $contractorRepository
     ) {
-        $this->generator              = $generator;
-        $this->userProvider           = $userProvider;
-        $this->authorizationChecker   = $authorizationChecker;
-        $this->collectivityRepository = $collectivityRepository;
+        $this->wordHandler          = $wordHandler;
+        $this->userProvider         = $userProvider;
+        $this->authorizationChecker = $authorizationChecker;
+        $this->treatmentRepository  = $treatmentRepository;
+        $this->contractorRepository = $contractorRepository;
     }
 
     /**
@@ -68,22 +74,14 @@ class ReviewController extends Controller
      */
     public function indexAction(string $id): BinaryFileResponse
     {
-        $collectivity = $this->collectivityRepository->findOneById($id);
+        $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
         if (!$collectivity) {
-            throw new NotFoundHttpException("No collectivity found with ID '{$id}'");
+            throw new NotFoundHttpException('No collectivity found');
         }
 
-        // Only collectivity users or admin can access to this review
-        if ($collectivity !== $this->userProvider->getAuthenticatedUser()->getCollectivity()
-        && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedException("You can't access to this collectivity bilan");
-        }
-
-        $this->generator->generateHeader();
-        $this->generator->generateCollectivitySection($collectivity);
-
-        $date = (new \DateTimeImmutable())->format('Y-m-d_H-i-s');
-
-        return $this->generator->generateResponse("{$collectivity->getName()}-{$date}");
+        return $this->wordHandler->generateOverviewReport(
+            $this->treatmentRepository->findAllActiveByCollectivity($collectivity),
+            $this->contractorRepository->findAllByCollectivity($collectivity)
+        );
     }
 }

@@ -15,8 +15,10 @@ namespace App\Domain\Reporting\Handler;
 
 use App\Domain\Reporting\Generator\Word\ContractorGenerator;
 use App\Domain\Reporting\Generator\Word\MesurementGenerator;
+use App\Domain\Reporting\Generator\Word\OverviewGenerator;
 use App\Domain\Reporting\Generator\Word\TreatmentGenerator;
 use PhpOffice\PhpWord\PhpWord;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class WordHandler
@@ -32,6 +34,11 @@ class WordHandler
     private $contractorGenerator;
 
     /**
+     * @var OverviewGenerator
+     */
+    private $overviewGenerator;
+
+    /**
      * @var MesurementGenerator
      */
     private $mesurementGenerator;
@@ -41,23 +48,53 @@ class WordHandler
      */
     private $treatmentGenerator;
 
-    /**
-     * @var array
-     */
-    private $dpo;
-
     public function __construct(
         PhpWord $document,
         ContractorGenerator $contractorGenerator,
         MesurementGenerator $mesurementGenerator,
-        TreatmentGenerator $treatmentGenerator,
-        array $dpo
+        OverviewGenerator $overviewGenerator,
+        TreatmentGenerator $treatmentGenerator
     ) {
         $this->document            = $document;
         $this->contractorGenerator = $contractorGenerator;
+        $this->overviewGenerator   = $overviewGenerator;
         $this->mesurementGenerator = $mesurementGenerator;
         $this->treatmentGenerator  = $treatmentGenerator;
-        $this->dpo                 = $dpo;
+    }
+
+    /**
+     * Generate overview report.
+     *
+     * @param array $treatments  Treatments used for overview report generation
+     * @param array $contractors Contractors used for overview report generation
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     * @throws \Exception
+     *
+     * @return BinaryFileResponse The generated Word document
+     */
+    public function generateOverviewReport(array $treatments = [], array $contractors = []): BinaryFileResponse
+    {
+        $title = 'Bilan de gestion des données à caractère personnel';
+
+        // Initialize document
+        $this->overviewGenerator->initializeDocument($this->document);
+
+        // Begin generation
+        $this->overviewGenerator->addHomepage($this->document, $title);
+
+        // Section which will get whole content
+        $contentSection = $this->overviewGenerator->createContentSection($this->document, $title);
+
+        // Table of content
+        $this->overviewGenerator->addTableOfContent($contentSection, 9);
+
+        // Content
+        $this->overviewGenerator->generateObjectPart($contentSection);
+        $this->overviewGenerator->generateOrganismIntroductionPart($contentSection);
+        $this->overviewGenerator->generateRegistries($contentSection, $treatments, $contractors);
+
+        return $this->overviewGenerator->generateResponse($this->document, 'bilan');
     }
 
     /**
@@ -66,16 +103,27 @@ class WordHandler
      * @param array $contractors contractors to use for generation
      *
      * @throws \PhpOffice\PhpWord\Exception\Exception
+     * @throws \Exception
      *
      * @return Response The generated Word file
      */
     public function generateRegistryContractorReport(array $contractors = []): Response
     {
-        $this->contractorGenerator->generateHeader($this->document, 'Registre des sous-traitants');
-        $this->contractorGenerator->generateOverview($this->document, $contractors);
-        $this->contractorGenerator->generateDetails($this->document, $contractors);
+        $title = 'Registre des sous-traitants';
+        // Initialize document
+        $this->contractorGenerator->initializeDocument($this->document);
 
-        return $this->contractorGenerator->generateResponse($this->document, 'sous-traitants');
+        // Begin generation
+        $this->contractorGenerator->addHomepage($this->document, $title);
+
+        // Section which will get whole content
+        $contentSection = $this->contractorGenerator->createContentSection($this->document, $title);
+
+        // Content
+        $this->contractorGenerator->addSyntheticView($contentSection, $contractors);
+        $this->contractorGenerator->addDetailedView($contentSection, $contractors);
+
+        return $this->contractorGenerator->generateResponse($this->document, 'sous_traitants');
     }
 
     /**
@@ -84,16 +132,27 @@ class WordHandler
      * @param array $mesurements mesurements to use for generation
      *
      * @throws \PhpOffice\PhpWord\Exception\Exception
+     * @throws \Exception
      *
      * @return Response The generated Word file
      */
     public function generateRegistryMesurementReport(array $mesurements = []): Response
     {
-        $this->mesurementGenerator->generateHeader($this->document, 'Registre des actions de protection');
-        $this->mesurementGenerator->generateOverview($this->document, $mesurements);
-        $this->mesurementGenerator->generateDetails($this->document, $mesurements);
+        $title = 'Registre des actions de protection';
+        // Initialize document
+        $this->mesurementGenerator->initializeDocument($this->document);
 
-        return $this->mesurementGenerator->generateResponse($this->document, 'actions-de-protection');
+        // Begin generation
+        $this->mesurementGenerator->addHomepage($this->document, $title);
+
+        // Section which will get whole content
+        $contentSection = $this->mesurementGenerator->createContentSection($this->document, $title);
+
+        // Content
+        $this->mesurementGenerator->addSyntheticView($contentSection, $mesurements);
+        $this->mesurementGenerator->addDetailedView($contentSection, $mesurements);
+
+        return $this->mesurementGenerator->generateResponse($this->document, 'actions_de_protection');
     }
 
     /**
@@ -102,14 +161,26 @@ class WordHandler
      * @param array $treatments treatments to use for generation
      *
      * @throws \PhpOffice\PhpWord\Exception\Exception
+     * @throws \Exception
      *
      * @return Response The generated Word file
      */
     public function generateRegistryTreatmentReport(array $treatments = [])
     {
-        $this->treatmentGenerator->generateHeader($this->document, 'Registre des traitements');
-        $this->treatmentGenerator->generateOverview($this->document, $treatments);
-        $this->treatmentGenerator->generateDetails($this->document, $treatments);
+        $title = 'Registre des traitements';
+
+        // Initialize document
+        $this->treatmentGenerator->initializeDocument($this->document);
+
+        // Begin generation
+        $this->treatmentGenerator->addHomepage($this->document, $title);
+
+        // Section which will get whole content
+        $contentSection = $this->treatmentGenerator->createContentSection($this->document, $title);
+
+        // Content
+        $this->treatmentGenerator->addSyntheticView($contentSection, $treatments);
+        $this->treatmentGenerator->addDetailedView($contentSection, $treatments);
 
         return $this->treatmentGenerator->generateResponse($this->document, 'traitements');
     }

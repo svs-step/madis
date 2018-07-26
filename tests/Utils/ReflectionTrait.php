@@ -80,12 +80,16 @@ trait ReflectionTrait
      * @param $value - new value of the property being modified
      *
      * @throws \ReflectionException
+     *
+     * @return \ReflectionClass
      */
     protected function setProtectedMethod(&$object, $method, $value)
     {
         $reflectionClass    = new \ReflectionClass(\get_class($object));
-        $reflectionProperty = $reflectionClass->getProperty($method);
+        $reflectionProperty = $reflectionClass->getMethod($method);
         $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue($object, $value);
+
+        return $reflectionClass;
     }
 }
