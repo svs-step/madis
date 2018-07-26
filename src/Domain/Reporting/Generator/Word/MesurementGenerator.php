@@ -14,15 +14,13 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Word;
 
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
-use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\Element\Section;
 
-class MesurementGenerator extends Generator
+class MesurementGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
-    public function generateOverview(PhpWord $document, array $data): void
+    public function addSyntheticView(Section $section, array $data): void
     {
-        $section = $document->addSection();
-
-        $section->addTitle('Liste des actions de protection', 2);
+        $section->addTitle('Liste des actions de protection', 1);
 
         // Table data
         // Add header
@@ -41,15 +39,17 @@ class MesurementGenerator extends Generator
         }
 
         $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
+        $section->addPageBreak();
     }
 
-    public function generateDetails(PhpWord $document, array $data): void
+    public function addDetailedView(Section $section, array $data): void
     {
-        /*
-         * @var Mesurement
-         */
-        foreach ($data as $mesurement) {
-            $section = $document->addSection();
+        $section->addTitle('Détail des actions de protection', 1);
+
+        foreach ($data as $key => $mesurement) {
+            if (0 != $key) {
+                $section->addPageBreak();
+            }
             $section->addTitle($mesurement->getName(), 2);
 
             $generalInformationsData = [

@@ -196,6 +196,11 @@ class Treatment
      */
     private $active;
 
+    /**
+     * @var int
+     */
+    private $completion;
+
     public function __construct()
     {
         $this->id                    = Uuid::uuid4();
@@ -215,6 +220,7 @@ class Treatment
         $this->vulnerablePeople      = false;
         $this->dataCrossing          = false;
         $this->active                = true;
+        $this->completion            = 0;
     }
 
     public function __toString()
@@ -255,9 +261,9 @@ class Treatment
     }
 
     /**
-     * @param string $goal
+     * @param string|null $goal
      */
-    public function setGoal(string $goal): void
+    public function setGoal(?string $goal): void
     {
         $this->goal = $goal;
     }
@@ -624,24 +630,19 @@ class Treatment
         $this->active = $active;
     }
 
-    public function getCompletionPercent()
+    /**
+     * @return int
+     */
+    public function getCompletion(): int
     {
-        $empty = 0;
-        $total = 0;
+        return $this->completion;
+    }
 
-        foreach (\get_object_vars($this) as $var => $value) {
-            // Don't count excluded fields
-            if (\in_array($var, ['id', 'creator', 'collectivity', 'createdAt', 'updatedAt'])) {
-                continue;
-            }
-
-            ++$total;
-            if (\is_null($value)
-                || (\is_array($value) && empty($value))) {
-                ++$empty;
-            }
-        }
-
-        return ($total - $empty) * 100 / $total;
+    /**
+     * @param int $completion
+     */
+    public function setCompletion(int $completion): void
+    {
+        $this->completion = $completion;
     }
 }
