@@ -233,7 +233,7 @@ abstract class AbstractGenerator implements GeneratorInterface
                 'spaceAfter' => 500,
             ]
         );
-        $section->addTOC(null, null, $maxDepth);
+        $section->addTOC(null, null, 1, $maxDepth);
         $section->addPageBreak();
     }
 

@@ -119,6 +119,9 @@ class WordHandler
         // Section which will get whole content
         $contentSection = $this->contractorGenerator->createContentSection($this->document, $title);
 
+        // Table of content
+        $this->overviewGenerator->addTableOfContent($contentSection, 2);
+
         // Content
         $this->contractorGenerator->addSyntheticView($contentSection, $contractors);
         $this->contractorGenerator->addDetailedView($contentSection, $contractors);
@@ -147,6 +150,9 @@ class WordHandler
 
         // Section which will get whole content
         $contentSection = $this->mesurementGenerator->createContentSection($this->document, $title);
+
+        // Table of content
+        $this->overviewGenerator->addTableOfContent($contentSection, 2);
 
         // Content
         $this->mesurementGenerator->addSyntheticView($contentSection, $mesurements);
@@ -177,6 +183,9 @@ class WordHandler
 
         // Section which will get whole content
         $contentSection = $this->treatmentGenerator->createContentSection($this->document, $title);
+
+        // Table of content
+        $this->overviewGenerator->addTableOfContent($contentSection, 2);
 
         // Content
         $this->treatmentGenerator->addSyntheticView($contentSection, $treatments);
