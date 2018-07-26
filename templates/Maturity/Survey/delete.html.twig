@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'maturity_survey delete' %}
+{% set menuItem = 'maturity_survey' %}
+
+{% block title %}{{ 'maturity.survey.title.delete'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'maturity.survey.title.delete'|trans }}
+        <small>{{ object }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'maturity.survey.breadcrumb.list'|trans, 'link': path('maturity_survey_list') },
+        { 'name': 'maturity.survey.breadcrumb.delete'|trans({'%name%': object}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-header"></div>
+                <div class="box-body">
+                    Souhaitez vous vraiment supprimer l'indice de maturité du {{ object.createdAt|date('d/m/Y') }} ?
+                </div>
+                <div class="box-footer">
+                    <a href="{{ path('maturity_survey_list') }}" class="btn btn-default">
+                        {{ 'maturity.survey.action.back_to_list'|trans }}
+                    </a>
+                    <a href="{{ path('maturity_survey_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'action.confirm_delete'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

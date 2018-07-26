@@ -22,6 +22,12 @@ maturity_survey_show:
     defaults:
         _controller: 'App\Domain\Maturity\Controller\SurveyController:showAction'
 
+maturity_survey_report:
+    path: '/bilan/{id}'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Maturity\Controller\SurveyController:reportAction'
+
 maturity_survey_delete:
     path: '/supprimer/{id}'
     methods: ['GET']

@@ -17,6 +17,7 @@ use App\Application\Controller\CRUDController;
 use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
+use App\Domain\Reporting\Handler\WordHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,14 +30,21 @@ class SurveyController extends CRUDController
      */
     private $questionRepository;
 
+    /**
+     * @var WordHandler
+     */
+    private $wordHandler;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Survey $repository,
-        Repository\Question $questionRepository
+        Repository\Question $questionRepository,
+        WordHandler $wordHandler
     ) {
         parent::__construct($entityManager, $translator, $repository);
         $this->questionRepository = $questionRepository;
+        $this->wordHandler        = $wordHandler;
     }
 
     /**
@@ -106,5 +114,26 @@ class SurveyController extends CRUDController
         return $this->render($this->getTemplatingBasePath('create'), [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * Generate a word report of survey.
+     * Get current survey and previous one.
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     *
+     * @return Response
+     */
+    public function reportAction(string $id): Response
+    {
+        $data        = [];
+        $data['new'] = $this->repository->findOneById($id);
+
+        $oldObjects = $this->repository->findPreviousById($id, 1);
+        if (!empty($oldObjects)) {
+            $data['old'] = $oldObjects[0];
+        }
+
+        return $this->wordHandler->generateMaturitySurveyReport($data);
     }
 }

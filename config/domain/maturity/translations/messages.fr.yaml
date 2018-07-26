@@ -5,12 +5,20 @@ maturity:
             new: Nouvel indice de maturité
         breadcrumb:
             create: Nouvel indice de maturité
-            list: Liste des indices de maturité
             edit: Modifier un indice de maturité
+            list: Liste des indices de maturité
+            delete: Supprimer un indice de maturité
+        flashbag:
+            success:
+                create: Indice de maturité "%object%" créé avec succès
+                edit: Indice de maturité "%object%" modifié avec succès
+                delete: Indice de maturité "%object%" supprimé avec succès
         list:
             collectivity: Collectivité
             created_at: Date de création
+            score: Score
         title:
             create: Nouvel indice de maturité
-            list: Liste des indices de maturité
             edit: Modifier un indice de maturité
+            list: Liste des indices de maturité
+            delete: Supprimer un indice de maturité

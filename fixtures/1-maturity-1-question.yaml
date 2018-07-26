@@ -1,0 +1,187 @@
+App\Domain\Maturity\Model\Question:
+
+    # --------
+    # DOMAIN 1
+    # --------
+    maturity_domain_1_question_1:
+        name: Question 1
+        domain: '@maturity_domain_1'
+
+    maturity_domain_1_question_2:
+        name: Question 2
+        domain: '@maturity_domain_1'
+
+    maturity_domain_1_question_3:
+        name: Question 3
+        domain: '@maturity_domain_1'
+
+    maturity_domain_1_question_4:
+        name: Question 4
+        domain: '@maturity_domain_1'
+
+    maturity_domain_1_question_5:
+        name: Question 5
+        domain: '@maturity_domain_1'
+
+    maturity_domain_1_question_6:
+        name: Question 6
+        domain: '@maturity_domain_1'
+
+    maturity_domain_1_question_7:
+        name: Question 7
+        domain: '@maturity_domain_1'
+
+    # --------
+    # DOMAIN 2
+    # --------
+    maturity_domain_2_question_1:
+        name: Question 1
+        domain: '@maturity_domain_2'
+
+    maturity_domain_2_question_2:
+        name: Question 2
+        domain: '@maturity_domain_2'
+
+    maturity_domain_2_question_3:
+        name: Question 3
+        domain: '@maturity_domain_2'
+
+    maturity_domain_2_question_4:
+        name: Question 4
+        domain: '@maturity_domain_2'
+
+    maturity_domain_2_question_5:
+        name: Question 5
+        domain: '@maturity_domain_2'
+
+    maturity_domain_2_question_6:
+        name: Question 6
+        domain: '@maturity_domain_2'
+
+    maturity_domain_2_question_7:
+        name: Question 7
+        domain: '@maturity_domain_2'
+
+    # --------
+    # DOMAIN 3
+    # --------
+    maturity_domain_3_question_1:
+        name: Question 1
+        domain: '@maturity_domain_3'
+
+    maturity_domain_3_question_2:
+        name: Question 2
+        domain: '@maturity_domain_3'
+
+    maturity_domain_3_question_3:
+        name: Question 3
+        domain: '@maturity_domain_3'
+
+    maturity_domain_3_question_4:
+        name: Question 4
+        domain: '@maturity_domain_3'
+
+    maturity_domain_3_question_5:
+        name: Question 5
+        domain: '@maturity_domain_3'
+
+    maturity_domain_3_question_6:
+        name: Question 6
+        domain: '@maturity_domain_3'
+
+    maturity_domain_3_question_7:
+        name: Question 7
+        domain: '@maturity_domain_3'
+
+    # --------
+    # DOMAIN 4
+    # --------
+    maturity_domain_4_question_1:
+        name: Question 1
+        domain: '@maturity_domain_4'
+
+    maturity_domain_4_question_2:
+        name: Question 2
+        domain: '@maturity_domain_4'
+
+    maturity_domain_4_question_3:
+        name: Question 3
+        domain: '@maturity_domain_4'
+
+    maturity_domain_4_question_4:
+        name: Question 4
+        domain: '@maturity_domain_4'
+
+    maturity_domain_4_question_5:
+        name: Question 5
+        domain: '@maturity_domain_4'
+
+    maturity_domain_4_question_6:
+        name: Question 6
+        domain: '@maturity_domain_4'
+
+    maturity_domain_4_question_7:
+        name: Question 7
+        domain: '@maturity_domain_4'
+
+    # --------
+    # DOMAIN 5
+    # --------
+    maturity_domain_5_question_1:
+        name: Question 1
+        domain: '@maturity_domain_5'
+
+    maturity_domain_5_question_2:
+        name: Question 2
+        domain: '@maturity_domain_5'
+
+    maturity_domain_5_question_3:
+        name: Question 3
+        domain: '@maturity_domain_5'
+
+    maturity_domain_5_question_4:
+        name: Question 4
+        domain: '@maturity_domain_5'
+
+    maturity_domain_5_question_5:
+        name: Question 5
+        domain: '@maturity_domain_5'
+
+    maturity_domain_5_question_6:
+        name: Question 6
+        domain: '@maturity_domain_5'
+
+    maturity_domain_5_question_7:
+        name: Question 7
+        domain: '@maturity_domain_5'
+
+    # --------
+    # DOMAIN 6
+    # --------
+    maturity_domain_6_question_1:
+        name: Question 1
+        domain: '@maturity_domain_6'
+
+    maturity_domain_6_question_2:
+        name: Question 2
+        domain: '@maturity_domain_6'
+
+    maturity_domain_6_question_3:
+        name: Question 3
+        domain: '@maturity_domain_6'
+
+    maturity_domain_6_question_4:
+        name: Question 4
+        domain: '@maturity_domain_6'
+
+    maturity_domain_6_question_5:
+        name: Question 5
+        domain: '@maturity_domain_6'
+
+    maturity_domain_6_question_6:
+        name: Question 6
+        domain: '@maturity_domain_6'
+
+    maturity_domain_6_question_7:
+        name: Question 7
+        domain: '@maturity_domain_6'

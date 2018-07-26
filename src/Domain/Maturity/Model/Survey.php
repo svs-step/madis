@@ -41,16 +41,22 @@ class Survey
      */
     private $maturity;
 
+    /**
+     * @var int
+     */
+    private $score;
+
     public function __construct()
     {
         $this->id       = Uuid::uuid4();
         $this->answers  = new ArrayCollection();
         $this->maturity = new ArrayCollection();
+        $this->score    = 0;
     }
 
     public function __toString()
     {
-        return 'Indice de maturité';
+        return "Indice du {$this->createdAt->format('d/m/Y')}";
     }
 
     /**
@@ -109,5 +115,32 @@ class Survey
     public function getMaturity(): iterable
     {
         return $this->maturity;
+    }
+
+    /**
+     * @param array $maturityList
+     */
+    public function setMaturity(array $maturityList): void
+    {
+        foreach ($maturityList as $maturity) {
+            $this->maturity->add($maturity);
+            $maturity->setSurvey($this);
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function getScore(): int
+    {
+        return $this->score;
+    }
+
+    /**
+     * @param int $score
+     */
+    public function setScore(int $score): void
+    {
+        $this->score = $score;
     }
 }

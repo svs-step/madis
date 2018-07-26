@@ -4,9 +4,10 @@ action:
     confirm_delete: Confirmer la suppression
     connexion: Connexion
     create: Créer
+    edit: Modifier
     delete: Supprimer
     deletion: Suppression
-    edit: Modifier
+    print: Imprimer
     reinitialize: Réinitialisation
     submit: Soumettre
 
