@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Domain\Event\Symfony\EventSubscriber;
+namespace App\Tests\Domain\User\Symfony\EventSubscriber;
 
 use App\Domain\User\Component\TokenGenerator;
 use App\Domain\User\Model;

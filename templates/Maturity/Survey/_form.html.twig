@@ -1,0 +1,37 @@
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+<div class="row">
+    {{ form_start(form) }}
+
+    {% for domainName, formAnswers in orderByDomain(form.answers) %}
+        <div class="col-md-6">
+            <div class="box box-solid box-info">
+                <div class="box-header with-border"><h3 class="box-title">{{ domainName }}</h3></div>
+                <div class="box-body">
+                    {% for formAnswer in formAnswers %}
+                        <div class="form-group">
+                            {{ form_label(formAnswer, formAnswer.vars.value.question.name) }}
+                            {{ form_widget(formAnswer) }}
+                            {{ form_errors(formAnswer) }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <a href="{{ path('maturity_survey_list') }}" class="btn btn-default">
+                    {{ 'maturity.survey.action.back_to_list'|trans }}
+                </a>
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+</div>
