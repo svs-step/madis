@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Controller;
 
 use App\Application\Controller\CRUDController;
+use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
@@ -21,6 +22,7 @@ use App\Domain\Reporting\Handler\WordHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class SurveyController extends CRUDController
@@ -35,16 +37,30 @@ class SurveyController extends CRUDController
      */
     private $wordHandler;
 
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    protected $authorizationChecker;
+
+    /**
+     * @var UserProvider
+     */
+    protected $userProvider;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Survey $repository,
         Repository\Question $questionRepository,
-        WordHandler $wordHandler
+        WordHandler $wordHandler,
+        AuthorizationCheckerInterface $authorizationChecker,
+        UserProvider $userProvider
     ) {
         parent::__construct($entityManager, $translator, $repository);
-        $this->questionRepository = $questionRepository;
-        $this->wordHandler        = $wordHandler;
+        $this->questionRepository   = $questionRepository;
+        $this->wordHandler          = $wordHandler;
+        $this->authorizationChecker = $authorizationChecker;
+        $this->userProvider         = $userProvider;
     }
 
     /**
@@ -77,6 +93,18 @@ class SurveyController extends CRUDController
     protected function getFormType(): string
     {
         return SurveyType::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getListData()
+    {
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            return $this->repository->findAll();
+        }
+
+        return $this->repository->findAllByCollectivity($this->userProvider->getAuthenticatedUser()->getCollectivity());
     }
 
     /**

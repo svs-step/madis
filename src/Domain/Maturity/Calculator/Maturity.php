@@ -30,7 +30,7 @@ class Maturity
 
         // Get all existant maturity to update it
         foreach ($survey->getMaturity() as $item) {
-            $maturityList[$item->getDomain()->getId()->toString] = $item;
+            $maturityList[$item->getDomain()->getId()->toString()] = $item;
         }
 
         // Begin calculation

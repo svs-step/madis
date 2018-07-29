@@ -16,6 +16,7 @@ namespace App\Infrastructure\ORM\Maturity\Repository;
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
+use App\Domain\User\Model\Collectivity;
 
 class Survey extends CRUDRepository implements Repository\Survey
 {
@@ -25,12 +26,27 @@ class Survey extends CRUDRepository implements Repository\Survey
     }
 
     /**
-     * Find previous survey by created_at date.
-     *
-     * @param string $id
-     * @param int    $limit
-     *
-     * @return iterable
+     * {@inheritdoc}
+     */
+    public function findAllByCollectivity(Collectivity $collectivity, array $order = []): iterable
+    {
+        $qb = $this->createQueryBuilder()
+            ->andWhere('o.collectivity = :collectivity')
+            ->setParameter('collectivity', $collectivity)
+        ;
+
+        foreach ($order as $key => $dir) {
+            $qb->addOrderBy("o.{$key}", $dir);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function findPreviousById(string $id, int $limit = 1): iterable
     {
