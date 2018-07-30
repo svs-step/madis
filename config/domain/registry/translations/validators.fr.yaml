@@ -40,5 +40,3 @@ registry_treatment:
         not_blank: Vous devez renseigner une base légale
     name:
         not_blank: Vous devez renseigner un nom
-    sensible_informations:
-        not_null: La valeur doit être renseignée

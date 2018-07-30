@@ -252,10 +252,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     'Autres catégories',
                     $treatment->getDataCategoryOther(),
                 ],
-                [
-                    'Données à caractère sensible',
-                    $treatment->isSensibleInformations() ? 'Oui' : 'Non',
-                ],
             ];
             // Add data categories
             $dataCategories = [];

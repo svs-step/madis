@@ -103,13 +103,6 @@ class Treatment
     private $dataCategoryOther;
 
     /**
-     * FR: Données sensibles.
-     *
-     * @var bool
-     */
-    private $sensibleInformations;
-
-    /**
      * FR: Destinataire des données.
      *
      * @var string
@@ -207,7 +200,6 @@ class Treatment
         $this->paperProcessing       = false;
         $this->concernedPeople       = [];
         $this->dataCategory          = [];
-        $this->sensibleInformations  = false;
         $this->contractors           = new ArrayCollection();
         $this->delay                 = new Delay();
         $this->securityAccessControl = new ComplexChoice();
@@ -394,22 +386,6 @@ class Treatment
     public function setDataCategoryOther(?string $dataCategoryOther): void
     {
         $this->dataCategoryOther = $dataCategoryOther;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isSensibleInformations(): bool
-    {
-        return $this->sensibleInformations;
-    }
-
-    /**
-     * @param bool $sensibleInformations
-     */
-    public function setSensibleInformations(bool $sensibleInformations): void
-    {
-        $this->sensibleInformations = $sensibleInformations;
     }
 
     /**

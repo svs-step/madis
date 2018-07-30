@@ -99,16 +99,6 @@
                             <td><strong>{{ 'registry.treatment.show.data_category_other'|trans }}</strong></td>
                             <td>{{ object.dataCategoryOther|nl2br }}</td>
                         </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.treatment.show.sensible_informations'|trans }}</strong></td>
-                            <td>
-                                {% if object.sensibleInformations %}
-                                    <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
-                                {% else %}
-                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
-                                {% endif %}
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
