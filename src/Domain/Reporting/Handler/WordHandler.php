@@ -128,7 +128,7 @@ class WordHandler
         $contentSection = $this->contractorGenerator->createContentSection($this->document, $title);
 
         // Table of content
-        $this->contractorGenerator->addTableOfContent($contentSection, 2);
+        $this->contractorGenerator->addTableOfContent($contentSection, 1);
 
         // Content
         $this->contractorGenerator->addSyntheticView($contentSection, $contractors);
@@ -160,7 +160,7 @@ class WordHandler
         $contentSection = $this->maturityGenerator->createContentSection($this->document, $title);
 
         // Table of content
-        $this->maturityGenerator->addTableOfContent($contentSection, 2);
+        $this->maturityGenerator->addTableOfContent($contentSection, 1);
 
         // Content
         $this->maturityGenerator->addSyntheticView($contentSection, $maturityList);
@@ -192,7 +192,7 @@ class WordHandler
         $contentSection = $this->mesurementGenerator->createContentSection($this->document, $title);
 
         // Table of content
-        $this->mesurementGenerator->addTableOfContent($contentSection, 2);
+        $this->mesurementGenerator->addTableOfContent($contentSection, 1);
 
         // Content
         $this->mesurementGenerator->addSyntheticView($contentSection, $mesurements);
@@ -225,7 +225,7 @@ class WordHandler
         $contentSection = $this->treatmentGenerator->createContentSection($this->document, $title);
 
         // Table of content
-        $this->treatmentGenerator->addTableOfContent($contentSection, 2);
+        $this->treatmentGenerator->addTableOfContent($contentSection, 1);
 
         // Content
         $this->treatmentGenerator->addSyntheticView($contentSection, $treatments);

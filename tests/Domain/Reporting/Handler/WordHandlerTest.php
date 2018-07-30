@@ -138,7 +138,7 @@ class WordHandlerTest extends TestCase
         $this->contractorGeneratorProphecy->initializeDocument($phpWord)->shouldBeCalled();
         $this->contractorGeneratorProphecy->addHomepage($phpWord, $title)->shouldBeCalled();
         $this->contractorGeneratorProphecy->createContentSection($phpWord, $title)->shouldBeCalled()->willReturn($section);
-        $this->contractorGeneratorProphecy->addTableOfContent($section, 2)->shouldBeCalled();
+        $this->contractorGeneratorProphecy->addTableOfContent($section, 1)->shouldBeCalled();
 
         // Content
         $this->contractorGeneratorProphecy->addSyntheticView($section, $contractors)->shouldBeCalled();
@@ -174,7 +174,7 @@ class WordHandlerTest extends TestCase
         $this->maturityGeneratorProphecy->initializeDocument($phpWord)->shouldBeCalled();
         $this->maturityGeneratorProphecy->addHomepage($phpWord, $title)->shouldBeCalled();
         $this->maturityGeneratorProphecy->createContentSection($phpWord, $title)->shouldBeCalled()->willReturn($section);
-        $this->maturityGeneratorProphecy->addTableOfContent($section, 2)->shouldBeCalled();
+        $this->maturityGeneratorProphecy->addTableOfContent($section, 1)->shouldBeCalled();
 
         // Content
         $this->maturityGeneratorProphecy->addSyntheticView($section, $data)->shouldBeCalled();
@@ -210,7 +210,7 @@ class WordHandlerTest extends TestCase
         $this->mesurementGeneratorProphecy->initializeDocument($phpWord)->shouldBeCalled();
         $this->mesurementGeneratorProphecy->addHomepage($phpWord, $title)->shouldBeCalled();
         $this->mesurementGeneratorProphecy->createContentSection($phpWord, $title)->shouldBeCalled()->willReturn($section);
-        $this->mesurementGeneratorProphecy->addTableOfContent($section, 2)->shouldBeCalled();
+        $this->mesurementGeneratorProphecy->addTableOfContent($section, 1)->shouldBeCalled();
 
         // Content
         $this->mesurementGeneratorProphecy->addSyntheticView($section, $mesurements)->shouldBeCalled();
@@ -246,7 +246,7 @@ class WordHandlerTest extends TestCase
         $this->treatmentGeneratorProphecy->initializeDocument($phpWord)->shouldBeCalled();
         $this->treatmentGeneratorProphecy->addHomepage($phpWord, $title)->shouldBeCalled();
         $this->treatmentGeneratorProphecy->createContentSection($phpWord, $title)->shouldBeCalled()->willReturn($section);
-        $this->treatmentGeneratorProphecy->addTableOfContent($section, 2)->shouldBeCalled();
+        $this->treatmentGeneratorProphecy->addTableOfContent($section, 1)->shouldBeCalled();
 
         // Content
         $this->treatmentGeneratorProphecy->addSyntheticView($section, $treatments)->shouldBeCalled();
