@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Word;
 
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\User\Dictionary\ContactCivilityDictionary;
+use App\Domain\User\Model\Collectivity;
 use PhpOffice\PhpWord\Element\Section;
 
 class OverviewGenerator extends AbstractGenerator
@@ -51,6 +53,9 @@ class OverviewGenerator extends AbstractGenerator
 
     public function generateOrganismIntroductionPart(Section $section): void
     {
+        /**
+         * @var Collectivity
+         */
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
 
         $section->addTitle('Présentation de l\'organisme', 1);
@@ -64,9 +69,20 @@ class OverviewGenerator extends AbstractGenerator
         $section->addText("Cette politique a pour objectif de permettre à '{$collectivity->getName()}' de respecter dans le temps les exigences du RGPD et de pouvoir le démontrer.");
 
         $section->addTitle('Composition du comité Informatique et Liberté', 2);
-        $section->addListItem('Foo');
-        $section->addListItem('Bar');
-        $section->addListItem('Baz');
+
+        $legalManager         = $collectivity->getLegalManager();
+        $legalManagerCivility = ContactCivilityDictionary::getCivilities()[$legalManager->getCivility()];
+        $section->addListItem("{$legalManagerCivility} {$legalManager->getFullName()}, {$legalManager->getJob()}");
+
+        $referent         = $collectivity->getReferent();
+        $referentCivility = ContactCivilityDictionary::getCivilities()[$referent->getCivility()];
+        $section->addListItem("{$referentCivility} {$referent->getFullName()}, {$referent->getJob()}");
+
+        $itManager = $collectivity->getItManager();
+        if (!\is_null($itManager->getFirstName()) && !\is_null($itManager->getLastName())) {
+            $itManagerCivility = ContactCivilityDictionary::getCivilities()[$itManager->getCivility()];
+            $section->addListItem("{$itManagerCivility} {$itManager->getFullName()}, {$itManager->getJob()}");
+        }
     }
 
     public function generateRegistries(Section $section, array $treatments = [], array $contractors = []): void
