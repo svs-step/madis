@@ -118,7 +118,7 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
 
             $generalInformationsData = [
                 [
-                    'Personne référente',
+                    'Agent référent',
                     $contractor->getReferent() ?? $this->defaultReferent,
                 ],
                 [
