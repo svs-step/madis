@@ -32,7 +32,7 @@ registry:
             conform: Conforme RGPD
             name: Nom
             other_informations: Autres informations
-            referent: Personne référente
+            referent: Agent référent
         flashbag:
             success:
                 create: Sous-traitant "%object%" créé avec succès
@@ -51,7 +51,7 @@ registry:
             creator: Créateur
             name: Nom
             other_informations: Autres informations
-            referent: Personne référente
+            referent: Agent référent
             updated_at: Dernière mise à jour
         tab:
             general: Informations générales

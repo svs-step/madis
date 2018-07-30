@@ -31,7 +31,7 @@ user:
             address: Adresse
             help:
               dpo: Ces informations sont facultatives. À défaut, le DPD renseigné par SOLURIS sera utilisé.
-              it_manager: Si différent du référent RGPD
+              it_manager: Si différent du Référent Opérationnel
             name: Nom
             placeholder:
                 website: https://
@@ -78,8 +78,8 @@ user:
           general: Informations générales
           historic: Historique
           it_manager: Responsable informatique
-          legal_manager: Responsable légal
-          referent: Référent RGPD
+          legal_manager: Responsable de traitement
+          referent: Référent Opérationnel
         title:
             create: Créer une collectivité
             delete: Supprimer une collectivité
