@@ -15,7 +15,6 @@ namespace App\Domain\Reporting\Generator\Word;
 
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\User\Dictionary\ContactCivilityDictionary;
-use App\Domain\User\Model\Collectivity;
 use PhpOffice\PhpWord\Element\Section;
 
 class OverviewGenerator extends AbstractGenerator
@@ -30,14 +29,21 @@ class OverviewGenerator extends AbstractGenerator
      */
     protected $contractorGenerator;
 
+    /**
+     * @var MaturityGenerator
+     */
+    protected $maturityGenerator;
+
     public function __construct(
         UserProvider $userProvider,
         TreatmentGenerator $treatmentGenerator,
-        ContractorGenerator $contractorGenerator
+        ContractorGenerator $contractorGenerator,
+        MaturityGenerator $maturityGenerator
     ) {
         parent::__construct($userProvider);
         $this->treatmentGenerator  = $treatmentGenerator;
         $this->contractorGenerator = $contractorGenerator;
+        $this->maturityGenerator   = $maturityGenerator;
     }
 
     public function generateObjectPart(Section $section): void
@@ -53,9 +59,6 @@ class OverviewGenerator extends AbstractGenerator
 
     public function generateOrganismIntroductionPart(Section $section): void
     {
-        /**
-         * @var Collectivity
-         */
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
 
         $section->addTitle('Présentation de l\'organisme', 1);
@@ -97,5 +100,14 @@ class OverviewGenerator extends AbstractGenerator
 
         $this->treatmentGenerator->addGlobalOverview($section, $treatments);
         $this->contractorGenerator->addGlobalOverview($section, $contractors);
+    }
+
+    public function generateManagementSystemAndCompliance(Section $section, array $maturity): void
+    {
+        $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+
+        $section->addTitle('Système de management des DCP et conformité', 1);
+
+        $this->maturityGenerator->addGlobalOverview($section, $maturity);
     }
 }

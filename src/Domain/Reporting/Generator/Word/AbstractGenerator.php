@@ -298,7 +298,7 @@ abstract class AbstractGenerator implements GeneratorInterface
         $objWriter = IOFactory::createWriter($document, 'Word2007');
 
         $currentDate = (new \DateTimeImmutable())->format('Ymd');
-        $fileName    = "{$currentDate}-{$documentName}.docx";
+        $fileName    = "{$currentDate}-{$documentName}.doc";
         $temp_file   = \tempnam(\sys_get_temp_dir(), $fileName);
 
         $objWriter->save($temp_file);

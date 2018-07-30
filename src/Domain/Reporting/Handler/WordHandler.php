@@ -75,14 +75,17 @@ class WordHandler
      *
      * @param array $treatments  Treatments used for overview report generation
      * @param array $contractors Contractors used for overview report generation
+     * @param array $maturity    Surveys maturity used for overview report generation
      *
      * @throws \PhpOffice\PhpWord\Exception\Exception
-     * @throws \Exception
      *
      * @return BinaryFileResponse The generated Word document
      */
-    public function generateOverviewReport(array $treatments = [], array $contractors = []): BinaryFileResponse
-    {
+    public function generateOverviewReport(
+        array $treatments = [],
+        array $contractors = [],
+        array $maturity = []
+    ): BinaryFileResponse {
         $title = 'Bilan de gestion des données à caractère personnel';
 
         // Initialize document
@@ -101,6 +104,7 @@ class WordHandler
         $this->overviewGenerator->generateObjectPart($contentSection);
         $this->overviewGenerator->generateOrganismIntroductionPart($contentSection);
         $this->overviewGenerator->generateRegistries($contentSection, $treatments, $contractors);
+        $this->overviewGenerator->generateManagementSystemAndCompliance($contentSection, $maturity);
 
         return $this->overviewGenerator->generateResponse($this->document, 'bilan');
     }

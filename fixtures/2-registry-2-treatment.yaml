@@ -7,7 +7,6 @@ App\Domain\Registry\Model\Treatment:
         legalBasis: '<(App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary::BASE_LEGAL_OBLIGATION)>'
         legalBasisJustification: '50%? <text()>'
         dataCategoryOther: <text()>
-        sensibleInformations: '50%? 1 : 0'
         recipientCategory: <text()>
         contractors: ['@registry_contractor_awkan_1', '@registry_contractor_awkan_3']
         active: '80%? 1 : 0'
@@ -21,7 +20,6 @@ App\Domain\Registry\Model\Treatment:
         legalBasis: '<(App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary::BASE_PUBLIC_INTEREST_MISSION)>'
         legalBasisJustification: '50%? <text()>'
         dataCategoryOther: <text()>
-        sensibleInformations: '50%? 1 : 0'
         recipientCategory: <text()>
         contractors: ['@registry_contractor_soluris_3']
         active: '80%? 1 : 0'

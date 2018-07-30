@@ -28,7 +28,7 @@ class Survey extends CRUDRepository implements Repository\Survey
     /**
      * {@inheritdoc}
      */
-    public function findAllByCollectivity(Collectivity $collectivity, array $order = []): iterable
+    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null): iterable
     {
         $qb = $this->createQueryBuilder()
             ->andWhere('o.collectivity = :collectivity')
@@ -37,6 +37,12 @@ class Survey extends CRUDRepository implements Repository\Survey
 
         foreach ($order as $key => $dir) {
             $qb->addOrderBy("o.{$key}", $dir);
+        }
+
+        if (!\is_null($limit)) {
+            $qb
+                ->setFirstResult(0)
+                ->setMaxResults($limit);
         }
 
         return $qb
