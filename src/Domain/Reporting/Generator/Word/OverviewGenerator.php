@@ -102,7 +102,7 @@ class OverviewGenerator extends AbstractGenerator
         $this->contractorGenerator->addGlobalOverview($section, $contractors);
     }
 
-    public function generateManagementSystemAndCompliance(Section $section, array $maturity): void
+    public function generateManagementSystemAndCompliance(Section $section, array $maturity = []): void
     {
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
 
