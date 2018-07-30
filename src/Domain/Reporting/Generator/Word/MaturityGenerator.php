@@ -65,50 +65,55 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $serie2 = [];
 
         // Radar
-        $maturityList = [];
-        if (isset($data['old'])) {
-            foreach ($data['old']->getMaturity() as $maturity) {
-                $maturityList[$maturity->getDomain()->getName()]['old'] = $maturity->getScore();
+        if (empty($maturity)) {
+            $section->addTextBreak(2);
+            $section->addText("Aucune évaluation de la mise en conformité n'a pour l'heure été effectuée.", ['italic' => true]);
+        } else {
+            $maturityList = [];
+            if (isset($data['old'])) {
+                foreach ($data['old']->getMaturity() as $maturity) {
+                    $maturityList[$maturity->getDomain()->getName()]['old'] = $maturity->getScore();
+                }
             }
-        }
-        foreach ($data['new']->getMaturity() as $maturity) {
-            $maturityList[$maturity->getDomain()->getName()]['new'] = $maturity->getScore();
-        }
-        foreach ($maturityList as $domain => $score) {
-            $row   = [];
-            $row[] = $domain;
-            if (isset($score['old'])) {
-                $row[]    = $score['old'] / 10; // Display comma with 1 digit precision
-                $serie2[] = $score['old'] / 10;
+            foreach ($data['new']->getMaturity() as $maturity) {
+                $maturityList[$maturity->getDomain()->getName()]['new'] = $maturity->getScore();
             }
-            $row[]       = $score['new'] / 10; // Display comma with 1 digit precision
-            $serie1[]    = $score['new'] / 10;
-            $tableData[] = $row;
-        }
-        // Display
-        $section->addTitle("Résultat de l'évaluation du {$data['new']->getCreatedAt()->format('d/m/Y')}", 2);
+            foreach ($maturityList as $domain => $score) {
+                $row   = [];
+                $row[] = $domain;
+                if (isset($score['old'])) {
+                    $row[]    = $score['old'] / 10; // Display comma with 1 digit precision
+                    $serie2[] = $score['old'] / 10;
+                }
+                $row[]       = $score['new'] / 10; // Display comma with 1 digit precision
+                $serie1[]    = $score['new'] / 10;
+                $tableData[] = $row;
+            }
+            // Display
+            $section->addTitle("Résultat de l'évaluation du {$data['new']->getCreatedAt()->format('d/m/Y')}", 2);
 
-        $chart      = $section->addChart(
-            'radar',
-            \array_keys($maturityList),
-            $serie1,
-            [
-                'height' => Converter::cmToEmu(11),
-                'width'  => Converter::cmToEmu(15),
-            ]
-        );
-        $chart->getSeries()[0]['name'] = $data['new']->getCreatedAt()->format('d/m/Y');
-        if (!empty($serie2)) {
-            $chart->addSeries(\array_keys($maturityList), $serie2, $data['old']->getCreatedAt()->format('d/m/Y'));
-        }
-        $table = $section->addTable(['unit' => TblWidth::PERCENT, 'width' => 5000]);
-        $row   = $table->addRow();
-        if (!empty($serie2)) {
+            $chart = $section->addChart(
+                'radar',
+                \array_keys($maturityList),
+                $serie1,
+                [
+                    'height' => Converter::cmToEmu(11),
+                    'width'  => Converter::cmToEmu(15),
+                ]
+            );
+            $chart->getSeries()[0]['name'] = $data['new']->getCreatedAt()->format('d/m/Y');
+            if (!empty($serie2)) {
+                $chart->addSeries(\array_keys($maturityList), $serie2, $data['old']->getCreatedAt()->format('d/m/Y'));
+            }
+            $table = $section->addTable(['unit' => TblWidth::PERCENT, 'width' => 5000]);
+            $row   = $table->addRow();
+            if (!empty($serie2)) {
+                $cell = $row->addCell(2500);
+                $cell->addText("                         {$data['old']}", ['color' => 'b30000']);
+            }
             $cell = $row->addCell(2500);
-            $cell->addText("                         {$data['old']}", ['color' => 'b30000']);
+            $cell->addText("{$data['new']}", ['align' => 'right', 'color' => '3c8dbc']);
         }
-        $cell = $row->addCell(2500);
-        $cell->addText("{$data['new']}", ['align' => 'right', 'color' => '3c8dbc']);
     }
 
     public function addSyntheticView(Section $section, array $data): void
