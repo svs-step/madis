@@ -174,5 +174,36 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail', 1);
+
+        $index = [
+            'old' => 1,
+            'new' => 2,
+        ];
+
+        // Order data
+        $ordered = [];
+        foreach ($data as $key => $survey) {
+            foreach ($survey->getAnswers() as $answer) {
+                $ordered[$answer->getQuestion()->getDomain()->getName()][$answer->getQuestion()->getName()][$key] = $answer;
+            }
+        }
+
+        \ksort($ordered);
+
+        foreach ($ordered as $domainName => $questions) {
+            $section->addTitle($domainName, 3);
+            $parsedData = [];
+            \ksort($questions);
+            foreach ($questions as $questionName => $questionItem) {
+                $table   = [];
+                $table[] = $questionName;
+                foreach ($questionItem as $newOld => $answer) {
+                    $table[$index[$newOld]] = $answer->getResponse();
+                }
+                \ksort($table);
+                $parsedData[] = $table;
+            }
+            $this->addTable($section, $parsedData, true, self::TABLE_ORIENTATION_VERTICAL);
+        }
     }
 }
