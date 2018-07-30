@@ -9,7 +9,7 @@
 
         <id name="id" column="id" type="uuid"/>
 
-        <field name="name" column="name" length="80"/>
+        <field name="name" column="name"/>
 
         <many-to-one field="domain" target-entity="App\Domain\Maturity\Model\Domain" inversed-by="questions"/>
 
