@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Handler;
 
 use App\Domain\Reporting\Generator\Word\ContractorGenerator;
+use App\Domain\Reporting\Generator\Word\MaturityGenerator;
 use App\Domain\Reporting\Generator\Word\MesurementGenerator;
 use App\Domain\Reporting\Generator\Word\OverviewGenerator;
 use App\Domain\Reporting\Generator\Word\TreatmentGenerator;
@@ -39,6 +40,11 @@ class WordHandler
     private $overviewGenerator;
 
     /**
+     * @var MaturityGenerator
+     */
+    private $maturityGenerator;
+
+    /**
      * @var MesurementGenerator
      */
     private $mesurementGenerator;
@@ -51,6 +57,7 @@ class WordHandler
     public function __construct(
         PhpWord $document,
         ContractorGenerator $contractorGenerator,
+        MaturityGenerator $maturityGenerator,
         MesurementGenerator $mesurementGenerator,
         OverviewGenerator $overviewGenerator,
         TreatmentGenerator $treatmentGenerator
@@ -58,6 +65,7 @@ class WordHandler
         $this->document            = $document;
         $this->contractorGenerator = $contractorGenerator;
         $this->overviewGenerator   = $overviewGenerator;
+        $this->maturityGenerator   = $maturityGenerator;
         $this->mesurementGenerator = $mesurementGenerator;
         $this->treatmentGenerator  = $treatmentGenerator;
     }
@@ -67,14 +75,17 @@ class WordHandler
      *
      * @param array $treatments  Treatments used for overview report generation
      * @param array $contractors Contractors used for overview report generation
+     * @param array $maturity    Surveys maturity used for overview report generation
      *
      * @throws \PhpOffice\PhpWord\Exception\Exception
-     * @throws \Exception
      *
      * @return BinaryFileResponse The generated Word document
      */
-    public function generateOverviewReport(array $treatments = [], array $contractors = []): BinaryFileResponse
-    {
+    public function generateOverviewReport(
+        array $treatments = [],
+        array $contractors = [],
+        array $maturity = []
+    ): BinaryFileResponse {
         $title = 'Bilan de gestion des données à caractère personnel';
 
         // Initialize document
@@ -93,6 +104,7 @@ class WordHandler
         $this->overviewGenerator->generateObjectPart($contentSection);
         $this->overviewGenerator->generateOrganismIntroductionPart($contentSection);
         $this->overviewGenerator->generateRegistries($contentSection, $treatments, $contractors);
+        $this->overviewGenerator->generateManagementSystemAndCompliance($contentSection, $maturity);
 
         return $this->overviewGenerator->generateResponse($this->document, 'bilan');
     }
@@ -120,13 +132,45 @@ class WordHandler
         $contentSection = $this->contractorGenerator->createContentSection($this->document, $title);
 
         // Table of content
-        $this->overviewGenerator->addTableOfContent($contentSection, 2);
+        $this->contractorGenerator->addTableOfContent($contentSection, 1);
 
         // Content
         $this->contractorGenerator->addSyntheticView($contentSection, $contractors);
         $this->contractorGenerator->addDetailedView($contentSection, $contractors);
 
         return $this->contractorGenerator->generateResponse($this->document, 'sous_traitants');
+    }
+
+    /**
+     * Generate maturity report.
+     *
+     * @param array $maturityList list of maturity to use for generation. First (old) if exists and second (new)
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     * @throws \Exception
+     *
+     * @return Response The generated Word file
+     */
+    public function generateMaturitySurveyReport(array $maturityList = []): Response
+    {
+        $title = 'Indice de maturité';
+        // Initialize document
+        $this->maturityGenerator->initializeDocument($this->document);
+
+        // Begin generation
+        $this->maturityGenerator->addHomepage($this->document, $title);
+
+        // Section which will get whole content
+        $contentSection = $this->maturityGenerator->createContentSection($this->document, $title);
+
+        // Table of content
+        $this->maturityGenerator->addTableOfContent($contentSection, 1);
+
+        // Content
+        $this->maturityGenerator->addSyntheticView($contentSection, $maturityList);
+        $this->maturityGenerator->addDetailedView($contentSection, $maturityList);
+
+        return $this->maturityGenerator->generateResponse($this->document, 'indice_de_maturite');
     }
 
     /**
@@ -152,7 +196,7 @@ class WordHandler
         $contentSection = $this->mesurementGenerator->createContentSection($this->document, $title);
 
         // Table of content
-        $this->overviewGenerator->addTableOfContent($contentSection, 2);
+        $this->mesurementGenerator->addTableOfContent($contentSection, 1);
 
         // Content
         $this->mesurementGenerator->addSyntheticView($contentSection, $mesurements);
@@ -185,7 +229,7 @@ class WordHandler
         $contentSection = $this->treatmentGenerator->createContentSection($this->document, $title);
 
         // Table of content
-        $this->overviewGenerator->addTableOfContent($contentSection, 2);
+        $this->treatmentGenerator->addTableOfContent($contentSection, 1);
 
         // Content
         $this->treatmentGenerator->addSyntheticView($contentSection, $treatments);

@@ -20,7 +20,6 @@
         <field name="concernedPeople" column="concerned_people" type="json_array"/>
         <field name="dataCategory" column="data_category" type="json_array"/>
         <field name="dataCategoryOther" column="data_category_other" type="text" nullable="true"/>
-        <field name="sensibleInformations" column="sensible_informations" type="boolean"/>
         <field name="recipientCategory" column="recipient_category" type="text" nullable="true"/>
         <field name="systematicMonitoring" column="systematic_monitoring" type="boolean"/>
         <field name="largeScaleCollection" column="large_scale_collection" type="boolean"/>

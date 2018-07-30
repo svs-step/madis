@@ -66,12 +66,15 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         /*
          * @var Treatment
          */
-        foreach ($data as $treatment) {
+        foreach ($data as $key => $treatment) {
             // Overview
-            $overview[] = [
-                $treatment->getName(),
-                $treatment->getManager() ?? $this->defaultReferent,
-            ];
+
+            if (10 > $key) {
+                $overview[] = [
+                    $treatment->getName(),
+                    $treatment->getManager() ?? $this->defaultReferent,
+                ];
+            }
 
             // Digitalisation
             if (!\is_null($treatment->getSoftware()) && $treatment->isPaperProcessing()) {
@@ -112,6 +115,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addText('Une collecte des traitements a été réalisée. Chaque fiche de registre est établie sur une base de 20 critères. Les critères exigés par le règlement sont pris en compte.');
 
         $this->addTable($section, $overview, true, self::TABLE_ORIENTATION_HORIZONTAL);
+        $section->addTextBreak();
         $section->addText('Une version plus complète et à valeur de preuve figure en annexe.');
 
         $section->addTitle('Analyse du registre des traitements', 2);
@@ -251,10 +255,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 [
                     'Autres catégories',
                     $treatment->getDataCategoryOther(),
-                ],
-                [
-                    'Données à caractère sensible',
-                    $treatment->isSensibleInformations() ? 'Oui' : 'Non',
                 ],
             ];
             // Add data categories

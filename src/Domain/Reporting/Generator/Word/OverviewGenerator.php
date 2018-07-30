@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Word;
 
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\User\Dictionary\ContactCivilityDictionary;
 use PhpOffice\PhpWord\Element\Section;
 
 class OverviewGenerator extends AbstractGenerator
@@ -28,14 +29,21 @@ class OverviewGenerator extends AbstractGenerator
      */
     protected $contractorGenerator;
 
+    /**
+     * @var MaturityGenerator
+     */
+    protected $maturityGenerator;
+
     public function __construct(
         UserProvider $userProvider,
         TreatmentGenerator $treatmentGenerator,
-        ContractorGenerator $contractorGenerator
+        ContractorGenerator $contractorGenerator,
+        MaturityGenerator $maturityGenerator
     ) {
         parent::__construct($userProvider);
         $this->treatmentGenerator  = $treatmentGenerator;
         $this->contractorGenerator = $contractorGenerator;
+        $this->maturityGenerator   = $maturityGenerator;
     }
 
     public function generateObjectPart(Section $section): void
@@ -64,9 +72,20 @@ class OverviewGenerator extends AbstractGenerator
         $section->addText("Cette politique a pour objectif de permettre à '{$collectivity->getName()}' de respecter dans le temps les exigences du RGPD et de pouvoir le démontrer.");
 
         $section->addTitle('Composition du comité Informatique et Liberté', 2);
-        $section->addListItem('Foo');
-        $section->addListItem('Bar');
-        $section->addListItem('Baz');
+
+        $legalManager         = $collectivity->getLegalManager();
+        $legalManagerCivility = ContactCivilityDictionary::getCivilities()[$legalManager->getCivility()];
+        $section->addListItem("{$legalManagerCivility} {$legalManager->getFullName()}, {$legalManager->getJob()}");
+
+        $referent         = $collectivity->getReferent();
+        $referentCivility = ContactCivilityDictionary::getCivilities()[$referent->getCivility()];
+        $section->addListItem("{$referentCivility} {$referent->getFullName()}, {$referent->getJob()}");
+
+        $itManager = $collectivity->getItManager();
+        if (!\is_null($itManager->getFirstName()) && !\is_null($itManager->getLastName())) {
+            $itManagerCivility = ContactCivilityDictionary::getCivilities()[$itManager->getCivility()];
+            $section->addListItem("{$itManagerCivility} {$itManager->getFullName()}, {$itManager->getJob()}");
+        }
     }
 
     public function generateRegistries(Section $section, array $treatments = [], array $contractors = []): void
@@ -81,5 +100,14 @@ class OverviewGenerator extends AbstractGenerator
 
         $this->treatmentGenerator->addGlobalOverview($section, $treatments);
         $this->contractorGenerator->addGlobalOverview($section, $contractors);
+    }
+
+    public function generateManagementSystemAndCompliance(Section $section, array $maturity): void
+    {
+        $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+
+        $section->addTitle('Système de management des DCP et conformité', 1);
+
+        $this->maturityGenerator->addGlobalOverview($section, $maturity);
     }
 }

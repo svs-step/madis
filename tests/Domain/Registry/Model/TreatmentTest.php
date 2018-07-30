@@ -32,7 +32,6 @@ class TreatmentTest extends TestCase
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
         $this->assertEquals([], $model->getConcernedPeople());
         $this->assertEquals([], $model->getDataCategory());
-        $this->assertFalse($model->isSensibleInformations());
         $this->assertInstanceOf(ArrayCollection::class, $model->getContractors());
         $this->assertInstanceOf(Delay::class, $model->getDelay());
         $this->assertInstanceOf(ComplexChoice::class, $model->getSecurityAccessControl());

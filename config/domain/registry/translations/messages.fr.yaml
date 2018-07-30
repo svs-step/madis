@@ -158,7 +158,6 @@ registry:
             security_saving: Sauvegarde
             security_tracability: Tracabilité
             security_update: Mise à jour
-            sensible_informations: Contient des données sensibles
             systematic_monitoring: Surveillance systématique
             software: Logiciel
             vulnerable_people: Personnes vulnérables
@@ -201,7 +200,6 @@ registry:
             security_tracability: Tracabilité
             security_update: Mise à jour
             software: Logiciel
-            sensible_informations: Données à caractère sensible
             systematic_monitoring: Surveillance systématique
             updated_at: Dernière mise à jour
             vulnerable_people: Personnes vulnérables

@@ -99,10 +99,6 @@ class TreatmentType extends AbstractType
                     'rows' => 3,
                 ],
             ])
-            ->add('sensibleInformations', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.sensible_informations',
-                'required' => false,
-            ])
             ->add('recipientCategory', TextareaType::class, [
                 'label'    => 'registry.treatment.form.recipient_category',
                 'required' => false,

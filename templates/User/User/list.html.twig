@@ -106,17 +106,22 @@
 
     <script>
         $(function () {
+            var paging = false;
+            {% if is_granted('ROLE_ADMIN') %}
+            paging = true;
+            {% endif %}
+
             $('#table').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
                 },
-                'paging'      : true,
+                'paging'      : paging,
                 'lengthChange': false,
                 'searching'   : true,
                 'ordering'    : true,
                 'info'        : false,
                 'autoWidth'   : false,
-            })
+            });
         });
     </script>
 {% endblock %}

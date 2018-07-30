@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'maturity_survey list' %}
+{% set menuItem = 'maturity_survey' %}
+
+{% block title %}{{ 'maturity.survey.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'maturity.survey.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'maturity.survey.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+            <div class="col-xs-12">
+                <div class="action-bar">
+                    {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('maturity_survey_create') }}" class="btn btn-default">
+                        <i class="fa fa-plus"></i>
+                        {{ 'maturity.survey.action.new'|trans }}
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>{{ 'maturity.survey.list.collectivity'|trans }}</th>
+                            {% endif %}
+                            <th>{{ 'maturity.survey.list.created_at'|trans }}</th>
+                            <th>{{ 'maturity.survey.list.score'|trans }}</th>
+                            <th>{{ 'label.actions'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+                        <tr>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td>{{ object.collectivity }}</td>
+                            {% endif %}
+                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                            <td>{{ object.score / 10 }}</td>
+                            <td>
+                                <a href="{{ path('maturity_survey_report', { 'id': object.id }) }}">
+                                    <i class="fa fa-clipboard-list"></i>
+                                    {{ 'action.print'|trans }}
+                                </a>
+                                {% if is_granted('ROLE_USER') %}
+                                <a href="{{ path('maturity_survey_edit', { 'id': object.id }) }}">
+                                    <i class="fa fa-pencil-alt"></i>
+                                    {{ 'action.edit'|trans }}
+                                </a>
+                                <a href="{{ path('maturity_survey_delete', { 'id': object.id }) }}">
+                                    <i class="fa fa-trash"></i>
+                                    {{ 'action.delete'|trans }}
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(function () {
+            var paging = false;
+            {% if is_granted('ROLE_ADMIN') %}
+            paging = true;
+            {% endif %}
+
+            $('#table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
+                },
+                'paging'      : paging,
+                'lengthChange': false,
+                'searching'   : true,
+                'ordering'    : true,
+                'info'        : false,
+                'autoWidth'   : false,
+            });
+        });
+    </script>
+{% endblock %}

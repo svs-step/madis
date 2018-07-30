@@ -298,7 +298,7 @@ abstract class AbstractGenerator implements GeneratorInterface
         $objWriter = IOFactory::createWriter($document, 'Word2007');
 
         $currentDate = (new \DateTimeImmutable())->format('Ymd');
-        $fileName    = "{$currentDate}-{$documentName}.docx";
+        $fileName    = "{$currentDate}-{$documentName}.doc";
         $temp_file   = \tempnam(\sys_get_temp_dir(), $fileName);
 
         $objWriter->save($temp_file);
@@ -351,12 +351,14 @@ abstract class AbstractGenerator implements GeneratorInterface
      *
      * @return string The parsed date with the good timezone
      */
-    protected function getDate(\DateTimeInterface $dateTime): string
+    protected function getDate(\DateTimeInterface $dateTime, string $format = null): string
     {
+        $format = $format ?? self::DATE_TIME_FORMAT;
+
         $parsedDateTime = new \DateTimeImmutable();
         $parsedDateTime = $parsedDateTime->setTimestamp($dateTime->getTimestamp());
         $parsedDateTime = $parsedDateTime->setTimezone(new \DateTimeZone(self::DATE_TIME_ZONE));
 
-        return $parsedDateTime->format(self::DATE_TIME_FORMAT);
+        return $parsedDateTime->format($format);
     }
 }

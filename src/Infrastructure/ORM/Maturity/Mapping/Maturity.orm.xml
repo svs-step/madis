@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                            https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\Maturity\Model\Maturity" table="maturity">
+
+        <id name="id" column="id" type="uuid"/>
+
+        <field name="score" column="score" type="integer"/>
+
+        <many-to-one field="domain" target-entity="App\Domain\Maturity\Model\Domain" inversed-by="maturity"/>
+        <many-to-one field="survey" target-entity="App\Domain\Maturity\Model\Survey" inversed-by="maturity"/>
+
+    </entity>
+
+</doctrine-mapping>

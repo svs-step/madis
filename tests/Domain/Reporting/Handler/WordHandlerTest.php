@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Reporting\Handler;
 
 use App\Domain\Reporting\Generator\Word\ContractorGenerator;
+use App\Domain\Reporting\Generator\Word\MaturityGenerator;
 use App\Domain\Reporting\Generator\Word\MesurementGenerator;
 use App\Domain\Reporting\Generator\Word\OverviewGenerator;
 use App\Domain\Reporting\Generator\Word\TreatmentGenerator;
@@ -39,6 +40,11 @@ class WordHandlerTest extends TestCase
     private $contractorGeneratorProphecy;
 
     /**
+     * @var MaturityGenerator
+     */
+    private $maturityGeneratorProphecy;
+
+    /**
      * @var MesurementGenerator
      */
     private $mesurementGeneratorProphecy;
@@ -62,6 +68,7 @@ class WordHandlerTest extends TestCase
     {
         $this->phpWordProphecy             = $this->prophesize(PhpWord::class);
         $this->contractorGeneratorProphecy = $this->prophesize(ContractorGenerator::class);
+        $this->maturityGeneratorProphecy   = $this->prophesize(MaturityGenerator::class);
         $this->mesurementGeneratorProphecy = $this->prophesize(MesurementGenerator::class);
         $this->overviewGeneratorProphecy   = $this->prophesize(OverviewGenerator::class);
         $this->treatmentGeneratorProphecy  = $this->prophesize(TreatmentGenerator::class);
@@ -69,6 +76,7 @@ class WordHandlerTest extends TestCase
         $this->handler = new WordHandler(
             $this->phpWordProphecy->reveal(),
             $this->contractorGeneratorProphecy->reveal(),
+            $this->maturityGeneratorProphecy->reveal(),
             $this->mesurementGeneratorProphecy->reveal(),
             $this->overviewGeneratorProphecy->reveal(),
             $this->treatmentGeneratorProphecy->reveal()
@@ -130,7 +138,7 @@ class WordHandlerTest extends TestCase
         $this->contractorGeneratorProphecy->initializeDocument($phpWord)->shouldBeCalled();
         $this->contractorGeneratorProphecy->addHomepage($phpWord, $title)->shouldBeCalled();
         $this->contractorGeneratorProphecy->createContentSection($phpWord, $title)->shouldBeCalled()->willReturn($section);
-        $this->overviewGeneratorProphecy->addTableOfContent($section, 2)->shouldBeCalled();
+        $this->contractorGeneratorProphecy->addTableOfContent($section, 1)->shouldBeCalled();
 
         // Content
         $this->contractorGeneratorProphecy->addSyntheticView($section, $contractors)->shouldBeCalled();
@@ -146,6 +154,42 @@ class WordHandlerTest extends TestCase
         $this->assertEquals(
             $responseProphecy->reveal(),
             $this->handler->generateRegistryContractorReport($contractors)
+        );
+    }
+
+    /**
+     * Test generateMaturitySurveyReport.
+     */
+    public function testGenerateMaturitySurveyReport()
+    {
+        $section          = new Section(1);
+        $title            = 'Indice de maturité';
+        $documentName     = 'indice_de_maturite';
+        $data             = [];
+        $responseProphecy = $this->prophesize(BinaryFileResponse::class);
+
+        $phpWord = $this->phpWordProphecy->reveal();
+
+        // Initialization + homepage + table of content
+        $this->maturityGeneratorProphecy->initializeDocument($phpWord)->shouldBeCalled();
+        $this->maturityGeneratorProphecy->addHomepage($phpWord, $title)->shouldBeCalled();
+        $this->maturityGeneratorProphecy->createContentSection($phpWord, $title)->shouldBeCalled()->willReturn($section);
+        $this->maturityGeneratorProphecy->addTableOfContent($section, 1)->shouldBeCalled();
+
+        // Content
+        $this->maturityGeneratorProphecy->addSyntheticView($section, $data)->shouldBeCalled();
+        $this->maturityGeneratorProphecy->addDetailedView($section, $data)->shouldBeCalled();
+
+        // Generation
+        $this->maturityGeneratorProphecy
+            ->generateResponse($phpWord, $documentName)
+            ->shouldBeCalled()
+            ->willReturn($responseProphecy->reveal())
+        ;
+
+        $this->assertEquals(
+            $responseProphecy->reveal(),
+            $this->handler->generateMaturitySurveyReport($data)
         );
     }
 
@@ -166,7 +210,7 @@ class WordHandlerTest extends TestCase
         $this->mesurementGeneratorProphecy->initializeDocument($phpWord)->shouldBeCalled();
         $this->mesurementGeneratorProphecy->addHomepage($phpWord, $title)->shouldBeCalled();
         $this->mesurementGeneratorProphecy->createContentSection($phpWord, $title)->shouldBeCalled()->willReturn($section);
-        $this->overviewGeneratorProphecy->addTableOfContent($section, 2)->shouldBeCalled();
+        $this->mesurementGeneratorProphecy->addTableOfContent($section, 1)->shouldBeCalled();
 
         // Content
         $this->mesurementGeneratorProphecy->addSyntheticView($section, $mesurements)->shouldBeCalled();
@@ -202,7 +246,7 @@ class WordHandlerTest extends TestCase
         $this->treatmentGeneratorProphecy->initializeDocument($phpWord)->shouldBeCalled();
         $this->treatmentGeneratorProphecy->addHomepage($phpWord, $title)->shouldBeCalled();
         $this->treatmentGeneratorProphecy->createContentSection($phpWord, $title)->shouldBeCalled()->willReturn($section);
-        $this->overviewGeneratorProphecy->addTableOfContent($section, 2)->shouldBeCalled();
+        $this->treatmentGeneratorProphecy->addTableOfContent($section, 1)->shouldBeCalled();
 
         // Content
         $this->treatmentGeneratorProphecy->addSyntheticView($section, $treatments)->shouldBeCalled();

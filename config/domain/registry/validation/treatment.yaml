@@ -21,10 +21,6 @@ App\Domain\Registry\Model\Treatment:
 #            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
 #                name: 'registry_treatment_concerned_people'
 #                groups: ['default']
-        sensibleInformations:
-            - NotNull:
-                message: 'registry_treatment.sensible_informations.not_null'
-                groups: ['default']
         active:
             - NotNull:
                 message: 'registry_treatment.active.not_null'

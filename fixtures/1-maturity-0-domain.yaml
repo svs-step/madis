@@ -1,0 +1,19 @@
+App\Domain\Maturity\Model\Domain:
+
+    maturity_domain_1:
+        name: Domaine 1
+
+    maturity_domain_2:
+        name: Domaine 2
+
+    maturity_domain_3:
+        name: Domaine 3
+
+    maturity_domain_4:
+        name: Domaine 4
+
+    maturity_domain_5:
+        name: Domaine 5
+
+    maturity_domain_6:
+        name: Domaine 6
