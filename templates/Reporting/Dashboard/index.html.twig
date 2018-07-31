@@ -60,23 +60,65 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'reporting.dashboard.tab.maturity'|trans }}</h3></div>
+                <div class="box-body">
+                    {% if data.maturity is empty %}
+                        Aucun indice à afficher
+                    {% else %}
+                        <canvas id="maturity-radar"></canvas>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block javascripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
     <script>
-        var labelYes = '{{ 'label.yes'|trans }}';
-        var labelNo = '{{ 'label.no'|trans }}';
+        let labelYes = '{{ 'label.yes'|trans }}';
+        let labelNo = '{{ 'label.no'|trans }}';
     </script>
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
     <script>
-        var colorBlue = 'rgba(54, 162, 235, 1)';
-        var colorRed = 'rgba(255, 99, 132, 1)';
+        let colorBlue = 'rgba(54, 162, 235, 1)';
+        let colorBlueOpacity = 'rgba(54, 162, 235, 0.5)';
+        let colorRed = 'rgba(255, 99, 132, 1)';
+        let colorRedOpacity = 'rgba(255, 99, 132, 0.5)';
 
-        var contractorClausesData = [{{ data.contractor.clauses.yes }}, {{ data.contractor.clauses.no }}];
-        var contractorConformData = [{{ data.contractor.conform.yes }}, {{ data.contractor.conform.no }}];
+        // CONTRACTOR
+        let contractorClausesData = [{{ data.contractor.clauses.yes }}, {{ data.contractor.clauses.no }}];
+        let contractorConformData = [{{ data.contractor.conform.yes }}, {{ data.contractor.conform.no }}];
 
+        // MATURITY
+        let maturityLabels = [];
+        let maturitySerieLabel = [];
+        let maturityData = [];
+        {% if data.maturity.new is defined %}
+            let tmpData1 = [];
+            maturitySerieLabel.push('{{ data.maturity.new.name }}');
+            {% for domainName, score in data.maturity.new.data %}
+                maturityLabels.push('{{ domainName }}');
+                tmpData1.push('{{ score }}');
+            {% endfor %}
+            maturityData.push(tmpData1);
+        {% endif %}
+        {% if data.maturity.old is defined %}
+            let tmpData2 = [];
+            maturitySerieLabel.push('{{ data.maturity.old.name }}');
+            {% for domainName, score in data.maturity.old.data %}
+                tmpData2.push('{{ score }}');
+            {% endfor %}
+            maturityData.push(tmpData2);
+        {% endif %}
+
+        // LOAD GRAPHS
         $(document).ready(function() {
             doughnutChart(
                 'contractor-clauses',
@@ -88,6 +130,14 @@
                 'contractor-conform',
                 contractorConformData,
                 [colorBlue, colorRed]
+            );
+
+            radarChart(
+                'maturity-radar',
+                maturityLabels,
+                maturitySerieLabel,
+                maturityData,
+                [colorBlueOpacity, colorRedOpacity]
             );
         });
     </script>
