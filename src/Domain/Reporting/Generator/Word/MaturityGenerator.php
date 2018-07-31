@@ -65,7 +65,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $serie2 = [];
 
         // Radar
-        if (empty($maturity)) {
+        if (empty($data)) {
             $section->addTextBreak(2);
             $section->addText("Aucune évaluation de la mise en conformité n'a pour l'heure été effectuée.", ['italic' => true]);
         } else {
