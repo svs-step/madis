@@ -91,13 +91,13 @@ class DashboardController extends Controller
         if (isset($maturity[0])) {
             $data['maturity']['new']['name'] = $maturity[0]->getCreatedAt()->format('d/m/Y');
             foreach ($maturity[0]->getMaturity() as $item) {
-                $data['maturity']['new']['data'][$item->getDomain()->getName()] = $item->getScore();
+                $data['maturity']['new']['data'][$item->getDomain()->getName()] = $item->getScore() / 10;
             }
         }
         if (isset($maturity[1])) {
             $data['maturity']['old']['name'] = $maturity[1]->getCreatedAt()->format('d/m/Y');
             foreach ($maturity[1]->getMaturity() as $item) {
-                $data['maturity']['old']['data'][$item->getDomain()->getName()] = $item->getScore();
+                $data['maturity']['old']['data'][$item->getDomain()->getName()] = $item->getScore() / 10;
             }
         }
 
