@@ -97,14 +97,16 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
                 \array_keys($maturityList),
                 $serie1,
                 [
-                    'height' => Converter::cmToEmu(11),
-                    'width'  => Converter::cmToEmu(15),
-                ]
+                    'height'         => Converter::cmToEmu(11),
+                    'width'          => Converter::cmToEmu(15),
+                    '3d'             => true,
+                ],
+                $data['new']->getCreatedAt()->format('d/m/Y')
             );
-            $chart->getSeries()[0]['name'] = $data['new']->getCreatedAt()->format('d/m/Y');
             if (!empty($serie2)) {
                 $chart->addSeries(\array_keys($maturityList), $serie2, $data['old']->getCreatedAt()->format('d/m/Y'));
             }
+            $chart->addSeries([], [5]);
             $table = $section->addTable(['unit' => TblWidth::PERCENT, 'width' => 5000]);
             $row   = $table->addRow();
             if (!empty($serie2)) {

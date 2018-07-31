@@ -4,6 +4,12 @@ registry_mesurement_list:
     defaults:
         _controller: 'App\Domain\Registry\Controller\MesurementController:listAction'
 
+registry_mesurement_action_plan:
+    path: '/plan-d-action'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\MesurementController:actionPlanAction'
+
 registry_mesurement_create:
     path: '/creer'
     methods: ['GET', 'POST']

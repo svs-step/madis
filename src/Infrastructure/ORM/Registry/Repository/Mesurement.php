@@ -52,12 +52,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
     }
 
     /**
-     * Find all mesurements by associated collectivity.
-     *
-     * @param Collectivity $collectivity The collectivity to search with
-     * @param array        $order        Order the data
-     *
-     * @return array The array of mesurements given by the collectivity
+     * {@inheritdoc}
      */
     public function findAllByCollectivity(Collectivity $collectivity, array $order = [])
     {
@@ -73,11 +68,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
     }
 
     /**
-     * Find all mesurements by criteria.
-     *
-     * @param array $criteria List of criteria
-     *
-     * @return array The array of mesurements given by criteria
+     * {@inheritdoc}
      */
     public function findBy(array $criteria = [])
     {
@@ -90,6 +81,26 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         return $qb
             ->getQuery()
             ->getResult()
-        ;
+            ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByPlanified(array $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+        $qb->andWhere('o.planificationDate is not null');
+
+        $qb->orderBy('o.planificationDate', 'ASC');
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
     }
 }

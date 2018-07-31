@@ -50,6 +50,11 @@ class ReviewController extends Controller
     private $contractorRepository;
 
     /**
+     * @var Repository\Mesurement;
+     */
+    private $mesurementRepository;
+
+    /**
      * @var MaturityRepository\Survey;
      */
     private $surveyRepository;
@@ -60,6 +65,7 @@ class ReviewController extends Controller
         AuthorizationCheckerInterface $authorizationChecker,
         Repository\Treatment $treatmentRepository,
         Repository\Contractor $contractorRepository,
+        Repository\Mesurement $mesurementRepository,
         MaturityRepository\Survey $surveyRepository
     ) {
         $this->wordHandler          = $wordHandler;
@@ -67,6 +73,7 @@ class ReviewController extends Controller
         $this->authorizationChecker = $authorizationChecker;
         $this->treatmentRepository  = $treatmentRepository;
         $this->contractorRepository = $contractorRepository;
+        $this->mesurementRepository = $mesurementRepository;
         $this->surveyRepository     = $surveyRepository;
     }
 
@@ -100,6 +107,7 @@ class ReviewController extends Controller
         return $this->wordHandler->generateOverviewReport(
             $this->treatmentRepository->findAllActiveByCollectivity($collectivity),
             $this->contractorRepository->findAllByCollectivity($collectivity),
+            $this->mesurementRepository->findAllByCollectivity($collectivity),
             $maturity
         );
     }

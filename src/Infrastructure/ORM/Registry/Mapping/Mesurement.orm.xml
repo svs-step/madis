@@ -17,6 +17,7 @@
         <field name="charge" column="charge" nullable="true"/>
         <field name="status" column="status" nullable="true"/>
         <field name="planificationDate" column="planification_date" type="date" nullable="true"/>
+        <field name="comment" column="comment" nullable="true"/>
 
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity"/>

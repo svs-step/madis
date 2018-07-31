@@ -31,6 +31,12 @@
                 <span>Actions de protection</span>
             </a>
         </li>
+        <li {% if menuItem == 'registry_mesurement_action_plan' %}class="active"{% endif %}>
+            <a href="{{ path('registry_mesurement_action_plan') }}">
+                <i class="fa fa-crosshairs"></i>
+                <span>Plan d'action</span>
+            </a>
+        </li>
 
         {# REPORTING #}
         {#{% if not is_granted('ROLE_ADMIN') %}#}
