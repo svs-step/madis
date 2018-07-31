@@ -30,6 +30,11 @@ class OverviewGenerator extends AbstractGenerator
     protected $contractorGenerator;
 
     /**
+     * @var MesurementGenerator
+     */
+    protected $mesurementGenerator;
+
+    /**
      * @var MaturityGenerator
      */
     protected $maturityGenerator;
@@ -38,11 +43,13 @@ class OverviewGenerator extends AbstractGenerator
         UserProvider $userProvider,
         TreatmentGenerator $treatmentGenerator,
         ContractorGenerator $contractorGenerator,
+        MesurementGenerator $mesurementGenerator,
         MaturityGenerator $maturityGenerator
     ) {
         parent::__construct($userProvider);
         $this->treatmentGenerator  = $treatmentGenerator;
         $this->contractorGenerator = $contractorGenerator;
+        $this->mesurementGenerator = $mesurementGenerator;
         $this->maturityGenerator   = $maturityGenerator;
     }
 
@@ -102,12 +109,27 @@ class OverviewGenerator extends AbstractGenerator
         $this->contractorGenerator->addGlobalOverview($section, $contractors);
     }
 
-    public function generateManagementSystemAndCompliance(Section $section, array $maturity = []): void
+    public function generateManagementSystemAndCompliance(Section $section, array $maturity = [], array $mesurements = []): void
     {
-        $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-
         $section->addTitle('Système de management des DCP et conformité', 1);
 
         $this->maturityGenerator->addGlobalOverview($section, $maturity);
+        $this->mesurementGenerator->addGlobalOverview($section, $mesurements);
+    }
+
+    public function generateContinuousImprovements(Section $section): void
+    {
+        $section->addTitle("Principe d'amélioration continue", 1);
+        $section->addText('Le système de management des DCP de la commune de Préguillac s’inscrit dans un principe d’amélioration continue. En conséquence :');
+        $section->addListItem('Le référent opérationnel continue de mettre à jour le registre avec les éventuels nouveaux traitements effectués.');
+        $section->addListItem('Le référent opérationnel continue de mettre à jour le registre avec les éventuels nouveaux sous-traitants.');
+        $section->addListItem('Le comité génère un bilan chaque année et met en place les mesures correctives adéquates.');
+    }
+
+    public function generateAnnexeMention(Section $section): void
+    {
+        $section->addTitle('Liste des documents en annexe du bilan');
+        $section->addListItem('La liste des traitements');
+        $section->addListItem("L'indice de maturité");
     }
 }

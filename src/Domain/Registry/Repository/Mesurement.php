@@ -36,4 +36,13 @@ interface Mesurement extends CRUDRepositoryInterface
      * @return array The array of mesurements given by criteria
      */
     public function findBy(array $criteria = []);
+
+    /**
+     * Find all planified mesurements by criteria.
+     *
+     * @param array $criteria List of criteria
+     *
+     * @return array The array of mesurements given by criteria
+     */
+    public function findByPlanified(array $criteria = []);
 }

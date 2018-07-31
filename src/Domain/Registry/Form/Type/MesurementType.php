@@ -63,8 +63,12 @@ class MesurementType extends AbstractType
                 'expanded' => true,
             ])
             ->add('planificationDate', DateType::class, [
-                'label'             => 'registry.mesurement.form.planification_date',
-                'required'          => false,
+                'label'    => 'registry.mesurement.form.planification_date',
+                'required' => false,
+            ])
+            ->add('comment', TextType::class, [
+                'label'    => 'registry.mesurement.form.comment',
+                'required' => false,
             ])
         ;
     }

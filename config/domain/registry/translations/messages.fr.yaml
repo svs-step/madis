@@ -72,6 +72,7 @@ registry:
         action:
             back_to_list: Retour à la liste
             new: Nouvelle action
+            show_mesurement: Voir l'action de protection
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
@@ -80,6 +81,7 @@ registry:
             show: Visualiser "%name%"
         form:
             charge: Charge
+            comment: Observations
             cost: Coût
             description: Description
             name: Nom
@@ -96,6 +98,7 @@ registry:
             collectivity: Collectivité
             cost: Coût
             name: Nom
+            planification_date: Date de planification
             status: Statut
             type:
                 legal: Actions juridiques
@@ -118,6 +121,7 @@ registry:
             general: Informations générales
             historic: Historique
         title:
+            action_plan: Plan d'actions
             create: Créer une action de protection
             delete: Supprimer une action de protection
             edit: Modifier une action de protection

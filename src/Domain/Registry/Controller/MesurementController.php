@@ -15,6 +15,7 @@ namespace App\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Form\Type\MesurementType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
@@ -104,5 +105,26 @@ class MesurementController extends CRUDController
         );
 
         return $this->wordHandler->generateRegistryMesurementReport($objects);
+    }
+
+    /**
+     * Display list of action plan
+     * Action plan are mesurement planified which are not yet applied.
+     *
+     * @return Response
+     */
+    public function actionPlanAction()
+    {
+        // Since we have to display planified & not-applied mesurement, filter
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+        }
+        $criteria = [
+            'status' => MesurementStatusDictionary::STATUS_NOT_APPLIED,
+        ];
+
+        return $this->render('Registry/Mesurement/action_plan.html.twig', [
+            'objects' => $this->repository->findByPlanified($criteria),
+        ]);
     }
 }

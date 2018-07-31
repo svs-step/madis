@@ -35,17 +35,21 @@ $(document).ready(function(){
         })
     });
 
+    // Check mesurement status | onLoad & onChange
+    checkMesurementStatus();
     $('#mesurement_status').on('change', function() {
-        var notApplicableCheck = $(this).find("input[value='not-applicable']");
-        var etablishedCheck = $('#mesurement_etablished');
-        var planificationDateCheck = $('#mesurement_planificationDate');
-
-        console.log(etablishedCheck);
-        console.log(planificationDateCheck);
-
-        etablishedCheck.prop('disabled', notApplicableCheck.is(':checked'));
-        planificationDateCheck.find('select').each(function() {
-            $(this).prop('disabled', notApplicableCheck.is(':checked'));
-        });
+        checkMesurementStatus();
     });
 });
+
+function checkMesurementStatus()
+{
+    let notApplicableCheck = $('#mesurement_status').find("input[value='not-applicable']");
+    let etablishedCheck = $('#mesurement_etablished');
+    let planificationDateCheck = $('#mesurement_planificationDate');
+
+    etablishedCheck.prop('disabled', notApplicableCheck.is(':checked'));
+    planificationDateCheck.find('select').each(function() {
+        $(this).prop('disabled', notApplicableCheck.is(':checked'));
+    });
+}

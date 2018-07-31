@@ -194,16 +194,17 @@ abstract class AbstractGenerator implements GeneratorInterface
             ['bold'        => true, 'size' => 15],
             ['spaceBefore' => 1000]
         );
+        $hasDpo = \is_null($collectivity->getDpo()->getFirstName()) && \is_null($collectivity->getDpo()->getLastName()) ? false : true;
         $section->addText(
-            'SOLURIS',
+            $hasDpo ? $collectivity->getDpo()->getFullName() : 'SOLURIS',
             ['size' => 12]
         );
         $section->addText(
-            '2 rue des Rochers',
+            $hasDpo ? $collectivity->getAddress()->getLineOne() : '2 rue des Rochers',
             ['size' => 12]
         );
         $section->addText(
-            '17100 Saintes',
+            $hasDpo ? "{$collectivity->getAddress()->getZipCode()} {$collectivity->getAddress()->getCity()}" : '17100 Saintes',
             ['size' => 12]
         );
 

@@ -18,6 +18,49 @@ use PhpOffice\PhpWord\Element\Section;
 
 class MesurementGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
+    public function addGlobalOverview(Section $section, array $data): void
+    {
+        // Aggregate data before rendering
+        $appliedMesurement = [
+            [
+                'ACTION',
+                'DATE',
+                'OBSERVATIONS',
+            ],
+        ];
+        $actionPlan = [
+            [
+                'ACTION',
+                'DATE',
+                'OBSERVATIONS',
+            ],
+        ];
+
+        foreach ($data as $mesurement) {
+            if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {
+                $appliedMesurement[] = [
+                    $mesurement->getName(),
+                    $mesurement->getPlanificationDate()->format(self::DATE_TIME_FORMAT),
+                    $mesurement->getComment(),
+                ];
+            } elseif (!\is_null($mesurement->getPlanificationDate()) && MesurementStatusDictionary::STATUS_NOT_APPLIED === $mesurement->getStatus()) {
+                $actionPlan[] = [
+                    $mesurement->getName(),
+                    $mesurement->getPlanificationDate()->format(self::DATE_TIME_FORMAT),
+                    $mesurement->getComment(),
+                ];
+            }
+        }
+
+        $section->addTitle('Actions de protection mises en place', 2);
+        $section->addText('Afin de protéger les données à caractère personnel, la commune de Préguillac a mis en place les actions de protection suivantes :');
+        $this->addTable($section, $appliedMesurement, true, self::TABLE_ORIENTATION_HORIZONTAL);
+
+        $section->addTitle("Plan d'actions", 2);
+        $section->addText('Un plan d’action a été établi comme suit.');
+        $this->addTable($section, $actionPlan, true, self::TABLE_ORIENTATION_HORIZONTAL);
+    }
+
     public function addSyntheticView(Section $section, array $data): void
     {
         $section->addTitle('Liste des actions de protection', 1);

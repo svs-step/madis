@@ -79,9 +79,14 @@ class Mesurement
      */
     private $planificationDate;
 
+    /**
+     * @var string
+     */
+    private $comment;
+
     public function __construct()
     {
-        $this->id         = Uuid::uuid4();
+        $this->id = Uuid::uuid4();
     }
 
     public function __toString()
@@ -207,5 +212,21 @@ class Mesurement
     public function setPlanificationDate(?\DateTime $planificationDate): void
     {
         $this->planificationDate = $planificationDate;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string|null $comment
+     */
+    public function setComment(?string $comment): void
+    {
+        $this->comment = $comment;
     }
 }

@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_mesurement action_plan' %}
+{% set menuItem = 'registry_mesurement_action_plan' %}
+
+{% block title %}{{ 'registry.mesurement.title.action_plan'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'registry.mesurement.title.action_plan'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.mesurement.title.action_plan'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+        <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>{{ 'registry.mesurement.list.name'|trans }}</th>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>{{ 'registry.mesurement.list.collectivity'|trans }}</th>
+                            {% endif %}
+                            <th>{{ 'registry.mesurement.list.planification_date'|trans }}</th>
+                            <th>{{ 'registry.mesurement.list.cost'|trans }}</th>
+                            <th>{{ 'registry.mesurement.list.charge'|trans }}</th>
+                            <th>{{ 'label.actions'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+                            <tr>
+                                <td>{{ object.name }}</td>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <td>{{ object.collectivity }}</td>
+                                {% endif %}
+                                <td>{{ object.planificationDate|date('d/m/Y') }}</td>
+                                <td>{{ object.cost }}</td>
+                                <td>{{ object.charge }}</td>
+                                <td>
+                                    <a href="{{ path('registry_mesurement_show', {'id': object.id}) }}">
+                                        <i class="fa fa-eye"></i>
+                                        {{ 'registry.mesurement.action.show_mesurement'|trans }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(function () {
+
+            var paging = false;
+            {% if is_granted('ROLE_ADMIN') %}
+                paging = true;
+            {% endif %}
+
+            $('#table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
+                },
+                'paging'      : paging,
+                'lengthChange': false,
+                'searching'   : true,
+                'ordering'    : true,
+                'info'        : false,
+                'autoWidth'   : false,
+            });
+        });
+    </script>
+{% endblock %}
