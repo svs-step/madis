@@ -4,6 +4,7 @@ reporting:
             index: Tableau de bord
         tab:
           contractor: Sous-traitants
+          maturity: Indice de maturité
         title:
             index: Tableau de bord
         contractor:

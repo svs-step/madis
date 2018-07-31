@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Controller;
 
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Maturity\Model\Survey;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
@@ -54,16 +55,25 @@ class DashboardController extends Controller
                     'no'  => 0,
                 ],
             ],
-            'user' => 0,
+            'maturity' => [],
+            'user'     => 0,
         ];
 
         $collectivities = $this->entityManager->getRepository(Collectivity::class)->findAll();
         $contractors    = $this->entityManager->getRepository(Contractor::class)->findBy(
             ['collectivity' => $this->userProvider->getAuthenticatedUser()->getCollectivity()]
         );
+        $maturity = $this->entityManager->getRepository(Survey::class)->findBy(
+            ['collectivity' => $this->userProvider->getAuthenticatedUser()->getCollectivity()],
+            ['createdAt' => 'DESC'],
+            2
+        );
         $users          = $this->entityManager->getRepository(User::class)->findAll();
 
+        // Collectivity
         $data['collectivity'] = \count($collectivities);
+
+        // Contractor
         foreach ($contractors as $contractor) {
             if ($contractor->isContractualClausesVerified()) {
                 ++$data['contractor']['clauses']['yes'];
@@ -76,6 +86,22 @@ class DashboardController extends Controller
                 ++$data['contractor']['conform']['no'];
             }
         }
+
+        // Maturity
+        if (isset($maturity[0])) {
+            $data['maturity']['new']['name'] = $maturity[0]->getCreatedAt()->format('d/m/Y');
+            foreach ($maturity[0]->getMaturity() as $item) {
+                $data['maturity']['new']['data'][$item->getDomain()->getName()] = $item->getScore();
+            }
+        }
+        if (isset($maturity[1])) {
+            $data['maturity']['old']['name'] = $maturity[1]->getCreatedAt()->format('d/m/Y');
+            foreach ($maturity[1]->getMaturity() as $item) {
+                $data['maturity']['old']['data'][$item->getDomain()->getName()] = $item->getScore();
+            }
+        }
+
+        // User
         $data['user'] = \count($users);
 
         return $this->render('Reporting/Dashboard/index.html.twig', [
