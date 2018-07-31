@@ -106,7 +106,6 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             if (!empty($serie2)) {
                 $chart->addSeries(\array_keys($maturityList), $serie2, $data['old']->getCreatedAt()->format('d/m/Y'));
             }
-            $chart->addSeries([], [5]);
             $table = $section->addTable(['unit' => TblWidth::PERCENT, 'width' => 5000]);
             $row   = $table->addRow();
             if (!empty($serie2)) {
