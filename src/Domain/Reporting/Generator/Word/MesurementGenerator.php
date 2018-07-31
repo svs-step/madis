@@ -40,13 +40,13 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {
                 $appliedMesurement[] = [
                     $mesurement->getName(),
-                    $mesurement->getPlanificationDate()->format(self::DATE_TIME_FORMAT),
+                    $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_TIME_FORMAT) : '',
                     $mesurement->getComment(),
                 ];
             } elseif (!\is_null($mesurement->getPlanificationDate()) && MesurementStatusDictionary::STATUS_NOT_APPLIED === $mesurement->getStatus()) {
                 $actionPlan[] = [
                     $mesurement->getName(),
-                    $mesurement->getPlanificationDate()->format(self::DATE_TIME_FORMAT),
+                    $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_TIME_FORMAT) : '',
                     $mesurement->getComment(),
                 ];
             }
