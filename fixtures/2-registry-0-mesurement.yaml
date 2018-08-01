@@ -14,6 +14,6 @@ App\Domain\Registry\Model\Mesurement:
         cost: <words(3, true)>
         charge: <words(3, true)>
         status: '<(App\Domain\Registry\Dictionary\MesurementStatusDictionary::STATUS_NOT_APPLIED)>'
-        comment: <word>
+        comment: <words(10, true)>
         planificationDate: <(new \DateTime('+15 days'))>
         collectivity: '@user_collectivity_soluris'

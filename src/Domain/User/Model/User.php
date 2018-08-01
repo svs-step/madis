@@ -81,6 +81,14 @@ class User implements UserInterface
      */
     public function __toString(): string
     {
+        if (\is_null($this->getFullName())) {
+            return '';
+        }
+
+        if (\strlen($this->getFullName()) > 50) {
+            return \substr($this->getFullName(), 0, 50) . '...';
+        }
+
         return $this->getFullName();
     }
 

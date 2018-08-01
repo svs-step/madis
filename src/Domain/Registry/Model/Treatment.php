@@ -40,7 +40,7 @@ class Treatment
     private $name;
 
     /**
-     * FR: Finalité (Objectif).
+     * FR: Finalités (Objectif).
      *
      * @var string
      */
@@ -215,8 +215,16 @@ class Treatment
         $this->completion            = 0;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
+        if (\is_null($this->getName())) {
+            return '';
+        }
+
+        if (\strlen($this->getName()) > 50) {
+            return \substr($this->getName(), 0, 50) . '...';
+        }
+
         return $this->getName();
     }
 

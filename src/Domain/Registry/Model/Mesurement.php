@@ -89,8 +89,16 @@ class Mesurement
         $this->id = Uuid::uuid4();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
+        if (\is_null($this->getName())) {
+            return '';
+        }
+
+        if (\strlen($this->getName()) > 50) {
+            return \substr($this->getName(), 0, 50) . '...';
+        }
+
         return $this->getName();
     }
 

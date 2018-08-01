@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 interface GeneratorInterface
 {
+    const DATE_FORMAT      = 'd/m/Y';
     const DATE_TIME_FORMAT = 'd/m/Y à H:i';
     const DATE_TIME_ZONE   = 'Europe/Paris';
 
