@@ -5,7 +5,7 @@ registry_mesurement_list:
         _controller: 'App\Domain\Registry\Controller\MesurementController:listAction'
 
 registry_mesurement_action_plan:
-    path: '/plan-d-action'
+    path: '/plan-d-actions'
     methods: ['GET']
     defaults:
         _controller: 'App\Domain\Registry\Controller\MesurementController:actionPlanAction'

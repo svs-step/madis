@@ -199,7 +199,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
             $generalInformationsData = [
                 [
-                    'Finalité',
+                    'Finalités',
                     $treatment->getGoal() ? \preg_split('/\R/', $treatment->getGoal()) : null,
                 ],
                 [

@@ -119,8 +119,9 @@ class OverviewGenerator extends AbstractGenerator
 
     public function generateContinuousImprovements(Section $section): void
     {
+        $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
         $section->addTitle("Principe d'amélioration continue", 1);
-        $section->addText('Le système de management des DCP de la commune de Préguillac s’inscrit dans un principe d’amélioration continue. En conséquence :');
+        $section->addText("Le système de management des DCP de '{$collectivity}' s’inscrit dans un principe d’amélioration continue. En conséquence :");
         $section->addListItem('Le référent opérationnel continue de mettre à jour le registre avec les éventuels nouveaux traitements effectués.');
         $section->addListItem('Le référent opérationnel continue de mettre à jour le registre avec les éventuels nouveaux sous-traitants.');
         $section->addListItem('Le comité génère un bilan chaque année et met en place les mesures correctives adéquates.');
