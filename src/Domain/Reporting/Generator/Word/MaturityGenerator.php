@@ -32,33 +32,33 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $cell->addText("Echelle d'estimation de maturité", ['align' => 'center', 'bold' => true, 'color' => 'ffffff']);
 
         $row  = $table->addRow(null, ['valign' => 'center']);
-        $cell = $row->addCell(1000, ['bgColor' => 'c5deed']);
+        $cell = $row->addCell(750, ['bgColor' => 'c5deed']);
         $cell->addText('Pratique');
         $cell = $row->addCell(null, ['bgColor' => 'c5deed', 'gridSpan' => 2, 'valign' => 'center']);
         $cell->addText('Critère d\'appréciation', ['align' => 'center']);
 
         $row  = $table->addRow();
-        $cell = $row->addCell(null, ['bgColor' => 'ffb3b3', 'valign' => 'center']);
+        $cell = $row->addCell(750, ['bgColor' => 'ffb3b3', 'valign' => 'center']);
         $cell->addText('0', ['align' => 'center', 'color' => '990000']);
-        $cell = $row->addCell();
+        $cell = $row->addCell(1250);
         $cell->addText('Inexistant');
-        $cell = $row->addCell();
+        $cell = $row->addCell(3000);
         $cell->addText('Rien (ou presque) n\'est fait (en dessous de 30%)');
 
         $row  = $table->addRow();
-        $cell = $row->addCell(null, ['bgColor' => 'ffff80', 'valign' => 'center']);
+        $cell = $row->addCell(750, ['bgColor' => 'ffff80', 'valign' => 'center']);
         $cell->addText('1', ['align' => 'center', 'color' => '999900']);
-        $cell = $row->addCell();
+        $cell = $row->addCell(1250);
         $cell->addText('Partielle');
-        $cell = $row->addCell();
+        $cell = $row->addCell(3000);
         $cell->addText('La pratique est partiellement mise en place (entre 30% et 70%)');
 
         $row  = $table->addRow();
-        $cell = $row->addCell(null, ['bgColor' => '85e085', 'valign' => 'center']);
+        $cell = $row->addCell(750, ['bgColor' => '85e085', 'valign' => 'center']);
         $cell->addText('2', ['align' => 'center', 'color' => '1f7a1f']);
-        $cell = $row->addCell();
+        $cell = $row->addCell(1250);
         $cell->addText('Conforme');
-        $cell = $row->addCell();
+        $cell = $row->addCell(3000);
         $cell->addText('La pratique est conforme (plus de 70%)');
 
         $serie1 = [];
