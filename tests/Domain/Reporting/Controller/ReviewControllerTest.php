@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Reporting\Controller;
 
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Maturity\Repository as MaturityRepository;
 use App\Domain\Registry\Repository as RegistryRepository;
 use App\Domain\Reporting\Controller\ReviewController;
 use App\Domain\Reporting\Handler\WordHandler;
@@ -50,6 +51,16 @@ class ReviewControllerTest extends TestCase
     private $contractorRepositoryProphecy;
 
     /**
+     * @var RegistryRepository\Mesurement
+     */
+    private $mesurementRepositoryProphecy;
+
+    /**
+     * @var MaturityRepository\Survey;
+     */
+    private $surveyRepositoryProphecy;
+
+    /**
      * @var ReviewController
      */
     private $controller;
@@ -61,13 +72,17 @@ class ReviewControllerTest extends TestCase
         $this->authorizationCheckerProphecy   = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->treatmentRepositoryProphecy    = $this->prophesize(RegistryRepository\Treatment::class);
         $this->contractorRepositoryProphecy   = $this->prophesize(RegistryRepository\Contractor::class);
+        $this->mesurementRepositoryProphecy   = $this->prophesize(RegistryRepository\Mesurement::class);
+        $this->surveyRepositoryProphecy       = $this->prophesize(MaturityRepository\Survey::class);
 
         $this->controller = new ReviewController(
             $this->wordHandlerProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
             $this->authorizationCheckerProphecy->reveal(),
             $this->treatmentRepositoryProphecy->reveal(),
-            $this->contractorRepositoryProphecy->reveal()
+            $this->contractorRepositoryProphecy->reveal(),
+            $this->mesurementRepositoryProphecy->reveal(),
+            $this->surveyRepositoryProphecy->reveal()
         );
     }
 
@@ -82,6 +97,9 @@ class ReviewControllerTest extends TestCase
         $collectivity     = $this->prophesize(UserModel\Collectivity::class)->reveal();
         $treatments       = [];
         $contractors      = [];
+        $mesurements      = [];
+        $survey           = [];
+        $maturity         = $survey;
         $responseProphecy = $this->prophesize(BinaryFileResponse::class);
 
         $userProphecy = $this->prophesize(UserModel\User::class);
@@ -90,8 +108,10 @@ class ReviewControllerTest extends TestCase
 
         $this->treatmentRepositoryProphecy->findAllActiveByCollectivity($collectivity)->shouldBeCalled()->willReturn($treatments);
         $this->contractorRepositoryProphecy->findAllByCollectivity($collectivity)->shouldBeCalled()->willReturn($contractors);
+        $this->mesurementRepositoryProphecy->findAllByCollectivity($collectivity)->shouldBeCalled()->willReturn($mesurements);
+        $this->surveyRepositoryProphecy->findAllByCollectivity($collectivity, ['createdAt' => 'DESC'], 2)->shouldBeCalled()->willReturn($survey);
         $this->wordHandlerProphecy
-            ->generateOverviewReport($treatments, $contractors)
+            ->generateOverviewReport($treatments, $contractors, $mesurements, $maturity)
             ->shouldBeCalled()
             ->willReturn($responseProphecy->reveal())
         ;

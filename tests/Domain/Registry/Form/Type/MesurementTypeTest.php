@@ -39,6 +39,7 @@ class MesurementTypeTest extends FormTypeHelper
             'charge'            => TextType::class,
             'status'            => DictionaryType::class,
             'planificationDate' => DateType::class,
+            'comment'           => TextType::class,
         ];
 
         (new MesurementType())->buildForm($this->prophesizeBuilder($builder), []);
