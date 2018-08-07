@@ -1,0 +1,38 @@
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+
+
+<div class="row">
+    {{ form_start(form) }}
+
+    <div class="col-md-6">
+        <div class="box box-solid box-info">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.proof.tab.general'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.name) }}
+                {{ form_row(form.type) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="box box-solid box-info">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.proof.tab.upload'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.documentFile) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <a href="{{ path('registry_proof_list') }}" class="btn btn-default">
+                    {{ 'registry.proof.action.back_to_list'|trans }}
+                </a>
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+</div>

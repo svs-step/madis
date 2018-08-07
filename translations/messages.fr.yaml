@@ -1,12 +1,15 @@
 action:
+    archive: Archiver
     close: Fermer
     confirm: Confirmer
+    confirm_archive: Confirmer l'archivage
     confirm_delete: Confirmer la suppression
     connexion: Connexion
     create: Créer
-    edit: Modifier
+    download: Télécharger
     delete: Supprimer
     deletion: Suppression
+    edit: Modifier
     print: Imprimer
     reinitialize: Réinitialisation
     submit: Soumettre

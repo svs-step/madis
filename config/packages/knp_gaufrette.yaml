@@ -1,0 +1,11 @@
+knp_gaufrette:
+    adapters:
+        registry_proof_document:
+            local:
+                directory: '%kernel.project_dir%/public/uploads/registry/proof/document'
+    filesystems:
+        registry_proof_document:
+            adapter: registry_proof_document
+
+    stream_wrapper: ~
+

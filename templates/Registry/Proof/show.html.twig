@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_proof show' %}
+{% set menuItem = 'registry_proof' %}
+
+{% block title %}{{ 'registry.proof.title.show'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'registry.proof.title.show'|trans }}
+        <small>{{ object }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.proof.breadcrumb.list'|trans, 'link': path('registry_proof_list') },
+        { 'name': 'registry.proof.breadcrumb.show'|trans({'%name%': object}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+
+    {% if is_granted('ROLE_USER') %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="action-bar">
+                <a href="{{ path('registry_proof_edit', {'id': object.id}) }}" class="btn btn-default">
+                    <i class="fa fa-pencil-alt"></i>
+                    {{ 'action.edit'|trans }}
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-6">
+            {# GENERAL #}
+            <div class="box box-solid box-info">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.proof.tab.general'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.proof.show.name'|trans }}</strong></td>
+                            <td>{{ object.name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.proof.show.referent'|trans }}</strong></td>
+                            <td>{{ object.referent }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.proof.show.contractual_clauses_verified'|trans }}</strong></td>
+                            <td>
+                                {% if object.contractualClausesVerified %}
+                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.proof.show.conform'|trans }}</strong></td>
+                            <td>
+                                {% if object.conform %}
+                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.proof.show.other_informations'|trans }}</strong></td>
+                            <td>{{ object.otherInformations|nl2br }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {# HISTORIC #}
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.proof.tab.historic'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.proof.show.creator'|trans }}</strong></td>
+                            <td>
+                                {{ object.creator }}
+                            </td>
+                        </tr>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <tr>
+                                <td><strong>{{ 'registry.proof.show.collectivity'|trans }}</strong></td>
+                                <td>
+                                    <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                        {{ object.collectivity }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <td><strong>{{ 'registry.proof.show.created_at'|trans }}</strong></td>
+                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.proof.show.updated_at'|trans }}</strong></td>
+                            <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            {# COORDINATES #}
+            <div class="box box-solid box-info">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.proof.tab.coordinates'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.address.show.line_one'|trans }}</strong></td>
+                            <td>{{ object.address.lineOne }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.address.show.line_two'|trans }}</strong></td>
+                            <td>{{ object.address.lineTwo }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.address.show.zip_code'|trans }}</strong></td>
+                            <td>{{ object.address.zipCode }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.address.show.city'|trans }}</strong></td>
+                            <td>{{ object.address.city }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.address.show.mail'|trans }}</strong></td>
+                            <td>{{ object.address.mail }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.address.show.phone_number'|trans }}</strong></td>
+                            <td>{{ object.address.phoneNumber }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

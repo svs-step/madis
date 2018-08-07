@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_proof list' %}
+{% set menuItem = 'registry_proof' %}
+
+{% block title %}{{ 'registry.proof.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'registry.proof.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.proof.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+            <div class="col-xs-12">
+                <div class="action-bar">
+                    {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('registry_proof_create') }}" class="btn btn-default">
+                        <i class="fa fa-plus"></i>
+                        {{ 'registry.proof.action.new'|trans }}
+                    </a>
+                    {% endif %}
+                    {#<a href="{{ path('registry_proof_report') }}" class="btn btn-default">
+                        <i class="fa fa-clipboard-list"></i>
+                        {{ 'registry.proof.action.report'|trans }}
+                    </a>#}
+                </div>
+            </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>{{ 'registry.proof.list.name'|trans }}</th>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>{{ 'registry.proof.list.collectivity'|trans }}</th>
+                            {% endif %}
+                            <th>{{ 'registry.proof.list.type'|trans }}</th>
+                            <th>{{ 'registry.proof.list.created_at'|trans }}</th>
+                            {% if is_granted('ROLE_USER') %}
+                                <th>{{ 'label.actions'|trans }}</th>
+                            {% endif %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+                        <tr>
+                            <td>{{ object.name }}</td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td>{{ object.collectivity }}</td>
+                            {% endif %}
+                            <td>{{ object.type|dictionary('registry_proof_type') }}</td>
+                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                            <td>
+                                <a href="{{ path('registry_proof_download', { 'id': object.id }) }}">
+                                    <i class="fa fa-download"></i>
+                                    {{ 'action.download'|trans }}
+                                </a>
+                                {% if is_granted('ROLE_USER') %}
+                                    <a href="{{ path('registry_proof_edit', { 'id': object.id }) }}">
+                                        <i class="fa fa-pencil-alt"></i>
+                                        {{ 'action.edit'|trans }}
+                                    </a>
+                                    <a href="{{ path('registry_proof_delete', { 'id': object.id }) }}">
+                                        <i class="fa fa-trash"></i>
+                                        {{ 'action.archive'|trans }}
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(function () {
+            var paging = false;
+            {% if is_granted('ROLE_ADMIN') %}
+            paging = true;
+            {% endif %}
+
+            $('#table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
+                },
+                'paging'      : paging,
+                'lengthChange': false,
+                'searching'   : true,
+                'ordering'    : true,
+                'info'        : false,
+                'autoWidth'   : false,
+            });
+        });
+    </script>
+{% endblock %}

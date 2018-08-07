@@ -14,6 +14,12 @@ services:
         tags:
             - { name: 'doctrine.event_subscriber' }
 
+    App\Domain\Registry\Symfony\EventSubscriber\ProofUploadSubscriber:
+        arguments:
+            $documentFilesystem: '@gaufrette.registry_proof_document_filesystem'
+        tags:
+            - { name: 'doctrine.event_subscriber', priority: 2 }
+
     App\Domain\User\Symfony\EventSubscriber\DefinePasswordSubscriber:
         tags:
             - { name: 'doctrine.event_subscriber', priority: 2 }

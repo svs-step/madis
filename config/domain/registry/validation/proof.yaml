@@ -1,0 +1,36 @@
+App\Domain\Registry\Model\Proof:
+    properties:
+        name:
+            - NotBlank:
+                message: 'registry_proof.name.not_blank'
+                groups: ['default']
+        type:
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'registry_proof_type'
+                groups: ['default']
+        documentFile:
+            - NotNull:
+                message: 'registry_proof.document_file.not_null'
+                groups: ['create']
+            - File:
+                maxSize: 3072k
+                mimeTypes:
+                    # JPG / PNG
+                    - image/jpeg
+                    - image/png
+                    # PDF
+                    - application/pdf
+                    # DOC
+                    - application/msword
+                    # DOCX
+                    - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+                    # ODT
+                    - application/vnd.oasis.opendocument.text
+                    # XLS
+                    - application/vnd.ms-excel
+                    # XLSX
+                    - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+                    # ODS
+                    - application/vnd.oasis.opendocument.spreadsheet
+                mimeTypesMessage: 'registry_proof.document_file.file'
+                groups: ['default']

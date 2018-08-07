@@ -128,6 +128,38 @@ registry:
             list: Liste des actions de protection
             show: Visualiser une action de protection
 
+    proof:
+        action:
+            back_to_list: Retour à la liste
+            new: Ajouter une preuve
+        breadcrumb:
+            create: Créer
+            edit: Modifier "%name%"
+            list: Liste des preuves
+            delete: Archiver "%name%"
+        form:
+            document_file: Document
+            name: Nom
+            type: Type
+        flashbag:
+            success:
+                create: Preuve "%object%" créée avec succès
+                edit: Preuve "%object%" modifiée avec succès
+                delete: Preuve "%object%" supprimée avec succès
+        list:
+            collectivity: Collectivité
+            created_at: Date de création
+            name: Nom
+            type: Type
+        tab:
+            general: Informations générales
+            upload: Liaison de documents
+        title:
+            create: Créer une preuve
+            edit: Éditer une preuve
+            list: Liste des preuves
+            delete: Archiver une preuve
+
     treatment:
         action:
             active: Voir les traitements actifs

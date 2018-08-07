@@ -11,3 +11,7 @@ services:
     App\Domain\:
         resource: '../../src/Domain/*/Controller'
         tags: ['controller.service_arguments']
+
+    App\Domain\Registry\Controller\ProofController:
+        arguments:
+            $documentFilesystem: '@gaufrette.registry_proof_document_filesystem'

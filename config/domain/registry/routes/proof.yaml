@@ -1,0 +1,47 @@
+registry_proof_list:
+    path: '/liste'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\ProofController:listAction'
+
+registry_proof_create:
+    path: '/creer'
+    methods: ['GET', 'POST']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\ProofController:createAction'
+
+registry_proof_edit:
+    path: '/editer/{id}'
+    methods: ['GET', 'POST']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\ProofController:editAction'
+
+registry_proof_show:
+    path: '/visualiser/{id}'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\ProofController:showAction'
+
+registry_proof_download:
+    path: '/{id}/telecharger'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\ProofController:downloadAction'
+
+#registry_proof_report:
+#    path: '/bilan'
+#    methods: ['GET']
+#    defaults:
+#        _controller: 'App\Domain\Registry\Controller\ProofController:reportAction'
+
+registry_proof_delete:
+    path: '/supprimer/{id}'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\ProofController:deleteAction'
+
+registry_proof_delete_confirm:
+    path: '/supprimer/{id}/confirmation'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\Registry\Controller\ProofController:deleteConfirmationAction'

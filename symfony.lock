@@ -152,6 +152,12 @@
             "ref": "fdf88f39d4c2ad0197bfeff8af4539220c4ce8d3"
         }
     },
+    "knplabs/gaufrette": {
+        "version": "v0.6.0"
+    },
+    "knplabs/knp-gaufrette-bundle": {
+        "version": "v0.5.3"
+    },
     "monolog/monolog": {
         "version": "1.23.0"
     },
