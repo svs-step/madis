@@ -9,4 +9,5 @@ services:
 
     App\Domain\Registry\Repository\Contractor: '@App\Infrastructure\ORM\Registry\Repository\Contractor'
     App\Domain\Registry\Repository\Mesurement: '@App\Infrastructure\ORM\Registry\Repository\Mesurement'
+    App\Domain\Registry\Repository\Proof: '@App\Infrastructure\ORM\Registry\Repository\Proof'
     App\Domain\Registry\Repository\Treatment: '@App\Infrastructure\ORM\Registry\Repository\Treatment'

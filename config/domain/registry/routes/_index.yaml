@@ -6,6 +6,10 @@ _registry_mesurement:
     resource: 'mesurement.yaml'
     prefix:   '/actions-de-protection'
 
+_registry_proof:
+    resource: 'proof.yaml'
+    prefix:   '/preuves'
+
 _registry_treatment:
     resource: 'treatment.yaml'
     prefix:   '/traitements'

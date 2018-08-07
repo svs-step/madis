@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_proof form edit' %}
+{% set menuItem = 'registry_proof' %}
+
+{% block title %}{{ 'registry.proof.title.edit'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'registry.proof.title.edit'|trans }}
+        <small>{{ form.vars.value }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.proof.breadcrumb.list'|trans, 'link': path('registry_proof_list') },
+        { 'name': 'registry.proof.breadcrumb.edit'|trans({'%name%': form.vars.value}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('Registry/Proof/_form.html.twig') }}
+{% endblock %}

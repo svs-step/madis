@@ -16,4 +16,5 @@ return [
     Knp\DictionaryBundle\KnpDictionaryBundle::class                            => ['all' => true],
     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class          => ['all' => true],
     Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle::class                  => ['all' => true],
+    Knp\Bundle\GaufretteBundle\KnpGaufretteBundle::class                       => ['all' => true],
 ];

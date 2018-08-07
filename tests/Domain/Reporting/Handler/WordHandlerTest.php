@@ -93,6 +93,8 @@ class WordHandlerTest extends TestCase
         $documentName     = 'bilan';
         $treatments       = [];
         $contractors      = [];
+        $mesurements      = [];
+        $maturity         = [];
         $responseProphecy = $this->prophesize(BinaryFileResponse::class);
 
         $phpWord = $this->phpWordProphecy->reveal();
@@ -107,6 +109,8 @@ class WordHandlerTest extends TestCase
         $this->overviewGeneratorProphecy->generateObjectPart($section)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateOrganismIntroductionPart($section)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateRegistries($section, $treatments, $contractors)->shouldBeCalled();
+        $this->overviewGeneratorProphecy->generateManagementSystemAndCompliance($section, $maturity, $mesurements)->shouldBeCalled();
+        $this->overviewGeneratorProphecy->generateContinuousImprovements($section)->shouldBeCalled();
 
         // Generation
         $this->overviewGeneratorProphecy

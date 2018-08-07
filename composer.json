@@ -12,6 +12,7 @@
         "php": "^7.1",
         "ircmaxell/random-lib": "^1.2",
         "knplabs/dictionary-bundle": "^2.1",
+        "knplabs/knp-gaufrette-bundle": "^0.5.3",
         "phpoffice/phpword": "^0.15",
         "ramsey/uuid": "^3.7",
         "ramsey/uuid-doctrine": "^1.4",

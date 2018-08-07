@@ -31,6 +31,13 @@ registry_delay:
     comment:
         expression: Vous ne pouvez saisir de détail puisque d'une durée spécifique doit être saisie
 
+registry_proof:
+    document_file:
+        not_null: Vous devez ajouter un document
+        file: Vous ne pouvez associer q'un document de type png, jpg, pdf, doc, docx, odt, xls, xlsx ou ods
+    name:
+        not_blank: Vous devez saisir un nom
+
 registry_treatment:
     active:
         not_null: Le statut du traitement doit être renseigné

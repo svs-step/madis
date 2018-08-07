@@ -152,6 +152,10 @@ abstract class CRUDController extends Controller
         ]);
     }
 
+    public function formPrePersistData($object)
+    {
+    }
+
     /**
      * The creation action view
      * Create a new data.
@@ -164,10 +168,11 @@ abstract class CRUDController extends Controller
     {
         $modelClass = $this->getModelClass();
         $object     = new $modelClass();
-        $form       = $this->createForm($this->getFormType(), $object);
+        $form       = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'create']]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->formPrePersistData($object);
             $em = $this->getDoctrine()->getManager();
             $em->persist($object);
             $em->flush();
@@ -197,10 +202,11 @@ abstract class CRUDController extends Controller
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
-        $form = $this->createForm($this->getFormType(), $object);
+        $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->formPrePersistData($object);
             $this->entityManager->persist($object);
             $this->entityManager->flush();
 
@@ -260,6 +266,8 @@ abstract class CRUDController extends Controller
      *
      * @param string $id
      *
+     * @throws \Exception
+     *
      * @return Response
      */
     public function deleteConfirmationAction(string $id): Response
@@ -269,11 +277,26 @@ abstract class CRUDController extends Controller
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
-        $this->entityManager->remove($object);
-        $this->entityManager->flush();
+        if ($this->isSoftDelete()) {
+            $object->setDeletedAt(new \DateTimeImmutable());
+            $this->repository->update($object);
+        } else {
+            $this->entityManager->remove($object);
+            $this->entityManager->flush();
+        }
 
         $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
 
         return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
+    /**
+     * Check if we have to produce a soft delete behaviour.
+     *
+     * @return bool
+     */
+    public function isSoftDelete(): bool
+    {
+        return false;
     }
 }
