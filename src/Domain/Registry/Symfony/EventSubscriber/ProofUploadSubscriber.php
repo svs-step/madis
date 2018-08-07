@@ -40,13 +40,11 @@ class ProofUploadSubscriber implements EventSubscriber
 
     public function prePersist(LifecycleEventArgs $args)
     {
-        dump('PRE PERSIST');
         $this->process($args);
     }
 
     public function preUpdate(LifecycleEventArgs $args)
     {
-        dump('PRE UPDATE');
         $this->process($args);
     }
 
