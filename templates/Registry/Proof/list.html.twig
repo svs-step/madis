@@ -67,10 +67,12 @@
                             <td>{{ object.type|dictionary('registry_proof_type') }}</td>
                             <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
                             <td>
+                                {% if app.user.collectivity == object.collectivity %}
                                 <a href="{{ path('registry_proof_download', { 'id': object.id }) }}">
                                     <i class="fa fa-download"></i>
                                     {{ 'action.download'|trans }}
                                 </a>
+                                {% endif %}
                                 {% if is_granted('ROLE_USER') %}
                                     <a href="{{ path('registry_proof_edit', { 'id': object.id }) }}">
                                         <i class="fa fa-pencil-alt"></i>
