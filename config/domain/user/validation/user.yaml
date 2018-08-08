@@ -30,3 +30,15 @@ App\Domain\User\Model\User:
                 max: 1
                 minMessage: 'user_user.roles.max_count'
                 groups: ['default']
+        plainPassword:
+            - Expression:
+                expression: "this.getPassword() or (this.getPlainPassword() and !this.getPassword())"
+                message: 'user_user.plain_password.expression'
+                groups: ['default']
+            - Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordRequirements:
+                minLength: 14
+                requireCaseDiff: true
+                requireLetters: true
+                requireNumbers: true
+                requireSpecialCharacter: true
+                groups: ['default']
