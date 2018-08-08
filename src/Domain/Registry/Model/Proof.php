@@ -53,6 +53,11 @@ class Proof
      */
     private $documentFile;
 
+    /**
+     * @var string
+     */
+    private $comment;
+
     public function __construct()
     {
         $this->id = Uuid::uuid4();
@@ -141,5 +146,21 @@ class Proof
     public function setDocumentFile(?File $documentFile): void
     {
         $this->documentFile = $documentFile;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string|null $comment
+     */
+    public function setComment(?string $comment): void
+    {
+        $this->comment = $comment;
     }
 }

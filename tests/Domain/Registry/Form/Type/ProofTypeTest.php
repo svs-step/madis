@@ -35,6 +35,7 @@ class ProofTypeTest extends FormTypeHelper
             'name'         => TextType::class,
             'type'         => DictionaryType::class,
             'documentFile' => FileType::class,
+            'comment'      => TextType::class,
         ];
 
         (new ProofType())->buildForm($this->prophesizeBuilder($builder), []);

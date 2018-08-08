@@ -13,6 +13,7 @@
         <field name="name" column="name"/>
         <field name="type" column="type"/>
         <field name="document" column="document"/>
+        <field name="comment" column="comment" type="text" nullable="true"/>
 
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity"/>

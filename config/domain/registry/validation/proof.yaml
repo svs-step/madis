@@ -32,5 +32,8 @@ App\Domain\Registry\Model\Proof:
                     - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
                     # ODS
                     - application/vnd.oasis.opendocument.spreadsheet
+                    # PPT / PPTX
+                    - application/vnd.ms-powerpoint
+                    - application/vnd.openxmlformats-officedocument.presentationml.presentation
                 mimeTypesMessage: 'registry_proof.document_file.file'
                 groups: ['default']

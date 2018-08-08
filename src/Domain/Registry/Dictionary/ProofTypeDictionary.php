@@ -17,14 +17,17 @@ use Knp\DictionaryBundle\Dictionary\SimpleDictionary;
 
 class ProofTypeDictionary extends SimpleDictionary
 {
-    const TYPE_POLICY        = 'policy';
-    const TYPE_CERTIFICATION = 'certification';
-    const TYPE_IT_CHARTER    = 'it_charter';
-    const TYPE_DELIBERATION  = 'deliberation';
-    const TYPE_CONTRACT      = 'contract';
-    const TYPE_SENSITIZATION = 'sensitization';
-    const TYPE_BALANCE_SHEET = 'balance_sheet';
-    const TYPE_OTHER         = 'other';
+    const TYPE_POLICY_MANAGEMENT        = 'policy_management';
+    const TYPE_POLICY_PROTECTION        = 'policy_protection';
+    const TYPE_CONCERNED_PEOPLE_REQUEST = 'concerned_people_request';
+    const TYPE_MESUREMENT               = 'mesurement';
+    const TYPE_CERTIFICATION            = 'certification';
+    const TYPE_IT_CHARTER               = 'it_charter';
+    const TYPE_DELIBERATION             = 'deliberation';
+    const TYPE_CONTRACT                 = 'contract';
+    const TYPE_SENSITIZATION            = 'sensitization';
+    const TYPE_BALANCE_SHEET            = 'balance_sheet';
+    const TYPE_OTHER                    = 'other';
 
     public function __construct()
     {
@@ -39,14 +42,17 @@ class ProofTypeDictionary extends SimpleDictionary
     public static function getTypes()
     {
         return [
-            self::TYPE_POLICY        => 'Politique',
-            self::TYPE_CERTIFICATION => 'Attestations',
-            self::TYPE_IT_CHARTER    => 'Charte informatique',
-            self::TYPE_DELIBERATION  => 'Délibération',
-            self::TYPE_CONTRACT      => 'Contrat',
-            self::TYPE_SENSITIZATION => 'Sensibilisation',
-            self::TYPE_BALANCE_SHEET => 'Bilan',
-            self::TYPE_OTHER         => 'Autre',
+            self::TYPE_POLICY_MANAGEMENT        => 'Politique de Gestion',
+            self::TYPE_POLICY_PROTECTION        => 'Politique de Protection',
+            self::TYPE_CONCERNED_PEOPLE_REQUEST => 'Demande de personnes concernées',
+            self::TYPE_MESUREMENT               => 'Actions de protection',
+            self::TYPE_CERTIFICATION            => 'Attestations',
+            self::TYPE_IT_CHARTER               => 'Charte informatique',
+            self::TYPE_DELIBERATION             => 'Délibération',
+            self::TYPE_CONTRACT                 => 'Contrat',
+            self::TYPE_SENSITIZATION            => 'Sensibilisation',
+            self::TYPE_BALANCE_SHEET            => 'Bilan',
+            self::TYPE_OTHER                    => 'Autre',
         ];
     }
 

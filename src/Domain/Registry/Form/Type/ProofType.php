@@ -36,7 +36,11 @@ class ProofType extends AbstractType
                 'required' => true,
             ])
             ->add('documentFile', FileType::class, [
-                'label'    => 'registry.proof.form.document_file',
+                'label'    => false,
+                'required' => false,
+            ])
+            ->add('comment', TextType::class, [
+                'label'    => 'registry.proof.form.comment',
                 'required' => false,
             ])
         ;
