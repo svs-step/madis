@@ -138,7 +138,7 @@ registry:
             list: Liste des preuves
             delete: Archiver "%name%"
         form:
-            document_file: Document
+            comment: Commentaire
             name: Nom
             type: Type
         flashbag:
@@ -148,12 +148,13 @@ registry:
                 delete: Preuve "%object%" supprimée avec succès
         list:
             collectivity: Collectivité
+            comment: Commentaire
             created_at: Date de création
             name: Nom
             type: Type
         tab:
             general: Informations générales
-            upload: Liaison de documents
+            upload: Document
         title:
             create: Créer une preuve
             edit: Éditer une preuve

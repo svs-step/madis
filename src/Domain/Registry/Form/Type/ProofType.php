@@ -3,7 +3,7 @@
 /**
  * This file is part of the SOLURIS - RGPD Management application.
  *
- * (c) Donovan Bourlard <donovan.bourlard@outlook.fr>
+ * (c) Donovan Bourlard <donovan@awkan.fr>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -36,7 +36,11 @@ class ProofType extends AbstractType
                 'required' => true,
             ])
             ->add('documentFile', FileType::class, [
-                'label'    => 'registry.proof.form.document_file',
+                'label'    => false,
+                'required' => false,
+            ])
+            ->add('comment', TextType::class, [
+                'label'    => 'registry.proof.form.comment',
                 'required' => false,
             ])
         ;

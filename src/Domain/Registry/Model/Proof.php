@@ -3,7 +3,7 @@
 /**
  * This file is part of the SOLURIS - RGPD Management application.
  *
- * (c) Donovan Bourlard <donovan.bourlard@outlook.fr>
+ * (c) Donovan Bourlard <donovan@awkan.fr>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -52,6 +52,11 @@ class Proof
      * @var File
      */
     private $documentFile;
+
+    /**
+     * @var string
+     */
+    private $comment;
 
     public function __construct()
     {
@@ -141,5 +146,21 @@ class Proof
     public function setDocumentFile(?File $documentFile): void
     {
         $this->documentFile = $documentFile;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string|null $comment
+     */
+    public function setComment(?string $comment): void
+    {
+        $this->comment = $comment;
     }
 }

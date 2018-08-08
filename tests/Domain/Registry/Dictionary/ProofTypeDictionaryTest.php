@@ -33,14 +33,17 @@ class ProofTypeDictionaryTest extends TestCase
     public function testGetTypes()
     {
         $data = [
-            ProofTypeDictionary::TYPE_POLICY        => 'Politique',
-            ProofTypeDictionary::TYPE_CERTIFICATION => 'Attestations',
-            ProofTypeDictionary::TYPE_IT_CHARTER    => 'Charte informatique',
-            ProofTypeDictionary::TYPE_DELIBERATION  => 'Délibération',
-            ProofTypeDictionary::TYPE_CONTRACT      => 'Contrat',
-            ProofTypeDictionary::TYPE_SENSITIZATION => 'Sensibilisation',
-            ProofTypeDictionary::TYPE_BALANCE_SHEET => 'Bilan',
-            ProofTypeDictionary::TYPE_OTHER         => 'Autre',
+            ProofTypeDictionary::TYPE_POLICY_MANAGEMENT        => 'Politique de Gestion',
+            ProofTypeDictionary::TYPE_POLICY_PROTECTION        => 'Politique de Protection',
+            ProofTypeDictionary::TYPE_CONCERNED_PEOPLE_REQUEST => 'Demande de personnes concernées',
+            ProofTypeDictionary::TYPE_MESUREMENT               => 'Actions de protection',
+            ProofTypeDictionary::TYPE_CERTIFICATION            => 'Attestations',
+            ProofTypeDictionary::TYPE_IT_CHARTER               => 'Charte informatique',
+            ProofTypeDictionary::TYPE_DELIBERATION             => 'Délibération',
+            ProofTypeDictionary::TYPE_CONTRACT                 => 'Contrat',
+            ProofTypeDictionary::TYPE_SENSITIZATION            => 'Sensibilisation',
+            ProofTypeDictionary::TYPE_BALANCE_SHEET            => 'Bilan',
+            ProofTypeDictionary::TYPE_OTHER                    => 'Autre',
         ];
 
         $this->assertEquals($data, ProofTypeDictionary::getTypes());
@@ -49,7 +52,10 @@ class ProofTypeDictionaryTest extends TestCase
     public function testGetTypesKeys()
     {
         $data = [
-            ProofTypeDictionary::TYPE_POLICY,
+            ProofTypeDictionary::TYPE_POLICY_MANAGEMENT,
+            ProofTypeDictionary::TYPE_POLICY_PROTECTION,
+            ProofTypeDictionary::TYPE_CONCERNED_PEOPLE_REQUEST,
+            ProofTypeDictionary::TYPE_MESUREMENT,
             ProofTypeDictionary::TYPE_CERTIFICATION,
             ProofTypeDictionary::TYPE_IT_CHARTER,
             ProofTypeDictionary::TYPE_DELIBERATION,
