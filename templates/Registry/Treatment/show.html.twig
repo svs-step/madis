@@ -26,6 +26,10 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
+                <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">
+                    <i class="fa fa-arrow-left"></i>
+                    {{ 'registry.treatment.action.back_to_list'|trans }}
+                </a>
                 <a href="{{ path('registry_treatment_edit', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-pencil-alt"></i>
                     {{ 'action.edit'|trans }}
