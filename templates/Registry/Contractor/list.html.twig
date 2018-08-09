@@ -50,6 +50,8 @@
                             {% if is_granted('ROLE_ADMIN') %}
                                 <th>{{ 'registry.contractor.list.collectivity'|trans }}</th>
                             {% endif %}
+                            <th>{{ 'registry.contractor.list.contractual_clauses_verified'|trans }}</th>
+                            <th>{{ 'registry.contractor.list.conform'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th>{{ 'label.actions'|trans }}</th>
                             {% endif %}
@@ -66,6 +68,20 @@
                             {% if is_granted('ROLE_ADMIN') %}
                                 <td>{{ object.collectivity }}</td>
                             {% endif %}
+                            <td>
+                                {% if object.contractualClausesVerified %}
+                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if object.conform %}
+                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
                             {% if is_granted('ROLE_USER') %}
                                 <td>
                                     <a href="{{ path('registry_contractor_edit', { 'id': object.id }) }}">

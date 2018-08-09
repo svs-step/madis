@@ -40,6 +40,8 @@ registry:
                 delete: Sous-traitant "%object%" supprimé avec succès
         list:
             collectivity: Collectivité
+            contractual_clauses_verified: Clauses contractuelles vérifiées
+            conform: Conforme RGPD
             name: Nom
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce sous-traitant ?
@@ -206,10 +208,10 @@ registry:
         list:
             active: Statut
             collectivity: Collectivité
+            completion: Taux de complétion
+            legal_basis: Base légale
             name: Nom
             software: Logiciel
-            completion: Taux de complétion
-            contractors: Sous-traitants
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce traitement ?
         show:
