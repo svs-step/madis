@@ -8,6 +8,7 @@ registry_address:
         not_blank: Vous devez renseigner un email
     phone_number:
         length: Le numéro de téléphone doit être composé de {{ limit }} chiffres
+        regex: Le numéro de téléphone doit être au format 0[1-7] XX XX XX XX
         not_blank: Vous devez renseigner un numéro de téléphone
     zip_code:
         length: Le code postal doit être composé de {{ limit }} chiffres
@@ -37,6 +38,28 @@ registry_proof:
         file: Vous ne pouvez associer q'un document de type png, jpg, pdf, doc, docx, odt, xls, xlsx ou ods
     name:
         not_blank: Vous devez saisir un nom
+
+registry_request:
+    object:
+        not_blank: Vous devez saisir un objet pour la demande
+    date:
+        not_blank: Vous devez saisir la date de la demande
+    reason:
+        not_blank: Vous devez saisir le motif de la demande
+
+registry_request_applicant:
+    first_name:
+        not_blank: Vous devez saisir le prénom du demandeur
+    last_name:
+        not_blank: Vous devez saisir le nom du demandeur
+    phone_number:
+        length: Le numéro de téléphone doit être composé de {{ limit }} chiffres
+        regex: Le numéro de téléphone doit être au format 0[1-7] XX XX XX XX
+
+registry_request_concerned_people:
+    phone_number:
+        length: Le numéro de téléphone doit être composé de {{ limit }} chiffres
+        regex: Le numéro de téléphone doit être au format 0[1-7] XX XX XX XX
 
 registry_treatment:
     active:

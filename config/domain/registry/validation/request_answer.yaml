@@ -1,0 +1,6 @@
+App\Domain\Registry\Model\Embeddable\RequestAnswer:
+    properties:
+        type:
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'registry_request_answer_type'
+                groups: ['default']

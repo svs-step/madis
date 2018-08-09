@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace App\Tests\Domain\Registry\Dictionary;
 
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
