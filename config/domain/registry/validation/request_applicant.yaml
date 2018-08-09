@@ -1,0 +1,27 @@
+App\Domain\Registry\Model\Embeddable\RequestApplicant:
+    properties:
+        civility:
+            - NotBlank:
+                message: 'registry_request_applicant.civility.not_blank'
+                groups: ['default']
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'registry_request_civility'
+                groups: ['default']
+        firstName:
+            - NotBlank:
+                message: 'registry_request_applicant.first_name.not_blank'
+                groups: ['default']
+        lastName:
+            - NotBlank:
+                message: 'registry_request_applicant.last_name.not_blank'
+                groups: ['default']
+        phoneNumber:
+            - Length:
+                min: 10
+                max: 10
+                exactMessage: 'registry_request_applicant.phone_number.length'
+                groups: ['default']
+            - Regex:
+                pattern: '/0[1-7][0-9]{8}/'
+                message: 'registry_request_applicant.phone_number.regex'
+                groups: ['default']

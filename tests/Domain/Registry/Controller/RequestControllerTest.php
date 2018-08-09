@@ -16,8 +16,8 @@ namespace App\Tests\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Controller\ContractorController;
-use App\Domain\Registry\Controller\ProofController;
-use App\Domain\Registry\Form\Type\ProofType;
+use App\Domain\Registry\Controller\RequestController;
+use App\Domain\Registry\Form\Type\RequestType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
@@ -25,16 +25,11 @@ use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
-use Gaufrette\Filesystem;
-use Gaufrette\FilesystemInterface;
-use Gaufrette\FilesystemMap;
-use Gaufrette\StreamWrapper;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class ProofControllerTest extends TestCase
+class RequestControllerTest extends TestCase
 {
     use ReflectionTrait;
 
@@ -49,7 +44,7 @@ class ProofControllerTest extends TestCase
     private $translatorProphecy;
 
     /**
-     * @var Repository\Proof
+     * @var Repository\Request
      */
     private $repositoryProphecy;
 
@@ -69,11 +64,6 @@ class ProofControllerTest extends TestCase
     private $userProviderProphecy;
 
     /**
-     * @var FilesystemInterface
-     */
-    private $documentFilesystemProphecy;
-
-    /**
      * @var ContractorController
      */
     private $controller;
@@ -82,20 +72,18 @@ class ProofControllerTest extends TestCase
     {
         $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
         $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);
-        $this->repositoryProphecy             = $this->prophesize(Repository\Proof::class);
+        $this->repositoryProphecy             = $this->prophesize(Repository\Request::class);
         $this->wordHandlerProphecy            = $this->prophesize(WordHandler::class);
         $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
-        $this->documentFilesystemProphecy     = $this->prophesize(FilesystemInterface::class);
 
-        $this->controller = new ProofController(
+        $this->controller = new RequestController(
             $this->managerProphecy->reveal(),
             $this->translatorProphecy->reveal(),
             $this->repositoryProphecy->reveal(),
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
-            $this->userProviderProphecy->reveal(),
-            $this->documentFilesystemProphecy->reveal()
+            $this->userProviderProphecy->reveal()
         );
     }
 
@@ -115,7 +103,7 @@ class ProofControllerTest extends TestCase
     public function testGetModel()
     {
         $this->assertEquals(
-            'proof',
+            'request',
             $this->invokeMethod($this->controller, 'getModel', [])
         );
     }
@@ -123,7 +111,7 @@ class ProofControllerTest extends TestCase
     public function testGetModelClass()
     {
         $this->assertEquals(
-            Model\Proof::class,
+            Model\Request::class,
             $this->invokeMethod($this->controller, 'getModelClass', [])
         );
     }
@@ -131,7 +119,7 @@ class ProofControllerTest extends TestCase
     public function testGetFormType()
     {
         $this->assertEquals(
-            ProofType::class,
+            RequestType::class,
             $this->invokeMethod($this->controller, 'getFormType', [])
         );
     }
@@ -219,42 +207,4 @@ class ProofControllerTest extends TestCase
             $this->invokeMethod($this->controller, 'getListData')
         );
     }
-
-    /*
-    public function testDownloadAction()
-    {
-        // Mock Wrapper
-        StreamWrapper::register();
-        $fsMap = new FilesystemMap();
-        $fsMap->set('registry_proof_document', $this->prophesize(Filesystem::class)->reveal());
-        StreamWrapper::setFilesystemMap($fsMap);
-
-        $id = 'id';
-        $objectProphecy = $this->prophesize(Model\Proof::class);
-        $objectCollectivity = $this->prophesize(Collectivity::class)->reveal();
-        $objectName = 'name';
-        $objectDocument = 'document.png';
-        $objectProphecy->getCollectivity()->shouldBeCalled()->willReturn($objectCollectivity);
-        $objectProphecy->getName()->shouldBeCalled()->willReturn($objectName);
-        $objectProphecy->getDocument()->shouldBeCalled()->willReturn($objectDocument);
-
-        $userCollectivity = $objectCollectivity;
-        $userProphecy = $this->prophesize(User::class);
-        $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($userCollectivity);
-        $this->userProviderProphecy
-            ->getAuthenticatedUser()
-            ->shouldBeCalled()
-            ->willReturn($userProphecy->reveal())
-        ;
-
-        // findAllByCollectivity must be called but not findAll
-        $this->repositoryProphecy
-            ->findOneById($id)
-            ->shouldBeCalled()
-            ->willReturn($objectProphecy->reveal())
-        ;
-
-        $this->assertInstanceOf(BinaryFileResponse::class, $this->controller->downloadAction($id));
-    }
-    */
 }
