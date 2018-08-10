@@ -17,3 +17,7 @@ _registry_request:
 _registry_treatment:
     resource: 'treatment.yaml'
     prefix:   '/traitements'
+
+_registry_violation:
+    resource: 'violation.yaml'
+    prefix:   '/violations'

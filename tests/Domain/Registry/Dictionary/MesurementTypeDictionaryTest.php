@@ -26,10 +26,10 @@ class MesurementTypeDictionaryTest extends TestCase
 
     public function testConstruct()
     {
-        $roleDictionary = new MesurementTypeDictionary();
+        $dictionary = new MesurementTypeDictionary();
 
-        $this->assertEquals('registry_mesurement_type', $roleDictionary->getName());
-        $this->assertEquals(MesurementTypeDictionary::getTypes(), $roleDictionary->getValues());
+        $this->assertEquals('registry_mesurement_type', $dictionary->getName());
+        $this->assertEquals(MesurementTypeDictionary::getTypes(), $dictionary->getValues());
     }
 
     public function testGetTypes()

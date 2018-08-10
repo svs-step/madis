@@ -26,10 +26,10 @@ class RequestAnswerTypeDictionaryTest extends TestCase
 
     public function testConstruct()
     {
-        $roleDictionary = new RequestAnswerTypeDictionary();
+        $dictionary = new RequestAnswerTypeDictionary();
 
-        $this->assertEquals('registry_request_answer_type', $roleDictionary->getName());
-        $this->assertEquals(RequestAnswerTypeDictionary::getTypes(), $roleDictionary->getValues());
+        $this->assertEquals('registry_request_answer_type', $dictionary->getName());
+        $this->assertEquals(RequestAnswerTypeDictionary::getTypes(), $dictionary->getValues());
     }
 
     public function testGetTypes()

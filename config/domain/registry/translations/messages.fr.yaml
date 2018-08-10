@@ -358,3 +358,77 @@ registry:
           security: Mesures de sécurité
           specific: Traitement spéficique
           recipients: Destination
+
+    violation:
+        action:
+            back_to_list: Retour à la liste
+            new: Nouvelle violation
+            report: Générer une impression
+        breadcrumb:
+            create: Créer
+            delete: Archiver "%name%"
+            edit: Modifier "%name%"
+            list: Liste des violations
+            show: Visualiser "%name%"
+        flashbag:
+            success:
+                create: '"%object%" créée avec succès'
+                edit: '"%object%" modifiée avec succès'
+                delete: '"%object%" archivée avec succès'
+        form:
+            applied_measures_after_violation: Mesures techniques et organisationnelles appliquées suite à la violation
+            cause: Cause de la violation
+            comment: Commentaire
+            communication: Communications aux personnes concernées
+            communication_precision: Précisions sur les communications
+            concerned_data_nature: Nature des données concernées
+            concerned_people_categories: Catégorie des personnes concernées
+            date: Date de la violation
+            gravity: Niveau de gravité
+            in_progress: La violation est toujours en cours
+            nb_affected_persons: Nombre approximatif de personnes concernés par la violation
+            nb_affected_rows: Nombre approximatif d'enregistrements concernés par la violation
+            notification: Notification
+            notification_details: Précisions sur les notifications
+            origins: Origine de la perte de données
+            potential_impacts_nature: Nature des impacts potentiels pour les personnes
+            violation_nature: Nature de la violation
+        list:
+            cause: Cause
+            collectivity: Collectivité
+            date: Date de violation
+            gravity: Niveau de gravité
+            violation_nature: Nature
+        show:
+            applied_measures_after_violation: Mesures techniques et organisationnelles appliquées suite à la violation
+            cause: Cause de la violation
+            collectivity: Collectivité
+            comment: Commentaire
+            communication: Communications aux personnes concernées
+            communication_precision: Précisions sur les communications
+            concerned_data_nature: Nature des données concernées
+            concerned_people_categories: Catégorie des personnes concernées
+            created_at: Date de création
+            creator: Créateur
+            date: Date de la violation
+            gravity: Niveau de gravité
+            in_progress: La violation est toujours en cours
+            nb_affected_persons: Nombre approximatif de personnes concernés par la violation
+            nb_affected_rows: Nombre approximatif d'enregistrements concernés par la violation
+            notification: Notification
+            notification_details: Précisions sur les notifications
+            origins: Origine de la perte de données
+            potential_impacts_nature: Nature des impacts potentiels pour les personnes
+            updated_at: Date de dernière modification
+            violation_nature: Nature de la violation
+        tab:
+            consequence: Conséquences de la violation
+            historic: Historique
+            information: Informations sur la violation
+        title:
+            create: Créer une violation
+            delete: Archiver une violation
+            edit: Modifier une violation
+            list: Liste des violations
+            show: Visualiser une violation
+

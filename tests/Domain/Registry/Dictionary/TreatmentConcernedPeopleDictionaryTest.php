@@ -26,10 +26,10 @@ class TreatmentConcernedPeopleDictionaryTest extends TestCase
 
     public function testConstruct()
     {
-        $roleDictionary = new TreatmentConcernedPeopleDictionary();
+        $dictionary = new TreatmentConcernedPeopleDictionary();
 
-        $this->assertEquals('registry_treatment_concerned_people', $roleDictionary->getName());
-        $this->assertEquals(TreatmentConcernedPeopleDictionary::getTypes(), $roleDictionary->getValues());
+        $this->assertEquals('registry_treatment_concerned_people', $dictionary->getName());
+        $this->assertEquals(TreatmentConcernedPeopleDictionary::getTypes(), $dictionary->getValues());
     }
 
     public function testGetTypes()

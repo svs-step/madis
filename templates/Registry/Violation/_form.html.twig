@@ -1,0 +1,55 @@
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+
+
+<div class="row">
+    {{ form_start(form) }}
+
+    {# LEFT #}
+    <div class="col-md-6">
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.violation.tab.information'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.date) }}
+                {{ form_row(form.inProgress) }}
+                {{ form_row(form.violationNature) }}
+                {{ form_row(form.origins) }}
+                {{ form_row(form.cause) }}
+                {{ form_row(form.concernedDataNature) }}
+                {{ form_row(form.concernedPeopleCategories) }}
+                {{ form_row(form.nbAffectedRows) }}
+                {{ form_row(form.nbAffectedPersons) }}
+            </div>
+        </div>
+    </div>
+
+    {# RIGHT #}
+    <div class="col-md-6">
+        <div class="box box-solid box-success">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.violation.tab.consequence'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.potentialImpactsNature) }}
+                {{ form_row(form.gravity) }}
+                {{ form_row(form.communication) }}
+                {{ form_row(form.communicationPrecision) }}
+                {{ form_row(form.appliedMeasuresAfterViolation) }}
+                {{ form_row(form.notification) }}
+                {{ form_row(form.notificationDetails) }}
+                {{ form_row(form.comment) }}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <a href="{{ path('registry_violation_list') }}" class="btn btn-default">
+                    {{ 'registry.violation.action.back_to_list'|trans }}
+                </a>
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+</div>
