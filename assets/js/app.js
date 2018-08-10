@@ -40,6 +40,12 @@ $(document).ready(function(){
     $('#mesurement_status').on('change', function() {
         checkMesurementStatus();
     });
+
+    // Check Request concerned people | onLoad & onChange
+    checkRequestConcernedPeople();
+    $('#request_applicant_concernedPeople').on('change', function() {
+        checkRequestConcernedPeople();
+    });
 });
 
 function checkMesurementStatus()
@@ -51,5 +57,19 @@ function checkMesurementStatus()
     etablishedCheck.prop('disabled', notApplicableCheck.is(':checked'));
     planificationDateCheck.find('select').each(function() {
         $(this).prop('disabled', notApplicableCheck.is(':checked'));
+    });
+
+
+}
+
+function checkRequestConcernedPeople() {
+    let applicantConcernedPeople = $('#request_applicant_concernedPeople');
+    let boxConcernedPeople = $('body.registry_request #box-concerned-people');
+
+    boxConcernedPeople.find('input').each(function() {
+        $(this).prop('disabled', applicantConcernedPeople.is(':checked'));
+    });
+    boxConcernedPeople.find('select').each(function() {
+        $(this).prop('disabled', applicantConcernedPeople.is(':checked'));
     });
 }

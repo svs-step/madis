@@ -40,6 +40,8 @@ registry:
                 delete: Sous-traitant "%object%" supprimé avec succès
         list:
             collectivity: Collectivité
+            contractual_clauses_verified: Clauses contractuelles vérifiées
+            conform: Conforme RGPD
             name: Nom
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce sous-traitant ?
@@ -161,6 +163,108 @@ registry:
             list: Liste des preuves
             delete: Archiver une preuve
 
+    request:
+        action:
+            back_to_list: Retour à la liste
+            new: Nouvelle demande
+        breadcrumb:
+            create: Créer
+            delete: Archiver "%name%"
+            edit: Modifier "%name%"
+            list: Liste des demandes
+            show: Visualiser "%name%"
+        flashbag:
+            success:
+                create: Demande de "%object%" créée avec succès
+                edit: Demande de "%object%" modifiée avec succès
+                delete: Demande de "%object%" archivée avec succès
+        form:
+            complete: Demande complète
+            date: Date de la demande
+            help:
+                concerned_people: Si différente du demandeur
+            legitimate_applicant: Demandeur légitime
+            legitimate_request: Demande légitime
+            object: Objet de la demande
+            other_object: Autre demande
+            reason: Motif
+        list:
+            answer_date: Date de traitement
+            collectivity: Collectivité
+            complete: Demande complète
+            concerned_people: Personne concernée
+            date: Date de la demande
+            legitimate_applicant: Demandeur légitime
+            legitimate_request: Demande légitime
+            object: Objet de la demande
+        show:
+            answer_response: Réponse apportée
+            answer_date: Date de traitement
+            answer_type: Moyen de la réponse
+            applicant_address: Adresse
+            applicant_civility: Civilité
+            applicant_concerned_people: Personne concernée
+            applicant_first_name: Prénom
+            applicant_last_name: Nom
+            applicant_mail: Email
+            applicant_phone_number: N° de téléphone
+            collectivity: Collectivité
+            complete: Demande complète
+            concerned_people_address: Adresse
+            concerned_people_civility: Civilité
+            concerned_people_first_name: Prénom
+            concerned_people_last_name: Nom
+            concerned_people_link_with_applicant: Lien avec le demandeur
+            concerned_people_mail: Email
+            concerned_people_phone_number: N° de téléphone
+            created_at: Date de création
+            creator: Créateur
+            date: Date
+            legitimate_applicant: Demandeur légitime
+            legitimate_request: Demande légitime
+            object: Objet de la demande
+            other_object: Autre demande
+            reason: Motif
+            updated_at: Date de dernière modification
+        tab:
+            answer: Réponse
+            applicant: Demandeur
+            concerned_people: Personne concernée
+            historic: Historique
+            request: Demande
+        title:
+            create: Créer une demande
+            edit: Éditer une demande
+            delete: Archiver une demande
+            list: Liste des demandes
+            show: Visualiser
+
+    request_answer:
+        form:
+            date: Date de la réponse
+            response: Réponse apportée
+            type: Moyen de la réponse
+
+    request_applicant:
+        form:
+            civility: Civilité
+            first_name: Prénom
+            last_name: Nom
+            address: Adresse
+            mail: Email
+            phone_number: N° de téléphone
+            concerned_people: Est la personne concernée
+
+    request_concerned_people:
+        form:
+            civility: Civilité
+            first_name: Prénom
+            last_name: Nom
+            address: Adresse
+            mail: Email
+            phone_number: N° de téléphone
+            link_with_applicant: Lien avec le demandeur
+
     treatment:
         action:
             active: Voir les traitements actifs
@@ -206,10 +310,10 @@ registry:
         list:
             active: Statut
             collectivity: Collectivité
+            completion: Taux de complétion
+            legal_basis: Base légale
             name: Nom
             software: Logiciel
-            completion: Taux de complétion
-            contractors: Sous-traitants
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce traitement ?
         show:

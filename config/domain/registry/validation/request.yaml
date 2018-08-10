@@ -1,0 +1,23 @@
+App\Domain\Registry\Model\Request:
+    properties:
+        object:
+            - NotBlank:
+                message: 'registry_request.object.not_blank'
+                groups: ['default']
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'registry_request_object'
+                groups: ['default']
+        date:
+            - NotBlank:
+                message: 'registry_request.date.not_blank'
+                groups: ['default']
+        reason:
+            - NotBlank:
+                message: 'registry_request.reason.not_blank'
+                groups: ['default']
+        applicant:
+            - Valid: ~
+        concernedPeople:
+            - Valid: ~
+        answer:
+            - Valid: ~

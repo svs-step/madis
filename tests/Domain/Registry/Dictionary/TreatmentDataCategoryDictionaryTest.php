@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace App\Tests\Domain\Registry\Dictionary;
 
 use App\Domain\Registry\Dictionary\TreatmentDataCategoryDictionary;
@@ -43,7 +45,6 @@ class TreatmentDataCategoryDictionaryTest extends TestCase
             TreatmentDataCategoryDictionary::CATEGORY_FAMILY_SITUATION         => 'Situation familiale',
             TreatmentDataCategoryDictionary::CATEGORY_FILIATION                => 'Filiation',
             TreatmentDataCategoryDictionary::CATEGORY_HEALTH                   => 'Santé',
-            TreatmentDataCategoryDictionary::CATEGORY_CHILD                    => 'Enfant de moins de 16 ans',
             TreatmentDataCategoryDictionary::CATEGORY_SOCIAL_NUM               => 'Numéro de Sécurité Social',
             TreatmentDataCategoryDictionary::CATEGORY_CAF_NUM                  => 'Numéro de CAF',
             TreatmentDataCategoryDictionary::CATEGORY_SYNDICATE                => 'Appartenance Syndicale',
@@ -75,7 +76,6 @@ class TreatmentDataCategoryDictionaryTest extends TestCase
             TreatmentDataCategoryDictionary::CATEGORY_FAMILY_SITUATION,
             TreatmentDataCategoryDictionary::CATEGORY_FILIATION,
             TreatmentDataCategoryDictionary::CATEGORY_HEALTH,
-            TreatmentDataCategoryDictionary::CATEGORY_CHILD,
             TreatmentDataCategoryDictionary::CATEGORY_SOCIAL_NUM,
             TreatmentDataCategoryDictionary::CATEGORY_CAF_NUM,
             TreatmentDataCategoryDictionary::CATEGORY_SYNDICATE,

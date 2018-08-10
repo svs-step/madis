@@ -15,22 +15,16 @@ namespace App\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
-use App\Domain\Registry\Form\Type\ProofType;
+use App\Domain\Registry\Form\Type\RequestType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
 use Doctrine\ORM\EntityManagerInterface;
-use Gaufrette\FilesystemInterface;
-use Ramsey\Uuid\Uuid;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class ProofController extends CRUDController
+class RequestController extends CRUDController
 {
     /**
      * @var WordHandler
@@ -47,25 +41,18 @@ class ProofController extends CRUDController
      */
     protected $userProvider;
 
-    /**
-     * @var FilesystemInterface
-     */
-    protected $documentFilesystem;
-
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
-        Repository\Proof $repository,
+        Repository\Request $repository,
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
-        UserProvider $userProvider,
-        FilesystemInterface $documentFilesystem
+        UserProvider $userProvider
     ) {
         parent::__construct($entityManager, $translator, $repository);
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
-        $this->documentFilesystem   = $documentFilesystem;
     }
 
     protected function getDomain(): string
@@ -75,17 +62,17 @@ class ProofController extends CRUDController
 
     protected function getModel(): string
     {
-        return 'proof';
+        return 'request';
     }
 
     protected function getModelClass(): string
     {
-        return Model\Proof::class;
+        return Model\Request::class;
     }
 
     protected function getFormType(): string
     {
-        return ProofType::class;
+        return RequestType::class;
     }
 
     /**
@@ -100,51 +87,27 @@ class ProofController extends CRUDController
         return $this->repository->findAllByCollectivity($this->userProvider->getAuthenticatedUser()->getCollectivity());
     }
 
-    public function formPrePersistData($object)
-    {
-        if ($file = $object->getDocumentFile()) {
-            $filename = (string) Uuid::uuid4() . '.' . $file->getClientOriginalExtension();
-            $this->documentFilesystem->write($filename, \fopen($file->getRealPath(), 'r'));
-            $object->setDocument($filename);
-            $object->setDocumentFile(null);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function isSoftDelete(): bool
     {
         return true;
     }
 
     /**
-     * Download uploaded document which belongs to provided object id.
+     * Generate a word report of contractors.
      *
-     * @param string $id
+     * @throws \PhpOffice\PhpWord\Exception\Exception
      *
      * @return Response
      */
-    public function downloadAction(string $id): Response
+    public function reportAction(): Response
     {
-        $object = $this->repository->findOneById($id);
-
-        if (!$object) {
-            throw new NotFoundHttpException("No object exists with id '{$id}'");
-        }
-
-        if ($this->userProvider->getAuthenticatedUser()->getCollectivity() !== $object->getCollectivity()) {
-            throw new AccessDeniedHttpException("You can't access to an object that does not belong to your collectivity");
-        }
-
-        $extension = \pathinfo($object->getDocument(), PATHINFO_EXTENSION);
-        $response  = new BinaryFileResponse('gaufrette://registry_proof_document/' . $object->getDocument());
-
-        $response->setContentDisposition(
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            "{$object->getName()}.{$extension}"
+        /*
+        $objects = $this->repository->findAllByCollectivity(
+            $this->userProvider->getAuthenticatedUser()->getCollectivity(),
+            ['name' => 'asc']
         );
 
-        return $response;
+        return $this->wordHandler->generateRegistryContractorReport($objects);
+        */
     }
 }

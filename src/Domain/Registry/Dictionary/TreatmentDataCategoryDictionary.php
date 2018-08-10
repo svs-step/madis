@@ -27,7 +27,6 @@ class TreatmentDataCategoryDictionary extends SimpleDictionary
     const CATEGORY_FAMILY_SITUATION         = 'family-situation';
     const CATEGORY_FILIATION                = 'filiation';
     const CATEGORY_HEALTH                   = 'health';
-    const CATEGORY_CHILD                    = 'child';
     const CATEGORY_SOCIAL_NUM               = 'social-security-number';
     const CATEGORY_CAF_NUM                  = 'caf';
     const CATEGORY_SYNDICATE                = 'syndicate';
@@ -42,32 +41,6 @@ class TreatmentDataCategoryDictionary extends SimpleDictionary
     const CATEGORY_RACIAL_ETHNIC_OPINION    = 'racial-ethnic-opinion';
     const CATEGORY_SEX_LIFE                 = 'sex-life';
 
-    /*
-     Etat civil
-o    Coordonnées postales
-o    Coordonnées téléphoniques
-o    Emails
-o    Adresse IP
-o    Géolocalisation
-o    Photos-vidéos
-o    Situation familiale
-o    Filiation
-o    Santé
-o    Enfant de moins de 16 ans
-o    Numéro de Sécurité Social
-o    Numéro de CAF
-o    Appartenance Syndicale
-o    Connexion
-o    Information bancaire
-o    Patrimoine
-o    Revenus
-o    Situation fiscale
-o    Situation bancaire
-o    Pièces d’identité
-o    Opinion politique ou religieuse
-o    Origine raciale ou ethnique
-o    Vie sexuelle
-     */
     public function __construct()
     {
         parent::__construct('registry_treatment_data_category', self::getCategories());
@@ -91,7 +64,6 @@ o    Vie sexuelle
             self::CATEGORY_FAMILY_SITUATION         => 'Situation familiale',
             self::CATEGORY_FILIATION                => 'Filiation',
             self::CATEGORY_HEALTH                   => 'Santé',
-            self::CATEGORY_CHILD                    => 'Enfant de moins de 16 ans',
             self::CATEGORY_SOCIAL_NUM               => 'Numéro de Sécurité Social',
             self::CATEGORY_CAF_NUM                  => 'Numéro de CAF',
             self::CATEGORY_SYNDICATE                => 'Appartenance Syndicale',

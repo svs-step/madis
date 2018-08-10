@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'registry_contractor list' %}
-{% set menuItem = 'registry_contractor' %}
+{% set bodyClass = 'registry_request list' %}
+{% set menuItem = 'registry_request' %}
 
-{% block title %}{{ 'registry.contractor.title.list'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'registry.request.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'registry.contractor.title.list'|trans }}</h1>
+    <h1>{{ 'registry.request.title.list'|trans }}</h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'registry.contractor.title.list'|trans }
+        { 'name': 'registry.request.title.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -25,15 +25,17 @@
             <div class="col-xs-12">
                 <div class="action-bar">
                     {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('registry_contractor_create') }}" class="btn btn-default">
+                    <a href="{{ path('registry_request_create') }}" class="btn btn-default">
                         <i class="fa fa-plus"></i>
-                        {{ 'registry.contractor.action.new'|trans }}
+                        {{ 'registry.request.action.new'|trans }}
                     </a>
                     {% endif %}
-                    <a href="{{ path('registry_contractor_report') }}" class="btn btn-default">
+                    {#
+                    <a href="{{ path('registry_request_report') }}" class="btn btn-default">
                         <i class="fa fa-clipboard-list"></i>
-                        {{ 'registry.contractor.action.report'|trans }}
+                        {{ 'registry.request.action.report'|trans }}
                     </a>
+                    #}
                 </div>
             </div>
 
@@ -46,12 +48,16 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>{{ 'registry.contractor.list.name'|trans }}</th>
                             {% if is_granted('ROLE_ADMIN') %}
-                                <th>{{ 'registry.contractor.list.collectivity'|trans }}</th>
+                                <th>{{ 'registry.request.list.collectivity'|trans }}</th>
                             {% endif %}
-                            <th>{{ 'registry.contractor.list.contractual_clauses_verified'|trans }}</th>
-                            <th>{{ 'registry.contractor.list.conform'|trans }}</th>
+                            <th>{{ 'registry.request.list.concerned_people'|trans }}</th>
+                            <th>{{ 'registry.request.list.date'|trans }}</th>
+                            <th>{{ 'registry.request.list.object'|trans }}</th>
+                            <th>{{ 'registry.request.list.complete'|trans }}</th>
+                            <th>{{ 'registry.request.list.legitimate_applicant'|trans }}</th>
+                            <th>{{ 'registry.request.list.legitimate_request'|trans }}</th>
+                            <th>{{ 'registry.request.list.answer_date'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th>{{ 'label.actions'|trans }}</th>
                             {% endif %}
@@ -60,40 +66,52 @@
                         <tbody>
                         {% for object in objects %}
                         <tr>
-                            <td>
-                                <a href="{{ path('registry_contractor_show', {'id': object.id}) }}">
-                                    {{ object.name }}
-                                </a>
-                            </td>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <td>{{ object.collectivity }}</td>
                             {% endif %}
                             <td>
-                                {% if object.contractualClausesVerified %}
+                                <a href="{{ path('registry_request_show', {'id': object.id}) }}">
+                                    {% if object.applicant.concernedPeople or ' ' == object.concernedPeople.fullName %}
+                                        {{ object.applicant.fullName }}
+                                    {% else %}
+                                        {{ object.concernedPeople.fullName }}
+                                    {% endif %}
+                                </a>
+                            </td>
+                            <td>{{ object.date|date('d/m/Y') }}</td>
+                            <td>{{ object.object|dictionary('registry_request_object') }}</td>
+                            <td>
+                                {% if object.complete %}
                                     <span class="label label-success">{{ 'label.yes'|trans }}</span>
                                 {% else %}
                                     <span class="label label-danger">{{ 'label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                             <td>
-                                {% if object.conform %}
+                                {% if object.legitimateApplicant %}
                                     <span class="label label-success">{{ 'label.yes'|trans }}</span>
                                 {% else %}
                                     <span class="label label-danger">{{ 'label.no'|trans }}</span>
                                 {% endif %}
                             </td>
+                            <td>
+                                {% if object.legitimateRequest %}
+                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{% if object.answer.date is not null %}{{ object.answer.date|date('d/m/Y') }}{% endif %}</td>
                             {% if is_granted('ROLE_USER') %}
                                 <td>
-                                    <a href="{{ path('registry_contractor_edit', { 'id': object.id }) }}">
+                                    <a href="{{ path('registry_request_edit', { 'id': object.id }) }}">
                                         <i class="fa fa-pencil-alt"></i>
                                         {{ 'action.edit'|trans }}
                                     </a>
-                                    {% if object.treatments|length == 0 %}
-                                    <a href="{{ path('registry_contractor_delete', { 'id': object.id }) }}">
+                                    <a href="{{ path('registry_request_delete', { 'id': object.id }) }}">
                                         <i class="fa fa-trash"></i>
-                                        {{ 'action.delete'|trans }}
+                                        {{ 'action.archive'|trans }}
                                     </a>
-                                    {% endif %}
                                 </td>
                             {% endif %}
                         </tr>

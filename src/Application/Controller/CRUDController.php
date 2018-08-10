@@ -173,6 +173,7 @@ abstract class CRUDController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->formPrePersistData($object);
+            dump($object);
             $em = $this->getDoctrine()->getManager();
             $em->persist($object);
             $em->flush();
@@ -295,7 +296,7 @@ abstract class CRUDController extends Controller
      *
      * @return bool
      */
-    public function isSoftDelete(): bool
+    protected function isSoftDelete(): bool
     {
         return false;
     }
