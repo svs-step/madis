@@ -26,10 +26,10 @@ class RequestCivilityDictionaryTest extends TestCase
 
     public function testConstruct()
     {
-        $roleDictionary = new RequestCivilityDictionary();
+        $dictionary = new RequestCivilityDictionary();
 
-        $this->assertEquals('registry_request_civility', $roleDictionary->getName());
-        $this->assertEquals(RequestCivilityDictionary::getCivilities(), $roleDictionary->getValues());
+        $this->assertEquals('registry_request_civility', $dictionary->getName());
+        $this->assertEquals(RequestCivilityDictionary::getCivilities(), $dictionary->getValues());
     }
 
     public function testGetRoles()

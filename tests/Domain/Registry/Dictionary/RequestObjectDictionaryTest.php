@@ -26,10 +26,10 @@ class RequestObjectDictionaryTest extends TestCase
 
     public function testConstruct()
     {
-        $roleDictionary = new RequestObjectDictionary();
+        $dictionary = new RequestObjectDictionary();
 
-        $this->assertEquals('registry_request_object', $roleDictionary->getName());
-        $this->assertEquals(RequestObjectDictionary::getObjects(), $roleDictionary->getValues());
+        $this->assertEquals('registry_request_object', $dictionary->getName());
+        $this->assertEquals(RequestObjectDictionary::getObjects(), $dictionary->getValues());
     }
 
     public function testGetRoles()

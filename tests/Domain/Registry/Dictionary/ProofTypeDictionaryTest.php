@@ -26,10 +26,10 @@ class ProofTypeDictionaryTest extends TestCase
 
     public function testConstruct()
     {
-        $roleDictionary = new ProofTypeDictionary();
+        $dictionary = new ProofTypeDictionary();
 
-        $this->assertEquals('registry_proof_type', $roleDictionary->getName());
-        $this->assertEquals(ProofTypeDictionary::getTypes(), $roleDictionary->getValues());
+        $this->assertEquals('registry_proof_type', $dictionary->getName());
+        $this->assertEquals(ProofTypeDictionary::getTypes(), $dictionary->getValues());
     }
 
     public function testGetTypes()

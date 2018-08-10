@@ -28,6 +28,12 @@
                 <span>Demandes</span>
             </a>
         </li>
+        <li {% if menuItem == 'registry_violation' %}class="active"{% endif %}>
+            <a href="{{ path('registry_violation_list') }}">
+                <i class="fa fa-exclamation-circle"></i>
+                <span>Violations</span>
+            </a>
+        </li>
 
         {# PROOF #}
         <li class="header">Preuves</li>

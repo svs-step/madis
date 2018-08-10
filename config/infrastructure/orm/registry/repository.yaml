@@ -12,3 +12,4 @@ services:
     App\Domain\Registry\Repository\Proof: '@App\Infrastructure\ORM\Registry\Repository\Proof'
     App\Domain\Registry\Repository\Request: '@App\Infrastructure\ORM\Registry\Repository\Request'
     App\Domain\Registry\Repository\Treatment: '@App\Infrastructure\ORM\Registry\Repository\Treatment'
+    App\Domain\Registry\Repository\Violation: '@App\Infrastructure\ORM\Registry\Repository\Violation'

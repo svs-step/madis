@@ -70,3 +70,31 @@ registry_treatment:
         not_blank: Vous devez renseigner une base légale
     name:
         not_blank: Vous devez renseigner un nom
+
+registry_violation:
+    applied_measures_after_violation:
+        not_blank: Vous devez renseigner les mesures apportées à la suite de la violation
+    cause:
+        not_blank: Vous devez sélectionner la cause de la violation
+    communication:
+        not_blank: Vous devez sélectionner la communication apportée pour la violation
+    concerned_data_nature:
+        not_blank: Vous devez sélectionner les données concernées par la violation
+    concerned_people_categories:
+        not_blank: Vous devez sélectionner les personnes concernées par la violation
+    date:
+        not_null: Vous devez saisir une date de violation
+    gravity:
+        not_blank: Vous devez sélectionner le niveau de gravité de la violation
+    nb_affected_rows:
+        not_blank: Vous devez saisir un nombre
+    nb_affected_persons:
+        not_blank: Vous devez saisir un nombre
+    notification:
+        not_blank: Vous devez sélectionner qui est/va être notifié de la violation
+    origins:
+        not_blank: Vous devez sélectionner l'origine de la violation
+    potential_impacts_nature:
+        not_blank: Vous devez sélectionner les impacts de la violation
+    violation_nature:
+        not_blank: Vous devez sélectionner la nature de la violation

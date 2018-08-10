@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_violation form create' %}
+{% set menuItem = 'registry_violation' %}
+
+{% block title %}{{ 'registry.violation.title.create'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'registry.violation.title.create'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.violation.breadcrumb.list'|trans, 'link': path('registry_violation_list') },
+        { 'name': 'registry.violation.breadcrumb.create'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('Registry/Violation/_form.html.twig') }}
+{% endblock %}

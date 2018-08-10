@@ -26,10 +26,10 @@ class TreatmentDataCategoryDictionaryTest extends TestCase
 
     public function testConstruct()
     {
-        $roleDictionary = new TreatmentDataCategoryDictionary();
+        $dictionary = new TreatmentDataCategoryDictionary();
 
-        $this->assertEquals('registry_treatment_data_category', $roleDictionary->getName());
-        $this->assertEquals(TreatmentDataCategoryDictionary::getCategories(), $roleDictionary->getValues());
+        $this->assertEquals('registry_treatment_data_category', $dictionary->getName());
+        $this->assertEquals(TreatmentDataCategoryDictionary::getCategories(), $dictionary->getValues());
     }
 
     public function testGetRoles()
