@@ -26,10 +26,10 @@ class TreatmentLegalBasisDictionaryTest extends TestCase
 
     public function testConstruct()
     {
-        $roleDictionary = new TreatmentLegalBasisDictionary();
+        $dictionary = new TreatmentLegalBasisDictionary();
 
-        $this->assertEquals('registry_treatment_legal_basis', $roleDictionary->getName());
-        $this->assertEquals(TreatmentLegalBasisDictionary::getBasis(), $roleDictionary->getValues());
+        $this->assertEquals('registry_treatment_legal_basis', $dictionary->getName());
+        $this->assertEquals(TreatmentLegalBasisDictionary::getBasis(), $dictionary->getValues());
     }
 
     public function testGetBasis()

@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_violation list' %}
+{% set menuItem = 'registry_violation' %}
+
+{% block title %}{{ 'registry.violation.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'registry.violation.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.violation.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+            <div class="col-xs-12">
+                <div class="action-bar">
+                    {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('registry_violation_create') }}" class="btn btn-default">
+                        <i class="fa fa-plus"></i>
+                        {{ 'registry.violation.action.new'|trans }}
+                    </a>
+                    {% endif %}
+                    {#
+                    <a href="{{ path('registry_violation_report') }}" class="btn btn-default">
+                        <i class="fa fa-clipboard-list"></i>
+                        {{ 'registry.violation.action.report'|trans }}
+                    </a>
+                    #}
+                </div>
+            </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>{{ 'registry.violation.list.collectivity'|trans }}</th>
+                            {% endif %}
+                            <th>{{ 'registry.violation.list.date'|trans }}</th>
+                            <th>{{ 'registry.violation.list.violation_nature'|trans }}</th>
+                            <th>{{ 'registry.violation.list.cause'|trans }}</th>
+                            <th>{{ 'registry.violation.list.gravity'|trans }}</th>
+                            {% if is_granted('ROLE_USER') %}
+                                <th>{{ 'label.actions'|trans }}</th>
+                            {% endif %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+                        <tr>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td>{{ object.collectivity }}</td>
+                            {% endif %}
+                            <td>
+                                <a href="{{ path('registry_violation_show', { 'id':object.id }) }}">
+                                    {{ object.date|date('d/m/Y') }}
+                                </a>
+                            </td>
+                            <td>{{ object.violationNature|dictionary('registry_violation_nature') }}</td>
+                            <td>{{ object.cause|dictionary('registry_violation_cause') }}</td>
+                            <td>{{ object.gravity|dictionary('registry_violation_gravity') }}</td>
+                            {% if is_granted('ROLE_USER') %}
+                                <td>
+                                    <a href="{{ path('registry_violation_edit', { 'id': object.id }) }}">
+                                        <i class="fa fa-pencil-alt"></i>
+                                        {{ 'action.edit'|trans }}
+                                    </a>
+                                    <a href="{{ path('registry_violation_delete', { 'id': object.id }) }}">
+                                        <i class="fa fa-trash"></i>
+                                        {{ 'action.archive'|trans }}
+                                    </a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(function () {
+            var paging = false;
+            {% if is_granted('ROLE_ADMIN') %}
+            paging = true;
+            {% endif %}
+
+            $('#table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
+                },
+                'paging'      : paging,
+                'lengthChange': false,
+                'searching'   : true,
+                'ordering'    : true,
+                'info'        : false,
+                'autoWidth'   : false,
+            });
+        });
+    </script>
+{% endblock %}

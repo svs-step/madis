@@ -26,10 +26,10 @@ class DelayPeriodDictionaryTest extends TestCase
 
     public function testConstruct()
     {
-        $roleDictionary = new DelayPeriodDictionary();
+        $dictionary = new DelayPeriodDictionary();
 
-        $this->assertEquals('registry_delay_period', $roleDictionary->getName());
-        $this->assertEquals(DelayPeriodDictionary::getPeriods(), $roleDictionary->getValues());
+        $this->assertEquals('registry_delay_period', $dictionary->getName());
+        $this->assertEquals(DelayPeriodDictionary::getPeriods(), $dictionary->getValues());
     }
 
     public function testGetPeriods()

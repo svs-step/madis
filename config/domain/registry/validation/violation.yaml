@@ -1,0 +1,91 @@
+App\Domain\Registry\Model\Violation:
+    properties:
+        date:
+            - NotNull:
+                message: 'registry_violation.date.not_null'
+                groups: ['default']
+        violationNature:
+            - NotBlank:
+                message: 'registry_violation.violation_nature.not_blank'
+                groups: ['default']
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'registry_violation_nature'
+                groups: ['default']
+        origins:
+            - NotBlank:
+                message: 'registry_violation.origins.not_blank'
+                groups: ['default']
+            - All:
+                - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                    name: 'registry_violation_origin'
+                    groups: ['default']
+        cause:
+            - NotBlank:
+                message: 'registry_violation.cause.not_blank'
+                groups: ['default']
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'registry_violation_cause'
+                groups: ['default']
+        concernedDataNature:
+            - NotBlank:
+                message: 'registry_violation.concerned_data_nature.not_blank'
+                groups: ['default']
+            - All:
+                - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                    name: 'registry_violation_concerned_data'
+                    groups: ['default']
+        concernedPeopleCategories:
+            - NotBlank:
+                message: 'registry_violation.concerned_people_categories.not_blank'
+                groups: ['default']
+            - All:
+                - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                    name: 'registry_violation_concerned_people'
+                    groups: ['default']
+        nbAffectedRows:
+            - NotBlank:
+                message: 'registry_violation.nb_affected_rows.not_blank'
+                groups: ['default']
+            - GreaterThan:
+                value: 0
+                groups: ['default']
+        nbAffectedPersons:
+            - NotBlank:
+                message: 'registry_violation.nb_affected_persons.not_blank'
+                groups: ['default']
+            - GreaterThan:
+                value: 0
+                groups: ['default']
+        potentialImpactsNature:
+            - NotBlank:
+                message: 'registry_violation.potential_impacts_nature.not_blank'
+                groups: ['default']
+            - All:
+                - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                    name: 'registry_violation_impact'
+                    groups: ['default']
+        gravity:
+            - NotBlank:
+                message: 'registry_violation.gravity.not_blank'
+                groups: ['default']
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'registry_violation_gravity'
+                groups: ['default']
+        communication:
+            - NotBlank:
+                message: 'registry_violation.communication.not_blank'
+                groups: ['default']
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'registry_violation_communication'
+                groups: ['default']
+        appliedMeasuresAfterViolation:
+            - NotBlank:
+                message: 'registry_violation.applied_measures_after_violation.not_blank'
+                groups: ['default']
+        notification:
+            - NotBlank:
+                message: 'registry_violation.notification.not_blank'
+                groups: ['default']
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'registry_violation_notification'
+                groups: ['default']
