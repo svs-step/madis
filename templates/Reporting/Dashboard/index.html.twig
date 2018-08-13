@@ -124,7 +124,7 @@
         {# DETAIL : TREATMENTS #}
         <div class="col-md-6 col-xs-12">
             <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">Indice de maturité</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">Traitements numérisés</h3></div>
                 <div class="box-body">
                     {% if 0 == data.treatment.value.numeric %}
                         Aucun traitement utilisable pour ce graphe
@@ -227,7 +227,7 @@
             barChart(
                 'treatment-bar',
                 treatmentLabels,
-                ['Oui', 'Non'],
+                ['Conforme', 'Non conforme'],
                 [treatmentDatasetYes, treatmentDatasetNo],
                 [colorBlueOpacity, colorRedOpacity]
             );
