@@ -77,7 +77,10 @@ function barChart(id, labels, serieLabel, data, color) {
                     }
                 }],
                 yAxes: [{
-                    beginAtZero: true,
+                    ticks : {
+                        beginAtZero: true,
+                        stepSize: 1,
+                    },
                 }]
             }
         },
