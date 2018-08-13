@@ -10,6 +10,7 @@ Encore
     .enableVersioning(Encore.isProduction())
 
     .addEntry('js/app', './assets/js/app.js')
+    .addEntry('js/dashboard', './assets/js/dashboard.js')
     .addStyleEntry('css/app', './assets/css/app.scss')
 
     .enableSassLoader()
