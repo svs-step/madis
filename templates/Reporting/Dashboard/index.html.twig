@@ -17,54 +17,100 @@
 
 {% block body %}
 
-    {% if is_granted('ROLE_ADMIN') %}
     <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="fa fa-briefcase"></i></span>
 
-                <div class="info-box-content">
-                    <span class="info-box-text">Collectivités</span>
-                    <span class="info-box-number">{{ data.collectivity }}</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Utilisateurs</span>
-                    <span class="info-box-number">{{ data.user }}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-
-
-    <div class="row">
-        <div class="col-xs-6 col-lg-3">
+        {# DETAIL : CONTRACTOR #}
+        <div class="col-md-6 col-xs-12">
             <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'reporting.dashboard.tab.contractor'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <div class="col-sm-6 text-center">
+                <div class="box-header with-border"><h3 class="box-title">Sous-traitants</h3></div>
+                <div class="box-body">
+                    <div class="col-md-4 col-md-offset-1 col-xs-6 text-center">
                         <canvas id="contractor-clauses" width="400" height="400"></canvas>
                         <p>{{ 'reporting.dashboard.contractor.contractual_clauses_verified.title'|trans }}</p>
                     </div>
-                    <div class="col-sm-6 text-center">
+                    <div class="col-md-4 col-md-offset-1 col-xs-6 text-center">
                         <canvas id="contractor-conform" width="400" height="400"></canvas>
                         <p>{{ 'reporting.dashboard.contractor.conform.title'|trans }}</p>
                     </div>
                 </div>
             </div>
         </div>
+
+        {# TILES #}
+        <div class="col-md-6 col-xs-12">
+
+            {# REQUEST #}
+            <div class="col-sm-6 col-xs-12">
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>{{ data.request.value.toProcess }}</h3>
+
+                        <p>Demandes à traiter</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <a href="{{ path('registry_request_list') }}" class="small-box-footer">
+                        Plus d'informations <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            {# MESUREMENT : planified actions #}
+            <div class="col-sm-6 col-xs-12">
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{ data.mesurement.value.planified }}</h3>
+                        <p>Actions planifiées</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-crosshairs"></i>
+                    </div>
+                    <a href="{{ path('registry_mesurement_action_plan') }}" class="small-box-footer">
+                        Plus d'informations <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            {# VIOLATION #}
+            <div class="col-sm-6 col-xs-12">
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>{{ data.violation.value.all }}</h3>
+                        <p>Violations</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-exclamation-circle"></i>
+                    </div>
+                    <a href="{{ path('registry_violation_list') }}" class="small-box-footer">
+                        Plus d'informations <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            {# MESUREMENT : applied #}
+            <div class="col-sm-6 col-xs-12">
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>{{ data.mesurement.value.applied }}</h3>
+                        <p>Actions mises en place</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-adjust"></i>
+                    </div>
+                    <a href="{{ path('registry_mesurement_list') }}" class="small-box-footer">
+                        Plus d'informations <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-xs-6">
+        {# DETAIL : MATURITY #}
+        <div class="col-md-6 col-xs-12">
             <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'reporting.dashboard.tab.maturity'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">Indice de maturité</h3></div>
                 <div class="box-body">
                     {% if data.maturity is empty %}
                         Aucun indice à afficher
@@ -74,27 +120,48 @@
                 </div>
             </div>
         </div>
-    </div>
 
+        {# DETAIL : TREATMENTS #}
+        <div class="col-md-6 col-xs-12">
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">Indice de maturité</h3></div>
+                <div class="box-body">
+                    {% if 0 == data.treatment.value.numeric %}
+                        Aucun traitement utilisable pour ce graphe
+                    {% else %}
+                        <canvas id="treatment-bar"></canvas>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+    <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+    <script src="{{ asset('build/js/dashboard.js') }}"></script>
     <script>
         let labelYes = '{{ 'label.yes'|trans }}';
         let labelNo = '{{ 'label.no'|trans }}';
     </script>
-    <script src="{{ asset('assets/js/dashboard.js') }}"></script>
     <script>
         let colorBlue = 'rgba(54, 162, 235, 1)';
         let colorBlueOpacity = 'rgba(54, 162, 235, 0.5)';
+        let colorGreen = ' rgba(48, 183, 44, 1)';
+        let colorGreenOpacity = ' rgba(48, 183, 44, 0.5)';
         let colorRed = 'rgba(255, 99, 132, 1)';
         let colorRedOpacity = 'rgba(255, 99, 132, 0.5)';
+
+        let labelYesNo = [labelYes, labelNo];
 
         // CONTRACTOR
         let contractorClausesData = [{{ data.contractor.clauses.yes }}, {{ data.contractor.clauses.no }}];
         let contractorConformData = [{{ data.contractor.conform.yes }}, {{ data.contractor.conform.no }}];
+
+        // MESUREMENT
+        let mesurementStatusData = [{{ data.mesurement.value.applied }}, {{ data.mesurement.value.planified }}, {{ data.mesurement.value.notApplied }}];
 
         // MATURITY
         let maturityLabels = [];
@@ -118,16 +185,33 @@
             maturityData.push(tmpData2);
         {% endif %}
 
+        // TREATMENT
+        let treatmentLabels = [
+            'Contrôle d\'accès',
+            'Tracabilité',
+            'Sauvegarde',
+            'Mises à jour',
+            'Autres',
+        ];
+        let treatmentDatasetYes = [];
+        let treatmentDatasetNo = [];
+        {% for key, item in data.treatment.value.data %}
+            treatmentDatasetYes.push('{{ attribute(item, 'yes') }}');
+            treatmentDatasetNo.push('{{ attribute(item, 'no') }}');
+        {% endfor %}
+
         // LOAD GRAPHS
         $(document).ready(function() {
             doughnutChart(
                 'contractor-clauses',
+                labelYesNo,
                 contractorClausesData,
                 [colorBlue, colorRed]
             );
 
             doughnutChart(
                 'contractor-conform',
+                labelYesNo,
                 contractorConformData,
                 [colorBlue, colorRed]
             );
@@ -137,6 +221,14 @@
                 maturityLabels,
                 maturitySerieLabel,
                 maturityData,
+                [colorBlueOpacity, colorRedOpacity]
+            );
+
+            barChart(
+                'treatment-bar',
+                treatmentLabels,
+                ['Oui', 'Non'],
+                [treatmentDatasetYes, treatmentDatasetNo],
                 [colorBlueOpacity, colorRedOpacity]
             );
         });

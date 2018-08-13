@@ -356,7 +356,7 @@ registry:
           general: Informations générales
           historic: Historique
           security: Mesures de sécurité
-          specific: Traitement spéficique
+          specific: Traitement spécifique
           recipients: Destination
 
     violation:
