@@ -140,13 +140,12 @@
 {% block javascripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
-    <script src="{{ asset('assets/js/dashboard.js') }}"></script>
-    <script src="{{ asset('build/js/dashboard.js') }}"></script>
+
+    {# DEFINE DATA #}
     <script>
         let labelYes = '{{ 'label.yes'|trans }}';
         let labelNo = '{{ 'label.no'|trans }}';
-    </script>
-    <script>
+
         let colorBlue = 'rgba(54, 162, 235, 1)';
         let colorBlueOpacity = 'rgba(54, 162, 235, 0.5)';
         let colorGreen = ' rgba(48, 183, 44, 1)';
@@ -199,38 +198,8 @@
             treatmentDatasetYes.push('{{ attribute(item, 'yes') }}');
             treatmentDatasetNo.push('{{ attribute(item, 'no') }}');
         {% endfor %}
-
-        // LOAD GRAPHS
-        $(document).ready(function() {
-            doughnutChart(
-                'contractor-clauses',
-                labelYesNo,
-                contractorClausesData,
-                [colorBlue, colorRed]
-            );
-
-            doughnutChart(
-                'contractor-conform',
-                labelYesNo,
-                contractorConformData,
-                [colorBlue, colorRed]
-            );
-
-            radarChart(
-                'maturity-radar',
-                maturityLabels,
-                maturitySerieLabel,
-                maturityData,
-                [colorBlueOpacity, colorRedOpacity]
-            );
-
-            barChart(
-                'treatment-bar',
-                treatmentLabels,
-                ['Conforme', 'Non conforme'],
-                [treatmentDatasetYes, treatmentDatasetNo],
-                [colorBlueOpacity, colorRedOpacity]
-            );
-        });
     </script>
+
+    {# USE DATA & DEFINE GRAPH #}
+    <script src="{{ asset('build/js/dashboard.js') }}"></script>
 {% endblock %}
