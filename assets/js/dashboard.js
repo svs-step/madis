@@ -82,5 +82,37 @@ function barChart(id, labels, serieLabel, data, color) {
             }
         },
     });
-
 }
+
+// LOAD GRAPHS
+$(document).ready(function() {
+    doughnutChart(
+        'contractor-clauses',
+        labelYesNo,
+        contractorClausesData,
+        [colorBlue, colorRed]
+    );
+
+    doughnutChart(
+        'contractor-conform',
+        labelYesNo,
+        contractorConformData,
+        [colorBlue, colorRed]
+    );
+
+    radarChart(
+        'maturity-radar',
+        maturityLabels,
+        maturitySerieLabel,
+        maturityData,
+        [colorBlueOpacity, colorRedOpacity]
+    );
+
+    barChart(
+        'treatment-bar',
+        treatmentLabels,
+        ['Conforme', 'Non conforme'],
+        [treatmentDatasetYes, treatmentDatasetNo],
+        [colorBlueOpacity, colorRedOpacity]
+    );
+});
