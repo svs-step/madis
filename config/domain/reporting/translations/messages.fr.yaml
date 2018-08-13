@@ -12,3 +12,6 @@ reporting:
                 title: Clauses contractuelles vérifiées
             conform:
                 title: Conforme RGPD
+        mesurement:
+            status:
+                title: Actions de protection
