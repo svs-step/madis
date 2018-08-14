@@ -27,6 +27,8 @@
         <field name="dataCrossing" column="data_crossing" type="boolean"/>
         <field name="active" column="active" type="boolean"/>
         <field name="completion" column="completion" type="integer"/>
+        <field name="template" column="template" type="boolean"/>
+        <field name="templateIdentifier" column="template_identifier" type="integer" nullable="true"/>
 
         <embedded name="delay" class="App\Domain\Registry\Model\Embeddable\Delay" column-prefix="delay_"/>
         <embedded name="securityAccessControl" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_access_control_"/>

@@ -194,6 +194,16 @@ class Treatment
      */
     private $completion;
 
+    /**
+     * @var bool
+     */
+    private $template;
+
+    /**
+     * @var int
+     */
+    private $templateIdentifier;
+
     public function __construct()
     {
         $this->id                    = Uuid::uuid4();
@@ -213,6 +223,7 @@ class Treatment
         $this->dataCrossing          = false;
         $this->active                = true;
         $this->completion            = 0;
+        $this->template              = false;
     }
 
     public function __toString(): string
@@ -628,5 +639,37 @@ class Treatment
     public function setCompletion(int $completion): void
     {
         $this->completion = $completion;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTemplate(): bool
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param bool $template
+     */
+    public function setTemplate(bool $template): void
+    {
+        $this->template = $template;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getTemplateIdentifier(): ?int
+    {
+        return $this->templateIdentifier;
+    }
+
+    /**
+     * @param int|null $templateIdentifier
+     */
+    public function setTemplateIdentifier(?int $templateIdentifier): void
+    {
+        $this->templateIdentifier = $templateIdentifier;
     }
 }
