@@ -159,7 +159,7 @@
                         <tbody>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
-                            <td>{{ object.itManager.civility|dictionary('user_contact_civility') }}</td>
+                            <td>{% if object.itManager.civility is not null %}{{ object.itManager.civility|dictionary('user_contact_civility') }}{% endif %}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
