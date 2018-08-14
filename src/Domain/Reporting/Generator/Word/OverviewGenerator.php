@@ -85,7 +85,7 @@ class OverviewGenerator extends AbstractGenerator
         $section->addListItem("{$legalManagerCivility} {$legalManager->getFullName()}, {$legalManager->getJob()}");
 
         $referent         = $collectivity->getReferent();
-        $referentCivility = ContactCivilityDictionary::getCivilities()[$referent->getCivility()];
+        $referentCivility = $referent->getCivility() ? ContactCivilityDictionary::getCivilities()[$referent->getCivility()] : null;
         $section->addListItem("{$referentCivility} {$referent->getFullName()}, {$referent->getJob()}");
 
         $itManager = $collectivity->getItManager();
