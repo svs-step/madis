@@ -55,9 +55,19 @@ class ReviewController extends Controller
     private $mesurementRepository;
 
     /**
+     * @var Repository\Request
+     */
+    private $requestRepository;
+
+    /**
      * @var MaturityRepository\Survey;
      */
     private $surveyRepository;
+
+    /**
+     * @var Repository\Violation
+     */
+    private $violationRepository;
 
     public function __construct(
         WordHandler $wordHandler,
@@ -66,6 +76,8 @@ class ReviewController extends Controller
         Repository\Treatment $treatmentRepository,
         Repository\Contractor $contractorRepository,
         Repository\Mesurement $mesurementRepository,
+        Repository\Request $requestRepository,
+        Repository\Violation $violationRepository,
         MaturityRepository\Survey $surveyRepository
     ) {
         $this->wordHandler          = $wordHandler;
@@ -74,6 +86,8 @@ class ReviewController extends Controller
         $this->treatmentRepository  = $treatmentRepository;
         $this->contractorRepository = $contractorRepository;
         $this->mesurementRepository = $mesurementRepository;
+        $this->requestRepository    = $requestRepository;
+        $this->violationRepository  = $violationRepository;
         $this->surveyRepository     = $surveyRepository;
     }
 
@@ -108,7 +122,9 @@ class ReviewController extends Controller
             $this->treatmentRepository->findAllActiveByCollectivity($collectivity),
             $this->contractorRepository->findAllByCollectivity($collectivity),
             $this->mesurementRepository->findAllByCollectivity($collectivity),
-            $maturity
+            $maturity,
+            $this->requestRepository->findAllByCollectivity($collectivity),
+            $this->violationRepository->findAllByCollectivity($collectivity)
         );
     }
 }

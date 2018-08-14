@@ -61,6 +61,16 @@ class ReviewControllerTest extends TestCase
     private $surveyRepositoryProphecy;
 
     /**
+     * @var RegistryRepository\Request
+     */
+    private $requestRepositoryProphecy;
+
+    /**
+     * @var RegistryRepository\Violation
+     */
+    private $violationRepositoryProphecy;
+
+    /**
      * @var ReviewController
      */
     private $controller;
@@ -74,6 +84,8 @@ class ReviewControllerTest extends TestCase
         $this->contractorRepositoryProphecy   = $this->prophesize(RegistryRepository\Contractor::class);
         $this->mesurementRepositoryProphecy   = $this->prophesize(RegistryRepository\Mesurement::class);
         $this->surveyRepositoryProphecy       = $this->prophesize(MaturityRepository\Survey::class);
+        $this->requestRepositoryProphecy      = $this->prophesize(RegistryRepository\Request::class);
+        $this->violationRepositoryProphecy    = $this->prophesize(RegistryRepository\Violation::class);
 
         $this->controller = new ReviewController(
             $this->wordHandlerProphecy->reveal(),
@@ -82,6 +94,8 @@ class ReviewControllerTest extends TestCase
             $this->treatmentRepositoryProphecy->reveal(),
             $this->contractorRepositoryProphecy->reveal(),
             $this->mesurementRepositoryProphecy->reveal(),
+            $this->requestRepositoryProphecy->reveal(),
+            $this->violationRepositoryProphecy->reveal(),
             $this->surveyRepositoryProphecy->reveal()
         );
     }
@@ -100,6 +114,8 @@ class ReviewControllerTest extends TestCase
         $mesurements      = [];
         $survey           = [];
         $maturity         = $survey;
+        $requests         = [];
+        $violations       = [];
         $responseProphecy = $this->prophesize(BinaryFileResponse::class);
 
         $userProphecy = $this->prophesize(UserModel\User::class);
@@ -110,8 +126,10 @@ class ReviewControllerTest extends TestCase
         $this->contractorRepositoryProphecy->findAllByCollectivity($collectivity)->shouldBeCalled()->willReturn($contractors);
         $this->mesurementRepositoryProphecy->findAllByCollectivity($collectivity)->shouldBeCalled()->willReturn($mesurements);
         $this->surveyRepositoryProphecy->findAllByCollectivity($collectivity, ['createdAt' => 'DESC'], 2)->shouldBeCalled()->willReturn($survey);
+        $this->requestRepositoryProphecy->findAllByCollectivity($collectivity)->shouldBeCalled()->willReturn($requests);
+        $this->violationRepositoryProphecy->findAllByCollectivity($collectivity)->shouldBeCalled()->willReturn($violations);
         $this->wordHandlerProphecy
-            ->generateOverviewReport($treatments, $contractors, $mesurements, $maturity)
+            ->generateOverviewReport($treatments, $contractors, $mesurements, $maturity, $requests, $violations)
             ->shouldBeCalled()
             ->willReturn($responseProphecy->reveal())
         ;

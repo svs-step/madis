@@ -347,14 +347,18 @@ abstract class AbstractGenerator implements GeneratorInterface
     /**
      * Format a date for Word document.
      *
-     * @param \DateTimeInterface $dateTime The date to parse
+     * @param \DateTimeInterface|null $dateTime The date to parse
      *
      * @throws \Exception
      *
      * @return string The parsed date with the good timezone
      */
-    protected function getDate(\DateTimeInterface $dateTime, string $format = null): string
+    protected function getDate(?\DateTimeInterface $dateTime, string $format = null): string
     {
+        if (\is_null($dateTime)) {
+            return '';
+        }
+
         $format = $format ?? self::DATE_TIME_FORMAT;
 
         $parsedDateTime = new \DateTimeImmutable();

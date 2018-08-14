@@ -17,7 +17,9 @@ use App\Domain\Reporting\Generator\Word\ContractorGenerator;
 use App\Domain\Reporting\Generator\Word\MaturityGenerator;
 use App\Domain\Reporting\Generator\Word\MesurementGenerator;
 use App\Domain\Reporting\Generator\Word\OverviewGenerator;
+use App\Domain\Reporting\Generator\Word\RequestGenerator;
 use App\Domain\Reporting\Generator\Word\TreatmentGenerator;
+use App\Domain\Reporting\Generator\Word\ViolationGenerator;
 use PhpOffice\PhpWord\PhpWord;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,24 +52,38 @@ class WordHandler
     private $mesurementGenerator;
 
     /**
+     * @var RequestGenerator
+     */
+    private $requestGenerator;
+
+    /**
      * @var TreatmentGenerator
      */
     private $treatmentGenerator;
 
+    /**
+     * @var ViolationGenerator
+     */
+    private $violationGenerator;
+
     public function __construct(
         PhpWord $document,
         ContractorGenerator $contractorGenerator,
+        OverviewGenerator $overviewGenerator,
         MaturityGenerator $maturityGenerator,
         MesurementGenerator $mesurementGenerator,
-        OverviewGenerator $overviewGenerator,
-        TreatmentGenerator $treatmentGenerator
+        RequestGenerator $requestGenerator,
+        TreatmentGenerator $treatmentGenerator,
+        ViolationGenerator $violationGenerator
     ) {
         $this->document            = $document;
         $this->contractorGenerator = $contractorGenerator;
         $this->overviewGenerator   = $overviewGenerator;
         $this->maturityGenerator   = $maturityGenerator;
         $this->mesurementGenerator = $mesurementGenerator;
+        $this->requestGenerator    = $requestGenerator;
         $this->treatmentGenerator  = $treatmentGenerator;
+        $this->violationGenerator  = $violationGenerator;
     }
 
     /**
@@ -77,6 +93,8 @@ class WordHandler
      * @param array $contractors Contractors used for overview report generation
      * @param array $mesurements Mesurements used for overview report generation
      * @param array $maturity    Surveys maturity used for overview report generation
+     * @param array $requests    Requests used for overview report generation
+     * @param array $violations  Violations used for overview report generation
      *
      * @throws \PhpOffice\PhpWord\Exception\Exception
      *
@@ -86,7 +104,9 @@ class WordHandler
         array $treatments = [],
         array $contractors = [],
         array $mesurements = [],
-        array $maturity = []
+        array $maturity = [],
+        array $requests = [],
+        array $violations = []
     ): BinaryFileResponse {
         $title = 'Bilan de gestion des données à caractère personnel';
 
@@ -105,7 +125,7 @@ class WordHandler
         // Content
         $this->overviewGenerator->generateObjectPart($contentSection);
         $this->overviewGenerator->generateOrganismIntroductionPart($contentSection);
-        $this->overviewGenerator->generateRegistries($contentSection, $treatments, $contractors);
+        $this->overviewGenerator->generateRegistries($contentSection, $treatments, $contractors, $requests, $violations);
         $this->overviewGenerator->generateManagementSystemAndCompliance($contentSection, $maturity, $mesurements);
         $this->overviewGenerator->generateContinuousImprovements($contentSection);
         //$this->overviewGenerator->generateAnnexeMention($contentSection);
