@@ -17,7 +17,9 @@ use App\Domain\Reporting\Generator\Word\ContractorGenerator;
 use App\Domain\Reporting\Generator\Word\MaturityGenerator;
 use App\Domain\Reporting\Generator\Word\MesurementGenerator;
 use App\Domain\Reporting\Generator\Word\OverviewGenerator;
+use App\Domain\Reporting\Generator\Word\RequestGenerator;
 use App\Domain\Reporting\Generator\Word\TreatmentGenerator;
+use App\Domain\Reporting\Generator\Word\ViolationGenerator;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Tests\Utils\ReflectionTrait;
 use PhpOffice\PhpWord\Element\Section;
@@ -55,9 +57,19 @@ class WordHandlerTest extends TestCase
     private $overviewGeneratorProphecy;
 
     /**
+     * @var RequestGenerator
+     */
+    private $requestGeneratorProphecy;
+
+    /**
      * @var TreatmentGenerator
      */
     private $treatmentGeneratorProphecy;
+
+    /**
+     * @var ViolationGenerator
+     */
+    private $violationGeneratorProphecy;
 
     /**
      * @var WordHandler
@@ -71,15 +83,19 @@ class WordHandlerTest extends TestCase
         $this->maturityGeneratorProphecy   = $this->prophesize(MaturityGenerator::class);
         $this->mesurementGeneratorProphecy = $this->prophesize(MesurementGenerator::class);
         $this->overviewGeneratorProphecy   = $this->prophesize(OverviewGenerator::class);
+        $this->requestGeneratorProphecy    = $this->prophesize(RequestGenerator::class);
         $this->treatmentGeneratorProphecy  = $this->prophesize(TreatmentGenerator::class);
+        $this->violationGeneratorProphecy  = $this->prophesize(ViolationGenerator::class);
 
         $this->handler = new WordHandler(
             $this->phpWordProphecy->reveal(),
             $this->contractorGeneratorProphecy->reveal(),
+            $this->overviewGeneratorProphecy->reveal(),
             $this->maturityGeneratorProphecy->reveal(),
             $this->mesurementGeneratorProphecy->reveal(),
-            $this->overviewGeneratorProphecy->reveal(),
-            $this->treatmentGeneratorProphecy->reveal()
+            $this->requestGeneratorProphecy->reveal(),
+            $this->treatmentGeneratorProphecy->reveal(),
+            $this->violationGeneratorProphecy->reveal()
         );
     }
 
@@ -93,8 +109,10 @@ class WordHandlerTest extends TestCase
         $documentName     = 'bilan';
         $treatments       = [];
         $contractors      = [];
-        $mesurements      = [];
         $maturity         = [];
+        $mesurements      = [];
+        $requests         = [];
+        $violations       = [];
         $responseProphecy = $this->prophesize(BinaryFileResponse::class);
 
         $phpWord = $this->phpWordProphecy->reveal();
@@ -108,7 +126,7 @@ class WordHandlerTest extends TestCase
         // Content
         $this->overviewGeneratorProphecy->generateObjectPart($section)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateOrganismIntroductionPart($section)->shouldBeCalled();
-        $this->overviewGeneratorProphecy->generateRegistries($section, $treatments, $contractors)->shouldBeCalled();
+        $this->overviewGeneratorProphecy->generateRegistries($section, $treatments, $contractors, $requests, $violations)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateManagementSystemAndCompliance($section, $maturity, $mesurements)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateContinuousImprovements($section)->shouldBeCalled();
 

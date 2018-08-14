@@ -30,27 +30,41 @@ class OverviewGenerator extends AbstractGenerator
     protected $contractorGenerator;
 
     /**
+     * @var MaturityGenerator
+     */
+    protected $maturityGenerator;
+
+    /**
      * @var MesurementGenerator
      */
     protected $mesurementGenerator;
 
     /**
-     * @var MaturityGenerator
+     * @var RequestGenerator
      */
-    protected $maturityGenerator;
+    protected $requestGenerator;
+
+    /**
+     * @var ViolationGenerator
+     */
+    protected $violationGenerator;
 
     public function __construct(
         UserProvider $userProvider,
         TreatmentGenerator $treatmentGenerator,
         ContractorGenerator $contractorGenerator,
+        MaturityGenerator $maturityGenerator,
         MesurementGenerator $mesurementGenerator,
-        MaturityGenerator $maturityGenerator
+        RequestGenerator $requestGenerator,
+        ViolationGenerator $violationGenerator
     ) {
         parent::__construct($userProvider);
         $this->treatmentGenerator  = $treatmentGenerator;
         $this->contractorGenerator = $contractorGenerator;
-        $this->mesurementGenerator = $mesurementGenerator;
         $this->maturityGenerator   = $maturityGenerator;
+        $this->mesurementGenerator = $mesurementGenerator;
+        $this->requestGenerator    = $requestGenerator;
+        $this->violationGenerator  = $violationGenerator;
     }
 
     public function generateObjectPart(Section $section): void
@@ -95,8 +109,13 @@ class OverviewGenerator extends AbstractGenerator
         }
     }
 
-    public function generateRegistries(Section $section, array $treatments = [], array $contractors = []): void
-    {
+    public function generateRegistries(
+        Section $section,
+        array $treatments = [],
+        array $contractors = [],
+        array $requests = [],
+        array $violations = []
+    ): void {
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
 
         $section->addTitle('Bilan des registres', 1);
@@ -107,6 +126,8 @@ class OverviewGenerator extends AbstractGenerator
 
         $this->treatmentGenerator->addGlobalOverview($section, $treatments);
         $this->contractorGenerator->addGlobalOverview($section, $contractors);
+        $this->requestGenerator->addGlobalOverview($section, $requests);
+        $this->violationGenerator->addGlobalOverview($section, $violations);
     }
 
     public function generateManagementSystemAndCompliance(Section $section, array $maturity = [], array $mesurements = []): void
