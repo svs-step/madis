@@ -38,7 +38,7 @@ class TokenGenerator
             ->getMediumStrengthGenerator()
             ->generateString(
                 self::TOKEN_LENGTH,
-                Generator::CHAR_DIGITS + Generator::CHAR_LOWER + Generator::CHAR_UPPER
+                Generator::CHAR_DIGITS + Generator::CHAR_LOWER + Generator::CHAR_UPPER + Generator::CHAR_SYMBOLS
             );
     }
 }
