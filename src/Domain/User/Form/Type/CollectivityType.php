@@ -83,7 +83,7 @@ class CollectivityType extends AbstractType
             ;
         }
 
-        // Now add standard informations
+        // Now add standard information
         $builder
             ->add('legalManager', ContactType::class, [
                 'label'             => 'user.collectivity.form.legal_manager',

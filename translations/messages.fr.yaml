@@ -18,6 +18,7 @@ label:
     actions: Actions
     active: Actif
     danger_zone: Zone de danger
+    for_your_information: Pour votre information
     inactive: Inactif
     no: Non
     yes: Oui

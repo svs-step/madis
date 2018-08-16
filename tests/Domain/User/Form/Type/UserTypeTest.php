@@ -26,15 +26,35 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class UserTypeTest extends FormTypeHelper
 {
-    public function testInstanceOf()
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authorizationCheckerProphecy;
+
+    /**
+     * @var UserType
+     */
+    private $formType;
+
+    protected function setUp()
     {
-        $this->assertInstanceOf(AbstractType::class, new UserType());
+        $this->authorizationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
+
+        $this->formType = new UserType(
+            $this->authorizationCheckerProphecy->reveal()
+        );
     }
 
-    public function testBuildForm()
+    public function testInstanceOf()
+    {
+        $this->assertInstanceOf(AbstractType::class, $this->formType);
+    }
+
+    public function testBuildFormAdmin()
     {
         $builder = [
             'firstName'     => TextType::class,
@@ -46,6 +66,8 @@ class UserTypeTest extends FormTypeHelper
             'plainPassword' => RepeatedType::class,
         ];
 
+        $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
+
         $builderProphecy = $this->prophesizeBuilder($builder, false);
         $builderProphecy->get('roles')->shouldBeCalled()->willReturn($builderProphecy);
         $builderProphecy
@@ -53,7 +75,25 @@ class UserTypeTest extends FormTypeHelper
             ->shouldBeCalled()
         ;
 
-        (new UserType())->buildForm($builderProphecy->reveal(), []);
+        $this->formType->buildForm($builderProphecy->reveal(), []);
+    }
+
+    public function testBuildFormUser()
+    {
+        $builder = [
+            'firstName'     => TextType::class,
+            'lastName'      => TextType::class,
+            'email'         => EmailType::class,
+        ];
+
+        $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(false);
+
+        // No transformer since not granted admin
+        $builderProphecy = $this->prophesizeBuilder($builder, false);
+        $builderProphecy->get('roles')->shouldNotBeCalled();
+        $builderProphecy->addModelTransformer(Argument::cetera())->shouldNotBeCalled();
+
+        $this->formType->buildForm($builderProphecy->reveal(), []);
     }
 
     public function testConfigureOptions(): void
@@ -69,6 +109,6 @@ class UserTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new UserType())->configureOptions($resolverProphecy->reveal());
+        $this->formType->configureOptions($resolverProphecy->reveal());
     }
 }

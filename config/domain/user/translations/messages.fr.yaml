@@ -92,6 +92,13 @@ user:
         breadcrumb:
             collectivity_edit: Éditer
             collectivity_show: Ma collectivité
+        flashbag:
+            success:
+                collectivity_edit: Votre collectivité vient d'être mise à jour
+                user_edit: Votre compte vient d'être mis à jour
+        form_user:
+            tab:
+                general: Vos informations
         title:
             collectivity_edit: Éditer ma collectivité
 
