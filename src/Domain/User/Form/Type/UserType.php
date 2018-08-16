@@ -21,6 +21,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -41,6 +43,16 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 'label'    => 'user.user.form.email',
                 'required' => true,
+            ])
+            ->add('plainPassword', RepeatedType::class, [
+                'type'          => PasswordType::class,
+                'first_options' => [
+                    'label' => 'user.user.form.password',
+                ],
+                'second_options' => [
+                    'label' => 'user.user.form.password_repeat',
+                ],
+                'required' => false,
             ])
             ->add('collectivity', EntityType::class, [
                 'class'    => Collectivity::class,

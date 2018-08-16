@@ -1,13 +1,25 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
 
-<div class="box box-solid">
-    <div class="box-header"></div>
+<div class="box box-solid box-primary">
+    <div class="box-header">{{ 'user.user.tab.general'|trans }}</div>
     {{ form_start(form) }}
     <div class="box-body">
         {{ form_row(form.firstName) }}
         {{ form_row(form.lastName) }}
         {{ form_row(form.email) }}
-        {{ form_rest(form) }}
+        {{ form_row(form.collectivity) }}
+        {{ form_row(form.roles) }}
+        {{ form_row(form.enabled) }}
+    </div>
+</div>
+
+<div class="box box-solid box-danger">
+    <div class="box-header">{{ 'label.danger_zone'|trans }}</div>
+    <div class="box-body">
+        <blockquote>
+            <small>{{ 'user.user.form.help.password'|trans }}</small>
+        </blockquote>
+        {{ form_row(form.plainPassword) }}
     </div>
 </div>
 

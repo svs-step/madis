@@ -130,6 +130,8 @@ user:
             email: E-mail
             enabled: Actif
             first_name: Prénom
+            help:
+                password: A remplir uniquement si vous souhaitez définir un nouveau mot de passe pour cet utilisateur
             last_name: Nom
             password: Mot de passe
             password_repeat: Répéter le mot de passe
@@ -148,6 +150,8 @@ user:
             roles: Role
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cet utilisateur ?
+        tab:
+            general: Informations générales
         title:
             create: Créer un utilisateur
             edit: Éditer un utilisateur
