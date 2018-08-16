@@ -24,15 +24,35 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class CollectivityTypeTest extends FormTypeHelper
 {
-    public function testInstanceOf(): void
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authorizationCheckerProphecy;
+
+    /**
+     * @var CollectivityType
+     */
+    private $formType;
+
+    protected function setUp()
     {
-        $this->assertInstanceOf(AbstractType::class, new CollectivityType());
+        $this->authorizationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
+
+        $this->formType = new CollectivityType(
+            $this->authorizationCheckerProphecy->reveal()
+        );
     }
 
-    public function testBuildForm(): void
+    public function testInstanceOf(): void
+    {
+        $this->assertInstanceOf(AbstractType::class, $this->formType);
+    }
+
+    public function testBuildFormAdmin(): void
     {
         $builder = [
             'name'         => TextType::class,
@@ -48,7 +68,23 @@ class CollectivityTypeTest extends FormTypeHelper
             'itManager'    => ContactType::class,
         ];
 
-        (new CollectivityType())->buildForm($this->prophesizeBuilder($builder), []);
+        $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
+
+        $this->formType->buildForm($this->prophesizeBuilder($builder), []);
+    }
+
+    public function testBuildFormUser(): void
+    {
+        $builder = [
+            'legalManager' => ContactType::class,
+            'referent'     => ContactType::class,
+            'dpo'          => ContactType::class,
+            'itManager'    => ContactType::class,
+        ];
+
+        $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(false);
+
+        $this->formType->buildForm($this->prophesizeBuilder($builder), []);
     }
 
     public function testConfigureOptions(): void
@@ -62,6 +98,6 @@ class CollectivityTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new CollectivityType())->configureOptions($resolverProphecy->reveal());
+        $this->formType->configureOptions($resolverProphecy->reveal());
     }
 }
