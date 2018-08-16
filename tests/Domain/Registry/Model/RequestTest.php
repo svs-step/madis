@@ -17,6 +17,9 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Application\Traits\Model\SoftDeletableTrait;
+use App\Domain\Registry\Model\Embeddable\RequestAnswer;
+use App\Domain\Registry\Model\Embeddable\RequestApplicant;
+use App\Domain\Registry\Model\Embeddable\RequestConcernedPeople;
 use App\Domain\Registry\Model\Request;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
@@ -28,6 +31,9 @@ class RequestTest extends TestCase
         $model = new Request();
 
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
+        $this->assertInstanceOf(RequestApplicant::class, $model->getApplicant());
+        $this->assertInstanceOf(RequestConcernedPeople::class, $model->getConcernedPeople());
+        $this->assertInstanceOf(RequestAnswer::class, $model->getAnswer());
         $this->assertFalse($model->isComplete());
         $this->assertFalse($model->isLegitimateApplicant());
         $this->assertFalse($model->isLegitimateRequest());

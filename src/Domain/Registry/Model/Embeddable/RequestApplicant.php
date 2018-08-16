@@ -48,7 +48,7 @@ class RequestApplicant
     /**
      * @var bool
      */
-    private $concernedPeople = false;
+    private $concernedPeople = true;
 
     /**
      * @return string|null
