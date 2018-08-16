@@ -23,6 +23,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -42,6 +43,7 @@ class UserTypeTest extends FormTypeHelper
             'collectivity'  => EntityType::class,
             'roles'         => DictionaryType::class,
             'enabled'       => CheckboxType::class,
+            'plainPassword' => RepeatedType::class,
         ];
 
         $builderProphecy = $this->prophesizeBuilder($builder, false);
