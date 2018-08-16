@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
+# Pull protected branches for (pre)production deployment
 git pull origin master
+git pull origin develop
 
 # Composer
 composer install --prefer-dist --no-interaction --optimize-autoloader
