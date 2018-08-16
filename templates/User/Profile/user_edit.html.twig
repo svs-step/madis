@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'user_profile_user form edit' %}
+{% set menuItem = 'user_profile_user' %}
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+
+{% block title %}{{ 'user.user.title.edit'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'user.user.title.edit'|trans }}
+        <small>{{ form.vars.value }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'user.user.breadcrumb.list'|trans, 'link': path('user_user_list') },
+        { 'name': 'user.user.breadcrumb.edit'|trans({'%name%': form.vars.value}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-solid box-primary">
+                <div class="box-header">{{ 'user.profile.form_user.tab.general'|trans }}</div>
+                {{ form_start(form) }}
+                <div class="box-body">
+                    {{ form_row(form.firstName) }}
+                    {{ form_row(form.lastName) }}
+                    {{ form_row(form.email) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="box box-solid box-primary">
+                <div class="box-header">{{ 'label.for_your_information'|trans }}</div>
+                <div class="box-body">
+                    <ul>
+                        <li>Vous disposez d'un compte associé à la collectivité <strong>{{ form.vars.value.collectivity }}.</strong></li>
+                        <li>Vous disposez des droits de <strong>lecture</strong> sur votre collectivité.</li>
+                        {% if is_granted('ROLE_USER') %}
+                            <li>Vous disposez des droits d'<strong>écriture</strong> sur votre collectivité.</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row"></div>
+    <div class="box box-solid">
+        <div class="box-body text-center">
+            <a href="{{ path('user_user_list') }}" class="btn btn-default">
+                {{ 'user.user.action.back_to_list'|trans }}
+            </a>
+            <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+        </div>
+        {{ form_end(form) }}
+    </div>
+    </div>
+{% endblock %}

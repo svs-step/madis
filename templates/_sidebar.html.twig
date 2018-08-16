@@ -97,6 +97,12 @@
                     <span>Ma collectivité</span>
                 </a>
             </li>
+            <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
+                <a href="{{ path('user_profile_user_edit') }}">
+                    <i class="fa fa-user"></i>
+                    <span>Mon compte</span>
+                </a>
+            </li>
         {% endif %}
     </ul>
 </section>

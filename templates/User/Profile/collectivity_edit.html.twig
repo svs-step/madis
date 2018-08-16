@@ -2,6 +2,7 @@
 
 {% set bodyClass = 'user_profile_collectivity form edit' %}
 {% set menuItem = 'user_profile_collectivity' %}
+{% set submitValue = submitValue|default('action.submit'|trans) %}
 
 {% block title %}{{ 'user.profile.title.collectivity_edit'|trans }} - {{ parent() }}{% endblock %}
 
@@ -24,7 +25,6 @@
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
-            {% set submitValue = submitValue|default('action.submit'|trans) %}
 
             <div class="row">
                 {{ form_start(form) }}
