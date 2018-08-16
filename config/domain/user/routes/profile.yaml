@@ -1,0 +1,11 @@
+user_profile_collectivity_show:
+    path: '/collectivite/visualiser'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\User\Controller\ProfileController:collectivityShowAction'
+
+user_profile_collectivity_edit:
+    path: '/collectivite/editer'
+    methods: ['GET', 'POST']
+    defaults:
+        _controller: 'App\Domain\User\Controller\ProfileController:collectivityEditAction'

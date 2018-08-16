@@ -88,6 +88,13 @@ user:
             list: Liste des collectivités
             show: Visualiser une collectivité
 
+    profile:
+        breadcrumb:
+            collectivity_edit: Éditer
+            collectivity_show: Ma collectivité
+        title:
+            collectivity_edit: Éditer ma collectivité
+
     security:
         forget_password:
             back_to_login: Retour à la page de connexion

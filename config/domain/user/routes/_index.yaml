@@ -2,6 +2,10 @@ _user_collectivity:
     resource: 'collectivity.yaml'
     prefix:   '/collectivites'
 
+_user_profile:
+    resource: 'profile.yaml'
+    prefix:   '/profil'
+
 _user_security:
     resource: 'security.yaml'
 
