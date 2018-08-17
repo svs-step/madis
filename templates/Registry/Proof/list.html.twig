@@ -10,7 +10,16 @@
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'registry.proof.title.list'|trans }}</h1>
+    <h1>
+        {{ 'registry.proof.title.list'|trans }}
+        <small>
+            {% if app.request.query.get('archive') == 'true' %}
+                {{ 'label.archived'|trans }}
+            {% else %}
+                {{ 'label.not_archived'|trans }}
+            {% endif %}
+        </small>
+    </h1>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -63,9 +72,7 @@
                             {% endif %}
                             <th>{{ 'registry.proof.list.type'|trans }}</th>
                             <th>{{ 'registry.proof.list.created_at'|trans }}</th>
-                            {% if is_granted('ROLE_USER') %}
-                                <th>{{ 'label.actions'|trans }}</th>
-                            {% endif %}
+                            <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -84,7 +91,7 @@
                                     {{ 'action.download'|trans }}
                                 </a>
                                 {% endif %}
-                                {% if is_granted('ROLE_USER') and 'false' == app.request.get('archive') %}
+                                {% if is_granted('ROLE_USER') and object.deletedAt is null %}
                                     <a href="{{ path('registry_proof_edit', { 'id': object.id }) }}">
                                         <i class="fa fa-pencil-alt"></i>
                                         {{ 'action.edit'|trans }}

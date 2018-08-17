@@ -127,7 +127,7 @@ class ReviewControllerTest extends TestCase
         $this->mesurementRepositoryProphecy->findAllByCollectivity($collectivity)->shouldBeCalled()->willReturn($mesurements);
         $this->surveyRepositoryProphecy->findAllByCollectivity($collectivity, ['createdAt' => 'DESC'], 2)->shouldBeCalled()->willReturn($survey);
         $this->requestRepositoryProphecy->findAllArchivedByCollectivity($collectivity, false)->shouldBeCalled()->willReturn($requests);
-        $this->violationRepositoryProphecy->findAllByCollectivity($collectivity)->shouldBeCalled()->willReturn($violations);
+        $this->violationRepositoryProphecy->findAllArchivedByCollectivity($collectivity, false)->shouldBeCalled()->willReturn($violations);
         $this->wordHandlerProphecy
             ->generateOverviewReport($treatments, $contractors, $mesurements, $maturity, $requests, $violations)
             ->shouldBeCalled()
