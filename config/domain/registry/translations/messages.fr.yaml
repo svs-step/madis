@@ -132,8 +132,10 @@ registry:
 
     proof:
         action:
+            archived: Voir les preuves archivées
             back_to_list: Retour à la liste
             new: Ajouter une preuve
+            not_archived: Voir les preuves non archivées
         breadcrumb:
             create: Créer
             edit: Modifier "%name%"

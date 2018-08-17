@@ -23,6 +23,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\FilesystemInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -32,6 +33,11 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 class ProofController extends CRUDController
 {
+    /**
+     * @var RequestStack
+     */
+    protected $requestStack;
+
     /**
      * @var WordHandler
      */
@@ -56,12 +62,14 @@ class ProofController extends CRUDController
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Proof $repository,
+        RequestStack $requestStack,
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
         FilesystemInterface $documentFilesystem
     ) {
         parent::__construct($entityManager, $translator, $repository);
+        $this->requestStack         = $requestStack;
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
@@ -93,11 +101,20 @@ class ProofController extends CRUDController
      */
     protected function getListData()
     {
+        $request   = $this->requestStack->getMasterRequest();
+        $archived  = 'false' === $request->query->get('archive') || \is_null($request->query->get('archive'))
+            ? false
+            : true
+        ;
+
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return $this->repository->findAll();
+            return $this->repository->findAllArchived($archived);
         }
 
-        return $this->repository->findAllByCollectivity($this->userProvider->getAuthenticatedUser()->getCollectivity());
+        return $this->repository->findAllArchivedByCollectivity(
+            $this->userProvider->getAuthenticatedUser()->getCollectivity(),
+            $archived
+        );
     }
 
     public function formPrePersistData($object)

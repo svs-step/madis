@@ -34,6 +34,17 @@
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.proof.action.report'|trans }}
                     </a>#}
+                    {% if app.request.query.get('archive') == 'true' %}
+                        <a href="{{ path('registry_proof_list', {'archive' : 'false'}) }}" class="btn btn-default">
+                            <i class="fa fa-trash"></i>
+                            {{ 'registry.proof.action.not_archived'|trans }}
+                        </a>
+                    {% else %}
+                        <a href="{{ path('registry_proof_list', {'archive' : 'true'}) }}" class="btn btn-default">
+                            <i class="fa fa-trash"></i>
+                            {{ 'registry.proof.action.archived'|trans }}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
 

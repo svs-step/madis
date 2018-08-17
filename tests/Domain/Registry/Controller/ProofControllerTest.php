@@ -29,8 +29,12 @@ use Gaufrette\Filesystem;
 use Gaufrette\FilesystemInterface;
 use Gaufrette\FilesystemMap;
 use Gaufrette\StreamWrapper;
+use Nelmio\Alice\ParameterBag;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -52,6 +56,11 @@ class ProofControllerTest extends TestCase
      * @var Repository\Proof
      */
     private $repositoryProphecy;
+
+    /**
+     * @var RequestStack
+     */
+    private $requestStackProphecy;
 
     /**
      * @var WordHandler
@@ -80,18 +89,20 @@ class ProofControllerTest extends TestCase
 
     public function setUp()
     {
-        $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
-        $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);
-        $this->repositoryProphecy             = $this->prophesize(Repository\Proof::class);
-        $this->wordHandlerProphecy            = $this->prophesize(WordHandler::class);
-        $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
-        $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
-        $this->documentFilesystemProphecy     = $this->prophesize(FilesystemInterface::class);
+        $this->managerProphecy               = $this->prophesize(EntityManagerInterface::class);
+        $this->translatorProphecy            = $this->prophesize(TranslatorInterface::class);
+        $this->repositoryProphecy            = $this->prophesize(Repository\Proof::class);
+        $this->requestStackProphecy          = $this->prophesize(RequestStack::class);
+        $this->wordHandlerProphecy           = $this->prophesize(WordHandler::class);
+        $this->authenticationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
+        $this->userProviderProphecy          = $this->prophesize(UserProvider::class);
+        $this->documentFilesystemProphecy    = $this->prophesize(FilesystemInterface::class);
 
         $this->controller = new ProofController(
             $this->managerProphecy->reveal(),
             $this->translatorProphecy->reveal(),
             $this->repositoryProphecy->reveal(),
+            $this->requestStackProphecy->reveal(),
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
@@ -148,6 +159,11 @@ class ProofControllerTest extends TestCase
     public function testGetListDataForRoleGranted()
     {
         $valueReturnedByRepository = ['dummyValues'];
+        $archived                  = false;
+
+        $request             = new Request();
+        $request->attributes = new ParameterBag(['archive' => "'{$archived}'"]);
+        $this->requestStackProphecy->getMasterRequest()->shouldBeCalled()->willReturn($request);
 
         // Granted
         $this->authenticationCheckerProphecy
@@ -164,12 +180,12 @@ class ProofControllerTest extends TestCase
 
         // findAll must be called but not findAllByCollectivity
         $this->repositoryProphecy
-            ->findAll()
+            ->findAllArchived($archived)
             ->shouldBeCalled()
             ->willReturn($valueReturnedByRepository)
         ;
         $this->repositoryProphecy
-            ->findAllByCollectivity()
+            ->findAllArchivedByCollectivity(Argument::cetera())
             ->shouldNotBeCalled()
         ;
 
@@ -186,6 +202,11 @@ class ProofControllerTest extends TestCase
     public function testGetListDataForRoleNotGranted()
     {
         $valueReturnedByRepository = ['dummyValues'];
+        $archived                  = false;
+
+        $request             = new Request();
+        $request->attributes = new ParameterBag(['archive' => "'{$archived}'"]);
+        $this->requestStackProphecy->getMasterRequest()->shouldBeCalled()->willReturn($request);
 
         // Not granted
         $this->authenticationCheckerProphecy
@@ -205,12 +226,12 @@ class ProofControllerTest extends TestCase
 
         // findAllByCollectivity must be called but not findAll
         $this->repositoryProphecy
-            ->findAllByCollectivity($collectivity)
+            ->findAllArchivedByCollectivity($collectivity, $archived)
             ->shouldBeCalled()
             ->willReturn($valueReturnedByRepository)
         ;
         $this->repositoryProphecy
-            ->findAll()
+            ->findAllArchived(Argument::cetera())
             ->shouldNotBeCalled()
         ;
 
