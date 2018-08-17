@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'page_credit' %}
+{% set menuItem = 'page_credit' %}
+{% set title = 'Crédit' %}
+
+{% block title %}{{ title }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ title }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': title }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12 col-xs-offset-1">
+            <h2>Madis</h2>
+            <p>
+                Madis est une application pensée par <strong><a href="//soluris.fr" target="_blank" rel="noreferrer nofollow">Soluris</a></strong>.
+            </p>
+
+            <h3>Remerciements</h3>
+            <p>
+                Merci à toutes les personnes mobilisées pour le développement et la maintenance de Madis.
+            </p>
+
+            <ul>
+                <li><strong>Michaël Edlich</strong>, chef de projet (m.edlich@soluris.fr)</li>
+                <li><strong>Donovan Bourlard</strong>, développeur (donovan@awkan.fr)</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

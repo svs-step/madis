@@ -1,6 +1,9 @@
 _domain_maturity:
     resource: ../domain/maturity/routes/_index.yaml
 
+_domain_page:
+    resource: ../domain/page/routes/_index.yaml
+
 _domain_registry:
     resource: ../domain/registry/routes/_index.yaml
 
