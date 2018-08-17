@@ -36,6 +36,18 @@
                         {{ 'registry.request.action.report'|trans }}
                     </a>
                     #}
+                    {% if app.request.query.get('archive') == 'true' %}
+                        <a href="{{ path('registry_request_list', {'archive' : 'false'}) }}" class="btn btn-default">
+                            <i class="fa fa-trash"></i>
+                            {{ 'registry.request.action.not_archived'|trans }}
+                        </a>
+                    {% else %}
+                        <a href="{{ path('registry_request_list', {'archive' : 'true'}) }}" class="btn btn-default">
+                            <i class="fa fa-trash"></i>
+                            {{ 'registry.request.action.archived'|trans }}
+                        </a>
+                    {% endif %}
+
                 </div>
             </div>
 
@@ -58,7 +70,7 @@
                             <th>{{ 'registry.request.list.legitimate_applicant'|trans }}</th>
                             <th>{{ 'registry.request.list.legitimate_request'|trans }}</th>
                             <th>{{ 'registry.request.list.answer_date'|trans }}</th>
-                            {% if is_granted('ROLE_USER') %}
+                            {% if is_granted('ROLE_USER') and 'false' == app.request.get('archive') %}
                                 <th>{{ 'label.actions'|trans }}</th>
                             {% endif %}
                         </tr>
@@ -102,7 +114,7 @@
                                 {% endif %}
                             </td>
                             <td>{% if object.answer.date is not null %}{{ object.answer.date|date('d/m/Y') }}{% endif %}</td>
-                            {% if is_granted('ROLE_USER') %}
+                            {% if is_granted('ROLE_USER') and 'false' == app.request.get('archive') %}
                                 <td>
                                     <a href="{{ path('registry_request_edit', { 'id': object.id }) }}">
                                         <i class="fa fa-pencil-alt"></i>

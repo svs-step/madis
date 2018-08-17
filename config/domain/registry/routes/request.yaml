@@ -29,13 +29,13 @@ registry_request_report:
         _controller: 'App\Domain\Registry\Controller\RequestController:reportAction'
 
 registry_request_delete:
-    path: '/supprimer/{id}'
+    path: '/archiver/{id}'
     methods: ['GET']
     defaults:
         _controller: 'App\Domain\Registry\Controller\RequestController:deleteAction'
 
 registry_request_delete_confirm:
-    path: '/supprimer/{id}/confirmation'
+    path: '/archiver/{id}/confirmation'
     methods: ['GET']
     defaults:
         _controller: 'App\Domain\Registry\Controller\RequestController:deleteConfirmationAction'

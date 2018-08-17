@@ -20,12 +20,18 @@ use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class RequestController extends CRUDController
 {
+    /**
+     * @var RequestStack
+     */
+    protected $requestStack;
+
     /**
      * @var WordHandler
      */
@@ -45,11 +51,13 @@ class RequestController extends CRUDController
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Request $repository,
+        RequestStack $requestStack,
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider
     ) {
         parent::__construct($entityManager, $translator, $repository);
+        $this->requestStack         = $requestStack;
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
@@ -80,11 +88,20 @@ class RequestController extends CRUDController
      */
     protected function getListData()
     {
+        $request   = $this->requestStack->getMasterRequest();
+        $archived  = 'false' === $request->query->get('archive') || \is_null($request->query->get('archive'))
+            ? false
+            : true
+        ;
+
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return $this->repository->findAll();
+            return $this->repository->findAllArchived($archived);
         }
 
-        return $this->repository->findAllByCollectivity($this->userProvider->getAuthenticatedUser()->getCollectivity());
+        return $this->repository->findAllArchivedByCollectivity(
+            $this->userProvider->getAuthenticatedUser()->getCollectivity(),
+            $archived
+        );
     }
 
     protected function isSoftDelete(): bool

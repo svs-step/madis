@@ -84,7 +84,7 @@
                                     {{ 'action.download'|trans }}
                                 </a>
                                 {% endif %}
-                                {% if is_granted('ROLE_USER') %}
+                                {% if is_granted('ROLE_USER') and 'false' == app.request.get('archive') %}
                                     <a href="{{ path('registry_proof_edit', { 'id': object.id }) }}">
                                         <i class="fa fa-pencil-alt"></i>
                                         {{ 'action.edit'|trans }}

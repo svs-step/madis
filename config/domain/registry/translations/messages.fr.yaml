@@ -167,8 +167,10 @@ registry:
 
     request:
         action:
+            archived: Voir les demandes archivées
             back_to_list: Retour à la liste
             new: Nouvelle demande
+            not_archived: Voir les demandes non archivées
         breadcrumb:
             create: Créer
             delete: Archiver "%name%"
