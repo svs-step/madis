@@ -124,7 +124,7 @@ class ReviewController extends Controller
             $this->mesurementRepository->findAllByCollectivity($collectivity),
             $maturity,
             $this->requestRepository->findAllArchivedByCollectivity($collectivity, false),
-            $this->violationRepository->findAllByCollectivity($collectivity)
+            $this->violationRepository->findAllArchivedByCollectivity($collectivity, false)
         );
     }
 }

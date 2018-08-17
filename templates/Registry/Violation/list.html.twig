@@ -10,7 +10,16 @@
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'registry.violation.title.list'|trans }}</h1>
+    <h1>
+        {{ 'registry.violation.title.list'|trans }}
+        <small>
+            {% if app.request.query.get('archive') == 'true' %}
+                {{ 'label.archived'|trans }}
+            {% else %}
+                {{ 'label.not_archived'|trans }}
+            {% endif %}
+        </small>
+    </h1>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -36,6 +45,17 @@
                         {{ 'registry.violation.action.report'|trans }}
                     </a>
                     #}
+                    {% if app.request.query.get('archive') == 'true' %}
+                        <a href="{{ path('registry_violation_list', {'archive' : 'false'}) }}" class="btn btn-default">
+                            <i class="fa fa-trash"></i>
+                            {{ 'registry.violation.action.not_archived'|trans }}
+                        </a>
+                    {% else %}
+                        <a href="{{ path('registry_violation_list', {'archive' : 'true'}) }}" class="btn btn-default">
+                            <i class="fa fa-trash"></i>
+                            {{ 'registry.violation.action.archived'|trans }}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
 
@@ -55,7 +75,7 @@
                             <th>{{ 'registry.violation.list.violation_nature'|trans }}</th>
                             <th>{{ 'registry.violation.list.cause'|trans }}</th>
                             <th>{{ 'registry.violation.list.gravity'|trans }}</th>
-                            {% if is_granted('ROLE_USER') %}
+                            {% if is_granted('ROLE_USER') and 'true' != app.request.get('archive') %}
                                 <th>{{ 'label.actions'|trans }}</th>
                             {% endif %}
                         </tr>
@@ -74,7 +94,7 @@
                             <td>{{ object.violationNature|dictionary('registry_violation_nature') }}</td>
                             <td>{{ object.cause|dictionary('registry_violation_cause') }}</td>
                             <td>{{ object.gravity|dictionary('registry_violation_gravity') }}</td>
-                            {% if is_granted('ROLE_USER') %}
+                            {% if is_granted('ROLE_USER') and object.deletedAt is null %}
                                 <td>
                                     <a href="{{ path('registry_violation_edit', { 'id': object.id }) }}">
                                         <i class="fa fa-pencil-alt"></i>

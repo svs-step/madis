@@ -365,9 +365,11 @@ registry:
 
     violation:
         action:
+            archived: Voir les violations archivées
             back_to_list: Retour à la liste
             new: Nouvelle violation
             report: Générer une impression
+            not_archived: Voir les violations non archivées
         breadcrumb:
             create: Créer
             delete: Archiver "%name%"

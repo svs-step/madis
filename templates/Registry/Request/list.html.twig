@@ -10,7 +10,16 @@
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'registry.request.title.list'|trans }}</h1>
+    <h1>
+        {{ 'registry.request.title.list'|trans }}
+        <small>
+            {% if app.request.query.get('archive') == 'true' %}
+                {{ 'label.archived'|trans }}
+            {% else %}
+                {{ 'label.not_archived'|trans }}
+            {% endif %}
+        </small>
+    </h1>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -70,7 +79,7 @@
                             <th>{{ 'registry.request.list.legitimate_applicant'|trans }}</th>
                             <th>{{ 'registry.request.list.legitimate_request'|trans }}</th>
                             <th>{{ 'registry.request.list.answer_date'|trans }}</th>
-                            {% if is_granted('ROLE_USER') and 'false' == app.request.get('archive') %}
+                            {% if is_granted('ROLE_USER') and 'true' != app.request.get('archive') %}
                                 <th>{{ 'label.actions'|trans }}</th>
                             {% endif %}
                         </tr>
@@ -114,7 +123,7 @@
                                 {% endif %}
                             </td>
                             <td>{% if object.answer.date is not null %}{{ object.answer.date|date('d/m/Y') }}{% endif %}</td>
-                            {% if is_granted('ROLE_USER') and 'false' == app.request.get('archive') %}
+                            {% if is_granted('ROLE_USER') and object.deletedAt is null %}
                                 <td>
                                     <a href="{{ path('registry_request_edit', { 'id': object.id }) }}">
                                         <i class="fa fa-pencil-alt"></i>

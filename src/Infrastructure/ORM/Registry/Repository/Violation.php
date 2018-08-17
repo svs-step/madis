@@ -135,6 +135,17 @@ class Violation implements Repository\Violation
             ;
     }
 
+    protected function addArchivedClause(QueryBuilder $qb, bool $archived = false): QueryBuilder
+    {
+        // Get not archived
+        if (!$archived) {
+            return $qb->andWhere('o.deletedAt is null');
+        }
+
+        // Get archived
+        return $qb->andWhere('o.deletedAt is not null');
+    }
+
     protected function addCollectivityClause(QueryBuilder $qb, Collectivity $collectivity): QueryBuilder
     {
         return $qb
@@ -185,6 +196,39 @@ class Violation implements Repository\Violation
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
         }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllArchived(bool $archived = false, array $order = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        $this->addArchivedClause($qb, $archived);
+        $this->addOrder($qb, $order);
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllArchivedByCollectivity(Collectivity $collectivity, bool $archived = false, array $order = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        $this->addCollectivityClause($qb, $collectivity);
+        $this->addArchivedClause($qb, $archived);
+        $this->addOrder($qb, $order);
 
         return $qb
             ->getQuery()

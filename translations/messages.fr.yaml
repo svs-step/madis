@@ -17,11 +17,13 @@ action:
 label:
     actions: Actions
     active: Actif
+    archived: Archivés
     danger_zone: Zone de danger
     for_your_information: Pour votre information
     inactive: Inactif
     no: Non
     yes: Oui
+    not_archived: Non archivés
 
 placeholder:
     precision: Précisez
