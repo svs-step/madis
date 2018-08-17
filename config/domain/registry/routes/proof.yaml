@@ -35,13 +35,13 @@ registry_proof_download:
 #        _controller: 'App\Domain\Registry\Controller\ProofController:reportAction'
 
 registry_proof_delete:
-    path: '/supprimer/{id}'
+    path: '/archiver/{id}'
     methods: ['GET']
     defaults:
         _controller: 'App\Domain\Registry\Controller\ProofController:deleteAction'
 
 registry_proof_delete_confirm:
-    path: '/supprimer/{id}/confirmation'
+    path: '/archiver/{id}/confirmation'
     methods: ['GET']
     defaults:
         _controller: 'App\Domain\Registry\Controller\ProofController:deleteConfirmationAction'
