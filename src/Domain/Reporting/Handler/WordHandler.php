@@ -261,4 +261,37 @@ class WordHandler
 
         return $this->treatmentGenerator->generateResponse($this->document, 'traitements');
     }
+
+    /**
+     * Generate violation report.
+     *
+     * @param array $treatments treatments to use for generation
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     * @throws \Exception
+     *
+     * @return Response The generated Word file
+     */
+    public function generateRegistryViolationReport(array $treatments = [])
+    {
+        $title = 'Registre des violations';
+
+        // Initialize document
+        $this->violationGenerator->initializeDocument($this->document);
+
+        // Begin generation
+        $this->violationGenerator->addHomepage($this->document, $title);
+
+        // Section which will get whole content
+        $contentSection = $this->violationGenerator->createContentSection($this->document, $title);
+
+        // Table of content
+        $this->violationGenerator->addTableOfContent($contentSection, 1);
+
+        // Content
+        $this->violationGenerator->addSyntheticView($contentSection, $treatments);
+        $this->violationGenerator->addDetailedView($contentSection, $treatments);
+
+        return $this->violationGenerator->generateResponse($this->document, 'violations');
+    }
 }
