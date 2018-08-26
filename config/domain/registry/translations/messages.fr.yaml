@@ -171,6 +171,7 @@ registry:
             back_to_list: Retour à la liste
             new: Nouvelle demande
             not_archived: Voir les demandes non archivées
+            report: Générer une impression
         breadcrumb:
             create: Créer
             delete: Archiver "%name%"

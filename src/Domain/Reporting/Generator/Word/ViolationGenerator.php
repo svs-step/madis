@@ -22,7 +22,6 @@ use App\Domain\Registry\Dictionary\ViolationImpactDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\Registry\Dictionary\ViolationNotificationDictionary;
 use App\Domain\Registry\Dictionary\ViolationOriginDictionary;
-use App\Domain\Registry\Model\Violation;
 use PhpOffice\PhpWord\Element\Section;
 
 class ViolationGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
@@ -101,9 +100,6 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
     {
         $section->addTitle('Détail des violations', 1);
 
-        /**
-         * @var Violation
-         */
         foreach ($data as $key => $violation) {
             if (0 !== $key) {
                 $section->addPageBreak();
@@ -186,11 +182,29 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
             ];
 
+            $historyData = [
+                [
+                    'Créateur',
+                    $violation->getCreator(),
+                ],
+                [
+                    'Date de création',
+                    $this->getDate($violation->getCreatedAt()),
+                ],
+                [
+                    'Dernière mise à jour',
+                    $this->getDate($violation->getUpdatedAt()),
+                ],
+            ];
+
             $section->addTitle('Informations sur la violation', 3);
             $this->addTable($section, $generalInformationData, true, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Conséquences de la violation', 3);
             $this->addTable($section, $consequenceData, true, self::TABLE_ORIENTATION_VERTICAL);
+
+            $section->addTitle('Historique', 3);
+            $this->addTable($section, $historyData, true, self::TABLE_ORIENTATION_VERTICAL);
         }
     }
 
