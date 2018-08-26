@@ -252,6 +252,42 @@ class WordHandlerTest extends TestCase
     }
 
     /**
+     * Test generateRegistryRequestReport.
+     */
+    public function testGenerateRegistryRequestReport()
+    {
+        $section          = new Section(1);
+        $title            = 'Registre des demandes des personnes concernées';
+        $documentName     = 'demandes_des_personnes_concernees';
+        $requests         = [];
+        $responseProphecy = $this->prophesize(BinaryFileResponse::class);
+
+        $phpWord = $this->phpWordProphecy->reveal();
+
+        // Initialization + homepage + table of content
+        $this->requestGeneratorProphecy->initializeDocument($phpWord)->shouldBeCalled();
+        $this->requestGeneratorProphecy->addHomepage($phpWord, $title)->shouldBeCalled();
+        $this->requestGeneratorProphecy->createContentSection($phpWord, $title)->shouldBeCalled()->willReturn($section);
+        $this->requestGeneratorProphecy->addTableOfContent($section, 1)->shouldBeCalled();
+
+        // Content
+        $this->requestGeneratorProphecy->addSyntheticView($section, $requests)->shouldBeCalled();
+        $this->requestGeneratorProphecy->addDetailedView($section, $requests)->shouldBeCalled();
+
+        // Generation
+        $this->requestGeneratorProphecy
+            ->generateResponse($phpWord, $documentName)
+            ->shouldBeCalled()
+            ->willReturn($responseProphecy->reveal())
+        ;
+
+        $this->assertEquals(
+            $responseProphecy->reveal(),
+            $this->handler->generateRegistryRequestReport($requests)
+        );
+    }
+
+    /**
      * Test generateRegistryTreatmentReport.
      */
     public function testGenerateRegistryTreatmentReport()

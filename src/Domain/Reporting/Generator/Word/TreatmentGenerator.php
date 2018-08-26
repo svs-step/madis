@@ -17,7 +17,6 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary;
 use App\Domain\Registry\Dictionary\TreatmentDataCategoryDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
-use App\Domain\Registry\Model\Treatment;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shared\Converter;
 
@@ -188,9 +187,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail des traitements', 1);
-        /*
-         * @var Treatment $treatment
-         */
+
         foreach ($data as $key => $treatment) {
             if (0 !== $key) {
                 $section->addPageBreak();
@@ -303,9 +300,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
             ];
 
-            /**
-             * @var Treatment
-             */
             $specificData = [
                 [
                     'Surveillance systématique',
