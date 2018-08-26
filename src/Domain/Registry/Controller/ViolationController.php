@@ -118,13 +118,12 @@ class ViolationController extends CRUDController
      */
     public function reportAction(): Response
     {
-        /*
         $objects = $this->repository->findAllByCollectivity(
             $this->userProvider->getAuthenticatedUser()->getCollectivity(),
-            ['name' => 'asc']
+            false,
+            ['date' => 'asc']
         );
 
-        return $this->wordHandler->generateRegistryContractorReport($objects);
-        */
+        return $this->wordHandler->generateRegistryViolationReport($objects);
     }
 }

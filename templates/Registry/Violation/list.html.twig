@@ -39,12 +39,10 @@
                         {{ 'registry.violation.action.new'|trans }}
                     </a>
                     {% endif %}
-                    {#
                     <a href="{{ path('registry_violation_report') }}" class="btn btn-default">
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.violation.action.report'|trans }}
                     </a>
-                    #}
                     {% if app.request.query.get('archive') == 'true' %}
                         <a href="{{ path('registry_violation_list', {'archive' : 'false'}) }}" class="btn btn-default">
                             <i class="fa fa-trash"></i>
