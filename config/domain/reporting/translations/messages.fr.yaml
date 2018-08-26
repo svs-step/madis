@@ -3,8 +3,8 @@ reporting:
         breadcrumb:
             index: Tableau de bord
         tab:
-          contractor: Sous-traitants
-          maturity: Indice de maturité
+            contractor: Sous-traitants
+            maturity: Indice de maturité
         title:
             index: Tableau de bord
         contractor:
@@ -15,3 +15,8 @@ reporting:
         mesurement:
             status:
                 title: Actions de protection
+        request:
+            type:
+                title: Type des demandes
+            status:
+                title: Statut des demandes
