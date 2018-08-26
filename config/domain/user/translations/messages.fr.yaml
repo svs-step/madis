@@ -166,6 +166,7 @@ user:
             confirm_deletion: Voulez-vous vraiment supprimer cet utilisateur ?
         tab:
             general: Informations générales
+            optional: Informations facultatives
         title:
             create: Créer un utilisateur
             edit: Éditer un utilisateur
