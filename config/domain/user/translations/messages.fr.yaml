@@ -19,6 +19,7 @@ user:
     collectivity:
         action:
             back_to_list: Retour à la liste
+            back_to_show: Retour à la visualisation
             new: Nouvelle collectivité
         breadcrumb:
             create: Créer
