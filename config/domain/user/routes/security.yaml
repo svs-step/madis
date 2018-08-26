@@ -22,5 +22,7 @@ forget_password_confirm:
 reset_password:
     path: '/reinitialisation-de-mot-de-passe/{token}'
     methods: ['GET', 'POST']
+    requirements:
+        token: .+
     defaults:
         _controller: 'App\Domain\User\Controller\SecurityController:resetPasswordAction'

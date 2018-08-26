@@ -11,7 +11,8 @@ twig:
         timezone: Europe/Paris
 
     globals:
-        applicationName: '%env(APP_APPLICATION_NAME)%'
+        app_name: '%env(APP_APPLICATION_NAME)%'
+        app_version: '%app.version%'
         default_dpo_civility: '%env(APP_DPO_CIVILITY)%'
         default_dpo_firstName: '%env(APP_DPO_FIRST_NAME)%'
         default_dpo_lastName: '%env(APP_DPO_LAST_NAME)%'
