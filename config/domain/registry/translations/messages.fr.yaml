@@ -149,7 +149,7 @@ registry:
             success:
                 create: Preuve "%object%" créée avec succès
                 edit: Preuve "%object%" modifiée avec succès
-                delete: Preuve "%object%" supprimée avec succès
+                delete: Preuve "%object%" archivée avec succès
         list:
             collectivity: Collectivité
             comment: Commentaire
