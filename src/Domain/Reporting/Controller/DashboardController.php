@@ -18,6 +18,7 @@ use App\Domain\Maturity\Model\Survey;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
+use Doctrine\Common\Inflector\Inflector;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -80,7 +81,19 @@ class DashboardController extends Controller
             'request' => [
                 'value' => [
                     'all'       => 0,
-                    'toProcess' => 0,
+                    'type'      => [
+                        'correct'         => 0,
+                        'delete'          => 0,
+                        'withdrawConsent' => 0,
+                        'access'          => 0,
+                        'dataPortability' => 0,
+                        'limitTreatment'  => 0,
+                    ],
+                    'status' => [
+                        'toProcess'  => 0,
+                        'processed'  => 0,
+                        'incomplete' => 0,
+                    ],
                 ],
             ],
             'treatment' => [
@@ -205,8 +218,18 @@ class DashboardController extends Controller
         // REQUEST
         $data['request']['value']['all'] = \count($requests);
         foreach ($requests as $request) {
+            // Type
+            ++$data['request']['value']['type'][Inflector::camelize($request->getObject())];
+
+            // Status
             if ($request->isComplete() && $request->isLegitimateApplicant() && $request->isLegitimateRequest()) {
-                ++$data['request']['value']['toProcess'];
+                if (\is_null($request->getAnswer()->getDate())) {
+                    ++$data['request']['value']['status']['toProcess'];
+                } else {
+                    ++$data['request']['value']['status']['processed'];
+                }
+            } else {
+                ++$data['request']['value']['status']['incomplete'];
             }
         }
 

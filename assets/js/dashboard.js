@@ -6,11 +6,15 @@ function doughnutChart(id, labels, data, color) {
             datasets: [{
                 data: data,
                 backgroundColor: color,
+                hoverBackgroundColor: color
             }],
         },
         options: {
             legend: {
-                display: false
+                display: false,
+            },
+            tooltips: {
+                displayColors: false,
             },
             responsive: true,
             scales: {
@@ -100,6 +104,20 @@ $(document).ready(function() {
         'contractor-conform',
         labelYesNo,
         contractorConformData,
+        [colorBlue, colorRed]
+    );
+
+    doughnutChart(
+        'request-type',
+        requestTypeLabel,
+        requestTypeData,
+        [colorBlue, colorRed, colorGreen, colorOrange, colorPurple, colorTeal]
+    );
+
+    doughnutChart(
+        'request-status',
+        requestStatusLabel,
+        requestStatusData,
         [colorBlue, colorRed]
     );
 
