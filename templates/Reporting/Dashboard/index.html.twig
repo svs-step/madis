@@ -20,33 +20,42 @@
     <div class="row">
 
         {# DETAIL : CONTRACTOR #}
+        {% dump(data) %}
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="box box-solid">
                 <div class="box-header with-border"><h3 class="box-title">Sous-traitants</h3></div>
                 <div class="box-body">
-                    <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
-                        <canvas id="contractor-clauses" width="400" height="400"></canvas>
-                        <p>{{ 'reporting.dashboard.contractor.contractual_clauses_verified.title'|trans }}</p>
-                    </div>
-                    <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
-                        <canvas id="contractor-conform" width="400" height="400"></canvas>
-                        <p>{{ 'reporting.dashboard.contractor.conform.title'|trans }}</p>
-                    </div>
+                    {% if 0 == data.contractor.all %}
+                        Aucune donnée à afficher
+                    {% else %}
+                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
+                            <canvas id="contractor-clauses" width="400" height="400"></canvas>
+                            <p>{{ 'reporting.dashboard.contractor.contractual_clauses_verified.title'|trans }}</p>
+                        </div>
+                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
+                            <canvas id="contractor-conform" width="400" height="400"></canvas>
+                            <p>{{ 'reporting.dashboard.contractor.conform.title'|trans }}</p>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">Sous-traitants</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">Demandes</h3></div>
                 <div class="box-body">
-                    <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
-                        <canvas id="request-type" width="400" height="400"></canvas>
-                        <p>{{ 'reporting.dashboard.request.type.title'|trans }}</p>
-                    </div>
-                    <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
-                        <canvas id="request-status" width="400" height="400"></canvas>
-                        <p>{{ 'reporting.dashboard.request.status.title'|trans }}</p>
-                    </div>
+                    {% if 0 == data.request.value.all %}
+                    Aucune donnée à afficher
+                    {% else %}
+                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
+                            <canvas id="request-type" width="400" height="400"></canvas>
+                            <p>{{ 'reporting.dashboard.request.type.title'|trans }}</p>
+                        </div>
+                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
+                            <canvas id="request-status" width="400" height="400"></canvas>
+                            <p>{{ 'reporting.dashboard.request.status.title'|trans }}</p>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
