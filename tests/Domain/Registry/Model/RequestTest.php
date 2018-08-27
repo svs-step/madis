@@ -31,6 +31,7 @@ class RequestTest extends TestCase
         $model = new Request();
 
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
+        $this->assertInstanceOf(\DateTime::class, $model->getDate());
         $this->assertInstanceOf(RequestApplicant::class, $model->getApplicant());
         $this->assertInstanceOf(RequestConcernedPeople::class, $model->getConcernedPeople());
         $this->assertInstanceOf(RequestAnswer::class, $model->getAnswer());

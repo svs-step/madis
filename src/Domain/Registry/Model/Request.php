@@ -88,6 +88,7 @@ class Request
     public function __construct()
     {
         $this->id                  = Uuid::uuid4();
+        $this->date                = new \DateTime();
         $this->applicant           = new RequestApplicant();
         $this->concernedPeople     = new RequestConcernedPeople();
         $this->answer              = new RequestAnswer();
