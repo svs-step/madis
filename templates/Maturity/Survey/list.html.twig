@@ -56,7 +56,7 @@
                             {% if is_granted('ROLE_ADMIN') %}
                                 <td>{{ object.collectivity }}</td>
                             {% endif %}
-                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                            <td>{{ object.createdAt|date('Y/m/d H:i') }}</td>
                             <td>{{ object.score / 10 }}</td>
                             <td>
                                 <a href="{{ path('maturity_survey_report', { 'id': object.id }) }}">

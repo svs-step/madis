@@ -86,7 +86,7 @@
                             {% endif %}
                             <td>
                                 <a href="{{ path('registry_violation_show', { 'id':object.id }) }}">
-                                    {{ object.date|date('d/m/Y') }}
+                                    {{ object.date|date('Y/m/d') }}
                                 </a>
                             </td>
                             <td>{{ object.violationNature|dictionary('registry_violation_nature') }}</td>

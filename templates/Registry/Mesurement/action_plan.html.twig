@@ -45,7 +45,7 @@
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <td>{{ object.collectivity }}</td>
                                 {% endif %}
-                                <td>{{ object.planificationDate|date('d/m/Y') }}</td>
+                                <td>{{ object.planificationDate|date('Y/m/d') }}</td>
                                 <td>{{ object.cost }}</td>
                                 <td>{{ object.charge }}</td>
                                 <td>
