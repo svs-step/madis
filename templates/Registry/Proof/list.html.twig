@@ -71,6 +71,7 @@
                                 <th>{{ 'registry.proof.list.collectivity'|trans }}</th>
                             {% endif %}
                             <th>{{ 'registry.proof.list.type'|trans }}</th>
+                            <th>{{ 'registry.proof.list.comment'|trans }}</th>
                             <th>{{ 'registry.proof.list.created_at'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
@@ -83,6 +84,7 @@
                                 <td>{{ object.collectivity }}</td>
                             {% endif %}
                             <td>{{ object.type|dictionary('registry_proof_type') }}</td>
+                            <td>{{ object.comment|truncate(10) }}</td>
                             <td>{{ object.createdAt|date('Y/m/d H:i') }}</td>
                             <td>
                                 {% if app.user.collectivity == object.collectivity %}
