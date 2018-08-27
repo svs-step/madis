@@ -10,6 +10,7 @@
         <id name="id" column="id" type="uuid"/>
 
         <field name="name" column="name" length="80"/>
+        <field name="color" column="color" length="20"/>
 
         <one-to-many field="questions" target-entity="App\Domain\Maturity\Model\Question" mapped-by="domain"/>
         <one-to-many field="maturity" target-entity="App\Domain\Maturity\Model\Maturity" mapped-by="domain"/>
