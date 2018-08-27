@@ -50,7 +50,7 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.type'|trans }}</strong></td>
-                            <td>{{ object.type }}</td>
+                            <td>{% if object.type is not null %}{{ object.type|dictionary('user_collectivity_type') }}{% endif %}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.siren'|trans }}</strong></td>
