@@ -117,10 +117,6 @@ class DashboardController extends Controller
                             'yes' => 0,
                             'no'  => 0,
                         ],
-                        'securityOther' => [
-                            'yes' => 0,
-                            'no'  => 0,
-                        ],
                     ],
                 ],
             ],
@@ -262,11 +258,6 @@ class DashboardController extends Controller
                     ++$data['treatment']['value']['data']['securityUpdate']['yes'];
                 } else {
                     ++$data['treatment']['value']['data']['securityUpdate']['no'];
-                }
-                if ($treatment->getSecurityOther()->isCheck()) {
-                    ++$data['treatment']['value']['data']['securityOther']['yes'];
-                } else {
-                    ++$data['treatment']['value']['data']['securityOther']['no'];
                 }
             }
         }
