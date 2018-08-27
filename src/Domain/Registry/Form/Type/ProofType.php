@@ -28,7 +28,7 @@ class ProofType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'registry.proof.form.name',
-                'required' => false,
+                'required' => true,
             ])
             ->add('type', DictionaryType::class, [
                 'label'    => 'registry.proof.form.type',
