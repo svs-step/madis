@@ -21,14 +21,65 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class UserType extends AbstractType
 {
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authorizationChecker;
+
+    public function __construct(AuthorizationCheckerInterface $authorizationChecker)
+    {
+        $this->authorizationChecker = $authorizationChecker;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // Add collectivity general information only for admins
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $builder
+                ->add('plainPassword', RepeatedType::class, [
+                    'type'          => PasswordType::class,
+                    'first_options' => [
+                        'label' => 'user.user.form.password',
+                    ],
+                    'second_options' => [
+                        'label' => 'user.user.form.password_repeat',
+                    ],
+                    'required' => false,
+                ])
+                ->add('collectivity', EntityType::class, [
+                    'class'    => Collectivity::class,
+                    'label'    => 'user.user.form.collectivity',
+                    'required' => true,
+                ])
+                ->add('roles', DictionaryType::class, [
+                    'label'    => 'user.user.form.roles',
+                    'required' => true,
+                    'name'     => 'user_user_role',
+                    'multiple' => false,
+                    'expanded' => true,
+                ])
+                ->add('enabled', CheckboxType::class, [
+                    'label'    => 'user.user.form.enabled',
+                    'required' => false,
+                ])
+            ;
+
+            $builder
+                ->get('roles')
+                ->addModelTransformer(new RoleTransformer())
+            ;
+        }
+
+        // Now add standard information
         $builder
             ->add('firstName', TextType::class, [
                 'label'    => 'user.user.form.first_name',
@@ -42,27 +93,6 @@ class UserType extends AbstractType
                 'label'    => 'user.user.form.email',
                 'required' => true,
             ])
-            ->add('collectivity', EntityType::class, [
-                'class'    => Collectivity::class,
-                'label'    => 'user.user.form.collectivity',
-                'required' => true,
-            ])
-            ->add('roles', DictionaryType::class, [
-                'label'    => 'user.user.form.roles',
-                'required' => true,
-                'name'     => 'user_user_role',
-                'multiple' => false,
-                'expanded' => true,
-            ])
-            ->add('enabled', CheckboxType::class, [
-                'label'    => 'user.user.form.enabled',
-                'required' => false,
-            ])
-        ;
-
-        $builder
-            ->get('roles')
-            ->addModelTransformer(new RoleTransformer())
         ;
     }
 

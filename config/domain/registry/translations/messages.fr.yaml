@@ -132,8 +132,10 @@ registry:
 
     proof:
         action:
+            archived: Voir les preuves archivées
             back_to_list: Retour à la liste
             new: Ajouter une preuve
+            not_archived: Voir les preuves non archivées
         breadcrumb:
             create: Créer
             edit: Modifier "%name%"
@@ -147,7 +149,7 @@ registry:
             success:
                 create: Preuve "%object%" créée avec succès
                 edit: Preuve "%object%" modifiée avec succès
-                delete: Preuve "%object%" supprimée avec succès
+                delete: Preuve "%object%" archivée avec succès
         list:
             collectivity: Collectivité
             comment: Commentaire
@@ -165,8 +167,11 @@ registry:
 
     request:
         action:
+            archived: Voir les demandes archivées
             back_to_list: Retour à la liste
             new: Nouvelle demande
+            not_archived: Voir les demandes non archivées
+            report: Générer une impression
         breadcrumb:
             create: Créer
             delete: Archiver "%name%"
@@ -361,9 +366,11 @@ registry:
 
     violation:
         action:
+            archived: Voir les violations archivées
             back_to_list: Retour à la liste
             new: Nouvelle violation
             report: Générer une impression
+            not_archived: Voir les violations non archivées
         breadcrumb:
             create: Créer
             delete: Archiver "%name%"

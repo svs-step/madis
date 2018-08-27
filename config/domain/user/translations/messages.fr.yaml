@@ -19,6 +19,7 @@ user:
     collectivity:
         action:
             back_to_list: Retour à la liste
+            back_to_show: Retour à la visualisation
             new: Nouvelle collectivité
         breadcrumb:
             create: Créer
@@ -88,6 +89,20 @@ user:
             list: Liste des collectivités
             show: Visualiser une collectivité
 
+    profile:
+        breadcrumb:
+            collectivity_edit: Éditer
+            collectivity_show: Ma collectivité
+        flashbag:
+            success:
+                collectivity_edit: Votre collectivité vient d'être mise à jour
+                user_edit: Votre compte vient d'être mis à jour
+        form_user:
+            tab:
+                general: Vos informations
+        title:
+            collectivity_edit: Éditer ma collectivité
+
     security:
         forget_password:
             back_to_login: Retour à la page de connexion
@@ -130,6 +145,8 @@ user:
             email: E-mail
             enabled: Actif
             first_name: Prénom
+            help:
+                password: A remplir uniquement si vous souhaitez définir un nouveau mot de passe pour cet utilisateur
             last_name: Nom
             password: Mot de passe
             password_repeat: Répéter le mot de passe
@@ -148,6 +165,9 @@ user:
             roles: Role
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cet utilisateur ?
+        tab:
+            general: Informations générales
+            optional: Informations facultatives
         title:
             create: Créer un utilisateur
             edit: Éditer un utilisateur

@@ -20,17 +20,32 @@
     <div class="row">
 
         {# DETAIL : CONTRACTOR #}
-        <div class="col-md-6 col-xs-12">
+        <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="box box-solid">
                 <div class="box-header with-border"><h3 class="box-title">Sous-traitants</h3></div>
                 <div class="box-body">
-                    <div class="col-md-4 col-md-offset-1 col-xs-6 text-center">
+                    <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
                         <canvas id="contractor-clauses" width="400" height="400"></canvas>
                         <p>{{ 'reporting.dashboard.contractor.contractual_clauses_verified.title'|trans }}</p>
                     </div>
-                    <div class="col-md-4 col-md-offset-1 col-xs-6 text-center">
+                    <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
                         <canvas id="contractor-conform" width="400" height="400"></canvas>
                         <p>{{ 'reporting.dashboard.contractor.conform.title'|trans }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">Sous-traitants</h3></div>
+                <div class="box-body">
+                    <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
+                        <canvas id="request-type" width="400" height="400"></canvas>
+                        <p>{{ 'reporting.dashboard.request.type.title'|trans }}</p>
+                    </div>
+                    <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
+                        <canvas id="request-status" width="400" height="400"></canvas>
+                        <p>{{ 'reporting.dashboard.request.status.title'|trans }}</p>
                     </div>
                 </div>
             </div>
@@ -43,7 +58,7 @@
             <div class="col-sm-6 col-xs-12">
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>{{ data.request.value.toProcess }}</h3>
+                        <h3>{{ data.request.value.status.toProcess }}</h3>
 
                         <p>Demandes à traiter</p>
                     </div>
@@ -150,8 +165,14 @@
         let colorBlueOpacity = 'rgba(54, 162, 235, 0.5)';
         let colorGreen = ' rgba(48, 183, 44, 1)';
         let colorGreenOpacity = ' rgba(48, 183, 44, 0.5)';
+        let colorPurple = 'rgba(153, 51, 204, 1)';
+        let colorPurpleOpacity = 'rgba(153, 51, 204, 0.5)';
         let colorRed = 'rgba(255, 99, 132, 1)';
         let colorRedOpacity = 'rgba(255, 99, 132, 0.5)';
+        let colorTeal = 'rgba(0, 105, 92, 1)';
+        let colorTealOpacity = 'rgba(0, 105, 92, 0.5)';
+        let colorOrange = 'rgb(255, 136, 0, 1)';
+        let colorOrangeOpacity = 'rgb(255, 136, 0, 0.5)';
 
         let labelYesNo = [labelYes, labelNo];
 
@@ -183,6 +204,35 @@
             {% endfor %}
             maturityData.push(tmpData2);
         {% endif %}
+
+        // REQUEST
+        let requestTypeLabel = [
+            'Rectifier des données',
+            'Supprimer des données',
+            'Retirer le consentement',
+            'Accéder à des données',
+            'Portabilité des données',
+            'Limiter le traitement',
+        ];
+        let requestTypeData = [
+            {{ data.request.value.type.correct }},
+            {{ data.request.value.type.delete }},
+            {{ data.request.value.type.withdrawConsent }},
+            {{ data.request.value.type.access }},
+            {{ data.request.value.type.dataPortability }},
+            {{ data.request.value.type.limitTreatment }},
+        ];
+
+        let requestStatusLabel = [
+            'Traité',
+            'À traiter',
+            'Incomplète',
+        ];
+        let requestStatusData = [
+            {{ data.request.value.status.processed }},
+            {{ data.request.value.status.toProcess }},
+            {{ data.request.value.status.incomplete }},
+        ];
 
         // TREATMENT
         let treatmentLabels = [

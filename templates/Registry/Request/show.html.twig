@@ -29,7 +29,7 @@
                     <i class="fa fa-arrow-left"></i>
                     {{ 'registry.request.action.back_to_list'|trans }}
                 </a>
-                {% if is_granted('ROLE_USER') %}
+                {% if is_granted('ROLE_USER') and object.deletedAt is null %}
                 <a href="{{ path('registry_request_edit', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-pencil-alt"></i>
                     {{ 'action.edit'|trans }}
@@ -115,7 +115,7 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.request.show.answer_type'|trans }}</strong></td>
-                            <td>{{ object.answer.type|dictionary('registry_request_answer_type') }}</td>
+                            <td>{% if object.answer.type is not null %}{{ object.answer.type|dictionary('registry_request_answer_type') }}{% endif %}</td>
                         </tr>
                         </tbody>
                     </table>

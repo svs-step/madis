@@ -88,6 +88,9 @@ class Request
     public function __construct()
     {
         $this->id                  = Uuid::uuid4();
+        $this->applicant           = new RequestApplicant();
+        $this->concernedPeople     = new RequestConcernedPeople();
+        $this->answer              = new RequestAnswer();
         $this->complete            = false;
         $this->legitimateApplicant = false;
         $this->legitimateRequest   = false;

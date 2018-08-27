@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'page_credit' %}
+{% set menuItem = 'page_credit' %}
+{% set title = 'Crédit' %}
+
+{% block title %}{{ title }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ title }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': title }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12 col-xs-offset-1">
+            <h2>Madis</h2>
+            <p>
+                L'application
+                <strong><a href="/" target="_blank" rel="noreferrer nofollow">MADIS</a></strong>
+                est une application pensée par
+                <strong><a href="//soluris.fr" target="_blank" rel="noreferrer nofollow">Soluris</a></strong>
+                dans le but de vous accompagner dans la gestion des directives RGPD.
+            </p>
+
+            <h3>Parties prenantes</h3>
+            <p>
+                <strong>Cadrage & gestion du projet</strong>
+                <ul>
+                    <li><strong>Benoît LIÉNARD</strong> (b.lienard@soluris.fr)</li>
+                    <li><strong>Michaël EDLICH</strong> (m.edlich@soluris.fr)</li>
+                </ul>
+            </p>
+            <p>
+                <strong>Développement</strong>
+            <ul>
+                <li><strong>Donovan BOURLARD</strong> (donovan@awkan.fr)</li>
+            </ul>
+            </p>
+
+            <h3>Hébergement</h3>
+            <p>
+                <strong>SOLURIS</strong><br/>
+                2 rue des rochers<br/>
+                17 100 SAINTES
+            </p>
+
+            <h3>Technologies utilisées</h3>
+            <p>
+                <ul>
+                    <li>Symfony & AdminLTE</li>
+                    <li>MySQL</li>
+                    <li>NGINX</li>
+                </ul>
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

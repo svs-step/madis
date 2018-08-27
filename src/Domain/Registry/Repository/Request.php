@@ -65,22 +65,43 @@ interface Request extends RepositoryInterface
     public function findOneById(string $id);
 
     /**
-     * Find all proofs by associated collectivity.
+     * Find all requests by associated collectivity.
      *
      * @param Collectivity $collectivity The collectivity to search with
      * @param bool         $deleted      Get deleted rows or not
      * @param array        $order        Order results
      *
-     * @return array The array of proofs given by the collectivity
+     * @return array The array of requests given by the collectivity
      */
     public function findAllByCollectivity(Collectivity $collectivity, bool $deleted = false, array $order = []);
 
     /**
-     * Find all proofs by criteria.
+     * Find all requests by criteria.
      *
      * @param array $criteria List of criteria
      *
-     * @return array The array of proofs given by criteria
+     * @return array The array of requests given by criteria
      */
     public function findBy(array $criteria = []);
+
+    /**
+     * Find all requests.
+     *
+     * @param bool  $archived Get all archived or not
+     * @param array $order    Order results
+     *
+     * @return array The array of requests
+     */
+    public function findAllArchived(bool $archived = false, array $order = []);
+
+    /**
+     * Find all active requests by associated collectivity.
+     *
+     * @param Collectivity $collectivity The collectivity to search with
+     * @param bool         $archived     Get all archived or not
+     * @param array        $order        Order results
+     *
+     * @return array The array of requests given by the collectivity
+     */
+    public function findAllArchivedByCollectivity(Collectivity $collectivity, bool $archived = false, array $order = []);
 }

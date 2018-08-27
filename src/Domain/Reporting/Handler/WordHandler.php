@@ -230,6 +230,38 @@ class WordHandler
     }
 
     /**
+     * Generate request report.
+     *
+     * @param array $requests requests to use for generation
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     * @throws \Exception
+     *
+     * @return Response The generated Word file
+     */
+    public function generateRegistryRequestReport(array $requests = []): Response
+    {
+        $title = 'Registre des demandes des personnes concernées';
+        // Initialize document
+        $this->requestGenerator->initializeDocument($this->document);
+
+        // Begin generation
+        $this->requestGenerator->addHomepage($this->document, $title);
+
+        // Section which will get whole content
+        $contentSection = $this->requestGenerator->createContentSection($this->document, $title);
+
+        // Table of content
+        $this->requestGenerator->addTableOfContent($contentSection, 1);
+
+        // Content
+        $this->requestGenerator->addSyntheticView($contentSection, $requests);
+        $this->requestGenerator->addDetailedView($contentSection, $requests);
+
+        return $this->requestGenerator->generateResponse($this->document, 'demandes_des_personnes_concernees');
+    }
+
+    /**
      * Generate treatment report.
      *
      * @param array $treatments treatments to use for generation
@@ -260,5 +292,38 @@ class WordHandler
         $this->treatmentGenerator->addDetailedView($contentSection, $treatments);
 
         return $this->treatmentGenerator->generateResponse($this->document, 'traitements');
+    }
+
+    /**
+     * Generate violation report.
+     *
+     * @param array $treatments treatments to use for generation
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     * @throws \Exception
+     *
+     * @return Response The generated Word file
+     */
+    public function generateRegistryViolationReport(array $treatments = [])
+    {
+        $title = 'Registre des violations';
+
+        // Initialize document
+        $this->violationGenerator->initializeDocument($this->document);
+
+        // Begin generation
+        $this->violationGenerator->addHomepage($this->document, $title);
+
+        // Section which will get whole content
+        $contentSection = $this->violationGenerator->createContentSection($this->document, $title);
+
+        // Table of content
+        $this->violationGenerator->addTableOfContent($contentSection, 1);
+
+        // Content
+        $this->violationGenerator->addSyntheticView($contentSection, $treatments);
+        $this->violationGenerator->addDetailedView($contentSection, $treatments);
+
+        return $this->violationGenerator->generateResponse($this->document, 'violations');
     }
 }

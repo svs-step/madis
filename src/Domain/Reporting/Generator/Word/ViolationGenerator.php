@@ -14,8 +14,14 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Word;
 
 use App\Domain\Registry\Dictionary\ViolationCauseDictionary;
+use App\Domain\Registry\Dictionary\ViolationCommunicationDictionary;
+use App\Domain\Registry\Dictionary\ViolationConcernedDataDictionary;
+use App\Domain\Registry\Dictionary\ViolationConcernedPeopleDictionary;
 use App\Domain\Registry\Dictionary\ViolationGravityDictionary;
+use App\Domain\Registry\Dictionary\ViolationImpactDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
+use App\Domain\Registry\Dictionary\ViolationNotificationDictionary;
+use App\Domain\Registry\Dictionary\ViolationOriginDictionary;
 use PhpOffice\PhpWord\Element\Section;
 
 class ViolationGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
@@ -59,11 +65,165 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
 
     public function addSyntheticView(Section $section, array $data): void
     {
-        // TODO
+        $section->addTitle('Liste des violations', 1);
+
+        // Aggregate data before rendering
+        $tableData = [
+            [
+                'Date',
+                'Nature',
+                'Cause',
+                'Niveau de gravité',
+            ],
+        ];
+
+        foreach ($data as $violation) {
+            $cellDate   = [];
+            $cellDate[] = $this->getDate($violation->getDate(), 'd/m/Y');
+            if ($violation->isInProgress()) {
+                $cellDate[] = '(Toujours en cours)';
+            }
+            $tableData[] = [
+                $cellDate,
+                ViolationNatureDictionary::getNatures()[$violation->getViolationNature()],
+                ViolationCauseDictionary::getNatures()[$violation->getCause()],
+                ViolationGravityDictionary::getGravities()[$violation->getGravity()],
+            ];
+        }
+
+        // Rendering
+        $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
+        $section->addPageBreak();
     }
 
     public function addDetailedView(Section $section, array $data): void
     {
-        // TODO
+        $section->addTitle('Détail des violations', 1);
+
+        foreach ($data as $key => $violation) {
+            if (0 !== $key) {
+                $section->addPageBreak();
+            }
+
+            $section->addTitle((string) $violation, 2);
+
+            $cellDate   = [];
+            $cellDate[] = $this->getDate($violation->getDate(), 'd/m/Y');
+            if ($violation->isInProgress()) {
+                $cellDate[] = '(Toujours en cours)';
+            }
+            $generalInformationData = [
+                [
+                    'Date de la violation',
+                    $cellDate,
+                ],
+                [
+                    'Nature de la violation',
+                    $this->translateWithDictionary(ViolationNatureDictionary::getNatures(), $violation->getViolationNature()),
+                ],
+                [
+                    'Origine de la perte de données',
+                    $this->translateWithDictionary(ViolationOriginDictionary::getOrigins(), $violation->getOrigins()),
+                ],
+                [
+                    'Cause de la violation',
+                    $this->translateWithDictionary(ViolationCauseDictionary::getNatures(), $violation->getCause()),
+                ],
+                [
+                    'Nature des données concernées',
+                    $this->translateWithDictionary(ViolationConcernedDataDictionary::getConcernedData(), $violation->getConcernedDataNature()),
+                ],
+                [
+                    'Catégorie des personnes concernées',
+                    $this->translateWithDictionary(ViolationConcernedPeopleDictionary::getConcernedPeople(), $violation->getConcernedPeopleCategories()),
+                ],
+                [
+                    'Nombre approximatif d\'enregistrements concernés par la violation',
+                    $violation->getNbAffectedRows(),
+                ],
+                [
+                    'Nombre approximatif de personnes concernés par la violation',
+                    $violation->getNbAffectedPersons(),
+                ],
+            ];
+
+            $consequenceData = [
+                [
+                    'Nature des impacts potentiels pour les personnes',
+                    $this->translateWithDictionary(ViolationImpactDictionary::getImpacts(), $violation->getPotentialImpactsNature()),
+                ],
+                [
+                    'Niveau de gravité',
+                    $this->translateWithDictionary(ViolationGravityDictionary::getGravities(), $violation->getGravity()),
+                ],
+                [
+                    'Communications aux personnes concernées',
+                    $this->translateWithDictionary(ViolationCommunicationDictionary::getCommunications(), $violation->getCommunication()),
+                ],
+                [
+                    'Précisions sur les communications',
+                    $violation->getCommunicationPrecision(),
+                ],
+                [
+                    'Mesures techniques et organisationnelles appliquées suite à la violation',
+                    $violation->getAppliedMeasuresAfterViolation(),
+                ],
+                [
+                    'Notification',
+                    $this->translateWithDictionary(ViolationNotificationDictionary::getNotifications(), $violation->getNotification()),
+                ],
+                [
+                    'Précisions sur les notifications',
+                    $violation->getNotificationDetails(),
+                ],
+                [
+                    'Commentaire',
+                    $violation->getComment(),
+                ],
+            ];
+
+            $historyData = [
+                [
+                    'Créateur',
+                    $violation->getCreator(),
+                ],
+                [
+                    'Date de création',
+                    $this->getDate($violation->getCreatedAt()),
+                ],
+                [
+                    'Dernière mise à jour',
+                    $this->getDate($violation->getUpdatedAt()),
+                ],
+            ];
+
+            $section->addTitle('Informations sur la violation', 3);
+            $this->addTable($section, $generalInformationData, true, self::TABLE_ORIENTATION_VERTICAL);
+
+            $section->addTitle('Conséquences de la violation', 3);
+            $this->addTable($section, $consequenceData, true, self::TABLE_ORIENTATION_VERTICAL);
+
+            $section->addTitle('Historique', 3);
+            $this->addTable($section, $historyData, true, self::TABLE_ORIENTATION_VERTICAL);
+        }
+    }
+
+    private function translateWithDictionary(array $dictionaryData = [], $value = null): array
+    {
+        if (\is_null($value)) {
+            return [];
+        }
+
+        if (!\is_array($value)) {
+            return [$dictionaryData[$value]];
+        }
+
+        // Value is iterable
+        $translatedValues = [];
+        foreach ($value as $item) {
+            $translatedValues[] = "- {$dictionaryData[$item]}";
+        }
+
+        return $translatedValues;
     }
 }

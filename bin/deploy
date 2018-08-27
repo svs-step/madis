@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-git pull origin master
+git pull
 
 # Composer
 composer install --prefer-dist --no-interaction --optimize-autoloader
