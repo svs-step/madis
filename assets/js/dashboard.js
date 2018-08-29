@@ -118,7 +118,7 @@ $(document).ready(function() {
         'request-status',
         requestStatusLabel,
         requestStatusData,
-        [colorBlue, colorRed]
+        [colorBlue, colorRed, colorGreen]
     );
 
     radarChart(
