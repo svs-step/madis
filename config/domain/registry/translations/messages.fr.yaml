@@ -393,7 +393,7 @@ registry:
             date: Date de la violation
             gravity: Niveau de gravité
             in_progress: La violation est toujours en cours
-            nb_affected_persons: Nombre approximatif de personnes concernés par la violation
+            nb_affected_persons: Nombre approximatif de personnes concernées par la violation
             nb_affected_rows: Nombre approximatif d'enregistrements concernés par la violation
             notification: Notification
             notification_details: Précisions sur les notifications
@@ -420,7 +420,7 @@ registry:
             date: Date de la violation
             gravity: Niveau de gravité
             in_progress: La violation est toujours en cours
-            nb_affected_persons: Nombre approximatif de personnes concernés par la violation
+            nb_affected_persons: Nombre approximatif de personnes concernées par la violation
             nb_affected_rows: Nombre approximatif d'enregistrements concernés par la violation
             notification: Notification
             notification_details: Précisions sur les notifications

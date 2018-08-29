@@ -38,7 +38,7 @@ class TreatmentLegalBasisDictionaryTest extends TestCase
             TreatmentLegalBasisDictionary::BASE_CONSENT                 => 'Le consentement',
             TreatmentLegalBasisDictionary::BASE_LEGAL_OBLIGATION        => 'L\'obligation légale',
             TreatmentLegalBasisDictionary::BASE_CONTRACT_EXECUTION      => 'L\'exécution d\'un contrat',
-            TreatmentLegalBasisDictionary::BASE_PUBLIC_INTEREST_MISSION => 'L\'exécution d\'une mission d\'intérêt publique',
+            TreatmentLegalBasisDictionary::BASE_PUBLIC_INTEREST_MISSION => 'L\'exécution d\'une mission d\'intérêt public',
             TreatmentLegalBasisDictionary::BASE_VITAL_INTEREST          => 'L\'intérêt vital',
         ];
 

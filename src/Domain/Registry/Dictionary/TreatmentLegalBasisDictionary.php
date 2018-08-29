@@ -39,7 +39,7 @@ class TreatmentLegalBasisDictionary extends SimpleDictionary
             self::BASE_CONSENT                 => 'Le consentement',
             self::BASE_LEGAL_OBLIGATION        => 'L\'obligation légale',
             self::BASE_CONTRACT_EXECUTION      => 'L\'exécution d\'un contrat',
-            self::BASE_PUBLIC_INTEREST_MISSION => 'L\'exécution d\'une mission d\'intérêt publique',
+            self::BASE_PUBLIC_INTEREST_MISSION => 'L\'exécution d\'une mission d\'intérêt public',
             self::BASE_VITAL_INTEREST          => 'L\'intérêt vital',
         ];
     }
