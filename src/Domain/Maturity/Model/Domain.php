@@ -30,6 +30,11 @@ class Domain
     private $name;
 
     /**
+     * @var string
+     */
+    private $color;
+
+    /**
      * @var iterable
      */
     private $questions;
@@ -68,6 +73,22 @@ class Domain
     public function setName(?string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    /**
+     * @param string|null $color
+     */
+    public function setColor(?string $color): void
+    {
+        $this->color = $color;
     }
 
     /**

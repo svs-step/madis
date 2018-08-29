@@ -2,18 +2,24 @@ App\Domain\Maturity\Model\Domain:
 
     maturity_domain_1:
         name: Domaine 1
+        color: primary
 
     maturity_domain_2:
         name: Domaine 2
+        color: info
 
     maturity_domain_3:
         name: Domaine 3
+        color: danger
 
     maturity_domain_4:
         name: Domaine 4
+        color: warning
 
     maturity_domain_5:
         name: Domaine 5
+        color: success
 
     maturity_domain_6:
         name: Domaine 6
+        color: primary

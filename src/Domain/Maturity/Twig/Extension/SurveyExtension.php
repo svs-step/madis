@@ -21,10 +21,11 @@ class SurveyExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFunction('orderByDomain', [$this, 'orderByDomain']),
+            new \Twig_SimpleFunction('getDomainsColor', [$this, 'getDomainsColor']),
         ];
     }
 
-    public function orderByDomain(FormView $formView)
+    public function orderByDomain(FormView $formView): array
     {
         $answersByDomain = [];
         foreach ($formView as $answer) {
@@ -33,5 +34,17 @@ class SurveyExtension extends \Twig_Extension
         }
 
         return $answersByDomain;
+    }
+
+    public function getDomainsColor(FormView $formView): array
+    {
+        $colorByDomain = [];
+        foreach ($formView as $answer) {
+            $object                            = $answer->vars['value'];
+            $domain                            = $object->getQuestion()->getDomain();
+            $colorByDomain[$domain->getName()] = $domain->getColor();
+        }
+
+        return $colorByDomain;
     }
 }

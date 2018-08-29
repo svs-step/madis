@@ -134,7 +134,7 @@
             </div>
 
             {# HISTORIC #}
-            <div class="box box-solid">
+            <div class="box box-solid box-default">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -226,7 +226,7 @@
                                     <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     <p>{{ object.securityAccessControl.comment }}</p>
                                 {% else %}
-                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -234,10 +234,10 @@
                             <td><strong>{{ 'registry.treatment.show.security_tracability'|trans }}</strong></td>
                             <td>
                                 {% if object.securitytracability.check %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                   <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     <p>{{ object.securitytracability.comment }}</p>
                                 {% else %}
-                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -245,10 +245,10 @@
                             <td><strong>{{ 'registry.treatment.show.security_saving'|trans }}</strong></td>
                             <td>
                                 {% if object.securitySaving.check %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                   <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     <p>{{ object.securitySaving.comment }}</p>
                                 {% else %}
-                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -256,10 +256,10 @@
                             <td><strong>{{ 'registry.treatment.show.security_update'|trans }}</strong></td>
                             <td>
                                 {% if object.securityUpdate.check %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                   <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     <p>{{ object.securityUpdate.comment }}</p>
                                 {% else %}
-                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -267,10 +267,10 @@
                             <td><strong>{{ 'registry.treatment.show.security_other'|trans }}</strong></td>
                             <td>
                                 {% if object.securityOther.check %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                   <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     <p>{{ object.securityOther.comment }}</p>
                                 {% else %}
-                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -290,9 +290,9 @@
                             <td>
                                 <ul>
                                     {% if object.systematicMonitoring %}
-                                        <span class="badge bg-gray">{{ 'label.yes'|trans }}</span>
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
                                     {% else %}
-                                        <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </ul>
                             </td>
@@ -302,9 +302,9 @@
                             <td>
                                 <ul>
                                     {% if object.largeScaleCollection %}
-                                        <span class="badge bg-gray">{{ 'label.yes'|trans }}</span>
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
                                     {% else %}
-                                        <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </ul>
                             </td>
@@ -314,9 +314,9 @@
                             <td>
                                 <ul>
                                     {% if object.vulnerablePeople %}
-                                        <span class="badge bg-gray">{{ 'label.yes'|trans }}</span>
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
                                     {% else %}
-                                        <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </ul>
                             </td>
@@ -326,9 +326,9 @@
                             <td>
                                 <ul>
                                     {% if object.dataCrossing %}
-                                        <span class="badge bg-gray">{{ 'label.yes'|trans }}</span>
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
                                     {% else %}
-                                        <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </ul>
                             </td>

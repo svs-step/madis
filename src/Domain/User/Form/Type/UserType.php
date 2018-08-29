@@ -16,6 +16,7 @@ namespace App\Domain\User\Form\Type;
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
+use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -56,8 +57,12 @@ class UserType extends AbstractType
                     'required' => false,
                 ])
                 ->add('collectivity', EntityType::class, [
-                    'class'    => Collectivity::class,
-                    'label'    => 'user.user.form.collectivity',
+                    'class'         => Collectivity::class,
+                    'label'         => 'user.user.form.collectivity',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('c')
+                            ->orderBy('c.name', 'ASC');
+                    },
                     'required' => true,
                 ])
                 ->add('roles', DictionaryType::class, [

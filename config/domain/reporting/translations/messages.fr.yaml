@@ -9,7 +9,7 @@ reporting:
             index: Tableau de bord
         contractor:
             contractual_clauses_verified:
-                title: Clauses contractuelles vérifiées
+                title: Clauses contractuelles
             conform:
                 title: Conforme RGPD
         mesurement:

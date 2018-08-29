@@ -93,6 +93,7 @@ user:
         breadcrumb:
             collectivity_edit: Éditer
             collectivity_show: Ma collectivité
+            user_edit: Éditer mon profil
         flashbag:
             success:
                 collectivity_edit: Votre collectivité vient d'être mise à jour
