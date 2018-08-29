@@ -3,6 +3,17 @@
   content: "";
 }
 
+.sidebar-logo {
+    & img {
+      padding: 20px 5px 12px 0;
+      width: 190px;
+      height: auto;
+    }
+}
+.sidebar-collapse .sidebar-logo {
+    display: none;
+}
+
 /* Form */
 .form-group>label.required:after {
   content: '*';
