@@ -14,7 +14,7 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'registry.treatment.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
+        { 'name': 'registry.treatment.breadcrumb.list'|trans, 'link': path('registry_treatment_list') },
         { 'name': 'registry.treatment.breadcrumb.show'|trans({'%name%': object}) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
