@@ -28,6 +28,7 @@ class ViolationTest extends TestCase
         $model = new Violation();
 
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
+        $this->assertInstanceOf(\DateTime::class, $model->getDate());
         $this->assertFalse($model->isInProgress());
         $this->assertEquals([], $model->getConcernedDataNature());
         $this->assertEquals([], $model->getConcernedPeopleCategories());
