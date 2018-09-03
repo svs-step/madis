@@ -35,10 +35,34 @@ $(document).ready(function(){
         })
     });
 
-    // Check mesurement status | onLoad & onChange
+    // Check Collectivity dpo | onLoad & onChange
+    checkCollectivityDifferentDpo();
+    $('#collectivity_differentDpo').on('change', function() {
+        checkCollectivityDifferentDpo();
+    });
+
+    // Check Collectivity it manager | onLoad & onChange
+    checkCollectivityDifferentItManager();
+    $('#collectivity_differentItManager').on('change', function() {
+        checkCollectivityDifferentItManager();
+    });
+
+    // Check Mesurement status | onLoad & onChange
     checkMesurementStatus();
     $('#mesurement_status').on('change', function() {
         checkMesurementStatus();
+    });
+
+    // Check Profile collectivity dpo | onLoad & onChange
+    checkProfileDifferentDpo();
+    $('#collectivity_differentDpo').on('change', function() {
+        checkProfileDifferentDpo();
+    });
+
+    // Check Profile collectivity it manager | onLoad & onChange
+    checkProfileDifferentItManager();
+    $('#collectivity_differentItManager').on('change', function() {
+        checkProfileDifferentItManager();
     });
 
     // Check Request concerned people | onLoad & onChange
@@ -58,11 +82,10 @@ function checkMesurementStatus()
     planificationDateCheck.find('select').each(function() {
         $(this).prop('disabled', notApplicableCheck.is(':checked'));
     });
-
-
 }
 
-function checkRequestConcernedPeople() {
+function checkRequestConcernedPeople()
+{
     let applicantConcernedPeople = $('#request_applicant_concernedPeople');
     let boxConcernedPeople = $('body.registry_request #box-concerned-people');
 
@@ -72,4 +95,60 @@ function checkRequestConcernedPeople() {
     boxConcernedPeople.find('select').each(function() {
         $(this).prop('disabled', applicantConcernedPeople.is(':checked'));
     });
+}
+
+function checkDifferentDpo(id, boxId)
+{
+    boxId.find('input').each(function() {
+        $(this).prop('disabled', !id.is(':checked'));
+    });
+    boxId.find('select').each(function() {
+        $(this).prop('disabled', !id.is(':checked'));
+    });
+    // Be sure to not disable checkbox
+    id.prop('disabled', false);
+}
+
+function checkDifferentItManager(id, boxId)
+{
+    boxId.find('input').each(function() {
+        $(this).prop('disabled', !id.is(':checked'));
+    });
+    boxId.find('select').each(function() {
+        $(this).prop('disabled', !id.is(':checked'));
+    });
+    // Be sure to not disable checkbox
+    id.prop('disabled', false);
+}
+
+function checkCollectivityDifferentDpo()
+{
+    let differentDpo = $('#collectivity_differentDpo');
+    let boxDpo = $('body.user_collectivity.form #box-dpo');
+
+    checkDifferentDpo(differentDpo, boxDpo);
+}
+
+function checkCollectivityDifferentItManager()
+{
+    let differentItManager = $('#collectivity_differentItManager');
+    let boxItManager = $('body.user_collectivity.form #box-it-manager');
+
+    checkDifferentItManager(differentItManager, boxItManager);
+}
+
+function checkProfileDifferentDpo()
+{
+    let differentDpo = $('#collectivity_differentDpo');
+    let boxDpo = $('body.user_profile_collectivity.form #box-dpo');
+
+    checkDifferentDpo(differentDpo, boxDpo);
+}
+
+function checkProfileDifferentItManager()
+{
+    let differentItManager = $('#collectivity_differentItManager');
+    let boxItManager = $('body.user_profile_collectivity.form #box-it-manager');
+
+    checkDifferentItManager(differentItManager, boxItManager);
 }

@@ -103,9 +103,15 @@ class OverviewGenerator extends AbstractGenerator
         $section->addListItem("{$referentCivility} {$referent->getFullName()}, {$referent->getJob()}");
 
         $itManager = $collectivity->getItManager();
-        if (!\is_null($itManager->getFirstName()) && !\is_null($itManager->getLastName())) {
+        if ($collectivity->isDifferentItManager()) {
             $itManagerCivility = ContactCivilityDictionary::getCivilities()[$itManager->getCivility()];
             $section->addListItem("{$itManagerCivility} {$itManager->getFullName()}, {$itManager->getJob()}");
+        }
+
+        $dpo = $collectivity->getDpo();
+        if ($collectivity->isDifferentDpo()) {
+            $dpoCivility = ContactCivilityDictionary::getCivilities()[$dpo->getCivility()];
+            $section->addListItem("{$dpoCivility} {$dpo->getFullName()}, {$dpo->getJob()}");
         }
     }
 

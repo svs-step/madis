@@ -3,7 +3,9 @@
 <div class="row">
     {{ form_start(form) }}
 
+    {# LEFT #}
     <div class="col-md-6">
+        {# GENERAL #}
         <div class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.general'|trans }}</h3></div>
             <div class="box-body">
@@ -15,55 +17,49 @@
                 {{ form_row(form.website) }}
             </div>
         </div>
-    </div>
 
-    <div class="col-md-6">
-        <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.address'|trans }}</h3></div>
-            <div class="box-body">
-                {{ form_widget(form.address) }}
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
+        {# LEGAL MANAGER #}
         <div class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.legal_manager'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_widget(form.legalManager) }}
             </div>
         </div>
+
+        {# DPO #}
+        <div id="box-dpo" class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.dpo'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.differentDpo) }}
+                {{ form_widget(form.dpo) }}
+            </div>
+        </div>
     </div>
 
+    {# RIGHT #}
     <div class="col-md-6">
+        {# ADDRESS #}
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.address'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_widget(form.address) }}
+            </div>
+        </div>
+
+        {# REFERENT #}
         <div class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.referent'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_widget(form.referent) }}
             </div>
         </div>
-    </div>
 
-    <div class="col-md-6">
-        <div class="box box-solid">
+        {# IT MANAGER #}
+        <div id="box-it-manager" class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.it_manager'|trans }}</h3></div>
             <div class="box-body">
-                <blockquote>
-                    <small>{{ 'user.collectivity.form.help.it_manager'|trans }}</small>
-                </blockquote>
+                {{ form_row(form.differentItManager) }}
                 {{ form_widget(form.itManager) }}
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.dpo'|trans }}</h3></div>
-            <div class="box-body">
-                <blockquote>
-                    <small>{{ 'user.collectivity.form.help.dpo'|trans }}</small>
-                </blockquote>
-                {{ form_widget(form.dpo) }}
             </div>
         </div>
     </div>
