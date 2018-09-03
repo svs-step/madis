@@ -15,6 +15,7 @@ namespace App\Domain\User\Form\Type;
 
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -95,8 +96,16 @@ class CollectivityType extends AbstractType
                 'required'          => true,
                 'validation_groups' => ['default', 'collectivity_referent'],
             ])
+            ->add('differentDpo', CheckboxType::class, [
+                'label'    => 'user.collectivity.form.different_dpo',
+                'required' => false,
+            ])
             ->add('dpo', ContactType::class, [
                 'label'    => 'user.collectivity.form.dpo',
+                'required' => false,
+            ])
+            ->add('differentItManager', CheckboxType::class, [
+                'label'    => 'user.collectivity.form.different_it_manager',
                 'required' => false,
             ])
             ->add('itManager', ContactType::class, [

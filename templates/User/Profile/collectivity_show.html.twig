@@ -155,7 +155,19 @@
                 <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.it_manager'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
-                        <tbody>
+                        <tbody><tr>
+                            <td><strong>{{ 'user.collectivity.show.different_it_manager'|trans }}</strong></td>
+                            <td>
+                                <span class="badge bg-gr">
+                                    {% if object.differentItManager %}
+                                        {{ 'label.yes'|trans }}
+                                    {% else %}
+                                        {{ 'label.no'|trans }}
+                                    {% endif %}
+                                </span>
+                            </td>
+                        </tr>
+                        {% if object.differentItManager %}
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
                             <td>
@@ -184,6 +196,7 @@
                             <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
                             <td>{{ object.itManager.phoneNumber }}</td>
                         </tr>
+                        {% endif %}
                         </tbody>
                     </table>
                 </div>
@@ -236,6 +249,18 @@
                 <div class="box-body no-padding">
                     <table class="table">
                         <tbody>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.different_dpo'|trans }}</strong></td>
+                            <td>
+                                <span class="badge bg-gr">
+                                    {% if object.differentDpo %}
+                                        {{ 'label.yes'|trans }}
+                                    {% else %}
+                                        {{ 'label.no'|trans }}
+                                    {% endif %}
+                                </span>
+                            </td>
+                        </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
                             <td>

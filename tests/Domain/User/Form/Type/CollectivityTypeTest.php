@@ -19,6 +19,7 @@ use App\Domain\User\Form\Type\ContactType;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -55,17 +56,19 @@ class CollectivityTypeTest extends FormTypeHelper
     public function testBuildFormAdmin(): void
     {
         $builder = [
-            'name'         => TextType::class,
-            'shortName'    => TextType::class,
-            'type'         => DictionaryType::class,
-            'siren'        => NumberType::class,
-            'active'       => ChoiceType::class,
-            'website'      => UrlType::class,
-            'address'      => AddressType::class,
-            'legalManager' => ContactType::class,
-            'referent'     => ContactType::class,
-            'dpo'          => ContactType::class,
-            'itManager'    => ContactType::class,
+            'name'               => TextType::class,
+            'shortName'          => TextType::class,
+            'type'               => DictionaryType::class,
+            'siren'              => NumberType::class,
+            'active'             => ChoiceType::class,
+            'website'            => UrlType::class,
+            'address'            => AddressType::class,
+            'legalManager'       => ContactType::class,
+            'referent'           => ContactType::class,
+            'differentDpo'       => CheckboxType::class,
+            'dpo'                => ContactType::class,
+            'differentItManager' => CheckboxType::class,
+            'itManager'          => ContactType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
@@ -76,10 +79,12 @@ class CollectivityTypeTest extends FormTypeHelper
     public function testBuildFormUser(): void
     {
         $builder = [
-            'legalManager' => ContactType::class,
-            'referent'     => ContactType::class,
-            'dpo'          => ContactType::class,
-            'itManager'    => ContactType::class,
+            'legalManager'       => ContactType::class,
+            'referent'           => ContactType::class,
+            'differentDpo'       => CheckboxType::class,
+            'dpo'                => ContactType::class,
+            'differentItManager' => CheckboxType::class,
+            'itManager'          => ContactType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(false);
