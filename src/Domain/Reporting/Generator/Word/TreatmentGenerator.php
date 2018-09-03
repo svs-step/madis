@@ -79,7 +79,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             if (!\is_null($treatment->getSoftware()) && $treatment->isPaperProcessing()) {
                 ++$digitalisation['both'];
             } elseif (!\is_null($treatment->getSoftware())) {
-                ++$digitalisation['digital'];
+                ++$digitalisation['onlyDigital'];
             } elseif ($treatment->isPaperProcessing()) {
                 ++$digitalisation['paper'];
             } else {
@@ -109,6 +109,8 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 ++$completion['80'];
             }
         }
+        // Then aggregate
+        $digitalisation['digital'] = $digitalisation['onlyDigital'] + $digitalisation['both'];
 
         $section->addTitle('Registre des traitements', 2);
         $section->addText('Une collecte des traitements a été réalisée. Chaque fiche de registre est établie sur une base de 20 critères. Les critères exigés par le règlement sont pris en compte.');
@@ -140,7 +142,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addTextBreak();
         $section->addText("Sur les {$nbTreatments} traitements : ");
         $section->addListItem("{$digitalisation['paper']} sont uniquement papier");
-        $section->addListItem("{$digitalisation['digital']} sont complétement informatisés");
+        $section->addListItem("{$digitalisation['onlyDigital']} sont complétement informatisés");
         $section->addListItem("{$digitalisation['both']} sont informatisés et papier");
         if (0 < $digitalisation['other']) {
             $section->addListItem("{$digitalisation['other']} ne sont pas renseignés");
@@ -148,7 +150,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
         $section->addTitle('Sécurité de base des traitements informatisés', 2);
         $section->addText("Sur les {$digitalisation['digital']} traitements informatisés :");
-        // TODO Graph
         $section->addListItem("{$security['accessControl']} ont un contrôle d'accès");
         $section->addListItem("{$security['tracability']} ont une traçabilité");
         $section->addListItem("{$security['saving']} ont sont sauvegardés");
