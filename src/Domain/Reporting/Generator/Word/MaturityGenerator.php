@@ -19,6 +19,10 @@ use PhpOffice\PhpWord\SimpleType\TblWidth;
 
 class MaturityGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
+    const RESPONSE_0 = 'Rien (ou presque) n\'est fait';
+    const RESPONSE_1 = 'La pratique est partiellement mise en place';
+    const RESPONSE_2 = 'La pratique est conforme';
+
     public function addGlobalOverview(Section $section, array $data): void
     {
         $section->addTitle('Évaluation de la mise en conformité', 2);
@@ -43,7 +47,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $cell = $row->addCell(1250);
         $cell->addText('Inexistant');
         $cell = $row->addCell(3000);
-        $cell->addText('Rien (ou presque) n\'est fait (en dessous de 30%)');
+        $cell->addText(self::RESPONSE_0 . ' (en dessous de 30%)');
 
         $row  = $table->addRow();
         $cell = $row->addCell(750, ['bgColor' => 'ffff80', 'valign' => 'center']);
@@ -51,7 +55,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $cell = $row->addCell(1250);
         $cell->addText('Partielle');
         $cell = $row->addCell(3000);
-        $cell->addText('La pratique est partiellement mise en place (entre 30% et 70%)');
+        $cell->addText(self::RESPONSE_1 . ' (entre 30% et 70%)');
 
         $row  = $table->addRow();
         $cell = $row->addCell(750, ['bgColor' => '85e085', 'valign' => 'center']);
@@ -59,7 +63,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $cell = $row->addCell(1250);
         $cell->addText('Conforme');
         $cell = $row->addCell(3000);
-        $cell->addText('La pratique est conforme (plus de 70%)');
+        $cell->addText(self::RESPONSE_2 . ' (plus de 70%)');
 
         $serie1 = [];
         $serie2 = [];
@@ -196,15 +200,27 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
         \ksort($ordered);
 
+        // Table Header
+        $tableHeader = [
+            [
+                '',
+            ],
+        ];
+        if (isset($data['old'])) {
+            $tableHeader[0][] = isset($data['old']) ? $this->getDate($data['old']->getCreatedAt(), 'd/m/Y') : '';
+        }
+        $tableHeader[0][] = $this->getDate($data['new']->getCreatedAt(), 'd/m/Y');
+
+        // Table Body
         foreach ($ordered as $domainName => $questions) {
             $section->addTitle($domainName, 3);
-            $parsedData = [];
+            $parsedData = $tableHeader;
             \ksort($questions);
             foreach ($questions as $questionName => $questionItem) {
                 $table   = [];
                 $table[] = $questionName;
                 foreach ($questionItem as $newOld => $answer) {
-                    $table[$index[$newOld]] = $answer->getResponse();
+                    $table[$index[$newOld]] = \constant(\get_class($this) . "::RESPONSE_{$answer->getResponse()}");
                 }
                 \ksort($table);
                 $parsedData[] = $table;
