@@ -331,7 +331,7 @@ abstract class AbstractGenerator implements GeneratorInterface
                         $cell->addText($item, $this->textHeadStyle);
                     }
                 } else {
-                    $cell    = $table->addCell();
+                    $cell    = $table->addCell(5000 / \count($line));
                     $textrun = $cell->addTextRun();
                     foreach ($col as $key => $item) {
                         if (0 != $key) {
