@@ -46,10 +46,11 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             ],
         ];
         $digitalisation = [
-            'paper'   => 0,
-            'digital' => 0,
-            'both'    => 0,
-            'other'   => 0,
+            'paper'       => 0,
+            'onlyDigital' => 0,
+            'digital'     => 0,
+            'both'        => 0,
+            'other'       => 0,
         ];
         $security = [
             'accessControl' => 0,
@@ -115,9 +116,8 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addTitle('Registre des traitements', 2);
         $section->addText('Une collecte des traitements a été réalisée. Chaque fiche de registre est établie sur une base de 20 critères. Les critères exigés par le règlement sont pris en compte.');
 
-        $this->addTable($section, $overview, true, self::TABLE_ORIENTATION_HORIZONTAL);
         $section->addTextBreak();
-        $section->addText('Une version plus complète et à valeur de preuve figure en annexe.');
+        $section->addText('Une version de ces traitements et à valeur de preuve figure en annexe.');
 
         $section->addTitle('Analyse du registre des traitements', 2);
         $section->addText("Il y a aujourd’hui {$nbTreatments} traitements de données à caractère personnel inventoriés");
@@ -154,16 +154,16 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addListItem("{$security['tracability']} ont une traçabilité");
         $section->addListItem("{$security['saving']} ont sont sauvegardés");
         $section->addListItem("{$security['update']} sont mis à jour");
-
-        // SENSIBLE TREATMENT
-        //$section->addText('Parmi les traitements identifiés, certains sont considérés comme sensibles (données sensibles, surveillance à grande échelle, personnes vulnérables, …).');
-        // TODO Liste des traitements sensible
-        //$section->addText('Les traitements sensibles nécessitent une attention particulière et des actions de protections spécifiques.');
     }
 
-    public function addSyntheticView(Section $section, array $data): void
+    public function addSyntheticView(Section $section, array $data, bool $forOverviewReport = false): void
     {
-        $section->addTitle('Liste des traitements', 1);
+        // Break page for overview report
+        if ($forOverviewReport) {
+            $section->addPageBreak();
+        }
+
+        $section->addTitle('Liste des traitements', $forOverviewReport ? 2 : 1);
 
         // Table data
         // Add header
@@ -182,7 +182,11 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         }
 
         $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
-        $section->addPageBreak();
+
+        // Don't break page if it's overview report
+        if (!$forOverviewReport) {
+            $section->addPageBreak();
+        }
     }
 
     public function addDetailedView(Section $section, array $data): void

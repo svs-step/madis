@@ -154,10 +154,11 @@ class OverviewGenerator extends AbstractGenerator
         $section->addListItem('Le comité génère un bilan chaque année et met en place les mesures correctives adéquates.');
     }
 
-    public function generateAnnexeMention(Section $section): void
+    public function generateAnnexeMention(Section $section, array $treatments = []): void
     {
         $section->addTitle('Liste des documents en annexe du bilan');
         $section->addListItem('La liste des traitements');
-        $section->addListItem("L'indice de maturité");
+
+        $this->treatmentGenerator->addSyntheticView($section, $treatments, true);
     }
 }

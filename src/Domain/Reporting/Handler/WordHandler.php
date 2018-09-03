@@ -128,7 +128,7 @@ class WordHandler
         $this->overviewGenerator->generateRegistries($contentSection, $treatments, $contractors, $requests, $violations);
         $this->overviewGenerator->generateManagementSystemAndCompliance($contentSection, $maturity, $mesurements);
         $this->overviewGenerator->generateContinuousImprovements($contentSection);
-        //$this->overviewGenerator->generateAnnexeMention($contentSection);
+        $this->overviewGenerator->generateAnnexeMention($contentSection, $treatments);
 
         return $this->overviewGenerator->generateResponse($this->document, 'bilan');
     }
