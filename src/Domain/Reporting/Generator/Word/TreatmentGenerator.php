@@ -229,7 +229,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
                 [
                     'Logiciel',
-                    $treatment->getSoftware(),
+                    \is_string($treatment->getSoftware()) ? \htmlspecialchars($treatment->getSoftware()) : null,
                 ],
                 [
                     'Gestion papier',
