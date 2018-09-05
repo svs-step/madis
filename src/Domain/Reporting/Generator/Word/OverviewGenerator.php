@@ -126,9 +126,11 @@ class OverviewGenerator extends AbstractGenerator
 
         $section->addTitle('Bilan des registres', 1);
 
-        $section->addText("{$collectivity->getName()} recense 2 registres : ");
+        $section->addText("{$collectivity->getName()} recense 4 registres : ");
         $section->addListItem('Traitements');
         $section->addListItem('Sous-traitants');
+        $section->addListItem('Demandes des personnes concernées');
+        $section->addListItem('Violations de données');
 
         $this->treatmentGenerator->addGlobalOverview($section, $treatments);
         $this->contractorGenerator->addGlobalOverview($section, $contractors);
