@@ -134,7 +134,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $chart      = $section->addChart(
             'pie',
             $categories,
-            $digitalisation,
+            $chartData,
             [
                 'height' => Converter::cmToEmu(11),
                 'width'  => Converter::cmToEmu(15),
