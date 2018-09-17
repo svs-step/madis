@@ -286,7 +286,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     $treatment->getSecurityAccessControl()->getComment(),
                 ],
                 [
-                    'Tracabilité',
+                    'Traçabilité',
                     $treatment->getSecurityTracability()->isCheck() ? 'Oui' : 'Non',
                     $treatment->getSecurityTracability()->getComment(),
                 ],
