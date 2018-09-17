@@ -90,9 +90,11 @@
 
     <script>
         $(function () {
-            var paging = false;
+            let paging = false;
+            let orderColumnNumber = 0; // Order by createdAt column
             {% if is_granted('ROLE_ADMIN') %}
             paging = true;
+            orderColumnNumber = 1;
             {% endif %}
 
             $('#table').DataTable({
@@ -103,6 +105,7 @@
                 'lengthChange': false,
                 'searching'   : true,
                 'ordering'    : true,
+                'order': [[orderColumnNumber, 'desc']],
                 'info'        : false,
                 'autoWidth'   : false,
             });

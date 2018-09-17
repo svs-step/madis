@@ -25,6 +25,7 @@ use App\Domain\User\Model\User;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -138,6 +139,9 @@ class SurveyControllerTest extends TestCase
     public function testGetListDataForRoleGranted()
     {
         $valueReturnedByRepository = ['dummyValues'];
+        $order                     = [
+            'createdAt' => 'DESC',
+        ];
 
         // Granted
         $this->authenticationCheckerProphecy
@@ -154,12 +158,12 @@ class SurveyControllerTest extends TestCase
 
         // findAll must be called but not findAllByCollectivity
         $this->repositoryProphecy
-            ->findAll()
+            ->findAll($order)
             ->shouldBeCalled()
             ->willReturn($valueReturnedByRepository)
         ;
         $this->repositoryProphecy
-            ->findAllByCollectivity()
+            ->findAllByCollectivity(Argument::cetera())
             ->shouldNotBeCalled()
         ;
 
@@ -176,6 +180,9 @@ class SurveyControllerTest extends TestCase
     public function testGetListDataForRoleNotGranted()
     {
         $valueReturnedByRepository = ['dummyValues'];
+        $order                     = [
+            'createdAt' => 'DESC',
+        ];
 
         // Not granted
         $this->authenticationCheckerProphecy
@@ -195,7 +202,7 @@ class SurveyControllerTest extends TestCase
 
         // findAllByCollectivity must be called but not findAll
         $this->repositoryProphecy
-            ->findAllByCollectivity($collectivity)
+            ->findAllByCollectivity($collectivity, $order)
             ->shouldBeCalled()
             ->willReturn($valueReturnedByRepository)
         ;

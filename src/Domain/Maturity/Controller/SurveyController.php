@@ -100,11 +100,20 @@ class SurveyController extends CRUDController
      */
     protected function getListData()
     {
+        $order = [
+            'createdAt' => 'DESC',
+        ];
+
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return $this->repository->findAll();
+            return $this->repository->findAll($order);
         }
 
-        return $this->repository->findAllByCollectivity($this->userProvider->getAuthenticatedUser()->getCollectivity());
+        $data = $this->repository->findAllByCollectivity(
+            $this->userProvider->getAuthenticatedUser()->getCollectivity(),
+            $order
+        );
+
+        return $data;
     }
 
     /**

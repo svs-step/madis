@@ -103,12 +103,17 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
      *
      * @return mixed[]
      */
-    public function findAll(): array
+    public function findAll(array $order = []): array
     {
+        $orderBy = [];
+        foreach ($order as $key => $value) {
+            $orderBy[$key] = $value;
+        }
+
         return $this->registry
             ->getManager()
             ->getRepository($this->getModelClass())
-            ->findAll()
+            ->findBy([], $orderBy)
             ;
     }
 
