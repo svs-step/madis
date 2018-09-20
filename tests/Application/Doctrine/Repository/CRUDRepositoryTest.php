@@ -149,8 +149,11 @@ class CRUDRepositoryTest extends TestCase
             new \StdClass(),
             new \StdClass(),
         ];
+        $order = [
+            'foo' => 'bar',
+        ];
 
-        $this->objectRepositoryProphecy->findAll()->shouldBeCalled()->willReturn($data);
+        $this->objectRepositoryProphecy->findBy([], $order)->shouldBeCalled()->willReturn($data);
         $this->managerProphecy
             ->getRepository(DummyModelClass::class)
             ->shouldBeCalled()
@@ -159,7 +162,7 @@ class CRUDRepositoryTest extends TestCase
 
         $this->registryProphecy->getManager()->shouldBeCalled()->willReturn($this->managerProphecy->reveal());
 
-        $this->repository->findAll();
+        $this->repository->findAll($order);
     }
 
     public function testFindOneById()

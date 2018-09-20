@@ -120,6 +120,7 @@ class Violation
     public function __construct()
     {
         $this->id                        = Uuid::uuid4();
+        $this->date                      = new \DateTime();
         $this->inProgress                = false;
         $this->origins                   = [];
         $this->concernedDataNature       = [];

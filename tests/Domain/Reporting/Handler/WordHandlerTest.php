@@ -129,6 +129,7 @@ class WordHandlerTest extends TestCase
         $this->overviewGeneratorProphecy->generateRegistries($section, $treatments, $contractors, $requests, $violations)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateManagementSystemAndCompliance($section, $maturity, $mesurements)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateContinuousImprovements($section)->shouldBeCalled();
+        $this->overviewGeneratorProphecy->generateAnnexeMention($section, $treatments)->shouldBeCalled();
 
         // Generation
         $this->overviewGeneratorProphecy

@@ -54,7 +54,7 @@ class TreatmentDataCategoryDictionary extends SimpleDictionary
     public static function getCategories()
     {
         return [
-            self::CATEGORY_CIVILITY                 => 'Etat civil',
+            self::CATEGORY_CIVILITY                 => 'État civil',
             self::CATEGORY_POSTAL                   => 'Coordonnées postales',
             self::CATEGORY_PHONE                    => 'Coordonnées téléphoniques',
             self::CATEGORY_EMAIL                    => 'Emails',
@@ -64,7 +64,7 @@ class TreatmentDataCategoryDictionary extends SimpleDictionary
             self::CATEGORY_FAMILY_SITUATION         => 'Situation familiale',
             self::CATEGORY_FILIATION                => 'Filiation',
             self::CATEGORY_HEALTH                   => 'Santé',
-            self::CATEGORY_SOCIAL_NUM               => 'Numéro de Sécurité Social',
+            self::CATEGORY_SOCIAL_NUM               => 'Numéro de Sécurité Sociale',
             self::CATEGORY_CAF_NUM                  => 'Numéro de CAF',
             self::CATEGORY_SYNDICATE                => 'Appartenance Syndicale',
             self::CATEGORY_CONNEXION                => 'Connexion',

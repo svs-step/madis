@@ -73,9 +73,18 @@ class Collectivity
     private $referent;
 
     /**
+     * @var bool
+     */
+    private $differentDpo;
+    /**
      * @var Contact
      */
     private $dpo;
+
+    /**
+     * @var bool
+     */
+    private $differentItManager;
 
     /**
      * @var Contact
@@ -89,9 +98,11 @@ class Collectivity
 
     public function __construct()
     {
-        $this->id     = Uuid::uuid4();
-        $this->users  = new ArrayCollection();
-        $this->active = true;
+        $this->id                 = Uuid::uuid4();
+        $this->users              = new ArrayCollection();
+        $this->active             = true;
+        $this->differentDpo       = false;
+        $this->differentItManager = false;
     }
 
     /**
@@ -263,6 +274,22 @@ class Collectivity
     }
 
     /**
+     * @return bool
+     */
+    public function isDifferentDpo(): bool
+    {
+        return $this->differentDpo;
+    }
+
+    /**
+     * @param bool $differentDpo
+     */
+    public function setDifferentDpo(bool $differentDpo): void
+    {
+        $this->differentDpo = $differentDpo;
+    }
+
+    /**
      * @return Contact|null
      */
     public function getDpo(): ?Contact
@@ -276,6 +303,22 @@ class Collectivity
     public function setDpo(Contact $dpo): void
     {
         $this->dpo = $dpo;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDifferentItManager(): bool
+    {
+        return $this->differentItManager;
+    }
+
+    /**
+     * @param bool $differentItManager
+     */
+    public function setDifferentItManager(bool $differentItManager): void
+    {
+        $this->differentItManager = $differentItManager;
     }
 
     /**

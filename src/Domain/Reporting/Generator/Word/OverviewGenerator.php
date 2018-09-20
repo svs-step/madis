@@ -103,9 +103,15 @@ class OverviewGenerator extends AbstractGenerator
         $section->addListItem("{$referentCivility} {$referent->getFullName()}, {$referent->getJob()}");
 
         $itManager = $collectivity->getItManager();
-        if (!\is_null($itManager->getFirstName()) && !\is_null($itManager->getLastName())) {
+        if ($collectivity->isDifferentItManager()) {
             $itManagerCivility = ContactCivilityDictionary::getCivilities()[$itManager->getCivility()];
             $section->addListItem("{$itManagerCivility} {$itManager->getFullName()}, {$itManager->getJob()}");
+        }
+
+        $dpo = $collectivity->getDpo();
+        if ($collectivity->isDifferentDpo()) {
+            $dpoCivility = ContactCivilityDictionary::getCivilities()[$dpo->getCivility()];
+            $section->addListItem("{$dpoCivility} {$dpo->getFullName()}, {$dpo->getJob()}");
         }
     }
 
@@ -120,9 +126,11 @@ class OverviewGenerator extends AbstractGenerator
 
         $section->addTitle('Bilan des registres', 1);
 
-        $section->addText("{$collectivity->getName()} recense 2 registres : ");
+        $section->addText("{$collectivity->getName()} recense 4 registres : ");
         $section->addListItem('Traitements');
         $section->addListItem('Sous-traitants');
+        $section->addListItem('Demandes des personnes concernées');
+        $section->addListItem('Violations de données');
 
         $this->treatmentGenerator->addGlobalOverview($section, $treatments);
         $this->contractorGenerator->addGlobalOverview($section, $contractors);
@@ -148,10 +156,11 @@ class OverviewGenerator extends AbstractGenerator
         $section->addListItem('Le comité génère un bilan chaque année et met en place les mesures correctives adéquates.');
     }
 
-    public function generateAnnexeMention(Section $section): void
+    public function generateAnnexeMention(Section $section, array $treatments = []): void
     {
         $section->addTitle('Liste des documents en annexe du bilan');
         $section->addListItem('La liste des traitements');
-        $section->addListItem("L'indice de maturité");
+
+        $this->treatmentGenerator->addSyntheticView($section, $treatments, true);
     }
 }

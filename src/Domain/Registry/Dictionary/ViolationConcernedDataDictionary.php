@@ -49,7 +49,7 @@ class ViolationConcernedDataDictionary extends SimpleDictionary
     public static function getConcernedData()
     {
         return [
-            self::DATA_CIVIL_STATUS                  => 'Etat civil (nom, sexe, date de naissance, âge...)',
+            self::DATA_CIVIL_STATUS                  => 'État civil (nom, sexe, date de naissance, âge...)',
             self::DATA_SOCIAL_NUMBER                 => 'NIR (Numéro de sécurité sociale)',
             self::DATA_CONTACT                       => 'Coordonnées (adresse postale ou électronique, numéros de téléphone fixe ou portable...)',
             self::DATA_IDENTIFICATION_ACCESS         => 'Données d’identification ou d’accès (identifiant, mot de passe, numéro client...)',

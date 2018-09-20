@@ -35,7 +35,7 @@ class ViolationConcernedDataDictionaryTest extends TestCase
     public function testDictionary()
     {
         $data = [
-            ViolationConcernedDataDictionary::DATA_CIVIL_STATUS                  => 'Etat civil (nom, sexe, date de naissance, âge...)',
+            ViolationConcernedDataDictionary::DATA_CIVIL_STATUS                  => 'État civil (nom, sexe, date de naissance, âge...)',
             ViolationConcernedDataDictionary::DATA_SOCIAL_NUMBER                 => 'NIR (Numéro de sécurité sociale)',
             ViolationConcernedDataDictionary::DATA_CONTACT                       => 'Coordonnées (adresse postale ou électronique, numéros de téléphone fixe ou portable...)',
             ViolationConcernedDataDictionary::DATA_IDENTIFICATION_ACCESS         => 'Données d’identification ou d’accès (identifiant, mot de passe, numéro client...)',

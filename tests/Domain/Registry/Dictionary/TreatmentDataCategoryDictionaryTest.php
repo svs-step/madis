@@ -35,7 +35,7 @@ class TreatmentDataCategoryDictionaryTest extends TestCase
     public function testGetRoles()
     {
         $data = [
-            TreatmentDataCategoryDictionary::CATEGORY_CIVILITY                 => 'Etat civil',
+            TreatmentDataCategoryDictionary::CATEGORY_CIVILITY                 => 'État civil',
             TreatmentDataCategoryDictionary::CATEGORY_POSTAL                   => 'Coordonnées postales',
             TreatmentDataCategoryDictionary::CATEGORY_PHONE                    => 'Coordonnées téléphoniques',
             TreatmentDataCategoryDictionary::CATEGORY_EMAIL                    => 'Emails',
@@ -45,7 +45,7 @@ class TreatmentDataCategoryDictionaryTest extends TestCase
             TreatmentDataCategoryDictionary::CATEGORY_FAMILY_SITUATION         => 'Situation familiale',
             TreatmentDataCategoryDictionary::CATEGORY_FILIATION                => 'Filiation',
             TreatmentDataCategoryDictionary::CATEGORY_HEALTH                   => 'Santé',
-            TreatmentDataCategoryDictionary::CATEGORY_SOCIAL_NUM               => 'Numéro de Sécurité Social',
+            TreatmentDataCategoryDictionary::CATEGORY_SOCIAL_NUM               => 'Numéro de Sécurité Sociale',
             TreatmentDataCategoryDictionary::CATEGORY_CAF_NUM                  => 'Numéro de CAF',
             TreatmentDataCategoryDictionary::CATEGORY_SYNDICATE                => 'Appartenance Syndicale',
             TreatmentDataCategoryDictionary::CATEGORY_CONNEXION                => 'Connexion',

@@ -111,10 +111,12 @@ class ViolationType extends AbstractType
                 ],
             ])
             ->add('notification', DictionaryType::class, [
-                'label'    => 'registry.violation.form.notification',
-                'name'     => 'registry_violation_notification',
-                'expanded' => true,
-                'multiple' => false,
+                'label'       => 'registry.violation.form.notification',
+                'name'        => 'registry_violation_notification',
+                'required'    => false,
+                'expanded'    => true,
+                'multiple'    => false,
+                'placeholder' => 'Aucune notification à envoyer',
             ])
             ->add('notificationDetails', TextType::class, [
                 'label'    => 'registry.violation.form.notification_details',

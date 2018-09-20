@@ -46,10 +46,11 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             ],
         ];
         $digitalisation = [
-            'paper'   => 0,
-            'digital' => 0,
-            'both'    => 0,
-            'other'   => 0,
+            'paper'       => 0,
+            'onlyDigital' => 0,
+            'digital'     => 0,
+            'both'        => 0,
+            'other'       => 0,
         ];
         $security = [
             'accessControl' => 0,
@@ -79,7 +80,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             if (!\is_null($treatment->getSoftware()) && $treatment->isPaperProcessing()) {
                 ++$digitalisation['both'];
             } elseif (!\is_null($treatment->getSoftware())) {
-                ++$digitalisation['digital'];
+                ++$digitalisation['onlyDigital'];
             } elseif ($treatment->isPaperProcessing()) {
                 ++$digitalisation['paper'];
             } else {
@@ -109,13 +110,14 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 ++$completion['80'];
             }
         }
+        // Then aggregate
+        $digitalisation['digital'] = $digitalisation['onlyDigital'] + $digitalisation['both'];
 
         $section->addTitle('Registre des traitements', 2);
         $section->addText('Une collecte des traitements a été réalisée. Chaque fiche de registre est établie sur une base de 20 critères. Les critères exigés par le règlement sont pris en compte.');
 
-        $this->addTable($section, $overview, true, self::TABLE_ORIENTATION_HORIZONTAL);
         $section->addTextBreak();
-        $section->addText('Une version plus complète et à valeur de preuve figure en annexe.');
+        $section->addText('Une version de ces traitements et à valeur de preuve figure en annexe.');
 
         $section->addTitle('Analyse du registre des traitements', 2);
         $section->addText("Il y a aujourd’hui {$nbTreatments} traitements de données à caractère personnel inventoriés");
@@ -127,10 +129,12 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addText('Informatisation des traitements :');
 
         $categories = ['Uniquement papier', 'Complétement informatisé', 'Informatisé et papier', 'Non renseigné'];
+        $chartData  = $digitalisation;
+        unset($chartData['digital']); // Remove aggregate data which cumulate onlyDigital + both
         $chart      = $section->addChart(
             'pie',
             $categories,
-            $digitalisation,
+            $chartData,
             [
                 'height' => Converter::cmToEmu(11),
                 'width'  => Converter::cmToEmu(15),
@@ -140,7 +144,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addTextBreak();
         $section->addText("Sur les {$nbTreatments} traitements : ");
         $section->addListItem("{$digitalisation['paper']} sont uniquement papier");
-        $section->addListItem("{$digitalisation['digital']} sont complétement informatisés");
+        $section->addListItem("{$digitalisation['onlyDigital']} sont complétement informatisés");
         $section->addListItem("{$digitalisation['both']} sont informatisés et papier");
         if (0 < $digitalisation['other']) {
             $section->addListItem("{$digitalisation['other']} ne sont pas renseignés");
@@ -148,21 +152,20 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
         $section->addTitle('Sécurité de base des traitements informatisés', 2);
         $section->addText("Sur les {$digitalisation['digital']} traitements informatisés :");
-        // TODO Graph
         $section->addListItem("{$security['accessControl']} ont un contrôle d'accès");
         $section->addListItem("{$security['tracability']} ont une traçabilité");
         $section->addListItem("{$security['saving']} ont sont sauvegardés");
         $section->addListItem("{$security['update']} sont mis à jour");
-
-        // SENSIBLE TREATMENT
-        //$section->addText('Parmi les traitements identifiés, certains sont considérés comme sensibles (données sensibles, surveillance à grande échelle, personnes vulnérables, …).');
-        // TODO Liste des traitements sensible
-        //$section->addText('Les traitements sensibles nécessitent une attention particulière et des actions de protections spécifiques.');
     }
 
-    public function addSyntheticView(Section $section, array $data): void
+    public function addSyntheticView(Section $section, array $data, bool $forOverviewReport = false): void
     {
-        $section->addTitle('Liste des traitements', 1);
+        // Break page for overview report
+        if ($forOverviewReport) {
+            $section->addPageBreak();
+        }
+
+        $section->addTitle('Liste des traitements', $forOverviewReport ? 2 : 1);
 
         // Table data
         // Add header
@@ -181,7 +184,11 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         }
 
         $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
-        $section->addPageBreak();
+
+        // Don't break page if it's overview report
+        if (!$forOverviewReport) {
+            $section->addPageBreak();
+        }
     }
 
     public function addDetailedView(Section $section, array $data): void
@@ -224,7 +231,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
                 [
                     'Logiciel',
-                    $treatment->getSoftware(),
+                    \is_string($treatment->getSoftware()) ? \htmlspecialchars($treatment->getSoftware()) : null,
                 ],
                 [
                     'Gestion papier',
@@ -279,7 +286,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     $treatment->getSecurityAccessControl()->getComment(),
                 ],
                 [
-                    'Tracabilité',
+                    'Traçabilité',
                     $treatment->getSecurityTracability()->isCheck() ? 'Oui' : 'Non',
                     $treatment->getSecurityTracability()->getComment(),
                 ],

@@ -194,7 +194,7 @@ abstract class AbstractGenerator implements GeneratorInterface
             ['bold'        => true, 'size' => 15],
             ['spaceBefore' => 1000]
         );
-        $hasDpo = \is_null($collectivity->getDpo()->getFirstName()) && \is_null($collectivity->getDpo()->getLastName()) ? false : true;
+        $hasDpo = $collectivity->isDifferentDpo();
         $section->addText(
             $hasDpo ? $collectivity->getDpo()->getFullName() : 'SOLURIS',
             ['size' => 12]
@@ -331,7 +331,7 @@ abstract class AbstractGenerator implements GeneratorInterface
                         $cell->addText($item, $this->textHeadStyle);
                     }
                 } else {
-                    $cell    = $table->addCell();
+                    $cell    = $table->addCell(5000 / \count($line));
                     $textrun = $cell->addTextRun();
                     foreach ($col as $key => $item) {
                         if (0 != $key) {

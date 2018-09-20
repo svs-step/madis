@@ -83,9 +83,6 @@ App\Domain\Registry\Model\Violation:
                 message: 'registry_violation.applied_measures_after_violation.not_blank'
                 groups: ['default']
         notification:
-            - NotBlank:
-                message: 'registry_violation.notification.not_blank'
-                groups: ['default']
             - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
                 name: 'registry_violation_notification'
                 groups: ['default']

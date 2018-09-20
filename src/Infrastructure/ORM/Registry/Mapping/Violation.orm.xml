@@ -24,7 +24,7 @@
         <field name="communication" column="communication"/>
         <field name="communicationPrecision" column="communication_precision" type="text" nullable="true"/>
         <field name="appliedMeasuresAfterViolation" column="applied_measures_after_violation" type="text" nullable="true"/>
-        <field name="notification" column="notification"/>
+        <field name="notification" column="notification" nullable="true"/>
         <field name="notificationDetails" column="notification_details" nullable="true"/>
         <field name="comment" column="comment" type="text" nullable="true"/>
 

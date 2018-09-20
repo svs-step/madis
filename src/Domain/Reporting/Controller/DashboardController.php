@@ -214,6 +214,11 @@ class DashboardController extends Controller
         // REQUEST
         $data['request']['value']['all'] = \count($requests);
         foreach ($requests as $request) {
+            // Only take under account active requests
+            if (!\is_null($request->getDeletedAt())) {
+                continue;
+            }
+
             // Type
             ++$data['request']['value']['type'][Inflector::camelize($request->getObject())];
 
@@ -231,9 +236,12 @@ class DashboardController extends Controller
 
         // TREATMENT
         foreach ($treatments as $treatment) {
-            if ($treatment->isActive()) {
-                ++$data['treatment']['value']['active'];
+            // Only take under account active treatments
+            if (!$treatment->isActive()) {
+                continue;
             }
+
+            ++$data['treatment']['value']['active'];
 
             // Numeric treatment
             if (!\is_null($treatment->getSoftware())) {

@@ -90,8 +90,6 @@ registry_violation:
         not_blank: Vous devez saisir un nombre
     nb_affected_persons:
         not_blank: Vous devez saisir un nombre
-    notification:
-        not_blank: Vous devez sélectionner qui est/va être notifié de la violation
     origins:
         not_blank: Vous devez sélectionner l'origine de la violation
     potential_impacts_nature:
