@@ -175,7 +175,6 @@ abstract class CRUDController extends Controller
             $this->formPrePersistData($object);
             $em = $this->getDoctrine()->getManager();
 
-            dump($object);
             $em->persist($object);
             $em->flush();
 
@@ -209,7 +208,6 @@ abstract class CRUDController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->formPrePersistData($object);
-            dump($object);
             $this->entityManager->persist($object);
             $this->entityManager->flush();
 
