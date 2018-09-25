@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## [UNRELEASED]
+### Fix
+- [UTILISATEUR] Le mot de passe s'encode maintenant correctement lors de la création/édition, #113 
 
 ## [1.1.0] - 2018-09-20
 ### Ajout
