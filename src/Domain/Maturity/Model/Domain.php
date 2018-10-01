@@ -35,6 +35,11 @@ class Domain
     private $color;
 
     /**
+     * @var int
+     */
+    private $position;
+
+    /**
      * @var iterable
      */
     private $questions;
@@ -89,6 +94,22 @@ class Domain
     public function setColor(?string $color): void
     {
         $this->color = $color;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     */
+    public function setPosition(int $position): void
+    {
+        $this->position = $position;
     }
 
     /**

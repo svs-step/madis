@@ -21,7 +21,6 @@ class SurveyExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFunction('orderByDomain', [$this, 'orderByDomain']),
-            new \Twig_SimpleFunction('getDomainsColor', [$this, 'getDomainsColor']),
         ];
     }
 
@@ -29,22 +28,16 @@ class SurveyExtension extends \Twig_Extension
     {
         $answersByDomain = [];
         foreach ($formView as $answer) {
-            $object                                                            = $answer->vars['value'];
-            $answersByDomain[$object->getQuestion()->getDomain()->getName()][] = $answer;
+            $object = $answer->vars['value'];
+            if (!\array_key_exists($object->getQuestion()->getDomain()->getPosition(), $answersByDomain)) {
+                $answersByDomain[$object->getQuestion()->getDomain()->getPosition()]['name']  = $object->getQuestion()->getDomain()->getName();
+                $answersByDomain[$object->getQuestion()->getDomain()->getPosition()]['color'] = $object->getQuestion()->getDomain()->getColor();
+            }
+            $answersByDomain[$object->getQuestion()->getDomain()->getPosition()]['answers'][] = $answer;
         }
+
+        \ksort($answersByDomain);
 
         return $answersByDomain;
-    }
-
-    public function getDomainsColor(FormView $formView): array
-    {
-        $colorByDomain = [];
-        foreach ($formView as $answer) {
-            $object                            = $answer->vars['value'];
-            $domain                            = $object->getQuestion()->getDomain();
-            $colorByDomain[$domain->getName()] = $domain->getColor();
-        }
-
-        return $colorByDomain;
     }
 }

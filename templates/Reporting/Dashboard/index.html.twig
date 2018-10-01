@@ -195,20 +195,21 @@
         let maturityLabels = [];
         let maturitySerieLabel = [];
         let maturityData = [];
+
         {% if data.maturity.new is defined %}
             let tmpData1 = [];
             maturitySerieLabel.push('{{ data.maturity.new.name }}');
-            {% for domainName, score in data.maturity.new.data %}
-                maturityLabels.push('{{ domainName }}');
-                tmpData1.push('{{ score }}');
+            {% for position, info in data.maturity.new.data %}
+                maturityLabels.push('{{ info.name }}');
+                tmpData1.push('{{ info.score }}');
             {% endfor %}
             maturityData.push(tmpData1);
         {% endif %}
         {% if data.maturity.old is defined %}
             let tmpData2 = [];
             maturitySerieLabel.push('{{ data.maturity.old.name }}');
-            {% for domainName, score in data.maturity.old.data %}
-                tmpData2.push('{{ score }}');
+            {% for position, info in data.maturity.old.data %}
+                tmpData2.push('{{ info.score }}');
             {% endfor %}
             maturityData.push(tmpData2);
         {% endif %}

@@ -74,17 +74,24 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             $section->addText("Aucune évaluation de la mise en conformité n'a pour l'heure été effectuée.", ['italic' => true]);
         } else {
             $maturityList = [];
+            $domainsName  = [];
             if (isset($data['old'])) {
                 foreach ($data['old']->getMaturity() as $maturity) {
-                    $maturityList[$maturity->getDomain()->getName()]['old'] = $maturity->getScore();
+                    $maturityList[$maturity->getDomain()->getPosition()]['old'] = $maturity->getScore();
+                    if (!isset($domainsName[$maturity->getDomain()->getPosition()])) {
+                        $domainsName[$maturity->getDomain()->getPosition()] = $maturity->getDomain()->getName();
+                    }
                 }
             }
             foreach ($data['new']->getMaturity() as $maturity) {
-                $maturityList[$maturity->getDomain()->getName()]['new'] = $maturity->getScore();
+                $maturityList[$maturity->getDomain()->getPosition()]['new'] = $maturity->getScore();
+                if (!isset($domainsName[$maturity->getDomain()->getPosition()])) {
+                    $domainsName[$maturity->getDomain()->getPosition()] = $maturity->getDomain()->getName();
+                }
             }
-            foreach ($maturityList as $domain => $score) {
+            foreach ($maturityList as $position => $score) {
                 $row   = [];
-                $row[] = $domain;
+                $row[] = $domainsName[$position];
                 if (isset($score['old'])) {
                     $row[]    = $score['old'] / 10; // Display comma with 1 digit precision
                     $serie2[] = $score['old'] / 10;
@@ -93,17 +100,19 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
                 $serie1[]    = $score['new'] / 10;
                 $tableData[] = $row;
             }
+            \ksort($maturityList);
+            \ksort($domainsName);
             // Display
             $section->addTitle("Résultat de l'évaluation du {$data['new']->getCreatedAt()->format('d/m/Y')}", 2);
 
             $chart = $section->addChart(
                 'radar',
-                \array_keys($maturityList),
+                $domainsName,
                 $serie1,
                 [
-                    'height'         => Converter::cmToEmu(11),
-                    'width'          => Converter::cmToEmu(15),
-                    '3d'             => true,
+                    'height' => Converter::cmToEmu(11),
+                    'width'  => Converter::cmToEmu(15),
+                    '3d'     => true,
                 ],
                 $data['new']->getCreatedAt()->format('d/m/Y')
             );
@@ -124,14 +133,23 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
     public function addSyntheticView(Section $section, array $data): void
     {
         $maturityList = [];
+        $domainsName  = [];
         if (isset($data['old'])) {
             foreach ($data['old']->getMaturity() as $maturity) {
-                $maturityList[$maturity->getDomain()->getName()]['old'] = $maturity->getScore();
+                $maturityList[$maturity->getDomain()->getPosition()]['old'] = $maturity->getScore();
+                if (!isset($domainsName[$maturity->getDomain()->getPosition()])) {
+                    $domainsName[$maturity->getDomain()->getPosition()] = $maturity->getDomain()->getName();
+                }
             }
         }
         foreach ($data['new']->getMaturity() as $maturity) {
-            $maturityList[$maturity->getDomain()->getName()]['new'] = $maturity->getScore();
+            $maturityList[$maturity->getDomain()->getPosition()]['new'] = $maturity->getScore();
+            if (!isset($domainsName[$maturity->getDomain()->getPosition()])) {
+                $domainsName[$maturity->getDomain()->getPosition()] = $maturity->getDomain()->getName();
+            }
         }
+        \ksort($maturityList);
+        \ksort($domainsName);
 
         $serie1 = [];
         $serie2 = [];
@@ -148,9 +166,9 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $tableData[0][] = $this->getDate($data['new']->getCreatedAt(), 'd/m/Y');
 
         // Table data + radar data
-        foreach ($maturityList as $domain => $score) {
+        foreach ($maturityList as $position => $score) {
             $row   = [];
-            $row[] = $domain;
+            $row[] = $domainsName[$position];
             if (isset($score['old'])) {
                 $row[]    = $score['old'] / 10; // Display comma with 1 digit precision
                 $serie2[] = $score['old'] / 10;
@@ -167,7 +185,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
         $chart      = $section->addChart(
             'radar',
-            \array_keys($maturityList),
+            $domainsName,
             $serie1,
             [
                 'height' => Converter::cmToEmu(11),
