@@ -6,8 +6,8 @@ user_address:
     insee:
         not_blank: Vous devez renseigner un numéro INSEE
     zip_code:
-        length: Le code postal doit être composé de {{ limit }} chiffres
         not_blank: Vous devez renseigner un code postal
+        regex: Le code postal doit être composé de 5 chiffres
 
 user_contact:
     civility:
@@ -20,8 +20,8 @@ user_contact:
         email: L'adresse email doit être valide
         not_blank: l'adresse email est obligatoire
     phone_number:
-        length: Le numéro de téléphone doit être composé de {{ limit }} chiffres
         not_blank: Le numéro de téléphone est obligatoire
+        regex: Le numéro de téléphone doit être composé de 10 chiffres et commencer par '0'
         type: Le numéro de téléphone ne doit être composé que par des chiffres
 
 user_collectivity:

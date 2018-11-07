@@ -4,19 +4,16 @@
 
     {{ form_start(form) }}
 
-    {# Get associative array as 'domainName' => 'domainColor' #}
-    {% set domainsColor = getDomainsColor(form.answers) %}
-
-    {% for domainName, formAnswers in orderByDomain(form.answers) %}
+    {% for domainInfo in orderByDomain(form.answers) %}
         {% set newRow = loop.index is odd %}
         {% if newRow %}
             <div class="row">
         {% endif %}
             <div class="col-md-6">
-                <div class="box box-solid box-{{ attribute(domainsColor, domainName) }}">
-                    <div class="box-header with-border"><h3 class="box-title">{{ domainName }}</h3></div>
+                <div class="box box-solid box-{{ domainInfo.color }}">
+                    <div class="box-header with-border"><h3 class="box-title">{{ domainInfo.name }}</h3></div>
                     <div class="box-body">
-                        {% for formAnswer in formAnswers %}
+                        {% for formAnswer in domainInfo.answers %}
                             <div class="form-group">
                                 {{ form_label(formAnswer, formAnswer.vars.value.question.name) }}
                                 {{ form_widget(formAnswer) }}

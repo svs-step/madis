@@ -2,6 +2,14 @@
 
 ## [UNRELEASED]
 
+## [1.2.0] - 2018-11-07
+### Changement
+- [MATURITE] Les catégories sont ordonnées lors de la visualisation et la génération Word, #109 
+### Fix
+- [GLOBAL] Le numéro de téléphone respecte maintenant les normes 0[1-9]XXXXXXXX, #119
+- [GLOBAL] Le code postal peut maintenant commencer par 0 (07100 ne fonctionnait pas par exemple), #119
+- [UTILISATEUR] Le mot de passe s'encode maintenant correctement lors de la création/édition, #113 
+
 ## [1.1.0] - 2018-09-20
 ### Ajout
 - [DOC] Ajout du README, #93

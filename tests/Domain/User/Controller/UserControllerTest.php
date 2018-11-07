@@ -21,9 +21,7 @@ use App\Domain\User\Repository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class UserControllerTest extends TestCase
@@ -105,45 +103,5 @@ class UserControllerTest extends TestCase
             UserType::class,
             $this->invokeMethod($this->controller, 'getFormType', [])
         );
-    }
-
-    /**
-     * Test formPrePersistData
-     * There is a plain password, encode it.
-     */
-    public function testFormPrePersistData()
-    {
-        $plainPassword   = 'plainPassword';
-        $encodedPassword = 'encodedPassword';
-
-        $userProphecy = $this->prophesize(Model\User::class);
-        $userProphecy->getPlainPassword()->shouldBeCalled()->willReturn($plainPassword);
-        $userProphecy->setPassword($encodedPassword)->shouldBeCalled();
-        $userProphecy->eraseCredentials()->shouldBeCalled();
-
-        $encoderProphecy = $this->prophesize(PasswordEncoderInterface::class);
-        $encoderProphecy->encodePassword($plainPassword, '')->shouldBeCalled()->willReturn($encodedPassword);
-        $this->encoderFactoryProphecy->getEncoder($userProphecy->reveal())->shouldBeCalled()->willReturn($encoderProphecy->reveal());
-
-        $this->controller->formPrePersistData($userProphecy->reveal());
-    }
-
-    /**
-     * Test formPrePersistData
-     * There is a plain password, encode it.
-     */
-    public function testFormPrePersistDataWithoutPasswordToEncode()
-    {
-        $plainPassword = null;
-
-        $userProphecy = $this->prophesize(Model\User::class);
-        $userProphecy->getPlainPassword()->shouldBeCalled()->willReturn($plainPassword);
-
-        // No encoder & password setting process called since no password to encode
-        $userProphecy->setPassword(Argument::cetera())->shouldNotBeCalled();
-        $userProphecy->eraseCredentials()->shouldNotBeCalled();
-        $this->encoderFactoryProphecy->getEncoder(Argument::cetera())->shouldNotBeCalled();
-
-        $this->controller->formPrePersistData($userProphecy->reveal());
     }
 }

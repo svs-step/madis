@@ -31,7 +31,7 @@ class Address
     private $city;
 
     /**
-     * @var int
+     * @var string
      */
     private $zipCode;
 
@@ -89,17 +89,17 @@ class Address
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getZipCode(): ?int
+    public function getZipCode(): ?string
     {
         return $this->zipCode;
     }
 
     /**
-     * @param int|null $zipCode
+     * @param string|null $zipCode
      */
-    public function setZipCode(?int $zipCode): void
+    public function setZipCode(?string $zipCode): void
     {
         $this->zipCode = $zipCode;
     }

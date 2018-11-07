@@ -5,12 +5,7 @@ App\Domain\Registry\Model\Embeddable\RequestConcernedPeople:
                 name: 'registry_request_civility'
                 groups: ['default']
         phoneNumber:
-            - Length:
-                min: 10
-                max: 10
-                exactMessage: 'registry_request_concerned_people.phone_number.length'
-                groups: ['default']
             - Regex:
-                pattern: '/0[1-7][0-9]{8}/'
+                pattern: '/^0[1-9][0-9]{8}$/'
                 message: 'registry_request_concerned_people.phone_number.regex'
                 groups: ['default']

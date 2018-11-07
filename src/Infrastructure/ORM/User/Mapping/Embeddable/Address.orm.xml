@@ -10,7 +10,7 @@
         <field name="lineOne" column="line_one"/>
         <field name="lineTwo" column="line_two" nullable="true"/>
         <field name="city" column="city"/>
-        <field name="zipCode" column="zip_code" type="integer"/>
+        <field name="zipCode" column="zip_code" length="5"/>
         <field name="insee" column="insee"/>
 
     </embeddable>

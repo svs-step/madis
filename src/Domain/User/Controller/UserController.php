@@ -57,21 +57,4 @@ class UserController extends CRUDController
     {
         return UserType::class;
     }
-
-    /**
-     * {@inheritdoc}
-     * - Set password if plainPassword is set.
-     *
-     * @param Model\User $object
-     */
-    public function formPrePersistData($object)
-    {
-        if (\is_null($object->getPlainPassword())) {
-            return;
-        }
-
-        $encoder = $this->encoderFactory->getEncoder($object);
-        $object->setPassword($encoder->encodePassword($object->getPlainPassword(), '')); // No salt with bcrypt
-        $object->eraseCredentials();
-    }
 }
