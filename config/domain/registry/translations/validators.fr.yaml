@@ -7,12 +7,11 @@ registry_address:
         email: Vous devez renseigner un email valide
         not_blank: Vous devez renseigner un email
     phone_number:
-        length: Le numéro de téléphone doit être composé de {{ limit }} chiffres
-        regex: Le numéro de téléphone doit être au format 0[1-7] XX XX XX XX
+        regex: Le numéro de téléphone doit être composé de 10 chiffres et commencer par '0'
         not_blank: Vous devez renseigner un numéro de téléphone
     zip_code:
-        length: Le code postal doit être composé de {{ limit }} chiffres
         not_blank: Vous devez renseigner un code postal
+        regex: Le code postal doit être composé de 5 chiffres
 
 registry_contractor:
     conform:
@@ -53,13 +52,11 @@ registry_request_applicant:
     last_name:
         not_blank: Vous devez saisir le nom du demandeur
     phone_number:
-        length: Le numéro de téléphone doit être composé de {{ limit }} chiffres
-        regex: Le numéro de téléphone doit être au format 0[1-7] XX XX XX XX
+        regex: Le numéro de téléphone doit être composé de 10 chiffres et commencer par '0'
 
 registry_request_concerned_people:
     phone_number:
-        length: Le numéro de téléphone doit être composé de {{ limit }} chiffres
-        regex: Le numéro de téléphone doit être au format 0[1-7] XX XX XX XX
+        regex: Le numéro de téléphone doit être composé de 10 chiffres et commencer par '0'
 
 registry_treatment:
     active:

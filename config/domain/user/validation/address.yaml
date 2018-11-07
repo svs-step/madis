@@ -16,8 +16,7 @@ App\Domain\User\Model\Embeddable\Address:
             - NotBlank:
                 message: 'user_address.zip_code.not_blank'
                 groups: ['default']
-            - Length:
-                min: 5
-                max: 5
-                exactMessage: 'user_address.zip_code.length'
+            - Regex:
+                pattern: '/^[0-9]{5}$/'
+                message: 'user_address.zip_code.regex'
                 groups: ['default']

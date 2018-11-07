@@ -16,12 +16,7 @@ App\Domain\Registry\Model\Embeddable\RequestApplicant:
                 message: 'registry_request_applicant.last_name.not_blank'
                 groups: ['default']
         phoneNumber:
-            - Length:
-                min: 10
-                max: 10
-                exactMessage: 'registry_request_applicant.phone_number.length'
-                groups: ['default']
             - Regex:
-                pattern: '/0[1-7][0-9]{8}/'
+                pattern: '/^0[1-7][0-9]{8}$/'
                 message: 'registry_request_applicant.phone_number.regex'
                 groups: ['default']

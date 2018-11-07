@@ -30,8 +30,7 @@ App\Domain\User\Model\Embeddable\Contact:
             - NotBlank:
                 message: 'user_contact.phone_number.not_blank'
                 groups: ['collectivity_legal_manager', 'collectivity_referent']
-            - Length:
-                min: 10
-                max: 10
-                exactMessage: 'user_contact.phone_number.length'
-                groups: ['default']
+            - Regex:
+                  pattern: '/^0[1-7][0-9]{8}$/'
+                  message: 'user_contact.phone_number.regex'
+                  groups: ['default']

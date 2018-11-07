@@ -15,7 +15,6 @@ namespace App\Domain\User\Form\Type;
 
 use App\Domain\User\Model\Embeddable\Address;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,9 +36,12 @@ class AddressType extends AbstractType
                 'label'    => 'user.address.form.city',
                 'required' => true,
             ])
-            ->add('zipCode', NumberType::class, [
+            ->add('zipCode', TextType::class, [
                 'label'    => 'user.address.form.zip_code',
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 5,
+                ],
             ])
             ->add('insee', TextType::class, [
                 'label'    => 'user.address.form.insee',
