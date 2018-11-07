@@ -6,7 +6,7 @@ App\Domain\Registry\Model\Embeddable\Address:
                 groups: ['default']
         phoneNumber:
             - Regex:
-                pattern: '/^0[1-7][0-9]{8}$/'
+                pattern: '/^0[1-9][0-9]{8}$/'
                 message: 'registry_address.phone_number.regex'
                 groups: ['default']
         zipCode:

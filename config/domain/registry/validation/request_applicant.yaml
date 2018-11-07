@@ -17,6 +17,6 @@ App\Domain\Registry\Model\Embeddable\RequestApplicant:
                 groups: ['default']
         phoneNumber:
             - Regex:
-                pattern: '/^0[1-7][0-9]{8}$/'
+                pattern: '/^0[1-9][0-9]{8}$/'
                 message: 'registry_request_applicant.phone_number.regex'
                 groups: ['default']

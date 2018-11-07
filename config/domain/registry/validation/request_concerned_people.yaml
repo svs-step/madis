@@ -6,6 +6,6 @@ App\Domain\Registry\Model\Embeddable\RequestConcernedPeople:
                 groups: ['default']
         phoneNumber:
             - Regex:
-                pattern: '/^0[1-7][0-9]{8}$/'
+                pattern: '/^0[1-9][0-9]{8}$/'
                 message: 'registry_request_concerned_people.phone_number.regex'
                 groups: ['default']
