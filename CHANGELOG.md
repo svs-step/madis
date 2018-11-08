@@ -2,6 +2,10 @@
 
 ## [UNRELEASED]
 
+## [1.2.1] - 2018-11-07
+### Fix
+- [MATURITE] L'ordre des catégories est auto-généré (il restait à 0 pour toutes les catégories)
+
 ## [1.2.0] - 2018-11-07
 ### Changement
 - [MATURITE] Les catégories sont ordonnées lors de la visualisation et la génération Word, #109 
