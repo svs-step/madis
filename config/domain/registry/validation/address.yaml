@@ -10,11 +10,6 @@ App\Domain\Registry\Model\Embeddable\Address:
                 message: 'registry_address.phone_number.regex'
                 groups: ['default']
         zipCode:
-            - Length:
-                min: 5
-                max: 5
-                exactMessage: 'registry_address.zip_code.length'
-                groups: ['default']
             - Regex:
                 pattern: '/^[0-9]{5}$/'
                 message: 'registry_address.zip_code.regex'

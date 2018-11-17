@@ -2,9 +2,9 @@
 
 ## [UNRELEASED]
 
-## [1.2.1] - 2018-11-07
+## [1.2.2] - 2018-11-16
 ### Fix
-- [MATURITE] L'ordre des catégories est auto-généré (il restait à 0 pour toutes les catégories)
+- [GLOBAL] Le code postal commencant par 0 ne fonctionnait pas pour les adresses du registre, #119
 
 ## [1.2.0] - 2018-11-07
 ### Changement

@@ -16,7 +16,6 @@ namespace App\Domain\Registry\Form\Type\Embeddable;
 use App\Domain\Registry\Model\Embeddable\Address;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -40,7 +39,7 @@ class AddressType extends AbstractType
                 'label'    => 'registry.address.form.city',
                 'required' => $required,
             ])
-            ->add('zipCode', NumberType::class, [
+            ->add('zipCode', TextType::class, [
                 'label'    => 'registry.address.form.zip_code',
                 'required' => $required,
             ])
