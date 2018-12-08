@@ -9,11 +9,11 @@ services:
 
     App\Application\:
         resource: '../src/Application/*'
-        exclude: '../src/Application/{Controller,Entity,Migrations,Symfony/EventSubscriber,Symfony/Form,Tests,Kernel.php}'
+        exclude: '../src/Application/{Controller,Dictionary,Entity,Migrations,Symfony/EventSubscriber,Symfony/Form,Tests,Kernel.php}'
 
     App\Domain\:
         resource: '../src/Domain/*'
-        exclude: '../src/Domain/*/{Component/Mailer.php,Controller,Generator,Handler,Model,Symfony/EventSubscriber,Symfony/Form,Tests}'
+        exclude: '../src/Domain/*/{Component/Mailer.php,Controller,Dictionary,Generator,Handler,Model,Symfony/EventSubscriber,Symfony/Form,Tests}'
 
     PhpOffice\PhpWord\PhpWord: ~
     RandomLib\Factory: ~
