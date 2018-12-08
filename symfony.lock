@@ -341,6 +341,9 @@
             "ref": "e3868d2f4a5104f19f844fe551099a00c6562527"
         }
     },
+    "symfony/contracts": {
+        "version": "v1.0.2"
+    },
     "symfony/debug": {
         "version": "v3.4.9"
     },
@@ -410,9 +413,6 @@
     "symfony/intl": {
         "version": "v3.4.10"
     },
-    "symfony/lts": {
-        "version": "v3"
-    },
     "symfony/monolog-bridge": {
         "version": "v3.4.9"
     },
@@ -430,9 +430,6 @@
     },
     "symfony/orm-pack": {
         "version": "v1.0.5"
-    },
-    "symfony/polyfill-apcu": {
-        "version": "v1.8.0"
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.8.0"
@@ -473,9 +470,6 @@
             "ref": "f8a63faa0d9521526499c0a8f403c9964ecb0527"
         }
     },
-    "symfony/skeleton": {
-        "version": "v3.4.6"
-    },
     "symfony/stopwatch": {
         "version": "v3.4.9"
     },
@@ -514,6 +508,9 @@
     },
     "symfony/var-dumper": {
         "version": "v3.4.9"
+    },
+    "symfony/var-exporter": {
+        "version": "v4.2.1"
     },
     "symfony/web-profiler-bundle": {
         "version": "3.3",

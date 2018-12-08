@@ -1,11 +1,11 @@
 {
-    "name" : "soluris/gestion-rgpd",
+    "name" : "soluris/madis",
     "type": "project",
     "license": "proprietary",
     "authors" : [
         {
             "name" : "Donovan Bourlard",
-            "email" : "donovan.bourlard@outlook.fr"
+            "email" : "donovan@awkan.fr"
         }
     ],
     "require": {
@@ -68,10 +68,5 @@
         "post-update-cmd": [
             "@auto-scripts"
         ]
-    }, "repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/biig-io/DictionaryBundle"
     }
-]
 }
