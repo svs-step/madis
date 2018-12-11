@@ -17,18 +17,18 @@
         "ramsey/uuid": "^3.7",
         "ramsey/uuid-doctrine": "^1.4",
         "rollerworks/password-strength-bundle": "^2.0",
-        "sensiolabs/security-checker": "^4.1",
         "stof/doctrine-extensions-bundle": "^1.3",
-        "symfony/asset": "^3.4",
-        "symfony/dotenv": "^3.4",
-        "symfony/expression-language": "^3.4",
-        "symfony/form": "^3.4",
+        "symfony/asset": "^4.2",
+        "symfony/dotenv": "^4.2",
+        "symfony/expression-language": "^4.2",
+        "symfony/flex": "^1.1",
+        "symfony/form": "^4.2",
         "symfony/orm-pack": "^1.0",
-        "symfony/security-bundle": "^3.4",
-        "symfony/skeleton": "^3.4",
+        "symfony/security-bundle": "^4.2",
+        "symfony/skeleton": "^4.2",
         "symfony/swiftmailer-bundle": "^3.2",
-        "symfony/twig-bundle": "^3.4",
-        "symfony/validator": "^3.4",
+        "symfony/twig-bundle": "^4.2",
+        "symfony/validator": "^4.2",
         "symfony/webpack-encore-pack": "^1.0",
         "twig/extensions": "^1.5"
     },
@@ -38,6 +38,7 @@
         "friendsofphp/php-cs-fixer": "^2.11",
         "hautelook/alice-bundle": "^2.0",
         "phpunit/phpunit": "^7.1",
+        "sensiolabs/security-checker": "^5.0",
         "symfony/debug-pack": "^1.0"
     },
     "config": {
@@ -68,5 +69,14 @@
         "post-update-cmd": [
             "@auto-scripts"
         ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "4.2.*"
+        }
     }
 }
