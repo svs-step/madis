@@ -2,6 +2,13 @@
 
 ## [UNRELEASED]
 
+## [1.3.0] - 2018-12-12
+### Changement
+- [TECH] Mise à jour Symfony 3.4 à 4.2.1, #129
+### Fix
+- [BILAN] Le graphique de l'indice de maturité est maintenant bien ordonné, #128
+- [GLOBAL] Les générations WORD acceptent maintenant les caractères spéciaux, #127
+
 ## [1.2.2] - 2018-11-16
 ### Fix
 - [GLOBAL] Le code postal commencant par 0 ne fonctionnait pas pour les adresses du registre, #119
