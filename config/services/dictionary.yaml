@@ -4,8 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-    Knp\DictionaryBundle\Dictionary\DictionaryRegistry: "@knp_dictionary.dictionary.dictionary_registry"
-
     App\Domain\:
         resource: '../../src/Domain/*/Dictionary'
         tags: ['knp_dictionary.dictionary']

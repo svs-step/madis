@@ -89,6 +89,9 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
                     $domainsName[$maturity->getDomain()->getPosition()] = $maturity->getDomain()->getName();
                 }
             }
+            \ksort($maturityList);
+            \ksort($domainsName);
+
             foreach ($maturityList as $position => $score) {
                 $row   = [];
                 $row[] = $domainsName[$position];
@@ -100,8 +103,6 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
                 $serie1[]    = $score['new'] / 10;
                 $tableData[] = $row;
             }
-            \ksort($maturityList);
-            \ksort($domainsName);
             // Display
             $section->addTitle("Résultat de l'évaluation du {$data['new']->getCreatedAt()->format('d/m/Y')}", 2);
 

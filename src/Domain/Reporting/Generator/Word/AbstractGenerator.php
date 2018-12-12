@@ -18,6 +18,7 @@ use App\Domain\User\Dictionary\ContactCivilityDictionary;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\Style;
@@ -296,6 +297,7 @@ abstract class AbstractGenerator implements GeneratorInterface
      */
     public function generateResponse(PhpWord $document, string $documentName): BinaryFileResponse
     {
+        Settings::setOutputEscapingEnabled(true);
         $objWriter = IOFactory::createWriter($document, 'Word2007');
 
         $currentDate = (new \DateTimeImmutable())->format('Ymd');
