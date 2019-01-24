@@ -16,6 +16,7 @@ namespace App\Domain\Reporting\Generator\Word;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\User\Dictionary\ContactCivilityDictionary;
 use PhpOffice\PhpWord\Element\Section;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class OverviewGenerator extends AbstractGenerator
 {
@@ -51,6 +52,7 @@ class OverviewGenerator extends AbstractGenerator
 
     public function __construct(
         UserProvider $userProvider,
+        ParameterBagInterface $parameterBag,
         TreatmentGenerator $treatmentGenerator,
         ContractorGenerator $contractorGenerator,
         MaturityGenerator $maturityGenerator,
@@ -58,7 +60,7 @@ class OverviewGenerator extends AbstractGenerator
         RequestGenerator $requestGenerator,
         ViolationGenerator $violationGenerator
     ) {
-        parent::__construct($userProvider);
+        parent::__construct($userProvider, $parameterBag);
         $this->treatmentGenerator  = $treatmentGenerator;
         $this->contractorGenerator = $contractorGenerator;
         $this->maturityGenerator   = $maturityGenerator;

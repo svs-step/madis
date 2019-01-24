@@ -6,11 +6,3 @@ services:
 
     App\Domain\:
         resource: '../../src/Domain/*/{Generator,Handler}'
-
-    App\Domain\Reporting\Generator\Word\ContractorGenerator:
-        arguments:
-            $defaultReferent: "%env(APP_DEFAULT_REFERENT)%"
-
-    App\Domain\Reporting\Generator\Word\TreatmentGenerator:
-        arguments:
-            $defaultReferent: "%env(APP_DEFAULT_REFERENT)%"

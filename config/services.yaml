@@ -1,6 +1,3 @@
-parameters:
-    locale: 'fr'
-
 services:
     _defaults:
         autowire: true

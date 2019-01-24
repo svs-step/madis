@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Generator\Word;
 
-use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary;
 use App\Domain\Registry\Dictionary\TreatmentDataCategoryDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
@@ -22,19 +21,6 @@ use PhpOffice\PhpWord\Shared\Converter;
 
 class TreatmentGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
-    /**
-     * @var string
-     */
-    private $defaultReferent;
-
-    public function __construct(
-        UserProvider $userProvider,
-        string $defaultReferent
-    ) {
-        parent::__construct($userProvider);
-        $this->defaultReferent = $defaultReferent;
-    }
-
     public function addGlobalOverview(Section $section, array $data): void
     {
         // GENERATE ALL DATA BEFORE WORD GENERATION IN ORDER TO AVOID SEVERAL LOOP
@@ -72,7 +58,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             if (10 > $key) {
                 $overview[] = [
                     $treatment->getName(),
-                    $treatment->getManager() ?? $this->defaultReferent,
+                    $treatment->getManager() ?? $this->parameterBag->get('APP_DEFAULT_REFERENT'),
                 ];
             }
 
@@ -179,7 +165,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         foreach ($data as $treatment) {
             $tableData[] = [
                 $treatment->getName(),
-                $treatment->getManager() ?? $this->defaultReferent,
+                $treatment->getManager() ?? $this->parameterBag->get('APP_DEFAULT_REFERENT'),
             ];
         }
 
@@ -208,7 +194,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
                 [
                     'Gestionnaire',
-                    $treatment->getManager() ?? $this->defaultReferent,
+                    $treatment->getManager() ?? $this->parameterBag->get('APP_DEFAULT_REFERENT'),
                 ],
                 [
                     'Statut',

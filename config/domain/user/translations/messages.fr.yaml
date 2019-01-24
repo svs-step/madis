@@ -30,7 +30,7 @@ user:
         form:
             active: Statut
             address: Adresse
-            different_dpo: Différent du DPD moral SOLURIS
+            different_dpo: Différent du DPD moral
             different_it_manager: Différent du Référent Opérationnel
             name: Nom
             placeholder:
@@ -66,7 +66,7 @@ user:
             contact_mail: Email
             contact_phone_number: N° tél.
             created_at: Date de création
-            different_dpo: Différent du DPD moral SOLURIS
+            different_dpo: Différent du DPD moral
             different_it_manager: Différent du Référent Opérationnel
             name: Nom
             short_name: Nom court
