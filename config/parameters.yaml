@@ -1,0 +1,20 @@
+# Only store static parameters in this file
+
+parameters:
+    locale: 'fr'
+
+    # Env variables
+    # Re declared in order to use ParameterBagInterface in DI
+    APP_DEFAULT_REFERENT: "%env(APP_DEFAULT_REFERENT)%"
+
+    APP_DPO_ADDRESS_CITY: '%env(APP_DPO_ADDRESS_CITY)%'
+    APP_DPO_ADDRESS_STREET: '%env(APP_DPO_ADDRESS_STREET)%'
+    APP_DPO_ADDRESS_ZIP_CODE: '%env(APP_DPO_ADDRESS_ZIP_CODE)%'
+    APP_DPO_CIVILITY: '%env(APP_DPO_CIVILITY)%'
+    APP_DPO_FIRST_NAME: '%env(APP_DPO_FIRST_NAME)%'
+    APP_DPO_LAST_NAME: '%env(APP_DPO_LAST_NAME)%'
+    APP_DPO_COMPANY: '%env(APP_DPO_COMPANY)%'
+    APP_DPO_JOB: '%env(APP_DPO_JOB)%'
+    APP_DPO_MAIL: '%env(APP_DPO_MAIL)%'
+    APP_DPO_PHONE_NUMBER: '%env(APP_DPO_PHONE_NUMBER)%'
+

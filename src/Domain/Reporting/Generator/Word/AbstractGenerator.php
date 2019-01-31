@@ -22,6 +22,7 @@ use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\Style;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
@@ -31,6 +32,11 @@ abstract class AbstractGenerator implements GeneratorInterface
      * @var UserProvider
      */
     protected $userProvider;
+
+    /**
+     * @var ParameterBagInterface
+     */
+    protected $parameterBag;
 
     /**
      * @var array
@@ -47,9 +53,12 @@ abstract class AbstractGenerator implements GeneratorInterface
      */
     protected $textHeadStyle;
 
-    public function __construct(UserProvider $userProvider)
-    {
+    public function __construct(
+        UserProvider $userProvider,
+        ParameterBagInterface $parameterBag
+    ) {
         $this->userProvider = $userProvider;
+        $this->parameterBag = $parameterBag;
 
         $this->tableStyle = [
             'borderColor' => '006699',
@@ -195,17 +204,22 @@ abstract class AbstractGenerator implements GeneratorInterface
             ['bold'        => true, 'size' => 15],
             ['spaceBefore' => 1000]
         );
-        $hasDpo = $collectivity->isDifferentDpo();
+
+        $hasDpo                  = $collectivity->isDifferentDpo();
+        $dpoDefaultFullName      = $this->parameterBag->get('APP_DPO_FIRST_NAME') . ' ' . $this->parameterBag->get('APP_DPO_LAST_NAME');
+        $dpoDefaultStreetAddress = $this->parameterBag->get('APP_DPO_ADDRESS_STREET');
+        $dpoDefaultZipCodeCity   = $this->parameterBag->get('APP_DPO_ADDRESS_ZIP_CODE') . ' ' . \strtoupper($this->parameterBag->get('APP_DPO_ADDRESS_CITY'));
+
         $section->addText(
-            $hasDpo ? $collectivity->getDpo()->getFullName() : 'SOLURIS',
+            $hasDpo ? $collectivity->getDpo()->getFullName() : $dpoDefaultFullName,
             ['size' => 12]
         );
         $section->addText(
-            $hasDpo ? $collectivity->getAddress()->getLineOne() : '2 rue des Rochers',
+            $hasDpo ? $collectivity->getAddress()->getLineOne() : $dpoDefaultStreetAddress,
             ['size' => 12]
         );
         $section->addText(
-            $hasDpo ? "{$collectivity->getAddress()->getZipCode()} {$collectivity->getAddress()->getCity()}" : '17100 Saintes',
+            $hasDpo ? "{$collectivity->getAddress()->getZipCode()} {$collectivity->getAddress()->getCity()}" : $dpoDefaultZipCodeCity,
             ['size' => 12]
         );
 

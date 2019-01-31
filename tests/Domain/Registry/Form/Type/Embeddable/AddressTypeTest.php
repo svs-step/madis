@@ -18,7 +18,6 @@ use App\Domain\Registry\Model\Embeddable\Address;
 use App\Tests\Utils\FormTypeHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -35,7 +34,7 @@ class AddressTypeTest extends FormTypeHelper
             'lineOne'     => TextType::class,
             'lineTwo'     => TextType::class,
             'city'        => TextType::class,
-            'zipCode'     => NumberType::class,
+            'zipCode'     => TextType::class,
             'mail'        => EmailType::class,
             'phoneNumber' => TextType::class,
         ];

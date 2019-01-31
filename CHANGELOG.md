@@ -2,6 +2,12 @@
 
 ## [UNRELEASED]
 
+## [1.3.1] - 2019-01-31
+### Changement
+- [TECH] Mise à jour Symfony 4.2.1 à 4.2.2, #133
+### Fix
+- [BILAN] Le DPO moral par défaut est bien chargé au lieu des coordonnés SOLURIS, #132
+
 ## [1.3.0] - 2018-12-12
 ### Changement
 - [TECH] Mise à jour Symfony 3.4 à 4.2.1, #129

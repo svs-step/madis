@@ -13,25 +13,11 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Generator\Word;
 
-use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Model\Contractor;
 use PhpOffice\PhpWord\Element\Section;
 
 class ContractorGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
-    /**
-     * @var string
-     */
-    private $defaultReferent;
-
-    public function __construct(
-        UserProvider $userProvider,
-        string $defaultReferent
-    ) {
-        parent::__construct($userProvider);
-        $this->defaultReferent = $defaultReferent;
-    }
-
     /**
      * @param Section      $section
      * @param Contractor[] $data
@@ -57,7 +43,7 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
             // Overview
             $overview[] = [
                 $contractor->getName(),
-                $contractor->getReferent() ?? $this->defaultReferent,
+                $contractor->getReferent() ?? $this->parameterBag->get('APP_DEFAULT_REFERENT'),
                 $contractor->isContractualClausesVerified() ? 'Oui' : 'Non',
                 $contractor->isConform() ? 'Oui' : 'Non',
             ];
@@ -96,7 +82,7 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
         foreach ($data as $contractor) {
             $tableData[] = [
                 $contractor->getName(),
-                $contractor->getReferent() ?? $this->defaultReferent,
+                $contractor->getReferent() ?? $this->parameterBag->get('APP_DEFAULT_REFERENT'),
                 $contractor->isContractualClausesVerified() ? 'Oui' : 'Non',
                 $contractor->isConform() ? 'Oui' : 'Non',
             ];
@@ -119,7 +105,7 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
             $generalInformationsData = [
                 [
                     'Agent référent',
-                    $contractor->getReferent() ?? $this->defaultReferent,
+                    $contractor->getReferent() ?? $this->parameterBag->get('APP_DEFAULT_REFERENT'),
                 ],
                 [
                     'Clauses contractuelles vérifiées',
