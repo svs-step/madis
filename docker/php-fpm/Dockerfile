@@ -41,6 +41,10 @@ RUN echo "xdebug.remote_enable=1" >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini \
 
 RUN echo "export PATH=$PATH\":$HOME/bin\"" >> /root/.bashrc
 
+RUN mkdir -p /var/www/gestion-grpd
+
 USER www-data
+
+WORKDIR /var/www/gestion-rgpd
 
 CMD ["/usr/sbin/php-fpm7.1", "-F"]

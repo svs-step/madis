@@ -1,0 +1,43 @@
+variables:
+    DOCKER_IMAGE_PHP: registry.gitlab.com/soluris/madis/php:1.0
+    DOCKER_IMAGE_NGINX: registry.gitlab.com/soluris/madis/nginx:1.0
+
+stages:
+    - cache
+    - tests
+
+create_cache:
+    image: ${DOCKER_IMAGE_PHP}
+    script:
+        - composer install --prefer-dist --no-interaction --optimize-autoloader --no-scripts
+    cache:
+        key: "$CI_PROJECT_PATH-php"
+        paths:
+            - vendor
+        policy: push
+    tags:
+        - docker
+    stage: cache
+
+unit_tests:
+    image: docker:stable
+    services:
+        - docker:dind
+    coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+    artifacts:
+        paths:
+            - var/artefacts/coverage/
+    script:
+        - docker login --username gitlab-ci-token --password $CI_JOB_TOKEN $CI_REGISTRY
+        # re-install vendors to prevent from ci cache failure
+        - docker run --rm --env-file=./.env.dist --env-file=.env.test -v ${PWD}:/var/www/gestion-rgpd $DOCKER_IMAGE_PHP composer install --prefer-dist --no-interaction --optimize-autoloader --no-scripts
+        # PHPUnit
+        - docker run --rm --env-file=./.env.dist --env-file=.env.test -v ${PWD}:/var/www/gestion-rgpd $DOCKER_IMAGE_PHP vendor/bin/phpunit
+    cache:
+        key: "$CI_PROJECT_PATH-php"
+        paths:
+            - vendor
+        policy: pull
+    tags:
+        - docker
+    stage: tests
