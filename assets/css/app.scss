@@ -1,12 +1,17 @@
-/* Sidebar */
+/* Header */
+.main-header .logo-mini img {
+  max-width: 2em;
+  max-height: 2em;
+}
+
 .main-header .sidebar-toggle:before {
   content: "";
 }
 
+/* Sidebar */
 .sidebar-logo {
     & img {
-      padding: 20px 5px 12px 0;
-      width: 190px;
+      width: 195px;
       height: auto;
     }
 }
