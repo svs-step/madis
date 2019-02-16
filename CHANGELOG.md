@@ -1,6 +1,10 @@
 # CHANGELOG
 
 ## [UNRELEASED]
+### Ajout
+- [LOGO] Pouvoir configurer les logos/le fournisseur de service et l'URL associé, #99
+### Changement
+- [CONNEXION] Passage du temps de connexion de 4h à 1h30, #125
 
 ## [1.3.1] - 2019-01-31
 ### Changement
