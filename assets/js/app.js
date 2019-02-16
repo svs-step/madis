@@ -1,4 +1,16 @@
 $(document).ready(function(){
+
+    $('input[type=password]').each(function() {
+        let input = $(this);
+        let span = $(this).parent().find('span');
+        span.on('mousedown', function() {
+            input.attr('type', 'text');
+        });
+        span.on('mouseup', function() {
+            input.attr('type', 'password');
+        });
+    });
+
     $('.complex-choice-group').each(function(idx) {
         var check = $(this).find('.check input');
         var comment = $(this).find('.comment input');
