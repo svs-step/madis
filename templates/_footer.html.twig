@@ -1,5 +1,6 @@
 <footer class="main-footer">
-    <strong>&copy; 2018 <a href="http://www.soluris.fr/" target="_blank" rel="nofollow noreferrer noopener">SOLURIS</a></strong> : {{ app.user.collectivity }}
+
+    <strong>&copy; 2018 <a href="{{ app_footer_provider_url }}" target="_blank" rel="nofollow noreferrer noopener">{{ app_footer_provider_name }}</a></strong> : {{ app.user.collectivity }}
 
     <div class="pull-right hidden-xs">
         <a href="{{ path('page_credit') }}">Crédit</a>

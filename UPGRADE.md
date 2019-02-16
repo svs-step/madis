@@ -9,9 +9,46 @@ De ce fait, répertoriez-vous à ce qui est écrit ci-dessous.
 que vous souhaitez installer, c'est que vous n'avez rien à faire._**
 
 
-# Version v1.3 --> v1.3.1
 
-**Ajout de l'adresse du DPD moral / par défaut**
+
+# Passage en v1.4
+
+### Possibilité de configurer les logos & le fournisseur de service
+
+Dans le `.env` vous pouvez modifier les informations des logos et
+du fournisseur de service MADIS (si vous ne souhaitez modifier les
+informations, copiez les variables comme affichées dans l'exemple)
+
+Ajoutez les variables suivantes dans votre `.env`.
+
+```text
+APP_FOOTER_PROVIDER_NAME=SOLURIS
+APP_FOOTER_PROVIDER_URL="https://soluris.fr"
+APP_IMAGE_FAVICON_PATH="favicon.ico"
+APP_IMAGE_SIDEBAR_BOTTOM_TARGET_URL="https://soluris.fr"
+APP_IMAGE_SIDEBAR_BOTTOM_PATH="images/soluris-logo-white.png"
+APP_IMAGE_SIDEBAR_REDUCED_PATH="images/icon-32x32.png"
+```
+
+_Note: Vous pourrez venir modifier ces variables plus tard._
+
+Si vous souhaitez ajouter vos propres images, le dossier `public/custom`
+n'est pas versionné dans GIT. 
+De ce fait, si vous souhaitez ajouter un favicon dans
+`public/custom/images/favicon.ico` par exemple, il vous suffira de changer
+`APP_IMAGE_FAVICON_PATH="favicon.ico"` par `APP_IMAGE_FAVICON_PATH="custom/images/favicon.ico"`
+(le dossier `public` étant déjà ciblé par défaut).
+
+Finissez par lancer la commande `bin/console cache:clear` pour que ces
+données soient appliquées
+
+
+
+
+
+# Passage en v1.3.1
+
+### Ajout de l'adresse du DPD moral / par défaut
  
 Modifier le fichier `.env` pour y ajouter les 3 champs suivants,
 dans la section `symfony/framework-bundle` comme montré ci-dessous. 
