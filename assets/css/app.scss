@@ -40,6 +40,11 @@
   }
 }
 
+.has-feedback .form-control-feedback {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
 /* Pages */
 div.action-bar {
   margin-bottom: 1em;
