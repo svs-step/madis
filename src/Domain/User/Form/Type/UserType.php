@@ -46,16 +46,6 @@ class UserType extends AbstractType
         // Add collectivity general information only for admins
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $builder
-                ->add('plainPassword', RepeatedType::class, [
-                    'type'          => PasswordType::class,
-                    'first_options' => [
-                        'label' => 'user.user.form.password',
-                    ],
-                    'second_options' => [
-                        'label' => 'user.user.form.password_repeat',
-                    ],
-                    'required' => false,
-                ])
                 ->add('collectivity', EntityType::class, [
                     'class'         => Collectivity::class,
                     'label'         => 'user.user.form.collectivity',
@@ -97,6 +87,16 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 'label'    => 'user.user.form.email',
                 'required' => true,
+            ])
+            ->add('plainPassword', RepeatedType::class, [
+                'type'          => PasswordType::class,
+                'first_options' => [
+                    'label' => 'user.user.form.password',
+                ],
+                'second_options' => [
+                    'label' => 'user.user.form.password_repeat',
+                ],
+                'required' => false,
             ])
         ;
     }

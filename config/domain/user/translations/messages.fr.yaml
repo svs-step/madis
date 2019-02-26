@@ -102,6 +102,9 @@ user:
         form_user:
             tab:
                 general: Vos informations
+                optional: Informations facultatives
+            help:
+                password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe pour cet utilisateur
         title:
             collectivity_edit: Éditer ma collectivité
 
@@ -148,7 +151,7 @@ user:
             enabled: Actif
             first_name: Prénom
             help:
-                password: A remplir uniquement si vous souhaitez définir un nouveau mot de passe pour cet utilisateur
+                password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe pour cet utilisateur
             last_name: Nom
             password: Mot de passe
             password_repeat: Répéter le mot de passe
