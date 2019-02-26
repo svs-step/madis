@@ -90,7 +90,7 @@
                 </a>
             </li>
         {# If not an admin & is write granted, let user edit informations #}
-        {% elseif is_granted('ROLE_USER') %}
+        {% else %}
             <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
                 <a href="{{ path('user_profile_collectivity_show') }}">
                     <i class="fa fa-home"></i>
