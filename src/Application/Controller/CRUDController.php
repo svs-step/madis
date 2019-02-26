@@ -100,7 +100,7 @@ abstract class CRUDController extends Controller
      *
      * @param string      $type     The flashbag type
      * @param string|null $template The related template to use
-     * @param null|mixed  $object   The object to use to generate flashbag (eg. show object name)
+     * @param mixed|null  $object   The object to use to generate flashbag (eg. show object name)
      *
      * @return string The generated flashbag
      */

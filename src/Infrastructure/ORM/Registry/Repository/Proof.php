@@ -111,7 +111,7 @@ class Proof implements Repository\Proof
      *
      * @param string $id The ID to find
      *
-     * @return null|object
+     * @return object|null
      */
     public function findOneById(string $id)
     {

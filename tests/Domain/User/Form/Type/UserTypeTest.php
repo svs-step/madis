@@ -81,9 +81,9 @@ class UserTypeTest extends FormTypeHelper
     public function testBuildFormUser()
     {
         $builder = [
-            'firstName' => TextType::class,
-            'lastName'  => TextType::class,
-            'email'     => EmailType::class,
+            'firstName'     => TextType::class,
+            'lastName'      => TextType::class,
+            'email'         => EmailType::class,
             'plainPassword' => RepeatedType::class,
         ];
 

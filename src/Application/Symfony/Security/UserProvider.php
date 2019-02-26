@@ -25,7 +25,7 @@ class UserProvider
      * - User is anonymous: return null
      * - User is connected: return UserInterface instance.
      *
-     * @return null|UserInterface
+     * @return UserInterface|null
      */
     public function getAuthenticatedUser(): ?UserInterface
     {

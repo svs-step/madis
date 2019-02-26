@@ -122,7 +122,7 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
      *
      * @param string $id The ID to find
      *
-     * @return null|object
+     * @return object|null
      */
     public function findOneById(string $id)
     {
