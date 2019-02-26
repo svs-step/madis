@@ -186,7 +186,11 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.violation.show.notification'|trans }}</strong></td>
-                            <td>{{ object.notification|dictionary('registry_violation_notification') }}</td>
+                            <td>
+                                {% if object.notification %}
+                                    {{ object.notification|dictionary('registry_violation_notification') }}
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.violation.show.notification_details'|trans }}</strong></td>
