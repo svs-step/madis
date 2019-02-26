@@ -3,8 +3,13 @@
 ## [UNRELEASED]
 ### Ajout
 - [LOGO] Pouvoir configurer les logos/le fournisseur de service et l'URL associé, #99
+- [CHARTE] Possibilité de cliquer sur un icone "oeil" dans les champs mot de passe pour le voir en clair, #126
 ### Changement
 - [CONNEXION] Passage du temps de connexion de 4h à 1h30, #125
+### Fix
+- [GLOBAL] La sidebar se décalait lorsque nous allions sur l'onglet "Ma collectivité", #139
+- [USER] Le lecteur ne pouvait pas accéder aux infos de sa collectivité et son profil, #139
+- [VIOLATION] Erreur d'affichage lors de la visualisation d'une violation qui n'a pas de champ notification renseigné, #139
 
 ## [1.3.1] - 2019-01-31
 ### Changement
