@@ -77,9 +77,14 @@ class Treatment
     /**
      * FR: Justification de la base légale.
      *
-     * @var string
+     * @var string|null
      */
     private $legalBasisJustification;
+
+    /**
+     * @var string|null
+     */
+    private $observation;
 
     /**
      * FR: Personnes concernées.
@@ -364,6 +369,22 @@ class Treatment
     public function setLegalBasisJustification(?string $legalBasisJustification): void
     {
         $this->legalBasisJustification = $legalBasisJustification;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getObservation(): ?string
+    {
+        return $this->observation;
+    }
+
+    /**
+     * @param string|null $observation
+     */
+    public function setObservation(?string $observation): void
+    {
+        $this->observation = $observation;
     }
 
     /**

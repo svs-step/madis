@@ -78,6 +78,13 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.legal_basis_justification',
                 'required' => false,
             ])
+            ->add('observation', TextareaType::class, [
+                'label'    => 'registry.treatment.form.observation',
+                'required' => false,
+                'attr'     => [
+                    'rows' => 2,
+                ],
+            ])
             ->add('concernedPeople', DictionaryType::class, [
                 'label'    => 'registry.treatment.form.concerned_people',
                 'name'     => 'registry_treatment_concerned_people',

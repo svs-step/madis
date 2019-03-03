@@ -17,6 +17,7 @@
         <field name="paperProcessing" column="paper_processing" type="boolean"/>
         <field name="legalBasis" column="legal_basis" type="json_array"/>
         <field name="legalBasisJustification" column="legal_basis_justification" type="text" nullable="true"/>
+        <field name="observation" column="observation" type="text" nullable="true"/>
         <field name="concernedPeople" column="concerned_people" type="json_array"/>
         <field name="dataCategory" column="data_category" type="json_array"/>
         <field name="dataCategoryOther" column="data_category_other" type="text" nullable="true"/>

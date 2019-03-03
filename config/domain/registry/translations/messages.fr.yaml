@@ -298,6 +298,7 @@ registry:
             legal_basis_justification: Justification de la base légale
             manager: Gestionnaire
             name: Nom
+            observation: Observations
             paper_processing: Traitement papier
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
@@ -340,6 +341,7 @@ registry:
             legal_basis_justification: Justification de la base légale
             manager: Gestionnaire
             name: Nom
+            observation: Observations
             paper_processing: Traitement papier
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès

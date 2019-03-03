@@ -64,6 +64,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'paperProcessing'         => CheckboxType::class,
             'legalBasis'              => DictionaryType::class,
             'legalBasisJustification' => TextareaType::class,
+            'observation'             => TextareaType::class,
             'concernedPeople'         => DictionaryType::class,
             'dataCategory'            => DictionaryType::class,
             'dataCategoryOther'       => TextareaType::class,
