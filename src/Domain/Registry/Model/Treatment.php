@@ -103,6 +103,13 @@ class Treatment
     private $dataCategoryOther;
 
     /**
+     * FR: Origine des données.
+     *
+     * @var string|null
+     */
+    private $dataOrigin;
+
+    /**
      * FR: Destinataire des données.
      *
      * @var string
@@ -405,6 +412,22 @@ class Treatment
     public function setDataCategoryOther(?string $dataCategoryOther): void
     {
         $this->dataCategoryOther = $dataCategoryOther;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDataOrigin(): ?string
+    {
+        return $this->dataOrigin;
+    }
+
+    /**
+     * @param string|null $dataOrigin
+     */
+    public function setDataOrigin(?string $dataOrigin): void
+    {
+        $this->dataOrigin = $dataOrigin;
     }
 
     /**
