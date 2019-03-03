@@ -290,6 +290,7 @@ registry:
             data_crossing: Croisement de données
             data_category: Catégorie de données
             data_category_other: Autres catégories
+            data_origin: Origine des données
             delay: Délai de conservation
             goal: Finalités
             large_scale_collection: Collecte à large échelle
@@ -331,6 +332,7 @@ registry:
             data_crossing: Croisement de données
             data_category: Catégorie de données
             data_category_other: Autres catégories
+            data_origin: Origine des données
             delay: Délai de conservation
             goal: Finalités
             large_scale_collection: Collecte à large échelle

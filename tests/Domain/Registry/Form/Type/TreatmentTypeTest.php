@@ -67,6 +67,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'concernedPeople'         => DictionaryType::class,
             'dataCategory'            => DictionaryType::class,
             'dataCategoryOther'       => TextareaType::class,
+            'dataOrigin'              => TextType::class,
             'recipientCategory'       => TextareaType::class,
             'contractors'             => EntityType::class,
             'delay'                   => DelayType::class,

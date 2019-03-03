@@ -229,6 +229,10 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                         ? \preg_split('/\R/', $treatment->getDelay()->getComment())
                         : "{$treatment->getDelay()->getNumber()} {$treatment->getDelay()->getPeriod()}",
                 ],
+                [
+                    'Origine des données',
+                    $treatment->getDataOrigin(),
+                ],
             ];
             // Add Concerned people
             $concernedPeople = [];
