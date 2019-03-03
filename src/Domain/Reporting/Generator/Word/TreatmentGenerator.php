@@ -208,6 +208,10 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     'Justification de la base légale',
                     $treatment->getLegalBasisJustification() ? \preg_split('/\R/', $treatment->getLegalBasisJustification()) : null,
                 ],
+                [
+                    'Observations',
+                    $treatment->getObservation() ? \preg_split('/\R/', $treatment->getObservation()) : null,
+                ],
             ];
 
             $detailsData = [

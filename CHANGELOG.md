@@ -4,6 +4,7 @@
 ### Ajout
 - [USER] Pouvoir modifier son mot de passe dans son profil, #135
 - [CHARTE] Possibilité de cliquer sur un icone "oeil" dans les champs mot de passe pour le voir en clair, #126
+- [TRAITEMENT] Ajout d'un champ "Observations", #121
 - [TRAITEMENT] Ajout d'un champ "Origine des données", #117
 - [LOGO] Pouvoir configurer les logos/le fournisseur de service et l'URL associé, #99
 ### Changement
