@@ -25,8 +25,11 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 class UserTypeTest extends FormTypeHelper
 {
@@ -36,6 +39,16 @@ class UserTypeTest extends FormTypeHelper
     private $authorizationCheckerProphecy;
 
     /**
+     * @var EncoderFactoryInterface
+     */
+    private $encoderFactoryProphecy;
+
+    /**
+     * @var PasswordEncoderInterface
+     */
+    private $encoderProphecy;
+
+    /**
      * @var UserType
      */
     private $formType;
@@ -43,9 +56,14 @@ class UserTypeTest extends FormTypeHelper
     protected function setUp()
     {
         $this->authorizationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
+        $this->encoderFactoryProphecy       = $this->prophesize(EncoderFactoryInterface::class);
+        $this->encoderProphecy              = $this->prophesize(PasswordEncoderInterface::class);
+
+        $this->encoderFactoryProphecy->getEncoder(Argument::any())->willReturn($this->encoderProphecy->reveal());
 
         $this->formType = new UserType(
-            $this->authorizationCheckerProphecy->reveal()
+            $this->authorizationCheckerProphecy->reveal(),
+            $this->encoderFactoryProphecy->reveal()
         );
     }
 
@@ -75,6 +93,11 @@ class UserTypeTest extends FormTypeHelper
             ->shouldBeCalled()
         ;
 
+        $builderProphecy
+            ->addEventListener(FormEvents::POST_SUBMIT, Argument::any())
+            ->shouldBeCalled()
+        ;
+
         $this->formType->buildForm($builderProphecy->reveal(), []);
     }
 
@@ -93,6 +116,11 @@ class UserTypeTest extends FormTypeHelper
         $builderProphecy = $this->prophesizeBuilder($builder, false);
         $builderProphecy->get('roles')->shouldNotBeCalled();
         $builderProphecy->addModelTransformer(Argument::cetera())->shouldNotBeCalled();
+
+        $builderProphecy
+            ->addEventListener(FormEvents::POST_SUBMIT, Argument::any())
+            ->shouldBeCalled()
+        ;
 
         $this->formType->buildForm($builderProphecy->reveal(), []);
     }

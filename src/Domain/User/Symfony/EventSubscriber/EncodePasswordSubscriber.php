@@ -52,7 +52,7 @@ class EncodePasswordSubscriber implements EventSubscriber
             return;
         }
 
-        $this->process($args);
+        $this->encodePassword($args);
     }
 
     /**
@@ -69,7 +69,7 @@ class EncodePasswordSubscriber implements EventSubscriber
             return;
         }
 
-        $this->process($args);
+        $this->encodePassword($args);
     }
 
     /**
@@ -77,12 +77,13 @@ class EncodePasswordSubscriber implements EventSubscriber
      *
      * @param LifecycleEventArgs $args
      */
-    private function process(LifecycleEventArgs $args): void
+    public function encodePassword(LifecycleEventArgs $args): void
     {
-        /**
-         * @var User
-         */
         $model = $args->getObject();
+
+        if (!$model instanceof User) {
+            return;
+        }
 
         if (\is_null($model->getPlainPassword())) {
             return;
