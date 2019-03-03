@@ -26,8 +26,11 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class UserType extends AbstractType
 {
@@ -36,13 +39,23 @@ class UserType extends AbstractType
      */
     private $authorizationChecker;
 
-    public function __construct(AuthorizationCheckerInterface $authorizationChecker)
-    {
+    /**
+     * @var EncoderFactoryInterface
+     */
+    private $encoderFactory;
+
+    public function __construct(
+        AuthorizationCheckerInterface $authorizationChecker,
+        EncoderFactoryInterface $encoderFactory
+    ) {
         $this->authorizationChecker = $authorizationChecker;
+        $this->encoderFactory       = $encoderFactory;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $encoderFactory = $this->encoderFactory;
+
         // Add collectivity general information only for admins
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $builder
@@ -99,6 +112,17 @@ class UserType extends AbstractType
                 'required' => false,
             ])
         ;
+
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($encoderFactory) {
+            $user = $event->getData();
+            if (null === $user->getPlainPassword()) {
+                return;
+            }
+
+            $encoder = $encoderFactory->getEncoder($user);
+            $user->setPassword($encoder->encodePassword($user->getPlainPassword(), '')); // No salt with bcrypt
+            $user->eraseCredentials();
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver)
