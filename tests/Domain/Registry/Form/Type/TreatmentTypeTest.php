@@ -66,7 +66,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'legalBasisJustification' => TextareaType::class,
             'observation'             => TextareaType::class,
             'concernedPeople'         => DictionaryType::class,
-            'dataCategory'            => DictionaryType::class,
+            'dataCategories'          => EntityType::class,
             'dataCategoryOther'       => TextareaType::class,
             'dataOrigin'              => TextType::class,
             'recipientCategory'       => TextareaType::class,

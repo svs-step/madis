@@ -97,8 +97,12 @@
                             <td><strong>{{ 'registry.treatment.show.data_category'|trans }}</strong></td>
                             <td>
                                 <ul>
-                                {% for category in object.dataCategory %}
-                                    <li>{{ category|dictionary('registry_treatment_data_category') }}</li>
+                                {% for category in object.dataCategories %}
+                                    <li>
+                                        {% if category.sensible %}<strong>{% endif %}
+                                        {{ category.name }}
+                                        {% if category.sensible %}</strong>{% endif %}
+                                    </li>
                                 {% endfor %}
                                 </ul>
                             </td>

@@ -6,8 +6,10 @@ App\Domain\Registry\Model\Treatment:
         software: '50%? <word()>'
         legalBasis: '<(App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary::BASE_LEGAL_OBLIGATION)>'
         legalBasisJustification: '50%? <text()>'
+        dataCategories: ['@registry_treatment_data_category_filiation', '@registry_treatment_data_category_social_security_number']
         dataCategoryOther: <text()>
         recipientCategory: <text()>
+        concernedPeople: ['<(App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary::TYPE_AGENT)>']
         contractors: ['@registry_contractor_awkan_1', '@registry_contractor_awkan_3']
         active: '80%? 1 : 0'
         collectivity: '@user_collectivity_awkan'
@@ -19,8 +21,10 @@ App\Domain\Registry\Model\Treatment:
         software: '50%? <word()>'
         legalBasis: '<(App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary::BASE_PUBLIC_INTEREST_MISSION)>'
         legalBasisJustification: '50%? <text()>'
+        dataCategories: ['@registry_treatment_data_category_health']
         dataCategoryOther: <text()>
         recipientCategory: <text()>
+        concernedPeople: ['<(App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary::TYPE_AGENT)>']
         contractors: ['@registry_contractor_soluris_3']
         active: '80%? 1 : 0'
         collectivity: '@user_collectivity_soluris'
