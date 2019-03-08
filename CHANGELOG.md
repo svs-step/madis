@@ -13,6 +13,8 @@
 - [TRAITEMENT] Passage en BDD de la liste des catégories de données (table `registry_treatment_data_category`), #105
 - [TRAITEMENT] Remplacement de la catégorie de données "Etat civil" par "Nom, prénom", "Date et lieu de naissance", "Situation pro", #105
 ### Fix
+- [TRAITEMENT] Le champ "Autre délai" ne s'affichait pas dans la visualisation d'un traitement, #144
+- [TRAITEMENT] Le champ "Délai de conservation" n'étais pas traduit sur le word (on pouvait lire "month" par exemple), #144
 - [USER] Modifier uniquement un mot de passe ne fonctionnait pas, #139
 - [GLOBAL] La sidebar se décalait lorsque nous allions sur l'onglet "Ma collectivité", #139
 - [USER] Le lecteur ne pouvait pas accéder aux infos de sa collectivité et son profil, #139
