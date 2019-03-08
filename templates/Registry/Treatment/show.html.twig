@@ -214,6 +214,8 @@
                             <td>
                                 {% if object.delay.number and object.delay.period %}
                                     {{ object.delay.number }} {{ object.delay.period|dictionary('registry_delay_period') }}
+                                {% elseif object.delay.otherDelay %}
+                                    {{ object.delay.comment }}
                                 {% endif %}
                             </td>
                         </tr>
