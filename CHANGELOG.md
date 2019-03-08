@@ -8,8 +8,10 @@
 - [TRAITEMENT] Ajout d'un champ "Origine des données", #117
 - [LOGO] Pouvoir configurer les logos/le fournisseur de service et l'URL associé, #99
 ### Changement
-- [CONNEXION] Passage du temps de connexion de 4h à 1h30, #125
 - [USER] Ré-agencement des blocs du formulaire "Utilisateurs" pour les admins, #135
+- [CONNEXION] Passage du temps de connexion de 4h à 1h30, #125
+- [TRAITEMENT] Passage en BDD de la liste des catégories de données (table `registry_treatment_data_category`), #105
+- [TRAITEMENT] Remplacement de la catégorie de données "Etat civil" par "Nom, prénom", "Date et lieu de naissance", "Situation pro", #105
 ### Fix
 - [USER] Modifier uniquement un mot de passe ne fonctionnait pas, #139
 - [GLOBAL] La sidebar se décalait lorsque nous allions sur l'onglet "Ma collectivité", #139

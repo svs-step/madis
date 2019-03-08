@@ -19,6 +19,7 @@ use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\TreatmentDataCategory;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -101,7 +102,7 @@ class TreatmentType extends AbstractType
                 'multiple'      => true,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('dc')
-                        ->orderBy('dc.position', 'ASC');
+                        ->orderBy('dc.position', Criteria::ASC);
                 },
                 'choice_attr' => function (TreatmentDataCategory $model) {
                     if ($model->isSensible()) {

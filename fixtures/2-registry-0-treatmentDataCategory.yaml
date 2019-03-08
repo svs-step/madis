@@ -1,10 +1,4 @@
 App\Domain\Registry\Model\TreatmentDataCategory:
-    registry_treatment_data_category_civility:
-        __construct:
-            - 'civility'
-            - 'Etat civil'
-            - 1
-            - false
     registry_treatment_data_category_family_situation:
         __construct:
             - 'family-situation'
