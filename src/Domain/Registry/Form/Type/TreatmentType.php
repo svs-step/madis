@@ -98,6 +98,9 @@ class TreatmentType extends AbstractType
                 'required' => false,
                 'expanded' => false,
                 'multiple' => true,
+                'attr'     => [
+                    'size' => 6,
+                ],
             ])
             ->add('dataCategoryOther', TextareaType::class, [
                 'label'    => 'registry.treatment.form.data_category_other',
