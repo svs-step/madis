@@ -56,7 +56,7 @@ class TreatmentCompletion extends AbstractCompletion
             ++$points;
         }
 
-        if (!empty($object->getDataCategory())) {
+        if (!empty($object->getDataCategories())) {
             ++$points;
         }
 

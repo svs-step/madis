@@ -94,11 +94,9 @@ class Treatment
     private $concernedPeople;
 
     /**
-     * FR: Catégories de données.
-     *
-     * @var array
+     * @var iterable
      */
-    private $dataCategory;
+    private $dataCategories;
 
     /**
      * FR: Autres catégories.
@@ -221,7 +219,7 @@ class Treatment
         $this->id                    = Uuid::uuid4();
         $this->paperProcessing       = false;
         $this->concernedPeople       = [];
-        $this->dataCategory          = [];
+        $this->dataCategories        = [];
         $this->contractors           = new ArrayCollection();
         $this->delay                 = new Delay();
         $this->securityAccessControl = new ComplexChoice();
@@ -404,19 +402,19 @@ class Treatment
     }
 
     /**
-     * @return array
+     * @return iterable
      */
-    public function getDataCategory(): array
+    public function getDataCategories(): iterable
     {
-        return $this->dataCategory;
+        return $this->dataCategories;
     }
 
     /**
-     * @param array $dataCategory
+     * @param iterable $dataCategories
      */
-    public function setDataCategory(array $dataCategory): void
+    public function setDataCategories(iterable $dataCategories): void
     {
-        $this->dataCategory = $dataCategory;
+        $this->dataCategories = $dataCategories;
     }
 
     /**

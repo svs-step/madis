@@ -1,0 +1,139 @@
+App\Domain\Registry\Model\TreatmentDataCategory:
+    registry_treatment_data_category_civility:
+        __construct:
+            - 'civility'
+            - 'Etat civil'
+            - 1
+            - false
+    registry_treatment_data_category_family_situation:
+        __construct:
+            - 'family-situation'
+            - 'Situation familiale'
+            - 2
+            - false
+    registry_treatment_data_category_filiation:
+        __construct:
+            - 'filiation'
+            - 'Filiation'
+            - 3
+            - false
+    registry_treatment_data_category_postal:
+        __construct:
+            - 'postal'
+            - 'Coordonnées postales'
+            - 4
+            - false
+    registry_treatment_data_category_phone:
+        __construct:
+            - 'phone'
+            - 'Coordonnées téléphoniques'
+            - 5
+            - false
+    registry_treatment_data_category_bank:
+        __construct:
+            - 'bank'
+            - 'Information bancaire'
+            - 6
+            - false
+    registry_treatment_data_category_bank_situation:
+        __construct:
+            - 'bank-situation'
+            - 'Situation bancaire'
+            - 7
+            - false
+    registry_treatment_data_category_heritage:
+        __construct:
+            - 'heritage'
+            - 'Patrimoine'
+            - 8
+            - false
+    registry_treatment_data_category_tax_situation:
+        __construct:
+            - 'tax-situation'
+            - 'Situation fiscale'
+            - 9
+            - false
+    registry_treatment_data_category_earning:
+        __construct:
+            - 'earning'
+            - 'Revenus'
+            - 10
+            - false
+    registry_treatment_data_category_email:
+        __construct:
+            - 'email'
+            - 'Emails'
+            - 11
+            - false
+    registry_treatment_data_category_ip:
+        __construct:
+            - 'ip'
+            - 'Adresse IP'
+            - 12
+            - false
+    registry_treatment_data_category_connexion:
+        __construct:
+            - 'connexion'
+            - 'Connexion'
+            - 13
+            - false
+    registry_treatment_data_category_geo:
+        __construct:
+            - 'geo'
+            - 'Géolocalisation'
+            - 14
+            - false
+    registry_treatment_data_category_caf:
+        __construct:
+            - 'caf'
+            - 'Numéro de CAF'
+            - 15
+            - false
+    registry_treatment_data_category_health:
+        __construct:
+            - 'health'
+            - 'Santé'
+            - 16
+            - true
+    registry_treatment_data_category_social_security_number:
+        __construct:
+            - 'social-security-number'
+            - 'Numéro de Sécurité Sociale'
+            - 17
+            - true
+    registry_treatment_data_category_identity:
+        __construct:
+            - 'identity'
+            - "Pièces d'identité"
+            - 18
+            - false
+    registry_treatment_data_category_picture:
+        __construct:
+            - 'picture'
+            - 'Photos-vidéos'
+            - 19
+            - false
+    registry_treatment_data_category_syndicate:
+        __construct:
+            - 'syndicate'
+            - 'Appartenance Syndicale'
+            - 20
+            - true
+    registry_treatment_data_category_public_religious_opinion:
+        __construct:
+            - 'public-religious-opinion'
+            - 'Opinion politique ou religieuse'
+            - 21
+            - true
+    registry_treatment_data_category_racial_ethnic_opinion:
+        __construct:
+            - 'racial-ethnic_opinion'
+            - "Origine raciale ou ethnique"
+            - 22
+            - true
+    registry_treatment_data_category_sex_life:
+        __construct:
+            - 'sex-life'
+            - 'Vie sexuelle'
+            - 23
+            - true

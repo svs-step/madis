@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Word;
 
 use App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary;
-use App\Domain\Registry\Dictionary\TreatmentDataCategoryDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shared\Converter;
@@ -257,8 +256,13 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             ];
             // Add data categories
             $dataCategories = [];
-            foreach ($treatment->getDataCategory() as $category) {
-                $dataCategories[] = TreatmentDataCategoryDictionary::getCategories()[$category];
+            foreach ($treatment->getDataCategories() as $category) {
+                $dataCategories[] = [
+                    'text'  => $category->getName(),
+                    'style' => [
+                        'bold' => $category->isSensible() ? true : false,
+                    ],
+                ];
             }
             $categoryData[0][] = $dataCategories;
 

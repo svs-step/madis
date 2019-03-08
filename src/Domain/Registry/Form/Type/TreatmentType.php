@@ -18,6 +18,7 @@ use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Treatment;
+use App\Domain\Registry\Model\TreatmentDataCategory;
 use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -92,12 +93,25 @@ class TreatmentType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
             ])
-            ->add('dataCategory', DictionaryType::class, [
-                'label'    => 'registry.treatment.form.data_category',
-                'name'     => 'registry_treatment_data_category',
-                'required' => false,
-                'expanded' => false,
-                'multiple' => true,
+            ->add('dataCategories', EntityType::class, [
+                'label'         => 'registry.treatment.form.data_category',
+                'class'         => TreatmentDataCategory::class,
+                'required'      => false,
+                'expanded'      => false,
+                'multiple'      => true,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('dc')
+                        ->orderBy('dc.position', 'ASC');
+                },
+                'choice_attr' => function (TreatmentDataCategory $model) {
+                    if ($model->isSensible()) {
+                        return [
+                            'style' => 'font-weight: bold;',
+                        ];
+                    }
+
+                    return [];
+                },
                 'attr'     => [
                     'size' => 6,
                 ],
