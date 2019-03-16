@@ -54,7 +54,7 @@ class DefinePasswordSubscriber implements EventSubscriber
         }
 
         // No password is set, randomize one
-        if (\is_null($model->getPlainPassword())) {
+        if (\is_null($model->getPlainPassword()) && \is_null($model->getPassword())) {
             $model->setPlainPassword($this->tokenGenerator->generateToken());
         }
     }
