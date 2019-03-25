@@ -11,5 +11,21 @@
 {%- endblock form_widget_simple -%}
 
 {% block form_group_class -%}
-    col-sm-10 has-feedback
+    col-sm-10
 {%- endblock form_group_class %}
+
+{# Override form_row only for password type #}
+{% block password_row -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+        {{- form_label(form) -}}
+        <div class="{{ block('form_group_class') }} has-feedback">
+            {{- form_widget(form, widget_attr) -}}
+            {{- form_help(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    </div>
+{%- endblock password_row %}
