@@ -14,6 +14,7 @@
 - [TRAITEMENT] Passage en BDD de la liste des catégories de données (table `registry_treatment_data_category`), #105
 - [TRAITEMENT] Remplacement de la catégorie de données "Etat civil" par "Nom, prénom", "Date et lieu de naissance", "Situation pro", #105
 ### Fix
+- [TRAITEMENT] Le champ de formulaire "Délai de conservation" n'était pas bien aligné, #149
 - [USER] Lors de la création d'un utilisateur, la saisie de son mot de passe n'était pas prise en compte, #147 
 - [TRAITEMENT] Le champ "Autre délai" ne s'affichait pas dans la visualisation d'un traitement, #144
 - [TRAITEMENT] Le champ "Délai de conservation" n'étais pas traduit sur le word (on pouvait lire "month" par exemple), #144

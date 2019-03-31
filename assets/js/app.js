@@ -30,6 +30,10 @@ $(document).ready(function(){
         var period = $(this).find('select[id$="period"]');
         var check = $(this).find('input[id$="otherDelay"]');
         var comment = $(this).find('textarea[id$="comment"]');
+        console.log(number);
+        console.log(period);
+        console.log(check);
+        console.log(comment);
 
         // Disable comment on unchecked line
         number.prop('disabled', check.is(':checked'));
