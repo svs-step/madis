@@ -28,26 +28,27 @@
   width: 100%;
 }
 .delay-group {
-    .one-line {
+  .one-line {
     vertical-align: middle;
 
     > div {
-      display: inline-block; vertical-align: middle;
+      display: inline-block;
+      vertical-align: middle;
     }
   }
+}
 
-  .has-feedback .form-control-feedback {
-    pointer-events: auto;
-    cursor: pointer;
-  }
+.has-feedback .form-control-feedback {
+  pointer-events: auto;
+  cursor: pointer;
+}
 
-  /* Pages */
-  div.action-bar {
-    margin-bottom: 1em;
-  }
+/* Pages */
+div.action-bar {
+  margin-bottom: 1em;
+}
 
-  /* Show */
-  body.show .content ul {
-    -webkit-padding-start: 15px;
-  }
+/* Show */
+body.show .content ul {
+  -webkit-padding-start: 15px;
 }
