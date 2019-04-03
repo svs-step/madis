@@ -1,36 +1,46 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
 
-<div class="box box-solid box-primary">
-    <div class="box-header">{{ 'user.user.tab.general'|trans }}</div>
+<div class="row">
     {{ form_start(form) }}
-    <div class="box-body">
-        {{ form_row(form.firstName) }}
-        {{ form_row(form.lastName) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.collectivity) }}
-        {{ form_row(form.roles) }}
-        {{ form_row(form.enabled) }}
-    </div>
-</div>
 
-<div class="box box-solid box-danger">
-    <div class="box-header">{{ 'user.user.tab.optional'|trans }}</div>
-    <div class="box-body">
-        <blockquote>
-            <small>{{ 'user.user.form.help.password'|trans }}</small>
-        </blockquote>
-        {{ form_row(form.plainPassword) }}
+    {# LEFT #}
+    <div class="col-md-6">
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.user.tab.general'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.firstName) }}
+                {{ form_row(form.lastName) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.collectivity) }}
+                {{ form_row(form.roles) }}
+                {{ form_row(form.enabled) }}
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="box box-solid">
-    <div class="box-body text-center">
-        <a href="{{ path('user_user_list') }}" class="btn btn-default">
-            {{ 'user.user.action.back_to_list'|trans }}
-        </a>
-        <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+    {# RIGHT #}
+    <div class="col-md-6">
+        <div class="box box-solid box-danger">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.user.tab.optional'|trans }}</h3></div>
+            <div class="box-body">
+                <blockquote>
+                    <small>{{ 'user.user.form.help.password'|trans }}</small>
+                </blockquote>
+                {{ form_row(form.plainPassword) }}
+            </div>
+        </div>
     </div>
+
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <a href="{{ path('user_user_list') }}" class="btn btn-default">
+                    {{ 'user.user.action.back_to_list'|trans }}
+                </a>
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+            </div>
+        </div>
+    </div>
+
     {{ form_end(form) }}
 </div>
-
-

@@ -1,4 +1,16 @@
 $(document).ready(function(){
+
+    $('input[type=password]').each(function() {
+        let input = $(this);
+        let span = $(this).parent().find('span');
+        span.on('mousedown', function() {
+            input.attr('type', 'text');
+        });
+        span.on('mouseup', function() {
+            input.attr('type', 'password');
+        });
+    });
+
     $('.complex-choice-group').each(function(idx) {
         var check = $(this).find('.check input');
         var comment = $(this).find('.comment input');
@@ -18,6 +30,10 @@ $(document).ready(function(){
         var period = $(this).find('select[id$="period"]');
         var check = $(this).find('input[id$="otherDelay"]');
         var comment = $(this).find('textarea[id$="comment"]');
+        console.log(number);
+        console.log(period);
+        console.log(check);
+        console.log(comment);
 
         // Disable comment on unchecked line
         number.prop('disabled', check.is(':checked'));

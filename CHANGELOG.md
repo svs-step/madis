@@ -2,6 +2,29 @@
 
 ## [UNRELEASED]
 
+## [1.4.0] - 2019-04-03
+### Ajout
+- [USER] Pouvoir modifier son mot de passe dans son profil, #135
+- [CHARTE] Possibilité de cliquer sur un icone "oeil" dans les champs mot de passe pour le voir en clair, #126
+- [TRAITEMENT] Ajout d'un champ "Observations", #121
+- [TRAITEMENT] Ajout d'un champ "Origine des données", #117
+- [LOGO] Pouvoir configurer les logos/le fournisseur de service et l'URL associé, #99
+### Changement
+- [TECH] Mise à jour Symfony 4.2.2 en 4.2.4 + autres packages (dont vulnérabilité Twig), #148
+- [USER] Ré-agencement des blocs du formulaire "Utilisateurs" pour les admins, #135
+- [CONNEXION] Passage du temps de connexion de 4h à 1h30, #125
+- [TRAITEMENT] Passage en BDD de la liste des catégories de données (table `registry_treatment_data_category`), #105
+- [TRAITEMENT] Remplacement de la catégorie de données "Etat civil" par "Nom, prénom", "Date et lieu de naissance", "Situation pro", #105
+### Fix
+- [TRAITEMENT] Le champ de formulaire "Délai de conservation" n'était pas bien aligné, #149
+- [USER] Lors de la création d'un utilisateur, la saisie de son mot de passe n'était pas prise en compte, #147 
+- [TRAITEMENT] Le champ "Autre délai" ne s'affichait pas dans la visualisation d'un traitement, #144
+- [TRAITEMENT] Le champ "Délai de conservation" n'étais pas traduit sur le word (on pouvait lire "month" par exemple), #144
+- [USER] Modifier uniquement un mot de passe ne fonctionnait pas, #139
+- [GLOBAL] La sidebar se décalait lorsque nous allions sur l'onglet "Ma collectivité", #139
+- [USER] Le lecteur ne pouvait pas accéder aux infos de sa collectivité et son profil, #139
+- [VIOLATION] Erreur d'affichage lors de la visualisation d'une violation qui n'a pas de champ notification renseigné, #139
+
 ## [1.3.1] - 2019-01-31
 ### Changement
 - [TECH] Mise à jour Symfony 4.2.1 à 4.2.2, #133

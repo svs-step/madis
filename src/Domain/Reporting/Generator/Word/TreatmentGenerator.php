@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Generator\Word;
 
+use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary;
-use App\Domain\Registry\Dictionary\TreatmentDataCategoryDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shared\Converter;
@@ -208,28 +208,45 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     'Justification de la base légale',
                     $treatment->getLegalBasisJustification() ? \preg_split('/\R/', $treatment->getLegalBasisJustification()) : null,
                 ],
+                [
+                    'Observations',
+                    $treatment->getObservation() ? \preg_split('/\R/', $treatment->getObservation()) : null,
+                ],
             ];
 
             $detailsData = [
-                [
+                0 => [
                     'Personnes référentes',
                     // Values are added below
                 ],
-                [
+                1 => [
                     'Logiciel',
                     \is_string($treatment->getSoftware()) ? $treatment->getSoftware() : null,
                 ],
-                [
+                2 => [
                     'Gestion papier',
                     $treatment->isPaperProcessing() ? 'Oui' : 'Non',
                 ],
-                [
+                3 => [
                     'Délai de conservation',
-                    $treatment->getDelay()->getComment()
-                        ? \preg_split('/\R/', $treatment->getDelay()->getComment())
-                        : "{$treatment->getDelay()->getNumber()} {$treatment->getDelay()->getPeriod()}",
+                    // Defined below
+                ],
+                4 => [
+                    'Origine des données',
+                    $treatment->getDataOrigin(),
                 ],
             ];
+
+            // "Délai de conservation"
+            $delayContent = '';
+            if (null !== $treatment->getDelay()->getComment()) {
+                $delayContent = $treatment->getDelay()->getComment();
+            } elseif (null !== $treatment->getDelay()->getPeriod()) {
+                $period       = DelayPeriodDictionary::getPeriods()[$treatment->getDelay()->getPeriod()];
+                $delayContent = "{$treatment->getDelay()->getNumber()} {$period}";
+            }
+            $detailsData[3][] = $delayContent;
+
             // Add Concerned people
             $concernedPeople = [];
             foreach ($treatment->getConcernedPeople() as $people) {
@@ -249,8 +266,13 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             ];
             // Add data categories
             $dataCategories = [];
-            foreach ($treatment->getDataCategory() as $category) {
-                $dataCategories[] = TreatmentDataCategoryDictionary::getCategories()[$category];
+            foreach ($treatment->getDataCategories() as $category) {
+                $dataCategories[] = [
+                    'text'  => $category->getName(),
+                    'style' => [
+                        'bold' => $category->isSensible() ? true : false,
+                    ],
+                ];
             }
             $categoryData[0][] = $dataCategories;
 

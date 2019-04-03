@@ -75,13 +75,14 @@ class DefinePasswordSubscriberTest extends TestCase
 
     /**
      * Test prePersist
-     * plainPassword is null.
+     * plainPassword and password are null.
      */
-    public function testPrePersistPlainPasswordIsNull()
+    public function testPrePersistPlainPasswordAndPasswordAreNull()
     {
         $token        = 'token';
         $userProphecy = $this->prophesize(Model\User::class);
         $userProphecy->getPlainPassword()->shouldBeCalled()->willReturn(null);
+        $userProphecy->getPassword()->shouldBeCalled()->willReturn(null);
         $userProphecy->setPlainPassword($token)->shouldBeCalled();
 
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($userProphecy->reveal());
@@ -103,6 +104,24 @@ class DefinePasswordSubscriberTest extends TestCase
 
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($userProphecy->reveal());
         // since plainPassword is set, no token is generated
+        $this->tokenGeneratorProphecy->generateToken()->shouldNotBeCalled();
+
+        $this->subscriber->prePersist($this->lifeCycleEventArgsProphecy->reveal());
+    }
+
+    /**
+     * Test prePersist
+     * plainPassword is not set but password is set.
+     */
+    public function testPrePersistPlainPasswordIsNotSetButPasswordIsSet()
+    {
+        $userProphecy = $this->prophesize(Model\User::class);
+        $userProphecy->getPlainPassword()->shouldBeCalled()->willReturn(null);
+        $userProphecy->getPassword()->shouldBeCalled()->willReturn('plainPassword');
+        $userProphecy->setPlainPassword(Argument::any())->shouldNotBeCalled();
+
+        $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($userProphecy->reveal());
+        // since password is set, no token is generated
         $this->tokenGeneratorProphecy->generateToken()->shouldNotBeCalled();
 
         $this->subscriber->prePersist($this->lifeCycleEventArgsProphecy->reveal());

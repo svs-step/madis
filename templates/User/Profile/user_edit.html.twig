@@ -22,8 +22,14 @@
 {% endblock %}
 
 {% block body %}
+
     <div class="row">
+        {{ form_start(form) }}
+
+        {# LEFT #}
         <div class="col-md-6">
+
+            {# General #}
             <div class="box box-solid box-primary">
                 <div class="box-header">{{ 'user.profile.form_user.tab.general'|trans }}</div>
                 {{ form_start(form) }}
@@ -33,9 +39,23 @@
                     {{ form_row(form.email) }}
                 </div>
             </div>
+
+            {# Reset password #}
+            <div class="box box-solid box-danger">
+                <div class="box-header"><h3 class="box-title">{{ 'user.profile.form_user.tab.optional'|trans }}</h3></div>
+                <div class="box-body">
+                    <blockquote>
+                        <small>{{ 'user.user.form.help.password'|trans }}</small>
+                    </blockquote>
+                    {{ form_row(form.plainPassword) }}
+                </div>
+            </div>
         </div>
 
+        {# RIGHT #}
         <div class="col-md-6">
+
+            {# Information #}
             <div class="box box-solid box-primary">
                 <div class="box-header">{{ 'label.for_your_information'|trans }}</div>
                 <div class="box-body">
@@ -49,13 +69,18 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row"></div>
-    <div class="box box-solid">
-        <div class="box-body text-center">
-            <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class="box-body text-center">
+                    <a href="{{ path('registry_contractor_list') }}" class="btn btn-default">
+                        {{ 'registry.contractor.action.back_to_list'|trans }}
+                    </a>
+                    <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                </div>
+            </div>
         </div>
+
         {{ form_end(form) }}
     </div>
 {% endblock %}

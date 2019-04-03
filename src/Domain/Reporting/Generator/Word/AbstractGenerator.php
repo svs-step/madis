@@ -353,7 +353,18 @@ abstract class AbstractGenerator implements GeneratorInterface
                         if (0 != $key) {
                             $textrun->addTextBreak();
                         }
-                        $textrun->addText($item);
+
+                        // If item is simple text, there is no other configuration
+                        if (!\is_array($item)) {
+                            $textrun->addText($item);
+                            continue;
+                        }
+
+                        // If item is array, then there is specific contiguration
+                        $textrun->addText(
+                            $item['text'] ?? '',
+                            $item['style'] ?? []
+                        );
                     }
                 }
             }

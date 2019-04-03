@@ -77,9 +77,14 @@ class Treatment
     /**
      * FR: Justification de la base légale.
      *
-     * @var string
+     * @var string|null
      */
     private $legalBasisJustification;
+
+    /**
+     * @var string|null
+     */
+    private $observation;
 
     /**
      * FR: Personnes concernées.
@@ -89,11 +94,9 @@ class Treatment
     private $concernedPeople;
 
     /**
-     * FR: Catégories de données.
-     *
-     * @var array
+     * @var iterable
      */
-    private $dataCategory;
+    private $dataCategories;
 
     /**
      * FR: Autres catégories.
@@ -101,6 +104,13 @@ class Treatment
      * @var string
      */
     private $dataCategoryOther;
+
+    /**
+     * FR: Origine des données.
+     *
+     * @var string|null
+     */
+    private $dataOrigin;
 
     /**
      * FR: Destinataire des données.
@@ -209,7 +219,7 @@ class Treatment
         $this->id                    = Uuid::uuid4();
         $this->paperProcessing       = false;
         $this->concernedPeople       = [];
-        $this->dataCategory          = [];
+        $this->dataCategories        = [];
         $this->contractors           = new ArrayCollection();
         $this->delay                 = new Delay();
         $this->securityAccessControl = new ComplexChoice();
@@ -360,6 +370,22 @@ class Treatment
     }
 
     /**
+     * @return string|null
+     */
+    public function getObservation(): ?string
+    {
+        return $this->observation;
+    }
+
+    /**
+     * @param string|null $observation
+     */
+    public function setObservation(?string $observation): void
+    {
+        $this->observation = $observation;
+    }
+
+    /**
      * @return array
      */
     public function getConcernedPeople(): array
@@ -376,19 +402,19 @@ class Treatment
     }
 
     /**
-     * @return array
+     * @return iterable
      */
-    public function getDataCategory(): array
+    public function getDataCategories(): iterable
     {
-        return $this->dataCategory;
+        return $this->dataCategories;
     }
 
     /**
-     * @param array $dataCategory
+     * @param iterable $dataCategories
      */
-    public function setDataCategory(array $dataCategory): void
+    public function setDataCategories(iterable $dataCategories): void
     {
-        $this->dataCategory = $dataCategory;
+        $this->dataCategories = $dataCategories;
     }
 
     /**
@@ -405,6 +431,22 @@ class Treatment
     public function setDataCategoryOther(?string $dataCategoryOther): void
     {
         $this->dataCategoryOther = $dataCategoryOther;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDataOrigin(): ?string
+    {
+        return $this->dataOrigin;
+    }
+
+    /**
+     * @param string|null $dataOrigin
+     */
+    public function setDataOrigin(?string $dataOrigin): void
+    {
+        $this->dataOrigin = $dataOrigin;
     }
 
     /**

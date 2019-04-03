@@ -132,7 +132,7 @@ class ControllerHelper
      * Create a FormType.
      *
      * @param string      $type    The FormType name
-     * @param null|object $data    The data to use to create FormType
+     * @param object|null $data    The data to use to create FormType
      * @param array       $options The FormType options
      *
      * @return FormInterface The generated FormType

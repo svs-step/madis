@@ -1,4 +1,4 @@
-# CACF - Team Flow
+# SOLURIS - Madis
 
 ## Getting Started
 These instructions will get you a copy of the project

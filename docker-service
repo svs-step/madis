@@ -5,6 +5,8 @@ set -o errexit
 # Reset in case getopts has been used previously in the shell.
 OPTIND=1
 
+source .env
+
 # Initialize variables
 env=''
 
@@ -38,7 +40,7 @@ if [ "$env" == '' ]; then
 # Common operations
 initialize() {
     down
-    build
+    pullImages
     start
     install
     populate
@@ -94,14 +96,14 @@ csFixer() {
 
     if [ "$#" -ge 1 ]; then
         paths="$1"
-        docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ php-fpm bash -c "php -l $paths"
+        docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ $DOCKER_IMAGE_PHP bash -c "php -l $paths"
 
         if [ "$#" -eq 2 ]; then
             config="$2"
         fi
     fi
 
-    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ php-fpm bash -c "vendor/bin/php-cs-fixer fix --config=$config $paths -vv"
+    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ $DOCKER_IMAGE_PHP bash -c "vendor/bin/php-cs-fixer fix --config=$config $paths -vv"
 }
 
 # Tests
@@ -167,6 +169,29 @@ debug(){
   docker-compose -f docker-compose"$env".yml run -T --user=www-data --no-deps --entrypoint="/bin/bash -c" -e XDEBUG_CONFIG="idekey=PHPSTORM" -e PHP_IDE_CONFIG="serverName=localhost" php-fpm  "php -dxdebug.remote_host=docker.for.mac.host.internal $@"
 }
 
+# Images management
+pushImages() {
+    pushImagePhp
+    pushImageNginx
+}
+
+pushImagePhp() {
+    docker pull $DOCKER_IMAGE_PHP || true
+    docker build  --cache-from $DOCKER_IMAGE_PHP -t $DOCKER_IMAGE_PHP docker/php-fpm
+    docker push $DOCKER_IMAGE_PHP
+}
+
+pushImageNginx() {
+    docker pull $DOCKER_IMAGE_NGINX || true
+    docker build  --cache-from $DOCKER_IMAGE_NGINX -t $DOCKER_IMAGE_NGINX docker/nginx
+    docker push $DOCKER_IMAGE_NGINX
+}
+
+pullImages() {
+    docker pull $DOCKER_IMAGE_PHP
+    docker pull $DOCKER_IMAGE_NGINX
+}
+
 # Usage info
 show_help() {
 cat << EOF
@@ -189,6 +214,10 @@ Commands:
   unitTests                   Run unit tests
   qualityTests                Run quality tests
   functionalTests             Run functional tests
+  pushImages                  Update registry image
+  pushImagePhp                Update registry php image
+  pushImageNginx              Update registry nginx api image
+  pullImages                  Pull latest images from private repository
 EOF
 }
 
@@ -254,6 +283,18 @@ case "$1" in
         else
             csFixer $2
         fi
+        ;;
+ pushImages)
+        pushImages
+        ;;
+ pushImagePhp)
+        pushImagePhp
+        ;;
+ pushImageNginx)
+        pushImageNginx
+        ;;
+ pullImages)
+        pullImages
         ;;
  *)
         show_help >&2

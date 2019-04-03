@@ -8,6 +8,7 @@ services:
 
   nginx:
     build: docker/nginx
+    image: $DOCKER_IMAGE_NGINX
     container_name: nginx
     ports:
       - ${HTTPD_PORT}:8080
@@ -19,6 +20,7 @@ services:
 
   php-fpm:
     build: docker/php-fpm
+    image: $DOCKER_IMAGE_PHP
     container_name: php-fpm
     ports:
       - ${PHP_FPM_PORT}:9000

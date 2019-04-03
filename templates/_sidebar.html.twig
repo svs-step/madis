@@ -90,7 +90,7 @@
                 </a>
             </li>
         {# If not an admin & is write granted, let user edit informations #}
-        {% elseif is_granted('ROLE_USER') %}
+        {% else %}
             <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
                 <a href="{{ path('user_profile_collectivity_show') }}">
                     <i class="fa fa-home"></i>
@@ -106,8 +106,8 @@
         {% endif %}
 
         <li class="sidebar-logo">
-            <a href="http://www.soluris.fr/" target="_blank" rel="nofollow noreferrer noopener">
-                <img src="{{ asset('images/soluris-logo-white.png') }}" alt="Logo SOLURIS" />
+            <a href="{{ app_image_sidebar_bottom_target_url }}" target="_blank" rel="nofollow noreferrer noopener">
+                <img src="{{ asset(app_image_sidebar_bottom_path) }}" alt="Logo du provider Madis" />
             </a>
         </li>
 

@@ -5,6 +5,7 @@ twig:
 
     form_themes:
         - 'bootstrap_3_horizontal_layout.html.twig'
+        - '_Utils/form_theme.html.twig'
 
     date:
         format: d/m/Y H:i
@@ -13,6 +14,12 @@ twig:
     globals:
         app_name: '%env(APP_APPLICATION_NAME)%'
         app_version: '%app.version%'
+        app_footer_provider_name: '%env(APP_FOOTER_PROVIDER_NAME)%'
+        app_footer_provider_url: '%env(APP_FOOTER_PROVIDER_URL)%'
+        app_image_favicon_path: '%env(APP_IMAGE_FAVICON_PATH)%'
+        app_image_sidebar_bottom_target_url: '%env(APP_IMAGE_SIDEBAR_BOTTOM_TARGET_URL)%'
+        app_image_sidebar_bottom_path: '%env(APP_IMAGE_SIDEBAR_BOTTOM_PATH)%'
+        app_image_sidebar_reduced_path: '%env(APP_IMAGE_SIDEBAR_REDUCED_PATH)%'
         default_dpo_civility: '%env(APP_DPO_CIVILITY)%'
         default_dpo_firstName: '%env(APP_DPO_FIRST_NAME)%'
         default_dpo_lastName: '%env(APP_DPO_LAST_NAME)%'

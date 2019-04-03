@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# PHP CodeSniffer pre-commit hook for git
-#
-# @author Soenke Ruempler <soenke@ruempler.eu>
-# @author Sebastian Kaspari <s.kaspari@googlemail.com>
-# Updated to BiiG usage by Elisabeth Blancon
-
 function checkFile
 {
     echo "Checking file: $1"

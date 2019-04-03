@@ -78,6 +78,10 @@
                             <td><strong>{{ 'registry.treatment.show.legal_basis_justification'|trans }}</strong></td>
                             <td>{{ object.legalBasisJustification|nl2br }}</td>
                         </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.observation'|trans }}</strong></td>
+                            <td>{{ object.observation|nl2br }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -93,8 +97,12 @@
                             <td><strong>{{ 'registry.treatment.show.data_category'|trans }}</strong></td>
                             <td>
                                 <ul>
-                                {% for category in object.dataCategory %}
-                                    <li>{{ category|dictionary('registry_treatment_data_category') }}</li>
+                                {% for category in object.dataCategories %}
+                                    <li>
+                                        {% if category.sensible %}<strong>{% endif %}
+                                        {{ category.name }}
+                                        {% if category.sensible %}</strong>{% endif %}
+                                    </li>
                                 {% endfor %}
                                 </ul>
                             </td>
@@ -206,8 +214,14 @@
                             <td>
                                 {% if object.delay.number and object.delay.period %}
                                     {{ object.delay.number }} {{ object.delay.period|dictionary('registry_delay_period') }}
+                                {% elseif object.delay.otherDelay %}
+                                    {{ object.delay.comment }}
                                 {% endif %}
                             </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong></td>
+                            <td>{{ object.dataOrigin }}</td>
                         </tr>
                     </table>
                 </div>
