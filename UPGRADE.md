@@ -11,7 +11,10 @@ que vous souhaitez installer, c'est que vous n'avez rien à faire._**
 
 
 
-# Passage en v1.4
+# Passage en v1.4.0
+
+**Note d'attention :** Cette nouvelle version va modifier vos données présentes
+en Base de Données. Pensez à créer une sauvegarde de votre BDD au cas où.
 
 ### Possibilité de configurer les logos & le fournisseur de service
 

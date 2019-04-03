@@ -2,6 +2,10 @@
 
 ## [UNRELEASED]
 
+## [1.4.1] - 2019-04-03
+### Fix
+- [USER] Suppression du bouton "Retour" dans l'onglet "Mon compte" car il était inutile et pointait vers la liste des sous-traitants
+
 ## [1.4.0] - 2019-04-03
 ### Ajout
 - [USER] Pouvoir modifier son mot de passe dans son profil, #135
