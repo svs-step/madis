@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## [UNRELEASED]
+
+## [1.4.0] - 2019-04-03
 ### Ajout
 - [USER] Pouvoir modifier son mot de passe dans son profil, #135
 - [CHARTE] Possibilité de cliquer sur un icone "oeil" dans les champs mot de passe pour le voir en clair, #126
