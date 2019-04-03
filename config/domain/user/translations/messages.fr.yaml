@@ -104,7 +104,7 @@ user:
                 general: Vos informations
                 optional: Informations facultatives
             help:
-                password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe pour cet utilisateur
+                password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe
         title:
             collectivity_edit: Éditer ma collectivité
 
