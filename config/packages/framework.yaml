@@ -14,7 +14,8 @@ framework:
     # Remove or comment this section to explicitly disable session support.
     session:
         handler_id: ~
-        cookie_lifetime: 5400 # 1.5hours in seconds
+        cookie_lifetime: 14400 # 4 hours in seconds
+        gc_maxlifetime: 5400 # 1.5hours in seconds
 
     #esi: true
     #fragments: true
