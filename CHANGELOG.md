@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## [UNRELEASED]
+### Fix
+- [CONNEXION] Modification de la durée de session et du temps d'invalidation de la session selon l'inactivité, #152 
 
 ## [1.4.1] - 2019-04-03
 ### Fix
