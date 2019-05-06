@@ -2,6 +2,12 @@
 
 ## [UNRELEASED]
 
+## [1.4.2] - 2019-05-06
+### Changement
+- [TECH] Mise à jour Symfony 4.2.2 à 4.2.8 + MAJ des vulnérabilités, #153
+### Fix
+- [CONNEXION] Modification de la durée de session et du temps d'invalidation de la session selon l'inactivité, #152 
+
 ## [1.4.1] - 2019-04-03
 ### Fix
 - [USER] Suppression du bouton "Retour" dans l'onglet "Mon compte" car il était inutile et pointait vers la liste des sous-traitants
