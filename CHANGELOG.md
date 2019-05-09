@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## [UNRELEASED]
+### Fix
+- [BILAN] Correction d'une faute d'orthographe dans la partie 3.3, #157
 
 ## [1.4.2] - 2019-05-06
 ### Changement
