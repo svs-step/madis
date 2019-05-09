@@ -140,7 +140,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addText("Sur les {$digitalisation['digital']} traitements informatisés :");
         $section->addListItem("{$security['accessControl']} ont un contrôle d'accès");
         $section->addListItem("{$security['tracability']} ont une traçabilité");
-        $section->addListItem("{$security['saving']} ont sont sauvegardés");
+        $section->addListItem("{$security['saving']} sont sauvegardés");
         $section->addListItem("{$security['update']} sont mis à jour");
     }
 
