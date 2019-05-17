@@ -108,7 +108,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addTitle('Analyse du registre des traitements', 2);
         $section->addText("Il y a aujourd’hui {$nbTreatments} traitements de données à caractère personnel inventoriés");
         $section->addText("Sur les {$nbTreatments} traitements : ");
-        $section->addListItem("{$completion['100']} sont complétés à plus de 100%");
+        $section->addListItem("{$completion['100']} sont complétés à 100%");
         $section->addListItem("{$completion['80']} sont complétés à plus de 80%");
 
         $section->addTextBreak();
@@ -140,7 +140,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addText("Sur les {$digitalisation['digital']} traitements informatisés :");
         $section->addListItem("{$security['accessControl']} ont un contrôle d'accès");
         $section->addListItem("{$security['tracability']} ont une traçabilité");
-        $section->addListItem("{$security['saving']} ont sont sauvegardés");
+        $section->addListItem("{$security['saving']} sont sauvegardés");
         $section->addListItem("{$security['update']} sont mis à jour");
     }
 

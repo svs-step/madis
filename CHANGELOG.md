@@ -2,6 +2,12 @@
 
 ## [UNRELEASED]
 
+## [1.4.3] - 2019-05-17
+### Fix
+- [BILAN] Correction d'une faute lexicale dans la partie 3.2, #162
+- [WORD] Changement du Content-Type pour permettre le téléchargement sur iOS, #161
+- [BILAN] Correction d'une faute d'orthographe dans la partie 3.3, #157
+
 ## [1.4.2] - 2019-05-06
 ### Changement
 - [TECH] Mise à jour Symfony 4.2.2 à 4.2.8 + MAJ des vulnérabilités, #153
