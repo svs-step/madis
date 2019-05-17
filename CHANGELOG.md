@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## [UNRELEASED]
+
+## [1.4.3] - 2019-05-17
 ### Fix
 - [BILAN] Correction d'une faute lexicale dans la partie 3.2, #162
 - [WORD] Changement du Content-Type pour permettre le téléchargement sur iOS, #161
