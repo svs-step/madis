@@ -322,7 +322,7 @@ abstract class AbstractGenerator implements GeneratorInterface
 
         // Create response and return it
         $response = new BinaryFileResponse($temp_file);
-        $response->headers->set('Content-Type', 'application/msword');
+        $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             $fileName

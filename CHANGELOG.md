@@ -3,6 +3,7 @@
 ## [UNRELEASED]
 ### Fix
 - [BILAN] Correction d'une faute lexicale dans la partie 3.2, #162
+- [WORD] Changement du Content-Type pour permettre le téléchargement sur iOS, #161
 - [BILAN] Correction d'une faute d'orthographe dans la partie 3.3, #157
 
 ## [1.4.2] - 2019-05-06
