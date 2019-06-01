@@ -15,6 +15,7 @@ namespace App\Domain\Maturity\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Maturity\Calculator\MaturityHandler;
 use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
@@ -47,6 +48,11 @@ class SurveyController extends CRUDController
      */
     protected $userProvider;
 
+    /**
+     * @var MaturityHandler
+     */
+    protected $maturityHandler;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -54,13 +60,15 @@ class SurveyController extends CRUDController
         Repository\Question $questionRepository,
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
-        UserProvider $userProvider
+        UserProvider $userProvider,
+        MaturityHandler $maturityHandler
     ) {
         parent::__construct($entityManager, $translator, $repository);
         $this->questionRepository   = $questionRepository;
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
+        $this->maturityHandler      = $maturityHandler;
     }
 
     /**
@@ -114,6 +122,17 @@ class SurveyController extends CRUDController
         );
 
         return $data;
+    }
+
+    /**
+     * Some actions made before object persistence.
+     * Here, we wanna calculate maturity score.
+     *
+     * @param Model\Survey $object
+     */
+    public function formPrePersistData($object)
+    {
+        $this->maturityHandler->handle($object);
     }
 
     /**

@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Maturity\Symfony\EventSubscriber;
+namespace App\Domain\Maturity\Symfony\EventSubscriber\Doctrine;
 
 use App\Domain\Maturity\Calculator;
 use App\Domain\Maturity\Model;
@@ -21,17 +21,20 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 class GenerateMaturitySubscriber implements EventSubscriber
 {
     /**
-     * @var Calculator\Maturity
+     * @var Calculator\MaturityHandler
      */
-    private $calculator;
+    private $maturityHandler;
 
     public function __construct(
-        Calculator\Maturity $calculator
+        Calculator\MaturityHandler $maturityHandler
     ) {
-        $this->calculator = $calculator;
+        $this->maturityHandler = $maturityHandler;
     }
 
-    public function getSubscribedEvents()
+    /**
+     * @return array
+     */
+    public function getSubscribedEvents(): array
     {
         return [
             'prePersist',
@@ -39,16 +42,25 @@ class GenerateMaturitySubscriber implements EventSubscriber
         ];
     }
 
-    public function prePersist(LifecycleEventArgs $args)
+    /**
+     * @param LifecycleEventArgs $args
+     */
+    public function prePersist(LifecycleEventArgs $args): void
     {
         $this->process($args);
     }
 
-    public function preUpdate(LifecycleEventArgs $args)
+    /**
+     * @param LifecycleEventArgs $args
+     */
+    public function preUpdate(LifecycleEventArgs $args): void
     {
         $this->process($args);
     }
 
+    /**
+     * @param LifecycleEventArgs $args
+     */
     private function process(LifecycleEventArgs $args): void
     {
         $object = $args->getObject();
@@ -57,9 +69,6 @@ class GenerateMaturitySubscriber implements EventSubscriber
             return;
         }
 
-        // Calculate & generate score by maturity
-        $maturityList = $this->calculator->generateMaturityByDomain($object);
-        $object->setMaturity($maturityList);
-        $object->setScore($this->calculator->getGlobalScore($maturityList));
+        $this->maturityHandler->handle($object);
     }
 }

@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Domain\User\Symfony\EventSubscriber;
+namespace App\Tests\Domain\User\Symfony\EventSubscriber\Doctrine;
 
 use App\Domain\User\Model;
-use App\Domain\User\Symfony\EventSubscriber\EncodePasswordSubscriber;
+use App\Domain\User\Symfony\EventSubscriber\Doctrine\EncodePasswordSubscriber;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;

@@ -15,6 +15,7 @@ namespace App\Tests\Domain\Maturity\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Maturity\Calculator\MaturityHandler;
 use App\Domain\Maturity\Controller\SurveyController;
 use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Model;
@@ -70,6 +71,11 @@ class SurveyControllerTest extends TestCase
     private $userProviderProphecy;
 
     /**
+     * @var MaturityHandler
+     */
+    private $maturityHandlerProphecy;
+
+    /**
      * @var SurveyController
      */
     private $controller;
@@ -83,6 +89,7 @@ class SurveyControllerTest extends TestCase
         $this->wordHandlerProphecy            = $this->prophesize(WordHandler::class);
         $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
+        $this->maturityHandlerProphecy        = $this->prophesize(MaturityHandler::class);
 
         $this->controller = new SurveyController(
             $this->managerProphecy->reveal(),
@@ -91,7 +98,8 @@ class SurveyControllerTest extends TestCase
             $this->questionRepositoryProphecy->reveal(),
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
-            $this->userProviderProphecy->reveal()
+            $this->userProviderProphecy->reveal(),
+            $this->maturityHandlerProphecy->reveal()
         );
     }
 

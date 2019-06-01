@@ -11,23 +11,23 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Registry\Symfony\EventSubscriber;
+namespace App\Domain\Registry\Symfony\EventSubscriber\Doctrine;
 
-use App\Domain\Registry\Calculator\Completion\TreatmentCompletion;
-use App\Domain\Registry\Model\Treatment;
+use App\Domain\Registry\Model\Proof;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Gaufrette\FilesystemInterface;
 
-class TreatmentCompletionSubscriber implements EventSubscriber
+class ProofUploadSubscriber implements EventSubscriber
 {
     /**
-     * @var TreatmentCompletion
+     * @var FilesystemInterface
      */
-    private $treatmentCompletion;
+    private $documentFilesystem;
 
-    public function __construct(TreatmentCompletion $treatmentCompletion)
+    public function __construct(FilesystemInterface $documentFilesystem)
     {
-        $this->treatmentCompletion = $treatmentCompletion;
+        $this->documentFilesystem = $documentFilesystem;
     }
 
     public function getSubscribedEvents(): array
@@ -52,10 +52,8 @@ class TreatmentCompletionSubscriber implements EventSubscriber
     {
         $object = $args->getObject();
 
-        if (!$object instanceof Treatment) {
+        if (!$object instanceof Proof) {
             return;
         }
-
-        $object->setCompletion($this->treatmentCompletion->calculate($object));
     }
 }
