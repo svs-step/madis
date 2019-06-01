@@ -1,6 +1,9 @@
 # CHANGELOG
 
 ## [UNRELEASED]
+### Fix
+- [MATURITE] Les questions sont dorénavant odonnées dans l'ordre alphabétique, #170
+- [MATURITE] Le score de l'indice de maturité n'était pas calculé en cas d'édition, #169
 
 ## [1.4.3] - 2019-05-17
 ### Fix
