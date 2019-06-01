@@ -11,12 +11,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Domain\User\Symfony\EventSubscriber;
+namespace App\Tests\Domain\User\Symfony\EventSubscriber\Doctrine;
 
 use App\Domain\User\Component\TokenGenerator;
 use App\Domain\User\Model;
-use App\Domain\User\Symfony\EventSubscriber\DefinePasswordSubscriber;
-use App\Domain\User\Symfony\EventSubscriber\EncodePasswordSubscriber;
+use App\Domain\User\Symfony\EventSubscriber\Doctrine\DefinePasswordSubscriber;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -38,7 +37,7 @@ class DefinePasswordSubscriberTest extends TestCase
     private $tokenGeneratorProphecy;
 
     /**
-     * @var EncodePasswordSubscriber
+     * @var DefinePasswordSubscriber
      */
     private $subscriber;
 

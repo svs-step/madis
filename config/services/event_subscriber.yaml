@@ -10,16 +10,16 @@ services:
             - { name: 'doctrine.event_subscriber' }
 
     App\Domain\:
-        resource: '../../src/Domain/*/Symfony/EventSubscriber'
+        resource: '../../src/Domain/*/Symfony/EventSubscriber/Doctrine'
         tags:
             - { name: 'doctrine.event_subscriber' }
 
-    App\Domain\Registry\Symfony\EventSubscriber\ProofUploadSubscriber:
+    App\Domain\Registry\Symfony\EventSubscriber\Doctrine\ProofUploadSubscriber:
         arguments:
             $documentFilesystem: '@gaufrette.registry_proof_document_filesystem'
         tags:
             - { name: 'doctrine.event_subscriber', priority: 2 }
 
-    App\Domain\User\Symfony\EventSubscriber\DefinePasswordSubscriber:
+    App\Domain\User\Symfony\EventSubscriber\Doctrine\DefinePasswordSubscriber:
         tags:
             - { name: 'doctrine.event_subscriber', priority: 2 }

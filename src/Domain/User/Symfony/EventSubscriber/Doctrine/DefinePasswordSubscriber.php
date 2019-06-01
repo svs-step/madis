@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Symfony\EventSubscriber;
+namespace App\Domain\User\Symfony\EventSubscriber\Doctrine;
 
 use App\Domain\User\Component\TokenGenerator;
 use App\Domain\User\Model\User;
