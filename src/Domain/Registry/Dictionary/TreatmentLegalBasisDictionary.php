@@ -21,6 +21,7 @@ class TreatmentLegalBasisDictionary extends SimpleDictionary
     const BASE_LEGAL_OBLIGATION        = 'legal-obligation';
     const BASE_CONTRACT_EXECUTION      = 'contract-execution';
     const BASE_PUBLIC_INTEREST_MISSION = 'public-interest-mission';
+    const BASE_LEGITIMATE_INTEREST     = 'legitimate-interest';
     const BASE_VITAL_INTEREST          = 'vital-interest';
 
     public function __construct()
@@ -40,6 +41,7 @@ class TreatmentLegalBasisDictionary extends SimpleDictionary
             self::BASE_LEGAL_OBLIGATION        => 'L\'obligation légale',
             self::BASE_CONTRACT_EXECUTION      => 'L\'exécution d\'un contrat',
             self::BASE_PUBLIC_INTEREST_MISSION => 'L\'exécution d\'une mission d\'intérêt public',
+            self::BASE_LEGITIMATE_INTEREST     => 'L\'intérêt légitime',
             self::BASE_VITAL_INTEREST          => 'L\'intérêt vital',
         ];
     }
