@@ -285,6 +285,7 @@ registry:
             show: Visualiser "%name%"
         form:
             active: Statut
+            authorized_people: Personnes habilitées
             concerned_people: Personnes concernées
             contractors: Sous-traitants
             data_crossing: Croisement de données
@@ -325,6 +326,7 @@ registry:
             confirm_deletion: Voulez-vous vraiment supprimer ce traitement ?
         show:
             active: Statut
+            authorized_people: Personnes habilitées
             concerned_people: Personnes concernées
             collectivity: Collectivité
             contractors: Sous-traitants
@@ -364,7 +366,7 @@ registry:
           details: Détails
           general: Informations générales
           historic: Historique
-          security: Mesures de sécurité
+          security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
           recipients: Destination
 

@@ -281,12 +281,16 @@
                             <td><strong>{{ 'registry.treatment.show.security_other'|trans }}</strong></td>
                             <td>
                                 {% if object.securityOther.check %}
-                                   <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     <p>{{ object.securityOther.comment }}</p>
                                 {% else %}
                                     <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
                                 {% endif %}
                             </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.authorized_people'|trans }}</strong></td>
+                            <td>{{ object.authorizedPeople }}</td>
                         </tr>
                         </tbody>
                     </table>

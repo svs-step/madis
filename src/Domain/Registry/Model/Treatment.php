@@ -195,6 +195,13 @@ class Treatment
     private $dataCrossing;
 
     /**
+     * FR: Personnes habilitées.
+     *
+     * @var string|null
+     */
+    private $authorizedPeople;
+
+    /**
      * @var bool
      */
     private $active;
@@ -649,6 +656,22 @@ class Treatment
     public function setDataCrossing(bool $dataCrossing): void
     {
         $this->dataCrossing = $dataCrossing;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAuthorizedPeople(): ?string
+    {
+        return $this->authorizedPeople;
+    }
+
+    /**
+     * @param string|null $authorizedPeople
+     */
+    public function setAuthorizedPeople(?string $authorizedPeople): void
+    {
+        $this->authorizedPeople = $authorizedPeople;
     }
 
     /**
