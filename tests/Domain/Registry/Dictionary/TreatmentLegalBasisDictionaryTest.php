@@ -39,6 +39,7 @@ class TreatmentLegalBasisDictionaryTest extends TestCase
             TreatmentLegalBasisDictionary::BASE_LEGAL_OBLIGATION        => 'L\'obligation légale',
             TreatmentLegalBasisDictionary::BASE_CONTRACT_EXECUTION      => 'L\'exécution d\'un contrat',
             TreatmentLegalBasisDictionary::BASE_PUBLIC_INTEREST_MISSION => 'L\'exécution d\'une mission d\'intérêt public',
+            TreatmentLegalBasisDictionary::BASE_LEGITIMATE_INTEREST     => 'L\'intérêt légitime',
             TreatmentLegalBasisDictionary::BASE_VITAL_INTEREST          => 'L\'intérêt vital',
         ];
 
@@ -52,6 +53,7 @@ class TreatmentLegalBasisDictionaryTest extends TestCase
             TreatmentLegalBasisDictionary::BASE_LEGAL_OBLIGATION,
             TreatmentLegalBasisDictionary::BASE_CONTRACT_EXECUTION,
             TreatmentLegalBasisDictionary::BASE_PUBLIC_INTEREST_MISSION,
+            TreatmentLegalBasisDictionary::BASE_LEGITIMATE_INTEREST,
             TreatmentLegalBasisDictionary::BASE_VITAL_INTEREST,
         ];
 
