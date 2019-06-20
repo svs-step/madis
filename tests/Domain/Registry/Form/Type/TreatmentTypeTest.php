@@ -81,6 +81,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'largeScaleCollection'    => CheckboxType::class,
             'vulnerablePeople'        => CheckboxType::class,
             'dataCrossing'            => CheckboxType::class,
+            'authorizedPeople'        => TextType::class,
             'active'                  => ChoiceType::class,
         ];
 

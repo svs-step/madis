@@ -8,6 +8,8 @@ De ce fait, répertoriez-vous à ce qui est écrit ci-dessous.
 **_Note: Si aucune trace n'est présente dans ce fichier pour la version
 que vous souhaitez installer, c'est que vous n'avez rien à faire._**
 
+De manière préventive, n'oubliez pas de faire un dump de votre base de
+données avant d'effectuer une montée de version.  
 
 
 

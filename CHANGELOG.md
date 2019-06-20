@@ -3,6 +3,9 @@
 ## [UNRELEASED]
 ### Ajout
 - [TRAITEMENT] Ajout de la base légale "Intérêt légitime", #176
+- [TRAITEMENT] Ajout du champ "Personnes habilitées" dans le bloc "Mesures de sécurité", #177
+### Changement
+- [TRAITEMENT] Renommage de la section "Mesures de sécurité" en "Mesures de sécurité et confidentialité", #177
 ### Fix
 - [AUTHENTIFICATION] Je suis déconnecté si je suis resté 1h30 inactif, #185
 - [DEMANDE] Afficher la personne concernée qui n'a pas de civilité est de nouveau fonctionnel, #173

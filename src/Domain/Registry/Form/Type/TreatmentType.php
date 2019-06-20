@@ -189,6 +189,10 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.data_crossing',
                 'required' => false,
             ])
+            ->add('authorizedPeople', TextType::class, [
+                'label'    => 'registry.treatment.form.authorized_people',
+                'required' => false,
+            ])
             ->add('active', ChoiceType::class, [
                 'label'    => 'registry.treatment.form.active',
                 'required' => true,

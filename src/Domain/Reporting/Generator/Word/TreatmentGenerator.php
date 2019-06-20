@@ -313,6 +313,11 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     $treatment->getSecurityOther()->isCheck() ? 'Oui' : 'Non',
                     $treatment->getSecurityOther()->getComment(),
                 ],
+                [
+                    'Personne habilitées',
+                    $treatment->getAuthorizedPeople(),
+                    '',
+                ],
             ];
 
             $specificData = [
@@ -361,7 +366,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             $section->addTitle('Destination', 3);
             $this->addTable($section, $goalData, true, self::TABLE_ORIENTATION_VERTICAL);
 
-            $section->addTitle('Mesures de sécurité', 3);
+            $section->addTitle('Mesures de sécurité et confidentialité', 3);
             $this->addTable($section, $securityData, true, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Traitement spécifique', 3);
