@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Domain\Event\Symfony\EventSubscriber;
+namespace App\Tests\Domain\Event\Symfony\EventSubscriber\Doctrine;
 
-use App\Application\Symfony\EventSubscriber\LinkCollectivitySubscriber;
+use App\Application\Symfony\EventSubscriber\Doctrine\LinkCollectivitySubscriber;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Domain\User\Model;

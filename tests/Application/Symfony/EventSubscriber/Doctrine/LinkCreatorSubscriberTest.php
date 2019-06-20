@@ -11,11 +11,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Domain\Event\Symfony\EventSubscriber;
+namespace App\Tests\Domain\Event\Symfony\EventSubscriber\Doctrine;
 
-use App\Application\Symfony\EventSubscriber\LinkCreatorSubscriber;
+use App\Application\Symfony\EventSubscriber\Doctrine\LinkCreatorSubscriber;
 use App\Application\Symfony\Security\UserProvider;
-use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Domain\User\Model;
 use App\Tests\Utils\ReflectionTrait;

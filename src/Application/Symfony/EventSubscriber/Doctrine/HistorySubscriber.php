@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Symfony\EventSubscriber;
+namespace App\Application\Symfony\EventSubscriber\Doctrine;
 
 use App\Application\Traits\Model\HistoryTrait;
 use Doctrine\Common\EventSubscriber;

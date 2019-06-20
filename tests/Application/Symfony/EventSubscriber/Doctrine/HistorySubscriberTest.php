@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Domain\Event\Symfony\EventSubscriber;
+namespace App\Tests\Domain\Event\Symfony\EventSubscriber\Doctrine;
 
-use App\Application\Symfony\EventSubscriber\HistorySubscriber;
+use App\Application\Symfony\EventSubscriber\Doctrine\HistorySubscriber;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\Common\EventSubscriber;
