@@ -11,6 +11,25 @@ que vous souhaitez installer, c'est que vous n'avez rien à faire._**
 
 
 
+
+# Passage en v1.5.0
+
+### Paramétrage des timeout Cookie
+
+Dans le `.env` vous pouvez modifier les informations liées à la durée de vie
+des cookies ainsi que la deconnexion au bout d'un certain temps d'inactivité
+
+Pour cela, ajoutez les variables suivantes dans votre `.env`.
+
+```text
+# Déconnexion pour une inactivité au bout de 1h30 (en secondes)
+APP_COOKIE_IDLE_TIMEOUT=5400
+# Déxonnexion au bout de 4h (en secondes), même si j'utilise l'application
+APP_COOKIE_LIFETIME=14400
+```
+
+
+
 # Passage en v1.4.0
 
 **Note d'attention :** Cette nouvelle version va modifier vos données présentes
@@ -44,8 +63,6 @@ De ce fait, si vous souhaitez ajouter un favicon dans
 
 Finissez par lancer la commande `bin/console cache:clear` pour que ces
 données soient appliquées
-
-
 
 
 

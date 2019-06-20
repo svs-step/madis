@@ -4,8 +4,22 @@ services:
         autoconfigure: true
         public: false
 
-    App\Application\Symfony\EventSubscriber\:
-        resource: '../../src/Application/Symfony/EventSubscriber'
+    # ======
+    # KERNEL
+    # ======
+
+    App\Application\Symfony\EventSubscriber\Kernel\:
+        resource: '../../src/Application/Symfony/EventSubscriber/Kernel'
+
+    App\Application\Symfony\EventSubscriber\Kernel\IdleSubscriber:
+        arguments:
+            $expirationTime: '%env(APP_COOKIE_IDLE_TIMEOUT)%'
+
+    # ========
+    # DOCTRINE
+    # ========
+    App\Application\Symfony\EventSubscriber\Doctrine\:
+        resource: '../../src/Application/Symfony/EventSubscriber/Doctrine'
         tags:
             - { name: 'doctrine.event_subscriber' }
 
