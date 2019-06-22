@@ -26,6 +26,11 @@ class Violation implements Repository\Violation
      */
     protected $registry;
 
+    /**
+     * Violation constructor.
+     *
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         $this->registry = $registry;
@@ -90,6 +95,9 @@ class Violation implements Repository\Violation
         $this->registry->getManager()->flush($object);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function findAll(bool $deleted = false): array
     {
         $qb = $this->createQueryBuilder();
@@ -122,11 +130,23 @@ class Violation implements Repository\Violation
             ;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getModelClass(): string
     {
         return Model\Violation::class;
     }
 
+    /**
+     * Add a where clause.
+     *
+     * @param QueryBuilder $qb
+     * @param string       $key
+     * @param $value
+     *
+     * @return QueryBuilder
+     */
     protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
     {
         return $qb
@@ -135,6 +155,14 @@ class Violation implements Repository\Violation
             ;
     }
 
+    /**
+     * Add archive clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param bool         $archived
+     *
+     * @return QueryBuilder
+     */
     protected function addArchivedClause(QueryBuilder $qb, bool $archived = false): QueryBuilder
     {
         // Get not archived
@@ -146,6 +174,14 @@ class Violation implements Repository\Violation
         return $qb->andWhere('o.deletedAt is not null');
     }
 
+    /**
+     * Add collectivity clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param Collectivity $collectivity
+     *
+     * @return QueryBuilder
+     */
     protected function addCollectivityClause(QueryBuilder $qb, Collectivity $collectivity): QueryBuilder
     {
         return $qb
@@ -154,6 +190,14 @@ class Violation implements Repository\Violation
             ;
     }
 
+    /**
+     * Add order to query.
+     *
+     * @param QueryBuilder $qb
+     * @param array        $order
+     *
+     * @return QueryBuilder
+     */
     protected function addOrder(QueryBuilder $qb, array $order = []): QueryBuilder
     {
         foreach ($order as $key => $dir) {

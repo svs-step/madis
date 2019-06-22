@@ -18,6 +18,7 @@ use App\Domain\Registry\Model;
 class TreatmentCompletion extends AbstractCompletion
 {
     /**
+     * {@inheritdoc}
      * Get completion points for Treatment.
      *
      * @param Model\Treatment $object
@@ -80,7 +81,7 @@ class TreatmentCompletion extends AbstractCompletion
     }
 
     /**
-     * Get max number point possible.
+     * {@inheritdoc}
      *
      * @return int
      */

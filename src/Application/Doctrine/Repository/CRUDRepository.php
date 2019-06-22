@@ -27,6 +27,11 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
      */
     protected $registry;
 
+    /**
+     * CRUDRepository constructor.
+     *
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         $this->registry = $registry;
@@ -100,6 +105,8 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
 
     /**
      * Get all objects.
+     *
+     * @param array $order
      *
      * @return mixed[]
      */

@@ -26,6 +26,14 @@ class TreatmentDataCategory
      */
     private $sensible;
 
+    /**
+     * TreatmentDataCategory constructor.
+     *
+     * @param string $code
+     * @param string $name
+     * @param int    $position
+     * @param bool   $sensible
+     */
     public function __construct(string $code, string $name, int $position, bool $sensible = false)
     {
         $this->code     = $code;

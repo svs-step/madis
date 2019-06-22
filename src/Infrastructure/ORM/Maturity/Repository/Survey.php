@@ -20,6 +20,9 @@ use App\Domain\User\Model\Collectivity;
 
 class Survey extends CRUDRepository implements Repository\Survey
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function getModelClass(): string
     {
         return Model\Survey::class;

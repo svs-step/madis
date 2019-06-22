@@ -33,7 +33,7 @@ class Violation
     private $id;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     private $date;
 
@@ -43,7 +43,7 @@ class Violation
     private $inProgress;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $violationNature;
 
@@ -53,7 +53,7 @@ class Violation
     private $origins;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $cause;
 
@@ -68,12 +68,12 @@ class Violation
     private $concernedPeopleCategories;
 
     /**
-     * @var int
+     * @var int|null
      */
     private $nbAffectedRows;
 
     /**
-     * @var int
+     * @var int|null
      */
     private $nbAffectedPersons;
 
@@ -83,40 +83,45 @@ class Violation
     private $potentialImpactsNature;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $gravity;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $communication;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $communicationPrecision;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $appliedMeasuresAfterViolation;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $notification;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $notificationDetails;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $comment;
 
+    /**
+     * Violation constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id                        = Uuid::uuid4();
@@ -128,6 +133,9 @@ class Violation
         $this->potentialImpactsNature    = [];
     }
 
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         if (\is_null($this->getDate())) {

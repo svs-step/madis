@@ -25,17 +25,17 @@ class Domain
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $color;
 
     /**
-     * @var int
+     * @var int|null
      */
     private $position;
 
@@ -49,6 +49,11 @@ class Domain
      */
     private $maturity;
 
+    /**
+     * Domain constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id        = Uuid::uuid4();

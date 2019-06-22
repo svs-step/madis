@@ -98,6 +98,7 @@ abstract class CRUDController extends Controller
 
     /**
      * Generate the flashbag message dynamically depending on the domain, model & object.
+     * Replace word `%object%` in translation by the related object (thanks to it `__toString` method).
      *
      * @param string      $type     The flashbag type
      * @param string|null $template The related template to use
@@ -153,6 +154,12 @@ abstract class CRUDController extends Controller
         ]);
     }
 
+    /**
+     * Actions to make when a form is submitted and valid.
+     * This method is handled just after form validation, before object manipulation.
+     *
+     * @param $object
+     */
     public function formPrePersistData($object)
     {
     }

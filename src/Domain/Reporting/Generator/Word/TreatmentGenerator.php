@@ -21,6 +21,12 @@ use PhpOffice\PhpWord\Shared\Converter;
 
 class TreatmentGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
+    /**
+     * Global overview : Information to display for treatment in overview report.
+     *
+     * @param Section $section
+     * @param array   $data
+     */
     public function addGlobalOverview(Section $section, array $data): void
     {
         // GENERATE ALL DATA BEFORE WORD GENERATION IN ORDER TO AVOID SEVERAL LOOP
@@ -144,6 +150,9 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addListItem("{$security['update']} sont mis à jour");
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addSyntheticView(Section $section, array $data, bool $forOverviewReport = false): void
     {
         // Break page for overview report
@@ -177,6 +186,9 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail des traitements', 1);

@@ -25,32 +25,32 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $firstName;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $lastName;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $email;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $password;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $plainPassword;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $forgetPasswordToken;
 
@@ -69,6 +69,11 @@ class User implements UserInterface
      */
     private $collectivity;
 
+    /**
+     * User constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id      = Uuid::uuid4();
@@ -132,6 +137,9 @@ class User implements UserInterface
         $this->lastName = $lastName;
     }
 
+    /**
+     * @return string
+     */
     public function getFullName(): string
     {
         return "{$this->firstName} {$this->lastName}";

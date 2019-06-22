@@ -20,18 +20,16 @@ use App\Domain\User\Model\Collectivity;
 
 class Contractor extends CRUDRepository implements Repository\Contractor
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function getModelClass(): string
     {
         return Model\Contractor::class;
     }
 
     /**
-     * Find all contractors by associated collectivity.
-     *
-     * @param Collectivity $collectivity The collectivity to search with
-     * @param array        $order        Order the data
-     *
-     * @return array The array of contractors given by the collectivity
+     * {@inheritdoc}
      */
     public function findAllByCollectivity(Collectivity $collectivity, array $order = [])
     {

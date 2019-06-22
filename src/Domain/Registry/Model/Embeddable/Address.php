@@ -16,32 +16,32 @@ namespace App\Domain\Registry\Model\Embeddable;
 class Address
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $lineOne;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $lineTwo;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $city;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $zipCode;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $mail;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $phoneNumber;
 

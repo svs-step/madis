@@ -16,12 +16,12 @@ namespace App\Application\Traits\Model;
 trait HistoryTrait
 {
     /**
-     * @var \DateTimeImmutable
+     * @var \DateTimeImmutable|null
      */
     private $createdAt;
 
     /**
-     * @var \DateTimeImmutable
+     * @var \DateTimeImmutable|null
      */
     private $updatedAt;
 

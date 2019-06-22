@@ -63,21 +63,33 @@ class TreatmentController extends CRUDController
         $this->userProvider         = $userProvider;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getModel(): string
     {
         return 'treatment';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getModelClass(): string
     {
         return Model\Treatment::class;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getFormType(): string
     {
         return TreatmentType::class;

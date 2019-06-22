@@ -49,6 +49,12 @@ class DashboardController extends Controller
         $this->userProvider      = $userProvider;
     }
 
+    /**
+     * Get dashboard index page.
+     * Compute every metrics to display.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction()
     {
         $data = [

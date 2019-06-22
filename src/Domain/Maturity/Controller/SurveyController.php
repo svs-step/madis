@@ -125,8 +125,8 @@ class SurveyController extends CRUDController
     }
 
     /**
-     * Some actions made before object persistence.
-     * Here, we wanna calculate maturity score.
+     * {@inheritdoc}
+     * Here, we wanna compute maturity score.
      *
      * @param Model\Survey $object
      */

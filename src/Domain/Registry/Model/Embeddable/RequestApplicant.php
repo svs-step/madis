@@ -16,32 +16,32 @@ namespace App\Domain\Registry\Model\Embeddable;
 class RequestApplicant
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $civility;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $firstName;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $lastName;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $address;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $mail;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $phoneNumber;
 
@@ -98,6 +98,9 @@ class RequestApplicant
         $this->lastName = $lastName;
     }
 
+    /**
+     * @return string
+     */
     public function getFullName(): string
     {
         return "{$this->firstName} {$this->lastName}";

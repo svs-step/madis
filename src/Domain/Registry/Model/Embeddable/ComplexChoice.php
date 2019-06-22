@@ -21,7 +21,7 @@ class ComplexChoice
     private $check;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $comment;
 

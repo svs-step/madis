@@ -34,35 +34,43 @@ class Proof
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $type;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $document;
 
     /**
-     * @var File
+     * @var File|null
      */
     private $documentFile;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $comment;
 
+    /**
+     * Proof constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id = Uuid::uuid4();
     }
 
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         if (\is_null($this->getName())) {

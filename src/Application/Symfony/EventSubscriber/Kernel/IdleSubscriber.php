@@ -8,6 +8,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+/**
+ * Class IdleSubscriber
+ * Check user idle time.
+ * If user is idle more than accepted time, invalidate his session.
+ */
 class IdleSubscriber implements EventSubscriberInterface
 {
     /**

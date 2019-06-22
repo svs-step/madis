@@ -19,6 +19,9 @@ use App\Domain\User\Repository;
 
 class User extends CRUDRepository implements Repository\User
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function getModelClass(): string
     {
         return Model\User::class;

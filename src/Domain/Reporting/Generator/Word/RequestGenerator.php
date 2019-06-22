@@ -20,6 +20,14 @@ use PhpOffice\PhpWord\Element\Section;
 
 class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
+    /**
+     * Global overview : Information to display for request in overview report.
+     *
+     * @param Section $section
+     * @param array   $data
+     *
+     * @throws \Exception
+     */
     public function addGlobalOverview(Section $section, array $data): void
     {
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
@@ -58,6 +66,9 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addSyntheticView(Section $section, array $data): void
     {
         $section->addTitle('Liste des demandes', 1);
@@ -92,6 +103,9 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
         $section->addPageBreak();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail des demandes', 1);

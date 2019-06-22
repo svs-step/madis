@@ -25,12 +25,12 @@ class Question
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
-     * @var Domain
+     * @var Domain|null
      */
     private $domain;
 
@@ -39,6 +39,11 @@ class Question
      */
     private $answers;
 
+    /**
+     * Question constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id      = Uuid::uuid4();

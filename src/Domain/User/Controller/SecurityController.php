@@ -67,9 +67,9 @@ class SecurityController extends Controller
     /**
      * Display login page.
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      *
      * @return Response
      */
@@ -87,9 +87,9 @@ class SecurityController extends Controller
     /**
      * Display Forget password page.
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      *
      * @return Response
      */
@@ -107,9 +107,9 @@ class SecurityController extends Controller
      *
      * @param Request $request
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
@@ -148,9 +148,9 @@ class SecurityController extends Controller
      * @param Request $request The Request
      * @param string  $token   The forgetPasswordToken to search the user with
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      *
      * @return Response
      */

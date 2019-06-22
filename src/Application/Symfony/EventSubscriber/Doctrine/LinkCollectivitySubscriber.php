@@ -19,6 +19,10 @@ use App\Domain\User\Model\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
+/**
+ * Class LinkCollectivitySubscriber
+ * Link authenticated user collectivity to object.
+ */
 class LinkCollectivitySubscriber implements EventSubscriber
 {
     /**
@@ -39,8 +43,11 @@ class LinkCollectivitySubscriber implements EventSubscriber
     }
 
     /**
-     * PrePersist
-     * Link user collectivity to object.
+     * PrePersist.
+     *
+     * Link user collectivity to persisted object.
+     * That is to say that every time you will persist an object,
+     * the user collectivity will be added to related object.
      *
      * @param LifecycleEventArgs $args
      *

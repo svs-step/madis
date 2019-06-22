@@ -63,21 +63,33 @@ class ViolationController extends CRUDController
         $this->userProvider         = $userProvider;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getModel(): string
     {
         return 'violation';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getModelClass(): string
     {
         return Model\Violation::class;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getFormType(): string
     {
         return ViolationType::class;
@@ -104,6 +116,9 @@ class ViolationController extends CRUDController
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function isSoftDelete(): bool
     {
         return true;

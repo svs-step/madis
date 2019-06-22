@@ -56,21 +56,33 @@ class MesurementController extends CRUDController
         $this->userProvider         = $userProvider;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getModel(): string
     {
         return 'mesurement';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getModelClass(): string
     {
         return Model\Mesurement::class;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getFormType(): string
     {
         return MesurementType::class;
