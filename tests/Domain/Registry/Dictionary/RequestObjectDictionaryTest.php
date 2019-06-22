@@ -41,6 +41,7 @@ class RequestObjectDictionaryTest extends TestCase
             RequestObjectDictionary::OBJECT_ACCESS           => 'Accéder à des données',
             RequestObjectDictionary::OBJECT_DATA_PORTABILITY => 'Portabilité des données',
             RequestObjectDictionary::OBJECT_LIMIT_TREATMENT  => 'Limiter le traitement',
+            RequestObjectDictionary::OBJECT_OTHER            => 'Autre',
         ];
 
         $this->assertEquals($data, RequestObjectDictionary::getObjects());
@@ -55,6 +56,7 @@ class RequestObjectDictionaryTest extends TestCase
             RequestObjectDictionary::OBJECT_ACCESS,
             RequestObjectDictionary::OBJECT_DATA_PORTABILITY,
             RequestObjectDictionary::OBJECT_LIMIT_TREATMENT,
+            RequestObjectDictionary::OBJECT_OTHER,
         ];
 
         $this->assertEquals($data, RequestObjectDictionary::getObjectsKeys());

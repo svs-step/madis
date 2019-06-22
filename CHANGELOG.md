@@ -4,6 +4,7 @@
 ### Ajout
 - [TRAITEMENT] Ajout du champ "Personnes habilitées" dans le bloc "Mesures de sécurité", #177
 - [TRAITEMENT] Ajout de la base légale "Intérêt légitime", #176
+- [DEMANDE] Ajout de l'objet de demande "Autre", #130
 ### Changement
 - [TRAITEMENT] Renommage de la section "Mesures de sécurité" en "Mesures de sécurité et confidentialité", #177
 - [DEMANDE] Le champ "Motif" est devenu facultatif, #167
