@@ -11,10 +11,6 @@ App\Domain\Registry\Model\Request:
             - NotBlank:
                 message: 'registry_request.date.not_blank'
                 groups: ['default']
-        reason:
-            - NotBlank:
-                message: 'registry_request.reason.not_blank'
-                groups: ['default']
         applicant:
             - Valid: ~
         concernedPeople:

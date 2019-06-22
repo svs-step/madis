@@ -51,7 +51,7 @@ class Request
     private $date;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $reason;
 

@@ -46,7 +46,7 @@ class RequestType extends AbstractType
             ])
             ->add('reason', TextType::class, [
                 'label'    => 'registry.request.form.reason',
-                'required' => true,
+                'required' => false,
             ])
             ->add('applicant', RequestApplicantType::class, [
                 'label'    => false,
