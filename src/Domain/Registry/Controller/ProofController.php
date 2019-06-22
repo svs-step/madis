@@ -28,6 +28,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -128,11 +129,81 @@ class ProofController extends CRUDController
     }
 
     /**
-     * {@inheritdoc}
+     * The archive action view
+     * Display a confirmation message to confirm data archivage.
+     *
+     * @param string $id
+     *
+     * @return Response
      */
-    protected function isSoftDelete(): bool
+    public function archiveAction(string $id): Response
     {
-        return true;
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        return $this->render($this->getTemplatingBasePath('archive'), [
+            'object' => $object,
+        ]);
+    }
+
+    /**
+     * The archive action
+     * Archive the data.
+     *
+     * @param string $id
+     *
+     * @throws \Exception
+     *
+     * @return Response
+     */
+    public function archiveConfirmationAction(string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $object->setDeletedAt(new \DateTimeImmutable());
+        $this->repository->update($object);
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'archive', $object));
+
+        return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
+    /**
+     * {@inheritdoc}
+     * OVERRIDE METHOD.
+     * Override deletion in order to delete Proof into server.
+     */
+    public function deleteConfirmationAction(string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        if ($this->isSoftDelete()) {
+            if (!\method_exists($object, 'setDeletedAt')) {
+                throw new MethodNotImplementedException('setDeletedAt');
+            }
+            $object->setDeletedAt(new \DateTimeImmutable());
+            $this->repository->update($object);
+        } else {
+            $filename = $object->getDocument();
+
+            $this->entityManager->remove($object);
+            $this->entityManager->flush();
+
+            // TODO: Log error if deletion fail
+            $this->documentFilesystem->delete($filename);
+        }
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
+
+        return $this->redirectToRoute($this->getRouteName('list'));
     }
 
     /**

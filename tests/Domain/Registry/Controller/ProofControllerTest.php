@@ -149,7 +149,7 @@ class ProofControllerTest extends TestCase
 
     public function testIsSoftDelete()
     {
-        $this->assertTrue($this->invokeMethod($this->controller, 'isSoftDelete'));
+        $this->assertFalse($this->invokeMethod($this->controller, 'isSoftDelete'));
     }
 
     /**
