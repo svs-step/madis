@@ -19,6 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Translation\TranslatorInterface;
 
 abstract class CRUDController extends Controller
@@ -279,6 +280,9 @@ abstract class CRUDController extends Controller
         }
 
         if ($this->isSoftDelete()) {
+            if (!\method_exists($object, 'setDeletedAt')) {
+                throw new MethodNotImplementedException('setDeletedAt');
+            }
             $object->setDeletedAt(new \DateTimeImmutable());
             $this->repository->update($object);
         } else {

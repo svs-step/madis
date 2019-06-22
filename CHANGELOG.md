@@ -2,6 +2,7 @@
 
 ## [UNRELEASED]
 ### Ajout
+- [PREUVE] Possibilité de supprimer une preuve, #178
 - [TRAITEMENT] Ajout du champ "Personnes habilitées" dans le bloc "Mesures de sécurité", #177
 - [TRAITEMENT] Ajout de la base légale "Intérêt légitime", #176
 - [DEMANDE] Ajout de l'objet de demande "Autre", #130

@@ -45,12 +45,12 @@
                     </a>#}
                     {% if app.request.query.get('archive') == 'true' %}
                         <a href="{{ path('registry_proof_list', {'archive' : 'false'}) }}" class="btn btn-default">
-                            <i class="fa fa-trash"></i>
+                            <i class="fa fa-archive"></i>
                             {{ 'registry.proof.action.not_archived'|trans }}
                         </a>
                     {% else %}
                         <a href="{{ path('registry_proof_list', {'archive' : 'true'}) }}" class="btn btn-default">
-                            <i class="fa fa-trash"></i>
+                            <i class="fa fa-archive"></i>
                             {{ 'registry.proof.action.archived'|trans }}
                         </a>
                     {% endif %}
@@ -87,20 +87,26 @@
                             <td>{{ object.comment|truncate(10) }}</td>
                             <td>{{ object.createdAt|date('Y/m/d H:i') }}</td>
                             <td>
-                                {% if app.user.collectivity == object.collectivity %}
+                                {% if app.user.collectivity == object.collectivity or is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('registry_proof_download', { 'id': object.id }) }}">
                                     <i class="fa fa-download"></i>
                                     {{ 'action.download'|trans }}
                                 </a>
                                 {% endif %}
-                                {% if is_granted('ROLE_USER') and object.deletedAt is null %}
-                                    <a href="{{ path('registry_proof_edit', { 'id': object.id }) }}">
-                                        <i class="fa fa-pencil-alt"></i>
-                                        {{ 'action.edit'|trans }}
-                                    </a>
+                                {% if is_granted('ROLE_USER') %}
+                                    {% if object.deletedAt is null %}
+                                        <a href="{{ path('registry_proof_edit', { 'id': object.id }) }}">
+                                            <i class="fa fa-pencil-alt"></i>
+                                            {{ 'action.edit'|trans }}
+                                        </a>
+                                        <a href="{{ path('registry_proof_archive', { 'id': object.id }) }}">
+                                            <i class="fa fa-archive"></i>
+                                            {{ 'action.archive'|trans }}
+                                        </a>
+                                    {% endif %}
                                     <a href="{{ path('registry_proof_delete', { 'id': object.id }) }}">
                                         <i class="fa fa-trash"></i>
-                                        {{ 'action.archive'|trans }}
+                                        {{ 'action.delete'|trans }}
                                     </a>
                                 {% endif %}
                             </td>

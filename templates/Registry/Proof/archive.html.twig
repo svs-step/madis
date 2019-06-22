@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'registry_proof delete' %}
+{% set bodyClass = 'registry_proof archive' %}
 {% set menuItem = 'registry_proof' %}
 
-{% block title %}{{ 'registry.proof.title.delete'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'registry.proof.title.archive'|trans }} - {{ parent() }}{% endblock %}
 
 {% block body_head %}
     <h1>
-        {{ 'registry.proof.title.delete'|trans }}
+        {{ 'registry.proof.title.archive'|trans }}
         <small>{{ object }}</small>
     </h1>
 {% endblock %}
@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'registry.proof.breadcrumb.list'|trans, 'link': path('registry_proof_list') },
-        { 'name': 'registry.proof.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'registry.proof.breadcrumb.archive'|trans({'%name%': object}) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -26,14 +26,14 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer la preuve "{{ object }}" ?
+                    Souhaitez vous vraiment archiver la preuve "{{ object }}" ?
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('registry_proof_list') }}" class="btn btn-default">
                         {{ 'registry.proof.action.back_to_list'|trans }}
                     </a>
-                    <a href="{{ path('registry_proof_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
-                        {{ 'action.confirm_delete'|trans }}
+                    <a href="{{ path('registry_proof_archive_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'action.confirm_archive'|trans }}
                     </a>
                 </div>
             </div>
