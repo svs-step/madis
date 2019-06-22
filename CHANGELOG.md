@@ -2,6 +2,7 @@
 
 ## [UNRELEASED]
 ### Ajout
+- [PAGE CREDIT] Mise à jour du contenu et suppression de la partie "Hébergement", #179
 - [PREUVE] Possibilité de supprimer une preuve, #178
 - [TRAITEMENT] Ajout du champ "Personnes habilitées" dans le bloc "Mesures de sécurité", #177
 - [TRAITEMENT] Ajout de la base légale "Intérêt légitime", #176
