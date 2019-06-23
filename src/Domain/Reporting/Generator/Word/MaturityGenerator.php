@@ -23,6 +23,12 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
     const RESPONSE_1 = 'La pratique est partiellement mise en place';
     const RESPONSE_2 = 'La pratique est conforme';
 
+    /**
+     * Global overview : Information to display for maturity in overview report.
+     *
+     * @param Section $section
+     * @param array   $data
+     */
     public function addGlobalOverview(Section $section, array $data): void
     {
         $section->addTitle('Évaluation de la mise en conformité', 2);
@@ -131,6 +137,9 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addSyntheticView(Section $section, array $data): void
     {
         $maturityList = [];
@@ -200,6 +209,9 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $section->addPageBreak();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail', 1);

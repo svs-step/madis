@@ -26,6 +26,11 @@ class Request implements Repository\Request
      */
     protected $registry;
 
+    /**
+     * Request constructor.
+     *
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         $this->registry = $registry;
@@ -90,6 +95,9 @@ class Request implements Repository\Request
         $this->registry->getManager()->flush($object);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function findAll(bool $deleted = false): array
     {
         $qb = $this->createQueryBuilder();
@@ -107,11 +115,7 @@ class Request implements Repository\Request
     }
 
     /**
-     * Get an object by ID.
-     *
-     * @param string $id The ID to find
-     *
-     * @return object|null
+     * {@inheritdoc}
      */
     public function findOneById(string $id)
     {
@@ -127,6 +131,15 @@ class Request implements Repository\Request
         return Model\Request::class;
     }
 
+    /**
+     * Add where clause query.
+     *
+     * @param QueryBuilder $qb
+     * @param string       $key
+     * @param $value
+     *
+     * @return QueryBuilder
+     */
     protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
     {
         return $qb
@@ -135,6 +148,14 @@ class Request implements Repository\Request
             ;
     }
 
+    /**
+     * Add archived clause in query.
+     *
+     * @param QueryBuilder $qb
+     * @param bool         $archived
+     *
+     * @return QueryBuilder
+     */
     protected function addArchivedClause(QueryBuilder $qb, bool $archived = false): QueryBuilder
     {
         // Get not archived
@@ -146,6 +167,14 @@ class Request implements Repository\Request
         return $qb->andWhere('o.deletedAt is not null');
     }
 
+    /**
+     * Add collectivity clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param Collectivity $collectivity
+     *
+     * @return QueryBuilder
+     */
     protected function addCollectivityClause(QueryBuilder $qb, Collectivity $collectivity): QueryBuilder
     {
         return $qb
@@ -154,6 +183,14 @@ class Request implements Repository\Request
             ;
     }
 
+    /**
+     * Add order to query.
+     *
+     * @param QueryBuilder $qb
+     * @param array        $order
+     *
+     * @return QueryBuilder
+     */
     protected function addOrder(QueryBuilder $qb, array $order = []): QueryBuilder
     {
         foreach ($order as $key => $dir) {

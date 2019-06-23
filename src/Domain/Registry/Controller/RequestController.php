@@ -63,21 +63,33 @@ class RequestController extends CRUDController
         $this->userProvider         = $userProvider;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getModel(): string
     {
         return 'request';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getModelClass(): string
     {
         return Model\Request::class;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getFormType(): string
     {
         return RequestType::class;
@@ -104,6 +116,9 @@ class RequestController extends CRUDController
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function isSoftDelete(): bool
     {
         return true;

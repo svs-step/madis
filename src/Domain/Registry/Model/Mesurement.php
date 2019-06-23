@@ -33,62 +33,70 @@ class Mesurement
     /**
      * FR: Nom.
      *
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
      * FR: Type.
      *
-     * @var string
+     * @var string|null
      */
     private $type;
 
     /**
      * FR: Description.
      *
-     * @var string
+     * @var string|null
      */
     private $description;
 
     /**
      * FR: Cout.
      *
-     * @var string
+     * @var string|null
      */
     private $cost;
 
     /**
      * FR: Charge.
      *
-     * @var string
+     * @var string|null
      */
     private $charge;
 
     /**
      * FR: Statut.
      *
-     * @var string
+     * @var string|null
      */
     private $status;
 
     /**
      * FR: Date de planification.
      *
-     * @var \DateTime
+     * @var \DateTime|null
      */
     private $planificationDate;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $comment;
 
+    /**
+     * Mesurement constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id = Uuid::uuid4();
     }
 
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         if (\is_null($this->getName())) {

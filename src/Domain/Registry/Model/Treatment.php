@@ -35,28 +35,28 @@ class Treatment
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
      * FR: Finalités (Objectif).
      *
-     * @var string
+     * @var string|null
      */
     private $goal;
 
     /**
      * FR: Gestionnaire.
      *
-     * @var string
+     * @var string|null
      */
     private $manager;
 
     /**
      * FR: Logiciel.
      *
-     * @var string
+     * @var string|null
      */
     private $software;
 
@@ -70,7 +70,7 @@ class Treatment
     /**
      * FR: Base légale du traitement.
      *
-     * @var string
+     * @var string|null
      */
     private $legalBasis;
 
@@ -94,14 +94,14 @@ class Treatment
     private $concernedPeople;
 
     /**
-     * @var iterable
+     * @var array
      */
     private $dataCategories;
 
     /**
      * FR: Autres catégories.
      *
-     * @var string
+     * @var string|null
      */
     private $dataCategoryOther;
 
@@ -115,7 +115,7 @@ class Treatment
     /**
      * FR: Destinataire des données.
      *
-     * @var string
+     * @var string|null
      */
     private $recipientCategory;
 
@@ -212,15 +212,24 @@ class Treatment
     private $completion;
 
     /**
+     * Please note that this variable goal is only for Database queries, no need to use it in code.
+     *
      * @var bool
      */
     private $template;
 
     /**
-     * @var int
+     * Please note that this variable goal is only for Database queries, no need to use it in code.
+     *
+     * @var int|null
      */
     private $templateIdentifier;
 
+    /**
+     * Treatment constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id                    = Uuid::uuid4();
@@ -243,6 +252,9 @@ class Treatment
         $this->template              = false;
     }
 
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         if (\is_null($this->getName())) {
@@ -409,17 +421,17 @@ class Treatment
     }
 
     /**
-     * @return iterable
+     * @return array
      */
-    public function getDataCategories(): iterable
+    public function getDataCategories(): array
     {
         return $this->dataCategories;
     }
 
     /**
-     * @param iterable $dataCategories
+     * @param array $dataCategories
      */
-    public function setDataCategories(iterable $dataCategories): void
+    public function setDataCategories(array $dataCategories): void
     {
         $this->dataCategories = $dataCategories;
     }

@@ -20,6 +20,9 @@ use Twig\TwigFunction;
 
 class SurveyExtension extends AbstractExtension
 {
+    /**
+     * @return array|TwigFunction[]
+     */
     public function getFunctions()
     {
         return [

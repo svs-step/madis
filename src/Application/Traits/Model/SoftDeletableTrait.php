@@ -16,7 +16,7 @@ namespace App\Application\Traits\Model;
 trait SoftDeletableTrait
 {
     /**
-     * @var \DateTimeImmutable
+     * @var \DateTimeImmutable|null
      */
     private $deletedAt;
 

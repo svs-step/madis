@@ -70,9 +70,9 @@ class ControllerHelper
      * @param string $name    The name of the template
      * @param array  $context The context of the template
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      *
      * @return Response The response with rendered twig template
      */

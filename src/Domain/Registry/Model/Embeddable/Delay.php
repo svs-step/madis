@@ -16,12 +16,12 @@ namespace App\Domain\Registry\Model\Embeddable;
 class Delay
 {
     /**
-     * @var int
+     * @var int|null
      */
     private $number;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $period;
 
@@ -31,7 +31,7 @@ class Delay
     private $otherDelay;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $comment;
 

@@ -25,25 +25,28 @@ class Collectivity
 {
     use HistoryTrait;
 
+    /**
+     * @var UuidInterface
+     */
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $shortName;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $type;
 
     /**
-     * @var int
+     * @var int|null
      */
     private $siren;
 
@@ -53,7 +56,7 @@ class Collectivity
     private $active;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $website;
 
@@ -63,12 +66,12 @@ class Collectivity
     private $address;
 
     /**
-     * @var Contact
+     * @var Contact|null
      */
     private $legalManager;
 
     /**
-     * @var Contact
+     * @var Contact|null
      */
     private $referent;
 
@@ -77,7 +80,7 @@ class Collectivity
      */
     private $differentDpo;
     /**
-     * @var Contact
+     * @var Contact|null
      */
     private $dpo;
 
@@ -87,7 +90,7 @@ class Collectivity
     private $differentItManager;
 
     /**
-     * @var Contact
+     * @var Contact|null
      */
     private $itManager;
 
@@ -96,6 +99,11 @@ class Collectivity
      */
     private $users;
 
+    /**
+     * Collectivity constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id                 = Uuid::uuid4();
@@ -103,14 +111,6 @@ class Collectivity
         $this->active             = true;
         $this->differentDpo       = false;
         $this->differentItManager = false;
-    }
-
-    /**
-     * @return UuidInterface
-     */
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     /**
@@ -127,6 +127,14 @@ class Collectivity
         }
 
         return $this->getName();
+    }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getId(): UuidInterface
+    {
+        return $this->id;
     }
 
     /**

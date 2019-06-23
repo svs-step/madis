@@ -18,6 +18,12 @@ use PhpOffice\PhpWord\Element\Section;
 
 class MesurementGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
+    /**
+     * Global overview : Information to display for mesurement in overview report.
+     *
+     * @param Section $section
+     * @param array   $data
+     */
     public function addGlobalOverview(Section $section, array $data): void
     {
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
@@ -62,6 +68,9 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $this->addTable($section, $actionPlan, true, self::TABLE_ORIENTATION_HORIZONTAL);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addSyntheticView(Section $section, array $data): void
     {
         $section->addTitle('Liste des actions de protection', 1);
@@ -86,6 +95,9 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $section->addPageBreak();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail des actions de protection', 1);

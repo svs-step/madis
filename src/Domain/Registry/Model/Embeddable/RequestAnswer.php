@@ -16,17 +16,17 @@ namespace App\Domain\Registry\Model\Embeddable;
 class RequestAnswer
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $response;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     private $date;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $type;
 

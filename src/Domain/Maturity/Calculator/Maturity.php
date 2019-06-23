@@ -18,7 +18,9 @@ use App\Domain\Maturity\Model;
 class Maturity
 {
     /**
-     * @param Model\Survey $survey
+     * Compute maturity indice for each linked survey maturity.
+     *
+     * @param Model\Survey $survey The survey maturities object to compute
      *
      * @return Model\Maturity[]
      */
@@ -67,6 +69,9 @@ class Maturity
     }
 
     /**
+     * Get the global score of every maturity provided as parameter
+     * Make an average of maturity indice of each Maturity.
+     *
      * @param Model\Maturity[] $maturityList
      *
      * @return int

@@ -59,6 +59,8 @@ class GenerateMaturitySubscriber implements EventSubscriber
     }
 
     /**
+     * Handle maturity for each persisted or updated survey.
+     *
      * @param LifecycleEventArgs $args
      */
     private function process(LifecycleEventArgs $args): void

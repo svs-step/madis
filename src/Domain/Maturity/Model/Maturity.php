@@ -24,20 +24,25 @@ class Maturity
     private $id;
 
     /**
-     * @var Domain
+     * @var Domain|null
      */
     private $domain;
 
     /**
-     * @var int
+     * @var int|null
      */
     private $score;
 
     /**
-     * @var Survey
+     * @var Survey|null
      */
     private $survey;
 
+    /**
+     * Maturity constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id = Uuid::uuid4();

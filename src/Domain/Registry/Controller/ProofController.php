@@ -77,21 +77,33 @@ class ProofController extends CRUDController
         $this->documentFilesystem   = $documentFilesystem;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getModel(): string
     {
         return 'proof';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getModelClass(): string
     {
         return Model\Proof::class;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getFormType(): string
     {
         return ProofType::class;
@@ -118,6 +130,10 @@ class ProofController extends CRUDController
         );
     }
 
+    /**
+     * {@inheritdoc}
+     * - Upload documentFile before object persistence in database.
+     */
     public function formPrePersistData($object)
     {
         if ($file = $object->getDocumentFile()) {

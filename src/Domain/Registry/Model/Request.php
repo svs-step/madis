@@ -36,17 +36,17 @@ class Request
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $object;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $otherObject;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     private $date;
 
@@ -56,12 +56,12 @@ class Request
     private $reason;
 
     /**
-     * @var RequestApplicant
+     * @var RequestApplicant|null
      */
     private $applicant;
 
     /**
-     * @var RequestConcernedPeople
+     * @var RequestConcernedPeople|null
      */
     private $concernedPeople;
 
@@ -81,10 +81,15 @@ class Request
     private $legitimateRequest;
 
     /**
-     * @var RequestAnswer
+     * @var RequestAnswer|null
      */
     private $answer;
 
+    /**
+     * Request constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id                  = Uuid::uuid4();
@@ -97,6 +102,9 @@ class Request
         $this->legitimateRequest   = false;
     }
 
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         if (\is_null($this->getApplicant()->getFirstName())) {

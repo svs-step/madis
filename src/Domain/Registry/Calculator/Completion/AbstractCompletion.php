@@ -15,8 +15,20 @@ namespace App\Domain\Registry\Calculator\Completion;
 
 abstract class AbstractCompletion
 {
+    /**
+     * Get the completion points computed for provided object.
+     *
+     * @param $object
+     *
+     * @return int
+     */
     abstract protected function getPoints($object): int;
 
+    /**
+     * Get max number point possible.
+     *
+     * @return int
+     */
     abstract protected function getMaxPoints(): int;
 
     /**

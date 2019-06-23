@@ -46,6 +46,11 @@ class Survey
      */
     private $score;
 
+    /**
+     * Survey constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id       = Uuid::uuid4();

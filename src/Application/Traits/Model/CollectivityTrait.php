@@ -18,7 +18,7 @@ use App\Domain\User\Model\Collectivity;
 trait CollectivityTrait
 {
     /**
-     * @var Collectivity
+     * @var Collectivity|null
      */
     private $collectivity;
 

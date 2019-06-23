@@ -21,11 +21,23 @@ use Doctrine\ORM\QueryBuilder;
 
 class Mesurement extends CRUDRepository implements Repository\Mesurement
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function getModelClass(): string
     {
         return Model\Mesurement::class;
     }
 
+    /**
+     * Add a where clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param string       $key
+     * @param $value
+     *
+     * @return QueryBuilder
+     */
     protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
     {
         return $qb
@@ -34,6 +46,14 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         ;
     }
 
+    /**
+     * Add a collectivity appartenance clause.
+     *
+     * @param QueryBuilder $qb
+     * @param Collectivity $collectivity
+     *
+     * @return QueryBuilder
+     */
     protected function addCollectivityClause(QueryBuilder $qb, Collectivity $collectivity): QueryBuilder
     {
         return $qb
@@ -42,6 +62,14 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         ;
     }
 
+    /**
+     * Add an order to query.
+     *
+     * @param QueryBuilder $qb
+     * @param array        $order
+     *
+     * @return QueryBuilder
+     */
     protected function addOrder(QueryBuilder $qb, array $order = []): QueryBuilder
     {
         foreach ($order as $key => $dir) {

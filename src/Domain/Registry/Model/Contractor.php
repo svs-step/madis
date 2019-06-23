@@ -34,12 +34,12 @@ class Contractor
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $referent;
 
@@ -54,12 +54,12 @@ class Contractor
     private $conform;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $otherInformations;
 
     /**
-     * @var Address
+     * @var Address|null
      */
     private $address;
 
@@ -68,6 +68,11 @@ class Contractor
      */
     private $treatments;
 
+    /**
+     * Contractor constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id                         = Uuid::uuid4();
@@ -76,6 +81,9 @@ class Contractor
         $this->treatments                 = new ArrayCollection();
     }
 
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         if (\is_null($this->getName())) {

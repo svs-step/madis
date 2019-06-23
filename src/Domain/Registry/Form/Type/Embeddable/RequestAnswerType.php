@@ -23,6 +23,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RequestAnswerType extends AbstractType
 {
+    /**
+     * Build type form.
+     *
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -45,6 +51,11 @@ class RequestAnswerType extends AbstractType
         ;
     }
 
+    /**
+     * Provide type options.
+     *
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver

@@ -24,20 +24,25 @@ class Answer
     private $id;
 
     /**
-     * @var int
+     * @var int|null
      */
     private $response;
 
     /**
-     * @var Question
+     * @var Question|null
      */
     private $question;
 
     /**
-     * @var Survey
+     * @var Survey|null
      */
     private $survey;
 
+    /**
+     * Answer constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id = Uuid::uuid4();

@@ -26,6 +26,11 @@ class Proof implements Repository\Proof
      */
     protected $registry;
 
+    /**
+     * Proof constructor.
+     *
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         $this->registry = $registry;
@@ -122,11 +127,25 @@ class Proof implements Repository\Proof
             ;
     }
 
+    /**
+     * Get the model class name.
+     *
+     * @return string
+     */
     protected function getModelClass(): string
     {
         return Model\Proof::class;
     }
 
+    /**
+     * Add a where clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param string       $key
+     * @param $value
+     *
+     * @return QueryBuilder
+     */
     protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
     {
         return $qb
@@ -135,6 +154,14 @@ class Proof implements Repository\Proof
         ;
     }
 
+    /**
+     * Add archive clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param bool         $archived
+     *
+     * @return QueryBuilder
+     */
     protected function addArchivedClause(QueryBuilder $qb, bool $archived = false): QueryBuilder
     {
         // Get not archived
@@ -146,6 +173,14 @@ class Proof implements Repository\Proof
         return $qb->andWhere('o.deletedAt is not null');
     }
 
+    /**
+     * Add collectivity clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param Collectivity $collectivity
+     *
+     * @return QueryBuilder
+     */
     protected function addCollectivityClause(QueryBuilder $qb, Collectivity $collectivity): QueryBuilder
     {
         return $qb
@@ -154,6 +189,14 @@ class Proof implements Repository\Proof
         ;
     }
 
+    /**
+     * Add order clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param array        $order
+     *
+     * @return QueryBuilder
+     */
     protected function addOrder(QueryBuilder $qb, array $order = []): QueryBuilder
     {
         foreach ($order as $key => $dir) {

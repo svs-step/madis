@@ -31,11 +31,22 @@ class CollectivityType extends AbstractType
      */
     private $authorizationChecker;
 
+    /**
+     * CollectivityType constructor.
+     *
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     */
     public function __construct(AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->authorizationChecker = $authorizationChecker;
     }
 
+    /**
+     * Build type form.
+     *
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // Add collectivity general information only for admins
@@ -115,6 +126,11 @@ class CollectivityType extends AbstractType
         ;
     }
 
+    /**
+     * Provide type options.
+     *
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver

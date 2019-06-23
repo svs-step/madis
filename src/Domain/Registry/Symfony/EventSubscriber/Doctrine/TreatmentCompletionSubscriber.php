@@ -48,6 +48,11 @@ class TreatmentCompletionSubscriber implements EventSubscriber
         $this->process($args);
     }
 
+    /**
+     * Compute treatment completion.
+     *
+     * @param LifecycleEventArgs $args
+     */
     private function process(LifecycleEventArgs $args): void
     {
         $object = $args->getObject();

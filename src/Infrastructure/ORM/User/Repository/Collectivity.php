@@ -19,6 +19,9 @@ use App\Domain\User\Repository;
 
 class Collectivity extends CRUDRepository implements Repository\Collectivity
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function getModelClass(): string
     {
         return Model\Collectivity::class;

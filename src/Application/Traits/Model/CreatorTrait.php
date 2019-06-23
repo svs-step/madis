@@ -18,7 +18,7 @@ use App\Domain\User\Model\User;
 trait CreatorTrait
 {
     /**
-     * @var User
+     * @var User|null
      */
     private $creator;
 

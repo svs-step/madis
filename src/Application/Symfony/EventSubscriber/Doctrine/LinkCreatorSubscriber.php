@@ -19,6 +19,10 @@ use App\Domain\User\Model\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
+/**
+ * Class LinkCreatorSubscriber
+ * Link authenticated user to object.
+ */
 class LinkCreatorSubscriber implements EventSubscriber
 {
     /**
@@ -39,8 +43,11 @@ class LinkCreatorSubscriber implements EventSubscriber
     }
 
     /**
-     * PrePersist
+     * PrePersist.
+     *
      * Link creator to object.
+     * That is to say that every time you will persist an object,
+     * the user will be added to related object.
      *
      * @param LifecycleEventArgs $args
      *
