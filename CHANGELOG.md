@@ -8,6 +8,7 @@
 - [TRAITEMENT] Ajout de la base légale "Intérêt légitime", #176
 - [DEMANDE] Ajout de l'objet de demande "Autre", #130
 ### Changement
+- [GLOBAL] Changement des entêtes de fichiers PHP pour mentionner la license AGPLv3, #181
 - [TRAITEMENT] Renommage de la section "Mesures de sécurité" en "Mesures de sécurité et confidentialité", #177
 - [DEMANDE] Le champ "Motif" est devenu facultatif, #167
 ### Fix
