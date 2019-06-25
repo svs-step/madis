@@ -2,6 +2,7 @@
 
 ## [UNRELEASED]
 ### Ajout
+- [DOCUMENTATION] Création d'un dossier `doc` pour la documentation du projet (le fichier `README.md` en est le point d'entré), #184
 - [PAGE CREDIT] Mise à jour du contenu et suppression de la partie "Hébergement", #179
 - [PREUVE] Possibilité de supprimer une preuve, #178
 - [TRAITEMENT] Ajout du champ "Personnes habilitées" dans le bloc "Mesures de sécurité", #177
