@@ -105,7 +105,7 @@ class Treatment
     private $concernedPeople;
 
     /**
-     * @var array
+     * @var iterable
      */
     private $dataCategories;
 
@@ -432,9 +432,9 @@ class Treatment
     }
 
     /**
-     * @return array
+     * @return iterable
      */
-    public function getDataCategories(): array
+    public function getDataCategories(): iterable
     {
         return $this->dataCategories;
     }
