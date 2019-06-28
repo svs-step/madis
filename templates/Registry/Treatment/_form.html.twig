@@ -79,7 +79,11 @@
                 {{ macro.complex_choice(form.securitySaving) }}
                 {{ macro.complex_choice(form.securityUpdate) }}
                 {{ macro.complex_choice(form.securityOther) }}
-                {{ form_row(form.authorizedPeople) }}
+                <div class="col-sm-12">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-3">{{ form_label(form.authorizedPeople) }}</div>
+                    <div class="col-sm-8 comment">{{ form_widget(form.authorizedPeople) }}</div>
+                </div>
             </div>
         </div>
 
