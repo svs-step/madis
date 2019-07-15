@@ -30,6 +30,14 @@ APP_COOKIE_IDLE_TIMEOUT=5400
 APP_COOKIE_LIFETIME=14400
 ```
 
+Il vous faudra également vérifier que dans votre fichier `php.ini`
+la variable `session.gc_maxlifetime` égale ou supérieure à votre durée d'inactivité.
+Le cas échéant, la session pourrait être supprimée pour inactivité par PHP et non par
+votre configuration de MADIS.
+
+Pour prendre connaissance de l'emplacement de votre fichier `php.ini`,
+utilisez la commande `php --ini`. Une fois modifié, il vous suffira de restarter votre PHP.
+
 
 
 # Passage en v1.4.0
