@@ -3,7 +3,7 @@
 Accompagnement dans la gestion du Règlement Général à la Protection des Données (RGPD). 
 
 # Table des matières
-- [Lancer la Stack de développement](/doc/lancer-stack-developpement.md)
+- [Lancer la Stack de développement](/doc/developpement/lancer-stack-developpement.md)
 
 ## Stack technique
 Le projet est construit avec :
