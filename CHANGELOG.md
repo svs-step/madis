@@ -1,6 +1,9 @@
-# CHANGELOG
+CHANGELOG
+=========
 
 ## [UNRELEASED]
+
+## [1.5.0] - 2019-07-18
 ### Ajout
 - [DOCUMENTATION] Création d'un dossier `doc` pour la documentation du projet (le fichier `README.md` en est le point d'entré), #184
 - [PAGE CREDIT] Mise à jour du contenu et suppression de la partie "Hébergement", #179
