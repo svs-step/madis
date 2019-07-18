@@ -7,7 +7,7 @@
 
     <embeddable name="App\Domain\Registry\Model\Embeddable\RequestAnswer">
 
-        <field name="response" column="response" nullable="true"/>
+        <field name="response" column="response" type="text" nullable="true"/>
         <field name="date" column="date" type="date" nullable="true"/>
         <field name="type" column="type" nullable="true"/>
 
