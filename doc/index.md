@@ -9,6 +9,9 @@ MADIS - Documentation
     - [Cloner le dépôt de code MADIS depuis GIT](installation/3-cloner-le-depot-git-de-madis.md)
     - [Configurer MADIS et effectuer son premier lancement](installation/4-premiere-configuration-de-madis.md)
     - [Paramétrage complémentaire](installation/5-parametrages-complementaires.md)
+    
+- [Gestion de l'application](gestion-application)
+    - [Requêtes SQL](gestion-application/1-requetes-sql.md)
 
 - [Maintenance applicative & montées de versions](maintenance-applicative)
     - [Pré-requis pour lancer l'installation de MADIS](maintenance-applicative/1-pre-requis.md)
