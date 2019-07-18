@@ -1,12 +1,23 @@
 <?php
 
 /**
- * This file is part of the SOLURIS - RGPD Management application.
+ * This file is part of the MADIS - RGPD Management application.
  *
- * (c) Donovan Bourlard <donovan@awkan.fr>
+ * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
+ * @author Donovan Bourlard <donovan@awkan.fr>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 declare(strict_types=1);
@@ -21,6 +32,12 @@ use PhpOffice\PhpWord\Shared\Converter;
 
 class TreatmentGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
+    /**
+     * Global overview : Information to display for treatment in overview report.
+     *
+     * @param Section $section
+     * @param array   $data
+     */
     public function addGlobalOverview(Section $section, array $data): void
     {
         // GENERATE ALL DATA BEFORE WORD GENERATION IN ORDER TO AVOID SEVERAL LOOP
@@ -144,6 +161,9 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addListItem("{$security['update']} sont mis à jour");
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addSyntheticView(Section $section, array $data, bool $forOverviewReport = false): void
     {
         // Break page for overview report
@@ -177,6 +197,9 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail des traitements', 1);
@@ -313,6 +336,11 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     $treatment->getSecurityOther()->isCheck() ? 'Oui' : 'Non',
                     $treatment->getSecurityOther()->getComment(),
                 ],
+                [
+                    'Personne habilitées',
+                    $treatment->getAuthorizedPeople(),
+                    '',
+                ],
             ];
 
             $specificData = [
@@ -361,7 +389,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             $section->addTitle('Destination', 3);
             $this->addTable($section, $goalData, true, self::TABLE_ORIENTATION_VERTICAL);
 
-            $section->addTitle('Mesures de sécurité', 3);
+            $section->addTitle('Mesures de sécurité et confidentialité', 3);
             $this->addTable($section, $securityData, true, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Traitement spécifique', 3);

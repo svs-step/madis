@@ -215,7 +215,11 @@
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.request.show.concerned_people_civility'|trans }}</strong></td>
-                            <td>{{ object.concernedPeople.civility|dictionary('registry_request_civility') }}</td>
+                            <td>
+                                {% if object.concernedPeople.civility %}
+                                    {{ object.concernedPeople.civility|dictionary('registry_request_civility') }}
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.request.show.concerned_people_first_name'|trans }}</strong></td>

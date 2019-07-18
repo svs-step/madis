@@ -26,14 +26,14 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment archiver la preuve "{{ object }}" ?
+                    Souhaitez vous vraiment supprimer la preuve "{{ object }}" ?
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('registry_proof_list') }}" class="btn btn-default">
                         {{ 'registry.proof.action.back_to_list'|trans }}
                     </a>
                     <a href="{{ path('registry_proof_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
-                        {{ 'action.confirm_archive'|trans }}
+                        {{ 'action.confirm_delete'|trans }}
                     </a>
                 </div>
             </div>

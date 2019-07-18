@@ -1,12 +1,23 @@
 <?php
 
 /**
- * This file is part of the SOLURIS - RGPD Management application.
+ * This file is part of the MADIS - RGPD Management application.
  *
- * (c) Donovan Bourlard <donovan@awkan.fr>
+ * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
+ * @author Donovan Bourlard <donovan@awkan.fr>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 declare(strict_types=1);
@@ -26,6 +37,11 @@ class Proof implements Repository\Proof
      */
     protected $registry;
 
+    /**
+     * Proof constructor.
+     *
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         $this->registry = $registry;
@@ -122,11 +138,25 @@ class Proof implements Repository\Proof
             ;
     }
 
+    /**
+     * Get the model class name.
+     *
+     * @return string
+     */
     protected function getModelClass(): string
     {
         return Model\Proof::class;
     }
 
+    /**
+     * Add a where clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param string       $key
+     * @param $value
+     *
+     * @return QueryBuilder
+     */
     protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
     {
         return $qb
@@ -135,6 +165,14 @@ class Proof implements Repository\Proof
         ;
     }
 
+    /**
+     * Add archive clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param bool         $archived
+     *
+     * @return QueryBuilder
+     */
     protected function addArchivedClause(QueryBuilder $qb, bool $archived = false): QueryBuilder
     {
         // Get not archived
@@ -146,6 +184,14 @@ class Proof implements Repository\Proof
         return $qb->andWhere('o.deletedAt is not null');
     }
 
+    /**
+     * Add collectivity clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param Collectivity $collectivity
+     *
+     * @return QueryBuilder
+     */
     protected function addCollectivityClause(QueryBuilder $qb, Collectivity $collectivity): QueryBuilder
     {
         return $qb
@@ -154,6 +200,14 @@ class Proof implements Repository\Proof
         ;
     }
 
+    /**
+     * Add order clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param array        $order
+     *
+     * @return QueryBuilder
+     */
     protected function addOrder(QueryBuilder $qb, array $order = []): QueryBuilder
     {
         foreach ($order as $key => $dir) {

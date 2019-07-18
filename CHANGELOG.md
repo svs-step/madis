@@ -1,6 +1,26 @@
-# CHANGELOG
+CHANGELOG
+=========
 
 ## [UNRELEASED]
+
+## [1.5.0] - 2019-07-18
+### Ajout
+- [DOCUMENTATION] Création d'un dossier `doc` pour la documentation du projet (le fichier `README.md` en est le point d'entré), #184
+- [PAGE CREDIT] Mise à jour du contenu et suppression de la partie "Hébergement", #179
+- [PREUVE] Possibilité de supprimer une preuve, #178
+- [TRAITEMENT] Ajout du champ "Personnes habilitées" dans le bloc "Mesures de sécurité", #177
+- [TRAITEMENT] Ajout de la base légale "Intérêt légitime", #176
+- [DEMANDE] Ajout de l'objet de demande "Autre", #130
+### Changement
+- [GLOBAL] Changement des entêtes de fichiers PHP pour mentionner la license AGPLv3, #181
+- [TRAITEMENT] Renommage de la section "Mesures de sécurité" en "Mesures de sécurité et confidentialité", #177
+- [DEMANDE] Le champ "Motif" est devenu facultatif, #167
+### Fix
+- [DEMANDE] Le champ "Réponse" ne retourne plus d'erreur s'il dépasse 255 caractères, #193
+- [AUTHENTIFICATION] Je suis déconnecté si je suis resté 1h30 inactif, #185
+- [DEMANDE] Afficher la personne concernée qui n'a pas de civilité est de nouveau fonctionnel, #173
+- [MATURITE] Les questions sont dorénavant odonnées dans l'ordre alphabétique, #170
+- [MATURITE] Le score de l'indice de maturité n'était pas calculé en cas d'édition, #169
 
 ## [1.4.3] - 2019-05-17
 ### Fix

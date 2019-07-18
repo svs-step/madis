@@ -1,12 +1,23 @@
 <?php
 
 /**
- * This file is part of the SOLURIS - RGPD Management application.
+ * This file is part of the MADIS - RGPD Management application.
  *
- * (c) Donovan Bourlard <donovan@awkan.fr>
+ * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
+ * @author Donovan Bourlard <donovan@awkan.fr>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 declare(strict_types=1);
@@ -33,7 +44,7 @@ class Violation
     private $id;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     private $date;
 
@@ -43,7 +54,7 @@ class Violation
     private $inProgress;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $violationNature;
 
@@ -53,7 +64,7 @@ class Violation
     private $origins;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $cause;
 
@@ -68,12 +79,12 @@ class Violation
     private $concernedPeopleCategories;
 
     /**
-     * @var int
+     * @var int|null
      */
     private $nbAffectedRows;
 
     /**
-     * @var int
+     * @var int|null
      */
     private $nbAffectedPersons;
 
@@ -83,40 +94,45 @@ class Violation
     private $potentialImpactsNature;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $gravity;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $communication;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $communicationPrecision;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $appliedMeasuresAfterViolation;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $notification;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $notificationDetails;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $comment;
 
+    /**
+     * Violation constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id                        = Uuid::uuid4();
@@ -128,6 +144,9 @@ class Violation
         $this->potentialImpactsNature    = [];
     }
 
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         if (\is_null($this->getDate())) {

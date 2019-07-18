@@ -1,12 +1,23 @@
 <?php
 
 /**
- * This file is part of the SOLURIS - RGPD Management application.
+ * This file is part of the MADIS - RGPD Management application.
  *
- * (c) Donovan Bourlard <donovan@awkan.fr>
+ * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
+ * @author Donovan Bourlard <donovan@awkan.fr>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 declare(strict_types=1);
@@ -35,28 +46,28 @@ class Treatment
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
      * FR: Finalités (Objectif).
      *
-     * @var string
+     * @var string|null
      */
     private $goal;
 
     /**
      * FR: Gestionnaire.
      *
-     * @var string
+     * @var string|null
      */
     private $manager;
 
     /**
      * FR: Logiciel.
      *
-     * @var string
+     * @var string|null
      */
     private $software;
 
@@ -70,7 +81,7 @@ class Treatment
     /**
      * FR: Base légale du traitement.
      *
-     * @var string
+     * @var string|null
      */
     private $legalBasis;
 
@@ -101,7 +112,7 @@ class Treatment
     /**
      * FR: Autres catégories.
      *
-     * @var string
+     * @var string|null
      */
     private $dataCategoryOther;
 
@@ -115,7 +126,7 @@ class Treatment
     /**
      * FR: Destinataire des données.
      *
-     * @var string
+     * @var string|null
      */
     private $recipientCategory;
 
@@ -195,6 +206,13 @@ class Treatment
     private $dataCrossing;
 
     /**
+     * FR: Personnes habilitées.
+     *
+     * @var string|null
+     */
+    private $authorizedPeople;
+
+    /**
      * @var bool
      */
     private $active;
@@ -205,15 +223,24 @@ class Treatment
     private $completion;
 
     /**
+     * Please note that this variable goal is only for Database queries, no need to use it in code.
+     *
      * @var bool
      */
     private $template;
 
     /**
-     * @var int
+     * Please note that this variable goal is only for Database queries, no need to use it in code.
+     *
+     * @var int|null
      */
     private $templateIdentifier;
 
+    /**
+     * Treatment constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id                    = Uuid::uuid4();
@@ -236,6 +263,9 @@ class Treatment
         $this->template              = false;
     }
 
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         if (\is_null($this->getName())) {
@@ -410,9 +440,9 @@ class Treatment
     }
 
     /**
-     * @param iterable $dataCategories
+     * @param array $dataCategories
      */
-    public function setDataCategories(iterable $dataCategories): void
+    public function setDataCategories(array $dataCategories): void
     {
         $this->dataCategories = $dataCategories;
     }
@@ -649,6 +679,22 @@ class Treatment
     public function setDataCrossing(bool $dataCrossing): void
     {
         $this->dataCrossing = $dataCrossing;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAuthorizedPeople(): ?string
+    {
+        return $this->authorizedPeople;
+    }
+
+    /**
+     * @param string|null $authorizedPeople
+     */
+    public function setAuthorizedPeople(?string $authorizedPeople): void
+    {
+        $this->authorizedPeople = $authorizedPeople;
     }
 
     /**

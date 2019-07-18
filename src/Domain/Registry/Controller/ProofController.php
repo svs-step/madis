@@ -1,12 +1,23 @@
 <?php
 
 /**
- * This file is part of the SOLURIS - RGPD Management application.
+ * This file is part of the MADIS - RGPD Management application.
  *
- * (c) Donovan Bourlard <donovan@awkan.fr>
+ * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
+ * @author Donovan Bourlard <donovan@awkan.fr>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 declare(strict_types=1);
@@ -28,6 +39,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -76,21 +88,33 @@ class ProofController extends CRUDController
         $this->documentFilesystem   = $documentFilesystem;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getModel(): string
     {
         return 'proof';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getModelClass(): string
     {
         return Model\Proof::class;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getFormType(): string
     {
         return ProofType::class;
@@ -117,6 +141,10 @@ class ProofController extends CRUDController
         );
     }
 
+    /**
+     * {@inheritdoc}
+     * - Upload documentFile before object persistence in database.
+     */
     public function formPrePersistData($object)
     {
         if ($file = $object->getDocumentFile()) {
@@ -128,11 +156,81 @@ class ProofController extends CRUDController
     }
 
     /**
-     * {@inheritdoc}
+     * The archive action view
+     * Display a confirmation message to confirm data archivage.
+     *
+     * @param string $id
+     *
+     * @return Response
      */
-    protected function isSoftDelete(): bool
+    public function archiveAction(string $id): Response
     {
-        return true;
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        return $this->render($this->getTemplatingBasePath('archive'), [
+            'object' => $object,
+        ]);
+    }
+
+    /**
+     * The archive action
+     * Archive the data.
+     *
+     * @param string $id
+     *
+     * @throws \Exception
+     *
+     * @return Response
+     */
+    public function archiveConfirmationAction(string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $object->setDeletedAt(new \DateTimeImmutable());
+        $this->repository->update($object);
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'archive', $object));
+
+        return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
+    /**
+     * {@inheritdoc}
+     * OVERRIDE METHOD.
+     * Override deletion in order to delete Proof into server.
+     */
+    public function deleteConfirmationAction(string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        if ($this->isSoftDelete()) {
+            if (!\method_exists($object, 'setDeletedAt')) {
+                throw new MethodNotImplementedException('setDeletedAt');
+            }
+            $object->setDeletedAt(new \DateTimeImmutable());
+            $this->repository->update($object);
+        } else {
+            $filename = $object->getDocument();
+
+            $this->entityManager->remove($object);
+            $this->entityManager->flush();
+
+            // TODO: Log error if deletion fail
+            $this->documentFilesystem->delete($filename);
+        }
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
+
+        return $this->redirectToRoute($this->getRouteName('list'));
     }
 
     /**

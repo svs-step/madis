@@ -1,12 +1,23 @@
 <?php
 
 /**
- * This file is part of the SOLURIS - RGPD Management application.
+ * This file is part of the MADIS - RGPD Management application.
  *
- * (c) Donovan Bourlard <donovan@awkan.fr>
+ * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
+ * @author Donovan Bourlard <donovan@awkan.fr>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 declare(strict_types=1);
@@ -23,6 +34,7 @@ class RequestObjectDictionary extends SimpleDictionary
     const OBJECT_ACCESS           = 'access';
     const OBJECT_DATA_PORTABILITY = 'data_portability';
     const OBJECT_LIMIT_TREATMENT  = 'limit_treatment';
+    const OBJECT_OTHER            = 'other';
 
     public function __construct()
     {
@@ -43,6 +55,7 @@ class RequestObjectDictionary extends SimpleDictionary
             self::OBJECT_ACCESS           => 'Accéder à des données',
             self::OBJECT_DATA_PORTABILITY => 'Portabilité des données',
             self::OBJECT_LIMIT_TREATMENT  => 'Limiter le traitement',
+            self::OBJECT_OTHER            => 'Autre',
         ];
     }
 

@@ -43,8 +43,6 @@ registry_request:
         not_blank: Vous devez saisir un objet pour la demande
     date:
         not_blank: Vous devez saisir la date de la demande
-    reason:
-        not_blank: Vous devez saisir le motif de la demande
 
 registry_request_applicant:
     first_name:

@@ -1,12 +1,23 @@
 <?php
 
 /**
- * This file is part of the SOLURIS - RGPD Management application.
+ * This file is part of the MADIS - RGPD Management application.
  *
- * (c) Donovan Bourlard <donovan@awkan.fr>
+ * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
+ * @author Donovan Bourlard <donovan@awkan.fr>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 declare(strict_types=1);
@@ -21,11 +32,22 @@ use Doctrine\ORM\QueryBuilder;
 
 class Treatment extends CRUDRepository implements Repository\Treatment
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function getModelClass(): string
     {
         return Model\Treatment::class;
     }
 
+    /**
+     * Add collectivity clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param Collectivity $collectivity
+     *
+     * @return QueryBuilder
+     */
     protected function addCollectivityClause(QueryBuilder $qb, Collectivity $collectivity): QueryBuilder
     {
         return $qb
@@ -34,6 +56,14 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             ;
     }
 
+    /**
+     * Add active clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param bool         $active
+     *
+     * @return QueryBuilder
+     */
     protected function addActiveClause(QueryBuilder $qb, bool $active = true): QueryBuilder
     {
         return $qb
@@ -42,6 +72,14 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             ;
     }
 
+    /**
+     * Add order to query.
+     *
+     * @param QueryBuilder $qb
+     * @param array        $order
+     *
+     * @return QueryBuilder
+     */
     protected function addOrder(QueryBuilder $qb, array $order = []): QueryBuilder
     {
         foreach ($order as $key => $dir) {
@@ -52,12 +90,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
     }
 
     /**
-     * Find all treatments.
-     *
-     * @param bool  $active Get active / inactive treatments
-     * @param array $order  Order results
-     *
-     * @return array The array of treatments
+     * {@inheritdoc}
      */
     public function findAllActive(bool $active = true, array $order = [])
     {
@@ -73,12 +106,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
     }
 
     /**
-     * Find all treatments by associated collectivity.
-     *
-     * @param Collectivity $collectivity The collectivity to search with
-     * @param array        $order        Order the data
-     *
-     * @return array The array of treatments given by the collectivity
+     * {@inheritdoc}
      */
     public function findAllByCollectivity(Collectivity $collectivity, array $order = [])
     {
@@ -94,13 +122,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
     }
 
     /**
-     * Find all active treatments by associated collectivity.
-     *
-     * @param Collectivity $collectivity The collectivity to search with
-     * @param bool         $active       Get all active / inactive treatments
-     * @param array        $order        Order the data
-     *
-     * @return array The array of treatments given by the collectivity
+     * {@inheritdoc}
      */
     public function findAllActiveByCollectivity(Collectivity $collectivity, bool $active = true, array $order = [])
     {
@@ -113,6 +135,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

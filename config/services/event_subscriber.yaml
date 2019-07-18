@@ -4,22 +4,30 @@ services:
         autoconfigure: true
         public: false
 
-    App\Application\Symfony\EventSubscriber\:
-        resource: '../../src/Application/Symfony/EventSubscriber'
+    # ======
+    # KERNEL
+    # ======
+
+    App\Application\Symfony\EventSubscriber\Kernel\:
+        resource: '../../src/Application/Symfony/EventSubscriber/Kernel'
+
+    App\Application\Symfony\EventSubscriber\Kernel\IdleSubscriber:
+        arguments:
+            $expirationTime: '%env(APP_COOKIE_IDLE_TIMEOUT)%'
+
+    # ========
+    # DOCTRINE
+    # ========
+    App\Application\Symfony\EventSubscriber\Doctrine\:
+        resource: '../../src/Application/Symfony/EventSubscriber/Doctrine'
         tags:
             - { name: 'doctrine.event_subscriber' }
 
     App\Domain\:
-        resource: '../../src/Domain/*/Symfony/EventSubscriber'
+        resource: '../../src/Domain/*/Symfony/EventSubscriber/Doctrine'
         tags:
             - { name: 'doctrine.event_subscriber' }
 
-    App\Domain\Registry\Symfony\EventSubscriber\ProofUploadSubscriber:
-        arguments:
-            $documentFilesystem: '@gaufrette.registry_proof_document_filesystem'
-        tags:
-            - { name: 'doctrine.event_subscriber', priority: 2 }
-
-    App\Domain\User\Symfony\EventSubscriber\DefinePasswordSubscriber:
+    App\Domain\User\Symfony\EventSubscriber\Doctrine\DefinePasswordSubscriber:
         tags:
             - { name: 'doctrine.event_subscriber', priority: 2 }

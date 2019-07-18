@@ -1,12 +1,23 @@
 <?php
 
 /**
- * This file is part of the SOLURIS - RGPD Management application.
+ * This file is part of the MADIS - RGPD Management application.
  *
- * (c) Donovan Bourlard <donovan@awkan.fr>
+ * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
+ * @author Donovan Bourlard <donovan@awkan.fr>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 declare(strict_types=1);
@@ -34,12 +45,12 @@ class Contractor
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $referent;
 
@@ -54,12 +65,12 @@ class Contractor
     private $conform;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $otherInformations;
 
     /**
-     * @var Address
+     * @var Address|null
      */
     private $address;
 
@@ -68,6 +79,11 @@ class Contractor
      */
     private $treatments;
 
+    /**
+     * Contractor constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->id                         = Uuid::uuid4();
@@ -76,6 +92,9 @@ class Contractor
         $this->treatments                 = new ArrayCollection();
     }
 
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         if (\is_null($this->getName())) {

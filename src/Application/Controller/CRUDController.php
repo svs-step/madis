@@ -1,12 +1,23 @@
 <?php
 
 /**
- * This file is part of the SOLURIS - RGPD Management application.
+ * This file is part of the MADIS - RGPD Management application.
  *
- * (c) Donovan Bourlard <donovan@awkan.fr>
+ * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
+ * @author Donovan Bourlard <donovan@awkan.fr>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 declare(strict_types=1);
@@ -19,6 +30,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Translation\TranslatorInterface;
 
 abstract class CRUDController extends Controller
@@ -97,6 +109,7 @@ abstract class CRUDController extends Controller
 
     /**
      * Generate the flashbag message dynamically depending on the domain, model & object.
+     * Replace word `%object%` in translation by the related object (thanks to it `__toString` method).
      *
      * @param string      $type     The flashbag type
      * @param string|null $template The related template to use
@@ -152,6 +165,12 @@ abstract class CRUDController extends Controller
         ]);
     }
 
+    /**
+     * Actions to make when a form is submitted and valid.
+     * This method is handled just after form validation, before object manipulation.
+     *
+     * @param $object
+     */
     public function formPrePersistData($object)
     {
     }
@@ -279,6 +298,9 @@ abstract class CRUDController extends Controller
         }
 
         if ($this->isSoftDelete()) {
+            if (!\method_exists($object, 'setDeletedAt')) {
+                throw new MethodNotImplementedException('setDeletedAt');
+            }
             $object->setDeletedAt(new \DateTimeImmutable());
             $this->repository->update($object);
         } else {

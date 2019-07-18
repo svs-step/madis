@@ -8,6 +8,35 @@ De ce fait, répertoriez-vous à ce qui est écrit ci-dessous.
 **_Note: Si aucune trace n'est présente dans ce fichier pour la version
 que vous souhaitez installer, c'est que vous n'avez rien à faire._**
 
+De manière préventive, n'oubliez pas de faire un dump de votre base de
+données avant d'effectuer une montée de version.  
+
+
+
+
+# Passage en v1.5.0
+
+### Paramétrage des timeout Cookie
+
+Dans le `.env` vous pouvez modifier les informations liées à la durée de vie
+des cookies ainsi que la deconnexion au bout d'un certain temps d'inactivité
+
+Pour cela, ajoutez les variables suivantes dans votre `.env`.
+
+```text
+# Déconnexion pour une inactivité au bout de 1h30 (en secondes)
+APP_COOKIE_IDLE_TIMEOUT=5400
+# Déxonnexion au bout de 4h (en secondes), même si j'utilise l'application
+APP_COOKIE_LIFETIME=14400
+```
+
+Il vous faudra également vérifier que dans votre fichier `php.ini`
+la variable `session.gc_maxlifetime` égale ou supérieure à votre durée d'inactivité.
+Le cas échéant, la session pourrait être supprimée pour inactivité par PHP et non par
+votre configuration de MADIS.
+
+Pour prendre connaissance de l'emplacement de votre fichier `php.ini`,
+utilisez la commande `php --ini`. Une fois modifié, il vous suffira de restarter votre PHP.
 
 
 
@@ -44,8 +73,6 @@ De ce fait, si vous souhaitez ajouter un favicon dans
 
 Finissez par lancer la commande `bin/console cache:clear` pour que ces
 données soient appliquées
-
-
 
 
 
