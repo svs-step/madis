@@ -3,6 +3,10 @@ CHANGELOG
 
 ## [UNRELEASED]
 
+## [1.5.1] - 2019-07-18
+### Fix
+- [DOCUMENTATION] Ajout de la table des matières dans le fichier README.md
+
 ## [1.5.0] - 2019-07-18
 ### Ajout
 - [DOCUMENTATION] Création d'un dossier `doc` pour la documentation du projet (le fichier `README.md` en est le point d'entré), #184
