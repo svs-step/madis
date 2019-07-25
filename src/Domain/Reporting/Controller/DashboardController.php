@@ -241,6 +241,9 @@ class DashboardController extends Controller
             }
 
             // Type
+            if (!isset($data['request']['value']['type'][Inflector::camelize($request->getObject())])) {
+                $data['request']['value']['type'][Inflector::camelize($request->getObject())] = 0;
+            }
             ++$data['request']['value']['type'][Inflector::camelize($request->getObject())];
 
             // Status
