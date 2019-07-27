@@ -3,6 +3,10 @@ CHANGELOG
 
 ## [UNRELEASED]
 
+## [1.5.2] - 2019-07-27
+### Fix
+- [TABLEAU DE BORD] Le type de demande de personne concerné "Autre" ne fait plus planter le Dashboard, #195
+
 ## [1.5.1] - 2019-07-18
 ### Fix
 - [DOCUMENTATION] Ajout de la table des matières dans le fichier README.md
