@@ -105,6 +105,7 @@ class DashboardController extends Controller
                         'access'          => 0,
                         'dataPortability' => 0,
                         'limitTreatment'  => 0,
+                        'other'           => 0,
                     ],
                     'status' => [
                         'toProcess'  => 0,
@@ -241,9 +242,6 @@ class DashboardController extends Controller
             }
 
             // Type
-            if (!isset($data['request']['value']['type'][Inflector::camelize($request->getObject())])) {
-                $data['request']['value']['type'][Inflector::camelize($request->getObject())] = 0;
-            }
             ++$data['request']['value']['type'][Inflector::camelize($request->getObject())];
 
             // Status
