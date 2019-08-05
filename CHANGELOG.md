@@ -2,6 +2,8 @@ CHANGELOG
 =========
 
 ## [UNRELEASED]
+### Fix
+- [PREUVE] Un administrateur peut maintenant télécharger les documents qui ne sont pas de sa collectivité, #197
 
 ## [1.5.2] - 2019-07-27
 ### Fix

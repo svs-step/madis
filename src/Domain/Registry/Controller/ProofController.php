@@ -248,7 +248,11 @@ class ProofController extends CRUDController
             throw new NotFoundHttpException("No object exists with id '{$id}'");
         }
 
-        if ($this->userProvider->getAuthenticatedUser()->getCollectivity() !== $object->getCollectivity()) {
+        // Can only download if we belong to the collectivity or if we are admin
+        if (
+            $this->userProvider->getAuthenticatedUser()->getCollectivity() !== $object->getCollectivity()
+            && !$this->authorizationChecker->isGranted('ROLE_ADMIN')
+        ) {
             throw new AccessDeniedHttpException("You can't access to an object that does not belong to your collectivity");
         }
 
