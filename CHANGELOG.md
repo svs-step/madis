@@ -2,6 +2,8 @@ CHANGELOG
 =========
 
 ## [UNRELEASED]
+### Ajout
+- [ADMINISTRATION] Subrogation d'un utilisateur de l'application, #107
 ### Fix
 - [PREUVE] Un administrateur peut maintenant télécharger les documents qui ne sont pas de sa collectivité, #197
 

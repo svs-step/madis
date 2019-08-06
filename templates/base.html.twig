@@ -42,6 +42,19 @@
 
 {% set bodyClass = bodyClass|default('') %}
 <body class="hold-transition skin-blue sidebar-mini {{ bodyClass }}">
+
+{# Impersonate banner #}
+{% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+    <div class="banner-impersonate bg-danger text-red">
+        <div>
+            Vous consultez MADIS en tant que "{{ app.user }}"
+            <a href="{{ path('reporting_dashboard_index', {'_switch_user': '_exit'}) }}" class="text-red">
+                Quitter ce mode
+            </a>
+        </div>
+    </div>
+{% endif %}
+
 <div class="wrapper">
 
     {{ include('_header.html.twig') }}

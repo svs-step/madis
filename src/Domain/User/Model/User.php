@@ -263,14 +263,6 @@ class User implements UserInterface
     }
 
     /**
-     * @return bool
-     */
-    public function isEnabledOrCollectivityActive(): bool
-    {
-        return $this->enabled && $this->getCollectivity()->isActive();
-    }
-
-    /**
      * @param bool $enabled
      */
     public function setEnabled(bool $enabled): void

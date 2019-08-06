@@ -22,10 +22,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Domain\User\Symfony\Security;
+namespace App\Tests\Domain\User\Symfony\Security\Checker;
 
 use App\Domain\User\Model\User;
-use App\Domain\User\Symfony\Security\UserChecker;
+use App\Domain\User\Symfony\Security\Authorization\UserAuthorization;
+use App\Domain\User\Symfony\Security\Checker\UserChecker;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
@@ -33,13 +34,22 @@ use Symfony\Component\Security\Core\User\UserCheckerInterface;
 class UserCheckerTest extends TestCase
 {
     /**
+     * @var UserAuthorization
+     */
+    private $userAuthorizationProphecy;
+
+    /**
      * @var UserChecker
      */
     private $checker;
 
     protected function setUp()
     {
-        $this->checker = new UserChecker();
+        $this->userAuthorizationProphecy = $this->prophesize(UserAuthorization::class);
+
+        $this->checker = new UserChecker(
+            $this->userAuthorizationProphecy->reveal()
+        );
     }
 
     public function testInstanceOf()
@@ -52,10 +62,11 @@ class UserCheckerTest extends TestCase
      */
     public function testCheckPreAuth()
     {
-        $userProphecy = $this->prophesize(User::class);
-        $userProphecy->isEnabledOrCollectivityActive()->shouldBeCalled()->willReturn(true);
+        $user = new User();
 
-        $this->checker->checkPreAuth($userProphecy->reveal());
+        $this->userAuthorizationProphecy->canConnect($user)->shouldBeCalled()->willReturn(true);
+
+        $this->checker->checkPreAuth($user);
     }
 
     /**
@@ -64,11 +75,11 @@ class UserCheckerTest extends TestCase
      */
     public function testCheckPreAuthNotEnabledOrActive()
     {
+        $user = new User();
         $this->expectException(DisabledException::class);
 
-        $userProphecy = $this->prophesize(User::class);
-        $userProphecy->isEnabledOrCollectivityActive()->shouldBeCalled()->willReturn(false);
+        $this->userAuthorizationProphecy->canConnect($user)->shouldBeCalled()->willReturn(false);
 
-        $this->checker->checkPreAuth($userProphecy->reveal());
+        $this->checker->checkPreAuth($user);
     }
 }
