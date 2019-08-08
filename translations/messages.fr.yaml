@@ -24,6 +24,7 @@ label:
     inactive: Inactif
     no: Non
     yes: Oui
+    no_data: Aucune donnée
     not_archived: Non archivés
 
 placeholder:

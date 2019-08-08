@@ -65,6 +65,11 @@
                 <order-by-field name="position" direction="ASC"/>
             </order-by>
         </many-to-many>
+        <many-to-many field="proofs" target-entity="App\Domain\Registry\Model\Proof" mapped-by="treatments">
+            <order-by>
+                <order-by-field name="name" direction="ASC"/>
+            </order-by>
+        </many-to-many>
 
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity"/>

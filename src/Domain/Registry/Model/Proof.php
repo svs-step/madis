@@ -70,13 +70,25 @@ class Proof
     private $comment;
 
     /**
+     * @var iterable
+     */
+    private $treatments;
+
+    /**
+     * @var iterable
+     */
+    private $contractors;
+
+    /**
      * Proof constructor.
      *
      * @throws \Exception
      */
     public function __construct()
     {
-        $this->id = Uuid::uuid4();
+        $this->id          = Uuid::uuid4();
+        $this->treatments  = [];
+        $this->contractors = [];
     }
 
     /**
@@ -181,5 +193,65 @@ class Proof
     public function setComment(?string $comment): void
     {
         $this->comment = $comment;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getTreatments(): iterable
+    {
+        return $this->treatments;
+    }
+
+    /**
+     * @param Treatment $treatment
+     */
+    public function addTreatment(Treatment $treatment): void
+    {
+        $this->treatments[] = $treatment;
+    }
+
+    /**
+     * @param Treatment $treatment
+     */
+    public function removeTreatment(Treatment $treatment): void
+    {
+        $key = \array_search($treatment, $this->treatments, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->treatments[$key]);
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getContractors(): iterable
+    {
+        return $this->contractors;
+    }
+
+    /**
+     * @param Contractor $contractor
+     */
+    public function addContractor(Contractor $contractor): void
+    {
+        $this->contractors[] = $contractor;
+    }
+
+    /**
+     * @param Contractor $contractor
+     */
+    public function removeContractor(Contractor $contractor): void
+    {
+        $key = \array_search($contractor, $this->contractors, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->contractors[$key]);
     }
 }

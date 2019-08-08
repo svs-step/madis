@@ -19,6 +19,11 @@
         <embedded name="address" class="App\Domain\Registry\Model\Embeddable\Address" column-prefix="address_"/>
 
         <many-to-many field="treatments" target-entity="App\Domain\Registry\Model\Treatment" mapped-by="contractors"/>
+        <many-to-many field="proofs" target-entity="App\Domain\Registry\Model\Proof" mapped-by="contractors">
+            <order-by>
+                <order-by-field name="name" direction="ASC"/>
+            </order-by>
+        </many-to-many>
 
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity"/>

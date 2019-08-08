@@ -24,8 +24,13 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
-use App\Domain\Registry\Model\Proof;
+use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Registry\Model;
+use App\Domain\User\Model as UserModel;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -35,6 +40,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ProofType extends AbstractType
 {
     /**
+     * @var UserProvider
+     */
+    private $userProvider;
+
+    public function __construct(UserProvider $userProvider)
+    {
+        $this->userProvider = $userProvider;
+    }
+
+    /**
      * Build type form.
      *
      * @param FormBuilderInterface $builder
@@ -42,6 +57,10 @@ class ProofType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var UserModel\User $authenticatedUser */
+        $authenticatedUser = $this->userProvider->getAuthenticatedUser();
+        $collectivity      = $authenticatedUser->getCollectivity();
+
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'registry.proof.form.name',
@@ -60,6 +79,40 @@ class ProofType extends AbstractType
                 'label'    => 'registry.proof.form.comment',
                 'required' => false,
             ])
+            ->add('treatments', EntityType::class, [
+                'label'         => 'registry.proof.form.treatments',
+                'class'         => Model\Treatment::class,
+                'query_builder' => function (EntityRepository $er) use ($collectivity) {
+                    return $er->createQueryBuilder('t')
+                        ->andWhere('t.collectivity = :collectivity')
+                        ->orderBy('t.name', Criteria::ASC)
+                        ->setParameter('collectivity', $collectivity)
+                        ;
+                },
+                'attr' => [
+                    'size' => 6,
+                ],
+                'required' => false,
+                'multiple' => true,
+                'expanded' => false,
+            ])
+            ->add('contractors', EntityType::class, [
+                'label'         => 'registry.proof.form.contractors',
+                'class'         => Model\Contractor::class,
+                'query_builder' => function (EntityRepository $er) use ($collectivity) {
+                    return $er->createQueryBuilder('c')
+                        ->andWhere('c.collectivity = :collectivity')
+                        ->orderBy('c.name', Criteria::ASC)
+                        ->setParameter('collectivity', $collectivity)
+                        ;
+                },
+                'attr' => [
+                    'size' => 6,
+                ],
+                'required' => false,
+                'multiple' => true,
+                'expanded' => false,
+            ])
         ;
     }
 
@@ -72,7 +125,7 @@ class ProofType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => Proof::class,
+                'data_class'        => Model\Proof::class,
                 'validation_groups' => [
                     'default',
                     'proof',

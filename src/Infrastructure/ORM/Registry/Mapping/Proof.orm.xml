@@ -15,6 +15,19 @@
         <field name="document" column="document"/>
         <field name="comment" column="comment" type="text" nullable="true"/>
 
+        <many-to-many field="treatments" target-entity="App\Domain\Registry\Model\Treatment" inversed-by="proofs">
+            <join-table name="registry_proof_treatment">
+                <join-columns><join-column/></join-columns>
+                <inverse-join-columns><join-column/></inverse-join-columns>
+            </join-table>
+        </many-to-many>
+        <many-to-many field="contractors" target-entity="App\Domain\Registry\Model\Contractor" inversed-by="proofs">
+            <join-table name="registry_proof_contractor">
+                <join-columns><join-column/></join-columns>
+                <inverse-join-columns><join-column/></inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity"/>
         <many-to-one field="creator" target-entity="App\Domain\User\Model\User"/>

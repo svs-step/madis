@@ -39,6 +39,8 @@ class ProofTest extends TestCase
         $model = new Proof();
 
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
+        $this->assertEquals([], $model->getTreatments());
+        $this->assertEquals([], $model->getContractors());
     }
 
     public function testTraits()
