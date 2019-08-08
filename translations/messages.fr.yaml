@@ -10,7 +10,7 @@ action:
     delete: Supprimer
     deletion: Suppression
     edit: Modifier
-    impersonate: Subroger
+    impersonate: Se connecter en tant que
     print: Imprimer
     reinitialize: Réinitialisation
     submit: Soumettre
