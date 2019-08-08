@@ -22,10 +22,10 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Symfony\Security;
+namespace App\Domain\User\Symfony\Security\Checker;
 
 use App\Domain\User\Model\User;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use App\Domain\User\Symfony\Security\Authorization\UserAuthorization;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -33,7 +33,24 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class UserChecker implements UserCheckerInterface
 {
     /**
+     * @var UserAuthorization
+     */
+    private $userAuthorization;
+
+    /**
+     * UserChecker constructor.
+     *
+     * @param UserAuthorization $userAuthorization
+     */
+    public function __construct(UserAuthorization $userAuthorization)
+    {
+        $this->userAuthorization = $userAuthorization;
+    }
+
+    /**
      * Checks the user account before authentication.
+     *
+     * @param UserInterface $user
      *
      * @throws DisabledException
      */
@@ -43,7 +60,7 @@ class UserChecker implements UserCheckerInterface
             return;
         }
 
-        if (!$user->isEnabledOrCollectivityActive()) {
+        if (!$this->userAuthorization->canConnect($user)) {
             $ex = new DisabledException('User account is disabled.');
             $ex->setUser($user);
 
@@ -54,7 +71,7 @@ class UserChecker implements UserCheckerInterface
     /**
      * Checks the user account after authentication.
      *
-     * @throws AuthenticationException
+     * @param UserInterface $user
      */
     public function checkPostAuth(UserInterface $user): void
     {

@@ -81,6 +81,12 @@
                                 {% endif %}
                             </td>
                             <td>
+                                {% if is_granted('CAN_CONNECT', object) %}
+                                <a href="{{ path('reporting_dashboard_index', {'_switch_user': object.username}) }}">
+                                    <i class="fa fa-user"></i>
+                                    {{ 'action.impersonate'|trans }}
+                                </a>
+                                {% endif %}
                                 <a href="{{ path('user_user_edit', { 'id': object.id }) }}">
                                     <i class="fa fa-pencil-alt"></i>
                                     {{ 'action.edit'|trans }}

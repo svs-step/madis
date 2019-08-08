@@ -9,7 +9,7 @@ security:
 
     role_hierarchy:
         ROLE_USER: [ROLE_PREVIEW]
-        ROLE_ADMIN: [ROLE_USER]
+        ROLE_ADMIN: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
 
     firewalls:
         dev:
@@ -29,7 +29,8 @@ security:
             logout_on_user_change: true
             anonymous: ~
             provider: user_provider
-            user_checker: App\Domain\User\Symfony\Security\UserChecker
+            user_checker: App\Domain\User\Symfony\Security\Checker\UserChecker
+            switch_user: true
 
     access_control:
         # Authentication routes

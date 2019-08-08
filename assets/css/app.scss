@@ -1,3 +1,28 @@
+/* GLOBAL */
+a:not([href]) {
+  cursor: not-allowed;
+}
+
+/* Impersonate */
+body > div.banner-impersonate {
+  min-height: 50px;
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+
+  a {
+    text-decoration: underline;
+    font-style: italic;
+    margin-left: 1em;
+    font-size: small;
+  }
+
+  div {
+    line-height: 50px;
+  }
+}
+
 /* Header */
 .main-header .logo-mini img {
   max-width: 2em;
