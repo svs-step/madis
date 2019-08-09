@@ -1,5 +1,5 @@
 /* GLOBAL */
-a:not([href]) {
+a:not([href]).banner-impersonate {
   cursor: not-allowed;
 }
 

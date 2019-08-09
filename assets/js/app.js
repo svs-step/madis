@@ -1,5 +1,5 @@
-$(document).ready(function(){
-
+$(document).ready(function() {
+    /* Simple fields */
     $('input[type=password]').each(function() {
         let input = $(this);
         let span = $(this).parent().find('span');
@@ -11,6 +11,7 @@ $(document).ready(function(){
         });
     });
 
+    /* REGISTRY complex forms */
     $('.complex-choice-group').each(function(idx) {
         var check = $(this).find('.check input');
         var comment = $(this).find('.comment input');

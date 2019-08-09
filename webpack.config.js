@@ -9,9 +9,7 @@ Encore
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
 
-    .addEntry('js/dashboard', './assets/js/dashboard.js')
     .addEntry('js/app', './assets/js/app.js')
-    .addStyleEntry('css/app', './assets/css/app.scss')
 
     .enableSassLoader()
 

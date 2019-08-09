@@ -60,6 +60,12 @@ class RequestType extends AbstractType
             ->add('date', DateType::class, [
                 'label'    => 'registry.request.form.date',
                 'required' => true,
+                'widget'   => 'single_text',
+                'format'   => 'dd/MM/YYYY',
+                'html5'    => false,
+                'attr'     => [
+                    'class' => 'datepicker',
+                ],
             ])
             ->add('reason', TextType::class, [
                 'label'    => 'registry.request.form.reason',

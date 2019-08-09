@@ -49,6 +49,12 @@ class ViolationType extends AbstractType
             ->add('date', DateType::class, [
                 'label'    => 'registry.violation.form.date',
                 'required' => true,
+                'widget'   => 'single_text',
+                'format'   => 'dd/MM/YYYY',
+                'html5'    => false,
+                'attr'     => [
+                    'class' => 'datepicker',
+                ],
             ])
             ->add('inProgress', CheckboxType::class, [
                 'label'    => 'registry.violation.form.in_progress',

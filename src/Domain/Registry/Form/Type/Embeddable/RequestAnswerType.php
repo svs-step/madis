@@ -53,6 +53,12 @@ class RequestAnswerType extends AbstractType
             ->add('date', DateType::class, [
                 'label'    => 'registry.request_answer.form.date',
                 'required' => false,
+                'widget'   => 'single_text',
+                'format'   => 'dd/MM/YYYY',
+                'html5'    => false,
+                'attr'     => [
+                    'class' => 'datepicker',
+                ],
             ])
             ->add('type', DictionaryType::class, [
                 'label'    => 'registry.request_answer.form.type',
