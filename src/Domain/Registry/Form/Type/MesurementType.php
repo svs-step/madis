@@ -83,7 +83,7 @@ class MesurementType extends AbstractType
                 'label'    => 'registry.mesurement.form.planification_date',
                 'required' => false,
                 'widget'   => 'single_text',
-                'format'   => 'dd/MM/YYYY',
+                'format'   => 'dd/MM/yyyy',
                 'html5'    => false,
                 'attr'     => [
                     'class' => 'datepicker',

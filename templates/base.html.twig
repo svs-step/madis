@@ -70,10 +70,11 @@
     {{ include('_footer.html.twig') }}
 </div>
 
-    <script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
     <script src="{{ asset('assets/jquery/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/adminLTE/adminlte.min.js') }}"></script>
+    {#<script src="{{ asset('assets/momentjs/moment.min.js') }}"></script>#}
     <script>
         $.datepicker.setDefaults({
             firstDay: 1,
@@ -89,12 +90,10 @@
             dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
             weekHeader: 'Sem.',
         });
+
+        $('input[type=text].datepicker').datepicker();
     </script>
     <script src="{{ asset('build/js/app.js') }}"></script>
-    {% block javascripts %}
-        <script>
-            $('input[type=text].datepicker').datepicker();
-        </script>
-    {% endblock %}
+    {% block javascripts %}{% endblock %}
 </body>
 </html>

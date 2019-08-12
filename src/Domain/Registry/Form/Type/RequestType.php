@@ -61,7 +61,7 @@ class RequestType extends AbstractType
                 'label'    => 'registry.request.form.date',
                 'required' => true,
                 'widget'   => 'single_text',
-                'format'   => 'dd/MM/YYYY',
+                'format'   => 'dd/MM/yyyy',
                 'html5'    => false,
                 'attr'     => [
                     'class' => 'datepicker',
