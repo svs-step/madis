@@ -32,6 +32,9 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\Role\SwitchUserRole;
 
 class LinkCreatorSubscriberTest extends TestCase
 {
@@ -48,60 +51,192 @@ class LinkCreatorSubscriberTest extends TestCase
     private $userProviderProphecy;
 
     /**
+     * @var bool
+     */
+    private $linkAdmin;
+
+    /**
      * @var LinkCreatorSubscriber
      */
-    private $subscriber;
+    private $sut;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->lifeCycleEventArgsProphecy = $this->prophesize(LifecycleEventArgs::class);
         $this->userProviderProphecy       = $this->prophesize(UserProvider::class);
 
-        $this->subscriber = new LinkCreatorSubscriber(
-            $this->userProviderProphecy->reveal()
+        parent::setUp();
+    }
+
+    protected function getSut(bool $linkAdmin = false): LinkCreatorSubscriber
+    {
+        return new LinkCreatorSubscriber(
+            $this->userProviderProphecy->reveal(),
+            $linkAdmin
         );
     }
 
     /**
      * Test instance of Subscriber.
      */
-    public function testInstanceOf()
+    public function testInstanceOf(): void
     {
-        $this->assertInstanceOf(EventSubscriber::class, $this->subscriber);
+        $this->assertInstanceOf(EventSubscriber::class, $this->getSut());
     }
 
     /**
      * Test getSubscribedEvents of current subscriber.
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [
                 'prePersist',
             ],
-            $this->subscriber->getSubscribedEvents()
+            $this->getSut()->getSubscribedEvents()
         );
     }
 
     /**
      * Test prePersist
-     * Object has trait CollectivityTrait.
+     * Object has no CreatorTrait trait.
      *
      * @throws \Exception
      */
-    public function testPrePersist()
+    public function testPrePersistNoCreatorTrait(): void
     {
         $object = new class() {
-            use CreatorTrait;
         };
+        $objectUses = \class_uses($object);
+        $user       = new Model\User();
+        $linkAdmin  = false;
 
-        $userProphecy = $this->prophesize(Model\User::class);
-        $this->userProviderProphecy->getAuthenticatedUser()->shouldBeCalled()->willReturn($userProphecy->reveal());
+        $tokenProphecy = $this->prophesize(TokenInterface::class);
 
+        $tokenProphecy->getUser()->shouldBeCalled()->willReturn($user);
+        $this->userProviderProphecy->getToken()->shouldBeCalled()->willReturn($tokenProphecy->reveal());
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
 
-        $this->assertNull($object->getCreator());
-        $this->subscriber->prePersist($this->lifeCycleEventArgsProphecy->reveal());
-        $this->assertEquals($userProphecy->reveal(), $object->getCreator());
+        $this->assertFalse(\in_array(CreatorTrait::class, $objectUses));
+        $this->getSut($linkAdmin)->prePersist($this->lifeCycleEventArgsProphecy->reveal());
+        // This test must only not return error
     }
+
+    /**
+     * Test prePersist
+     * Object has CreatorTrait but user is not a User class.
+     *
+     * @throws \Exception
+     */
+    public function testPrePersistNoAuthenticatedUser(): void
+    {
+        $object     = new DummyLinkCreatorSubscriberTest();
+        $objectUses = \class_uses($object);
+        $user       = 'anon.';
+        $linkAdmin  = false;
+
+        $tokenProphecy = $this->prophesize(TokenInterface::class);
+
+        $tokenProphecy->getUser()->shouldBeCalled()->willReturn($user);
+        $this->userProviderProphecy->getToken()->shouldBeCalled()->willReturn($tokenProphecy->reveal());
+        $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
+
+        $this->assertTrue(\in_array(CreatorTrait::class, $objectUses));
+        $this->assertFalse($user instanceof Model\User);
+        $this->getSut($linkAdmin)->prePersist($this->lifeCycleEventArgsProphecy->reveal());
+        $this->assertNull($object->getCreator());
+    }
+
+    /**
+     * Test prePersist
+     * Don't link admin as creator.
+     *
+     * @throws \Exception
+     */
+    public function testPrePersistNoLinkAdmin(): void
+    {
+        $object     = new DummyLinkCreatorSubscriberTest();
+        $objectUses = \class_uses($object);
+        $user       = new Model\User();
+        $linkAdmin  = false;
+
+        $tokenProphecy = $this->prophesize(TokenInterface::class);
+
+        $tokenProphecy->getUser()->shouldBeCalled()->willReturn($user);
+        $this->userProviderProphecy->getToken()->shouldBeCalled()->willReturn($tokenProphecy->reveal());
+        $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
+
+        $this->assertTrue(\in_array(CreatorTrait::class, $objectUses));
+        $this->assertTrue($user instanceof Model\User);
+        $this->getSut($linkAdmin)->prePersist($this->lifeCycleEventArgsProphecy->reveal());
+        $this->assertEquals($user, $object->getCreator());
+    }
+
+    /**
+     * Test prePersist
+     * Link admin as creator.
+     *
+     * @throws \Exception
+     */
+    public function testPrePersistLinkAdmin(): void
+    {
+        $object     = new DummyLinkCreatorSubscriberTest();
+        $objectUses = \class_uses($object);
+        $user       = new Model\User();
+        $admin      = new Model\User();
+        $linkAdmin  = true;
+
+        $sourceTokenProphecy = $this->prophesize(TokenInterface::class);
+        $sourceTokenProphecy->getUser()->shouldBeCalled()->willReturn($admin);
+        $tokenProphecy = $this->prophesize(TokenInterface::class);
+
+        $switchUserRole = new SwitchUserRole('ROLE_PREVIOUS_ADMIN', $sourceTokenProphecy->reveal());
+
+        $tokenProphecy->getUser()->shouldBeCalled()->willReturn($user);
+        $tokenProphecy->getRoles()->shouldBeCalled()->willReturn([$switchUserRole]);
+
+        $this->userProviderProphecy->getToken()->shouldBeCalled()->willReturn($tokenProphecy->reveal());
+        $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
+
+        $this->assertTrue(\in_array(CreatorTrait::class, $objectUses));
+        $this->assertTrue($user instanceof Model\User);
+
+        $this->getSut($linkAdmin)->prePersist($this->lifeCycleEventArgsProphecy->reveal());
+        $this->assertEquals($admin, $object->getCreator());
+    }
+
+    /**
+     * Test prePersist
+     * Link admin as creator but there is no SwitchUserRole.
+     *
+     * @throws \Exception
+     */
+    public function testPrePersistLinkAdminNoSwitchUserRole(): void
+    {
+        $object     = new DummyLinkCreatorSubscriberTest();
+        $objectUses = \class_uses($object);
+        $user       = new Model\User();
+        $linkAdmin  = true;
+
+        $tokenProphecy = $this->prophesize(TokenInterface::class);
+
+        $role = new Role('ROLE_ADMIN');
+
+        $tokenProphecy->getUser()->shouldBeCalled()->willReturn($user);
+        $tokenProphecy->getRoles()->shouldBeCalled()->willReturn([$role]);
+
+        $this->userProviderProphecy->getToken()->shouldBeCalled()->willReturn($tokenProphecy->reveal());
+        $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
+
+        $this->assertTrue(\in_array(CreatorTrait::class, $objectUses));
+        $this->assertTrue($user instanceof Model\User);
+
+        $this->getSut($linkAdmin)->prePersist($this->lifeCycleEventArgsProphecy->reveal());
+        $this->assertEquals($user, $object->getCreator());
+    }
+}
+
+class DummyLinkCreatorSubscriberTest
+{
+    use CreatorTrait;
 }

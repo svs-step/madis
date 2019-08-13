@@ -81,9 +81,9 @@
                                 {% endif %}
                             </td>
                             <td>
-                                {% if is_granted('CAN_CONNECT', object) %}
+                                {% if is_granted('CAN_CONNECT', object) and app.user != object %}
                                 <a href="{{ path('reporting_dashboard_index', {'_switch_user': object.username}) }}">
-                                    <i class="fa fa-user"></i>
+                                    <i class="fa fa-user-lock"></i>
                                     {{ 'action.impersonate'|trans }}
                                 </a>
                                 {% endif %}
