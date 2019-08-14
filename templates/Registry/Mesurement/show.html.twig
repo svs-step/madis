@@ -134,6 +134,9 @@
                     </table>
                 </div>
             </div>
+
+            {# PROOFS #}
+            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
         </div>
     </div>
 {% endblock %}

@@ -93,6 +93,7 @@ class Contractor
         $this->contractualClausesVerified = false;
         $this->conform                    = false;
         $this->treatments                 = [];
+        $this->proofs                     = [];
     }
 
     /**

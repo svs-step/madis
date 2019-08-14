@@ -84,6 +84,9 @@ class ProofTypeTest extends FormTypeHelper
             'comment'      => TextType::class,
             'treatments'   => EntityType::class,
             'contractors'  => EntityType::class,
+            'mesurements'  => EntityType::class,
+            'requests'     => EntityType::class,
+            'violations'   => EntityType::class,
         ];
 
         $this->sut->buildForm(

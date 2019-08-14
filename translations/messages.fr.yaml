@@ -22,9 +22,10 @@ label:
     danger_zone: Zone de danger
     for_your_information: Pour votre information
     inactive: Inactif
+    linked_documents: Documents associés
     no: Non
     yes: Oui
-    no_data: Aucune donnée
+    no_linked_document: Aucun document associé
     not_archived: Non archivés
 
 placeholder:

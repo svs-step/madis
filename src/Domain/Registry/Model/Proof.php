@@ -80,6 +80,21 @@ class Proof
     private $contractors;
 
     /**
+     * @var iterable
+     */
+    private $mesurements;
+
+    /**
+     * @var iterable
+     */
+    private $requests;
+
+    /**
+     * @var iterable
+     */
+    private $violations;
+
+    /**
      * Proof constructor.
      *
      * @throws \Exception
@@ -89,6 +104,9 @@ class Proof
         $this->id          = Uuid::uuid4();
         $this->treatments  = [];
         $this->contractors = [];
+        $this->mesurements = [];
+        $this->requests    = [];
+        $this->violations  = [];
     }
 
     /**
@@ -253,5 +271,95 @@ class Proof
         }
 
         unset($this->contractors[$key]);
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getMesurements(): iterable
+    {
+        return $this->mesurements;
+    }
+
+    /**
+     * @param Mesurement $mesurement
+     */
+    public function addMesurement(Mesurement $mesurement): void
+    {
+        $this->mesurements[] = $mesurement;
+    }
+
+    /**
+     * @param Mesurement $mesurement
+     */
+    public function removeMesurement(Mesurement $mesurement): void
+    {
+        $key = \array_search($mesurement, $this->mesurements, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->mesurements[$key]);
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getRequests(): iterable
+    {
+        return $this->requests;
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function addRequest(Request $request): void
+    {
+        $this->requests[] = $request;
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function removeRequest(Request $request): void
+    {
+        $key = \array_search($request, $this->requests, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->requests[$key]);
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getViolations(): iterable
+    {
+        return $this->violations;
+    }
+
+    /**
+     * @param Violation $violation
+     */
+    public function addViolation(Violation $violation): void
+    {
+        $this->violations[] = $violation;
+    }
+
+    /**
+     * @param Violation $violation
+     */
+    public function removeViolation(Violation $violation): void
+    {
+        $key = \array_search($violation, $this->violations, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->violations[$key]);
     }
 }

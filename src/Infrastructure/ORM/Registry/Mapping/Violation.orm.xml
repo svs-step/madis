@@ -28,6 +28,12 @@
         <field name="notificationDetails" column="notification_details" nullable="true"/>
         <field name="comment" column="comment" type="text" nullable="true"/>
 
+        <many-to-many field="proofs" target-entity="App\Domain\Registry\Model\Proof" mapped-by="violations">
+            <order-by>
+                <order-by-field name="name"/>
+            </order-by>
+        </many-to-many>
+
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity"/>
         <many-to-one field="creator" target-entity="App\Domain\User\Model\User"/>

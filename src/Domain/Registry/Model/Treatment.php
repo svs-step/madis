@@ -264,6 +264,7 @@ class Treatment
         $this->active                = true;
         $this->completion            = 0;
         $this->template              = false;
+        $this->proofs                = [];
     }
 
     /**

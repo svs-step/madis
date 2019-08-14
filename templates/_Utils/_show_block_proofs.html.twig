@@ -1,0 +1,21 @@
+<div class="box box-solid box-warning">
+    <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_documents'|trans }}</h3></div>
+    <div class="box-body">
+        {% if object.proofs|length > 0 %}
+            <ul>
+                {% for proof in object.proofs %}
+                    {% if proof.deletedAt is null %}
+                        <li>
+                            <a href="{{ path('registry_proof_download', { id: proof.id }) }}">
+                                {{ proof.name }} ({{ proof.type|dictionary('registry_proof_type') }})
+                            </a>
+                            {{ proof.comment }}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% else %}
+            <span><i>{{ 'label.no_linked_document'|trans }}</i></span>
+        {% endif %}
+    </div>
+</div>
