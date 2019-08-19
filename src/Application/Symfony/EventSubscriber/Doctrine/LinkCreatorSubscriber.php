@@ -29,6 +29,7 @@ use App\Application\Traits\Model\CreatorTrait;
 use App\Domain\User\Model\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Symfony\Component\Security\Core\Role\SwitchUserRole;
 
 /**
  * Class LinkCreatorSubscriber
@@ -41,9 +42,17 @@ class LinkCreatorSubscriber implements EventSubscriber
      */
     private $userProvider;
 
-    public function __construct(UserProvider $userProvider)
-    {
+    /**
+     * @var bool
+     */
+    private $linkAdmin;
+
+    public function __construct(
+        UserProvider $userProvider,
+        bool $linkAdmin
+    ) {
         $this->userProvider = $userProvider;
+        $this->linkAdmin    = $linkAdmin;
     }
 
     public function getSubscribedEvents()
@@ -67,11 +76,34 @@ class LinkCreatorSubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args): void
     {
         $object = $args->getObject();
-        $user   = $this->userProvider->getAuthenticatedUser();
         $uses   = \class_uses($object);
+        $token  = $this->userProvider->getToken();
+        $user   = $token->getUser();
 
-        if (\in_array(CreatorTrait::class, $uses) && $user instanceof User) {
-            $object->setCreator($user);
+        if (
+            !\in_array(CreatorTrait::class, $uses)
+            || !$user instanceof User
+        ) {
+            return;
         }
+
+        // We don't link admin in impersonate mode, then link impersonated user
+        if (false === $this->linkAdmin) {
+            $object->setCreator($user);
+
+            return;
+        }
+
+        // We link admin in impersonate mode, check existence of SwitchUserRole token role
+        foreach ($token->getRoles() as $role) {
+            if ($role instanceof SwitchUserRole) {
+                $object->setCreator($role->getSource()->getUser());
+
+                return;
+            }
+        }
+
+        // If there is no impersonation, then link standard user
+        $object->setCreator($user);
     }
 }

@@ -12,6 +12,23 @@ De manière préventive, n'oubliez pas de faire un dump de votre base de
 données avant d'effectuer une montée de version.  
 
 
+# Passage en v1.6.0
+
+### Paramétrage de la subrogation d'un utilisateur
+Dans le `.env` vous pouvez modifier les informations liées à la subrogation des utilisateurs.
+Dans le cas où vous créez des données pour les collectivité,
+vous pouvez choisir si vous souhaitez faire afficher le nom de la personne sur qui l'admin s'est connectée
+ou le nom de l'admin lui même. 
+
+_Note : Vous pouvez aller regarder le fichier `.env.dist` en guise d'exemple._
+
+Pour cela, ajoutez la variable suivante dans votre `.env` et configurez la.
+- Mettre `1` si le nom de l'admin doit apparaitre
+- Mettre `0` si le nom de la personne sur laquelle l'admin s'est connecté doit apparaitre
+
+```text
+APP_IMPERSONATE_CREATOR_IS_ADMIN=0
+```
 
 
 # Passage en v1.5.0

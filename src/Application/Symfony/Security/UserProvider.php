@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Application\Symfony\Security;
 
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserProvider
@@ -37,6 +38,16 @@ class UserProvider
     public function __construct(TokenStorageInterface $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
+    }
+
+    /**
+     * Get token.
+     *
+     * @return TokenInterface|null
+     */
+    public function getToken(): ?TokenInterface
+    {
+        return $this->tokenStorage->getToken();
     }
 
     /**
