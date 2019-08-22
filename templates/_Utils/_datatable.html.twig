@@ -1,9 +1,9 @@
-<script src="{{ asset('assets/dataTables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/dataTables/dataTables.bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/dataTables/date-uk.js') }}"></script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.10.18/js/dataTables.bootstrap.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/date-uk.js"></script>
 
 <script>
-    {% set languageUrl = asset('assets/dataTables/French.json') %}
+    {% set languageUrl = '//cdn.datatables.net/plug-ins/1.10.19/i18n/French.json' %}
     {% set dataTableOptions = dataTableOptions|default({}) %}
 
     $(function () {
