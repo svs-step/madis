@@ -97,6 +97,11 @@ class Request
     private $answer;
 
     /**
+     * @var iterable
+     */
+    private $proofs;
+
+    /**
      * Request constructor.
      *
      * @throws \Exception
@@ -111,6 +116,7 @@ class Request
         $this->complete            = false;
         $this->legitimateApplicant = false;
         $this->legitimateRequest   = false;
+        $this->proofs              = [];
     }
 
     /**
@@ -295,5 +301,13 @@ class Request
     public function setAnswer(?RequestAnswer $answer): void
     {
         $this->answer = $answer;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getProofs(): iterable
+    {
+        return $this->proofs;
     }
 }

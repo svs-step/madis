@@ -129,6 +129,11 @@ class Violation
     private $comment;
 
     /**
+     * @var iterable
+     */
+    private $proofs;
+
+    /**
      * Violation constructor.
      *
      * @throws \Exception
@@ -142,6 +147,7 @@ class Violation
         $this->concernedDataNature       = [];
         $this->concernedPeopleCategories = [];
         $this->potentialImpactsNature    = [];
+        $this->proofs                    = [];
     }
 
     /**
@@ -434,5 +440,13 @@ class Violation
     public function setComment(?string $comment): void
     {
         $this->comment = $comment;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getProofs(): iterable
+    {
+        return $this->proofs;
     }
 }

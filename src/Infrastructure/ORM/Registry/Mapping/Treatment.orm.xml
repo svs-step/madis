@@ -62,7 +62,12 @@
                 </inverse-join-columns>
             </join-table>
             <order-by>
-                <order-by-field name="position" direction="ASC"/>
+                <order-by-field name="position"/>
+            </order-by>
+        </many-to-many>
+        <many-to-many field="proofs" target-entity="App\Domain\Registry\Model\Proof" mapped-by="treatments">
+            <order-by>
+                <order-by-field name="name"/>
             </order-by>
         </many-to-many>
 

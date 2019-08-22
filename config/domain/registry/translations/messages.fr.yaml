@@ -144,8 +144,15 @@ registry:
             delete: Supprimer "%name%"
         form:
             comment: Commentaire
+            contractors: Sous-traitants
+            help:
+                link: Vous pouvez associer ce document s'il vient compléter une(des) donnée(s) saisie(s) dans MADIS
+            mesurements: Actions de protections
             name: Nom
+            requests: Demandes de personnes concernées
+            treatments: Traitements
             type: Type
+            violations: Violations
         flashbag:
             success:
                 archive: Preuve "%object%" archivée avec succès
@@ -160,6 +167,7 @@ registry:
             type: Type
         tab:
             general: Informations générales
+            link: Association
             upload: Document
         title:
             archive: Archiver une preuve
@@ -369,6 +377,7 @@ registry:
           details: Détails
           general: Informations générales
           historic: Historique
+          proofs: Documents associés
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
           recipients: Destination

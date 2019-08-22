@@ -24,10 +24,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Form\Type\ProofType;
-use App\Domain\Registry\Model\Proof;
+use App\Domain\Registry\Model;
+use App\Domain\User\Model as UserModel;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -35,11 +38,43 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProofTypeTest extends FormTypeHelper
 {
-    public function testInstanceOf()
+    /**
+     * @var UserProvider
+     */
+    private $userProviderProphecy;
+
+    /**
+     * @var ProofType
+     */
+    private $sut;
+
+    protected function setUp(): void
     {
-        $this->assertInstanceOf(AbstractType::class, new ProofType());
+        $this->userProviderProphecy = $this->prophesize(UserProvider::class);
+
+        $this->sut = new ProofType(
+            $this->userProviderProphecy->reveal()
+        );
+
+        $user         = new UserModel\User();
+        $collectivity = new UserModel\Collectivity();
+        $user->setCollectivity($collectivity);
+        $this->userProviderProphecy->getAuthenticatedUser()->willReturn($user);
+
+        parent::setUp();
     }
 
+    /**
+     * Test inheritance.
+     */
+    public function testInstanceOf()
+    {
+        $this->assertInstanceOf(AbstractType::class, $this->sut);
+    }
+
+    /**
+     * Test buildForm.
+     */
     public function testBuildForm()
     {
         $builder = [
@@ -47,15 +82,26 @@ class ProofTypeTest extends FormTypeHelper
             'type'         => DictionaryType::class,
             'documentFile' => FileType::class,
             'comment'      => TextType::class,
+            'treatments'   => EntityType::class,
+            'contractors'  => EntityType::class,
+            'mesurements'  => EntityType::class,
+            'requests'     => EntityType::class,
+            'violations'   => EntityType::class,
         ];
 
-        (new ProofType())->buildForm($this->prophesizeBuilder($builder), []);
+        $this->sut->buildForm(
+            $this->prophesizeBuilder($builder),
+            []
+        );
     }
 
+    /**
+     * Test configureOptions.
+     */
     public function testConfigureOptions(): void
     {
         $defaults = [
-            'data_class'        => Proof::class,
+            'data_class'        => Model\Proof::class,
             'validation_groups' => [
                 'default',
                 'proof',
@@ -65,6 +111,6 @@ class ProofTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new ProofType())->configureOptions($resolverProphecy->reveal());
+        $this->sut->configureOptions($resolverProphecy->reveal());
     }
 }

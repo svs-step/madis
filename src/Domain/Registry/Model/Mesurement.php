@@ -96,13 +96,19 @@ class Mesurement
     private $comment;
 
     /**
+     * @var iterable
+     */
+    private $proofs;
+
+    /**
      * Mesurement constructor.
      *
      * @throws \Exception
      */
     public function __construct()
     {
-        $this->id = Uuid::uuid4();
+        $this->id     = Uuid::uuid4();
+        $this->proofs = [];
     }
 
     /**
@@ -255,5 +261,13 @@ class Mesurement
     public function setComment(?string $comment): void
     {
         $this->comment = $comment;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getProofs(): iterable
+    {
+        return $this->proofs;
     }
 }

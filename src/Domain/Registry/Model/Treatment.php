@@ -29,8 +29,6 @@ use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Embeddable\ComplexChoice;
 use App\Domain\Registry\Model\Embeddable\Delay;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -133,7 +131,7 @@ class Treatment
     /**
      * FR: Sous traitants.
      *
-     * @var Collection
+     * @var iterable
      */
     private $contractors;
 
@@ -237,6 +235,11 @@ class Treatment
     private $templateIdentifier;
 
     /**
+     * @var iterable
+     */
+    private $proofs;
+
+    /**
      * Treatment constructor.
      *
      * @throws \Exception
@@ -247,7 +250,7 @@ class Treatment
         $this->paperProcessing       = false;
         $this->concernedPeople       = [];
         $this->dataCategories        = [];
-        $this->contractors           = new ArrayCollection();
+        $this->contractors           = [];
         $this->delay                 = new Delay();
         $this->securityAccessControl = new ComplexChoice();
         $this->securityTracability   = new ComplexChoice();
@@ -261,6 +264,7 @@ class Treatment
         $this->active                = true;
         $this->completion            = 0;
         $this->template              = false;
+        $this->proofs                = [];
     }
 
     /**
@@ -501,7 +505,7 @@ class Treatment
     public function addContractor(Contractor $contractor): void
     {
         $contractor->addTreatment($this);
-        $this->contractors->add($contractor);
+        $this->contractors[] = $contractor;
     }
 
     /**
@@ -510,13 +514,20 @@ class Treatment
     public function removeContractor(Contractor $contractor): void
     {
         $contractor->removeTreatment($this);
-        $this->contractors->removeElement($contractor);
+
+        $key = \array_search($contractor, $this->contractors, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->contractors[$key]);
     }
 
     /**
-     * @return Collection
+     * @return iterable
      */
-    public function getContractors(): Collection
+    public function getContractors(): iterable
     {
         return $this->contractors;
     }
@@ -759,5 +770,13 @@ class Treatment
     public function setTemplateIdentifier(?int $templateIdentifier): void
     {
         $this->templateIdentifier = $templateIdentifier;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getProofs(): iterable
+    {
+        return $this->proofs;
     }
 }

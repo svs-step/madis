@@ -28,8 +28,6 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Embeddable\Address;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -75,9 +73,14 @@ class Contractor
     private $address;
 
     /**
-     * @var Collection
+     * @var iterable
      */
     private $treatments;
+
+    /**
+     * @var iterable
+     */
+    private $proofs;
 
     /**
      * Contractor constructor.
@@ -89,7 +92,8 @@ class Contractor
         $this->id                         = Uuid::uuid4();
         $this->contractualClausesVerified = false;
         $this->conform                    = false;
-        $this->treatments                 = new ArrayCollection();
+        $this->treatments                 = [];
+        $this->proofs                     = [];
     }
 
     /**
@@ -215,24 +219,38 @@ class Contractor
     /**
      * @param Treatment $treatment
      */
-    public function addTreatment(Treatment $treatment)
+    public function addTreatment(Treatment $treatment): void
     {
-        $this->treatments->add($treatment);
+        $this->treatments[] = $treatment;
     }
 
     /**
      * @param Treatment $treatment
      */
-    public function removeTreatment(Treatment $treatment)
+    public function removeTreatment(Treatment $treatment): void
     {
-        $this->treatments->removeElement($treatment);
+        $key = \array_search($treatment, $this->treatments, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->treatments[$key]);
     }
 
     /**
-     * @return ArrayCollection
+     * @return iterable
      */
-    public function getTreatments()
+    public function getTreatments(): iterable
     {
         return $this->treatments;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getProofs(): iterable
+    {
+        return $this->proofs;
     }
 }

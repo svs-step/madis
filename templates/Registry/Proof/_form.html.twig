@@ -4,6 +4,7 @@
 <div class="row">
     {{ form_start(form) }}
 
+    {# LEFT SIDE #}
     <div class="col-md-6">
         <div class="box box-solid box-primary">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.proof.tab.general'|trans }}</h3></div>
@@ -13,13 +14,28 @@
                 {{ form_row(form.comment) }}
             </div>
         </div>
-    </div>
 
-    <div class="col-md-6">
         <div class="box box-solid box-success">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.proof.tab.upload'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.documentFile) }}
+            </div>
+        </div>
+    </div>
+
+    {# RIGHT SIDE #}
+    <div class="col-md-6">
+        <div class="box box-solid box-warning">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.proof.tab.link'|trans }}</h3></div>
+            <div class="box-body">
+                <blockquote>
+                    <small>{{ 'registry.proof.form.help.link'|trans }}</small>
+                </blockquote>
+                {{ form_row(form.treatments) }}
+                {{ form_row(form.contractors) }}
+                {{ form_row(form.mesurements) }}
+                {{ form_row(form.requests) }}
+                {{ form_row(form.violations) }}
             </div>
         </div>
     </div>

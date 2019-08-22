@@ -28,7 +28,6 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Contractor;
-use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 
@@ -41,7 +40,7 @@ class ContractorTest extends TestCase
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
         $this->assertFalse($model->isContractualClausesVerified());
         $this->assertFalse($model->isConform());
-        $this->assertInstanceOf(ArrayCollection::class, $model->getTreatments());
+        $this->assertEquals([], $model->getTreatments());
     }
 
     public function testTraits()
