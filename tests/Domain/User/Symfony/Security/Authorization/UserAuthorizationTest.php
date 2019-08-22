@@ -51,17 +51,26 @@ class UserAuthorizationTest extends TestCase
 
         // User is enabled & collectivity active
         $user->setEnabled(true);
+        $user->setDeletedAt(null);
         $collectivity->setActive(true);
         $this->assertTrue($this->sut->canConnect($user));
 
         // User is disable & collectivity active
         $user->setEnabled(false);
+        $user->setDeletedAt(null);
         $collectivity->setActive(true);
         $this->assertFalse($this->sut->canConnect($user));
 
         // User is enabled & collectivity inactive
         $user->setEnabled(true);
+        $user->setDeletedAt(null);
         $collectivity->setActive(false);
+        $this->assertFalse($this->sut->canConnect($user));
+
+        // User is enabled & collectivity active but user is deleted
+        $user->setEnabled(true);
+        $user->setDeletedAt(new \DateTimeImmutable());
+        $collectivity->setActive(true);
         $this->assertFalse($this->sut->canConnect($user));
     }
 }

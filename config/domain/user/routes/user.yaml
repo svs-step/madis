@@ -17,13 +17,13 @@ user_user_edit:
         _controller: 'App\Domain\User\Controller\UserController:editAction'
 
 user_user_delete:
-    path: '/supprimer/{id}'
+    path: '/archiver/{id}'
     methods: ['GET']
     defaults:
         _controller: 'App\Domain\User\Controller\UserController:deleteAction'
 
 user_user_delete_confirm:
-    path: '/supprimer/{id}/confirmation'
+    path: '/archiver/{id}/confirmation'
     methods: ['GET']
     defaults:
         _controller: 'App\Domain\User\Controller\UserController:deleteConfirmationAction'

@@ -29,6 +29,7 @@ use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -39,14 +40,32 @@ class UserController extends CRUDController
      */
     private $encoderFactory;
 
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\User $repository,
+        RequestStack $requestStack,
         EncoderFactoryInterface $encoderFactory
     ) {
         parent::__construct($entityManager, $translator, $repository);
+        $this->requestStack   = $requestStack;
         $this->encoderFactory = $encoderFactory;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getListData(): iterable
+    {
+        $request   = $this->requestStack->getMasterRequest();
+        $archived  = 'true' === $request->query->get('archive') ? true : false;
+
+        return $this->repository->findAllArchived($archived);
     }
 
     /**
@@ -79,5 +98,10 @@ class UserController extends CRUDController
     protected function getFormType(): string
     {
         return UserType::class;
+    }
+
+    protected function isSoftDelete(): bool
+    {
+        return true;
     }
 }

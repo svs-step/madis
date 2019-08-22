@@ -112,10 +112,7 @@ class RequestController extends CRUDController
     protected function getListData()
     {
         $request   = $this->requestStack->getMasterRequest();
-        $archived  = 'false' === $request->query->get('archive') || \is_null($request->query->get('archive'))
-            ? false
-            : true
-        ;
+        $archived  = 'true' === $request->query->get('archive') ? true : false;
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             return $this->repository->findAllArchived($archived);
