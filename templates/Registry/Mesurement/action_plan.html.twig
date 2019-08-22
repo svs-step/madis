@@ -45,7 +45,7 @@
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <td>{{ object.collectivity }}</td>
                                 {% endif %}
-                                <td>{{ object.planificationDate|date('Y/m/d') }}</td>
+                                <td>{{ object.planificationDate|date('d/m/Y') }}</td>
                                 <td>{{ object.cost }}</td>
                                 <td>{{ object.charge }}</td>
                                 <td>
@@ -66,28 +66,29 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-
-    <script>
-        $(function () {
-
-            var paging = false;
-            {% if is_granted('ROLE_ADMIN') %}
-                paging = true;
-            {% endif %}
-
-            $('#table').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
-                },
-                'paging'      : paging,
-                'lengthChange': false,
-                'searching'   : true,
-                'ordering'    : true,
-                'info'        : false,
-                'autoWidth'   : false,
-            });
-        });
-    </script>
+    {# ADMIN #}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set dataTableOptions = {
+            "aoColumns": [
+                null,
+                null,
+                { "sType": "date-uk" },
+                null,
+                null,
+                null,
+            ]
+        } %}
+    {# USER & PREVIEW #}
+    {% else %}
+        {% set dataTableOptions = {
+            "aoColumns": [
+                null,
+                { "sType": "date-uk" },
+                null,
+                null,
+                null,
+            ]
+        } %}
+    {% endif %}
+    {{ include('_Utils/_datatable.html.twig', { dataTableOptions: dataTableOptions }) }}
 {% endblock %}

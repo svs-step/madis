@@ -86,7 +86,7 @@
                             {% endif %}
                             <td>
                                 <a href="{{ path('registry_violation_show', { 'id':object.id }) }}">
-                                    {{ object.date|date('Y/m/d') }}
+                                    {{ object.date|date('d/m/Y') }}
                                 </a>
                             </td>
                             <td>{{ object.violationNature|dictionary('registry_violation_nature') }}</td>
@@ -115,27 +115,25 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-
-    <script>
-        $(function () {
-            var paging = false;
-            {% if is_granted('ROLE_ADMIN') %}
-            paging = true;
-            {% endif %}
-
-            $('#table').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
-                },
-                'paging'      : paging,
-                'lengthChange': false,
-                'searching'   : true,
-                'ordering'    : true,
-                'info'        : false,
-                'autoWidth'   : false,
-            });
-        });
-    </script>
-{% endblock %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set dataTableOptions = {
+            "aoColumns": [
+                null,
+                { "sType": "date-uk" },
+                null,
+                null,
+                null,
+            ]
+        } %}
+    {% else %}
+        {% set dataTableOptions = {
+            "aoColumns": [
+                { "sType": "date-uk" },
+                null,
+                null,
+                null,
+            ]
+        } %}
+    {% endif %}
+    {{ include('_Utils/_datatable.html.twig', { dataTableOptions: dataTableOptions }) }}
+{% endblock javascripts %}

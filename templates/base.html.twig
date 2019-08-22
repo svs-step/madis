@@ -10,21 +10,12 @@
 
     <link rel="icon" href="{{ asset(app_image_favicon_path) }}" />
 
-    {# Normal import #}
-    {#
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/ionicons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/AdminLTE.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/_all-skins.min.css') }}">
-    #}
-
-    {# CDN #}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.1.2/css/ionicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.17/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.17/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
     {% block stylesheets %}{% endblock %}
 
@@ -43,8 +34,8 @@
 {% set bodyClass = bodyClass|default('') %}
 <body class="hold-transition skin-blue sidebar-mini {{ bodyClass }}">
 
-{# Impersonate banner #}
-{% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+    {# Impersonate banner #}
+    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
     <div class="banner-impersonate bg-danger text-red">
         <div>
             Vous êtes actuellement connecté en tant que "{{ app.user }}" ({{ app.user.collectivity }})
@@ -53,42 +44,53 @@
             </a>
         </div>
     </div>
-{% endif %}
+    {% endif %}
 
-<div class="wrapper">
+    <div class="wrapper">
 
-    {{ include('_header.html.twig') }}
+        {{ include('_header.html.twig') }}
 
-    <aside class="main-sidebar">
-        {{ include('_sidebar.html.twig') }}
-    </aside>
+        <aside class="main-sidebar">
+            {{ include('_sidebar.html.twig') }}
+        </aside>
 
-    <div class="content-wrapper">
-        <section class="content-header">
-            {% block body_head %}{% endblock %}
-            {% block breadcrumb %}{% endblock %}
-        </section>
+        <div class="content-wrapper">
+            <section class="content-header">
+                {% block body_head %}{% endblock %}
+                {% block breadcrumb %}{% endblock %}
+            </section>
 
-        <section class="content container-fluid">
-            {{ include('_flashbag.html.twig') }}
-            {% block body %}{% endblock %}
-        </section>
+            <section class="content container-fluid">
+                {{ include('_flashbag.html.twig') }}
+                {% block body %}{% endblock %}
+            </section>
+        </div>
+
+        {{ include('_footer.html.twig') }}
     </div>
 
-    {{ include('_footer.html.twig') }}
-</div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.17/js/adminlte.min.js"></script>
+    <script>
+        $.datepicker.setDefaults({
+            firstDay: 1,
+            dateFormat: 'dd/mm/yy',
+            closeText: 'Fermer',
+            prevText: 'Précédent',
+            nextText: 'Suivant',
+            currentText: 'Aujourd\'hui',
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            weekHeader: 'Sem.',
+        });
 
-    {# Normal import #}
-    {#
-    <script src="{{ asset('assets/js/jquery.min.css') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/adminlte.min.js') }}"></script>
-    #}
-
-    {# CDN #}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/js/adminlte.min.js"></script>
+        $('input[type=text].datepicker').datepicker();
+    </script>
     <script src="{{ asset('build/js/app.js') }}"></script>
     {% block javascripts %}{% endblock %}
 </body>

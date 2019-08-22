@@ -85,7 +85,7 @@
                             {% endif %}
                             <td>{{ object.type|dictionary('registry_proof_type') }}</td>
                             <td>{{ object.comment|truncate(10) }}</td>
-                            <td>{{ object.createdAt|date('Y/m/d H:i') }}</td>
+                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
                             <td>
                                 {% if app.user.collectivity == object.collectivity or is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('registry_proof_download', { 'id': object.id }) }}">
@@ -121,27 +121,29 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-
-    <script>
-        $(function () {
-            var paging = false;
-            {% if is_granted('ROLE_ADMIN') %}
-            paging = true;
-            {% endif %}
-
-            $('#table').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
-                },
-                'paging'      : paging,
-                'lengthChange': false,
-                'searching'   : true,
-                'ordering'    : true,
-                'info'        : false,
-                'autoWidth'   : false,
-            });
-        });
-    </script>
+    {# ADMIN #}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set dataTableOptions = {
+            "aoColumns": [
+                null,
+                null,
+                null,
+                null,
+                { "sType": "datetime-uk" },
+                null,
+            ]
+        } %}
+    {# USER & PREVIEW #}
+    {% else %}
+        {% set dataTableOptions = {
+            "aoColumns": [
+                null,
+                null,
+                null,
+                { "sType": "datetime-uk" },
+                null,
+            ]
+        } %}
+    {% endif %}
+    {{ include('_Utils/_datatable.html.twig', { dataTableOptions: dataTableOptions }) }}
 {% endblock %}

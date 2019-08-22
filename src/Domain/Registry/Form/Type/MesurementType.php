@@ -82,6 +82,12 @@ class MesurementType extends AbstractType
             ->add('planificationDate', DateType::class, [
                 'label'    => 'registry.mesurement.form.planification_date',
                 'required' => false,
+                'widget'   => 'single_text',
+                'format'   => 'dd/MM/yyyy',
+                'html5'    => false,
+                'attr'     => [
+                    'class' => 'datepicker',
+                ],
             ])
             ->add('comment', TextType::class, [
                 'label'    => 'registry.mesurement.form.comment',

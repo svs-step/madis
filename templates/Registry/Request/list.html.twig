@@ -97,7 +97,7 @@
                                     {% endif %}
                                 </a>
                             </td>
-                            <td>{{ object.date|date('Y/m/d') }}</td>
+                            <td>{{ object.date|date('d/m/Y') }}</td>
                             <td>{{ object.object|dictionary('registry_request_object') }}</td>
                             <td>
                                 {% if object.complete %}
@@ -120,7 +120,7 @@
                                     <span class="label label-danger">{{ 'label.no'|trans }}</span>
                                 {% endif %}
                             </td>
-                            <td>{% if object.answer.date is not null %}{{ object.answer.date|date('Y/m/d') }}{% endif %}</td>
+                            <td>{% if object.answer.date is not null %}{{ object.answer.date|date('d/m/Y') }}{% endif %}01/01/2018</td>
                             {% if is_granted('ROLE_USER') and object.deletedAt is null %}
                                 <td>
                                     <a href="{{ path('registry_request_edit', { 'id': object.id }) }}">
@@ -144,27 +144,48 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-
-    <script>
-        $(function () {
-            var paging = false;
-            {% if is_granted('ROLE_ADMIN') %}
-            paging = true;
-            {% endif %}
-
-            $('#table').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
-                },
-                'paging'      : paging,
-                'lengthChange': false,
-                'searching'   : true,
-                'ordering'    : true,
-                'info'        : false,
-                'autoWidth'   : false,
-            });
-        });
-    </script>
+    {# ADMIN #}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set dataTableOptions = {
+            "aoColumns": [
+                null,
+                null,
+                { "sType": "date-uk" },
+                null,
+                null,
+                null,
+                null,
+                { "sType": "date-uk" },
+                null,
+            ]
+        } %}
+    {# USER #}
+    {% elseif not is_granted('ROLE_USER') %}
+        {% set dataTableOptions = {
+            "aoColumns": [
+                null,
+                { "sType": "date-uk" },
+                null,
+                null,
+                null,
+                null,
+                { "sType": "date-uk" },
+                null,
+            ]
+        } %}
+    {# PREVIEW #}
+    {% else %}
+        {% set dataTableOptions = {
+            "aoColumns": [
+                null,
+                { "sType": "date-uk" },
+                null,
+                null,
+                null,
+                null,
+                { "sType": "date-uk" },
+            ]
+        } %}
+    {% endif %}
+    {{ include('_Utils/_datatable.html.twig', { dataTableOptions: dataTableOptions }) }}
 {% endblock %}

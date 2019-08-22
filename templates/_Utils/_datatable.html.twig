@@ -1,0 +1,30 @@
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.10.18/js/dataTables.bootstrap.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/date-uk.js"></script>
+
+<script>
+    {% set languageUrl = '//cdn.datatables.net/plug-ins/1.10.19/i18n/French.json' %}
+    {% set dataTableOptions = dataTableOptions|default({}) %}
+
+    $(function () {
+
+        {% set paging = false %}
+        {% if is_granted('ROLE_ADMIN') %}
+            {% set paging = true %}
+        {% endif %}
+
+        {% set dataTableOptions = dataTableOptions|merge({
+            "language": {
+                "url": languageUrl,
+            },
+            'paging'      : paging,
+            'lengthChange': false,
+            'searching'   : true,
+            'ordering'    : true,
+            'info'        : false,
+            'autoWidth'   : false,
+        })%}
+
+        $('#table').DataTable({{ dataTableOptions|json_encode|raw }});
+    });
+</script>
