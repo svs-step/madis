@@ -27,6 +27,7 @@ namespace App\Infrastructure\ORM\User\Repository;
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
+use Doctrine\ORM\QueryBuilder;
 
 class User extends CRUDRepository implements Repository\User
 {
@@ -36,6 +37,42 @@ class User extends CRUDRepository implements Repository\User
     protected function getModelClass(): string
     {
         return Model\User::class;
+    }
+
+    /**
+     * Add archive clause to query.
+     *
+     * @param QueryBuilder $qb
+     * @param bool         $archived
+     *
+     * @return QueryBuilder
+     */
+    protected function addArchivedClause(QueryBuilder $qb, bool $archived = false): QueryBuilder
+    {
+        // Get not archived
+        if (!$archived) {
+            return $qb->andWhere('o.deletedAt is null');
+        }
+
+        // Get archived
+        return $qb->andWhere('o.deletedAt is not null');
+    }
+
+    /**
+     * Add order to query.
+     *
+     * @param QueryBuilder $qb
+     * @param array        $order
+     *
+     * @return QueryBuilder
+     */
+    protected function addOrder(QueryBuilder $qb, array $order = []): QueryBuilder
+    {
+        foreach ($order as $key => $dir) {
+            $qb->addOrderBy("o.{$key}", $dir);
+        }
+
+        return $qb;
     }
 
     /**
@@ -66,5 +103,18 @@ class User extends CRUDRepository implements Repository\User
             ->getQuery()
             ->getOneOrNullResult()
             ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllArchived(bool $archived, array $order = []): iterable
+    {
+        $qb = $this->createQueryBuilder();
+
+        $this->addArchivedClause($qb, $archived);
+        $this->addOrder($qb, $order);
+
+        return $qb->getQuery()->getResult();
     }
 }

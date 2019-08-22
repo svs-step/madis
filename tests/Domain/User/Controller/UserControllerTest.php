@@ -32,6 +32,7 @@ use App\Domain\User\Repository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -55,6 +56,11 @@ class UserControllerTest extends TestCase
     private $repositoryProphecy;
 
     /**
+     * @var RequestStack
+     */
+    private $requestStackProphecy;
+
+    /**
      * @var EncoderFactoryInterface
      */
     private $encoderFactoryProphecy;
@@ -64,27 +70,39 @@ class UserControllerTest extends TestCase
      */
     private $controller;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->managerProphecy        = $this->prophesize(EntityManagerInterface::class);
         $this->translatorProphecy     = $this->prophesize(TranslatorInterface::class);
         $this->repositoryProphecy     = $this->prophesize(Repository\User::class);
+        $this->requestStackProphecy   = $this->prophesize(RequestStack::class);
         $this->encoderFactoryProphecy = $this->prophesize(EncoderFactoryInterface::class);
 
         $this->controller = new UserController(
             $this->managerProphecy->reveal(),
             $this->translatorProphecy->reveal(),
             $this->repositoryProphecy->reveal(),
+            $this->requestStackProphecy->reveal(),
             $this->encoderFactoryProphecy->reveal()
         );
+
+        parent::setUp();
     }
 
-    public function testInstanceOf()
+    /**
+     * Test inheritance.
+     */
+    public function testInstanceOf(): void
     {
         $this->assertInstanceOf(CRUDController::class, $this->controller);
     }
 
-    public function testGetDomain()
+    /**
+     * Test getDomain.
+     *
+     * @throws \ReflectionException
+     */
+    public function testGetDomain(): void
     {
         $this->assertEquals(
             'user',
@@ -92,7 +110,12 @@ class UserControllerTest extends TestCase
         );
     }
 
-    public function testGetModel()
+    /**
+     * Test getModel.
+     *
+     * @throws \ReflectionException
+     */
+    public function testGetModel(): void
     {
         $this->assertEquals(
             'user',
@@ -100,7 +123,12 @@ class UserControllerTest extends TestCase
         );
     }
 
-    public function testGetModelClass()
+    /**
+     * Test getModelClass.
+     *
+     * @throws \ReflectionException
+     */
+    public function testGetModelClass(): void
     {
         $this->assertEquals(
             Model\User::class,
@@ -108,11 +136,26 @@ class UserControllerTest extends TestCase
         );
     }
 
-    public function testGetFormType()
+    /**
+     * Test getFormType.
+     *
+     * @throws \ReflectionException
+     */
+    public function testGetFormType(): void
     {
         $this->assertEquals(
             UserType::class,
             $this->invokeMethod($this->controller, 'getFormType', [])
         );
+    }
+
+    /**
+     * Test isSoftDelete.
+     *
+     * @throws \ReflectionException
+     */
+    public function testIsSoftDelete(): void
+    {
+        $this->assertTrue($this->invokeMethod($this->controller, 'isSoftDelete'));
     }
 }

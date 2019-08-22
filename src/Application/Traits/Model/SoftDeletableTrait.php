@@ -31,12 +31,18 @@ trait SoftDeletableTrait
      */
     private $deletedAt;
 
+    /**
+     * @return \DateTimeImmutable|null
+     */
     public function getDeletedAt(): ?\DateTimeImmutable
     {
         return $this->deletedAt;
     }
 
-    public function setDeletedAt(\DateTimeImmutable $deletedAt): void
+    /**
+     * @param \DateTimeImmutable|null $deletedAt
+     */
+    public function setDeletedAt(?\DateTimeImmutable $deletedAt): void
     {
         $this->deletedAt = $deletedAt;
     }

@@ -41,6 +41,10 @@ class UserAuthorization
             return false;
         }
 
+        if (null !== $user->getDeletedAt()) {
+            return false;
+        }
+
         if (!$user->getCollectivity()->isActive()) {
             return false;
         }

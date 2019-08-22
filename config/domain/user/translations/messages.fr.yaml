@@ -138,13 +138,15 @@ user:
 
     user:
         action:
+            archived: Voir les utilisateurs archivés
             back_to_list: Retour à la liste
             new: Nouvel utilisateur
+            not_archived: Voir les utilisateurs non archivés
         breadcrumb:
             list: Liste des utilisateurs
             create: Créer
             edit: Éditer "%name%"
-            delete: Supprimer "%name%"
+            delete: Archiver "%name%"
         form:
             collectivity: Collectivité
             email: E-mail
@@ -178,4 +180,4 @@ user:
             edit: Éditer un utilisateur
             label: Utilisateur
             list: Liste des utilisateurs
-            delete: Supprimer un utilisateur
+            delete: Archiver un utilisateur

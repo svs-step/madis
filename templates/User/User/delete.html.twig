@@ -26,14 +26,14 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer l'utilisateur "{{ object }}" ?
+                    Souhaitez vous vraiment archiver l'utilisateur "{{ object }}" ?
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('user_user_list') }}" class="btn btn-default">
                         {{ 'user.user.action.back_to_list'|trans }}
                     </a>
                     <a href="{{ path('user_user_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
-                        {{ 'action.confirm_delete'|trans }}
+                        {{ 'action.confirm_archive'|trans }}
                     </a>
                 </div>
             </div>

@@ -24,12 +24,15 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Model;
 
+use App\Application\Traits\Model\SoftDeletableTrait;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
 {
+    use SoftDeletableTrait;
+
     /**
      * @var UuidInterface
      */

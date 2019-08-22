@@ -6,6 +6,8 @@ CHANGELOG
 - [PREUVE] Possibilité de lier une preuve à une ou plusieurs données, #186
 - [ADMINISTRATION] Subrogation d'un utilisateur de l'application, #107
 - [GLOBAL] Ajout d'un DatePicker dans les formulaires pour les champs date, #37
+### Changement
+- [USER] La suppression (non fonctionnelle) a été remplacée par un archivage, #199
 ### Fix
 - [PREUVE] Un administrateur peut maintenant télécharger les documents qui ne sont pas de sa collectivité, #197
 - [GLOBAL] Passage des dates au format FR (DD/MM/YYYY) dans les listes, #37

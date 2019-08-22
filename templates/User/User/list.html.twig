@@ -28,6 +28,17 @@
                     <i class="fa fa-plus"></i>
                     {{ 'user.user.action.new'|trans }}
                 </a>
+                {% if app.request.query.get('archive') == 'true' %}
+                    <a href="{{ path('user_user_list', {'archive' : 'false'}) }}" class="btn btn-default">
+                        <i class="fa fa-archive"></i>
+                        {{ 'user.user.action.not_archived'|trans }}
+                    </a>
+                {% else %}
+                    <a href="{{ path('user_user_list', {'archive' : 'true'}) }}" class="btn btn-default">
+                        <i class="fa fa-archive"></i>
+                        {{ 'user.user.action.archived'|trans }}
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -81,7 +92,7 @@
                                 {% endif %}
                             </td>
                             <td>
-                                {% if is_granted('CAN_CONNECT', object) and app.user != object %}
+                                {% if is_granted('CAN_CONNECT', object) and and app.user != object and object.deletedAt is null %}
                                 <a href="{{ path('reporting_dashboard_index', {'_switch_user': object.username}) }}">
                                     <i class="fa fa-user-lock"></i>
                                     {{ 'action.impersonate'|trans }}
@@ -91,10 +102,12 @@
                                     <i class="fa fa-pencil-alt"></i>
                                     {{ 'action.edit'|trans }}
                                 </a>
+                                {% if object.deletedAt is null and object != app.user %}
                                 <a href="{{ path('user_user_delete', { 'id': object.id }) }}">
-                                    <i class="fa fa-trash"></i>
-                                    {{ 'action.delete'|trans }}
+                                    <i class="fa fa-archive"></i>
+                                    {{ 'action.archive'|trans }}
                                 </a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
