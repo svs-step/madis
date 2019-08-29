@@ -78,7 +78,7 @@ class LinkCreatorSubscriber implements EventSubscriber
         $object = $args->getObject();
         $uses   = \class_uses($object);
         $token  = $this->userProvider->getToken();
-        $user   = $token->getUser();
+        $user   = $token ? $token->getUser() : null;
 
         if (
             !\in_array(CreatorTrait::class, $uses)
