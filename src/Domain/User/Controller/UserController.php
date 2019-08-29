@@ -30,6 +30,9 @@ use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -103,5 +106,53 @@ class UserController extends CRUDController
     protected function isSoftDelete(): bool
     {
         return true;
+    }
+
+    /**
+     * The unarchive action view
+     * Display a confirmation message to confirm data un-archivage.
+     *
+     * @param string $id
+     *
+     * @return Response
+     */
+    public function unarchiveAction(string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        return $this->render($this->getTemplatingBasePath('unarchive'), [
+            'object' => $object,
+        ]);
+    }
+
+    /**
+     * The unarchive action
+     * Unarchive the data.
+     *
+     * @param string $id
+     *
+     * @throws \Exception
+     *
+     * @return Response
+     */
+    public function unarchiveConfirmationAction(string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        if (!\method_exists($object, 'setDeletedAt')) {
+            throw new MethodNotImplementedException('setDeletedAt');
+        }
+        $object->setDeletedAt(null);
+        $this->repository->update($object);
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'unarchive', $object));
+
+        return $this->redirectToRoute($this->getRouteName('list'));
     }
 }

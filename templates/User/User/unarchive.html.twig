@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'user_user delete' %}
+{% set menuItem = 'user_user' %}
+
+{% block title %}{{ 'user.user.title.unarchive'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'user.user.title.unarchive'|trans }}
+        <small>{{ object }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'user.user.breadcrumb.list'|trans, 'link': path('user_user_list') },
+        { 'name': 'user.user.breadcrumb.unarchive'|trans({'%name%': object}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-header"></div>
+                <div class="box-body">
+                    Souhaitez vous vraiment rétablir l'utilisateur "{{ object }}" ?
+                </div>
+                <div class="box-footer">
+                    <a href="{{ path('user_user_list') }}" class="btn btn-default">
+                        {{ 'user.user.action.back_to_list'|trans }}
+                    </a>
+                    <a href="{{ path('user_user_unarchive_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'action.confirm_unarchive'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

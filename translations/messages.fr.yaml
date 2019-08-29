@@ -4,6 +4,7 @@ action:
     confirm: Confirmer
     confirm_archive: Confirmer l'archivage
     confirm_delete: Confirmer la suppression
+    confirm_unarchive: Confirmer le rétablissement
     connexion: Connexion
     create: Créer
     download: Télécharger
@@ -14,6 +15,7 @@ action:
     print: Imprimer
     reinitialize: Réinitialisation
     submit: Soumettre
+    unarchive: Rétablir
 
 label:
     actions: Actions

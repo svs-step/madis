@@ -27,3 +27,15 @@ user_user_delete_confirm:
     methods: ['GET']
     defaults:
         _controller: 'App\Domain\User\Controller\UserController:deleteConfirmationAction'
+
+user_user_unarchive:
+    path: '/desarchiver/{id}'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\User\Controller\UserController:unarchiveAction'
+
+user_user_unarchive_confirm:
+    path: '/desarchiver/{id}/confirmation'
+    methods: ['GET']
+    defaults:
+        _controller: 'App\Domain\User\Controller\UserController:unarchiveConfirmationAction'
