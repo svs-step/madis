@@ -120,7 +120,7 @@
                                     <span class="label label-danger">{{ 'label.no'|trans }}</span>
                                 {% endif %}
                             </td>
-                            <td>{% if object.answer.date is not null %}{{ object.answer.date|date('d/m/Y') }}{% endif %}01/01/2018</td>
+                            <td>{% if object.answer.date is not null %}{{ object.answer.date|date('d/m/Y') }}{% endif %}</td>
                             {% if is_granted('ROLE_USER') and object.deletedAt is null %}
                                 <td>
                                     <a href="{{ path('registry_request_edit', { 'id': object.id }) }}">
