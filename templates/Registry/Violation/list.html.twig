@@ -115,25 +115,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% if is_granted('ROLE_ADMIN') %}
-        {% set dataTableOptions = {
-            "aoColumns": [
-                null,
-                { "sType": "date-uk" },
-                null,
-                null,
-                null,
-            ]
-        } %}
-    {% else %}
-        {% set dataTableOptions = {
-            "aoColumns": [
-                { "sType": "date-uk" },
-                null,
-                null,
-                null,
-            ]
-        } %}
-    {% endif %}
-    {{ include('_Utils/_datatable.html.twig', { dataTableOptions: dataTableOptions }) }}
-{% endblock javascripts %}
+    {{ include('_Utils/_datatable.html.twig') }}
+{% endblock %}
