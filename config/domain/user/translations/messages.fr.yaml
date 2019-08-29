@@ -145,8 +145,9 @@ user:
         breadcrumb:
             list: Liste des utilisateurs
             create: Créer
-            edit: Éditer "%name%"
             delete: Archiver "%name%"
+            edit: Éditer "%name%"
+            unarchive: Rétablir "%name%"
         form:
             collectivity: Collectivité
             email: E-mail
@@ -163,6 +164,7 @@ user:
                 create: Utilisateur "%object%" créée avec succès
                 edit: Utilisateur "%object%" éditée avec succès
                 delete: Utilisateur "%object%" supprimée avec succès
+                unarchive: Utilisateur "%object%" rétabli avec succès
         list:
             collectivity: Collectivité
             email: E-mail
@@ -178,6 +180,7 @@ user:
         title:
             create: Créer un utilisateur
             edit: Éditer un utilisateur
+            delete: Archiver un utilisateur
             label: Utilisateur
             list: Liste des utilisateurs
-            delete: Archiver un utilisateur
+            unarchive: Rétablir un utilisateur
