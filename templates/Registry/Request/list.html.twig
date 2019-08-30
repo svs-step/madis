@@ -120,7 +120,7 @@
                                     <span class="label label-danger">{{ 'label.no'|trans }}</span>
                                 {% endif %}
                             </td>
-                            <td>{% if object.answer.date is not null %}{{ object.answer.date|date('d/m/Y') }}{% endif %}01/01/2018</td>
+                            <td>{% if object.answer.date is not null %}{{ object.answer.date|date('d/m/Y') }}{% endif %}</td>
                             {% if is_granted('ROLE_USER') and object.deletedAt is null %}
                                 <td>
                                     <a href="{{ path('registry_request_edit', { 'id': object.id }) }}">
@@ -144,48 +144,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {# ADMIN #}
-    {% if is_granted('ROLE_ADMIN') %}
-        {% set dataTableOptions = {
-            "aoColumns": [
-                null,
-                null,
-                { "sType": "date-uk" },
-                null,
-                null,
-                null,
-                null,
-                { "sType": "date-uk" },
-                null,
-            ]
-        } %}
-    {# USER #}
-    {% elseif not is_granted('ROLE_USER') %}
-        {% set dataTableOptions = {
-            "aoColumns": [
-                null,
-                { "sType": "date-uk" },
-                null,
-                null,
-                null,
-                null,
-                { "sType": "date-uk" },
-                null,
-            ]
-        } %}
-    {# PREVIEW #}
-    {% else %}
-        {% set dataTableOptions = {
-            "aoColumns": [
-                null,
-                { "sType": "date-uk" },
-                null,
-                null,
-                null,
-                null,
-                { "sType": "date-uk" },
-            ]
-        } %}
-    {% endif %}
-    {{ include('_Utils/_datatable.html.twig', { dataTableOptions: dataTableOptions }) }}
+    {{ include('_Utils/_datatable.html.twig') }}
 {% endblock %}
