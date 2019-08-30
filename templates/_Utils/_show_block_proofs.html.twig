@@ -1,17 +1,17 @@
 <div class="box box-solid box-warning">
     <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_documents'|trans }}</h3></div>
     <div class="box-body">
-        {% if object.proofs|length > 0 %}
+        {% set activeProofs = object.proofs|filter(proof => proof.deletedAt is null) -%}
+
+        {% if activeProofs|length > 0 %}
             <ul>
-                {% for proof in object.proofs %}
-                    {% if proof.deletedAt is null %}
-                        <li>
-                            <a href="{{ path('registry_proof_download', { id: proof.id }) }}">
-                                {{ proof.name }} ({{ proof.type|dictionary('registry_proof_type') }})
-                            </a>
-                            {{ proof.comment }}
-                        </li>
-                    {% endif %}
+                {% for proof in activeProofs %}
+                    <li>
+                        <a href="{{ path('registry_proof_download', { id: proof.id }) }}">
+                            {{ proof.name }} ({{ proof.type|dictionary('registry_proof_type') }})
+                        </a>
+                        {{ proof.comment }}
+                    </li>
                 {% endfor %}
             </ul>
         {% else %}
