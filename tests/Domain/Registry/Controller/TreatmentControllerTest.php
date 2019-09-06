@@ -31,8 +31,8 @@ use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
-use App\Domain\User\Model\Collectivity;
-use App\Domain\User\Model\User;
+use App\Domain\User\Model as UserModel;
+use App\Domain\User\Repository as UserRepository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
@@ -64,6 +64,11 @@ class TreatmentControllerTest extends TestCase
     private $repositoryProphecy;
 
     /**
+     * @var UserRepository\Collectivity
+     */
+    private $collectivityRepositoryProphecy;
+
+    /**
      * @var RequestStack
      */
     private $requestStackProphecy;
@@ -93,6 +98,7 @@ class TreatmentControllerTest extends TestCase
         $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
         $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);
         $this->repositoryProphecy             = $this->prophesize(Repository\Treatment::class);
+        $this->collectivityRepositoryProphecy = $this->prophesize(UserRepository\Collectivity::class);
         $this->requestStackProphecy           = $this->prophesize(RequestStack::class);
         $this->wordHandlerProphecy            = $this->prophesize(WordHandler::class);
         $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
@@ -102,6 +108,7 @@ class TreatmentControllerTest extends TestCase
             $this->managerProphecy->reveal(),
             $this->translatorProphecy->reveal(),
             $this->repositoryProphecy->reveal(),
+            $this->collectivityRepositoryProphecy->reveal(),
             $this->requestStackProphecy->reveal(),
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
@@ -215,8 +222,8 @@ class TreatmentControllerTest extends TestCase
             ->willReturn(false)
         ;
 
-        $collectivity = $this->prophesize(Collectivity::class)->reveal();
-        $userProphecy = $this->prophesize(User::class);
+        $collectivity = $this->prophesize(UserModel\Collectivity::class)->reveal();
+        $userProphecy = $this->prophesize(UserModel\User::class);
         $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($collectivity);
         $this->userProviderProphecy
             ->getAuthenticatedUser()
@@ -253,8 +260,8 @@ class TreatmentControllerTest extends TestCase
         $treatments  = [];
         $response    = $this->prophesize(BinaryFileResponse::class)->reveal();
 
-        $collectivity = $this->prophesize(Collectivity::class)->reveal();
-        $userProphecy = $this->prophesize(User::class);
+        $collectivity = $this->prophesize(UserModel\Collectivity::class)->reveal();
+        $userProphecy = $this->prophesize(UserModel\User::class);
         $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($collectivity);
         $this->userProviderProphecy
             ->getAuthenticatedUser()

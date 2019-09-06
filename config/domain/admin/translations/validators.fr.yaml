@@ -1,0 +1,11 @@
+admin_duplication:
+    data:
+        count_min: Vous devez sélectionner au moins une donnée
+    source_collectivity:
+        not_null: Vous devez sélectionner une collectivité source
+    target_collectivity_types:
+        not_blank: Vous devez sélectionner au moins une donnée cible
+    target_collectivities:
+        not_blank: Vous devez sélectionner au moins une donnée cible
+    type:
+        not_null: Vous devez sélectionner le type de données à dupliquer

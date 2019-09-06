@@ -1,3 +1,6 @@
+_domain_admin:
+    resource: ../domain/admin/routes/_index.yaml
+
 _domain_maturity:
     resource: ../domain/maturity/routes/_index.yaml
 

@@ -149,6 +149,31 @@ class LinkCreatorSubscriberTest extends TestCase
 
     /**
      * Test prePersist
+     * Object already has creator, then the connected user is not auto linked.
+     */
+    public function testPrePersistUserAlreadySet(): void
+    {
+        $object            = new DummyLinkCreatorSubscriberTest();
+        $objectUses        = \class_uses($object);
+        $alreadyLinkedUser = new Model\User();
+        $object->setCreator($alreadyLinkedUser);
+        $loggerUser = new Model\User();
+        $linkAdmin  = false;
+
+        $tokenProphecy = $this->prophesize(TokenInterface::class);
+
+        $tokenProphecy->getUser()->shouldBeCalled()->willReturn($loggerUser);
+        $this->userProviderProphecy->getToken()->shouldBeCalled()->willReturn($tokenProphecy->reveal());
+        $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
+
+        $this->assertTrue(\in_array(CreatorTrait::class, $objectUses));
+        $this->assertEquals($alreadyLinkedUser, $object->getCreator());
+        $this->getSut($linkAdmin)->prePersist($this->lifeCycleEventArgsProphecy->reveal());
+        $this->assertEquals($alreadyLinkedUser, $object->getCreator());
+    }
+
+    /**
+     * Test prePersist
      * Don't link admin as creator.
      *
      * @throws \Exception
@@ -207,7 +232,7 @@ class LinkCreatorSubscriberTest extends TestCase
 
     /**
      * Test prePersist
-     * Link admin as creator but there is no SwitchUserRole.
+     * Link admin as creator but there is no SwitchUserRole, then connected user is linked by default.
      *
      * @throws \Exception
      */

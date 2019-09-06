@@ -30,14 +30,23 @@ use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Model as UserModel;
+use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class TreatmentController extends CRUDController
 {
+    /**
+     * @var UserRepository\Collectivity
+     */
+    protected $collectivityRepository;
     /**
      * @var RequestStack
      */
@@ -62,16 +71,18 @@ class TreatmentController extends CRUDController
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Treatment $repository,
+        UserRepository\Collectivity $collectivityRepository,
         RequestStack $requestStack,
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider
     ) {
         parent::__construct($entityManager, $translator, $repository);
-        $this->requestStack         = $requestStack;
-        $this->wordHandler          = $wordHandler;
-        $this->authorizationChecker = $authorizationChecker;
-        $this->userProvider         = $userProvider;
+        $this->collectivityRepository = $collectivityRepository;
+        $this->requestStack           = $requestStack;
+        $this->wordHandler            = $wordHandler;
+        $this->authorizationChecker   = $authorizationChecker;
+        $this->userProvider           = $userProvider;
     }
 
     /**
@@ -143,5 +154,43 @@ class TreatmentController extends CRUDController
         );
 
         return $this->wordHandler->generateRegistryTreatmentReport($objects);
+    }
+
+    /**
+     * Get all active treatments of a collectivity and return their id/name as JSON.
+     *
+     * @param string $collectivityId
+     *
+     * @return Response
+     */
+    public function apiGetTreatmentsByCollectivity(string $collectivityId): Response
+    {
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('You can\'t access to a collectivity treatment data');
+        }
+
+        /** @var UserModel\Collectivity|null $collectivity */
+        $collectivity = $this->collectivityRepository->findOneById($collectivityId);
+        if (null === $collectivity) {
+            throw new NotFoundHttpException('Can\'t find collectivity for id ' . $collectivityId);
+        }
+
+        $treatments = $this->repository->findAllByCollectivity(
+            $collectivity,
+            [
+                'name' => 'ASC',
+            ]
+        );
+        $responseData = [];
+
+        /** @var Model\Treatment $treatment */
+        foreach ($treatments as $treatment) {
+            $responseData[] = [
+                'value' => $treatment->getId()->toString(),
+                'text'  => $treatment->__toString(),
+            ];
+        }
+
+        return new JsonResponse($responseData);
     }
 }

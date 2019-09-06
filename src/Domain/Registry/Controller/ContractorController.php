@@ -30,13 +30,23 @@ use App\Domain\Registry\Form\Type\ContractorType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Model as UserModel;
+use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class ContractorController extends CRUDController
 {
+    /**
+     * @var UserRepository\Collectivity
+     */
+    protected $collectivityRepository;
+
     /**
      * @var WordHandler
      */
@@ -56,14 +66,16 @@ class ContractorController extends CRUDController
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Contractor $repository,
+        UserRepository\Collectivity $collectivityRepository,
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider
     ) {
         parent::__construct($entityManager, $translator, $repository);
-        $this->wordHandler          = $wordHandler;
-        $this->authorizationChecker = $authorizationChecker;
-        $this->userProvider         = $userProvider;
+        $this->collectivityRepository = $collectivityRepository;
+        $this->wordHandler            = $wordHandler;
+        $this->authorizationChecker   = $authorizationChecker;
+        $this->userProvider           = $userProvider;
     }
 
     /**
@@ -125,5 +137,43 @@ class ContractorController extends CRUDController
         );
 
         return $this->wordHandler->generateRegistryContractorReport($objects);
+    }
+
+    /**
+     * Get all active treatments of a collectivity and return their id/name as JSON.
+     *
+     * @param string $collectivityId
+     *
+     * @return Response
+     */
+    public function apiGetContractorsByCollectivity(string $collectivityId): Response
+    {
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('You can\'t access to a collectivity contractor data');
+        }
+
+        /** @var UserModel\Collectivity|null $collectivity */
+        $collectivity = $this->collectivityRepository->findOneById($collectivityId);
+        if (null === $collectivity) {
+            throw new NotFoundHttpException('Can\'t find collectivity for id ' . $collectivityId);
+        }
+
+        $contractors   = $this->repository->findAllByCollectivity(
+            $collectivity,
+            [
+                'name' => 'ASC',
+            ]
+        );
+        $responseData = [];
+
+        /** @var Model\Contractor $contractor */
+        foreach ($contractors as $contractor) {
+            $responseData[] = [
+                'value' => $contractor->getId()->toString(),
+                'text'  => $contractor->__toString(),
+            ];
+        }
+
+        return new JsonResponse($responseData);
     }
 }

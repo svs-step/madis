@@ -31,8 +31,8 @@ use App\Domain\Registry\Form\Type\ContractorType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
-use App\Domain\User\Model\Collectivity;
-use App\Domain\User\Model\User;
+use App\Domain\User\Model as UserModel;
+use App\Domain\User\Repository as UserRepository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
@@ -60,6 +60,11 @@ class ContractorControllerTest extends TestCase
     private $repositoryProphecy;
 
     /**
+     * @var UserRepository\Collectivity
+     */
+    private $collectivityRepositoryProphecy;
+
+    /**
      * @var WordHandler
      */
     private $wordHandlerProphecy;
@@ -84,6 +89,7 @@ class ContractorControllerTest extends TestCase
         $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
         $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);
         $this->repositoryProphecy             = $this->prophesize(Repository\Contractor::class);
+        $this->collectivityRepositoryProphecy = $this->prophesize(UserRepository\Collectivity::class);
         $this->wordHandlerProphecy            = $this->prophesize(WordHandler::class);
         $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
@@ -92,6 +98,7 @@ class ContractorControllerTest extends TestCase
             $this->managerProphecy->reveal(),
             $this->translatorProphecy->reveal(),
             $this->repositoryProphecy->reveal(),
+            $this->collectivityRepositoryProphecy->reveal(),
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProviderProphecy->reveal()
@@ -188,8 +195,8 @@ class ContractorControllerTest extends TestCase
             ->willReturn(false)
         ;
 
-        $collectivity = $this->prophesize(Collectivity::class)->reveal();
-        $userProphecy = $this->prophesize(User::class);
+        $collectivity = $this->prophesize(UserModel\Collectivity::class)->reveal();
+        $userProphecy = $this->prophesize(UserModel\User::class);
         $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($collectivity);
         $this->userProviderProphecy
             ->getAuthenticatedUser()
@@ -226,8 +233,8 @@ class ContractorControllerTest extends TestCase
         $contractors = [];
         $response    = $this->prophesize(BinaryFileResponse::class)->reveal();
 
-        $collectivity = $this->prophesize(Collectivity::class)->reveal();
-        $userProphecy = $this->prophesize(User::class);
+        $collectivity = $this->prophesize(UserModel\Collectivity::class)->reveal();
+        $userProphecy = $this->prophesize(UserModel\User::class);
         $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($collectivity);
         $this->userProviderProphecy
             ->getAuthenticatedUser()

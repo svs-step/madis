@@ -557,6 +557,12 @@
     "webmozart/assert": {
         "version": "1.3.0"
     },
+    "wmde/iterable-functions": {
+        "version": "0.2.0"
+    },
+    "wmde/traversable-iterator": {
+        "version": "1.0.0"
+    },
     "zendframework/zend-code": {
         "version": "3.3.0"
     },

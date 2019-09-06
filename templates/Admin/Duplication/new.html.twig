@@ -1,0 +1,143 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'admin_duplication form create' %}
+{% set menuItem = 'admin_duplication' %}
+
+{% block title %}{{ 'admin.duplication.title.new'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'admin.duplication.title.new'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'admin.duplication.breadcrumb.new'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {{ form_start(form) }}
+
+        {# LEFT #}
+        <div class="col-md-6">
+            {# SOURCE DATA #}
+            <div class="box box-solid box-default">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'admin.duplication.tab.source'|trans }}</h3></div>
+                <div class="box-body">
+                    {{ form_row(form.type) }}
+                    {{ form_row(form.sourceCollectivity) }}
+                    {{ form_row(form.data) }}
+                </div>
+            </div>
+        </div>
+
+        {# RIGHT #}
+        <div class="col-md-6">
+            {# TARGET DATA #}
+            <div class="box box-solid box-default">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'admin.duplication.tab.target'|trans }}</h3></div>
+                <div class="box-body">
+                    {{ form_row(form.targetOption) }}
+                    {{ form_row(form.targetCollectivityTypes) }}
+                    {{ form_row(form.targetCollectivities) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class="box-body text-center">
+                    <input type="submit" class="btn btn-primary" value="{{ 'action.duplicate'|trans }}">
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+
+            // Initialize form
+            checkData();
+            checkTargetOption();
+            checkTargetCollectivities();
+
+            // Enable interractions
+            $('#duplication_type').on('change', function() {
+                checkData();
+            });
+            $('#duplication_targetOption').on('change', function() {
+                checkTargetOption();
+            });
+            $('#duplication_sourceCollectivity').on('change', function() {
+                checkData();
+                checkTargetCollectivities();
+            });
+        });
+
+        function checkData() {
+            let type = $('#duplication_type').find('input:checked').val();
+            let sourceCollectivityId = $('#duplication_sourceCollectivity').val();
+            let dataField = $('#duplication_data');
+
+            if (type) {
+                dataField.prop('disabled', true);
+
+                // Define route according to selected type
+                let route = '';
+                if (type === '{{ constant('App\\Domain\\Admin\\Dictionary\\DuplicationTypeDictionary::KEY_TREATMENT') }}') {
+                    route = "{{ path('api_registry_treatment_collectivity', {collectivityId: ':collectivityId' }) }}".replace(':collectivityId', sourceCollectivityId);
+                } else if (type === '{{ constant('App\\Domain\\Admin\\Dictionary\\DuplicationTypeDictionary::KEY_CONTRACTOR') }}') {
+                    route = "{{ path('api_registry_contractor_collectivity', {collectivityId: ':collectivityId' }) }}".replace(':collectivityId', sourceCollectivityId);
+                } else if (type === '{{ constant('App\\Domain\\Admin\\Dictionary\\DuplicationTypeDictionary::KEY_MESUREMENT') }}') {
+                    route = "{{ path('api_registry_mesurement_collectivity', {collectivityId: ':collectivityId' }) }}".replace(':collectivityId', sourceCollectivityId);
+                } else {
+                    console.error('Cannot find route for provided type : ' + type)
+                }
+
+                // Get data and display them
+                $.ajax({
+                    url: route,
+                    context: document.body
+                }).done(function(response) {
+                    dataField.find('option').remove();
+                    response.forEach(function(responseItem) {
+                        dataField.append('<option value="' + responseItem.value + '">' + responseItem.text + '</option>')
+                    });
+                    dataField.prop('disabled', false);
+                })
+            } else {
+                dataField.prop('disabled', true);
+            }
+        }
+
+        function checkTargetOption() {
+            let targetOption = $('#duplication_targetOption input[type=radio]:checked').val();
+            let targetPerType = $('#duplication_targetCollectivityTypes');
+            let targetPerCollectivity = $('#duplication_targetCollectivities');
+
+            if (targetOption === '{{ constant('App\\Domain\\Admin\\Dictionary\\DuplicationTargetOptionDictionary::KEY_PER_TYPE') }}') {
+                targetPerType.show();
+                targetPerCollectivity.hide();
+            } else if (targetOption === '{{ constant('App\\Domain\\Admin\\Dictionary\\DuplicationTargetOptionDictionary::KEY_PER_COLLECTIVITY') }}') {
+                targetPerType.hide();
+                targetPerCollectivity.show();
+            } else {
+                targetPerType.hide();
+                targetPerCollectivity.hide();
+            }
+        }
+
+        function checkTargetCollectivities() {
+            let sourceCollectivityVal = $('#duplication_sourceCollectivity').val();
+
+            $('#duplication_targetCollectivities option[value!=\'' + sourceCollectivityVal + '\']').prop('disabled', false);
+            $('#duplication_targetCollectivities option[value=\'' + sourceCollectivityVal + '\']').prop('disabled', true);
+        }
+    </script>
+{% endblock %}

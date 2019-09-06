@@ -1,48 +1,44 @@
 registry_mesurement_list:
     path: '/liste'
     methods: ['GET']
-    defaults:
-        _controller: 'App\Domain\Registry\Controller\MesurementController:listAction'
+    controller: 'App\Domain\Registry\Controller\MesurementController:listAction'
 
 registry_mesurement_action_plan:
     path: '/plan-d-actions'
     methods: ['GET']
-    defaults:
-        _controller: 'App\Domain\Registry\Controller\MesurementController:actionPlanAction'
+    controller: 'App\Domain\Registry\Controller\MesurementController:actionPlanAction'
 
 registry_mesurement_create:
     path: '/creer'
     methods: ['GET', 'POST']
-    defaults:
-        _controller: 'App\Domain\Registry\Controller\MesurementController:createAction'
+    controller: 'App\Domain\Registry\Controller\MesurementController:createAction'
 
 registry_mesurement_edit:
     path: '/editer/{id}'
     methods: ['GET', 'POST']
-    defaults:
-        _controller: 'App\Domain\Registry\Controller\MesurementController:editAction'
+    controller: 'App\Domain\Registry\Controller\MesurementController:editAction'
 
 registry_mesurement_show:
     path: '/visualiser/{id}'
     methods: ['GET']
-    defaults:
-        _controller: 'App\Domain\Registry\Controller\MesurementController:showAction'
+    controller: 'App\Domain\Registry\Controller\MesurementController:showAction'
 
 registry_mesurement_report:
     path: '/bilan'
     methods: ['GET']
-    defaults:
-        _controller: 'App\Domain\Registry\Controller\MesurementController:reportAction'
-
+    controller: 'App\Domain\Registry\Controller\MesurementController:reportAction'
 
 registry_mesurement_delete:
     path: '/supprimer/{id}'
     methods: ['GET']
-    defaults:
-        _controller: 'App\Domain\Registry\Controller\MesurementController:deleteAction'
+    controller: 'App\Domain\Registry\Controller\MesurementController:deleteAction'
 
 registry_mesurement_delete_confirm:
     path: '/supprimer/{id}/confirmation'
     methods: ['GET']
-    defaults:
-        _controller: 'App\Domain\Registry\Controller\MesurementController:deleteConfirmationAction'
+    controller: 'App\Domain\Registry\Controller\MesurementController:deleteConfirmationAction'
+
+api_registry_mesurement_collectivity:
+    path: '/api/collectivite/{collectivityId}'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\MesurementController:apiGetMesurementsByCollectivity'
