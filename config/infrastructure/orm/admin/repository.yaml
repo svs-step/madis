@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\Infrastructure\ORM\Admin\Repository\:
+        resource: '../../../../src/Infrastructure/ORM/Admin/Repository'
+
+    App\Domain\Admin\Repository\Duplication: '@App\Infrastructure\ORM\Admin\Repository\Duplication'

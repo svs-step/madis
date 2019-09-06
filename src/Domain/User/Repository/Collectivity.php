@@ -25,7 +25,33 @@ declare(strict_types=1);
 namespace App\Domain\User\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
+use App\Domain\User\Model;
 
 interface Collectivity extends CRUDRepositoryInterface
 {
+    /**
+     * {@inheritdoc}
+     *
+     * @return Model\Collectivity
+     */
+    public function findOneById(string $id);
+
+    /**
+     * Find collectivities thanks to an ids list.
+     *
+     * @param string[] $ids
+     *
+     * @return Model\Collectivity[]
+     */
+    public function findByIds(array $ids): array;
+
+    /**
+     * Find every collectivities which belong to one of the provided types.
+     *
+     * @param array                   $types
+     * @param Model\Collectivity|null $excludedCollectivity
+     *
+     * @return Model\Collectivity[]
+     */
+    public function findByTypes(array $types, ?Model\Collectivity $excludedCollectivity = null): array;
 }

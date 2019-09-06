@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d76f73ba9796d09650d116b39836ceca",
+    "content-hash": "f44e2c1cf650345ba27c28028c5a6bc5",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -5403,6 +5403,99 @@
                 "templating"
             ],
             "time": "2019-06-18T15:37:11+00:00"
+        },
+        {
+            "name": "wmde/iterable-functions",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wmde/iterable-functions.git",
+                "reference": "2f87aa1fc983fb9d8f7046791be18a9b87ae563b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wmde/iterable-functions/zipball/2f87aa1fc983fb9d8f7046791be18a9b87ae563b",
+                "reference": "2f87aa1fc983fb9d8f7046791be18a9b87ae563b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1",
+                "wmde/traversable-iterator": "~1.0"
+            },
+            "require-dev": {
+                "mediawiki/mediawiki-codesniffer": "~22.0.0",
+                "ockcyp/covers-validator": "~1.0",
+                "phpunit/phpunit": "~7.3.5",
+                "squizlabs/php_codesniffer": "~3.3.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Jeroen De Dauw",
+                    "email": "jeroendedauw@gmail.com",
+                    "homepage": "http://jeroendedauw.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Functions to transform iterables into more specific types",
+            "homepage": "https://github.com/wmde/iterable-functions",
+            "time": "2018-09-13T12:30:23+00:00"
+        },
+        {
+            "name": "wmde/traversable-iterator",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wmde/traversable-iterator.git",
+                "reference": "a09656ab1c3a26596ba2c4d76da4c02e2db148a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wmde/traversable-iterator/zipball/a09656ab1c3a26596ba2c4d76da4c02e2db148a9",
+                "reference": "a09656ab1c3a26596ba2c4d76da4c02e2db148a9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "mediawiki/mediawiki-codesniffer": "~0.8.0",
+                "ockcyp/covers-validator": "~0.6",
+                "phpunit/phpunit": "~6.2",
+                "squizlabs/php_codesniffer": "~2.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "WMDE\\TraversableIterator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Turn Traversable objects into Iterators. Fixed version of the native IteratorIterator",
+            "homepage": "https://github.com/wmde/traversable-iterator",
+            "time": "2017-06-17T16:55:16+00:00"
         },
         {
             "name": "zendframework/zend-code",

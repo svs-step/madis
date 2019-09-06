@@ -1,0 +1,34 @@
+App\Domain\Admin\DTO\DuplicationDTO:
+    properties:
+        data:
+            - Count:
+                min: 1
+                minMessage: 'admin_duplication.data.count_min'
+                groups: ['default']
+        sourceCollectivity:
+            - NotNull:
+                message: 'admin_duplication.source_collectivity.not_null'
+                groups: ['default']
+        type:
+            - NotNull:
+                message: 'admin_duplication.type.not_null'
+                groups: ['default']
+        targetOption:
+            - NotNull:
+                message: 'admin_duplication.target_option.not_null'
+                groups: ['default']
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'admin_duplication_target_option'
+                groups: ['default']
+        targetCollectivityTypes:
+            - App\Application\Symfony\Validator\Constraints\NotBlankDependingOnOtherFieldValue:
+                otherFieldPath: 'targetOption'
+                otherFieldExpectedValue: !php/const App\Domain\Admin\Dictionary\DuplicationTargetOptionDictionary::KEY_PER_TYPE
+                message: 'admin_duplication.target_collectivity_types.not_blank'
+                groups: ['default']
+        targetCollectivities:
+            - App\Application\Symfony\Validator\Constraints\NotBlankDependingOnOtherFieldValue:
+                otherFieldPath: 'targetOption'
+                otherFieldExpectedValue: !php/const App\Domain\Admin\Dictionary\DuplicationTargetOptionDictionary::KEY_PER_COLLECTIVITY
+                message: 'admin_duplication.target_collectivities.not_blank'
+                groups: ['default']

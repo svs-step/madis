@@ -1,0 +1,4 @@
+_admin_duplication:
+    resource: 'duplication.yaml'
+    prefix:   '/duplication'
+

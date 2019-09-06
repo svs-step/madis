@@ -1,0 +1,14 @@
+admin_duplication_new:
+    path: '/nouveau'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Admin\Controller\DuplicationController:newAction'
+
+admin_duplication_processing:
+    path: '/traitement/{duplicationId}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Admin\Controller\DuplicationController:processingAction'
+
+api_admin_duplication_duplicate:
+    path: '/api/dupliquer/{duplicationId}/{targetCollectivityId}'
+    methods: ['POST']
+    controller: 'App\Domain\Admin\Controller\DuplicationController:duplicateAction'

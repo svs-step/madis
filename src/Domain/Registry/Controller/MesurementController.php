@@ -31,13 +31,23 @@ use App\Domain\Registry\Form\Type\MesurementType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Model as UserModel;
+use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class MesurementController extends CRUDController
 {
+    /**
+     * @var UserRepository\Collectivity
+     */
+    protected $collectivityRepository;
+
     /**
      * @var WordHandler
      */
@@ -57,14 +67,16 @@ class MesurementController extends CRUDController
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Mesurement $repository,
+        UserRepository\Collectivity $collectivityRepository,
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider
     ) {
         parent::__construct($entityManager, $translator, $repository);
-        $this->wordHandler          = $wordHandler;
-        $this->authorizationChecker = $authorizationChecker;
-        $this->userProvider         = $userProvider;
+        $this->collectivityRepository = $collectivityRepository;
+        $this->wordHandler            = $wordHandler;
+        $this->authorizationChecker   = $authorizationChecker;
+        $this->userProvider           = $userProvider;
     }
 
     /**
@@ -150,5 +162,43 @@ class MesurementController extends CRUDController
         return $this->render('Registry/Mesurement/action_plan.html.twig', [
             'objects' => $this->repository->findByPlanified($criteria),
         ]);
+    }
+
+    /**
+     * Get all active treatments of a collectivity and return their id/name as JSON.
+     *
+     * @param string $collectivityId
+     *
+     * @return Response
+     */
+    public function apiGetMesurementsByCollectivity(string $collectivityId): Response
+    {
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('You can\'t access to a collectivity mesurement data');
+        }
+
+        /** @var UserModel\Collectivity|null $collectivity */
+        $collectivity = $this->collectivityRepository->findOneById($collectivityId);
+        if (null === $collectivity) {
+            throw new NotFoundHttpException('Can\'t find collectivity for id ' . $collectivityId);
+        }
+
+        $mesurements   = $this->repository->findAllByCollectivity(
+            $collectivity,
+            [
+                'name' => 'ASC',
+            ]
+        );
+        $responseData = [];
+
+        /** @var Model\Mesurement $mesurement */
+        foreach ($mesurements as $mesurement) {
+            $responseData[] = [
+                'value' => $mesurement->getId()->toString(),
+                'text'  => $mesurement->__toString(),
+            ];
+        }
+
+        return new JsonResponse($responseData);
     }
 }

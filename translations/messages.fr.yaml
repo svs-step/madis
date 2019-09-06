@@ -7,9 +7,10 @@ action:
     confirm_unarchive: Confirmer le rétablissement
     connexion: Connexion
     create: Créer
-    download: Télécharger
     delete: Supprimer
     deletion: Suppression
+    download: Télécharger
+    duplicate: Dupliquer
     edit: Modifier
     impersonate: Se connecter
     print: Imprimer

@@ -1,35 +1,29 @@
 user_collectivity_list:
     path: '/liste'
     methods: ['GET']
-    defaults:
-        _controller: 'App\Domain\User\Controller\CollectivityController:listAction'
+    controller: 'App\Domain\User\Controller\CollectivityController:listAction'
 
 user_collectivity_create:
     path: '/creer'
     methods: ['GET', 'POST']
-    defaults:
-        _controller: 'App\Domain\User\Controller\CollectivityController:createAction'
+    controller: 'App\Domain\User\Controller\CollectivityController:createAction'
 
 user_collectivity_edit:
     path: '/editer/{id}'
     methods: ['GET', 'POST']
-    defaults:
-        _controller: 'App\Domain\User\Controller\CollectivityController:editAction'
+    controller: 'App\Domain\User\Controller\CollectivityController:editAction'
 
 user_collectivity_show:
     path: '/visualiser/{id}'
     methods: ['GET']
-    defaults:
-        _controller: 'App\Domain\User\Controller\CollectivityController:showAction'
+    controller: 'App\Domain\User\Controller\CollectivityController:showAction'
 
 user_collectivity_delete:
     path: '/supprimer/{id}'
     methods: ['GET']
-    defaults:
-        _controller: 'App\Domain\User\Controller\CollectivityController:deleteAction'
+    controller: 'App\Domain\User\Controller\CollectivityController:deleteAction'
 
 user_collectivity_delete_confirm:
     path: '/supprimer/{id}/confirmation'
     methods: ['GET']
-    defaults:
-        _controller: 'App\Domain\User\Controller\CollectivityController:deleteConfirmationAction'
+    controller: 'App\Domain\User\Controller\CollectivityController:deleteConfirmationAction'

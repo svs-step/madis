@@ -240,6 +240,11 @@ class Treatment
     private $proofs;
 
     /**
+     * @var Treatment|null
+     */
+    private $clonedFrom;
+
+    /**
      * Treatment constructor.
      *
      * @throws \Exception
@@ -444,9 +449,9 @@ class Treatment
     }
 
     /**
-     * @param array $dataCategories
+     * @param iterable $dataCategories
      */
-    public function setDataCategories(array $dataCategories): void
+    public function setDataCategories(iterable $dataCategories): void
     {
         $this->dataCategories = $dataCategories;
     }
@@ -778,5 +783,21 @@ class Treatment
     public function getProofs(): iterable
     {
         return $this->proofs;
+    }
+
+    /**
+     * @return Treatment|null
+     */
+    public function getClonedFrom(): ?Treatment
+    {
+        return $this->clonedFrom;
+    }
+
+    /**
+     * @param Treatment|null $clonedFrom
+     */
+    public function setClonedFrom(?Treatment $clonedFrom): void
+    {
+        $this->clonedFrom = $clonedFrom;
     }
 }

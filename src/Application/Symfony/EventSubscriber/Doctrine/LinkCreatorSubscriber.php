@@ -80,6 +80,9 @@ class LinkCreatorSubscriber implements EventSubscriber
         $token  = $this->userProvider->getToken();
         $user   = $token ? $token->getUser() : null;
 
+        // Only link if prerequisite are right :
+        // - Model has CreatorTrait
+        // - Connected user is a User Model (i.e. avoid anonymous users)
         if (
             !\in_array(CreatorTrait::class, $uses)
             || !$user instanceof User
@@ -87,14 +90,22 @@ class LinkCreatorSubscriber implements EventSubscriber
             return;
         }
 
-        // We don't link admin in impersonate mode, then link impersonated user
+        // Skip creator linking if a creator is already set
+        if (
+            \in_array(CreatorTrait::class, $uses)
+            && null !== $object->getCreator()
+        ) {
+            return;
+        }
+
+        // No need to link admin, then link logged user (even if it is an impersonated one)
         if (false === $this->linkAdmin) {
             $object->setCreator($user);
 
             return;
         }
 
-        // We link admin in impersonate mode, check existence of SwitchUserRole token role
+        // We link admin, then check it original token
         foreach ($token->getRoles() as $role) {
             if ($role instanceof SwitchUserRole) {
                 $object->setCreator($role->getSource()->getUser());
@@ -103,7 +114,7 @@ class LinkCreatorSubscriber implements EventSubscriber
             }
         }
 
-        // If there is no impersonation, then link standard user
+        // Can't link admin, then link standard user
         $object->setCreator($user);
     }
 }

@@ -1,5 +1,4 @@
 reporting_dashboard_index:
     path: ''
     methods: ['GET']
-    defaults:
-        _controller: 'App\Domain\Reporting\Controller\DashboardController:indexAction'
+    controller: 'App\Domain\Reporting\Controller\DashboardController:indexAction'

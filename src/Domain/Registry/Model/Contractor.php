@@ -83,6 +83,11 @@ class Contractor
     private $proofs;
 
     /**
+     * @var Contractor|null
+     */
+    private $clonedFrom;
+
+    /**
      * Contractor constructor.
      *
      * @throws \Exception
@@ -252,5 +257,21 @@ class Contractor
     public function getProofs(): iterable
     {
         return $this->proofs;
+    }
+
+    /**
+     * @return Contractor|null
+     */
+    public function getClonedFrom(): ?Contractor
+    {
+        return $this->clonedFrom;
+    }
+
+    /**
+     * @param Contractor|null $clonedFrom
+     */
+    public function setClonedFrom(?Contractor $clonedFrom): void
+    {
+        $this->clonedFrom = $clonedFrom;
     }
 }

@@ -101,6 +101,11 @@ class Mesurement
     private $proofs;
 
     /**
+     * @var Mesurement|null
+     */
+    private $clonedFrom;
+
+    /**
      * Mesurement constructor.
      *
      * @throws \Exception
@@ -269,5 +274,21 @@ class Mesurement
     public function getProofs(): iterable
     {
         return $this->proofs;
+    }
+
+    /**
+     * @return Mesurement|null
+     */
+    public function getClonedFrom(): ?Mesurement
+    {
+        return $this->clonedFrom;
+    }
+
+    /**
+     * @param Mesurement|null $clonedFrom
+     */
+    public function setClonedFrom(?Mesurement $clonedFrom): void
+    {
+        $this->clonedFrom = $clonedFrom;
     }
 }
