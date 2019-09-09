@@ -473,6 +473,9 @@
             "ref": "f8a63faa0d9521526499c0a8f403c9964ecb0527"
         }
     },
+    "symfony/skeleton": {
+        "version": "v4.2.8.1"
+    },
     "symfony/stopwatch": {
         "version": "v3.4.9"
     },
