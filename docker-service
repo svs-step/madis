@@ -5,7 +5,6 @@ set -o errexit
 # Reset in case getopts has been used previously in the shell.
 OPTIND=1
 
-source .env
 
 # Initialize variables
 env=''
@@ -35,7 +34,8 @@ if [ "$env" == '' ]; then
   else
     [ ! -f .env ] && cp .env"$env" .env;
   fi
-  source .env
+
+source .env
 
 # Common operations
 initialize() {
