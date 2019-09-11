@@ -104,8 +104,8 @@ class User implements UserInterface
             return '';
         }
 
-        if (\strlen($this->getFullName()) > 50) {
-            return \substr($this->getFullName(), 0, 50) . '...';
+        if (\mb_strlen($this->getFullName()) > 50) {
+            return \mb_substr($this->getFullName(), 0, 50) . '...';
         }
 
         return $this->getFullName();
