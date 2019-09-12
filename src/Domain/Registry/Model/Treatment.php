@@ -305,9 +305,9 @@ class Treatment
     }
 
     /**
-     * @param string $name
+     * @param string|null $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -385,9 +385,9 @@ class Treatment
     }
 
     /**
-     * @param string $legalBasis
+     * @param string|null $legalBasis
      */
-    public function setLegalBasis(string $legalBasis): void
+    public function setLegalBasis(?string $legalBasis): void
     {
         $this->legalBasis = $legalBasis;
     }
