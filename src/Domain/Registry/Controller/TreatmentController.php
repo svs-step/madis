@@ -178,7 +178,8 @@ class TreatmentController extends CRUDController
         $treatments = $this->repository->findAllByCollectivity(
             $collectivity,
             [
-                'name' => 'ASC',
+                'active' => 'DESC',
+                'name'   => 'ASC',
             ]
         );
         $responseData = [];
@@ -187,7 +188,7 @@ class TreatmentController extends CRUDController
         foreach ($treatments as $treatment) {
             $responseData[] = [
                 'value' => $treatment->getId()->toString(),
-                'text'  => $treatment->__toString(),
+                'text'  => $treatment->isActive() ? $treatment->__toString() : '(Inactif) ' . $treatment->__toString(),
             ];
         }
 
