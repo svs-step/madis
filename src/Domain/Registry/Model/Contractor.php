@@ -110,8 +110,8 @@ class Contractor
             return '';
         }
 
-        if (\strlen($this->getName()) > 50) {
-            return \substr($this->getName(), 0, 50) . '...';
+        if (\mb_strlen($this->getName()) > 50) {
+            return \mb_substr($this->getName(), 0, 50) . '...';
         }
 
         return $this->getName();
@@ -134,9 +134,9 @@ class Contractor
     }
 
     /**
-     * @param string $name
+     * @param string|null $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }

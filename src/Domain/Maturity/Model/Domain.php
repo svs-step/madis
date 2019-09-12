@@ -121,9 +121,9 @@ class Domain
     }
 
     /**
-     * @param int $position
+     * @param int|null $position
      */
-    public function setPosition(int $position): void
+    public function setPosition(?int $position): void
     {
         $this->position = $position;
     }

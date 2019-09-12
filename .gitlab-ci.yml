@@ -1,10 +1,31 @@
 variables:
+    DOCKER_DRIVER: overlay2
     DOCKER_IMAGE_PHP: registry.gitlab.com/soluris/madis/php:1.0
     DOCKER_IMAGE_NGINX: registry.gitlab.com/soluris/madis/nginx:1.0
 
 stages:
     - cache
     - tests
+    - quality-assurance
+    - quality-assurance-report
+
+.job-base-template: &job-base-defintion
+    image: mykiwi/docker
+    services:
+        - docker:dind
+
+.vendor-install-template: &vendor-install-defintion
+    script:
+        - docker login --username gitlab-ci-token --password $CI_JOB_TOKEN $CI_REGISTRY
+        # re-install vendors to prevent from ci cache failure
+        - docker run --rm --env-file=./.env.dist --env-file=.env.test -v ${PWD}:/var/www/gestion-rgpd $DOCKER_IMAGE_PHP composer install --prefer-dist --no-interaction --optimize-autoloader --no-scripts
+
+.cache-pull-template: &cache-pull-defintion
+    cache:
+        key: "$CI_PROJECT_PATH-php"
+        paths:
+            - vendor
+        policy: pull
 
 create_cache:
     image: ${DOCKER_IMAGE_PHP}
@@ -14,30 +35,107 @@ create_cache:
         key: "$CI_PROJECT_PATH-php"
         paths:
             - vendor
-        policy: push
     tags:
         - docker
     stage: cache
+    except:
+        - master
 
 unit_tests:
-    image: docker:stable
-    services:
-        - docker:dind
+    <<: *job-base-defintion
+    <<: *vendor-install-defintion
+    <<: *cache-pull-defintion
+    script:
+        - make tu-report
     coverage: '/^\s*Lines:\s*\d+.\d+\%/'
     artifacts:
         paths:
             - var/artefacts/coverage/
-    script:
-        - docker login --username gitlab-ci-token --password $CI_JOB_TOKEN $CI_REGISTRY
-        # re-install vendors to prevent from ci cache failure
-        - docker run --rm --env-file=./.env.dist --env-file=.env.test -v ${PWD}:/var/www/gestion-rgpd $DOCKER_IMAGE_PHP composer install --prefer-dist --no-interaction --optimize-autoloader --no-scripts
-        # PHPUnit
-        - docker run --rm --env-file=./.env.dist --env-file=.env.test -v ${PWD}:/var/www/gestion-rgpd $DOCKER_IMAGE_PHP vendor/bin/phpunit
-    cache:
-        key: "$CI_PROJECT_PATH-php"
-        paths:
-            - vendor
-        policy: pull
+        expire_in: 1 month
     tags:
         - docker
     stage: tests
+    except:
+        - master
+
+# TODO validate doctrine migrations and schema
+
+check-security:
+    <<: *job-base-defintion
+    <<: *vendor-install-defintion
+    <<: *cache-pull-defintion
+    script:
+        - make security
+    stage: quality-assurance
+    except:
+        - master
+
+phpstan:
+    <<: *job-base-defintion
+    <<: *vendor-install-defintion
+    <<: *cache-pull-defintion
+    script:
+        - make phpstan
+    stage: quality-assurance
+    except:
+        - master
+
+lint:
+    <<: *job-base-defintion
+    <<: *vendor-install-defintion
+    <<: *cache-pull-defintion
+    script:
+        - cp -f .env.dist .env
+        - make lint
+    stage: quality-assurance
+    except:
+        - master
+
+phpmd:
+    <<: *job-base-defintion
+    script:
+        - make phpmd || true # Bug with php 7.1
+    artifacts:
+        paths:
+            - var/artefacts/phpmd
+        expire_in: 1 month
+    stage: quality-assurance
+#    only:
+#        - develop
+
+php-cs-fixer:
+    <<: *job-base-defintion
+    script:
+        - make php-cs-fixer
+    stage: quality-assurance
+    except:
+        - master
+
+phpmetrics:
+    <<: *job-base-defintion
+    script:
+        - make phpmetrics
+    artifacts:
+        paths:
+            - var/artefacts/phpmetrics
+        expire_in: 1 month
+    stage: quality-assurance
+#    only:
+#        - develop
+
+pages:
+    <<: *job-base-defintion
+    script:
+        - export
+        - rm -rf public/*
+        - cp .gitlab-pages.html var/artefacts/index.html
+        - sed -i "s/PLACEHOLDER_GIT_COMMIT/${CI_COMMIT_SHA}/g" var/artefacts/index.html
+        - sed -i "s|PLACEHOLDER_PROJECT_PATH|${CI_PROJECT_PATH}|g" var/artefacts/index.html
+        - mv var/artefacts/ public/
+    artifacts:
+        paths:
+            - public
+        expire_in: 1 month
+    stage: quality-assurance-report
+#    only:
+#        - develop
