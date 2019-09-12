@@ -12,7 +12,8 @@ CHANGELOG
 ### Fix
 - [COLLECTIVITE] Il est maintenant possible de supprimer le site web d'une collectivité, #202 
 - [PREUVE] Un administrateur peut maintenant télécharger les documents qui ne sont pas de sa collectivité, #197
-- [GLOBAL] Passage des dates au format FR (DD/MM/YYYY) dans les listes, #37
+- [GLOBAL] Passage des dates au format FR (DD/MM/YYYY) dans les listes, #37 #205
+
 ## [1.5.2] - 2019-07-27
 ### Fix
 - [TABLEAU DE BORD] Le type de demande de personne concerné "Autre" ne fait plus planter le Dashboard, #195
