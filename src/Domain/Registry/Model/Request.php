@@ -128,8 +128,8 @@ class Request
             return '';
         }
 
-        if (\strlen($this->getApplicant()->getFullName()) > 50) {
-            return \substr($this->getApplicant()->getFullName(), 0, 50) . '...';
+        if (\mb_strlen($this->getApplicant()->getFullName()) > 50) {
+            return \mb_substr($this->getApplicant()->getFullName(), 0, 50) . '...';
         }
 
         return $this->getApplicant()->getFullName();
