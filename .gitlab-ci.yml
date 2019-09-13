@@ -94,7 +94,7 @@ lint:
 phpmd:
     <<: *job-base-defintion
     script:
-        - make phpmd || true # Bug with php 7.1
+        - make phpmd
     artifacts:
         paths:
             - var/artefacts/phpmd

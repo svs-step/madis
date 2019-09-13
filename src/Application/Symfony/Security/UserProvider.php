@@ -60,19 +60,17 @@ class UserProvider
      */
     public function getAuthenticatedUser(): ?UserInterface
     {
-        if (null === $token = $this->tokenStorage->getToken()) {
+        $token = $this->tokenStorage->getToken();
+        if (null === $token) {
             return null;
         }
 
-        if (!\is_object($user = $token->getUser())) {
+        $user = $token->getUser();
+        if (!\is_object($user)) {
             // e.g. anonymous authentication
             return null;
         }
 
         return $user;
-    }
-
-    public function isGranted(string $role): bool
-    {
     }
 }

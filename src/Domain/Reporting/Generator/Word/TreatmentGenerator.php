@@ -134,7 +134,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $categories = ['Uniquement papier', 'Complétement informatisé', 'Informatisé et papier', 'Non renseigné'];
         $chartData  = $digitalisation;
         unset($chartData['digital']); // Remove aggregate data which cumulate onlyDigital + both
-        $chart      = $section->addChart(
+        $section->addChart(
             'pie',
             $categories,
             $chartData,
