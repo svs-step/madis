@@ -57,7 +57,7 @@ phpdcd: ## PHP Dead Code Detector (https://github.com/sebastianbergmann/phpdcd)
 	$(QA) phpdcd src
 
 phpmetrics: ## PhpMetrics (http://www.phpmetrics.org)
-	$(QA) phpmetrics --report-html=$(ARTEFACTS)/phpmetrics src
+	$(QA) phpmetrics --report-html=$(ARTEFACTS)/phpmetrics --exclude=migrations .
 
 php-cs-fixer: ## php-cs-fixer (http://cs.sensiolabs.org)
 	$(QA) php-cs-fixer fix --config=.php_cs.dist --dry-run --using-cache=no --verbose --diff
