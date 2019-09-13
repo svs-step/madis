@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Application\Doctrine\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -56,14 +57,34 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
     abstract protected function getModelClass(): string;
 
     /**
+     * Get the registry manager
+     * Since we use Doctrine, we expect to get EntityManagerInterface.
+     *
+     * @throws \Exception
+     *
+     * @return EntityManagerInterface
+     */
+    protected function getManager(): EntityManagerInterface
+    {
+        $manager = $this->registry->getManager();
+
+        if (!$manager instanceof EntityManagerInterface) {
+            throw new \Exception('Registry Manager must be an instance of EntityManagerInterface');
+        }
+
+        return $manager;
+    }
+
+    /**
      * Create the base of QueryBuilder to use for repository calls.
+     *
+     * @throws \Exception
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
     protected function createQueryBuilder()
     {
-        return $this->registry
-            ->getManager()
+        return $this->getManager()
             ->createQueryBuilder()
             ->select('o')
             ->from($this->getModelClass(), 'o')
@@ -74,21 +95,25 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
      * Insert an object.
      *
      * @param mixed $object
+     *
+     * @throws \Exception
      */
     public function insert($object): void
     {
-        $this->registry->getManager()->persist($object);
-        $this->registry->getManager()->flush($object);
+        $this->getManager()->persist($object);
+        $this->getManager()->flush();
     }
 
     /**
      * Update an object.
      *
      * @param mixed $object
+     *
+     * @throws \Exception
      */
     public function update($object): void
     {
-        $this->registry->getManager()->flush($object);
+        $this->getManager()->flush();
     }
 
     /**
@@ -107,11 +132,13 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
      * Remove an object.
      *
      * @param mixed $object
+     *
+     * @throws \Exception
      */
     public function remove($object): void
     {
-        $this->registry->getManager()->remove($object);
-        $this->registry->getManager()->flush($object);
+        $this->getManager()->remove($object);
+        $this->getManager()->flush();
     }
 
     /**

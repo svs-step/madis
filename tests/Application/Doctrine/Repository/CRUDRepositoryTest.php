@@ -117,7 +117,7 @@ class CRUDRepositoryTest extends TestCase
         $object = new \StdClass();
 
         $this->managerProphecy->persist($object)->shouldBeCalled();
-        $this->managerProphecy->flush($object)->shouldBeCalled();
+        $this->managerProphecy->flush()->shouldBeCalled();
 
         $this->registryProphecy->getManager()->shouldBeCalled()->willReturn($this->managerProphecy->reveal());
 
@@ -128,7 +128,7 @@ class CRUDRepositoryTest extends TestCase
     {
         $object = new \StdClass();
 
-        $this->managerProphecy->flush($object)->shouldBeCalled();
+        $this->managerProphecy->flush()->shouldBeCalled();
 
         $this->registryProphecy->getManager()->shouldBeCalled()->willReturn($this->managerProphecy->reveal());
 
@@ -147,7 +147,7 @@ class CRUDRepositoryTest extends TestCase
         $object = new \StdClass();
 
         $this->managerProphecy->remove($object)->shouldBeCalled();
-        $this->managerProphecy->flush($object)->shouldBeCalled();
+        $this->managerProphecy->flush()->shouldBeCalled();
 
         $this->registryProphecy->getManager()->shouldBeCalled()->willReturn($this->managerProphecy->reveal());
 

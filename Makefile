@@ -66,7 +66,7 @@ apply-php-cs-fixer: ## apply php-cs-fixer fixes
 	$(QA) php-cs-fixer fix --using-cache=no --verbose --diff
 
 phpstan: ## PHP Static Analysis Tool (https://github.com/phpstan/phpstan)
-	$(QA) phpstan analyse -c phpstan.neon -l1 src
+	$(QA) phpstan analyse -c phpstan.neon -l2 src
 
 twigcs: ## twigcs (https://github.com/allocine/twigcs)
 	$(QA) twigcs lint templates

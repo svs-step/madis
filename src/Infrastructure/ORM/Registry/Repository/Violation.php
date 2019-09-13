@@ -27,6 +27,7 @@ namespace App\Infrastructure\ORM\Registry\Repository;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -48,39 +49,63 @@ class Violation implements Repository\Violation
     }
 
     /**
+     * Get the registry manager
+     * Since we use Doctrine, we expect to get EntityManagerInterface.
+     *
+     * @throws \Exception
+     *
+     * @return EntityManagerInterface
+     */
+    protected function getManager(): EntityManagerInterface
+    {
+        $manager = $this->registry->getManager();
+
+        if (!$manager instanceof EntityManagerInterface) {
+            throw new \Exception('Registry Manager must be an instance of EntityManagerInterface #PHPStan');
+        }
+
+        return $manager;
+    }
+
+    /**
      * Create the base of QueryBuilder to use for repository calls.
+     *
+     * @throws \Exception
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    protected function createQueryBuilder()
+    protected function createQueryBuilder(): QueryBuilder
     {
-        return $this->registry
-            ->getManager()
+        return $this->getManager()
             ->createQueryBuilder()
             ->select('o')
             ->from($this->getModelClass(), 'o')
-            ;
+        ;
     }
 
     /**
      * Insert an object.
      *
      * @param mixed $object
+     *
+     * @throws \Exception
      */
     public function insert($object): void
     {
-        $this->registry->getManager()->persist($object);
-        $this->registry->getManager()->flush($object);
+        $this->getManager()->persist($object);
+        $this->getManager()->flush();
     }
 
     /**
      * Update an object.
      *
      * @param mixed $object
+     *
+     * @throws \Exception
      */
     public function update($object): void
     {
-        $this->registry->getManager()->flush($object);
+        $this->getManager()->flush();
     }
 
     /**
@@ -99,15 +124,19 @@ class Violation implements Repository\Violation
      * Remove an object.
      *
      * @param mixed $object
+     *
+     * @throws \Exception
      */
     public function remove($object): void
     {
-        $this->registry->getManager()->remove($object);
-        $this->registry->getManager()->flush($object);
+        $this->getManager()->remove($object);
+        $this->getManager()->flush();
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function findAll(bool $deleted = false): array
     {
@@ -154,7 +183,7 @@ class Violation implements Repository\Violation
      *
      * @param QueryBuilder $qb
      * @param string       $key
-     * @param $value
+     * @param mixed        $value
      *
      * @return QueryBuilder
      */
@@ -220,6 +249,8 @@ class Violation implements Repository\Violation
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function findAllByCollectivity(Collectivity $collectivity, bool $deleted = false, array $order = [])
     {
@@ -243,6 +274,8 @@ class Violation implements Repository\Violation
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function findBy(array $criteria = [])
     {
@@ -260,6 +293,8 @@ class Violation implements Repository\Violation
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function findAllArchived(bool $archived = false, array $order = [])
     {
@@ -276,6 +311,8 @@ class Violation implements Repository\Violation
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function findAllArchivedByCollectivity(Collectivity $collectivity, bool $archived = false, array $order = [])
     {

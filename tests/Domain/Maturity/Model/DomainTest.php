@@ -25,7 +25,6 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Maturity\Model;
 
 use App\Domain\Maturity\Model\Domain;
-use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 
@@ -36,7 +35,7 @@ class DomainTest extends TestCase
         $model = new Domain();
 
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
-        $this->assertInstanceOf(ArrayCollection::class, $model->getQuestions());
-        $this->assertInstanceOf(ArrayCollection::class, $model->getMaturity());
+        $this->assertEquals([], $model->getQuestions());
+        $this->assertEquals([], $model->getMaturity());
     }
 }
