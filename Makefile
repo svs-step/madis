@@ -45,7 +45,7 @@ pdepend: artefacts
 		src/
 
 phpmd: ## PHP Mess Detector (https://phpmd.org)
-	$(QA) phpmd src/ html cleancode --reportfile $(ARTEFACTS)/phpmd/index.html
+	$(QA) phpmd src/ html .phpmd.xml --reportfile $(ARTEFACTS)/phpmd/index.html --ignore-violations-on-exit
 
 php_codesnifer: ## PHP_CodeSnifer (https://github.com/squizlabs/PHP_CodeSniffer)
 	$(QA) phpcs -v --standard=.phpcs.xml src

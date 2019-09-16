@@ -109,16 +109,11 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             \ksort($maturityList);
             \ksort($domainsName);
 
-            foreach ($maturityList as $position => $score) {
-                $row   = [];
-                $row[] = $domainsName[$position];
+            foreach ($maturityList as $score) {
                 if (isset($score['old'])) {
-                    $row[]    = $score['old'] / 10; // Display comma with 1 digit precision
                     $serie2[] = $score['old'] / 10;
                 }
-                $row[]       = $score['new'] / 10; // Display comma with 1 digit precision
-                $serie1[]    = $score['new'] / 10;
-                $tableData[] = $row;
+                $serie1[] = $score['new'] / 10;
             }
             // Display
             $section->addTitle("Résultat de l'évaluation du {$data['new']->getCreatedAt()->format('d/m/Y')}", 2);

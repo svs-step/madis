@@ -93,7 +93,6 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                 'Date de traitement',
             ],
         ];
-        $nbTotal = \count($data);
         foreach ($data as $request) {
             if ($request->getApplicant()->isConcernedPeople() || ' ' === $request->getConcernedPeople()->getFullName()) {
                 $concernedPeople = $request->getApplicant()->getFullName();

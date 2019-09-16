@@ -144,7 +144,9 @@ class ProofController extends CRUDController
      */
     public function formPrePersistData($object)
     {
-        if ($file = $object->getDocumentFile()) {
+        $file = $object->getDocumentFile();
+
+        if ($file) {
             $filename = (string) Uuid::uuid4() . '.' . $file->getClientOriginalExtension();
             $this->documentFilesystem->write($filename, \fopen($file->getRealPath(), 'r'));
             $object->setDocument($filename);
