@@ -27,7 +27,6 @@ namespace App\Domain\Maturity\Model;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
-use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -65,8 +64,8 @@ class Survey
     public function __construct()
     {
         $this->id       = Uuid::uuid4();
-        $this->answers  = new ArrayCollection();
-        $this->maturity = new ArrayCollection();
+        $this->answers  = [];
+        $this->maturity = [];
         $this->score    = 0;
     }
 
@@ -88,7 +87,7 @@ class Survey
      */
     public function addAnswer(Answer $answer): void
     {
-        $this->answers->add($answer);
+        $this->answers[] = $answer;
         $answer->setSurvey($this);
     }
 
@@ -97,7 +96,13 @@ class Survey
      */
     public function removeAnswer(Answer $answer): void
     {
-        $this->answers->removeElement($answer);
+        $key = \array_search($answer, $this->answers, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->answers[$key]);
     }
 
     /**
@@ -113,7 +118,7 @@ class Survey
      */
     public function addMaturity(Maturity $maturity): void
     {
-        $this->maturity->add($maturity);
+        $this->maturity[] = $maturity;
         $maturity->setSurvey($this);
     }
 
@@ -122,7 +127,13 @@ class Survey
      */
     public function removeMaturity(Maturity $maturity): void
     {
-        $this->maturity->removeElement($maturity);
+        $key = \array_search($maturity, $this->maturity, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->maturity[$key]);
     }
 
     /**
@@ -139,7 +150,7 @@ class Survey
     public function setMaturity(array $maturityList): void
     {
         foreach ($maturityList as $maturity) {
-            $this->maturity->add($maturity);
+            $this->maturity[] = $maturity;
             $maturity->setSurvey($this);
         }
     }

@@ -28,7 +28,6 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Maturity\Model\Survey;
-use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 
@@ -39,8 +38,8 @@ class SurveyTest extends TestCase
         $model = new Survey();
 
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
-        $this->assertInstanceOf(ArrayCollection::class, $model->getAnswers());
-        $this->assertInstanceOf(ArrayCollection::class, $model->getMaturity());
+        $this->assertEquals([], $model->getAnswers());
+        $this->assertEquals([], $model->getMaturity());
         $this->assertEquals(0, $model->getScore());
     }
 

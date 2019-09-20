@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -68,8 +67,8 @@ class Domain
     public function __construct()
     {
         $this->id        = Uuid::uuid4();
-        $this->questions = new ArrayCollection();
-        $this->maturity  = new ArrayCollection();
+        $this->questions = [];
+        $this->maturity  = [];
     }
 
     /**
@@ -133,7 +132,7 @@ class Domain
      */
     public function addQuestion(Question $question): void
     {
-        $this->questions->add($question);
+        $this->questions[] = $question;
         $question->setDomain($this);
     }
 
@@ -142,7 +141,13 @@ class Domain
      */
     public function removeQuestion(Question $question): void
     {
-        $this->questions->removeElement($question);
+        $key = \array_search($question, $this->questions, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->questions[$key]);
     }
 
     /**
@@ -158,7 +163,7 @@ class Domain
      */
     public function addMaturity(Maturity $maturity): void
     {
-        $this->maturity->add($maturity);
+        $this->maturity[] = $maturity;
         $maturity->setDomain($this);
     }
 
@@ -167,7 +172,13 @@ class Domain
      */
     public function removeMaturity(Maturity $maturity): void
     {
-        $this->maturity->removeElement($maturity);
+        $key = \array_search($maturity, $this->maturity, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->maturity[$key]);
     }
 
     /**

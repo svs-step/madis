@@ -33,7 +33,7 @@ use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -93,7 +93,7 @@ class SecurityControllerTest extends TestCase
 
     public function testInstanceOf(): void
     {
-        $this->assertInstanceOf(Controller::class, $this->controller);
+        $this->assertInstanceOf(AbstractController::class, $this->controller);
     }
 
     /**

@@ -145,7 +145,7 @@ class Duplication
     }
 
     /**
-     * @param $data
+     * @param mixed $data
      */
     public function addData($data): void
     {
@@ -153,7 +153,7 @@ class Duplication
     }
 
     /**
-     * @param $data
+     * @param mixed $data
      */
     public function removeData($data): void
     {

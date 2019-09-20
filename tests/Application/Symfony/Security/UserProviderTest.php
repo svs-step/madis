@@ -25,10 +25,10 @@ declare(strict_types=1);
 namespace App\Tests\Application\Symfony\Security;
 
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\User\Model as UserModel;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserProviderTest extends TestCase
 {
@@ -44,7 +44,7 @@ class UserProviderTest extends TestCase
      */
     private $userProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->token        = $this->prophesize(TokenInterface::class);
         $this->tokenStorage = $this->prophesize(TokenStorageInterface::class);
@@ -52,24 +52,26 @@ class UserProviderTest extends TestCase
         $this->userProvider = new UserProvider(
             $this->tokenStorage->reveal()
         );
+
+        parent::setUp();
     }
 
     /**
      * Test to get an authenticated user.
      */
-    public function testGetAuthenticatedUser()
+    public function testGetAuthenticatedUser(): void
     {
-        $user = $this->prophesize(UserInterface::class)->reveal();
+        $user = new UserModel\User();
         $this->token->getUser()->shouldBeCalled()->willReturn($user);
         $this->tokenStorage->getToken()->shouldBeCalled()->willReturn($this->token->reveal());
 
-        $this->assertInstanceOf(UserInterface::class, $this->userProvider->getAuthenticatedUser());
+        $this->assertInstanceOf(UserModel\User::class, $this->userProvider->getAuthenticatedUser());
     }
 
     /**
      * Test to get an authenticated user but the route isn't under security.
      */
-    public function testGetAuthenticatedUserButRouteIsntUnderSecurity()
+    public function testGetAuthenticatedUserButRouteIsntUnderSecurity(): void
     {
         $this->token->getUser()->shouldNotBeCalled();
         $this->tokenStorage->getToken()->shouldBeCalled()->willReturn(null);
@@ -80,7 +82,7 @@ class UserProviderTest extends TestCase
     /**
      * Test to get an authenticated user but user isn't an object (case of anonymous user).
      */
-    public function testGetAuthenticatedUserWithoutObjectUser()
+    public function testGetAuthenticatedUserWithoutObjectUser(): void
     {
         $user = 'anon.';
         $this->token->getUser()->shouldBeCalled()->willReturn($user);

@@ -25,15 +25,16 @@ declare(strict_types=1);
 namespace App\Application\Controller;
 
 use App\Application\DDD\Repository\RepositoryInterface;
+use App\Application\Doctrine\Repository\CRUDRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Intl\Exception\MethodNotImplementedException;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-abstract class CRUDController extends Controller
+abstract class CRUDController extends AbstractController
 {
     /**
      * @var EntityManagerInterface
@@ -46,10 +47,17 @@ abstract class CRUDController extends Controller
     protected $translator;
 
     /**
-     * @var RepositoryInterface
+     * @var CRUDRepository
      */
     protected $repository;
 
+    /**
+     * CRUDController constructor.
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param TranslatorInterface    $translator
+     * @param RepositoryInterface    $repository
+     */
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -169,7 +177,7 @@ abstract class CRUDController extends Controller
      * Actions to make when a form is submitted and valid.
      * This method is handled just after form validation, before object manipulation.
      *
-     * @param $object
+     * @param mixed $object
      */
     public function formPrePersistData($object)
     {
