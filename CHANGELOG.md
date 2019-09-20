@@ -2,6 +2,8 @@ CHANGELOG
 =========
 
 ## [UNRELEASED]
+
+## [1.6.0] - 2019-09-20
 ### Ajout
 - [DUPLICATION] Un administrateur peut maintenant dupliquer des traitements / sous-traitants / actions de protections d'une collectivité vers des autres, #187
 - [PREUVE] Possibilité de lier une preuve à une ou plusieurs données, #186
