@@ -66,7 +66,7 @@ class LinkCollectivitySubscriberTest extends TestCase
     /**
      * Test instance of Subscriber.
      */
-    public function testInstanceOf()
+    public function testInstanceOf(): void
     {
         $this->assertInstanceOf(EventSubscriber::class, $this->subscriber);
     }
@@ -74,7 +74,7 @@ class LinkCollectivitySubscriberTest extends TestCase
     /**
      * Test getSubscribedEvents of current subscriber.
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [
@@ -90,13 +90,12 @@ class LinkCollectivitySubscriberTest extends TestCase
      *
      * @throws \Exception
      */
-    public function testPrePersistWithoutCollectivityTrait()
+    public function testPrePersistWithoutCollectivityTrait(): void
     {
         $object = new class() {
         };
 
         $userProphecy = $this->prophesize(Model\User::class);
-        // GetCollectivity must not be called since trait isn't present
         $userProphecy->setCollectivity()->shouldNotBeCalled();
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
 
@@ -105,11 +104,36 @@ class LinkCollectivitySubscriberTest extends TestCase
 
     /**
      * Test prePersist
-     * Object has trait CollectivityTrait.
+     * Object has trait CollectivityTrait and collectivity associated.
      *
      * @throws \Exception
      */
-    public function testPrePersist()
+    public function testPrePersistHasTraitAndCollectivity(): void
+    {
+        $objectCollectivity = new Collectivity();
+        $object             = new class() {
+            use CollectivityTrait;
+        };
+        $object->setCollectivity($objectCollectivity);
+
+        $userProphecy = $this->prophesize(Model\User::class);
+        $userProphecy->getCollectivity()->shouldNotBeCalled();
+        $this->userProviderProphecy->getAuthenticatedUser()->shouldBeCalled()->willReturn($userProphecy);
+
+        $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
+
+        $this->assertNotNull($object->getCollectivity());
+        $this->subscriber->prePersist($this->lifeCycleEventArgsProphecy->reveal());
+        $this->assertEquals($objectCollectivity, $object->getCollectivity());
+    }
+
+    /**
+     * Test prePersist
+     * Object has trait CollectivityTrait but no collectivity associated.
+     *
+     * @throws \Exception
+     */
+    public function testPrePersist(): void
     {
         $object = new class() {
             use CollectivityTrait;
@@ -117,7 +141,6 @@ class LinkCollectivitySubscriberTest extends TestCase
 
         $collectivity = new Collectivity();
         $userProphecy = $this->prophesize(Model\User::class);
-        // GetCollectivity must not be called since trait is present
         $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($collectivity);
         $this->userProviderProphecy->getAuthenticatedUser()->shouldBeCalled()->willReturn($userProphecy);
 

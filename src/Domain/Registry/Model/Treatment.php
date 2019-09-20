@@ -29,8 +29,6 @@ use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Embeddable\ComplexChoice;
 use App\Domain\Registry\Model\Embeddable\Delay;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -133,7 +131,7 @@ class Treatment
     /**
      * FR: Sous traitants.
      *
-     * @var Collection
+     * @var iterable
      */
     private $contractors;
 
@@ -237,6 +235,16 @@ class Treatment
     private $templateIdentifier;
 
     /**
+     * @var iterable
+     */
+    private $proofs;
+
+    /**
+     * @var Treatment|null
+     */
+    private $clonedFrom;
+
+    /**
      * Treatment constructor.
      *
      * @throws \Exception
@@ -247,7 +255,7 @@ class Treatment
         $this->paperProcessing       = false;
         $this->concernedPeople       = [];
         $this->dataCategories        = [];
-        $this->contractors           = new ArrayCollection();
+        $this->contractors           = [];
         $this->delay                 = new Delay();
         $this->securityAccessControl = new ComplexChoice();
         $this->securityTracability   = new ComplexChoice();
@@ -261,6 +269,7 @@ class Treatment
         $this->active                = true;
         $this->completion            = 0;
         $this->template              = false;
+        $this->proofs                = [];
     }
 
     /**
@@ -272,8 +281,8 @@ class Treatment
             return '';
         }
 
-        if (\strlen($this->getName()) > 50) {
-            return \substr($this->getName(), 0, 50) . '...';
+        if (\mb_strlen($this->getName()) > 50) {
+            return \mb_substr($this->getName(), 0, 50) . '...';
         }
 
         return $this->getName();
@@ -296,9 +305,9 @@ class Treatment
     }
 
     /**
-     * @param string $name
+     * @param string|null $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -376,9 +385,9 @@ class Treatment
     }
 
     /**
-     * @param string $legalBasis
+     * @param string|null $legalBasis
      */
-    public function setLegalBasis(string $legalBasis): void
+    public function setLegalBasis(?string $legalBasis): void
     {
         $this->legalBasis = $legalBasis;
     }
@@ -440,9 +449,9 @@ class Treatment
     }
 
     /**
-     * @param array $dataCategories
+     * @param iterable $dataCategories
      */
-    public function setDataCategories(array $dataCategories): void
+    public function setDataCategories(iterable $dataCategories): void
     {
         $this->dataCategories = $dataCategories;
     }
@@ -501,7 +510,7 @@ class Treatment
     public function addContractor(Contractor $contractor): void
     {
         $contractor->addTreatment($this);
-        $this->contractors->add($contractor);
+        $this->contractors[] = $contractor;
     }
 
     /**
@@ -510,13 +519,20 @@ class Treatment
     public function removeContractor(Contractor $contractor): void
     {
         $contractor->removeTreatment($this);
-        $this->contractors->removeElement($contractor);
+
+        $key = \array_search($contractor, $this->contractors, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->contractors[$key]);
     }
 
     /**
-     * @return Collection
+     * @return iterable
      */
-    public function getContractors(): Collection
+    public function getContractors(): iterable
     {
         return $this->contractors;
     }
@@ -759,5 +775,29 @@ class Treatment
     public function setTemplateIdentifier(?int $templateIdentifier): void
     {
         $this->templateIdentifier = $templateIdentifier;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getProofs(): iterable
+    {
+        return $this->proofs;
+    }
+
+    /**
+     * @return Treatment|null
+     */
+    public function getClonedFrom(): ?Treatment
+    {
+        return $this->clonedFrom;
+    }
+
+    /**
+     * @param Treatment|null $clonedFrom
+     */
+    public function setClonedFrom(?Treatment $clonedFrom): void
+    {
+        $this->clonedFrom = $clonedFrom;
     }
 }

@@ -3,6 +3,19 @@ CHANGELOG
 
 ## [UNRELEASED]
 
+## [1.6.0] - 2019-09-20
+### Ajout
+- [DUPLICATION] Un administrateur peut maintenant dupliquer des traitements / sous-traitants / actions de protections d'une collectivité vers des autres, #187
+- [PREUVE] Possibilité de lier une preuve à une ou plusieurs données, #186
+- [ADMINISTRATION] Subrogation d'un utilisateur de l'application, #107
+- [GLOBAL] Ajout d'un DatePicker dans les formulaires pour les champs date, #37
+### Changement
+- [USER] La suppression (non fonctionnelle) a été remplacée par un archivage, #199
+### Fix
+- [COLLECTIVITE] Il est maintenant possible de supprimer le site web d'une collectivité, #202 
+- [PREUVE] Un administrateur peut maintenant télécharger les documents qui ne sont pas de sa collectivité, #197
+- [GLOBAL] Passage des dates au format FR (DD/MM/YYYY) dans les listes, #37 #205
+
 ## [1.5.2] - 2019-07-27
 ### Fix
 - [TABLEAU DE BORD] Le type de demande de personne concerné "Autre" ne fait plus planter le Dashboard, #195

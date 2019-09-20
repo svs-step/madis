@@ -70,7 +70,7 @@ class Survey
         $this->score    = 0;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return "Indice du {$this->createdAt->format('d/m/Y')}";
     }

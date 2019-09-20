@@ -10,12 +10,13 @@ services:
 
     App\Domain\:
         resource: '../src/Domain/*'
-        exclude: '../src/Domain/*/{Component/Mailer.php,Controller,Dictionary,Generator,Handler,Model,Symfony/EventSubscriber,Symfony/Form,Tests}'
+        exclude: '../src/Domain/*/{Cloner,Component/Mailer.php,Controller,Dictionary,Generator,Handler,Model,Symfony/EventSubscriber,Symfony/Form,Tests}'
 
     PhpOffice\PhpWord\PhpWord: ~
     RandomLib\Factory: ~
 
 imports:
+    - { resource: services/cloner.yaml }
     - { resource: services/controller.yaml }
     - { resource: services/dictionary.yaml }
     - { resource: services/event_subscriber.yaml }

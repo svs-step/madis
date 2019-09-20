@@ -28,8 +28,6 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Embeddable\Address;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -75,9 +73,19 @@ class Contractor
     private $address;
 
     /**
-     * @var Collection
+     * @var iterable
      */
     private $treatments;
+
+    /**
+     * @var iterable
+     */
+    private $proofs;
+
+    /**
+     * @var Contractor|null
+     */
+    private $clonedFrom;
 
     /**
      * Contractor constructor.
@@ -89,7 +97,8 @@ class Contractor
         $this->id                         = Uuid::uuid4();
         $this->contractualClausesVerified = false;
         $this->conform                    = false;
-        $this->treatments                 = new ArrayCollection();
+        $this->treatments                 = [];
+        $this->proofs                     = [];
     }
 
     /**
@@ -101,8 +110,8 @@ class Contractor
             return '';
         }
 
-        if (\strlen($this->getName()) > 50) {
-            return \substr($this->getName(), 0, 50) . '...';
+        if (\mb_strlen($this->getName()) > 50) {
+            return \mb_substr($this->getName(), 0, 50) . '...';
         }
 
         return $this->getName();
@@ -125,9 +134,9 @@ class Contractor
     }
 
     /**
-     * @param string $name
+     * @param string|null $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -215,24 +224,54 @@ class Contractor
     /**
      * @param Treatment $treatment
      */
-    public function addTreatment(Treatment $treatment)
+    public function addTreatment(Treatment $treatment): void
     {
-        $this->treatments->add($treatment);
+        $this->treatments[] = $treatment;
     }
 
     /**
      * @param Treatment $treatment
      */
-    public function removeTreatment(Treatment $treatment)
+    public function removeTreatment(Treatment $treatment): void
     {
-        $this->treatments->removeElement($treatment);
+        $key = \array_search($treatment, $this->treatments, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->treatments[$key]);
     }
 
     /**
-     * @return ArrayCollection
+     * @return iterable
      */
-    public function getTreatments()
+    public function getTreatments(): iterable
     {
         return $this->treatments;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getProofs(): iterable
+    {
+        return $this->proofs;
+    }
+
+    /**
+     * @return Contractor|null
+     */
+    public function getClonedFrom(): ?Contractor
+    {
+        return $this->clonedFrom;
+    }
+
+    /**
+     * @param Contractor|null $clonedFrom
+     */
+    public function setClonedFrom(?Contractor $clonedFrom): void
+    {
+        $this->clonedFrom = $clonedFrom;
     }
 }

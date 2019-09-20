@@ -30,7 +30,6 @@ use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Embeddable\ComplexChoice;
 use App\Domain\Registry\Model\Embeddable\Delay;
 use App\Domain\Registry\Model\Treatment;
-use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
 
@@ -43,7 +42,7 @@ class TreatmentTest extends TestCase
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
         $this->assertEquals([], $model->getConcernedPeople());
         $this->assertEquals([], $model->getDataCategories());
-        $this->assertInstanceOf(ArrayCollection::class, $model->getContractors());
+        $this->assertEquals([], $model->getContractors());
         $this->assertInstanceOf(Delay::class, $model->getDelay());
         $this->assertInstanceOf(ComplexChoice::class, $model->getSecurityAccessControl());
         $this->assertInstanceOf(ComplexChoice::class, $model->getSecurityTracability());

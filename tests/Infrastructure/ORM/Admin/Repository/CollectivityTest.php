@@ -22,17 +22,17 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Infrastructure\ORM\User\Repository;
+namespace App\Tests\Infrastructure\ORM\Admin\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
-use App\Domain\User\Model;
-use App\Domain\User\Repository as DomainRepo;
-use App\Infrastructure\ORM\User\Repository as InfraRepo;
+use App\Domain\Admin\Model;
+use App\Domain\Admin\Repository as DomainRepo;
+use App\Infrastructure\ORM\Admin\Repository as InfraRepo;
 use App\Tests\Utils\ReflectionTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class CollectivityTest extends TestCase
+class DuplicationTest extends TestCase
 {
     use ReflectionTrait;
 
@@ -42,7 +42,7 @@ class CollectivityTest extends TestCase
     private $registryProphecy;
 
     /**
-     * @var InfraRepo\Collectivity
+     * @var InfraRepo\Duplication
      */
     private $infraRepo;
 
@@ -50,7 +50,7 @@ class CollectivityTest extends TestCase
     {
         $this->registryProphecy = $this->prophesize(RegistryInterface::class);
 
-        $this->infraRepo = new InfraRepo\Collectivity($this->registryProphecy->reveal());
+        $this->infraRepo = new InfraRepo\Duplication($this->registryProphecy->reveal());
     }
 
     /**
@@ -58,7 +58,7 @@ class CollectivityTest extends TestCase
      */
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(DomainRepo\Collectivity::class, $this->infraRepo);
+        $this->assertInstanceOf(DomainRepo\Duplication::class, $this->infraRepo);
         $this->assertInstanceOf(CRUDRepository::class, $this->infraRepo);
     }
 
@@ -70,7 +70,7 @@ class CollectivityTest extends TestCase
     public function testGetModelClass()
     {
         $this->assertEquals(
-            Model\Collectivity::class,
+            Model\Duplication::class,
             $this->invokeMethod($this->infraRepo, 'getModelClass')
         );
     }

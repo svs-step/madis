@@ -138,13 +138,16 @@ user:
 
     user:
         action:
+            archived: Voir les utilisateurs archivés
             back_to_list: Retour à la liste
             new: Nouvel utilisateur
+            not_archived: Voir les utilisateurs non archivés
         breadcrumb:
             list: Liste des utilisateurs
             create: Créer
+            delete: Archiver "%name%"
             edit: Éditer "%name%"
-            delete: Supprimer "%name%"
+            unarchive: Rétablir "%name%"
         form:
             collectivity: Collectivité
             email: E-mail
@@ -161,6 +164,7 @@ user:
                 create: Utilisateur "%object%" créée avec succès
                 edit: Utilisateur "%object%" éditée avec succès
                 delete: Utilisateur "%object%" supprimée avec succès
+                unarchive: Utilisateur "%object%" rétabli avec succès
         list:
             collectivity: Collectivité
             email: E-mail
@@ -176,6 +180,7 @@ user:
         title:
             create: Créer un utilisateur
             edit: Éditer un utilisateur
+            delete: Archiver un utilisateur
             label: Utilisateur
             list: Liste des utilisateurs
-            delete: Supprimer un utilisateur
+            unarchive: Rétablir un utilisateur

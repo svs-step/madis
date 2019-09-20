@@ -18,7 +18,7 @@
                 <!-- User Account Menu -->
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button -->
-                    <a href="{{ path('logout') }}" class="dropdown-toggle">
+                    <a {% if not is_granted('ROLE_PREVIOUS_ADMIN') %}href="{{ path('logout') }}"{% endif %} class="dropdown-toggle">
                         <span class="hidden-xs">{{ app.user }}&nbsp;&nbsp;&nbsp;</span>
                         <i class="fa fa-power-off"></i>
                     </a>

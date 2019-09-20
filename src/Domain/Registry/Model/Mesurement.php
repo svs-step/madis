@@ -96,13 +96,24 @@ class Mesurement
     private $comment;
 
     /**
+     * @var iterable
+     */
+    private $proofs;
+
+    /**
+     * @var Mesurement|null
+     */
+    private $clonedFrom;
+
+    /**
      * Mesurement constructor.
      *
      * @throws \Exception
      */
     public function __construct()
     {
-        $this->id = Uuid::uuid4();
+        $this->id     = Uuid::uuid4();
+        $this->proofs = [];
     }
 
     /**
@@ -114,8 +125,8 @@ class Mesurement
             return '';
         }
 
-        if (\strlen($this->getName()) > 50) {
-            return \substr($this->getName(), 0, 50) . '...';
+        if (\mb_strlen($this->getName()) > 50) {
+            return \mb_substr($this->getName(), 0, 50) . '...';
         }
 
         return $this->getName();
@@ -138,9 +149,9 @@ class Mesurement
     }
 
     /**
-     * @param string $name
+     * @param string|null $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -154,9 +165,9 @@ class Mesurement
     }
 
     /**
-     * @param string $type
+     * @param string|null $type
      */
-    public function setType(string $type): void
+    public function setType(?string $type): void
     {
         $this->type = $type;
     }
@@ -255,5 +266,29 @@ class Mesurement
     public function setComment(?string $comment): void
     {
         $this->comment = $comment;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getProofs(): iterable
+    {
+        return $this->proofs;
+    }
+
+    /**
+     * @return Mesurement|null
+     */
+    public function getClonedFrom(): ?Mesurement
+    {
+        return $this->clonedFrom;
+    }
+
+    /**
+     * @param Mesurement|null $clonedFrom
+     */
+    public function setClonedFrom(?Mesurement $clonedFrom): void
+    {
+        $this->clonedFrom = $clonedFrom;
     }
 }

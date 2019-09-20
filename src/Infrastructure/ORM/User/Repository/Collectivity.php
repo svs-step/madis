@@ -37,4 +37,41 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
     {
         return Model\Collectivity::class;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByIds(array $ids): array
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb
+            ->andWhere($qb->expr()->in('o.id', ':in_ids'))
+            ->setParameter('in_ids', $ids)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByTypes(array $types, ?Model\Collectivity $excludedCollectivity = null): array
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb
+            ->andWhere($qb->expr()->in('o.type', ':in_types'))
+            ->setParameter('in_types', $types)
+        ;
+
+        if (null !== $excludedCollectivity) {
+            $qb
+                ->andWhere($qb->expr()->neq('o.id', ':excluded_collectivity_id'))
+                ->setParameter('excluded_collectivity_id', $excludedCollectivity->getId()->toString())
+            ;
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -30,6 +30,16 @@ use App\Domain\User\Model;
 interface User extends CRUDRepositoryInterface
 {
     /**
+     * Get all users which are / are not soft deleted.
+     *
+     * @param bool  $archived
+     * @param array $order
+     *
+     * @return iterable
+     */
+    public function findAllArchived(bool $archived, array $order = []): iterable;
+
+    /**
      * Get a user by it email.
      *
      * @param string $email The email to search

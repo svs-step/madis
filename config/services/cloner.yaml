@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\Domain\:
+        resource: '../../src/Domain/*/Cloner'
+
+    # =========
+    # = ADMIN =
+    # =========
+    App\Domain\Admin\Cloner\ClonerProvider:
+        arguments:
+            $treatmentCloner: '@App\Domain\Admin\Cloner\TreatmentCloner'
+            $contractorCloner: '@App\Domain\Admin\Cloner\ContractorCloner'
+            $mesurementCloner: '@App\Domain\Admin\Cloner\MesurementCloner'

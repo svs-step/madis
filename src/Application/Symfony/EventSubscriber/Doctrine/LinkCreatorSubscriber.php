@@ -29,6 +29,7 @@ use App\Application\Traits\Model\CreatorTrait;
 use App\Domain\User\Model\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Symfony\Component\Security\Core\Role\SwitchUserRole;
 
 /**
  * Class LinkCreatorSubscriber
@@ -41,9 +42,17 @@ class LinkCreatorSubscriber implements EventSubscriber
      */
     private $userProvider;
 
-    public function __construct(UserProvider $userProvider)
-    {
+    /**
+     * @var bool
+     */
+    private $linkAdmin;
+
+    public function __construct(
+        UserProvider $userProvider,
+        bool $linkAdmin
+    ) {
         $this->userProvider = $userProvider;
+        $this->linkAdmin    = $linkAdmin;
     }
 
     public function getSubscribedEvents()
@@ -67,11 +76,45 @@ class LinkCreatorSubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args): void
     {
         $object = $args->getObject();
-        $user   = $this->userProvider->getAuthenticatedUser();
         $uses   = \class_uses($object);
+        $token  = $this->userProvider->getToken();
+        $user   = $token ? $token->getUser() : null;
 
-        if (\in_array(CreatorTrait::class, $uses) && $user instanceof User) {
-            $object->setCreator($user);
+        // Only link if prerequisite are right :
+        // - Model has CreatorTrait
+        // - Connected user is a User Model (i.e. avoid anonymous users)
+        if (
+            !\in_array(CreatorTrait::class, $uses)
+            || !$user instanceof User
+        ) {
+            return;
         }
+
+        // Skip creator linking if a creator is already set
+        if (
+            \in_array(CreatorTrait::class, $uses)
+            && null !== $object->getCreator()
+        ) {
+            return;
+        }
+
+        // No need to link admin, then link logged user (even if it is an impersonated one)
+        if (false === $this->linkAdmin) {
+            $object->setCreator($user);
+
+            return;
+        }
+
+        // We link admin, then check it original token
+        foreach ($token->getRoles() as $role) {
+            if ($role instanceof SwitchUserRole) {
+                $object->setCreator($role->getSource()->getUser());
+
+                return;
+            }
+        }
+
+        // Can't link admin, then link standard user
+        $object->setCreator($user);
     }
 }

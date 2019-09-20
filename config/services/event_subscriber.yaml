@@ -20,6 +20,13 @@ services:
     # ========
     App\Application\Symfony\EventSubscriber\Doctrine\:
         resource: '../../src/Application/Symfony/EventSubscriber/Doctrine'
+        exclude: '../../src/Application/Symfony/EventSubscriber/Doctrine/LinkCreatorSubscriber.php'
+        tags:
+            - { name: 'doctrine.event_subscriber' }
+
+    App\Application\Symfony\EventSubscriber\Doctrine\LinkCreatorSubscriber:
+        arguments:
+            $linkAdmin: '%env(bool:APP_IMPERSONATE_CREATOR_IS_ADMIN)%'
         tags:
             - { name: 'doctrine.event_subscriber' }
 

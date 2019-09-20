@@ -24,12 +24,15 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Model;
 
+use App\Application\Traits\Model\SoftDeletableTrait;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
 {
+    use SoftDeletableTrait;
+
     /**
      * @var UuidInterface
      */
@@ -101,8 +104,8 @@ class User implements UserInterface
             return '';
         }
 
-        if (\strlen($this->getFullName()) > 50) {
-            return \substr($this->getFullName(), 0, 50) . '...';
+        if (\mb_strlen($this->getFullName()) > 50) {
+            return \mb_substr($this->getFullName(), 0, 50) . '...';
         }
 
         return $this->getFullName();
@@ -125,9 +128,9 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $firstName
+     * @param string|null $firstName
      */
-    public function setFirstName(string $firstName): void
+    public function setFirstName(?string $firstName): void
     {
         $this->firstName = $firstName;
     }
@@ -141,9 +144,9 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $lastName
+     * @param string|null $lastName
      */
-    public function setLastName(string $lastName): void
+    public function setLastName(?string $lastName): void
     {
         $this->lastName = $lastName;
     }
@@ -165,9 +168,9 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $email
+     * @param string|null $email
      */
-    public function setEmail(string $email): void
+    public function setEmail(?string $email): void
     {
         $this->email = $email;
     }
@@ -189,9 +192,9 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $password
+     * @param string|null $password
      */
-    public function setPassword(string $password): void
+    public function setPassword(?string $password): void
     {
         $this->password = $password;
     }
@@ -205,9 +208,9 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $plainPassword
+     * @param string|null $plainPassword
      */
-    public function setPlainPassword(string $plainPassword): void
+    public function setPlainPassword(?string $plainPassword): void
     {
         $this->plainPassword = $plainPassword;
     }
@@ -260,14 +263,6 @@ class User implements UserInterface
     public function isEnabled(): bool
     {
         return $this->enabled;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEnabledOrCollectivityActive(): bool
-    {
-        return $this->enabled && $this->getCollectivity()->isActive();
     }
 
     /**

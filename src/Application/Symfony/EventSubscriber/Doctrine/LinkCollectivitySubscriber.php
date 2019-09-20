@@ -46,7 +46,7 @@ class LinkCollectivitySubscriber implements EventSubscriber
         $this->userProvider = $userProvider;
     }
 
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             'prePersist',
@@ -70,7 +70,11 @@ class LinkCollectivitySubscriber implements EventSubscriber
         $user   = $this->userProvider->getAuthenticatedUser();
         $uses   = \class_uses($object);
 
-        if (\in_array(CollectivityTrait::class, $uses) && $user instanceof User) {
+        if (
+            \in_array(CollectivityTrait::class, $uses)
+            && $user instanceof User
+            && null === $object->getCollectivity()
+        ) {
             $object->setCollectivity($user->getCollectivity());
         }
     }

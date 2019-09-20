@@ -4,15 +4,19 @@ action:
     confirm: Confirmer
     confirm_archive: Confirmer l'archivage
     confirm_delete: Confirmer la suppression
+    confirm_unarchive: Confirmer le rétablissement
     connexion: Connexion
     create: Créer
-    download: Télécharger
     delete: Supprimer
     deletion: Suppression
+    download: Télécharger
+    duplicate: Dupliquer
     edit: Modifier
+    impersonate: Se connecter
     print: Imprimer
     reinitialize: Réinitialisation
     submit: Soumettre
+    unarchive: Rétablir
 
 label:
     actions: Actions
@@ -21,8 +25,10 @@ label:
     danger_zone: Zone de danger
     for_your_information: Pour votre information
     inactive: Inactif
+    linked_documents: Documents associés
     no: Non
     yes: Oui
+    no_linked_document: Aucun document associé
     not_archived: Non archivés
 
 placeholder:

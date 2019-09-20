@@ -133,8 +133,8 @@ class Collectivity
             return '';
         }
 
-        if (\strlen($this->getName()) > 50) {
-            return \substr($this->getName(), 0, 50) . '...';
+        if (\mb_strlen($this->getName()) > 50) {
+            return \mb_substr($this->getName(), 0, 50) . '...';
         }
 
         return $this->getName();
@@ -157,9 +157,9 @@ class Collectivity
     }
 
     /**
-     * @param string $name
+     * @param string|null $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -173,9 +173,9 @@ class Collectivity
     }
 
     /**
-     * @param string $shortName
+     * @param string|null $shortName
      */
-    public function setShortName(string $shortName): void
+    public function setShortName(?string $shortName): void
     {
         $this->shortName = $shortName;
     }
@@ -189,9 +189,9 @@ class Collectivity
     }
 
     /**
-     * @param string $type
+     * @param string|null $type
      */
-    public function setType(string $type): void
+    public function setType(?string $type): void
     {
         $this->type = $type;
     }
@@ -205,9 +205,9 @@ class Collectivity
     }
 
     /**
-     * @param int $siren
+     * @param int|null $siren
      */
-    public function setSiren(int $siren): void
+    public function setSiren(?int $siren): void
     {
         $this->siren = $siren;
     }
@@ -237,9 +237,9 @@ class Collectivity
     }
 
     /**
-     * @param string $website
+     * @param string|null $website
      */
-    public function setWebsite(string $website): void
+    public function setWebsite(?string $website): void
     {
         $this->website = $website;
     }
@@ -253,9 +253,9 @@ class Collectivity
     }
 
     /**
-     * @param Address $address
+     * @param Address|null $address
      */
-    public function setAddress(Address $address): void
+    public function setAddress(?Address $address): void
     {
         $this->address = $address;
     }
@@ -269,9 +269,9 @@ class Collectivity
     }
 
     /**
-     * @param Contact $legalManager
+     * @param Contact|null $legalManager
      */
-    public function setLegalManager(Contact $legalManager): void
+    public function setLegalManager(?Contact $legalManager): void
     {
         $this->legalManager = $legalManager;
     }
@@ -285,9 +285,9 @@ class Collectivity
     }
 
     /**
-     * @param Contact $referent
+     * @param Contact|null $referent
      */
-    public function setReferent(Contact $referent): void
+    public function setReferent(?Contact $referent): void
     {
         $this->referent = $referent;
     }
@@ -317,9 +317,9 @@ class Collectivity
     }
 
     /**
-     * @param Contact $dpo
+     * @param Contact|null $dpo
      */
-    public function setDpo(Contact $dpo): void
+    public function setDpo(?Contact $dpo): void
     {
         $this->dpo = $dpo;
     }
@@ -349,9 +349,9 @@ class Collectivity
     }
 
     /**
-     * @param Contact $itManager
+     * @param Contact|null $itManager
      */
-    public function setItManager(Contact $itManager): void
+    public function setItManager(?Contact $itManager): void
     {
         $this->itManager = $itManager;
     }

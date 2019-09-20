@@ -1,0 +1,15 @@
+admin:
+    duplication:
+        breadcrumb:
+            duplicate: Traitement de la duplication
+            new: Module de duplication
+        form:
+            data: Données à dupliquer
+            source_collectivity: Collectivité source
+            type: Type de données
+        tab:
+            source: Données sources
+            target: Données cibles
+        title:
+            duplicate: Traitement de la duplication
+            new: Module de duplication

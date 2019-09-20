@@ -24,8 +24,13 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
-use App\Domain\Registry\Model\Proof;
+use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Registry\Model;
+use App\Domain\User\Model as UserModel;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -35,6 +40,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ProofType extends AbstractType
 {
     /**
+     * @var UserProvider
+     */
+    private $userProvider;
+
+    public function __construct(UserProvider $userProvider)
+    {
+        $this->userProvider = $userProvider;
+    }
+
+    /**
      * Build type form.
      *
      * @param FormBuilderInterface $builder
@@ -42,6 +57,10 @@ class ProofType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var UserModel\User $authenticatedUser */
+        $authenticatedUser = $this->userProvider->getAuthenticatedUser();
+        $collectivity      = $authenticatedUser->getCollectivity();
+
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'registry.proof.form.name',
@@ -60,7 +79,154 @@ class ProofType extends AbstractType
                 'label'    => 'registry.proof.form.comment',
                 'required' => false,
             ])
+            ->add('treatments', EntityType::class, [
+                'label'         => 'registry.proof.form.treatments',
+                'class'         => Model\Treatment::class,
+                'query_builder' => function (EntityRepository $er) use ($collectivity) {
+                    $qb = $er->createQueryBuilder('t');
+                    $qb->andWhere(
+                        $qb->expr()->eq('t.collectivity', ':collectivity')
+                    );
+                    $qb->addOrderBy('t.active', Criteria::DESC);
+                    $qb->addOrderBy('t.name', Criteria::ASC);
+                    $qb->setParameters([
+                        'collectivity' => $collectivity,
+                    ]);
+
+                    return $qb;
+                },
+                'choice_label' => function (Model\Treatment $object) {
+                    return $this->formatInactiveObjectLabel($object);
+                },
+                'attr' => [
+                    'size' => 6,
+                ],
+                'required' => false,
+                'multiple' => true,
+                'expanded' => false,
+            ])
+            ->add('contractors', EntityType::class, [
+                'label'         => 'registry.proof.form.contractors',
+                'class'         => Model\Contractor::class,
+                'query_builder' => function (EntityRepository $er) use ($collectivity) {
+                    return $er->createQueryBuilder('c')
+                        ->andWhere('c.collectivity = :collectivity')
+                        ->orderBy('c.name', Criteria::ASC)
+                        ->setParameter('collectivity', $collectivity)
+                        ;
+                },
+                'attr' => [
+                    'size' => 6,
+                ],
+                'required' => false,
+                'multiple' => true,
+                'expanded' => false,
+            ])
+            ->add('mesurements', EntityType::class, [
+                'label'         => 'registry.proof.form.mesurements',
+                'class'         => Model\Mesurement::class,
+                'query_builder' => function (EntityRepository $er) use ($collectivity) {
+                    return $er->createQueryBuilder('m')
+                        ->andWhere('m.collectivity = :collectivity')
+                        ->orderBy('m.name', Criteria::ASC)
+                        ->setParameter('collectivity', $collectivity)
+                        ;
+                },
+                'attr' => [
+                    'size' => 6,
+                ],
+                'required' => false,
+                'multiple' => true,
+                'expanded' => false,
+            ])
+            ->add('requests', EntityType::class, [
+                'label'         => 'registry.proof.form.requests',
+                'class'         => Model\Request::class,
+                'query_builder' => function (EntityRepository $er) use ($collectivity) {
+                    $qb = $er->createQueryBuilder('r');
+
+                    $qb->andWhere(
+                        $qb->expr()->eq('r.collectivity', ':collectivity')
+                    );
+                    $qb->addOrderBy('r.deletedAt', Criteria::ASC);
+                    $qb->addOrderBy('r.applicant.firstName', Criteria::DESC);
+                    $qb->addOrderBy('r.applicant.lastName', Criteria::DESC);
+                    $qb->setParameters([
+                        'collectivity' => $collectivity,
+                    ]);
+
+                    return $qb;
+                },
+                'choice_label' => function (Model\Request $object) {
+                    return $this->formatArchivedObjectLabel($object);
+                },
+                'attr' => [
+                    'size' => 6,
+                ],
+                'required' => false,
+                'multiple' => true,
+                'expanded' => false,
+            ])
+            ->add('violations', EntityType::class, [
+                'label'         => 'registry.proof.form.violations',
+                'class'         => Model\Violation::class,
+                'query_builder' => function (EntityRepository $er) use ($collectivity) {
+                    $qb = $er->createQueryBuilder('v');
+
+                    $qb->andWhere(
+                        $qb->expr()->eq('v.collectivity', ':collectivity')
+                    );
+                    $qb->addOrderBy('v.deletedAt', Criteria::ASC);
+                    $qb->addOrderBy('v.createdAt', Criteria::DESC);
+                    $qb->setParameters([
+                        'collectivity' => $collectivity,
+                    ]);
+
+                    return $qb;
+                },
+                'choice_label' => function (Model\Violation $object) {
+                    return $this->formatArchivedObjectLabel($object);
+                },
+                'attr' => [
+                    'size' => 6,
+                ],
+                'required' => false,
+                'multiple' => true,
+                'expanded' => false,
+            ])
         ;
+    }
+
+    /**
+     * Prefix every inactive object with "Inactif".
+     *
+     * @param $object
+     *
+     * @return string
+     */
+    protected function formatInactiveObjectLabel($object): string
+    {
+        if (\method_exists($object, 'isActive') && !$object->isActive()) {
+            return '(Inactif) ' . $object->__toString();
+        }
+
+        return $object->__toString();
+    }
+
+    /**
+     * Prefix every archived object with "Archivé".
+     *
+     * @param $object
+     *
+     * @return string
+     */
+    protected function formatArchivedObjectLabel($object): string
+    {
+        if (\method_exists($object, 'getDeletedAt') && null !== $object->getDeletedAt()) {
+            return '(Archivé) ' . $object->__toString();
+        }
+
+        return $object->__toString();
     }
 
     /**
@@ -72,7 +238,7 @@ class ProofType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => Proof::class,
+                'data_class'        => Model\Proof::class,
                 'validation_groups' => [
                     'default',
                     'proof',

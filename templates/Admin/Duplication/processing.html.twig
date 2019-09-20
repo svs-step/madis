@@ -1,0 +1,187 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'admin_duplication duplicate' %}
+{% set menuItem = 'admin_duplication' %}
+
+{% block title %}{{ 'admin.duplication.title.duplicate'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'admin.duplication.title.duplicate'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'admin.duplication.breadcrumb.duplicate'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-xs-12">
+        {# Warning message #}
+        <div id="duplication-status-flashbag" class="alert alert-warning">
+            <strong>ATTENTION</strong><br/>
+            Cette page réalise et vous informe de l'avancée du traitement de la duplication.<br/>
+            Toute fermeture avant la finalisation de la duplication causera une <strong>duplication partielle</strong> des données.
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-solid">
+            <div class="box-body">
+
+                <div class="col-md-6">
+                    <div>
+                        <p>
+                            <strong>Type des données dupliquées : </strong>
+                            {{ duplication.type|dictionary('admin_duplication_type') }}
+                        </p>
+                        <p>
+                            <strong>Données à dupliquer : </strong>
+                        <ul>
+                            {% for item in duplication.data %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <table class="table table-striped ">
+                        <thead>
+                        <tr>
+                            <th>Collectivité(s) cible</th>
+                            <th>Avancement</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for collectivity in duplication.targetCollectivities %}
+                            <tr id="collectivity-{{ collectivity.id }}">
+                                <td>{{ collectivity }}</td>
+                                <td class="duplication-status">{# Content will be added dynamically thanks to JS #}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        // ALERT POP UP
+        // Show alert popup when we wanna close tab
+        const loadAlertPopupOnClosing = () => window.onbeforeunload = () => "Êtes-vous certain de vouloir fermer cet onglet ?";
+        // Disable alert popup when we wanna close tab
+        const unloadAlertPopupOnClosing = () => window.onbeforeunload = () => {};
+
+        // MAKE DUPLICATION
+        // Create new promise which will request duplication
+        const getAjaxDuplicationPromise = (duplicationId, targetCollectivityId) => {
+            showRowProcess(targetCollectivityId);
+
+            return new Promise((resolve, reject) => {
+                let url = '{{ path('api_admin_duplication_duplicate', { duplicationId: 'duplicationIdValue', targetCollectivityId: 'targetCollectivityIdValue' }) }}'
+                    .replace('duplicationIdValue', duplicationId)
+                    .replace('targetCollectivityIdValue', targetCollectivityId);
+
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    success: function(data, textStatus, jqXHR) {
+                        resolve(targetCollectivityId);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        reject(targetCollectivityId);
+                    },
+                });
+            });
+        };
+
+        // ROW STATUS UPDATES
+        const showRowProcess = (collectivityId) => $(`#collectivity-${collectivityId} .duplication-status`).html('<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>');
+        const showRowSuccess = (collectivityId) => $(`#collectivity-${collectivityId} .duplication-status`).html('<i class="fa fa-check text-green"></i>');
+        const showRowError = (collectivityId) => $(`#collectivity-${collectivityId} .duplication-status`).html('<i class="fa fa-times text-red"></i>');
+
+        // Pipe actions to handle when every duplication queries are done
+        const handleCompleteDuplication = () => {
+            unloadAlertPopupOnClosing();
+            showEndingFlashbag();
+        };
+
+        // Update Flashbag to show duplication ending
+        const showEndingFlashbag = () => {
+            let flashbag = $('#duplication-status-flashbag');
+            flashbag.hasClass('alert-warning') && flashbag.removeClass('alert-warning');
+            flashbag.addClass('alert-success');
+            flashbag.html('<strong>Duplication effectuée</strong><br/>Vous pouvez dorénavant fermer cette page. Le résultat de la duplication est disponible dans le tableau ci-dessous.');
+        };
+
+        $(document).ready(function() {
+
+            // TWIG DATA CONVERTION
+            const duplicationId = '{{ duplication.id }}';
+
+            let targetCollectivities = [];
+            {% for collectivity in duplication.targetCollectivities %}
+            targetCollectivities.push({
+                   'id': '{{ collectivity.id }}',
+                   'name': '{{ collectivity.name }}',
+                });
+            {% endfor %}
+
+            // JAVASCRIPT PROCESSING
+            loadAlertPopupOnClosing();
+            const nbConcurrency = 5;
+
+            // Split collectivities for concurrency
+            const splittedCollectivities = splitEvery(nbConcurrency)(targetCollectivities);
+
+            // In order to make every duplication per collectivity via AJAX calls, we use Promises
+            // To avoid timeout issues, we make some concurrency (nbConcurrency)
+            // and run a maximum of nbConcurrency calls at the same time
+            //
+            // e.g. if we got duplications to make on 7 collectivities with a `nbConcurrency = 3`,
+            // We will run 3 ajax calls simultaneously, then 3 others and finally the last collectivity
+            const promise = splittedCollectivities
+                .reduce((accumulator, targetCollectivities) =>
+                    accumulator.then(() => Promise.all(targetCollectivitiesObjectsToPromises(duplicationId, targetCollectivities))),
+                    Promise.resolve()
+                )
+            ;
+            promise.then(handleCompleteDuplication)
+        });
+
+        // targetCollectivitiesObjectsToPromises :: [Object] -> [Promise]
+        const targetCollectivitiesObjectsToPromises = (duplicationId, targetCollectivities) =>
+            targetCollectivities
+                .map(targetCollectivity =>
+                    getAjaxDuplicationPromise(duplicationId, targetCollectivity.id)
+                        .then(showRowSuccess, showRowError)
+        );
+
+        /*
+         splitEvery :: Number -> Array -> Array
+         Split array into several little array (size of theirs arrays if `nbBySplit`)
+         */
+        const splitEvery = nbBySplit => arr => {
+            let chunks = [];
+            let i = 0;
+            let n = arr.length;
+
+            while (i < n) {
+                chunks.push(arr.slice(i, i += nbBySplit));
+            }
+
+            return chunks;
+        };
+    </script>
+{% endblock %}

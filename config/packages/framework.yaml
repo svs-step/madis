@@ -1,5 +1,5 @@
 parameters:
-    app.version: 1.5.2
+    app.version: 1.6.0
 
 framework:
     secret: '%env(APP_SECRET)%'
@@ -24,5 +24,6 @@ framework:
     validation:
         mapping:
             paths:
+                - '%kernel.project_dir%/config/domain/admin/validation'
                 - '%kernel.project_dir%/config/domain/registry/validation'
                 - '%kernel.project_dir%/config/domain/user/validation'

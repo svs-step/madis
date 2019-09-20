@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a80f218aad8b76172d66f58898a44555",
+    "content-hash": "f44e2c1cf650345ba27c28028c5a6bc5",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -5220,6 +5220,7 @@
                 "MIT"
             ],
             "description": "A pack for Symfony Encore",
+            "abandoned": "symfony/webpack-encore-bundle",
             "time": "2018-07-16T10:15:28+00:00"
         },
         {
@@ -5338,16 +5339,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v2.9.0",
+            "version": "v2.11.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "82a1c055c8ed4c4705023bfd0405f3c74db6e3ae"
+                "reference": "699ed2342557c88789a15402de5eb834dedd6792"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/82a1c055c8ed4c4705023bfd0405f3c74db6e3ae",
-                "reference": "82a1c055c8ed4c4705023bfd0405f3c74db6e3ae",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/699ed2342557c88789a15402de5eb834dedd6792",
+                "reference": "699ed2342557c88789a15402de5eb834dedd6792",
                 "shasum": ""
             },
             "require": {
@@ -5358,12 +5359,12 @@
             "require-dev": {
                 "psr/container": "^1.0",
                 "symfony/debug": "^2.7",
-                "symfony/phpunit-bridge": "^3.4.19|^4.1.8"
+                "symfony/phpunit-bridge": "^3.4.19|^4.1.8|^5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.9-dev"
+                    "dev-master": "2.11-dev"
                 }
             },
             "autoload": {
@@ -5381,19 +5382,19 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
+                    "role": "Lead Developer",
                     "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "homepage": "http://fabien.potencier.org"
                 },
                 {
                     "name": "Armin Ronacher",
-                    "email": "armin.ronacher@active-4.com",
-                    "role": "Project Founder"
+                    "role": "Project Founder",
+                    "email": "armin.ronacher@active-4.com"
                 },
                 {
                     "name": "Twig Team",
-                    "homepage": "https://twig.symfony.com/contributors",
-                    "role": "Contributors"
+                    "role": "Contributors",
+                    "homepage": "https://twig.symfony.com/contributors"
                 }
             ],
             "description": "Twig, the flexible, fast, and secure template language for PHP",
@@ -5401,7 +5402,100 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-04-28T06:57:38+00:00"
+            "time": "2019-06-18T15:37:11+00:00"
+        },
+        {
+            "name": "wmde/iterable-functions",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wmde/iterable-functions.git",
+                "reference": "2f87aa1fc983fb9d8f7046791be18a9b87ae563b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wmde/iterable-functions/zipball/2f87aa1fc983fb9d8f7046791be18a9b87ae563b",
+                "reference": "2f87aa1fc983fb9d8f7046791be18a9b87ae563b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1",
+                "wmde/traversable-iterator": "~1.0"
+            },
+            "require-dev": {
+                "mediawiki/mediawiki-codesniffer": "~22.0.0",
+                "ockcyp/covers-validator": "~1.0",
+                "phpunit/phpunit": "~7.3.5",
+                "squizlabs/php_codesniffer": "~3.3.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Jeroen De Dauw",
+                    "email": "jeroendedauw@gmail.com",
+                    "homepage": "http://jeroendedauw.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Functions to transform iterables into more specific types",
+            "homepage": "https://github.com/wmde/iterable-functions",
+            "time": "2018-09-13T12:30:23+00:00"
+        },
+        {
+            "name": "wmde/traversable-iterator",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wmde/traversable-iterator.git",
+                "reference": "a09656ab1c3a26596ba2c4d76da4c02e2db148a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wmde/traversable-iterator/zipball/a09656ab1c3a26596ba2c4d76da4c02e2db148a9",
+                "reference": "a09656ab1c3a26596ba2c4d76da4c02e2db148a9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "mediawiki/mediawiki-codesniffer": "~0.8.0",
+                "ockcyp/covers-validator": "~0.6",
+                "phpunit/phpunit": "~6.2",
+                "squizlabs/php_codesniffer": "~2.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "WMDE\\TraversableIterator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Turn Traversable objects into Iterators. Fixed version of the native IteratorIterator",
+            "homepage": "https://github.com/wmde/traversable-iterator",
+            "time": "2017-06-17T16:55:16+00:00"
         },
         {
             "name": "zendframework/zend-code",

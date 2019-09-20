@@ -97,6 +97,11 @@ class Request
     private $answer;
 
     /**
+     * @var iterable
+     */
+    private $proofs;
+
+    /**
      * Request constructor.
      *
      * @throws \Exception
@@ -111,6 +116,7 @@ class Request
         $this->complete            = false;
         $this->legitimateApplicant = false;
         $this->legitimateRequest   = false;
+        $this->proofs              = [];
     }
 
     /**
@@ -122,8 +128,8 @@ class Request
             return '';
         }
 
-        if (\strlen($this->getApplicant()->getFullName()) > 50) {
-            return \substr($this->getApplicant()->getFullName(), 0, 50) . '...';
+        if (\mb_strlen($this->getApplicant()->getFullName()) > 50) {
+            return \mb_substr($this->getApplicant()->getFullName(), 0, 50) . '...';
         }
 
         return $this->getApplicant()->getFullName();
@@ -295,5 +301,13 @@ class Request
     public function setAnswer(?RequestAnswer $answer): void
     {
         $this->answer = $answer;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getProofs(): iterable
+    {
+        return $this->proofs;
     }
 }
