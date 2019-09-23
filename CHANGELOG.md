@@ -3,6 +3,10 @@ CHANGELOG
 
 ## [UNRELEASED]
 
+## [1.6.1] - 2019-09-23
+### Fix
+- [ADMINISTRATION] Subrogation / Créer une donnée avec l'admin en tant que créateur ne génère plus de 500, #207 
+
 ## [1.6.0] - 2019-09-20
 ### Ajout
 - [DUPLICATION] Un administrateur peut maintenant dupliquer des traitements / sous-traitants / actions de protections d'une collectivité vers des autres, #187

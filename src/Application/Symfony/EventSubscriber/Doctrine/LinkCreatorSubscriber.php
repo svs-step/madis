@@ -75,6 +75,7 @@ class LinkCreatorSubscriber implements EventSubscriber
      */
     public function prePersist(LifecycleEventArgs $args): void
     {
+        $em     = $args->getEntityManager();
         $object = $args->getObject();
         $uses   = \class_uses($object);
         $token  = $this->userProvider->getToken();
@@ -108,7 +109,9 @@ class LinkCreatorSubscriber implements EventSubscriber
         // We link admin, then check it original token
         foreach ($token->getRoles() as $role) {
             if ($role instanceof SwitchUserRole) {
-                $object->setCreator($role->getSource()->getUser());
+                $originalUserId = $role->getSource()->getUser()->getId()->toString();
+                $originalUser   = $em->find(User::class, $originalUserId);
+                $object->setCreator($originalUser);
 
                 return;
             }
