@@ -30,6 +30,7 @@ use App\Application\Traits\Model\CreatorTrait;
 use App\Domain\User\Model;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -51,9 +52,9 @@ class LinkCreatorSubscriberTest extends TestCase
     private $userProviderProphecy;
 
     /**
-     * @var bool
+     * @var EntityManagerInterface
      */
-    private $linkAdmin;
+    private $entityManagerProphecy;
 
     /**
      * @var LinkCreatorSubscriber
@@ -64,6 +65,7 @@ class LinkCreatorSubscriberTest extends TestCase
     {
         $this->lifeCycleEventArgsProphecy = $this->prophesize(LifecycleEventArgs::class);
         $this->userProviderProphecy       = $this->prophesize(UserProvider::class);
+        $this->entityManagerProphecy      = $this->prophesize(EntityManagerInterface::class);
 
         parent::setUp();
     }
@@ -115,6 +117,7 @@ class LinkCreatorSubscriberTest extends TestCase
 
         $tokenProphecy->getUser()->shouldBeCalled()->willReturn($user);
         $this->userProviderProphecy->getToken()->shouldBeCalled()->willReturn($tokenProphecy->reveal());
+        $this->lifeCycleEventArgsProphecy->getEntityManager()->shouldBeCalled()->willReturn($this->entityManagerProphecy->reveal());
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
 
         $this->assertFalse(\in_array(CreatorTrait::class, $objectUses));
@@ -139,6 +142,7 @@ class LinkCreatorSubscriberTest extends TestCase
 
         $tokenProphecy->getUser()->shouldBeCalled()->willReturn($user);
         $this->userProviderProphecy->getToken()->shouldBeCalled()->willReturn($tokenProphecy->reveal());
+        $this->lifeCycleEventArgsProphecy->getEntityManager()->shouldBeCalled()->willReturn($this->entityManagerProphecy->reveal());
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
 
         $this->assertTrue(\in_array(CreatorTrait::class, $objectUses));
@@ -164,6 +168,7 @@ class LinkCreatorSubscriberTest extends TestCase
 
         $tokenProphecy->getUser()->shouldBeCalled()->willReturn($loggerUser);
         $this->userProviderProphecy->getToken()->shouldBeCalled()->willReturn($tokenProphecy->reveal());
+        $this->lifeCycleEventArgsProphecy->getEntityManager()->shouldBeCalled()->willReturn($this->entityManagerProphecy->reveal());
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
 
         $this->assertTrue(\in_array(CreatorTrait::class, $objectUses));
@@ -189,6 +194,7 @@ class LinkCreatorSubscriberTest extends TestCase
 
         $tokenProphecy->getUser()->shouldBeCalled()->willReturn($user);
         $this->userProviderProphecy->getToken()->shouldBeCalled()->willReturn($tokenProphecy->reveal());
+        $this->lifeCycleEventArgsProphecy->getEntityManager()->shouldBeCalled()->willReturn($this->entityManagerProphecy->reveal());
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
 
         $this->assertTrue(\in_array(CreatorTrait::class, $objectUses));
@@ -221,7 +227,9 @@ class LinkCreatorSubscriberTest extends TestCase
         $tokenProphecy->getRoles()->shouldBeCalled()->willReturn([$switchUserRole]);
 
         $this->userProviderProphecy->getToken()->shouldBeCalled()->willReturn($tokenProphecy->reveal());
+        $this->lifeCycleEventArgsProphecy->getEntityManager()->shouldBeCalled()->willReturn($this->entityManagerProphecy->reveal());
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
+        $this->entityManagerProphecy->find(Model\User::class, $admin->getId()->toString())->shouldBeCalled()->willReturn($admin);
 
         $this->assertTrue(\in_array(CreatorTrait::class, $objectUses));
         $this->assertTrue($user instanceof Model\User);
@@ -251,6 +259,7 @@ class LinkCreatorSubscriberTest extends TestCase
         $tokenProphecy->getRoles()->shouldBeCalled()->willReturn([$role]);
 
         $this->userProviderProphecy->getToken()->shouldBeCalled()->willReturn($tokenProphecy->reveal());
+        $this->lifeCycleEventArgsProphecy->getEntityManager()->shouldBeCalled()->willReturn($this->entityManagerProphecy->reveal());
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
 
         $this->assertTrue(\in_array(CreatorTrait::class, $objectUses));
