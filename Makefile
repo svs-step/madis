@@ -4,7 +4,7 @@
 ##
 
 tu: ## Run unit tests
-	$(QA) vendor/bin/phpunit --coverage-text
+	$(QA) vendor/bin/phpunit
 
 tu-report: ## Run unit tests
 	$(QA) phpdbg -d memory_limit=-1 -qrr ./vendor/bin/phpunit --coverage-text --coverage-html var/artefacts/coverage/
