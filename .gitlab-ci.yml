@@ -100,8 +100,8 @@ phpmd:
             - var/artefacts/phpmd
         expire_in: 1 month
     stage: quality-assurance
-#    only:
-#        - develop
+    only:
+        - develop
 
 php-cs-fixer:
     <<: *job-base-defintion
@@ -120,8 +120,8 @@ phpmetrics:
             - var/artefacts/phpmetrics
         expire_in: 1 month
     stage: quality-assurance
-#    only:
-#        - develop
+    only:
+        - develop
 
 pages:
     <<: *job-base-defintion
@@ -131,11 +131,12 @@ pages:
         - cp .gitlab-pages.html var/artefacts/index.html
         - sed -i "s|PLACEHOLDER_PROJECT_PATH|${CI_PROJECT_PATH}|g" var/artefacts/index.html
         - sed -i "s|PLACEHOLDER_PROJECT_NAME|${CI_PROJECT_NAME}|g" var/artefacts/index.html
+        - sed -i "s|PLACEHOLDER_GIT_COMMIT_SHA|${CI_COMMIT_SHA}|g" var/artefacts/index.html
         - mv var/artefacts/* public/
     artifacts:
         paths:
             - public
         expire_in: 1 month
     stage: quality-assurance-report
-#    only:
-#        - develop
+    only:
+        - develop
