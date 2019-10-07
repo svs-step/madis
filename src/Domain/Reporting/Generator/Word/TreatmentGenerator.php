@@ -239,7 +239,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
             $detailsData = [
                 0 => [
-                    'Personnes référentes',
+                    'Personnes concernées',
                     // Values are added below
                 ],
                 1 => [
