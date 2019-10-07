@@ -28,7 +28,7 @@ Accompagnement dans la gestion du Règlement Général à la Protection des Donn
     - [Architecture applicative](developpement/2-architecture-applicative.md)
     - [Les bonnes pratiques de développement](developpement/3-bonnes-pratiques-de-developpement.md)
     - [Effectuer la maintenance et les montées de versions](developpement/4-maintenance-et-montee-de-version.md)
-
+    - [Qualité du code](developpement/5-qualite-de-code.md)
 
 ## Stack technique
 Le projet est construit avec :
