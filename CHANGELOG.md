@@ -2,6 +2,8 @@ CHANGELOG
 =========
 
 ## [UNRELEASED]
+
+## [1.6.2] - 2019-10-07
 ### Ajout
 - [TECHNIQUE] Mise en place d'outils de qualité de code (PHPMD, PHPStan, csFixer, ...), #188
 ### Changement
