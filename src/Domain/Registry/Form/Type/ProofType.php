@@ -54,6 +54,8 @@ class ProofType extends AbstractType
      *
      * @param FormBuilderInterface $builder
      * @param array                $options
+     *
+     * @throws \Exception
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -200,12 +202,16 @@ class ProofType extends AbstractType
     /**
      * Prefix every inactive object with "Inactif".
      *
-     * @param $object
+     * @param mixed $object
      *
      * @return string
      */
     protected function formatInactiveObjectLabel($object): string
     {
+        if (!\method_exists($object, '__toString')) {
+            throw new \RuntimeException('The object ' . \get_class($object) . ' must implement __toString() method');
+        }
+
         if (\method_exists($object, 'isActive') && !$object->isActive()) {
             return '(Inactif) ' . $object->__toString();
         }
@@ -216,12 +222,16 @@ class ProofType extends AbstractType
     /**
      * Prefix every archived object with "Archivé".
      *
-     * @param $object
+     * @param mixed $object
      *
      * @return string
      */
     protected function formatArchivedObjectLabel($object): string
     {
+        if (!\method_exists($object, '__toString')) {
+            throw new \RuntimeException('The object ' . \get_class($object) . ' must implement __toString() method');
+        }
+
         if (\method_exists($object, 'getDeletedAt') && null !== $object->getDeletedAt()) {
             return '(Archivé) ' . $object->__toString();
         }

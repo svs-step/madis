@@ -28,12 +28,12 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Maturity\Repository as MaturityRepository;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-class ReviewController extends Controller
+class ReviewController extends AbstractController
 {
     /**
      * @var WordHandler

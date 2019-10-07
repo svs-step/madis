@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Application\Symfony\Security;
 
+use App\Domain\User\Model;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -56,23 +57,22 @@ class UserProvider
      * - User is anonymous: return null
      * - User is connected: return UserInterface instance.
      *
-     * @return UserInterface|null
+     * @return Model\User|null
      */
-    public function getAuthenticatedUser(): ?UserInterface
+    public function getAuthenticatedUser(): ?Model\User
     {
-        if (null === $token = $this->tokenStorage->getToken()) {
+        $token = $this->tokenStorage->getToken();
+        if (null === $token) {
             return null;
         }
 
-        if (!\is_object($user = $token->getUser())) {
+        /** @var Model\User|string $user */
+        $user = $token->getUser();
+        if (!\is_object($user)) {
             // e.g. anonymous authentication
             return null;
         }
 
         return $user;
-    }
-
-    public function isGranted(string $role): bool
-    {
     }
 }

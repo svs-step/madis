@@ -31,9 +31,9 @@ use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use Doctrine\Common\Inflector\Inflector;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class DashboardController extends Controller
+class DashboardController extends AbstractController
 {
     /**
      * @var EntityManagerInterface

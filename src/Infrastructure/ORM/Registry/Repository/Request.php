@@ -27,6 +27,7 @@ namespace App\Infrastructure\ORM\Registry\Repository;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -48,14 +49,34 @@ class Request implements Repository\Request
     }
 
     /**
+     * Get the registry manager
+     * Since we use Doctrine, we expect to get EntityManagerInterface.
+     *
+     * @throws \Exception
+     *
+     * @return EntityManagerInterface
+     */
+    protected function getManager(): EntityManagerInterface
+    {
+        $manager = $this->registry->getManager();
+
+        if (!$manager instanceof EntityManagerInterface) {
+            throw new \Exception('Registry Manager must be an instance of EntityManagerInterface #PHPStan');
+        }
+
+        return $manager;
+    }
+
+    /**
      * Create the base of QueryBuilder to use for repository calls.
+     *
+     * @throws \Exception
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
     protected function createQueryBuilder()
     {
-        return $this->registry
-            ->getManager()
+        return $this->getManager()
             ->createQueryBuilder()
             ->select('o')
             ->from($this->getModelClass(), 'o')
@@ -66,21 +87,25 @@ class Request implements Repository\Request
      * Insert an object.
      *
      * @param mixed $object
+     *
+     * @throws \Exception
      */
     public function insert($object): void
     {
-        $this->registry->getManager()->persist($object);
-        $this->registry->getManager()->flush($object);
+        $this->getManager()->persist($object);
+        $this->getManager()->flush();
     }
 
     /**
      * Update an object.
      *
      * @param mixed $object
+     *
+     * @throws \Exception
      */
     public function update($object): void
     {
-        $this->registry->getManager()->flush($object);
+        $this->getManager()->flush();
     }
 
     /**
@@ -99,11 +124,13 @@ class Request implements Repository\Request
      * Remove an object.
      *
      * @param mixed $object
+     *
+     * @throws \Exception
      */
     public function remove($object): void
     {
-        $this->registry->getManager()->remove($object);
-        $this->registry->getManager()->flush($object);
+        $this->getManager()->remove($object);
+        $this->getManager()->flush();
     }
 
     /**
@@ -147,7 +174,7 @@ class Request implements Repository\Request
      *
      * @param QueryBuilder $qb
      * @param string       $key
-     * @param $value
+     * @param mixed        $value
      *
      * @return QueryBuilder
      */
@@ -213,6 +240,8 @@ class Request implements Repository\Request
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function findAllByCollectivity(Collectivity $collectivity, bool $deleted = false, array $order = [])
     {
@@ -236,6 +265,8 @@ class Request implements Repository\Request
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function findBy(array $criteria = [])
     {
@@ -253,6 +284,8 @@ class Request implements Repository\Request
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function findAllArchived(bool $archived = false, array $order = [])
     {
@@ -269,6 +302,8 @@ class Request implements Repository\Request
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function findAllArchivedByCollectivity(Collectivity $collectivity, bool $archived = false, array $order = [])
     {

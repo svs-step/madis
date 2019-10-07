@@ -45,7 +45,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
      *
      * @param QueryBuilder $qb
      * @param string       $key
-     * @param $value
+     * @param mixed        $value
      *
      * @return QueryBuilder
      */

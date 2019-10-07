@@ -30,7 +30,7 @@ use App\Application\Traits\Model\HistoryTrait;
 use App\Application\Traits\Model\SoftDeletableTrait;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Proof
 {
@@ -60,7 +60,7 @@ class Proof
     private $document;
 
     /**
-     * @var File|null
+     * @var UploadedFile|null
      */
     private $documentFile;
 
@@ -182,17 +182,17 @@ class Proof
     }
 
     /**
-     * @return File|null
+     * @return UploadedFile|null
      */
-    public function getDocumentFile(): ?File
+    public function getDocumentFile(): ?UploadedFile
     {
         return $this->documentFile;
     }
 
     /**
-     * @param File|null $documentFile
+     * @param UploadedFile|null $documentFile
      */
-    public function setDocumentFile(?File $documentFile): void
+    public function setDocumentFile(?UploadedFile $documentFile): void
     {
         $this->documentFile = $documentFile;
     }

@@ -25,7 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Component;
 
 use App\Domain\User\Model;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class Mailer

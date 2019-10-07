@@ -338,12 +338,12 @@ abstract class AbstractGenerator implements GeneratorInterface
 
         $currentDate = (new \DateTimeImmutable())->format('Ymd');
         $fileName    = "{$currentDate}-{$documentName}.doc";
-        $temp_file   = \tempnam(\sys_get_temp_dir(), $fileName);
+        $tempFile    = \tempnam(\sys_get_temp_dir(), $fileName);
 
-        $objWriter->save($temp_file);
+        $objWriter->save($tempFile);
 
         // Create response and return it
-        $response = new BinaryFileResponse($temp_file);
+        $response = new BinaryFileResponse($tempFile);
         $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,

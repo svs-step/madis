@@ -29,7 +29,7 @@ use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CollectivityController extends CRUDController
 {
