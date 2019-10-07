@@ -29,7 +29,7 @@ use App\Domain\User\Model;
 use App\Tests\Utils\ReflectionTrait;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class MailerTest extends TestCase

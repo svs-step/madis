@@ -41,8 +41,11 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @property Repository\Proof $repository
+ */
 class ProofController extends CRUDController
 {
     /**
@@ -122,6 +125,8 @@ class ProofController extends CRUDController
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     protected function getListData()
     {
@@ -141,11 +146,19 @@ class ProofController extends CRUDController
     /**
      * {@inheritdoc}
      * - Upload documentFile before object persistence in database.
+     *
+     * @throws \Exception
      */
     public function formPrePersistData($object)
     {
-        if ($file = $object->getDocumentFile()) {
-            $filename = (string) Uuid::uuid4() . '.' . $file->getClientOriginalExtension();
+        if (!$object instanceof Model\Proof) {
+            throw new \RuntimeException('You must persist a ' . Model\Proof::class . ' object class with your form');
+        }
+
+        $file = $object->getDocumentFile();
+
+        if ($file) {
+            $filename = Uuid::uuid4()->toString() . '.' . $file->getClientOriginalExtension();
             $this->documentFilesystem->write($filename, \fopen($file->getRealPath(), 'r'));
             $object->setDocument($filename);
             $object->setDocumentFile(null);
@@ -184,6 +197,7 @@ class ProofController extends CRUDController
      */
     public function archiveConfirmationAction(string $id): Response
     {
+        /** @var Model\Proof|null $object */
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
@@ -204,6 +218,7 @@ class ProofController extends CRUDController
      */
     public function deleteConfirmationAction(string $id): Response
     {
+        /** @var Model\Proof|null $object */
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
@@ -235,10 +250,13 @@ class ProofController extends CRUDController
      *
      * @param string $id
      *
+     * @throws \Exception
+     *
      * @return Response
      */
     public function downloadAction(string $id): Response
     {
+        /** @var Model\Proof|null $object */
         $object = $this->repository->findOneById($id);
 
         if (!$object) {

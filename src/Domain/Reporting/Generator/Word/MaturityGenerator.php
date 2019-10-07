@@ -109,16 +109,11 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             \ksort($maturityList);
             \ksort($domainsName);
 
-            foreach ($maturityList as $position => $score) {
-                $row   = [];
-                $row[] = $domainsName[$position];
+            foreach ($maturityList as $score) {
                 if (isset($score['old'])) {
-                    $row[]    = $score['old'] / 10; // Display comma with 1 digit precision
                     $serie2[] = $score['old'] / 10;
                 }
-                $row[]       = $score['new'] / 10; // Display comma with 1 digit precision
-                $serie1[]    = $score['new'] / 10;
-                $tableData[] = $row;
+                $serie1[] = $score['new'] / 10;
             }
             // Display
             $section->addTitle("Résultat de l'évaluation du {$data['new']->getCreatedAt()->format('d/m/Y')}", 2);
@@ -131,8 +126,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
                     'height' => Converter::cmToEmu(11),
                     'width'  => Converter::cmToEmu(15),
                     '3d'     => true,
-                ],
-                $data['new']->getCreatedAt()->format('d/m/Y')
+                ]
             );
             if (!empty($serie2)) {
                 $chart->addSeries(\array_keys($maturityList), $serie2, $data['old']->getCreatedAt()->format('d/m/Y'));

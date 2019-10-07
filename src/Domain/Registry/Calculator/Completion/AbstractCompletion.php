@@ -29,7 +29,7 @@ abstract class AbstractCompletion
     /**
      * Get the completion points computed for provided object.
      *
-     * @param $object
+     * @param mixed $object
      *
      * @return int
      */

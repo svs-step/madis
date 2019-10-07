@@ -29,12 +29,12 @@ use App\Domain\User\Component\Mailer;
 use App\Domain\User\Component\TokenGenerator;
 use App\Domain\User\Form\Type\ResetPasswordType;
 use App\Domain\User\Repository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends Controller
+class SecurityController extends AbstractController
 {
     /**
      * @var ControllerHelper
