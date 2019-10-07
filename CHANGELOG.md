@@ -2,6 +2,10 @@ CHANGELOG
 =========
 
 ## [UNRELEASED]
+### Ajout
+- [TECHNIQUE] Mise en place d'outils de qualité de code (PHPMD, PHPStan, csFixer, ...), #188
+### Changement
+- [TRAITEMENT] Word / Modification du "Personne référentes" en "Personnes concernées", #208
 
 ## [1.6.1] - 2019-09-23
 ### Fix
