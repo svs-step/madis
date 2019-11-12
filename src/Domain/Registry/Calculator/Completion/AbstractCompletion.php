@@ -30,15 +30,11 @@ abstract class AbstractCompletion
      * Get the completion points computed for provided object.
      *
      * @param mixed $object
-     *
-     * @return int
      */
     abstract protected function getPoints($object): int;
 
     /**
      * Get max number point possible.
-     *
-     * @return int
      */
     abstract protected function getMaxPoints(): int;
 
@@ -47,8 +43,6 @@ abstract class AbstractCompletion
      * Rounded to up by getting the following int number.
      *
      * @param mixed $object The object on which to calculate completion
-     *
-     * @return int
      */
     public function calculate($object): int
     {

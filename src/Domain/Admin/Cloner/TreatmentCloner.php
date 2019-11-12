@@ -35,8 +35,6 @@ class TreatmentCloner extends AbstractCloner
      * @param RegistryModel\Treatment $referent
      *
      * @throws \Exception
-     *
-     * @return RegistryModel\Treatment
      */
     protected function cloneReferentForCollectivity($referent, UserModel\Collectivity $collectivity): RegistryModel\Treatment
     {

@@ -272,9 +272,6 @@ class Treatment
         $this->proofs                = [];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         if (\is_null($this->getName())) {
@@ -288,234 +285,147 @@ class Treatment
         return $this->getName();
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getGoal(): ?string
     {
         return $this->goal;
     }
 
-    /**
-     * @param string|null $goal
-     */
     public function setGoal(?string $goal): void
     {
         $this->goal = $goal;
     }
 
-    /**
-     * @return string|null
-     */
     public function getManager(): ?string
     {
         return $this->manager;
     }
 
-    /**
-     * @param string|null $manager
-     */
     public function setManager(?string $manager): void
     {
         $this->manager = $manager;
     }
 
-    /**
-     * @return string|null
-     */
     public function getSoftware(): ?string
     {
         return $this->software;
     }
 
-    /**
-     * @param string|null $software
-     */
     public function setSoftware(?string $software): void
     {
         $this->software = $software;
     }
 
-    /**
-     * @return bool
-     */
     public function isPaperProcessing(): bool
     {
         return $this->paperProcessing;
     }
 
-    /**
-     * @param bool $paperProcessing
-     */
     public function setPaperProcessing(bool $paperProcessing): void
     {
         $this->paperProcessing = $paperProcessing;
     }
 
-    /**
-     * @return string|null
-     */
     public function getLegalBasis(): ?string
     {
         return $this->legalBasis;
     }
 
-    /**
-     * @param string|null $legalBasis
-     */
     public function setLegalBasis(?string $legalBasis): void
     {
         $this->legalBasis = $legalBasis;
     }
 
-    /**
-     * @return string|null
-     */
     public function getLegalBasisJustification(): ?string
     {
         return $this->legalBasisJustification;
     }
 
-    /**
-     * @param string|null $legalBasisJustification
-     */
     public function setLegalBasisJustification(?string $legalBasisJustification): void
     {
         $this->legalBasisJustification = $legalBasisJustification;
     }
 
-    /**
-     * @return string|null
-     */
     public function getObservation(): ?string
     {
         return $this->observation;
     }
 
-    /**
-     * @param string|null $observation
-     */
     public function setObservation(?string $observation): void
     {
         $this->observation = $observation;
     }
 
-    /**
-     * @return array
-     */
     public function getConcernedPeople(): array
     {
         return $this->concernedPeople;
     }
 
-    /**
-     * @param array $concernedPeople
-     */
     public function setConcernedPeople(array $concernedPeople): void
     {
         $this->concernedPeople = $concernedPeople;
     }
 
-    /**
-     * @return iterable
-     */
     public function getDataCategories(): iterable
     {
         return $this->dataCategories;
     }
 
-    /**
-     * @param iterable $dataCategories
-     */
     public function setDataCategories(iterable $dataCategories): void
     {
         $this->dataCategories = $dataCategories;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDataCategoryOther(): ?string
     {
         return $this->dataCategoryOther;
     }
 
-    /**
-     * @param string|null $dataCategoryOther
-     */
     public function setDataCategoryOther(?string $dataCategoryOther): void
     {
         $this->dataCategoryOther = $dataCategoryOther;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDataOrigin(): ?string
     {
         return $this->dataOrigin;
     }
 
-    /**
-     * @param string|null $dataOrigin
-     */
     public function setDataOrigin(?string $dataOrigin): void
     {
         $this->dataOrigin = $dataOrigin;
     }
 
-    /**
-     * @return string|null
-     */
     public function getRecipientCategory(): ?string
     {
         return $this->recipientCategory;
     }
 
-    /**
-     * @param string|null $recipientCategory
-     */
     public function setRecipientCategory(?string $recipientCategory): void
     {
         $this->recipientCategory = $recipientCategory;
     }
 
-    /**
-     * @param Contractor $contractor
-     */
     public function addContractor(Contractor $contractor): void
     {
         $contractor->addTreatment($this);
         $this->contractors[] = $contractor;
     }
 
-    /**
-     * @param Contractor $contractor
-     */
     public function removeContractor(Contractor $contractor): void
     {
         $contractor->removeTreatment($this);
@@ -529,273 +439,171 @@ class Treatment
         unset($this->contractors[$key]);
     }
 
-    /**
-     * @return iterable
-     */
     public function getContractors(): iterable
     {
         return $this->contractors;
     }
 
-    /**
-     * @return Delay
-     */
     public function getDelay(): Delay
     {
         return $this->delay;
     }
 
-    /**
-     * @param Delay $delay
-     */
     public function setDelay(Delay $delay): void
     {
         $this->delay = $delay;
     }
 
-    /**
-     * @return ComplexChoice
-     */
     public function getSecurityAccessControl(): ComplexChoice
     {
         return $this->securityAccessControl;
     }
 
-    /**
-     * @param ComplexChoice $securityAccessControl
-     */
     public function setSecurityAccessControl(ComplexChoice $securityAccessControl): void
     {
         $this->securityAccessControl = $securityAccessControl;
     }
 
-    /**
-     * @return ComplexChoice
-     */
     public function getSecurityTracability(): ComplexChoice
     {
         return $this->securityTracability;
     }
 
-    /**
-     * @param ComplexChoice $securityTracability
-     */
     public function setSecurityTracability(ComplexChoice $securityTracability): void
     {
         $this->securityTracability = $securityTracability;
     }
 
-    /**
-     * @return ComplexChoice
-     */
     public function getSecuritySaving(): ComplexChoice
     {
         return $this->securitySaving;
     }
 
-    /**
-     * @param ComplexChoice $securitySaving
-     */
     public function setSecuritySaving(ComplexChoice $securitySaving): void
     {
         $this->securitySaving = $securitySaving;
     }
 
-    /**
-     * @return ComplexChoice
-     */
     public function getSecurityUpdate(): ComplexChoice
     {
         return $this->securityUpdate;
     }
 
-    /**
-     * @param ComplexChoice $securityUpdate
-     */
     public function setSecurityUpdate(ComplexChoice $securityUpdate): void
     {
         $this->securityUpdate = $securityUpdate;
     }
 
-    /**
-     * @return ComplexChoice
-     */
     public function getSecurityOther(): ComplexChoice
     {
         return $this->securityOther;
     }
 
-    /**
-     * @param ComplexChoice $securityOther
-     */
     public function setSecurityOther(ComplexChoice $securityOther): void
     {
         $this->securityOther = $securityOther;
     }
 
-    /**
-     * @return bool
-     */
     public function isSystematicMonitoring(): bool
     {
         return $this->systematicMonitoring;
     }
 
-    /**
-     * @param bool $systematicMonitoring
-     */
     public function setSystematicMonitoring(bool $systematicMonitoring): void
     {
         $this->systematicMonitoring = $systematicMonitoring;
     }
 
-    /**
-     * @return bool
-     */
     public function isLargeScaleCollection(): bool
     {
         return $this->largeScaleCollection;
     }
 
-    /**
-     * @param bool $largeScaleCollection
-     */
     public function setLargeScaleCollection(bool $largeScaleCollection): void
     {
         $this->largeScaleCollection = $largeScaleCollection;
     }
 
-    /**
-     * @return bool
-     */
     public function isVulnerablePeople(): bool
     {
         return $this->vulnerablePeople;
     }
 
-    /**
-     * @param bool $vulnerablePeople
-     */
     public function setVulnerablePeople(bool $vulnerablePeople): void
     {
         $this->vulnerablePeople = $vulnerablePeople;
     }
 
-    /**
-     * @return bool
-     */
     public function isDataCrossing(): bool
     {
         return $this->dataCrossing;
     }
 
-    /**
-     * @param bool $dataCrossing
-     */
     public function setDataCrossing(bool $dataCrossing): void
     {
         $this->dataCrossing = $dataCrossing;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAuthorizedPeople(): ?string
     {
         return $this->authorizedPeople;
     }
 
-    /**
-     * @param string|null $authorizedPeople
-     */
     public function setAuthorizedPeople(?string $authorizedPeople): void
     {
         $this->authorizedPeople = $authorizedPeople;
     }
 
-    /**
-     * @return bool
-     */
     public function isActive(): bool
     {
         return $this->active;
     }
 
-    /**
-     * @param bool $active
-     */
     public function setActive(bool $active): void
     {
         $this->active = $active;
     }
 
-    /**
-     * @return int
-     */
     public function getCompletion(): int
     {
         return $this->completion;
     }
 
-    /**
-     * @param int $completion
-     */
     public function setCompletion(int $completion): void
     {
         $this->completion = $completion;
     }
 
-    /**
-     * @return bool
-     */
     public function isTemplate(): bool
     {
         return $this->template;
     }
 
-    /**
-     * @param bool $template
-     */
     public function setTemplate(bool $template): void
     {
         $this->template = $template;
     }
 
-    /**
-     * @return int|null
-     */
     public function getTemplateIdentifier(): ?int
     {
         return $this->templateIdentifier;
     }
 
-    /**
-     * @param int|null $templateIdentifier
-     */
     public function setTemplateIdentifier(?int $templateIdentifier): void
     {
         $this->templateIdentifier = $templateIdentifier;
     }
 
-    /**
-     * @return iterable
-     */
     public function getProofs(): iterable
     {
         return $this->proofs;
     }
 
-    /**
-     * @return Treatment|null
-     */
     public function getClonedFrom(): ?Treatment
     {
         return $this->clonedFrom;
     }
 
-    /**
-     * @param Treatment|null $clonedFrom
-     */
     public function setClonedFrom(?Treatment $clonedFrom): void
     {
         $this->clonedFrom = $clonedFrom;

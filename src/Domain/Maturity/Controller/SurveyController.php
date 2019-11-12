@@ -191,8 +191,6 @@ class SurveyController extends CRUDController
      * Get current survey and previous one.
      *
      * @throws \PhpOffice\PhpWord\Exception\Exception
-     *
-     * @return Response
      */
     public function reportAction(string $id): Response
     {

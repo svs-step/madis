@@ -37,9 +37,6 @@ class RequestApplicantType extends AbstractType
 {
     /**
      * Build type form.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -78,8 +75,6 @@ class RequestApplicantType extends AbstractType
 
     /**
      * Provide type options.
-     *
-     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {

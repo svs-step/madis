@@ -24,9 +24,6 @@ class DuplicationFormDTOTransformer
 
     /**
      * DuplicationDTOTransformer constructor.
-     *
-     * @param UserRepository\Collectivity $collectivityRepository
-     * @param DuplicationHydrator         $hydrator
      */
     public function __construct(
         UserRepository\Collectivity $collectivityRepository,
@@ -39,11 +36,7 @@ class DuplicationFormDTOTransformer
     /**
      * Transform a DuplicationFormDTO to a Duplication object model.
      *
-     * @param DuplicationFormDTO $formDTO
-     *
      * @throws \Exception
-     *
-     * @return Duplication
      */
     public function toModelObject(DuplicationFormDTO $formDTO): Duplication
     {
@@ -75,9 +68,6 @@ class DuplicationFormDTOTransformer
 
     /**
      * Add target collectivities formatted from "PER COLLECTIVITY" target options.
-     *
-     * @param DuplicationFormDTO $formDTO
-     * @param Duplication        $model
      */
     protected function addTargetCollectivitiesPerCollectivity(DuplicationFormDTO $formDTO, Duplication $model): void
     {
@@ -88,9 +78,6 @@ class DuplicationFormDTOTransformer
 
     /**
      * Add target collectivities formatted from "PER TYPE" target options.
-     *
-     * @param DuplicationFormDTO $formDTO
-     * @param Duplication        $model
      */
     protected function addTargetCollectivitiesPerType(DuplicationFormDTO $formDTO, Duplication $model): void
     {

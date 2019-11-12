@@ -55,10 +55,6 @@ class ClonerProvider
 
     /**
      * Get cloner object thanks to type to clone.
-     *
-     * @param string $type
-     *
-     * @return ClonerInterface
      */
     public function getCloner(string $type): ClonerInterface
     {

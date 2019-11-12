@@ -111,9 +111,7 @@ class UserCanConnectVoterTest extends TestCase
      *
      * @dataProvider dataProviderNotSupporting
      *
-     * @param TokenInterface $token
      * @param $subject
-     * @param array $attributes
      */
     public function testVoteNotSupporting(TokenInterface $token, $subject, array $attributes): void
     {

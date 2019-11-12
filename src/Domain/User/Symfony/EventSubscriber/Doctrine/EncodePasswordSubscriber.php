@@ -53,8 +53,6 @@ class EncodePasswordSubscriber implements EventSubscriber
      * PrePersist
      * - User : If plainPassword is set, hash it and set password.
      *
-     * @param LifecycleEventArgs $args
-     *
      * @throws \Exception
      */
     public function prePersist(LifecycleEventArgs $args): void
@@ -70,8 +68,6 @@ class EncodePasswordSubscriber implements EventSubscriber
      * PreUpdate
      * - User : If plainPassword is set, hash it and set password.
      *
-     * @param LifecycleEventArgs $args
-     *
      * @throws \Exception
      */
     public function preUpdate(LifecycleEventArgs $args): void
@@ -85,8 +81,6 @@ class EncodePasswordSubscriber implements EventSubscriber
 
     /**
      * Encode plainPassword in password field.
-     *
-     * @param LifecycleEventArgs $args
      */
     public function encodePassword(LifecycleEventArgs $args): void
     {

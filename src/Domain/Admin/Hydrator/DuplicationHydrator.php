@@ -28,10 +28,6 @@ class DuplicationHydrator
 
     /**
      * DuplicationDTOTransformer constructor.
-     *
-     * @param RegistryRepository\Treatment  $treatmentRepository
-     * @param RegistryRepository\Contractor $contractorRepository
-     * @param RegistryRepository\Mesurement $mesurementRepository
      */
     public function __construct(
         RegistryRepository\Treatment $treatmentRepository,
@@ -59,8 +55,6 @@ class DuplicationHydrator
 
     /**
      * Add every data ids (converted as object) from DuplicationFormDTO to Duplication.
-     *
-     * @param Duplication $model
      */
     protected function hydrateDataField(Duplication $model): void
     {

@@ -90,8 +90,6 @@ class DuplicationController extends AbstractController
      * Show new duplication page form.
      *
      * @throws \Exception
-     *
-     * @return Response
      */
     public function newAction(): Response
     {
@@ -126,10 +124,6 @@ class DuplicationController extends AbstractController
 
     /**
      * Show duplication processing page.
-     *
-     * @param string $duplicationId
-     *
-     * @return Response
      */
     public function processingAction(string $duplicationId): Response
     {
@@ -148,11 +142,6 @@ class DuplicationController extends AbstractController
     /**
      * Action called with AJAX call
      * Make duplication thanks to specified in duplication model.
-     *
-     * @param string $duplicationId
-     * @param string $targetCollectivityId
-     *
-     * @return JsonResponse
      */
     public function duplicateAction(string $duplicationId, string $targetCollectivityId): JsonResponse
     {

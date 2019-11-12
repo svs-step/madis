@@ -116,9 +116,6 @@ class Mesurement
         $this->proofs = [];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         if (\is_null($this->getName())) {
@@ -132,161 +129,101 @@ class Mesurement
         return $this->getName();
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getType(): ?string
     {
         return $this->type;
     }
 
-    /**
-     * @param string|null $type
-     */
     public function setType(?string $type): void
     {
         $this->type = $type;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string|null $description
-     */
     public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCost(): ?string
     {
         return $this->cost;
     }
 
-    /**
-     * @param string|null $cost
-     */
     public function setCost(?string $cost): void
     {
         $this->cost = $cost;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCharge(): ?string
     {
         return $this->charge;
     }
 
-    /**
-     * @param string|null $charge
-     */
     public function setCharge(?string $charge): void
     {
         $this->charge = $charge;
     }
 
-    /**
-     * @return string|null
-     */
     public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    /**
-     * @param string|null $status
-     */
     public function setStatus(?string $status): void
     {
         $this->status = $status;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getPlanificationDate(): ?\DateTime
     {
         return $this->planificationDate;
     }
 
-    /**
-     * @param \DateTime|null $planificationDate
-     */
     public function setPlanificationDate(?\DateTime $planificationDate): void
     {
         $this->planificationDate = $planificationDate;
     }
 
-    /**
-     * @return string|null
-     */
     public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    /**
-     * @param string|null $comment
-     */
     public function setComment(?string $comment): void
     {
         $this->comment = $comment;
     }
 
-    /**
-     * @return iterable
-     */
     public function getProofs(): iterable
     {
         return $this->proofs;
     }
 
-    /**
-     * @return Mesurement|null
-     */
     public function getClonedFrom(): ?Mesurement
     {
         return $this->clonedFrom;
     }
 
-    /**
-     * @param Mesurement|null $clonedFrom
-     */
     public function setClonedFrom(?Mesurement $clonedFrom): void
     {
         $this->clonedFrom = $clonedFrom;

@@ -52,8 +52,6 @@ class DuplicationFormDTOTransformerTest extends TestCase
      * Object is fullfilled to ensure every cases.
      *
      * @throws \Exception
-     *
-     * @return array
      */
     public function dataProviderDTO(): array
     {
@@ -93,8 +91,6 @@ class DuplicationFormDTOTransformerTest extends TestCase
      *
      * @dataProvider dataProviderDTO
      *
-     * @param DuplicationFormDTO $dto
-     *
      * @throws \Exception
      */
     public function testToModelObjectPerCollectivity(DuplicationFormDTO $dto): void
@@ -120,8 +116,6 @@ class DuplicationFormDTOTransformerTest extends TestCase
      * Target option is `KEY_PER_TYPE`.
      *
      * @dataProvider dataProviderDTO
-     *
-     * @param DuplicationFormDTO $dto
      *
      * @throws \Exception
      */

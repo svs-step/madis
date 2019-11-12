@@ -41,33 +41,21 @@ class ComplexChoice
         $this->check = false;
     }
 
-    /**
-     * @return bool
-     */
     public function isCheck(): bool
     {
         return $this->check;
     }
 
-    /**
-     * @param bool $check
-     */
     public function setCheck(bool $check): void
     {
         $this->check = $check;
     }
 
-    /**
-     * @return string|null
-     */
     public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    /**
-     * @param string|null $comment
-     */
     public function setComment(?string $comment): void
     {
         $this->comment = $comment;

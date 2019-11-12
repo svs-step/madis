@@ -65,8 +65,6 @@ class IdleSubscriber implements EventSubscriberInterface
     /**
      * OnKernelRequest check idle since last Request.
      * If idle is over, then invalidate session.
-     *
-     * @param GetResponseEvent $event
      */
     public function onKernelRequest(GetResponseEvent $event): void
     {

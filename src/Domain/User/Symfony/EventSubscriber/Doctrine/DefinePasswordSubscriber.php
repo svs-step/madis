@@ -53,8 +53,6 @@ class DefinePasswordSubscriber implements EventSubscriber
      * PrePersist
      * - User : If no plainPassword, randomize it.
      *
-     * @param LifecycleEventArgs $args
-     *
      * @throws \Exception
      */
     public function prePersist(LifecycleEventArgs $args): void

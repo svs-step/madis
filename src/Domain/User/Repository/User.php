@@ -31,11 +31,6 @@ interface User extends CRUDRepositoryInterface
 {
     /**
      * Get all users which are / are not soft deleted.
-     *
-     * @param bool  $archived
-     * @param array $order
-     *
-     * @return iterable
      */
     public function findAllArchived(bool $archived, array $order = []): iterable;
 

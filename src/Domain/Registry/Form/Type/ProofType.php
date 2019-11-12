@@ -52,9 +52,6 @@ class ProofType extends AbstractType
     /**
      * Build type form.
      *
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     *
      * @throws \Exception
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -203,8 +200,6 @@ class ProofType extends AbstractType
      * Prefix every inactive object with "Inactif".
      *
      * @param mixed $object
-     *
-     * @return string
      */
     protected function formatInactiveObjectLabel($object): string
     {
@@ -223,8 +218,6 @@ class ProofType extends AbstractType
      * Prefix every archived object with "Archivé".
      *
      * @param mixed $object
-     *
-     * @return string
      */
     protected function formatArchivedObjectLabel($object): string
     {
@@ -241,8 +234,6 @@ class ProofType extends AbstractType
 
     /**
      * Provide type options.
-     *
-     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {

@@ -60,8 +60,6 @@ class LinkCollectivitySubscriber implements EventSubscriber
      * That is to say that every time you will persist an object,
      * the user collectivity will be added to related object.
      *
-     * @param LifecycleEventArgs $args
-     *
      * @throws \Exception
      */
     public function prePersist(LifecycleEventArgs $args): void

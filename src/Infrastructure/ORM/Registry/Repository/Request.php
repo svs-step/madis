@@ -40,8 +40,6 @@ class Request implements Repository\Request
 
     /**
      * Request constructor.
-     *
-     * @param RegistryInterface $registry
      */
     public function __construct(RegistryInterface $registry)
     {
@@ -53,8 +51,6 @@ class Request implements Repository\Request
      * Since we use Doctrine, we expect to get EntityManagerInterface.
      *
      * @throws \Exception
-     *
-     * @return EntityManagerInterface
      */
     protected function getManager(): EntityManagerInterface
     {
@@ -172,11 +168,7 @@ class Request implements Repository\Request
     /**
      * Add where clause query.
      *
-     * @param QueryBuilder $qb
-     * @param string       $key
-     * @param mixed        $value
-     *
-     * @return QueryBuilder
+     * @param mixed $value
      */
     protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
     {
@@ -188,11 +180,6 @@ class Request implements Repository\Request
 
     /**
      * Add archived clause in query.
-     *
-     * @param QueryBuilder $qb
-     * @param bool         $archived
-     *
-     * @return QueryBuilder
      */
     protected function addArchivedClause(QueryBuilder $qb, bool $archived = false): QueryBuilder
     {
@@ -207,11 +194,6 @@ class Request implements Repository\Request
 
     /**
      * Add collectivity clause to query.
-     *
-     * @param QueryBuilder $qb
-     * @param Collectivity $collectivity
-     *
-     * @return QueryBuilder
      */
     protected function addCollectivityClause(QueryBuilder $qb, Collectivity $collectivity): QueryBuilder
     {
@@ -223,11 +205,6 @@ class Request implements Repository\Request
 
     /**
      * Add order to query.
-     *
-     * @param QueryBuilder $qb
-     * @param array        $order
-     *
-     * @return QueryBuilder
      */
     protected function addOrder(QueryBuilder $qb, array $order = []): QueryBuilder
     {

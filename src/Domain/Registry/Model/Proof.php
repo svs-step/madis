@@ -109,9 +109,6 @@ class Proof
         $this->violations  = [];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         if (\is_null($this->getName())) {
@@ -125,113 +122,71 @@ class Proof
         return $this->getName();
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getType(): ?string
     {
         return $this->type;
     }
 
-    /**
-     * @param string|null $type
-     */
     public function setType(?string $type): void
     {
         $this->type = $type;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDocument(): ?string
     {
         return $this->document;
     }
 
-    /**
-     * @param string|null $document
-     */
     public function setDocument(?string $document): void
     {
         $this->document = $document;
     }
 
-    /**
-     * @return UploadedFile|null
-     */
     public function getDocumentFile(): ?UploadedFile
     {
         return $this->documentFile;
     }
 
-    /**
-     * @param UploadedFile|null $documentFile
-     */
     public function setDocumentFile(?UploadedFile $documentFile): void
     {
         $this->documentFile = $documentFile;
     }
 
-    /**
-     * @return string|null
-     */
     public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    /**
-     * @param string|null $comment
-     */
     public function setComment(?string $comment): void
     {
         $this->comment = $comment;
     }
 
-    /**
-     * @return iterable
-     */
     public function getTreatments(): iterable
     {
         return $this->treatments;
     }
 
-    /**
-     * @param Treatment $treatment
-     */
     public function addTreatment(Treatment $treatment): void
     {
         $this->treatments[] = $treatment;
     }
 
-    /**
-     * @param Treatment $treatment
-     */
     public function removeTreatment(Treatment $treatment): void
     {
         $key = \array_search($treatment, $this->treatments, true);
@@ -243,25 +198,16 @@ class Proof
         unset($this->treatments[$key]);
     }
 
-    /**
-     * @return iterable
-     */
     public function getContractors(): iterable
     {
         return $this->contractors;
     }
 
-    /**
-     * @param Contractor $contractor
-     */
     public function addContractor(Contractor $contractor): void
     {
         $this->contractors[] = $contractor;
     }
 
-    /**
-     * @param Contractor $contractor
-     */
     public function removeContractor(Contractor $contractor): void
     {
         $key = \array_search($contractor, $this->contractors, true);
@@ -273,25 +219,16 @@ class Proof
         unset($this->contractors[$key]);
     }
 
-    /**
-     * @return iterable
-     */
     public function getMesurements(): iterable
     {
         return $this->mesurements;
     }
 
-    /**
-     * @param Mesurement $mesurement
-     */
     public function addMesurement(Mesurement $mesurement): void
     {
         $this->mesurements[] = $mesurement;
     }
 
-    /**
-     * @param Mesurement $mesurement
-     */
     public function removeMesurement(Mesurement $mesurement): void
     {
         $key = \array_search($mesurement, $this->mesurements, true);
@@ -303,25 +240,16 @@ class Proof
         unset($this->mesurements[$key]);
     }
 
-    /**
-     * @return iterable
-     */
     public function getRequests(): iterable
     {
         return $this->requests;
     }
 
-    /**
-     * @param Request $request
-     */
     public function addRequest(Request $request): void
     {
         $this->requests[] = $request;
     }
 
-    /**
-     * @param Request $request
-     */
     public function removeRequest(Request $request): void
     {
         $key = \array_search($request, $this->requests, true);
@@ -333,25 +261,16 @@ class Proof
         unset($this->requests[$key]);
     }
 
-    /**
-     * @return iterable
-     */
     public function getViolations(): iterable
     {
         return $this->violations;
     }
 
-    /**
-     * @param Violation $violation
-     */
     public function addViolation(Violation $violation): void
     {
         $this->violations[] = $violation;
     }
 
-    /**
-     * @param Violation $violation
-     */
     public function removeViolation(Violation $violation): void
     {
         $key = \array_search($violation, $this->violations, true);

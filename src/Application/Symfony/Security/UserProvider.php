@@ -43,8 +43,6 @@ class UserProvider
 
     /**
      * Get token.
-     *
-     * @return TokenInterface|null
      */
     public function getToken(): ?TokenInterface
     {
@@ -56,8 +54,6 @@ class UserProvider
      * - User isn't under protected route: return null
      * - User is anonymous: return null
      * - User is connected: return UserInterface instance.
-     *
-     * @return Model\User|null
      */
     public function getAuthenticatedUser(): ?Model\User
     {

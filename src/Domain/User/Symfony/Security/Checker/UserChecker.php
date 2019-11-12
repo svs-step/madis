@@ -39,8 +39,6 @@ class UserChecker implements UserCheckerInterface
 
     /**
      * UserChecker constructor.
-     *
-     * @param UserAuthorization $userAuthorization
      */
     public function __construct(UserAuthorization $userAuthorization)
     {
@@ -49,8 +47,6 @@ class UserChecker implements UserCheckerInterface
 
     /**
      * Checks the user account before authentication.
-     *
-     * @param UserInterface $user
      *
      * @throws DisabledException
      */
@@ -70,8 +66,6 @@ class UserChecker implements UserCheckerInterface
 
     /**
      * Checks the user account after authentication.
-     *
-     * @param UserInterface $user
      */
     public function checkPostAuth(UserInterface $user): void
     {

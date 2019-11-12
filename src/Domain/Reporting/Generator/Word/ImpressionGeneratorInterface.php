@@ -30,17 +30,11 @@ interface ImpressionGeneratorInterface
 {
     /**
      * Add synthetic information to display in PHPWord document.
-     *
-     * @param Section $section
-     * @param array   $data
      */
     public function addSyntheticView(Section $section, array $data): void;
 
     /**
      * Add detailed information to display in PHPWord document for each data.
-     *
-     * @param Section $section
-     * @param array   $data
      */
     public function addDetailedView(Section $section, array $data): void;
 }

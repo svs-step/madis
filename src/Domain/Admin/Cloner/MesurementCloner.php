@@ -35,8 +35,6 @@ class MesurementCloner extends AbstractCloner
      * @param RegistryModel\Mesurement $referent
      *
      * @throws \Exception
-     *
-     * @return RegistryModel\Mesurement
      */
     protected function cloneReferentForCollectivity($referent, UserModel\Collectivity $collectivity): RegistryModel\Mesurement
     {

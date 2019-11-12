@@ -40,8 +40,6 @@ interface GeneratorInterface
      * Initialize the Document
      * - Configuration
      * - Default tyle.
-     *
-     * @param PhpWord $document
      */
     public function initializeDocument(PhpWord $document): void;
 

@@ -31,16 +31,11 @@ interface ClonerInterface
 {
     /**
      * Clone data thanks to information contained in Duplication model.
-     *
-     * @param Model\Duplication $duplication
      */
     public function clone(Model\Duplication $duplication): void;
 
     /**
      * Clone data only for specified target collectivity.
-     *
-     * @param Model\Duplication      $duplication
-     * @param UserModel\Collectivity $targetCollectivity
      */
     public function cloneToSpecifiedTarget(Model\Duplication $duplication, UserModel\Collectivity $targetCollectivity): void;
 }

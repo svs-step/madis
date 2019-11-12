@@ -81,81 +81,51 @@ class DuplicationFormDTO
         $this->targetCollectivities    = [];
     }
 
-    /**
-     * @return string|null
-     */
     public function getType(): ?string
     {
         return $this->type;
     }
 
-    /**
-     * @param string|null $type
-     */
     public function setType(?string $type): void
     {
         $this->type = $type;
     }
 
-    /**
-     * @return Collectivity|null
-     */
     public function getSourceCollectivity(): ?Collectivity
     {
         return $this->sourceCollectivity;
     }
 
-    /**
-     * @param Collectivity|null $sourceCollectivity
-     */
     public function setSourceCollectivity(?Collectivity $sourceCollectivity): void
     {
         $this->sourceCollectivity = $sourceCollectivity;
     }
 
-    /**
-     * @return array
-     */
     public function getData(): array
     {
         return $this->data;
     }
 
-    /**
-     * @param array $data
-     */
     public function setData(array $data): void
     {
         $this->data = $data;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTargetOption(): ?string
     {
         return $this->targetOption;
     }
 
-    /**
-     * @param string|null $targetOption
-     */
     public function setTargetOption(?string $targetOption): void
     {
         $this->targetOption = $targetOption;
     }
 
-    /**
-     * @return array
-     */
     public function getTargetCollectivityTypes(): array
     {
         return $this->targetCollectivityTypes;
     }
 
-    /**
-     * @param array $targetCollectivityTypes
-     */
     public function setTargetCollectivityTypes(array $targetCollectivityTypes): void
     {
         $this->targetCollectivityTypes = $targetCollectivityTypes;

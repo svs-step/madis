@@ -81,8 +81,6 @@ class SecurityController extends AbstractController
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
-     *
-     * @return Response
      */
     public function loginAction(): Response
     {
@@ -101,8 +99,6 @@ class SecurityController extends AbstractController
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
-     *
-     * @return Response
      */
     public function forgetPasswordAction(): Response
     {
@@ -115,8 +111,6 @@ class SecurityController extends AbstractController
      * - Generate user token
      * - Send forget password email
      * - Display forget password confirmation page.
-     *
-     * @param Request $request
      *
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
@@ -162,8 +156,6 @@ class SecurityController extends AbstractController
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
-     *
-     * @return Response
      */
     public function resetPasswordAction(Request $request, string $token): Response
     {

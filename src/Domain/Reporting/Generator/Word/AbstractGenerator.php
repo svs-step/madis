@@ -66,9 +66,6 @@ abstract class AbstractGenerator implements GeneratorInterface
 
     /**
      * AbstractGenerator constructor.
-     *
-     * @param UserProvider          $userProvider
-     * @param ParameterBagInterface $parameterBag
      */
     public function __construct(
         UserProvider $userProvider,
@@ -97,8 +94,6 @@ abstract class AbstractGenerator implements GeneratorInterface
 
     /**
      * Initialize PHPWord document variables & default values.
-     *
-     * @param PhpWord $document
      */
     public function initializeDocument(PhpWord $document): void
     {
@@ -168,9 +163,6 @@ abstract class AbstractGenerator implements GeneratorInterface
 
     /**
      * Add PhpWord homepage.
-     *
-     * @param PhpWord $document
-     * @param string  $title
      *
      * @throws \Exception
      */

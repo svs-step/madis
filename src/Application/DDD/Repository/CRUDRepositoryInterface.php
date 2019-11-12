@@ -57,8 +57,6 @@ interface CRUDRepositoryInterface extends RepositoryInterface
     /**
      * Get all objects.
      *
-     * @param array $order
-     *
      * @return mixed[]
      */
     public function findAll(array $order = []): array;

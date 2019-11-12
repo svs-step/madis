@@ -48,9 +48,6 @@ interface Collectivity extends CRUDRepositoryInterface
     /**
      * Find every collectivities which belong to one of the provided types.
      *
-     * @param array                   $types
-     * @param Model\Collectivity|null $excludedCollectivity
-     *
      * @return Model\Collectivity[]
      */
     public function findByTypes(array $types, ?Model\Collectivity $excludedCollectivity = null): array;

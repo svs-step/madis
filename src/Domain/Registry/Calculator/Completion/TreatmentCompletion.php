@@ -33,8 +33,6 @@ class TreatmentCompletion extends AbstractCompletion
      * Get completion points for Treatment.
      *
      * @param Model\Treatment $object
-     *
-     * @return int
      */
     protected function getPoints($object): int
     {
@@ -93,8 +91,6 @@ class TreatmentCompletion extends AbstractCompletion
 
     /**
      * {@inheritdoc}
-     *
-     * @return int
      */
     protected function getMaxPoints(): int
     {

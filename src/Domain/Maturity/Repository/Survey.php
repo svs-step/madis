@@ -42,11 +42,6 @@ interface Survey extends CRUDRepositoryInterface
 
     /**
      * Find previous survey by created_at date.
-     *
-     * @param string $id
-     * @param int    $limit
-     *
-     * @return iterable
      */
     public function findPreviousById(string $id, int $limit = 1): iterable;
 }
