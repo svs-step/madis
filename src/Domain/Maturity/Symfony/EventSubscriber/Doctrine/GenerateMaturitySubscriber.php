@@ -42,9 +42,6 @@ class GenerateMaturitySubscriber implements EventSubscriber
         $this->maturityHandler = $maturityHandler;
     }
 
-    /**
-     * @return array
-     */
     public function getSubscribedEvents(): array
     {
         return [
@@ -53,17 +50,11 @@ class GenerateMaturitySubscriber implements EventSubscriber
         ];
     }
 
-    /**
-     * @param LifecycleEventArgs $args
-     */
     public function prePersist(LifecycleEventArgs $args): void
     {
         $this->process($args);
     }
 
-    /**
-     * @param LifecycleEventArgs $args
-     */
     public function preUpdate(LifecycleEventArgs $args): void
     {
         $this->process($args);
@@ -71,8 +62,6 @@ class GenerateMaturitySubscriber implements EventSubscriber
 
     /**
      * Handle maturity for each persisted or updated survey.
-     *
-     * @param LifecycleEventArgs $args
      */
     private function process(LifecycleEventArgs $args): void
     {

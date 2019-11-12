@@ -86,8 +86,6 @@ class Maturity
      * Make an average of maturity indice of each Maturity.
      *
      * @param Model\Maturity[] $maturityList
-     *
-     * @return int
      */
     public function getGlobalScore(array $maturityList = []): int
     {

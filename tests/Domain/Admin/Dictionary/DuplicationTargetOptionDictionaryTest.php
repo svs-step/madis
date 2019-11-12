@@ -49,8 +49,6 @@ class DuplicationTargetOptionDictionaryTest extends TestCase
     /**
      * !! Data Provider
      * Provide every expected data from dictionary.
-     *
-     * @return array
      */
     public function dataProviderData(): array
     {
@@ -69,8 +67,6 @@ class DuplicationTargetOptionDictionaryTest extends TestCase
      * Check the dictionary data.
      *
      * @dataProvider dataProviderData
-     *
-     * @param array $data
      */
     public function testGetData(array $data): void
     {
@@ -85,8 +81,6 @@ class DuplicationTargetOptionDictionaryTest extends TestCase
      * Check the dictionary key data.
      *
      * @dataProvider dataProviderData
-     *
-     * @param array $data
      */
     public function testGetDataKeys(array $data): void
     {

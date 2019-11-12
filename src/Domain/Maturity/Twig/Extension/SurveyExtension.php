@@ -45,10 +45,6 @@ class SurveyExtension extends AbstractExtension
     /**
      * Order formView answers by domain.
      * Then, every domains must be ordered by position.
-     *
-     * @param FormView $formView
-     *
-     * @return array
      */
     public function orderByDomain(FormView $formView): array
     {
@@ -71,8 +67,6 @@ class SurveyExtension extends AbstractExtension
      * Order answers by question name asc.
      *
      * @param FormView[] $formViews
-     *
-     * @return array
      */
     public function orderAnswersByQuestionNameAsc(array $formViews): array
     {

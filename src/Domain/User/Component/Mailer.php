@@ -75,8 +75,6 @@ class Mailer
      * @param string $to      The receiver of the email
      * @param string $subject The subject of the email
      * @param string $body    The content of the email
-     *
-     * @return int
      */
     private function send(string $to, string $subject, string $body): int
     {

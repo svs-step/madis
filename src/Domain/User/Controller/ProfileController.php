@@ -79,8 +79,6 @@ class ProfileController
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
-     *
-     * @return Response
      */
     public function collectivityShowAction(): Response
     {
@@ -97,8 +95,6 @@ class ProfileController
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
-     *
-     * @return Response
      */
     public function collectivityEditAction(): Response
     {
@@ -137,8 +133,6 @@ class ProfileController
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
-     *
-     * @return Response
      */
     public function userEditAction(): Response
     {

@@ -61,49 +61,31 @@ class Question
         $this->answers = new ArrayCollection();
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return Domain|null
-     */
     public function getDomain(): ?Domain
     {
         return $this->domain;
     }
 
-    /**
-     * @param Domain|null $domain
-     */
     public function setDomain(?Domain $domain): void
     {
         $this->domain = $domain;
     }
 
-    /**
-     * @return iterable
-     */
     public function getAnswers(): iterable
     {
         return $this->answers;

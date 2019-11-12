@@ -139,8 +139,6 @@ class ViolationController extends CRUDController
      * Generate a word report of contractors.
      *
      * @throws \PhpOffice\PhpWord\Exception\Exception
-     *
-     * @return Response
      */
     public function reportAction(): Response
     {

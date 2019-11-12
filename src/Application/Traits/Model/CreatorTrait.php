@@ -41,9 +41,6 @@ trait CreatorTrait
         return $this->creator;
     }
 
-    /**
-     * @param User $creator
-     */
     public function setCreator(User $creator): void
     {
         $this->creator = $creator;

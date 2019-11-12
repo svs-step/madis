@@ -114,10 +114,6 @@ class UserController extends CRUDController
     /**
      * The unarchive action view
      * Display a confirmation message to confirm data un-archivage.
-     *
-     * @param string $id
-     *
-     * @return Response
      */
     public function unarchiveAction(string $id): Response
     {
@@ -135,11 +131,7 @@ class UserController extends CRUDController
      * The unarchive action
      * Unarchive the data.
      *
-     * @param string $id
-     *
      * @throws \Exception
-     *
-     * @return Response
      */
     public function unarchiveConfirmationAction(string $id): Response
     {

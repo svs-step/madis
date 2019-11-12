@@ -41,8 +41,6 @@ class MaturityHandler
 
     /**
      * Handle calculator & generate score by maturity.
-     *
-     * @param Model\Survey $survey
      */
     public function handle(Model\Survey $survey): void
     {

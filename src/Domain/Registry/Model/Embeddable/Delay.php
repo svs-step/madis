@@ -51,65 +51,41 @@ class Delay
         $this->otherDelay = false;
     }
 
-    /**
-     * @return int|null
-     */
     public function getNumber(): ?int
     {
         return $this->number;
     }
 
-    /**
-     * @param int|null $number
-     */
     public function setNumber(?int $number): void
     {
         $this->number = $number;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPeriod(): ?string
     {
         return $this->period;
     }
 
-    /**
-     * @param string|null $period
-     */
     public function setPeriod(?string $period): void
     {
         $this->period = $period;
     }
 
-    /**
-     * @return bool
-     */
     public function isOtherDelay(): bool
     {
         return $this->otherDelay;
     }
 
-    /**
-     * @param bool $otherDelay
-     */
     public function setOtherDelay(bool $otherDelay): void
     {
         $this->otherDelay = $otherDelay;
     }
 
-    /**
-     * @return string|null
-     */
     public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    /**
-     * @param string|null $comment
-     */
     public function setComment(?string $comment): void
     {
         $this->comment = $comment;

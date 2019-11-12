@@ -60,8 +60,6 @@ interface Proof extends RepositoryInterface
     /**
      * Get all objects.
      *
-     * @param bool $deleted
-     *
      * @return mixed[]
      */
     public function findAll(bool $deleted = false): array;

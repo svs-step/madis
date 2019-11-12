@@ -73,8 +73,6 @@ class AbstractClonerTest extends TestCase
      * Construct Duplication Model objects.
      *
      * @throws \Exception
-     *
-     * @return array
      */
     public function dataProviderDuplicationModel(): array
     {
@@ -144,8 +142,7 @@ class AbstractClonerTest extends TestCase
 class DummyAbstractClonerTest extends AbstractCloner
 {
     /**
-     * @param object                 $referent
-     * @param UserModel\Collectivity $collectivity
+     * @param object $referent
      *
      * @throws \Exception
      *

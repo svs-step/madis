@@ -41,49 +41,31 @@ class RequestAnswer
      */
     private $type;
 
-    /**
-     * @return string|null
-     */
     public function getResponse(): ?string
     {
         return $this->response;
     }
 
-    /**
-     * @param string|null $response
-     */
     public function setResponse(?string $response): void
     {
         $this->response = $response;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getDate(): ?\DateTime
     {
         return $this->date;
     }
 
-    /**
-     * @param \DateTime|null $date
-     */
     public function setDate(?\DateTime $date): void
     {
         $this->date = $date;
     }
 
-    /**
-     * @return string|null
-     */
     public function getType(): ?string
     {
         return $this->type;
     }
 
-    /**
-     * @param string|null $type
-     */
     public function setType(?string $type): void
     {
         $this->type = $type;

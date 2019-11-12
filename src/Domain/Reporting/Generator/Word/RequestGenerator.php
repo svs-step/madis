@@ -34,9 +34,6 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
     /**
      * Global overview : Information to display for request in overview report.
      *
-     * @param Section $section
-     * @param array   $data
-     *
      * @throws \Exception
      */
     public function addGlobalOverview(Section $section, array $data): void

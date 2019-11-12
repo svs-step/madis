@@ -124,9 +124,6 @@ class Collectivity
         $this->differentItManager = false;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         if (\is_null($this->getName())) {
@@ -140,233 +137,146 @@ class Collectivity
         return $this->getName();
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getShortName(): ?string
     {
         return $this->shortName;
     }
 
-    /**
-     * @param string|null $shortName
-     */
     public function setShortName(?string $shortName): void
     {
         $this->shortName = $shortName;
     }
 
-    /**
-     * @return string|null
-     */
     public function getType(): ?string
     {
         return $this->type;
     }
 
-    /**
-     * @param string|null $type
-     */
     public function setType(?string $type): void
     {
         $this->type = $type;
     }
 
-    /**
-     * @return int|null
-     */
     public function getSiren(): ?int
     {
         return $this->siren;
     }
 
-    /**
-     * @param int|null $siren
-     */
     public function setSiren(?int $siren): void
     {
         $this->siren = $siren;
     }
 
-    /**
-     * @return bool
-     */
     public function isActive(): bool
     {
         return $this->active;
     }
 
-    /**
-     * @param bool $active
-     */
     public function setActive(bool $active): void
     {
         $this->active = $active;
     }
 
-    /**
-     * @return string|null
-     */
     public function getWebsite(): ?string
     {
         return $this->website;
     }
 
-    /**
-     * @param string|null $website
-     */
     public function setWebsite(?string $website): void
     {
         $this->website = $website;
     }
 
-    /**
-     * @return Address|null
-     */
     public function getAddress(): ?Address
     {
         return $this->address;
     }
 
-    /**
-     * @param Address|null $address
-     */
     public function setAddress(?Address $address): void
     {
         $this->address = $address;
     }
 
-    /**
-     * @return Contact|null
-     */
     public function getLegalManager(): ?Contact
     {
         return $this->legalManager;
     }
 
-    /**
-     * @param Contact|null $legalManager
-     */
     public function setLegalManager(?Contact $legalManager): void
     {
         $this->legalManager = $legalManager;
     }
 
-    /**
-     * @return Contact|null
-     */
     public function getReferent(): ?Contact
     {
         return $this->referent;
     }
 
-    /**
-     * @param Contact|null $referent
-     */
     public function setReferent(?Contact $referent): void
     {
         $this->referent = $referent;
     }
 
-    /**
-     * @return bool
-     */
     public function isDifferentDpo(): bool
     {
         return $this->differentDpo;
     }
 
-    /**
-     * @param bool $differentDpo
-     */
     public function setDifferentDpo(bool $differentDpo): void
     {
         $this->differentDpo = $differentDpo;
     }
 
-    /**
-     * @return Contact|null
-     */
     public function getDpo(): ?Contact
     {
         return $this->dpo;
     }
 
-    /**
-     * @param Contact|null $dpo
-     */
     public function setDpo(?Contact $dpo): void
     {
         $this->dpo = $dpo;
     }
 
-    /**
-     * @return bool
-     */
     public function isDifferentItManager(): bool
     {
         return $this->differentItManager;
     }
 
-    /**
-     * @param bool $differentItManager
-     */
     public function setDifferentItManager(bool $differentItManager): void
     {
         $this->differentItManager = $differentItManager;
     }
 
-    /**
-     * @return Contact|null
-     */
     public function getItManager(): ?Contact
     {
         return $this->itManager;
     }
 
-    /**
-     * @param Contact|null $itManager
-     */
     public function setItManager(?Contact $itManager): void
     {
         $this->itManager = $itManager;
     }
 
-    /**
-     * @return Collection
-     */
     public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    /**
-     * @param Collection $users
-     */
     public function setUsers(Collection $users): void
     {
         $this->users = $users;

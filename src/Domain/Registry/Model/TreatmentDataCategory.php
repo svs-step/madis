@@ -48,11 +48,6 @@ class TreatmentDataCategory
 
     /**
      * TreatmentDataCategory constructor.
-     *
-     * @param string $code
-     * @param string $name
-     * @param int    $position
-     * @param bool   $sensible
      */
     public function __construct(string $code, string $name, int $position, bool $sensible = false)
     {
@@ -62,41 +57,26 @@ class TreatmentDataCategory
         $this->sensible = $sensible;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return int
-     */
     public function getPosition(): int
     {
         return $this->position;
     }
 
-    /**
-     * @return bool
-     */
     public function isSensible(): bool
     {
         return $this->sensible;

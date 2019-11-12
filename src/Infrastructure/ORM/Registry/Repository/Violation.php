@@ -40,8 +40,6 @@ class Violation implements Repository\Violation
 
     /**
      * Violation constructor.
-     *
-     * @param RegistryInterface $registry
      */
     public function __construct(RegistryInterface $registry)
     {
@@ -53,8 +51,6 @@ class Violation implements Repository\Violation
      * Since we use Doctrine, we expect to get EntityManagerInterface.
      *
      * @throws \Exception
-     *
-     * @return EntityManagerInterface
      */
     protected function getManager(): EntityManagerInterface
     {
@@ -71,8 +67,6 @@ class Violation implements Repository\Violation
      * Create the base of QueryBuilder to use for repository calls.
      *
      * @throws \Exception
-     *
-     * @return \Doctrine\ORM\QueryBuilder
      */
     protected function createQueryBuilder(): QueryBuilder
     {
@@ -181,11 +175,7 @@ class Violation implements Repository\Violation
     /**
      * Add a where clause.
      *
-     * @param QueryBuilder $qb
-     * @param string       $key
-     * @param mixed        $value
-     *
-     * @return QueryBuilder
+     * @param mixed $value
      */
     protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
     {
@@ -197,11 +187,6 @@ class Violation implements Repository\Violation
 
     /**
      * Add archive clause to query.
-     *
-     * @param QueryBuilder $qb
-     * @param bool         $archived
-     *
-     * @return QueryBuilder
      */
     protected function addArchivedClause(QueryBuilder $qb, bool $archived = false): QueryBuilder
     {
@@ -216,11 +201,6 @@ class Violation implements Repository\Violation
 
     /**
      * Add collectivity clause to query.
-     *
-     * @param QueryBuilder $qb
-     * @param Collectivity $collectivity
-     *
-     * @return QueryBuilder
      */
     protected function addCollectivityClause(QueryBuilder $qb, Collectivity $collectivity): QueryBuilder
     {
@@ -232,11 +212,6 @@ class Violation implements Repository\Violation
 
     /**
      * Add order to query.
-     *
-     * @param QueryBuilder $qb
-     * @param array        $order
-     *
-     * @return QueryBuilder
      */
     protected function addOrder(QueryBuilder $qb, array $order = []): QueryBuilder
     {

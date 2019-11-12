@@ -40,9 +40,6 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
     /**
      * Global overview : Information to display for violation in overview report.
      *
-     * @param Section $section
-     * @param array   $data
-     *
      * @throws \Exception
      */
     public function addGlobalOverview(Section $section, array $data): void

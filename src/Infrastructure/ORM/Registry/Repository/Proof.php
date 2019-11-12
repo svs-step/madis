@@ -40,8 +40,6 @@ class Proof implements Repository\Proof
 
     /**
      * Proof constructor.
-     *
-     * @param RegistryInterface $registry
      */
     public function __construct(RegistryInterface $registry)
     {
@@ -53,8 +51,6 @@ class Proof implements Repository\Proof
      * Since we use Doctrine, we expect to get EntityManagerInterface.
      *
      * @throws \Exception
-     *
-     * @return EntityManagerInterface
      */
     protected function getManager(): EntityManagerInterface
     {
@@ -136,11 +132,7 @@ class Proof implements Repository\Proof
     /**
      * Find all data.
      *
-     * @param bool $deleted
-     *
      * @throws \Exception
-     *
-     * @return array
      */
     public function findAll(bool $deleted = false): array
     {
@@ -176,8 +168,6 @@ class Proof implements Repository\Proof
 
     /**
      * Get the model class name.
-     *
-     * @return string
      */
     protected function getModelClass(): string
     {
@@ -187,11 +177,7 @@ class Proof implements Repository\Proof
     /**
      * Add a where clause to query.
      *
-     * @param QueryBuilder $qb
-     * @param string       $key
-     * @param mixed        $value
-     *
-     * @return QueryBuilder
+     * @param mixed $value
      */
     protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
     {
@@ -203,11 +189,6 @@ class Proof implements Repository\Proof
 
     /**
      * Add archive clause to query.
-     *
-     * @param QueryBuilder $qb
-     * @param bool         $archived
-     *
-     * @return QueryBuilder
      */
     protected function addArchivedClause(QueryBuilder $qb, bool $archived = false): QueryBuilder
     {
@@ -222,11 +203,6 @@ class Proof implements Repository\Proof
 
     /**
      * Add collectivity clause to query.
-     *
-     * @param QueryBuilder $qb
-     * @param Collectivity $collectivity
-     *
-     * @return QueryBuilder
      */
     protected function addCollectivityClause(QueryBuilder $qb, Collectivity $collectivity): QueryBuilder
     {
@@ -238,11 +214,6 @@ class Proof implements Repository\Proof
 
     /**
      * Add order clause to query.
-     *
-     * @param QueryBuilder $qb
-     * @param array        $order
-     *
-     * @return QueryBuilder
      */
     protected function addOrder(QueryBuilder $qb, array $order = []): QueryBuilder
     {

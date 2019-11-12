@@ -36,9 +36,6 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
     /**
      * Global overview : Information to display for maturity in overview report.
-     *
-     * @param Section $section
-     * @param array   $data
      */
     public function addGlobalOverview(Section $section, array $data): void
     {

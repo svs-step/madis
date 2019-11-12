@@ -34,8 +34,7 @@ class FormTypeHelper extends TestCase
     /**
      * Create a FormBuilder thanks to provided data.
      *
-     * @param array $data   The array of field to add. Key is field name, value field type.
-     * @param bool  $reveal
+     * @param array $data The array of field to add. Key is field name, value field type.
      *
      * @return FormBuilderInterface|ObjectProphecy The prophesized FormBuilderInterface, revealled or not
      */

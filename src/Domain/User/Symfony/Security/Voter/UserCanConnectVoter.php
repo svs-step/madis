@@ -40,8 +40,6 @@ class UserCanConnectVoter extends Voter
 
     /**
      * UserCanConnectVoter constructor.
-     *
-     * @param UserAuthorization $userAuthorization
      */
     public function __construct(UserAuthorization $userAuthorization)
     {
@@ -68,11 +66,8 @@ class UserCanConnectVoter extends Voter
     }
 
     /**
-     * @param string         $attribute
-     * @param User           $subject
-     * @param TokenInterface $token
-     *
-     * @return bool
+     * @param string $attribute
+     * @param User   $subject
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {

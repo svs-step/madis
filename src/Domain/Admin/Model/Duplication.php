@@ -47,8 +47,6 @@ class Duplication
     /**
      * DuplicationDTO constructor.
      *
-     * @param string         $type
-     * @param Collectivity   $sourceCollectivity
      * @param Collectivity[] $targetCollectivities
      *
      * @throws \Exception
@@ -66,41 +64,26 @@ class Duplication
         $this->targetCollectivities = $targetCollectivities;
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     */
     public function setType(string $type): void
     {
         $this->type = $type;
     }
 
-    /**
-     * @return Collectivity
-     */
     public function getSourceCollectivity(): Collectivity
     {
         return $this->sourceCollectivity;
     }
 
-    /**
-     * @param Collectivity $sourceCollectivity
-     */
     public function setSourceCollectivity(Collectivity $sourceCollectivity): void
     {
         $this->sourceCollectivity = $sourceCollectivity;
@@ -114,17 +97,11 @@ class Duplication
         return $this->dataIds;
     }
 
-    /**
-     * @param string $dataId
-     */
     public function addDataId(string $dataId): void
     {
         $this->dataIds[] = $dataId;
     }
 
-    /**
-     * @param string $dataId
-     */
     public function removeDataId(string $dataId): void
     {
         $key = \array_search($dataId, $this->dataIds, true);
@@ -136,9 +113,6 @@ class Duplication
         unset($this->dataIds[$key]);
     }
 
-    /**
-     * @return array
-     */
     public function getData(): array
     {
         return $this->data;
@@ -174,17 +148,11 @@ class Duplication
         return $this->targetCollectivities;
     }
 
-    /**
-     * @param Collectivity $collectivity
-     */
     public function addTargetCollectivity(Collectivity $collectivity): void
     {
         $this->targetCollectivities[] = $collectivity;
     }
 
-    /**
-     * @param Collectivity $collectivity
-     */
     public function removeTargetCollectivity(Collectivity $collectivity): void
     {
         $key = \array_search($collectivity, $this->targetCollectivities, true);

@@ -35,8 +35,6 @@ class ContractorCloner extends AbstractCloner
      * @param RegistryModel\Contractor $referent
      *
      * @throws \Exception
-     *
-     * @return RegistryModel\Contractor
      */
     protected function cloneReferentForCollectivity($referent, UserModel\Collectivity $collectivity): RegistryModel\Contractor
     {

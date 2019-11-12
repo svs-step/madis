@@ -32,7 +32,6 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
     /**
      * Global overview : data to display for contractors in overview report.
      *
-     * @param Section      $section
      * @param Contractor[] $data
      */
     public function addGlobalOverview(Section $section, array $data): void

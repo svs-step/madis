@@ -105,12 +105,8 @@ class ReviewController extends AbstractController
     /**
      * Download an entire review.
      *
-     * @param string $id
-     *
      * @throws \PhpOffice\PhpWord\Exception\Exception
      * @throws \Exception
-     *
-     * @return BinaryFileResponse
      */
     public function indexAction(string $id): BinaryFileResponse
     {

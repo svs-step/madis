@@ -51,81 +51,51 @@ class Address
      */
     private $insee;
 
-    /**
-     * @return string|null
-     */
     public function getLineOne(): ?string
     {
         return $this->lineOne;
     }
 
-    /**
-     * @param string|null $lineOne
-     */
     public function setLineOne(?string $lineOne): void
     {
         $this->lineOne = $lineOne;
     }
 
-    /**
-     * @return string|null
-     */
     public function getLineTwo(): ?string
     {
         return $this->lineTwo;
     }
 
-    /**
-     * @param string|null $lineTwo
-     */
     public function setLineTwo(?string $lineTwo): void
     {
         $this->lineTwo = $lineTwo;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCity(): ?string
     {
         return $this->city;
     }
 
-    /**
-     * @param string|null $city
-     */
     public function setCity(?string $city): void
     {
         $this->city = $city;
     }
 
-    /**
-     * @return string|null
-     */
     public function getZipCode(): ?string
     {
         return $this->zipCode;
     }
 
-    /**
-     * @param string|null $zipCode
-     */
     public function setZipCode(?string $zipCode): void
     {
         $this->zipCode = $zipCode;
     }
 
-    /**
-     * @return string|null
-     */
     public function getInsee(): ?string
     {
         return $this->insee;
     }
 
-    /**
-     * @param string|null $insee
-     */
     public function setInsee(?string $insee): void
     {
         $this->insee = $insee;
