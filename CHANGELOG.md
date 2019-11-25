@@ -4,6 +4,7 @@ CHANGELOG
 ## [UNRELEASED]
 ### Changement
 - [TECHNIQUE] Mise à jour de PHP CS Fixer en v2.16
+- [TECHNIQUE] Mise à jour de Symfony (de la version 4.2.8 à la version 4.3.8)
 ### Fix
 - [TRAITEMENT] Il est désormais possible de supprimer un traitement ayant servi de template à la duplication, #221
 
