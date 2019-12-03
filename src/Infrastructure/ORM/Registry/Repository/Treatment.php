@@ -42,11 +42,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
 
     /**
      * Add collectivity clause to query.
-     *
-     * @param QueryBuilder $qb
-     * @param Collectivity $collectivity
-     *
-     * @return QueryBuilder
      */
     protected function addCollectivityClause(QueryBuilder $qb, Collectivity $collectivity): QueryBuilder
     {
@@ -58,11 +53,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
 
     /**
      * Add active clause to query.
-     *
-     * @param QueryBuilder $qb
-     * @param bool         $active
-     *
-     * @return QueryBuilder
      */
     protected function addActiveClause(QueryBuilder $qb, bool $active = true): QueryBuilder
     {
@@ -74,11 +64,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
 
     /**
      * Add order to query.
-     *
-     * @param QueryBuilder $qb
-     * @param array        $order
-     *
-     * @return QueryBuilder
      */
     protected function addOrder(QueryBuilder $qb, array $order = []): QueryBuilder
     {

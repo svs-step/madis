@@ -53,10 +53,6 @@ abstract class CRUDController extends AbstractController
 
     /**
      * CRUDController constructor.
-     *
-     * @param EntityManagerInterface $entityManager
-     * @param TranslatorInterface    $translator
-     * @param RepositoryInterface    $repository
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -71,31 +67,23 @@ abstract class CRUDController extends AbstractController
     /**
      * Get the domain of the object.
      * (Formatted as string word).
-     *
-     * @return string
      */
     abstract protected function getDomain(): string;
 
     /**
      * Get the model of the object.
      * (Formatted as string word).
-     *
-     * @return string
      */
     abstract protected function getModel(): string;
 
     /**
      * Get the model class name of the object.
      * This methods return the class name with it namespace.
-     *
-     * @return string
      */
     abstract protected function getModelClass(): string;
 
     /**
      * Get the form type class name to use during create & edit action.
-     *
-     * @return string
      */
     abstract protected function getFormType(): string;
 
@@ -163,8 +151,6 @@ abstract class CRUDController extends AbstractController
     /**
      * The list action view
      * Get data & display them.
-     *
-     * @return Response
      */
     public function listAction(): Response
     {
@@ -186,10 +172,6 @@ abstract class CRUDController extends AbstractController
     /**
      * The creation action view
      * Create a new data.
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function createAction(Request $request): Response
     {
@@ -219,10 +201,7 @@ abstract class CRUDController extends AbstractController
      * The edition action view
      * Edit an existing data.
      *
-     * @param Request $request
-     * @param string  $id      The ID of the data to edit
-     *
-     * @return Response
+     * @param string $id The ID of the data to edit
      */
     public function editAction(Request $request, string $id): Response
     {
@@ -253,8 +232,6 @@ abstract class CRUDController extends AbstractController
      * Display the object information.
      *
      * @param string $id The ID of the data to display
-     *
-     * @return Response
      */
     public function showAction(string $id): Response
     {
@@ -271,10 +248,6 @@ abstract class CRUDController extends AbstractController
     /**
      * The delete action view
      * Display a confirmation message to confirm data deletion.
-     *
-     * @param string $id
-     *
-     * @return Response
      */
     public function deleteAction(string $id): Response
     {
@@ -292,11 +265,7 @@ abstract class CRUDController extends AbstractController
      * The deletion action
      * Delete the data.
      *
-     * @param string $id
-     *
      * @throws \Exception
-     *
-     * @return Response
      */
     public function deleteConfirmationAction(string $id): Response
     {
@@ -323,8 +292,6 @@ abstract class CRUDController extends AbstractController
 
     /**
      * Check if we have to produce a soft delete behaviour.
-     *
-     * @return bool
      */
     protected function isSoftDelete(): bool
     {

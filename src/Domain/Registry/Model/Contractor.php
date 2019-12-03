@@ -101,9 +101,6 @@ class Contractor
         $this->proofs                     = [];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         if (\is_null($this->getName())) {
@@ -117,121 +114,76 @@ class Contractor
         return $this->getName();
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getReferent(): ?string
     {
         return $this->referent;
     }
 
-    /**
-     * @param string|null $referent
-     */
     public function setReferent(?string $referent): void
     {
         $this->referent = $referent;
     }
 
-    /**
-     * @return bool
-     */
     public function isContractualClausesVerified(): bool
     {
         return $this->contractualClausesVerified;
     }
 
-    /**
-     * @param bool $contractualClausesVerified
-     */
     public function setContractualClausesVerified(bool $contractualClausesVerified): void
     {
         $this->contractualClausesVerified = $contractualClausesVerified;
     }
 
-    /**
-     * @return bool
-     */
     public function isConform(): bool
     {
         return $this->conform;
     }
 
-    /**
-     * @param bool $conform
-     */
     public function setConform(bool $conform): void
     {
         $this->conform = $conform;
     }
 
-    /**
-     * @return string|null
-     */
     public function getOtherInformations(): ?string
     {
         return $this->otherInformations;
     }
 
-    /**
-     * @param string|null $otherInformations
-     */
     public function setOtherInformations(?string $otherInformations): void
     {
         $this->otherInformations = $otherInformations;
     }
 
-    /**
-     * @return Address|null
-     */
     public function getAddress(): ?Address
     {
         return $this->address;
     }
 
-    /**
-     * @param Address $address
-     */
     public function setAddress(Address $address): void
     {
         $this->address = $address;
     }
 
-    /**
-     * @param Treatment $treatment
-     */
     public function addTreatment(Treatment $treatment): void
     {
         $this->treatments[] = $treatment;
     }
 
-    /**
-     * @param Treatment $treatment
-     */
     public function removeTreatment(Treatment $treatment): void
     {
         $key = \array_search($treatment, $this->treatments, true);
@@ -243,33 +195,21 @@ class Contractor
         unset($this->treatments[$key]);
     }
 
-    /**
-     * @return iterable
-     */
     public function getTreatments(): iterable
     {
         return $this->treatments;
     }
 
-    /**
-     * @return iterable
-     */
     public function getProofs(): iterable
     {
         return $this->proofs;
     }
 
-    /**
-     * @return Contractor|null
-     */
     public function getClonedFrom(): ?Contractor
     {
         return $this->clonedFrom;
     }
 
-    /**
-     * @param Contractor|null $clonedFrom
-     */
     public function setClonedFrom(?Contractor $clonedFrom): void
     {
         $this->clonedFrom = $clonedFrom;

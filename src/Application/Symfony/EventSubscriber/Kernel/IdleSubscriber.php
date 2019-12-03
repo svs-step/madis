@@ -25,7 +25,7 @@ declare(strict_types=1);
 namespace App\Application\Symfony\EventSubscriber\Kernel;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -65,10 +65,8 @@ class IdleSubscriber implements EventSubscriberInterface
     /**
      * OnKernelRequest check idle since last Request.
      * If idle is over, then invalidate session.
-     *
-     * @param GetResponseEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

@@ -30,10 +30,6 @@ class UserAuthorization
 {
     /**
      * Check if the provided user can connect to the app.
-     *
-     * @param Model\User $user
-     *
-     * @return bool
      */
     public function canConnect(Model\User $user): bool
     {

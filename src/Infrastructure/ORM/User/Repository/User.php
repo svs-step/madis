@@ -41,11 +41,6 @@ class User extends CRUDRepository implements Repository\User
 
     /**
      * Add archive clause to query.
-     *
-     * @param QueryBuilder $qb
-     * @param bool         $archived
-     *
-     * @return QueryBuilder
      */
     protected function addArchivedClause(QueryBuilder $qb, bool $archived = false): QueryBuilder
     {
@@ -60,11 +55,6 @@ class User extends CRUDRepository implements Repository\User
 
     /**
      * Add order to query.
-     *
-     * @param QueryBuilder $qb
-     * @param array        $order
-     *
-     * @return QueryBuilder
      */
     protected function addOrder(QueryBuilder $qb, array $order = []): QueryBuilder
     {

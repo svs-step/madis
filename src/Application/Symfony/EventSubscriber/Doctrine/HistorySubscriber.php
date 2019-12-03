@@ -43,8 +43,6 @@ class HistorySubscriber implements EventSubscriber
      * - Add createdAt date
      * - Add updatedAt date.
      *
-     * @param LifecycleEventArgs $args
-     *
      * @throws \Exception
      */
     public function prePersist(LifecycleEventArgs $args): void
@@ -61,8 +59,6 @@ class HistorySubscriber implements EventSubscriber
     /**
      * PreUpdate
      * - Update updatedAt date.
-     *
-     * @param LifecycleEventArgs $args
      *
      * @throws \Exception
      */

@@ -33,17 +33,11 @@ trait CollectivityTrait
      */
     private $collectivity;
 
-    /**
-     * @return Collectivity|null
-     */
     public function getCollectivity(): ?Collectivity
     {
         return $this->collectivity;
     }
 
-    /**
-     * @param Collectivity $collectivity
-     */
     public function setCollectivity(Collectivity $collectivity): void
     {
         $this->collectivity = $collectivity;

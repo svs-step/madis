@@ -57,9 +57,6 @@ class UserType extends AbstractType
 
     /**
      * UserType constructor.
-     *
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param EncoderFactoryInterface       $encoderFactory
      */
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
@@ -71,9 +68,6 @@ class UserType extends AbstractType
 
     /**
      * Build type form.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -150,8 +144,6 @@ class UserType extends AbstractType
 
     /**
      * Provide type options.
-     *
-     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {

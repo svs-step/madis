@@ -55,8 +55,6 @@ class DuplicationHydratorTest extends TestCase
      * Create duplication objects.
      *
      * @throws \Exception
-     *
-     * @return array
      */
     public function dataProviderDuplication(): array
     {
@@ -93,8 +91,6 @@ class DuplicationHydratorTest extends TestCase
      * Test every available duplication Type.
      *
      * @dataProvider dataProviderDuplication
-     *
-     * @param Duplication $duplication
      *
      * @throws \Exception
      */

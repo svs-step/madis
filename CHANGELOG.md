@@ -3,6 +3,13 @@ CHANGELOG
 
 ## [UNRELEASED]
 
+## [1.6.3] - 2019-12-03
+### Changement
+- [TECHNIQUE] Mise à jour de PHP CS Fixer en v2.16
+- [TECHNIQUE] Mise à jour de Symfony (de la version 4.2.8 à la version 4.3.8)
+### Fix
+- [TRAITEMENT] Il est désormais possible de supprimer un traitement ayant servi de template à la duplication, #221
+
 ## [1.6.2] - 2019-10-07
 ### Ajout
 - [TECHNIQUE] Mise en place d'outils de qualité de code (PHPMD, PHPStan, csFixer, ...), #188

@@ -71,74 +71,47 @@ class Domain
         $this->maturity  = [];
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getColor(): ?string
     {
         return $this->color;
     }
 
-    /**
-     * @param string|null $color
-     */
     public function setColor(?string $color): void
     {
         $this->color = $color;
     }
 
-    /**
-     * @return int|null
-     */
     public function getPosition(): ?int
     {
         return $this->position;
     }
 
-    /**
-     * @param int|null $position
-     */
     public function setPosition(?int $position): void
     {
         $this->position = $position;
     }
 
-    /**
-     * @param Question $question
-     */
     public function addQuestion(Question $question): void
     {
         $this->questions[] = $question;
         $question->setDomain($this);
     }
 
-    /**
-     * @param Question $question
-     */
     public function removeQuestion(Question $question): void
     {
         $key = \array_search($question, $this->questions, true);
@@ -150,26 +123,17 @@ class Domain
         unset($this->questions[$key]);
     }
 
-    /**
-     * @return iterable
-     */
     public function getQuestions(): iterable
     {
         return $this->questions;
     }
 
-    /**
-     * @param Maturity $maturity
-     */
     public function addMaturity(Maturity $maturity): void
     {
         $this->maturity[] = $maturity;
         $maturity->setDomain($this);
     }
 
-    /**
-     * @param Maturity $maturity
-     */
     public function removeMaturity(Maturity $maturity): void
     {
         $key = \array_search($maturity, $this->maturity, true);
@@ -181,9 +145,6 @@ class Domain
         unset($this->maturity[$key]);
     }
 
-    /**
-     * @return iterable
-     */
     public function getMaturity(): iterable
     {
         return $this->maturity;

@@ -41,8 +41,6 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
 
     /**
      * CRUDRepository constructor.
-     *
-     * @param RegistryInterface $registry
      */
     public function __construct(RegistryInterface $registry)
     {
@@ -51,8 +49,6 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
 
     /**
      * Get the model class name.
-     *
-     * @return string
      */
     abstract protected function getModelClass(): string;
 
@@ -61,8 +57,6 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
      * Since we use Doctrine, we expect to get EntityManagerInterface.
      *
      * @throws \Exception
-     *
-     * @return EntityManagerInterface
      */
     protected function getManager(): EntityManagerInterface
     {
@@ -143,8 +137,6 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
 
     /**
      * Get all objects.
-     *
-     * @param array $order
      *
      * @return mixed[]
      */

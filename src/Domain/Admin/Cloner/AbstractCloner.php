@@ -69,8 +69,7 @@ abstract class AbstractCloner implements ClonerInterface
     }
 
     /**
-     * @param object                 $referent
-     * @param UserModel\Collectivity $collectivity
+     * @param object $referent
      *
      * @return object
      */

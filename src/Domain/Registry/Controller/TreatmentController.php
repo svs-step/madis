@@ -145,8 +145,6 @@ class TreatmentController extends CRUDController
      * Generate a word report of contractors.
      *
      * @throws \PhpOffice\PhpWord\Exception\Exception
-     *
-     * @return Response
      */
     public function reportAction(): Response
     {
@@ -161,10 +159,6 @@ class TreatmentController extends CRUDController
 
     /**
      * Get all active treatments of a collectivity and return their id/name as JSON.
-     *
-     * @param string $collectivityId
-     *
-     * @return Response
      */
     public function apiGetTreatmentsByCollectivity(string $collectivityId): Response
     {

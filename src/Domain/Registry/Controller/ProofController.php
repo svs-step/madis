@@ -168,10 +168,6 @@ class ProofController extends CRUDController
     /**
      * The archive action view
      * Display a confirmation message to confirm data archivage.
-     *
-     * @param string $id
-     *
-     * @return Response
      */
     public function archiveAction(string $id): Response
     {
@@ -189,11 +185,7 @@ class ProofController extends CRUDController
      * The archive action
      * Archive the data.
      *
-     * @param string $id
-     *
      * @throws \Exception
-     *
-     * @return Response
      */
     public function archiveConfirmationAction(string $id): Response
     {
@@ -248,11 +240,7 @@ class ProofController extends CRUDController
     /**
      * Download uploaded document which belongs to provided object id.
      *
-     * @param string $id
-     *
      * @throws \Exception
-     *
-     * @return Response
      */
     public function downloadAction(string $id): Response
     {

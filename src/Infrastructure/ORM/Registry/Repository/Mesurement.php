@@ -43,11 +43,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
     /**
      * Add a where clause to query.
      *
-     * @param QueryBuilder $qb
-     * @param string       $key
-     * @param mixed        $value
-     *
-     * @return QueryBuilder
+     * @param mixed $value
      */
     protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
     {
@@ -59,11 +55,6 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
 
     /**
      * Add a collectivity appartenance clause.
-     *
-     * @param QueryBuilder $qb
-     * @param Collectivity $collectivity
-     *
-     * @return QueryBuilder
      */
     protected function addCollectivityClause(QueryBuilder $qb, Collectivity $collectivity): QueryBuilder
     {
@@ -75,11 +66,6 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
 
     /**
      * Add an order to query.
-     *
-     * @param QueryBuilder $qb
-     * @param array        $order
-     *
-     * @return QueryBuilder
      */
     protected function addOrder(QueryBuilder $qb, array $order = []): QueryBuilder
     {

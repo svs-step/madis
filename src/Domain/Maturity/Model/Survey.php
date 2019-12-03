@@ -74,26 +74,17 @@ class Survey
         return "Indice du {$this->createdAt->format('d/m/Y')}";
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @param Answer $answer
-     */
     public function addAnswer(Answer $answer): void
     {
         $this->answers[] = $answer;
         $answer->setSurvey($this);
     }
 
-    /**
-     * @param Answer $answer
-     */
     public function removeAnswer(Answer $answer): void
     {
         $key = \array_search($answer, $this->answers, true);
@@ -105,26 +96,17 @@ class Survey
         unset($this->answers[$key]);
     }
 
-    /**
-     * @return iterable
-     */
     public function getAnswers(): iterable
     {
         return $this->answers;
     }
 
-    /**
-     * @param Maturity $maturity
-     */
     public function addMaturity(Maturity $maturity): void
     {
         $this->maturity[] = $maturity;
         $maturity->setSurvey($this);
     }
 
-    /**
-     * @param Maturity $maturity
-     */
     public function removeMaturity(Maturity $maturity): void
     {
         $key = \array_search($maturity, $this->maturity, true);
@@ -136,17 +118,11 @@ class Survey
         unset($this->maturity[$key]);
     }
 
-    /**
-     * @return iterable
-     */
     public function getMaturity(): iterable
     {
         return $this->maturity;
     }
 
-    /**
-     * @param array $maturityList
-     */
     public function setMaturity(array $maturityList): void
     {
         foreach ($maturityList as $maturity) {
@@ -155,17 +131,11 @@ class Survey
         }
     }
 
-    /**
-     * @return int
-     */
     public function getScore(): int
     {
         return $this->score;
     }
 
-    /**
-     * @param int $score
-     */
     public function setScore(int $score): void
     {
         $this->score = $score;

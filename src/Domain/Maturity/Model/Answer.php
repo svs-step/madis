@@ -59,57 +59,36 @@ class Answer
         $this->id = Uuid::uuid4();
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    /**
-     * @return int|null
-     */
     public function getResponse(): ?int
     {
         return $this->response;
     }
 
-    /**
-     * @param int|null $response
-     */
     public function setResponse(?int $response): void
     {
         $this->response = $response;
     }
 
-    /**
-     * @return Question|null
-     */
     public function getQuestion(): ?Question
     {
         return $this->question;
     }
 
-    /**
-     * @param Question|null $question
-     */
     public function setQuestion(?Question $question): void
     {
         $this->question = $question;
     }
 
-    /**
-     * @return Survey|null
-     */
     public function getSurvey(): ?Survey
     {
         return $this->survey;
     }
 
-    /**
-     * @param Survey|null $survey
-     */
     public function setSurvey(?Survey $survey): void
     {
         $this->survey = $survey;

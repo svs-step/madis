@@ -116,8 +116,6 @@ class NotBlankDependingOnOtherFieldValueValidatorTest extends ConstraintValidato
      * With every valid values (check data provider information).
      *
      * @dataProvider dataProviderValidObject
-     *
-     * @param ObjectToValidateNotBlankDependingOnOtherValue $data
      */
     public function testValidValues(ObjectToValidateNotBlankDependingOnOtherValue $data): void
     {
@@ -175,8 +173,6 @@ class NotBlankDependingOnOtherFieldValueValidatorTest extends ConstraintValidato
      * With every invalid values (check data provider information).
      *
      * @dataProvider dataProviderInvalidValue
-     *
-     * @param ObjectToValidateNotBlankDependingOnOtherValue $data
      */
     public function testInvalidValues(ObjectToValidateNotBlankDependingOnOtherValue $data): void
     {
@@ -208,33 +204,21 @@ class ObjectToValidateNotBlankDependingOnOtherValue
     /** @var mixed|null */
     private $fieldToValidate;
 
-    /**
-     * @return string|null
-     */
     public function getOtherField(): ?string
     {
         return $this->otherField;
     }
 
-    /**
-     * @param string|null $otherField
-     */
     public function setOtherField(?string $otherField): void
     {
         $this->otherField = $otherField;
     }
 
-    /**
-     * @return string|null
-     */
     public function getUnusedField(): ?string
     {
         return $this->unusedField;
     }
 
-    /**
-     * @param string|null $unusedField
-     */
     public function setUnusedField(?string $unusedField): void
     {
         $this->unusedField = $unusedField;
