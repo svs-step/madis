@@ -2,6 +2,9 @@ CHANGELOG
 =========
 
 ## [UNRELEASED]
+### Fix
+- [PLAN D'ACTION] Correction du tri par date, #245
+- [MATURITE] Correction du tri par date, #245
 
 ## [1.6.3] - 2019-12-03
 ### Changement
