@@ -2,14 +2,6 @@
 
 {{ form_start(form) }}
 
-{% macro complex_choice(field) %}
-<div class="col-sm-12 complex-choice-group">
-    <div class="col-sm-1 check">{{ form_row(field.check) }}</div>
-    <div class="col-sm-3">{{ form_label(field) }}</div>
-    <div class="col-sm-8 comment">{{ form_widget(field.comment) }}</div>
-</div>
-{% endmacro %}
-{% import _self as macro %}
 
 <div class="row">
 
@@ -74,15 +66,18 @@
         <div class="box box-solid box-success">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
             <div class="box-body">
-                {{ macro.complex_choice(form.securityAccessControl) }}
-                {{ macro.complex_choice(form.securityTracability) }}
-                {{ macro.complex_choice(form.securitySaving) }}
-                {{ macro.complex_choice(form.securityUpdate) }}
-                {{ macro.complex_choice(form.securityOther) }}
-                <div class="col-sm-12">
+                {{ form_row(form.securityAccessControl) }}
+                {{ form_row(form.securityTracability) }}
+                {{ form_row(form.securitySaving) }}
+                {{ form_row(form.securityUpdate) }}
+                {{ form_row(form.securityOther) }}
+                <div class="col-sm-12{% if not form.authorizedPeople.vars.valid %} has-error{% endif %}">
                     <div class="col-sm-1"></div>
                     <div class="col-sm-3">{{ form_label(form.authorizedPeople) }}</div>
-                    <div class="col-sm-8 comment">{{ form_widget(form.authorizedPeople) }}</div>
+                    <div class="col-sm-8 comment">
+                        {{ form_widget(form.authorizedPeople) }}
+                        {{ form_errors(form.authorizedPeople) }}
+                    </div>
                 </div>
             </div>
         </div>

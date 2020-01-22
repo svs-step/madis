@@ -4,6 +4,9 @@ App\Domain\Registry\Model\Treatment:
             - NotBlank:
                 message: 'registry_treatment.name.not_blank'
                 groups: ['default']
+            - Length:
+                max: 255
+                groups: ['default']
         legalBasis:
             - NotBlank:
                 message: 'registry_treatment.legal_basis.not_blank'
@@ -26,4 +29,30 @@ App\Domain\Registry\Model\Treatment:
                 message: 'registry_treatment.active.not_null'
                 groups: ['default']
         delay:
+            - Valid: ~
+        manager:
+            - Length:
+                max: 255
+                groups: ['default']
+        software:
+            - Length:
+                max: 255
+                groups: ['default']
+        dataOrigin:
+            - Length:
+                max: 255
+                groups: ['default']
+        authorizedPeople:
+            - Length:
+                max: 255
+                groups: ['default']
+        securityAccessControl:
+            - Valid: ~
+        securityTracability:
+            - Valid: ~
+        securitySaving:
+            - Valid: ~
+        securityUpdate:
+            - Valid: ~
+        securityOther:
             - Valid: ~

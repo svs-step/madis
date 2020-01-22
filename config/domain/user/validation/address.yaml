@@ -4,13 +4,26 @@ App\Domain\User\Model\Embeddable\Address:
             - NotBlank:
                 message: 'user_address.city.not_blank'
                 groups: ['default']
+            - Length:
+                max: 255
+                groups: ['default']
         lineOne:
             - NotBlank:
                 message: 'user_address.line_one.not_blank'
                 groups: ['default']
+            - Length:
+                max: 255
+                groups: ['default']
+        lineTwo:
+            - Length:
+                max: 255
+                groups: ['default']
         insee:
             - NotBlank:
                 message: 'user_address.insee.not_blank'
+                groups: ['default']
+            - Length:
+                max: 255
                 groups: ['default']
         zipCode:
             - NotBlank:

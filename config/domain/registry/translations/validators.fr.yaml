@@ -91,3 +91,11 @@ registry_violation:
         not_blank: Vous devez sélectionner les impacts de la violation
     violation_nature:
         not_blank: Vous devez sélectionner la nature de la violation
+
+registry_mesurement:
+    name:
+        not_blank: Vous devez renseigner un nom
+
+registry_treatment_data_category:
+    name:
+        not_blank: Vous devez renseigner un nom

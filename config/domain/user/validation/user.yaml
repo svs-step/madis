@@ -10,9 +10,15 @@ App\Domain\User\Model\User:
             - NotBlank:
                 message: 'user_user.first_name.not_blank'
                 groups: ['default']
+            - Length:
+                max: 255
+                groups: ['default']
         lastName:
             - NotBlank:
                 message: 'user_user.last_name.not_blank'
+                groups: ['default']
+            - Length:
+                max: 255
                 groups: ['default']
         email:
             - Email:
@@ -20,6 +26,9 @@ App\Domain\User\Model\User:
                 groups: ['default']
             - NotBlank:
                 message: 'user_user.email.not_blank'
+                groups: ['default']
+            - Length:
+                max: 255
                 groups: ['default']
         roles:
             - Count:
@@ -37,4 +46,7 @@ App\Domain\User\Model\User:
                 requireLetters: true
                 requireNumbers: true
                 requireSpecialCharacter: true
+                groups: ['default']
+            - Length:
+                max: 255
                 groups: ['default']

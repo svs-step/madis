@@ -1,0 +1,9 @@
+App\Domain\Registry\Model\TreatmentDataCategory:
+    properties:
+        name:
+            - NotBlank:
+                message: 'registry_treatment_data_category.name.not_blank'
+                groups: ['default']
+            - Length:
+                max: 255
+                groups: ['default']

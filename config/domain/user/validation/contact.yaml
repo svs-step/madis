@@ -11,20 +11,32 @@ App\Domain\User\Model\Embeddable\Contact:
             - NotBlank:
                 message: 'user_contact.first_name.not_blank'
                 groups: ['collectivity_legal_manager', 'collectivity_referent']
+            - Length:
+                max: 255
+                groups: ['default']
         job:
             - NotBlank:
                 message: 'user_contact.job.not_blank'
                 groups: ['collectivity_legal_manager', 'collectivity_referent']
+            - Length:
+                max: 255
+                groups: ['default']
         lastName:
             - NotBlank:
                 message: 'user_contact.last_name.not_blank'
                 groups: ['collectivity_legal_manager', 'collectivity_referent']
+            - Length:
+                max: 255
+                groups: ['default']
         mail:
             - NotBlank:
                 message: 'user_contact.mail.not_blank'
                 groups: ['collectivity_legal_manager', 'collectivity_referent']
             - Email:
                 message: 'user_contact.mail.email'
+                groups: ['default']
+            - Length:
+                max: 255
                 groups: ['default']
         phoneNumber:
             - NotBlank:

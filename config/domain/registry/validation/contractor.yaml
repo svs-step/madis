@@ -12,5 +12,12 @@ App\Domain\Registry\Model\Contractor:
             - NotBlank:
                 message: 'registry_contractor.name.not_blank'
                 groups: ['contractor']
+            - Length:
+                max: 255
+                groups: ['default']
         address:
             - Valid: ~
+        referent:
+            - Length:
+                max: 255
+                groups: ['default']

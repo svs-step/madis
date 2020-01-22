@@ -53,6 +53,9 @@ class RequestType extends AbstractType
             ->add('otherObject', TextType::class, [
                 'label'    => 'registry.request.form.other_object',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('date', DateType::class, [
                 'label'    => 'registry.request.form.date',
@@ -67,6 +70,9 @@ class RequestType extends AbstractType
             ->add('reason', TextType::class, [
                 'label'    => 'registry.request.form.reason',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('applicant', RequestApplicantType::class, [
                 'label'    => false,

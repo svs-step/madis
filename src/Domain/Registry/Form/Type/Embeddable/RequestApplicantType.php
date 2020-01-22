@@ -49,14 +49,23 @@ class RequestApplicantType extends AbstractType
             ->add('firstName', TextType::class, [
                 'label'    => 'registry.request_applicant.form.first_name',
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('lastName', TextType::class, [
                 'label'    => 'registry.request_applicant.form.last_name',
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('address', TextType::class, [
                 'label'    => 'registry.request_applicant.form.address',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('mail', EmailType::class, [
                 'label'    => 'registry.request_applicant.form.mail',

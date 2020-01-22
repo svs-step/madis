@@ -61,10 +61,16 @@ class CollectivityType extends AbstractType
                 ->add('name', TextType::class, [
                     'label'    => 'user.collectivity.form.name',
                     'required' => true,
+                    'attr'     => [
+                        'maxlength' => 80,
+                    ],
                 ])
                 ->add('shortName', TextType::class, [
                     'label'    => 'user.collectivity.form.short_name',
                     'required' => true,
+                    'attr'     => [
+                        'maxlength' => 20,
+                    ],
                 ])
                 ->add('type', DictionaryType::class, [
                     'label'    => 'user.collectivity.form.type',
@@ -76,6 +82,9 @@ class CollectivityType extends AbstractType
                 ->add('siren', NumberType::class, [
                     'label'    => 'user.collectivity.form.siren',
                     'required' => true,
+                    'attr'     => [
+                        'maxlength' => 9,
+                    ],
                 ])
                 ->add('active', ChoiceType::class, [
                     'label'    => 'user.collectivity.form.active',

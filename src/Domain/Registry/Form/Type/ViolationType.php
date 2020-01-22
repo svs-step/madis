@@ -141,6 +141,9 @@ class ViolationType extends AbstractType
             ->add('notificationDetails', TextType::class, [
                 'label'    => 'registry.violation.form.notification_details',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('comment', TextareaType::class, [
                 'label'    => 'registry.violation.form.comment',

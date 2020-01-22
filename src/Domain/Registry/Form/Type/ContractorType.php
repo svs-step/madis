@@ -44,10 +44,16 @@ class ContractorType extends AbstractType
             ->add('name', TextType::class, [
                 'label'    => 'registry.contractor.form.name',
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('referent', TextType::class, [
                 'label'    => 'registry.contractor.form.referent',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('contractualClausesVerified', CheckboxType::class, [
                 'label'    => 'registry.contractor.form.contractual_clauses_verified',
