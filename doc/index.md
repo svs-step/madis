@@ -16,6 +16,7 @@ MADIS - Documentation
 - [Maintenance applicative & montées de versions](maintenance-applicative)
     - [Pré-requis pour lancer l'installation de MADIS](maintenance-applicative/1-pre-requis.md)
     - [Réaliser une montée/descente de version de MADIS](maintenance-applicative/2-realiser-une-montee-de-version.md)
+    - [Descriptif des variables d'environnement de Symfony](maintenance-applicative/4-descriptif-variables-environement-symfony.md)
     - [Problèmes possibles et connus lors de mises à jour](maintenance-applicative/3-problemes-possible-lors-de-mises-a-jour.md)
     
 - [[DEVELOPPEURS] Documentation technique](developpement)

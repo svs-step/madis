@@ -21,7 +21,7 @@ Accompagnement dans la gestion du Règlement Général à la Protection des Donn
 - [Maintenance applicative & montées de versions](doc/maintenance-applicative)
     - [Pré-requis pour lancer l'installation de MADIS](doc/maintenance-applicative/1-pre-requis.md)
     - [Réaliser une montée/descente de version de MADIS](doc/maintenance-applicative/2-realiser-une-montee-de-version.md)
-    - [Modifier les variables d'environnement de Symfony](doc/maintenance-applicative/4-variables-environement-symfony.md)
+    - [Descriptif des variables d'environnement de Symfony](doc/maintenance-applicative/4-descriptif-variables-environement-symfony.md)
     - [Problèmes possibles et connus lors de mises à jour](doc/maintenance-applicative/3-problemes-possible-lors-de-mises-a-jour.md)
     
 - [[DEVELOPPEURS] Documentation technique](doc/developpement)
