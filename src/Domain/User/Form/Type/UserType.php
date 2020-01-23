@@ -109,22 +109,37 @@ class UserType extends AbstractType
             ->add('firstName', TextType::class, [
                 'label'    => 'user.user.form.first_name',
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('lastName', TextType::class, [
                 'label'    => 'user.user.form.last_name',
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('email', EmailType::class, [
                 'label'    => 'user.user.form.email',
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type'          => PasswordType::class,
                 'first_options' => [
                     'label' => 'user.user.form.password',
+                    'attr'  => [
+                        'maxlength' => 255,
+                    ],
                 ],
                 'second_options' => [
                     'label' => 'user.user.form.password_repeat',
+                    'attr'  => [
+                        'maxlength' => 255,
+                    ],
                 ],
                 'required' => false,
             ])

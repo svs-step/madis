@@ -1,0 +1,21 @@
+App\Domain\Registry\Model\Mesurement:
+    properties:
+        name:
+            - NotBlank:
+                message: 'registry_mesurement.name.not_blank'
+                groups: ['default']
+            - Length:
+                max: 255
+                groups: ['default']
+        cost:
+            - Length:
+                max: 255
+                groups: ['default']
+        charge:
+            - Length:
+                max: 255
+                groups: ['default']
+        comment:
+            - Length:
+                max: 255
+                groups: ['default']

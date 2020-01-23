@@ -1,0 +1,6 @@
+App\Domain\Registry\Model\Embeddable\ComplexChoice:
+    properties:
+        comment:
+            - Length:
+                max: 255
+                groups: ['default']

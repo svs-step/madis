@@ -9,3 +9,32 @@ App\Domain\Registry\Model\Embeddable\RequestConcernedPeople:
                 pattern: '/^0[1-9][0-9]{8}$/'
                 message: 'registry_request_concerned_people.phone_number.regex'
                 groups: ['default']
+        firstName:
+            - NotBlank:
+                message: 'registry_request_applicant.first_name.not_blank'
+                groups: ['default']
+            - Length:
+                max: 255
+                groups: ['default']
+        lastName:
+            - NotBlank:
+                message: 'registry_request_applicant.last_name.not_blank'
+                groups: ['default']
+            - Length:
+                max: 255
+                groups: ['default']
+        address:
+            - Length:
+                max: 255
+                groups: ['default']
+        mail:
+            - Email:
+                message: 'registry_address.mail.email'
+                groups: ['default']
+            - Length:
+                max: 255
+                groups: ['default']
+        linkWithApplicant:
+            - Length:
+                max: 255
+                groups: ['default']

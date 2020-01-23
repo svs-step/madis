@@ -58,22 +58,37 @@ class ContactType extends AbstractType
             ->add('firstName', TextType::class, [
                 'label'    => 'user.contact.form.first_name',
                 'required' => $required,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('lastName', TextType::class, [
                 'label'    => 'user.contact.form.last_name',
                 'required' => $required,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('job', TextType::class, [
                 'label'    => 'user.contact.form.job',
                 'required' => $required,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('mail', EmailType::class, [
                 'label'    => 'user.contact.form.mail',
                 'required' => $required,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('phoneNumber', TextType::class, [
                 'label'    => 'user.contact.form.phone_number',
                 'required' => $required,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ]);
     }
 

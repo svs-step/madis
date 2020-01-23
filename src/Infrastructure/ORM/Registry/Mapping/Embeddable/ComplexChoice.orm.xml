@@ -9,7 +9,7 @@
 
         <field name="check" column="check" type="boolean"/>
         <field name="comment" column="comment" nullable="true"/>
-w
+
     </embeddable>
 
 </doctrine-mapping>

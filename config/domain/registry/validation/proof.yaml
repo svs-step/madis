@@ -4,6 +4,9 @@ App\Domain\Registry\Model\Proof:
             - NotBlank:
                 message: 'registry_proof.name.not_blank'
                 groups: ['default']
+            - Length:
+                max: 255
+                groups: ['default']
         type:
             - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
                 name: 'registry_proof_type'
@@ -37,3 +40,7 @@ App\Domain\Registry\Model\Proof:
                     - application/vnd.openxmlformats-officedocument.presentationml.presentation
                 mimeTypesMessage: 'registry_proof.document_file.file'
                 groups: ['default']
+        comment:
+            - Length:
+                  max: 255
+                  groups: ['default']

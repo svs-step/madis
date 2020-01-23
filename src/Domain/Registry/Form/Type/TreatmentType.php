@@ -63,6 +63,9 @@ class TreatmentType extends AbstractType
             ->add('name', TextType::class, [
                 'label'    => 'registry.treatment.form.name',
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('goal', TextareaType::class, [
                 'label'    => 'registry.treatment.form.goal',
@@ -74,10 +77,16 @@ class TreatmentType extends AbstractType
             ->add('manager', TextType::class, [
                 'label'    => 'registry.treatment.form.manager',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('software', TextType::class, [
                 'label'    => 'registry.treatment.form.software',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('paperProcessing', CheckboxType::class, [
                 'label'    => 'registry.treatment.form.paper_processing',
@@ -141,6 +150,9 @@ class TreatmentType extends AbstractType
             ->add('dataOrigin', TextType::class, [
                 'label'    => 'registry.treatment.form.data_origin',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('recipientCategory', TextareaType::class, [
                 'label'    => 'registry.treatment.form.recipient_category',
@@ -206,6 +218,9 @@ class TreatmentType extends AbstractType
             ->add('authorizedPeople', TextType::class, [
                 'label'    => 'registry.treatment.form.authorized_people',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('active', ChoiceType::class, [
                 'label'    => 'registry.treatment.form.active',

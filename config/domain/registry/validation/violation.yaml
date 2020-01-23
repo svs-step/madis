@@ -86,3 +86,7 @@ App\Domain\Registry\Model\Violation:
             - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
                 name: 'registry_violation_notification'
                 groups: ['default']
+        notificationDetails:
+            - Length:
+                max: 255
+                groups: ['default']

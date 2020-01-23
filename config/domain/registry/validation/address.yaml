@@ -4,6 +4,9 @@ App\Domain\Registry\Model\Embeddable\Address:
             - Email:
                 message: 'registry_address.mail.email'
                 groups: ['default']
+            - Length:
+                  max: 255
+                  groups: ['default']
         phoneNumber:
             - Regex:
                 pattern: '/^0[1-9][0-9]{8}$/'
@@ -14,3 +17,15 @@ App\Domain\Registry\Model\Embeddable\Address:
                 pattern: '/^[0-9]{5}$/'
                 message: 'registry_address.zip_code.regex'
                 groups: ['default']
+        lineOne:
+            - Length:
+                max: 255
+                groups: ['default']
+        lineTwo:
+            - Length:
+                max: 255
+                groups: ['default']
+        city:
+            - Length:
+                  max: 255
+                  groups: ['default']
