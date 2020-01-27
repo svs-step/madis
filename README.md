@@ -33,11 +33,12 @@ Accompagnement dans la gestion du Règlement Général à la Protection des Donn
 
 ## Stack technique
 Le projet est construit avec :
-* [Symfony 3.4+](http://symfony.com/doc/current/index.html) - Comme framework backend (évolue selon les mises à jour)
-* [AdminLTE 2](https://adminlte.io/) - Comme framework CSS
+* [Symfony 4.3](http://symfony.com/doc/current/index.html) - Comme framework backend
+* [AdminLTE 2](https://adminlte.io/) - Comme support CSS
 
-## Contributeurs
-* __BOURLARD Donovan__ - Initial work
+## Contributeurs historiques
+* __BOURLARD Donovan__ - Travail initial
+* __ANODE Stratégie Digitale__ - Maintenance et évolutions
 
 Des contributions ont peut-être été faites sur le projet.
-Pour analyser la liste des contributeurs, référez vous au déôt de code sur Gitlab.  
+Pour analyser la liste des contributeurs, référez vous au dépôt de code sur Gitlab.  
