@@ -30,6 +30,7 @@ Accompagnement dans la gestion du Règlement Général à la Protection des Donn
     - [Les bonnes pratiques de développement](doc/developpement/3-bonnes-pratiques-de-developpement.md)
     - [Effectuer la maintenance et les montées de versions](doc/developpement/4-maintenance-et-montee-de-version.md)
     - [Qualité du code](doc/developpement/5-qualite-de-code.md)
+    - [Cycle de vie d'une contribution](doc/developpement/6-cycle-de-vie-contribution.md)
 
 ## Stack technique
 Le projet est construit avec :
