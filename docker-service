@@ -114,8 +114,8 @@ tests() {
 }
 
 unitTests() {
-    echo -e "\n\n\nUnit Test : Apps/benevoles-back/"
-    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ php bash -c "vendor/bin/phpunit"
+    echo -e "\n\n\nUnit Tests"
+    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ $DOCKER_IMAGE_PHP bash -c "APP_ENV=test vendor/bin/simple-phpunit"
 }
 
 qualityTests() {
