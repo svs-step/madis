@@ -24,7 +24,7 @@ server {
         }
         # This is a robust solution for path info security issue and works with "cgi.fix_pathinfo = 1" in /etc/php.ini (default)
 
-        fastcgi_pass php-fpm:9000;
+        fastcgi_pass php:9000;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME /var/www/gestion-rgpd/public$fastcgi_script_name;
         fastcgi_intercept_errors on;
