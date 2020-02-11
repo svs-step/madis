@@ -48,7 +48,7 @@ initialize() {
 
 build() {
     docker build docker/nginx -t nginx
-    docker build docker/php-fpm -t php-fpm
+    docker build docker/php -t php
     docker-compose -f docker-compose"$env".yml build
 }
 
@@ -61,25 +61,25 @@ start() {
 
 
 install() {
-    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm 'until nc -z db 3306; do sleep 1; echo "Waiting for DB to come up..."; done'
-    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm "composer install --prefer-dist --no-interaction --optimize-autoloader &&
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php 'until nc -z db 3306; do sleep 1; echo "Waiting for DB to come up..."; done'
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "composer install --prefer-dist --no-interaction --optimize-autoloader &&
                                                                                                                           bin/console doctrine:database:create --if-not-exists &&
                                                                                                                           bin/console doctrine:migration:migrate -n &&
                                                                                                                           bin/console cache:clear --env=prod --no-debug &&
                                                                                                                           bin/console cache:warmup --env=prod --no-debug"
     # Load CSS & JS compilation
-    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm "yarn && yarn run encore production"
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "yarn && yarn run encore production"
 }
 
 populate() {
-    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm "bin/console hautelook:fixtures:load -n"
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "bin/console hautelook:fixtures:load -n"
 }
 
 serve() {
     if [ "$#" -ge 1 ]; then
-        docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm "yarn && yarn run encore dev --$1"
+        docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "yarn && yarn run encore dev --$1"
     fi
-    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php-fpm "yarn && yarn run encore dev"
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "yarn && yarn run encore dev"
 }
 
 stop() {
@@ -115,30 +115,30 @@ tests() {
 
 unitTests() {
     echo -e "\n\n\nUnit Test : Apps/benevoles-back/"
-    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ php-fpm bash -c "vendor/bin/phpunit"
+    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ php bash -c "vendor/bin/phpunit"
 }
 
 qualityTests() {
-    docker-compose -f docker-compose.test.yml up -d php-fpm
+    docker-compose -f docker-compose.test.yml up -d php
 
     # Code Style
 
     echo -e "\n\n\nCs Fixer :"
-    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm vendor/bin/php-cs-fixer fix --config=.php_cs.dist --dry-run --diff -vv
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php vendor/bin/php-cs-fixer fix --config=.php_cs.dist --dry-run --diff -vv
 
     # Lint PHP files
-    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm php -l src/
-    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm php -l features/
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php php -l src/
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php php -l features/
 
     # Lint YAML files
-    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bin/console lint:yaml --env=prod config/
-    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bin/console lint:yaml --env=prod src/
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php bin/console lint:yaml --env=prod config/
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php bin/console lint:yaml --env=prod src/
 
     # Lint Twig files
-    #docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bin/console lint:twig --env=prod app/Resources/views/
+    #docker-compose -f docker-compose.test.yml exec -T --user www-data php bin/console lint:twig --env=prod app/Resources/views/
 
     # Bundles security check
-    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bin/console security:check
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php bin/console security:check
 
     docker-compose -f docker-compose.test.yml down
 }
@@ -156,17 +156,17 @@ functionalTests() {
     docker-compose -f docker-compose.test.yml up -d benevoles-back
     docker-compose -f docker-compose.test.yml ps
 
-    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bash -c 'until nc -z db 3306; do sleep 1; echo "Waiting for DB to come up..."; done'
-    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bash -c "bin/console doctrine:database:create --if-not-exists"
-    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bash -c "bin/console doctrine:schema:update --force"
-    docker-compose -f docker-compose.test.yml exec -T --user www-data php-fpm bash -c "vendor/bin/behat $paths -v --format=$format"
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php bash -c 'until nc -z db 3306; do sleep 1; echo "Waiting for DB to come up..."; done'
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php bash -c "bin/console doctrine:database:create --if-not-exists"
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php bash -c "bin/console doctrine:schema:update --force"
+    docker-compose -f docker-compose.test.yml exec -T --user www-data php bash -c "vendor/bin/behat $paths -v --format=$format"
 
     docker-compose -f docker-compose.test.yml down
 }
 
 
 debug(){
-  docker-compose -f docker-compose"$env".yml run -T --user=www-data --no-deps --entrypoint="/bin/bash -c" -e XDEBUG_CONFIG="idekey=PHPSTORM" -e PHP_IDE_CONFIG="serverName=localhost" php-fpm  "php -dxdebug.remote_host=docker.for.mac.host.internal $@"
+  docker-compose -f docker-compose"$env".yml run -T --user=www-data --no-deps --entrypoint="/bin/bash -c" -e XDEBUG_CONFIG="idekey=PHPSTORM" -e PHP_IDE_CONFIG="serverName=localhost" php  "php -dxdebug.remote_host=docker.for.mac.host.internal $@"
 }
 
 # Images management
@@ -177,7 +177,7 @@ pushImages() {
 
 pushImagePhp() {
     docker pull $DOCKER_IMAGE_PHP || true
-    docker build  --cache-from $DOCKER_IMAGE_PHP -t $DOCKER_IMAGE_PHP docker/php-fpm
+    docker build  --cache-from $DOCKER_IMAGE_PHP -t $DOCKER_IMAGE_PHP docker/php
     docker push $DOCKER_IMAGE_PHP
 }
 

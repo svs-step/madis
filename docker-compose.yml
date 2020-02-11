@@ -16,16 +16,16 @@ services:
       - ./docker/nginx/default:/etc/nginx/sites-available/default:ro
       - .:/var/www/gestion-rgpd/:delegated
     depends_on:
-      - php-fpm
+      - php
 
-  php-fpm:
-    build: docker/php-fpm
+  php:
+    build: docker/php
     image: $DOCKER_IMAGE_PHP
-    container_name: php-fpm
+    container_name: php
     ports:
       - ${PHP_FPM_PORT}:9000
     volumes:
-      - ./docker/php-fpm/fpm-pool.conf:/etc/php/7.1/fpm/pool.d/www.conf:ro
+      - ./docker/php/fpm-pool.conf:/etc/php/7.1/fpm/pool.d/www.conf:ro
       - .:/var/www/gestion-rgpd/:delegated
     working_dir: /var/www/gestion-rgpd/
     depends_on:
