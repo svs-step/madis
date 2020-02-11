@@ -2,6 +2,8 @@ CHANGELOG
 =========
 
 ## [UNRELEASED]
+### Changement
+- [TECHNIQUE] Mise à jour Symfony en version v4.4.4
 ### Fix
 - [PLAN D'ACTION] Correction du tri par date, #245
 - [MATURITE] Correction du tri par date, #245
