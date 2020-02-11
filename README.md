@@ -34,7 +34,7 @@ Accompagnement dans la gestion du Règlement Général à la Protection des Donn
 
 ## Stack technique
 Le projet est construit avec :
-* [Symfony 4.3](http://symfony.com/doc/current/index.html) - Comme framework backend
+* [Symfony 4.4](http://symfony.com/doc/current/index.html) - Comme framework backend
 * [AdminLTE 2](https://adminlte.io/) - Comme support CSS
 
 ## Contributeurs historiques
