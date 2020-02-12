@@ -12,11 +12,9 @@
                 <div class="box-header with-border"><h3 class="box-title">{{ domainInfo.name }}</h3></div>
                 <div class="box-body">
                     {% for formAnswer in orderAnswersByQuestionNameAsc(domainInfo.answers) %}
-                        <div class="form-group">
                             {{ form_label(formAnswer, formAnswer.vars.value.question.name) }}
                             {{ form_widget(formAnswer) }}
                             {{ form_errors(formAnswer) }}
-                        </div>
                     {% endfor %}
                 </div>
             </div>
