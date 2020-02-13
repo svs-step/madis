@@ -30,14 +30,14 @@ HEAD is now at bfab85a... Merge branch 'release/v1.3.1'
 
 ```shell
 root@madis:/var/www/madis# git fetch
-ssh: connect to host gitlab.com port 22: Connection timed out
+ssh: connect to host gitlab.adullact.net port 22: Connection timed out
 fatal: Impossilble de lire le dépôt distant.
 
 Veuillez vérifier que vous avez les droits d'accès
 et que le dépôt existe.
 ```
 
-Dans ce cas, vérifiez les accès réseau sur le port 22 vers gitlab.com et réessayer
+Dans ce cas, vérifiez les accès réseau sur le port 22 vers gitlab.adullact.net et réessayer
 
 Une fois cette manipulation effectuée, `git fetch` ou autre commande git nécessitant
 le contact du dépôt distant devrait fonctionner.

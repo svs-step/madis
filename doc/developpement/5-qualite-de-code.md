@@ -3,7 +3,7 @@ Qualité du code
 
 ## Générer un rapport
 
-Pour cela il vous suffit d'aller sur le [projet Gitlab](https://gitlab.com/soluris/madis/pipelines)
+Pour cela il vous suffit d'aller sur le [projet Gitlab](https://gitlab.adullact.net/soluris/madis/pipelines)
 et d'y lancer les jobs de qualité et génération de rapports.
 
 Vous pourrez alors lancer la dernière étape qui est "Quality-assurance-report".
