@@ -1,8 +1,8 @@
 # Madis
 
 
-[![CI](https://gitlab.com/soluris/madis/badges/master/pipeline.svg?style=flat)](https://example.gitlab.com/soluris/madis/badges/commits/master)
-[![coverage](https://gitlab.com/soluris/madis/badges/master/coverage.svg?style=flat)](https://gitlab.com/soluris/madis/)
+[![CI](https://gitlab.adullact.net/soluris/madis/badges/master/pipeline.svg?style=flat)](https://example.gitlab.adullact.net/soluris/madis/badges/commits/master)
+[![coverage](https://gitlab.adullact.net/soluris/madis/badges/master/coverage.svg?style=flat)](https://gitlab.adullact.net/soluris/madis/)
 
 Accompagnement dans la gestion du Règlement Général à la Protection des Données (RGPD). 
 

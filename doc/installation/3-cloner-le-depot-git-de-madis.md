@@ -1,7 +1,7 @@
 Cloner le dépot GIT de MADIS
 ============================
 
-Pour cloner le projet, il vous faut tout d’abord autoriser votre serveur à accéder au dépôt GIT du projet. Pour autoriser le serveur à ne faire que cloner (et non mettre à jour) le code de MADIS, allez sur https://gitlab.com/soluris/madis/settings/repository et ajouter la clé SSH de votre serveur sans cocher « autoriser l’accès d’écriture ».
+Pour cloner le projet, il vous faut tout d’abord autoriser votre serveur à accéder au dépôt GIT du projet. Pour autoriser le serveur à ne faire que cloner (et non mettre à jour) le code de MADIS, allez sur https://gitlab.adullact.net/soluris/madis/settings/repository et ajouter la clé SSH de votre serveur sans cocher « autoriser l’accès d’écriture ».
 
 Votre serveur a maintenant accès au dépôt MADIS. Clonez le dépôt
 
@@ -17,7 +17,7 @@ cat ~/.ssh/id_rsa.pub
 
 # Cloner MADIS
 cd /var/www
-git clone git@gitlab.com:soluris/madis.git madis
+git clone git@gitlab.adullact.net:soluris/madis.git madis
 
 # Placez vous sur la version à utiliser
 cd madis
