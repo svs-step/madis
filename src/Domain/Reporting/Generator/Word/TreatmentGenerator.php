@@ -281,7 +281,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
                 [
                     'Autres catégories',
-                    $treatment->getDataCategoryOther(),
+                    $treatment->getDataCategoryOther() ? \preg_split('/\R/', $treatment->getDataCategoryOther()) : null,
                 ],
             ];
             // Add data categories
