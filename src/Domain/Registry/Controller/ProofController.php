@@ -30,6 +30,7 @@ use App\Domain\Registry\Form\Type\ProofType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\Tools\ChainManipulator;
 use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\FilesystemInterface;
 use Ramsey\Uuid\Uuid;
@@ -262,9 +263,12 @@ class ProofController extends CRUDController
         $extension = \pathinfo($object->getDocument(), PATHINFO_EXTENSION);
         $response  = new BinaryFileResponse('gaufrette://registry_proof_document/' . $object->getDocument());
 
+        $filenameWithoutAccent = ChainManipulator::removeAccents($object->getName());
+        $filename              = ChainManipulator::removeAllNonAlphaNumericChar($filenameWithoutAccent);
+
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            "{$object->getName()}.{$extension}"
+            "{$filename}.{$extension}"
         );
 
         return $response;
