@@ -4,7 +4,6 @@
  * This file is part of the MADIS - RGPD Management application.
  *
  * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
- * @author ANODE <contact@agence-anode.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,42 +21,17 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Admin\Dictionary;
+namespace App\Domain\Reporting\Metrics;
 
-use App\Application\Dictionary\SimpleDictionary;
-
-class DuplicationTargetOptionDictionary extends SimpleDictionary
+interface MetricInterface
 {
-    const NAME = 'admin_duplication_target_option';
-
-    const KEY_PER_TYPE         = 'per_type';
-    const KEY_PER_COLLECTIVITY = 'per_collectivity';
-
-    public function __construct()
-    {
-        parent::__construct(self::NAME, self::getData());
-    }
+    /**
+     * Return the template name.
+     */
+    public function getTemplateViewName(): string;
 
     /**
-     * Get an array of Types.
-     *
-     * @return array
+     * Return all data for metric view.
      */
-    public static function getData()
-    {
-        return [
-            self::KEY_PER_TYPE         => 'Par type',
-            self::KEY_PER_COLLECTIVITY => 'Par liste de choix',
-        ];
-    }
-
-    /**
-     * Get keys of the Types array.
-     *
-     * @return array
-     */
-    public static function getDataKeys()
-    {
-        return \array_keys(self::getData());
-    }
+    public function getData(): array;
 }

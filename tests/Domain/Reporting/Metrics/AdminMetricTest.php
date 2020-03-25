@@ -4,7 +4,6 @@
  * This file is part of the MADIS - RGPD Management application.
  *
  * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
- * @author ANODE <contact@agence-anode.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,42 +21,36 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Admin\Dictionary;
+namespace App\Tests\Domain\Reporting\Metrics;
 
-use App\Application\Dictionary\SimpleDictionary;
+use App\Domain\Reporting\Metrics\AdminMetric;
+use App\Domain\Reporting\Metrics\MetricInterface;
+use PHPUnit\Framework\TestCase;
 
-class DuplicationTargetOptionDictionary extends SimpleDictionary
+class AdminMetricTest extends TestCase
 {
-    const NAME = 'admin_duplication_target_option';
+    /**
+     * @var AdminMetric
+     */
+    private $adminMetric;
 
-    const KEY_PER_TYPE         = 'per_type';
-    const KEY_PER_COLLECTIVITY = 'per_collectivity';
-
-    public function __construct()
+    protected function setUp()
     {
-        parent::__construct(self::NAME, self::getData());
+        $this->adminMetric = new AdminMetric();
     }
 
-    /**
-     * Get an array of Types.
-     *
-     * @return array
-     */
-    public static function getData()
+    public function testItInstanceOfMetricInterface()
     {
-        return [
-            self::KEY_PER_TYPE         => 'Par type',
-            self::KEY_PER_COLLECTIVITY => 'Par liste de choix',
-        ];
+        $this->assertInstanceOf(MetricInterface::class, $this->adminMetric);
     }
 
-    /**
-     * Get keys of the Types array.
-     *
-     * @return array
-     */
-    public static function getDataKeys()
+    public function testItReturnTemplateName()
     {
-        return \array_keys(self::getData());
+        $this->assertSame('Reporting/Dashboard/index_admin.html.twig', $this->adminMetric->getTemplateViewName());
+    }
+
+    public function testItReturnData()
+    {
+        $this->assertIsArray($this->adminMetric->getData());
     }
 }

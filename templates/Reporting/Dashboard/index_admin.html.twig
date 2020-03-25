@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'reporting_dashboard' %}
+{% set menuItem = 'reporting_dashboard' %}
+
+{% block body_head %}
+    <h1>
+        {{ 'reporting.dashboard.title.index'|trans }}
+        <small>{{ app.user.collectivity }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
