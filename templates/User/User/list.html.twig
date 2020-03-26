@@ -65,12 +65,14 @@
                             <th>{{ 'user.user.list.collectivity'|trans }}</th>
                             <th>{{ 'user.user.list.roles'|trans }}</th>
                             <th>{{ 'user.user.list.enabled'|trans }}</th>
+                            <th>{{ 'user.user.list.last_login'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for object in objects %}
                         <tr>
+                            {% dump(object) %}
                             <td>{{ object.firstName }}</td>
                             <td>{{ object.lastName }}</td>
                             <td>{{ object.email }}</td>
@@ -100,6 +102,7 @@
                                     <span class="badge bg-red">{{ 'user.collectivity.title.label'|trans }}</span>
                                 {% endif %}
                             </td>
+                            <td>{{ object.lastLogin is empty ? "" : object.lastLogin|date("Y-m-d H:i:s", "Europe/Paris") }}</td>
                             <td>
                                 {# Impersonate #}
                                 {% if is_granted('CAN_CONNECT', object) and app.user != object and object.deletedAt is null %}
