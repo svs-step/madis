@@ -4,7 +4,6 @@
  * This file is part of the MADIS - RGPD Management application.
  *
  * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
- * @author Donovan Bourlard <donovan@awkan.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,25 +21,37 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Registry\Repository;
+namespace App\Tests\Domain\Reporting\Generator\Csv;
 
-use App\Application\DDD\Repository\CRUDRepositoryInterface;
-use App\Domain\User\Model\Collectivity;
+use App\Domain\Reporting\Generator\Csv\AbstractGenerator;
+use App\Domain\Reporting\Generator\Csv\GeneratorInterface;
+use PHPUnit\Framework\TestCase;
 
-interface Contractor extends CRUDRepositoryInterface
+class ExportCsvHandlerTest extends TestCase
 {
     /**
-     * Find all contractors by associated collectivity.
-     *
-     * @param Collectivity $collectivity The collectivity to search with
-     * @param array        $order        Order results
-     *
-     * @return array The array of contractors given by the collectivity
+     * @var FooCsvGenerator
      */
-    public function findAllByCollectivity(Collectivity $collectivity, array $order = []);
+    private $generator;
 
+    protected function setUp()
+    {
+        $this->generator = new FooCsvGenerator();
+    }
+
+    public function testItIsAnInstanceOfGeneratorInterfaceGeneratorInferface()
+    {
+        $this->assertInstanceOf(GeneratorInterface::class, $this->generator);
+    }
+}
+
+class FooCsvGenerator extends AbstractGenerator
+{
     /**
-     * Count all by collectivity.
+     * {@inheritdoc}
      */
-    public function countAllByCollectivity(Collectivity $collectivity);
+    public function initializeExtract(): array
+    {
+        return [['header1'], ['data1']];
+    }
 }

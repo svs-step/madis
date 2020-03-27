@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\Registry\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
@@ -127,5 +128,42 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function countPlanifiedByCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+        $qb->andWhere($qb->expr()->isNotNull('o.planificationDate'));
+        $qb->andWhere($qb->expr()->eq('o.collectivity', ':collectivity'));
+        $qb->andWhere($qb->expr()->neq('o.status', ':status'));
+        $qb->setParameters([
+            'status'       => MesurementStatusDictionary::STATUS_APPLIED,
+            'collectivity' => $collectivity,
+        ]);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function countAppliedByCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+        $qb->andWhere($qb->expr()->eq('o.collectivity', ':collectivity'));
+        $qb->andWhere($qb->expr()->eq('o.status', ':status'));
+        $qb->setParameters([
+            'status'       => MesurementStatusDictionary::STATUS_APPLIED,
+            'collectivity' => $collectivity,
+        ]);
+
+        return $qb->getQuery()->getSingleScalarResult();
     }
 }

@@ -24,8 +24,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Controller;
 
-use App\Domain\Reporting\Metrics\MetricsHandler;
+use App\Domain\Reporting\Handler\ExportCsvHandler;
+use App\Domain\Reporting\Handler\MetricsHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class DashboardController extends AbstractController
 {
@@ -34,9 +36,15 @@ class DashboardController extends AbstractController
      */
     private $metricsHandler;
 
-    public function __construct(MetricsHandler $metricsHandler)
+    /**
+     * @var ExportCsvHandler
+     */
+    private $exportCsvHandler;
+
+    public function __construct(MetricsHandler $metricsHandler, ExportCsvHandler $exportCsvHandler)
     {
-        $this->metricsHandler = $metricsHandler;
+        $this->metricsHandler   = $metricsHandler;
+        $this->exportCsvHandler = $exportCsvHandler;
     }
 
     /**
@@ -52,5 +60,19 @@ class DashboardController extends AbstractController
         return $this->render($metrics->getTemplateViewName(), [
             'data' => $metrics->getData(),
         ]);
+    }
+
+    /**
+     * Generate CSV file for collectivity or treatment.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function exportCsvAction(string $exportType)
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('You can\'t access to csv export');
+        }
+
+        return $this->exportCsvHandler->generateCsv($exportType);
     }
 }

@@ -21,10 +21,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Domain\Reporting\Metrics;
+namespace App\Tests\Domain\Reporting\Handler;
 
+use App\Domain\Reporting\Handler\MetricsHandler;
 use App\Domain\Reporting\Metrics\AdminMetric;
-use App\Domain\Reporting\Metrics\MetricsHandler;
 use App\Domain\Reporting\Metrics\UserMetric;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model\User;

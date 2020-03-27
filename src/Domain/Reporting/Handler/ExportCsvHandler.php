@@ -21,49 +21,33 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Reporting\Metrics;
+namespace App\Domain\Reporting\Handler;
 
-use App\Domain\User\Dictionary\UserRoleDictionary;
-use Symfony\Component\Security\Core\Security;
+use App\Domain\Reporting\Generator\Csv\CollectivityGenerator;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class MetricsHandler
+class ExportCsvHandler
 {
-    /**
-     * @var Security
-     */
-    private $security;
+    const COLLECTIVITY_TYPE = 'collectivity';
 
     /**
-     * @var UserMetric
+     * @var CollectivityGenerator
      */
-    private $userMetric;
+    private $collectivityGenerator;
 
-    /**
-     * @var AdminMetric
-     */
-    private $adminMetric;
-
-    public function __construct(
-        Security $security,
-        UserMetric $userMetric,
-        AdminMetric $adminMetric
-    ) {
-        $this->security    = $security;
-        $this->userMetric  = $userMetric;
-        $this->adminMetric = $adminMetric;
+    public function __construct(CollectivityGenerator $collectivityGenerator)
+    {
+        $this->collectivityGenerator = $collectivityGenerator;
     }
 
-    public function getHandler(): MetricInterface
+    public function generateCsv(string $type): BinaryFileResponse
     {
-        $user = $this->security->getUser();
-        $role = $user->getRoles()[0];
-
-        switch ($role) {
-            case UserRoleDictionary::ROLE_ADMIN:
-                return $this->adminMetric;
+        switch ($type) {
+            case self::COLLECTIVITY_TYPE:
+                return $this->collectivityGenerator->generateResponse(self::COLLECTIVITY_TYPE);
                 break;
             default:
-                return $this->userMetric;
+                throw new \LogicException('The type ' . $type . ' is not support for csv export');
         }
     }
 }

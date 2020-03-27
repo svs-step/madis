@@ -302,4 +302,31 @@ class Violation implements Repository\Violation
             ->getResult()
             ;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function countAllByCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+        $this->addCollectivityClause($qb, $collectivity);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneOrNullLastUpdateByCollectivity(Collectivity $collectivity): ?Model\Violation
+    {
+        $qb = $this->createQueryBuilder();
+
+        $this->addCollectivityClause($qb, $collectivity);
+        $qb->addOrderBy('o.updatedAt', 'DESC');
+        $qb->setMaxResults(1);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

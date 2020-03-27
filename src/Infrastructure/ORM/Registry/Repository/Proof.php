@@ -304,4 +304,37 @@ class Proof implements Repository\Proof
             ->getResult()
             ;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneOrNullByTypeAndCollectivity(string $type, Collectivity $collectivity): ?\App\Domain\Registry\Model\Proof
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->andWhere($qb->expr()->eq('o.type', ':type'));
+        $qb->andWhere($qb->expr()->eq('o.collectivity', ':collectivity'));
+        $qb->setParameters([
+            'type'         => $type,
+            'collectivity' => $collectivity,
+        ]);
+        $qb->addOrderBy('o.createdAt', 'DESC');
+        $qb->setMaxResults(1);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function countAllByCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+        $qb->andWhere($qb->expr()->eq('o.collectivity', ':collectivity'));
+        $qb->setParameter('collectivity', $collectivity);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }

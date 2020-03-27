@@ -59,4 +59,14 @@ interface Treatment extends CRUDRepositoryInterface
      * @return array The array of treatments given by the collectivity
      */
     public function findAllActiveByCollectivity(Collectivity $collectivity, bool $active = true, array $order = []);
+
+    /**
+     * Count all by collectivity.
+     */
+    public function countAllByCollectivity(Collectivity $collectivity);
+
+    /**
+     * Get the last updated treatment by collectivity.
+     */
+    public function findOneOrNullLastUpdateByCollectivity(Collectivity $collectivity): ?\App\Domain\Registry\Model\Treatment;
 }

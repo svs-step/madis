@@ -113,4 +113,14 @@ interface Proof extends RepositoryInterface
      * @return array The array of proofs given by the collectivity
      */
     public function findAllArchivedByCollectivity(Collectivity $collectivity, bool $archived = false, array $order = []);
+
+    /**
+     * Get the last proof by type and collectivity.
+     */
+    public function findOneOrNullByTypeAndCollectivity(string $type, Collectivity $collectivity): ?\App\Domain\Registry\Model\Proof;
+
+    /**
+     * Count all by collectivity.
+     */
+    public function countAllByCollectivity(Collectivity $collectivity);
 }

@@ -6,3 +6,13 @@ services:
 
     App\Domain\:
         resource: '../../src/Domain/*/{Generator,Handler,Metrics}'
+
+    App\Domain\Reporting\Generator\Csv\CollectivityGenerator:
+        arguments:
+            $defaultDpoCivility: '%env(APP_DPO_CIVILITY)%'
+            $defaultDpoFirstName: '%env(APP_DPO_FIRST_NAME)%'
+            $defaultDpoLastName: '%env(APP_DPO_LAST_NAME)%'
+            $defaultDpoCompany: '%env(APP_DPO_COMPANY)%'
+            $defaultDpoJob: '%env(APP_DPO_JOB)%'
+            $defaultDpoMail: '%env(APP_DPO_MAIL)%'
+            $defaultDpoPhoneNumber: '%env(APP_DPO_PHONE_NUMBER)%'

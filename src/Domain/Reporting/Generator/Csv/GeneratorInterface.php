@@ -4,7 +4,6 @@
  * This file is part of the MADIS - RGPD Management application.
  *
  * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
- * @author Donovan Bourlard <donovan@awkan.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,25 +21,27 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Registry\Repository;
+namespace App\Domain\Reporting\Generator\Csv;
 
-use App\Application\DDD\Repository\CRUDRepositoryInterface;
-use App\Domain\User\Model\Collectivity;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-interface Contractor extends CRUDRepositoryInterface
+interface GeneratorInterface
 {
-    /**
-     * Find all contractors by associated collectivity.
-     *
-     * @param Collectivity $collectivity The collectivity to search with
-     * @param array        $order        Order results
-     *
-     * @return array The array of contractors given by the collectivity
-     */
-    public function findAllByCollectivity(Collectivity $collectivity, array $order = []);
+    const DATE_FORMAT      = 'd/m/Y';
+    const DATE_TIME_FORMAT = 'd/m/Y à H:i';
+    const DATE_TIME_ZONE   = 'Europe/Paris';
 
     /**
-     * Count all by collectivity.
+     * Initialize the csv extract.
      */
-    public function countAllByCollectivity(Collectivity $collectivity);
+    public function initializeExtract(): array;
+
+    /**
+     * Generate the response
+     * - This response parse data to a csv
+     * - Prepare it in a BinaryFileResponse.
+     *
+     * @return BinaryFileResponse The response
+     */
+    public function generateResponse(string $documentName): BinaryFileResponse;
 }

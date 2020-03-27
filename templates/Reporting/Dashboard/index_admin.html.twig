@@ -15,3 +15,25 @@
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
 
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+
+            {# EXPORT CSV #}
+            <div class="col-sm-6 col-xs-12">
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <p>Exporter les collectivités</p>
+                    </div>
+                    <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::COLLECTIVITY_TYPE')}) }}" class="small-box-footer">
+                        Exporter <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+

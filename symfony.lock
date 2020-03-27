@@ -209,6 +209,9 @@
     "phpoffice/phpword": {
         "version": "v0.14.0"
     },
+    "phpstan/phpstan": {
+        "version": "0.12.18"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
