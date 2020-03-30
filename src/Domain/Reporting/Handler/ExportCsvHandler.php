@@ -24,20 +24,28 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Handler;
 
 use App\Domain\Reporting\Generator\Csv\CollectivityGenerator;
+use App\Domain\Reporting\Generator\Csv\TreatmentGenerator;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ExportCsvHandler
 {
     const COLLECTIVITY_TYPE = 'collectivity';
+    const TREATMENT_TYPE    = 'treatment';
 
     /**
      * @var CollectivityGenerator
      */
     private $collectivityGenerator;
 
-    public function __construct(CollectivityGenerator $collectivityGenerator)
+    /**
+     * @var TreatmentGenerator
+     */
+    private $treatmentGenerator;
+
+    public function __construct(CollectivityGenerator $collectivityGenerator, TreatmentGenerator $treatmentGenerator)
     {
         $this->collectivityGenerator = $collectivityGenerator;
+        $this->treatmentGenerator    = $treatmentGenerator;
     }
 
     public function generateCsv(string $type): BinaryFileResponse
@@ -45,6 +53,9 @@ class ExportCsvHandler
         switch ($type) {
             case self::COLLECTIVITY_TYPE:
                 return $this->collectivityGenerator->generateResponse(self::COLLECTIVITY_TYPE);
+                break;
+            case self::TREATMENT_TYPE:
+                return $this->treatmentGenerator->generateResponse(self::TREATMENT_TYPE);
                 break;
             default:
                 throw new \LogicException('The type ' . $type . ' is not support for csv export');

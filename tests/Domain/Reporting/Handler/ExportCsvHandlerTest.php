@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Reporting\Handler;
 
 use App\Domain\Reporting\Generator\Csv\CollectivityGenerator;
+use App\Domain\Reporting\Generator\Csv\TreatmentGenerator;
 use App\Domain\Reporting\Handler\ExportCsvHandler;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -36,6 +37,11 @@ class ExportCsvHandlerTest extends TestCase
     private $collectivityGenerator;
 
     /**
+     * @var TreatmentGenerator
+     */
+    private $treatmentGenerator;
+
+    /**
      * @var ExportCsvHandler
      */
     private $handler;
@@ -43,9 +49,11 @@ class ExportCsvHandlerTest extends TestCase
     protected function setUp()
     {
         $this->collectivityGenerator = $this->prophesize(CollectivityGenerator::class);
+        $this->treatmentGenerator    = $this->prophesize(TreatmentGenerator::class);
 
         $this->handler = new ExportCsvHandler(
-            $this->collectivityGenerator->reveal()
+            $this->collectivityGenerator->reveal(),
+            $this->treatmentGenerator->reveal()
         );
     }
 
@@ -53,6 +61,14 @@ class ExportCsvHandlerTest extends TestCase
     {
         $this->collectivityGenerator->generateResponse(ExportCsvHandler::COLLECTIVITY_TYPE)->shouldBeCalled()->willReturn($this->prophesize(BinaryFileResponse::class));
         $response = $this->handler->generateCsv(ExportCsvHandler::COLLECTIVITY_TYPE);
+
+        $this->assertInstanceOf(BinaryFileResponse::class, $response);
+    }
+
+    public function testItReturnAnBinaryResponseOnTreatmentType()
+    {
+        $this->treatmentGenerator->generateResponse(ExportCsvHandler::TREATMENT_TYPE)->shouldBeCalled()->willReturn($this->prophesize(BinaryFileResponse::class));
+        $response = $this->handler->generateCsv(ExportCsvHandler::TREATMENT_TYPE);
 
         $this->assertInstanceOf(BinaryFileResponse::class, $response);
     }

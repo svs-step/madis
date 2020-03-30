@@ -32,8 +32,18 @@
                 </div>
             </div>
 
+
+            <div class="col-sm-6 col-xs-12">
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <p>Exporter les traitements</p>
+                    </div>
+                    <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::TREATMENT_TYPE')}) }}" class="small-box-footer">
+                        Exporter <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
 {% endblock %}
-
-
