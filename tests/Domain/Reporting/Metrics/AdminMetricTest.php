@@ -25,10 +25,33 @@ namespace App\Tests\Domain\Reporting\Metrics;
 
 use App\Domain\Reporting\Metrics\AdminMetric;
 use App\Domain\Reporting\Metrics\MetricInterface;
+use App\Infrastructure\ORM\Maturity;
+use App\Infrastructure\ORM\Registry;
+use App\Infrastructure\ORM\User;
 use PHPUnit\Framework\TestCase;
 
 class AdminMetricTest extends TestCase
 {
+    /**
+     * @var User\Repository\Collectivity
+     */
+    private $collectivityRepository;
+
+    /**
+     * @var Registry\Repository\Mesurement
+     */
+    private $mesurementRepository;
+
+    /**
+     * @var Registry\Repository\Proof
+     */
+    private $proofRepository;
+
+    /**
+     * @var Maturity\Repository\Survey
+     */
+    private $surveyRepository;
+
     /**
      * @var AdminMetric
      */
@@ -36,7 +59,17 @@ class AdminMetricTest extends TestCase
 
     protected function setUp()
     {
-        $this->adminMetric = new AdminMetric();
+        $this->collectivityRepository = $this->prophesize(User\Repository\Collectivity::class);
+        $this->mesurementRepository   = $this->prophesize(Registry\Repository\Mesurement::class);
+        $this->proofRepository        = $this->prophesize(Registry\Repository\Proof::class);
+        $this->surveyRepository       = $this->prophesize(Maturity\Repository\Survey::class);
+
+        $this->adminMetric = new AdminMetric(
+            $this->collectivityRepository->reveal(),
+            $this->mesurementRepository->reveal(),
+            $this->proofRepository->reveal(),
+            $this->surveyRepository->reveal()
+        );
     }
 
     public function testItInstanceOfMetricInterface()
@@ -51,6 +84,8 @@ class AdminMetricTest extends TestCase
 
     public function testItReturnData()
     {
+        $this->collectivityRepository->findAllActive()->shouldBeCalled()->willReturn([]);
+
         $this->assertIsArray($this->adminMetric->getData());
     }
 }

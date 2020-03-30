@@ -60,14 +60,21 @@ interface Mesurement extends CRUDRepositoryInterface
     /**
      * Count all planified and not applied mesurements by collectivity.
      *
-     * @return array The array of mesurements given by criteria
+     * @return string The count of mesurements
      */
     public function countPlanifiedByCollectivity(Collectivity $collectivity);
 
     /**
      * Count all applied mesurements by collectivity.
      *
-     * @return array The array of mesurements given by criteria
+     * @return string The count of mesurements
      */
     public function countAppliedByCollectivity(Collectivity $collectivity);
+
+    /**
+     * Mesurement planified average mesurements.
+     *
+     * @return string The average
+     */
+    public function planifiedAverageOnAllCollectivity();
 }

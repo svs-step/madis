@@ -44,4 +44,11 @@ interface Survey extends CRUDRepositoryInterface
      * Find previous survey by created_at date.
      */
     public function findPreviousById(string $id, int $limit = 1): iterable;
+
+    /**
+     * Average survey during the last year.
+     *
+     * @return string The count of mesurements
+     */
+    public function averageSurveyDuringLastYear();
 }

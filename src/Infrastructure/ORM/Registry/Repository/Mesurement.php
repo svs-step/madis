@@ -166,4 +166,24 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
 
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function planifiedAverageOnAllCollectivity()
+    {
+        $sql = 'SELECT AVG(a.rcount) FROM (
+            SELECT COUNT(rm.id) as rcount
+            FROM user_collectivity uc
+            LEFT OUTER JOIN registry_mesurement rm ON (uc.id = rm.collectivity_id AND rm.planification_date is not null
+            AND rm.status = "applied" )
+            WHERE uc.active = 1
+            GROUP BY uc.id
+        ) a';
+
+        $stmt = $this->getManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchColumn();
+    }
 }

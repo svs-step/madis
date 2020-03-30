@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\ORM\Registry\Repository;
 
+use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
@@ -336,5 +337,43 @@ class Proof implements Repository\Proof
         $qb->setParameter('collectivity', $collectivity);
 
         return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function averageProofFiled()
+    {
+        $sql = 'SELECT AVG(a.rcount) FROM (
+            SELECT COUNT(rp.id) as rcount
+            FROM user_collectivity uc
+            LEFT OUTER JOIN registry_proof rp ON uc.id = rp.collectivity_id
+            WHERE uc.active = 1
+            GROUP BY uc.id
+        ) a';
+
+        $stmt = $this->getManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchColumn();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function averageBalanceSheetProof()
+    {
+        $sql = 'SELECT AVG(a.rcount) FROM (
+            SELECT IF(COUNT(rp.id) > 0, 1, 0) as rcount
+            FROM user_collectivity uc
+            LEFT OUTER JOIN registry_proof rp ON (uc.id = rp.collectivity_id AND rp.created_at >= NOW() - INTERVAL 1 YEAR AND rp.type = "' . ProofTypeDictionary::TYPE_BALANCE_SHEET . '")
+            WHERE uc.active = 1
+            GROUP BY uc.id
+        ) a';
+
+        $stmt = $this->getManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchColumn();
     }
 }

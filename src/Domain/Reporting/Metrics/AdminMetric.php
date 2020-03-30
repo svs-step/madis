@@ -23,14 +23,89 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Metrics;
 
+use App\Domain\User\Dictionary\CollectivityTypeDictionary;
+use App\Infrastructure\ORM\Maturity;
+use App\Infrastructure\ORM\Registry;
+use App\Infrastructure\ORM\User;
+
 class AdminMetric implements MetricInterface
 {
+    /**
+     * @var User\Repository\Collectivity
+     */
+    private $collectivityRepository;
+
+    /**
+     * @var Registry\Repository\Mesurement
+     */
+    private $mesurementRepository;
+
+    /**
+     * @var Registry\Repository\Proof
+     */
+    private $proofRepository;
+
+    /**
+     * @var Maturity\Repository\Survey
+     */
+    private $surveyRepository;
+
+    public function __construct(
+        User\Repository\Collectivity $collectivityRepository,
+        Registry\Repository\Mesurement $mesurementRepository,
+        Registry\Repository\Proof $proofRepository,
+        Maturity\Repository\Survey $surveyRepository
+    ) {
+        $this->collectivityRepository = $collectivityRepository;
+        $this->mesurementRepository   = $mesurementRepository;
+        $this->proofRepository        = $proofRepository;
+        $this->surveyRepository       = $surveyRepository;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function getData(): array
     {
-        return [];
+        $collectiviyByType = [];
+        foreach (CollectivityTypeDictionary::getTypesKeys() as $type) {
+            $collectiviyByType[$type] = 0;
+        }
+
+        $averageMesurement       = floatval($this->mesurementRepository->planifiedAverageOnAllCollectivity());
+        $averageProof            = floatval($this->proofRepository->averageProofFiled());
+        $averageBalanceSheetPoof = floatval($this->proofRepository->averageBalanceSheetProof());
+        $averageSurveyLastYer    = floatval($this->surveyRepository->averageSurveyDuringLastYear());
+
+        $data = [
+            'collectivityByType' => [
+                'value' => [
+                    'all'  => 0,
+                    'type' => $collectiviyByType,
+                ],
+            ],
+            'mesurementByCollectivity' => [
+                'average' => $averageMesurement,
+            ],
+            'proofByCollectivity' => [
+                'average' => $averageProof,
+            ],
+            'balanceSheetProofByCollectivity' => [
+                'average' => $averageBalanceSheetPoof * 100,
+            ],
+            'surveyLastYear' => [
+                'average' => $averageSurveyLastYer * 100,
+            ],
+        ];
+
+        $collectivities = $this->collectivityRepository->findAllActive();
+
+        $data['collectivityByType']['value']['all'] = count($collectivities);
+        foreach ($collectivities as $collectivity) {
+            ++$data['collectivityByType']['value']['type'][$collectivity->getType()];
+        }
+
+        return $data;
     }
 
     /**

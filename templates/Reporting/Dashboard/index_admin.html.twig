@@ -16,12 +16,73 @@
 {% endblock %}
 
 {% block body %}
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="fa fa-adjust"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Actions planifiées (moyenne)</span>
+                    <span class="info-box-number">{{ data.mesurementByCollectivity.average|number_format(2)}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="fa fa-file"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Preuves déposées (moyenne)</span>
+                    <span class="info-box-number">{{ data.proofByCollectivity.average|number_format(2)}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix visible-sm-block"></div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-clipboard-list"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text" style="white-space: normal;">Collectivités ayant déposées un bilan (12 der mois)</span>
+                    <span class="info-box-number">{{ data.balanceSheetProofByCollectivity.average|number_format }}<small>%</small></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="fa fa-chart-bar"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text" style="white-space: normal;">Collectivités ayant fait un indice de mat. (12 der mois)</span>
+                    <span class="info-box-number">{{ data.surveyLastYear.average|number_format }}<small>%</small></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
-        <div class="col-md-6 col-xs-12">
+
+            <div class="col-sm-3 col-xs-12">
+                <div class="box box-solid">
+                    <div class="box-header with-border"><h3 class="box-title">Collectivités</h3></div>
+                    <div class="box-body">
+                        {% if 0 == data.collectivityByType.value.all %}
+                            Aucune donnée à afficher
+                        {% else %}
+                            <div>
+                                <canvas id="collectivity-type" width="400" height="400"></canvas>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
 
             {# EXPORT CSV #}
-            <div class="col-sm-6 col-xs-12">
+            <div class="col-sm-3 col-xs-12">
                 <div class="small-box bg-yellow">
                     <div class="inner">
                         <p>Exporter les collectivités</p>
@@ -33,7 +94,7 @@
             </div>
 
 
-            <div class="col-sm-6 col-xs-12">
+            <div class="col-sm-3 col-xs-12">
                 <div class="small-box bg-yellow">
                     <div class="inner">
                         <p>Exporter les traitements</p>
@@ -44,6 +105,47 @@
                 </div>
             </div>
 
-        </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+
+    {# DEFINE DATA #}
+    <script>
+        let colorBlue = 'rgba(54, 162, 235, 1)';
+        let colorBlueOpacity = 'rgba(54, 162, 235, 0.5)';
+        let colorGreen = ' rgba(48, 183, 44, 1)';
+        let colorGreenOpacity = ' rgba(48, 183, 44, 0.5)';
+        let colorPurple = 'rgba(153, 51, 204, 1)';
+        let colorPurpleOpacity = 'rgba(153, 51, 204, 0.5)';
+        let colorRed = 'rgba(255, 99, 132, 1)';
+        let colorRedOpacity = 'rgba(255, 99, 132, 0.5)';
+        let colorTeal = 'rgba(0, 105, 92, 1)';
+        let colorTealOpacity = 'rgba(0, 105, 92, 0.5)';
+        let colorOrange = 'rgb(255, 136, 0, 1)';
+        let colorOrangeOpacity = 'rgb(255, 136, 0, 0.5)';
+
+        // COLLECTIVITY BY TYPE
+        let collectivityByTypeLabel = [
+            'Commune',
+            'CCAS',
+            'EPCI',
+            'CIAS',
+            'Syndicat départemental',
+            'Autre',
+        ];
+        let collectivityByTypeData = [
+            {{ data.collectivityByType.value.type.commune }},
+            {{ data.collectivityByType.value.type.ccas }},
+            {{ data.collectivityByType.value.type.epci }},
+            {{ data.collectivityByType.value.type.cias }},
+            {{ data.collectivityByType.value.type.departmental_union }},
+            {{ data.collectivityByType.value.type.other }},
+        ];
+    </script>
+
+    {# USE DATA & DEFINE GRAPH #}
+    <script src="{{ asset('build/js/dashboard_admin.js') }}"></script>
 {% endblock %}

@@ -123,4 +123,18 @@ interface Proof extends RepositoryInterface
      * Count all by collectivity.
      */
     public function countAllByCollectivity(Collectivity $collectivity);
+
+    /**
+     * Average of proof filed.
+     *
+     * @return string The average
+     */
+    public function averageProofFiled();
+
+    /**
+     * Average balance sheet proof created during the last year.
+     *
+     * @return string The count of mesurements
+     */
+    public function averageBalanceSheetProof();
 }

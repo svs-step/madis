@@ -74,4 +74,25 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllActive(bool $active = true, array $order = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->andWhere('o.active = :active')
+           ->setParameter('active', $active)
+        ;
+
+        foreach ($order as $key => $dir) {
+            $qb->addOrderBy("o.{$key}", $dir);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
