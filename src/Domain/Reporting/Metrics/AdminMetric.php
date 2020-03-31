@@ -76,12 +76,22 @@ class AdminMetric implements MetricInterface
         $averageProof            = floatval($this->proofRepository->averageProofFiled());
         $averageBalanceSheetPoof = floatval($this->proofRepository->averageBalanceSheetProof());
         $averageSurveyLastYer    = floatval($this->surveyRepository->averageSurveyDuringLastYear());
+        $collectivities          = $this->collectivityRepository->findAllActive();
+
+        $totalCollectivity = count($collectivities);
 
         $data = [
             'collectivityByType' => [
                 'value' => [
-                    'all'  => 0,
+                    'all'  => $totalCollectivity,
                     'type' => $collectiviyByType,
+                ],
+            ],
+            'collectivityByAddressInsee' => [
+                'value' => [
+                    'all'          => $totalCollectivity,
+                    'addressInsee' => [],
+                    'dpoPercent'   => 0,
                 ],
             ],
             'mesurementByCollectivity' => [
@@ -98,11 +108,21 @@ class AdminMetric implements MetricInterface
             ],
         ];
 
-        $collectivities = $this->collectivityRepository->findAllActive();
-
-        $data['collectivityByType']['value']['all'] = count($collectivities);
+        $nbIsDifferentDpo = 0;
         foreach ($collectivities as $collectivity) {
+            if (!\is_null($collectivity->getAddress()) && !\is_null($collectivity->getAddress()->getInsee())) {
+                $data['collectivityByAddressInsee']['value']['addressInsee'][] = $collectivity->getAddress()->getInsee();
+            }
+
+            if (false === $collectivity->isDifferentDpo()) {
+                ++$nbIsDifferentDpo;
+            }
+
             ++$data['collectivityByType']['value']['type'][$collectivity->getType()];
+        }
+
+        if ($totalCollectivity > 0) {
+            $data['collectivityByAddressInsee']['value']['dpoPercent'] = ($nbIsDifferentDpo * 100) / $totalCollectivity;
         }
 
         return $data;

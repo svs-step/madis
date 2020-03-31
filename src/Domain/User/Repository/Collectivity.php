@@ -58,7 +58,7 @@ interface Collectivity extends CRUDRepositoryInterface
      * @param bool  $active Get active / inactive activity
      * @param array $order  Order results
      *
-     * @return array The array of collectivity
+     * @return Model\Collectivity[] The array of collectivity
      */
     public function findAllActive(bool $active = true, array $order = []);
 }
