@@ -6,6 +6,7 @@ twig:
     form_themes:
         - 'bootstrap_3_horizontal_layout.html.twig'
         - '_Utils/form_theme.html.twig'
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
 
     date:
         format: d/m/Y H:i

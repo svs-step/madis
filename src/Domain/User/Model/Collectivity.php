@@ -111,6 +111,16 @@ class Collectivity
     private $users;
 
     /**
+     * @var string|null
+     */
+    private $reportingBlockManagementCommitment;
+
+    /**
+     * @var string|null
+     */
+    private $reportingBlockContinuousImprovement;
+
+    /**
      * Collectivity constructor.
      *
      * @throws \Exception
@@ -280,5 +290,25 @@ class Collectivity
     public function setUsers(Collection $users): void
     {
         $this->users = $users;
+    }
+
+    public function getReportingBlockManagementCommitment(): ?string
+    {
+        return $this->reportingBlockManagementCommitment;
+    }
+
+    public function setReportingBlockManagementCommitment(?string $reportingBlockManagementCommitment): void
+    {
+        $this->reportingBlockManagementCommitment = $reportingBlockManagementCommitment;
+    }
+
+    public function getReportingBlockContinuousImprovement(): ?string
+    {
+        return $this->reportingBlockContinuousImprovement;
+    }
+
+    public function setReportingBlockContinuousImprovement(?string $reportingBlockContinuousImprovement): void
+    {
+        $this->reportingBlockContinuousImprovement = $reportingBlockContinuousImprovement;
     }
 }
