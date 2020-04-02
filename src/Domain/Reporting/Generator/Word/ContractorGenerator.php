@@ -71,6 +71,13 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
         }
 
         $section->addTitle('Registre des sous-traitants', 2);
+
+        if (empty($data)) {
+            $section->addText('Il n’y a aucun sous-traitant identifié.');
+
+            return;
+        }
+
         $section->addText("Un recensement des sous-traitants gérants des données à caractère personnel de '{$collectivity}' a été effectué.");
         $section->addText("Il y a {$nbContractors} sous-traitants identifiés, les clauses contractuelles de {$nbVerifiedContractualClauses} d’entre eux ont été vérifiées. {$nbConform} sous-traitants sont conforme au RGPD.");
         $this->addTable($section, $overview, true, self::TABLE_ORIENTATION_HORIZONTAL);

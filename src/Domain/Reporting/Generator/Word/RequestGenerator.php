@@ -66,6 +66,13 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
         }
 
         $section->addTitle('Registre des demandes de personnes concernées', 2);
+
+        if (empty($data)) {
+            $section->addText('Il n’y a aucune demande des personnes concernées.');
+
+            return;
+        }
+
         $section->addText("Un registre des demandes des personnes concernées est tenu à jour par '{$collectivity}'.");
         $section->addText("Il y a eu {$nbTotal} demandes des personnes concernées.");
 
