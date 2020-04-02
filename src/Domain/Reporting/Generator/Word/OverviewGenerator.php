@@ -153,7 +153,7 @@ class OverviewGenerator extends AbstractGenerator
 
     public function generateManagementSystemAndCompliance(Section $section, array $maturity = [], array $mesurements = []): void
     {
-        $section->addTitle('Système de management des DCP et conformité', 1);
+        $section->addTitle('Système de management des données à caractère personnel et conformité', 1);
 
         $this->maturityGenerator->addGlobalOverview($section, $maturity);
         $this->mesurementGenerator->addGlobalOverview($section, $mesurements);
@@ -163,7 +163,7 @@ class OverviewGenerator extends AbstractGenerator
     {
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
         $section->addTitle("Principe d'amélioration continue", 1);
-        $section->addText("Le système de management des DCP de '{$collectivity}' s’inscrit dans un principe d’amélioration continue. En conséquence :");
+        $section->addText("Le système de management des données à caractère personnel de '{$collectivity}' s’inscrit dans un principe d’amélioration continue. En conséquence :");
         $section->addListItem('Le référent opérationnel continue de mettre à jour le registre avec les éventuels nouveaux traitements effectués.');
         $section->addListItem('Le référent opérationnel continue de mettre à jour le registre avec les éventuels nouveaux sous-traitants.');
         $section->addListItem('Le comité génère un bilan chaque année et met en place les mesures correctives adéquates.');
