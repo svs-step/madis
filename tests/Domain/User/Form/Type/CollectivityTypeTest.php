@@ -28,6 +28,7 @@ use App\Domain\User\Form\Type\AddressType;
 use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Form\Type\ContactType;
 use App\Tests\Utils\FormTypeHelper;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -67,19 +68,21 @@ class CollectivityTypeTest extends FormTypeHelper
     public function testBuildFormAdmin(): void
     {
         $builder = [
-            'name'               => TextType::class,
-            'shortName'          => TextType::class,
-            'type'               => DictionaryType::class,
-            'siren'              => NumberType::class,
-            'active'             => ChoiceType::class,
-            'website'            => UrlType::class,
-            'address'            => AddressType::class,
-            'legalManager'       => ContactType::class,
-            'referent'           => ContactType::class,
-            'differentDpo'       => CheckboxType::class,
-            'dpo'                => ContactType::class,
-            'differentItManager' => CheckboxType::class,
-            'itManager'          => ContactType::class,
+            'name'                                => TextType::class,
+            'shortName'                           => TextType::class,
+            'type'                                => DictionaryType::class,
+            'siren'                               => NumberType::class,
+            'active'                              => ChoiceType::class,
+            'website'                             => UrlType::class,
+            'address'                             => AddressType::class,
+            'legalManager'                        => ContactType::class,
+            'referent'                            => ContactType::class,
+            'differentDpo'                        => CheckboxType::class,
+            'dpo'                                 => ContactType::class,
+            'differentItManager'                  => CheckboxType::class,
+            'itManager'                           => ContactType::class,
+            'reportingBlockManagementCommitment'  => CKEditorType::class,
+            'reportingBlockContinuousImprovement' => CKEditorType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
@@ -90,12 +93,14 @@ class CollectivityTypeTest extends FormTypeHelper
     public function testBuildFormUser(): void
     {
         $builder = [
-            'legalManager'       => ContactType::class,
-            'referent'           => ContactType::class,
-            'differentDpo'       => CheckboxType::class,
-            'dpo'                => ContactType::class,
-            'differentItManager' => CheckboxType::class,
-            'itManager'          => ContactType::class,
+            'legalManager'                        => ContactType::class,
+            'referent'                            => ContactType::class,
+            'differentDpo'                        => CheckboxType::class,
+            'dpo'                                 => ContactType::class,
+            'differentItManager'                  => CheckboxType::class,
+            'itManager'                           => ContactType::class,
+            'reportingBlockManagementCommitment'  => CKEditorType::class,
+            'reportingBlockContinuousImprovement' => CKEditorType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(false);

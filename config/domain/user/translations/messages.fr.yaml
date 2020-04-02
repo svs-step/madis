@@ -82,6 +82,9 @@ user:
           it_manager: Responsable informatique
           legal_manager: Responsable de traitement
           referent: Référent Opérationnel
+          reporting_block:
+            management_commitment: Bilan paragraphe "Engagement de la direction"
+            continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
         title:
             create: Créer une collectivité
             delete: Supprimer une collectivité

@@ -1,0 +1,16 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+fos_ck_editor:
+    base_path: "build/ckeditor"
+    js_path:   "build/ckeditor/ckeditor.js"
+    default_config: my_config
+    configs:
+        my_config:
+            toolbar: "custom_toolbar"
+            language: fr
+    toolbars:
+        configs:
+            custom_toolbar: [ ['Bold', 'Italic', 'Underline', '-', 'Undo', 'Redo'],['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'], ]
+
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
