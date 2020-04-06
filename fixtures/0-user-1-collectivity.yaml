@@ -3,7 +3,7 @@ App\Domain\User\Model\Collectivity:
         name: Collectivité Awkan
         shortName: Awkan
         type: '<(App\Domain\User\Dictionary\CollectivityTypeDictionary::TYPE_OTHER)>'
-        siren: <randomNumber(9)>
+        siren: '17300'
         address: '@user_address_collectivity_awkan'
         legalManager: '@user_contact_collectivity_awkan_manager_legal'
         referent: '@user_contact_collectivity_awkan_referent'
@@ -16,7 +16,7 @@ App\Domain\User\Model\Collectivity:
         name: Soluris
         shortName: SI17
         type: '<(App\Domain\User\Dictionary\CollectivityTypeDictionary::TYPE_DEPARTMENTAL_UNION)>'
-        siren: <randomNumber(9)>
+        siren: '17415'
         address: '@user_address_collectivity_soluris'
         legalManager: '@user_contact_collectivity_soluris_manager_legal'
         referent: '@user_contact_collectivity_soluris_referent'
