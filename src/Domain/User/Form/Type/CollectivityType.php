@@ -63,7 +63,7 @@ class CollectivityType extends AbstractType
                     'label'    => 'user.collectivity.form.name',
                     'required' => true,
                     'attr'     => [
-                        'maxlength' => 80,
+                        'maxlength' => 255,
                     ],
                 ])
                 ->add('shortName', TextType::class, [

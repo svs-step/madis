@@ -338,5 +338,40 @@
             </div>
         </div>
 
+        {% if is_granted('ROLE_USER') %}
+            <div class="col-md-6">
+                <div class="box box-solid box-default">
+                    <div class="box-header with-border"><h3 class="box-title">{{ 'user.user.title.list'|trans }}</h3></div>
+                    <div class="box-body no-padding">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th><strong>{{ 'user.user.list.first_name'|trans }}</strong></th>
+                                    <th><strong>{{ 'user.user.list.last_name'|trans }}</strong></th>
+                                    <th><strong>{{ 'user.user.list.email'|trans }}</strong></th>
+                                    <th><strong>{{ 'user.user.list.enabled'|trans }}</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in object.users %}
+                                <tr>
+                                    <td>{{ user.firstName }}</td>
+                                    <td>{{ user.lastName }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                        {% if user.enabled %}
+                                            <span class="badge bg-green">{{ 'label.active'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

@@ -9,7 +9,7 @@
 
         <id name="id" column="id" type="uuid"/>
 
-        <field name="name" column="name" length="80"/>
+        <field name="name" column="name"/>
         <field name="shortName" column="short_name" length="80"/>
         <field name="type" column="type"/>
         <field name="siren" column="siren" type="integer"/>
