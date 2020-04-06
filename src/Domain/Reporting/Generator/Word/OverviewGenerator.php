@@ -101,9 +101,14 @@ class OverviewGenerator extends AbstractGenerator
         $section->addText(\ucfirst($collectivity->getName()) . ' est une collectivité territoriale.');
 
         $section->addTitle('Engagement de la direction', 2);
-        $section->addText("La direction de '{$collectivity->getName()}' a établi, documenté, mis en œuvre une politique de gestion des données à caractère personnel.");
-        $section->addText('Cette politique décrit les mesures techniques et organisationnelles.');
-        $section->addText("Cette politique a pour objectif de permettre à '{$collectivity->getName()}' de respecter dans le temps les exigences du RGPD et de pouvoir le démontrer.");
+
+        if (!empty($collectivity->getReportingBlockManagementCommitment())) {
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $collectivity->getReportingBlockManagementCommitment(), false, false);
+        } else {
+            $section->addText("La direction de '{$collectivity->getName()}' a établi, documenté, mis en œuvre une politique de gestion des données à caractère personnel.");
+            $section->addText('Cette politique décrit les mesures techniques et organisationnelles.');
+            $section->addText("Cette politique a pour objectif de permettre à '{$collectivity->getName()}' de respecter dans le temps les exigences du RGPD et de pouvoir le démontrer.");
+        }
 
         $section->addTitle('Composition du comité Informatique et Liberté', 2);
 
@@ -153,7 +158,7 @@ class OverviewGenerator extends AbstractGenerator
 
     public function generateManagementSystemAndCompliance(Section $section, array $maturity = [], array $mesurements = []): void
     {
-        $section->addTitle('Système de management des DCP et conformité', 1);
+        $section->addTitle('Système de management des données à caractère personnel et conformité', 1);
 
         $this->maturityGenerator->addGlobalOverview($section, $maturity);
         $this->mesurementGenerator->addGlobalOverview($section, $mesurements);
@@ -164,9 +169,13 @@ class OverviewGenerator extends AbstractGenerator
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
         $section->addTitle("Principe d'amélioration continue", 1);
         $section->addText("Le système de management des DCP de '{$collectivity}' s’inscrit dans un principe d’amélioration continue. En conséquence :");
-        $section->addListItem('Le référent opérationnel continue de mettre à jour le registre avec les éventuels nouveaux traitements effectués.');
-        $section->addListItem('Le référent opérationnel continue de mettre à jour le registre avec les éventuels nouveaux sous-traitants.');
-        $section->addListItem('Le comité génère un bilan chaque année et met en place les mesures correctives adéquates.');
+        if (!empty($collectivity->getReportingBlockManagementCommitment())) {
+            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $collectivity->getReportingBlockContinuousImprovement(), false, false);
+        } else {
+            $section->addListItem('Le référent opérationnel continue de mettre à jour le registre avec les éventuels nouveaux traitements effectués.');
+            $section->addListItem('Le référent opérationnel continue de mettre à jour le registre avec les éventuels nouveaux sous-traitants.');
+            $section->addListItem('Le comité génère un bilan chaque année et met en place les mesures correctives adéquates.');
+        }
     }
 
     public function generateAnnexeMention(Section $section, array $treatments = []): void

@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -138,6 +139,8 @@ class CollectivityType extends AbstractType
                 'label'    => 'user.collectivity.form.it_manager',
                 'required' => false,
             ])
+            ->add('reportingBlockManagementCommitment', CKEditorType::class)
+            ->add('reportingBlockContinuousImprovement', CKEditorType::class)
         ;
     }
 

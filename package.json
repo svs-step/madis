@@ -1,6 +1,6 @@
 {
     "devDependencies": {
-        "@symfony/webpack-encore": "^0.19.0",
+        "@symfony/webpack-encore": "^0.28.3",
         "node-sass": "^4.9.0",
         "sass-loader": "^7.0.3"
     },
@@ -13,6 +13,7 @@
         "build": "encore production"
     },
     "dependencies": {
+        "ckeditor": "^4.0.0",
         "jquery": "^3.3.1"
     }
 }

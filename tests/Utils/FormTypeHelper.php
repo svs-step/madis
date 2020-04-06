@@ -44,7 +44,7 @@ class FormTypeHelper extends TestCase
 
         foreach ($data as $field => $type) {
             $builderProphecy
-                ->add($field, $type, Argument::type('array'))
+                ->add($field, $type, Argument::cetera())
                 ->shouldBeCalled()
                 ->willReturn($builderProphecy)
             ;
