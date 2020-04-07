@@ -38,4 +38,9 @@ interface Contractor extends CRUDRepositoryInterface
      * @return array The array of contractors given by the collectivity
      */
     public function findAllByCollectivity(Collectivity $collectivity, array $order = []);
+
+    /**
+     * Count all by collectivity.
+     */
+    public function countAllByCollectivity(Collectivity $collectivity);
 }

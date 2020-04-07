@@ -84,6 +84,11 @@ class User implements UserInterface
     private $collectivity;
 
     /**
+     * @var \DateTimeImmutable|null
+     */
+    private $lastLogin;
+
+    /**
      * User constructor.
      *
      * @throws \Exception
@@ -221,5 +226,15 @@ class User implements UserInterface
     public function setCollectivity(Collectivity $collectivity): void
     {
         $this->collectivity = $collectivity;
+    }
+
+    public function getLastLogin(): ?\DateTimeImmutable
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(?\DateTimeImmutable $lastLogin): void
+    {
+        $this->lastLogin = $lastLogin;
     }
 }

@@ -21,6 +21,7 @@
         <field name="enabled" column="enabled" type="boolean"/>
         <field name="forgetPasswordToken" column="forget_password_token" nullable="true"/>
         <field name="deletedAt" column="deleted_at" type="datetime_immutable" nullable="true"/>
+        <field name="lastLogin" column="last_login" type="datetime_immutable" nullable="true"/>
 
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity" inversed-by="users"/>
 

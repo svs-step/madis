@@ -51,4 +51,11 @@ interface User extends CRUDRepositoryInterface
      * @return Model\User|null The related user or null if not exists
      */
     public function findOneOrNullByForgetPasswordToken(string $token): ?Model\User;
+
+    /**
+     * Get the last login user by collectivity.
+     *
+     * @return Model\User|null The related user or null if not exists
+     */
+    public function findOneOrNullLastLoginUserByCollectivity(Model\Collectivity $collectivity): ?Model\User;
 }

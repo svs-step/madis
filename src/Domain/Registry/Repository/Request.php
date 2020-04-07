@@ -113,4 +113,14 @@ interface Request extends RepositoryInterface
      * @return array The array of requests given by the collectivity
      */
     public function findAllArchivedByCollectivity(Collectivity $collectivity, bool $archived = false, array $order = []);
+
+    /**
+     * Count all by collectivity.
+     */
+    public function countAllByCollectivity(Collectivity $collectivity);
+
+    /**
+     * Get the last updated treatment by collectivity.
+     */
+    public function findOneOrNullLastUpdateByCollectivity(Collectivity $collectivity): ?\App\Domain\Registry\Model\Request;
 }

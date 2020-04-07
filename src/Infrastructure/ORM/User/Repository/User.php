@@ -107,4 +107,20 @@ class User extends CRUDRepository implements Repository\User
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneOrNullLastLoginUserByCollectivity(Model\Collectivity $collectivity): ?Model\User
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->andWhere($qb->expr()->eq('o.collectivity', ':collectivity'));
+        $qb->andWhere($qb->expr()->isNotNull('o.lastLogin'));
+        $qb->setParameter('collectivity', $collectivity);
+        $qb->addOrderBy('o.lastLogin', 'DESC');
+        $qb->setMaxResults(1);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

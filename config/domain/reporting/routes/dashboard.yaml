@@ -2,3 +2,10 @@ reporting_dashboard_index:
     path: ''
     methods: ['GET']
     controller: 'App\Domain\Reporting\Controller\DashboardController:indexAction'
+
+reporting_dashboard_generate_csv:
+    path: '/generate-csv/{exportType}'
+    methods: ['GET']
+    requirements:
+        exportType: .+
+    controller: 'App\Domain\Reporting\Controller\DashboardController:exportCsvAction'

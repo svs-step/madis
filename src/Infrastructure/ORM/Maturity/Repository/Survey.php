@@ -83,4 +83,23 @@ class Survey extends CRUDRepository implements Repository\Survey
             ->getResult()
         ;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function averageSurveyDuringLastYear()
+    {
+        $sql = 'SELECT AVG(a.rcount) FROM (
+            SELECT IF(COUNT(ms.id) > 0, 1, 0) as rcount
+            FROM user_collectivity uc
+            LEFT OUTER JOIN maturity_survey ms ON (uc.id = ms.collectivity_id AND ms.created_at >= NOW() - INTERVAL 1 YEAR)
+            WHERE uc.active = 1
+            GROUP BY uc.id
+        ) a';
+
+        $stmt = $this->getManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchColumn();
+    }
 }

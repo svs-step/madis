@@ -173,6 +173,7 @@ user:
             email: E-mail
             enabled: Actif
             first_name: Prénom
+            last_login: Dernière connexion
             last_name: Nom
             roles: Role
         modal:

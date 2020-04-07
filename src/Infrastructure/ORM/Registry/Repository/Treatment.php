@@ -122,4 +122,31 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             ->getResult()
         ;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function countAllByCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+        $this->addCollectivityClause($qb, $collectivity);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneOrNullLastUpdateByCollectivity(Collectivity $collectivity): ?Model\Treatment
+    {
+        $qb = $this->createQueryBuilder();
+
+        $this->addCollectivityClause($qb, $collectivity);
+        $qb->addOrderBy('o.updatedAt', 'DESC');
+        $qb->setMaxResults(1);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

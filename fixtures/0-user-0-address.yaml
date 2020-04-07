@@ -4,9 +4,9 @@ App\Domain\User\Model\Embeddable\Address:
         lineTwo: <words(3, true)>
         city: <word()>
         zipCode: <randomNumber(5)>
-        insee: <word()>
+        insee: '17300'
     user_address_collectivity_soluris:
         lineOne: <words(3, true)>
         city: <word()>
         zipCode: <randomNumber(5)>
-        insee: <word()>
+        insee: '17415'

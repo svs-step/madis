@@ -51,4 +51,14 @@ interface Collectivity extends CRUDRepositoryInterface
      * @return Model\Collectivity[]
      */
     public function findByTypes(array $types, ?Model\Collectivity $excludedCollectivity = null): array;
+
+    /**
+     * Find all collectivity.
+     *
+     * @param bool  $active Get active / inactive activity
+     * @param array $order  Order results
+     *
+     * @return Model\Collectivity[] The array of collectivity
+     */
+    public function findAllActive(bool $active = true, array $order = []);
 }
