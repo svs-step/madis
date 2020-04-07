@@ -5,7 +5,7 @@ App\Domain\User\Model\Collectivity:
                 message: 'user_collectivity.name.not_blank'
                 groups: ['default']
             - Length:
-                max: 80
+                max: 255
                 maxMessage: 'user_collectivity.name.max_length'
                 groups: ['default']
         shortName:

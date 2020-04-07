@@ -1,0 +1,8 @@
+App\Domain\User\Model\ComiteIlContact:
+    comite_il_contact_awkan{1..4}:
+        collectivity: '@user_collectivity_awkan'
+        contact: '@comite_il_contact_collectivity_awkan_<current()>'
+
+    comite_il_contact_soluris{1..4}:
+        collectivity: '@user_collectivity_soluris'
+        contact: '@comite_il_contact_collectivity_soluris_<current()>'

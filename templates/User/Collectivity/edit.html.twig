@@ -23,3 +23,9 @@
 {% block body %}
     {{ include('User/Collectivity/_form.html.twig') }}
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('build/js/comiteIlContact.js') }}"></script>
+{% endblock %}

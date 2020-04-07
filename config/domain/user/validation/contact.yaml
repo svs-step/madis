@@ -3,35 +3,35 @@ App\Domain\User\Model\Embeddable\Contact:
         civility:
             - NotBlank:
                 message: 'user_contact.civility.not_blank'
-                groups: ['collectivity_legal_manager', 'collectivity_referent']
+                groups: ['collectivity_legal_manager', 'collectivity_referent', 'collectivity_comite_il_contact']
             - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
                 name: 'user_contact_civility'
                 groups: ['default']
         firstName:
             - NotBlank:
                 message: 'user_contact.first_name.not_blank'
-                groups: ['collectivity_legal_manager', 'collectivity_referent']
+                groups: ['collectivity_legal_manager', 'collectivity_referent', 'collectivity_comite_il_contact']
             - Length:
                 max: 255
                 groups: ['default']
         job:
             - NotBlank:
                 message: 'user_contact.job.not_blank'
-                groups: ['collectivity_legal_manager', 'collectivity_referent']
+                groups: ['collectivity_legal_manager', 'collectivity_referent', 'collectivity_comite_il_contact']
             - Length:
                 max: 255
                 groups: ['default']
         lastName:
             - NotBlank:
                 message: 'user_contact.last_name.not_blank'
-                groups: ['collectivity_legal_manager', 'collectivity_referent']
+                groups: ['collectivity_legal_manager', 'collectivity_referent', 'collectivity_comite_il_contact']
             - Length:
                 max: 255
                 groups: ['default']
         mail:
             - NotBlank:
                 message: 'user_contact.mail.not_blank'
-                groups: ['collectivity_legal_manager', 'collectivity_referent']
+                groups: ['collectivity_legal_manager', 'collectivity_referent', 'collectivity_comite_il_contact']
             - Email:
                 message: 'user_contact.mail.email'
                 groups: ['default']
@@ -41,7 +41,7 @@ App\Domain\User\Model\Embeddable\Contact:
         phoneNumber:
             - NotBlank:
                 message: 'user_contact.phone_number.not_blank'
-                groups: ['collectivity_legal_manager', 'collectivity_referent']
+                groups: ['collectivity_legal_manager', 'collectivity_referent', 'collectivity_comite_il_contact']
             - Regex:
                   pattern: '/^0[1-9][0-9]{8}$/'
                   message: 'user_contact.phone_number.regex'

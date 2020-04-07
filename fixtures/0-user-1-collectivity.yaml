@@ -11,6 +11,24 @@ App\Domain\User\Model\Collectivity:
         dpo: '@user_contact_collectivity_awkan_dpo'
         differentItManager: true
         itManager: '@user_contact_collectivity_awkan_manager_it'
+        reportingBlockManagementCommitment: |
+            \<p\>Engagement de la direction :\</p\>
+
+            \<ul\>
+                \<li\>Premier point\</li\>
+                \<li\>Second point\</li\>
+            \</ul\>
+
+            \<p\>Conclusion\</p\>
+        reportingBlockContinuousImprovement: |
+            \<p\>Principe d&#39;am&eacute;lioration \<em\>continue\</em\>\</p\>
+
+            \<ol\>
+            	\<li\>Premier point\</li\>
+            	\<li\>Second point\</li\>
+            \</ol\>
+
+            \<p\>Conclusion\</p\>
 
     user_collectivity_soluris:
         name: Soluris
@@ -22,3 +40,21 @@ App\Domain\User\Model\Collectivity:
         referent: '@user_contact_collectivity_soluris_referent'
         differentItManager: true
         itManager: '@user_contact_collectivity_soluris_manager_it'
+        reportingBlockManagementCommitment: |
+            \<p\>Engagement de la direction :\</p\>
+
+            \<ul\>
+                \<li\>Premier point\</li\>
+                \<li\>Second point\</li\>
+            \</ul\>
+
+            \<p\>Conclusion\</p\>
+        reportingBlockContinuousImprovement: |
+            \<p\>Principe d&#39;am&eacute;lioration \<em\>continue\</em\>\</p\>
+
+            \<ol\>
+            	\<li\>Premier point\</li\>
+            	\<li\>Second point\</li\>
+            \</ol\>
+
+            \<p\>Conclusion\</p\>

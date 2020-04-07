@@ -43,6 +43,7 @@ class ContactType extends AbstractType
             [
                 'collectivity_legal_manager',
                 'collectivity_referent',
+                'collectivity_comite_il_contact',
             ],
             $options['validation_groups'] ?? []
         ));

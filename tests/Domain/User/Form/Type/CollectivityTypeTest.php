@@ -27,12 +27,14 @@ namespace App\Tests\Domain\User\Form\Type;
 use App\Domain\User\Form\Type\AddressType;
 use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Form\Type\ContactType;
+use App\Domain\User\Model\Collectivity;
 use App\Tests\Utils\FormTypeHelper;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -83,6 +85,7 @@ class CollectivityTypeTest extends FormTypeHelper
             'itManager'                           => ContactType::class,
             'reportingBlockManagementCommitment'  => CKEditorType::class,
             'reportingBlockContinuousImprovement' => CKEditorType::class,
+            'comiteIlContacts'                    => CollectionType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
@@ -101,6 +104,7 @@ class CollectivityTypeTest extends FormTypeHelper
             'itManager'                           => ContactType::class,
             'reportingBlockManagementCommitment'  => CKEditorType::class,
             'reportingBlockContinuousImprovement' => CKEditorType::class,
+            'comiteIlContacts'                    => CollectionType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(false);
@@ -111,6 +115,7 @@ class CollectivityTypeTest extends FormTypeHelper
     public function testConfigureOptions(): void
     {
         $defaults = [
+            'data_class'        => Collectivity::class,
             'validation_groups' => [
                 'default',
             ],
