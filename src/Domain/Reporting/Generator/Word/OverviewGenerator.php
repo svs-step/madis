@@ -131,6 +131,12 @@ class OverviewGenerator extends AbstractGenerator
             $dpoCivility = ContactCivilityDictionary::getCivilities()[$dpo->getCivility()];
             $section->addListItem("{$dpoCivility} {$dpo->getFullName()}, {$dpo->getJob()}");
         }
+
+        foreach ($collectivity->getComiteIlContacts() as $comiteIlContact) {
+            $contact  = $comiteIlContact->getContact();
+            $civility = ContactCivilityDictionary::getCivilities()[$contact->getCivility()];
+            $section->addListItem("{$civility} {$contact->getFullName()}, {$contact->getJob()}");
+        }
     }
 
     public function generateRegistries(
