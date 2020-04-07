@@ -319,7 +319,40 @@
 
         <div class="clearfix"></div>
 
-        <div class="col-md-6">
+        <div class="col-md-9">
+            <div class="box box-solid box-default">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.comite_il'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></th>
+                            <th><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></th>
+                            <th><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></th>
+                            <th><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></th>
+                            <th><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></th>
+                            <th><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for contact in object.comiteIlContacts %}
+                            <tr>
+                                <td>{{ contact.contact.civility|dictionary('user_contact_civility') }}</td>
+                                <td>{{ contact.contact.firstName }}</td>
+                                <td>{{ contact.contact.lastName }}</td>
+                                <td>{{ contact.contact.job }}</td>
+                                <td>{{ contact.contact.mail }}</td>
+                                <td>{{ contact.contact.phoneNumber }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
             <div class="box box-solid box-default">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.historic'|trans }}</h3></div>
                 <div class="box-body no-padding">

@@ -121,6 +121,11 @@ class Collectivity
     private $reportingBlockContinuousImprovement;
 
     /**
+     * @var Collection|Contact[]
+     */
+    private $comiteIlContacts;
+
+    /**
      * Collectivity constructor.
      *
      * @throws \Exception
@@ -129,6 +134,7 @@ class Collectivity
     {
         $this->id                 = Uuid::uuid4();
         $this->users              = new ArrayCollection();
+        $this->comiteIlContacts   = new ArrayCollection();
         $this->active             = true;
         $this->differentDpo       = false;
         $this->differentItManager = false;
@@ -310,5 +316,34 @@ class Collectivity
     public function setReportingBlockContinuousImprovement(?string $reportingBlockContinuousImprovement): void
     {
         $this->reportingBlockContinuousImprovement = $reportingBlockContinuousImprovement;
+    }
+
+    public function addComiteIlContact(ComiteIlContact $contact)
+    {
+        if ($this->comiteIlContacts->contains($contact)) {
+            return;
+        }
+
+        dump('ici');
+
+        $this->comiteIlContacts[] = $contact;
+        $contact->setCollectivity($this);
+    }
+
+    public function removeComiteIlContact(ComiteIlContact $contact)
+    {
+        if (!$this->comiteIlContacts->contains($contact)) {
+            return;
+        }
+
+        $this->comiteIlContacts->removeElement($contact);
+    }
+
+    /**
+     * @return Collection|ComiteIlContact[]
+     */
+    public function getComiteIlContacts()
+    {
+        return $this->comiteIlContacts;
     }
 }

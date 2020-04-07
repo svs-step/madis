@@ -24,11 +24,13 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
+use App\Domain\User\Model\Collectivity;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -141,6 +143,12 @@ class CollectivityType extends AbstractType
             ])
             ->add('reportingBlockManagementCommitment', CKEditorType::class)
             ->add('reportingBlockContinuousImprovement', CKEditorType::class)
+            ->add('comiteIlContacts', CollectionType::class, [
+                'entry_type'   => ComiteIlContactType::class,
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ])
         ;
     }
 
@@ -151,6 +159,7 @@ class CollectivityType extends AbstractType
     {
         $resolver
             ->setDefaults([
+                'data_class'        => Collectivity::class,
                 'validation_groups' => [
                     'default',
                 ],
