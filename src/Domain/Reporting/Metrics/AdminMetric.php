@@ -23,10 +23,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Metrics;
 
+use App\Domain\Maturity;
+use App\Domain\Registry;
+use App\Domain\User;
 use App\Domain\User\Dictionary\CollectivityTypeDictionary;
-use App\Infrastructure\ORM\Maturity;
-use App\Infrastructure\ORM\Registry;
-use App\Infrastructure\ORM\User;
 
 class AdminMetric implements MetricInterface
 {
@@ -50,16 +50,23 @@ class AdminMetric implements MetricInterface
      */
     private $surveyRepository;
 
+    /**
+     * @var Registry\Repository\Treatment
+     */
+    private $treatmentRepository;
+
     public function __construct(
         User\Repository\Collectivity $collectivityRepository,
         Registry\Repository\Mesurement $mesurementRepository,
         Registry\Repository\Proof $proofRepository,
-        Maturity\Repository\Survey $surveyRepository
+        Maturity\Repository\Survey $surveyRepository,
+        Registry\Repository\Treatment $treatmentRepository
     ) {
         $this->collectivityRepository = $collectivityRepository;
         $this->mesurementRepository   = $mesurementRepository;
         $this->proofRepository        = $proofRepository;
         $this->surveyRepository       = $surveyRepository;
+        $this->treatmentRepository    = $treatmentRepository;
     }
 
     /**
@@ -113,8 +120,8 @@ class AdminMetric implements MetricInterface
             if (!\is_null($collectivity->getAddress()) && !\is_null($collectivity->getAddress()->getInsee())) {
                 $collectivityData = [
                     'name'                => $collectivity->getShortName(),
-                    'nbTraitementActifs'  => 0,
-                    'nbActionsProtection' => 0,
+                    'nbTraitementActifs'  => intval($this->treatmentRepository->countAllActiveByCollectivity($collectivity)),
+                    'nbActionsProtection' => intval($this->mesurementRepository->countPlanifiedByCollectivity($collectivity)),
                 ];
                 $collectivityInsee                                                               = $collectivity->getAddress()->getInsee();
                 $data['collectivityByAddressInsee']['value']['addressInsee'][$collectivityInsee] = $collectivityData;

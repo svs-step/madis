@@ -29,7 +29,7 @@ use App\Application\Traits\Model\CreatorTrait;
 use App\Domain\User\Model\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Component\Security\Core\Role\SwitchUserRole;
+use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 
 /**
  * Class LinkCreatorSubscriber
@@ -105,16 +105,14 @@ class LinkCreatorSubscriber implements EventSubscriber
         }
 
         // We link admin, then check it original token
-        foreach ($token->getRoles() as $role) {
-            if ($role instanceof SwitchUserRole) {
-                /** @var User $originalUser */
-                $originalUser   = $role->getSource()->getUser();
-                $originalUserId = $originalUser->getId()->toString();
-                $originalUser   = $em->find(User::class, $originalUserId);
-                $object->setCreator($originalUser);
+        if ($token instanceof SwitchUserToken) {
+            /** @var User $originalUser */
+            $originalUser   = $token->getOriginalToken()->getUser();
+            $originalUserId = $originalUser->getId()->toString();
+            $originalUser   = $em->find(User::class, $originalUserId);
+            $object->setCreator($originalUser);
 
-                return;
-            }
+            return;
         }
 
         // Can't link admin, then link standard user

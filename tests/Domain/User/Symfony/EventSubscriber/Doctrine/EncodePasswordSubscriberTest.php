@@ -30,8 +30,8 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Prophecy\Argument;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class EncodePasswordSubscriberTest extends TestCase
 {
@@ -43,9 +43,9 @@ class EncodePasswordSubscriberTest extends TestCase
     private $lifeCycleEventArgsProphecy;
 
     /**
-     * @var EncoderFactoryInterface
+     * @var UserPasswordEncoderInterface
      */
-    private $encoderFactoryProphecy;
+    private $passwordEncoder;
 
     /**
      * @var EncodePasswordSubscriber
@@ -55,10 +55,10 @@ class EncodePasswordSubscriberTest extends TestCase
     public function setUp()
     {
         $this->lifeCycleEventArgsProphecy = $this->prophesize(LifecycleEventArgs::class);
-        $this->encoderFactoryProphecy     = $this->prophesize(EncoderFactoryInterface::class);
+        $this->passwordEncoder            = $this->prophesize(UserPasswordEncoderInterface::class);
 
         $this->subscriber = new EncodePasswordSubscriber(
-            $this->encoderFactoryProphecy->reveal()
+            $this->passwordEncoder->reveal()
         );
     }
 
@@ -94,7 +94,7 @@ class EncodePasswordSubscriberTest extends TestCase
 
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($user);
         // since plainPassword isn't set, no encoder is called
-        $this->encoderFactoryProphecy->getEncoder()->shouldNotBeCalled();
+        $this->passwordEncoder->encodePassword(Argument::any())->shouldNotBeCalled();
 
         // Before
         $this->assertNull($user->getPassword());
@@ -119,7 +119,7 @@ class EncodePasswordSubscriberTest extends TestCase
 
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($user);
         // since plainPassword is set, encoder is called
-        $this->encoderFactoryProphecy->getEncoder($user)->shouldBeCalled()->willReturn(new BCryptPasswordEncoder(13));
+        $this->passwordEncoder->encodePassword($user, 'dummyPassword')->willReturn('foo')->shouldBeCalled();
 
         // Before
         $this->assertNull($user->getPassword());
@@ -143,7 +143,7 @@ class EncodePasswordSubscriberTest extends TestCase
 
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($user);
         // since plainPassword isn't set, no encoder is called
-        $this->encoderFactoryProphecy->getEncoder()->shouldNotBeCalled();
+        $this->passwordEncoder->encodePassword(Argument::any())->shouldNotBeCalled();
 
         // Before
         $this->assertNull($user->getPassword());
@@ -170,7 +170,7 @@ class EncodePasswordSubscriberTest extends TestCase
 
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($user);
         // since plainPassword is set, encoder is called
-        $this->encoderFactoryProphecy->getEncoder($user)->shouldBeCalled()->willReturn(new BCryptPasswordEncoder(13));
+        $this->passwordEncoder->encodePassword($user, 'dummyPassword')->willReturn('foo')->shouldBeCalled();
 
         // Before
         $this->assertNotNull($user->getPassword());

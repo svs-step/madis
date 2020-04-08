@@ -1,6 +1,7 @@
 security:
     encoders:
-        App\Domain\User\Model\User: bcrypt
+        App\Domain\User\Model\User:
+            algorithm: auto
     providers:
         user_provider:
             entity:

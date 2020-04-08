@@ -23,11 +23,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Reporting\Metrics;
 
+use App\Domain\Maturity;
+use App\Domain\Registry;
 use App\Domain\Reporting\Metrics\AdminMetric;
 use App\Domain\Reporting\Metrics\MetricInterface;
-use App\Infrastructure\ORM\Maturity;
-use App\Infrastructure\ORM\Registry;
-use App\Infrastructure\ORM\User;
+use App\Domain\User;
 use PHPUnit\Framework\TestCase;
 
 class AdminMetricTest extends TestCase
@@ -53,6 +53,11 @@ class AdminMetricTest extends TestCase
     private $surveyRepository;
 
     /**
+     * @var Registry\Repository\Treatment
+     */
+    private $treatmentRepository;
+
+    /**
      * @var AdminMetric
      */
     private $adminMetric;
@@ -63,12 +68,14 @@ class AdminMetricTest extends TestCase
         $this->mesurementRepository   = $this->prophesize(Registry\Repository\Mesurement::class);
         $this->proofRepository        = $this->prophesize(Registry\Repository\Proof::class);
         $this->surveyRepository       = $this->prophesize(Maturity\Repository\Survey::class);
+        $this->treatmentRepository    = $this->prophesize(Registry\Repository\Treatment::class);
 
         $this->adminMetric = new AdminMetric(
             $this->collectivityRepository->reveal(),
             $this->mesurementRepository->reveal(),
             $this->proofRepository->reveal(),
-            $this->surveyRepository->reveal()
+            $this->surveyRepository->reveal(),
+            $this->treatmentRepository->reveal()
         );
     }
 
