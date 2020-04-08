@@ -12,15 +12,17 @@ function doughnutChart(id, labels, data, color) {
         options: {
             legend: {
                 display: true,
+                position: 'right',
                 labels: {
                     padding: 8,
-                    boxWidth: 20
+                    boxWidth: 20,
                 }
             },
             tooltips: {
                 displayColors: false,
             },
             responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 label: {
                     display: false,

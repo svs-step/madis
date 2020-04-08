@@ -135,7 +135,7 @@ class AdminMetric implements MetricInterface
         }
 
         if ($totalCollectivity > 0) {
-            $data['collectivityByAddressInsee']['value']['dpoPercent'] = ($nbIsDifferentDpo * 100) / $totalCollectivity;
+            $data['collectivityByAddressInsee']['value']['dpoPercent'] = round(($nbIsDifferentDpo * 100) / $totalCollectivity);
         }
 
         return $data;

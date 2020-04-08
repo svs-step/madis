@@ -95,7 +95,7 @@
           </div> <!-- end box body-->   
         </div>
       </div>
-      <div class="col-sm-4 col-xs-12">
+      <div class="col-sm-3 col-xs-12">
         <div class="box box-solid">
             <div class="box-header with-border">
               <h3 class="box-title">Collectivités</h3>
@@ -105,14 +105,14 @@
                     Aucune donnée à afficher
                 {% else %}
                     <div>
-                        <canvas id="collectivity-type" width="400" height="400"></canvas>
+                        <canvas id="collectivity-type" width="400" height="200"></canvas>
                     </div>
                 {% endif %}
             </div>
         </div>
       </div>
       {# EXPORT CSV #}
-      <div class="col-sm-2 col-xs-12">
+      <div class="col-sm-3 col-xs-12">
           <div class="small-box bg-yellow">
               <div class="inner">
                   <p>Exporter les collectivités</p>
@@ -139,8 +139,8 @@
 {% set inseeObjectFlatten = data.collectivityByAddressInsee.value.addressInsee %}
 
 {% block javascripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
 
     {# DEFINE DATA #}
     <script>
@@ -163,7 +163,7 @@
             'CCAS',
             'EPCI',
             'CIAS',
-            'Syndicat départemental',
+            'Synd dep',
             'Autre',
         ];
         let collectivityByTypeData = [
