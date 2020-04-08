@@ -69,4 +69,9 @@ interface Treatment extends CRUDRepositoryInterface
      * Get the last updated treatment by collectivity.
      */
     public function findOneOrNullLastUpdateByCollectivity(Collectivity $collectivity): ?\App\Domain\Registry\Model\Treatment;
+
+    /**
+     * Count all by collectivity.
+     */
+    public function countAllActiveByCollectivity(Collectivity $collectivity);
 }

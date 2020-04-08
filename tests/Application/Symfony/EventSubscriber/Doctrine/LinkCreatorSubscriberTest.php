@@ -33,8 +33,8 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\SwitchUserRole;
 
 class LinkCreatorSubscriberTest extends TestCase
@@ -217,14 +217,12 @@ class LinkCreatorSubscriberTest extends TestCase
         $admin      = new Model\User();
         $linkAdmin  = true;
 
-        $sourceTokenProphecy = $this->prophesize(TokenInterface::class);
-        $sourceTokenProphecy->getUser()->shouldBeCalled()->willReturn($admin);
-        $tokenProphecy = $this->prophesize(TokenInterface::class);
-
-        $switchUserRole = new SwitchUserRole('ROLE_PREVIOUS_ADMIN', $sourceTokenProphecy->reveal());
+        $tokenProphecy         = $this->prophesize(SwitchUserToken::class);
+        $originalTokenProphecy = $this->prophesize(TokenInterface::class);
 
         $tokenProphecy->getUser()->shouldBeCalled()->willReturn($user);
-        $tokenProphecy->getRoles()->shouldBeCalled()->willReturn([$switchUserRole]);
+        $tokenProphecy->getOriginalToken()->shouldBeCalled()->willReturn($originalTokenProphecy);
+        $originalTokenProphecy->getUser()->shouldBeCalled()->willReturn($admin);
 
         $this->userProviderProphecy->getToken()->shouldBeCalled()->willReturn($tokenProphecy->reveal());
         $this->lifeCycleEventArgsProphecy->getEntityManager()->shouldBeCalled()->willReturn($this->entityManagerProphecy->reveal());
@@ -253,10 +251,7 @@ class LinkCreatorSubscriberTest extends TestCase
 
         $tokenProphecy = $this->prophesize(TokenInterface::class);
 
-        $role = new Role('ROLE_ADMIN');
-
         $tokenProphecy->getUser()->shouldBeCalled()->willReturn($user);
-        $tokenProphecy->getRoles()->shouldBeCalled()->willReturn([$role]);
 
         $this->userProviderProphecy->getToken()->shouldBeCalled()->willReturn($tokenProphecy->reveal());
         $this->lifeCycleEventArgsProphecy->getEntityManager()->shouldBeCalled()->willReturn($this->entityManagerProphecy->reveal());
