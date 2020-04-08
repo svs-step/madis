@@ -180,8 +180,8 @@
 
 (function mapModule (){
   
-  function appendP (jqueryElement, text){
-    jqueryElement.append("<p>"+text+"</p>")
+  function appendSpan (jqueryElement, text){
+    jqueryElement.append("<span>"+text+"</span><br/>")
   } 
 
   function isAvailableInsee (insee, inseeList) {
@@ -216,9 +216,9 @@
           const nomCommune = availableInsees[insee].name
           const nbTraitementActifs = availableInsees[insee].nbTraitementActifs
           const nbActionsProtection = availableInsees[insee].nbActionsProtection
-          appendP(tooltip,nomCommune)
-          appendP(tooltip,'Nb traitements actifs: ' + nbTraitementActifs)
-          appendP(tooltip,'Nb actions de protection: ' + nbActionsProtection)
+          appendSpan(tooltip,nomCommune)
+          appendSpan(tooltip,'Nb traitements actifs: ' + nbTraitementActifs)
+          appendSpan(tooltip,'Nb actions de protection: ' + nbActionsProtection)
           tooltip.show();
         });
         item.on('mouseout', () => { 
