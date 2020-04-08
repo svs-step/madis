@@ -12,6 +12,10 @@ function doughnutChart(id, labels, data, color) {
         options: {
             legend: {
                 display: true,
+                labels: {
+                    padding: 8,
+                    boxWidth: 20
+                }
             },
             tooltips: {
                 displayColors: false,

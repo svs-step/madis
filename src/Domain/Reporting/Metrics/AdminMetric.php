@@ -111,7 +111,13 @@ class AdminMetric implements MetricInterface
         $nbIsDifferentDpo = 0;
         foreach ($collectivities as $collectivity) {
             if (!\is_null($collectivity->getAddress()) && !\is_null($collectivity->getAddress()->getInsee())) {
-                $data['collectivityByAddressInsee']['value']['addressInsee'][] = $collectivity->getAddress()->getInsee();
+                $collectivityData = [
+                    'name'                => $collectivity->getShortName(),
+                    'nbTraitementActifs'  => 0,
+                    'nbActionsProtection' => 0,
+                ];
+                $collectivityInsee                                                               = $collectivity->getAddress()->getInsee();
+                $data['collectivityByAddressInsee']['value']['addressInsee'][$collectivityInsee] = $collectivityData;
             }
 
             if (false === $collectivity->isDifferentDpo()) {

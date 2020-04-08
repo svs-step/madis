@@ -31,7 +31,7 @@ App\Domain\User\Model\Embeddable\Contact:
         mail:
             - NotBlank:
                 message: 'user_contact.mail.not_blank'
-                groups: ['collectivity_legal_manager', 'collectivity_referent', 'collectivity_comite_il_contact']
+                groups: ['collectivity_legal_manager', 'collectivity_referent']
             - Email:
                 message: 'user_contact.mail.email'
                 groups: ['default']
@@ -41,7 +41,7 @@ App\Domain\User\Model\Embeddable\Contact:
         phoneNumber:
             - NotBlank:
                 message: 'user_contact.phone_number.not_blank'
-                groups: ['collectivity_legal_manager', 'collectivity_referent', 'collectivity_comite_il_contact']
+                groups: ['collectivity_legal_manager', 'collectivity_referent']
             - Regex:
                   pattern: '/^0[1-9][0-9]{8}$/'
                   message: 'user_contact.phone_number.regex'

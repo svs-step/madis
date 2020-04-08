@@ -50,6 +50,8 @@ class ContactType extends AbstractType
 
         $required = $intersectIsEmpty ? false : true;
 
+        $isComiteIl = in_array('collectivity_comite_il_contact', $options['validation_groups'] ?? []);
+
         $builder
             ->add('civility', DictionaryType::class, [
                 'label'    => 'user.contact.form.civility',
@@ -79,14 +81,14 @@ class ContactType extends AbstractType
             ])
             ->add('mail', EmailType::class, [
                 'label'    => 'user.contact.form.mail',
-                'required' => $required,
+                'required' => $isComiteIl ? false : $required,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
             ->add('phoneNumber', TextType::class, [
                 'label'    => 'user.contact.form.phone_number',
-                'required' => $required,
+                'required' => $isComiteIl ? false : $required,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
