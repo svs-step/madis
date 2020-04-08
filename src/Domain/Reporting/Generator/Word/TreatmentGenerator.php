@@ -27,6 +27,7 @@ namespace App\Domain\Reporting\Generator\Word;
 use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
+use App\Domain\Registry\Model\Treatment;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shared\Converter;
 
@@ -202,6 +203,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addTitle('Détail des traitements', 1);
 
         foreach ($data as $key => $treatment) {
+            /* @var Treatment $treatment */
             if (0 !== $key) {
                 $section->addPageBreak();
             }
@@ -356,6 +358,18 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 [
                     'Croisement de données',
                     $treatment->isDataCrossing() ? 'Oui' : 'Non',
+                ],
+                [
+                    'Évaluation ou notation',
+                    $treatment->isEvaluationOrRating() ? 'Oui' : 'Non',
+                ],
+                [
+                    'Décisions automatisées  avec  effet  juridique',
+                    $treatment->isAutomatedDecisionsWithLegalEffect() ? 'Oui' : 'Non',
+                ],
+                [
+                    'Exclusion automatique d\'un service',
+                    $treatment->isAutomaticExclusionService() ? 'Oui' : 'Non',
                 ],
             ];
 

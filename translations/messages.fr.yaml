@@ -33,3 +33,4 @@ label:
 
 placeholder:
     precision: Précisez
+    multiple_select: Sélectionner une ou plusieurs valeurs

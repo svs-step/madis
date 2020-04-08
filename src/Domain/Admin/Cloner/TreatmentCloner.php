@@ -75,6 +75,9 @@ class TreatmentCloner extends AbstractCloner
         $treatment->setLargeScaleCollection($referent->isLargeScaleCollection());
         $treatment->setVulnerablePeople($referent->isVulnerablePeople());
         $treatment->setDataCrossing($referent->isDataCrossing());
+        $treatment->setEvaluationOrRating($referent->isEvaluationOrRating());
+        $treatment->setAutomatedDecisionsWithLegalEffect($referent->isAutomatedDecisionsWithLegalEffect());
+        $treatment->setAutomaticExclusionService($referent->isAutomaticExclusionService());
         $treatment->setAuthorizedPeople($referent->getAuthorizedPeople());
         $treatment->setActive($referent->isActive());
 
