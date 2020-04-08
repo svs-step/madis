@@ -121,7 +121,7 @@ class AdminMetric implements MetricInterface
                 $collectivityData = [
                     'name'                => $collectivity->getShortName(),
                     'nbTraitementActifs'  => intval($this->treatmentRepository->countAllActiveByCollectivity($collectivity)),
-                    'nbActionsProtection' => intval($this->mesurementRepository->countPlanifiedByCollectivity($collectivity)),
+                    'nbActionsProtection' => intval($this->mesurementRepository->countAppliedByCollectivity($collectivity)),
                 ];
                 $collectivityInsee                                                               = $collectivity->getAddress()->getInsee();
                 $data['collectivityByAddressInsee']['value']['addressInsee'][$collectivityInsee] = $collectivityData;
