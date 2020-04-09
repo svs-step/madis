@@ -204,6 +204,27 @@ class Treatment
     private $dataCrossing;
 
     /**
+     * FR: Évaluation ou notation (traitement spécifique).
+     *
+     * @var bool
+     */
+    private $evaluationOrRating;
+
+    /**
+     * FR: Décisions automatisées  avec  effet  juridique (traitement spécifique).
+     *
+     * @var bool
+     */
+    private $automatedDecisionsWithLegalEffect;
+
+    /**
+     * FR: Exclusion automatique d'un service (traitement spécifique).
+     *
+     * @var bool
+     */
+    private $automaticExclusionService;
+
+    /**
      * FR: Personnes habilitées.
      *
      * @var string|null
@@ -251,25 +272,28 @@ class Treatment
      */
     public function __construct()
     {
-        $this->id                    = Uuid::uuid4();
-        $this->paperProcessing       = false;
-        $this->concernedPeople       = [];
-        $this->dataCategories        = [];
-        $this->contractors           = [];
-        $this->delay                 = new Delay();
-        $this->securityAccessControl = new ComplexChoice();
-        $this->securityTracability   = new ComplexChoice();
-        $this->securitySaving        = new ComplexChoice();
-        $this->securityUpdate        = new ComplexChoice();
-        $this->securityOther         = new ComplexChoice();
-        $this->systematicMonitoring  = false;
-        $this->largeScaleCollection  = false;
-        $this->vulnerablePeople      = false;
-        $this->dataCrossing          = false;
-        $this->active                = true;
-        $this->completion            = 0;
-        $this->template              = false;
-        $this->proofs                = [];
+        $this->id                                = Uuid::uuid4();
+        $this->paperProcessing                   = false;
+        $this->concernedPeople                   = [];
+        $this->dataCategories                    = [];
+        $this->contractors                       = [];
+        $this->delay                             = new Delay();
+        $this->securityAccessControl             = new ComplexChoice();
+        $this->securityTracability               = new ComplexChoice();
+        $this->securitySaving                    = new ComplexChoice();
+        $this->securityUpdate                    = new ComplexChoice();
+        $this->securityOther                     = new ComplexChoice();
+        $this->systematicMonitoring              = false;
+        $this->largeScaleCollection              = false;
+        $this->vulnerablePeople                  = false;
+        $this->dataCrossing                      = false;
+        $this->evaluationOrRating                = false;
+        $this->automatedDecisionsWithLegalEffect = false;
+        $this->automaticExclusionService         = false;
+        $this->active                            = true;
+        $this->completion                        = 0;
+        $this->template                          = false;
+        $this->proofs                            = [];
     }
 
     public function __toString(): string
@@ -607,5 +631,35 @@ class Treatment
     public function setClonedFrom(?Treatment $clonedFrom): void
     {
         $this->clonedFrom = $clonedFrom;
+    }
+
+    public function isEvaluationOrRating(): bool
+    {
+        return $this->evaluationOrRating;
+    }
+
+    public function setEvaluationOrRating(bool $evaluationOrRating): void
+    {
+        $this->evaluationOrRating = $evaluationOrRating;
+    }
+
+    public function isAutomatedDecisionsWithLegalEffect(): bool
+    {
+        return $this->automatedDecisionsWithLegalEffect;
+    }
+
+    public function setAutomatedDecisionsWithLegalEffect(bool $automatedDecisionsWithLegalEffect): void
+    {
+        $this->automatedDecisionsWithLegalEffect = $automatedDecisionsWithLegalEffect;
+    }
+
+    public function isAutomaticExclusionService(): bool
+    {
+        return $this->automaticExclusionService;
+    }
+
+    public function setAutomaticExclusionService(bool $automaticExclusionService): void
+    {
+        $this->automaticExclusionService = $automaticExclusionService;
     }
 }

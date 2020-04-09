@@ -104,7 +104,8 @@ class ProofType extends AbstractType
                     return $this->formatInactiveObjectLabel($object);
                 },
                 'attr' => [
-                    'size' => 6,
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
                 ],
                 'required' => false,
                 'multiple' => true,
@@ -121,7 +122,8 @@ class ProofType extends AbstractType
                         ;
                 },
                 'attr' => [
-                    'size' => 6,
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
                 ],
                 'required' => false,
                 'multiple' => true,
@@ -138,7 +140,8 @@ class ProofType extends AbstractType
                         ;
                 },
                 'attr' => [
-                    'size' => 6,
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
                 ],
                 'required' => false,
                 'multiple' => true,
@@ -166,7 +169,8 @@ class ProofType extends AbstractType
                     return $this->formatArchivedObjectLabel($object);
                 },
                 'attr' => [
-                    'size' => 6,
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
                 ],
                 'required' => false,
                 'multiple' => true,
@@ -193,7 +197,8 @@ class ProofType extends AbstractType
                     return $this->formatArchivedObjectLabel($object);
                 },
                 'attr' => [
-                    'size' => 6,
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
                 ],
                 'required' => false,
                 'multiple' => true,

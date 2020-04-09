@@ -351,6 +351,42 @@
                                 </ul>
                             </td>
                         </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.evaluation_or_rating'|trans }}</strong></td>
+                            <td>
+                                <ul>
+                                    {% if object.evaluationOrRating %}
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.automated_decisions_with_legal_effect'|trans }}</strong></td>
+                            <td>
+                                <ul>
+                                    {% if object.automatedDecisionsWithLegalEffect %}
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.automatic_exclusion_service'|trans }}</strong></td>
+                            <td>
+                                <ul>
+                                    {% if object.automaticExclusionService %}
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>

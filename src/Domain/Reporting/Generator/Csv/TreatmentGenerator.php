@@ -276,6 +276,9 @@ class TreatmentGenerator extends AbstractGenerator
             $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.large_scale_collection'),
             $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.vulnerable_people'),
             $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.data_crossing'),
+            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.evaluation_or_rating'),
+            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.automated_decisions_with_legal_effect'),
+            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.automatic_exclusion_service'),
         ];
     }
 
@@ -289,6 +292,9 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->isLargeScaleCollection() ? $yes : $no,
             $treatment->isVulnerablePeople() ? $yes : $no,
             $treatment->isDataCrossing() ? $yes : $no,
+            $treatment->isEvaluationOrRating() ? $yes : $no,
+            $treatment->isAutomatedDecisionsWithLegalEffect() ? $yes : $no,
+            $treatment->isAutomaticExclusionService() ? $yes : $no,
         ];
     }
 

@@ -136,8 +136,9 @@ class TreatmentType extends AbstractType
 
                     return [];
                 },
-                'attr'     => [
-                    'size' => 6,
+                'attr' => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
                 ],
             ])
             ->add('dataCategoryOther', TextareaType::class, [
@@ -174,6 +175,10 @@ class TreatmentType extends AbstractType
                         ->setParameter('collectivity', $this->userProvider->getAuthenticatedUser()->getCollectivity())
                     ;
                 },
+                'attr' => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
             ])
             ->add('delay', DelayType::class, [
                 'label'    => 'registry.treatment.form.delay',
@@ -213,6 +218,18 @@ class TreatmentType extends AbstractType
             ])
             ->add('dataCrossing', CheckboxType::class, [
                 'label'    => 'registry.treatment.form.data_crossing',
+                'required' => false,
+            ])
+            ->add('evaluationOrRating', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.evaluation_or_rating',
+                'required' => false,
+            ])
+            ->add('automatedDecisionsWithLegalEffect', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.automated_decisions_with_legal_effect',
+                'required' => false,
+            ])
+            ->add('automaticExclusionService', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.automatic_exclusion_service',
                 'required' => false,
             ])
             ->add('authorizedPeople', TextType::class, [
