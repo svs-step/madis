@@ -328,6 +328,13 @@ registry:
             automated_decisions_with_legal_effect: Décisions automatisées  avec  effet
             automatic_exclusion_service : Exclusion automatique d'un service
             concerned_people: Personnes concernées
+            concerned_people_agent: Agents
+            concerned_people_company: Entreprises
+            concerned_people_elected: Élus
+            concerned_people_particular: Particuliers
+            concerned_people_partner: Partenaires
+            concerned_people_other: Autres
+            concerned_people_user: Internautes
             contractors: Sous-traitants
             data_crossing: Croisement de données
             data_category: Catégorie de données
@@ -372,6 +379,13 @@ registry:
             automated_decisions_with_legal_effect: Décisions automatisées  avec  effet
             automatic_exclusion_service: Exclusion automatique d'un service
             concerned_people: Personnes concernées
+            concerned_people_agent: Agents
+            concerned_people_company: Entreprises
+            concerned_people_elected: Élus
+            concerned_people_particular: Particuliers
+            concerned_people_partner: Partenaires
+            concerned_people_other: Autres
+            concerned_people_user: Internautes
             collectivity: Collectivité
             contractors: Sous-traitants
             created_at: Date de création

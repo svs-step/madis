@@ -25,7 +25,6 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Word;
 
 use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
-use App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use App\Domain\Registry\Model\Treatment;
 use PhpOffice\PhpWord\Element\Section;
@@ -238,22 +237,18 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
             $detailsData = [
                 0 => [
-                    'Personnes concernées',
-                    // Values are added below
-                ],
-                1 => [
                     'Logiciel',
                     \is_string($treatment->getSoftware()) ? $treatment->getSoftware() : null,
                 ],
-                2 => [
+                1 => [
                     'Gestion papier',
                     $treatment->isPaperProcessing() ? 'Oui' : 'Non',
                 ],
-                3 => [
+                2 => [
                     'Délai de conservation',
                     // Defined below
                 ],
-                4 => [
+                3 => [
                     'Origine des données',
                     $treatment->getDataOrigin(),
                 ],
@@ -267,14 +262,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 $period       = DelayPeriodDictionary::getPeriods()[$treatment->getDelay()->getPeriod()];
                 $delayContent = "{$treatment->getDelay()->getNumber()} {$period}";
             }
-            $detailsData[3][] = $delayContent;
-
-            // Add Concerned people
-            $concernedPeople = [];
-            foreach ($treatment->getConcernedPeople() as $people) {
-                $concernedPeople[] = TreatmentConcernedPeopleDictionary::getTypes()[$people];
-            }
-            $detailsData[0][] = $concernedPeople;
+            $detailsData[2][] = $delayContent;
 
             $categoryData = [
                 [
@@ -306,6 +294,44 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 [
                     'Sous-traitant(s)',
                     \implode(', ', $treatment->getContractors()->toArray()),
+                ],
+            ];
+
+            $concernedPeopleData = [
+                [
+                    'Particuliers',
+                    $treatment->getConcernedPeopleParticular()->isCheck() ? 'Oui' : 'Non',
+                    $treatment->getConcernedPeopleParticular()->getComment(),
+                ],
+                [
+                    'Internautes',
+                    $treatment->getConcernedPeopleUser()->isCheck() ? 'Oui' : 'Non',
+                    $treatment->getConcernedPeopleUser()->getComment(),
+                ],
+                [
+                    'Agents',
+                    $treatment->getConcernedPeopleAgent()->isCheck() ? 'Oui' : 'Non',
+                    $treatment->getConcernedPeopleAgent()->getComment(),
+                ],
+                [
+                    'Élus',
+                    $treatment->getConcernedPeopleElected()->isCheck() ? 'Oui' : 'Non',
+                    $treatment->getConcernedPeopleElected()->getComment(),
+                ],
+                [
+                    'Entreprises',
+                    $treatment->getConcernedPeopleCompany()->isCheck() ? 'Oui' : 'Non',
+                    $treatment->getConcernedPeopleCompany()->getComment(),
+                ],
+                [
+                    'Partenaires',
+                    $treatment->getConcernedPeoplePartner()->isCheck() ? 'Oui' : 'Non',
+                    $treatment->getConcernedPeoplePartner()->getComment(),
+                ],
+                [
+                    'Autres',
+                    $treatment->getConcernedPeopleOther()->isCheck() ? 'Oui' : 'Non',
+                    $treatment->getConcernedPeopleOther()->getComment(),
                 ],
             ];
 
@@ -390,6 +416,9 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
             $section->addTitle('Informations générales', 3);
             $this->addTable($section, $generalInformationsData, true, self::TABLE_ORIENTATION_VERTICAL);
+
+            $section->addTitle('Détails - Personnes concernées', 3);
+            $this->addTable($section, $concernedPeopleData, true, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Détails', 3);
             $this->addTable($section, $detailsData, true, self::TABLE_ORIENTATION_VERTICAL);

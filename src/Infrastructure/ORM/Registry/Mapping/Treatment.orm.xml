@@ -18,7 +18,6 @@
         <field name="legalBasis" column="legal_basis" type="json_array"/>
         <field name="legalBasisJustification" column="legal_basis_justification" type="text" nullable="true"/>
         <field name="observation" column="observation" type="text" nullable="true"/>
-        <field name="concernedPeople" column="concerned_people" type="json_array"/>
         <field name="dataCategoryOther" column="data_category_other" type="text" nullable="true"/>
         <field name="dataOrigin" column="data_origin" nullable="true"/>
         <field name="recipientCategory" column="recipient_category" type="text" nullable="true"/>
@@ -41,6 +40,14 @@
         <embedded name="securitySaving" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_saving_"/>
         <embedded name="securityUpdate" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_update_"/>
         <embedded name="securityOther" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_other_"/>
+
+        <embedded name="concernedPeopleParticular" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_particular_"/>
+        <embedded name="concernedPeopleUser" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_user_"/>
+        <embedded name="concernedPeopleAgent" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_agent_"/>
+        <embedded name="concernedPeopleElected" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_elected_"/>
+        <embedded name="concernedPeopleCompany" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_company_"/>
+        <embedded name="concernedPeoplePartner" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_partner_"/>
+        <embedded name="concernedPeopleOther" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_other_"/>
 
         <many-to-many field="contractors" target-entity="App\Domain\Registry\Model\Contractor" inversed-by="treatments">
             <join-table name="treatment_contractor">

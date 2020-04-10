@@ -26,7 +26,6 @@ namespace App\Tests\Domain\Admin\Cloner;
 
 use App\Domain\Admin\Cloner\TreatmentCloner;
 use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
-use App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\User\Model as UserModel;
 use App\Tests\Utils\ReflectionTrait;
@@ -138,10 +137,7 @@ class TreatmentClonerTest extends TestCase
         $referent->setLegalBasis('legal basis');
         $referent->setLegalBasisJustification('legal basis justification');
         $referent->setObservation('observation');
-        $referent->setConcernedPeople([
-            TreatmentConcernedPeopleDictionary::TYPE_AGENT,
-            TreatmentConcernedPeopleDictionary::TYPE_ELECTED,
-        ]);
+        $referent->getConcernedPeopleParticular()->setCheck(true);
         $referent->setDataCategories([
             new Model\TreatmentDataCategory('code1', 'name1', 1),
             new Model\TreatmentDataCategory('code2', 'name2', 2),
@@ -190,7 +186,7 @@ class TreatmentClonerTest extends TestCase
         $this->assertEquals($referent->getLegalBasis(), $cloned->getLegalBasis());
         $this->assertEquals($referent->getLegalBasisJustification(), $cloned->getLegalBasisJustification());
         $this->assertEquals($referent->getObservation(), $cloned->getObservation());
-        $this->assertEquals($referent->getConcernedPeople(), $cloned->getConcernedPeople());
+        $this->assertEquals($referent->getConcernedPeopleParticular(), $cloned->getConcernedPeopleParticular());
         $this->assertEquals($referent->getDataCategories(), $cloned->getDataCategories());
         $this->assertEquals($referent->getDataCategoryOther(), $cloned->getDataCategoryOther());
         $this->assertEquals($referent->getDataOrigin(), $cloned->getDataOrigin());

@@ -48,7 +48,27 @@ class TreatmentCloner extends AbstractCloner
         $treatment->setLegalBasis($referent->getLegalBasis());
         $treatment->setLegalBasisJustification($referent->getLegalBasisJustification());
         $treatment->setObservation($referent->getObservation());
-        $treatment->setConcernedPeople($referent->getConcernedPeople());
+        if (null !== $referent->getConcernedPeopleParticular()) {
+            $treatment->setConcernedPeopleParticular($referent->getConcernedPeopleParticular());
+        }
+        if (null !== $referent->getConcernedPeopleUser()) {
+            $treatment->setConcernedPeopleUser($referent->getConcernedPeopleUser());
+        }
+        if (null !== $referent->getConcernedPeopleAgent()) {
+            $treatment->setConcernedPeopleAgent($referent->getConcernedPeopleAgent());
+        }
+        if (null !== $referent->getConcernedPeopleElected()) {
+            $treatment->setConcernedPeopleElected($referent->getConcernedPeopleElected());
+        }
+        if (null !== $referent->getConcernedPeopleCompany()) {
+            $treatment->setConcernedPeopleCompany($referent->getConcernedPeopleCompany());
+        }
+        if (null !== $referent->getConcernedPeoplePartner()) {
+            $treatment->setConcernedPeoplePartner($referent->getConcernedPeoplePartner());
+        }
+        if (null !== $referent->getConcernedPeopleOther()) {
+            $treatment->setConcernedPeopleOther($referent->getConcernedPeopleOther());
+        }
         $treatment->setDataCategories($referent->getDataCategories());
         $treatment->setDataCategoryOther($referent->getDataCategoryOther());
         $treatment->setDataOrigin($referent->getDataOrigin());

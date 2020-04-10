@@ -187,12 +187,82 @@
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.concerned_people'|trans }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_particular'|trans }}</strong></td>
                             <td>
-                                <ul>
-                                    {% for people in object.concernedPeople %}
-                                        <li>{{ people|dictionary('registry_treatment_concerned_people') }}</li>
-                                    {% endfor %}
-                                </ul>
+                                {% if object.concernedPeopleParticular.check %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.concernedPeopleParticular.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_user'|trans }}</strong></td>
+                            <td>
+                                {% if object.concernedPeopleUser.check %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.concernedPeopleUser.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_agent'|trans }}</strong></td>
+                            <td>
+                                {% if object.concernedPeopleAgent.check %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.concernedPeopleAgent.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_elected'|trans }}</strong></td>
+                            <td>
+                                {% if object.concernedPeopleElected.check %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.concernedPeopleElected.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_company'|trans }}</strong></td>
+                            <td>
+                                {% if object.concernedPeopleCompany.check %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.concernedPeopleCompany.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_partner'|trans }}</strong></td>
+                            <td>
+                                {% if object.concernedPeoplePartner.check %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.concernedPeoplePartner.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_other'|trans }}</strong></td>
+                            <td>
+                                {% if object.concernedPeopleOther.check %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.concernedPeopleOther.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>

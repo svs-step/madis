@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Csv;
 
 use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
-use App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use App\Domain\User\Repository\Collectivity;
 use App\Infrastructure\ORM\Registry\Repository\Treatment;
@@ -200,10 +199,24 @@ class TreatmentGenerator extends AbstractGenerator
 
     private function treatmentDetailsHeaders()
     {
-        $detailsTrans = $this->translator->trans('registry.treatment.tab.details');
+        $detailsTrans    = $this->translator->trans('registry.treatment.tab.details');
+        $concernedPeople = $this->translator->trans('registry.treatment.show.concerned_people');
 
         return [
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_particular'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_particular') . ' - Commentaire',
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_user'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_user') . ' - Commentaire',
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_agent'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_agent') . ' - Commentaire',
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_elected'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_elected') . ' - Commentaire',
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_company'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_company') . ' - Commentaire',
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_partner'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_partner') . ' - Commentaire',
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_other'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_other') . ' - Commentaire',
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.software'),
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.paper_processing'),
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Nombre',
@@ -215,10 +228,24 @@ class TreatmentGenerator extends AbstractGenerator
 
     private function initializeTreatmentDetails(\App\Domain\Registry\Model\Treatment $treatment): array
     {
+        $yes = $this->translator->trans('label.yes');
+        $no  = $this->translator->trans('label.no');
+
         return [
-            implode(' - ', array_map(function ($people) {
-                return TreatmentConcernedPeopleDictionary::getTypes()[$people];
-            }, \iterable_to_array($treatment->getConcernedPeople()))),
+            $treatment->getConcernedPeopleParticular()->isCheck() ? $yes : $no,
+            $treatment->getConcernedPeopleParticular()->getComment(),
+            $treatment->getConcernedPeopleUser()->isCheck() ? $yes : $no,
+            $treatment->getConcernedPeopleUser()->getComment(),
+            $treatment->getConcernedPeopleAgent()->isCheck() ? $yes : $no,
+            $treatment->getConcernedPeopleAgent()->getComment(),
+            $treatment->getConcernedPeopleElected()->isCheck() ? $yes : $no,
+            $treatment->getConcernedPeopleElected()->getComment(),
+            $treatment->getConcernedPeopleCompany()->isCheck() ? $yes : $no,
+            $treatment->getConcernedPeopleCompany()->getComment(),
+            $treatment->getConcernedPeoplePartner()->isCheck() ? $yes : $no,
+            $treatment->getConcernedPeoplePartner()->getComment(),
+            $treatment->getConcernedPeopleOther()->isCheck() ? $yes : $no,
+            $treatment->getConcernedPeopleOther()->getComment(),
             $treatment->getSoftware(),
             $treatment->isPaperProcessing() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
             $treatment->getDelay()->getNumber(),

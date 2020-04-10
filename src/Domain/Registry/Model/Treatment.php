@@ -96,13 +96,6 @@ class Treatment
     private $observation;
 
     /**
-     * FR: Personnes concernées.
-     *
-     * @var array
-     */
-    private $concernedPeople;
-
-    /**
      * @var iterable
      */
     private $dataCategories;
@@ -266,6 +259,55 @@ class Treatment
     private $clonedFrom;
 
     /**
+     * FR: Particuliers (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleParticular;
+
+    /**
+     * FR: Internautes (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleUser;
+
+    /**
+     * FR: Agents (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleAgent;
+
+    /**
+     * FR: Elus (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleElected;
+
+    /**
+     * FR: Entreprises (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleCompany;
+
+    /**
+     * FR: Partenaires (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeoplePartner;
+
+    /**
+     * FR: Autres (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleOther;
+
+    /**
      * Treatment constructor.
      *
      * @throws \Exception
@@ -274,7 +316,6 @@ class Treatment
     {
         $this->id                                = Uuid::uuid4();
         $this->paperProcessing                   = false;
-        $this->concernedPeople                   = [];
         $this->dataCategories                    = [];
         $this->contractors                       = [];
         $this->delay                             = new Delay();
@@ -294,6 +335,13 @@ class Treatment
         $this->completion                        = 0;
         $this->template                          = false;
         $this->proofs                            = [];
+        $this->concernedPeopleParticular         = new ComplexChoice();
+        $this->concernedPeopleUser               = new ComplexChoice();
+        $this->concernedPeopleAgent              = new ComplexChoice();
+        $this->concernedPeopleElected            = new ComplexChoice();
+        $this->concernedPeopleCompany            = new ComplexChoice();
+        $this->concernedPeoplePartner            = new ComplexChoice();
+        $this->concernedPeopleOther              = new ComplexChoice();
     }
 
     public function __toString(): string
@@ -392,16 +440,6 @@ class Treatment
     public function setObservation(?string $observation): void
     {
         $this->observation = $observation;
-    }
-
-    public function getConcernedPeople(): array
-    {
-        return $this->concernedPeople;
-    }
-
-    public function setConcernedPeople(array $concernedPeople): void
-    {
-        $this->concernedPeople = $concernedPeople;
     }
 
     public function getDataCategories(): iterable
@@ -661,5 +699,75 @@ class Treatment
     public function setAutomaticExclusionService(bool $automaticExclusionService): void
     {
         $this->automaticExclusionService = $automaticExclusionService;
+    }
+
+    public function getConcernedPeopleParticular(): ComplexChoice
+    {
+        return $this->concernedPeopleParticular;
+    }
+
+    public function setConcernedPeopleParticular(ComplexChoice $concernedPeopleParticular): void
+    {
+        $this->concernedPeopleParticular = $concernedPeopleParticular;
+    }
+
+    public function getConcernedPeopleUser(): ComplexChoice
+    {
+        return $this->concernedPeopleUser;
+    }
+
+    public function setConcernedPeopleUser(ComplexChoice $concernedPeopleUser): void
+    {
+        $this->concernedPeopleUser = $concernedPeopleUser;
+    }
+
+    public function getConcernedPeopleAgent(): ComplexChoice
+    {
+        return $this->concernedPeopleAgent;
+    }
+
+    public function setConcernedPeopleAgent(ComplexChoice $concernedPeopleAgent): void
+    {
+        $this->concernedPeopleAgent = $concernedPeopleAgent;
+    }
+
+    public function getConcernedPeopleElected(): ComplexChoice
+    {
+        return $this->concernedPeopleElected;
+    }
+
+    public function setConcernedPeopleElected(ComplexChoice $concernedPeopleElected): void
+    {
+        $this->concernedPeopleElected = $concernedPeopleElected;
+    }
+
+    public function getConcernedPeopleCompany(): ComplexChoice
+    {
+        return $this->concernedPeopleCompany;
+    }
+
+    public function setConcernedPeopleCompany(ComplexChoice $concernedPeopleCompany): void
+    {
+        $this->concernedPeopleCompany = $concernedPeopleCompany;
+    }
+
+    public function getConcernedPeoplePartner(): ComplexChoice
+    {
+        return $this->concernedPeoplePartner;
+    }
+
+    public function setConcernedPeoplePartner(ComplexChoice $concernedPeoplePartner): void
+    {
+        $this->concernedPeoplePartner = $concernedPeoplePartner;
+    }
+
+    public function getConcernedPeopleOther(): ComplexChoice
+    {
+        return $this->concernedPeopleOther;
+    }
+
+    public function setConcernedPeopleOther(ComplexChoice $concernedPeopleOther): void
+    {
+        $this->concernedPeopleOther = $concernedPeopleOther;
     }
 }

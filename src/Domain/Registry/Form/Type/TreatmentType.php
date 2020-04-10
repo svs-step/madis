@@ -110,12 +110,33 @@ class TreatmentType extends AbstractType
                     'rows' => 2,
                 ],
             ])
-            ->add('concernedPeople', DictionaryType::class, [
-                'label'    => 'registry.treatment.form.concerned_people',
-                'name'     => 'registry_treatment_concerned_people',
-                'required' => true,
-                'expanded' => true,
-                'multiple' => true,
+            ->add('concernedPeopleParticular', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_particular',
+                'required' => false,
+            ])
+            ->add('concernedPeopleUser', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_user',
+                'required' => false,
+            ])
+            ->add('concernedPeopleAgent', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_agent',
+                'required' => false,
+            ])
+            ->add('concernedPeopleElected', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_elected',
+                'required' => false,
+            ])
+            ->add('concernedPeopleCompany', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_company',
+                'required' => false,
+            ])
+            ->add('concernedPeoplePartner', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_partner',
+                'required' => false,
+            ])
+            ->add('concernedPeopleOther', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_other',
+                'required' => false,
             ])
             ->add('dataCategories', EntityType::class, [
                 'label'         => 'registry.treatment.form.data_category',
