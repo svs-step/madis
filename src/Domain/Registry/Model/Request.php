@@ -102,6 +102,16 @@ class Request
     private $proofs;
 
     /**
+     * @var string|null
+     */
+    private $state;
+
+    /**
+     * @var string|null
+     */
+    private $stateRejectionReason;
+
+    /**
      * Request constructor.
      *
      * @throws \Exception
@@ -240,5 +250,25 @@ class Request
     public function getProofs(): iterable
     {
         return $this->proofs;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(?string $state): void
+    {
+        $this->state = $state;
+    }
+
+    public function getStateRejectionReason(): ?string
+    {
+        return $this->stateRejectionReason;
+    }
+
+    public function setStateRejectionReason(?string $stateRejectionReason): void
+    {
+        $this->stateRejectionReason = $stateRejectionReason;
     }
 }

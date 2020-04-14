@@ -204,6 +204,8 @@ registry:
             object: Objet de la demande
             other_object: Autre demande
             reason: Motif
+            state: État de la demande
+            state_rejection_reason: Motifs du refus*
         list:
             answer_date: Date de traitement
             collectivity: Collectivité
@@ -213,6 +215,7 @@ registry:
             legitimate_applicant: Demandeur légitime
             legitimate_request: Demande légitime
             object: Objet de la demande
+            state: État de la demande
         show:
             answer_response: Réponse apportée
             answer_date: Date de traitement
@@ -241,6 +244,8 @@ registry:
             object: Objet de la demande
             other_object: Autre demande
             reason: Motif
+            state: État de la demande
+            state_rejection_reason: Motifs du refus
             updated_at: Date de dernière modification
         tab:
             answer: Réponse
