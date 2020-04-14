@@ -324,8 +324,6 @@ class Collectivity
             return;
         }
 
-        dump('ici');
-
         $this->comiteIlContacts[] = $contact;
         $contact->setCollectivity($this);
     }
