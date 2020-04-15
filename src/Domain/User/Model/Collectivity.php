@@ -90,6 +90,7 @@ class Collectivity
      * @var bool
      */
     private $differentDpo;
+
     /**
      * @var Contact|null
      */

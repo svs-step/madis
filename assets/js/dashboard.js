@@ -101,9 +101,23 @@ $(document).ready(function() {
     );
 
     doughnutChart(
-        'contractor-conform',
+        'contractor-adopted-security-features',
         labelYesNo,
-        contractorConformData,
+        contractorAdoptedSecurityFeaturesData,
+        [colorBlue, colorRed]
+    );
+
+    doughnutChart(
+        'contractor-maintains-treatment-register',
+        labelYesNo,
+        contractorMaintainsTreatmentRegisterData,
+        [colorBlue, colorRed]
+    );
+
+    doughnutChart(
+        'contractor-sending-data-outside-eu',
+        labelYesNo,
+        contractorSendingDataOutsideEuData,
         [colorBlue, colorRed]
     );
 

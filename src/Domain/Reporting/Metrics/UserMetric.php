@@ -67,7 +67,15 @@ class UserMetric implements MetricInterface
                     'yes' => 0,
                     'no'  => 0,
                 ],
-                'conform' => [
+                'adoptedSecurityFeatures' => [
+                    'yes' => 0,
+                    'no'  => 0,
+                ],
+                'maintainsTreatmentRegister' => [
+                    'yes' => 0,
+                    'no'  => 0,
+                ],
+                'sendingDataOutsideEu' => [
                     'yes' => 0,
                     'no'  => 0,
                 ],
@@ -163,6 +171,7 @@ class UserMetric implements MetricInterface
         // =========================
 
         // CONTRACTOR
+        /** @var Model\Contractor $contractor */
         foreach ($contractors as $contractor) {
             ++$data['contractor']['all'];
             if ($contractor->isContractualClausesVerified()) {
@@ -170,10 +179,20 @@ class UserMetric implements MetricInterface
             } else {
                 ++$data['contractor']['clauses']['no'];
             }
-            if ($contractor->isConform()) {
-                ++$data['contractor']['conform']['yes'];
+            if ($contractor->isAdoptedSecurityFeatures()) {
+                ++$data['contractor']['adoptedSecurityFeatures']['yes'];
             } else {
-                ++$data['contractor']['conform']['no'];
+                ++$data['contractor']['adoptedSecurityFeatures']['no'];
+            }
+            if ($contractor->isMaintainsTreatmentRegister()) {
+                ++$data['contractor']['maintainsTreatmentRegister']['yes'];
+            } else {
+                ++$data['contractor']['maintainsTreatmentRegister']['no'];
+            }
+            if ($contractor->isSendingDataOutsideEu()) {
+                ++$data['contractor']['sendingDataOutsideEu']['yes'];
+            } else {
+                ++$data['contractor']['sendingDataOutsideEu']['no'];
             }
         }
 

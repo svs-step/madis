@@ -1,12 +1,20 @@
 App\Domain\Registry\Model\Contractor:
     properties:
-        conform:
-            - NotNull:
-                message: 'registry_contractor.conform.not_null'
-                groups: ['contractor']
         contractualClausesVerified:
             - NotNull:
                 message: 'registry_contractor.contractual_clauses_verified.not_null'
+                groups: ['contractor']
+        adoptedSecurityFeatures:
+            - NotNull:
+                message: 'registry_contractor.adopted_security_features.not_null'
+                groups: ['contractor']
+        maintainsTreatmentRegister:
+            - NotNull:
+                message: 'registry_contractor.maintains_treatment_register.not_null'
+                groups: ['contractor']
+        sendingDataOutsideEu:
+            - NotNull:
+                message: 'registry_contractor.sending_data_outside_eu.not_null'
                 groups: ['contractor']
         name:
             - NotBlank:

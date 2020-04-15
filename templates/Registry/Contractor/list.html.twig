@@ -51,7 +51,9 @@
                                 <th>{{ 'registry.contractor.list.collectivity'|trans }}</th>
                             {% endif %}
                             <th>{{ 'registry.contractor.list.contractual_clauses_verified'|trans }}</th>
-                            <th>{{ 'registry.contractor.list.conform'|trans }}</th>
+                            <th>{{ 'registry.contractor.list.adopted_security_features'|trans }}</th>
+                            <th>{{ 'registry.contractor.list.maintains_treatment_register'|trans }}</th>
+                            <th>{{ 'registry.contractor.list.sending_data_outside_eu'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th>{{ 'label.actions'|trans }}</th>
                             {% endif %}
@@ -76,7 +78,21 @@
                                 {% endif %}
                             </td>
                             <td>
-                                {% if object.conform %}
+                                {% if object.adoptedSecurityFeatures %}
+                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if object.maintainsTreatmentRegister %}
+                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if object.sendingDataOutsideEu %}
                                     <span class="label label-success">{{ 'label.yes'|trans }}</span>
                                 {% else %}
                                     <span class="label label-danger">{{ 'label.no'|trans }}</span>

@@ -14,12 +14,16 @@ registry_address:
         regex: Le code postal doit être composé de 5 chiffres
 
 registry_contractor:
-    conform:
-        not_null: La conformité RGPD doit être renseignée
+    adopted_security_features:
+        not_null: Adopte les éléments de sécurité doit être renseignée
     contractual_clauses_verified:
         not_null: Les clauses contractuelles doivent être renseignées
+    maintains_treatment_register:
+        not_null: Tient à jour un registre des traitements doit être renseignée
     name:
         not_blank: Vous devez renseigner un nom
+    sending_data_outside_eu:
+        not_null: Envoi des données hors UE doit être renseignée
 
 registry_delay:
     number:
