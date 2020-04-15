@@ -43,6 +43,8 @@ registry_request:
         not_blank: Vous devez saisir un objet pour la demande
     date:
         not_blank: Vous devez saisir la date de la demande
+    state_rejection_reason:
+        mandatory: Vous devez saisir le motif du refus
 
 registry_request_applicant:
     first_name:
@@ -55,6 +57,8 @@ registry_request_applicant:
 registry_request_concerned_people:
     phone_number:
         regex: Le numéro de téléphone doit être composé de 10 chiffres et commencer par '0'
+    name:
+        mandatory: Cette donnée est obligatoire
 
 registry_treatment:
     active:

@@ -27,6 +27,8 @@ namespace App\Domain\Reporting\Generator\Word;
 use App\Domain\Registry\Dictionary\RequestAnswerTypeDictionary;
 use App\Domain\Registry\Dictionary\RequestCivilityDictionary;
 use App\Domain\Registry\Dictionary\RequestObjectDictionary;
+use App\Domain\Registry\Dictionary\RequestStateDictionary;
+use App\Domain\Registry\Model\Request;
 use PhpOffice\PhpWord\Element\Section;
 
 class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
@@ -124,6 +126,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
     {
         $section->addTitle('Détail des demandes', 1);
 
+        /** @var Request $request */
         foreach ($data as $key => $request) {
             if (0 !== $key) {
                 $section->addPageBreak();
@@ -238,7 +241,18 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                     'Moyen de la réponse',
                     $response->getType() ? RequestAnswerTypeDictionary::getTypes()[$response->getType()] : null,
                 ],
+                [
+                    'État de la demande',
+                    RequestStateDictionary::getStates()[$request->getState()],
+                ],
             ];
+
+            if (RequestStateDictionary::STATE_DENIED === $request->getState()) {
+                $responseData[] = [
+                    'Motif du refus',
+                    $request->getStateRejectionReason(),
+                ];
+            }
 
             $historyData = [
                 [
