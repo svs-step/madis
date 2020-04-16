@@ -19,3 +19,11 @@ App\Domain\Registry\Model\Mesurement:
             - Length:
                 max: 255
                 groups: ['default']
+        priority:
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'registry_mesurement_priority'
+                groups: ['default']
+        manager:
+            - Length:
+                max: 255
+                groups: ['default']

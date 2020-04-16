@@ -100,8 +100,10 @@ registry:
             comment: Observations
             cost: Coût
             description: Description
+            manager: Responsable d'action
             name: Nom
             planification_date: Planification
+            priority: Priorité
             status: Statut
             type: Type
         flashbag:
@@ -113,8 +115,10 @@ registry:
             charge: Charge
             collectivity: Collectivité
             cost: Coût
+            manager: Responsable d'action
             name: Nom
             planification_date: Date de planification
+            priority: Priorité
             status: Statut
             type:
                 legal: Actions juridiques
@@ -127,8 +131,10 @@ registry:
             creator: Créateur
             cost: Coût
             description: Description
+            manager: Responsable d'action
             name: Nom
             planification_date: Planification
+            priority: Priorité
             status: Statut
             type: Type
             updated_at: Dernière mise à jour

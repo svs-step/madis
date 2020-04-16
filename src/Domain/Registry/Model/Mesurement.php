@@ -106,6 +106,16 @@ class Mesurement
     private $clonedFrom;
 
     /**
+     * @var string|null
+     */
+    private $priority;
+
+    /**
+     * @var string|null
+     */
+    private $manager;
+
+    /**
      * Mesurement constructor.
      *
      * @throws \Exception
@@ -227,5 +237,25 @@ class Mesurement
     public function setClonedFrom(?Mesurement $clonedFrom): void
     {
         $this->clonedFrom = $clonedFrom;
+    }
+
+    public function getPriority(): ?string
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(?string $priority): void
+    {
+        $this->priority = $priority;
+    }
+
+    public function getManager(): ?string
+    {
+        return $this->manager;
+    }
+
+    public function setManager(?string $manager): void
+    {
+        $this->manager = $manager;
     }
 }

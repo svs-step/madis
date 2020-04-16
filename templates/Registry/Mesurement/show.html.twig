@@ -70,6 +70,16 @@
                             <td><strong>{{ 'registry.mesurement.show.charge'|trans }}</strong></td>
                             <td>{{ object.charge }}</td>
                         </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.priority'|trans }}</strong></td>
+                            {% if object.priority is not null %}
+                                <td>{{ object.priority|dictionary('registry_mesurement_priority') }}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.manager'|trans }}</strong></td>
+                            <td>{{ object.manager }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
