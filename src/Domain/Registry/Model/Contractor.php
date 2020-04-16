@@ -28,6 +28,7 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Embeddable\Address;
+use App\Domain\User\Model\Embeddable\Contact;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -58,11 +59,6 @@ class Contractor
     private $contractualClausesVerified;
 
     /**
-     * @var bool
-     */
-    private $conform;
-
-    /**
      * @var string|null
      */
     private $otherInformations;
@@ -88,6 +84,31 @@ class Contractor
     private $clonedFrom;
 
     /**
+     * @var bool
+     */
+    private $adoptedSecurityFeatures;
+
+    /**
+     * @var bool
+     */
+    private $maintainsTreatmentRegister;
+
+    /**
+     * @var bool
+     */
+    private $sendingDataOutsideEu;
+
+    /**
+     * @var Contact|null
+     */
+    private $dpo;
+
+    /**
+     * @var Contact|null
+     */
+    private $legalManager;
+
+    /**
      * Contractor constructor.
      *
      * @throws \Exception
@@ -96,7 +117,9 @@ class Contractor
     {
         $this->id                         = Uuid::uuid4();
         $this->contractualClausesVerified = false;
-        $this->conform                    = false;
+        $this->adoptedSecurityFeatures    = false;
+        $this->maintainsTreatmentRegister = false;
+        $this->sendingDataOutsideEu       = false;
         $this->treatments                 = [];
         $this->proofs                     = [];
     }
@@ -147,16 +170,6 @@ class Contractor
     public function setContractualClausesVerified(bool $contractualClausesVerified): void
     {
         $this->contractualClausesVerified = $contractualClausesVerified;
-    }
-
-    public function isConform(): bool
-    {
-        return $this->conform;
-    }
-
-    public function setConform(bool $conform): void
-    {
-        $this->conform = $conform;
     }
 
     public function getOtherInformations(): ?string
@@ -213,5 +226,55 @@ class Contractor
     public function setClonedFrom(?Contractor $clonedFrom): void
     {
         $this->clonedFrom = $clonedFrom;
+    }
+
+    public function isAdoptedSecurityFeatures(): bool
+    {
+        return $this->adoptedSecurityFeatures;
+    }
+
+    public function setAdoptedSecurityFeatures(bool $adoptedSecurityFeatures): void
+    {
+        $this->adoptedSecurityFeatures = $adoptedSecurityFeatures;
+    }
+
+    public function isMaintainsTreatmentRegister(): bool
+    {
+        return $this->maintainsTreatmentRegister;
+    }
+
+    public function setMaintainsTreatmentRegister(bool $maintainsTreatmentRegister): void
+    {
+        $this->maintainsTreatmentRegister = $maintainsTreatmentRegister;
+    }
+
+    public function isSendingDataOutsideEu(): bool
+    {
+        return $this->sendingDataOutsideEu;
+    }
+
+    public function setSendingDataOutsideEu(bool $sendingDataOutsideEu): void
+    {
+        $this->sendingDataOutsideEu = $sendingDataOutsideEu;
+    }
+
+    public function getDpo(): ?Contact
+    {
+        return $this->dpo;
+    }
+
+    public function setDpo(?Contact $dpo): void
+    {
+        $this->dpo = $dpo;
+    }
+
+    public function getLegalManager(): ?Contact
+    {
+        return $this->legalManager;
+    }
+
+    public function setLegalManager(?Contact $legalManager): void
+    {
+        $this->legalManager = $legalManager;
     }
 }

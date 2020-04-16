@@ -43,8 +43,12 @@ class ContractorCloner extends AbstractCloner
         $contractor->setName($referent->getName());
         $contractor->setReferent($referent->getReferent());
         $contractor->setContractualClausesVerified($referent->isContractualClausesVerified());
-        $contractor->setConform($referent->isConform());
+        $contractor->setAdoptedSecurityFeatures($referent->isAdoptedSecurityFeatures());
+        $contractor->setMaintainsTreatmentRegister($referent->isMaintainsTreatmentRegister());
+        $contractor->setSendingDataOutsideEu($referent->isSendingDataOutsideEu());
         $contractor->setOtherInformations($referent->getOtherInformations());
+        $contractor->setDpo($referent->getDpo());
+        $contractor->setLegalManager($referent->getLegalManager());
 
         if (null !== $referent->getAddress()) {
             $contractor->setAddress($referent->getAddress());

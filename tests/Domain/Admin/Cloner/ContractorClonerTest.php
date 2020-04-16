@@ -74,7 +74,9 @@ class ContractorClonerTest extends TestCase
         $this->assertEquals($referent->getName(), $cloned->getName());
         $this->assertNull($cloned->getReferent());
         $this->assertFalse($cloned->isContractualClausesVerified());
-        $this->assertFalse($cloned->isConform());
+        $this->assertFalse($cloned->isAdoptedSecurityFeatures());
+        $this->assertFalse($cloned->isMaintainsTreatmentRegister());
+        $this->assertFalse($cloned->isSendingDataOutsideEu());
         $this->assertNull($cloned->getOtherInformations());
         $this->assertNull($cloned->getAddress());
         $this->assertEquals($collectivity, $cloned->getCollectivity());
@@ -95,7 +97,9 @@ class ContractorClonerTest extends TestCase
         $referent->setName('name');
         $referent->setReferent('referent');
         $referent->setContractualClausesVerified(true);
-        $referent->setConform(true);
+        $referent->setAdoptedSecurityFeatures(true);
+        $referent->setMaintainsTreatmentRegister(true);
+        $referent->setSendingDataOutsideEu(true);
         $referent->setOtherInformations('other informations');
         $referent->setAddress($address);
 
@@ -109,7 +113,9 @@ class ContractorClonerTest extends TestCase
         $this->assertEquals($referent->getName(), $cloned->getName());
         $this->assertEquals($referent->getReferent(), $cloned->getReferent());
         $this->assertTrue($cloned->isContractualClausesVerified());
-        $this->assertTrue($cloned->isConform());
+        $this->assertTrue($cloned->isAdoptedSecurityFeatures());
+        $this->assertTrue($cloned->isMaintainsTreatmentRegister());
+        $this->assertTrue($cloned->isSendingDataOutsideEu());
         $this->assertEquals($referent->getOtherInformations(), $cloned->getOtherInformations());
         $this->assertEquals($referent->getAddress(), $cloned->getAddress());
         $this->assertEquals($collectivity, $cloned->getCollectivity());

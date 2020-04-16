@@ -11,11 +11,27 @@
                 {{ form_row(form.name) }}
                 {{ form_row(form.referent) }}
                 {{ form_row(form.contractualClausesVerified) }}
-                {{ form_row(form.conform) }}
+                {{ form_row(form.adoptedSecurityFeatures) }}
+                {{ form_row(form.maintainsTreatmentRegister) }}
+                {{ form_row(form.sendingDataOutsideEu) }}
                 {{ form_row(form.otherInformations) }}
             </div>
         </div>
+
+        <div class="box box-solid box-warning">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.legal_manager'|trans }}</h3></div>
+            <div class="box-body">
+                {# Hide unused field for legal manager   #}
+                {% do form.legalManager.civility.setRendered() %}
+                {% do form.legalManager.job.setRendered() %}
+                {% do form.legalManager.mail.setRendered() %}
+                {% do form.legalManager.phoneNumber.setRendered() %}
+                {{ form_row(form.legalManager.firstName) }}
+                {{ form_row(form.legalManager.lastName) }}
+            </div>
+        </div>
     </div>
+
 
     <div class="col-md-6">
         <div class="box box-solid box-primary">
@@ -29,7 +45,15 @@
                 {{ form_row(form.address.phoneNumber) }}
             </div>
         </div>
+
+        <div class="box box-solid box-success">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.dpo'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_widget(form.dpo) }}
+            </div>
+        </div>
     </div>
+
 
     <div class="col-md-12">
         <div class="box box-solid">

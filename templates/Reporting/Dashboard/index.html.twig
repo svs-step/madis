@@ -32,8 +32,16 @@
                             <p>{{ 'reporting.dashboard.contractor.contractual_clauses_verified.title'|trans }}</p>
                         </div>
                         <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
-                            <canvas id="contractor-conform" width="400" height="400"></canvas>
-                            <p>{{ 'reporting.dashboard.contractor.conform.title'|trans }}</p>
+                            <canvas id="contractor-adopted-security-features" width="400" height="400"></canvas>
+                            <p>{{ 'reporting.dashboard.contractor.adopted_security_features.title'|trans }}</p>
+                        </div>
+                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
+                            <canvas id="contractor-maintains-treatment-register" width="400" height="400"></canvas>
+                            <p>{{ 'reporting.dashboard.contractor.maintains_treatment_register.title'|trans }}</p>
+                        </div>
+                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
+                            <canvas id="contractor-sending-data-outside-eu" width="400" height="400"></canvas>
+                            <p>{{ 'reporting.dashboard.contractor.sending_data_outside_eu.title'|trans }}</p>
                         </div>
                     {% endif %}
                 </div>
@@ -186,7 +194,9 @@
 
         // CONTRACTOR
         let contractorClausesData = [{{ data.contractor.clauses.yes }}, {{ data.contractor.clauses.no }}];
-        let contractorConformData = [{{ data.contractor.conform.yes }}, {{ data.contractor.conform.no }}];
+        let contractorAdoptedSecurityFeaturesData = [{{ data.contractor.adoptedSecurityFeatures.yes }}, {{ data.contractor.adoptedSecurityFeatures.no }}];
+        let contractorMaintainsTreatmentRegisterData = [{{ data.contractor.maintainsTreatmentRegister.yes }}, {{ data.contractor.maintainsTreatmentRegister.no }}];
+        let contractorSendingDataOutsideEuData = [{{ data.contractor.sendingDataOutsideEu.yes }}, {{ data.contractor.sendingDataOutsideEu.no }}];
 
         // MESUREMENT
         let mesurementStatusData = [{{ data.mesurement.value.applied }}, {{ data.mesurement.value.planified }}, {{ data.mesurement.value.notApplied }}];

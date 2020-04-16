@@ -26,6 +26,7 @@ namespace App\Domain\Registry\Form\Type;
 
 use App\Domain\Registry\Form\Type\Embeddable\AddressType;
 use App\Domain\Registry\Model\Contractor;
+use App\Domain\User\Form\Type\ContactType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -59,8 +60,16 @@ class ContractorType extends AbstractType
                 'label'    => 'registry.contractor.form.contractual_clauses_verified',
                 'required' => false,
             ])
-            ->add('conform', CheckboxType::class, [
-                'label'    => 'registry.contractor.form.conform',
+            ->add('adoptedSecurityFeatures', CheckboxType::class, [
+                'label'    => 'registry.contractor.form.adopted_security_features',
+                'required' => false,
+            ])
+            ->add('maintainsTreatmentRegister', CheckboxType::class, [
+                'label'    => 'registry.contractor.form.maintains_treatment_register',
+                'required' => false,
+            ])
+            ->add('sendingDataOutsideEu', CheckboxType::class, [
+                'label'    => 'registry.contractor.form.sending_data_outside_eu',
                 'required' => false,
             ])
             ->add('otherInformations', TextareaType::class, [
@@ -74,6 +83,14 @@ class ContractorType extends AbstractType
                 'label'             => 'registry.contractor.form.address',
                 'required'          => false,
                 'validation_groups' => ['default', 'contractor'],
+            ])
+            ->add('legalManager', ContactType::class, [
+                'label'             => 'registry.contractor.form.legal_manager',
+                'required'          => false,
+            ])
+            ->add('dpo', ContactType::class, [
+                'label'    => 'registry.contractor.form.dpo',
+                'required' => false,
             ])
         ;
     }
