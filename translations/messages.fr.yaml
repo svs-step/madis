@@ -26,9 +26,11 @@ label:
     for_your_information: Pour votre information
     inactive: Inactif
     linked_documents: Documents associés
+    linked_treatment: Traitements associés
     no: Non
     yes: Oui
     no_linked_document: Aucun document associé
+    no_linked_treatment: Aucun traitement associé
     not_archived: Non archivés
 
 placeholder:
