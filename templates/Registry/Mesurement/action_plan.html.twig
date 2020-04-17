@@ -35,6 +35,7 @@
                             <th>{{ 'registry.mesurement.list.planification_date'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.cost'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.charge'|trans }}</th>
+                            <th>{{ 'registry.mesurement.list.manager'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -48,6 +49,7 @@
                                 <td>{{ object.planificationDate|date('d/m/Y') }}</td>
                                 <td>{{ object.cost }}</td>
                                 <td>{{ object.charge }}</td>
+                                <td>{{ object.manager }}</td>
                                 <td>
                                     <a href="{{ path('registry_mesurement_show', {'id': object.id}) }}">
                                         <i class="fa fa-eye"></i>

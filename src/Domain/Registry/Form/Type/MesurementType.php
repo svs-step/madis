@@ -102,6 +102,19 @@ class MesurementType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
+            ->add('priority', DictionaryType::class, [
+                'label'    => 'registry.mesurement.form.priority',
+                'name'     => 'registry_mesurement_priority',
+                'required' => false,
+                'multiple' => false,
+            ])
+            ->add('manager', TextType::class, [
+                'label'    => 'registry.mesurement.form.manager',
+                'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
         ;
     }
 

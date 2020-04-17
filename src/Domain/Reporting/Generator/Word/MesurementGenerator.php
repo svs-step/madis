@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Generator\Word;
 
+use App\Domain\Registry\Dictionary\MesurementPriorityDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model\Mesurement;
 use PhpOffice\PhpWord\Element\Section;
@@ -133,6 +134,14 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
                 [
                     'Charge',
                     $mesurement->getCharge(),
+                ],
+                [
+                    'Priorité',
+                    !\is_null($mesurement->getPriority()) ? MesurementPriorityDictionary::getPriorities()[$mesurement->getPriority()] : '',
+                ],
+                [
+                    'Responsable d\'action',
+                    $mesurement->getManager(),
                 ],
             ];
 

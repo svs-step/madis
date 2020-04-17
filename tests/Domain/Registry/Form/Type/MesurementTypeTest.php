@@ -44,13 +44,15 @@ class MesurementTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'name'              => TextType::class,
-            'description'       => TextareaType::class,
-            'cost'              => TextType::class,
-            'charge'            => TextType::class,
-            'status'            => DictionaryType::class,
-            'planificationDate' => DateType::class,
-            'comment'           => TextType::class,
+            'name'               => TextType::class,
+            'description'        => TextareaType::class,
+            'cost'               => TextType::class,
+            'charge'             => TextType::class,
+            'status'             => DictionaryType::class,
+            'planificationDate'  => DateType::class,
+            'comment'            => TextType::class,
+            'priority'           => DictionaryType::class,
+            'manager'            => TextType::class,
         ];
 
         (new MesurementType())->buildForm($this->prophesizeBuilder($builder), []);

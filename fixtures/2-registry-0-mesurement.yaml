@@ -7,6 +7,7 @@ App\Domain\Registry\Model\Mesurement:
         status: '<(App\Domain\Registry\Dictionary\MesurementStatusDictionary::STATUS_NOT_APPLICABLE)>'
         comment: <words(10, true)>
         collectivity: '@user_collectivity_awkan'
+        priority: '70%? <dictionary("registry_mesurement_priority")>'
 
     registry_mesurement_soluris_{1..3}:
         name: Action de protection <current()>
@@ -17,3 +18,4 @@ App\Domain\Registry\Model\Mesurement:
         comment: <words(10, true)>
         planificationDate: <(new \DateTime('+15 days'))>
         collectivity: '@user_collectivity_soluris'
+        priority: '70%? <dictionary("registry_mesurement_priority")>'
