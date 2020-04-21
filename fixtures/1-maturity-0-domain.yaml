@@ -1,31 +1,31 @@
 App\Domain\Maturity\Model\Domain:
 
     maturity_domain_1:
-        name: Domaine 1
-        color: primary
+        name: Technique
+        color: danger
         position: 1
 
     maturity_domain_2:
-        name: Domaine 2
+        name: Vie privée
         color: info
         position: 2
 
     maturity_domain_3:
-        name: Domaine 3
-        color: danger
+        name: Violation de données
+        color: primary
         position: 3
 
     maturity_domain_4:
-        name: Domaine 4
-        color: warning
+        name: Organisation
+        color: success
         position: 4
 
     maturity_domain_5:
-        name: Domaine 5
-        color: success
+        name: Juridique
+        color: warning
         position: 5
 
     maturity_domain_6:
-        name: Domaine 6
-        color: primary
+        name: Sensibilisation Formation
+        color: info
         position: 6
