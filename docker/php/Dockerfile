@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -32,38 +32,38 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc
 
 # Install PHP-FPM
 RUN apt update && apt install -y \
-    php7.1 \
-    php7.1-common \
-    php7.1-curl \
-    php7.1-fpm \
-    php7.1-intl \
-    php7.1-json \
-    php7.1-mbstring \
-    php7.1-mysql \
-    php7.1-opcache \
+    php7.4 \
+    php7.4-common \
+    php7.4-curl \
+    php7.4-fpm \
+    php7.4-intl \
+    php7.4-json \
+    php7.4-mbstring \
+    php7.4-mysql \
+    php7.4-opcache \
 # Uncomment in order to enable xdebug
-#    php7.1-xdebug \
-    php7.1-xml \
-    php7.1-zip
+#    php7.4-xdebug \
+    php7.4-xml \
+    php7.4-zip
 
 # Configure PHP
-COPY fpm-pool.conf /etc/php/7.1/fpm/pool.d/www.conf
-RUN touch /var/log/php7.1-fpm.log && chown www-data:www-data /var/log/php7.1-fpm.log
+COPY fpm-pool.conf /etc/php/7.4/fpm/pool.d/www.conf
+RUN touch /var/log/php7.4-fpm.log && chown www-data:www-data /var/log/php7.4-fpm.log
 RUN mkdir -p /run/php/ /var/www/.composer/
 RUN chown www-data:www-data -R /run/php/ /var/www
 
 # Configure XDebug
 # Uncomment in order to enable xdebug
-#RUN echo "xdebug.remote_enable=1" >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.idekey=PHPSTORM" >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.default_enable=0" >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.remote_connect_back=0" >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.remote_autostart=0" >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.remote_enable=1" >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.remote_host=docker.for.mac.host.internal" >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.profiler_enable=0" >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.profiler_enable_trigger=1" >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.profiler_output_dir=/var/www/html/var/log" >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini
+#RUN echo "xdebug.remote_enable=1" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
+#    echo "xdebug.idekey=PHPSTORM" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
+#    echo "xdebug.default_enable=0" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
+#    echo "xdebug.remote_connect_back=0" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
+#    echo "xdebug.remote_autostart=0" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
+#    echo "xdebug.remote_enable=1" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
+#    echo "xdebug.remote_host=docker.for.mac.host.internal" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
+#    echo "xdebug.profiler_enable=0" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
+#    echo "xdebug.profiler_enable_trigger=1" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
+#    echo "xdebug.profiler_output_dir=/var/www/html/var/log" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -92,4 +92,4 @@ USER www-data
 WORKDIR /var/www/gestion-rgpd
 
 # Launch PHP-FPM
-CMD ["/usr/sbin/php-fpm7.1", "-F"]
+CMD ["/usr/sbin/php-fpm7.4", "-F"]

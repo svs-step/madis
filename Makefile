@@ -16,7 +16,7 @@ tu-report: ## Run unit tests
 ## -----------------
 ##
 
-QA        = docker run --rm -v `pwd`:/project mykiwi/phaudit:7.1
+QA        = docker run --rm -v `pwd`:/project mykiwi/phaudit:7.4
 ARTEFACTS = var/artefacts
 
 lint: ## Lints twig and yaml files
