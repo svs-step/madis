@@ -101,5 +101,9 @@
 {% endblock %}
 
 {% block javascripts %}
+    {% set dataTableOptions = {
+        'order':  [[5, 'desc' ]]
+    } %}
+
     {{ include('_Utils/_datatable.html.twig') }}
 {% endblock %}
