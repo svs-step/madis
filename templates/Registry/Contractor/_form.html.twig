@@ -18,16 +18,11 @@
             </div>
         </div>
 
-        <div class="box box-solid box-warning">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.legal_manager'|trans }}</h3></div>
+        <div id="box-dpo" class="box box-solid box-success">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.dpo'|trans }}</h3></div>
             <div class="box-body">
-                {# Hide unused field for legal manager   #}
-                {% do form.legalManager.civility.setRendered() %}
-                {% do form.legalManager.job.setRendered() %}
-                {% do form.legalManager.mail.setRendered() %}
-                {% do form.legalManager.phoneNumber.setRendered() %}
-                {{ form_row(form.legalManager.firstName) }}
-                {{ form_row(form.legalManager.lastName) }}
+                {{ form_row(form.hasDpo) }}
+                {{ form_widget(form.dpo) }}
             </div>
         </div>
     </div>
@@ -37,19 +32,21 @@
         <div class="box box-solid box-primary">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.coordinates'|trans }}</h3></div>
             <div class="box-body">
+                <div class="col-md-12"><label>{{ 'registry.contractor.tab.legal_manager'|trans }}</label></div>
+                {# Hide unused field for legal manager   #}
+                {% do form.legalManager.civility.setRendered() %}
+                {% do form.legalManager.job.setRendered() %}
+                {% do form.legalManager.mail.setRendered() %}
+                {% do form.legalManager.phoneNumber.setRendered() %}
+                {{ form_row(form.legalManager.firstName) }}
+                {{ form_row(form.legalManager.lastName) }}
+                <div class="col-md-12"><label>{{ 'registry.contractor.tab.contractor'|trans }}</label></div>
                 {{ form_row(form.address.lineOne) }}
                 {{ form_row(form.address.lineTwo) }}
                 {{ form_row(form.address.zipCode) }}
                 {{ form_row(form.address.city) }}
                 {{ form_row(form.address.mail) }}
                 {{ form_row(form.address.phoneNumber) }}
-            </div>
-        </div>
-
-        <div class="box box-solid box-success">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.dpo'|trans }}</h3></div>
-            <div class="box-body">
-                {{ form_widget(form.dpo) }}
             </div>
         </div>
     </div>

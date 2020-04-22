@@ -88,6 +88,10 @@ class ContractorType extends AbstractType
                 'label'             => 'registry.contractor.form.legal_manager',
                 'required'          => false,
             ])
+            ->add('hasDpo', CheckboxType::class, [
+                'label'    => 'registry.contractor.form.has_dpo',
+                'required' => false,
+            ])
             ->add('dpo', ContactType::class, [
                 'label'    => 'registry.contractor.form.dpo',
                 'required' => false,
