@@ -28,6 +28,7 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class RequestStateDictionary extends SimpleDictionary
 {
+    const STATE_TO_TREAT              = 'to_treat';
     const STATE_AWAITING_CONFIRMATION = 'awaiting_confirmation';
     const STATE_ON_REQUEST            = 'on_request';
     const STATE_AWAITING_SERVICE      = 'awaiting_service';
@@ -47,6 +48,7 @@ class RequestStateDictionary extends SimpleDictionary
     public static function getStates()
     {
         return [
+            self::STATE_TO_TREAT                   => 'À traiter',
             self::STATE_AWAITING_CONFIRMATION      => 'En attente confirmation identité de la personne',
             self::STATE_ON_REQUEST                 => 'En demande de précision sur la demande',
             self::STATE_AWAITING_SERVICE           => 'En attente de réponse d\'un service',

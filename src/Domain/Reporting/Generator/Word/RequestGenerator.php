@@ -49,6 +49,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                 'Date de la demande',
                 'Objet',
                 'Date de traitement',
+                'État de la demande',
             ],
         ];
         $nbTotal = \count($data);
@@ -64,6 +65,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                 $this->getDate($request->getDate(), 'd/m/Y'),
                 RequestObjectDictionary::getObjects()[$request->getObject()],
                 $this->getDate($request->getAnswer()->getDate(), 'd/m/Y'),
+                RequestStateDictionary::getStates()[$request->getState()],
             ];
         }
 
@@ -230,6 +232,10 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
             $response     = $request->getAnswer();
             $responseData = [
                 [
+                    'État de la demande',
+                    RequestStateDictionary::getStates()[$request->getState()],
+                ],
+                [
                     'Réponse apportée',
                     $response->getResponse(),
                 ],
@@ -240,10 +246,6 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                 [
                     'Moyen de la réponse',
                     $response->getType() ? RequestAnswerTypeDictionary::getTypes()[$response->getType()] : null,
-                ],
-                [
-                    'État de la demande',
-                    RequestStateDictionary::getStates()[$request->getState()],
                 ],
             ];
 

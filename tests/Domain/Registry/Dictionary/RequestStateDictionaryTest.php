@@ -51,6 +51,7 @@ class RequestStateDictionaryTest extends TestCase
             RequestStateDictionary::STATE_AWAITING_SERVICE           => 'En attente de réponse d\'un service',
             RequestStateDictionary::STATE_COMPLETED_CLOSED           => 'Demande traitée et clôturée',
             RequestStateDictionary::STATE_DENIED                     => 'Demande refusée',
+            RequestStateDictionary::STATE_TO_TREAT                   => 'À traiter',
         ];
 
         $this->assertEquals($data, RequestStateDictionary::getStates());
@@ -59,6 +60,7 @@ class RequestStateDictionaryTest extends TestCase
     public function testGetStatesKeys()
     {
         $data = [
+            RequestStateDictionary::STATE_TO_TREAT,
             RequestStateDictionary::STATE_AWAITING_CONFIRMATION,
             RequestStateDictionary::STATE_ON_REQUEST,
             RequestStateDictionary::STATE_AWAITING_SERVICE,
