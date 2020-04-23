@@ -57,6 +57,10 @@
                             <td>{{ object.goal|nl2br }}</td>
                         </tr>
                         <tr>
+                            <td><strong>{{ 'registry.treatment.show.author'|trans }}</strong></td>
+                            <td>{{ object.author|dictionary('registry_treatment_author') }}</td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'registry.treatment.show.manager'|trans }}</strong></td>
                             <td>{{ object.manager }}</td>
                         </tr>
@@ -266,6 +270,10 @@
                             </td>
                         </tr>
                         <tr>
+                            <td><strong>{{ 'registry.treatment.show.estimated_concerned_people'|trans }}</strong></td>
+                            <td>{{ object.estimatedConcernedPeople }}</td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'registry.treatment.show.software'|trans }}</strong></td>
                             <td>{{ object.software }}</td>
                         </tr>
@@ -290,8 +298,16 @@
                             </td>
                         </tr>
                         <tr>
+                            <td><strong>{{ 'registry.treatment.show.ultimate_fate'|trans }}</strong></td>
+                            <td>{% if object.ultimateFate is not null %}{{ object.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}{% endif %}</td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong></td>
                             <td>{{ object.dataOrigin }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong></td>
+                            <td>{% if object.collectingMethod is not null %}{{ object.collectingMethod|dictionary('registry_treatment_collecting_method') }}{% endif %}</td>
                         </tr>
                     </table>
                 </div>
@@ -359,8 +375,35 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.authorized_people'|trans }}</strong></td>
-                            <td>{{ object.authorizedPeople }}</td>
+                            <td><strong>{{ 'registry.treatment.show.security_entitled_persons'|trans }}</strong></td>
+                            <td>
+                                {% if object.securityEntitledPersons %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.security_open_accounts'|trans }}</strong></td>
+                            <td>
+                                {% if object.securityOpenAccounts %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.security_specificities_delivered'|trans }}</strong></td>
+                            <td>
+                                {% if object.securitySpecificitiesDelivered %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
                         </tr>
                         </tbody>
                     </table>

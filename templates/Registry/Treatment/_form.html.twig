@@ -12,6 +12,7 @@
             <div class="box-body">
                 {{ form_row(form.name) }}
                 {{ form_row(form.goal) }}
+                {{ form_row(form.author) }}
                 {{ form_row(form.manager) }}
                 {{ form_row(form.active) }}
                 {{ form_row(form.legalBasis) }}
@@ -71,6 +72,7 @@
                         {{ concernedPeopleErrorBlock }}
                     {% endif %}
                 </div>
+                {{ form_row(form.estimatedConcernedPeople) }}
                 {{ form_row(form.software) }}
                 {{ form_row(form.paperProcessing) }}
                 <div class="delay-group">
@@ -84,7 +86,9 @@
                     <div>{{ form_row(form.delay.otherDelay) }}</div>
                     <div>{{ form_row(form.delay.comment) }}</div>
                 </div>
+                {{ form_row(form.ultimateFate) }}
                 {{ form_row(form.dataOrigin) }}
+                {{ form_row(form.collectingMethod) }}
             </div>
         </div>
 
@@ -97,14 +101,9 @@
                 {{ form_row(form.securitySaving) }}
                 {{ form_row(form.securityUpdate) }}
                 {{ form_row(form.securityOther) }}
-                <div class="col-sm-12{% if not form.authorizedPeople.vars.valid %} has-error{% endif %}">
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-3">{{ form_label(form.authorizedPeople) }}</div>
-                    <div class="col-sm-8 comment">
-                        {{ form_widget(form.authorizedPeople) }}
-                        {{ form_errors(form.authorizedPeople) }}
-                    </div>
-                </div>
+                {{ form_row(form.securityEntitledPersons) }}
+                {{ form_row(form.securityOpenAccounts) }}
+                {{ form_row(form.securitySpecificitiesDelivered) }}
             </div>
         </div>
 

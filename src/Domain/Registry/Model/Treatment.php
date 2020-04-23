@@ -169,6 +169,27 @@ class Treatment
     private $securityOther;
 
     /**
+     * FR: Je suis en capacité de ressortir les personnes habilitées (mesure de sécurité).
+     *
+     * @var bool
+     */
+    private $securityEntitledPersons;
+
+    /**
+     * FR: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée (mesure de sécurité).
+     *
+     * @var bool
+     */
+    private $securityOpenAccounts;
+
+    /**
+     * FR: Les spécificités de sensibilisation liées à ce traitement sont délivrées (mesure de sécurité).
+     *
+     * @var bool
+     */
+    private $securitySpecificitiesDelivered;
+
+    /**
      * FR: Surveillance systématique (traitement spécifique).
      *
      * @var bool
@@ -216,13 +237,6 @@ class Treatment
      * @var bool
      */
     private $automaticExclusionService;
-
-    /**
-     * FR: Personnes habilitées.
-     *
-     * @var string|null
-     */
-    private $authorizedPeople;
 
     /**
      * @var bool
@@ -308,6 +322,34 @@ class Treatment
     private $concernedPeopleOther;
 
     /**
+     * FR: En tant que (Informations générales).
+     *
+     * @var string|null
+     */
+    private $author;
+
+    /**
+     * FR: Moyens de la collecte des données (Détails).
+     *
+     * @var string|null
+     */
+    private $collectingMethod;
+
+    /**
+     * FR: Estimation du nombre de personnes (Détails).
+     *
+     * @var int|null
+     */
+    private $estimatedConcernedPeople;
+
+    /**
+     * FR: Sort final (Détails).
+     *
+     * @var string|null
+     */
+    private $ultimateFate;
+
+    /**
      * Treatment constructor.
      *
      * @throws \Exception
@@ -324,6 +366,9 @@ class Treatment
         $this->securitySaving                    = new ComplexChoice();
         $this->securityUpdate                    = new ComplexChoice();
         $this->securityOther                     = new ComplexChoice();
+        $this->securityEntitledPersons           = false;
+        $this->securityOpenAccounts              = false;
+        $this->securitySpecificitiesDelivered    = false;
         $this->systematicMonitoring              = false;
         $this->largeScaleCollection              = false;
         $this->vulnerablePeople                  = false;
@@ -606,16 +651,6 @@ class Treatment
         $this->dataCrossing = $dataCrossing;
     }
 
-    public function getAuthorizedPeople(): ?string
-    {
-        return $this->authorizedPeople;
-    }
-
-    public function setAuthorizedPeople(?string $authorizedPeople): void
-    {
-        $this->authorizedPeople = $authorizedPeople;
-    }
-
     public function isActive(): bool
     {
         return $this->active;
@@ -769,5 +804,75 @@ class Treatment
     public function setConcernedPeopleOther(ComplexChoice $concernedPeopleOther): void
     {
         $this->concernedPeopleOther = $concernedPeopleOther;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?string $author): void
+    {
+        $this->author = $author;
+    }
+
+    public function getCollectingMethod(): ?string
+    {
+        return $this->collectingMethod;
+    }
+
+    public function setCollectingMethod(?string $collectingMethod): void
+    {
+        $this->collectingMethod = $collectingMethod;
+    }
+
+    public function getEstimatedConcernedPeople(): ?int
+    {
+        return $this->estimatedConcernedPeople;
+    }
+
+    public function setEstimatedConcernedPeople(?int $estimatedConcernedPeople): void
+    {
+        $this->estimatedConcernedPeople = $estimatedConcernedPeople;
+    }
+
+    public function isSecurityEntitledPersons(): bool
+    {
+        return $this->securityEntitledPersons;
+    }
+
+    public function setSecurityEntitledPersons(bool $securityEntitledPersons): void
+    {
+        $this->securityEntitledPersons = $securityEntitledPersons;
+    }
+
+    public function isSecurityOpenAccounts(): bool
+    {
+        return $this->securityOpenAccounts;
+    }
+
+    public function setSecurityOpenAccounts(bool $securityOpenAccounts): void
+    {
+        $this->securityOpenAccounts = $securityOpenAccounts;
+    }
+
+    public function isSecuritySpecificitiesDelivered(): bool
+    {
+        return $this->securitySpecificitiesDelivered;
+    }
+
+    public function setSecuritySpecificitiesDelivered(bool $securitySpecificitiesDelivered): void
+    {
+        $this->securitySpecificitiesDelivered = $securitySpecificitiesDelivered;
+    }
+
+    public function getUltimateFate(): ?string
+    {
+        return $this->ultimateFate;
+    }
+
+    public function setUltimateFate(?string $ultimateFate): void
+    {
+        $this->ultimateFate = $ultimateFate;
     }
 }

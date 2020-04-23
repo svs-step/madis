@@ -324,9 +324,11 @@ registry:
             show: Visualiser "%name%"
         form:
             active: Statut
+            author: En tant que
             authorized_people: Personnes habilitées
             automated_decisions_with_legal_effect: Décisions automatisées  avec  effet
             automatic_exclusion_service : Exclusion automatique d'un service
+            collecting_method: Moyens de la collecte des données
             concerned_people: Personnes concernées
             concerned_people_agent: Agents
             concerned_people_company: Entreprises
@@ -341,6 +343,7 @@ registry:
             data_category_other: Autres catégories
             data_origin: Origine des données
             delay: Délai de conservation
+            estimated_concerned_people: Estimation du nombre de personnes concernées
             evaluation_or_rating: Évaluation ou notation
             goal: Finalités
             large_scale_collection: Collecte à large échelle
@@ -352,12 +355,16 @@ registry:
             paper_processing: Traitement papier
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
+            security_entitled_persons: Je suis en capacité de ressortir les personnes habilitées
+            security_open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
             security_other: Autres
             security_saving: Sauvegarde
+            security_specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             security_tracability: Traçabilité
             security_update: Mise à jour
             systematic_monitoring: Surveillance systématique
             software: Logiciel
+            ultimate_fate: Sort final
             vulnerable_people: Personnes vulnérables
         flashbag:
             success:
@@ -375,9 +382,11 @@ registry:
             confirm_deletion: Voulez-vous vraiment supprimer ce traitement ?
         show:
             active: Statut
+            author: En tant que
             authorized_people: Personnes habilitées
             automated_decisions_with_legal_effect: Décisions automatisées  avec  effet
             automatic_exclusion_service: Exclusion automatique d'un service
+            collecting_method: Moyens de la collecte des données
             concerned_people: Personnes concernées
             concerned_people_agent: Agents
             concerned_people_company: Entreprises
@@ -395,6 +404,7 @@ registry:
             data_category_other: Autres catégories
             data_origin: Origine des données
             delay: Délai de conservation
+            estimated_concerned_people: Estimation du nombre de personnes concernées
             evaluation_or_rating: Évaluation ou notation
             goal: Finalités
             large_scale_collection: Collecte à large échelle
@@ -406,11 +416,15 @@ registry:
             paper_processing: Traitement papier
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
+            security_entitled_persons: Je suis en capacité de ressortir les personnes habilitées
+            security_open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
             security_other: Autres
             security_saving: Sauvegarde
+            security_specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             security_tracability: Traçabilité
             security_update: Mise à jour
             software: Logiciel
+            ultimate_fate: Sort final
             systematic_monitoring: Surveillance systématique
             updated_at: Dernière mise à jour
             vulnerable_people: Personnes vulnérables

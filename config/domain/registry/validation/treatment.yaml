@@ -4,6 +4,21 @@ App\Domain\Registry\Model\Treatment:
               message: 'registry_treatment.concerned_people.min_count'
               groups: ['default']
     properties:
+        author:
+            - NotBlank:
+                  message: 'registry_treatment.author.not_blank'
+                  groups: ['default']
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                  name: 'registry_treatment_author'
+                  groups: ['default']
+        collectingMethod:
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                  name: 'registry_treatment_collecting_method'
+                  groups: ['default']
+        estimatedConcernedPeople:
+            - GreaterThanOrEqual:
+                  value: 0
+                  groups: ['default']
         name:
             - NotBlank:
                 message: 'registry_treatment.name.not_blank'
@@ -36,10 +51,6 @@ App\Domain\Registry\Model\Treatment:
             - Length:
                 max: 255
                 groups: ['default']
-        authorizedPeople:
-            - Length:
-                max: 255
-                groups: ['default']
         securityAccessControl:
             - Valid: ~
         securityTracability:
@@ -50,3 +61,7 @@ App\Domain\Registry\Model\Treatment:
             - Valid: ~
         securityOther:
             - Valid: ~
+        ultimateFate:
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                  name: 'registry_treatment_ultimate_fate'
+                  groups: ['default']

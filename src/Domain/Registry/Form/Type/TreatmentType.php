@@ -37,6 +37,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -253,13 +254,6 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.automatic_exclusion_service',
                 'required' => false,
             ])
-            ->add('authorizedPeople', TextType::class, [
-                'label'    => 'registry.treatment.form.authorized_people',
-                'required' => false,
-                'attr'     => [
-                    'maxlength' => 255,
-                ],
-            ])
             ->add('active', ChoiceType::class, [
                 'label'    => 'registry.treatment.form.active',
                 'required' => true,
@@ -269,6 +263,42 @@ class TreatmentType extends AbstractType
                 ],
                 'multiple' => false,
                 'expanded' => true,
+            ])
+            ->add('author', DictionaryType::class, [
+                'label'    => 'registry.treatment.form.author',
+                'name'     => 'registry_treatment_author',
+                'required' => true,
+            ])
+            ->add('collectingMethod', DictionaryType::class, [
+                'label'       => 'registry.treatment.form.collecting_method',
+                'name'        => 'registry_treatment_collecting_method',
+                'required'    => false,
+                'placeholder' => 'placeholder.precision',
+            ])
+            ->add('estimatedConcernedPeople', IntegerType::class, [
+                'label'    => 'registry.treatment.form.estimated_concerned_people',
+                'required' => false,
+                'attr'     => [
+                    'min' => 0,
+                ],
+            ])
+            ->add('securityEntitledPersons', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.security_entitled_persons',
+                'required' => false,
+            ])
+            ->add('securityOpenAccounts', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.security_open_accounts',
+                'required' => false,
+            ])
+            ->add('securitySpecificitiesDelivered', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.security_specificities_delivered',
+                'required' => false,
+            ])
+            ->add('ultimateFate', DictionaryType::class, [
+                'label'       => 'registry.treatment.form.ultimate_fate',
+                'name'        => 'registry_treatment_ultimate_fate',
+                'required'    => false,
+                'placeholder' => 'placeholder.precision',
             ])
         ;
     }

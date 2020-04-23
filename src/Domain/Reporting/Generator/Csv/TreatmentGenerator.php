@@ -24,7 +24,10 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Csv;
 
 use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
+use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
+use App\Domain\Registry\Dictionary\TreatmentCollectingMethodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
+use App\Domain\Registry\Dictionary\TreatmentUltimateFateDictionary;
 use App\Domain\User\Repository\Collectivity;
 use App\Infrastructure\ORM\Registry\Repository\Treatment;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -120,6 +123,7 @@ class TreatmentGenerator extends AbstractGenerator
     private function treatmentGeneralInformationsHeaders()
     {
         return [
+            $this->translator->trans('registry.treatment.show.author'),
             $this->translator->trans('registry.treatment.show.goal'),
             $this->translator->trans('registry.treatment.show.manager'),
             $this->translator->trans('registry.treatment.show.active'),
@@ -132,6 +136,7 @@ class TreatmentGenerator extends AbstractGenerator
     private function initializeTreatmentGeneralInformations(\App\Domain\Registry\Model\Treatment $treatment): array
     {
         return [
+            !\is_null($treatment->getAuthor()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : null,
             $treatment->getGoal(),
             $treatment->getManager(),
             $treatment->isActive() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
@@ -217,12 +222,15 @@ class TreatmentGenerator extends AbstractGenerator
             $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_partner') . ' - Commentaire',
             $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_other'),
             $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_other') . ' - Commentaire',
+            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.estimated_concerned_people'),
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.software'),
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.paper_processing'),
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Nombre',
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Période',
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Commentaire',
+            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.ultimate_fate'),
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.data_origin'),
+            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.collecting_method'),
         ];
     }
 
@@ -246,12 +254,15 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getConcernedPeoplePartner()->getComment(),
             $treatment->getConcernedPeopleOther()->isCheck() ? $yes : $no,
             $treatment->getConcernedPeopleOther()->getComment(),
+            $treatment->getEstimatedConcernedPeople(),
             $treatment->getSoftware(),
             $treatment->isPaperProcessing() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
             $treatment->getDelay()->getNumber(),
             !\is_null($treatment->getDelay()->getPeriod()) ? DelayPeriodDictionary::getPeriods()[$treatment->getDelay()->getPeriod()] : null,
             $treatment->getDelay()->getComment(),
+            !\is_null($treatment->getUltimateFate()) ? TreatmentUltimateFateDictionary::getUltimateFates()[$treatment->getUltimateFate()] : null,
             $treatment->getDataOrigin(),
+            !\is_null($treatment->getCollectingMethod()) ? TreatmentCollectingMethodDictionary::getMethods()[$treatment->getCollectingMethod()] : null,
         ];
     }
 
@@ -270,7 +281,9 @@ class TreatmentGenerator extends AbstractGenerator
             $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_update') . ' - Commentaire',
             $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_other'),
             $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_other') . ' - Commentaire',
-            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.authorized_people'),
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_entitled_persons'),
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_open_accounts'),
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_specificities_delivered'),
         ];
     }
 
@@ -290,7 +303,9 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getSecurityUpdate()->getComment(),
             $treatment->getSecurityOther()->isCheck() ? $yes : $no,
             $treatment->getSecurityOther()->getComment(),
-            $treatment->getAuthorizedPeople(),
+            $treatment->isSecurityEntitledPersons() ? $yes : $no,
+            $treatment->isSecurityOpenAccounts() ? $yes : $no,
+            $treatment->isSecuritySpecificitiesDelivered() ? $yes : $no,
         ];
     }
 

@@ -98,8 +98,14 @@ class TreatmentCloner extends AbstractCloner
         $treatment->setEvaluationOrRating($referent->isEvaluationOrRating());
         $treatment->setAutomatedDecisionsWithLegalEffect($referent->isAutomatedDecisionsWithLegalEffect());
         $treatment->setAutomaticExclusionService($referent->isAutomaticExclusionService());
-        $treatment->setAuthorizedPeople($referent->getAuthorizedPeople());
         $treatment->setActive($referent->isActive());
+        $treatment->setSecurityEntitledPersons($referent->isSecurityEntitledPersons());
+        $treatment->setSecurityOpenAccounts($referent->isSecurityOpenAccounts());
+        $treatment->setSecuritySpecificitiesDelivered($referent->isSecuritySpecificitiesDelivered());
+        $treatment->setAuthor($referent->getAuthor());
+        $treatment->setCollectingMethod($referent->getCollectingMethod());
+        $treatment->setEstimatedConcernedPeople($referent->getEstimatedConcernedPeople());
+        $treatment->setUltimateFate($referent->getUltimateFate());
 
         $treatment->setCollectivity($collectivity);
         $treatment->setClonedFrom($referent);

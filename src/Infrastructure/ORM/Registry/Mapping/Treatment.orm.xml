@@ -28,11 +28,17 @@
         <field name="evaluationOrRating" column="evaluation_or_rating" type="boolean"/>
         <field name="automatedDecisionsWithLegalEffect" column="automated_decisions_with_legal_effect" type="boolean"/>
         <field name="automaticExclusionService" column="automatic_exclusion_service" type="boolean"/>
-        <field name="authorizedPeople" column="authorized_people" nullable="true"/>
         <field name="active" column="active" type="boolean"/>
         <field name="completion" column="completion" type="integer"/>
         <field name="template" column="template" type="boolean"/>
         <field name="templateIdentifier" column="template_identifier" type="integer" nullable="true"/>
+        <field name="securityEntitledPersons" column="security_entitled_persons" type="boolean"/>
+        <field name="securityOpenAccounts" column="security_open_accounts" type="boolean"/>
+        <field name="securitySpecificitiesDelivered" column="security_specificities_delivered" type="boolean"/>
+        <field name="author" column="author" nullable="true"/>
+        <field name="collectingMethod" column="collecting_method" nullable="true"/>
+        <field name="estimatedConcernedPeople" column="estimated_concerned_people" type="integer" nullable="true"/>
+        <field name="ultimateFate" column="ultimate_fate" nullable="true"/>
 
         <embedded name="delay" class="App\Domain\Registry\Model\Embeddable\Delay" column-prefix="delay_"/>
         <embedded name="securityAccessControl" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_access_control_"/>
