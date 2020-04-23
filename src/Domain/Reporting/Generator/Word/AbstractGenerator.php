@@ -351,7 +351,9 @@ abstract class AbstractGenerator implements GeneratorInterface
 
         foreach ($data as $nbLine => $line) {
             $table->addRow();
-            foreach ($line as $nbCol => $col) {
+            $lineData  = $line['data'] ?? $line;
+            $lineStyle = $line['style'] ?? null;
+            foreach ($lineData as $nbCol => $col) {
                 $col = \is_array($col) ? $col : [$col];
 
                 if ($header && self::TABLE_ORIENTATION_HORIZONTAL === $orientation && 0 === $nbLine
@@ -361,7 +363,7 @@ abstract class AbstractGenerator implements GeneratorInterface
                         $cell->addText($item, $this->textHeadStyle);
                     }
                 } else {
-                    $cell    = $table->addCell(5000 / \count($line));
+                    $cell    = $table->addCell(5000 / \count($lineData), $lineStyle);
                     $textrun = $cell->addTextRun();
                     foreach ($col as $key => $item) {
                         if (0 != $key) {

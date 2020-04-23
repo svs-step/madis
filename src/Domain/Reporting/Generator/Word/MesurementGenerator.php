@@ -28,6 +28,7 @@ use App\Domain\Registry\Dictionary\MesurementPriorityDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model\Mesurement;
 use PhpOffice\PhpWord\Element\Section;
+use PhpOffice\PhpWord\Element\Table;
 
 class MesurementGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
@@ -43,6 +44,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
                 'ACTION',
                 'DATE',
                 'OBSERVATIONS',
+                'RESPONSABLE D\'ACTION',
             ],
         ];
         $actionPlan = [
@@ -50,21 +52,31 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
                 'ACTION',
                 'DATE',
                 'OBSERVATIONS',
+                'RESPONSABLE D\'ACTION',
             ],
         ];
+
+        uasort($data, [$this, 'sortMesurementByPriority']);
 
         foreach ($data as $mesurement) {
             if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {
                 $appliedMesurement[] = [
-                    $mesurement->getName(),
-                    $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_FORMAT) : '',
-                    $mesurement->getComment(),
+                    'data' => [
+                        $mesurement->getName(),
+                        $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_FORMAT) : '',
+                        $mesurement->getComment(),
+                        $mesurement->getManager(),
+                    ],
+                    'style' => [
+                        'bgColor' => $mesurement->getPriority() ? MesurementPriorityDictionary::getPrioritiesColors()[$mesurement->getPriority()] : '',
+                    ],
                 ];
             } elseif (!\is_null($mesurement->getPlanificationDate()) && MesurementStatusDictionary::STATUS_NOT_APPLIED === $mesurement->getStatus()) {
                 $actionPlan[] = [
                     $mesurement->getName(),
                     $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_FORMAT) : '',
                     $mesurement->getComment(),
+                    $mesurement->getManager(),
                 ];
             }
         }
@@ -91,18 +103,22 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             [
                 'Nom',
                 'Statut',
+                'Priorité',
             ],
         ];
+
+        uasort($data, [$this, 'sortMesurementByPriority']);
+
         // Add content
         foreach ($data as $mesurement) {
             $tableData[] = [
                 $mesurement->getName(),
                 MesurementStatusDictionary::getStatus()[$mesurement->getStatus()],
+                $mesurement->getPriority() ? MesurementPriorityDictionary::getPriorities()[$mesurement->getPriority()] : '',
             ];
         }
 
         $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
-        $section->addPageBreak();
     }
 
     /**
@@ -128,20 +144,20 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
                     $mesurement->getDescription() ? \preg_split('/\R/', $mesurement->getDescription()) : null,
                 ],
                 [
-                    'Coût',
-                    $mesurement->getCost(),
-                ],
-                [
-                    'Charge',
-                    $mesurement->getCharge(),
+                    'Responsable d\'action',
+                    $mesurement->getManager(),
                 ],
                 [
                     'Priorité',
                     !\is_null($mesurement->getPriority()) ? MesurementPriorityDictionary::getPriorities()[$mesurement->getPriority()] : '',
                 ],
                 [
-                    'Responsable d\'action',
-                    $mesurement->getManager(),
+                    'Coût',
+                    $mesurement->getCost(),
+                ],
+                [
+                    'Charge',
+                    $mesurement->getCharge(),
                 ],
             ];
 
@@ -182,5 +198,17 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             $section->addTitle('Historique', 3);
             $this->addTable($section, $historyData, true, self::TABLE_ORIENTATION_VERTICAL);
         }
+    }
+
+    private function sortMesurementByPriority(Mesurement $a, Mesurement $b)
+    {
+        $weightA = \is_null($a->getPriority()) ? 0 : MesurementPriorityDictionary::getWeightPriorities()[$a->getPriority()];
+        $weightB = \is_null($b->getPriority()) ? 0 : MesurementPriorityDictionary::getWeightPriorities()[$b->getPriority()];
+
+        if ($weightA === $weightB) {
+            return 0;
+        }
+
+        return ($weightA < $weightB) ? 1 : -1;
     }
 }

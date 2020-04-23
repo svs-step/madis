@@ -56,4 +56,28 @@ class MesurementPriorityDictionary extends SimpleDictionary
     {
         return \array_keys(self::getPriorities());
     }
+
+    /**
+     * @return array
+     */
+    public static function getWeightPriorities()
+    {
+        return [
+            self::PRIORITY_LOW    => 1,
+            self::PRIORITY_NORMAL => 2,
+            self::PRIORITY_HIGH   => 3,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function getPrioritiesColors()
+    {
+        return [
+            self::PRIORITY_LOW    => 'F2D600',
+            self::PRIORITY_NORMAL => 'FF9F1A',
+            self::PRIORITY_HIGH   => 'EB5A46',
+        ];
+    }
 }
