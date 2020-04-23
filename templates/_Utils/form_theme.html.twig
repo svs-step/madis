@@ -44,3 +44,17 @@
         </div>
     </div> {# -#}
 {%- endblock complex_choice_row %}
+
+{% block answer_row -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div class="form-group{% if not valid %} has-error{% endif %}">
+        <div class="{{ block('form_group_class') }}">
+            {{- form_widget(form.response, widget_attr) -}}
+            {{- form_help(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    </div>
+{%- endblock answer_row %}

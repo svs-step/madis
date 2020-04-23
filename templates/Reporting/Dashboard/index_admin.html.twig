@@ -6,7 +6,6 @@
 {% block body_head %}
     <h1>
         {{ 'reporting.dashboard.title.index'|trans }}
-        <small>{{ app.user.collectivity }}</small>
     </h1>
 {% endblock %}
 
@@ -200,7 +199,7 @@
     let paths = $('path');
     paths.attr("fill","#FFFFFF")
     paths.attr('stroke-opacity',"0.2")
-    paths.attr('stroke-width','450')
+    paths.attr('stroke-width','200')
     paths.attr('cursor','pointer')
     paths.each(function () {
       let item = $(this);
