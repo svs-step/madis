@@ -54,6 +54,7 @@ class ContractorTypeTest extends FormTypeHelper
             'otherInformations'          => TextareaType::class,
             'address'                    => AddressType::class,
             'legalManager'               => ContactType::class,
+            'hasDpo'                     => CheckboxType::class,
             'dpo'                        => ContactType::class,
         ];
 

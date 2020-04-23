@@ -109,6 +109,11 @@ class Contractor
     private $legalManager;
 
     /**
+     * @var bool
+     */
+    private $hasDpo;
+
+    /**
      * Contractor constructor.
      *
      * @throws \Exception
@@ -120,6 +125,7 @@ class Contractor
         $this->adoptedSecurityFeatures    = false;
         $this->maintainsTreatmentRegister = false;
         $this->sendingDataOutsideEu       = false;
+        $this->hasDpo                     = false;
         $this->treatments                 = [];
         $this->proofs                     = [];
     }
@@ -276,5 +282,15 @@ class Contractor
     public function setLegalManager(?Contact $legalManager): void
     {
         $this->legalManager = $legalManager;
+    }
+
+    public function isHasDpo(): bool
+    {
+        return $this->hasDpo;
+    }
+
+    public function setHasDpo(bool $hasDpo): void
+    {
+        $this->hasDpo = $hasDpo;
     }
 }

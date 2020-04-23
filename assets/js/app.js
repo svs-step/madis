@@ -93,6 +93,12 @@ $(document).ready(function() {
     $("#request_state").on('change', function() {
         checkRequestStateRejectionReason()
     });
+
+    // Check Contractor dpo | onLoad & onChange
+    checkContractorHasDpo();
+    $('#contractor_hasDpo').on('change', function() {
+        checkContractorHasDpo();
+    });
 });
 
 function checkMesurementStatus()
@@ -190,4 +196,12 @@ function checkRequestStateRejectionReason()
         fieldSateRejectionReason.prop('required',false);
         fieldSateRejectionReason.val("");
     }
+}
+
+function checkContractorHasDpo()
+{
+    let hasDpo = $('#contractor_hasDpo');
+    let boxDpo = $('body.registry_contractor.form #box-dpo');
+
+    checkDifferentDpo(hasDpo, boxDpo);
 }

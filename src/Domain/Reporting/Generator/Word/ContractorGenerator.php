@@ -176,6 +176,14 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
 
             $addressData = [
                 [
+                    'Responsable de traitement - Prénom',
+                    $contractor->getLegalManager()->getFirstName(),
+                ],
+                [
+                    'Responsable de traitement - Nom',
+                    $contractor->getLegalManager()->getLastName(),
+                ],
+                [
                     'Adresse',
                     [
                         $contractor->getAddress()->getLineOne(),
@@ -221,17 +229,6 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
                 ],
             ];
 
-            $legalManagerData = [
-                [
-                    'Prénom',
-                    $contractor->getLegalManager()->getFirstName(),
-                ],
-                [
-                    'Nom',
-                    $contractor->getLegalManager()->getLastName(),
-                ],
-            ];
-
             $historyData = [
                 [
                     'Créateur',
@@ -255,9 +252,6 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
 
             $section->addTitle('DPD', 3);
             $this->addTable($section, $dpoData, true, self::TABLE_ORIENTATION_VERTICAL);
-
-            $section->addTitle('Responsable de traitement', 3);
-            $this->addTable($section, $legalManagerData, true, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Historique', 3);
             $this->addTable($section, $historyData, true, self::TABLE_ORIENTATION_VERTICAL);

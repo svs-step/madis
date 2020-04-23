@@ -104,19 +104,51 @@
                 </div>
             </div>
 
-            {# LEGAL MANAGER #}
-            <div class="box box-solid box-warning">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.legal_manager'|trans }}</h3></div>
+            {# DPO #}
+            <div class="box box-solid box-success">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.dpo'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
                         <tbody>
                         <tr>
+                            <td><strong>{{ 'registry.contractor.show.has_dpo'|trans }}</strong></td>
+                            <td>
+                                <span class="badge bg-gr">
+                                    {% if object.hasDpo %}
+                                        {{ 'label.yes'|trans }}
+                                    {% else %}
+                                        {{ 'label.no'|trans }}
+                                    {% endif %}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.contact_civility'|trans }}</strong></td>
+                            <td>
+                                {% if object.dpo.civility is not null %}
+                                    {{ object.dpo.civility|dictionary('user_contact_civility') }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'registry.contractor.show.contact_first_name'|trans }}</strong></td>
-                            <td>{{ object.legalManager.firstName }}</td>
+                            <td>{{ object.dpo.firstName }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.contractor.show.contact_last_name'|trans }}</strong></td>
-                            <td>{{ object.legalManager.lastName }}</td>
+                            <td>{{ object.dpo.lastName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.contact_job'|trans }}</strong></td>
+                            <td>{{ object.dpo.job }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.contact_mail'|trans }}</strong></td>
+                            <td>{{ object.dpo.mail }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.contact_phone_number'|trans }}</strong></td>
+                            <td>{{ object.dpo.phoneNumber }}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -167,67 +199,42 @@
                     <table class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.address.show.line_one'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.contractor.tab.legal_manager'|trans }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="contractor-coordinate"><strong>{{ 'registry.contractor.show.contact_first_name'|trans }}</strong></td>
+                            <td>{{ object.legalManager.firstName }}</td>
+                        </tr>
+                        <tr>
+                            <td class="contractor-coordinate"><strong>{{ 'registry.contractor.show.contact_last_name'|trans }}</strong></td>
+                            <td>{{ object.legalManager.lastName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.tab.contractor'|trans }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="contractor-coordinate"><strong>{{ 'registry.address.show.line_one'|trans }}</strong></td>
                             <td>{{ object.address.lineOne }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.address.show.line_two'|trans }}</strong></td>
+                            <td class="contractor-coordinate"><strong>{{ 'registry.address.show.line_two'|trans }}</strong></td>
                             <td>{{ object.address.lineTwo }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.address.show.zip_code'|trans }}</strong></td>
+                            <td class="contractor-coordinate"><strong>{{ 'registry.address.show.zip_code'|trans }}</strong></td>
                             <td>{{ object.address.zipCode }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.address.show.city'|trans }}</strong></td>
+                            <td class="contractor-coordinate"><strong>{{ 'registry.address.show.city'|trans }}</strong></td>
                             <td>{{ object.address.city }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.address.show.mail'|trans }}</strong></td>
+                            <td class="contractor-coordinate"><strong>{{ 'registry.address.show.mail'|trans }}</strong></td>
                             <td>{{ object.address.mail }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.address.show.phone_number'|trans }}</strong></td>
+                            <td class="contractor-coordinate"><strong>{{ 'registry.address.show.phone_number'|trans }}</strong></td>
                             <td>{{ object.address.phoneNumber }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            {# DPO #}
-            <div class="box box-solid box-success">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.dpo'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.contractor.show.contact_civility'|trans }}</strong></td>
-                            <td>
-                                {% if object.dpo.civility is not null %}
-                                    {{ object.dpo.civility|dictionary('user_contact_civility') }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.contractor.show.contact_first_name'|trans }}</strong></td>
-                            <td>{{ object.dpo.firstName }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.contractor.show.contact_last_name'|trans }}</strong></td>
-                            <td>{{ object.dpo.lastName }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.contractor.show.contact_job'|trans }}</strong></td>
-                            <td>{{ object.dpo.job }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.contractor.show.contact_mail'|trans }}</strong></td>
-                            <td>{{ object.dpo.mail }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.contractor.show.contact_phone_number'|trans }}</strong></td>
-                            <td>{{ object.dpo.phoneNumber }}</td>
                         </tr>
                         </tbody>
                     </table>
