@@ -65,6 +65,8 @@ registry_request_concerned_people:
         mandatory: Cette donnée est obligatoire
 
 registry_treatment:
+    author:
+        not_null: L'auteur du traitement doit être renseigné
     active:
         not_null: Le statut du traitement doit être renseigné
     concerned_people:

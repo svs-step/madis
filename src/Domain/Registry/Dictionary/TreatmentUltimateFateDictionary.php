@@ -26,44 +26,40 @@ namespace App\Domain\Registry\Dictionary;
 
 use App\Application\Dictionary\SimpleDictionary;
 
-class TreatmentConcernedPeopleDictionary extends SimpleDictionary
+class TreatmentUltimateFateDictionary extends SimpleDictionary
 {
-    const TYPE_PARTICULAR = 'particular';
-    const TYPE_USER       = 'user';
-    const TYPE_AGENT      = 'agent';
-    const TYPE_ELECTED    = 'elected';
-    const TYPE_COMPANY    = 'company';
-    const TYPE_PARTNER    = 'partner';
+    const FATE_DESTRUCTION  = 'destruction';
+    const FATE_CONSERVATION = 'conservation';
+    const FATE_DEPOSIT      = 'deposit';
+    const FATE_SORT         = 'sort';
 
     public function __construct()
     {
-        parent::__construct('registry_treatment_concerned_people', self::getTypes());
+        parent::__construct('registry_treatment_ultimate_fate', self::getUltimateFates());
     }
 
     /**
-     * Get an array of Types.
+     * Get an array of Basis.
      *
      * @return array
      */
-    public static function getTypes()
+    public static function getUltimateFates()
     {
         return [
-            self::TYPE_PARTICULAR => 'Particuliers',
-            self::TYPE_USER       => 'Internautes',
-            self::TYPE_AGENT      => 'Agents',
-            self::TYPE_ELECTED    => 'Élus',
-            self::TYPE_COMPANY    => 'Entreprises',
-            self::TYPE_PARTNER    => 'Partenaires',
+            self::FATE_DESTRUCTION  => 'Destruction',
+            self::FATE_CONSERVATION => 'Conservation',
+            self::FATE_DEPOSIT      => 'Versement',
+            self::FATE_SORT         => 'Tri',
         ];
     }
 
     /**
-     * Get keys of the Types array.
+     * Get keys of the Basis array.
      *
      * @return array
      */
-    public static function getTypesKeys()
+    public static function getUltimateFatesKeys()
     {
-        return \array_keys(self::getTypes());
+        return \array_keys(self::getUltimateFates());
     }
 }

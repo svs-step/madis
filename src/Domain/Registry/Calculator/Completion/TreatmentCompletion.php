@@ -62,7 +62,11 @@ class TreatmentCompletion extends AbstractCompletion
             ++$points;
         }
 
-        if (!empty($object->getConcernedPeople())) {
+        if ($object->getConcernedPeopleParticular()->isCheck() || $object->getConcernedPeopleUser()->isCheck()
+            || $object->getConcernedPeopleAgent()->isCheck() || $object->getConcernedPeopleElected()->isCheck()
+            || $object->getConcernedPeopleCompany()->isCheck() || $object->getConcernedPeoplePartner()->isCheck()
+            || $object->getConcernedPeopleOther()->isCheck()
+        ) {
             ++$points;
         }
 
