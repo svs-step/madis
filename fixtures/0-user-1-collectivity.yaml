@@ -58,3 +58,10 @@ App\Domain\User\Model\Collectivity:
             \</ol\>
 
             \<p\>Conclusion\</p\>
+
+    user_collectivity_foobar:
+        name: Collectivité Foobar
+        shortName: Foobar
+        type: '<(App\Domain\User\Dictionary\CollectivityTypeDictionary::TYPE_COMMUNE)>'
+        siren: <randomNumber(9)>
+        address: '@user_address_collectivity_foobar'
