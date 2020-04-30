@@ -29,6 +29,7 @@ use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model\Mesurement;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Element\Table;
+use PhpOffice\PhpWord\SimpleType\Jc;
 
 class MesurementGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
@@ -44,7 +45,6 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
                 'ACTION',
                 'DATE',
                 'OBSERVATIONS',
-                'RESPONSABLE D\'ACTION',
             ],
         ];
         $actionPlan = [
@@ -61,6 +61,12 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         foreach ($data as $mesurement) {
             if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {
                 $appliedMesurement[] = [
+                    $mesurement->getName(),
+                    $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_FORMAT) : '',
+                    $mesurement->getComment(),
+                ];
+            } elseif (!\is_null($mesurement->getPlanificationDate()) && MesurementStatusDictionary::STATUS_NOT_APPLIED === $mesurement->getStatus()) {
+                $actionPlan[] = [
                     'data' => [
                         $mesurement->getName(),
                         $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_FORMAT) : '',
@@ -70,13 +76,6 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
                     'style' => [
                         'bgColor' => $mesurement->getPriority() ? MesurementPriorityDictionary::getPrioritiesColors()[$mesurement->getPriority()] : '',
                     ],
-                ];
-            } elseif (!\is_null($mesurement->getPlanificationDate()) && MesurementStatusDictionary::STATUS_NOT_APPLIED === $mesurement->getStatus()) {
-                $actionPlan[] = [
-                    $mesurement->getName(),
-                    $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_FORMAT) : '',
-                    $mesurement->getComment(),
-                    $mesurement->getManager(),
                 ];
             }
         }
@@ -88,6 +87,14 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $section->addTitle("Plan d'actions", 2);
         $section->addText('Un plan d’action a été établi comme suit.');
         $this->addTable($section, $actionPlan, true, self::TABLE_ORIENTATION_HORIZONTAL);
+        $legendPriorityColor = $section->addTextRun(['alignment' => Jc::CENTER]);
+        $priorities          = MesurementPriorityDictionary::getPrioritiesNameWithoutNumber();
+        foreach ($priorities as $key => $priority) {
+            $legendPriorityColor->addText($priority, ['color'=>MesurementPriorityDictionary::getPrioritiesColors()[$key]]);
+            if (end($priorities) !== $priority) {
+                $legendPriorityColor->addText(' - ');
+            }
+        }
     }
 
     /**

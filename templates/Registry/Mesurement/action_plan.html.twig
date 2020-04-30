@@ -36,6 +36,7 @@
                             <th>{{ 'registry.mesurement.list.cost'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.charge'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.manager'|trans }}</th>
+                            <th>{{ 'registry.mesurement.list.priority'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -50,6 +51,11 @@
                                 <td>{{ object.cost }}</td>
                                 <td>{{ object.charge }}</td>
                                 <td>{{ object.manager }}</td>
+                                <td>
+                                    {% if object.priority is not null %}
+                                        {{ object.priority|dictionary('registry_mesurement_priority') }}
+                                    {% endif %}
+                                </td>
                                 <td>
                                     <a href="{{ path('registry_mesurement_show', {'id': object.id}) }}">
                                         <i class="fa fa-eye"></i>
@@ -68,5 +74,8 @@
 {% endblock %}
 
 {% block javascripts %}
+    {% set dataTableOptions = {
+        'order':  [[5, 'desc' ]]
+    } %}
     {{ include('_Utils/_datatable.html.twig') }}
 {% endblock %}

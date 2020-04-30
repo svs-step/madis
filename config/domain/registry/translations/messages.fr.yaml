@@ -328,7 +328,7 @@ registry:
             authorized_people: Personnes habilitées
             automated_decisions_with_legal_effect: Décisions automatisées  avec  effet
             automatic_exclusion_service : Exclusion automatique d'un service
-            collecting_method: Moyens de la collecte des données
+            collecting_method: Moyens de la collecte
             concerned_people: Personnes concernées
             concerned_people_agent: Agents
             concerned_people_company: Entreprises
@@ -343,7 +343,7 @@ registry:
             data_category_other: Autres catégories
             data_origin: Origine des données
             delay: Délai de conservation
-            estimated_concerned_people: Estimation du nombre de personnes concernées
+            estimated_concerned_people: Nombre de concernées
             evaluation_or_rating: Évaluation ou notation
             goal: Finalités
             large_scale_collection: Collecte à large échelle
@@ -386,7 +386,7 @@ registry:
             authorized_people: Personnes habilitées
             automated_decisions_with_legal_effect: Décisions automatisées  avec  effet
             automatic_exclusion_service: Exclusion automatique d'un service
-            collecting_method: Moyens de la collecte des données
+            collecting_method: Moyens de la collecte
             concerned_people: Personnes concernées
             concerned_people_agent: Agents
             concerned_people_company: Entreprises
@@ -404,7 +404,7 @@ registry:
             data_category_other: Autres catégories
             data_origin: Origine des données
             delay: Délai de conservation
-            estimated_concerned_people: Estimation du nombre de personnes concernées
+            estimated_concerned_people: Nombre de concernées
             evaluation_or_rating: Évaluation ou notation
             goal: Finalités
             large_scale_collection: Collecte à large échelle
