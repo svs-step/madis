@@ -4,7 +4,6 @@
 
 
 <div class="row">
-
     <div class="col-md-6">
         {# GENERAL INFORMATIONS #}
         <div class="box box-solid box-info">
@@ -59,7 +58,11 @@
         <div class="box box-solid box-primary">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
             <div class="box-body">
-                <label class="col-sm-2 control-label">{{ 'registry.treatment.show.concerned_people'|trans }}*</label>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="col-sm-2 control-label">
+                  {{ 'registry.treatment.show.concerned_people'|trans }}*
+                </label>
+   
                 {% set concernedPeopleErrorBlock = null %}
                 {% for error in form.vars.errors %}
                     {% if error.origin.name == 'concernedPeopleParticular' %}
@@ -74,17 +77,18 @@
                         {% endset %}
                     {% endif %}
                 {% endfor %}
-                <div class="col-sm-10 form-group {% if concernedPeopleErrorBlock is not null %} has-error{% endif %}">
+                <div class="col-sm-10 is-paddingless {% if concernedPeopleErrorBlock is not null %} has-error{% endif %}">
                     {{ form_row(form.concernedPeopleParticular) }}
                     {{ form_row(form.concernedPeopleUser) }}
                     {{ form_row(form.concernedPeopleAgent) }}
                     {{ form_row(form.concernedPeopleElected) }}
                     {{ form_row(form.concernedPeopleCompany) }}
                     {{ form_row(form.concernedPeoplePartner) }}
-                    {{ form_row(form.concernedPeopleOther) }}
-                    {% if concernedPeopleErrorBlock is not null %}
-                        {{ concernedPeopleErrorBlock }}
+                    {{ form_row(form.concernedPeopleOther) }} 
+                    {% if concernedPeopleErrorBlock is not null %} 
+                        {{ concernedPeopleErrorBlock }} 
                     {% endif %}
+                  </div>
                 </div>
                 {{ form_row(form.estimatedConcernedPeople) }}
                 {{ form_row(form.software) }}

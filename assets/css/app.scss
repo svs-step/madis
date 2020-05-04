@@ -176,3 +176,23 @@ body.show .content ul {
 .table > tbody > tr > td.concerned-people-type{
   padding-left: 30px;
 }
+
+.is-paddingless{
+  .complex-choice-group{
+    padding-left:0px;
+
+    .check{
+      padding-left: 0px;
+    }
+  }
+}
+
+.custom-checkbox{
+  margin-top: 8px;
+  margin-bottom: 16px;
+
+  div > label {
+    padding-right: 0px;
+    cursor: pointer;
+  }
+}

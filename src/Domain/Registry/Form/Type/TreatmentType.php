@@ -283,16 +283,19 @@ class TreatmentType extends AbstractType
                 ],
             ])
             ->add('securityEntitledPersons', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.security_entitled_persons',
-                'required' => false,
+                'label'        => 'registry.treatment.form.security_entitled_persons',
+                'required'     => false,
+                'block_prefix' => 'custom_checkbox',
             ])
             ->add('securityOpenAccounts', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.security_open_accounts',
-                'required' => false,
+                'label'        => 'registry.treatment.form.security_open_accounts',
+                'required'     => false,
+                'block_prefix' => 'custom_checkbox',
             ])
             ->add('securitySpecificitiesDelivered', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.security_specificities_delivered',
-                'required' => false,
+                'label'        => 'registry.treatment.form.security_specificities_delivered',
+                'required'     => false,
+                'block_prefix' => 'custom_checkbox',
             ])
             ->add('ultimateFate', DictionaryType::class, [
                 'label'       => 'registry.treatment.form.ultimate_fate',
