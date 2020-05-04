@@ -74,9 +74,9 @@ class AdminMetric implements MetricInterface
      */
     public function getData(): array
     {
-        $collectiviyByType = [];
+        $collectivityByType = [];
         foreach (CollectivityTypeDictionary::getTypesKeys() as $type) {
-            $collectiviyByType[$type] = 0;
+            $collectivityByType[$type] = 0;
         }
 
         $averageMesurement       = floatval($this->mesurementRepository->planifiedAverageOnAllCollectivity());
@@ -91,12 +91,12 @@ class AdminMetric implements MetricInterface
             'collectivityByType' => [
                 'value' => [
                     'all'  => $totalCollectivity,
-                    'type' => $collectiviyByType,
+                    'type' => $collectivityByType,
                 ],
             ],
             'collectivityByAddressInsee' => [
                 'value' => [
-                    'all'          => $totalCollectivity,
+                    'all'          => 0,
                     'addressInsee' => [],
                     'dpoPercent'   => 0,
                 ],
@@ -116,15 +116,21 @@ class AdminMetric implements MetricInterface
         ];
 
         $nbIsDifferentDpo = 0;
+        $inseeCount       = 0;
+        $inseeValidType   = [CollectivityTypeDictionary::TYPE_COMMUNE, CollectivityTypeDictionary::TYPE_CCAS, CollectivityTypeDictionary::TYPE_OTHER];
         foreach ($collectivities as $collectivity) {
-            if (!\is_null($collectivity->getAddress()) && !\is_null($collectivity->getAddress()->getInsee())) {
+            if (!\is_null($collectivity->getAddress())
+                && !\is_null($collectivity->getAddress()->getInsee())
+                && \in_array($collectivity->getType(), $inseeValidType)
+            ) {
                 $collectivityData = [
                     'name'                => $collectivity->getShortName(),
                     'nbTraitementActifs'  => intval($this->treatmentRepository->countAllActiveByCollectivity($collectivity)),
                     'nbActionsProtection' => intval($this->mesurementRepository->countAppliedByCollectivity($collectivity)),
                 ];
-                $collectivityInsee                                                               = $collectivity->getAddress()->getInsee();
-                $data['collectivityByAddressInsee']['value']['addressInsee'][$collectivityInsee] = $collectivityData;
+                $collectivityInsee                                                                 = $collectivity->getAddress()->getInsee();
+                $data['collectivityByAddressInsee']['value']['addressInsee'][$collectivityInsee][] = $collectivityData;
+                ++$inseeCount;
             }
 
             if (false === $collectivity->isDifferentDpo()) {
@@ -134,8 +140,9 @@ class AdminMetric implements MetricInterface
             ++$data['collectivityByType']['value']['type'][$collectivity->getType()];
         }
 
-        if ($totalCollectivity > 0) {
-            $data['collectivityByAddressInsee']['value']['dpoPercent'] = round(($nbIsDifferentDpo * 100) / $totalCollectivity);
+        if ($inseeCount > 0) {
+            $data['collectivityByAddressInsee']['value']['all']        = $inseeCount;
+            $data['collectivityByAddressInsee']['value']['dpoPercent'] = round(($nbIsDifferentDpo * 100) / $inseeCount);
         }
 
         return $data;

@@ -10,3 +10,9 @@ App\Domain\User\Model\Embeddable\Address:
         city: <word()>
         zipCode: <randomNumber(5)>
         insee: '17415'
+    user_address_collectivity_foobar:
+        lineOne: <words(3, true)>
+        city: <word()>
+        zipCode: <randomNumber(5)>
+        insee: '17300'
+

@@ -43,9 +43,9 @@ class MesurementPriorityDictionary extends SimpleDictionary
     public static function getPriorities()
     {
         return [
-            self::PRIORITY_LOW    => 'Basse',
-            self::PRIORITY_NORMAL => 'Normale',
-            self::PRIORITY_HIGH   => 'Haute',
+            self::PRIORITY_LOW    => '1 - Basse',
+            self::PRIORITY_NORMAL => '2 - Normale',
+            self::PRIORITY_HIGH   => '3 - Haute',
         ];
     }
 
@@ -78,6 +78,18 @@ class MesurementPriorityDictionary extends SimpleDictionary
             self::PRIORITY_LOW    => 'F2D600',
             self::PRIORITY_NORMAL => 'FF9F1A',
             self::PRIORITY_HIGH   => 'EB5A46',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function getPrioritiesNameWithoutNumber()
+    {
+        return [
+            self::PRIORITY_HIGH   => 'Haute',
+            self::PRIORITY_NORMAL => 'Normale',
+            self::PRIORITY_LOW    => 'Basse',
         ];
     }
 }

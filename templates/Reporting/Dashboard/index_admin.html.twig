@@ -21,8 +21,8 @@
                 <span class="info-box-icon bg-aqua"><i class="fa fa-adjust"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Actions planifiées (moyenne)</span>
-                    <span class="info-box-number">{{ data.mesurementByCollectivity.average|number_format(2)}}</span>
+                    <span>Actions planifiées (moyenne)</span>
+                    <span class="info-box-number">{{ data.mesurementByCollectivity.average|number_format(2, ',')}}</span>
                 </div>
             </div>
         </div>
@@ -32,8 +32,8 @@
                 <span class="info-box-icon bg-red"><i class="fa fa-file"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Preuves déposées (moyenne)</span>
-                    <span class="info-box-number">{{ data.proofByCollectivity.average|number_format(2)}}</span>
+                    <span>Preuves déposées (moyenne)</span>
+                    <span class="info-box-number">{{ data.proofByCollectivity.average|number_format(2, ',')}}</span>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
                 <span class="info-box-icon bg-green"><i class="fa fa-clipboard-list"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text" style="white-space: normal;">Collectivités ayant déposées un bilan (12 der mois)</span>
+                    <span style="white-space: normal;">Collectivités ayant déposées un bilan (12 der mois)</span>
                     <span class="info-box-number">{{ data.balanceSheetProofByCollectivity.average|number_format }}<small>%</small></span>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 <span class="info-box-icon bg-yellow"><i class="fa fa-chart-bar"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text" style="white-space: normal;">Collectivités ayant fait un indice de mat. (12 der mois)</span>
+                    <span style="white-space: normal;">Collectivités ayant fait un indice de mat. (12 der mois)</span>
                     <span class="info-box-number">{{ data.surveyLastYear.average|number_format }}<small>%</small></span>
                 </div>
             </div>
@@ -181,9 +181,13 @@
   
   function appendSpan (jqueryElement, text){
     jqueryElement.append("<span>"+text+"</span><br/>")
-  } 
+  }
 
-  function isAvailableInsee (insee, inseeList) {
+  function appendCollectivityName (jqueryElement, text){
+    jqueryElement.append("<span class=\"collectivity-name\">"+text+"</span><br/>")
+  }
+
+    function isAvailableInsee (insee, inseeList) {
     let result = false;
     if(insee && inseeList && Object.entries(inseeList).length > 0){
         result = !!inseeList[insee]
@@ -212,15 +216,17 @@
           const x= e.clientX;
           const y= e.clientY; 
           tooltip.css('top', (y + 20) + 'px').css('left', x + 'px');
-          const nomCommune = availableInsees[insee].name
-          const nbTraitementActifs = availableInsees[insee].nbTraitementActifs
-          const nbActionsProtection = availableInsees[insee].nbActionsProtection
-          appendSpan(tooltip,nomCommune)
-          appendSpan(tooltip,'Nb traitements actifs: ' + nbTraitementActifs)
-          appendSpan(tooltip,'Nb actions de protection: ' + nbActionsProtection)
+          $.each(availableInsees[insee], function (key, value) {
+            const nomCommune = value.name
+            const nbTraitementActifs = value.nbTraitementActifs
+            const nbActionsProtection = value.nbActionsProtection
+            appendCollectivityName(tooltip,nomCommune)
+            appendSpan(tooltip,'Nb traitements actifs: ' + nbTraitementActifs)
+            appendSpan(tooltip,'Nb actions de protection: ' + nbActionsProtection)
+          })
           tooltip.show();
         });
-        item.on('mouseout', () => { 
+        item.on('mouseout', () => {
 
           item.attr('fill', '#01C0EF')
           tooltip.hide();
