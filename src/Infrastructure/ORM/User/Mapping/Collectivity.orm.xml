@@ -19,6 +19,11 @@
         <field name="differentItManager" column="different_it_manager" type="boolean"/>
         <field name="reportingBlockManagementCommitment" type="text" nullable="true"/>
         <field name="reportingBlockContinuousImprovement" type="text" nullable="true"/>
+        <field name="hasModuleConformiteTraitement" type="boolean">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
 
         <embedded name="address" class="App\Domain\User\Model\Embeddable\Address" column-prefix="address_"/>
         <embedded name="legalManager" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="legal_manager_"/>

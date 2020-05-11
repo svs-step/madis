@@ -75,6 +75,18 @@
                             <td><strong>{{ 'user.collectivity.show.website'|trans }}</strong></td>
                             <td>{{ object.website }}</td>
                         </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.has_module_conformite_traitement'|trans }}</strong></td>
+                            <td>
+                                <span class="badge bg-gr">
+                                    {% if object.hasModuleConformiteTraitement %}
+                                        {{ 'label.yes'|trans }}
+                                    {% else %}
+                                        {{ 'label.no'|trans }}
+                                    {% endif %}
+                                </span>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

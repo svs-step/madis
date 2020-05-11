@@ -4,7 +4,7 @@
         <li {% if menuItem == 'reporting_dashboard' %}class="active"{% endif %}>
             <a href="{{ path('reporting_dashboard_index') }}">
                 <i class="fa fa-tachometer-alt"></i>
-                <span>Tableau de bord</span>
+                <span>{{ 'sidebar_menu.dashboard'|trans }}</span>
             </a>
         </li>
 
@@ -13,25 +13,25 @@
         <li {% if menuItem == 'registry_treatment' %}class="active"{% endif %}>
             <a href="{{ path('registry_treatment_list') }}">
                 <i class="fa fa-list"></i>
-                <span>Traitements</span>
+                <span>{{ 'sidebar_menu.registry_treatments'|trans }}</span>
             </a>
         </li>
         <li {% if menuItem == 'registry_contractor' %}class="active"{% endif %}>
             <a href="{{ path('registry_contractor_list') }}">
                 <i class="fa fa-address-card"></i>
-                <span>Sous-traitants</span>
+                <span>{{ 'sidebar_menu.registry_contractors'|trans }}</span>
             </a>
         </li>
         <li {% if menuItem == 'registry_request' %}class="active"{% endif %}>
             <a href="{{ path('registry_request_list') }}">
                 <i class="fa fa-users"></i>
-                <span>Demandes</span>
+                <span>{{ 'sidebar_menu.registry_requests'|trans }}</span>
             </a>
         </li>
         <li {% if menuItem == 'registry_violation' %}class="active"{% endif %}>
             <a href="{{ path('registry_violation_list') }}">
                 <i class="fa fa-exclamation-circle"></i>
-                <span>Violations</span>
+                <span>{{ 'sidebar_menu.registry_violations'|trans }}</span>
             </a>
         </li>
 
@@ -40,7 +40,7 @@
         <li {% if menuItem == 'registry_proof' %}class="active"{% endif %}>
             <a href="{{ path('registry_proof_list') }}">
                 <i class="fa fa-file"></i>
-                <span>Documents</span>
+                <span>{{ 'sidebar_menu.registry_proofs'|trans }}</span>
             </a>
         </li>
 
@@ -49,13 +49,13 @@
         <li {% if menuItem == 'registry_mesurement' %}class="active"{% endif %}>
             <a href="{{ path('registry_mesurement_list') }}">
                 <i class="fa fa-adjust"></i>
-                <span>Actions de protection</span>
+                <span>{{ 'sidebar_menu.registry_mesurements'|trans }}</span>
             </a>
         </li>
         <li {% if menuItem == 'registry_mesurement_action_plan' %}class="active"{% endif %}>
             <a href="{{ path('registry_mesurement_action_plan') }}">
                 <i class="fa fa-crosshairs"></i>
-                <span>Plan d'actions</span>
+                <span>{{ 'sidebar_menu.registry_action_plan'|trans }}</span>
             </a>
         </li>
 
@@ -64,35 +64,48 @@
         <li {% if menuItem == 'maturity_survey' %}class="active"{% endif %}>
             <a href="{{ path('maturity_survey_list') }}">
                 <i class="fa fa-chart-bar"></i>
-                <span>Indice de maturité</span>
+                <span>{{ 'sidebar_menu.maturity_survey'|trans }}</span>
             </a>
         </li>
         <li {% if menuItem == 'reporting_review' %}class="active"{% endif %}>
             <a href="{{ path('reporting_review_index', {'id': app.user.collectivity.id}) }}">
                 <i class="fa fa-clipboard-list"></i>
-                <span>Générer un bilan</span>
+                <span>{{ 'sidebar_menu.reporting_review'|trans }}</span>
             </a>
         </li>
 
-        {# ADMINISTRATION #}
+        {# CONFORMITE #}
+        {% if app.user.collectivity.hasModuleConformiteTraitement == true %}
+            <li class="header">Conformité</li>
+            {% if app.user.collectivity.hasModuleConformiteTraitement %}
+                <li>
+                    <a href="">
+                        <i class="fa fa-clipboard-list"></i>
+                        <span>{{ 'sidebar_menu.conformite_traitements'|trans }}</span>
+                    </a>
+                </li>
+            {% endif %}
+        {% endif %}
+
+       {# ADMINISTRATION #}
         <li class="header">Espace d'administration</li>
         {% if is_granted('ROLE_ADMIN') %}
             <li {% if menuItem == 'admin_duplication' %}class="active"{% endif %}>
                 <a href="{{ path('admin_duplication_new') }}">
                     <i class="fa fa-clone"></i>
-                    <span>Module de Duplication</span>
+                    <span>{{ 'sidebar_menu.admin_duplication'|trans }}</span>
                 </a>
             </li>
             <li {% if menuItem == 'user_collectivity' %}class="active"{% endif %}>
                 <a href="{{ path('user_collectivity_list') }}">
                     <i class="fa fa-home"></i>
-                    <span>Collectivités</span>
+                    <span>{{ 'sidebar_menu.user_collectivities'|trans }}</span>
                 </a>
             </li>
             <li {% if menuItem == 'user_user' %}class="active"{% endif %}>
                 <a href="{{ path('user_user_list') }}">
                     <i class="fa fa-users"></i>
-                    <span>Utilisateurs</span>
+                    <span>{{ 'sidebar_menu.user_users'|trans }}</span>
                 </a>
             </li>
         {# If not an admin & is write granted, let user edit informations #}
@@ -100,13 +113,13 @@
             <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
                 <a href="{{ path('user_profile_collectivity_show') }}">
                     <i class="fa fa-home"></i>
-                    <span>Ma collectivité</span>
+                    <span>{{ 'sidebar_menu.user_profile_collectivity'|trans }}</span>
                 </a>
             </li>
             <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
                 <a href="{{ path('user_profile_user_edit') }}">
                     <i class="fa fa-user"></i>
-                    <span>Mon compte</span>
+                    <span>{{ 'sidebar_menu.user_profile_user'|trans }}</span>
                 </a>
             </li>
         {% endif %}
