@@ -71,6 +71,12 @@ install() {
     docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "yarn && yarn run encore production"
 }
 
+installDb() {
+  docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "bin/console doctrine:database:drop --force &&
+                                                                                                                          bin/console doctrine:database:create &&
+                                                                                                                          bin/console doctrine:migration:migrate -n"
+}
+
 populate() {
     docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "bin/console hautelook:fixtures:load -n"
 }
@@ -204,6 +210,7 @@ Commands:
   build                       Build docker containers
   start                       Start docker containers
   install                     Run app installation scripts
+  installDb                   Reset database
   populate                    Load data fixtures in app
   serve                       Serve Webpack Encore files for local dev
   stop                        Stop docker containers
@@ -250,6 +257,9 @@ case "$1" in
         ;;
  install)
         install
+        ;;
+ installDb)
+        installDb
         ;;
  populate)
         populate

@@ -42,6 +42,7 @@
         <field name="updatedAt" column="updated_at" type="datetime_immutable">
             <gedmo:timestampable on="update"/>
         </field>
+        <many-to-many field="conformiteOrganisationEvaluations" target-entity="App\Domain\Registry\Model\ConformiteOrganisationEvaluation" mapped-by="actionProtections"/>
 
     </entity>
 

@@ -31,6 +31,9 @@ use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * Action de protection / Plan d'action.
+ */
 class Mesurement
 {
     use CollectivityTrait;
@@ -119,6 +122,11 @@ class Mesurement
     /**
      * @var iterable
      */
+    private $conformiteOrganisationEvaluations;
+
+    /**
+     * @var iterable
+     */
     private $conformiteTraitementReponses;
 
     /**
@@ -128,9 +136,10 @@ class Mesurement
      */
     public function __construct()
     {
-        $this->id                           = Uuid::uuid4();
-        $this->proofs                       = [];
-        $this->conformiteTraitementReponses = [];
+        $this->id                                = Uuid::uuid4();
+        $this->proofs                            = [];
+        $this->conformiteOrganisationEvaluations = [];
+        $this->conformiteTraitementReponses      = [];
     }
 
     public function __toString(): string
@@ -266,9 +275,11 @@ class Mesurement
         $this->manager = $manager;
     }
 
-    /**
-     * @return Reponse[]|iterable
-     */
+    public function getConformiteOrganisationEvaluations()
+    {
+        return $this->conformiteOrganisationEvaluations;
+    }
+
     public function getConformiteTraitementReponses()
     {
         return $this->conformiteTraitementReponses;
