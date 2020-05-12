@@ -116,14 +116,20 @@ class Mesurement
     private $manager;
 
     /**
+     * @var iterable
+     */
+    private $conformiteTraitementReponses;
+
+    /**
      * Mesurement constructor.
      *
      * @throws \Exception
      */
     public function __construct()
     {
-        $this->id     = Uuid::uuid4();
-        $this->proofs = [];
+        $this->id                           = Uuid::uuid4();
+        $this->proofs                       = [];
+        $this->conformiteTraitementReponses = [];
     }
 
     public function __toString(): string
@@ -257,5 +263,13 @@ class Mesurement
     public function setManager(?string $manager): void
     {
         $this->manager = $manager;
+    }
+
+    /**
+     * @return ConformiteTraitementReponse[]|iterable
+     */
+    public function getConformiteTraitementReponses()
+    {
+        return $this->conformiteTraitementReponses;
     }
 }
