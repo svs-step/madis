@@ -1,4 +1,4 @@
-App\Domain\Registry\Model\ConformiteTraitementQuestion:
+App\Domain\Registry\Model\ConformiteTraitement\Question:
     conformite_traitement_question_1:
         question: "Finalités : déterminées, explicites et légitime"
     conformite_traitement_question_2:

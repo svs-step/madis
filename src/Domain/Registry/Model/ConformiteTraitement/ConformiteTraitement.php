@@ -22,8 +22,9 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Registry\Model;
+namespace App\Domain\Registry\Model\ConformiteTraitement;
 
+use App\Domain\Registry\Model\Treatment;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -88,12 +89,12 @@ class ConformiteTraitement
         return $this->reponses;
     }
 
-    public function addReponse(ConformiteTraitementReponse $reponse): void
+    public function addReponse(Reponse $reponse): void
     {
         $this->reponses[] = $reponse;
     }
 
-    public function removeReponse(ConformiteTraitementReponse $reponse): void
+    public function removeReponse(Reponse $reponse): void
     {
         $key = \array_search($reponse, $this->reponses, true);
 

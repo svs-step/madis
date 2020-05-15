@@ -6,14 +6,14 @@
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                             https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="App\Domain\Registry\Model\ConformiteTraitementReponse" table="conformite_traitement_reponse">
+    <entity name="App\Domain\Registry\Model\ConformiteTraitement\Reponse" table="conformite_traitement_reponse">
 
         <id name="id" column="id" type="uuid"/>
 
         <field name="conforme" type="boolean"/>
 
-        <many-to-one field="question" target-entity="App\Domain\Registry\Model\ConformiteTraitementQuestion"/>
-        <many-to-one field="conformiteTraitement" target-entity="App\Domain\Registry\Model\ConformiteTraitement" inversed-by="reponse"/>
+        <many-to-one field="question" target-entity="App\Domain\Registry\Model\ConformiteTraitement\Question"/>
+        <many-to-one field="conformiteTraitement" target-entity="App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement" inversed-by="reponses"/>
         <many-to-many field="actionProtections" target-entity="App\Domain\Registry\Model\Mesurement" inversed-by="conformiteTraitementReponses">
             <join-table name="conformite_traitement_reponse_action_protection">
                 <join-columns><join-column/></join-columns>

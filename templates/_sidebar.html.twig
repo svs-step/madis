@@ -79,7 +79,7 @@
             <li class="header">Conformité</li>
             {% if app.user.collectivity.hasModuleConformiteTraitement %}
                 <li>
-                    <a href="">
+                    <a href="{{ path('registry_conformite_traitement_list') }}">
                         <i class="fa fa-clipboard-list"></i>
                         <span>{{ 'sidebar_menu.conformite_traitements'|trans }}</span>
                     </a>

@@ -520,4 +520,15 @@ registry:
             edit: Modifier une violation
             list: Liste des violations
             show: Visualiser une violation
+    conformite_traitement:
+        list:
+            conformite: Conformité
+            date_conformite: Date conformité
+            gestionnaire: Gestionnaire
+            traitement: Traitement
+        action:
+            report: Générer une impression
+            show_conformite_traitement: Voir
+        title:
+            list: Conformité des traitements
 

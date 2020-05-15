@@ -27,7 +27,7 @@
             </order-by>
         </many-to-many>
         <many-to-one field="clonedFrom" target-entity="App\Domain\Registry\Model\Mesurement"/>
-        <many-to-many field="conformiteTraitementReponses" target-entity="App\Domain\Registry\Model\ConformiteTraitementReponse" mapped-by="actionProtections"/>
+        <many-to-many field="conformiteTraitementReponses" target-entity="App\Domain\Registry\Model\ConformiteTraitement\Reponse" mapped-by="actionProtections"/>
 
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">

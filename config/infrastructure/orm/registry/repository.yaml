@@ -7,6 +7,7 @@ services:
     App\Infrastructure\ORM\Registry\Repository\:
         resource: '../../../../src/Infrastructure/ORM/Registry/Repository'
 
+    App\Domain\Registry\Repository\ConformiteTraitement: '@App\Infrastructure\ORM\Registry\Repository\ConformiteTraitement'
     App\Domain\Registry\Repository\Contractor: '@App\Infrastructure\ORM\Registry\Repository\Contractor'
     App\Domain\Registry\Repository\Mesurement: '@App\Infrastructure\ORM\Registry\Repository\Mesurement'
     App\Domain\Registry\Repository\Proof: '@App\Infrastructure\ORM\Registry\Repository\Proof'

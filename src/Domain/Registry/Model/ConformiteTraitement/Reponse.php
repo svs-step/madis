@@ -22,12 +22,13 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Registry\Model;
+namespace App\Domain\Registry\Model\ConformiteTraitement;
 
+use App\Domain\Registry\Model\Mesurement;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class ConformiteTraitementReponse
+class Reponse
 {
     /**
      * @var UuidInterface
@@ -40,7 +41,7 @@ class ConformiteTraitementReponse
     private $conforme;
 
     /**
-     * @var ConformiteTraitementQuestion
+     * @var Question
      */
     private $question;
 
@@ -76,12 +77,12 @@ class ConformiteTraitementReponse
         $this->conforme = $conforme;
     }
 
-    public function getQuestion(): ConformiteTraitementQuestion
+    public function getQuestion(): Question
     {
         return $this->question;
     }
 
-    public function setQuestion(ConformiteTraitementQuestion $question): void
+    public function setQuestion(Question $question): void
     {
         $this->question = $question;
     }
