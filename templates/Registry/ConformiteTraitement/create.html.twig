@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_mesurement form create' %}
+{% set menuItem = 'registry_mesurement' %}
+
+{% block title %}{{ 'registry.mesurement.title.create'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'registry.mesurement.title.create'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.mesurement.breadcrumb.list'|trans, 'link': path('registry_mesurement_list') },
+        { 'name': 'registry.mesurement.breadcrumb.create'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('Registry/Mesurement/_form.html.twig') }}
+{% endblock %}

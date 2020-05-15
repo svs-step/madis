@@ -22,40 +22,10 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Registry\Model;
+namespace App\Domain\Registry\Repository;
 
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use App\Application\DDD\Repository\CRUDRepositoryInterface;
 
-class ConformiteTraitementQuestion
+interface ConformiteTraitement extends CRUDRepositoryInterface
 {
-    /**
-     * @var UuidInterface
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $question;
-
-    public function __construct()
-    {
-        $this->id = Uuid::uuid4();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
-    }
-
-    public function getQuestion(): string
-    {
-        return $this->question;
-    }
-
-    public function setQuestion(string $question): void
-    {
-        $this->question = $question;
-    }
 }
