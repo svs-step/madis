@@ -92,6 +92,7 @@ class ConformiteTraitement
     public function addReponse(Reponse $reponse): void
     {
         $this->reponses[] = $reponse;
+        $reponse->setConformiteTraitement($this);
     }
 
     public function removeReponse(Reponse $reponse): void
@@ -133,5 +134,10 @@ class ConformiteTraitement
     public function setNbNonConformesMajeures(int $nbNonConformesMajeures): void
     {
         $this->nbNonConformesMajeures = $nbNonConformesMajeures;
+    }
+
+    public function __toString()
+    {
+        return $this->traitement->__toString();
     }
 }

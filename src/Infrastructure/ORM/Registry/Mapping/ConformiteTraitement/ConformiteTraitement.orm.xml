@@ -14,8 +14,16 @@
         <field name="nbNonConformesMineures" type="smallint"/>
         <field name="nbNonConformesMajeures" type="smallint"/>
 
-        <one-to-one field="traitement" target-entity="App\Domain\Registry\Model\Treatment" inversed-by="conformiteTraitement"/>
-        <one-to-many field="reponses" target-entity="App\Domain\Registry\Model\ConformiteTraitement\Reponse" mapped-by="conformiteTraitement"/>
+        <one-to-one field="traitement" target-entity="App\Domain\Registry\Model\Treatment" inversed-by="conformiteTraitement">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-one>
+        <one-to-many field="reponses" target-entity="App\Domain\Registry\Model\ConformiteTraitement\Reponse" mapped-by="conformiteTraitement">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
     </entity>
 
 </doctrine-mapping>

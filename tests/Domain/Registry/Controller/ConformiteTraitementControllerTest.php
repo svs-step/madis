@@ -4,7 +4,7 @@
  * This file is part of the MADIS - RGPD Management application.
  *
  * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
- * @author Donovan Bourlard <donovan@awkan.fr>
+ * @author ANODE <contact@agence-anode.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -28,6 +28,7 @@ use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Controller\ConformiteTraitementController;
 use App\Domain\Registry\Controller\ContractorController;
+use App\Domain\Registry\Form\Type\ConformiteTraitement\ConformiteTraitementType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
@@ -54,7 +55,7 @@ class ConformiteTraitementControllerTest extends TestCase
     private $translatorProphecy;
 
     /**
-     * @var Repository\ConformiteTraitement
+     * @var Repository\ConformiteTraitement\ConformiteTraitement
      */
     private $repositoryProphecy;
 
@@ -88,16 +89,22 @@ class ConformiteTraitementControllerTest extends TestCase
      */
     private $controller;
 
+    /**
+     * @var Repository\ConformiteTraitement\Question
+     */
+    private $questionRepository;
+
     public function setUp()
     {
         $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
         $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);
-        $this->repositoryProphecy             = $this->prophesize(Repository\ConformiteTraitement::class);
+        $this->repositoryProphecy             = $this->prophesize(Repository\ConformiteTraitement\ConformiteTraitement::class);
         $this->collectivityRepositoryProphecy = $this->prophesize(UserRepository\Collectivity::class);
         $this->wordHandlerProphecy            = $this->prophesize(WordHandler::class);
         $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
         $this->treatmentRepository            = $this->prophesize(Repository\Treatment::class);
+        $this->questionRepository             = $this->prophesize(Repository\ConformiteTraitement\Question::class);
 
         $this->controller = new ConformiteTraitementController(
             $this->managerProphecy->reveal(),
@@ -107,7 +114,8 @@ class ConformiteTraitementControllerTest extends TestCase
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
-            $this->treatmentRepository->reveal()
+            $this->treatmentRepository->reveal(),
+            $this->questionRepository->reveal()
         );
     }
 
@@ -127,7 +135,7 @@ class ConformiteTraitementControllerTest extends TestCase
     public function testGetModel()
     {
         $this->assertEquals(
-            'conformiteTraitement',
+            'conformite_traitement',
             $this->invokeMethod($this->controller, 'getModel', [])
         );
     }
@@ -143,7 +151,7 @@ class ConformiteTraitementControllerTest extends TestCase
     public function testGetFormType()
     {
         $this->assertEquals(
-            'foo',
+            ConformiteTraitementType::class,
             $this->invokeMethod($this->controller, 'getFormType', [])
         );
     }

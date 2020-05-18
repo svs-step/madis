@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.conformite_traitement.form.header'|trans }}</h3></div>
+            <div class="box-body">
+                <table id="table" class="table table-borderless table-hover">
+                    <thead>
+                        <tr>
+                            <th class="col-md-6">{{ 'registry.conformite_traitement.form.question'|trans }}</th>
+                            <th class="col-md-2">{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
+                            <th class="col-md-4">{{ 'registry.conformite_traitement.form.action_protection'|trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for reponse in orderReponseByQuestionPositionAsc(form) %}
+                        <tr>
+                            <td>{{ reponse.vars.value.question.question }}</td>
+                            <td>{{ form_row(reponse.conforme) }}</td>
+                            <td>{{ form_row(reponse.actionProtections) }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

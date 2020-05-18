@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_conformite_traitement form create' %}
+{% set menuItem = 'registry_conformite_traitement' %}
+
+{% block title %}{{ 'registry.conformite_traitement.title.create'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'registry.conformite_traitement.title.create'|trans }}
+        <small>{{ form.vars.value }}</small>
+    </h1>
+{% endblock %}
+
+{% block body %}
+    {{ include('Registry/Conformite_traitement/_form.html.twig') }}
+{% endblock %}

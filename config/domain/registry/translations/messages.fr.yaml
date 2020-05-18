@@ -531,4 +531,10 @@ registry:
             show_conformite_traitement: Voir
         title:
             list: Conformité des traitements
+            create: Evaluer un traitement
+        form:
+            action_protection: Action de protection
+            conformite: Conformité
+            header: Évaluation du traitement
+            question: Question
 

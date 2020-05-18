@@ -1,25 +1,37 @@
 App\Domain\Registry\Model\ConformiteTraitement\Question:
     conformite_traitement_question_1:
         question: "Finalités : déterminées, explicites et légitime"
+        position: 1
     conformite_traitement_question_2:
         question: "Fondement : licéité du traitement, interdiction du détournement de finalité"
+        position: 2
     conformite_traitement_question_3:
         question: "Minimisation des données : adéquates, pertinentes et limitées"
+        position: 3
     conformite_traitement_question_4:
         question: "Qualité des données : exactes et tenues à jour"
+        position: 4
     conformite_traitement_question_5:
         question: "Durées de conservation : limitées"
+        position: 5
     conformite_traitement_question_6:
         question: "Information des personnes concernées (traitement loyal et transparent"
+        position: 6
     conformite_traitement_question_7:
         question: "Recueil du consentement"
+        position: 7
     conformite_traitement_question_8:
         question: "Exercice des droits d'accès et à la portabilité"
+        position: 8
     conformite_traitement_question_9:
         question: "Exercice des droits de rectification et d'effacement"
+        position: 9
     conformite_traitement_question_10:
         question: "Exercice des droits de limitation du traitement et d'opposition"
+        position: 10
     conformite_traitement_question_11:
         question: "Sous-traitance : identifiée et contractualisée"
+        position: 11
     conformite_traitement_question_12:
         question: "Transferts : respect des obligations en matière de transfert des données en dehors de l'Union Européenne"
+        position: 12

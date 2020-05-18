@@ -4,7 +4,7 @@ registry_conformite_traitement_list:
     controller: 'App\Domain\Registry\Controller\ConformiteTraitementController:listAction'
 
 registry_conformite_traitement_create:
-    path: '/creer'
+    path: '/creer/{idTraitement}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\Registry\Controller\ConformiteTraitementController:createAction'
 
@@ -12,11 +12,6 @@ registry_conformite_traitement_edit:
     path: '/editer/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\Registry\Controller\ConformiteTraitementController:editAction'
-
-registry_conformite_traitement_show:
-    path: '/visualiser/{id}'
-    methods: ['GET']
-    controller: 'App\Domain\Registry\Controller\ConformiteTraitementController:showAction'
 
 registry_conformite_traitement_report:
     path: '/bilan'

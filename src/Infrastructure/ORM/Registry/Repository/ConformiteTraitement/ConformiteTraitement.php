@@ -22,55 +22,19 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Registry\Model\ConformiteTraitement;
+namespace App\Infrastructure\ORM\Registry\Repository\ConformiteTraitement;
 
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Domain\Registry\Model;
+use App\Domain\Registry\Repository;
 
-class Question
+class ConformiteTraitement extends CRUDRepository implements Repository\ConformiteTraitement\ConformiteTraitement
 {
     /**
-     * @var UuidInterface
+     * {@inheritdoc}
      */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $question;
-
-    /**
-     * @var int
-     */
-    private $position;
-
-    public function __construct()
+    protected function getModelClass(): string
     {
-        $this->id = Uuid::uuid4();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
-    }
-
-    public function getQuestion(): string
-    {
-        return $this->question;
-    }
-
-    public function setQuestion(string $question): void
-    {
-        $this->question = $question;
-    }
-
-    public function getPosition(): int
-    {
-        return $this->position;
-    }
-
-    public function setPosition(int $position): void
-    {
-        $this->position = $position;
+        return Model\ConformiteTraitement\ConformiteTraitement::class;
     }
 }

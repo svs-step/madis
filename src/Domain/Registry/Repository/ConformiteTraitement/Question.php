@@ -22,19 +22,10 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\ORM\Registry\Repository;
+namespace App\Domain\Registry\Repository\ConformiteTraitement;
 
-use App\Application\Doctrine\Repository\CRUDRepository;
-use App\Domain\Registry\Model;
-use App\Domain\Registry\Repository;
+use App\Application\DDD\Repository\CRUDRepositoryInterface;
 
-class ConformiteTraitement extends CRUDRepository implements Repository\ConformiteTraitement
+interface Question extends CRUDRepositoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getModelClass(): string
-    {
-        return Model\ConformiteTraitement\ConformiteTraitement::class;
-    }
 }

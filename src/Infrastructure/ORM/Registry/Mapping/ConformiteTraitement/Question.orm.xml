@@ -11,6 +11,7 @@
         <id name="id" column="id" type="uuid"/>
 
         <field name="question" type="text"/>
+        <field name="position" type="smallint"/>
     </entity>
 
 </doctrine-mapping>

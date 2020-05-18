@@ -56,7 +56,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <a href="{{ path('registry_conformite_traitement_show', {'id': object.id}) }}">
+                                    <a href="{% if object.conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': object.conformiteTraitement.id}) }}{% endif %}">
                                         <i class="fa fa-eye"></i>
                                         {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}
                                     </a>

@@ -26,19 +26,19 @@ namespace App\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
-use App\Domain\Registry\Form\Type\MesurementType;
+use App\Domain\Registry\Form\Type\ConformiteTraitement\ConformiteTraitementType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @property Repository\ConformiteTraitement $repository
+ * @property Repository\ConformiteTraitement\ConformiteTraitement $repository
  */
 class ConformiteTraitementController extends CRUDController
 {
@@ -67,15 +67,21 @@ class ConformiteTraitementController extends CRUDController
      */
     protected $userProvider;
 
+    /**
+     * @var Repository\ConformiteTraitement\Question
+     */
+    protected $questionRepository;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
-        Repository\ConformiteTraitement $repository,
+        Repository\ConformiteTraitement\ConformiteTraitement $repository,
         UserRepository\Collectivity $collectivityRepository,
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
-        Repository\Treatment $treatmentRepository
+        Repository\Treatment $treatmentRepository,
+        Repository\ConformiteTraitement\Question $questionRepository
     ) {
         parent::__construct($entityManager, $translator, $repository);
         $this->collectivityRepository = $collectivityRepository;
@@ -83,6 +89,7 @@ class ConformiteTraitementController extends CRUDController
         $this->authorizationChecker   = $authorizationChecker;
         $this->userProvider           = $userProvider;
         $this->treatmentRepository    = $treatmentRepository;
+        $this->questionRepository     = $questionRepository;
     }
 
     /**
@@ -98,7 +105,7 @@ class ConformiteTraitementController extends CRUDController
      */
     protected function getModel(): string
     {
-        return 'conformiteTraitement';
+        return 'conformite_traitement';
     }
 
     /**
@@ -114,9 +121,7 @@ class ConformiteTraitementController extends CRUDController
      */
     protected function getFormType(): string
     {
-        //TODO
-        return 'foo';
-//        return MesurementType::class;
+        return ConformiteTraitementType::class;
     }
 
     /**
@@ -130,22 +135,41 @@ class ConformiteTraitementController extends CRUDController
     }
 
     /**
-     * The show action view
-     * Display the object information.
-     *
-     * @param string $id The ID of the data to display
+     * {@inheritdoc}
+     * Override method in order to hydrate questions.
      */
-    public function showAction(string $id): Response
+    public function createAction(Request $request): Response
     {
-        return new Response();
-        //TODO
-//        $object = $this->repository->findOneById($id);
-//        if (!$object) {
-//            throw new NotFoundHttpException("No object found with ID '{$id}'");
-//        }
-//
-//        return $this->render($this->getTemplatingBasePath('show'), [
-//            'object' => $object,
-//        ]);
+        /**
+         * @var Model\ConformiteTraitement\ConformiteTraitement
+         */
+        $object     = new Model\ConformiteTraitement\ConformiteTraitement();
+
+        $traitement = $this->treatmentRepository->findOneById($request->get('idTraitement'));
+        $object->setTraitement($traitement);
+
+        // Before create form, hydrate answers array with potential question responses
+        foreach ($this->questionRepository->findAll(['position' => 'ASC']) as $question) {
+            $reponse = new Model\ConformiteTraitement\Reponse();
+            $reponse->setQuestion($question);
+            $object->addReponse($reponse);
+        }
+
+        $form = $this->createForm($this->getFormType(), $object);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($object);
+            $em->flush();
+
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('create'), [
+            'form' => $form->createView(),
+        ]);
     }
 }

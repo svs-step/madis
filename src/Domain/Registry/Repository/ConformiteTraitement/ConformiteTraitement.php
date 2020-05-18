@@ -22,7 +22,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Registry\Repository;
+namespace App\Domain\Registry\Repository\ConformiteTraitement;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
 
