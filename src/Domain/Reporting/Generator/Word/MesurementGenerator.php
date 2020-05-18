@@ -30,6 +30,7 @@ use App\Domain\Registry\Model\Mesurement;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\SimpleType\Jc;
+use PhpOffice\PhpWord\SimpleType\TblWidth;
 
 class MesurementGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
@@ -52,7 +53,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
                 'ACTION',
                 'DATE',
                 'OBSERVATIONS',
-                'RESPONSABLE D\'ACTION',
+                'RESPONSABLE DE L\'ACTION',
             ],
         ];
 
@@ -87,13 +88,26 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $section->addTitle("Plan d'actions", 2);
         $section->addText('Un plan d’action a été établi comme suit.');
         $this->addTable($section, $actionPlan, true, self::TABLE_ORIENTATION_HORIZONTAL);
-        $legendPriorityColor = $section->addTextRun(['alignment' => Jc::CENTER]);
+
+        $section->addTextBreak();
+
+        $table = $section->addTable([
+            'borderColor' => '006699',
+            'borderSize'  => 6,
+            'width'       => 50 * 50,
+            'unit'        => TblWidth::PERCENT,
+            'alignment'   => Jc::CENTER,
+            'layout'      => \PhpOffice\PhpWord\Style\Table::LAYOUT_FIXED,
+        ]);
+        $row   = $table->addRow(null, ['valign' => 'center']);
+        $cell  = $row->addCell(null, ['valign' => 'center', 'gridSpan' => 3]);
+        $cell->addText('Légende priorité', ['bold' => true, 'size' => 8], ['align' => 'center']);
+
         $priorities          = MesurementPriorityDictionary::getPrioritiesNameWithoutNumber();
+        $row                 = $table->addRow();
         foreach ($priorities as $key => $priority) {
-            $legendPriorityColor->addText($priority, ['color'=>MesurementPriorityDictionary::getPrioritiesColors()[$key]]);
-            if (end($priorities) !== $priority) {
-                $legendPriorityColor->addText(' - ');
-            }
+            $cell = $row->addCell(null, ['valign' => 'center', 'bgColor' => MesurementPriorityDictionary::getPrioritiesColors()[$key]]);
+            $cell->addText($priority, ['bold' => true, 'size' => 8], ['align' => 'center']);
         }
     }
 

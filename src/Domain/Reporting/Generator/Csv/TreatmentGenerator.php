@@ -170,7 +170,7 @@ class TreatmentGenerator extends AbstractGenerator
 
         return [
             $recipientsTrans . ' - ' . $this->translator->trans('registry.treatment.show.recipient_category'),
-            $recipientsTrans . ' - ' . $this->translator->trans('registry.treatment.show.data_category_other'),
+            $recipientsTrans . ' - ' . $this->translator->trans('registry.treatment.show.contractors'),
         ];
     }
 
