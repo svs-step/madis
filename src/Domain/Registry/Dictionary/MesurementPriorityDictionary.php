@@ -87,9 +87,9 @@ class MesurementPriorityDictionary extends SimpleDictionary
     public static function getPrioritiesNameWithoutNumber()
     {
         return [
-            self::PRIORITY_HIGH   => 'Haute',
-            self::PRIORITY_NORMAL => 'Normale',
             self::PRIORITY_LOW    => 'Basse',
+            self::PRIORITY_NORMAL => 'Normale',
+            self::PRIORITY_HIGH   => 'Haute',
         ];
     }
 }

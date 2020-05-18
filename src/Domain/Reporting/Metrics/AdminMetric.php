@@ -131,10 +131,10 @@ class AdminMetric implements MetricInterface
                 $collectivityInsee                                                                 = $collectivity->getAddress()->getInsee();
                 $data['collectivityByAddressInsee']['value']['addressInsee'][$collectivityInsee][] = $collectivityData;
                 ++$inseeCount;
-            }
 
-            if (false === $collectivity->isDifferentDpo()) {
-                ++$nbIsDifferentDpo;
+                if (false === $collectivity->isDifferentDpo()) {
+                    ++$nbIsDifferentDpo;
+                }
             }
 
             ++$data['collectivityByType']['value']['type'][$collectivity->getType()];

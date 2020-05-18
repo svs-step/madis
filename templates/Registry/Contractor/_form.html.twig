@@ -32,7 +32,6 @@
         <div class="box box-solid box-primary">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.coordinates'|trans }}</h3></div>
             <div class="box-body">
-                <div class="col-md-12"><label>{{ 'registry.contractor.tab.legal_manager'|trans }}</label></div>
                 {# Hide unused field for legal manager   #}
                 {% do form.legalManager.civility.setRendered() %}
                 {% do form.legalManager.job.setRendered() %}
@@ -40,7 +39,6 @@
                 {% do form.legalManager.phoneNumber.setRendered() %}
                 {{ form_row(form.legalManager.firstName) }}
                 {{ form_row(form.legalManager.lastName) }}
-                <div class="col-md-12"><label>{{ 'registry.contractor.tab.contractor'|trans }}</label></div>
                 {{ form_row(form.address.lineOne) }}
                 {{ form_row(form.address.lineTwo) }}
                 {{ form_row(form.address.zipCode) }}

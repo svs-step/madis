@@ -30,7 +30,7 @@ registry:
         form:
             adopted_security_features: A adopté les éléments de sécurité nécessaires
             contractual_clauses_verified: Clauses contractuelles vérifiées
-            has_dpo: A un DPD
+            has_dpo: Le sous-traitant a désigné un DPD
             maintains_treatment_register: Tient à jour un registre des traitements
             name: Nom
             other_informations: Autres informations
@@ -62,7 +62,7 @@ registry:
             contact_phone_number: N° tél.
             created_at: Date de création
             creator: Créateur
-            has_dpo: A un DPD
+            has_dpo: Le sous-traitant a désigné un DPD
             maintains_treatment_register: Tient à jour un registre des traitements
             name: Nom
             other_informations: Autres informations
