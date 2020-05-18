@@ -10,7 +10,7 @@
 
         <id name="id" column="id" type="uuid"/>
 
-        <field name="nom" column="nom"/>
+        <field name="nom" column="nom" length="512"/>
 
         <many-to-one field="processus" target-entity="App\Domain\Registry\Model\ConformiteOrganisationProcessus" inversed-by="questions"/>
         <one-to-many field="reponses" target-entity="App\Domain\Registry\Model\ConformiteOrganisationReponse" mapped-by="question"/>

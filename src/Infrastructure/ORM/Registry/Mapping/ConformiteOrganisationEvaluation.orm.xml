@@ -11,6 +11,7 @@
         <id name="id" column="id" type="uuid"/>
 
         <field name="date" column="date" type="date" nullable="true"/>
+        <field name="complete" column="complete" type="boolean"/>
 
         <one-to-many field="questions" target-entity="App\Domain\Registry\Model\ConformiteOrganisationQuestion" mapped-by="evaluation"/>
         <one-to-many field="participants" target-entity="App\Domain\Registry\Model\ConformiteOrganisationParticipant" mapped-by="evaluation"/>

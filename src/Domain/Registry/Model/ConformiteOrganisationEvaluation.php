@@ -33,11 +33,19 @@ class ConformiteOrganisationEvaluation
      */
     private $actionProtections;
 
+    /**
+     * Determine if the evaluation is complete, or if it's only a draft.
+     *
+     * @var bool
+     */
+    private $complete;
+
     public function __construct()
     {
         $this->id                = Uuid::uuid4();
         $this->participants      = new ArrayCollection();
         $this->actionProtections = [];
+        $this->complete          = false;
     }
 
     public function getId()
@@ -94,5 +102,15 @@ class ConformiteOrganisationEvaluation
         }
 
         unset($this->actionProtections[$key]);
+    }
+
+    public function isComplete(): bool
+    {
+        return $this->complete;
+    }
+
+    public function setComplete(bool $complete): void
+    {
+        $this->complete = $complete;
     }
 }

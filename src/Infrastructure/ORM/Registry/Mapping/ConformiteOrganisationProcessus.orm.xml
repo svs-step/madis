@@ -12,7 +12,7 @@
 
         <field name="nom" column="nom"/>
         <field name="couleur" column="couleur"/>
-        <field name="description" column="description" nullable="true"/>
+        <field name="description" column="description" nullable="true" length="512"/>
         <field name="position" column="position" type="integer"/>
         
         <one-to-many field="questions" target-entity="App\Domain\Registry\Model\ConformiteOrganisationQuestion" mapped-by="processus"/>

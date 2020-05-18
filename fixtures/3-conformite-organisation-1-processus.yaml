@@ -1,0 +1,82 @@
+App\Domain\Registry\Model\ConformiteOrganisationProcessus:
+    processus_1:
+        nom: "Responsabilités"
+        couleur: danger
+        position: 1
+        description: "Définir et communiquer aux personnes concernées la politique générale de protection des données de l'entreprise
+                      Définir, mettre en œuvre et réexaminer la politique de gestion des données (Processus, ressources, mesures)
+                      S’assurer que la politique de gestion des données est communiquée, comprise et appliquée au sein de l’entreprise"
+    processus_2:
+        nom: "Traitements et transferts de données"
+        couleur: info
+        position: 2
+        description: "Disposer d’un registre des activités de traitement à jour.
+                      S'assurer que les mesures de conformité des traitements de DCP sont effectivement prises en compte en cas de traitements nouveaux ou modifiés.
+                      Gérer les transferts de données"
+    processus_3:
+        nom: "Droits de la personne concernée"
+        couleur: info #TODO Temp, need more info
+        position: 3
+        description: "S'assurer que l'information est concise pour l'exercice des droits par la personne concernée
+                      Disposer de procédures internes fiables pour répondre aux demandes des personnes concernées."
+    processus_4:
+        nom: "Sous-traitants"
+        couleur: info #TODO Temp, need more info
+        position: 4
+        description: "En tant que responsable du traitement s'assurer de la conformité  des contrats de sous-traitance
+                      Si l'entreprise agit en tant que sous-traitant, s'assurer que le responsable du traitement a pris en compte ses obligations"
+    processus_5:
+        nom: "Protection des données dès la conception"
+        couleur: info #TODO Temp, need more info
+        position: 5
+        description: "Garantir que la gestion des droits de la personne concernée et la sécurité des données sont prises en compte dès la phase de conception du projet et durant son cycle de vie.
+                      Maîtriser la conformité du produit ou du service aux exigences du RGPD au travers de vérifications, de validations et de revues de conception planifiée."
+
+    processus_6:
+        nom: "Gestion des mesures de sécurité"
+        couleur: info #TODO Temp, need more info
+        position: 6
+        description: "En relation avec la fonction sécurité de l'information de l'entreprise, mettre en œuvre les mesures de protection sélectionnées afin de répondre aux objectifs de disponibilité, d’intégrité et de confidentialité des DCP.
+                      Détecter les incidents de sécurité pouvant avoir pour conséquence une violation de données"
+
+    processus_7:
+        nom: "Analyse d'impacts sur la protection des données"
+        couleur: info #TODO Temp, need more info
+        position: 7
+        description: "Réaliser une évaluation d'impact sur la protection des données lorsque le traitement est susceptible d’engendrer un risque élevé pour les droits et libertés ou lorsqu'une partie intéressée demandé une preuve de conformité."
+
+    processus_8:
+        nom: "Sensibiliser, former et communiquer"
+        couleur: info #TODO Temp, need more info
+        position: 8
+        description: "S'assurer que le personnel à qui a été affecté les responsabilités définies dans le SMDCP, a les compétences nécessaires pour exécuter les tâches requises.
+                      S'assurer que tout le personnel approprié a conscience de la pertinence et de l'importance de ses activités liées aux traitements des DCP."
+
+    processus_9:
+        nom: "Exigences, sollicitations, violations, poursuites"
+        couleur: info #TODO Temp, need more info
+        position: 9
+        description: "Connaître la réglementation applicable et ses évolutions.
+                      Etre en capacité de répondre à des sollicitations ou à des poursuites.
+                      Réagir en cas de violations de données"
+
+    processus_10:
+        nom: "Évaluer et auditer"
+        couleur: info #TODO Temp, need more info
+        position: 10
+        description: "A intervalles réguliers, vérifier que le SMDCP est conforme à la politique définie.
+                      Apporter la preuve que les traitements effectués par le responsable du traitement et les sous-traitants sont conformes au règlement"
+
+    processus_11:
+        nom: "Gérer de la documentation et des preuves"
+        couleur: info #TODO Temp, need more info
+        position: 11
+        description: "Gérer le patrimoine documentaire attaché à la protection des données
+                      Etablir et conserver des enregistrements pour apporter la preuve des mesures techniques et organisationnelles"
+
+    processus_12:
+        nom: "Piloter le SMDCP"
+        couleur: info #TODO Temp, need more info
+        position: 12
+        description: "Disposer d'indicateurs pour piloter l'efficacité des processus du  SMDCP
+                      Produire le bilan (Rapport) annuel"
