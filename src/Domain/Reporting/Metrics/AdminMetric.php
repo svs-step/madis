@@ -96,7 +96,7 @@ class AdminMetric implements MetricInterface
             ],
             'collectivityByAddressInsee' => [
                 'value' => [
-                    'all'          => 0,
+                    'all'          => $totalCollectivity,
                     'addressInsee' => [],
                     'dpoPercent'   => 0,
                 ],
@@ -116,7 +116,6 @@ class AdminMetric implements MetricInterface
         ];
 
         $nbIsDifferentDpo = 0;
-        $inseeCount       = 0;
         $inseeValidType   = [CollectivityTypeDictionary::TYPE_COMMUNE, CollectivityTypeDictionary::TYPE_CCAS, CollectivityTypeDictionary::TYPE_OTHER];
         foreach ($collectivities as $collectivity) {
             if (!\is_null($collectivity->getAddress())
@@ -130,19 +129,17 @@ class AdminMetric implements MetricInterface
                 ];
                 $collectivityInsee                                                                 = $collectivity->getAddress()->getInsee();
                 $data['collectivityByAddressInsee']['value']['addressInsee'][$collectivityInsee][] = $collectivityData;
-                ++$inseeCount;
+            }
 
-                if (false === $collectivity->isDifferentDpo()) {
-                    ++$nbIsDifferentDpo;
-                }
+            if (false === $collectivity->isDifferentDpo()) {
+                ++$nbIsDifferentDpo;
             }
 
             ++$data['collectivityByType']['value']['type'][$collectivity->getType()];
         }
 
-        if ($inseeCount > 0) {
-            $data['collectivityByAddressInsee']['value']['all']        = $inseeCount;
-            $data['collectivityByAddressInsee']['value']['dpoPercent'] = round(($nbIsDifferentDpo * 100) / $inseeCount);
+        if ($totalCollectivity > 0) {
+            $data['collectivityByAddressInsee']['value']['dpoPercent'] = round(($nbIsDifferentDpo * 100) / $totalCollectivity);
         }
 
         return $data;
