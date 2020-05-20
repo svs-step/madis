@@ -152,6 +152,10 @@ registry:
             edit: Modifier une action de protection
             list: Liste des actions de protection
             show: Visualiser une action de protection
+        modal:
+          cancel: Annuler
+          create: Créer
+          title: Ajouter une action de protection
 
     proof:
         action:
@@ -527,14 +531,18 @@ registry:
             gestionnaire: Gestionnaire
             traitement: Traitement
         action:
+            back_to_list: Retour à la liste
             report: Générer une impression
             show_conformite_traitement: Voir
         title:
             list: Conformité des traitements
             create: Evaluer un traitement
+            edit: Evaluer un traitement
         form:
             action_protection: Action de protection
             conformite: Conformité
             header: Évaluation du traitement
             question: Question
-
+        flashbag:
+            success:
+                edit: Conformité du traitement "%object%" modifiée avec succès

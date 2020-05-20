@@ -26,14 +26,27 @@ namespace App\Domain\Registry\Form\Type\ConformiteTraitement;
 
 use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
 use App\Domain\Registry\Model\Mesurement;
+use App\Domain\User\Model\User;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class ReponseType extends AbstractType
 {
+    /**
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * Build type form.
      */
@@ -48,9 +61,18 @@ class ReponseType extends AbstractType
                 ],
             ])
             ->add('actionProtections', EntityType::class, [
-                'required'     => false,
-                'label'        => false,
-                'class'        => Mesurement::class,
+                'required'      => false,
+                'label'         => false,
+                'class'         => Mesurement::class,
+                'query_builder' => function (EntityRepository $er) {
+                    /** @var User $user */
+                    $user = $this->security->getUser();
+
+                    return $er->createQueryBuilder('m')
+                        ->andWhere('m.collectivity = :collectivity')
+                        ->setParameter('collectivity', $user->getCollectivity())
+                        ->orderBy('m.name', 'ASC');
+                },
                 'choice_label' => 'name',
                 'expanded'     => false,
                 'multiple'     => true,

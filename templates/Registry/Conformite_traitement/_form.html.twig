@@ -2,26 +2,16 @@
 
 {{ form_start(form) }}
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="box box-solid">
-            <div class="box-body text-center">
-                <a href="{{ path('registry_mesurement_list') }}" class="btn btn-default">
-                    {{ 'registry.mesurement.action.back_to_list'|trans }}
-                </a>
-                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-
-</div>
+<div class="row"></div>
 
 {% include 'Registry/Conformite_traitement/_form_reponse.html.twig' with {'form': form.reponses} %}
+<div class="content-header content-header-custom-padding">
+    <h1>
+        {{ 'registry.treatment.title.edit'|trans }}
+        <small>{{ form.vars.value }}</small>
+    </h1>
+</div>
 {% include 'Registry/Treatment/_form.html.twig' with {'form': form.traitement} %}
 
 
 {{ form_end(form) }}
-

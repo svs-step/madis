@@ -31,12 +31,23 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class ReponseTypeTest extends FormTypeHelper
 {
+    /**
+     * @var Security
+     */
+    private $security;
+
+    public function setUp()
+    {
+        $this->security = $this->prophesize(Security::class)->reveal();
+    }
+
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, new ReponseType());
+        $this->assertInstanceOf(AbstractType::class, new ReponseType($this->security));
     }
 
     public function testBuildForm()
@@ -46,7 +57,7 @@ class ReponseTypeTest extends FormTypeHelper
             'actionProtections' => EntityType::class,
         ];
 
-        (new ReponseType())->buildForm($this->prophesizeBuilder($builder), []);
+        (new ReponseType($this->security))->buildForm($this->prophesizeBuilder($builder), []);
     }
 
     public function testConfigureOptions(): void
@@ -62,6 +73,6 @@ class ReponseTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new ReponseType())->configureOptions($resolverProphecy->reveal());
+        (new ReponseType($this->security))->configureOptions($resolverProphecy->reveal());
     }
 }

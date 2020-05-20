@@ -42,3 +42,8 @@ api_registry_mesurement_collectivity:
     path: '/api/collectivite/{collectivityId}'
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\MesurementController:apiGetMesurementsByCollectivity'
+
+api_registry_mesurement_modal_create:
+    path: '/modal-create'
+    methods: ['POST']
+    controller: 'App\Domain\Registry\Controller\MesurementController:createFromJsonAction'

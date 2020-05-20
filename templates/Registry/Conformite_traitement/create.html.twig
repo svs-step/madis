@@ -14,4 +14,9 @@
 
 {% block body %}
     {{ include('Registry/Conformite_traitement/_form.html.twig') }}
+    {{ include('Registry/Mesurement/_modal_form.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ include('Registry/Mesurement/_modal_form_js.html.twig') }}
 {% endblock %}
