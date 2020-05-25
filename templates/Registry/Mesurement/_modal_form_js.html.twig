@@ -28,7 +28,7 @@
             //Désactiviation du bouton pour éviter le multi clic
             $('#mesurement-modal-form-button').attr('disabled','disabled');
 
-            let jQueryform =  $(this)
+            let jQueryform =  $(this);
             getAjaxCreationCall(jQueryform).then(
                 result => {
                     $('select.selectpicker').each(function() {
@@ -40,16 +40,20 @@
                     target.modal('hide');
                     //On réactive le bouton
                     $('#mesurement-modal-form-button').removeAttr("disabled");
-                    unbindSubmit(jQueryform);
-                    jQueryform[0].reset();
+
                 }
             ).catch(
                 error => {
                     console.log(error);
-                    unbindSubmit(jQueryform);
                 }
             )
         })
+    });
+
+    $('#mesurement-modal').on('hide.bs.modal', function(e){
+        let jQueryForm = $('#mesurement-modal-form');
+        unbindSubmit(jQueryForm);
+        jQueryForm[0].reset();
     });
 
     // jQuery object

@@ -34,6 +34,7 @@ use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -169,6 +170,44 @@ class ConformiteTraitementController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('create'), [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     * Override method in order to hydrate new questions.
+     *
+     * @param string $id The ID of the data to edit
+     */
+    public function editAction(Request $request, string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        // Before create form, hydrate new answers array with potential question responses
+        foreach ($this->questionRepository->findNewQuestionsNotUseInGivenConformite($object) as $question) {
+            $reponse = new Model\ConformiteTraitement\Reponse();
+            $reponse->setQuestion($question);
+            $object->addReponse($reponse);
+        }
+
+        $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->formPrePersistData($object);
+            $this->entityManager->persist($object);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('edit'), [
             'form' => $form->createView(),
         ]);
     }

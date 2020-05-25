@@ -28,4 +28,10 @@ use App\Application\DDD\Repository\CRUDRepositoryInterface;
 
 interface Question extends CRUDRepositoryInterface
 {
+    /**
+     * Return all new question not used in given conformite traitement.
+     *
+     * @return mixed
+     */
+    public function findNewQuestionsNotUseInGivenConformite(\App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement);
 }

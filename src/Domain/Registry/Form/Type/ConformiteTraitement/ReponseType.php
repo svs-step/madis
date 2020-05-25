@@ -80,8 +80,9 @@ class ReponseType extends AbstractType
                 'expanded'     => false,
                 'multiple'     => true,
                 'attr'         => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'class'            => 'selectpicker',
+                    'title'            => 'placeholder.multiple_select',
+                    'data-live-search' => true,
                 ],
             ]
             )

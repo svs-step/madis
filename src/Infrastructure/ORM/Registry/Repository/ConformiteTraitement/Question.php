@@ -37,4 +37,22 @@ class Question extends CRUDRepository implements Repository\ConformiteTraitement
     {
         return Model\ConformiteTraitement\Question::class;
     }
+
+    public function findNewQuestionsNotUseInGivenConformite(\App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->andWhere($qb->expr()->notIn('o.id', ':questions'))
+            ->setParameter(
+                'questions',
+                array_map(function (Model\ConformiteTraitement\Reponse $reponse) {
+                    return $reponse->getQuestion()->getId()->toString();
+                }, \iterable_to_array($conformiteTraitement->getReponses()))
+            )
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
