@@ -26,10 +26,10 @@
                     {% for reponse in orderReponseByQuestionPositionAsc(form) %}
                         <tr>
                             <td>{{ reponse.vars.value.question.question }}</td>
-                            <td>{{ form_widget(reponse.conforme) }}</td>
+                            <td>{{ form_widget(reponse.conforme, { 'attr': {'data-select-id': reponse.actionProtections.vars.id} }) }}</td>
                             <td>{{ form_widget(reponse.actionProtections) }}</td>
                             <td>
-                                <button type="button" class="btn" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ reponse.actionProtections.vars.id }}">
+                                <button id="{{ reponse.actionProtections.vars.id }}_add_button" type="button" class="btn" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ reponse.actionProtections.vars.id }}">
                                     <span class="fa fa-plus-circle"></span>
                                 </button>
                             </td>

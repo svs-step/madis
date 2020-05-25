@@ -59,6 +59,9 @@ class ReponseType extends AbstractType
                     'Non conforme' => false,
                     'Conforme'     => true,
                 ],
+                'attr' => [
+                    'class' => 'conformite-select',
+                ],
             ])
             ->add('actionProtections', EntityType::class, [
                 'required'      => false,
