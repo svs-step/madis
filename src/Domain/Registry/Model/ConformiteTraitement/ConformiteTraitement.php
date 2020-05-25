@@ -41,7 +41,7 @@ class ConformiteTraitement
     private $traitement;
 
     /**
-     * @var iterable
+     * @var iterable|Reponse[]
      */
     private $reponses;
 
@@ -84,6 +84,9 @@ class ConformiteTraitement
         $this->traitement = $traitement;
     }
 
+    /**
+     * @return iterable|Reponse[]
+     */
     public function getReponses(): iterable
     {
         return $this->reponses;

@@ -527,6 +527,7 @@ registry:
     conformite_traitement:
         list:
             conformite: Conformité
+            conformite_reponse: Conformité des questions
             date_conformite: Date conformité
             gestionnaire: Gestionnaire
             traitement: Traitement

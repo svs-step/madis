@@ -41,22 +41,44 @@
                         <tr>
                             <th>{{ 'registry.conformite_traitement.list.traitement'|trans }}</th>
                             <th>{{ 'registry.conformite_traitement.list.gestionnaire'|trans }}</th>
-                            <th></th>
                             <th>{{ 'registry.conformite_traitement.list.conformite'|trans }}</th>
+                            <th>{{ 'registry.conformite_traitement.list.conformite_reponse'|trans }}</th>
                             <th>{{ 'registry.conformite_traitement.list.date_conformite'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for object in objects %}
+                            {% set conformiteTraitement = object.conformiteTraitement %}
+                            {% if conformiteTraitement is not null %}
+                                {% set nbTotal = conformiteTraitement.nbConformes + conformiteTraitement.nbNonConformesMineures + conformiteTraitement.nbNonConformesMajeures %}
+                                {% set widthNbConforme = ((conformiteTraitement.nbConformes * 100) / nbTotal)|round %}
+                                {% set widthnbNonConformesMineures = ((conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round %}
+                                {% set widthnbNonConformesMajeures = 100 - (widthNbConforme + widthnbNonConformesMineures) %}
+                                {% if conformiteTraitement.nbNonConformesMajeures >= 1 or conformiteTraitement.nbNonConformesMineures >= 3 %}
+                                    {% set conformiteBackgroundColor = 'rouge' %}
+                                {% elseif conformiteTraitement.nbNonConformesMineures >= 1 %}
+                                    {% set conformiteBackgroundColor = 'orange' %}
+                                {% else %}
+                                    {% set conformiteBackgroundColor = 'vert' %}
+                                {% endif %}
+                            {% endif %}
                             <tr>
                                 <td>{{ object.name }}</td>
                                 <td>{{ object.manager }}</td>
-                                <td></td>
-                                <td></td>
+                                <td {% if conformiteBackgroundColor is defined %}class="conformite-backgound-color-{{ conformiteBackgroundColor }}"{% endif %}></td>
+                                <td>
+                                    {% if conformiteTraitement is not null %}
+                                        <div class="stacked-bar-graph">
+                                            {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme"></span>{% endif %}
+                                            {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure"></span>{% endif %}
+                                            {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure"></span>{% endif %}
+                                        </div>
+                                    {% endif %}
+                                </td>
                                 <td></td>
                                 <td>
-                                    <a href="{% if object.conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': object.conformiteTraitement.id}) }}{% endif %}">
+                                    <a href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
                                         <i class="fa fa-eye"></i>
                                         {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}
                                     </a>
