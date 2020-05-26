@@ -32,6 +32,9 @@ use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * Organisation.
+ */
 class Collectivity
 {
     use HistoryTrait;

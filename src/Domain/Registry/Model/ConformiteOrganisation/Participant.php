@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domain\Registry\Model;
+namespace App\Domain\Registry\Model\ConformiteOrganisation;
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class ConformiteOrganisationParticipant
+class Participant
 {
     /**
      * @var UuidInterface
@@ -33,7 +33,7 @@ class ConformiteOrganisationParticipant
     private $fonction;
 
     /**
-     * @var ConformiteOrganisationEvaluation
+     * @var Evaluation
      */
     private $evaluation;
 
@@ -87,12 +87,12 @@ class ConformiteOrganisationParticipant
         $this->fonction = $fonction;
     }
 
-    public function getEvaluation(): ConformiteOrganisationEvaluation
+    public function getEvaluation(): Evaluation
     {
         return $this->evaluation;
     }
 
-    public function setEvaluation(ConformiteOrganisationEvaluation $evaluation): void
+    public function setEvaluation(Evaluation $evaluation): void
     {
         $this->evaluation = $evaluation;
     }

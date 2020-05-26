@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                             https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="App\Domain\Registry\Model\ConformiteOrganisationParticipant" table="registry_conformite_organisation_participant">
+    <entity name="App\Domain\Registry\Model\ConformiteOrganisation\Participant" table="registry_conformite_organisation_participant">
 
         <id name="id" column="id" type="uuid"/>
 
@@ -15,7 +15,7 @@
         <field name="civilite" column="civilite" type="integer" nullable="true"/>
         <field name="fonction" column="fonction" nullable="true"/>
 
-        <many-to-one field="evaluation" target-entity="App\Domain\Registry\Model\ConformiteOrganisationEvaluation"/>
+        <many-to-one field="evaluation" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Evaluation"/>
 
     </entity>
 

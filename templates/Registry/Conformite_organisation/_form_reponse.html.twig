@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <span>
+                    <h3 class="box-title">{{ 'registry.conformite_organisation.form.header'|trans }}</h3>
+                </span>
+            </div>
+            <div>
+                    {% for conformitesArray in getConformitesWithProcessusAndQuestions(form) %}
+                        {% set newRow = loop.index is not odd %}
+                        {% if newRow %}
+                            <div class="row">
+                        {% endif %}
+                        <div class="col-md-6">
+                            {% set processus = (conformitesArray|first).vars.value.processus %}
+                            <div class="box box-solid box-{{ processus.couleur }}">
+                                <p>{{ processus.description }}</p>
+                                <div class="box-header with-border">{{ processus.nom }}</div>
+                                <div class="box-body">
+                                    {% for conformite in conformitesArray %}
+                                        {% for reponse in conformite.reponses %}
+                                            <div>{{ reponse.vars.value.question.nom }}</div>
+                                            <div>{{ form_widget(reponse) }}</div>
+                                        {% endfor %}
+                                        {{ form_row(conformite.actionProtections) }}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% if newRow %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_conformite_organisation list' %}
+{% set menuItem = 'registry_conformite_organisation' %}
+
+{% block title %}{{ 'registry.conformite_organisation.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'registry.conformite_organisation.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.conformite_organisation.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="action-bar">
+{#                <a href="{{ path('registry_conformite_organisation_report') }}" class="btn btn-default">#}
+{#                    <i class="fa fa-clipboard-list"></i>#}
+{#                    {{ 'registry.conformite_organisation.action.report'|trans }}#}
+{#                </a>#}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>{{ 'registry.conformite_organisation.list.date_creation'|trans }}</th>
+                            <th>{{ 'registry.conformite_organisation.list.nb_participants'|trans }}</th>
+                            <th>{{ 'registry.conformite_organisation.list.actions'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+                            <tr>
+                                <td>{{ object.date|date('d/m/Y H:i') }}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {#    {% set dataTableOptions = {#}
+    {#        'order':  [[4, 'desc' ]]#}
+    {#    } %}#}
+
+    {{ include('_Utils/_datatable.html.twig') }}
+{% endblock %}

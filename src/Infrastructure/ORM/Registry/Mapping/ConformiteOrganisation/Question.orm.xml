@@ -6,14 +6,16 @@
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                             https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="App\Domain\Registry\Model\ConformiteOrganisationConformite" table="registry_conformite_organisation_conformite">
+    <entity name="App\Domain\Registry\Model\ConformiteOrganisation\Question" table="registry_conformite_organisation_question">
 
         <id name="id" column="id" type="uuid"/>
 
-        <field name="conformite" column="conformite" type="integer" nullable="true"/>
+        <field name="nom" column="nom" length="512"/>
+        <field name="position" column="position"/>
 
-        <one-to-many field="evaluation" target-entity="App\Domain\Registry\Model\ConformiteOrganisationProcessus" mapped-by="conformite"/>
-        <one-to-many field="processus" target-entity="App\Domain\Registry\Model\ConformiteOrganisationProcessus" mapped-by="conformite"/>
+        <many-to-one field="processus" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Processus" inversed-by="questions"/>
+        <one-to-many field="reponses" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Reponse" mapped-by="question"/>
+
     </entity>
 
 </doctrine-mapping>

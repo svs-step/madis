@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domain\Registry\Model;
+namespace App\Domain\Registry\Model\ConformiteOrganisation;
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class ConformiteOrganisationReponse
+class Reponse
 {
     /**
      * @var UuidInterface
@@ -23,14 +23,14 @@ class ConformiteOrganisationReponse
     private $reponseRaison;
 
     /**
-     * @var ConformiteOrganisationQuestion
+     * @var Question
      */
     private $question;
 
     /**
-     * @var ConformiteOrganisationEvaluation
+     * @var Conformite
      */
-    private $evaluation;
+    private $conformite;
 
     public function __construct()
     {
@@ -62,23 +62,23 @@ class ConformiteOrganisationReponse
         $this->reponseRaison = $reponseRaison;
     }
 
-    public function getQuestion(): ConformiteOrganisationQuestion
+    public function getQuestion(): Question
     {
         return $this->question;
     }
 
-    public function setQuestion(ConformiteOrganisationQuestion $question): void
+    public function setQuestion(Question $question): void
     {
         $this->question = $question;
     }
 
-    public function getEvaluation(): ConformiteOrganisationEvaluation
+    public function getConformite(): Conformite
     {
-        return $this->evaluation;
+        return $this->conformite;
     }
 
-    public function setEvaluation(ConformiteOrganisationEvaluation $evaluation): void
+    public function setConformite(Conformite $conformite): void
     {
-        $this->evaluation = $evaluation;
+        $this->conformite = $conformite;
     }
 }

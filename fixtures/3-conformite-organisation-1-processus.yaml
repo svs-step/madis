@@ -1,4 +1,4 @@
-App\Domain\Registry\Model\ConformiteOrganisationProcessus:
+App\Domain\Registry\Model\ConformiteOrganisation\Processus:
     processus_1:
         nom: "Responsabilités"
         couleur: danger

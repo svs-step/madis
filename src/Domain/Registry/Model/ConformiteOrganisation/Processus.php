@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domain\Registry\Model;
+namespace App\Domain\Registry\Model\ConformiteOrganisation;
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class ConformiteOrganisationProcessus
+class Processus
 {
     /**
      * @var UuidInterface
@@ -36,6 +36,11 @@ class ConformiteOrganisationProcessus
      * @var iterable
      */
     private $questions;
+
+    /**
+     * @var Conformite
+     */
+    private $conformite;
 
     /**
      * Domain constructor.
@@ -93,13 +98,13 @@ class ConformiteOrganisationProcessus
         $this->position = $position;
     }
 
-    public function addQuestion(ConformiteOrganisationQuestion $question): void
+    public function addQuestion(Question $question): void
     {
         $this->questions[] = $question;
         $question->setProcessus($this);
     }
 
-    public function removeQuestion(ConformiteOrganisationQuestion $question): void
+    public function removeQuestion(Question $question): void
     {
         $key = \array_search($question, $this->questions, true);
 
@@ -113,5 +118,15 @@ class ConformiteOrganisationProcessus
     public function getQuestions(): iterable
     {
         return $this->questions;
+    }
+
+    public function getConformite(): Conformite
+    {
+        return $this->conformite;
+    }
+
+    public function setConformite(Conformite $conformite): void
+    {
+        $this->conformite = $conformite;
     }
 }

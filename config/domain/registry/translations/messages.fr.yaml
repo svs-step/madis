@@ -552,3 +552,21 @@ registry:
                 create: Conformité du traitement "%object%" créée avec succès
 
 
+    conformite_organisation:
+        title:
+            create: Créer une évaluation
+            list: Lister les évaluations
+        list:
+            date_creation: Date de création
+            actions: Actions
+            nb_participants: Nombre de participants
+        form:
+            date: Date
+        participant:
+            form:
+                prenom: Prénom
+                nom_famille: Nom de famille
+                fonction: Fonction
+        flashbag:
+            success:
+                create: Conformite de l'organisation "%object%" créée avec succès
