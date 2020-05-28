@@ -61,6 +61,11 @@ class OverviewGenerator extends AbstractGenerator
      */
     protected $violationGenerator;
 
+    /**
+     * @var ConformiteTraitementGenerator
+     */
+    protected $conformiteTraitementGenerator;
+
     public function __construct(
         UserProvider $userProvider,
         ParameterBagInterface $parameterBag,
@@ -69,15 +74,17 @@ class OverviewGenerator extends AbstractGenerator
         MaturityGenerator $maturityGenerator,
         MesurementGenerator $mesurementGenerator,
         RequestGenerator $requestGenerator,
-        ViolationGenerator $violationGenerator
+        ViolationGenerator $violationGenerator,
+        ConformiteTraitementGenerator $conformiteTraitementGenerator
     ) {
         parent::__construct($userProvider, $parameterBag);
-        $this->treatmentGenerator  = $treatmentGenerator;
-        $this->contractorGenerator = $contractorGenerator;
-        $this->maturityGenerator   = $maturityGenerator;
-        $this->mesurementGenerator = $mesurementGenerator;
-        $this->requestGenerator    = $requestGenerator;
-        $this->violationGenerator  = $violationGenerator;
+        $this->treatmentGenerator            = $treatmentGenerator;
+        $this->contractorGenerator           = $contractorGenerator;
+        $this->maturityGenerator             = $maturityGenerator;
+        $this->mesurementGenerator           = $mesurementGenerator;
+        $this->requestGenerator              = $requestGenerator;
+        $this->violationGenerator            = $violationGenerator;
+        $this->conformiteTraitementGenerator = $conformiteTraitementGenerator;
     }
 
     public function generateObjectPart(Section $section): void
@@ -162,11 +169,12 @@ class OverviewGenerator extends AbstractGenerator
         $this->violationGenerator->addGlobalOverview($section, $violations);
     }
 
-    public function generateManagementSystemAndCompliance(Section $section, array $maturity = [], array $mesurements = []): void
+    public function generateManagementSystemAndCompliance(Section $section, array $maturity = [], array $conformiteTraitements = [], array $mesurements = []): void
     {
         $section->addTitle('Système de management des données à caractère personnel et conformité', 1);
 
         $this->maturityGenerator->addGlobalOverview($section, $maturity);
+        $this->conformiteTraitementGenerator->addGlobalOverview($section, $conformiteTraitements);
         $this->mesurementGenerator->addGlobalOverview($section, $mesurements);
     }
 

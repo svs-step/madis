@@ -400,6 +400,7 @@ registry:
             concerned_people_partner: Partenaires
             concerned_people_other: Autres
             concerned_people_user: Internautes
+            conformite_traitement: Conformité du traitement
             collectivity: Collectivité
             contractors: Sous-traitants
             created_at: Date de création
@@ -526,6 +527,7 @@ registry:
             show: Visualiser une violation
     conformite_traitement:
         list:
+            collectivity: Collectivité
             conformite: Conformité
             conformite_reponse: Conformité des questions
             date_conformite: Date conformité

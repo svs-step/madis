@@ -24,6 +24,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Twig\Extension;
 
+use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
+use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
 use Symfony\Component\Form\FormView;
@@ -40,6 +42,7 @@ class ConformiteTraitementExtension extends AbstractExtension
         return [
             new TwigFunction('orderReponseByQuestionPositionAsc', [$this, 'orderReponseByQuestionPositionAsc']),
             new TwigFunction('getPlanifiedMesurements', [$this, 'getPlanifiedMesurements']),
+            new TwigFunction('getConformiteLevelWeight', [$this, 'getConformiteLevelWeight']),
         ];
     }
 
@@ -69,5 +72,12 @@ class ConformiteTraitementExtension extends AbstractExtension
         }
 
         return $planifiedMesurementsToBeNotified;
+    }
+
+    public function getConformiteLevelWeight(ConformiteTraitement $conformiteTraitement): int
+    {
+        $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);
+
+        return ConformiteTraitementLevelDictionary::getConformitesWeight()[$level];
     }
 }

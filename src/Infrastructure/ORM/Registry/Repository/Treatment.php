@@ -109,11 +109,13 @@ class Treatment extends CRUDRepository implements Repository\Treatment
     /**
      * {@inheritdoc}
      */
-    public function findAllActiveByCollectivity(Collectivity $collectivity, bool $active = true, array $order = [])
+    public function findAllActiveByCollectivity(Collectivity $collectivity = null, bool $active = true, array $order = [])
     {
         $qb = $this->createQueryBuilder();
 
-        $this->addCollectivityClause($qb, $collectivity);
+        if (!\is_null($collectivity)) {
+            $this->addCollectivityClause($qb, $collectivity);
+        }
         $this->addActiveClause($qb, $active);
         $this->addOrder($qb, $order);
 

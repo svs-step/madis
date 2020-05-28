@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Reporting\Handler;
 
+use App\Domain\Reporting\Generator\Word\ConformiteTraitementGenerator;
 use App\Domain\Reporting\Generator\Word\ContractorGenerator;
 use App\Domain\Reporting\Generator\Word\MaturityGenerator;
 use App\Domain\Reporting\Generator\Word\MesurementGenerator;
@@ -83,20 +84,26 @@ class WordHandlerTest extends TestCase
     private $violationGeneratorProphecy;
 
     /**
+     * @var ConformiteTraitementGenerator
+     */
+    private $conformiteTraitementGeneratorProphecy;
+
+    /**
      * @var WordHandler
      */
     private $handler;
 
     protected function setUp()
     {
-        $this->phpWordProphecy             = $this->prophesize(PhpWord::class);
-        $this->contractorGeneratorProphecy = $this->prophesize(ContractorGenerator::class);
-        $this->maturityGeneratorProphecy   = $this->prophesize(MaturityGenerator::class);
-        $this->mesurementGeneratorProphecy = $this->prophesize(MesurementGenerator::class);
-        $this->overviewGeneratorProphecy   = $this->prophesize(OverviewGenerator::class);
-        $this->requestGeneratorProphecy    = $this->prophesize(RequestGenerator::class);
-        $this->treatmentGeneratorProphecy  = $this->prophesize(TreatmentGenerator::class);
-        $this->violationGeneratorProphecy  = $this->prophesize(ViolationGenerator::class);
+        $this->phpWordProphecy                        = $this->prophesize(PhpWord::class);
+        $this->contractorGeneratorProphecy            = $this->prophesize(ContractorGenerator::class);
+        $this->maturityGeneratorProphecy              = $this->prophesize(MaturityGenerator::class);
+        $this->mesurementGeneratorProphecy            = $this->prophesize(MesurementGenerator::class);
+        $this->overviewGeneratorProphecy              = $this->prophesize(OverviewGenerator::class);
+        $this->requestGeneratorProphecy               = $this->prophesize(RequestGenerator::class);
+        $this->treatmentGeneratorProphecy             = $this->prophesize(TreatmentGenerator::class);
+        $this->violationGeneratorProphecy             = $this->prophesize(ViolationGenerator::class);
+        $this->conformiteTraitementGeneratorProphecy  = $this->prophesize(ConformiteTraitementGenerator::class);
 
         $this->handler = new WordHandler(
             $this->phpWordProphecy->reveal(),
@@ -106,7 +113,8 @@ class WordHandlerTest extends TestCase
             $this->mesurementGeneratorProphecy->reveal(),
             $this->requestGeneratorProphecy->reveal(),
             $this->treatmentGeneratorProphecy->reveal(),
-            $this->violationGeneratorProphecy->reveal()
+            $this->violationGeneratorProphecy->reveal(),
+            $this->conformiteTraitementGeneratorProphecy->reveal()
         );
     }
 
@@ -115,16 +123,17 @@ class WordHandlerTest extends TestCase
      */
     public function testGenerateOverviewReport(): void
     {
-        $section          = new Section(1);
-        $title            = 'Bilan de gestion des données à caractère personnel';
-        $documentName     = 'bilan';
-        $treatments       = [];
-        $contractors      = [];
-        $maturity         = [];
-        $mesurements      = [];
-        $requests         = [];
-        $violations       = [];
-        $responseProphecy = $this->prophesize(BinaryFileResponse::class);
+        $section               = new Section(1);
+        $title                 = 'Bilan de gestion des données à caractère personnel';
+        $documentName          = 'bilan';
+        $treatments            = [];
+        $contractors           = [];
+        $maturity              = [];
+        $mesurements           = [];
+        $requests              = [];
+        $violations            = [];
+        $conformiteTraitements = [];
+        $responseProphecy      = $this->prophesize(BinaryFileResponse::class);
 
         $phpWord = $this->phpWordProphecy->reveal();
 
@@ -138,7 +147,7 @@ class WordHandlerTest extends TestCase
         $this->overviewGeneratorProphecy->generateObjectPart($section)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateOrganismIntroductionPart($section)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateRegistries($section, $treatments, $contractors, $requests, $violations)->shouldBeCalled();
-        $this->overviewGeneratorProphecy->generateManagementSystemAndCompliance($section, $maturity, $mesurements)->shouldBeCalled();
+        $this->overviewGeneratorProphecy->generateManagementSystemAndCompliance($section, $maturity, $mesurements, $conformiteTraitements)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateContinuousImprovements($section)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateAnnexeMention($section, $treatments)->shouldBeCalled();
 
@@ -368,6 +377,42 @@ class WordHandlerTest extends TestCase
         $this->assertEquals(
             $responseProphecy->reveal(),
             $this->handler->generateRegistryViolationReport($violations)
+        );
+    }
+
+    /**
+     * Test generateRegistryMesurementReport.
+     */
+    public function testGenerateRegistryConformiteTraitementReport()
+    {
+        $section               = new Section(1);
+        $title                 = 'Diagnostic de la conformité des traitements';
+        $documentName          = 'conformite_des_traitements';
+        $conformiteTraitements = [];
+        $responseProphecy      = $this->prophesize(BinaryFileResponse::class);
+
+        $phpWord = $this->phpWordProphecy->reveal();
+
+        // Initialization + homepage + table of content
+        $this->conformiteTraitementGeneratorProphecy->initializeDocument($phpWord)->shouldBeCalled();
+        $this->conformiteTraitementGeneratorProphecy->addHomepage($phpWord, $title)->shouldBeCalled();
+        $this->conformiteTraitementGeneratorProphecy->createContentSection($phpWord, $title)->shouldBeCalled()->willReturn($section);
+        $this->conformiteTraitementGeneratorProphecy->addTableOfContent($section, 1)->shouldBeCalled();
+
+        // Content
+        $this->conformiteTraitementGeneratorProphecy->addSyntheticView($section, $conformiteTraitements)->shouldBeCalled();
+        $this->conformiteTraitementGeneratorProphecy->addDetailedView($section, $conformiteTraitements)->shouldBeCalled();
+
+        // Generation
+        $this->conformiteTraitementGeneratorProphecy
+            ->generateResponse($phpWord, $documentName)
+            ->shouldBeCalled()
+            ->willReturn($responseProphecy->reveal())
+        ;
+
+        $this->assertEquals(
+            $responseProphecy->reveal(),
+            $this->handler->generateRegistryConformiteTraitementReport($conformiteTraitements)
         );
     }
 }

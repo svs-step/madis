@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Calculator\Completion;
 
+use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Model;
 
 class ConformiteTraitementCompletion
@@ -69,5 +70,20 @@ class ConformiteTraitementCompletion
         $conformiteTraitement->setNbConformes($calculs['nbConformes']);
         $conformiteTraitement->setNbNonConformesMineures($calculs['nbNonConformesMineures']);
         $conformiteTraitement->setNbNonConformesMajeures($calculs['nbNonConformesMajeures']);
+    }
+
+    public static function getConformiteTraitementLevel(Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement)
+    {
+        switch (true) {
+            case $conformiteTraitement->getNbNonConformesMajeures() >= 1:
+            case $conformiteTraitement->getNbNonConformesMineures() >= 3:
+                return ConformiteTraitementLevelDictionary::NON_CONFORMITE_MAJEURE;
+                break;
+            case $conformiteTraitement->getNbNonConformesMineures() >= 1:
+                return ConformiteTraitementLevelDictionary::NON_CONFORMITE_MINEURE;
+                break;
+            default:
+                return ConformiteTraitementLevelDictionary::CONFORME;
+        }
     }
 }

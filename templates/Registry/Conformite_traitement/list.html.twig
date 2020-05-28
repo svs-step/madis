@@ -41,6 +41,9 @@
                         <tr>
                             <th></th>
                             <th>{{ 'registry.conformite_traitement.list.traitement'|trans }}</th>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <th>{{ 'registry.conformite_traitement.list.collectivity'|trans }}</th>
+                                {% endif %}
                             <th>{{ 'registry.conformite_traitement.list.gestionnaire'|trans }}</th>
                             <th>{{ 'registry.conformite_traitement.list.conformite'|trans }}</th>
                             <th>{{ 'registry.conformite_traitement.list.conformite_reponse'|trans }}</th>
@@ -58,13 +61,7 @@
                                 {% set widthNbConforme = ((conformiteTraitement.nbConformes * 100) / nbTotal)|round %}
                                 {% set widthnbNonConformesMineures = ((conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round %}
                                 {% set widthnbNonConformesMajeures = 100 - (widthNbConforme + widthnbNonConformesMineures) %}
-                                {% if conformiteTraitement.nbNonConformesMajeures >= 1 or conformiteTraitement.nbNonConformesMineures >= 3 %}
-                                    {% set conformiteBackgroundColor = 'rouge' %}
-                                {% elseif conformiteTraitement.nbNonConformesMineures >= 1 %}
-                                    {% set conformiteBackgroundColor = 'orange' %}
-                                {% else %}
-                                    {% set conformiteBackgroundColor = 'vert' %}
-                                {% endif %}
+                                {% set conformiteBackgroundColor = getConformiteLevelWeight(conformiteTraitement) %}
                             {% endif %}
                             <tr>
                                 <td>
@@ -83,8 +80,17 @@
                                     {% endif %}
                                 </td>
                                 <td>{{ object.name }}</td>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <td>{{ object.collectivity }}</td>
+                                {% endif %}
                                 <td>{{ object.manager }}</td>
-                                <td {% if conformiteTraitement is not null and conformiteBackgroundColor is defined %}class="conformite-backgound-color-{{ conformiteBackgroundColor }}"{% endif %}></td>
+                                {% if conformiteTraitement is not null and conformiteBackgroundColor is defined %}
+                                    <td class="conformite-backgound-color-{{ conformiteBackgroundColor }}">
+                                        <span style="display: none;">{{ conformiteBackgroundColor }}</span>
+                                    </td>
+                                {% else %}
+                                 <td></td>
+                                {% endif %}
                                 <td>
                                     {% if conformiteTraitement is not null %}
                                         <div class="stacked-bar-graph">
@@ -113,16 +119,29 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% set dataTableOptions = {
-        'order':  [[1, 'asc' ]],
-        'columnDefs': [
-            {'targets': 0, 'width': 1},
-            {'targets': 3, 'width': 1, 'orderable': false},
-            {'targets': 4, 'orderable': false},
-            {'targets': 5, 'width': '10%'},
-            {'targets': 6, 'orderable': false}
-        ]
-    } %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set dataTableOptions = {
+            'order':  [[1, 'asc' ]],
+            'columnDefs': [
+                {'targets': 0, 'width': 1},
+                {'targets': 4, 'width': 1},
+                {'targets': 5, 'orderable': false},
+                {'targets': 6, 'width': '10%'},
+                {'targets': 7, 'orderable': false}
+            ]
+        } %}
+    {% else %}
+        {% set dataTableOptions = {
+            'order':  [[1, 'asc' ]],
+            'columnDefs': [
+                {'targets': 0, 'width': 1},
+                {'targets': 3, 'width': 1},
+                {'targets': 4, 'orderable': false},
+                {'targets': 5, 'width': '10%'},
+                {'targets': 6, 'orderable': false}
+            ]
+        } %}
+    {% endif %}
 
     {{ include('_Utils/_datatable.html.twig') }}
 {% endblock %}

@@ -25,7 +25,16 @@ declare(strict_types=1);
 namespace App\Domain\Registry\Repository\ConformiteTraitement;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
+use App\Domain\User\Model\Collectivity;
 
 interface ConformiteTraitement extends CRUDRepositoryInterface
 {
+    /**
+     * Find all conformiteTraitement by collectivity.
+     *
+     * @param Collectivity $collectivity The collectivity to search with
+     *
+     * @return array The array of conformiteTraitement given by the collectivity
+     */
+    public function findAllByCollectivity(Collectivity $collectivity);
 }

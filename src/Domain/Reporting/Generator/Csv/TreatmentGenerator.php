@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Generator\Csv;
 
+use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
+use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentCollectingMethodDictionary;
@@ -121,6 +123,7 @@ class TreatmentGenerator extends AbstractGenerator
     private function treatmentGeneralInformationsHeaders()
     {
         return [
+            $this->translator->trans('registry.treatment.show.conformite_traitement'),
             $this->translator->trans('registry.treatment.show.author'),
             $this->translator->trans('registry.treatment.show.goal'),
             $this->translator->trans('registry.treatment.show.manager'),
@@ -133,7 +136,10 @@ class TreatmentGenerator extends AbstractGenerator
 
     private function initializeTreatmentGeneralInformations(\App\Domain\Registry\Model\Treatment $treatment): array
     {
+        $conformtiteTraitement = $treatment->getConformiteTraitement();
+
         return [
+            !\is_null($conformtiteTraitement) ? ConformiteTraitementLevelDictionary::getConformites()[ConformiteTraitementCompletion::getConformiteTraitementLevel($conformtiteTraitement)] : 'Non effectuée',
             !\is_null($treatment->getAuthor()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : null,
             $treatment->getGoal(),
             $treatment->getManager(),

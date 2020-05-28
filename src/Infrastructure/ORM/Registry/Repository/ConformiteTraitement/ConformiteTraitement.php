@@ -27,6 +27,7 @@ namespace App\Infrastructure\ORM\Registry\Repository\ConformiteTraitement;
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
+use App\Domain\User\Model\Collectivity;
 
 class ConformiteTraitement extends CRUDRepository implements Repository\ConformiteTraitement\ConformiteTraitement
 {
@@ -36,5 +37,25 @@ class ConformiteTraitement extends CRUDRepository implements Repository\Conformi
     protected function getModelClass(): string
     {
         return Model\ConformiteTraitement\ConformiteTraitement::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllByCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb
+            ->leftJoin('o.traitement', 't')
+            ->andWhere($qb->expr()->eq('t.collectivity', ':collectivity'))
+            ->setParameter('collectivity', $collectivity)
+            ->orderBy('t.name')
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
     }
 }

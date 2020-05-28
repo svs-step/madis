@@ -80,6 +80,11 @@ class ReviewController extends AbstractController
      */
     private $violationRepository;
 
+    /**
+     * @var Repository\ConformiteTraitement\ConformiteTraitement
+     */
+    private $conformiteTraitementRepository;
+
     public function __construct(
         WordHandler $wordHandler,
         UserProvider $userProvider,
@@ -89,17 +94,19 @@ class ReviewController extends AbstractController
         Repository\Mesurement $mesurementRepository,
         Repository\Request $requestRepository,
         Repository\Violation $violationRepository,
-        MaturityRepository\Survey $surveyRepository
+        MaturityRepository\Survey $surveyRepository,
+        Repository\ConformiteTraitement\ConformiteTraitement $conformiteTraitementRepository
     ) {
-        $this->wordHandler          = $wordHandler;
-        $this->userProvider         = $userProvider;
-        $this->authorizationChecker = $authorizationChecker;
-        $this->treatmentRepository  = $treatmentRepository;
-        $this->contractorRepository = $contractorRepository;
-        $this->mesurementRepository = $mesurementRepository;
-        $this->requestRepository    = $requestRepository;
-        $this->violationRepository  = $violationRepository;
-        $this->surveyRepository     = $surveyRepository;
+        $this->wordHandler                    = $wordHandler;
+        $this->userProvider                   = $userProvider;
+        $this->authorizationChecker           = $authorizationChecker;
+        $this->treatmentRepository            = $treatmentRepository;
+        $this->contractorRepository           = $contractorRepository;
+        $this->mesurementRepository           = $mesurementRepository;
+        $this->requestRepository              = $requestRepository;
+        $this->violationRepository            = $violationRepository;
+        $this->surveyRepository               = $surveyRepository;
+        $this->conformiteTraitementRepository = $conformiteTraitementRepository;
     }
 
     /**
@@ -131,7 +138,8 @@ class ReviewController extends AbstractController
             $this->mesurementRepository->findAllByCollectivity($collectivity),
             $maturity,
             $this->requestRepository->findAllArchivedByCollectivity($collectivity, false),
-            $this->violationRepository->findAllArchivedByCollectivity($collectivity, false)
+            $this->violationRepository->findAllArchivedByCollectivity($collectivity, false),
+            $this->conformiteTraitementRepository->findAllByCollectivity($collectivity)
         );
     }
 }

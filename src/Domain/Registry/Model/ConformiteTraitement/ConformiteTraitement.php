@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Model\ConformiteTraitement;
 
+use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Treatment;
 use Ramsey\Uuid\Uuid;
@@ -31,6 +32,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class ConformiteTraitement
 {
+    use CreatorTrait;
     use HistoryTrait;
 
     /**

@@ -126,6 +126,15 @@ class ConformiteTraitementController extends CRUDController
         return Model\ConformiteTraitement\ConformiteTraitement::class;
     }
 
+    public function reportAction()
+    {
+        $objects = $this->repository->findAllByCollectivity(
+            $this->userProvider->getAuthenticatedUser()->getCollectivity()
+        );
+
+        return $this->wordHandler->generateRegistryConformiteTraitementReport($objects);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -139,7 +148,11 @@ class ConformiteTraitementController extends CRUDController
      */
     protected function getListData()
     {
-        $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+        $collectivity = null;
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+        }
 
         return $this->treatmentRepository->findAllActiveByCollectivity($collectivity);
     }

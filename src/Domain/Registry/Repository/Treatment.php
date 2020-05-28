@@ -58,7 +58,7 @@ interface Treatment extends CRUDRepositoryInterface
      *
      * @return array The array of treatments given by the collectivity
      */
-    public function findAllActiveByCollectivity(Collectivity $collectivity, bool $active = true, array $order = []);
+    public function findAllActiveByCollectivity(Collectivity $collectivity = null, bool $active = true, array $order = []);
 
     /**
      * Count all by collectivity.
