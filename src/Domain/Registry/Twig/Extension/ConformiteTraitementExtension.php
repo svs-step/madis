@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Twig\Extension;
 
+use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
 use Symfony\Component\Form\FormView;
 use Twig\Extension\AbstractExtension;
@@ -38,6 +39,7 @@ class ConformiteTraitementExtension extends AbstractExtension
     {
         return [
             new TwigFunction('orderReponseByQuestionPositionAsc', [$this, 'orderReponseByQuestionPositionAsc']),
+            new TwigFunction('getPlanifiedMesurements', [$this, 'getPlanifiedMesurements']),
         ];
     }
 
@@ -56,5 +58,16 @@ class ConformiteTraitementExtension extends AbstractExtension
         \ksort($ordered);
 
         return $ordered;
+    }
+
+    public function getPlanifiedMesurements(ConformiteTraitement $conformiteTraitement): array
+    {
+        $planifiedMesurementsToBeNotified = [];
+        foreach ($conformiteTraitement->getReponses() as $reponse) {
+            $mesurements                      = \iterable_to_array($reponse->getActionProtectionsPlanifiedNotSeens());
+            $planifiedMesurementsToBeNotified = \array_merge($planifiedMesurementsToBeNotified, $mesurements);
+        }
+
+        return $planifiedMesurementsToBeNotified;
     }
 }

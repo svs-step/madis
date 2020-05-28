@@ -55,11 +55,23 @@ class Reponse
      */
     private $actionProtections;
 
+    /**
+     * Ici on stock les actions de protections liées à la réponse qui viennent de passer à l'état planifiée.
+     * Tant que l'utilisateur n'a pas de nouveau update (via un POST) la conformité de traitement liée alors on affiche
+     * la notification sur la ligne de la conformité de traitement (vue liste) et sur la réponse (vue édit).
+     * Lors de la sauvegarde de la conformité de traitement, les actions de protections non vues sont remises à zéro car
+     * elles ont été vues par l'utilisateur.
+     *
+     * @var iterable
+     */
+    private $actionProtectionsPlanifiedNotSeens;
+
     public function __construct()
     {
-        $this->id                = Uuid::uuid4();
-        $this->conforme          = false;
-        $this->actionProtections = [];
+        $this->id                                 = Uuid::uuid4();
+        $this->conforme                           = false;
+        $this->actionProtections                  = [];
+        $this->actionProtectionsPlanifiedNotSeens = [];
     }
 
     public function getId(): UuidInterface
@@ -109,12 +121,44 @@ class Reponse
 
     public function removeActionProtection(Mesurement $mesurement): void
     {
-        $key = \array_search($mesurement, $this->actionProtections, true);
+        $key = \array_search($mesurement, \iterable_to_array($this->actionProtections), true);
 
         if (false === $key) {
             return;
         }
 
         unset($this->actionProtections[$key]);
+    }
+
+    public function getActionProtectionsPlanifiedNotSeens(): iterable
+    {
+        return $this->actionProtectionsPlanifiedNotSeens;
+    }
+
+    public function addActionProtectionsPlanifiedNotSeen(Mesurement $mesurement): void
+    {
+        $key = \array_search($mesurement, \iterable_to_array($this->actionProtectionsPlanifiedNotSeens), true);
+
+        if (false !== $key) {
+            return;
+        }
+
+        $this->actionProtectionsPlanifiedNotSeens[] = $mesurement;
+    }
+
+    public function removeActionProtectionsPlanifiedNotSeen(Mesurement $mesurement): void
+    {
+        $key = \array_search($mesurement, \iterable_to_array($this->actionProtectionsPlanifiedNotSeens), true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->actionProtectionsPlanifiedNotSeens[$key]);
+    }
+
+    public function resetActionProtectionsPlanifiedNotSeens(): void
+    {
+        $this->actionProtectionsPlanifiedNotSeens = [];
     }
 }

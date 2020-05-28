@@ -232,3 +232,36 @@ body.show .content ul {
 .conformite-backgound-color-rouge {
   background-color: red;
 }
+
+.reponse-modal-button {
+  background-color: transparent;
+}
+
+div.mesurement-hide {
+
+  > i {
+    color: #f1902a;
+  }
+
+  > div {
+    display: none;
+  }
+
+  > i:hover + div {
+    display: block;
+    position: fixed;
+    border: solid #f1902a 1px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: #fff;
+    border-radius: 2px;
+    padding: 5px;
+
+    > ul {
+      font-weight: bold;
+    }
+  }
+}
+
+td.reponse-vertical-align {
+  vertical-align: middle !important;
+}

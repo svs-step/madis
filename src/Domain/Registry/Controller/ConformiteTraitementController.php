@@ -29,9 +29,11 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Form\Type\ConformiteTraitement\ConformiteTraitementType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
+use App\Domain\Registry\Symfony\EventSubscriber\Event\ConformiteTraitementEvent;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -73,6 +75,11 @@ class ConformiteTraitementController extends CRUDController
      */
     protected $questionRepository;
 
+    /**
+     * @var EventDispatcherInterface
+     */
+    protected $dispatcher;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -82,7 +89,8 @@ class ConformiteTraitementController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
         Repository\Treatment $treatmentRepository,
-        Repository\ConformiteTraitement\Question $questionRepository
+        Repository\ConformiteTraitement\Question $questionRepository,
+        EventDispatcherInterface $dispatcher
     ) {
         parent::__construct($entityManager, $translator, $repository);
         $this->collectivityRepository = $collectivityRepository;
@@ -91,6 +99,7 @@ class ConformiteTraitementController extends CRUDController
         $this->userProvider           = $userProvider;
         $this->treatmentRepository    = $treatmentRepository;
         $this->questionRepository     = $questionRepository;
+        $this->dispatcher             = $dispatcher;
     }
 
     /**
@@ -201,6 +210,8 @@ class ConformiteTraitementController extends CRUDController
             $this->formPrePersistData($object);
             $this->entityManager->persist($object);
             $this->entityManager->flush();
+
+            $this->dispatcher->dispatch(new ConformiteTraitementEvent($object));
 
             $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object));
 

@@ -39,6 +39,7 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th></th>
                             <th>{{ 'registry.conformite_traitement.list.traitement'|trans }}</th>
                             <th>{{ 'registry.conformite_traitement.list.gestionnaire'|trans }}</th>
                             <th>{{ 'registry.conformite_traitement.list.conformite'|trans }}</th>
@@ -50,7 +51,9 @@
                         <tbody>
                         {% for object in objects %}
                             {% set conformiteTraitement = object.conformiteTraitement %}
+                            {% set planifiedMesurementToBeNotified = [] %}
                             {% if conformiteTraitement is not null %}
+                                {% set planifiedMesurementToBeNotified = getPlanifiedMesurements(conformiteTraitement) %}
                                 {% set nbTotal = conformiteTraitement.nbConformes + conformiteTraitement.nbNonConformesMineures + conformiteTraitement.nbNonConformesMajeures %}
                                 {% set widthNbConforme = ((conformiteTraitement.nbConformes * 100) / nbTotal)|round %}
                                 {% set widthnbNonConformesMineures = ((conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round %}
@@ -64,9 +67,24 @@
                                 {% endif %}
                             {% endif %}
                             <tr>
+                                <td>
+                                    {% if planifiedMesurementToBeNotified is not empty %}
+                                        <div class="mesurement-hide">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            <div>
+                                                <span>Action de protections appliquées : </span>
+                                                <ul>
+                                                    {% for mesurement in planifiedMesurementToBeNotified %}
+                                                        <li>{{ mesurement.name }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </td>
                                 <td>{{ object.name }}</td>
                                 <td>{{ object.manager }}</td>
-                                <td {% if conformiteBackgroundColor is defined %}class="conformite-backgound-color-{{ conformiteBackgroundColor }}"{% endif %}></td>
+                                <td {% if conformiteTraitement is not null and conformiteBackgroundColor is defined %}class="conformite-backgound-color-{{ conformiteBackgroundColor }}"{% endif %}></td>
                                 <td>
                                     {% if conformiteTraitement is not null %}
                                         <div class="stacked-bar-graph">
@@ -76,7 +94,7 @@
                                         </div>
                                     {% endif %}
                                 </td>
-                                <td></td>
+                                <td>{% if conformiteTraitement is not null %}{{ conformiteTraitement.updatedAt|date('d/m/Y H:i') }}{% endif %}</td>
                                 <td>
                                     <a href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
                                         <i class="fa fa-eye"></i>
@@ -95,9 +113,16 @@
 {% endblock %}
 
 {% block javascripts %}
-{#    {% set dataTableOptions = {#}
-{#        'order':  [[4, 'desc' ]]#}
-{#    } %}#}
+    {% set dataTableOptions = {
+        'order':  [[1, 'asc' ]],
+        'columnDefs': [
+            {'targets': 0, 'width': 1},
+            {'targets': 3, 'width': 1, 'orderable': false},
+            {'targets': 4, 'orderable': false},
+            {'targets': 5, 'width': '10%'},
+            {'targets': 6, 'orderable': false}
+        ]
+    } %}
 
     {{ include('_Utils/_datatable.html.twig') }}
 {% endblock %}

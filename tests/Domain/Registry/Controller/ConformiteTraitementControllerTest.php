@@ -37,6 +37,7 @@ use App\Domain\User\Repository as UserRepository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -94,6 +95,11 @@ class ConformiteTraitementControllerTest extends TestCase
      */
     private $questionRepository;
 
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
     public function setUp()
     {
         $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
@@ -105,6 +111,7 @@ class ConformiteTraitementControllerTest extends TestCase
         $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
         $this->treatmentRepository            = $this->prophesize(Repository\Treatment::class);
         $this->questionRepository             = $this->prophesize(Repository\ConformiteTraitement\Question::class);
+        $this->eventDispatcher                = $this->prophesize(EventDispatcherInterface::class);
 
         $this->controller = new ConformiteTraitementController(
             $this->managerProphecy->reveal(),
@@ -115,7 +122,8 @@ class ConformiteTraitementControllerTest extends TestCase
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
             $this->treatmentRepository->reveal(),
-            $this->questionRepository->reveal()
+            $this->questionRepository->reveal(),
+            $this->eventDispatcher->reveal()
         );
     }
 

@@ -24,12 +24,15 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Model\ConformiteTraitement;
 
+use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Treatment;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class ConformiteTraitement
 {
+    use HistoryTrait;
+
     /**
      * @var UuidInterface
      */

@@ -547,3 +547,6 @@ registry:
         flashbag:
             success:
                 edit: Conformité du traitement "%object%" modifiée avec succès
+                create: Conformité du traitement "%object%" créée avec succès
+
+

@@ -86,6 +86,8 @@ class ConformiteTraitementCompletionSubscriber implements EventSubscriber
             return;
         }
 
+        $args->getObjectManager()->refresh($object);
+
         switch (true) {
             case $object instanceof Reponse:
                 $this->conformiteTraitementCompletion->setCalculsConformite($object->getConformiteTraitement());

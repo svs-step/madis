@@ -25,16 +25,16 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Registry\Symfony\EventSubscriber\Doctrine;
 
 use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
-use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
+use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
 use App\Domain\Registry\Model\Mesurement;
-use App\Domain\Registry\Symfony\EventSubscriber\Doctrine\ConformiteTraitementCompletionSubscriber;
+use App\Domain\Registry\Symfony\EventSubscriber\Doctrine\MesurementSubscriber;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Persistence\ObjectManager;
 use PHPUnit\Framework\TestCase;
 
-class ConformiteTraitementCompletionSubscriberTest extends TestCase
+class MesurementSubscriberTest extends TestCase
 {
     /**
      * @var LifecycleEventArgs
@@ -47,18 +47,15 @@ class ConformiteTraitementCompletionSubscriberTest extends TestCase
     private $conformiteTraitementCompletion;
 
     /**
-     * @var ConformiteTraitementCompletionSubscriber
+     * @var MesurementSubscriber
      */
     private $subscriber;
 
     public function setUp()
     {
-        $this->lifeCycleEventArgs             = $this->prophesize(LifecycleEventArgs::class);
-        $this->conformiteTraitementCompletion = $this->prophesize(ConformiteTraitementCompletion::class);
+        $this->lifeCycleEventArgs = $this->prophesize(LifecycleEventArgs::class);
 
-        $this->subscriber = new ConformiteTraitementCompletionSubscriber(
-            $this->conformiteTraitementCompletion->reveal()
-        );
+        $this->subscriber = new MesurementSubscriber();
     }
 
     /**
@@ -76,86 +73,48 @@ class ConformiteTraitementCompletionSubscriberTest extends TestCase
     {
         $this->assertEquals(
             [
-                'prePersist',
-                'preUpdate',
                 'postUpdate',
             ],
             $this->subscriber->getSubscribedEvents()
         );
     }
 
-    /**
-     * Test prePersist.
-     */
-    public function testPrePersist()
+    public function testPostUpdateWithAppliedStatus()
     {
-        $object = new ConformiteTraitement();
-
-        $this->lifeCycleEventArgs->getObject()->shouldBeCalled()->willReturn($object);
-
-        $this->conformiteTraitementCompletion->setCalculsConformite($object)->shouldBeCalled();
-
-        $this->subscriber->prePersist($this->lifeCycleEventArgs->reveal());
-    }
-
-    /**
-     * Test preUpdate.
-     */
-    public function testPreUpdate()
-    {
-        $object = new ConformiteTraitement();
-
-        $this->lifeCycleEventArgs->getObject()->shouldBeCalled()->willReturn($object);
-
-        $this->conformiteTraitementCompletion->setCalculsConformite($object)->shouldBeCalled();
-
-        $this->subscriber->prePersist($this->lifeCycleEventArgs->reveal());
-    }
-
-    /**
-     * Test postUpdate on Reponse.
-     */
-    public function testPostUpdateWithReponseObject()
-    {
-        $object        = $this->prophesize(Reponse::class);
-        $conformite    = new ConformiteTraitement();
+        $object        = $this->prophesize(Mesurement::class);
+        $reponse       = $this->prophesize(Reponse::class);
         $objectManager = $this->prophesize(ObjectManager::class);
 
-        $object->getConformiteTraitement()->shouldBeCalled()->willReturn($conformite);
+        $object->getStatus()->shouldBeCalled()->willReturn(MesurementStatusDictionary::STATUS_APPLIED);
+        $object->getConformiteTraitementReponses()->shouldBeCalled()->willReturn([$reponse->reveal()]);
 
         $this->lifeCycleEventArgs->getObject()->shouldBeCalled()->willReturn($object->reveal());
         $this->lifeCycleEventArgs->getObjectManager()->shouldBeCalled()->willReturn($objectManager->reveal());
 
-        $objectManager->refresh($object->reveal())->shouldBeCalled();
-        $objectManager->persist($conformite)->shouldBeCalled();
-        $objectManager->flush()->shouldBeCalled();
+        $reponse->addActionProtectionsPlanifiedNotSeen($object->reveal())->shouldBeCalled();
 
-        $this->conformiteTraitementCompletion->setCalculsConformite($conformite)->shouldBeCalled();
+        $objectManager->persist($reponse->reveal())->shouldBeCalled();
+        $objectManager->flush()->shouldBeCalled();
 
         $this->subscriber->postUpdate($this->lifeCycleEventArgs->reveal());
     }
 
-    /**
-     * Test postUpdate on Reponse.
-     */
-    public function testPostUpdateWithMesurementObject()
+    public function testPostUpdateWithNotAppliedStatus()
     {
         $object        = $this->prophesize(Mesurement::class);
         $reponse       = $this->prophesize(Reponse::class);
-        $conformite    = new ConformiteTraitement();
         $objectManager = $this->prophesize(ObjectManager::class);
 
-        $object->getConformiteTraitementReponses()->shouldBeCalled()->willReturn([$reponse]);
-        $reponse->getConformiteTraitement()->shouldBeCalled()->willReturn($conformite);
+        $object->getStatus()->shouldBeCalled()->willReturn('foo');
+        $object->getConformiteTraitementReponses()->shouldBeCalled()->willReturn([$reponse->reveal()]);
 
         $this->lifeCycleEventArgs->getObject()->shouldBeCalled()->willReturn($object->reveal());
         $this->lifeCycleEventArgs->getObjectManager()->shouldBeCalled()->willReturn($objectManager->reveal());
 
-        $objectManager->refresh($object->reveal())->shouldBeCalled();
-        $objectManager->persist($conformite)->shouldBeCalled();
-        $objectManager->flush()->shouldBeCalled();
+        $reponse->removeActionProtectionsPlanifiedNotSeen($object->reveal())->shouldBeCalled();
 
-        $this->conformiteTraitementCompletion->setCalculsConformite($conformite)->shouldBeCalled();
+        $objectManager->persist($reponse->reveal())->shouldBeCalled();
+        $objectManager->flush()->shouldBeCalled();
 
         $this->subscriber->postUpdate($this->lifeCycleEventArgs->reveal());
     }
