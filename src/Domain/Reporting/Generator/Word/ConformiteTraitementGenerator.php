@@ -90,7 +90,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
             ]
         );
 
-        $chart->getStyle()->setColors(\array_values(ConformiteTraitementLevelDictionary::getConformitesColors()));
+        $chart->getStyle()->setColors(\array_values(ConformiteTraitementLevelDictionary::getHexaConformitesColors()));
 
         $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
     }

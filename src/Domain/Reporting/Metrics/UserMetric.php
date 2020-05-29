@@ -25,6 +25,8 @@ namespace App\Domain\Reporting\Metrics;
 
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Maturity\Model\Survey;
+use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
+use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
@@ -39,6 +41,11 @@ class UserMetric implements MetricInterface
     private $entityManager;
 
     /**
+     * @var Repository\ConformiteTraitement\ConformiteTraitement
+     */
+    private $conformiteTraitementRepository;
+
+    /**
      * @var Repository\Request
      */
     private $requestRepository;
@@ -50,17 +57,24 @@ class UserMetric implements MetricInterface
 
     public function __construct(
         EntityManagerInterface $entityManager,
+        Repository\ConformiteTraitement\ConformiteTraitement $conformiteTraitementRepository,
         Repository\Request $requestRepository,
         UserProvider $userProvider
     ) {
-        $this->entityManager     = $entityManager;
-        $this->requestRepository = $requestRepository;
-        $this->userProvider      = $userProvider;
+        $this->entityManager                  = $entityManager;
+        $this->conformiteTraitementRepository = $conformiteTraitementRepository;
+        $this->requestRepository              = $requestRepository;
+        $this->userProvider                   = $userProvider;
     }
 
     public function getData(): array
     {
         $data = [
+            'conformiteTraitement' => [
+                'data'   => [],
+                'labels' => [],
+                'colors' => [],
+            ],
             'contractor' => [
                 'all'     => 0,
                 'clauses' => [
@@ -144,6 +158,10 @@ class UserMetric implements MetricInterface
                 ],
             ],
         ];
+
+        $conformiteTraitements = $this->conformiteTraitementRepository->findAllByCollectivity(
+            $this->userProvider->getAuthenticatedUser()->getCollectivity()
+        );
 
         $contractors = $this->entityManager->getRepository(Model\Contractor::class)->findBy(
             ['collectivity' => $this->userProvider->getAuthenticatedUser()->getCollectivity()]
@@ -305,6 +323,20 @@ class UserMetric implements MetricInterface
 
         // VIOLATION
         $data['violation']['value']['all'] = \count($violations);
+
+        //CONFORMITE TRAITEMENT
+        foreach (ConformiteTraitementLevelDictionary::getConformites() as $key => $label) {
+            $data['conformiteTraitement']['data'][$key] = 0;
+            $data['conformiteTraitement']['labels'][]   = $label;
+            $data['conformiteTraitement']['colors'][]   = ConformiteTraitementLevelDictionary::getRgbConformitesColorsForChartView()[$key];
+        }
+
+        foreach ($conformiteTraitements as $conformiteTraitement) {
+            $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);
+            ++$data['conformiteTraitement']['data'][$level];
+        }
+
+        $data['conformiteTraitement']['data'] = \array_values($data['conformiteTraitement']['data']);
 
         return $data;
     }

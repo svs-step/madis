@@ -166,6 +166,22 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        {# DETAIL : CONFORMITE TRAITEMENT #}
+        <div class="col-md-6 col-xs-12">
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">Conformité des traitements</h3></div>
+                <div class="box-body">
+                    {% if data.conformiteTraitement.data is empty %}
+                        Aucune donnée à afficher
+                    {% else %}
+                        <canvas id="conformiteTraitement-pie"></canvas>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -268,6 +284,11 @@
             treatmentDatasetYes.push('{{ attribute(item, 'yes') }}');
             treatmentDatasetNo.push('{{ attribute(item, 'no') }}');
         {% endfor %}
+
+        // CONFORMITE TRAITEMENT
+        let conformiteTraitementLabels = {{ data.conformiteTraitement.labels|json_encode|raw }};
+        let conformiteTraitementData = {{ data.conformiteTraitement.data|json_encode|raw }};
+        let conformiteTraitementColors = {{ data.conformiteTraitement.colors|json_encode|raw }};
     </script>
 
     {# USE DATA & DEFINE GRAPH #}

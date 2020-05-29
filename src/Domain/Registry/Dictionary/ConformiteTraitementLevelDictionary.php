@@ -32,6 +32,10 @@ class ConformiteTraitementLevelDictionary extends SimpleDictionary
     const NON_CONFORMITE_MINEURE  = 'non_conformite_mineure';
     const NON_CONFORMITE_MAJEURE  = 'non_conformite_majeure';
 
+    const HEX_COLOR_CONFORME               = '93D14E';
+    const HEX_COLOR_NON_CONFORMITE_MINEURE = 'FEC100';
+    const HEX_COLOR_NON_CONFORMITE_MAJEURE = 'C04F4D';
+
     public function __construct()
     {
         parent::__construct('conformite_traitement_level', self::getConformites());
@@ -57,13 +61,24 @@ class ConformiteTraitementLevelDictionary extends SimpleDictionary
         return \array_keys(self::getConformites());
     }
 
-    public static function getConformitesColors()
+    public static function getHexaConformitesColors()
     {
         return [
-            self::CONFORME               => '93D14E',
-            self::NON_CONFORMITE_MINEURE => 'FEC100',
-            self::NON_CONFORMITE_MAJEURE => 'C04F4D',
+            self::CONFORME               => self::HEX_COLOR_CONFORME,
+            self::NON_CONFORMITE_MINEURE => self::HEX_COLOR_NON_CONFORMITE_MINEURE,
+            self::NON_CONFORMITE_MAJEURE => self::HEX_COLOR_NON_CONFORMITE_MAJEURE,
         ];
+    }
+
+    public static function getRgbConformitesColorsForChartView()
+    {
+        $rgbColors = [];
+        foreach (self::getHexaConformitesColors() as $key => $hex) {
+            list($r, $g, $b) = \sscanf($hex, '%02x%02x%02x');
+            $rgbColors[$key] = "rgba($r, $g, $b)";
+        }
+
+        return $rgbColors;
     }
 
     public static function getConformitesWeight()

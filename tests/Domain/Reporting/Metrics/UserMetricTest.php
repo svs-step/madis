@@ -29,6 +29,7 @@ use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
+use App\Domain\Registry\Repository\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Repository\Request;
 use App\Domain\Reporting\Metrics\MetricInterface;
 use App\Domain\Reporting\Metrics\UserMetric;
@@ -47,6 +48,11 @@ class UserMetricTest extends TestCase
     private $entityManager;
 
     /**
+     * @var ConformiteTraitement
+     */
+    private $conformiteTraitementRepository;
+
+    /**
      * @var Request
      */
     private $requestRepository;
@@ -63,12 +69,14 @@ class UserMetricTest extends TestCase
 
     protected function setUp()
     {
-        $this->entityManager     = $this->prophesize(EntityManagerInterface::class);
-        $this->requestRepository = $this->prophesize(Request::class);
-        $this->userProvider      = $this->prophesize(UserProvider::class);
+        $this->entityManager                  = $this->prophesize(EntityManagerInterface::class);
+        $this->conformiteTraitementRepository = $this->prophesize(ConformiteTraitement::class);
+        $this->requestRepository              = $this->prophesize(Request::class);
+        $this->userProvider                   = $this->prophesize(UserProvider::class);
 
         $this->userMetric = new UserMetric(
             $this->entityManager->reveal(),
+            $this->conformiteTraitementRepository->reveal(),
             $this->requestRepository->reveal(),
             $this->userProvider->reveal()
         );
@@ -106,6 +114,7 @@ class UserMetricTest extends TestCase
         $treatmentRepo->findBy(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $violationRepo->findBy(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $this->requestRepository->findAllByCollectivity(Argument::cetera())->shouldBeCalled()->willReturn([]);
+        $this->conformiteTraitementRepository->findAllByCollectivity(Argument::cetera())->shouldBeCalled()->willReturn([]);
 
         $this->assertIsArray($this->userMetric->getData());
     }

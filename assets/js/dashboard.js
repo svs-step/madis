@@ -26,6 +26,26 @@ function doughnutChart(id, labels, data, color) {
     });
 }
 
+function pieChart(id, labels, data, color) {
+    new Chart($('#' + id), {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: color,
+                hoverBackgroundColor: color
+            }],
+        },
+        options: {
+            tooltips: {
+                displayColors: false,
+            },
+            responsive: true,
+        }
+    });
+}
+
 function radarChart(id, labels, serieLabel, data, color) {
     let dataset = [];
     data.forEach(function(item, index) {
@@ -149,5 +169,12 @@ $(document).ready(function() {
         ['Conforme', 'Non conforme'],
         [treatmentDatasetYes, treatmentDatasetNo],
         [colorBlueOpacity, colorRedOpacity]
+    );
+
+    pieChart(
+        'conformiteTraitement-pie',
+        conformiteTraitementLabels,
+        conformiteTraitementData,
+        conformiteTraitementColors
     );
 });
