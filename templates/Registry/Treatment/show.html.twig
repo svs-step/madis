@@ -235,6 +235,18 @@
                                 </ul>
                             </td>
                         </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.innovative_use'|trans }}</strong></td>
+                            <td>
+                                <ul>
+                                    {% if object.innovativeUse %}
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>

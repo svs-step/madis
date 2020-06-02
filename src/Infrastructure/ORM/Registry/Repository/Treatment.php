@@ -163,4 +163,22 @@ class Treatment extends CRUDRepository implements Repository\Treatment
 
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllByActiveCollectivity(bool $active = true)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->leftJoin('o.collectivity', 'c')
+            ->andWhere($qb->expr()->eq('c.active', ':active'))
+            ->setParameter('active', $active)
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

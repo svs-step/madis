@@ -102,6 +102,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'evaluationOrRating'                => CheckboxType::class,
             'automatedDecisionsWithLegalEffect' => CheckboxType::class,
             'automaticExclusionService'         => CheckboxType::class,
+            'innovativeUse'                     => CheckboxType::class,
             'active'                            => ChoiceType::class,
             'author'                            => DictionaryType::class,
             'collectingMethod'                  => DictionaryType::class,

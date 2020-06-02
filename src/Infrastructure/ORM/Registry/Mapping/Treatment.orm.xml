@@ -28,6 +28,7 @@
         <field name="evaluationOrRating" column="evaluation_or_rating" type="boolean"/>
         <field name="automatedDecisionsWithLegalEffect" column="automated_decisions_with_legal_effect" type="boolean"/>
         <field name="automaticExclusionService" column="automatic_exclusion_service" type="boolean"/>
+        <field name="innovativeUse" column="innovative_use" type="boolean"/>
         <field name="active" column="active" type="boolean"/>
         <field name="completion" column="completion" type="integer"/>
         <field name="template" column="template" type="boolean"/>

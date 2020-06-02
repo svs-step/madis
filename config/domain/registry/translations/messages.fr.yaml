@@ -346,6 +346,7 @@ registry:
             estimated_concerned_people: Nombre de concernées
             evaluation_or_rating: Évaluation ou notation
             goal: Finalités
+            innovative_use: Usage innovant
             large_scale_collection: Collecte à large échelle
             legal_basis: Base légale
             legal_basis_justification: Justification de la base légale
@@ -407,6 +408,7 @@ registry:
             estimated_concerned_people: Nombre de concernées
             evaluation_or_rating: Évaluation ou notation
             goal: Finalités
+            innovative_use: Usage innovant
             large_scale_collection: Collecte à large échelle
             legal_basis: Base légale
             legal_basis_justification: Justification de la base légale
