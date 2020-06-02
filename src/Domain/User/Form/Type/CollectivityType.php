@@ -144,6 +144,7 @@ class CollectivityType extends AbstractType
             ->add('reportingBlockManagementCommitment', CKEditorType::class)
             ->add('reportingBlockContinuousImprovement', CKEditorType::class)
             ->add('comiteIlContacts', CollectionType::class, [
+                'label'        => false,
                 'entry_type'   => ComiteIlContactType::class,
                 'allow_add'    => true,
                 'allow_delete' => true,

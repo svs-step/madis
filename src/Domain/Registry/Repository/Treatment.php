@@ -74,4 +74,11 @@ interface Treatment extends CRUDRepositoryInterface
      * Count all by collectivity.
      */
     public function countAllActiveByCollectivity(Collectivity $collectivity);
+
+    /**
+     * Return all treatment from active collectivity.
+     *
+     * @return array
+     */
+    public function findAllByActiveCollectivity(bool $active = true);
 }

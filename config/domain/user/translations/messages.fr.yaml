@@ -85,7 +85,7 @@ user:
           reporting_block:
             management_commitment: Bilan paragraphe "Engagement de la direction"
             continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
-          comite_il: Composition du comité IL
+          comite_il: Composition du comité Informatique et Libertés
         title:
             create: Créer une collectivité
             delete: Supprimer une collectivité
