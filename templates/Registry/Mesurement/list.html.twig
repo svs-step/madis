@@ -52,6 +52,7 @@
                             <th>{{ 'registry.mesurement.list.status'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.cost'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.charge'|trans }}</th>
+                            <th>{{ 'registry.mesurement.list.priority'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th>{{ 'label.actions'|trans }}</th>
                             {% endif %}
@@ -71,6 +72,11 @@
                                 <td>{{ object.status|dictionary('registry_mesurement_status') }}</td>
                                 <td>{{ object.cost }}</td>
                                 <td>{{ object.charge }}</td>
+                                <td>
+                                    {% if object.priority is not null %}
+                                        {{ object.priority|dictionary('registry_mesurement_priority') }}
+                                    {% endif %}
+                                </td>
                                 {% if is_granted('ROLE_USER') %}
                                     <td>
                                         <a href="{{ path('registry_mesurement_edit', { 'id': object.id }) }}">
@@ -95,5 +101,9 @@
 {% endblock %}
 
 {% block javascripts %}
+    {% set dataTableOptions = {
+        'order':  [[5, 'desc' ]]
+    } %}
+
     {{ include('_Utils/_datatable.html.twig') }}
 {% endblock %}

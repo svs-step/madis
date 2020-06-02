@@ -9,7 +9,7 @@
 
         <id name="id" column="id" type="uuid"/>
 
-        <field name="name" column="name" length="80"/>
+        <field name="name" column="name"/>
         <field name="shortName" column="short_name" length="80"/>
         <field name="type" column="type"/>
         <field name="siren" column="siren" type="integer"/>
@@ -17,6 +17,8 @@
         <field name="website" column="website" nullable="true"/>
         <field name="differentDpo" column="different_dpo" type="boolean"/>
         <field name="differentItManager" column="different_it_manager" type="boolean"/>
+        <field name="reportingBlockManagementCommitment" type="text" nullable="true"/>
+        <field name="reportingBlockContinuousImprovement" type="text" nullable="true"/>
 
         <embedded name="address" class="App\Domain\User\Model\Embeddable\Address" column-prefix="address_"/>
         <embedded name="legalManager" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="legal_manager_"/>
@@ -25,6 +27,12 @@
         <embedded name="itManager" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="it_manager_"/>
 
         <one-to-many field="users" target-entity="App\Domain\User\Model\User" mapped-by="collectivity"/>
+        <one-to-many field="comiteIlContacts" target-entity="App\Domain\User\Model\ComiteIlContact" mapped-by="collectivity" orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
 
         <!-- Traits -->
         <field name="createdAt" column="created_at" type="datetime_immutable"/>

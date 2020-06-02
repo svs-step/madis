@@ -32,6 +32,7 @@ use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -53,6 +54,9 @@ class RequestType extends AbstractType
             ->add('otherObject', TextType::class, [
                 'label'    => 'registry.request.form.other_object',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('date', DateType::class, [
                 'label'    => 'registry.request.form.date',
@@ -67,6 +71,9 @@ class RequestType extends AbstractType
             ->add('reason', TextType::class, [
                 'label'    => 'registry.request.form.reason',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('applicant', RequestApplicantType::class, [
                 'label'    => false,
@@ -91,6 +98,18 @@ class RequestType extends AbstractType
             ->add('answer', RequestAnswerType::class, [
                 'label'    => false,
                 'required' => false,
+            ])
+            ->add('state', DictionaryType::class, [
+                'label'    => 'registry.request.form.state',
+                'name'     => 'registry_request_state',
+                'required' => true,
+            ])
+            ->add('stateRejectionReason', TextareaType::class, [
+                'label'    => 'registry.request.form.state_rejection_reason',
+                'required' => false,
+                'attr'     => [
+                    'rows' => 4,
+                ],
             ])
         ;
     }

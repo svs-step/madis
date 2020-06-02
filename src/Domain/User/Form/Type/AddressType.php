@@ -41,14 +41,23 @@ class AddressType extends AbstractType
             ->add('lineOne', TextType::class, [
                 'label'    => 'user.address.form.line_one',
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('lineTwo', TextType::class, [
                 'label'    => 'user.address.form.line_two',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('city', TextType::class, [
                 'label'    => 'user.address.form.city',
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('zipCode', TextType::class, [
                 'label'    => 'user.address.form.zip_code',
@@ -60,6 +69,9 @@ class AddressType extends AbstractType
             ->add('insee', TextType::class, [
                 'label'    => 'user.address.form.insee',
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
         ;
     }

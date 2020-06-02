@@ -27,6 +27,7 @@ namespace App\Tests\Domain\Registry\Form\Type;
 use App\Domain\Registry\Form\Type\ContractorType;
 use App\Domain\Registry\Form\Type\Embeddable\AddressType;
 use App\Domain\Registry\Model\Contractor;
+use App\Domain\User\Form\Type\ContactType;
 use App\Tests\Utils\FormTypeHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -47,9 +48,14 @@ class ContractorTypeTest extends FormTypeHelper
             'name'                       => TextType::class,
             'referent'                   => TextType::class,
             'contractualClausesVerified' => CheckboxType::class,
-            'conform'                    => CheckboxType::class,
+            'adoptedSecurityFeatures'    => CheckboxType::class,
+            'maintainsTreatmentRegister' => CheckboxType::class,
+            'sendingDataOutsideEu'       => CheckboxType::class,
             'otherInformations'          => TextareaType::class,
             'address'                    => AddressType::class,
+            'legalManager'               => ContactType::class,
+            'hasDpo'                     => CheckboxType::class,
+            'dpo'                        => ContactType::class,
         ];
 
         (new ContractorType())->buildForm($this->prophesizeBuilder($builder), []);

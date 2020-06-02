@@ -24,24 +24,25 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\ORM\Registry\Repository;
 
+use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 class Proof implements Repository\Proof
 {
     /**
-     * @var RegistryInterface
+     * @var ManagerRegistry
      */
     protected $registry;
 
     /**
      * Proof constructor.
      */
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         $this->registry = $registry;
     }
@@ -303,5 +304,76 @@ class Proof implements Repository\Proof
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneOrNullByTypeAndCollectivity(string $type, Collectivity $collectivity): ?\App\Domain\Registry\Model\Proof
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->andWhere($qb->expr()->eq('o.type', ':type'));
+        $qb->andWhere($qb->expr()->eq('o.collectivity', ':collectivity'));
+        $qb->setParameters([
+            'type'         => $type,
+            'collectivity' => $collectivity,
+        ]);
+        $qb->addOrderBy('o.createdAt', 'DESC');
+        $qb->setMaxResults(1);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function countAllByCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+        $qb->andWhere($qb->expr()->eq('o.collectivity', ':collectivity'));
+        $qb->setParameter('collectivity', $collectivity);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function averageProofFiled()
+    {
+        $sql = 'SELECT AVG(a.rcount) FROM (
+            SELECT COUNT(rp.id) as rcount
+            FROM user_collectivity uc
+            LEFT OUTER JOIN registry_proof rp ON uc.id = rp.collectivity_id
+            WHERE uc.active = 1
+            GROUP BY uc.id
+        ) a';
+
+        $stmt = $this->getManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchColumn();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function averageBalanceSheetProof()
+    {
+        $sql = 'SELECT AVG(a.rcount) FROM (
+            SELECT IF(COUNT(rp.id) > 0, 1, 0) as rcount
+            FROM user_collectivity uc
+            LEFT OUTER JOIN registry_proof rp ON (uc.id = rp.collectivity_id AND rp.created_at >= NOW() - INTERVAL 1 YEAR AND rp.type = "' . ProofTypeDictionary::TYPE_BALANCE_SHEET . '")
+            WHERE uc.active = 1
+            GROUP BY uc.id
+        ) a';
+
+        $stmt = $this->getManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchColumn();
     }
 }

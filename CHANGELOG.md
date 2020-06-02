@@ -2,6 +2,11 @@ CHANGELOG
 =========
 
 ## [UNRELEASED]
+### Changement
+- [TECHNIQUE] Mise à jour Symfony en version v4.4.4 et des dépendances de librairies
+### Fix
+- [PLAN D'ACTION] Correction du tri par date, #245
+- [MATURITE] Correction du tri par date, #245
 
 ## [1.6.3] - 2019-12-03
 ### Changement

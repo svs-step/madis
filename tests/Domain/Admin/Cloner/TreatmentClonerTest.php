@@ -26,7 +26,6 @@ namespace App\Tests\Domain\Admin\Cloner;
 
 use App\Domain\Admin\Cloner\TreatmentCloner;
 use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
-use App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\User\Model as UserModel;
 use App\Tests\Utils\ReflectionTrait;
@@ -114,8 +113,14 @@ class TreatmentClonerTest extends TestCase
         $this->assertFalse($cloned->isLargeScaleCollection());
         $this->assertFalse($cloned->isVulnerablePeople());
         $this->assertFalse($cloned->isDataCrossing());
-        $this->assertNull($cloned->getAuthorizedPeople());
         $this->assertTrue($cloned->isActive());
+        $this->assertFalse($cloned->isSecurityEntitledPersons());
+        $this->assertFalse($cloned->isSecurityOpenAccounts());
+        $this->assertFalse($cloned->isSecuritySpecificitiesDelivered());
+        $this->assertNull($cloned->getAuthor());
+        $this->assertNull($cloned->getCollectingMethod());
+        $this->assertNull($cloned->getEstimatedConcernedPeople());
+        $this->assertNull($cloned->getUltimateFate());
         $this->assertEquals($collectivity, $cloned->getCollectivity());
         $this->assertEquals($referent, $cloned->getClonedFrom());
     }
@@ -138,10 +143,7 @@ class TreatmentClonerTest extends TestCase
         $referent->setLegalBasis('legal basis');
         $referent->setLegalBasisJustification('legal basis justification');
         $referent->setObservation('observation');
-        $referent->setConcernedPeople([
-            TreatmentConcernedPeopleDictionary::TYPE_AGENT,
-            TreatmentConcernedPeopleDictionary::TYPE_ELECTED,
-        ]);
+        $referent->getConcernedPeopleParticular()->setCheck(true);
         $referent->setDataCategories([
             new Model\TreatmentDataCategory('code1', 'name1', 1),
             new Model\TreatmentDataCategory('code2', 'name2', 2),
@@ -172,8 +174,14 @@ class TreatmentClonerTest extends TestCase
         $referent->setLargeScaleCollection(true);
         $referent->setVulnerablePeople(true);
         $referent->setDataCrossing(true);
-        $referent->setAuthorizedPeople('authorized people');
         $referent->setActive(false);
+        $referent->setSecurityEntitledPersons(false);
+        $referent->setSecurityOpenAccounts(true);
+        $referent->setSecuritySpecificitiesDelivered(true);
+        $referent->setAuthor('foo');
+        $referent->setCollectingMethod('bar');
+        $referent->setEstimatedConcernedPeople(1);
+        $referent->setUltimateFate('baz');
 
         /** @var Model\Treatment $cloned */
         $cloned = $this->invokeMethod(
@@ -190,7 +198,7 @@ class TreatmentClonerTest extends TestCase
         $this->assertEquals($referent->getLegalBasis(), $cloned->getLegalBasis());
         $this->assertEquals($referent->getLegalBasisJustification(), $cloned->getLegalBasisJustification());
         $this->assertEquals($referent->getObservation(), $cloned->getObservation());
-        $this->assertEquals($referent->getConcernedPeople(), $cloned->getConcernedPeople());
+        $this->assertEquals($referent->getConcernedPeopleParticular(), $cloned->getConcernedPeopleParticular());
         $this->assertEquals($referent->getDataCategories(), $cloned->getDataCategories());
         $this->assertEquals($referent->getDataCategoryOther(), $cloned->getDataCategoryOther());
         $this->assertEquals($referent->getDataOrigin(), $cloned->getDataOrigin());
@@ -231,8 +239,14 @@ class TreatmentClonerTest extends TestCase
         $this->assertEquals($referent->isLargeScaleCollection(), $cloned->isLargeScaleCollection());
         $this->assertEquals($referent->isVulnerablePeople(), $cloned->isVulnerablePeople());
         $this->assertEquals($referent->isDataCrossing(), $cloned->isDataCrossing());
-        $this->assertEquals($referent->getAuthorizedPeople(), $cloned->getAuthorizedPeople());
         $this->assertEquals($referent->isActive(), $cloned->isActive());
+        $this->assertEquals($referent->isSecurityEntitledPersons(), $cloned->isSecurityEntitledPersons());
+        $this->assertEquals($referent->isSecurityOpenAccounts(), $cloned->isSecurityOpenAccounts());
+        $this->assertEquals($referent->isSecuritySpecificitiesDelivered(), $cloned->isSecuritySpecificitiesDelivered());
+        $this->assertEquals($referent->getAuthor(), $cloned->getAuthor());
+        $this->assertEquals($referent->getCollectingMethod(), $cloned->getCollectingMethod());
+        $this->assertEquals($referent->getEstimatedConcernedPeople(), $cloned->getEstimatedConcernedPeople());
+        $this->assertEquals($referent->getUltimateFate(), $cloned->getUltimateFate());
         $this->assertEquals($collectivity, $cloned->getCollectivity());
         $this->assertEquals($referent, $cloned->getClonedFrom());
     }

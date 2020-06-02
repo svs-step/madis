@@ -8,10 +8,14 @@ reporting:
         title:
             index: Tableau de bord
         contractor:
+            adopted_security_features:
+                title: Adopte les éléments de sécurité
             contractual_clauses_verified:
                 title: Clauses contractuelles
-            conform:
-                title: Conforme RGPD
+            maintains_treatment_register:
+                title: Registre des traitements
+            sending_data_outside_eu:
+                title: Données hors UE
         mesurement:
             status:
                 title: Actions de protection

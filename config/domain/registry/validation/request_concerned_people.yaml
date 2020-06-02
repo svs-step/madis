@@ -1,4 +1,8 @@
 App\Domain\Registry\Model\Embeddable\RequestConcernedPeople:
+    constraints:
+        - App\Domain\Registry\Symfony\Validator\Constraints\RequestConcernedPeople:
+              message: 'registry_request_concerned_people.name.mandatory'
+              groups: ['default']
     properties:
         civility:
             - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
@@ -8,4 +12,27 @@ App\Domain\Registry\Model\Embeddable\RequestConcernedPeople:
             - Regex:
                 pattern: '/^0[1-9][0-9]{8}$/'
                 message: 'registry_request_concerned_people.phone_number.regex'
+                groups: ['default']
+        firstName:
+            - Length:
+                max: 255
+                groups: ['default']
+        lastName:
+            - Length:
+                max: 255
+                groups: ['default']
+        address:
+            - Length:
+                max: 255
+                groups: ['default']
+        mail:
+            - Email:
+                message: 'registry_address.mail.email'
+                groups: ['default']
+            - Length:
+                max: 255
+                groups: ['default']
+        linkWithApplicant:
+            - Length:
+                max: 255
                 groups: ['default']

@@ -22,6 +22,10 @@
         <div class="box box-solid box-info">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.answer'|trans }}</h3></div>
             <div class="box-body">
+                {{ form_row(form.state) }}
+                <div id="request_StateRejectionReason_div">
+                    {{ form_row(form.stateRejectionReason) }}
+                </div>
                 {{ form_row(form.answer.response) }}
                 {{ form_row(form.answer.date) }}
                 {{ form_row(form.answer.type) }}

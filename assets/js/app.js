@@ -87,6 +87,18 @@ $(document).ready(function() {
     $('#request_applicant_concernedPeople').on('change', function() {
         checkRequestConcernedPeople();
     });
+
+    // Check request state hide or show reason block | onLoad & onChange
+    checkRequestStateRejectionReason();
+    $("#request_state").on('change', function() {
+        checkRequestStateRejectionReason()
+    });
+
+    // Check Contractor dpo | onLoad & onChange
+    checkContractorHasDpo();
+    $('#contractor_hasDpo').on('change', function() {
+        checkContractorHasDpo();
+    });
 });
 
 function checkMesurementStatus()
@@ -168,4 +180,28 @@ function checkProfileDifferentItManager()
     let boxItManager = $('body.user_profile_collectivity.form #box-it-manager');
 
     checkDifferentItManager(differentItManager, boxItManager);
+}
+
+function checkRequestStateRejectionReason()
+{
+    let selectedCountry = $("#request_state").children("option:selected").val();
+    let blockSateRejectionReason = $('#request_StateRejectionReason_div');
+    let fieldSateRejectionReason = $('#request_stateRejectionReason');
+
+    if (selectedCountry === "denied") {
+        blockSateRejectionReason.show();
+        fieldSateRejectionReason.prop('required',true);
+    } else {
+        blockSateRejectionReason.hide();
+        fieldSateRejectionReason.prop('required',false);
+        fieldSateRejectionReason.val("");
+    }
+}
+
+function checkContractorHasDpo()
+{
+    let hasDpo = $('#contractor_hasDpo');
+    let boxDpo = $('body.registry_contractor.form #box-dpo');
+
+    checkDifferentDpo(hasDpo, boxDpo);
 }

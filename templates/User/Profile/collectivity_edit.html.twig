@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import 'User/Collectivity/_form.html.twig' as formMacros %}
 
 {% set bodyClass = 'user_profile_collectivity form edit' %}
 {% set menuItem = 'user_profile_collectivity' %}
@@ -67,6 +68,45 @@
                     </div>
                 </div>
 
+                <div class="col-md-6">
+                    <div id="box-reporting-management-commitment" class="box box-solid">
+                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.reporting_block.management_commitment'|trans }}</h3></div>
+                        <div class="box-body">
+                            {{ form_widget(form.reportingBlockManagementCommitment) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div id="box-reporting-continuous-improvement" class="box box-solid">
+                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.reporting_block.continuous_improvement'|trans }}</h3></div>
+                        <div class="box-body">
+                            {{ form_widget(form.reportingBlockContinuousImprovement) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# COMITE IL CONTACT #}
+                <div class="col-md-6">
+                    <div class="box box-solid">
+                    <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.comite_il'|trans }}</h3></div>
+                    <div class="box-body">
+                        <div class="js-comite-il-contacts-wrapper"
+                             data-prototype="{{ formMacros.printComiteIlContact(form.comiteIlContacts.vars.prototype)|e('html_attr') }}"
+                             data-index="{{ form.comiteIlContacts|length }}"
+                        >
+                            {% for contact in form.comiteIlContacts %}
+                                {{ formMacros.printComiteIlContact(contact) }}
+                            {% endfor %}
+                            <a href="#" class="js-comite-il-contacts-add">
+                                <span class="fa fa-plus-circle"></span>
+                                Ajouter un membre
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
                 <div class="col-md-12">
                     <div class="box box-solid">
                         <div class="box-body text-center">
@@ -78,8 +118,15 @@
                     </div>
                 </div>
 
+
                 {{ form_end(form) }}
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('build/js/comiteIlContact.js') }}"></script>
 {% endblock %}

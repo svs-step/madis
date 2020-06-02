@@ -44,6 +44,9 @@ class MesurementType extends AbstractType
             ->add('name', TextType::class, [
                 'label'    => 'registry.mesurement.form.name',
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             /*
             ->add('type', DictionaryType::class, [
@@ -64,10 +67,16 @@ class MesurementType extends AbstractType
             ->add('cost', TextType::class, [
                 'label'    => 'registry.mesurement.form.cost',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('charge', TextType::class, [
                 'label'    => 'registry.mesurement.form.charge',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('status', DictionaryType::class, [
                 'label'    => 'registry.mesurement.form.status',
@@ -89,6 +98,22 @@ class MesurementType extends AbstractType
             ->add('comment', TextType::class, [
                 'label'    => 'registry.mesurement.form.comment',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('priority', DictionaryType::class, [
+                'label'    => 'registry.mesurement.form.priority',
+                'name'     => 'registry_mesurement_priority',
+                'required' => false,
+                'multiple' => false,
+            ])
+            ->add('manager', TextType::class, [
+                'label'    => 'registry.mesurement.form.manager',
+                'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
         ;
     }

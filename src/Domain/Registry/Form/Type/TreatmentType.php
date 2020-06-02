@@ -37,6 +37,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -63,6 +64,9 @@ class TreatmentType extends AbstractType
             ->add('name', TextType::class, [
                 'label'    => 'registry.treatment.form.name',
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('goal', TextareaType::class, [
                 'label'    => 'registry.treatment.form.goal',
@@ -74,10 +78,16 @@ class TreatmentType extends AbstractType
             ->add('manager', TextType::class, [
                 'label'    => 'registry.treatment.form.manager',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('software', TextType::class, [
                 'label'    => 'registry.treatment.form.software',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('paperProcessing', CheckboxType::class, [
                 'label'    => 'registry.treatment.form.paper_processing',
@@ -101,12 +111,33 @@ class TreatmentType extends AbstractType
                     'rows' => 2,
                 ],
             ])
-            ->add('concernedPeople', DictionaryType::class, [
-                'label'    => 'registry.treatment.form.concerned_people',
-                'name'     => 'registry_treatment_concerned_people',
-                'required' => true,
-                'expanded' => true,
-                'multiple' => true,
+            ->add('concernedPeopleParticular', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_particular',
+                'required' => false,
+            ])
+            ->add('concernedPeopleUser', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_user',
+                'required' => false,
+            ])
+            ->add('concernedPeopleAgent', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_agent',
+                'required' => false,
+            ])
+            ->add('concernedPeopleElected', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_elected',
+                'required' => false,
+            ])
+            ->add('concernedPeopleCompany', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_company',
+                'required' => false,
+            ])
+            ->add('concernedPeoplePartner', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_partner',
+                'required' => false,
+            ])
+            ->add('concernedPeopleOther', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_other',
+                'required' => false,
             ])
             ->add('dataCategories', EntityType::class, [
                 'label'         => 'registry.treatment.form.data_category',
@@ -127,8 +158,9 @@ class TreatmentType extends AbstractType
 
                     return [];
                 },
-                'attr'     => [
-                    'size' => 6,
+                'attr' => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
                 ],
             ])
             ->add('dataCategoryOther', TextareaType::class, [
@@ -141,6 +173,9 @@ class TreatmentType extends AbstractType
             ->add('dataOrigin', TextType::class, [
                 'label'    => 'registry.treatment.form.data_origin',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('recipientCategory', TextareaType::class, [
                 'label'    => 'registry.treatment.form.recipient_category',
@@ -162,6 +197,10 @@ class TreatmentType extends AbstractType
                         ->setParameter('collectivity', $this->userProvider->getAuthenticatedUser()->getCollectivity())
                     ;
                 },
+                'attr' => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
             ])
             ->add('delay', DelayType::class, [
                 'label'    => 'registry.treatment.form.delay',
@@ -203,8 +242,16 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.data_crossing',
                 'required' => false,
             ])
-            ->add('authorizedPeople', TextType::class, [
-                'label'    => 'registry.treatment.form.authorized_people',
+            ->add('evaluationOrRating', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.evaluation_or_rating',
+                'required' => false,
+            ])
+            ->add('automatedDecisionsWithLegalEffect', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.automated_decisions_with_legal_effect',
+                'required' => false,
+            ])
+            ->add('automaticExclusionService', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.automatic_exclusion_service',
                 'required' => false,
             ])
             ->add('active', ChoiceType::class, [
@@ -216,6 +263,45 @@ class TreatmentType extends AbstractType
                 ],
                 'multiple' => false,
                 'expanded' => true,
+            ])
+            ->add('author', DictionaryType::class, [
+                'label'    => 'registry.treatment.form.author',
+                'name'     => 'registry_treatment_author',
+                'required' => true,
+            ])
+            ->add('collectingMethod', DictionaryType::class, [
+                'label'       => 'registry.treatment.form.collecting_method',
+                'name'        => 'registry_treatment_collecting_method',
+                'required'    => false,
+                'placeholder' => 'placeholder.precision',
+            ])
+            ->add('estimatedConcernedPeople', IntegerType::class, [
+                'label'    => 'registry.treatment.form.estimated_concerned_people',
+                'required' => false,
+                'attr'     => [
+                    'min' => 0,
+                ],
+            ])
+            ->add('securityEntitledPersons', CheckboxType::class, [
+                'label'        => 'registry.treatment.form.security_entitled_persons',
+                'required'     => false,
+                'block_prefix' => 'custom_checkbox',
+            ])
+            ->add('securityOpenAccounts', CheckboxType::class, [
+                'label'        => 'registry.treatment.form.security_open_accounts',
+                'required'     => false,
+                'block_prefix' => 'custom_checkbox',
+            ])
+            ->add('securitySpecificitiesDelivered', CheckboxType::class, [
+                'label'        => 'registry.treatment.form.security_specificities_delivered',
+                'required'     => false,
+                'block_prefix' => 'custom_checkbox',
+            ])
+            ->add('ultimateFate', DictionaryType::class, [
+                'label'       => 'registry.treatment.form.ultimate_fate',
+                'name'        => 'registry_treatment_ultimate_fate',
+                'required'    => false,
+                'placeholder' => 'placeholder.precision',
             ])
         ;
     }

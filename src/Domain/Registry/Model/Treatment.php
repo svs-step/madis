@@ -96,13 +96,6 @@ class Treatment
     private $observation;
 
     /**
-     * FR: Personnes concernées.
-     *
-     * @var array
-     */
-    private $concernedPeople;
-
-    /**
      * @var iterable
      */
     private $dataCategories;
@@ -176,6 +169,27 @@ class Treatment
     private $securityOther;
 
     /**
+     * FR: Je suis en capacité de ressortir les personnes habilitées (mesure de sécurité).
+     *
+     * @var bool
+     */
+    private $securityEntitledPersons;
+
+    /**
+     * FR: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée (mesure de sécurité).
+     *
+     * @var bool
+     */
+    private $securityOpenAccounts;
+
+    /**
+     * FR: Les spécificités de sensibilisation liées à ce traitement sont délivrées (mesure de sécurité).
+     *
+     * @var bool
+     */
+    private $securitySpecificitiesDelivered;
+
+    /**
      * FR: Surveillance systématique (traitement spécifique).
      *
      * @var bool
@@ -204,11 +218,25 @@ class Treatment
     private $dataCrossing;
 
     /**
-     * FR: Personnes habilitées.
+     * FR: Évaluation ou notation (traitement spécifique).
      *
-     * @var string|null
+     * @var bool
      */
-    private $authorizedPeople;
+    private $evaluationOrRating;
+
+    /**
+     * FR: Décisions automatisées  avec  effet  juridique (traitement spécifique).
+     *
+     * @var bool
+     */
+    private $automatedDecisionsWithLegalEffect;
+
+    /**
+     * FR: Exclusion automatique d'un service (traitement spécifique).
+     *
+     * @var bool
+     */
+    private $automaticExclusionService;
 
     /**
      * @var bool
@@ -245,31 +273,120 @@ class Treatment
     private $clonedFrom;
 
     /**
+     * FR: Particuliers (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleParticular;
+
+    /**
+     * FR: Internautes (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleUser;
+
+    /**
+     * FR: Agents (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleAgent;
+
+    /**
+     * FR: Elus (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleElected;
+
+    /**
+     * FR: Entreprises (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleCompany;
+
+    /**
+     * FR: Partenaires (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeoplePartner;
+
+    /**
+     * FR: Autres (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleOther;
+
+    /**
+     * FR: En tant que (Informations générales).
+     *
+     * @var string|null
+     */
+    private $author;
+
+    /**
+     * FR: Moyens de la collecte des données (Détails).
+     *
+     * @var string|null
+     */
+    private $collectingMethod;
+
+    /**
+     * FR: Estimation du nombre de personnes (Détails).
+     *
+     * @var int|null
+     */
+    private $estimatedConcernedPeople;
+
+    /**
+     * FR: Sort final (Détails).
+     *
+     * @var string|null
+     */
+    private $ultimateFate;
+
+    /**
      * Treatment constructor.
      *
      * @throws \Exception
      */
     public function __construct()
     {
-        $this->id                    = Uuid::uuid4();
-        $this->paperProcessing       = false;
-        $this->concernedPeople       = [];
-        $this->dataCategories        = [];
-        $this->contractors           = [];
-        $this->delay                 = new Delay();
-        $this->securityAccessControl = new ComplexChoice();
-        $this->securityTracability   = new ComplexChoice();
-        $this->securitySaving        = new ComplexChoice();
-        $this->securityUpdate        = new ComplexChoice();
-        $this->securityOther         = new ComplexChoice();
-        $this->systematicMonitoring  = false;
-        $this->largeScaleCollection  = false;
-        $this->vulnerablePeople      = false;
-        $this->dataCrossing          = false;
-        $this->active                = true;
-        $this->completion            = 0;
-        $this->template              = false;
-        $this->proofs                = [];
+        $this->id                                = Uuid::uuid4();
+        $this->paperProcessing                   = false;
+        $this->dataCategories                    = [];
+        $this->contractors                       = [];
+        $this->delay                             = new Delay();
+        $this->securityAccessControl             = new ComplexChoice();
+        $this->securityTracability               = new ComplexChoice();
+        $this->securitySaving                    = new ComplexChoice();
+        $this->securityUpdate                    = new ComplexChoice();
+        $this->securityOther                     = new ComplexChoice();
+        $this->securityEntitledPersons           = false;
+        $this->securityOpenAccounts              = false;
+        $this->securitySpecificitiesDelivered    = false;
+        $this->systematicMonitoring              = false;
+        $this->largeScaleCollection              = false;
+        $this->vulnerablePeople                  = false;
+        $this->dataCrossing                      = false;
+        $this->evaluationOrRating                = false;
+        $this->automatedDecisionsWithLegalEffect = false;
+        $this->automaticExclusionService         = false;
+        $this->active                            = true;
+        $this->completion                        = 0;
+        $this->template                          = false;
+        $this->proofs                            = [];
+        $this->concernedPeopleParticular         = new ComplexChoice();
+        $this->concernedPeopleUser               = new ComplexChoice();
+        $this->concernedPeopleAgent              = new ComplexChoice();
+        $this->concernedPeopleElected            = new ComplexChoice();
+        $this->concernedPeopleCompany            = new ComplexChoice();
+        $this->concernedPeoplePartner            = new ComplexChoice();
+        $this->concernedPeopleOther              = new ComplexChoice();
     }
 
     public function __toString(): string
@@ -368,16 +485,6 @@ class Treatment
     public function setObservation(?string $observation): void
     {
         $this->observation = $observation;
-    }
-
-    public function getConcernedPeople(): array
-    {
-        return $this->concernedPeople;
-    }
-
-    public function setConcernedPeople(array $concernedPeople): void
-    {
-        $this->concernedPeople = $concernedPeople;
     }
 
     public function getDataCategories(): iterable
@@ -544,16 +651,6 @@ class Treatment
         $this->dataCrossing = $dataCrossing;
     }
 
-    public function getAuthorizedPeople(): ?string
-    {
-        return $this->authorizedPeople;
-    }
-
-    public function setAuthorizedPeople(?string $authorizedPeople): void
-    {
-        $this->authorizedPeople = $authorizedPeople;
-    }
-
     public function isActive(): bool
     {
         return $this->active;
@@ -607,5 +704,175 @@ class Treatment
     public function setClonedFrom(?Treatment $clonedFrom): void
     {
         $this->clonedFrom = $clonedFrom;
+    }
+
+    public function isEvaluationOrRating(): bool
+    {
+        return $this->evaluationOrRating;
+    }
+
+    public function setEvaluationOrRating(bool $evaluationOrRating): void
+    {
+        $this->evaluationOrRating = $evaluationOrRating;
+    }
+
+    public function isAutomatedDecisionsWithLegalEffect(): bool
+    {
+        return $this->automatedDecisionsWithLegalEffect;
+    }
+
+    public function setAutomatedDecisionsWithLegalEffect(bool $automatedDecisionsWithLegalEffect): void
+    {
+        $this->automatedDecisionsWithLegalEffect = $automatedDecisionsWithLegalEffect;
+    }
+
+    public function isAutomaticExclusionService(): bool
+    {
+        return $this->automaticExclusionService;
+    }
+
+    public function setAutomaticExclusionService(bool $automaticExclusionService): void
+    {
+        $this->automaticExclusionService = $automaticExclusionService;
+    }
+
+    public function getConcernedPeopleParticular(): ComplexChoice
+    {
+        return $this->concernedPeopleParticular;
+    }
+
+    public function setConcernedPeopleParticular(ComplexChoice $concernedPeopleParticular): void
+    {
+        $this->concernedPeopleParticular = $concernedPeopleParticular;
+    }
+
+    public function getConcernedPeopleUser(): ComplexChoice
+    {
+        return $this->concernedPeopleUser;
+    }
+
+    public function setConcernedPeopleUser(ComplexChoice $concernedPeopleUser): void
+    {
+        $this->concernedPeopleUser = $concernedPeopleUser;
+    }
+
+    public function getConcernedPeopleAgent(): ComplexChoice
+    {
+        return $this->concernedPeopleAgent;
+    }
+
+    public function setConcernedPeopleAgent(ComplexChoice $concernedPeopleAgent): void
+    {
+        $this->concernedPeopleAgent = $concernedPeopleAgent;
+    }
+
+    public function getConcernedPeopleElected(): ComplexChoice
+    {
+        return $this->concernedPeopleElected;
+    }
+
+    public function setConcernedPeopleElected(ComplexChoice $concernedPeopleElected): void
+    {
+        $this->concernedPeopleElected = $concernedPeopleElected;
+    }
+
+    public function getConcernedPeopleCompany(): ComplexChoice
+    {
+        return $this->concernedPeopleCompany;
+    }
+
+    public function setConcernedPeopleCompany(ComplexChoice $concernedPeopleCompany): void
+    {
+        $this->concernedPeopleCompany = $concernedPeopleCompany;
+    }
+
+    public function getConcernedPeoplePartner(): ComplexChoice
+    {
+        return $this->concernedPeoplePartner;
+    }
+
+    public function setConcernedPeoplePartner(ComplexChoice $concernedPeoplePartner): void
+    {
+        $this->concernedPeoplePartner = $concernedPeoplePartner;
+    }
+
+    public function getConcernedPeopleOther(): ComplexChoice
+    {
+        return $this->concernedPeopleOther;
+    }
+
+    public function setConcernedPeopleOther(ComplexChoice $concernedPeopleOther): void
+    {
+        $this->concernedPeopleOther = $concernedPeopleOther;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?string $author): void
+    {
+        $this->author = $author;
+    }
+
+    public function getCollectingMethod(): ?string
+    {
+        return $this->collectingMethod;
+    }
+
+    public function setCollectingMethod(?string $collectingMethod): void
+    {
+        $this->collectingMethod = $collectingMethod;
+    }
+
+    public function getEstimatedConcernedPeople(): ?int
+    {
+        return $this->estimatedConcernedPeople;
+    }
+
+    public function setEstimatedConcernedPeople(?int $estimatedConcernedPeople): void
+    {
+        $this->estimatedConcernedPeople = $estimatedConcernedPeople;
+    }
+
+    public function isSecurityEntitledPersons(): bool
+    {
+        return $this->securityEntitledPersons;
+    }
+
+    public function setSecurityEntitledPersons(bool $securityEntitledPersons): void
+    {
+        $this->securityEntitledPersons = $securityEntitledPersons;
+    }
+
+    public function isSecurityOpenAccounts(): bool
+    {
+        return $this->securityOpenAccounts;
+    }
+
+    public function setSecurityOpenAccounts(bool $securityOpenAccounts): void
+    {
+        $this->securityOpenAccounts = $securityOpenAccounts;
+    }
+
+    public function isSecuritySpecificitiesDelivered(): bool
+    {
+        return $this->securitySpecificitiesDelivered;
+    }
+
+    public function setSecuritySpecificitiesDelivered(bool $securitySpecificitiesDelivered): void
+    {
+        $this->securitySpecificitiesDelivered = $securitySpecificitiesDelivered;
+    }
+
+    public function getUltimateFate(): ?string
+    {
+        return $this->ultimateFate;
+    }
+
+    public function setUltimateFate(?string $ultimateFate): void
+    {
+        $this->ultimateFate = $ultimateFate;
     }
 }

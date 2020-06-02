@@ -29,3 +29,43 @@
         </div>
     </div>
 {%- endblock password_row %}
+
+{% block complex_choice_row -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div class="col-sm-12 complex-choice-group{% if not valid %} has-error{% endif %}{% if form.vars.attr.class is defined %} {{form.vars.attr.class}}{% endif %} ">
+        <div class="col-sm-1 check">{{ form_row(form.check) }}</div>
+        <div class="col-sm-3">{{ form_label(form, null, {'label_attr': {'for': form.check.vars.id, 'style': 'cursor: pointer;'}}) }}</div>
+        <div class="col-sm-8 comment">
+            {{ form_widget(form.comment, widget_attr) }}
+            {{ form_errors(form.comment) }} {# -#}
+        </div>
+    </div> {# -#}
+{%- endblock complex_choice_row %}
+
+{% block answer_row -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div class="form-group{% if not valid %} has-error{% endif %}">
+        <div class="{{ block('form_group_class') }}">
+            {{- form_widget(form.response, widget_attr) -}}
+            {{- form_help(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    </div>
+{%- endblock answer_row %}
+
+{% block custom_checkbox_row -%}
+    <div class="col-sm-12 custom-checkbox">
+        <div class="col-sm-1">
+            <input type="checkbox" id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" value="1">
+        </div>
+        <div class="col-sm-11">
+            <label class="col-sm-12" for="{{ form.vars.id }}">{{ form.vars.label|trans() }}</label>
+        </div>
+    </div>
+{%- endblock custom_checkbox_row %}

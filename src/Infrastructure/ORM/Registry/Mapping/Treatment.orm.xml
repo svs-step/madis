@@ -18,7 +18,6 @@
         <field name="legalBasis" column="legal_basis" type="json_array"/>
         <field name="legalBasisJustification" column="legal_basis_justification" type="text" nullable="true"/>
         <field name="observation" column="observation" type="text" nullable="true"/>
-        <field name="concernedPeople" column="concerned_people" type="json_array"/>
         <field name="dataCategoryOther" column="data_category_other" type="text" nullable="true"/>
         <field name="dataOrigin" column="data_origin" nullable="true"/>
         <field name="recipientCategory" column="recipient_category" type="text" nullable="true"/>
@@ -26,11 +25,20 @@
         <field name="largeScaleCollection" column="large_scale_collection" type="boolean"/>
         <field name="vulnerablePeople" column="vulnerable_people" type="boolean"/>
         <field name="dataCrossing" column="data_crossing" type="boolean"/>
-        <field name="authorizedPeople" column="authorized_people" nullable="true"/>
+        <field name="evaluationOrRating" column="evaluation_or_rating" type="boolean"/>
+        <field name="automatedDecisionsWithLegalEffect" column="automated_decisions_with_legal_effect" type="boolean"/>
+        <field name="automaticExclusionService" column="automatic_exclusion_service" type="boolean"/>
         <field name="active" column="active" type="boolean"/>
         <field name="completion" column="completion" type="integer"/>
         <field name="template" column="template" type="boolean"/>
         <field name="templateIdentifier" column="template_identifier" type="integer" nullable="true"/>
+        <field name="securityEntitledPersons" column="security_entitled_persons" type="boolean"/>
+        <field name="securityOpenAccounts" column="security_open_accounts" type="boolean"/>
+        <field name="securitySpecificitiesDelivered" column="security_specificities_delivered" type="boolean"/>
+        <field name="author" column="author" nullable="true"/>
+        <field name="collectingMethod" column="collecting_method" nullable="true"/>
+        <field name="estimatedConcernedPeople" column="estimated_concerned_people" type="integer" nullable="true"/>
+        <field name="ultimateFate" column="ultimate_fate" nullable="true"/>
 
         <embedded name="delay" class="App\Domain\Registry\Model\Embeddable\Delay" column-prefix="delay_"/>
         <embedded name="securityAccessControl" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_access_control_"/>
@@ -38,6 +46,14 @@
         <embedded name="securitySaving" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_saving_"/>
         <embedded name="securityUpdate" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_update_"/>
         <embedded name="securityOther" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_other_"/>
+
+        <embedded name="concernedPeopleParticular" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_particular_"/>
+        <embedded name="concernedPeopleUser" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_user_"/>
+        <embedded name="concernedPeopleAgent" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_agent_"/>
+        <embedded name="concernedPeopleElected" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_elected_"/>
+        <embedded name="concernedPeopleCompany" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_company_"/>
+        <embedded name="concernedPeoplePartner" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_partner_"/>
+        <embedded name="concernedPeopleOther" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_other_"/>
 
         <many-to-many field="contractors" target-entity="App\Domain\Registry\Model\Contractor" inversed-by="treatments">
             <join-table name="treatment_contractor">

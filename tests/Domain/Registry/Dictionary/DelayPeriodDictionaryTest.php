@@ -24,8 +24,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Dictionary;
 
+use App\Application\Dictionary\SimpleDictionary;
 use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
-use Knp\DictionaryBundle\Dictionary\SimpleDictionary;
 use PHPUnit\Framework\TestCase;
 
 class DelayPeriodDictionaryTest extends TestCase

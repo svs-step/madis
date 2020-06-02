@@ -24,8 +24,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\User\Dictionary;
 
+use App\Application\Dictionary\SimpleDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
-use Knp\DictionaryBundle\Dictionary\SimpleDictionary;
 use PHPUnit\Framework\TestCase;
 
 class UserRoleDictionaryTest extends TestCase

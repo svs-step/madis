@@ -39,9 +39,13 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
      */
     public function addGlobalOverview(Section $section, array $data): void
     {
+        if (empty($data)) {
+            return;
+        }
+
         $section->addTitle('Évaluation de la mise en conformité', 2);
 
-        $section->addText('Afin de répondre aux objectifs du RGPD, la gestion des DCP est structurée en 6 domaines.');
+        $section->addText('Afin de répondre aux objectifs du RGPD, la gestion des données à caractère personnel est structurée en 6 domaines.');
         $section->addText('Chacun des 6 domaines a été évalué par la collectivité selon l’échelle de maturité ci-après.');
 
         $table = $section->addTable($this->tableStyle);

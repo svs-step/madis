@@ -35,6 +35,8 @@
                             <th>{{ 'registry.mesurement.list.planification_date'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.cost'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.charge'|trans }}</th>
+                            <th>{{ 'registry.mesurement.list.manager'|trans }}</th>
+                            <th>{{ 'registry.mesurement.list.priority'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -48,6 +50,12 @@
                                 <td>{{ object.planificationDate|date('d/m/Y') }}</td>
                                 <td>{{ object.cost }}</td>
                                 <td>{{ object.charge }}</td>
+                                <td>{{ object.manager }}</td>
+                                <td>
+                                    {% if object.priority is not null %}
+                                        {{ object.priority|dictionary('registry_mesurement_priority') }}
+                                    {% endif %}
+                                </td>
                                 <td>
                                     <a href="{{ path('registry_mesurement_show', {'id': object.id}) }}">
                                         <i class="fa fa-eye"></i>
@@ -66,29 +74,8 @@
 {% endblock %}
 
 {% block javascripts %}
-    {# ADMIN #}
-    {% if is_granted('ROLE_ADMIN') %}
-        {% set dataTableOptions = {
-            "aoColumns": [
-                null,
-                null,
-                { "sType": "date-uk" },
-                null,
-                null,
-                null,
-            ]
-        } %}
-    {# USER & PREVIEW #}
-    {% else %}
-        {% set dataTableOptions = {
-            "aoColumns": [
-                null,
-                { "sType": "date-uk" },
-                null,
-                null,
-                null,
-            ]
-        } %}
-    {% endif %}
-    {{ include('_Utils/_datatable.html.twig', { dataTableOptions: dataTableOptions }) }}
+    {% set dataTableOptions = {
+        'order':  [[6, 'desc' ]]
+    } %}
+    {{ include('_Utils/_datatable.html.twig') }}
 {% endblock %}

@@ -1,7 +1,8 @@
 variables:
     DOCKER_DRIVER: overlay2
-    DOCKER_IMAGE_PHP: registry.gitlab.com/soluris/madis/php:1.0
-    DOCKER_IMAGE_NGINX: registry.gitlab.com/soluris/madis/nginx:1.0
+    DOCKER_IMAGE_PHP: gitlab.adullact.net:4567/soluris/madis/php:1.1
+    DOCKER_IMAGE_NGINX: gitlab.adullact.net:4567/soluris/madis/nginx:1.0
+    DOCKER_TLS_CERTDIR: ""
 
 stages:
     - cache
@@ -15,7 +16,7 @@ stages:
         - docker:dind
 
 .vendor-install-template: &vendor-install-defintion
-    script:
+    before_script:
         - docker login --username gitlab-ci-token --password $CI_JOB_TOKEN $CI_REGISTRY
         # re-install vendors to prevent from ci cache failure
         - docker run --rm --env-file=./.env.dist --env-file=.env.test -v ${PWD}:/var/www/gestion-rgpd $DOCKER_IMAGE_PHP composer install --prefer-dist --no-interaction --optimize-autoloader --no-scripts
@@ -35,8 +36,6 @@ create_cache:
         key: "$CI_PROJECT_PATH-php"
         paths:
             - vendor
-    tags:
-        - docker
     stage: cache
     except:
         - master
@@ -46,14 +45,14 @@ unit_tests:
     <<: *vendor-install-defintion
     <<: *cache-pull-defintion
     script:
-        - make tu-report
+        - sh docker-service unitTests
+# TODO : Fix make commnd since mykiwi/paudit does not have composer installed (in order to use simple-phpunit)
+#        - make tu-report
     coverage: '/^\s*Lines:\s*\d+.\d+\%/'
     artifacts:
         paths:
             - var/artefacts/coverage/
         expire_in: 1 month
-    tags:
-        - docker
     stage: tests
     except:
         - master

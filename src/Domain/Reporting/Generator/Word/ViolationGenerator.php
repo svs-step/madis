@@ -71,6 +71,13 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
         }
 
         $section->addTitle('Registre des violations de données', 2);
+
+        if (empty($data)) {
+            $section->addText('Il n’y a aucune violation de données à caractère personnel.');
+
+            return;
+        }
+
         $section->addText("Un registre des violations de données à caractère personnel est tenu à jour par '{$collectivity}'.");
         $section->addText("Il y a eu {$nbTotal} violations de données à caractère personnel.");
 

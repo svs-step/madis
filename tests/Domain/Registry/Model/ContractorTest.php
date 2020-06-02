@@ -39,7 +39,9 @@ class ContractorTest extends TestCase
 
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
         $this->assertFalse($model->isContractualClausesVerified());
-        $this->assertFalse($model->isConform());
+        $this->assertFalse($model->isAdoptedSecurityFeatures());
+        $this->assertFalse($model->isMaintainsTreatmentRegister());
+        $this->assertFalse($model->isSendingDataOutsideEu());
         $this->assertEquals([], $model->getTreatments());
     }
 

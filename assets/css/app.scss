@@ -127,3 +127,68 @@ body.show .content ul {
   0% { transform: translate(0, 0); }
   100% { transform: translate(4px, 0); }
 }
+
+#tooltip {
+  display:none;
+  position:fixed;
+  overflow:hidden;
+
+  span.collectivity-name{
+    font-size:medium;
+    font-weight: bold;
+  }
+}
+.tooltip-box{
+  border: solid #01C0EF 1px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: #fff;
+  border-radius: 2px;
+  margin-bottom: 15px;
+  padding:5px;
+}
+
+.report{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  i{
+    font-size: 33px;
+  }
+}
+
+.map-wrapper {
+  .row{
+    overflow: hidden; 
+    margin-right:0px;
+  }
+
+  padding:0;
+  [class*="col-"]{
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+  }
+}
+
+.table > tbody > tr > td.concerned-people-type{
+  padding-left: 30px;
+}
+
+.is-paddingless{
+  .complex-choice-group{
+    padding-left:0px;
+
+    .check{
+      padding-left: 0px;
+    }
+  }
+}
+
+.custom-checkbox{
+  margin-top: 8px;
+  margin-bottom: 16px;
+
+  div > label {
+    padding-right: 0px;
+    cursor: pointer;
+  }
+}

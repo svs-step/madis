@@ -21,6 +21,8 @@
         <field name="complete" column="complete" type="boolean"/>
         <field name="legitimateApplicant" column="legitimate_applicant" type="boolean"/>
         <field name="legitimateRequest" column="legitimate_request" type="boolean"/>
+        <field name="state" column="state" nullable="true"/>
+        <field name="stateRejectionReason" column="state_rejection_reason" nullable="true"/>
 
         <embedded name="answer" class="App\Domain\Registry\Model\Embeddable\RequestAnswer" column-prefix="answer_"/>
 

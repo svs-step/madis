@@ -40,7 +40,13 @@ class TreatmentTest extends TestCase
         $model = new Treatment();
 
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
-        $this->assertEquals([], $model->getConcernedPeople());
+        $this->assertInstanceOf(ComplexChoice::class, $model->getConcernedPeopleParticular());
+        $this->assertInstanceOf(ComplexChoice::class, $model->getConcernedPeopleUser());
+        $this->assertInstanceOf(ComplexChoice::class, $model->getConcernedPeopleAgent());
+        $this->assertInstanceOf(ComplexChoice::class, $model->getConcernedPeopleElected());
+        $this->assertInstanceOf(ComplexChoice::class, $model->getConcernedPeopleCompany());
+        $this->assertInstanceOf(ComplexChoice::class, $model->getConcernedPeoplePartner());
+        $this->assertInstanceOf(ComplexChoice::class, $model->getConcernedPeopleOther());
         $this->assertEquals([], $model->getDataCategories());
         $this->assertEquals([], $model->getContractors());
         $this->assertInstanceOf(Delay::class, $model->getDelay());

@@ -58,4 +58,18 @@ class Contractor extends CRUDRepository implements Repository\Contractor
             ->getResult()
         ;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function countAllByCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+        $qb->andWhere($qb->expr()->eq('o.collectivity', ':collectivity'));
+        $qb->setParameter('collectivity', $collectivity);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }

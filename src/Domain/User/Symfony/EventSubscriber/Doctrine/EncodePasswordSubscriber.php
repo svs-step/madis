@@ -27,18 +27,18 @@ namespace App\Domain\User\Symfony\EventSubscriber\Doctrine;
 use App\Domain\User\Model\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class EncodePasswordSubscriber implements EventSubscriber
 {
     /**
-     * @var EncoderFactoryInterface
+     * @var UserPasswordEncoderInterface
      */
-    private $encoderFactory;
+    private $passwordEncoder;
 
-    public function __construct(EncoderFactoryInterface $encoderFactory)
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
-        $this->encoderFactory = $encoderFactory;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     public function getSubscribedEvents()
@@ -94,8 +94,7 @@ class EncodePasswordSubscriber implements EventSubscriber
             return;
         }
 
-        $encoder = $this->encoderFactory->getEncoder($model);
-        $model->setPassword($encoder->encodePassword($model->getPlainPassword(), '')); // No salt with bcrypt
+        $model->setPassword($this->passwordEncoder->encodePassword($model, $model->getPlainPassword()));
         $model->eraseCredentials();
     }
 }

@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Word;
 
 use App\Domain\Registry\Model\Contractor;
+use App\Domain\User\Dictionary\ContactCivilityDictionary;
 use PhpOffice\PhpWord\Element\Section;
 
 class ContractorGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
@@ -43,12 +44,16 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
                 'Nom',
                 'Référent',
                 'Clauses contractuelles vérifiées',
-                'Conforme RGPD',
+                'A adopté les éléments de sécurité nécessaires',
+                'Tient à jour un registre des traitements',
+                'Envoi des données hors UE',
             ],
         ];
         $nbContractors                = \count($data);
         $nbVerifiedContractualClauses = 0;
-        $nbConform                    = 0;
+        $nbAdoptedSecurityFeatures    = 0;
+        $nbMaintainsTreatmentRegister = 0;
+        $nbSendingDataOutsideEu       = 0;
 
         // Make a loop to get all data. Make all data processing in one loop to avoid several loops
         foreach ($data as $contractor) {
@@ -57,22 +62,39 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
                 $contractor->getName(),
                 $contractor->getReferent() ?? $this->parameterBag->get('APP_DEFAULT_REFERENT'),
                 $contractor->isContractualClausesVerified() ? 'Oui' : 'Non',
-                $contractor->isConform() ? 'Oui' : 'Non',
+                $contractor->isAdoptedSecurityFeatures() ? 'Oui' : 'Non',
+                $contractor->isMaintainsTreatmentRegister() ? 'Oui' : 'Non',
+                $contractor->isSendingDataOutsideEu() ? 'Oui' : 'Non',
             ];
 
             // Verified contractual clauses
             if ($contractor->isContractualClausesVerified()) {
                 ++$nbVerifiedContractualClauses;
             }
-            // Conform
-            if ($contractor->isConform()) {
-                ++$nbConform;
+            // Adopted security features
+            if ($contractor->isAdoptedSecurityFeatures()) {
+                ++$nbAdoptedSecurityFeatures;
+            }
+            // Maintains treatment register
+            if ($contractor->isMaintainsTreatmentRegister()) {
+                ++$nbMaintainsTreatmentRegister;
+            }
+            // Sending data outside EU
+            if ($contractor->isSendingDataOutsideEu()) {
+                ++$nbSendingDataOutsideEu;
             }
         }
 
         $section->addTitle('Registre des sous-traitants', 2);
+
+        if (empty($data)) {
+            $section->addText('Il n’y a aucun sous-traitant identifié.');
+
+            return;
+        }
+
         $section->addText("Un recensement des sous-traitants gérants des données à caractère personnel de '{$collectivity}' a été effectué.");
-        $section->addText("Il y a {$nbContractors} sous-traitants identifiés, les clauses contractuelles de {$nbVerifiedContractualClauses} d’entre eux ont été vérifiées. {$nbConform} sous-traitants sont conforme au RGPD.");
+        $section->addText("Il y a {$nbContractors} sous-traitants identifiés, les clauses contractuelles de {$nbVerifiedContractualClauses} d’entre eux ont été vérifiées. {$nbAdoptedSecurityFeatures} sous-traitants ont adopté les éléments de sécurité nécessaires. {$nbMaintainsTreatmentRegister} sous-traitants tiennent à jour un registre des traitements. {$nbSendingDataOutsideEu} sous-traitants envois des données hors UE.");
         $this->addTable($section, $overview, true, self::TABLE_ORIENTATION_HORIZONTAL);
     }
 
@@ -90,7 +112,9 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
                 'Nom',
                 'Référent',
                 'Clauses contractuelles vérifiées',
-                'Conforme RGPD',
+                'A adopté les éléments de sécurité nécessaires',
+                'Tient à jour un registre des traitements',
+                'Envoi des données hors UE',
             ],
         ];
         // Add content
@@ -99,7 +123,9 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
                 $contractor->getName(),
                 $contractor->getReferent() ?? $this->parameterBag->get('APP_DEFAULT_REFERENT'),
                 $contractor->isContractualClausesVerified() ? 'Oui' : 'Non',
-                $contractor->isConform() ? 'Oui' : 'Non',
+                $contractor->isAdoptedSecurityFeatures() ? 'Oui' : 'Non',
+                $contractor->isMaintainsTreatmentRegister() ? 'Oui' : 'Non',
+                $contractor->isSendingDataOutsideEu() ? 'Oui' : 'Non',
             ];
         }
 
@@ -114,6 +140,7 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
     {
         $section->addTitle('Détail des sous-traitants', 1);
 
+        /** @var Contractor $contractor */
         foreach ($data as $key => $contractor) {
             if (0 !== $key) {
                 $section->addPageBreak();
@@ -130,8 +157,16 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
                     $contractor->isContractualClausesVerified() ? 'Oui' : 'Non',
                 ],
                 [
-                    'Conforme RGPD',
-                    $contractor->isConform() ? 'Oui' : 'Non',
+                    'A adopté les éléments de sécurité nécessaires',
+                    $contractor->isAdoptedSecurityFeatures() ? 'Oui' : 'Non',
+                ],
+                [
+                    'Tient à jour un registre des traitements',
+                    $contractor->isMaintainsTreatmentRegister() ? 'Oui' : 'Non',
+                ],
+                [
+                    'Envoi des données hors UE',
+                    $contractor->isSendingDataOutsideEu() ? 'Oui' : 'Non',
                 ],
                 [
                     'Autres informations',
@@ -140,6 +175,14 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
             ];
 
             $addressData = [
+                [
+                    'Responsable de traitement - Prénom',
+                    $contractor->getLegalManager()->getFirstName(),
+                ],
+                [
+                    'Responsable de traitement - Nom',
+                    $contractor->getLegalManager()->getLastName(),
+                ],
                 [
                     'Adresse',
                     [
@@ -156,6 +199,33 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
                 [
                     'N° de téléphone',
                     $contractor->getAddress()->getPhoneNumber(),
+                ],
+            ];
+
+            $dpoData = [
+                [
+                    'Civilité',
+                    !\is_null($contractor->getDpo()->getCivility()) ? ContactCivilityDictionary::getCivilities()[$contractor->getDpo()->getCivility()] : '',
+                ],
+                [
+                    'Prénom',
+                    $contractor->getDpo()->getFirstName(),
+                ],
+                [
+                    'Nom',
+                    $contractor->getDpo()->getLastName(),
+                ],
+                [
+                    'Fonction',
+                    $contractor->getDpo()->getJob(),
+                ],
+                [
+                    'Email',
+                    $contractor->getDpo()->getMail(),
+                ],
+                [
+                    'N° tél.',
+                    $contractor->getDpo()->getPhoneNumber(),
                 ],
             ];
 
@@ -179,6 +249,9 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
 
             $section->addTitle('Adresse', 3);
             $this->addTable($section, $addressData, true, self::TABLE_ORIENTATION_VERTICAL);
+
+            $section->addTitle('DPD', 3);
+            $this->addTable($section, $dpoData, true, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Historique', 3);
             $this->addTable($section, $historyData, true, self::TABLE_ORIENTATION_VERTICAL);

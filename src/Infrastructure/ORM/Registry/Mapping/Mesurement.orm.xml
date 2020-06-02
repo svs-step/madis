@@ -18,6 +18,8 @@
         <field name="status" column="status" nullable="true"/>
         <field name="planificationDate" column="planification_date" type="date" nullable="true"/>
         <field name="comment" column="comment" nullable="true"/>
+        <field name="priority" column="priority" nullable="true"/>
+        <field name="manager" column="manager" nullable="true"/>
 
         <many-to-many field="proofs" target-entity="App\Domain\Registry\Model\Proof" mapped-by="mesurements">
             <order-by>

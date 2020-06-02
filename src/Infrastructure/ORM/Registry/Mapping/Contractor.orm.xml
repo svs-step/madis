@@ -13,10 +13,15 @@
         <field name="name" column="name"/>
         <field name="referent" column="referent" nullable="true"/>
         <field name="contractualClausesVerified" column="contractual_clauses_verified" type="boolean"/>
-        <field name="conform" column="conform" type="boolean"/>
         <field name="otherInformations" column="other_informations" type="text" nullable="true"/>
+        <field name="adoptedSecurityFeatures" column="adopted_security_features" type="boolean"/>
+        <field name="maintainsTreatmentRegister" column="maintains_treatment_register" type="boolean"/>
+        <field name="sendingDataOutsideEu" column="sending_data_outside_eu" type="boolean"/>
+        <field name="hasDpo" column="has_dpo" type="boolean"/>
 
         <embedded name="address" class="App\Domain\Registry\Model\Embeddable\Address" column-prefix="address_"/>
+        <embedded name="dpo" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="dpo_"/>
+        <embedded name="legalManager" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="legal_manager_"/>
 
         <many-to-many field="treatments" target-entity="App\Domain\Registry\Model\Treatment" mapped-by="contractors"/>
         <many-to-many field="proofs" target-entity="App\Domain\Registry\Model\Proof" mapped-by="contractors">

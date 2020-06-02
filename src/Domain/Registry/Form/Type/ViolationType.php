@@ -68,6 +68,10 @@ class ViolationType extends AbstractType
                 'name'     => 'registry_violation_origin',
                 'expanded' => false,
                 'multiple' => true,
+                'attr'     => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
             ])
             ->add('cause', DictionaryType::class, [
                 'label'    => 'registry.violation.form.cause',
@@ -80,12 +84,20 @@ class ViolationType extends AbstractType
                 'name'     => 'registry_violation_concerned_data',
                 'expanded' => false,
                 'multiple' => true,
+                'attr'     => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
             ])
             ->add('concernedPeopleCategories', DictionaryType::class, [
                 'label'    => 'registry.violation.form.concerned_people_categories',
                 'name'     => 'registry_violation_concerned_people',
                 'expanded' => false,
                 'multiple' => true,
+                'attr'     => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
             ])
             ->add('nbAffectedRows', IntegerType::class, [
                 'label' => 'registry.violation.form.nb_affected_rows',
@@ -104,6 +116,10 @@ class ViolationType extends AbstractType
                 'name'     => 'registry_violation_impact',
                 'expanded' => false,
                 'multiple' => true,
+                'attr'     => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
             ])
             ->add('gravity', DictionaryType::class, [
                 'label'    => 'registry.violation.form.gravity',
@@ -141,6 +157,9 @@ class ViolationType extends AbstractType
             ->add('notificationDetails', TextType::class, [
                 'label'    => 'registry.violation.form.notification_details',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('comment', TextareaType::class, [
                 'label'    => 'registry.violation.form.comment',

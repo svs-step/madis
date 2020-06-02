@@ -10,7 +10,7 @@ Copier le fichier `.env.dist` vers `.env` et éditez le avec les valeurs vous co
 Ensuite, connectez votre docker à Gitlab avec vos identifiants.
 Cela vous permettra d'accéder aux images Docker du projet.
 ```bash
-docker login registry.gitlab.com
+docker login gitlab.adullact.net:4567
 ```
 
 Finissez par initialiser le projet.

@@ -1,4 +1,8 @@
 App\Domain\Registry\Model\Request:
+    constraints:
+        - App\Domain\Registry\Symfony\Validator\Constraints\RequestStateRejectionReason:
+              message: 'registry_request.state_rejection_reason.mandatory'
+              groups: ['default']
     properties:
         object:
             - NotBlank:
@@ -17,3 +21,15 @@ App\Domain\Registry\Model\Request:
             - Valid: ~
         answer:
             - Valid: ~
+        otherObject:
+            - Length:
+                max: 255
+                groups: ['default']
+        reason:
+            - Length:
+                max: 255
+                groups: ['default']
+        state:
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'registry_request_state'
+                groups: ['default']

@@ -43,11 +43,14 @@ class ContactType extends AbstractType
             [
                 'collectivity_legal_manager',
                 'collectivity_referent',
+                'collectivity_comite_il_contact',
             ],
             $options['validation_groups'] ?? []
         ));
 
         $required = $intersectIsEmpty ? false : true;
+
+        $isComiteIl = in_array('collectivity_comite_il_contact', $options['validation_groups'] ?? []);
 
         $builder
             ->add('civility', DictionaryType::class, [
@@ -58,22 +61,37 @@ class ContactType extends AbstractType
             ->add('firstName', TextType::class, [
                 'label'    => 'user.contact.form.first_name',
                 'required' => $required,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('lastName', TextType::class, [
                 'label'    => 'user.contact.form.last_name',
                 'required' => $required,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('job', TextType::class, [
                 'label'    => 'user.contact.form.job',
                 'required' => $required,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('mail', EmailType::class, [
                 'label'    => 'user.contact.form.mail',
-                'required' => $required,
+                'required' => $isComiteIl ? false : $required,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('phoneNumber', TextType::class, [
                 'label'    => 'user.contact.form.phone_number',
-                'required' => $required,
+                'required' => $isComiteIl ? false : $required,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ]);
     }
 

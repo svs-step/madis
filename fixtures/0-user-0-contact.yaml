@@ -1,63 +1,27 @@
 App\Domain\User\Model\Embeddable\Contact:
+    contact_template (template):
+        civility: <dictionary('user_contact_civility')>
+        firstName: <fr_FR:firstName()>
+        lastName: <fr_FR:lastName()>
+        job: <fr_FR:jobTitle()>
+        mail: <fr_FR:email()>
+        phoneNumber: 0<randomNumber(9)>
 
     # ------------------
     # COLLECTIVITY AWKAN
     # ------------------
-    user_contact_collectivity_awkan_manager_legal:
-        civility: '<(App\Domain\User\Dictionary\ContactCivilityDictionary::CIVILITY_MISTER)>'
-        firstName: <firstName()>
-        lastName: <lastName()>
-        job: <word()>
-        mail: <email()>
-        phoneNumber: 0<randomNumber(9)>
+    user_contact_collectivity_awkan_manager_legal (extends contact_template): ~
+    user_contact_collectivity_awkan_referent (extends contact_template): ~
+    user_contact_collectivity_awkan_dpo (extends contact_template): ~
+    user_contact_collectivity_awkan_manager_it (extends contact_template): ~
 
-    user_contact_collectivity_awkan_referent:
-        civility: '<(App\Domain\User\Dictionary\ContactCivilityDictionary::CIVILITY_MISS)>'
-        firstName: <firstName()>
-        lastName: <lastName()>
-        job: <word()>
-        mail: <email()>
-        phoneNumber: 0<randomNumber(9)>
-
-    user_contact_collectivity_awkan_dpo:
-        civility: '<(App\Domain\User\Dictionary\ContactCivilityDictionary::CIVILITY_MISTER)>'
-        firstName: <firstName()>
-        lastName: <lastName()>
-        job: <word()>
-        mail: <email()>
-        phoneNumber: 0<randomNumber(9)>
-
-    user_contact_collectivity_awkan_manager_it:
-        civility: '<(App\Domain\User\Dictionary\ContactCivilityDictionary::CIVILITY_MISTER)>'
-        firstName: <firstName()>
-        lastName: <lastName()>
-        job: <word()>
-        mail: <email()>
-        phoneNumber: 0<randomNumber(9)>
+    comite_il_contact_collectivity_awkan_{1..4} (extends contact_template): ~
 
     # --------------------
     # COLLECTIVITY SOLURIS
     # --------------------
-    user_contact_collectivity_soluris_manager_legal:
-        civility: '<(App\Domain\User\Dictionary\ContactCivilityDictionary::CIVILITY_MISTER)>'
-        firstName: <firstName()>
-        lastName: <lastName()>
-        job: <word()>
-        mail: <email()>
-        phoneNumber: 0<randomNumber(9)>
+    user_contact_collectivity_soluris_manager_legal (extends contact_template): ~
+    user_contact_collectivity_soluris_referent (extends contact_template): ~
+    user_contact_collectivity_soluris_manager_it (extends contact_template): ~
 
-    user_contact_collectivity_soluris_referent:
-        civility: '<(App\Domain\User\Dictionary\ContactCivilityDictionary::CIVILITY_MISS)>'
-        firstName: <firstName()>
-        lastName: <lastName()>
-        job: <word()>
-        mail: <email()>
-        phoneNumber: 0<randomNumber(9)>
-
-    user_contact_collectivity_soluris_manager_it:
-        civility: '<(App\Domain\User\Dictionary\ContactCivilityDictionary::CIVILITY_MISTER)>'
-        firstName: <firstName()>
-        lastName: <lastName()>
-        job: <word()>
-        mail: <email()>
-        phoneNumber: 0<randomNumber(9)>
+    comite_il_contact_collectivity_soluris_{1..4} (extends contact_template): ~

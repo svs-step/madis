@@ -14,12 +14,16 @@ registry_address:
         regex: Le code postal doit être composé de 5 chiffres
 
 registry_contractor:
-    conform:
-        not_null: La conformité RGPD doit être renseignée
+    adopted_security_features:
+        not_null: Adopte les éléments de sécurité doit être renseignée
     contractual_clauses_verified:
         not_null: Les clauses contractuelles doivent être renseignées
+    maintains_treatment_register:
+        not_null: Tient à jour un registre des traitements doit être renseignée
     name:
         not_blank: Vous devez renseigner un nom
+    sending_data_outside_eu:
+        not_null: Envoi des données hors UE doit être renseignée
 
 registry_delay:
     number:
@@ -43,6 +47,8 @@ registry_request:
         not_blank: Vous devez saisir un objet pour la demande
     date:
         not_blank: Vous devez saisir la date de la demande
+    state_rejection_reason:
+        mandatory: Vous devez saisir le motif du refus
 
 registry_request_applicant:
     first_name:
@@ -55,8 +61,12 @@ registry_request_applicant:
 registry_request_concerned_people:
     phone_number:
         regex: Le numéro de téléphone doit être composé de 10 chiffres et commencer par '0'
+    name:
+        mandatory: Cette donnée est obligatoire
 
 registry_treatment:
+    author:
+        not_null: L'auteur du traitement doit être renseigné
     active:
         not_null: Le statut du traitement doit être renseigné
     concerned_people:
@@ -91,3 +101,11 @@ registry_violation:
         not_blank: Vous devez sélectionner les impacts de la violation
     violation_nature:
         not_blank: Vous devez sélectionner la nature de la violation
+
+registry_mesurement:
+    name:
+        not_blank: Vous devez renseigner un nom
+
+registry_treatment_data_category:
+    name:
+        not_blank: Vous devez renseigner un nom

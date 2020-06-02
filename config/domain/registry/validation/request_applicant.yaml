@@ -11,12 +11,29 @@ App\Domain\Registry\Model\Embeddable\RequestApplicant:
             - NotBlank:
                 message: 'registry_request_applicant.first_name.not_blank'
                 groups: ['default']
+            - Length:
+                max: 255
+                groups: ['default']
         lastName:
             - NotBlank:
                 message: 'registry_request_applicant.last_name.not_blank'
+                groups: ['default']
+            - Length:
+                max: 255
                 groups: ['default']
         phoneNumber:
             - Regex:
                 pattern: '/^0[1-9][0-9]{8}$/'
                 message: 'registry_request_applicant.phone_number.regex'
+                groups: ['default']
+        address:
+            - Length:
+                max: 255
+                groups: ['default']
+        mail:
+            - Email:
+                message: 'registry_address.mail.email'
+                groups: ['default']
+            - Length:
+                max: 255
                 groups: ['default']

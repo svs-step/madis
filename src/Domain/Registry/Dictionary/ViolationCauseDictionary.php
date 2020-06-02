@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Dictionary;
 
-use Knp\DictionaryBundle\Dictionary\SimpleDictionary;
+use App\Application\Dictionary\SimpleDictionary;
 
 class ViolationCauseDictionary extends SimpleDictionary
 {

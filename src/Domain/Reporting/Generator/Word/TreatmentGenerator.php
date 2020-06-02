@@ -25,8 +25,11 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Word;
 
 use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
-use App\Domain\Registry\Dictionary\TreatmentConcernedPeopleDictionary;
+use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
+use App\Domain\Registry\Dictionary\TreatmentCollectingMethodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
+use App\Domain\Registry\Dictionary\TreatmentUltimateFateDictionary;
+use App\Domain\Registry\Model\Treatment;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shared\Converter;
 
@@ -202,6 +205,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addTitle('Détail des traitements', 1);
 
         foreach ($data as $key => $treatment) {
+            /* @var Treatment $treatment */
             if (0 !== $key) {
                 $section->addPageBreak();
             }
@@ -211,6 +215,10 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 [
                     'Finalités',
                     $treatment->getGoal() ? \preg_split('/\R/', $treatment->getGoal()) : null,
+                ],
+                [
+                    'En tant que',
+                    !\is_null($treatment->getAuthor()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : '',
                 ],
                 [
                     'Gestionnaire',
@@ -236,8 +244,8 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
             $detailsData = [
                 0 => [
-                    'Personnes concernées',
-                    // Values are added below
+                    'Estimation du nombre de personnes concernées',
+                    $treatment->getEstimatedConcernedPeople(),
                 ],
                 1 => [
                     'Logiciel',
@@ -252,8 +260,16 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     // Defined below
                 ],
                 4 => [
+                    'Sort final',
+                    !\is_null($treatment->getUltimateFate()) ? TreatmentUltimateFateDictionary::getUltimateFates()[$treatment->getUltimateFate()] : '',
+                ],
+                5 => [
                     'Origine des données',
                     $treatment->getDataOrigin(),
+                ],
+                6 => [
+                    'Moyens de la collecte des données	',
+                    !\is_null($treatment->getCollectingMethod()) ? TreatmentCollectingMethodDictionary::getMethods()[$treatment->getCollectingMethod()] : '',
                 ],
             ];
 
@@ -267,13 +283,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             }
             $detailsData[3][] = $delayContent;
 
-            // Add Concerned people
-            $concernedPeople = [];
-            foreach ($treatment->getConcernedPeople() as $people) {
-                $concernedPeople[] = TreatmentConcernedPeopleDictionary::getTypes()[$people];
-            }
-            $detailsData[0][] = $concernedPeople;
-
             $categoryData = [
                 [
                     'Catégorie de données',
@@ -281,7 +290,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
                 [
                     'Autres catégories',
-                    $treatment->getDataCategoryOther(),
+                    $treatment->getDataCategoryOther() ? \preg_split('/\R/', $treatment->getDataCategoryOther()) : null,
                 ],
             ];
             // Add data categories
@@ -304,6 +313,44 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 [
                     'Sous-traitant(s)',
                     \implode(', ', $treatment->getContractors()->toArray()),
+                ],
+            ];
+
+            $concernedPeopleData = [
+                [
+                    'Particuliers',
+                    $treatment->getConcernedPeopleParticular()->isCheck() ? 'Oui' : 'Non',
+                    $treatment->getConcernedPeopleParticular()->getComment(),
+                ],
+                [
+                    'Internautes',
+                    $treatment->getConcernedPeopleUser()->isCheck() ? 'Oui' : 'Non',
+                    $treatment->getConcernedPeopleUser()->getComment(),
+                ],
+                [
+                    'Agents',
+                    $treatment->getConcernedPeopleAgent()->isCheck() ? 'Oui' : 'Non',
+                    $treatment->getConcernedPeopleAgent()->getComment(),
+                ],
+                [
+                    'Élus',
+                    $treatment->getConcernedPeopleElected()->isCheck() ? 'Oui' : 'Non',
+                    $treatment->getConcernedPeopleElected()->getComment(),
+                ],
+                [
+                    'Entreprises',
+                    $treatment->getConcernedPeopleCompany()->isCheck() ? 'Oui' : 'Non',
+                    $treatment->getConcernedPeopleCompany()->getComment(),
+                ],
+                [
+                    'Partenaires',
+                    $treatment->getConcernedPeoplePartner()->isCheck() ? 'Oui' : 'Non',
+                    $treatment->getConcernedPeoplePartner()->getComment(),
+                ],
+                [
+                    'Autres',
+                    $treatment->getConcernedPeopleOther()->isCheck() ? 'Oui' : 'Non',
+                    $treatment->getConcernedPeopleOther()->getComment(),
                 ],
             ];
 
@@ -334,8 +381,18 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     $treatment->getSecurityOther()->getComment(),
                 ],
                 [
-                    'Personne habilitées',
-                    $treatment->getAuthorizedPeople(),
+                    'Je suis en capacité de ressortir les personnes habilitées',
+                    $treatment->isSecurityEntitledPersons() ? 'Oui' : 'Non',
+                    '',
+                ],
+                [
+                    'La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée	',
+                    $treatment->isSecurityOpenAccounts() ? 'Oui' : 'Non',
+                    '',
+                ],
+                [
+                    'Les spécificités de sensibilisation liées à ce traitement sont délivrées	',
+                    $treatment->isSecuritySpecificitiesDelivered() ? 'Oui' : 'Non',
                     '',
                 ],
             ];
@@ -357,6 +414,18 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     'Croisement de données',
                     $treatment->isDataCrossing() ? 'Oui' : 'Non',
                 ],
+                [
+                    'Évaluation ou notation',
+                    $treatment->isEvaluationOrRating() ? 'Oui' : 'Non',
+                ],
+                [
+                    'Décisions automatisées  avec  effet  juridique',
+                    $treatment->isAutomatedDecisionsWithLegalEffect() ? 'Oui' : 'Non',
+                ],
+                [
+                    'Exclusion automatique d\'un service',
+                    $treatment->isAutomaticExclusionService() ? 'Oui' : 'Non',
+                ],
             ];
 
             $historyData = [
@@ -376,6 +445,9 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
             $section->addTitle('Informations générales', 3);
             $this->addTable($section, $generalInformationsData, true, self::TABLE_ORIENTATION_VERTICAL);
+
+            $section->addTitle('Détails - Personnes concernées', 3);
+            $this->addTable($section, $concernedPeopleData, true, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Détails', 3);
             $this->addTable($section, $detailsData, true, self::TABLE_ORIENTATION_VERTICAL);

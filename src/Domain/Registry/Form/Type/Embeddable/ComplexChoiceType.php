@@ -45,12 +45,14 @@ class ComplexChoiceType extends AbstractType
                 'label_attr' => [
                     'removeColClass' => true,
                 ],
+                'error_bubbling' => true,
             ])
             ->add('comment', TextType::class, [
                 'label'    => false,
                 'required' => false,
                 'attr'     => [
                     'placeholder' => 'placeholder.precision',
+                    'maxlength'   => 255,
                 ],
             ])
         ;

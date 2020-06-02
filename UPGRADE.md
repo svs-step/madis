@@ -15,6 +15,7 @@ données avant d'effectuer une montée de version.
 # Passage en v1.6.0
 
 ### Paramétrage de la subrogation d'un utilisateur
+
 Dans le `.env` vous pouvez modifier les informations liées à la subrogation des utilisateurs.
 Dans le cas où vous créez des données pour les collectivité,
 vous pouvez choisir si vous souhaitez faire afficher le nom de la personne sur qui l'admin s'est connectée

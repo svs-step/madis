@@ -44,22 +44,37 @@ class AddressType extends AbstractType
             ->add('lineOne', TextType::class, [
                 'label'    => 'registry.address.form.line_one',
                 'required' => $required,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('lineTwo', TextType::class, [
                 'label'    => 'registry.address.form.line_two',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('city', TextType::class, [
                 'label'    => 'registry.address.form.city',
                 'required' => $required,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('zipCode', TextType::class, [
                 'label'    => 'registry.address.form.zip_code',
                 'required' => $required,
+                'attr'     => [
+                    'maxlength' => 5,
+                ],
             ])
             ->add('mail', EmailType::class, [
                 'label'    => 'registry.address.form.mail',
                 'required' => $required,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('phoneNumber', TextType::class, [
                 'label'    => 'registry.address.form.phone_number',

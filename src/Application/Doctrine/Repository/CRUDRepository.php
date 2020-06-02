@@ -26,7 +26,7 @@ namespace App\Application\Doctrine\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Abstract Class CRUDRepository
@@ -35,14 +35,14 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 abstract class CRUDRepository implements CRUDRepositoryInterface
 {
     /**
-     * @var RegistryInterface
+     * @var ManagerRegistry
      */
     protected $registry;
 
     /**
      * CRUDRepository constructor.
      */
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         $this->registry = $registry;
     }

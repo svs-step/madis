@@ -29,19 +29,19 @@ use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 class Violation implements Repository\Violation
 {
     /**
-     * @var RegistryInterface
+     * @var ManagerRegistry
      */
     protected $registry;
 
     /**
      * Violation constructor.
      */
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         $this->registry = $registry;
     }
@@ -301,5 +301,32 @@ class Violation implements Repository\Violation
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function countAllByCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+        $this->addCollectivityClause($qb, $collectivity);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneOrNullLastUpdateByCollectivity(Collectivity $collectivity): ?Model\Violation
+    {
+        $qb = $this->createQueryBuilder();
+
+        $this->addCollectivityClause($qb, $collectivity);
+        $qb->addOrderBy('o.updatedAt', 'DESC');
+        $qb->setMaxResults(1);
+
+        return $qb->getQuery()->getOneOrNullResult();
     }
 }

@@ -64,6 +64,9 @@ class ProofType extends AbstractType
             ->add('name', TextType::class, [
                 'label'    => 'registry.proof.form.name',
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('type', DictionaryType::class, [
                 'label'    => 'registry.proof.form.type',
@@ -77,6 +80,9 @@ class ProofType extends AbstractType
             ->add('comment', TextType::class, [
                 'label'    => 'registry.proof.form.comment',
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('treatments', EntityType::class, [
                 'label'         => 'registry.proof.form.treatments',
@@ -98,7 +104,8 @@ class ProofType extends AbstractType
                     return $this->formatInactiveObjectLabel($object);
                 },
                 'attr' => [
-                    'size' => 6,
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
                 ],
                 'required' => false,
                 'multiple' => true,
@@ -115,7 +122,8 @@ class ProofType extends AbstractType
                         ;
                 },
                 'attr' => [
-                    'size' => 6,
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
                 ],
                 'required' => false,
                 'multiple' => true,
@@ -132,7 +140,8 @@ class ProofType extends AbstractType
                         ;
                 },
                 'attr' => [
-                    'size' => 6,
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
                 ],
                 'required' => false,
                 'multiple' => true,
@@ -160,7 +169,8 @@ class ProofType extends AbstractType
                     return $this->formatArchivedObjectLabel($object);
                 },
                 'attr' => [
-                    'size' => 6,
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
                 ],
                 'required' => false,
                 'multiple' => true,
@@ -187,7 +197,8 @@ class ProofType extends AbstractType
                     return $this->formatArchivedObjectLabel($object);
                 },
                 'attr' => [
-                    'size' => 6,
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
                 ],
                 'required' => false,
                 'multiple' => true,

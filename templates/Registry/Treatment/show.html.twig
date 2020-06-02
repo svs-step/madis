@@ -57,6 +57,10 @@
                             <td>{{ object.goal|nl2br }}</td>
                         </tr>
                         <tr>
+                            <td><strong>{{ 'registry.treatment.show.author'|trans }}</strong></td>
+                            <td>{% if object.author is not null %}{{ object.author|dictionary('registry_treatment_author') }}{% endif %}</td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'registry.treatment.show.manager'|trans }}</strong></td>
                             <td>{{ object.manager }}</td>
                         </tr>
@@ -141,6 +145,100 @@
                 </div>
             </div>
 
+            {# SPECIFIC #}
+            <div class="box box-solid box-info">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.systematic_monitoring'|trans }}</strong></td>
+                            <td>
+                                <ul>
+                                    {% if object.systematicMonitoring %}
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.large_scale_collection'|trans }}</strong></td>
+                            <td>
+                                <ul>
+                                    {% if object.largeScaleCollection %}
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.vulnerable_people'|trans }}</strong></td>
+                            <td>
+                                <ul>
+                                    {% if object.vulnerablePeople %}
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.data_crossing'|trans }}</strong></td>
+                            <td>
+                                <ul>
+                                    {% if object.dataCrossing %}
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.evaluation_or_rating'|trans }}</strong></td>
+                            <td>
+                                <ul>
+                                    {% if object.evaluationOrRating %}
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.automated_decisions_with_legal_effect'|trans }}</strong></td>
+                            <td>
+                                <ul>
+                                    {% if object.automatedDecisionsWithLegalEffect %}
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.automatic_exclusion_service'|trans }}</strong></td>
+                            <td>
+                                <ul>
+                                    {% if object.automaticExclusionService %}
+                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
             {# HISTORIC #}
             <div class="box box-solid box-default">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3></div>
@@ -187,13 +285,87 @@
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.concerned_people'|trans }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_particular'|trans }}</strong></td>
                             <td>
-                                <ul>
-                                    {% for people in object.concernedPeople %}
-                                        <li>{{ people|dictionary('registry_treatment_concerned_people') }}</li>
-                                    {% endfor %}
-                                </ul>
+                                {% if object.concernedPeopleParticular.check %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.concernedPeopleParticular.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
                             </td>
+                        </tr>
+                        <tr>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_user'|trans }}</strong></td>
+                            <td>
+                                {% if object.concernedPeopleUser.check %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.concernedPeopleUser.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_agent'|trans }}</strong></td>
+                            <td>
+                                {% if object.concernedPeopleAgent.check %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.concernedPeopleAgent.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_elected'|trans }}</strong></td>
+                            <td>
+                                {% if object.concernedPeopleElected.check %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.concernedPeopleElected.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_company'|trans }}</strong></td>
+                            <td>
+                                {% if object.concernedPeopleCompany.check %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.concernedPeopleCompany.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_partner'|trans }}</strong></td>
+                            <td>
+                                {% if object.concernedPeoplePartner.check %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.concernedPeoplePartner.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_other'|trans }}</strong></td>
+                            <td>
+                                {% if object.concernedPeopleOther.check %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <p>{{ object.concernedPeopleOther.comment }}</p>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.estimated_concerned_people'|trans }}</strong></td>
+                            <td>{{ object.estimatedConcernedPeople }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.software'|trans }}</strong></td>
@@ -220,8 +392,16 @@
                             </td>
                         </tr>
                         <tr>
+                            <td><strong>{{ 'registry.treatment.show.ultimate_fate'|trans }}</strong></td>
+                            <td>{% if object.ultimateFate is not null %}{{ object.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}{% endif %}</td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong></td>
                             <td>{{ object.dataOrigin }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong></td>
+                            <td>{% if object.collectingMethod is not null %}{{ object.collectingMethod|dictionary('registry_treatment_collecting_method') }}{% endif %}</td>
                         </tr>
                     </table>
                 </div>
@@ -289,68 +469,37 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.authorized_people'|trans }}</strong></td>
-                            <td>{{ object.authorizedPeople }}</td>
+                            <td><strong>{{ 'registry.treatment.show.security_entitled_persons'|trans }}</strong></td>
+                            <td>
+                                {% if object.securityEntitledPersons %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.security_open_accounts'|trans }}</strong></td>
+                            <td>
+                                {% if object.securityOpenAccounts %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.security_specificities_delivered'|trans }}</strong></td>
+                            <td>
+                                {% if object.securitySpecificitiesDelivered %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
                         </tr>
                         </tbody>
-                    </table>
-                </div>
-            </div>
-
-            {# SPECIFIC #}
-            <div class="box box-solid box-info">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.treatment.show.systematic_monitoring'|trans }}</strong></td>
-                            <td>
-                                <ul>
-                                    {% if object.systematicMonitoring %}
-                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.treatment.show.large_scale_collection'|trans }}</strong></td>
-                            <td>
-                                <ul>
-                                    {% if object.largeScaleCollection %}
-                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.treatment.show.vulnerable_people'|trans }}</strong></td>
-                            <td>
-                                <ul>
-                                    {% if object.vulnerablePeople %}
-                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.treatment.show.data_crossing'|trans }}</strong></td>
-                            <td>
-                                <ul>
-                                    {% if object.dataCrossing %}
-                                        <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-green">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </ul>
-                            </td>
-                        </tr>
                     </table>
                 </div>
             </div>

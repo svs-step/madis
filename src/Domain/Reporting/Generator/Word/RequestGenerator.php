@@ -27,6 +27,8 @@ namespace App\Domain\Reporting\Generator\Word;
 use App\Domain\Registry\Dictionary\RequestAnswerTypeDictionary;
 use App\Domain\Registry\Dictionary\RequestCivilityDictionary;
 use App\Domain\Registry\Dictionary\RequestObjectDictionary;
+use App\Domain\Registry\Dictionary\RequestStateDictionary;
+use App\Domain\Registry\Model\Request;
 use PhpOffice\PhpWord\Element\Section;
 
 class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
@@ -47,6 +49,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                 'Date de la demande',
                 'Objet',
                 'Date de traitement',
+                'État de la demande',
             ],
         ];
         $nbTotal = \count($data);
@@ -62,10 +65,18 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                 $this->getDate($request->getDate(), 'd/m/Y'),
                 RequestObjectDictionary::getObjects()[$request->getObject()],
                 $this->getDate($request->getAnswer()->getDate(), 'd/m/Y'),
+                RequestStateDictionary::getStates()[$request->getState()],
             ];
         }
 
         $section->addTitle('Registre des demandes de personnes concernées', 2);
+
+        if (empty($data)) {
+            $section->addText('Il n’y a aucune demande des personnes concernées.');
+
+            return;
+        }
+
         $section->addText("Un registre des demandes des personnes concernées est tenu à jour par '{$collectivity}'.");
         $section->addText("Il y a eu {$nbTotal} demandes des personnes concernées.");
 
@@ -117,6 +128,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
     {
         $section->addTitle('Détail des demandes', 1);
 
+        /** @var Request $request */
         foreach ($data as $key => $request) {
             if (0 !== $key) {
                 $section->addPageBreak();
@@ -220,6 +232,10 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
             $response     = $request->getAnswer();
             $responseData = [
                 [
+                    'État de la demande',
+                    RequestStateDictionary::getStates()[$request->getState()],
+                ],
+                [
                     'Réponse apportée',
                     $response->getResponse(),
                 ],
@@ -232,6 +248,13 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                     $response->getType() ? RequestAnswerTypeDictionary::getTypes()[$response->getType()] : null,
                 ],
             ];
+
+            if (RequestStateDictionary::STATE_DENIED === $request->getState()) {
+                $responseData[] = [
+                    'Motif du refus',
+                    $request->getStateRejectionReason(),
+                ];
+            }
 
             $historyData = [
                 [

@@ -34,6 +34,7 @@ use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -47,16 +48,18 @@ class RequestTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'object'              => DictionaryType::class,
-            'otherObject'         => TextType::class,
-            'date'                => DateType::class,
-            'reason'              => TextType::class,
-            'applicant'           => RequestApplicantType::class,
-            'concernedPeople'     => RequestConcernedPeopleType::class,
-            'complete'            => CheckboxType::class,
-            'legitimateApplicant' => CheckboxType::class,
-            'legitimateRequest'   => CheckboxType::class,
-            'answer'              => RequestAnswerType::class,
+            'object'               => DictionaryType::class,
+            'otherObject'          => TextType::class,
+            'date'                 => DateType::class,
+            'reason'               => TextType::class,
+            'applicant'            => RequestApplicantType::class,
+            'concernedPeople'      => RequestConcernedPeopleType::class,
+            'complete'             => CheckboxType::class,
+            'legitimateApplicant'  => CheckboxType::class,
+            'legitimateRequest'    => CheckboxType::class,
+            'answer'               => RequestAnswerType::class,
+            'state'                => DictionaryType::class,
+            'stateRejectionReason' => TextareaType::class,
         ];
 
         (new RequestType())->buildForm($this->prophesizeBuilder($builder), []);

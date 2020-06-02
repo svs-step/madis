@@ -1,8 +1,30 @@
 App\Domain\Registry\Model\Treatment:
+    constraints:
+        - App\Domain\Registry\Symfony\Validator\Constraints\TreatmentConcernedPeople:
+              message: 'registry_treatment.concerned_people.min_count'
+              groups: ['default']
     properties:
+        author:
+            - NotBlank:
+                  message: 'registry_treatment.author.not_blank'
+                  groups: ['default']
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                  name: 'registry_treatment_author'
+                  groups: ['default']
+        collectingMethod:
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                  name: 'registry_treatment_collecting_method'
+                  groups: ['default']
+        estimatedConcernedPeople:
+            - GreaterThanOrEqual:
+                  value: 0
+                  groups: ['default']
         name:
             - NotBlank:
                 message: 'registry_treatment.name.not_blank'
+                groups: ['default']
+            - Length:
+                max: 255
                 groups: ['default']
         legalBasis:
             - NotBlank:
@@ -11,19 +33,35 @@ App\Domain\Registry\Model\Treatment:
             - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
                 name: 'registry_treatment_legal_basis'
                 groups: ['default']
-        concernedPeople:
-            - Count:
-                min: 1
-                minMessage: 'registry_treatment.concerned_people.min_count'
-                groups: ['default']
-# TMP commented for bug of array validation
-# https://github.com/biig-io/DictionaryBundle/issues/25
-#            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
-#                name: 'registry_treatment_concerned_people'
-#                groups: ['default']
         active:
             - NotNull:
                 message: 'registry_treatment.active.not_null'
                 groups: ['default']
         delay:
             - Valid: ~
+        manager:
+            - Length:
+                max: 255
+                groups: ['default']
+        software:
+            - Length:
+                max: 255
+                groups: ['default']
+        dataOrigin:
+            - Length:
+                max: 255
+                groups: ['default']
+        securityAccessControl:
+            - Valid: ~
+        securityTracability:
+            - Valid: ~
+        securitySaving:
+            - Valid: ~
+        securityUpdate:
+            - Valid: ~
+        securityOther:
+            - Valid: ~
+        ultimateFate:
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                  name: 'registry_treatment_ultimate_fate'
+                  groups: ['default']
