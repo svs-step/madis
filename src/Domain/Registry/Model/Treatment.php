@@ -239,6 +239,13 @@ class Treatment
     private $automaticExclusionService;
 
     /**
+     * FR: Usage innovant (traitement spécifique).
+     *
+     * @var bool
+     */
+    private $innovativeUse;
+
+    /**
      * @var bool
      */
     private $active;
@@ -376,6 +383,7 @@ class Treatment
         $this->evaluationOrRating                = false;
         $this->automatedDecisionsWithLegalEffect = false;
         $this->automaticExclusionService         = false;
+        $this->innovativeUse                     = false;
         $this->active                            = true;
         $this->completion                        = 0;
         $this->template                          = false;
@@ -874,5 +882,15 @@ class Treatment
     public function setUltimateFate(?string $ultimateFate): void
     {
         $this->ultimateFate = $ultimateFate;
+    }
+
+    public function isInnovativeUse(): bool
+    {
+        return $this->innovativeUse;
+    }
+
+    public function setInnovativeUse(bool $innovativeUse): void
+    {
+        $this->innovativeUse = $innovativeUse;
     }
 }

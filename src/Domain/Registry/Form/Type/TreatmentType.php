@@ -254,6 +254,10 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.automatic_exclusion_service',
                 'required' => false,
             ])
+            ->add('innovativeUse', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.innovative_use',
+                'required' => false,
+            ])
             ->add('active', ChoiceType::class, [
                 'label'    => 'registry.treatment.form.active',
                 'required' => true,

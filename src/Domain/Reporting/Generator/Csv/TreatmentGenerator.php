@@ -79,7 +79,7 @@ class TreatmentGenerator extends AbstractGenerator
         $data = [$headers];
 
         /** @var \App\Domain\Registry\Model\Treatment $treatment */
-        foreach ($this->treatmentRepository->findAll() as $treatment) {
+        foreach ($this->treatmentRepository->findAllByActiveCollectivity() as $treatment) {
             $extract = array_merge(
                 [$treatment->getName()],
                 $this->initializeCollectivity($treatment->getCollectivity()),
@@ -94,8 +94,6 @@ class TreatmentGenerator extends AbstractGenerator
             );
             array_push($data, $extract);
         }
-
-//        dd($data);
 
         return $data;
     }
@@ -321,6 +319,7 @@ class TreatmentGenerator extends AbstractGenerator
             $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.evaluation_or_rating'),
             $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.automated_decisions_with_legal_effect'),
             $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.automatic_exclusion_service'),
+            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.innovative_use'),
         ];
     }
 
@@ -337,6 +336,7 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->isEvaluationOrRating() ? $yes : $no,
             $treatment->isAutomatedDecisionsWithLegalEffect() ? $yes : $no,
             $treatment->isAutomaticExclusionService() ? $yes : $no,
+            $treatment->isInnovativeUse() ? $yes : $no,
         ];
     }
 

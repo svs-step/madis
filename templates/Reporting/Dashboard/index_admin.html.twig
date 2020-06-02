@@ -63,7 +63,8 @@
         </div>
     </div>
 
-    <div class="row">  
+    <div class="row">
+    {% if app_commune_svg_reduced_path is not empty %}
       <div class="col-sm-6 col-xs-12">
         <div class="box box-solid">
           <div class="box-header with-border">
@@ -94,6 +95,7 @@
           </div> <!-- end box body-->   
         </div>
       </div>
+    {% endif %}
       <div class="col-sm-3 col-xs-12">
         <div class="box box-solid">
             <div class="box-header with-border">
