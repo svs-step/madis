@@ -40,3 +40,16 @@ BLOCK1: BEGIN
   	CLOSE listetraitements;
 END BLOCK1
 ```
+
+## Conformité des traitements
+### Ajouter une question 
+
+Pour ajouter une nouvelle question dans la conformité des traitements il faut vérifier en base de données la 
+dernière valeur pour le champ qui ordonne les questions.
+
+Dans l'exemple suivant l'ordre de la question est à 13 car la dernière question en base a la valeur 12. 
+Bien faire attention à la génération de la clef primaire qui est ici un uuid.
+
+```sql
+INSERT INTO `conformite_traitement_question` (`id`, `question`, `position`) VALUES ('4d66c04e-62e7-4216-85a2-6d9feb71722a', 'Ceci est le texte de la question', '13')
+```
