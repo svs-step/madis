@@ -336,7 +336,12 @@ class UserMetric implements MetricInterface
             ++$data['conformiteTraitement']['data'][$level];
         }
 
-        $data['conformiteTraitement']['data'] = \array_values($data['conformiteTraitement']['data']);
+        //reset data if all values equal zéro. Need to hide the chart.
+        if (empty(array_filter($data['conformiteTraitement']['data']))) {
+            $data['conformiteTraitement']['data'] = [];
+        } else {
+            $data['conformiteTraitement']['data'] = \array_values($data['conformiteTraitement']['data']);
+        }
 
         return $data;
     }
