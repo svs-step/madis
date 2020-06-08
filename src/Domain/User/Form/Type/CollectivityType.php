@@ -114,6 +114,10 @@ class CollectivityType extends AbstractType
                     'label'    => 'user.collectivity.form.has_module_conformite_traitement',
                     'required' => false,
                 ])
+                ->add('hasModuleConformiteOrganisation', CheckboxType::class, [
+                    'label'    => 'user.collectivity.form.has_module_conformite_organisation',
+                    'required' => false,
+                ])
             ;
         }
 

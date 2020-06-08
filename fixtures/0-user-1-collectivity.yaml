@@ -12,6 +12,7 @@ App\Domain\User\Model\Collectivity:
         differentItManager: true
         itManager: '@user_contact_collectivity_awkan_manager_it'
         hasModuleConformiteTraitement: true
+        hasModuleConformiteOrganisation: true
         reportingBlockManagementCommitment: |
             \<p\>Engagement de la direction :\</p\>
 

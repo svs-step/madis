@@ -48,7 +48,7 @@
                         {% for object in objects %}
                             <tr>
                                 <td>{{ object.date|date('d/m/Y H:i') }}</td>
-                                <td></td>
+                                <td>{{ object.participants|length }}</td>
                                 <td></td>
                             </tr>
                         {% endfor %}
@@ -62,9 +62,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    {#    {% set dataTableOptions = {#}
-    {#        'order':  [[4, 'desc' ]]#}
-    {#    } %}#}
 
     {{ include('_Utils/_datatable.html.twig') }}
 {% endblock %}

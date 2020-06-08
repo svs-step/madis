@@ -135,19 +135,25 @@ class Collectivity
     private $hasModuleConformiteTraitement;
 
     /**
+     * @var bool
+     */
+    private $hasModuleConformiteOrganisation;
+
+    /**
      * Collectivity constructor.
      *
      * @throws \Exception
      */
     public function __construct()
     {
-        $this->id                            = Uuid::uuid4();
-        $this->users                         = new ArrayCollection();
-        $this->comiteIlContacts              = new ArrayCollection();
-        $this->active                        = true;
-        $this->differentDpo                  = false;
-        $this->differentItManager            = false;
-        $this->hasModuleConformiteTraitement = false;
+        $this->id                              = Uuid::uuid4();
+        $this->users                           = new ArrayCollection();
+        $this->comiteIlContacts                = new ArrayCollection();
+        $this->active                          = true;
+        $this->differentDpo                    = false;
+        $this->differentItManager              = false;
+        $this->hasModuleConformiteTraitement   = false;
+        $this->hasModuleConformiteOrganisation = false;
     }
 
     public function __toString(): string
@@ -366,5 +372,15 @@ class Collectivity
     public function setHasModuleConformiteTraitement(bool $hasModuleConformiteTraitement): void
     {
         $this->hasModuleConformiteTraitement = $hasModuleConformiteTraitement;
+    }
+
+    public function isHasModuleConformiteOrganisation(): bool
+    {
+        return $this->hasModuleConformiteOrganisation;
+    }
+
+    public function setHasModuleConformiteOrganisation(bool $hasModuleConformiteOrganisation): void
+    {
+        $this->hasModuleConformiteOrganisation = $hasModuleConformiteOrganisation;
     }
 }
