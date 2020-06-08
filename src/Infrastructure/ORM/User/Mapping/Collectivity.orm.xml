@@ -26,7 +26,11 @@
         <embedded name="dpo" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="dpo_"/>
         <embedded name="itManager" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="it_manager_"/>
 
-        <one-to-many field="users" target-entity="App\Domain\User\Model\User" mapped-by="collectivity"/>
+        <one-to-many field="users" target-entity="App\Domain\User\Model\User" mapped-by="collectivity" orphan-removal="true">
+            <cascade>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
         <one-to-many field="comiteIlContacts" target-entity="App\Domain\User\Model\ComiteIlContact" mapped-by="collectivity" orphan-removal="true">
             <cascade>
                 <cascade-persist/>
