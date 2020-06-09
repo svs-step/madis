@@ -44,7 +44,6 @@ class ReponseType extends AbstractType
                 'data_class'        => Reponse::class,
                 'validation_groups' => [
                     'default',
-                    'reponse',
                 ],
             ]);
     }

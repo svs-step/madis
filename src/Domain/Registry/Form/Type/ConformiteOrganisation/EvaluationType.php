@@ -48,7 +48,6 @@ class EvaluationType extends AbstractType
                 'data_class'        => Evaluation::class,
                 'validation_groups' => [
                     'default',
-                    'reponse',
                 ],
             ]);
     }
