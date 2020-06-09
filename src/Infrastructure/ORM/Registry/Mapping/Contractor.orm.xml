@@ -32,8 +32,12 @@
         <many-to-one field="clonedFrom" target-entity="App\Domain\Registry\Model\Contractor"/>
 
         <!-- Traits -->
-        <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity"/>
-        <many-to-one field="creator" target-entity="App\Domain\User\Model\User"/>
+        <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">
+            <join-column on-delete="CASCADE" />
+        </many-to-one>
+        <many-to-one field="creator" target-entity="App\Domain\User\Model\User">
+            <join-column on-delete="SET NULL" />
+        </many-to-one>
         <field name="createdAt" column="created_at" type="datetime_immutable">
             <gedmo:timestampable on="create"/>
         </field>

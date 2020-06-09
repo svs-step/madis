@@ -11,8 +11,12 @@
 
         <field name="score" column="score" type="integer"/>
 
-        <many-to-one field="domain" target-entity="App\Domain\Maturity\Model\Domain" inversed-by="maturity"/>
-        <many-to-one field="survey" target-entity="App\Domain\Maturity\Model\Survey" inversed-by="maturity"/>
+        <many-to-one field="domain" target-entity="App\Domain\Maturity\Model\Domain" inversed-by="maturity">
+            <join-column on-delete="CASCADE" />
+        </many-to-one>
+        <many-to-one field="survey" target-entity="App\Domain\Maturity\Model\Survey" inversed-by="maturity">
+            <join-column on-delete="CASCADE" />
+        </many-to-one>
 
     </entity>
 

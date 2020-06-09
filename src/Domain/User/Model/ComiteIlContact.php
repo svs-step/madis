@@ -24,10 +24,11 @@ declare(strict_types=1);
 namespace App\Domain\User\Model;
 
 use App\Domain\User\Model\Embeddable\Contact;
+use JsonSerializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class ComiteIlContact
+class ComiteIlContact implements JsonSerializable
 {
     /**
      * @var UuidInterface
@@ -72,5 +73,19 @@ class ComiteIlContact
     public function setCollectivity(Collectivity $collectivity): void
     {
         $this->collectivity = $collectivity;
+    }
+
+    public function jsonSerialize()
+    {
+        $contact = $this->getContact();
+
+        return [
+            'civilite' => $contact->getCivility(),
+            'prénom'   => $contact->getFirstName(),
+            'nom'      => $contact->getLastName(),
+            'fonction' => $contact->getJob(),
+            'email'    => $contact->getMail(),
+            'tel'      => $contact->getPhoneNumber(),
+        ];
     }
 }
