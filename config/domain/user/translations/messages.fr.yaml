@@ -59,6 +59,7 @@ user:
             address_zip_code: Code postal
             address_city: Ville
             address_insee: Code INSEE
+            comite_il_short: Comité IL
             contact_civility: Civilité
             contact_first_name: Prénom
             contact_last_name: Nom
@@ -76,6 +77,7 @@ user:
             website: Site internet
         tab:
           address: Adresse
+          comite_il: Composition du comité Informatique et Libertés
           dpo: DPD
           general: Informations générales
           historic: Historique
@@ -85,7 +87,6 @@ user:
           reporting_block:
             management_commitment: Bilan paragraphe "Engagement de la direction"
             continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
-          comite_il: Composition du comité Informatique et Libertés
         title:
             create: Créer une collectivité
             delete: Supprimer une collectivité

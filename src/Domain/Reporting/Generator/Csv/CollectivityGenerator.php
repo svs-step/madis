@@ -230,6 +230,9 @@ class CollectivityGenerator extends AbstractGenerator
             $dpo . ' - ' . $this->translator->trans('user.collectivity.show.contact_job'),
             $dpo . ' - ' . $this->translator->trans('user.collectivity.show.contact_mail'),
             $dpo . ' - ' . $this->translator->trans('user.collectivity.show.contact_phone_number'),
+            $this->translator->trans('user.collectivity.tab.reporting_block.management_commitment'),
+            $this->translator->trans('user.collectivity.tab.reporting_block.continuous_improvement'),
+            $this->translator->trans('user.collectivity.show.comite_il_short'),
             $this->translator->trans('user.collectivity.show.created_at'),
             $this->translator->trans('user.collectivity.show.updated_at'),
         ];
@@ -284,6 +287,9 @@ class CollectivityGenerator extends AbstractGenerator
             !\is_null($dpo->getJob()) ? $dpo->getJob() : $this->defaultDpoJob,
             !\is_null($dpo->getMail()) ? $dpo->getMail() : $this->defaultDpoMail,
             !\is_null($dpo->getPhoneNumber()) ? $dpo->getPhoneNumber() : $this->defaultDpoPhoneNumber,
+            !\is_null($collectivity->getReportingBlockManagementCommitment()) ? \strip_tags($collectivity->getReportingBlockManagementCommitment()) : '',
+            !\is_null($collectivity->getReportingBlockContinuousImprovement()) ? \strip_tags(html_entity_decode($collectivity->getReportingBlockContinuousImprovement(), ENT_QUOTES | ENT_HTML401)) : '',
+            !$collectivity->getComiteIlContacts()->isEmpty() ? json_encode($collectivity->getComiteIlContacts()->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) : '',
             $this->getDate($collectivity->getCreatedAt()),
             $this->getDate($collectivity->getUpdatedAt()),
         ];

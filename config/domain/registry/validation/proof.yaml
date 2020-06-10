@@ -27,6 +27,9 @@ App\Domain\Registry\Model\Proof:
                     - application/msword
                     # DOCX
                     - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+                    # Lors de la génération d'un fichier (Bilan) word son mimetype est doublé.
+                    # On conserve le mimetype suivant car il y avait des bugs avec iOS (ipad et iphone) lors du téléchargement
+                    - application/vnd.openxmlformats-officedocument.wordprocessingml.documentapplication/vnd.openxmlformats-officedocument.wordprocessingml.document
                     # ODT
                     - application/vnd.oasis.opendocument.text
                     # XLS
