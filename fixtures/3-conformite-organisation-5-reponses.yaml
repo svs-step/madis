@@ -1,0 +1,31 @@
+App\Domain\Registry\Model\ConformiteOrganisation\Reponse :
+  evaluation_1_processus_1_question_1_reponse:
+    reponse: '<(App\Domain\Registry\Dictionary\ConformiteOrganisation\ReponseDictionary::PARTIELLE)>'
+    question: '@conformite_organisation_question_1'
+    conformite: '@evaluation_1_processus_1_conformite'
+  evaluation_1_processus_1_question_2_reponse:
+    reponse: '<(App\Domain\Registry\Dictionary\ConformiteOrganisation\ReponseDictionary::QUASI_CONFORME)>'
+    question: '@conformite_organisation_question_2'
+    conformite: '@evaluation_1_processus_1_conformite'
+  evaluation_1_processus_1_question_3_reponse:
+    reponse: '<(App\Domain\Registry\Dictionary\ConformiteOrganisation\ReponseDictionary::NON_CONCERNE)>'
+    question: '@conformite_organisation_question_3'
+    reponseRaison: 'Pas de responsable'
+    conformite: '@evaluation_1_processus_1_conformite'
+  evaluation_1_processus_1_question_4_reponse:
+    reponse: '<(App\Domain\Registry\Dictionary\ConformiteOrganisation\ReponseDictionary::INEXISTANTE)>'
+    question: '@conformite_organisation_question_4'
+    conformite: '@evaluation_1_processus_1_conformite'
+  evaluation_1_processus_1_question_5_reponse:
+    reponse: '<(App\Domain\Registry\Dictionary\ConformiteOrganisation\ReponseDictionary::REVISEE)>'
+    question: '@conformite_organisation_question_5'
+    conformite: '@evaluation_1_processus_2_conformite'
+  evaluation_1_processus_1_question_6_reponse:
+    reponse: '<(App\Domain\Registry\Dictionary\ConformiteOrganisation\ReponseDictionary::INEXISTANTE)>'
+    question: '@conformite_organisation_question_6'
+    conformite: '@evaluation_1_processus_2_conformite'
+  evaluation_1_processus_1_question_7_reponse:
+    reponse: '<(App\Domain\Registry\Dictionary\ConformiteOrganisation\ReponseDictionary::PARTIELLE)>'
+    question: '@conformite_organisation_question_7'
+    conformite: '@evaluation_1_processus_2_conformite'
+

@@ -2,6 +2,8 @@
 
 namespace App\Domain\Registry\Model\ConformiteOrganisation;
 
+use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
+use App\Domain\Registry\Model\Mesurement;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -16,7 +18,7 @@ class Conformite
     private $id;
 
     /**
-     * @var int|null
+     * @var float|null
      */
     private $conformite;
 
@@ -40,6 +42,11 @@ class Conformite
      */
     private $reponses;
 
+    /**
+     * @var string
+     */
+    private $pilote;
+
     public function __construct()
     {
         $this->id                = Uuid::uuid4();
@@ -52,12 +59,12 @@ class Conformite
         return $this->id;
     }
 
-    public function getConformite(): ?int
+    public function getConformite(): ?float
     {
         return $this->conformite;
     }
 
-    public function setConformite(?int $conformite): void
+    public function setConformite(?float $conformite): void
     {
         $this->conformite = $conformite;
     }
@@ -87,6 +94,14 @@ class Conformite
         return $this->actionProtections;
     }
 
+    public function getNonAppliedActionProtections()
+    {
+        return array_filter(\iterable_to_array($this->actionProtections),
+            function (Mesurement $action) {
+                return MesurementStatusDictionary::STATUS_NOT_APPLIED === $action->getStatus();
+            });
+    }
+
     public function setActionProtections(iterable $actionProtections): void
     {
         $this->actionProtections = $actionProtections;
@@ -112,5 +127,15 @@ class Conformite
     public function getReponses(): iterable
     {
         return $this->reponses;
+    }
+
+    public function getPilote(): string
+    {
+        return $this->pilote;
+    }
+
+    public function setPilote(string $pilote): void
+    {
+        $this->pilote = $pilote;
     }
 }

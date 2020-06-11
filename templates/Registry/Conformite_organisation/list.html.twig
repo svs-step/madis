@@ -32,6 +32,52 @@
         </div>
     </div>
 
+    {% if not is_granted('ROLE_ADMIN') %}
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid">
+                    <div class="box-body">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>{{ 'registry.conformite_organisation.list.pilote'|trans }}</th>
+                                <th>{{ 'registry.conformite_organisation.list.processus'|trans }}</th>
+                                <th>{{ 'registry.conformite_organisation.list.conformite'|trans }}</th>
+                                <th>{{ 'registry.conformite_organisation.list.action_protection'|trans }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if evaluations is not empty %}
+                                {% for conformite in getConformitesOrderedByPosition(evaluations|first) %}
+                                    <tr>
+                                        <td>{{ conformite.pilote }}</td>
+                                        <td>{{ conformite.processus.nom }}</td>
+                                        <td>
+                                            {% if conformite.conformite < 2.5 %}
+                                                <span class="label label-danger">{{ conformite.conformite }}</span>
+                                            {% elseif conformite.conformite < 3.5 %}
+                                                <span class="label label-warning">{{ conformite.conformite }}</span>
+                                            {% else %}
+                                                <span class="label label-success">{{ conformite.conformite }}</span>
+                                            {% endif %}
+
+                                        </td>
+                                        <td>
+                                            {% for action in conformite.NonAppliedActionProtections %}
+                                            {{ action.name }}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
@@ -39,17 +85,32 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>{{ 'registry.conformite_organisation.list.collectivite'|trans }}</th>
+                            {% endif %}
                             <th>{{ 'registry.conformite_organisation.list.date_creation'|trans }}</th>
                             <th>{{ 'registry.conformite_organisation.list.nb_participants'|trans }}</th>
                             <th>{{ 'registry.conformite_organisation.list.actions'|trans }}</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for object in objects %}
+                        {% for evaluation in evaluations %}
                             <tr>
-                                <td>{{ object.date|date('d/m/Y H:i') }}</td>
-                                <td>{{ object.participants|length }}</td>
-                                <td></td>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <td>{{ evaluation.organisation.name }}</td>
+                                {% endif %}
+                                <td>{{ evaluation.date|date('d/m/Y H:i') }}</td>
+                                <td>{{ evaluation.participants|length }}</td>
+                                <td>
+                                    <a href="{{ path('registry_conformite_organisation_edit', {'id': evaluation.id}) }}">
+                                        <i class="fa fa-eye"></i>
+                                        {{ 'registry.conformite_organisation.action.edit_conformite_organisation'|trans }}
+                                    </a>
+                                    <a href="{{ path('registry_conformite_organisation_delete', {'id': evaluation.id}) }}">
+                                        <i class="fa fa-eye"></i>
+                                        {{ 'registry.conformite_organisation.action.delete_conformite_organisation'|trans }}
+                                    </a>
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>

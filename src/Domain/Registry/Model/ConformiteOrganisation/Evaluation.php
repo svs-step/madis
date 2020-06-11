@@ -40,11 +40,6 @@ class Evaluation
      */
     private $conformites;
 
-    /**
-     * @var string
-     */
-    private $pilote;
-
     public function __construct()
     {
         $this->id           = Uuid::uuid4();
@@ -124,15 +119,5 @@ class Evaluation
     public function getConformites(): iterable
     {
         return $this->conformites;
-    }
-
-    public function getPilote(): string
-    {
-        return $this->pilote;
-    }
-
-    public function setPilote(string $pilote): void
-    {
-        $this->pilote = $pilote;
     }
 }

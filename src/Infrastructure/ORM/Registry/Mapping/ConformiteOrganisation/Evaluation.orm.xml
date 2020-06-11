@@ -12,9 +12,9 @@
 
         <field name="date" column="date" type="date" nullable="true"/>
         <field name="complete" column="complete" type="boolean"/>
-        <field name="pilote" column="pilote" nullable="true"/>
 
         <one-to-many field="participants" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Participant" mapped-by="evaluation"/>
+        <many-to-one field="organisation" target-entity="App\Domain\User\Model\Collectivity"/>
         <one-to-many field="conformites" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Conformite" mapped-by="evaluation">
             <cascade>
                 <cascade-persist/>

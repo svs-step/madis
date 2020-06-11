@@ -12,8 +12,12 @@ use App\Domain\Registry\Repository\ConformiteOrganisation as Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @property Repository\Evaluation $repository
+ */
 class ConformiteOrganisationController extends CRUDController
 {
     /**
@@ -36,6 +40,11 @@ class ConformiteOrganisationController extends CRUDController
      */
     private $userProvider;
 
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authorizationChecker;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -43,13 +52,15 @@ class ConformiteOrganisationController extends CRUDController
         Repository\Question $questionRepository,
         Repository\Processus $processusRepository,
         Repository\Conformite $conformiteRepository,
-        UserProvider $userProvider)
+        UserProvider $userProvider,
+        AuthorizationCheckerInterface $authorizationChecker)
     {
         parent::__construct($entityManager, $translator, $repository);
         $this->questionRepository     = $questionRepository;
         $this->processusRepository    = $processusRepository;
         $this->conformiteRepository   = $conformiteRepository;
         $this->userProvider           = $userProvider;
+        $this->authorizationChecker   = $authorizationChecker;
     }
 
     public function createAction(Request $request): Response
@@ -86,6 +97,20 @@ class ConformiteOrganisationController extends CRUDController
 
         return $this->render($this->getTemplatingBasePath('create'), [
             'form'      => $form->createView(),
+        ]);
+    }
+
+    public function listAction(): Response
+    {
+        $isAdminView = $this->authorizationChecker->isGranted('ROLE_ADMIN');
+        if (!$isAdminView) {
+            $evaluations  = $this->repository->findAllByOrganisationOrderedByDate($this->userProvider->getAuthenticatedUser()->getCollectivity()->getId());
+        } else {
+            $evaluations  = $this->repository->findAllByOrganisationOrderedByDate();
+        }
+
+        return $this->render($this->getTemplatingBasePath('list'), [
+            'evaluations' => $evaluations,
         ]);
     }
 

@@ -140,6 +140,11 @@ class Collectivity
     private $hasModuleConformiteOrganisation;
 
     /**
+     * @var iterable
+     */
+    private $evaluations;
+
+    /**
      * Collectivity constructor.
      *
      * @throws \Exception
@@ -154,6 +159,7 @@ class Collectivity
         $this->differentItManager              = false;
         $this->hasModuleConformiteTraitement   = false;
         $this->hasModuleConformiteOrganisation = false;
+        $this->evaluations                     = [];
     }
 
     public function __toString(): string
@@ -382,5 +388,15 @@ class Collectivity
     public function setHasModuleConformiteOrganisation(bool $hasModuleConformiteOrganisation): void
     {
         $this->hasModuleConformiteOrganisation = $hasModuleConformiteOrganisation;
+    }
+
+    public function getEvaluations(): iterable
+    {
+        return $this->evaluations;
+    }
+
+    public function setEvaluations(iterable $evaluations): void
+    {
+        $this->evaluations = $evaluations;
     }
 }

@@ -10,7 +10,8 @@
 
         <id name="id" column="id" type="uuid"/>
 
-        <field name="conformite" column="conformite" type="integer" nullable="true"/>
+        <field name="conformite" column="conformite" type="float" nullable="true"/>
+        <field name="pilote" column="pilote" nullable="true"/>
 
         <many-to-one field="processus" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Processus"/>
         <many-to-many field="actionProtections" target-entity="App\Domain\Registry\Model\Mesurement" inversed-by="conformiteOrganisations">
@@ -19,6 +20,7 @@
                 <inverse-join-columns><join-column/></inverse-join-columns>
             </join-table>
         </many-to-many>
+        <many-to-one field="evaluation" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Evaluation" mapped-by="conformites"/>
         <one-to-many field="reponses" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Reponse" mapped-by="conformite">
             <cascade>
                 <cascade-persist/>

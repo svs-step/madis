@@ -557,6 +557,11 @@ registry:
             create: Créer une évaluation
             list: Lister les évaluations
         list:
+            collectivite: Nom de la collectivité
+            pilote: Pilote
+            processus: Processus
+            conformite: Conformité
+            action_protection: Action de protection
             date_creation: Date de création
             actions: Actions
             nb_participants: Nombre de participants
@@ -570,3 +575,6 @@ registry:
         flashbag:
             success:
                 create: Conformite de l'organisation "%object%" créée avec succès
+        action:
+            edit_conformite_organisation: Modifier
+            delete_conformite_organisation: Supprimer
