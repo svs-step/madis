@@ -4,6 +4,7 @@ namespace App\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Registry\Form\Type\ConformiteOrganisation\EvaluationPiloteType;
 use App\Domain\Registry\Form\Type\ConformiteOrganisation\EvaluationType;
 use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
 use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
@@ -100,17 +101,31 @@ class ConformiteOrganisationController extends CRUDController
         ]);
     }
 
-    public function listAction(): Response
+    public function listConformitesAction(Request $request): Response
     {
+        $form        = null;
         $isAdminView = $this->authorizationChecker->isGranted('ROLE_ADMIN');
         if (!$isAdminView) {
             $evaluations  = $this->repository->findAllByOrganisationOrderedByDate($this->userProvider->getAuthenticatedUser()->getCollectivity()->getId());
+            if (!empty($evaluations)) {
+                $form = $this->createForm(EvaluationPiloteType::class, $evaluations[0]);
+                $form->handleRequest($request);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->flush();
+
+                    $this->addFlash('success', $this->getFlashbagMessage('success', 'pilote', $evaluations[0]));
+
+                    return $this->redirectToRoute($this->getRouteName('list'));
+                }
+            }
         } else {
             $evaluations  = $this->repository->findAllByOrganisationOrderedByDate();
         }
 
         return $this->render($this->getTemplatingBasePath('list'), [
             'evaluations' => $evaluations,
+            'form'        => $form->createView(),
         ]);
     }
 
@@ -132,10 +147,5 @@ class ConformiteOrganisationController extends CRUDController
     protected function getFormType(): string
     {
         return EvaluationType::class;
-    }
-
-    protected function getListData()
-    {
-        return $this->repository->findAll();
     }
 }

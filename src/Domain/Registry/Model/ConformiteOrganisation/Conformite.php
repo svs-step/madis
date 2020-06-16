@@ -129,12 +129,12 @@ class Conformite
         return $this->reponses;
     }
 
-    public function getPilote(): string
+    public function getPilote(): ?string
     {
         return $this->pilote;
     }
 
-    public function setPilote(string $pilote): void
+    public function setPilote(?string $pilote): void
     {
         $this->pilote = $pilote;
     }

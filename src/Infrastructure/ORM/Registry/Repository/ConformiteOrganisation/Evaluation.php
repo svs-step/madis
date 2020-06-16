@@ -24,14 +24,19 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
                 ->setParameter('organisation_id', $idOrganisation);
         } else {
             $qBuilder
-                ->addSelect('')
+                ->addSelect('c')
                 ->leftJoin('o.organisation', 'c');
         }
 
-        return $qBuilder
+        $qBuilder
+            ->addSelect('conformites')
+            ->leftJoin('o.conformites', 'conformites')
             ->orderBy('o.date')
+            ;
+
+        return $qBuilder
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

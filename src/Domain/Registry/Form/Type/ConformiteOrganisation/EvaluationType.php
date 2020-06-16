@@ -32,7 +32,8 @@ class EvaluationType extends AbstractType
                 'allow_add'  => true,
             ])
             ->add('conformites', CollectionType::class, [
-                    'entry_type' => ConformiteType::class,
+                    'entry_type'   => ConformiteType::class,
+                    'by_reference' => false,
                 ]
             )
         ;

@@ -575,6 +575,7 @@ registry:
         flashbag:
             success:
                 create: Conformite de l'organisation "%object%" créée avec succès
+                pilote: Les pilotes ont été enregistrés avec succès
         action:
             edit_conformite_organisation: Modifier
             delete_conformite_organisation: Supprimer

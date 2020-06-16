@@ -2,6 +2,7 @@
 
 {% set bodyClass = 'registry_conformite_organisation list' %}
 {% set menuItem = 'registry_conformite_organisation' %}
+{% set submitValue = submitValue|default('action.save'|trans) %}
 
 {% block title %}{{ 'registry.conformite_organisation.title.list'|trans }} - {{ parent() }}{% endblock %}
 
@@ -21,6 +22,10 @@
 {% endblock %}
 
 {% block body %}
+
+    {% if not is_granted('ROLE_ADMIN') %}
+        {{ form_start(form) }}
+    {% endif %}
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
@@ -28,6 +33,7 @@
 {#                    <i class="fa fa-clipboard-list"></i>#}
 {#                    {{ 'registry.conformite_organisation.action.report'|trans }}#}
 {#                </a>#}
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>
         </div>
     </div>
@@ -48,27 +54,27 @@
                             </thead>
                             <tbody>
                             {% if evaluations is not empty %}
-                                {% for conformite in getConformitesOrderedByPosition(evaluations|first) %}
-                                    <tr>
-                                        <td>{{ conformite.pilote }}</td>
-                                        <td>{{ conformite.processus.nom }}</td>
-                                        <td>
-                                            {% if conformite.conformite < 2.5 %}
-                                                <span class="label label-danger">{{ conformite.conformite }}</span>
-                                            {% elseif conformite.conformite < 3.5 %}
-                                                <span class="label label-warning">{{ conformite.conformite }}</span>
-                                            {% else %}
-                                                <span class="label label-success">{{ conformite.conformite }}</span>
-                                            {% endif %}
-
-                                        </td>
-                                        <td>
-                                            {% for action in conformite.NonAppliedActionProtections %}
-                                            {{ action.name }}
-                                            {% endfor %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
+                                    {% for conformite in getConformitesWithProcessusAndQuestions(form.conformites) %}
+                                        {% set conformite = conformite[0] %}
+                                        <tr>
+                                            <td>{{ form_widget(conformite.pilote) }}</td>
+                                            <td>{{ conformite.vars.value.processus.nom }}</td>
+                                            <td>
+                                                {% if conformite.vars.value.conformite < 2.5 %}
+                                                    <span class="label label-danger">{{ conformite.vars.value.conformite }}</span>
+                                                {% elseif conformite.vars.value.conformite < 3.5 %}
+                                                    <span class="label label-warning">{{ conformite.vars.value.conformite }}</span>
+                                                {% else %}
+                                                    <span class="label label-success">{{ conformite.vars.value.conformite }}</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% for action in conformite.vars.value.NonAppliedActionProtections %}
+                                                {{ action.name }}
+                                                {% endfor %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
                             {% endif %}
                             </tbody>
                         </table>
@@ -76,6 +82,10 @@
                 </div>
             </div>
         </div>
+    {% endif %}
+
+    {% if not is_granted('ROLE_ADMIN') %}
+        {{ form_end(form) }}
     {% endif %}
 
     <div class="row">

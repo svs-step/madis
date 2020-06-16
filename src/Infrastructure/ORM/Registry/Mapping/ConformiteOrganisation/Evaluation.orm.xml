@@ -19,6 +19,11 @@
             <cascade>
                 <cascade-persist/>
             </cascade>
+            <!-- Added Order-by to always retrive processus in the same order to avoid issues while
+                 saving them in the ConformiteOrganisation list action -->
+            <order-by>
+                <order-by-field name="id"/>
+            </order-by>
         </one-to-many>
     </entity>
 

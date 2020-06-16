@@ -20,7 +20,7 @@
                 <inverse-join-columns><join-column/></inverse-join-columns>
             </join-table>
         </many-to-many>
-        <many-to-one field="evaluation" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Evaluation" mapped-by="conformites"/>
+        <many-to-one field="evaluation" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Evaluation"/>
         <one-to-many field="reponses" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Reponse" mapped-by="conformite">
             <cascade>
                 <cascade-persist/>

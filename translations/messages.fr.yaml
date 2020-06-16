@@ -17,6 +17,7 @@ action:
     reinitialize: Réinitialisation
     submit: Soumettre
     unarchive: Rétablir
+    save: Enregistrer
 
 label:
     actions: Actions

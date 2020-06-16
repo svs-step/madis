@@ -55,10 +55,10 @@ class ConformiteType extends AbstractType
                 ],
             ])
             ->add('reponses', CollectionType::class, [
+                    'required'   => false,
                     'entry_type' => ReponseType::class,
                 ]
-            )
-        ;
+            );
     }
 
     /**

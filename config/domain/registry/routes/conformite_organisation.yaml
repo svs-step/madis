@@ -1,7 +1,7 @@
 registry_conformite_organisation_list:
   path: '/liste'
-  methods: ['GET']
-  controller: 'App\Domain\Registry\Controller\ConformiteOrganisationController::listAction'
+  methods: ['GET', 'POST']
+  controller: 'App\Domain\Registry\Controller\ConformiteOrganisationController::listConformitesAction'
 
 registry_conformite_organisation_create:
   path: '/creer'
