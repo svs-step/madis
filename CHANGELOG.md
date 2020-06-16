@@ -1,12 +1,15 @@
 CHANGELOG
 =========
 
-## [UNRELEASED]
+## [1.7.3] - 2020-10-06
+### Ajout
+- [MA COLLECTIVITE] Comité IL afficher dans le bilan, #258
+- [BILAN] Ajout de paragraphes, #257
+- [DASHBOARD] Cartographie, stats, export csv traitement, export csv collectivité, #255
+- [DASHBOARD] Nombre de collectivités (par type)(par DPO), #225
 ### Changement
-- [TECHNIQUE] Mise à jour Symfony en version v4.4.4 et des dépendances de librairies
-### Fix
-- [PLAN D'ACTION] Correction du tri par date, #245
-- [MATURITE] Correction du tri par date, #245
+- [SOUS-TRAITANT] Fiche sous-traitants - traitements effectués par sous-traitant, #260
+- [TRAITEMENTS] Fiche Traitements - Précision des personnes concernées, #259
 
 ## [1.6.3] - 2019-12-03
 ### Changement
