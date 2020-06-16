@@ -28,7 +28,7 @@ class ParticipantType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
-            ->add('civility', DictionaryType::class, [
+            ->add('civilite', DictionaryType::class, [
                 'label'    => 'user.contact.form.civility',
                 'required' => true,
                 'name'     => 'user_contact_civility',

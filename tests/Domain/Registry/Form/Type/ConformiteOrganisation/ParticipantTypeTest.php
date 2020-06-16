@@ -22,7 +22,7 @@ class ParticipantTypeTest extends FormTypeHelper
         $builder = [
             'prenom'       => TextType::class,
             'nomDeFamille' => TextType::class,
-            'civility'     => DictionaryType::class,
+            'civilite'     => DictionaryType::class,
             'fonction'     => TextType::class,
         ];
 

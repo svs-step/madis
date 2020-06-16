@@ -28,8 +28,9 @@ class EvaluationType extends AbstractType
                 ],
             ])
             ->add('participants', CollectionType::class, [
-                'entry_type' => ParticipantType::class,
-                'allow_add'  => true,
+                'entry_type'   => ParticipantType::class,
+                'allow_add'    => true,
+                'by_reference' => false,
             ])
             ->add('conformites', CollectionType::class, [
                     'entry_type'   => ConformiteType::class,

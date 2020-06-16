@@ -23,7 +23,7 @@ class Participant
     private $nomDeFamille;
 
     /**
-     * @var int
+     * @var string
      */
     private $civilite;
 
@@ -47,7 +47,7 @@ class Participant
         return $this->id;
     }
 
-    public function getPrenom(): string
+    public function getPrenom(): ?string
     {
         return $this->prenom;
     }
@@ -57,7 +57,7 @@ class Participant
         $this->prenom = $prenom;
     }
 
-    public function getNomDeFamille(): string
+    public function getNomDeFamille(): ?string
     {
         return $this->nomDeFamille;
     }
@@ -67,17 +67,17 @@ class Participant
         $this->nomDeFamille = $nomDeFamille;
     }
 
-    public function getCivilite(): int
+    public function getCivilite(): ?string
     {
         return $this->civilite;
     }
 
-    public function setCivilite(int $civilite): void
+    public function setCivilite(string $civilite): void
     {
         $this->civilite = $civilite;
     }
 
-    public function getFonction(): string
+    public function getFonction(): ?string
     {
         return $this->fonction;
     }

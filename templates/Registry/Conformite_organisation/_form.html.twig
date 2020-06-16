@@ -1,4 +1,15 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
+{% import _self as formMacros %}
+
+{% macro printParticipant(participant) %}
+    <div class="js-collection-item">
+        <a href="#" class="js-remove-item pull-right">
+            <i class="fa fa-times" style="color:#ff746d;"></i>
+        </a>
+        {{ form_errors(participant) }}
+        {{ form_widget(participant) }}
+    </div>
+{% endmacro %}
 
 {{ form_start(form) }}
 
@@ -6,8 +17,8 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a href="{{ path('registry_mesurement_list') }}" class="btn btn-default">
-                    {{ 'registry.mesurement.action.back_to_list'|trans }}
+                <a href="{{ path('registry_conformite_organisation_list') }}" class="btn btn-default">
+                    {{ 'registry.conformite_organisation.action.back_to_list'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>
@@ -16,11 +27,26 @@
 </div>
 
 <div class="row">
-
+    <div class="col-md-6">
+        {{ form_row(form.date) }}
+    </div>
+    <div class="col-md-6">
+        <div class="js-collection-wrapper"
+             data-prototype="{{ formMacros.printParticipant(form.participants.vars.prototype)|e('html_attr') }}"
+             data-index="{{ form.participants|length }}"
+        >
+            {% for participant in form.participants %}
+                {{ formMacros.printParticipant(participant) }}
+            {% endfor %}
+            <a href="#" class="js-collection-add">
+                <span class="fa fa-plus-circle"></span>
+                {{ 'registry.conformite_organisation.participant.form.add'|trans }}
+            </a>
+        </div>
+        {{ form_row(form.participants) }}
+    </div>
 </div>
 
-{{ form_row(form.date) }}
-{{ form_row(form.participants) }}
 {% include 'Registry/Conformite_organisation/_form_conformites.html.twig' with {'form': form.conformites} %}
 
 {{ form_end(form) }}

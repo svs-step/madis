@@ -68,9 +68,21 @@ class Evaluation
         return $this->participants;
     }
 
-    public function setParticipants(iterable $participants): void
+    public function addParticipant(Participant $participant): void
     {
-        $this->participants = $participants;
+        $this->participants[] = $participant;
+        $participant->setEvaluation($this);
+    }
+
+    public function removeParticipant(Participant $participant)
+    {
+        $key = \array_search($participant, $this->conformites, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->participants[$key]);
     }
 
     public function isComplete(): bool

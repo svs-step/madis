@@ -555,6 +555,7 @@ registry:
     conformite_organisation:
         title:
             create: Créer une évaluation
+            edit: Modifier une évaluation
             list: Lister les évaluations
         list:
             collectivite: Nom de la collectivité
@@ -572,10 +573,13 @@ registry:
                 prenom: Prénom
                 nom_famille: Nom de famille
                 fonction: Fonction
+                add: Ajouter un participant
         flashbag:
             success:
                 create: Conformite de l'organisation "%object%" créée avec succès
                 pilote: Les pilotes ont été enregistrés avec succès
         action:
+            create: Nouvelle évaluation de l'organisation
+            back_to_list: Retour à la liste
             edit_conformite_organisation: Modifier
             delete_conformite_organisation: Supprimer

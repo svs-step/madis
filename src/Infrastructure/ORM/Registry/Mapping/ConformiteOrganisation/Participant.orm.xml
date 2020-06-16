@@ -10,9 +10,9 @@
 
         <id name="id" column="id" type="uuid"/>
 
-        <field name="prenom" column="prenom" type="date" nullable="true"/>
+        <field name="prenom" column="prenom" nullable="true"/>
         <field name="nomDeFamille" column="nom_de_famille" nullable="true"/>
-        <field name="civilite" column="civilite" type="integer" nullable="true"/>
+        <field name="civilite" column="civilite" nullable="true"/>
         <field name="fonction" column="fonction" nullable="true"/>
 
         <many-to-one field="evaluation" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Evaluation"/>

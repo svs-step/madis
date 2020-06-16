@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'registry_conformite_organisation form create' %}
-{% set menuItem = 'registry_conformite_organisation' %}
+{% set bodyClass = 'registry_conformite_traitement form edit' %}
+{% set menuItem = 'registry_conformite_traitement' %}
 
-{% block title %}{{ 'registry.conformite_organisation.title.create'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'registry.conformite_traitement.title.edit'|trans }} - {{ parent() }}{% endblock %}
 
 {% block body_head %}
     <h1>
-        {{ 'registry.conformite_organisation.title.create'|trans }}
+        {{ 'registry.conformite_organisation.title.edit'|trans }}
         <small>{{ form.vars.value }}</small>
     </h1>
 {% endblock %}
