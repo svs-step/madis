@@ -91,6 +91,9 @@
             <join-column on-delete="SET NULL" />
         </many-to-one>
         <one-to-one field="conformiteTraitement" target-entity="App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement" mapped-by="traitement">
+            <cascade>
+                <cascade-remove/>
+            </cascade>
             <join-column nullable="true"/>
         </one-to-one>
 
