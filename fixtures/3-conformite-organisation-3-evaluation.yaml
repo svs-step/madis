@@ -2,5 +2,5 @@ App\Domain\Registry\Model\ConformiteOrganisation\Evaluation:
   evaluation_1:
     date: <(new \DateTime('+15 days'))>
     complete: false
-    organisation: '@user_collectivity_awkan'
+    collectivity: '@user_collectivity_awkan'
 

@@ -13,6 +13,7 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -65,6 +66,11 @@ class ConformiteOrganisationControllerTest extends TestCase
      */
     private $authorisationChecker;
 
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
+
     public function setUp()
     {
         $this->entityManager        = $this->prophesize(EntityManager::class);
@@ -75,6 +81,7 @@ class ConformiteOrganisationControllerTest extends TestCase
         $this->conformiteRepository = $this->prophesize(Conformite::class);
         $this->userProvider         = $this->prophesize(UserProvider::class);
         $this->authorisationChecker = $this->prophesize(AuthorizationCheckerInterface::class);
+        $this->dispatcher           = $this->prophesize(EventDispatcherInterface::class);
         $this->controller           = new ConformiteOrganisationController(
             $this->entityManager->reveal(),
             $this->translator->reveal(),
@@ -84,6 +91,7 @@ class ConformiteOrganisationControllerTest extends TestCase
             $this->conformiteRepository->reveal(),
             $this->userProvider->reveal(),
             $this->authorisationChecker->reveal(),
+            $this->dispatcher->reveal()
         );
     }
 

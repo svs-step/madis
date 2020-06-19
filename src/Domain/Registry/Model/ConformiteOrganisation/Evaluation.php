@@ -2,12 +2,14 @@
 
 namespace App\Domain\Registry\Model\ConformiteOrganisation;
 
-use App\Domain\User\Model\Collectivity;
+use App\Application\Traits\Model\CollectivityTrait;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class Evaluation
 {
+    use CollectivityTrait;
+
     /**
      * @var UuidInterface
      */
@@ -29,11 +31,6 @@ class Evaluation
      * @var bool
      */
     private $complete;
-
-    /**
-     * @var Collectivity
-     */
-    private $organisation;
 
     /**
      * @var iterable
@@ -95,20 +92,10 @@ class Evaluation
         $this->complete = $complete;
     }
 
-    public function getOrganisation(): Collectivity
-    {
-        return $this->organisation;
-    }
-
-    public function setOrganisation(Collectivity $organisation): void
-    {
-        $this->organisation = $organisation;
-    }
-
     public function __toString()
     {
         // TODO TMP toString
-        return $this->organisation->getName();
+        return $this->collectivity->getName();
     }
 
     public function addConformite(Conformite $conformite): void

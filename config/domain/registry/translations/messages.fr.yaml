@@ -576,8 +576,9 @@ registry:
                 add: Ajouter un participant
         flashbag:
             success:
-                create: Conformite de l'organisation "%object%" créée avec succès
+                create: Conformité de l'organisation "%object%" créée avec succès
                 pilote: Les pilotes ont été enregistrés avec succès
+                edit: Conformité de l'organisation "%object%" éditée avec succès
         action:
             create: Nouvelle évaluation de l'organisation
             back_to_list: Retour à la liste

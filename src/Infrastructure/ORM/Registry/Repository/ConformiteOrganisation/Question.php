@@ -24,4 +24,26 @@ class Question extends CRUDRepository implements Repository\ConformiteOrganisati
             ->getResult()
         ;
     }
+
+    public function findNewNotUsedByGivenConformite(Model\Conformite $conformite)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->andWhere('o.processus = :processus');
+        $qb->setParameter('processus', $conformite->getProcessus());
+        if (!empty($conformite->getReponses())) {
+            $qb->andWhere($qb->expr()->notIn('o.id', ':questions'))
+                ->setParameter(
+                    'questions',
+                    array_map(function (Model\Reponse $reponse) {
+                        return $reponse->getQuestion()->getId()->toString();
+                    }, \iterable_to_array($conformite->getReponses()))
+                )
+            ;
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

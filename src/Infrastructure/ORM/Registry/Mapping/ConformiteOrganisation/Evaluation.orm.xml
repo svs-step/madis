@@ -18,7 +18,7 @@
                 <cascade-persist/>
             </cascade>
         </one-to-many>
-        <many-to-one field="organisation" target-entity="App\Domain\User\Model\Collectivity"/>
+        <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity"/>
         <one-to-many field="conformites" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Conformite" mapped-by="evaluation">
             <cascade>
                 <cascade-persist/>

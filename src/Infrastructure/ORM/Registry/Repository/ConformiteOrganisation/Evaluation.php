@@ -20,12 +20,12 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
         ;
         if (null !== $idOrganisation) {
             $qBuilder
-                ->andWhere('o.organisation = :organisation_id')
+                ->andWhere('o.collectivity = :organisation_id')
                 ->setParameter('organisation_id', $idOrganisation);
         } else {
             $qBuilder
                 ->addSelect('c')
-                ->leftJoin('o.organisation', 'c');
+                ->leftJoin('o.collectivity', 'c');
         }
 
         $qBuilder

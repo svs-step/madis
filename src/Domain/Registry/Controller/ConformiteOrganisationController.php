@@ -10,9 +10,12 @@ use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
 use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
 use App\Domain\Registry\Model\ConformiteOrganisation\Reponse;
 use App\Domain\Registry\Repository\ConformiteOrganisation as Repository;
+use App\Domain\Registry\Symfony\EventSubscriber\Event\ConformiteOrganisationEvent;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -46,6 +49,11 @@ class ConformiteOrganisationController extends CRUDController
      */
     private $authorizationChecker;
 
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -54,14 +62,16 @@ class ConformiteOrganisationController extends CRUDController
         Repository\Processus $processusRepository,
         Repository\Conformite $conformiteRepository,
         UserProvider $userProvider,
-        AuthorizationCheckerInterface $authorizationChecker)
-    {
+        AuthorizationCheckerInterface $authorizationChecker,
+        EventDispatcherInterface $dispatcher
+    ) {
         parent::__construct($entityManager, $translator, $repository);
         $this->questionRepository     = $questionRepository;
         $this->processusRepository    = $processusRepository;
         $this->conformiteRepository   = $conformiteRepository;
         $this->userProvider           = $userProvider;
         $this->authorizationChecker   = $authorizationChecker;
+        $this->dispatcher             = $dispatcher;
     }
 
     public function createAction(Request $request): Response
@@ -69,7 +79,7 @@ class ConformiteOrganisationController extends CRUDController
         $evaluation     = new Evaluation();
 
         $organisation = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-        $evaluation->setOrganisation($organisation);
+        $evaluation->setCollectivity($organisation);
 
         foreach ($this->processusRepository->findAll() as $processus) {
             $conformite = new Conformite();
@@ -126,6 +136,48 @@ class ConformiteOrganisationController extends CRUDController
         return $this->render($this->getTemplatingBasePath('list'), [
             'evaluations' => $evaluations,
             'form'        => $form->createView(),
+        ]);
+    }
+
+    public function editAction(Request $request, string $id): Response
+    {
+        /** @var Evaluation $evaluation */
+        $evaluation = $this->repository->findOneById($id);
+        if (!$evaluation) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        foreach ($this->processusRepository->findNewNotUsedInGivenConformite($evaluation) as $processus) {
+            $conformite = new Conformite();
+            $conformite->setProcessus($processus);
+            $evaluation->addConformite($conformite);
+        }
+
+        foreach ($evaluation->getConformites() as $conformite) {
+            foreach ($this->questionRepository->findNewNotUsedByGivenConformite($conformite) as $question) {
+                $reponse = new Reponse();
+                $reponse->setQuestion($question);
+                $conformite->addReponse($reponse);
+            }
+        }
+
+        $form = $this->createForm($this->getFormType(), $evaluation);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->formPrePersistData($evaluation);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $evaluation));
+
+            dump($this->dispatcher);
+            $this->dispatcher->dispatch(new ConformiteOrganisationEvent($evaluation));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('edit'), [
+            'form' => $form->createView(),
         ]);
     }
 

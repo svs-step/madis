@@ -39,4 +39,22 @@ class Processus extends CRUDRepository implements Repository\Processus
             ->getOneOrNullResult()
             ;
     }
+
+    public function findNewNotUsedInGivenConformite(Model\Evaluation $evaluation)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->andWhere($qb->expr()->notIn('o.id', ':processus'))
+            ->setParameter(
+                'processus',
+                array_map(function (Model\Conformite $conformite) {
+                    return $conformite->getProcessus()->getId()->toString();
+                }, \iterable_to_array($evaluation->getConformites()))
+            )
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
