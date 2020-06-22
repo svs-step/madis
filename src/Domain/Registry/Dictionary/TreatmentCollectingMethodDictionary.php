@@ -50,7 +50,7 @@ class TreatmentCollectingMethodDictionary extends SimpleDictionary
             self::METHOD_WEB_FORM          => 'Formulaire web',
             self::METHOD_PAPER_FORM        => 'Formulaire papier',
             self::METHOD_CONTRACT          => 'Contrat',
-            self::METHOD_RECEIVED_LIST     => 'Liste reçu',
+            self::METHOD_RECEIVED_LIST     => 'Liste reçue',
             self::METHOD_INTERNAL_DOCUMENT => 'Document interne',
         ];
     }
