@@ -582,5 +582,7 @@ registry:
         action:
             create: Nouvelle évaluation de l'organisation
             back_to_list: Retour à la liste
-            edit_conformite_organisation: Modifier
-            delete_conformite_organisation: Supprimer
+            edit: Modifier
+            delete: Supprimer
+            report: Générer une impression
+            print: Imprimer

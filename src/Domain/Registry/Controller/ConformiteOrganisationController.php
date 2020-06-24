@@ -11,6 +11,7 @@ use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
 use App\Domain\Registry\Model\ConformiteOrganisation\Reponse;
 use App\Domain\Registry\Repository\ConformiteOrganisation as Repository;
 use App\Domain\Registry\Symfony\EventSubscriber\Event\ConformiteOrganisationEvent;
+use App\Domain\Reporting\Handler\WordHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,6 +55,11 @@ class ConformiteOrganisationController extends CRUDController
      */
     private $dispatcher;
 
+    /**
+     * @var WordHandler
+     */
+    private $wordHandler;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -63,7 +69,8 @@ class ConformiteOrganisationController extends CRUDController
         Repository\Conformite $conformiteRepository,
         UserProvider $userProvider,
         AuthorizationCheckerInterface $authorizationChecker,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        WordHandler $wordHandler
     ) {
         parent::__construct($entityManager, $translator, $repository);
         $this->questionRepository     = $questionRepository;
@@ -72,6 +79,7 @@ class ConformiteOrganisationController extends CRUDController
         $this->userProvider           = $userProvider;
         $this->authorizationChecker   = $authorizationChecker;
         $this->dispatcher             = $dispatcher;
+        $this->wordHandler            = $wordHandler;
     }
 
     public function createAction(Request $request): Response
@@ -170,7 +178,6 @@ class ConformiteOrganisationController extends CRUDController
 
             $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $evaluation));
 
-            dump($this->dispatcher);
             $this->dispatcher->dispatch(new ConformiteOrganisationEvent($evaluation));
 
             return $this->redirectToRoute($this->getRouteName('list'));
@@ -179,6 +186,16 @@ class ConformiteOrganisationController extends CRUDController
         return $this->render($this->getTemplatingBasePath('edit'), [
             'form' => $form->createView(),
         ]);
+    }
+
+    public function reportAction(string $id)
+    {
+        $evaluation = $this->repository->findOneById($id);
+        if (!$evaluation) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        return $this->wordHandler->generateRegistryConformiteOrganisationReport($evaluation);
     }
 
     protected function getDomain(): string

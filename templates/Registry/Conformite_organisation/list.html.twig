@@ -29,11 +29,15 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-{#                <a href="{{ path('registry_conformite_organisation_report') }}" class="btn btn-default">#}
-{#                    <i class="fa fa-clipboard-list"></i>#}
-{#                    {{ 'registry.conformite_organisation.action.report'|trans }}#}
-{#                </a>#}
-                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                {% if evaluations is not empty %}
+                    <a href="{{ path('registry_conformite_organisation_report', {'id': evaluations[0].id}) }}" class="btn btn-default">
+                        <i class="fa fa-clipboard-list"></i>
+                        {{ 'registry.conformite_organisation.action.report'|trans }}
+                    </a>
+                {% endif %}
+                {% if not is_granted('ROLE_ADMIN') %}
+                    <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                {% endif %}
             </div>
         </div>
     </div>
@@ -123,13 +127,17 @@
                                 <td>{{ evaluation.date|date('d/m/Y H:i') }}</td>
                                 <td>{{ evaluation.participants|length }}</td>
                                 <td>
+                                    <a href="{{ path('registry_conformite_organisation_report', {'id': evaluation.id}) }}">
+                                        <i class="fa fa-eye"></i>
+                                        {{ 'registry.conformite_organisation.action.print'|trans }}
+                                    </a>
                                     <a href="{{ path('registry_conformite_organisation_edit', {'id': evaluation.id}) }}">
                                         <i class="fa fa-eye"></i>
-                                        {{ 'registry.conformite_organisation.action.edit_conformite_organisation'|trans }}
+                                        {{ 'registry.conformite_organisation.action.edit'|trans }}
                                     </a>
                                     <a href="{{ path('registry_conformite_organisation_delete', {'id': evaluation.id}) }}">
                                         <i class="fa fa-eye"></i>
-                                        {{ 'registry.conformite_organisation.action.delete_conformite_organisation'|trans }}
+                                        {{ 'registry.conformite_organisation.action.delete'|trans }}
                                     </a>
                                 </td>
                             </tr>

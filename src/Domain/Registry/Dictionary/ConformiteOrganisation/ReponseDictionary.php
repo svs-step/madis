@@ -31,4 +31,9 @@ class ReponseDictionary extends SimpleDictionary
             self::REVISEE        => 'Révisée',
         ];
     }
+
+    public static function getReponseLabelFromKey(string $key)
+    {
+        return self::getReponses()[$key];
+    }
 }

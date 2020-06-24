@@ -9,6 +9,7 @@ use App\Domain\Registry\Repository\ConformiteOrganisation\Conformite;
 use App\Domain\Registry\Repository\ConformiteOrganisation\Evaluation;
 use App\Domain\Registry\Repository\ConformiteOrganisation\Processus;
 use App\Domain\Registry\Repository\ConformiteOrganisation\Question;
+use App\Domain\Reporting\Handler\WordHandler;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
@@ -67,9 +68,14 @@ class ConformiteOrganisationControllerTest extends TestCase
     private $authorisationChecker;
 
     /**
-     * @var EventDispatcherInterface
+     * @var EventDispatcherInterface|ObjectProphecy
      */
     private $dispatcher;
+
+    /**
+     * @var WordHandler|ObjectProphecy
+     */
+    private $wordHandler;
 
     public function setUp()
     {
@@ -82,6 +88,7 @@ class ConformiteOrganisationControllerTest extends TestCase
         $this->userProvider         = $this->prophesize(UserProvider::class);
         $this->authorisationChecker = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->dispatcher           = $this->prophesize(EventDispatcherInterface::class);
+        $this->wordHandler          = $this->prophesize(WordHandler::class);
         $this->controller           = new ConformiteOrganisationController(
             $this->entityManager->reveal(),
             $this->translator->reveal(),
@@ -91,7 +98,8 @@ class ConformiteOrganisationControllerTest extends TestCase
             $this->conformiteRepository->reveal(),
             $this->userProvider->reveal(),
             $this->authorisationChecker->reveal(),
-            $this->dispatcher->reveal()
+            $this->dispatcher->reveal(),
+            $this->wordHandler->reveal(),
         );
     }
 
