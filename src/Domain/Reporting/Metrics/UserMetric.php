@@ -159,29 +159,27 @@ class UserMetric implements MetricInterface
             ],
         ];
 
-        $conformiteTraitements = $this->conformiteTraitementRepository->findAllByCollectivity(
-            $this->userProvider->getAuthenticatedUser()->getCollectivity()
-        );
+        $collectivty = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+
+        $conformiteTraitements = $this->conformiteTraitementRepository->findAllByCollectivity($collectivty);
 
         $contractors = $this->entityManager->getRepository(Model\Contractor::class)->findBy(
-            ['collectivity' => $this->userProvider->getAuthenticatedUser()->getCollectivity()]
+            ['collectivity' => $collectivty]
         );
         $maturity = $this->entityManager->getRepository(Survey::class)->findBy(
-            ['collectivity' => $this->userProvider->getAuthenticatedUser()->getCollectivity()],
+            ['collectivity' => $collectivty],
             ['createdAt' => 'DESC'],
             2
         );
         $mesurements = $this->entityManager->getRepository(Model\Mesurement::class)->findBy(
-            ['collectivity' => $this->userProvider->getAuthenticatedUser()->getCollectivity()]
+            ['collectivity' => $collectivty]
         );
-        $requests = $this->requestRepository->findAllByCollectivity(
-            $this->userProvider->getAuthenticatedUser()->getCollectivity()
-        );
+        $requests   = $this->requestRepository->findAllByCollectivity($collectivty);
         $treatments = $this->entityManager->getRepository(Model\Treatment::class)->findBy(
-            ['collectivity' => $this->userProvider->getAuthenticatedUser()->getCollectivity()]
+            ['collectivity' => $collectivty]
         );
         $violations = $this->entityManager->getRepository(Model\Violation::class)->findBy(
-            ['collectivity' => $this->userProvider->getAuthenticatedUser()->getCollectivity()]
+            ['collectivity' => $collectivty]
         );
 
         // =========================
@@ -325,22 +323,24 @@ class UserMetric implements MetricInterface
         $data['violation']['value']['all'] = \count($violations);
 
         //CONFORMITE TRAITEMENT
-        foreach (ConformiteTraitementLevelDictionary::getConformites() as $key => $label) {
-            $data['conformiteTraitement']['data'][$key] = 0;
-            $data['conformiteTraitement']['labels'][]   = $label;
-            $data['conformiteTraitement']['colors'][]   = ConformiteTraitementLevelDictionary::getRgbConformitesColorsForChartView()[$key];
-        }
+        if ($collectivty->isHasModuleConformiteTraitement()) {
+            foreach (ConformiteTraitementLevelDictionary::getConformites() as $key => $label) {
+                $data['conformiteTraitement']['data'][$key] = 0;
+                $data['conformiteTraitement']['labels'][]   = $label;
+                $data['conformiteTraitement']['colors'][]   = ConformiteTraitementLevelDictionary::getRgbConformitesColorsForChartView()[$key];
+            }
 
-        foreach ($conformiteTraitements as $conformiteTraitement) {
-            $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);
-            ++$data['conformiteTraitement']['data'][$level];
-        }
+            foreach ($conformiteTraitements as $conformiteTraitement) {
+                $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);
+                ++$data['conformiteTraitement']['data'][$level];
+            }
 
-        //reset data if all values equal zéro. Need to hide the chart.
-        if (empty(array_filter($data['conformiteTraitement']['data']))) {
-            $data['conformiteTraitement']['data'] = [];
-        } else {
-            $data['conformiteTraitement']['data'] = \array_values($data['conformiteTraitement']['data']);
+            //reset data if all values equal zéro. Need to hide the chart.
+            if (empty(array_filter($data['conformiteTraitement']['data']))) {
+                $data['conformiteTraitement']['data'] = [];
+            } else {
+                $data['conformiteTraitement']['data'] = \array_values($data['conformiteTraitement']['data']);
+            }
         }
 
         return $data;

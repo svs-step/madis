@@ -167,21 +167,25 @@
         </div>
     </div>
 
+    {% if app.user.collectivity.hasModuleConformiteTraitement == true %}
     <div class="row">
         {# DETAIL : CONFORMITE TRAITEMENT #}
-        <div class="col-md-6 col-xs-12">
-            <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">Conformité des traitements</h3></div>
-                <div class="box-body">
-                    {% if data.conformiteTraitement.data is empty %}
-                        Aucune donnée à afficher
-                    {% else %}
-                        <canvas id="conformiteTraitement-pie"></canvas>
-                    {% endif %}
+        {% if app.user.collectivity.hasModuleConformiteTraitement == true %}
+            <div class="col-md-6 col-xs-12">
+                <div class="box box-solid">
+                    <div class="box-header with-border"><h3 class="box-title">Conformité des traitements</h3></div>
+                    <div class="box-body">
+                        {% if data.conformiteTraitement.data is empty %}
+                            Aucune donnée à afficher
+                        {% else %}
+                            <canvas id="conformiteTraitement-pie"></canvas>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </div>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
