@@ -30,6 +30,7 @@ use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
+use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
 use Doctrine\Common\Inflector\Inflector;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -46,6 +47,11 @@ class UserMetric implements MetricInterface
     private $conformiteTraitementRepository;
 
     /**
+     * @var Evaluation
+     */
+    private $evaluationRepository;
+
+    /**
      * @var Repository\Request
      */
     private $requestRepository;
@@ -59,17 +65,21 @@ class UserMetric implements MetricInterface
         EntityManagerInterface $entityManager,
         Repository\ConformiteTraitement\ConformiteTraitement $conformiteTraitementRepository,
         Repository\Request $requestRepository,
-        UserProvider $userProvider
+        UserProvider $userProvider,
+        Evaluation $evaluationRepository
     ) {
         $this->entityManager                  = $entityManager;
         $this->conformiteTraitementRepository = $conformiteTraitementRepository;
         $this->requestRepository              = $requestRepository;
         $this->userProvider                   = $userProvider;
+        $this->evaluationRepository           = $evaluationRepository;
     }
 
     public function getData(): array
     {
         $data = [
+            'conformiteOrganisation' => [
+            ],
             'conformiteTraitement' => [
                 'data'   => [],
                 'labels' => [],
@@ -159,27 +169,29 @@ class UserMetric implements MetricInterface
             ],
         ];
 
-        $collectivty = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+        $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
 
-        $conformiteTraitements = $this->conformiteTraitementRepository->findAllByCollectivity($collectivty);
+        $conformiteOrganisationEvaluation = $this->evaluationRepository->findLastByOrganisation($collectivity);
+
+        $conformiteTraitements = $this->conformiteTraitementRepository->findAllByCollectivity($collectivity);
 
         $contractors = $this->entityManager->getRepository(Model\Contractor::class)->findBy(
-            ['collectivity' => $collectivty]
+            ['collectivity' => $collectivity]
         );
         $maturity = $this->entityManager->getRepository(Survey::class)->findBy(
-            ['collectivity' => $collectivty],
+            ['collectivity' => $collectivity],
             ['createdAt' => 'DESC'],
             2
         );
         $mesurements = $this->entityManager->getRepository(Model\Mesurement::class)->findBy(
-            ['collectivity' => $collectivty]
+            ['collectivity' => $collectivity]
         );
-        $requests   = $this->requestRepository->findAllByCollectivity($collectivty);
+        $requests   = $this->requestRepository->findAllByCollectivity($collectivity);
         $treatments = $this->entityManager->getRepository(Model\Treatment::class)->findBy(
-            ['collectivity' => $collectivty]
+            ['collectivity' => $collectivity]
         );
         $violations = $this->entityManager->getRepository(Model\Violation::class)->findBy(
-            ['collectivity' => $collectivty]
+            ['collectivity' => $collectivity]
         );
 
         // =========================
@@ -323,7 +335,7 @@ class UserMetric implements MetricInterface
         $data['violation']['value']['all'] = \count($violations);
 
         //CONFORMITE TRAITEMENT
-        if ($collectivty->isHasModuleConformiteTraitement()) {
+        if ($collectivity->isHasModuleConformiteTraitement()) {
             foreach (ConformiteTraitementLevelDictionary::getConformites() as $key => $label) {
                 $data['conformiteTraitement']['data'][$key] = 0;
                 $data['conformiteTraitement']['labels'][]   = $label;
@@ -340,6 +352,18 @@ class UserMetric implements MetricInterface
                 $data['conformiteTraitement']['data'] = [];
             } else {
                 $data['conformiteTraitement']['data'] = \array_values($data['conformiteTraitement']['data']);
+            }
+        }
+
+        if ($collectivity->isHasModuleConformiteOrganisation() && null !== $conformiteOrganisationEvaluation) {
+            $conformites = $conformiteOrganisationEvaluation->getConformites()->toArray();
+            usort($conformites, function ($a, $b) {
+                return $a->getProcessus()->getPosition() > $b->getProcessus()->getPosition() ? 1 : -1;
+            });
+
+            foreach ($conformites as $conformite) {
+                $data['conformiteOrganisation'][$conformite->getProcessus()->getPosition()]['processus']  = $conformite->getProcessus()->getNom();
+                $data['conformiteOrganisation'][$conformite->getProcessus()->getPosition()]['conformite'] = $conformite->getConformite();
             }
         }
 

@@ -136,6 +136,7 @@ class ConformiteOrganisationController extends CRUDController
 
                     return $this->redirectToRoute($this->getRouteName('list'));
                 }
+                $form = $form->createView();
             }
         } else {
             $evaluations  = $this->repository->findAllByOrganisationOrderedByDate();
@@ -143,7 +144,7 @@ class ConformiteOrganisationController extends CRUDController
 
         return $this->render($this->getTemplatingBasePath('list'), [
             'evaluations' => $evaluations,
-            'form'        => $form->createView(),
+            'form'        => $form,
         ]);
     }
 

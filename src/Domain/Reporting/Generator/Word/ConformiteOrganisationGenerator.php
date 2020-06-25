@@ -7,6 +7,7 @@ use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
 use App\Domain\Registry\Model\ConformiteOrganisation\Reponse;
 use App\Domain\User\Dictionary\ContactCivilityDictionary;
 use PhpOffice\PhpWord\Element\Section;
+use PhpOffice\PhpWord\Shared\Converter;
 
 class ConformiteOrganisationGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
@@ -14,21 +15,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
     {
         $section->addTitle('Liste des processus', 1);
 
-        $tableData = [
-            [
-                'Pilote',
-                'Processus',
-                'Conformité',
-            ],
-        ];
-
-        foreach ($data as $conformite) {
-            $tableData[] = [
-                $conformite->getPilote(),
-                $conformite->getProcessus()->getNom(),
-                $conformite->getConformite(),
-            ];
-        }
+        $tableData = $this->getConformitesTable($data);
 
         $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
     }
@@ -40,10 +27,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
 
         /** @var Evaluation $evaluation */
         $evaluation  = $data[0];
-        $conformites = \iterable_to_array($evaluation->getConformites());
-        usort($conformites, function ($a, $b) {
-            return $a->getProcessus()->getPosition() > $b->getProcessus()->getPosition() ? 1 : -1;
-        });
+        $conformites = $this->getOrderedConformites($evaluation);
         foreach ($conformites as $key => $conformite) {
             if (0 != $key) {
                 $section->addPageBreak();
@@ -56,9 +40,9 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
 
             foreach ($conformite->getReponses() as $reponse) {
                 $processus[] = [
-                $reponse->getQuestion()->getNom(),
-                $this->getFormattedReponse($reponse),
-            ];
+                    $reponse->getQuestion()->getNom(),
+                    $this->getFormattedReponse($reponse),
+                ];
             }
 
             $this->addTable($section, $processus, true, self::TABLE_ORIENTATION_VERTICAL);
@@ -76,6 +60,70 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         ];
         $section->addTitle('Historique', 1);
         $this->addTable($section, $historyData, true, self::TABLE_ORIENTATION_VERTICAL);
+    }
+
+    public function addGlobalOverview(Section $section, Evaluation $evaluation)
+    {
+        if (null === $evaluation) {
+            return;
+        }
+
+        $conformites = $this->getOrderedConformites($evaluation);
+
+        $scores = [];
+        foreach ($conformites as $conformite) {
+            $scores[] = $conformite->getConformite();
+        }
+
+        $style = [
+            'width'              => Converter::cmToEmu(15),
+            'height'             => Converter::cmToEmu(11),
+            'showAxisLabels'     => true,
+            'showGridY'          => true,
+            'dataLabelOptions'   => [
+                'showVal'     => false,
+                'showCatName' => false,
+            ],
+        ];
+
+        $section->addTitle('Analyse de la conformité de l\'organisation', 2);
+
+        $section->addChart('column', $this->extractConformiteProcessus($evaluation), $scores, $style);
+
+        $tableData = $this->getConformitesTable($conformites);
+
+        $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_VERTICAL);
+    }
+
+    private function getConformitesTable(array $conformites): array
+    {
+        $tableData = [
+            [
+                'Pilote',
+                'Processus',
+                'Conformité',
+            ],
+        ];
+
+        foreach ($conformites as $conformite) {
+            $tableData[] = [
+                $conformite->getPilote(),
+                $conformite->getProcessus()->getNom(),
+                $conformite->getConformite(),
+            ];
+        }
+
+        return $tableData;
+    }
+
+    private function extractConformiteProcessus(Evaluation $evaluation): array
+    {
+        $processus = [];
+        foreach ($this->getOrderedConformites($evaluation) as $conformite) {
+            $processus[] = $conformite->getProcessus()->getNom();
+        }
+
+        return $processus;
     }
 
     private function getFormattedReponse(Reponse $reponse): string
@@ -106,5 +154,15 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         }
 
         return $participants;
+    }
+
+    private function getOrderedConformites(Evaluation $evaluation)
+    {
+        $conformites = \iterable_to_array($evaluation->getConformites());
+        usort($conformites, function ($a, $b) {
+            return $a->getProcessus()->getPosition() > $b->getProcessus()->getPosition() ? 1 : -1;
+        });
+
+        return $conformites;
     }
 }

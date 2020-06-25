@@ -29,7 +29,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-                {% if evaluations is not empty %}
+                {% if evaluations is not empty and not is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('registry_conformite_organisation_report', {'id': evaluations[0].id}) }}" class="btn btn-default">
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.conformite_organisation.action.report'|trans }}
@@ -122,7 +122,7 @@
                         {% for evaluation in evaluations %}
                             <tr>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <td>{{ evaluation.organisation.name }}</td>
+                                    <td>{{ evaluation.collectivity.name }}</td>
                                 {% endif %}
                                 <td>{{ evaluation.date|date('d/m/Y H:i') }}</td>
                                 <td>{{ evaluation.participants|length }}</td>

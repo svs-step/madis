@@ -26,11 +26,14 @@ namespace App\Tests\Domain\Reporting\Controller;
 
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Maturity\Repository as MaturityRepository;
+use App\Domain\Registry\Model\ConformiteOrganisation as ConformiteOrganisationModel;
 use App\Domain\Registry\Repository as RegistryRepository;
 use App\Domain\Reporting\Controller\ReviewController;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Model as UserModel;
+use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -87,6 +90,11 @@ class ReviewControllerTest extends TestCase
     private $conformiteTraitementRepositoryProphecy;
 
     /**
+     * @var Evaluation|ObjectProphecy
+     */
+    private $evaluationRepository;
+
+    /**
      * @var ReviewController
      */
     private $controller;
@@ -103,6 +111,7 @@ class ReviewControllerTest extends TestCase
         $this->requestRepositoryProphecy              = $this->prophesize(RegistryRepository\Request::class);
         $this->violationRepositoryProphecy            = $this->prophesize(RegistryRepository\Violation::class);
         $this->conformiteTraitementRepositoryProphecy = $this->prophesize(RegistryRepository\ConformiteTraitement\ConformiteTraitement::class);
+        $this->evaluationRepository                   = $this->prophesize(Evaluation::class);
 
         $this->controller = new ReviewController(
             $this->wordHandlerProphecy->reveal(),
@@ -114,7 +123,8 @@ class ReviewControllerTest extends TestCase
             $this->requestRepositoryProphecy->reveal(),
             $this->violationRepositoryProphecy->reveal(),
             $this->surveyRepositoryProphecy->reveal(),
-            $this->conformiteTraitementRepositoryProphecy->reveal()
+            $this->conformiteTraitementRepositoryProphecy->reveal(),
+            $this->evaluationRepository->reveal()
         );
     }
 
@@ -136,6 +146,7 @@ class ReviewControllerTest extends TestCase
         $violations            = [];
         $conformiteTraitements = [];
         $responseProphecy      = $this->prophesize(BinaryFileResponse::class);
+        $evaluation            = $this->prophesize(ConformiteOrganisationModel\Evaluation::class);
 
         $userProphecy = $this->prophesize(UserModel\User::class);
         $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($collectivity);
@@ -148,8 +159,9 @@ class ReviewControllerTest extends TestCase
         $this->requestRepositoryProphecy->findAllArchivedByCollectivity($collectivity, false)->shouldBeCalled()->willReturn($requests);
         $this->violationRepositoryProphecy->findAllArchivedByCollectivity($collectivity, false)->shouldBeCalled()->willReturn($violations);
         $this->conformiteTraitementRepositoryProphecy->findAllByCollectivity($collectivity)->shouldBeCalled()->willReturn($conformiteTraitements);
+        $this->evaluationRepository->findLastByOrganisation($collectivity)->shouldBeCalled()->willReturn($evaluation->reveal());
         $this->wordHandlerProphecy
-            ->generateOverviewReport($treatments, $contractors, $mesurements, $maturity, $requests, $violations, $conformiteTraitements)
+            ->generateOverviewReport($treatments, $contractors, $mesurements, $maturity, $requests, $violations, $conformiteTraitements, $evaluation->reveal())
             ->shouldBeCalled()
             ->willReturn($responseProphecy->reveal())
         ;

@@ -142,6 +142,7 @@ class WordHandlerTest extends TestCase
         $violations            = [];
         $conformiteTraitements = [];
         $responseProphecy      = $this->prophesize(BinaryFileResponse::class);
+        $evaluation            = null;
 
         $phpWord = $this->phpWordProphecy->reveal();
 
@@ -155,7 +156,7 @@ class WordHandlerTest extends TestCase
         $this->overviewGeneratorProphecy->generateObjectPart($section)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateOrganismIntroductionPart($section)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateRegistries($section, $treatments, $contractors, $requests, $violations)->shouldBeCalled();
-        $this->overviewGeneratorProphecy->generateManagementSystemAndCompliance($section, $maturity, $mesurements, $conformiteTraitements)->shouldBeCalled();
+        $this->overviewGeneratorProphecy->generateManagementSystemAndCompliance($section, $maturity, $mesurements, $conformiteTraitements, null)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateContinuousImprovements($section)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateAnnexeMention($section, $treatments)->shouldBeCalled();
 
