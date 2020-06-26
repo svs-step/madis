@@ -33,7 +33,7 @@ user:
             different_dpo: Différent du DPD moral
             different_it_manager: Différent du Référent Opérationnel
             has_module_conformite_traitement: Module conformité des traitements
-            has_module_conformite_organisation: Module conformité des organisations
+            has_module_conformite_organisation: Module conformité de l'organisation
             name: Nom
             placeholder:
                 website: https://
@@ -72,7 +72,7 @@ user:
             different_dpo: Différent du DPD moral
             different_it_manager: Différent du Référent Opérationnel
             has_module_conformite_traitement: Module conformité des traitements
-            has_module_conformite_organisation: Module conformité des organisations
+            has_module_conformite_organisation: Module conformité de l'organisation
             name: Nom
             short_name: Nom court
             siren: SIREN

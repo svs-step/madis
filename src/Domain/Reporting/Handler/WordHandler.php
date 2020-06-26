@@ -135,7 +135,8 @@ class WordHandler
         array $maturity = [],
         array $requests = [],
         array $violations = [],
-        array $conformiteTraitements = []
+        array $conformiteTraitements = [],
+        Evaluation $evaluation = null
     ): BinaryFileResponse {
         $title = 'Bilan de gestion des données à caractère personnel';
 
@@ -155,7 +156,7 @@ class WordHandler
         $this->overviewGenerator->generateObjectPart($contentSection);
         $this->overviewGenerator->generateOrganismIntroductionPart($contentSection);
         $this->overviewGenerator->generateRegistries($contentSection, $treatments, $contractors, $requests, $violations);
-        $this->overviewGenerator->generateManagementSystemAndCompliance($contentSection, $maturity, $conformiteTraitements, $mesurements);
+        $this->overviewGenerator->generateManagementSystemAndCompliance($contentSection, $maturity, $conformiteTraitements, $mesurements, $evaluation);
         $this->overviewGenerator->generateContinuousImprovements($contentSection);
         $this->overviewGenerator->generateAnnexeMention($contentSection, $treatments);
 

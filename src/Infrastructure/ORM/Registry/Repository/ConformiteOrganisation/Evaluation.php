@@ -5,6 +5,7 @@ namespace App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation;
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
+use App\Domain\User\Model\Collectivity;
 
 class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisation\Evaluation
 {
@@ -37,6 +38,19 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
         return $qBuilder
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    public function findLastByOrganisation(Collectivity $organisation)
+    {
+        return $this->createQueryBuilder()
+            ->addSelect('conformites')
+            ->andWhere('o.collectivity = :organisation')
+            ->setParameter('organisation', $organisation)
+            ->leftJoin('o.conformites', 'conformites')
+            ->orderBy('o.date')
+            ->getQuery()
+            ->getResult()[0]
         ;
     }
 }
