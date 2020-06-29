@@ -13,9 +13,10 @@
         <field name="date" column="date" type="date" nullable="true"/>
         <field name="complete" column="complete" type="boolean"/>
 
-        <one-to-many field="participants" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Participant" mapped-by="evaluation">
+        <one-to-many field="participants" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Participant" orphan-removal="true" mapped-by="evaluation">
             <cascade>
                 <cascade-persist/>
+                <cascade-remove />
             </cascade>
         </one-to-many>
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity"/>

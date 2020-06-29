@@ -73,7 +73,7 @@ class Evaluation
 
     public function removeParticipant(Participant $participant)
     {
-        $key = \array_search($participant, $this->conformites, true);
+        $key = \array_search($participant, iterable_to_array($this->participants), true);
 
         if (false === $key) {
             return;

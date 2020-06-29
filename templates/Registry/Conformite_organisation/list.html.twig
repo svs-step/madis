@@ -128,11 +128,11 @@
                                 <td>{{ evaluation.participants|length }}</td>
                                 <td>
                                     <a href="{{ path('registry_conformite_organisation_report', {'id': evaluation.id}) }}">
-                                        <i class="fa fa-eye"></i>
+                                        <i class="fa fa-clipboard-list"></i>
                                         {{ 'registry.conformite_organisation.action.print'|trans }}
                                     </a>
                                     <a href="{{ path('registry_conformite_organisation_edit', {'id': evaluation.id}) }}">
-                                        <i class="fa fa-eye"></i>
+                                        <i class="fa fa-pencil-alt"></i>
                                         {{ 'registry.conformite_organisation.action.edit'|trans }}
                                     </a>
                                     <a href="{{ path('registry_conformite_organisation_delete', {'id': evaluation.id}) }}">

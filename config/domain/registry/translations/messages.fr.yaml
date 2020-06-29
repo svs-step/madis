@@ -568,8 +568,11 @@ registry:
             nb_participants: Nombre de participants
         form:
             date: Date
+            participants: Participants
+            contexte: Contexte
         participant:
             form:
+                civilite: Civilité
                 prenom: Prénom
                 nom_famille: Nom de famille
                 fonction: Fonction
