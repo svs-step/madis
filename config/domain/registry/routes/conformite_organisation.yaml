@@ -18,6 +18,11 @@ registry_conformite_organisation_delete:
   methods: ['GET']
   controller: 'App\Domain\Registry\Controller\ConformiteOrganisationController:deleteAction'
 
+registry_conformite_organisation_delete_confirm:
+  path: '/supprimer/{id}/confirmation'
+  methods: ['GET']
+  controller: 'App\Domain\Registry\Controller\ConformiteOrganisationController:deleteConfirmationAction'
+
 registry_conformite_organisation_report:
   path: '/bilan/{id}'
   methods: ['GET']

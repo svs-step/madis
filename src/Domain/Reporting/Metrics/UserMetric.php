@@ -355,8 +355,9 @@ class UserMetric implements MetricInterface
             }
         }
 
+        //CONFORMITE ORGANISATION
         if ($collectivity->isHasModuleConformiteOrganisation() && null !== $conformiteOrganisationEvaluation) {
-            $conformites = $conformiteOrganisationEvaluation->getConformites()->toArray();
+            $conformites = \iterable_to_array($conformiteOrganisationEvaluation->getConformites());
             usort($conformites, function ($a, $b) {
                 return $a->getProcessus()->getPosition() > $b->getProcessus()->getPosition() ? 1 : -1;
             });

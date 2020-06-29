@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Csv;
 
 use App\Domain\Registry\Dictionary\ProofTypeDictionary;
+use App\Domain\Registry\Repository\ConformiteOrganisation\Processus;
 use App\Domain\Registry\Repository\Contractor;
 use App\Domain\Registry\Repository\Mesurement;
 use App\Domain\Registry\Repository\Proof;
@@ -33,6 +34,7 @@ use App\Domain\User\Dictionary\CollectivityTypeDictionary;
 use App\Domain\User\Dictionary\ContactCivilityDictionary;
 use App\Domain\User\Repository\Collectivity;
 use App\Infrastructure\ORM\Maturity\Repository\Survey;
+use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
 use App\Infrastructure\ORM\Registry\Repository\Treatment;
 use App\Infrastructure\ORM\User\Repository\User;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -90,6 +92,16 @@ class CollectivityGenerator extends AbstractGenerator
     private $requestRepository;
 
     /**
+     * @var Processus
+     */
+    private $processsusRepository;
+
+    /**
+     * @var Evaluation
+     */
+    private $evaluationRepository;
+
+    /**
      * @var string
      */
     private $defaultDpoCivility;
@@ -129,6 +141,8 @@ class CollectivityGenerator extends AbstractGenerator
         Contractor $contractorRepository,
         Violation $violationRepository,
         Request $requestRepository,
+        Processus $processusRepository,
+        Evaluation $evaluationRepository,
         string $defaultDpoCivility,
         string $defaultDpoFirstName,
         string $defaultDpoLastName,
@@ -147,6 +161,8 @@ class CollectivityGenerator extends AbstractGenerator
         $this->contractorRepository   = $contractorRepository;
         $this->violationRepository    = $violationRepository;
         $this->requestRepository      = $requestRepository;
+        $this->processsusRepository   = $processusRepository;
+        $this->evaluationRepository   = $evaluationRepository;
         $this->defaultDpoCivility     = $defaultDpoCivility;
         $this->defaultDpoFirstName    = $defaultDpoFirstName;
         $this->defaultDpoLastName     = $defaultDpoLastName;
@@ -166,7 +182,8 @@ class CollectivityGenerator extends AbstractGenerator
             $this->registryHeaders(),
             $this->surveyHeaders(),
             $this->userHeaders(),
-            $this->proofHeaders()
+            $this->proofHeaders(),
+            $this->conformiteOrganisationHeaders(),
         );
         $data = [$headers];
 
@@ -176,7 +193,8 @@ class CollectivityGenerator extends AbstractGenerator
                 $this->initializeRegistry($collectivity),
                 $this->initializeSurvey($collectivity),
                 $this->initializeUser($collectivity),
-                $this->initializeProof($collectivity)
+                $this->initializeProof($collectivity),
+                $this->initializeconformiteOrganisation($collectivity)
             );
             array_push($data, $extract);
         }
@@ -391,6 +409,37 @@ class CollectivityGenerator extends AbstractGenerator
             $proof = $this->proofRepository->findOneOrNullByTypeAndCollectivity($type, $collectivity);
 
             $data[] = !\is_null($proof) ? $this->getDate($proof->getCreatedAt()) : null;
+        }
+
+        return $data;
+    }
+
+    private function conformiteOrganisationHeaders()
+    {
+        $headers = [];
+
+        foreach ($this->processsusRepository->findAll(['position' => 'asc']) as $processus) {
+            $headers[] = 'Conformité processus - ' . $processus->getNom();
+        }
+
+        return $headers;
+    }
+
+    private function initializeconformiteOrganisation(\App\Domain\User\Model\Collectivity $collectivity)
+    {
+        $data = [];
+
+        $conformiteOrganisationEvaluation = $this->evaluationRepository->findLastByOrganisation($collectivity);
+
+        if ($collectivity->isHasModuleConformiteOrganisation() && null !== $conformiteOrganisationEvaluation) {
+            $conformites = \iterable_to_array($conformiteOrganisationEvaluation->getConformites());
+            usort($conformites, function ($a, $b) {
+                return $a->getProcessus()->getPosition() > $b->getProcessus()->getPosition() ? 1 : -1;
+            });
+
+            foreach ($conformites as $conformite) {
+                $data[] = $conformite->getConformite();
+            }
         }
 
         return $data;

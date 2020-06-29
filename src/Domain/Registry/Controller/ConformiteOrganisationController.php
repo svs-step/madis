@@ -89,7 +89,7 @@ class ConformiteOrganisationController extends CRUDController
         $organisation = $this->userProvider->getAuthenticatedUser()->getCollectivity();
         $evaluation->setCollectivity($organisation);
 
-        foreach ($this->processusRepository->findAll() as $processus) {
+        foreach ($this->processusRepository->findAll(['position' => 'asc']) as $processus) {
             $conformite = new Conformite();
             $conformite->setProcessus($processus);
             foreach ($this->questionRepository->findAllByProcessus($processus) as $question) {
