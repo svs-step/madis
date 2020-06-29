@@ -18,7 +18,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_5:
         processus: '@processus_2'
         position: 1
-        nom: "L'entreprise dispose d'un registre des traitements. Le registre renseigne sur les critères minimum précisé à l'article 30 du règlement : nom du responsable du traitement et du DPO, les finalités du traitement, les catégories de personnes concernées et les catégories de DCP, les catégories de destinataires,les transferts de données à caractère personnel vers un pays tiers, les délais prévus pour l'effacement, une description générale des mesures de sécurité."
+        nom: "L'entreprise dispose d'un registre des traitements. Le registre renseigne sur les critères minimum précisé à l'article 30 du règlement : nom du responsable du traitement et du DPO, les finalités du traitement, les catégories de personnes concernées et les catégories de DCP, les catégories de destinataires, les transferts de données à caractère personnel vers un pays tiers, les délais prévus pour l'effacement, une description générale des mesures de sécurité."
     conformite_organisation_question_6:
         processus: '@processus_2'
         position: 2

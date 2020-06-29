@@ -30,6 +30,7 @@ class EvaluationType extends AbstractType
             ->add('participants', CollectionType::class, [
                 'entry_type'   => ParticipantType::class,
                 'allow_add'    => true,
+                'allow_delete' => true,
                 'by_reference' => false,
             ])
             ->add('conformites', CollectionType::class, [

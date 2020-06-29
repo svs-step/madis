@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" style="margin-top: 15px;">
             <div>
                     {% for conformitesArray in getConformitesWithProcessusAndQuestions(form) %}
                         {% set newRow = loop.index is not odd %}
@@ -9,12 +9,14 @@
                         <div class="col-md-6">
                             {% set processus = (conformitesArray|first).vars.value.processus %}
                             <div class="box box-solid box-{{ processus.couleur }}">
-                                <p>{{ processus.description }}</p>
-                                <div class="box-header with-border">{{ processus.nom }}</div>
+                                <div class="box-body text-bold">
+                                    <p>{{ processus.description }}</p>
+                                </div>
+                                <div class="box-header with-border">{{ processus.nom | upper }}</div>
                                 <div class="box-body">
                                     {% for conformite in conformitesArray %}
                                         {% for reponse in conformite.reponses %}
-                                            <div>{{ reponse.vars.value.question.nom }}</div>
+                                            <div class="text-bold">{{ reponse.vars.value.question.nom }}</div>
                                             <div>{{ form_widget(reponse) }}</div>
                                         {% endfor %}
                                         {{ form_widget(conformite.actionProtections) }}
