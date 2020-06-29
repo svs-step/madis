@@ -1,0 +1,4 @@
+App\Domain\Registry\Model\ConformiteOrganisation\Evaluation:
+    properties:
+        conformites:
+            - Valid: ~

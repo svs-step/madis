@@ -28,7 +28,8 @@ class ReponseType extends AbstractType
                 'label'    => false,
                 'required' => false,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'placeholder' => 'placeholder.precision',
+                    'maxlength'   => 255,
                 ],
             ])
         ;

@@ -1,0 +1,5 @@
+App\Domain\Registry\Model\ConformiteOrganisation\Reponse:
+    constraints:
+        - App\Domain\Registry\Symfony\Validator\Constraints\ConformiteOrganisationReponseRaison:
+              message: 'registry_conformite_organisation_reponse.reponse_raison.mandatory'
+              groups: ['default']
