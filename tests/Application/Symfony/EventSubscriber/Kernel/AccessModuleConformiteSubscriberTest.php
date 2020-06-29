@@ -58,15 +58,19 @@ class AccessModuleConformiteSubscriberTest extends TestCase
         );
     }
 
-    public function testItReturnNullOnNoControllerAndEmptyUser(): void
+    public function testItReturnNullOnNotArrayNoControllerAndEmptyUser(): void
     {
+        $event = $this->prophesize(ControllerEvent::class);
+
+        $event->getController()->shouldBeCalled()->willReturn('foo');
+
+        $this->assertNull($this->sut->onKernelController($event->reveal()));
+
         $event = $this->prophesize(ControllerEvent::class);
 
         $event->getController()->shouldBeCalled()->willReturn([]);
 
         $this->assertNull($this->sut->onKernelController($event->reveal()));
-
-        $controller = $this->prophesize(ConformiteTraitementController::class);
 
         $event->getController()->shouldBeCalled()->willReturn(['foo']);
         $this->security->getUser()->shouldBeCalled()->willReturn(null);
