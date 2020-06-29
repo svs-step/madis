@@ -24,6 +24,7 @@
         <one-to-many field="reponses" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Reponse" mapped-by="conformite">
             <cascade>
                 <cascade-persist/>
+                <cascade-remove/>
             </cascade>
         </one-to-many>
     </entity>

@@ -23,73 +23,75 @@
 
 {% block body %}
 
-    {% if not is_granted('ROLE_ADMIN') %}
-        {{ form_start(form) }}
-    {% endif %}
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="action-bar">
-                {% if evaluations is not empty and not is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('registry_conformite_organisation_report', {'id': evaluations[0].id}) }}" class="btn btn-default">
-                        <i class="fa fa-clipboard-list"></i>
-                        {{ 'registry.conformite_organisation.action.report'|trans }}
-                    </a>
-                {% endif %}
-                {% if not is_granted('ROLE_ADMIN') %}
-                    <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
-                {% endif %}
-            </div>
-        </div>
-    </div>
-
-    {% if not is_granted('ROLE_ADMIN') %}
+    {% if form is not  null  %}
+        {% if not is_granted('ROLE_ADMIN') %}
+            {{ form_start(form) }}
+        {% endif %}
         <div class="row">
             <div class="col-xs-12">
-                <div class="box box-solid">
-                    <div class="box-body">
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>{{ 'registry.conformite_organisation.list.pilote'|trans }}</th>
-                                <th>{{ 'registry.conformite_organisation.list.processus'|trans }}</th>
-                                <th>{{ 'registry.conformite_organisation.list.conformite'|trans }}</th>
-                                <th>{{ 'registry.conformite_organisation.list.action_protection'|trans }}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% if evaluations is not empty %}
-                                    {% for conformite in getConformitesWithProcessusAndQuestions(form.conformites) %}
-                                        {% set conformite = conformite[0] %}
-                                        <tr>
-                                            <td>{{ form_widget(conformite.pilote) }}</td>
-                                            <td>{{ conformite.vars.value.processus.nom }}</td>
-                                            <td>
-                                                {% if conformite.vars.value.conformite < 2.5 %}
-                                                    <span class="label label-danger">{{ conformite.vars.value.conformite }}</span>
-                                                {% elseif conformite.vars.value.conformite < 3.5 %}
-                                                    <span class="label label-warning">{{ conformite.vars.value.conformite }}</span>
-                                                {% else %}
-                                                    <span class="label label-success">{{ conformite.vars.value.conformite }}</span>
-                                                {% endif %}
-                                            </td>
-                                            <td>
-                                                {% for action in conformite.vars.value.NonAppliedActionProtections %}
-                                                {{ action.name }}
-                                                {% endfor %}
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                            {% endif %}
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="action-bar">
+                    {% if evaluations is not empty and not is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('registry_conformite_organisation_report', {'id': evaluations[0].id}) }}" class="btn btn-default">
+                            <i class="fa fa-clipboard-list"></i>
+                            {{ 'registry.conformite_organisation.action.report'|trans }}
+                        </a>
+                    {% endif %}
+                    {% if not is_granted('ROLE_ADMIN') %}
+                        <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                    {% endif %}
                 </div>
             </div>
         </div>
-    {% endif %}
 
-    {% if not is_granted('ROLE_ADMIN') %}
-        {{ form_end(form) }}
+        {% if not is_granted('ROLE_ADMIN') %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-solid">
+                        <div class="box-body">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>{{ 'registry.conformite_organisation.list.pilote'|trans }}</th>
+                                    <th>{{ 'registry.conformite_organisation.list.processus'|trans }}</th>
+                                    <th>{{ 'registry.conformite_organisation.list.conformite'|trans }}</th>
+                                    <th>{{ 'registry.conformite_organisation.list.action_protection'|trans }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if evaluations is not empty %}
+                                        {% for conformite in getConformitesWithProcessusAndQuestions(form.conformites) %}
+                                            {% set conformite = conformite[0] %}
+                                            <tr>
+                                                <td>{{ form_widget(conformite.pilote) }}</td>
+                                                <td>{{ conformite.vars.value.processus.nom }}</td>
+                                                <td>
+                                                    {% if conformite.vars.value.conformite < 2.5 %}
+                                                        <span class="label label-danger">{{ conformite.vars.value.conformite }}</span>
+                                                    {% elseif conformite.vars.value.conformite < 3.5 %}
+                                                        <span class="label label-warning">{{ conformite.vars.value.conformite }}</span>
+                                                    {% else %}
+                                                        <span class="label label-success">{{ conformite.vars.value.conformite }}</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% for action in conformite.vars.value.NonAppliedActionProtections %}
+                                                    {{ action.name }}
+                                                    {% endfor %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if not is_granted('ROLE_ADMIN') %}
+            {{ form_end(form) }}
+        {% endif %}
     {% endif %}
 
     <div class="row">

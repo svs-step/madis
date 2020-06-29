@@ -102,12 +102,12 @@ class TreatmentGenerator extends AbstractGenerator
 
     private function collectivityHeaders(): array
     {
-        $colletivityTrans = $this->translator->trans('registry.treatment.list.collectivity');
+        $collectivityTrans = $this->translator->trans('registry.treatment.list.collectivity');
 
         return [
-            $colletivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.name'),
-            $colletivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.siren'),
-            $colletivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.address_insee'),
+            $collectivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.name'),
+            $collectivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.siren'),
+            $collectivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.address_insee'),
         ];
     }
 

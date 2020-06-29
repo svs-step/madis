@@ -41,16 +41,18 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
         ;
     }
 
-    public function findLastByOrganisation(Collectivity $organisation)
+    public function findLastByOrganisation(Collectivity $organisation): ?Model\ConformiteOrganisation\Evaluation
     {
-        return $this->createQueryBuilder()
+        $results =  $this->createQueryBuilder()
             ->addSelect('conformites')
             ->andWhere('o.collectivity = :organisation')
             ->setParameter('organisation', $organisation)
             ->leftJoin('o.conformites', 'conformites')
             ->orderBy('o.date')
             ->getQuery()
-            ->getResult()[0]
+            ->getResult()
         ;
+
+        return isset($results[0]) ? $results[0] : null;
     }
 }
