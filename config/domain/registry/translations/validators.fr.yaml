@@ -109,3 +109,7 @@ registry_mesurement:
 registry_treatment_data_category:
     name:
         not_blank: Vous devez renseigner un nom
+
+registry_conformite_organisation_reponse:
+    reponse_raison:
+        mandatory: La raison est obligatoire
