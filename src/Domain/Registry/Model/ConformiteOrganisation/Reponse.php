@@ -81,4 +81,9 @@ class Reponse
     {
         $this->conformite = $conformite;
     }
+
+    public function __clone()
+    {
+        $this->id = Uuid::uuid4();
+    }
 }

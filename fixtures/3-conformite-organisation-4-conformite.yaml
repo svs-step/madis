@@ -3,11 +3,13 @@ App\Domain\Registry\Model\ConformiteOrganisation\Conformite :
     processus: '@processus_1'
     evaluation: '@evaluation_1'
     pilote: <firstName()> <lastName()>
+    conformite: 2.3
     actionProtections: ['@registry_mesurement_awkan_1', '@registry_mesurement_awkan_6']
 
   evaluation_1_processus_2_conformite:
     processus: '@processus_2'
     evaluation: '@evaluation_1'
+    conformite: 2.7
     pilote: <firstName()> <lastName()>
 
   evaluation_1_processus_3_conformite:

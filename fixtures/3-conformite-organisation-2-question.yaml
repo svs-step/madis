@@ -105,50 +105,50 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
               Les armoires et coffre-fort contenant des données sensibles sont systématiquement fermés à clés."
     conformite_organisation_question_25:
         processus: '@processus_6'
-        position: 1
+        position: 5
         nom: "Tous les équipements ( Postes de travail, smartphones, objets connectés) sont protégés par un antivirus géré par une console centralisée.
               Les patchs logiciels sont gérés pour éviter les \"trous\" de sécurité.
               es postes sont verrouillés en fin de session."
     conformite_organisation_question_26:
         processus: '@processus_6'
-        position: 2
+        position: 6
         nom: "Lorsque des mobiles multifonctions (smartphone), ordinateurs portables ou clé USB sont utilisés, leur usage est encadré.
               Les utilisateurs en situation de mobilité sont sensibilisés au vol,  à l'écoute et à l'observation passive.
               Lorsque cela est justifié, les données sont chiffrées sur les équipements ou supports mobiles."
     conformite_organisation_question_27:
         processus: '@processus_6'
-        position: 3
+        position: 7
         nom: "L'ensemble des données est sauvegardé. Des tests de restauration sont planifiés et réalisés pour vérifier l'intégrité des données sauvegardées.
               Les saugegardes sont externalisées dans un lieu sécurisé."
     conformite_organisation_question_28:
         processus: '@processus_6'
-        position: 4
+        position: 8
         nom: "L'ensemble des utilisateurs est sensibilisé à la sécurité informatique, à la protection de la vie priovée.
               Les utilisateurs sont formés aux outils et vigilant dans leurs usages pour éviter les erreurs de manipulation .
               La charte informatrique est signée par chaque utilisateur."
     conformite_organisation_question_29:
         processus: '@processus_6'
-        position: 5
+        position: 9
         nom: "Une gestion de droits d'accès ou d'habilitation  définit des profils distincts selon les besoins des utilisateurs pour accéder aux données ?
               Il existe une procédure Arrivée/Changement decposte/Départ qui garantit que les comptes utilisateurs sont systématiquement fermés en fin de contrat.
               Les accès aux applications sont tracés et permettent d'enregistrer qui accède à quoi."
     conformite_organisation_question_30:
         processus: '@processus_6'
-        position: 6
+        position: 10
         nom: "La politique de mot de passe s'applique à l'accès réseau et aux applications. Elle précise la force du mot de passe : 12 caractères ou plus, un nombre, une majuscule, un signe de ponctuation ou un caractère spécial (dollar, dièse, ...).
               Les mots de passe ne sont gardés secret par chacun des utilisateurs."
     conformite_organisation_question_31:
         processus: '@processus_6'
-        position: 7
+        position: 11
         nom: "Les contrats passés avec les hébergeurs de données intègrent un plan d'assurance sécurité : clause de réversibilité, signalement en cas de violation de données, test d'intrusion."
     conformite_organisation_question_32:
         processus: '@processus_6'
-        position: 8
+        position: 12
         nom: "La mise au rebus des supports numériques est contrôlée.
               Les données sont effacées avant le recyclage."
     conformite_organisation_question_33:
         processus: '@processus_6'
-        position: 9
+        position: 13
         nom: "Les services en ligne, les échanges ou transferts sur les réseaux sont protégés contre l'interception (Chiffrement)
               Les configurations sont systématiquement contrôlées après la mise à jour d'un service en ligne."
     conformite_organisation_question_34:

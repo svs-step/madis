@@ -23,7 +23,7 @@
 
 {% block body %}
 
-    {% if form is not  null  %}
+    {% if form is not null  %}
         {% if not is_granted('ROLE_ADMIN') %}
             {{ form_start(form) }}
         {% endif %}
@@ -138,7 +138,7 @@
                                         {{ 'registry.conformite_organisation.action.edit'|trans }}
                                     </a>
                                     <a href="{{ path('registry_conformite_organisation_delete', {'id': evaluation.id}) }}">
-                                        <i class="fa fa-eye"></i>
+                                        <i class="fa fa-trash"></i>
                                         {{ 'registry.conformite_organisation.action.delete'|trans }}
                                     </a>
                                 </td>

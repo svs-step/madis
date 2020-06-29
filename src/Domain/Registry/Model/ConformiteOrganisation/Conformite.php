@@ -138,4 +138,19 @@ class Conformite
     {
         $this->pilote = $pilote;
     }
+
+    public function __clone()
+    {
+        $this->id       = Uuid::uuid4();
+        $reponses       = $this->reponses;
+        $this->reponses = [];
+        $this->cloneReponses($reponses);
+    }
+
+    private function cloneReponses(iterable $reponses)
+    {
+        foreach ($reponses as $reponse) {
+            $this->addReponse(clone $reponse);
+        }
+    }
 }

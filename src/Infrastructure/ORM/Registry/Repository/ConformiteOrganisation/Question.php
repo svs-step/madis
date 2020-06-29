@@ -16,7 +16,6 @@ class Question extends CRUDRepository implements Repository\ConformiteOrganisati
     public function findAllByProcessus(Model\Processus $processus)
     {
         return $this->createQueryBuilder()
-            ->orderBy('o.processus')
             ->andWhere('o.processus = :processus')
             ->setParameter('processus', $processus->getId())
             ->addOrderBy('o.position', 'ASC')
