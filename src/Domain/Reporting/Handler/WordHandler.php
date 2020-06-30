@@ -24,6 +24,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Handler;
 
+use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
+use App\Domain\Reporting\Generator\Word\ConformiteOrganisationGenerator;
 use App\Domain\Reporting\Generator\Word\ConformiteTraitementGenerator;
 use App\Domain\Reporting\Generator\Word\ContractorGenerator;
 use App\Domain\Reporting\Generator\Word\MaturityGenerator;
@@ -83,6 +85,11 @@ class WordHandler
      */
     private $conformiteTraitementGenerator;
 
+    /**
+     * @var ConformiteOrganisationGenerator
+     */
+    private $conformiteOrganisationGenerator;
+
     public function __construct(
         PhpWord $document,
         ContractorGenerator $contractorGenerator,
@@ -92,17 +99,19 @@ class WordHandler
         RequestGenerator $requestGenerator,
         TreatmentGenerator $treatmentGenerator,
         ViolationGenerator $violationGenerator,
-        ConformiteTraitementGenerator $conformiteTraitementGenerator
+        ConformiteTraitementGenerator $conformiteTraitementGenerator,
+        ConformiteOrganisationGenerator $conformiteOrganisationGenerator
     ) {
-        $this->document                      = $document;
-        $this->contractorGenerator           = $contractorGenerator;
-        $this->overviewGenerator             = $overviewGenerator;
-        $this->maturityGenerator             = $maturityGenerator;
-        $this->mesurementGenerator           = $mesurementGenerator;
-        $this->requestGenerator              = $requestGenerator;
-        $this->treatmentGenerator            = $treatmentGenerator;
-        $this->violationGenerator            = $violationGenerator;
-        $this->conformiteTraitementGenerator = $conformiteTraitementGenerator;
+        $this->document                        = $document;
+        $this->contractorGenerator             = $contractorGenerator;
+        $this->overviewGenerator               = $overviewGenerator;
+        $this->maturityGenerator               = $maturityGenerator;
+        $this->mesurementGenerator             = $mesurementGenerator;
+        $this->requestGenerator                = $requestGenerator;
+        $this->treatmentGenerator              = $treatmentGenerator;
+        $this->violationGenerator              = $violationGenerator;
+        $this->conformiteTraitementGenerator   = $conformiteTraitementGenerator;
+        $this->conformiteOrganisationGenerator = $conformiteOrganisationGenerator;
     }
 
     /**
@@ -126,7 +135,8 @@ class WordHandler
         array $maturity = [],
         array $requests = [],
         array $violations = [],
-        array $conformiteTraitements = []
+        array $conformiteTraitements = [],
+        Evaluation $evaluation = null
     ): BinaryFileResponse {
         $title = 'Bilan de gestion des données à caractère personnel';
 
@@ -146,7 +156,7 @@ class WordHandler
         $this->overviewGenerator->generateObjectPart($contentSection);
         $this->overviewGenerator->generateOrganismIntroductionPart($contentSection);
         $this->overviewGenerator->generateRegistries($contentSection, $treatments, $contractors, $requests, $violations);
-        $this->overviewGenerator->generateManagementSystemAndCompliance($contentSection, $maturity, $conformiteTraitements, $mesurements);
+        $this->overviewGenerator->generateManagementSystemAndCompliance($contentSection, $maturity, $conformiteTraitements, $mesurements, $evaluation);
         $this->overviewGenerator->generateContinuousImprovements($contentSection);
         $this->overviewGenerator->generateAnnexeMention($contentSection, $treatments);
 
@@ -377,5 +387,26 @@ class WordHandler
         $this->conformiteTraitementGenerator->addDetailedView($contentSection, $conformiteTraitements);
 
         return $this->conformiteTraitementGenerator->generateResponse($this->document, 'conformite_des_traitements');
+    }
+
+    public function generateRegistryConformiteOrganisationReport(Evaluation $evaluation): Response
+    {
+        $title = 'Diagnostic de la conformite de l\'organisation';
+
+        $this->conformiteOrganisationGenerator->initializeDocument($this->document);
+
+        /* Basic generation */
+        $this->conformiteOrganisationGenerator->addHomepage($this->document, $title);
+
+        $contentSection = $this->conformiteOrganisationGenerator->createContentSection($this->document, $title);
+
+        /* Table of content */
+        $this->conformiteOrganisationGenerator->addTableOfContent($contentSection, 1);
+
+        /* Content */
+        $this->conformiteOrganisationGenerator->addSyntheticView($contentSection, \iterable_to_array($evaluation->getConformites()));
+        $this->conformiteOrganisationGenerator->addDetailedView($contentSection, [$evaluation]);
+
+        return $this->conformiteOrganisationGenerator->generateResponse($this->document, 'conformite_des_organisations');
     }
 }

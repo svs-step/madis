@@ -1,0 +1,30 @@
+<script>
+    $(document).ready(function() {
+        $('.conformite-organisation-reponse').each(function(div) {
+            var parentId = $( this ).attr('id');
+            var idDivInputRado = parentId + '_reponse';
+            var idReponse0 = $( '#' + parentId + '_reponse_0');
+            var idReponseRaison = $( '#' + parentId + '_reponseRaison' );
+            var inputName = $( '#' + idDivInputRado + ' label:first-child input' ).first().attr('name');
+
+            if (idReponse0.is(':checked')) {
+                idReponseRaison.show();
+                idReponseRaison.prop("required", true);
+            } else {
+                idReponseRaison.hide();
+            }
+
+            $("input[name='"+ inputName +"']").change(function(e){
+                if($(this).val() == -1) {
+                    idReponseRaison.show();
+                    idReponseRaison.prop("required", true);
+                } else {
+                    idReponseRaison.hide();
+                    idReponseRaison.prop("required", false);
+                    idReponseRaison.val("");
+                }
+
+            });
+        });
+    });
+</script>

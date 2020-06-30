@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_conformite_organisation form create' %}
+{% set menuItem = 'registry_conformite_organisation' %}
+
+{% block title %}{{ 'registry.conformite_organisation.title.create'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'registry.conformite_organisation.title.create'|trans }}
+        <small>{{ object }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.conformite_organisation.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-header"></div>
+                <div class="box-body">
+                    Souhaitez vous vraiment supprimer l'évaluation "{{ object }}" ?
+                </div>
+                <div class="box-footer">
+                    <a href="{{ path('registry_conformite_organisation_list') }}" class="btn btn-default">
+                        {{ 'registry.mesurement.action.back_to_list'|trans }}
+                    </a>
+                    <a href="{{ path('registry_conformite_organisation_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'action.confirm_delete'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

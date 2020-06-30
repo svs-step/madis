@@ -27,10 +27,13 @@ namespace App\Domain\Registry\Model;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
-use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
+use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * Action de protection / Plan d'action.
+ */
 class Mesurement
 {
     use CollectivityTrait;
@@ -115,6 +118,11 @@ class Mesurement
      * @var string|null
      */
     private $manager;
+
+    /**
+     * @var Conformite
+     */
+    private $conformiteOrganisation;
 
     /**
      * @var iterable
@@ -266,9 +274,16 @@ class Mesurement
         $this->manager = $manager;
     }
 
-    /**
-     * @return Reponse[]|iterable
-     */
+    public function getConformiteOrganisation(): Conformite
+    {
+        return $this->conformiteOrganisation;
+    }
+
+    public function setConformiteOrganisation(Conformite $conformiteOrganisation): void
+    {
+        $this->conformiteOrganisation = $conformiteOrganisation;
+    }
+
     public function getConformiteTraitementReponses()
     {
         return $this->conformiteTraitementReponses;

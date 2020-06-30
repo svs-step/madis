@@ -35,10 +35,12 @@ use App\Domain\Reporting\Metrics\MetricInterface;
 use App\Domain\Reporting\Metrics\UserMetric;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
+use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
 
 class UserMetricTest extends TestCase
 {
@@ -51,6 +53,11 @@ class UserMetricTest extends TestCase
      * @var ConformiteTraitement
      */
     private $conformiteTraitementRepository;
+
+    /**
+     * @var Evaluation|ObjectProphecy
+     */
+    private $evaluationRepository;
 
     /**
      * @var Request
@@ -73,12 +80,14 @@ class UserMetricTest extends TestCase
         $this->conformiteTraitementRepository = $this->prophesize(ConformiteTraitement::class);
         $this->requestRepository              = $this->prophesize(Request::class);
         $this->userProvider                   = $this->prophesize(UserProvider::class);
+        $this->evaluationRepository           = $this->prophesize(Evaluation::class);
 
         $this->userMetric = new UserMetric(
             $this->entityManager->reveal(),
             $this->conformiteTraitementRepository->reveal(),
             $this->requestRepository->reveal(),
-            $this->userProvider->reveal()
+            $this->userProvider->reveal(),
+            $this->evaluationRepository->reveal()
         );
     }
 
@@ -115,6 +124,7 @@ class UserMetricTest extends TestCase
         $violationRepo->findBy(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $this->requestRepository->findAllByCollectivity(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $this->conformiteTraitementRepository->findAllByCollectivity(Argument::cetera())->shouldBeCalled()->willReturn([]);
+        $this->evaluationRepository->findLastByOrganisation(Argument::any())->shouldBeCalled()->willReturn(null);
 
         $this->assertIsArray($this->userMetric->getData());
     }

@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Reporting\Handler;
 
+use App\Domain\Reporting\Generator\Word\ConformiteOrganisationGenerator;
 use App\Domain\Reporting\Generator\Word\ConformiteTraitementGenerator;
 use App\Domain\Reporting\Generator\Word\ContractorGenerator;
 use App\Domain\Reporting\Generator\Word\MaturityGenerator;
@@ -89,6 +90,11 @@ class WordHandlerTest extends TestCase
     private $conformiteTraitementGeneratorProphecy;
 
     /**
+     * @var ConformiteTraitementGenerator
+     */
+    private $conformiteOrganisationGenerator;
+
+    /**
      * @var WordHandler
      */
     private $handler;
@@ -104,6 +110,7 @@ class WordHandlerTest extends TestCase
         $this->treatmentGeneratorProphecy             = $this->prophesize(TreatmentGenerator::class);
         $this->violationGeneratorProphecy             = $this->prophesize(ViolationGenerator::class);
         $this->conformiteTraitementGeneratorProphecy  = $this->prophesize(ConformiteTraitementGenerator::class);
+        $this->conformiteOrganisationGenerator        = $this->prophesize(ConformiteOrganisationGenerator::class);
 
         $this->handler = new WordHandler(
             $this->phpWordProphecy->reveal(),
@@ -114,7 +121,8 @@ class WordHandlerTest extends TestCase
             $this->requestGeneratorProphecy->reveal(),
             $this->treatmentGeneratorProphecy->reveal(),
             $this->violationGeneratorProphecy->reveal(),
-            $this->conformiteTraitementGeneratorProphecy->reveal()
+            $this->conformiteTraitementGeneratorProphecy->reveal(),
+            $this->conformiteOrganisationGenerator->reveal(),
         );
     }
 
@@ -134,6 +142,7 @@ class WordHandlerTest extends TestCase
         $violations            = [];
         $conformiteTraitements = [];
         $responseProphecy      = $this->prophesize(BinaryFileResponse::class);
+        $evaluation            = null;
 
         $phpWord = $this->phpWordProphecy->reveal();
 
@@ -147,7 +156,7 @@ class WordHandlerTest extends TestCase
         $this->overviewGeneratorProphecy->generateObjectPart($section)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateOrganismIntroductionPart($section)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateRegistries($section, $treatments, $contractors, $requests, $violations)->shouldBeCalled();
-        $this->overviewGeneratorProphecy->generateManagementSystemAndCompliance($section, $maturity, $mesurements, $conformiteTraitements)->shouldBeCalled();
+        $this->overviewGeneratorProphecy->generateManagementSystemAndCompliance($section, $maturity, $mesurements, $conformiteTraitements, null)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateContinuousImprovements($section)->shouldBeCalled();
         $this->overviewGeneratorProphecy->generateAnnexeMention($section, $treatments)->shouldBeCalled();
 

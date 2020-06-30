@@ -87,6 +87,7 @@ class CollectivityTypeTest extends FormTypeHelper
             'reportingBlockContinuousImprovement' => CKEditorType::class,
             'comiteIlContacts'                    => CollectionType::class,
             'hasModuleConformiteTraitement'       => CheckboxType::class,
+            'hasModuleConformiteOrganisation'     => CheckboxType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);

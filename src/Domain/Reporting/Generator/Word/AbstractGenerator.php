@@ -376,11 +376,22 @@ abstract class AbstractGenerator implements GeneratorInterface
                             continue;
                         }
 
-                        // If item is array, then there is specific contiguration
-                        $textrun->addText(
-                            $item['text'] ?? '',
-                            $item['style'] ?? []
-                        );
+                        /* If item is array, there is 2 possibility :
+                            - this is an array of item to display in a single cell
+                            - there is additionnal configuration */
+                        if (isset($item['array']) && null !== $item['array']) {
+                            foreach ($item['array'] as $subItemKey => $subItem) {
+                                $textrun->addText($subItem);
+                                if ($subItemKey !== count($item['array']) - 1) {
+                                    $textrun->addTextBreak(2);
+                                }
+                            }
+                        } else {
+                            $textrun->addText(
+                                $item['text'] ?? '',
+                                $item['style'] ?? []
+                            );
+                        }
                     }
                 }
             }

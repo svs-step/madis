@@ -25,3 +25,7 @@ _registry_treatment:
 _registry_violation:
     resource: 'violation.yaml'
     prefix:   '/violations'
+
+_registry_conformite_organisation:
+    resource: 'conformite_organisation.yaml'
+    prefix:   '/conformite-organisation'

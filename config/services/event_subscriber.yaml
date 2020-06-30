@@ -16,6 +16,7 @@ services:
             $expirationTime: '%env(APP_COOKIE_IDLE_TIMEOUT)%'
 
     App\Domain\Registry\Symfony\EventSubscriber\Kernel\ConformiteTraitementSubscriber: ~
+    App\Domain\Registry\Symfony\EventSubscriber\Kernel\ConformiteOrganisationSubscriber: ~
 
     # ========
     # DOCTRINE

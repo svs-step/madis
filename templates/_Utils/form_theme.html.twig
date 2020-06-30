@@ -69,3 +69,21 @@
         </div>
     </div>
 {%- endblock custom_checkbox_row %}
+
+{% block _evaluation_conformites_entry_reponses_entry_widget %}
+    <div id="{{ form.vars.id }}" class="conformite-organisation-reponse">
+        <div class="form-group {% if form.reponseRaison.vars.valid == false %}has-error{% endif %}" style="margin-top: 15px;">
+            <div class="col-sm-3">
+                {{ form_widget(form.reponse) }}
+            </div>
+            <div class="col-sm-9">
+                {{ form_widget(form.reponseRaison) }}
+                {% if form.reponseRaison.vars.valid == false %}
+                    <div class="form-error">
+                        {{ form_errors(form.reponseRaison) }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock _evaluation_conformites_entry_reponses_entry_widget %}

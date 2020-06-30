@@ -552,3 +552,42 @@ registry:
                 create: Conformité du traitement "%object%" créée avec succès
 
 
+    conformite_organisation:
+        title:
+            create: Créer une évaluation
+            edit: Modifier une évaluation
+            list: Lister les évaluations
+        list:
+            collectivite: Nom de la collectivité
+            pilote: Pilote
+            processus: Processus
+            conformite: Conformité
+            action_protection: Action de protection
+            date_creation: Date de création
+            actions: Actions
+            nb_participants: Nombre de participants
+        form:
+            date: Date
+            participants: Participants
+            contexte: Contexte
+            actions_protection: Actions de protection
+        participant:
+            form:
+                civilite: Civilité
+                prenom: Prénom
+                nom_famille: Nom de famille
+                fonction: Fonction
+                add: Ajouter un participant
+        flashbag:
+            success:
+                create: Conformité de l'organisation "%object%" créée avec succès
+                pilote: Les pilotes ont été enregistrés avec succès
+                edit: Conformité de l'organisation "%object%" éditée avec succès
+                delete: Conformité de l'organisation "%object%" supprimée avec succès
+        action:
+            create: Nouvelle évaluation de l'organisation
+            back_to_list: Retour à la liste
+            edit: Modifier
+            delete: Supprimer
+            report: Générer une impression
+            print: Imprimer

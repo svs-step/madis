@@ -1,15 +1,15 @@
 (function ($) {
     $(document).ready(function() {
-        var $wrapper = $('.js-comite-il-contacts-wrapper');
+        var $wrapper = $('.js-collection-wrapper');
 
-        $wrapper.on('click', '.js-remove-contact', function(e) {
+        $wrapper.on('click', '.js-remove-item', function(e) {
             e.preventDefault();
-            $(this).closest('.js-comite-il-contacts-item')
+            $(this).closest('.js-collection-item')
                 .fadeOut()
                 .remove();
         });
 
-        $wrapper.on('click', '.js-comite-il-contacts-add', function(e) {
+        $wrapper.on('click', '.js-collection-add', function(e) {
             e.preventDefault();
             // Get the data-prototype explained earlier
             var prototype = $wrapper.data('prototype');

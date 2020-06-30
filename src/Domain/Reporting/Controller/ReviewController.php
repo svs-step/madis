@@ -28,6 +28,7 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Maturity\Repository as MaturityRepository;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -85,6 +86,11 @@ class ReviewController extends AbstractController
      */
     private $conformiteTraitementRepository;
 
+    /**
+     * @var Evaluation
+     */
+    private $evaluationRepository;
+
     public function __construct(
         WordHandler $wordHandler,
         UserProvider $userProvider,
@@ -95,7 +101,8 @@ class ReviewController extends AbstractController
         Repository\Request $requestRepository,
         Repository\Violation $violationRepository,
         MaturityRepository\Survey $surveyRepository,
-        Repository\ConformiteTraitement\ConformiteTraitement $conformiteTraitementRepository
+        Repository\ConformiteTraitement\ConformiteTraitement $conformiteTraitementRepository,
+        Repository\ConformiteOrganisation\Evaluation $evaluationRepository
     ) {
         $this->wordHandler                    = $wordHandler;
         $this->userProvider                   = $userProvider;
@@ -107,6 +114,7 @@ class ReviewController extends AbstractController
         $this->violationRepository            = $violationRepository;
         $this->surveyRepository               = $surveyRepository;
         $this->conformiteTraitementRepository = $conformiteTraitementRepository;
+        $this->evaluationRepository           = $evaluationRepository;
     }
 
     /**
@@ -139,7 +147,8 @@ class ReviewController extends AbstractController
             $maturity,
             $this->requestRepository->findAllArchivedByCollectivity($collectivity, false),
             $this->violationRepository->findAllArchivedByCollectivity($collectivity, false),
-            $this->conformiteTraitementRepository->findAllByCollectivity($collectivity)
+            $this->conformiteTraitementRepository->findAllByCollectivity($collectivity),
+            $this->evaluationRepository->findLastByOrganisation($collectivity)
         );
     }
 }
