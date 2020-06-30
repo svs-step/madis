@@ -74,6 +74,7 @@
                         {{ 'registry.conformite_organisation.participant.form.add'|trans }}
                     </a>
             </div>
+        {{ form_widget(form.participants) }}
     </div>
 
 {% include 'Registry/Conformite_organisation/_form_conformites.html.twig' with {'form': form.conformites} %}

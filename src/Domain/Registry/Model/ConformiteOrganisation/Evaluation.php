@@ -94,7 +94,10 @@ class Evaluation
 
     public function __toString()
     {
-        // TODO TMP toString
+        if (null !== $this->date) {
+            return $this->collectivity->getName() . ' ' . date_format($this->date, 'Y-m-d');
+        }
+
         return $this->collectivity->getName();
     }
 
@@ -118,5 +121,31 @@ class Evaluation
     public function getConformites(): iterable
     {
         return $this->conformites;
+    }
+
+    public function __clone()
+    {
+        $this->id           = Uuid::uuid4();
+        $tmpConformites     = $this->conformites;
+        $tmpParticipants    = $this->participants;
+        $this->conformites  = [];
+        $this->participants = [];
+        $this->cloneConformites($tmpConformites);
+        $this->cloneParticipants($tmpParticipants);
+        $this->date = null;
+    }
+
+    private function cloneConformites(iterable $conformites)
+    {
+        foreach ($conformites as $conformite) {
+            $this->addConformite(clone $conformite);
+        }
+    }
+
+    private function cloneParticipants(iterable $participants)
+    {
+        foreach ($participants as $participant) {
+            $this->addParticipant(clone $participant);
+        }
     }
 }

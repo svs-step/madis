@@ -15,7 +15,7 @@
                                 <div class="box-header with-border">{{ processus.nom | upper }}</div>
                                 <div class="box-body">
                                     {% for conformite in conformitesArray %}
-                                        {% for reponse in conformite.reponses %}
+                                        {% for reponse in getQuestionsOrderedByPosition(conformite.reponses) %}
                                             <div class="text-bold">{{ reponse.vars.value.question.nom }}</div>
                                             <div>{{ form_widget(reponse) }}</div>
                                         {% endfor %}

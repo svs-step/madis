@@ -96,4 +96,9 @@ class Participant
     {
         $this->evaluation = $evaluation;
     }
+
+    public function __clone()
+    {
+        $this->id   = Uuid::uuid4();
+    }
 }

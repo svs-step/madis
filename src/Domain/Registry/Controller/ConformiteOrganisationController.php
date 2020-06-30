@@ -84,21 +84,27 @@ class ConformiteOrganisationController extends CRUDController
 
     public function createAction(Request $request): Response
     {
-        $evaluation     = new Evaluation();
-
         $organisation = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-        $evaluation->setCollectivity($organisation);
 
-        foreach ($this->processusRepository->findAll(['position' => 'asc']) as $processus) {
-            $conformite = new Conformite();
-            $conformite->setProcessus($processus);
-            foreach ($this->questionRepository->findAllByProcessus($processus) as $question) {
-                $reponse = new Reponse();
-                $reponse->setConformite($conformite);
-                $reponse->setQuestion($question);
-                $conformite->addReponse($reponse);
+        $evaluation = $this->repository->findLastByOrganisation($organisation);
+        if (null !== $evaluation) {
+            $evaluation = clone $evaluation;
+            $this->addMissingNewQuestionsAndProcessus($evaluation);
+        } else {
+            $evaluation = new Evaluation();
+
+            foreach ($this->processusRepository->findAll(['position' => 'asc']) as $processus) {
+                $conformite = new Conformite();
+                $conformite->setProcessus($processus);
+                foreach ($this->questionRepository->findAllByProcessus($processus) as $question) {
+                    $reponse = new Reponse();
+                    $reponse->setConformite($conformite);
+                    $reponse->setQuestion($question);
+                    $conformite->addReponse($reponse);
+                }
+                $evaluation->addConformite($conformite);
             }
-            $evaluation->addConformite($conformite);
+            $evaluation->setCollectivity($organisation);
         }
 
         $form = $this->createForm($this->getFormType(), $evaluation);
@@ -156,19 +162,7 @@ class ConformiteOrganisationController extends CRUDController
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
-        foreach ($this->processusRepository->findNewNotUsedInGivenConformite($evaluation) as $processus) {
-            $conformite = new Conformite();
-            $conformite->setProcessus($processus);
-            $evaluation->addConformite($conformite);
-        }
-
-        foreach ($evaluation->getConformites() as $conformite) {
-            foreach ($this->questionRepository->findNewNotUsedByGivenConformite($conformite) as $question) {
-                $reponse = new Reponse();
-                $reponse->setQuestion($question);
-                $conformite->addReponse($reponse);
-            }
-        }
+        $this->addMissingNewQuestionsAndProcessus($evaluation);
 
         $form = $this->createForm($this->getFormType(), $evaluation);
 
@@ -197,6 +191,23 @@ class ConformiteOrganisationController extends CRUDController
         }
 
         return $this->wordHandler->generateRegistryConformiteOrganisationReport($evaluation);
+    }
+
+    private function addMissingNewQuestionsAndProcessus(Evaluation $evaluation)
+    {
+        foreach ($this->processusRepository->findNewNotUsedInGivenConformite($evaluation) as $processus) {
+            $conformite = new Conformite();
+            $conformite->setProcessus($processus);
+            $evaluation->addConformite($conformite);
+        }
+
+        foreach ($evaluation->getConformites() as $conformite) {
+            foreach ($this->questionRepository->findNewNotUsedByGivenConformite($conformite) as $question) {
+                $reponse = new Reponse();
+                $reponse->setQuestion($question);
+                $conformite->addReponse($reponse);
+            }
+        }
     }
 
     protected function getDomain(): string

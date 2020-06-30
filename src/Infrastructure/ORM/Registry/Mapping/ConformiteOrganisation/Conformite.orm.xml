@@ -26,6 +26,9 @@
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
+            <order-by>
+                <order-by-field name="id"/>
+            </order-by>
         </one-to-many>
     </entity>
 
