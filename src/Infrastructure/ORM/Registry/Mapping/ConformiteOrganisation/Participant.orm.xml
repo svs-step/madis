@@ -15,7 +15,7 @@
         <field name="civilite" column="civilite" nullable="true"/>
         <field name="fonction" column="fonction" nullable="true"/>
 
-        <many-to-one field="evaluation" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Evaluation"/>
+        <many-to-one field="evaluation" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Evaluation" inversed-by="participants"/>
 
     </entity>
 

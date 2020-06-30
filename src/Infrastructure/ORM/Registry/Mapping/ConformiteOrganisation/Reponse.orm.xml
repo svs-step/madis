@@ -13,8 +13,8 @@
         <field name="reponse" column="reponse" type="integer" nullable="true"/>
         <field name="reponseRaison" column="reponse_raison" nullable="true"/>
 
-        <many-to-one field="question" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Question"/>
-        <many-to-one field="conformite" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Conformite"/>
+        <many-to-one field="question" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Question" inversed-by="reponses"/>
+        <many-to-one field="conformite" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Conformite" inversed-by="reponses"/>
 
     </entity>
 

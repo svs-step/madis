@@ -15,6 +15,7 @@ class EvaluationPiloteType extends AbstractType
         $builder
             ->add('conformites', CollectionType::class, [
                 'entry_type' => PiloteType::class,
+                'required'   => false,
             ])
         ;
     }

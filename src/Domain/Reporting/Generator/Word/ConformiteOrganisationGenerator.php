@@ -15,7 +15,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
     {
         $section->addTitle('Liste des processus', 1);
 
-        $tableData = $this->getConformitesTable($data);
+        $tableData = $this->getConformitesTable($this->getOrderedConformites($data));
 
         $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
     }
@@ -27,7 +27,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
 
         /** @var Evaluation $evaluation */
         $evaluation  = $data[0];
-        $conformites = $this->getOrderedConformites($evaluation);
+        $conformites = $this->getOrderedConformites(\iterable_to_array($evaluation->getConformites()));
         foreach ($conformites as $key => $conformite) {
             if (0 != $key) {
                 $section->addPageBreak();
@@ -51,7 +51,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         $historyData = [
             [
                 'Dernière évaluation',
-                $evaluation->getDate(),
+                $evaluation->getDate()->format('Y-m-d'),
             ],
             [
                 'Liste des participants',
@@ -68,7 +68,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
             return;
         }
 
-        $conformites = $this->getOrderedConformites($evaluation);
+        $conformites = $this->getOrderedConformites(\iterable_to_array($evaluation->getConformites()));
 
         $scores = [];
         foreach ($conformites as $conformite) {
@@ -119,7 +119,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
     private function extractConformiteProcessus(Evaluation $evaluation): array
     {
         $processus = [];
-        foreach ($this->getOrderedConformites($evaluation) as $conformite) {
+        foreach ($this->getOrderedConformites(\iterable_to_array($evaluation->getConformites())) as $conformite) {
             $processus[] = $conformite->getProcessus()->getNom();
         }
 
@@ -156,9 +156,8 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         return $participants;
     }
 
-    private function getOrderedConformites(Evaluation $evaluation)
+    private function getOrderedConformites(array $conformites): array
     {
-        $conformites = \iterable_to_array($evaluation->getConformites());
         usort($conformites, function ($a, $b) {
             return $a->getProcessus()->getPosition() > $b->getProcessus()->getPosition() ? 1 : -1;
         });

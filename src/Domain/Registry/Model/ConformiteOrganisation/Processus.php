@@ -38,9 +38,9 @@ class Processus
     private $questions;
 
     /**
-     * @var Conformite
+     * @var iterable
      */
-    private $conformite;
+    private $conformites;
 
     /**
      * Domain constructor.
@@ -49,8 +49,9 @@ class Processus
      */
     public function __construct()
     {
-        $this->id        = Uuid::uuid4();
-        $this->questions = [];
+        $this->id          = Uuid::uuid4();
+        $this->questions   = [];
+        $this->conformites = [];
     }
 
     public function getId(): UuidInterface
@@ -120,13 +121,13 @@ class Processus
         return $this->questions;
     }
 
-    public function getConformite(): Conformite
+    public function getConformites(): iterable
     {
-        return $this->conformite;
+        return $this->conformites;
     }
 
-    public function setConformite(Conformite $conformite): void
+    public function setConformites(array $conformites): void
     {
-        $this->conformite = $conformite;
+        $this->conformites = $conformites;
     }
 }

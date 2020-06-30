@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Application\Symfony\EventSubscriber\Kernel;
 
+use App\Domain\Registry\Controller\ConformiteOrganisationController;
 use App\Domain\Registry\Controller\ConformiteTraitementController;
 use App\Domain\User\Model\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -70,6 +71,10 @@ class AccessModuleConformiteSubscriber implements EventSubscriberInterface
             case $controller[0] instanceof ConformiteTraitementController
                 && !$user->getCollectivity()->isHasModuleConformiteTraitement():
                 throw new AccessDeniedHttpException('You can\'t access to conformite des traitements');
+                break;
+            case $controller[0] instanceof ConformiteOrganisationController
+                && !$user->getCollectivity()->isHasModuleConformiteOrganisation():
+                throw new AccessDeniedHttpException('You can\'t access to conformite de l\'organisation');
                 break;
         }
     }

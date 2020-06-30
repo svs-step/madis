@@ -570,6 +570,7 @@ registry:
             date: Date
             participants: Participants
             contexte: Contexte
+            actions_protection: Actions de protection
         participant:
             form:
                 civilite: Civilité

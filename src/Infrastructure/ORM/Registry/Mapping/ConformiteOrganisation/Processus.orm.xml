@@ -16,7 +16,7 @@
         <field name="position" column="position" type="integer"/>
         
         <one-to-many field="questions" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Question" mapped-by="processus"/>
-        <one-to-many field="conformite" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Conformite" mapped-by="processus"/>
+        <one-to-many field="conformites" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Conformite" mapped-by="processus"/>
 
     </entity>
 
