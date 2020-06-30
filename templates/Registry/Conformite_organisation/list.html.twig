@@ -126,7 +126,7 @@
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <td>{{ evaluation.collectivity.name }}</td>
                                 {% endif %}
-                                <td>{{ evaluation.date|date('d/m/Y H:i') }}</td>
+                                <td>{% if evaluation.date is not null %}{{ evaluation.date|date('d/m/Y H:i') }}{% endif %}</td>
                                 <td>{{ evaluation.participants|length }}</td>
                                 <td>
                                     <a href="{{ path('registry_conformite_organisation_report', {'id': evaluation.id}) }}">
