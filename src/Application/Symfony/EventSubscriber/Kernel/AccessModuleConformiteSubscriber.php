@@ -62,7 +62,7 @@ class AccessModuleConformiteSubscriber implements EventSubscriberInterface
         /** @var User|null $user */
         $user = $this->security->getUser();
 
-        if (\is_array($controller) && !isset($controller[0]) || \is_null($user)) {
+        if (!is_array($controller) || (is_array($controller) && !isset($controller[0])) || \is_null($user)) {
             return;
         }
 
