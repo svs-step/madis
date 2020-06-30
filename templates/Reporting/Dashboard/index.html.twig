@@ -167,7 +167,8 @@
         </div>
     </div>
 
-    {% if app.user.collectivity.hasModuleConformiteTraitement == true %}
+    {% if app.user.collectivity.hasModuleConformiteTraitement == true or
+        app.user.collectivity.hasModuleConformiteOrganisation == true %}
     <div class="row">
         {# DETAIL : CONFORMITE TRAITEMENT #}
         {% if app.user.collectivity.hasModuleConformiteTraitement == true %}
@@ -185,52 +186,54 @@
             </div>
         {% endif %}
 
+        {% if app.user.collectivity.hasModuleConformiteOrganisation == true %}
         {# DETAIL : CONFORMITE ORGANISATION #}
-        <div class="col-md-6 col-xs-12">
-            <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">Conformité de l'organisation</h3></div>
-                {% if data.conformiteOrganisation is empty %}
-                    <div class="box-body">
-                    Aucune donnée à afficher
-                {% else %}
-                    <div class="box-body no-padding">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Processus</th>
-                                    <th>Progression</th>
-                                    <th style="width: 40px">Conformité</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for conformite in data.conformiteOrganisation %}
-                                    {% set score = (conformite['conformite'] / 5 * 100) %}
-                                    {% if score <= 50 %}
-                                        {% set color = 'red' %}
-
-                                    {% elseif score <= 70 %}
-                                        {% set color = 'yellow' %}
-                                    {% else %}
-                                        {% set color = 'green' %}
-                                    {% endif %}
+            <div class="col-md-6 col-xs-12">
+                <div class="box box-solid">
+                    <div class="box-header with-border"><h3 class="box-title">Conformité de l'organisation</h3></div>
+                    {% if data.conformiteOrganisation is empty %}
+                        <div class="box-body">
+                        Aucune donnée à afficher
+                    {% else %}
+                        <div class="box-body no-padding">
+                            <table class="table table-striped">
+                                <thead>
                                     <tr>
-                                        <td>{{ conformite['processus'] }}</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-{{ color }}" style="width: {{ score }}%"></div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-{{ color }}">{{ score }}%</span>
-                                        </td>
+                                        <th>Processus</th>
+                                        <th>Progression</th>
+                                        <th style="width: 40px">Conformité</th>
                                     </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                {% endif %}
+                                </thead>
+                                <tbody>
+                                    {% for conformite in data.conformiteOrganisation %}
+                                        {% set score = (conformite['conformite'] / 5 * 100) %}
+                                        {% if score <= 50 %}
+                                            {% set color = 'red' %}
+
+                                        {% elseif score <= 70 %}
+                                            {% set color = 'yellow' %}
+                                        {% else %}
+                                            {% set color = 'green' %}
+                                        {% endif %}
+                                        <tr>
+                                            <td>{{ conformite['processus'] }}</td>
+                                            <td>
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-{{ color }}" style="width: {{ score }}%"></div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-{{ color }}">{{ score }}%</span>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                    {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </div>
     {% endif %}
 {% endblock %}

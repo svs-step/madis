@@ -187,8 +187,14 @@ class OverviewGenerator extends AbstractGenerator
         $section->addTitle('Système de management des données à caractère personnel et conformité', 1);
 
         $this->maturityGenerator->addGlobalOverview($section, $maturity);
-        $this->conformiteTraitementGenerator->addGlobalOverview($section, $conformiteTraitements);
-        $this->conformiteOrganisationGenerator->addGlobalOverview($section, $evaluation);
+        $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+
+        if ($collectivity->isHasModuleConformiteTraitement()) {
+            $this->conformiteTraitementGenerator->addGlobalOverview($section, $conformiteTraitements);
+        }
+        if ($collectivity->isHasModuleConformiteOrganisation()) {
+            $this->conformiteOrganisationGenerator->addGlobalOverview($section, $evaluation);
+        }
         $this->mesurementGenerator->addGlobalOverview($section, $mesurements);
     }
 
