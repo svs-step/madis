@@ -19,7 +19,9 @@
                 <cascade-remove />
             </cascade>
         </one-to-many>
-        <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity"/>
+        <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">
+            <join-column on-delete="CASCADE" />
+        </many-to-one>
         <one-to-many field="conformites" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Conformite" orphan-removal="true" mapped-by="evaluation">
             <cascade>
                 <cascade-persist/>
