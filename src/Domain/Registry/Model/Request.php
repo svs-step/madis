@@ -31,20 +31,14 @@ use App\Application\Traits\Model\SoftDeletableTrait;
 use App\Domain\Registry\Model\Embeddable\RequestAnswer;
 use App\Domain\Registry\Model\Embeddable\RequestApplicant;
 use App\Domain\Registry\Model\Embeddable\RequestConcernedPeople;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use App\Domain\Reporting\Model\LoggableSubject;
 
-class Request
+class Request extends LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;
     use HistoryTrait;
     use SoftDeletableTrait;
-
-    /**
-     * @var UuidInterface
-     */
-    private $id;
 
     /**
      * @var string|null
@@ -118,7 +112,7 @@ class Request
      */
     public function __construct()
     {
-        $this->id                  = Uuid::uuid4();
+        parent::__construct();
         $this->date                = new \DateTime();
         $this->applicant           = new RequestApplicant();
         $this->concernedPeople     = new RequestConcernedPeople();
@@ -140,11 +134,6 @@ class Request
         }
 
         return $this->getApplicant()->getFullName();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function getObject(): ?string

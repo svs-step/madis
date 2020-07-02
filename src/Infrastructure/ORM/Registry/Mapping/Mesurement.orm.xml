@@ -8,8 +8,6 @@
 
     <entity name="App\Domain\Registry\Model\Mesurement" table="registry_mesurement">
 
-        <id name="id" column="id" type="uuid"/>
-
         <field name="name" column="name"/>
         <field name="type" column="type" nullable="true"/>
         <field name="description" column="description" type="text" nullable="true"/>

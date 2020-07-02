@@ -25,18 +25,12 @@ declare(strict_types=1);
 namespace App\Domain\User\Model;
 
 use App\Application\Traits\Model\SoftDeletableTrait;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use App\Domain\Reporting\Model\LoggableSubject;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User implements UserInterface
+class User extends LoggableSubject implements UserInterface
 {
     use SoftDeletableTrait;
-
-    /**
-     * @var UuidInterface
-     */
-    private $id;
 
     /**
      * @var string|null
@@ -95,7 +89,7 @@ class User implements UserInterface
      */
     public function __construct()
     {
-        $this->id      = Uuid::uuid4();
+        parent::__construct();
         $this->roles   = [];
         $this->enabled = true;
     }
@@ -111,11 +105,6 @@ class User implements UserInterface
         }
 
         return $this->getFullName();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function getFirstName(): ?string
