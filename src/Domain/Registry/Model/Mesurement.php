@@ -27,22 +27,17 @@ namespace App\Domain\Registry\Model;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
+use App\Domain\Reporting\Model\LoggableSubject;
 
 /**
  * Action de protection / Plan d'action.
  */
-class Mesurement
+class Mesurement extends LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;
     use HistoryTrait;
-
-    /**
-     * @var UuidInterface
-     */
-    private $id;
 
     /**
      * FR: Nom.
@@ -135,7 +130,7 @@ class Mesurement
      */
     public function __construct()
     {
-        $this->id                           = Uuid::uuid4();
+        parent::__construct();
         $this->proofs                       = [];
         $this->conformiteTraitementReponses = [];
         $this->conformiteOrganisation       = [];
@@ -152,11 +147,6 @@ class Mesurement
         }
 
         return $this->getName();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function getName(): ?string

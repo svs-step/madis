@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\Infrastructure\ORM\Reporting\Repository\:
+        resource: '../../../../src/Infrastructure/ORM/Reporting/Repository'
+
+    App\Domain\Reporting\Repository\LogJournal: '@App\Infrastructure\ORM\Reporting\Repository\LogJournal'

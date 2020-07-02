@@ -11,8 +11,6 @@
             <unique-constraint columns="email"/>
         </unique-constraints>
 
-        <id name="id" column="id" type="uuid"/>
-
         <field name="firstName" column="first_name"/>
         <field name="lastName" column="last_name"/>
         <field name="email" column="email"/>

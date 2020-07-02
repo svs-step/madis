@@ -30,19 +30,13 @@ use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\Embeddable\ComplexChoice;
 use App\Domain\Registry\Model\Embeddable\Delay;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use App\Domain\Reporting\Model\LoggableSubject;
 
-class Treatment
+class Treatment extends LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;
     use HistoryTrait;
-
-    /**
-     * @var UuidInterface
-     */
-    private $id;
 
     /**
      * @var string|null
@@ -369,7 +363,7 @@ class Treatment
      */
     public function __construct()
     {
-        $this->id                                = Uuid::uuid4();
+        parent::__construct();
         $this->paperProcessing                   = false;
         $this->dataCategories                    = [];
         $this->contractors                       = [];
@@ -414,11 +408,6 @@ class Treatment
         }
 
         return $this->getName();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function getName(): ?string

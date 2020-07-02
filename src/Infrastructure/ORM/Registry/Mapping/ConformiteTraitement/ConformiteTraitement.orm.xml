@@ -8,8 +8,6 @@
 
     <entity name="App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement" table="conformite_traitement">
 
-        <id name="id" column="id" type="uuid"/>
-
         <field name="nbConformes" type="smallint"/>
         <field name="nbNonConformesMineures" type="smallint"/>
         <field name="nbNonConformesMajeures" type="smallint"/>

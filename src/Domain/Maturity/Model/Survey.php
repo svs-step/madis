@@ -27,19 +27,13 @@ namespace App\Domain\Maturity\Model;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use App\Domain\Reporting\Model\LoggableSubject;
 
-class Survey
+class Survey extends LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;
     use HistoryTrait;
-
-    /**
-     * @var UuidInterface
-     */
-    private $id;
 
     /**
      * @var iterable
@@ -63,7 +57,7 @@ class Survey
      */
     public function __construct()
     {
-        $this->id       = Uuid::uuid4();
+        parent::__construct();
         $this->answers  = [];
         $this->maturity = [];
         $this->score    = 0;
@@ -72,11 +66,6 @@ class Survey
     public function __toString(): string
     {
         return "Indice du {$this->createdAt->format('d/m/Y')}";
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function addAnswer(Answer $answer): void

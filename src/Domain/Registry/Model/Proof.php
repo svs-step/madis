@@ -28,21 +28,15 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Application\Traits\Model\SoftDeletableTrait;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use App\Domain\Reporting\Model\LoggableSubject;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class Proof
+class Proof extends LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;
     use HistoryTrait;
     use SoftDeletableTrait;
-
-    /**
-     * @var UuidInterface
-     */
-    private $id;
 
     /**
      * @var string|null
@@ -101,7 +95,7 @@ class Proof
      */
     public function __construct()
     {
-        $this->id          = Uuid::uuid4();
+        parent::__construct();
         $this->treatments  = [];
         $this->contractors = [];
         $this->mesurements = [];
@@ -120,11 +114,6 @@ class Proof
         }
 
         return $this->getName();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function getName(): ?string

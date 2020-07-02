@@ -3,17 +3,12 @@
 namespace App\Domain\Registry\Model\ConformiteOrganisation;
 
 use App\Application\Traits\Model\CollectivityTrait;
+use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
-class Evaluation
+class Evaluation extends LoggableSubject
 {
     use CollectivityTrait;
-
-    /**
-     * @var UuidInterface
-     */
-    private $id;
 
     /**
      * @var \DateTime|null
@@ -44,16 +39,11 @@ class Evaluation
 
     public function __construct()
     {
-        $this->id           = Uuid::uuid4();
+        parent::__construct();
         $this->participants = [];
         $this->complete     = false;
         $this->conformites  = [];
         $this->isDraft      = true;
-    }
-
-    public function getId()
-    {
-        return $this->id;
     }
 
     public function getDate(): ?\DateTime

@@ -8,8 +8,6 @@
 
     <entity name="App\Domain\Registry\Model\ConformiteOrganisation\Evaluation" table="registry_conformite_organisation_evaluation">
 
-        <id name="id" column="id" type="uuid"/>
-
         <field name="date" column="date" type="date" nullable="true"/>
         <field name="complete" column="complete" type="boolean"/>
         <field name="isDraft" column="draft" type="boolean"/>

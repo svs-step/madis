@@ -8,8 +8,6 @@
 
     <entity name="App\Domain\Registry\Model\Contractor" table="registry_contractor">
 
-        <id name="id" column="id" type="uuid"/>
-
         <field name="name" column="name"/>
         <field name="referent" column="referent" nullable="true"/>
         <field name="contractualClausesVerified" column="contractual_clauses_verified" type="boolean"/>
