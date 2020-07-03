@@ -51,7 +51,7 @@ class LogJournalSubjectDictionary extends SimpleDictionary
     const USER_EMAIL                                  = 'user_email';
     const USER_FIRSTNAME                              = 'user_firstname';
     const USER_LASTNAME                               = 'user_lastname';
-    const USER_MDP                                    = 'user_mdp';
+    const USER_PASSWORD                               = 'user_password';
     const USER_USER                                   = 'user_user';
     const REGISTRY_VIOLATION                          = 'registry_violation';
 
@@ -92,7 +92,7 @@ class LogJournalSubjectDictionary extends SimpleDictionary
             self::USER_EMAIL                                  => 'Email utilisateur',
             self::USER_FIRSTNAME                              => 'Prénom utilisateur',
             self::USER_LASTNAME                               => 'Nom utilisateur',
-            self::USER_MDP                                    => 'Mdp utilisateur',
+            self::USER_PASSWORD                               => 'Mdp utilisateur',
             self::USER_USER                                   => 'Utilisateur',
             self::REGISTRY_VIOLATION                          => 'Violation',
         ];
@@ -119,7 +119,7 @@ class LogJournalSubjectDictionary extends SimpleDictionary
                 self::USER_EMAIL     => User::class,
                 self::USER_FIRSTNAME => User::class,
                 self::USER_LASTNAME  => User::class,
-                self::USER_MDP       => User::class,
+                self::USER_PASSWORD  => User::class,
             ]
         );
 

@@ -66,7 +66,8 @@ class LoginSubscriber implements EventSubscriberInterface
             $user->getCollectivity(),
             $user,
             LogJournalActionDictionary::LOGIN,
-            LogJournalSubjectDictionary::USER_USER
+            LogJournalSubjectDictionary::USER_USER,
+            $user
         );
 
         $this->entityManager->persist($log);
