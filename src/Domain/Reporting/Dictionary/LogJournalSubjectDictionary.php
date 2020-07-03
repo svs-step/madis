@@ -25,6 +25,17 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Dictionary;
 
 use App\Application\Dictionary\SimpleDictionary;
+use App\Domain\Maturity\Model\Survey;
+use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
+use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
+use App\Domain\Registry\Model\Contractor;
+use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Registry\Model\Proof;
+use App\Domain\Registry\Model\Request;
+use App\Domain\Registry\Model\Treatment;
+use App\Domain\Registry\Model\Violation;
+use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 
 class LogJournalSubjectDictionary extends SimpleDictionary
 {
@@ -43,6 +54,20 @@ class LogJournalSubjectDictionary extends SimpleDictionary
     const USER_MDP                                    = 'user_mdp';
     const USER_USER                                   = 'user_user';
     const REGISTRY_VIOLATION                          = 'registry_violation';
+
+    const CLASS_NAME_SUBJECT = [
+        Survey::class               => self::MATURITY_SURVEY,
+        Collectivity::class         => self::REGISTRY_COLLECTIVITY,
+        Evaluation::class           => self::REGISTRY_CONFORMITE_ORGANISATION_EVALUATION,
+        ConformiteTraitement::class => self::REGISTRY_CONFORMITE_TRAITEMENT,
+        Contractor::class           => self::REGISTRY_CONTRACTOR,
+        Mesurement::class           => self::REGISTRY_MESUREMENT,
+        Proof::class                => self::REGISTRY_PROOF,
+        Request::class              => self::REGISTRY_REQUEST,
+        Treatment::class            => self::REGISTRY_TREATMENT,
+        User::class                 => self::USER_USER,
+        Violation::class            => self::REGISTRY_VIOLATION,
+    ];
 
     public function __construct()
     {
@@ -79,5 +104,25 @@ class LogJournalSubjectDictionary extends SimpleDictionary
     public static function getSubjectsKeys()
     {
         return \array_keys(self::getSubjects());
+    }
+
+    public static function getSubjectFromClassName(string $className): ?string
+    {
+        return isset(self::CLASS_NAME_SUBJECT[$className]) ? self::CLASS_NAME_SUBJECT[$className] : null;
+    }
+
+    public static function getClassNameFormSubject(string $subject): ?string
+    {
+        $data = array_merge(
+            array_flip(self::CLASS_NAME_SUBJECT),
+            [
+                self::USER_EMAIL     => User::class,
+                self::USER_FIRSTNAME => User::class,
+                self::USER_LASTNAME  => User::class,
+                self::USER_MDP       => User::class,
+            ]
+        );
+
+        return isset($data[$subject]) ? $data[$subject] : null;
     }
 }

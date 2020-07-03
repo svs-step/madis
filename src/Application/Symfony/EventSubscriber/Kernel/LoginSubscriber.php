@@ -23,6 +23,9 @@ declare(strict_types=1);
 
 namespace App\Application\Symfony\EventSubscriber\Kernel;
 
+use App\Domain\Reporting\Dictionary\LogJournalActionDictionary;
+use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
+use App\Domain\Reporting\Model\LogJournal;
 use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -56,11 +59,17 @@ class LoginSubscriber implements EventSubscriberInterface
         /** @var User $user */
         $user = $event->getAuthenticationToken()->getUser();
 
-        // Update your field here.
         $user->setLastLogin(new \DateTimeImmutable());
-
-        // Persist the data to database.
         $this->entityManager->persist($user);
+
+        $log = new LogJournal(
+            $user->getCollectivity(),
+            $user,
+            LogJournalActionDictionary::LOGIN,
+            LogJournalSubjectDictionary::USER_USER
+        );
+
+        $this->entityManager->persist($log);
         $this->entityManager->flush();
     }
 }

@@ -133,7 +133,7 @@ class ConformiteTraitement extends LoggableSubject
         $this->nbNonConformesMajeures = $nbNonConformesMajeures;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->traitement->__toString();
     }

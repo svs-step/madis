@@ -93,7 +93,7 @@ class Evaluation extends LoggableSubject
         $this->complete = $complete;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         if (null !== $this->date) {
             return $this->collectivity->getName() . ' ' . date_format($this->date, 'Y-m-d');
