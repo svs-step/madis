@@ -80,7 +80,6 @@ class LogJournalSubscriberTest extends TestCase
         $this->entityManager->persist($logJournal)->shouldBeCalled();
         $this->entityManager->flush()->shouldBeCalled();
 
-        $this->logJournalRepository->updateSubjectIdWithGivenUuid($logJournal->reveal(), $event->getSubject())->shouldBeCalled();
         $this->logJournalRepository->updateLastKnownNameEntriesForGivenSubject($event->getSubject())->shouldBeCalled();
 
         $this->sut->saveLogJournal($event);

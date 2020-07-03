@@ -21,7 +21,9 @@
         <many-to-one field="user" target-entity="App\Domain\User\Model\User">
             <join-column nullable="false" on-delete="CASCADE" />
         </many-to-one>
-        <many-to-one field="subject" target-entity="App\Domain\Reporting\Model\LoggableSubject"/>
+        <many-to-one field="subject" target-entity="App\Domain\Reporting\Model\LoggableSubject">
+            <join-column on-delete="SET NULL"/>
+        </many-to-one>
 
     </entity>
 

@@ -29,7 +29,5 @@ use App\Domain\Reporting\Model\LoggableSubject;
 
 interface LogJournal extends CRUDRepositoryInterface
 {
-    public function updateSubjectIdWithGivenUuid(\App\Domain\Reporting\Model\LogJournal $logJournal, LoggableSubject $subject);
-
     public function updateLastKnownNameEntriesForGivenSubject(LoggableSubject $subject);
 }

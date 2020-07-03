@@ -19,24 +19,6 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal
         return Model\LogJournal::class;
     }
 
-    public function updateSubjectIdWithGivenUuid(\App\Domain\Reporting\Model\LogJournal $logJournal, Model\LoggableSubject $subject)
-    {
-        $qb = $this->getManager()->createQueryBuilder();
-        $qb
-            ->update($this->getModelClass(), 'o')
-            ->set('o.subject', ':uuid')
-            ->andWhere($qb->expr()->eq('o.id', ':logJournal'))
-            ->setParameters(
-                [
-                    'uuid'       => $subject->getId()->toString(),
-                    'logJournal' => $logJournal,
-                ]
-            )
-        ;
-
-        $qb->getQuery()->execute();
-    }
-
     public function updateLastKnownNameEntriesForGivenSubject(LoggableSubject $subject)
     {
         $qb = $this->getManager()->createQueryBuilder();
@@ -46,7 +28,7 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal
             ->andWhere($qb->expr()->eq('o.subject', ':uuid'))
             ->setParameters(
                 [
-                    'lastName' => $subject->__toString(),
+                    'lastName' => $subject->__toString() . '-' . $subject->getId()->toString(),
                     'uuid'     => $subject->getId()->toString(),
                 ]
             )
