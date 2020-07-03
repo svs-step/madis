@@ -25,7 +25,11 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
+use App\Domain\Reporting\Model\LoggableSubject;
 
 interface LogJournal extends CRUDRepositoryInterface
 {
+    public function updateSubjectIdWithGivenUuid(\App\Domain\Reporting\Model\LogJournal $logJournal, LoggableSubject $subject);
+
+    public function updateLastKnownNameEntriesForGivenSubject(LoggableSubject $subject);
 }

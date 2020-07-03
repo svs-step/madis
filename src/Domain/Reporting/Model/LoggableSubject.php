@@ -23,4 +23,6 @@ abstract class LoggableSubject
     {
         return $this->id;
     }
+
+    abstract public function __toString(): string;
 }

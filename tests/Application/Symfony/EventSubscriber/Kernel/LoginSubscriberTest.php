@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Application\Symfony\EventSubscriber\Kernel;
 
 use App\Application\Symfony\EventSubscriber\Kernel\LoginSubscriber;
+use App\Domain\Reporting\Model\LogJournal;
+use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
@@ -60,14 +62,17 @@ class LoginSubscriberTest extends TestCase
      */
     public function testOnSecurityInteractiveLogin(): void
     {
+        $collectivity   = $this->prophesize(Collectivity::class);
         $user           = $this->prophesize(User::class);
         $eventProphecy  = $this->prophesize(InteractiveLoginEvent::class);
         $tokenInterface = $this->prophesize(TokenInterface::class);
         $eventProphecy->getAuthenticationToken()->shouldBeCalled()->willReturn($tokenInterface);
         $tokenInterface->getUser()->shouldBeCalled()->willReturn($user);
         $user->setLastLogin(Argument::type(\DateTimeImmutable::class))->shouldBeCalled();
+        $user->getCollectivity()->shouldBeCalled()->willReturn($collectivity->reveal());
 
         $this->entityManager->persist($user)->shouldBeCalled();
+        $this->entityManager->persist(Argument::type(LogJournal::class))->shouldBeCalled();
         $this->entityManager->flush()->shouldBeCalled();
 
         $this->sut->onSecurityInteractiveLogin($eventProphecy->reveal());

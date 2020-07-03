@@ -87,7 +87,7 @@ class Evaluation
         unset($this->participants[$key]);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         if (null !== $this->date) {
             return $this->collectivity->getName() . ' ' . date_format($this->date, 'Y-m-d');
