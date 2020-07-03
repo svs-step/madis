@@ -33,6 +33,7 @@ use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Security;
@@ -49,12 +50,19 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
      */
     private $eventDispatcher;
 
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
     public function __construct(
         Security $security,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        EntityManagerInterface $entityManager
     ) {
         $this->security        = $security;
         $this->eventDispatcher = $eventDispatcher;
+        $this->entityManager   = $entityManager;
     }
 
     public function getSubscribedEvents()
@@ -81,7 +89,12 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
             return;
         }
 
-        $this->registerLog($args, LogJournalActionDictionary::UPDATE);
+        //specific case for user. Need to know witch data is update
+        if ($args->getObject() instanceof User) {
+            $this->registerLogForUser($args);
+        } else {
+            $this->registerLog($args, LogJournalActionDictionary::UPDATE);
+        }
     }
 
     public function postRemove(LifecycleEventArgs $args): void
@@ -141,5 +154,40 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
         $user = $this->security->getUser();
 
         return $user->getCollectivity();
+    }
+
+    private function registerLogForUser(LifecycleEventArgs $args)
+    {
+        $object  = $args->getObject();
+        $user    = $this->security->getUser();
+        $changes = $this->entityManager->getUnitOfWork()->getEntityChangeSet($object);
+
+        //don't need to add log on lastLogin because already register in LoginSubscriber
+        if (\array_key_exists('lastlogin', $changes)) {
+            return;
+        }
+
+        $actions      = [];
+        $collectivity = $this->getCollectivity($object);
+        if (\array_key_exists('firstName', $changes)) {
+            $actions[] =  LogJournalSubjectDictionary::USER_FIRSTNAME;
+        }
+
+        if (\array_key_exists('lastName', $changes)) {
+            $actions[] =  LogJournalSubjectDictionary::USER_LASTNAME;
+        }
+
+        if (\array_key_exists('email', $changes)) {
+            $actions[] =  LogJournalSubjectDictionary::USER_EMAIL;
+        }
+
+        if (\array_key_exists('password', $changes)) {
+            $actions[] =  LogJournalSubjectDictionary::USER_PASSWORD;
+        }
+
+        foreach ($actions as $action) {
+            $log = new LogJournal($collectivity, $user, $action, $action, $object);
+            $this->eventDispatcher->dispatch(new LogJournalEvent($log));
+        }
     }
 }

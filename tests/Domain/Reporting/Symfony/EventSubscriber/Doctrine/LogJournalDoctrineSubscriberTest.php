@@ -11,8 +11,10 @@ use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
+use Doctrine\ORM\UnitOfWork;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -33,6 +35,11 @@ class LogJournalDoctrineSubscriberTest extends TestCase
     private $eventDispatcher;
 
     /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    /**
      * @var LifecycleEventArgs
      */
     private $lifeCycleEventArgsProphecy;
@@ -46,9 +53,14 @@ class LogJournalDoctrineSubscriberTest extends TestCase
     {
         $this->security                   = $this->prophesize(Security::class);
         $this->eventDispatcher            = $this->prophesize(EventDispatcherInterface::class);
+        $this->entityManager              = $this->prophesize(EntityManagerInterface::class);
         $this->lifeCycleEventArgsProphecy = $this->prophesize(LifecycleEventArgs::class);
 
-        $this->subscriber = new LogJournalDoctrineSubscriber($this->security->reveal(), $this->eventDispatcher->reveal());
+        $this->subscriber = new LogJournalDoctrineSubscriber(
+            $this->security->reveal(),
+            $this->eventDispatcher->reveal(),
+            $this->entityManager->reveal()
+        );
     }
 
     /**
@@ -144,5 +156,32 @@ class LogJournalDoctrineSubscriberTest extends TestCase
         $user->getCollectivity()->shouldBeCalled()->willReturn(new Collectivity());
         $this->security->getUser()->shouldBeCalled()->willReturn($user->reveal());
         $this->assertInstanceOf(Collectivity::class, $this->invokeMethod($this->subscriber, 'getCollectivity', [new \StdClass()]));
+    }
+
+    public function testItReturnNullOnLoginUser()
+    {
+        $user = $this->prophesize(User::class);
+        $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($user->reveal());
+        $uow = $this->createMock(UnitOfWork::class);
+        $uow->method('getEntityChangeSet')
+            ->willReturn(['lastLogin' => []])
+        ;
+        $this->entityManager->getUnitOfWork()->shouldBeCalled()->willReturn($uow);
+        $this->assertNull($this->invokeMethod($this->subscriber, 'registerLogForUser', [$this->lifeCycleEventArgsProphecy->reveal()]));
+    }
+
+    public function testItRegisterLogForUser()
+    {
+        $user = $this->prophesize(User::class);
+        $user->getCollectivity()->shouldBeCalled()->willReturn(new Collectivity());
+        $this->security->getUser()->shouldBeCalled()->willReturn(new User());
+        $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($user->reveal());
+        $uow = $this->createMock(UnitOfWork::class);
+        $uow->method('getEntityChangeSet')
+            ->willReturn(['firstName' => [], 'lastName' => [], 'email' => [], 'password' => []])
+        ;
+        $this->entityManager->getUnitOfWork()->shouldBeCalled()->willReturn($uow);
+        $this->eventDispatcher->dispatch(Argument::type(LogJournalEvent::class))->shouldBeCalledTimes(4);
+        $this->invokeMethod($this->subscriber, 'registerLogForUser', [$this->lifeCycleEventArgsProphecy->reveal()]);
     }
 }
