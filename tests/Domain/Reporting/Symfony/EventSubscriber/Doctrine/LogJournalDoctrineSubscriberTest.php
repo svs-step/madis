@@ -80,7 +80,7 @@ class LogJournalDoctrineSubscriberTest extends TestCase
             [
                 Events::postPersist,
                 Events::postUpdate,
-                Events::postRemove,
+                Events::preRemove,
             ],
             $this->subscriber->getSubscribedEvents()
         );
@@ -120,7 +120,7 @@ class LogJournalDoctrineSubscriberTest extends TestCase
         $this->subscriber->postUpdate($this->lifeCycleEventArgsProphecy->reveal());
     }
 
-    public function testPostRemove()
+    public function testPreRemove()
     {
         $user         = $this->prophesize(User::class);
         $collectivity = $this->prophesize(Collectivity::class);
@@ -134,7 +134,7 @@ class LogJournalDoctrineSubscriberTest extends TestCase
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($treatment);
         $this->eventDispatcher->dispatch(Argument::type(LogJournalEvent::class))->shouldBeCalled();
 
-        $this->subscriber->postRemove($this->lifeCycleEventArgsProphecy->reveal());
+        $this->subscriber->preRemove($this->lifeCycleEventArgsProphecy->reveal());
     }
 
     public function testSupports()

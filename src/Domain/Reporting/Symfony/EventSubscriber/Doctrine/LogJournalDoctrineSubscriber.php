@@ -70,7 +70,7 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
         return [
             Events::postPersist,
             Events::postUpdate,
-            Events::postRemove,
+            Events::preRemove,
         ];
     }
 
@@ -89,7 +89,7 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
             return;
         }
 
-        //specific case for user. Need to know witch data is update
+        //specific case for user. Need to know which data is update
         if ($args->getObject() instanceof User) {
             $this->registerLogForUser($args);
         } else {
@@ -97,7 +97,7 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
         }
     }
 
-    public function postRemove(LifecycleEventArgs $args): void
+    public function preRemove(LifecycleEventArgs $args): void
     {
         if (!$this->supports($args->getObject())) {
             return;
@@ -129,7 +129,7 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
             LogJournalActionDictionary::DELETE,
             $subject,
             null,
-            $object->__toString()
+            $object->__toString() . '-' . $object->getId()->__toString()
         );
 
         $this->eventDispatcher->dispatch(new LogJournalEvent($log, $object));

@@ -40,7 +40,6 @@ class LogJournalSubscriber implements EventSubscriberInterface
         $this->entityManager->flush();
 
         if (LogJournalActionDictionary::DELETE === $logJournal->getAction()) {
-            $this->logJournalRepository->updateSubjectIdWithGivenUuid($logJournal, $event->getSubject());
             $this->logJournalRepository->updateLastKnownNameEntriesForGivenSubject($event->getSubject());
         }
     }
