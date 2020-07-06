@@ -27,7 +27,6 @@ namespace App\Domain\Registry\Model;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
-use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -120,7 +119,7 @@ class Mesurement
     private $manager;
 
     /**
-     * @var Conformite
+     * @var iterable
      */
     private $conformiteOrganisation;
 
@@ -139,6 +138,7 @@ class Mesurement
         $this->id                           = Uuid::uuid4();
         $this->proofs                       = [];
         $this->conformiteTraitementReponses = [];
+        $this->conformiteOrganisation       = [];
     }
 
     public function __toString(): string
@@ -274,14 +274,9 @@ class Mesurement
         $this->manager = $manager;
     }
 
-    public function getConformiteOrganisation(): Conformite
+    public function getConformiteOrganisation()
     {
         return $this->conformiteOrganisation;
-    }
-
-    public function setConformiteOrganisation(Conformite $conformiteOrganisation): void
-    {
-        $this->conformiteOrganisation = $conformiteOrganisation;
     }
 
     public function getConformiteTraitementReponses()

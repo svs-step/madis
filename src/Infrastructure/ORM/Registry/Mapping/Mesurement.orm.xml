@@ -28,6 +28,7 @@
         </many-to-many>
         <many-to-one field="clonedFrom" target-entity="App\Domain\Registry\Model\Mesurement"/>
         <many-to-many field="conformiteTraitementReponses" target-entity="App\Domain\Registry\Model\ConformiteTraitement\Reponse" mapped-by="actionProtections"/>
+        <many-to-many field="conformiteOrganisation" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Conformite" mapped-by="actionProtections"/>
 
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">
@@ -42,7 +43,6 @@
         <field name="updatedAt" column="updated_at" type="datetime_immutable">
             <gedmo:timestampable on="update"/>
         </field>
-        <many-to-many field="conformiteOrganisation" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Conformite" mapped-by="actionProtections"/>
 
     </entity>
 

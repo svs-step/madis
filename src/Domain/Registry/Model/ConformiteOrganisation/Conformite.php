@@ -145,6 +145,7 @@ class Conformite
         $reponses       = $this->reponses;
         $this->reponses = [];
         $this->cloneReponses($reponses);
+        $this->actionProtections = \iterable_to_array($this->actionProtections);
     }
 
     private function cloneReponses(iterable $reponses)
