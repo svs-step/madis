@@ -30,4 +30,8 @@ use App\Domain\Reporting\Model\LoggableSubject;
 interface LogJournal extends CRUDRepositoryInterface
 {
     public function updateLastKnownNameEntriesForGivenSubject(LoggableSubject $subject);
+
+    public function findPaginated($firstResult, $maxResults);
+
+    public function countLogs();
 }

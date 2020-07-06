@@ -46,5 +46,6 @@ security:
         # Admin routes
         - { path: ^/collectivites, roles: ROLE_ADMIN }
         - { path: ^/utilisateurs, roles: ROLE_ADMIN }
+        - { path: ^/journalisation, roles: ROLE_ADMIN }
         # Others
         - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
