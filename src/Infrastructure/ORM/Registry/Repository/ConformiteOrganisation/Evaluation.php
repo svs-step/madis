@@ -44,11 +44,15 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
     public function findLastByOrganisation(Collectivity $organisation): ?Model\ConformiteOrganisation\Evaluation
     {
         $results =  $this->createQueryBuilder()
-            ->addSelect('conformites')
+            ->addSelect('conformites, processus, reponses, questions, actionProtections')
             ->andWhere('o.collectivity = :organisation')
             ->setParameter('organisation', $organisation)
             ->leftJoin('o.conformites', 'conformites')
-            ->orderBy('o.date')
+            ->leftJoin('conformites.processus', 'processus')
+            ->leftJoin('conformites.reponses', 'reponses')
+            ->leftJoin('conformites.actionProtections', 'actionProtections')
+            ->leftJoin('processus.questions', 'questions')
+            ->orderBy('o.date', 'DESC')
             ->getQuery()
             ->getResult()
         ;
