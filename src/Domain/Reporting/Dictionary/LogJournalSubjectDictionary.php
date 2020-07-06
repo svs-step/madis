@@ -111,18 +111,8 @@ class LogJournalSubjectDictionary extends SimpleDictionary
         return isset(self::CLASS_NAME_SUBJECT[$className]) ? self::CLASS_NAME_SUBJECT[$className] : null;
     }
 
-    public static function getClassNameFormSubject(string $subject): ?string
+    public static function getSubjectLabelFromSubjectType(string $subjectKey)
     {
-        $data = array_merge(
-            array_flip(self::CLASS_NAME_SUBJECT),
-            [
-                self::USER_EMAIL     => User::class,
-                self::USER_FIRSTNAME => User::class,
-                self::USER_LASTNAME  => User::class,
-                self::USER_PASSWORD  => User::class,
-            ]
-        );
-
-        return isset($data[$subject]) ? $data[$subject] : null;
+        return isset(self::getSubjects()[$subjectKey]) ? self::getSubjects()[$subjectKey] : null;
     }
 }

@@ -1,0 +1,9 @@
+reporting_journalisation_index:
+  path: ''
+  methods: ['GET']
+  controller: 'App\Domain\Reporting\Controller\JournalisationController:indexAction'
+
+reporting_journalisation_list_datatables:
+  path: '/datatables'
+  methods: ['POST']
+  controller: 'App\Domain\Reporting\Controller\JournalisationController:listDataTables'

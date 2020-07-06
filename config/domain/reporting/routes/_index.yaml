@@ -4,3 +4,7 @@ _reporting_dashboard:
 _reporting_review:
     resource: 'review.yaml'
     prefix: '/bilan'
+
+_reporting_logs:
+    resource: 'journalisation.yaml'
+    prefix: '/journalisation'

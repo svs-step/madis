@@ -24,3 +24,7 @@ reporting:
                 title: Type des demandes
             status:
                 title: Statut des demandes
+
+    journalisation:
+        title:
+            list: Journalisation des actions

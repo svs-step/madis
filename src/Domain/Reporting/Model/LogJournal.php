@@ -104,8 +104,18 @@ class LogJournal
         return $this->action;
     }
 
-    public function getSubject(): string
+    public function getSubjectType(): string
+    {
+        return $this->subjectType;
+    }
+
+    public function getSubject(): ?LoggableSubject
     {
         return $this->subject;
+    }
+
+    public function getLastKnownName(): ?string
+    {
+        return $this->lastKnownName;
     }
 }

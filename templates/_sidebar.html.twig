@@ -116,6 +116,12 @@
                     <span>{{ 'sidebar_menu.user_users'|trans }}</span>
                 </a>
             </li>
+            <li {% if menuItem == 'reporting_journalisation' %}class="active"{% endif %}>
+                <a href="{{ path('reporting_journalisation_index') }}">
+                    <i class="fa fa-list"></i>
+                    <span>{{ 'sidebar_menu.reporting_journalisation'|trans }}</span>
+                </a>
+            </li>
         {# If not an admin & is write granted, let user edit informations #}
         {% else %}
             <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>

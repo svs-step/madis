@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'reporting_journalisation show' %}
+{% set menuItem = 'reporting_journalisation' %}
+
+{% block title %}{{ 'reporting.journalisation.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'reporting.journalisation.title.list'|trans }}
+    </h1>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Utilisateur</th>
+                                <th>Collectivité</th>
+                                <th>Date</th>
+                                <th>Sujet</th>
+                                <th>Action</th>
+                                <th>Dernier nom connu - id</th>
+                                <th>Lien</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ include('_Utils/_serverside_datatable.html.twig') }}
+{% endblock %}
+
