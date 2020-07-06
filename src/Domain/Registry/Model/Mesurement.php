@@ -27,7 +27,6 @@ namespace App\Domain\Registry\Model;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
-use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
 use App\Domain\Reporting\Model\LoggableSubject;
 
 /**
