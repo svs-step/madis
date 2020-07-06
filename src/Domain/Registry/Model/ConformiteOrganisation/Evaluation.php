@@ -127,11 +127,9 @@ class Evaluation
     {
         $this->id           = Uuid::uuid4();
         $tmpConformites     = $this->conformites;
-        $tmpParticipants    = $this->participants;
         $this->conformites  = [];
         $this->participants = [];
         $this->cloneConformites($tmpConformites);
-        $this->cloneParticipants($tmpParticipants);
         $this->date = null;
     }
 
@@ -139,13 +137,6 @@ class Evaluation
     {
         foreach ($conformites as $conformite) {
             $this->addConformite(clone $conformite);
-        }
-    }
-
-    private function cloneParticipants(iterable $participants)
-    {
-        foreach ($participants as $participant) {
-            $this->addParticipant(clone $participant);
         }
     }
 }
