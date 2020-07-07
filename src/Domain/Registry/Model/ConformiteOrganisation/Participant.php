@@ -2,16 +2,11 @@
 
 namespace App\Domain\Registry\Model\ConformiteOrganisation;
 
+use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
-class Participant
+class Participant extends LoggableSubject
 {
-    /**
-     * @var UuidInterface
-     */
-    private $id;
-
     /**
      * @var string
      */
@@ -39,12 +34,8 @@ class Participant
 
     public function __construct()
     {
+        parent::__construct();
         $this->id = Uuid::uuid4();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function getPrenom(): ?string
@@ -100,5 +91,10 @@ class Participant
     public function __clone()
     {
         $this->id   = Uuid::uuid4();
+    }
+
+    public function __toString(): string
+    {
+        return $this->nomDeFamille . ' ' . $this->prenom;
     }
 }

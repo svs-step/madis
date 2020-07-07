@@ -23,18 +23,13 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Model;
 
+use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Embeddable\Contact;
 use JsonSerializable;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
-class ComiteIlContact implements JsonSerializable
+class ComiteIlContact extends LoggableSubject implements JsonSerializable
 {
-    /**
-     * @var UuidInterface
-     */
-    private $id;
-
     /**
      * @var Contact|null
      */
@@ -47,12 +42,8 @@ class ComiteIlContact implements JsonSerializable
 
     public function __construct()
     {
+        parent::__construct();
         $this->id = Uuid::uuid4();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function getContact(): ?Contact
@@ -87,5 +78,12 @@ class ComiteIlContact implements JsonSerializable
             'email'    => $contact->getMail(),
             'tel'      => $contact->getPhoneNumber(),
         ];
+    }
+
+    public function __toString(): string
+    {
+        $contact = $this->getContact();
+
+        return !\is_null($contact) ? $contact->getLastName() . ' ' . $contact->getFirstName() : '';
     }
 }

@@ -48,6 +48,7 @@ RUN apt update && apt install -y \
 
 # Configure PHP
 COPY fpm-pool.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY php.ini /etc/php/7.4/fpm/php.ini
 RUN touch /var/log/php7.4-fpm.log && chown www-data:www-data /var/log/php7.4-fpm.log
 RUN mkdir -p /run/php/ /var/www/.composer/
 RUN chown www-data:www-data -R /run/php/ /var/www

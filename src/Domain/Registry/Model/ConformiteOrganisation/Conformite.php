@@ -4,19 +4,15 @@ namespace App\Domain\Registry\Model\ConformiteOrganisation;
 
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
 
 /**
  * Modelize the relation between Processus and Evaluation.
  * Contain the conformité rating.
  */
-class Conformite
+class Conformite extends LoggableSubject
 {
-    /**
-     * @var Uuid
-     */
-    private $id;
-
     /**
      * @var float|null
      */
@@ -49,14 +45,10 @@ class Conformite
 
     public function __construct()
     {
+        parent::__construct();
         $this->id                = Uuid::uuid4();
         $this->reponses          = [];
         $this->actionProtections = [];
-    }
-
-    public function getId(): Uuid
-    {
-        return $this->id;
     }
 
     public function getConformite(): ?float
@@ -153,5 +145,10 @@ class Conformite
         foreach ($reponses as $reponse) {
             $this->addReponse(clone $reponse);
         }
+    }
+
+    public function __toString(): string
+    {
+        return 'Conformité ' . $this->processus->getNom();
     }
 }
