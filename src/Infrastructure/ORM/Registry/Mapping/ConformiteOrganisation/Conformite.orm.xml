@@ -8,8 +8,6 @@
 
     <entity name="App\Domain\Registry\Model\ConformiteOrganisation\Conformite" table="registry_conformite_organisation_conformite">
 
-        <id name="id" column="id" type="uuid"/>
-
         <field name="conformite" column="conformite" type="float" nullable="true"/>
         <field name="pilote" column="pilote" nullable="true"/>
 
