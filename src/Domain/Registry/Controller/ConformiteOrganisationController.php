@@ -14,8 +14,10 @@ use App\Domain\Registry\Symfony\EventSubscriber\Event\ConformiteOrganisationEven
 use App\Domain\Reporting\Handler\WordHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -106,12 +108,18 @@ class ConformiteOrganisationController extends CRUDController
             }
             $evaluation->setCollectivity($organisation);
         }
+        $evaluation->setDate(new \DateTime());
 
         $form = $this->createForm($this->getFormType(), $evaluation);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            /** @var SubmitButton $button */
+            $button = $form->get('save');
+            if ($button->isClicked()) {
+                $evaluation->setIsDraft(false);
+            }
             $em->persist($evaluation);
             $em->flush();
 
@@ -161,6 +169,9 @@ class ConformiteOrganisationController extends CRUDController
         if (!$evaluation) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
+        if (!$evaluation->isDraft()) {
+            throw new BadRequestHttpException("Submitted evaluation can't be modified");
+        }
 
         $this->addMissingNewQuestionsAndProcessus($evaluation);
 
@@ -168,6 +179,11 @@ class ConformiteOrganisationController extends CRUDController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var SubmitButton $button */
+            $button = $form->get('save');
+            if ($button->isClicked()) {
+                $evaluation->setIsDraft(false);
+            }
             $this->formPrePersistData($evaluation);
             $this->entityManager->flush();
 

@@ -37,12 +37,18 @@ class Evaluation
      */
     private $conformites;
 
+    /**
+     * @var bool
+     */
+    private $isDraft;
+
     public function __construct()
     {
         $this->id           = Uuid::uuid4();
         $this->participants = [];
         $this->complete     = false;
         $this->conformites  = [];
+        $this->isDraft      = true;
     }
 
     public function getId()
@@ -121,6 +127,16 @@ class Evaluation
     public function getConformites(): iterable
     {
         return $this->conformites;
+    }
+
+    public function isDraft(): bool
+    {
+        return $this->isDraft;
+    }
+
+    public function setIsDraft(bool $isDraft): void
+    {
+        $this->isDraft = $isDraft;
     }
 
     public function __clone()

@@ -16,6 +16,7 @@ action:
     print: Imprimer
     reinitialize: Réinitialisation
     submit: Soumettre
+    draft: Enregistrer un brouillon
     unarchive: Rétablir
     save: Enregistrer
 

@@ -8,6 +8,7 @@ use App\Tests\Utils\FormTypeHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EvaluationTypeTest extends FormTypeHelper
@@ -23,6 +24,8 @@ class EvaluationTypeTest extends FormTypeHelper
           'date'         => DateType::class,
           'participants' => CollectionType::class,
           'conformites'  => CollectionType::class,
+          'save'         => SubmitType::class,
+          'saveDraft'    => SubmitType::class,
         ];
 
         (new EvaluationType())->buildForm($this->prophesizeBuilder($builder), []);
