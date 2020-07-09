@@ -247,26 +247,26 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
             return;
         }
 
-        $actions      = [];
+        $subjectTypes = [];
         $collectivity = $this->getCollectivity($object);
         if (\array_key_exists('firstName', $changes)) {
-            $actions[] =  LogJournalSubjectDictionary::USER_FIRSTNAME;
+            $subjectTypes[] =  LogJournalSubjectDictionary::USER_FIRSTNAME;
         }
 
         if (\array_key_exists('lastName', $changes)) {
-            $actions[] =  LogJournalSubjectDictionary::USER_LASTNAME;
+            $subjectTypes[] =  LogJournalSubjectDictionary::USER_LASTNAME;
         }
 
         if (\array_key_exists('email', $changes)) {
-            $actions[] =  LogJournalSubjectDictionary::USER_EMAIL;
+            $subjectTypes[] =  LogJournalSubjectDictionary::USER_EMAIL;
         }
 
         if (\array_key_exists('password', $changes)) {
-            $actions[] =  LogJournalSubjectDictionary::USER_PASSWORD;
+            $subjectTypes[] =  LogJournalSubjectDictionary::USER_PASSWORD;
         }
 
-        foreach ($actions as $action) {
-            $log = new LogJournal($collectivity, $user, $action, $action, $object);
+        foreach ($subjectTypes as $subjectType) {
+            $log = new LogJournal($collectivity, $user, LogJournalActionDictionary::UPDATE, $subjectType, $object);
             $this->eventDispatcher->dispatch(new LogJournalEvent($log));
         }
     }

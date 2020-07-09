@@ -15,13 +15,13 @@
         <field name="subjectType"/>
         <field name="lastKnownName" nullable="true"/>
 
-        <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">
+        <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity" fetch="EAGER">
             <join-column nullable="false" on-delete="CASCADE" />
         </many-to-one>
-        <many-to-one field="user" target-entity="App\Domain\User\Model\User">
+        <many-to-one field="user" target-entity="App\Domain\User\Model\User" fetch="EAGER">
             <join-column nullable="false" on-delete="CASCADE" />
         </many-to-one>
-        <many-to-one field="subject" target-entity="App\Domain\Reporting\Model\LoggableSubject">
+        <many-to-one field="subject" target-entity="App\Domain\Reporting\Model\LoggableSubject" fetch="EAGER">
             <join-column on-delete="SET NULL"/>
         </many-to-one>
 
