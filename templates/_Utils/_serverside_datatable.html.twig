@@ -40,15 +40,15 @@
                     }
                 }
             },
-            "columnDefs": [
-                {"name": "utilisateur", "targets": 0},
-                {"name": "collectivite", "targets": 1},
-                {"name": "date", "targets": 2},
-                {"name": "subject", "targets": 3},
-                {"name": "action", "targets": 4},
-                {"name": "subjectId", "targets": 5},
+            "columns": [
+                {"data": "utilisateur"},
+                {"data": "collectivite"},
+                {"data": "date"},
+                {"data": "subject"},
+                {"data": "action"},
+                {"data": "subjectId"},
                 {
-                    "name": "link", "targets": 6, "render": function (data, type, row, meta) {
+                    "data": "link", "render": function (data, type, row, meta) {
                         if(type === 'display' && data === 'Supprimé')
                         {
                             return data;
