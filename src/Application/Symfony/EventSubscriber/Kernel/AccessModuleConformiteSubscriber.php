@@ -67,6 +67,10 @@ class AccessModuleConformiteSubscriber implements EventSubscriberInterface
             return;
         }
 
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            return;
+        }
+
         switch (true) {
             case $controller[0] instanceof ConformiteTraitementController
                 && !$user->getCollectivity()->isHasModuleConformiteTraitement():

@@ -61,7 +61,9 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
         $chartCategories = [];
         $chartData       = [];
-        foreach (ConformiteTraitementLevelDictionary::getConformites() as $key => $label) {
+        $conformites     = ConformiteTraitementLevelDictionary::getConformites();
+        unset($conformites[ConformiteTraitementLevelDictionary::NON_EVALUE]);
+        foreach ($conformites as $key => $label) {
             $chartCategories[] = $label;
             $chartData[$key]   = 0;
         }

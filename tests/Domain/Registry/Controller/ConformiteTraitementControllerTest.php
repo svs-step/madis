@@ -187,7 +187,7 @@ class ConformiteTraitementControllerTest extends TestCase
         ;
 
         $this->treatmentRepository
-            ->findAllActiveByCollectivity($collectivity->reveal())
+            ->findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity->reveal())
             ->shouldBeCalled()
             ->willReturn($valueReturnedByRepository)
         ;

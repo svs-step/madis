@@ -61,6 +61,17 @@ interface Treatment extends CRUDRepositoryInterface
     public function findAllActiveByCollectivity(Collectivity $collectivity = null, bool $active = true, array $order = []);
 
     /**
+     * Find all active treatments by associated collectivity and hasModuleConformiteTraitement active.
+     *
+     * @param Collectivity $collectivity The collectivity to search with
+     * @param bool         $active       Get active / inactive treatment
+     * @param array        $order        Order results
+     *
+     * @return array The array of treatments given by the collectivity
+     */
+    public function findAllActiveByCollectivityWithHasModuleConformiteTraitement(Collectivity $collectivity = null, bool $active = true, array $order = []);
+
+    /**
      * Count all by collectivity.
      */
     public function countAllByCollectivity(Collectivity $collectivity);
@@ -81,4 +92,9 @@ interface Treatment extends CRUDRepositoryInterface
      * @return array
      */
     public function findAllByActiveCollectivity(bool $active = true);
+
+    /**
+     * Count all with no conformite traitement by collectivity.
+     */
+    public function countAllWithNoConformiteTraitementByCollectivity(?Collectivity $collectivity);
 }
