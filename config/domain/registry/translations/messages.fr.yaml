@@ -401,6 +401,8 @@ registry:
             concerned_people_other: Autres
             concerned_people_user: Internautes
             conformite_traitement: Conformité du traitement
+            conformite_traitement_created_at: Conformité du traitement - Date création
+            conformite_traitement_updated_at: Conformité du traitement - Date modification
             collectivity: Collectivité
             contractors: Sous-traitants
             created_at: Date de création
