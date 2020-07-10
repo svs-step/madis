@@ -416,10 +416,11 @@ class CollectivityGenerator extends AbstractGenerator
 
     private function conformiteOrganisationHeaders()
     {
-        $headers = [];
+        $headers = ['Brouillon'];
 
         foreach ($this->processsusRepository->findAll(['position' => 'asc']) as $processus) {
             $headers[] = 'Conformité processus - ' . $processus->getNom();
+            $headers[] = 'Conformité processus - ' . $processus->getNom() . ' - Pilote';
         }
 
         return $headers;
@@ -437,8 +438,10 @@ class CollectivityGenerator extends AbstractGenerator
                 return $a->getProcessus()->getPosition() > $b->getProcessus()->getPosition() ? 1 : -1;
             });
 
+            $data[] = $conformiteOrganisationEvaluation->isDraft() ? 'Oui' : 'Non';
             foreach ($conformites as $conformite) {
                 $data[] = $conformite->getConformite();
+                $data[] = $conformite->getPilote();
             }
         }
 
