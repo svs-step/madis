@@ -76,6 +76,12 @@ class AccessModuleConformiteSubscriberTest extends TestCase
         $this->security->getUser()->shouldBeCalled()->willReturn(null);
 
         $this->assertNull($this->sut->onKernelController($event->reveal()));
+
+        $event->getController()->shouldBeCalled()->willReturn(['foo']);
+        $this->security->getUser()->shouldBeCalled()->willReturn(new User());
+        $this->security->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
+
+        $this->assertNull($this->sut->onKernelController($event->reveal()));
     }
 
     public function testItNotAllowAccessToConformiteTraitement(): void
@@ -88,6 +94,7 @@ class AccessModuleConformiteSubscriberTest extends TestCase
         $user         = $this->prophesize(User::class);
         $collectivity = $this->prophesize(Collectivity::class);
 
+        $this->security->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(false);
         $event->getController()->shouldBeCalled()->willReturn([$controller->reveal()]);
         $this->security->getUser()->shouldBeCalled()->willReturn($user);
         $user->getCollectivity()->shouldBeCalled()->willReturn($collectivity);
@@ -102,6 +109,7 @@ class AccessModuleConformiteSubscriberTest extends TestCase
         $controller   = $this->prophesize(ConformiteTraitementController::class);
         $user         = $this->prophesize(User::class);
         $collectivity = $this->prophesize(Collectivity::class);
+        $this->security->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(false);
 
         $event->getController()->shouldBeCalled()->willReturn([$controller->reveal()]);
         $this->security->getUser()->shouldBeCalled()->willReturn($user);

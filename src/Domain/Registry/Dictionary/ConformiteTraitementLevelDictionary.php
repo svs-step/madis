@@ -31,10 +31,12 @@ class ConformiteTraitementLevelDictionary extends SimpleDictionary
     const CONFORME                = 'conforme';
     const NON_CONFORMITE_MINEURE  = 'non_conformite_mineure';
     const NON_CONFORMITE_MAJEURE  = 'non_conformite_majeure';
+    const NON_EVALUE              = 'non_evalue';
 
     const HEX_COLOR_CONFORME               = '93D14E';
     const HEX_COLOR_NON_CONFORMITE_MINEURE = 'FEC100';
     const HEX_COLOR_NON_CONFORMITE_MAJEURE = 'C04F4D';
+    const HEX_COLOR_NON_EVALUE             = 'DDDDDD';
 
     public function __construct()
     {
@@ -50,6 +52,7 @@ class ConformiteTraitementLevelDictionary extends SimpleDictionary
             self::CONFORME               => 'Conforme',
             self::NON_CONFORMITE_MINEURE => 'Non-conformité mineure',
             self::NON_CONFORMITE_MAJEURE => 'Non-conformité majeure',
+            self::NON_EVALUE             => 'Non évalué',
         ];
     }
 
@@ -67,6 +70,7 @@ class ConformiteTraitementLevelDictionary extends SimpleDictionary
             self::CONFORME               => self::HEX_COLOR_CONFORME,
             self::NON_CONFORMITE_MINEURE => self::HEX_COLOR_NON_CONFORMITE_MINEURE,
             self::NON_CONFORMITE_MAJEURE => self::HEX_COLOR_NON_CONFORMITE_MAJEURE,
+            self::NON_EVALUE             => self::HEX_COLOR_NON_EVALUE,
         ];
     }
 

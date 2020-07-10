@@ -154,7 +154,7 @@ class ConformiteTraitementController extends CRUDController
             $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
         }
 
-        return $this->treatmentRepository->findAllActiveByCollectivity($collectivity);
+        return $this->treatmentRepository->findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity);
     }
 
     /**

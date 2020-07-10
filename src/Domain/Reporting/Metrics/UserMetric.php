@@ -57,6 +57,11 @@ class UserMetric implements MetricInterface
     private $requestRepository;
 
     /**
+     * @var Repository\Treatment
+     */
+    private $treatmentRepository;
+
+    /**
      * @var UserProvider
      */
     private $userProvider;
@@ -65,12 +70,14 @@ class UserMetric implements MetricInterface
         EntityManagerInterface $entityManager,
         Repository\ConformiteTraitement\ConformiteTraitement $conformiteTraitementRepository,
         Repository\Request $requestRepository,
+        Repository\Treatment $treatmentRepository,
         UserProvider $userProvider,
         Evaluation $evaluationRepository
     ) {
         $this->entityManager                  = $entityManager;
         $this->conformiteTraitementRepository = $conformiteTraitementRepository;
         $this->requestRepository              = $requestRepository;
+        $this->treatmentRepository            = $treatmentRepository;
         $this->userProvider                   = $userProvider;
         $this->evaluationRepository           = $evaluationRepository;
     }
@@ -172,8 +179,6 @@ class UserMetric implements MetricInterface
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
 
         $conformiteOrganisationEvaluation = $this->evaluationRepository->findLastByOrganisation($collectivity);
-
-        $conformiteTraitements = $this->conformiteTraitementRepository->findAllByCollectivity($collectivity);
 
         $contractors = $this->entityManager->getRepository(Model\Contractor::class)->findBy(
             ['collectivity' => $collectivity]
@@ -341,6 +346,10 @@ class UserMetric implements MetricInterface
                 $data['conformiteTraitement']['labels'][]   = $label;
                 $data['conformiteTraitement']['colors'][]   = ConformiteTraitementLevelDictionary::getRgbConformitesColorsForChartView()[$key];
             }
+
+            $conformiteTraitements                                                                 = $this->conformiteTraitementRepository->findAllByCollectivity($collectivity);
+            $nbTreatmentWithNoConformiteTraitements                                                = $this->treatmentRepository->countAllWithNoConformiteTraitementByCollectivity($collectivity);
+            $data['conformiteTraitement']['data'][ConformiteTraitementLevelDictionary::NON_EVALUE] = $nbTreatmentWithNoConformiteTraitements;
 
             foreach ($conformiteTraitements as $conformiteTraitement) {
                 $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);

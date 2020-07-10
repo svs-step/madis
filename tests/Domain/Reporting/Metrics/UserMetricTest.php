@@ -65,6 +65,11 @@ class UserMetricTest extends TestCase
     private $requestRepository;
 
     /**
+     * @var \App\Domain\Registry\Repository\Treatment
+     */
+    private $treatmentRepository;
+
+    /**
      * @var UserProvider
      */
     private $userProvider;
@@ -76,16 +81,18 @@ class UserMetricTest extends TestCase
 
     protected function setUp()
     {
-        $this->entityManager                  = $this->prophesize(EntityManagerInterface::class);
-        $this->conformiteTraitementRepository = $this->prophesize(ConformiteTraitement::class);
-        $this->requestRepository              = $this->prophesize(Request::class);
-        $this->userProvider                   = $this->prophesize(UserProvider::class);
-        $this->evaluationRepository           = $this->prophesize(Evaluation::class);
+        $this->entityManager                    = $this->prophesize(EntityManagerInterface::class);
+        $this->conformiteTraitementRepository   = $this->prophesize(ConformiteTraitement::class);
+        $this->requestRepository                = $this->prophesize(Request::class);
+        $this->treatmentRepository              = $this->prophesize(\App\Domain\Registry\Repository\Treatment::class);
+        $this->userProvider                     = $this->prophesize(UserProvider::class);
+        $this->evaluationRepository             = $this->prophesize(Evaluation::class);
 
         $this->userMetric = new UserMetric(
             $this->entityManager->reveal(),
             $this->conformiteTraitementRepository->reveal(),
             $this->requestRepository->reveal(),
+            $this->treatmentRepository->reveal(),
             $this->userProvider->reveal(),
             $this->evaluationRepository->reveal()
         );
@@ -103,8 +110,9 @@ class UserMetricTest extends TestCase
 
     public function testItReturnData()
     {
-        $user = $this->prophesize(User::class);
-        $user->getCollectivity()->willReturn(new Collectivity());
+        $user         = $this->prophesize(User::class);
+        $collectivity = new Collectivity();
+        $user->getCollectivity()->willReturn($collectivity);
         $this->userProvider->getAuthenticatedUser()->shouldBeCalled()->willReturn($user);
 
         $contractorRepo = $this->prophesize(ObjectRepository::class);
@@ -123,6 +131,7 @@ class UserMetricTest extends TestCase
         $treatmentRepo->findBy(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $violationRepo->findBy(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $this->requestRepository->findAllByCollectivity(Argument::cetera())->shouldBeCalled()->willReturn([]);
+        $collectivity->setHasModuleConformiteTraitement(true);
         $this->conformiteTraitementRepository->findAllByCollectivity(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $this->evaluationRepository->findLastByOrganisation(Argument::any())->shouldBeCalled()->willReturn(null);
 

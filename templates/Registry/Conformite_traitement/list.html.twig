@@ -85,8 +85,18 @@
                                 {% endif %}
                                 <td>{{ object.manager }}</td>
                                 {% if conformiteTraitement is not null and conformiteBackgroundColor is defined %}
-                                    <td class="conformite-backgound-color-{{ conformiteBackgroundColor }}">
+                                    <td>
                                         <span style="display: none;">{{ conformiteBackgroundColor }}</span>
+                                        {% set labelConformiteColor = 'label-danger' %}
+                                        {% set labelConformite = 'Non-conforme majeure' %}
+                                        {% if conformiteBackgroundColor == 1 %}
+                                            {% set labelConformiteColor = 'label-success' %}
+                                            {% set labelConformite = 'Conforme' %}
+                                        {% elseif conformiteBackgroundColor == 2 %}
+                                            {% set labelConformiteColor = 'label-warning' %}
+                                            {% set labelConformite = 'Non-conforme mineure' %}
+                                        {% endif %}
+                                        <span class="label {{ labelConformiteColor }}" style="min-width: 100%; display: inline-block;">{{ labelConformite }}</span>
                                     </td>
                                 {% else %}
                                  <td></td>
