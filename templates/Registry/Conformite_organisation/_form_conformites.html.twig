@@ -16,7 +16,7 @@
                                 <div class="box-body">
                                     {% for conformite in conformitesArray %}
                                         {% for reponse in getQuestionsOrderedByPosition(conformite.reponses) %}
-                                            <div class="text-bold">{{ reponse.vars.value.question.nom }}</div>
+                                            <div class="text-bold">{{ reponse.vars.value.question.nom|raw }}</div>
                                             <div>{{ form_widget(reponse) }}</div>
                                         {% endfor %}
                                         <div class="text-bold" style="margin-bottom: 15px;">{{ 'registry.conformite_organisation.form.actions_protection'|trans }}</div>

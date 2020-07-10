@@ -28,13 +28,12 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_7:
         processus: '@processus_2'
         position: 3
-        nom: "L'entreprise dispose des connaissances nécessaires pour gérer  les transferts de Données à Caractère Personnel, transfrontaliers UE, vers des pays tiers ou des organisations internationales .L'inventaire de ces transferts est tenu à jour.
-              (Lien sur la protection des données dans le monde : https://www.cnil.fr/fr/la-protection-des-donnees-dans-le-monde)"
+        nom: "Le DPO ou le référent DPO peut disposer d'une cartographie des flux de données mettant en évidence les points de collecte des données et les échanges inter-application et/ou avec les parties prenantes externes."
     conformite_organisation_question_8:
         processus: '@processus_2'
         position: 4
         nom: "L'entreprise dispose des connaissances nécessaires pour gérer  les transferts de Données à Caractère Personnel, transfrontaliers UE, vers des pays tiers ou des organisations internationales .L'inventaire de ces transferts est tenu à jour.
-              (Lien sur la protection des données dans le monde : https://www.cnil.fr/fr/la-protection-des-donnees-dans-le-monde)"
+              (Lien sur la protection des données dans le monde : <a target=\"_blank\" href=\"https://www.cnil.fr/fr/la-protection-des-donnees-dans-le-monde\">https://www.cnil.fr/fr/la-protection-des-donnees-dans-le-monde</a>)"
     conformite_organisation_question_9:
         processus: '@processus_3'
         position: 1

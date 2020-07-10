@@ -184,7 +184,6 @@ class ConformiteOrganisationController extends CRUDController
             if ($button->isClicked()) {
                 $evaluation->setIsDraft(false);
             }
-            $this->formPrePersistData($evaluation);
             $this->entityManager->flush();
 
             $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $evaluation));

@@ -32,7 +32,7 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
         $qBuilder
             ->addSelect('conformites')
             ->leftJoin('o.conformites', 'conformites')
-            ->orderBy('o.date')
+            ->orderBy('o.date', 'DESC')
             ;
 
         return $qBuilder
