@@ -14,7 +14,7 @@
         <field name="complete" column="complete" type="boolean"/>
         <field name="isDraft" column="draft" type="boolean"/>
 
-        <one-to-many field="participants" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Participant" mapped-by="evaluation">
+        <one-to-many field="participants" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Participant" mapped-by="evaluation" orphan-removal="true">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove />

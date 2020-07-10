@@ -207,10 +207,10 @@
                                 <tbody>
                                     {% for conformite in data.conformiteOrganisation %}
                                         {% set score = (conformite['conformite'] / 5 * 100) %}
-                                        {% if score <= 50 %}
+                                        {% if score < 50 %}
                                             {% set color = 'red' %}
 
-                                        {% elseif score <= 70 %}
+                                        {% elseif score < 70 %}
                                             {% set color = 'yellow' %}
                                         {% else %}
                                             {% set color = 'green' %}
@@ -223,7 +223,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <span class="badge bg-{{ color }}">{{ score }}%</span>
+                                                <span style="min-width: 100%" class="badge bg-{{ color }}">{{ score }}%</span>
                                             </td>
                                         </tr>
                                     {% endfor %}

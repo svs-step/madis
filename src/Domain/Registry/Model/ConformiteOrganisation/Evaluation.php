@@ -71,6 +71,11 @@ class Evaluation
         return $this->participants;
     }
 
+    public function setParticipant(array $participants): void
+    {
+        $this->participants = $participants;
+    }
+
     public function addParticipant(Participant $participant): void
     {
         $this->participants[] = $participant;
