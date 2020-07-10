@@ -176,6 +176,8 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         $qb->leftJoin('o.collectivity', 'c')
             ->andWhere($qb->expr()->eq('c.active', ':active'))
             ->setParameter('active', $active)
+            ->addOrderBy('c.name')
+            ->addOrderBy('o.createdAt', 'DESC')
         ;
 
         return $qb
