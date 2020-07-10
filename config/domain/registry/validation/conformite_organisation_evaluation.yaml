@@ -2,3 +2,8 @@ App\Domain\Registry\Model\ConformiteOrganisation\Evaluation:
     properties:
         conformites:
             - Valid: ~
+        date:
+            - LessThanOrEqual:
+                  value: today
+                  groups: ['default']
+                  message: 'registry_conformite_organisation_date.date.not_posterior'

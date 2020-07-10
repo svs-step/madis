@@ -6,6 +6,7 @@ use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,7 +20,7 @@ class EvaluationType extends AbstractType
         $builder
             ->add('date', DateType::class, [
                 'label'    => 'registry.conformite_organisation.form.date',
-                'required' => false,
+                'required' => true,
                 'widget'   => 'single_text',
                 'format'   => 'dd/MM/yyyy',
                 'html5'    => false,
@@ -38,6 +39,11 @@ class EvaluationType extends AbstractType
                     'by_reference' => false,
                 ]
             )
+            ->add('save', SubmitType::class, [
+                'row_attr' => ['class' => 'btn'],
+            ])
+            ->add('saveDraft', SubmitType::class, [
+            ])
         ;
     }
 

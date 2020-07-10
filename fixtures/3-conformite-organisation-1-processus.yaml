@@ -17,13 +17,13 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         nom: "Droits de la personne concernée"
         couleur: info #TODO Temp, need more info
         position: 3
-        description: "S'assurer que l'information est concise pour l'exercice des droits par la personne concernée
+        description: "S'assurer que l'information est concise pour l'exercice des droits par la personne concernée.
                       Disposer de procédures internes fiables pour répondre aux demandes des personnes concernées."
     processus_4:
         nom: "Sous-traitants"
         couleur: info #TODO Temp, need more info
         position: 4
-        description: "En tant que responsable du traitement s'assurer de la conformité  des contrats de sous-traitance
+        description: "En tant que responsable du traitement, s'assurer de la conformité  des contrats de sous-traitance
                       Si l'entreprise agit en tant que sous-traitant, s'assurer que le responsable du traitement a pris en compte ses obligations"
     processus_5:
         nom: "Protection des données dès la conception"
@@ -43,13 +43,13 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         nom: "Analyse d'impacts sur la protection des données"
         couleur: info #TODO Temp, need more info
         position: 7
-        description: "Réaliser une évaluation d'impact sur la protection des données lorsque le traitement est susceptible d’engendrer un risque élevé pour les droits et libertés ou lorsqu'une partie intéressée demandé une preuve de conformité."
+        description: "Réaliser une évaluation d'impact sur la protection des données lorsque le traitement est susceptible d’engendrer un risque élevé pour les droits et libertés ou lorsqu'une partie intéressée demande une preuve de conformité."
 
     processus_8:
         nom: "Sensibiliser, former et communiquer"
         couleur: info #TODO Temp, need more info
         position: 8
-        description: "S'assurer que le personnel à qui a été affecté les responsabilités définies dans le SMDCP, a les compétences nécessaires pour exécuter les tâches requises.
+        description: "S'assurer que le personnel à qui ont été affectées les responsabilités définies dans le SMDCP, a les compétences nécessaires pour exécuter les tâches requises.
                       S'assurer que tout le personnel approprié a conscience de la pertinence et de l'importance de ses activités liées aux traitements des DCP."
 
     processus_9:
@@ -78,5 +78,5 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         nom: "Piloter le SMDCP"
         couleur: info #TODO Temp, need more info
         position: 12
-        description: "Disposer d'indicateurs pour piloter l'efficacité des processus du  SMDCP
-                      Produire le bilan (Rapport) annuel"
+        description: "Disposer d'indicateurs pour piloter l'efficacité des processus du  SMDCP.
+                      Produire le bilan (rapport) annuel"

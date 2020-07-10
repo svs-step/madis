@@ -107,7 +107,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
 
         foreach ($conformites as $conformite) {
             $tableData[] = [
-                $conformite->getPilote(),
+                null === $conformite->getPilote() ? 'Inexistant' : $conformite->getPilote(),
                 $conformite->getProcessus()->getNom(),
                 $conformite->getConformite(),
             ];
@@ -130,7 +130,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
     {
         switch ($reponse->getReponse()) {
             case null:
-                return '';
+                return 'Inexistant';
             case ReponseDictionary::NON_CONCERNE:
                 return
                     ReponseDictionary::getReponseLabelFromKey($reponse->getReponse()) .

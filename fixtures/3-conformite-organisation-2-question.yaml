@@ -14,7 +14,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_4:
         processus: '@processus_1'
         position: 4
-        nom: " La politique de gestion des données détaille les mesures techniques et organisationnelles définis par le responsable du traitement pour répondre dans le temps aux exigences du RGPD et pouvoir le démontrer : rôles et responsabilités, règles relatives aux processus du RGPD, procédures de gestion des droits de la personne, procédure en cas de violation de données, sommaire du bilan annuel...."
+        nom: " La politique de gestion des données détaille les mesures techniques et organisationnelles définis par le responsable du traitement pour répondre dans le temps aux exigences du RGPD et pouvoir le démontrer : rôles et responsabilités, règles relatives aux processus du RGPD, procédures de gestion des droits de la personne, procédure en cas de violation de données, sommaire du bilan annuel..."
     conformite_organisation_question_5:
         processus: '@processus_2'
         position: 1
@@ -28,17 +28,17 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_7:
         processus: '@processus_2'
         position: 3
-        nom: "L'entreprise dispose des connaissances nécessaires pour gérer  les transferts de DCP, transfrontaliers UE, vers des pays tiers ou des organisations internationales .L'inventaire de ces transferts est tenu à jour.
+        nom: "L'entreprise dispose des connaissances nécessaires pour gérer  les transferts de Données à Caractère Personnel, transfrontaliers UE, vers des pays tiers ou des organisations internationales .L'inventaire de ces transferts est tenu à jour.
               (Lien sur la protection des données dans le monde : https://www.cnil.fr/fr/la-protection-des-donnees-dans-le-monde)"
     conformite_organisation_question_8:
         processus: '@processus_2'
         position: 4
-        nom: "L'entreprise dispose des connaissances nécessaires pour gérer  les transferts de DCP, transfrontaliers UE, vers des pays tiers ou des organisations internationales .L'inventaire de ces transferts est tenu à jour.
+        nom: "L'entreprise dispose des connaissances nécessaires pour gérer  les transferts de Données à Caractère Personnel, transfrontaliers UE, vers des pays tiers ou des organisations internationales .L'inventaire de ces transferts est tenu à jour.
               (Lien sur la protection des données dans le monde : https://www.cnil.fr/fr/la-protection-des-donnees-dans-le-monde)"
     conformite_organisation_question_9:
         processus: '@processus_3'
         position: 1
-        nom: "Les modalités de l'exercice des droits sont communiqués à la personne concernée : Droit d’accès aux données (Art 15) ; Droit de rectification des données (Art 16) ; Droit d’effacement des données (Art 17) ; Droit de limitation du traitement (Art 18) ; Droit de portabilité des données (Art 20) ; Droit d’opposition au traitement (Art 21) ;Droit d’opposition au transfert de données (Art 46)"
+        nom: "Les modalités de l'exercice des droits sont communiquées à la personne concernée : Droit d’accès aux données (Art 15) ; Droit de rectification des données (Art 16) ; Droit d’effacement des données (Art 17) ; Droit de limitation du traitement (Art 18) ; Droit de portabilité des données (Art 20) ; Droit d’opposition au traitement (Art 21) ; Droit d’opposition au transfert de données (Art 46)"
     conformite_organisation_question_10:
         processus: '@processus_3'
         position: 2
@@ -97,18 +97,18 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_23:
         processus: '@processus_6'
         position: 3
-        nom: "L'entreprise est organisée pour détecter et gérer les incidents de sécurité. Les incidents sont historisés et partager avec le DPO pour déterminer s'il s'agit d'une violation de données."
+        nom: "L'entreprise est organisée pour détecter et gérer les incidents de sécurité. Les incidents sont historisés et partagés avec le DPO pour déterminer s'il s'agit d'une violation de données."
     conformite_organisation_question_24:
         processus: '@processus_6'
         position: 4
         nom: "L'accès physique aux locaux contenant des équipements informatiques (serveurs, équipements du réseau)  est contrôlé. Seule les personnes autorisés peuvent y avoir accès.
-              Les armoires et coffre-fort contenant des données sensibles sont systématiquement fermés à clés."
+              Les armoires et coffres-forts contenant des données sensibles sont systématiquement fermés à clés."
     conformite_organisation_question_25:
         processus: '@processus_6'
         position: 5
         nom: "Tous les équipements ( Postes de travail, smartphones, objets connectés) sont protégés par un antivirus géré par une console centralisée.
               Les patchs logiciels sont gérés pour éviter les \"trous\" de sécurité.
-              es postes sont verrouillés en fin de session."
+              Les postes sont verrouillés en fin de session."
     conformite_organisation_question_26:
         processus: '@processus_6'
         position: 6
@@ -123,20 +123,20 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_28:
         processus: '@processus_6'
         position: 8
-        nom: "L'ensemble des utilisateurs est sensibilisé à la sécurité informatique, à la protection de la vie priovée.
+        nom: "L'ensemble des utilisateurs est sensibilisé à la sécurité informatique, à la protection de la vie privée.
               Les utilisateurs sont formés aux outils et vigilant dans leurs usages pour éviter les erreurs de manipulation .
-              La charte informatrique est signée par chaque utilisateur."
+              La charte informatique est signée par chaque utilisateur."
     conformite_organisation_question_29:
         processus: '@processus_6'
         position: 9
-        nom: "Une gestion de droits d'accès ou d'habilitation  définit des profils distincts selon les besoins des utilisateurs pour accéder aux données ?
-              Il existe une procédure Arrivée/Changement decposte/Départ qui garantit que les comptes utilisateurs sont systématiquement fermés en fin de contrat.
+        nom: "Une gestion de droits d'accès ou d'habilitation définit des profils distincts selon les besoins des utilisateurs pour accéder aux données.
+              Il existe une procédure Arrivée/Changement de poste/Départ qui garantit que les comptes utilisateurs sont systématiquement fermés en fin de contrat.
               Les accès aux applications sont tracés et permettent d'enregistrer qui accède à quoi."
     conformite_organisation_question_30:
         processus: '@processus_6'
         position: 10
         nom: "La politique de mot de passe s'applique à l'accès réseau et aux applications. Elle précise la force du mot de passe : 12 caractères ou plus, un nombre, une majuscule, un signe de ponctuation ou un caractère spécial (dollar, dièse, ...).
-              Les mots de passe ne sont gardés secret par chacun des utilisateurs."
+              Les mots de passe sont gardés secret par chacun des utilisateurs."
     conformite_organisation_question_31:
         processus: '@processus_6'
         position: 11
@@ -162,7 +162,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_36:
         processus: '@processus_7'
         position: 3
-        nom: "Conformément à l'article 35 et aux LD PIA, les nouveaux traitements de DCP \"à risque élevé\" de type activités de contrôle des personnes, évaluations systématiques (Voir tableau ci-dessous) font l'objet d'une analyse.
+        nom: "Conformément à l'article 35 et aux lignes directrices PIA, les nouveaux traitements de DCP \"à risque élevé\" de type activités de contrôle des personnes, évaluations systématiques font l'objet d'une analyse.
               L'entreprise a pris connaissance du document \"liste-traitements-avec-aipd-requise\" publié par la CNIL."
     conformite_organisation_question_37:
         processus: '@processus_7'
@@ -203,7 +203,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_46:
         processus: '@processus_10'
         position: 1
-        nom: "Conformément à l'article 32, de manière régulière, l'organisation teste, analyse, et évalue l'efficacité des mesures techniques et organisationnelles.pour assurer la sécurité du traitement.Les mesures de sécurité en prévention de la violation de données à caractère personnel sont contrôlées régulièrement et en cas de violation de données."
+        nom: "Conformément à l'article 32, de manière régulière, l'organisation teste, analyse, et évalue l'efficacité des mesures techniques et organisationnelles, pour assurer la sécurité du traitement. Les mesures de sécurité en prévention de la violation de données à caractère personnel sont contrôlées régulièrement et en cas de violation de données."
     conformite_organisation_question_47:
         processus: '@processus_10'
         position: 2
@@ -248,4 +248,4 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_57:
         processus: '@processus_12'
         position: 4
-        nom: "Conformémebt aux LD DPO, le DPO ou le référent DPO produit un bilan annuel (Rapport annuel) partagé avec la structure de gouvernance et validé par le responsable du traitement..Ce rapport comprend entre autre : bilan de conformité des traitements, bilan des opérations de sensibilisation, bilan des PIA, bilan de plan de progrès."
+        nom: "Conformément aux lignes directrices DPO, le DPO ou le référent DPO produit un bilan annuel (Rapport annuel) partagé avec la structure de gouvernance et validé par le responsable du traitement..Ce rapport comprend entre autre : bilan de conformité des traitements, bilan des opérations de sensibilisation, bilan des PIA, bilan de plan de progrès."

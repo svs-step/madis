@@ -66,11 +66,11 @@
                                                 <td>{{ conformite.vars.value.processus.nom }}</td>
                                                 <td>
                                                     {% if conformite.vars.value.conformite < 2.5 %}
-                                                        <span class="label label-danger">{{ conformite.vars.value.conformite }}</span>
+                                                        <span class="label label-danger">{{ conformite.vars.value.conformite }} /5</span>
                                                     {% elseif conformite.vars.value.conformite < 3.5 %}
-                                                        <span class="label label-warning">{{ conformite.vars.value.conformite }}</span>
+                                                        <span class="label label-warning">{{ conformite.vars.value.conformite }} /5</span>
                                                     {% else %}
-                                                        <span class="label label-success">{{ conformite.vars.value.conformite }}</span>
+                                                        <span class="label label-success">{{ conformite.vars.value.conformite }} /5</span>
                                                     {% endif %}
                                                 </td>
                                                 <td>
@@ -133,10 +133,12 @@
                                         <i class="fa fa-clipboard-list"></i>
                                         {{ 'registry.conformite_organisation.action.print'|trans }}
                                     </a>
+                                    {% if evaluation.isDraft %}
                                     <a href="{{ path('registry_conformite_organisation_edit', {'id': evaluation.id}) }}">
                                         <i class="fa fa-pencil-alt"></i>
                                         {{ 'registry.conformite_organisation.action.edit'|trans }}
                                     </a>
+                                    {% endif %}
                                     <a href="{{ path('registry_conformite_organisation_delete', {'id': evaluation.id}) }}">
                                         <i class="fa fa-trash"></i>
                                         {{ 'registry.conformite_organisation.action.delete'|trans }}

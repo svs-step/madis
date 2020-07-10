@@ -1,4 +1,5 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
+{% set draftValue = draftValue|default('action.draft'|trans) %}
 {% import _self as formMacros %}
 
 {% macro printParticipant(participant) %}
@@ -41,7 +42,11 @@
                 <a href="{{ path('registry_conformite_organisation_list') }}" class="btn btn-default">
                     {{ 'registry.conformite_organisation.action.back_to_list'|trans }}
                 </a>
-                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                {# Prevent those fields from being automatically rendered #}
+                {% do form.save.setRendered() %}
+                {% do form.saveDraft.setRendered() %}
+                <input name="{{ form.children.save.vars.full_name }}" type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                <input name="{{ form.children.saveDraft.vars.full_name }}" type="submit" class="btn btn-info" value="{{ draftValue }}">
             </div>
         </div>
     </div>
@@ -78,4 +83,19 @@
     </div>
 
 {% include 'Registry/Conformite_organisation/_form_conformites.html.twig' with {'form': form.conformites} %}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                {# Prevent those fields from being automatically rendered #}
+                {% do form.save.setRendered() %}
+                {% do form.saveDraft.setRendered() %}
+                <input name="{{ form.children.save.vars.full_name }}" type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                <input name="{{ form.children.saveDraft.vars.full_name }}" type="submit" class="btn btn-info" value="{{ draftValue }}">
+            </div>
+        </div>
+    </div>
+</div>
+
 {{ form_end(form) }}
