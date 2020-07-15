@@ -23,6 +23,37 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
+                                <th>
+                                    <input class="form-control" type="text" id="search_utilisateur" placeholder="Utilisateur" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <select class="form-control" id="search_sujet" style="width: 100%;">
+                                        <option value="">Sujet</option>
+                                        {% for key, priority in dictionary('reporting_log_journal_subject') %}
+                                            <option value="{{ key }}">{{ priority }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                <th>
+                                    <select class="form-control" id="search_action" style="width: 100%;">
+                                        <option value="">Action</option>
+                                        {% for key, priority in dictionary('reporting_log_journal_action') %}
+                                            <option value="{{ key }}">{{ priority }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_last_know_name" placeholder="Nom" style="width: 100%;">
+                                </th>
+                                <th></th>
+                            </tr>
+                            <tr>
                                 <th>Utilisateur</th>
                                 <th>Collectivité</th>
                                 <th>Date</th>
@@ -41,6 +72,33 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
     {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            var oTable = $('#table').DataTable();
+            $('#search_utilisateur').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+            $('#search_date').change(function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            });
+            $('#search_sujet').change(function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            });
+            $('#search_action').change(function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            });
+            $('#search_last_know_name').keyup($.debounce(250, function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            }));
+        } );
+    </script>
 {% endblock %}
 
