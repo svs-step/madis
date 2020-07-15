@@ -80,19 +80,19 @@ class LogJournalSubjectDictionary extends SimpleDictionary
     public static function getSubjects()
     {
         return [
-            self::MATURITY_SURVEY                             => 'Indice de maturité',
-            self::REGISTRY_COLLECTIVITY                       => 'Collectivité',
-            self::REGISTRY_CONFORMITE_ORGANISATION_EVALUATION => 'Evaluation',
-            self::REGISTRY_CONFORMITE_TRAITEMENT              => 'Conformité traitement',
-            self::REGISTRY_CONTRACTOR                         => 'Sous-traitant',
             self::REGISTRY_MESUREMENT                         => 'Action de protection',
-            self::REGISTRY_PROOF                              => 'Preuve',
+            self::REGISTRY_COLLECTIVITY                       => 'Collectivité',
+            self::REGISTRY_CONFORMITE_TRAITEMENT              => 'Conformité traitement',
             self::REGISTRY_REQUEST                            => 'Demande',
-            self::REGISTRY_TREATMENT                          => 'Traitement',
             self::USER_EMAIL                                  => 'Email utilisateur',
-            self::USER_FIRSTNAME                              => 'Prénom utilisateur',
-            self::USER_LASTNAME                               => 'Nom utilisateur',
+            self::REGISTRY_CONFORMITE_ORGANISATION_EVALUATION => 'Evaluation',
+            self::MATURITY_SURVEY                             => 'Indice de maturité',
             self::USER_PASSWORD                               => 'Mdp utilisateur',
+            self::USER_LASTNAME                               => 'Nom utilisateur',
+            self::USER_FIRSTNAME                              => 'Prénom utilisateur',
+            self::REGISTRY_PROOF                              => 'Preuve',
+            self::REGISTRY_CONTRACTOR                         => 'Sous-traitant',
+            self::REGISTRY_TREATMENT                          => 'Traitement',
             self::USER_USER                                   => 'Utilisateur',
             self::REGISTRY_VIOLATION                          => 'Violation',
         ];
