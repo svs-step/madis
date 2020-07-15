@@ -19,6 +19,10 @@
             <discriminator-mapping value="collectivity" class="App\Domain\User\Model\Collectivity" />
             <discriminator-mapping value="user" class="App\Domain\User\Model\User" />
             <discriminator-mapping value="treatement" class="App\Domain\Registry\Model\Treatment" />
+            <discriminator-mapping value="conformite" class="App\Domain\Registry\Model\ConformiteOrganisation\Conformite" />
+            <discriminator-mapping value="participant" class="App\Domain\Registry\Model\ConformiteOrganisation\Participant" />
+            <discriminator-mapping value="comite_il_contact" class="App\Domain\User\Model\ComiteIlContact" />
+            <discriminator-mapping value="conformite_traitement_reponse" class="App\Domain\Registry\Model\ConformiteTraitement\Reponse" />
         </discriminator-map>
         <id name="id" type="uuid" />
     </entity>

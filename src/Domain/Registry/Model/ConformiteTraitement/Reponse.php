@@ -25,16 +25,11 @@ declare(strict_types=1);
 namespace App\Domain\Registry\Model\ConformiteTraitement;
 
 use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
-class Reponse
+class Reponse extends LoggableSubject
 {
-    /**
-     * @var UuidInterface
-     */
-    private $id;
-
     /**
      * @var bool
      */
@@ -68,15 +63,11 @@ class Reponse
 
     public function __construct()
     {
+        parent::__construct();
         $this->id                                 = Uuid::uuid4();
         $this->conforme                           = false;
         $this->actionProtections                  = [];
         $this->actionProtectionsPlanifiedNotSeens = [];
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function isConforme(): bool
@@ -160,5 +151,10 @@ class Reponse
     public function resetActionProtectionsPlanifiedNotSeens(): void
     {
         $this->actionProtectionsPlanifiedNotSeens = [];
+    }
+
+    public function __toString(): string
+    {
+        return 'Reponse .' . $this->question->getQuestion();
     }
 }
