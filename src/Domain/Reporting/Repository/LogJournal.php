@@ -31,7 +31,7 @@ interface LogJournal extends CRUDRepositoryInterface
 {
     public function updateLastKnownNameEntriesForGivenSubject(LoggableSubject $subject);
 
-    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir);
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches);
 
     public function countLogs();
 }

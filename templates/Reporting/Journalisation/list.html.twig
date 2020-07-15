@@ -35,16 +35,16 @@
                                 <th>
                                     <select class="form-control" id="search_sujet" style="width: 100%;">
                                         <option value="">Sujet</option>
-                                        {% for key, priority in dictionary('reporting_log_journal_subject') %}
-                                            <option value="{{ key }}">{{ priority }}</option>
+                                        {% for key, subject in dictionary('reporting_log_journal_subject') %}
+                                            <option value="{{ key }}">{{ subject }}</option>
                                         {% endfor %}
                                     </select>
                                 </th>
                                 <th>
                                     <select class="form-control" id="search_action" style="width: 100%;">
                                         <option value="">Action</option>
-                                        {% for key, priority in dictionary('reporting_log_journal_action') %}
-                                            <option value="{{ key }}">{{ priority }}</option>
+                                        {% for key, action in dictionary('reporting_log_journal_action') %}
+                                            <option value="{{ key }}">{{ action }}</option>
                                         {% endfor %}
                                     </select>
                                 </th>
