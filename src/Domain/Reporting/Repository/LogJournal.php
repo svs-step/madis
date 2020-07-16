@@ -26,6 +26,7 @@ namespace App\Domain\Reporting\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
 use App\Domain\Reporting\Model\LoggableSubject;
+use App\Domain\User\Model\Collectivity;
 
 interface LogJournal extends CRUDRepositoryInterface
 {
@@ -34,4 +35,6 @@ interface LogJournal extends CRUDRepositoryInterface
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches);
 
     public function countLogs();
+
+    public function findAllByCollectivity(Collectivity $collectivity, $limit = 15);
 }

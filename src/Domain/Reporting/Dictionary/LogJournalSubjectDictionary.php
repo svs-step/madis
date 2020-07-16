@@ -40,7 +40,6 @@ use App\Domain\User\Model\User;
 class LogJournalSubjectDictionary extends SimpleDictionary
 {
     const MATURITY_SURVEY                             = 'maturity_survey';
-    const REGISTRY_COLLECTIVITY                       = 'registry_collectivity';
     const REGISTRY_CONFORMITE_ORGANISATION_EVALUATION = 'registry_conformite_organisation_evaluation';
     const REGISTRY_CONFORMITE_TRAITEMENT              = 'registry_conformite_traitement';
     const REGISTRY_CONTRACTOR                         = 'registry_contractor';
@@ -48,6 +47,7 @@ class LogJournalSubjectDictionary extends SimpleDictionary
     const REGISTRY_PROOF                              = 'registry_proof';
     const REGISTRY_REQUEST                            = 'registry_request';
     const REGISTRY_TREATMENT                          = 'registry_treatment';
+    const USER_COLLECTIVITY                           = 'user_collectivity';
     const USER_EMAIL                                  = 'user_email';
     const USER_FIRSTNAME                              = 'user_firstname';
     const USER_LASTNAME                               = 'user_lastname';
@@ -57,7 +57,7 @@ class LogJournalSubjectDictionary extends SimpleDictionary
 
     const CLASS_NAME_SUBJECT = [
         Survey::class               => self::MATURITY_SURVEY,
-        Collectivity::class         => self::REGISTRY_COLLECTIVITY,
+        Collectivity::class         => self::USER_COLLECTIVITY,
         Evaluation::class           => self::REGISTRY_CONFORMITE_ORGANISATION_EVALUATION,
         ConformiteTraitement::class => self::REGISTRY_CONFORMITE_TRAITEMENT,
         Contractor::class           => self::REGISTRY_CONTRACTOR,
@@ -81,7 +81,7 @@ class LogJournalSubjectDictionary extends SimpleDictionary
     {
         return [
             self::REGISTRY_MESUREMENT                         => 'Action de protection',
-            self::REGISTRY_COLLECTIVITY                       => 'Collectivité',
+            self::USER_COLLECTIVITY                           => 'Collectivité',
             self::REGISTRY_CONFORMITE_TRAITEMENT              => 'Conformité traitement',
             self::REGISTRY_REQUEST                            => 'Demande',
             self::USER_EMAIL                                  => 'Email utilisateur',

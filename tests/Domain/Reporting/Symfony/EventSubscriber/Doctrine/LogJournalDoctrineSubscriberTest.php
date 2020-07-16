@@ -241,6 +241,20 @@ class LogJournalDoctrineSubscriberTest extends TestCase
         $this->invokeMethod($this->subscriber, 'registerLogForUser', [$user->reveal()]);
     }
 
+    public function testItRegisterLogForSoftDeleteUser()
+    {
+        $user = $this->prophesize(User::class);
+        $user->getCollectivity()->shouldBeCalled()->willReturn(new Collectivity());
+        $this->security->getUser()->shouldBeCalled()->willReturn(new User());
+        $uow = $this->createMock(UnitOfWork::class);
+        $uow->method('getEntityChangeSet')
+            ->willReturn(['deletedAt' => [null, new \DateTimeImmutable()]])
+        ;
+        $this->entityManager->getUnitOfWork()->shouldBeCalled()->willReturn($uow);
+        $this->eventDispatcher->dispatch(Argument::type(LogJournalEvent::class))->shouldBeCalled();
+        $this->invokeMethod($this->subscriber, 'registerLogForUser', [$user->reveal()]);
+    }
+
     /**
      * @dataProvider NotConcernedByDeletionLog
      */

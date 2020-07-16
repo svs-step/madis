@@ -27,6 +27,9 @@ namespace App\Domain\Reporting\Symfony\EventSubscriber\Doctrine;
 use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
 use App\Domain\Registry\Model\ConformiteOrganisation\Participant;
 use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
+use App\Domain\Registry\Model\Proof;
+use App\Domain\Registry\Model\Request;
+use App\Domain\Registry\Model\Violation;
 use App\Domain\Reporting\Dictionary\LogJournalActionDictionary;
 use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
 use App\Domain\Reporting\Model\LoggableSubject;
@@ -139,6 +142,11 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
             case User::class:
                 $this->registerLogForUser($object);
                 break;
+            case Proof::class:
+            case Request::class:
+            case Violation::class:
+                $this->registerLogSoftDelete($object);
+                break;
             case Conformite::class:
             case Participant::class:
                 $this->registerLog($object->getEvaluation(), LogJournalActionDictionary::UPDATE);
@@ -247,8 +255,19 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
             return;
         }
 
-        $subjectTypes = [];
         $collectivity = $this->getCollectivity($object);
+        if (\array_key_exists('deletedAt', $changes)) {
+            $action = LogJournalActionDictionary::SOFT_DELETE;
+            if (!\is_null($changes['deletedAt'][0])) {
+                $action = LogJournalActionDictionary::SOFT_DELETE_REVOKE;
+            }
+            $log = new LogJournal($collectivity, $user, $action, LogJournalSubjectDictionary::USER_USER, $object);
+            $this->eventDispatcher->dispatch(new LogJournalEvent($log));
+
+            return;
+        }
+
+        $subjectTypes = [];
         if (\array_key_exists('firstName', $changes)) {
             $subjectTypes[] =  LogJournalSubjectDictionary::USER_FIRSTNAME;
         }
@@ -269,6 +288,23 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
             $log = new LogJournal($collectivity, $user, LogJournalActionDictionary::UPDATE, $subjectType, $object);
             $this->eventDispatcher->dispatch(new LogJournalEvent($log));
         }
+    }
+
+    private function registerLogSoftDelete(LoggableSubject $object)
+    {
+        $user         = $this->security->getUser();
+        $changes      = $this->entityManager->getUnitOfWork()->getEntityChangeSet($object);
+        $collectivity = $this->getCollectivity($object);
+
+        //if is not a softdelete request, just register a log update
+        $action = LogJournalActionDictionary::UPDATE;
+        if (\array_key_exists('deletedAt', $changes)) {
+            $action = LogJournalActionDictionary::SOFT_DELETE;
+        }
+
+        $subject = LogJournalSubjectDictionary::getSubjectFromClassName(\get_class($object));
+        $log     = new LogJournal($collectivity, $user, $action, $subject, $object);
+        $this->eventDispatcher->dispatch(new LogJournalEvent($log));
     }
 
     private function notConcernedByDeletionLog(LoggableSubject $subject): bool

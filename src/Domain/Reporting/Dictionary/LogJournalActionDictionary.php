@@ -28,10 +28,12 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class LogJournalActionDictionary extends SimpleDictionary
 {
-    const CREATE = 'create';
-    const UPDATE = 'update';
-    const DELETE = 'delete';
-    const LOGIN  = 'login';
+    const CREATE             = 'create';
+    const UPDATE             = 'update';
+    const DELETE             = 'delete';
+    const LOGIN              = 'login';
+    const SOFT_DELETE        = 'soft_delete';
+    const SOFT_DELETE_REVOKE = 'soft_delete_revoke';
 
     public function __construct()
     {
@@ -44,10 +46,12 @@ class LogJournalActionDictionary extends SimpleDictionary
     public static function getActions()
     {
         return [
-            self::CREATE => 'Création',
-            self::UPDATE => 'Mise à jour',
-            self::DELETE => 'Suppression',
-            self::LOGIN  => 'Connexion',
+            self::CREATE             => 'Création',
+            self::UPDATE             => 'Mise à jour',
+            self::DELETE             => 'Suppression',
+            self::LOGIN              => 'Connexion',
+            self::SOFT_DELETE        => 'Archivage',
+            self::SOFT_DELETE_REVOKE => 'Désarchivage',
         ];
     }
 

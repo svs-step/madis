@@ -10,6 +10,7 @@ use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
 use App\Domain\Reporting\Model;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\Reporting\Repository;
+use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -87,7 +88,7 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal
                 $queryBuilder->addSelect('(case 
                 WHEN o.subjectType = \'' . LogJournalSubjectDictionary::REGISTRY_MESUREMENT . '\' THEN 1 
                 WHEN o.subjectType = \'' . LogJournalSubjectDictionary::REGISTRY_CONFORMITE_TRAITEMENT . '\' THEN 2 
-                WHEN o.subjectType = \'' . LogJournalSubjectDictionary::REGISTRY_COLLECTIVITY . '\' THEN 3  
+                WHEN o.subjectType = \'' . LogJournalSubjectDictionary::USER_COLLECTIVITY . '\' THEN 3  
                 WHEN o.subjectType = \'' . LogJournalSubjectDictionary::REGISTRY_REQUEST . '\' THEN 4 
                 WHEN o.subjectType = \'' . LogJournalSubjectDictionary::USER_EMAIL . '\' THEN 5 
                 WHEN o.subjectType = \'' . LogJournalSubjectDictionary::REGISTRY_CONFORMITE_ORGANISATION_EVALUATION . '\' THEN 6
@@ -147,5 +148,17 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal
                     break;
             }
         }
+    }
+
+    public function findAllByCollectivity(Collectivity $collectivity, $limit = 15)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->andWhere($qb->expr()->eq('o.collectivity', ':collectivity'))
+            ->setParameter('collectivity', $collectivity)
+            ->addOrderBy('o.date', 'DESC')
+            ->setMaxResults($limit)
+        ;
+
+        return $qb->getQuery()->getResult();
     }
 }
