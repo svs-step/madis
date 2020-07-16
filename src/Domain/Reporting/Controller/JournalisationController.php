@@ -52,14 +52,22 @@ class JournalisationController extends AbstractController
         $orderColumn = $this->getCorrespondingLabelFromkey($orders[0]['column']);
         $orderDir    = $orders[0]['dir'];
 
+        $searches = [];
+        foreach ($columns as $column) {
+            if ('' !== $column['search']['value']) {
+                $searches[$column['data']] = $column['search']['value'];
+            }
+        }
+
         /** @var Paginator $logs */
-        $logs  = $this->logRepository->findPaginated($first, $maxResults, $orderColumn, $orderDir);
+        $logs  = $this->logRepository->findPaginated($first, $maxResults, $orderColumn, $orderDir, $searches);
         $count = $this->logRepository->countLogs();
 
         $reponse = [
             'draw'            => $draw,
             'recordsTotal'    => $count,
-            'recordsFiltered' => $count,
+            'recordsFiltered' => count($logs),
+            'data'            => [],
         ];
 
         /** @var LogModel $log */
