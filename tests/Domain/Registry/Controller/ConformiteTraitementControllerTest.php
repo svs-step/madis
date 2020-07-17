@@ -36,7 +36,9 @@ use App\Domain\User\Model as UserModel;
 use App\Domain\User\Repository as UserRepository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -100,6 +102,11 @@ class ConformiteTraitementControllerTest extends TestCase
      */
     private $eventDispatcher;
 
+    /**
+     * @var Pdf|ObjectProphecy
+     */
+    private $pdf;
+
     public function setUp()
     {
         $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
@@ -112,6 +119,7 @@ class ConformiteTraitementControllerTest extends TestCase
         $this->treatmentRepository            = $this->prophesize(Repository\Treatment::class);
         $this->questionRepository             = $this->prophesize(Repository\ConformiteTraitement\Question::class);
         $this->eventDispatcher                = $this->prophesize(EventDispatcherInterface::class);
+        $this->pdf                            = $this->prophesize(Pdf::class);
 
         $this->controller = new ConformiteTraitementController(
             $this->managerProphecy->reveal(),
@@ -123,7 +131,8 @@ class ConformiteTraitementControllerTest extends TestCase
             $this->userProviderProphecy->reveal(),
             $this->treatmentRepository->reveal(),
             $this->questionRepository->reveal(),
-            $this->eventDispatcher->reveal()
+            $this->eventDispatcher->reveal(),
+            $this->pdf->reveal()
         );
     }
 

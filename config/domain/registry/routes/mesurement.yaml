@@ -47,3 +47,8 @@ api_registry_mesurement_modal_create:
     path: '/modal-create'
     methods: ['POST']
     controller: 'App\Domain\Registry\Controller\MesurementController:createFromJsonAction'
+
+registry_mesurement_pdf:
+    path: '/pdf/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\MesurementController:pdfAction'

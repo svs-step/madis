@@ -29,6 +29,7 @@ use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CollectivityController extends CRUDController
@@ -36,9 +37,10 @@ class CollectivityController extends CRUDController
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
-        Repository\Collectivity $repository
+        Repository\Collectivity $repository,
+        Pdf $pdf
     ) {
-        parent::__construct($entityManager, $translator, $repository);
+        parent::__construct($entityManager, $translator, $repository, $pdf);
     }
 
     /**

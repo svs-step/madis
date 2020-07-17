@@ -1,47 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_pdf.html.twig' %}
 
 {% set bodyClass = 'registry_violation show' %}
 {% set menuItem = 'registry_violation' %}
 
 {% block title %}{{ 'registry.violation.title.show'|trans }} - {{ parent() }}{% endblock %}
 
-{% block body_head %}
-    <h1>
-        {{ 'registry.violation.title.show'|trans }}
-        <small>{{ object }}</small>
-    </h1>
-{% endblock %}
-
-{% block breadcrumb %}
-    {% set breadcrumb = [
-        { 'name': 'registry.violation.breadcrumb.list'|trans, 'link': path('registry_violation_list') },
-        { 'name': 'registry.violation.breadcrumb.show'|trans({'%name%': object}) }
-    ] %}
-    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
-{% endblock %}
+{% block body_head %}{{ object }}{% endblock %}
 
 {% block body %}
-
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="action-bar">
-                <a href="{{ path('registry_violation_list') }}" class="btn btn-default">
-                    <i class="fa fa-arrow-left"></i>
-                    {{ 'registry.violation.action.back_to_list'|trans }}
-                </a>
-                {% if is_granted('ROLE_USER') and object.deletedAt is null %}
-                <a href="{{ path('registry_violation_edit', {'id': object.id}) }}" class="btn btn-default">
-                    <i class="fa fa-pencil-alt"></i>
-                    {{ 'action.edit'|trans }}
-                </a>
-                {% endif %}
-                <a href="{{ path('registry_violation_pdf', {'id': object.id}) }}" class="btn btn-default">
-                    <i class="fa fa-print"></i>
-                    {{ 'action.print'|trans }}
-                </a>
-            </div>
-        </div>
-    </div>
 
     <div class="row">
         {# LEFT #}
@@ -74,9 +40,9 @@
                             <td><strong>{{ 'registry.violation.show.origins'|trans }}</strong></td>
                             <td>
                                 <ul>
-                                {% for origin in object.origins %}
-                                    <li>{{ origin|dictionary('registry_violation_origin') }}</li>
-                                {% endfor %}
+                                    {% for origin in object.origins %}
+                                        <li>{{ origin|dictionary('registry_violation_origin') }}</li>
+                                    {% endfor %}
                                 </ul>
                             </td>
                         </tr>

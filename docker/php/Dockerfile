@@ -81,6 +81,12 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN apt-get update && apt-get install -y yarn
 
+# INSTALL WKHTMLTOPDF
+# ===================
+RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb
+RUN apt-get install -y fontconfig libfreetype6 libjpeg62-turbo libpng16-16 libxrender1 xfonts-75dpi xfonts-base
+RUN dpkg -i wkhtmltox_0.12.5-1.buster_amd64.deb
+
 
 # FINISH CONFIGURATION
 # ====================

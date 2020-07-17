@@ -40,9 +40,11 @@ use Gaufrette\Filesystem;
 use Gaufrette\FilesystemInterface;
 use Gaufrette\FilesystemMap;
 use Gaufrette\StreamWrapper;
+use Knp\Snappy\Pdf;
 use Nelmio\Alice\ParameterBag;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -94,6 +96,11 @@ class ProofControllerTest extends TestCase
     private $documentFilesystemProphecy;
 
     /**
+     * @var Pdf|ObjectProphecy
+     */
+    private $pdf;
+
+    /**
      * @var ContractorController
      */
     private $controller;
@@ -108,6 +115,7 @@ class ProofControllerTest extends TestCase
         $this->authenticationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy          = $this->prophesize(UserProvider::class);
         $this->documentFilesystemProphecy    = $this->prophesize(FilesystemInterface::class);
+        $this->pdf                           = $this->prophesize(Pdf::class);
 
         $this->controller = new ProofController(
             $this->managerProphecy->reveal(),
@@ -117,7 +125,8 @@ class ProofControllerTest extends TestCase
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
-            $this->documentFilesystemProphecy->reveal()
+            $this->documentFilesystemProphecy->reveal(),
+            $this->pdf->reveal()
         );
     }
 
