@@ -33,6 +33,7 @@ use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Model as UserModel;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -72,9 +73,10 @@ class ContractorController extends CRUDController
         UserRepository\Collectivity $collectivityRepository,
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
-        UserProvider $userProvider
+        UserProvider $userProvider,
+        Pdf $pdf
     ) {
-        parent::__construct($entityManager, $translator, $repository);
+        parent::__construct($entityManager, $translator, $repository, $pdf);
         $this->collectivityRepository = $collectivityRepository;
         $this->wordHandler            = $wordHandler;
         $this->authorizationChecker   = $authorizationChecker;

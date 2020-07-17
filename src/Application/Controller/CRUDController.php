@@ -27,6 +27,8 @@ namespace App\Application\Controller;
 use App\Application\DDD\Repository\RepositoryInterface;
 use App\Application\Doctrine\Repository\CRUDRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,16 +54,23 @@ abstract class CRUDController extends AbstractController
     protected $repository;
 
     /**
+     * @var Pdf
+     */
+    protected $pdf;
+
+    /**
      * CRUDController constructor.
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
-        RepositoryInterface $repository
+        RepositoryInterface $repository,
+        Pdf $pdf
     ) {
         $this->entityManager = $entityManager;
         $this->translator    = $translator;
         $this->repository    = $repository;
+        $this->pdf           = $pdf;
     }
 
     /**
@@ -288,6 +297,19 @@ abstract class CRUDController extends AbstractController
         $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
 
         return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
+    public function pdfAction(string $id)
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        return new PdfResponse($this->pdf->getOutputFromHtml(
+            $this->renderView($this->getTemplatingBasePath('pdf'), ['object' => $object])),
+            str_replace('/', '', (string) $object) . '-' . date('mdY') . '.pdf'
+        );
     }
 
     /**

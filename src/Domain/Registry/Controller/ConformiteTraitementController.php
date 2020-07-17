@@ -33,6 +33,7 @@ use App\Domain\Registry\Symfony\EventSubscriber\Event\ConformiteTraitementEvent;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -90,9 +91,10 @@ class ConformiteTraitementController extends CRUDController
         UserProvider $userProvider,
         Repository\Treatment $treatmentRepository,
         Repository\ConformiteTraitement\Question $questionRepository,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        Pdf $pdf
     ) {
-        parent::__construct($entityManager, $translator, $repository);
+        parent::__construct($entityManager, $translator, $repository, $pdf);
         $this->collectivityRepository = $collectivityRepository;
         $this->wordHandler            = $wordHandler;
         $this->authorizationChecker   = $authorizationChecker;

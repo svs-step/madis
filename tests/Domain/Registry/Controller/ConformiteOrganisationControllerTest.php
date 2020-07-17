@@ -12,6 +12,7 @@ use App\Domain\Registry\Repository\ConformiteOrganisation\Question;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManager;
+use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -77,6 +78,11 @@ class ConformiteOrganisationControllerTest extends TestCase
      */
     private $wordHandler;
 
+    /**
+     * @var Pdf|ObjectProphecy
+     */
+    private $pdf;
+
     public function setUp()
     {
         $this->entityManager        = $this->prophesize(EntityManager::class);
@@ -89,6 +95,8 @@ class ConformiteOrganisationControllerTest extends TestCase
         $this->authorisationChecker = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->dispatcher           = $this->prophesize(EventDispatcherInterface::class);
         $this->wordHandler          = $this->prophesize(WordHandler::class);
+        $this->pdf                  = $this->prophesize(Pdf::class);
+
         $this->controller           = new ConformiteOrganisationController(
             $this->entityManager->reveal(),
             $this->translator->reveal(),
@@ -100,6 +108,7 @@ class ConformiteOrganisationControllerTest extends TestCase
             $this->authorisationChecker->reveal(),
             $this->dispatcher->reveal(),
             $this->wordHandler->reveal(),
+            $this->pdf->reveal()
         );
     }
 

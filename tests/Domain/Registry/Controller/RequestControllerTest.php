@@ -36,8 +36,10 @@ use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -84,6 +86,11 @@ class RequestControllerTest extends TestCase
     private $userProviderProphecy;
 
     /**
+     * @var Pdf|ObjectProphecy
+     */
+    private $pdf;
+
+    /**
      * @var ContractorController
      */
     private $controller;
@@ -97,6 +104,7 @@ class RequestControllerTest extends TestCase
         $this->wordHandlerProphecy           = $this->prophesize(WordHandler::class);
         $this->authenticationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy          = $this->prophesize(UserProvider::class);
+        $this->pdf                           = $this->prophesize(Pdf::class);
 
         $this->controller = new RequestController(
             $this->managerProphecy->reveal(),
@@ -105,7 +113,8 @@ class RequestControllerTest extends TestCase
             $this->requestStackProphecy->reveal(),
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
-            $this->userProviderProphecy->reveal()
+            $this->userProviderProphecy->reveal(),
+            $this->pdf->reveal()
         );
     }
 

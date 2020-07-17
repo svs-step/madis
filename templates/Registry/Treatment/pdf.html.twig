@@ -1,52 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_pdf.html.twig' %}
 
 {% set bodyClass = 'registry_treatment show' %}
 {% set menuItem = 'registry_treatment' %}
 
-{% block title %}{{ 'registry.treatment.title.show'|trans }} - {{ parent() }}{% endblock %}
-
-{% block body_head %}
-    <h1>
-        {{ 'registry.treatment.title.show'|trans }}
-        <small>{{ object }}</small>
-    </h1>
-{% endblock %}
-
-{% block breadcrumb %}
-    {% set breadcrumb = [
-        { 'name': 'registry.treatment.breadcrumb.list'|trans, 'link': path('registry_treatment_list') },
-        { 'name': 'registry.treatment.breadcrumb.show'|trans({'%name%': object}) }
-    ] %}
-    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
-{% endblock %}
+{% block body_head %}{{ object.name }}{% endblock %}
 
 {% block body %}
 
-    {% if is_granted('ROLE_USER') %}
     <div class="row">
-        <div class="col-xs-12">
-            <div class="action-bar">
-                <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">
-                    <i class="fa fa-arrow-left"></i>
-                    {{ 'registry.treatment.action.back_to_list'|trans }}
-                </a>
-                <a href="{{ path('registry_treatment_edit', {'id': object.id}) }}" class="btn btn-default">
-                    <i class="fa fa-pencil-alt"></i>
-                    {{ 'action.edit'|trans }}
-                </a>
-                <a href="{{ path('registry_treatment_pdf', {'id': object.id}) }}" class="btn btn-default">
-                    <i class="fa fa-print"></i>
-                    {{ 'action.print'|trans }}
-                </a>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-
-    <div class="row">
-        {# LEFT #}
+{#         LEFT#}
         <div class="col-md-6">
-            {# GENERAL INFORMATIONS #}
+{#             GENERAL INFORMATIONS#}
             <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
                 <div class="box-body no-padding">
@@ -95,7 +59,7 @@
                 </div>
             </div>
 
-            {# DATA CATEGORY #}
+{#             DATA CATEGORY#}
             <div class="box box-solid box-warning">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
                 <div class="box-body no-padding">
@@ -124,7 +88,7 @@
                 </div>
             </div>
 
-            {# RECIPIENTS #}
+{#             RECIPIENTS#}
             <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
                 <div class="box-body no-padding">
@@ -149,7 +113,7 @@
                 </div>
             </div>
 
-            {# SPECIFIC #}
+{#             SPECIFIC#}
             <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3></div>
                 <div class="box-body no-padding">
@@ -254,46 +218,11 @@
                     </table>
                 </div>
             </div>
-
-            {# HISTORIC #}
-            <div class="box box-solid box-default">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.treatment.show.creator'|trans }}</strong></td>
-                            <td>
-                                {{ object.creator }}
-                            </td>
-                        </tr>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.collectivity'|trans }}</strong></td>
-                                <td>
-                                    <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
-                                        {{ object.collectivity }}
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endif %}
-                        <tr>
-                            <td><strong>{{ 'registry.treatment.show.created_at'|trans }}</strong></td>
-                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.treatment.show.updated_at'|trans }}</strong></td>
-                            <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
 
-        {# RIGHT #}
+{#         RIGHT#}
         <div class="col-md-6">
-            {# DETAILS #}
+{#             DETAILS#}
             <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
                 <div class="box-body no-padding">
@@ -423,7 +352,7 @@
                 </div>
             </div>
 
-            {# SECURITY #}
+{#             SECURITY#}
             <div class="box box-solid box-success">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
                 <div class="box-body no-padding">
@@ -520,8 +449,41 @@
                 </div>
             </div>
 
-            {# PROOFS #}
+            {#             PROOFS#}
             {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+
+            {#             HISTORIC#}
+            <div class="box box-solid box-default">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.creator'|trans }}</strong></td>
+                            <td>
+                                {{ object.creator }}
+                            </td>
+                        </tr>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.collectivity'|trans }}</strong></td>
+                                <td>
+                                    {{ object.collectivity }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.created_at'|trans }}</strong></td>
+                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.updated_at'|trans }}</strong></td>
+                            <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
             </div>
         </div>

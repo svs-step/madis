@@ -37,3 +37,8 @@ api_registry_treatment_collectivity:
     path: '/api/collectivite/{collectivityId}'
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\TreatmentController:apiGetTreatmentsByCollectivity'
+
+registry_treatment_pdf:
+    path: '/pdf/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\TreatmentController:pdfAction'

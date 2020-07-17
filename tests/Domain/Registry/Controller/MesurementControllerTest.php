@@ -37,8 +37,10 @@ use App\Domain\User\Model as UserModel;
 use App\Domain\User\Repository as UserRepository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -88,7 +90,15 @@ class MesurementControllerTest extends TestCase
      */
     private $userProviderProphecy;
 
+    /**
+     * @var FormFactoryInterface|ObjectProphecy
+     */
     private $formFactory;
+
+    /**
+     * @var Pdf|ObjectProphecy
+     */
+    private $pdf;
 
     /**
      * @var MesurementController
@@ -105,6 +115,7 @@ class MesurementControllerTest extends TestCase
         $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
         $this->formFactory                    = $this->prophesize(FormFactoryInterface::class);
+        $this->pdf                            = $this->prophesize(Pdf::class);
 
         $this->controller = new MesurementController(
             $this->managerProphecy->reveal(),
@@ -114,7 +125,8 @@ class MesurementControllerTest extends TestCase
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
-            $this->formFactory->reveal()
+            $this->formFactory->reveal(),
+            $this->pdf->reveal()
         );
     }
 

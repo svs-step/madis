@@ -31,6 +31,7 @@ use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -48,7 +49,8 @@ class CollectivityControllerTest extends TestCase
         $this->controller = new CollectivityController(
             $this->prophesize(EntityManagerInterface::class)->reveal(),
             $this->prophesize(TranslatorInterface::class)->reveal(),
-            $this->prophesize(Repository\Collectivity::class)->reveal()
+            $this->prophesize(Repository\Collectivity::class)->reveal(),
+            $this->prophesize(Pdf::class)->reveal()
         );
     }
 

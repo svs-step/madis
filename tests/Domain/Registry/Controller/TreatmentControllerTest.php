@@ -35,8 +35,10 @@ use App\Domain\User\Model as UserModel;
 use App\Domain\User\Repository as UserRepository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -89,6 +91,11 @@ class TreatmentControllerTest extends TestCase
     private $userProviderProphecy;
 
     /**
+     * @var Pdf|ObjectProphecy
+     */
+    private $pdf;
+
+    /**
      * @var TreatmentController
      */
     private $controller;
@@ -103,6 +110,7 @@ class TreatmentControllerTest extends TestCase
         $this->wordHandlerProphecy            = $this->prophesize(WordHandler::class);
         $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
+        $this->pdf                            = $this->prophesize(Pdf::class);
 
         $this->controller = new TreatmentController(
             $this->managerProphecy->reveal(),
@@ -112,7 +120,8 @@ class TreatmentControllerTest extends TestCase
             $this->requestStackProphecy->reveal(),
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
-            $this->userProviderProphecy->reveal()
+            $this->userProviderProphecy->reveal(),
+            $this->pdf->reveal()
         );
     }
 
