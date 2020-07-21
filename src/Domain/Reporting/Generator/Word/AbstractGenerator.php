@@ -363,9 +363,10 @@ abstract class AbstractGenerator implements GeneratorInterface
                         $cell->addText($item, $this->textHeadStyle);
                     }
                 } else {
-                    $cell    = $table->addCell(5000 / \count($lineData), $lineStyle);
+                    /* If a style for the cell is specified, it bypass the line style */
+                    $cell    = $table->addCell(5000 / \count($lineData), $col['style'] ?? $lineStyle);
                     $textrun = $cell->addTextRun();
-                    foreach ($col as $key => $item) {
+                    foreach ($col['content'] ?? $col as $key => $item) {
                         if (0 != $key) {
                             $textrun->addTextBreak();
                         }

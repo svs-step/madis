@@ -151,7 +151,8 @@ class Evaluation
         $this->conformites  = [];
         $this->participants = [];
         $this->cloneConformites($tmpConformites);
-        $this->date = null;
+        $this->date    = null;
+        $this->isDraft = true;
     }
 
     private function cloneConformites(iterable $conformites)

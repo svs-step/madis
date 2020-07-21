@@ -62,7 +62,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         $this->addTable($section, $historyData, true, self::TABLE_ORIENTATION_VERTICAL);
     }
 
-    public function addGlobalOverview(Section $section, Evaluation $evaluation)
+    public function addGlobalOverview(Section $section, Evaluation $evaluation = null)
     {
         if (null === $evaluation) {
             return;
@@ -106,10 +106,21 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         ];
 
         foreach ($conformites as $conformite) {
+            switch (true) {
+                case $conformite->getConformite() < 2.5:
+                    $bgColor = 'dd4b39';
+                    break;
+                case $conformite->getConformite() < 3.5:
+                    $bgColor = 'f39c12';
+                    break;
+                default:
+                    $bgColor = '00a65a';
+                    break;
+            }
             $tableData[] = [
                 null === $conformite->getPilote() ? 'Inexistant' : $conformite->getPilote(),
                 $conformite->getProcessus()->getNom(),
-                $conformite->getConformite(),
+                ['content' => ['text' => $conformite->getConformite()], 'style' => ['bgColor' => $bgColor, 'bold' => true]],
             ];
         }
 

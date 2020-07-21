@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
     {% block stylesheets %}{% endblock %}
 
+    {% block style %}{% endblock %}
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -40,7 +42,7 @@
     <div class="banner-impersonate bg-danger text-red">
         <div>
             Vous êtes actuellement connecté en tant que "{{ app.user }}" ({{ app.user.collectivity }})
-            <a href="{{ path('reporting_dashboard_index', {'_switch_user': '_exit'}) }}" class="text-red">
+            <a href="{{ path('user_user_list', {'_switch_user': '_exit'}) }}" class="text-red">
                 Quitter ce mode
             </a>
         </div>

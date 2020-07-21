@@ -229,7 +229,7 @@ registry:
             legitimate_applicant: Demandeur légitime
             legitimate_request: Demande légitime
             object: Objet de la demande
-            other_object: Autre demande
+            other_object: Demande explicite
             reason: Motif
             state: État de la demande
             state_rejection_reason: Motifs du refus*
@@ -269,7 +269,7 @@ registry:
             legitimate_applicant: Demandeur légitime
             legitimate_request: Demande légitime
             object: Objet de la demande
-            other_object: Autre demande
+            other_object: Demande explicite
             reason: Motif
             state: État de la demande
             state_rejection_reason: Motifs du refus
@@ -532,7 +532,7 @@ registry:
             collectivity: Collectivité
             conformite: Conformité
             conformite_reponse: Conformité des questions
-            date_conformite: Date conformité
+            date_conformite: Date de l'évaluation
             gestionnaire: Gestionnaire
             traitement: Traitement
         action:
@@ -565,7 +565,7 @@ registry:
             processus: Processus
             conformite: Conformité
             action_protection: Action de protection
-            date_creation: Date de création
+            date_creation: Date de l'évaluation
             actions: Actions
             nb_participants: Nombre de participants
         form:
@@ -577,7 +577,7 @@ registry:
             form:
                 civilite: Civilité
                 prenom: Prénom
-                nom_famille: Nom de famille
+                nom_famille: Nom
                 fonction: Fonction
                 add: Ajouter un participant
         flashbag:

@@ -72,12 +72,14 @@
                                                     {% else %}
                                                         {% set type = 'success' %}
                                                     {% endif %}
-                                                    <span style="display: block; margin: 0 30%;" class="label label-{{ type }}">{{ conformite.vars.value.conformite }} / 5</span>
+                                                    <span style="display: block; width: 50px; margin: auto; " class="label label-{{ type }}">{{ conformite.vars.value.conformite }} / 5</span>
                                                 </td>
                                                 <td style="vertical-align: middle">
-                                                    {% for action in conformite.vars.value.NonAppliedActionProtections %}
-                                                    {{ action.name }}
-                                                    {% endfor %}
+                                                    <ul>
+                                                        {% for action in conformite.vars.value.NonAppliedActionProtections %}
+                                                            <li>{{ action.name }}</li>
+                                                        {% endfor %}
+                                                    </ul>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -127,7 +129,7 @@
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <td>{{ evaluation.collectivity.name }}</td>
                                 {% endif %}
-                                <td>{% if evaluation.date is not null %}{{ evaluation.date|date('d/m/Y H:i') }}{% endif %}</td>
+                                <td>{% if evaluation.date is not null %}{{ evaluation.date|date('d/m/Y') }}{% endif %}</td>
                                 <td>{{ evaluation.participants|length }}</td>
                                 <td>
                                     <a href="{{ path('registry_conformite_organisation_report', {'id': evaluation.id}) }}">
