@@ -74,6 +74,21 @@
 {% block javascripts %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "utilisateur"},
+            {"data": "collectivite"},
+            {"data": "date"},
+            {"data": "subject"},
+            {"data": "action"},
+            {"data": "subjectId"},
+            {"data": "link"}
+        ],
+        order: [
+            [2, 'desc']
+        ],
+    } %}
+
     {{ include('_Utils/_serverside_datatable.html.twig') }}
 
     <script>

@@ -40,7 +40,7 @@ class JournalisationController extends AbstractController
     public function indexAction()
     {
         return $this->render('Reporting/Journalisation/list.html.twig', [
-            'totalLogs' => $this->logRepository->countLogs(),
+            'totalItem' => $this->logRepository->countLogs(),
             'route'     => $this->router->generate('reporting_journalisation_list_datatables'),
         ]);
     }
@@ -83,7 +83,7 @@ class JournalisationController extends AbstractController
                 'subject'      => LogJournalSubjectDictionary::getSubjectLabelFromSubjectType($log->getSubjectType()),
                 'action'       => LogJournalActionDictionary::getActions()[$log->getAction()],
                 'subjectId'    => $log->getLastKnownName(),
-                'link'         => $this->logJournalLinkGenerator->getLink($log),
+                'link'         => $this->generateLinkCellContent($this->logJournalLinkGenerator->getLink($log)),
             ];
         }
 
@@ -91,6 +91,15 @@ class JournalisationController extends AbstractController
         $jsonResponse->setJson(json_encode($reponse));
 
         return $jsonResponse;
+    }
+
+    private function generateLinkCellContent(string $content)
+    {
+        if (LogJournalLinkGenerator::DELETE_LABEL === $content) {
+            return $content;
+        }
+
+        return '<a href="' . $content . '">Voir</a>';
     }
 
     private function getCorrespondingLabelFromkey(string $key)
