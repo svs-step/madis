@@ -4,9 +4,13 @@
     }
 
     function addGivenOptionAndReloadSelectpicker(select, selectId, result) {
+        var textTruncate = result.name;
+        if (textTruncate.length > 50) {
+            textTruncate = textTruncate.substr(0, 50) + '...';
+        }
         let option = $('<option>', {
             value: result.id,
-            text: result.name
+            text: textTruncate
         });
         select.append(option);
         if (select.attr('id') == selectId) {

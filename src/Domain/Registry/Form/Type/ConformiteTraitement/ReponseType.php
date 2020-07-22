@@ -85,6 +85,14 @@ class ReponseType extends AbstractType
                     'data-live-search' => true,
                     'data-width'       => '450px',
                 ],
+                'choice_attr' => function (Mesurement $choice) {
+                    $name = $choice->getName();
+                    if (\mb_strlen($name) > 50) {
+                        $name =  \mb_substr($name, 0, 50) . '...';
+                    }
+
+                    return ['data-content' => $name];
+                },
             ]
             )
         ;
