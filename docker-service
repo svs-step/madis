@@ -106,6 +106,10 @@ csFixer() {
     docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ $DOCKER_IMAGE_PHP bash -c "vendor/bin/php-cs-fixer fix --config=$config $paths -vv"
 }
 
+phpStan() {
+    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ $DOCKER_IMAGE_PHP bash -c "vendor/bin/phpstan analyse --error-format=raw -c phpstan.neon -l2 src"
+}
+
 # Tests
 tests() {
     unitTests
@@ -210,6 +214,7 @@ Commands:
   down                        Remove docker containers
   debug                       XDebug
   csFixer                     Execute php-cs-fixer and php lint
+  phpStan                     Execute phpStan
   tests                       Run unit tests and functional tests
   unitTests                   Run unit tests
   qualityTests                Run quality tests
@@ -283,6 +288,9 @@ case "$1" in
         else
             csFixer $2
         fi
+        ;;
+ phpStan)
+        phpStan
         ;;
  pushImages)
         pushImages
