@@ -172,7 +172,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 $questionsData[] = [
                     $reponse->getQuestion()->getQuestion(),
                     $reponse->isConforme() ? 'Conforme' : 'Non-conforme',
-                    !empty($actionsProtections) ? \implode(', ', $actionsProtections) : 'Pas d\'action',
+                    !empty($actionsProtections) ? $actionsProtections : 'Pas d\'action',
                 ];
             }
 

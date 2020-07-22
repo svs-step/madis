@@ -89,9 +89,9 @@
                             <td><strong>{{ 'registry.contractor.show.sending_data_outside_eu'|trans }}</strong></td>
                             <td>
                                 {% if object.sendingDataOutsideEu %}
-                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
+                                    <span class="label label-danger">{{ 'label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
+                                    <span class="label label-success">{{ 'label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                         </tr>
