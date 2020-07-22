@@ -138,9 +138,11 @@ class ConformiteOrganisationController extends CRUDController
         $form        = null;
         $isAdminView = $this->authorizationChecker->isGranted('ROLE_ADMIN');
         if (!$isAdminView) {
-            $evaluations  = $this->repository->findAllByOrganisationOrderedByDate($this->userProvider->getAuthenticatedUser()->getCollectivity()->getId());
-            if (!empty($evaluations)) {
-                $form = $this->createForm(EvaluationPiloteType::class, $evaluations[0]);
+            $collectivity   = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+            $evaluations    = $this->repository->findAllByOrganisationOrderedByDate($collectivity);
+            $lastEvaluation = $this->repository->findLastByOrganisation($collectivity);
+            if (null !== $lastEvaluation) {
+                $form = $this->createForm(EvaluationPiloteType::class, $lastEvaluation);
                 $form->handleRequest($request);
                 if ($form->isSubmitted() && $form->isValid()) {
                     $em = $this->getDoctrine()->getManager();

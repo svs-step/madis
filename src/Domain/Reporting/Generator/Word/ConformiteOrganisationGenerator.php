@@ -13,20 +13,40 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
 {
     public function addSyntheticView(Section $section, array $data): void
     {
-        $section->addTitle('Liste des processus', 1);
-
-        $tableData = $this->getConformitesTable($this->getOrderedConformites($data));
-
-        $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
+        /*  Not used anymore in this generator since it's useless
+            All content is generated in the addDetailedView() method below */
     }
 
     public function addDetailedView(Section $section, array $data): void
     {
+        /** @var Evaluation $evaluation */
+        $evaluation  = $data[0];
+
+        /* ////////////////////////////////////////////////////////////// */
+        $section->addTitle('Contexte', 1);
+        $contextData = [
+            [
+                'Date de l\'évaluation',
+                $evaluation->getDate()->format('Y-m-d'),
+            ],
+            [
+                'Liste des participants',
+                [['array' => $this->getFormattedParticipants($evaluation)]],
+            ],
+        ];
+        $this->addTable($section, $contextData, true, self::TABLE_ORIENTATION_VERTICAL);
+
+        /* ////////////////////////////////////////////////////////////// */
+        $section->addTitle('Liste des processus', 1);
+
+        $tableData = $this->getConformitesTable($this->getOrderedConformites(\iterable_to_array($evaluation->getConformites())));
+
+        $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
+
+        /* ////////////////////////////////////////////////////////////// */
         $section->addPageBreak();
         $section->addTitle('Détail des processus', 1);
 
-        /** @var Evaluation $evaluation */
-        $evaluation  = $data[0];
         $conformites = $this->getOrderedConformites(\iterable_to_array($evaluation->getConformites()));
         foreach ($conformites as $key => $conformite) {
             if (0 != $key) {
@@ -44,22 +64,13 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
                     $this->getFormattedReponse($reponse),
                 ];
             }
+            $processus[] = [
+                'Actions de protection',
+                !empty(\iterable_to_array($conformite->getActionProtections())) ? \iterable_to_array($conformite->getActionProtections()) : 'Aucune',
+            ];
 
             $this->addTable($section, $processus, true, self::TABLE_ORIENTATION_VERTICAL);
         }
-
-        $historyData = [
-            [
-                'Dernière évaluation',
-                $evaluation->getDate()->format('Y-m-d'),
-            ],
-            [
-                'Liste des participants',
-                [['array' => $this->getFormattedParticipants($evaluation)]],
-            ],
-        ];
-        $section->addTitle('Historique', 1);
-        $this->addTable($section, $historyData, true, self::TABLE_ORIENTATION_VERTICAL);
     }
 
     public function addGlobalOverview(Section $section, Evaluation $evaluation = null)

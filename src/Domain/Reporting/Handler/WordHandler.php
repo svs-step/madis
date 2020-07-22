@@ -404,7 +404,6 @@ class WordHandler
         $this->conformiteOrganisationGenerator->addTableOfContent($contentSection, 1);
 
         /* Content */
-        $this->conformiteOrganisationGenerator->addSyntheticView($contentSection, \iterable_to_array($evaluation->getConformites()));
         $this->conformiteOrganisationGenerator->addDetailedView($contentSection, [$evaluation]);
 
         return $this->conformiteOrganisationGenerator->generateResponse($this->document, 'conformite_des_organisations');
