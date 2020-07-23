@@ -26,5 +26,21 @@
 
             });
         });
+
+        $( "input[name='evaluation[saveDraft]']" ).on("click", function(e) {
+            removeRequiredFields();
+        });
+
     });
+
+    /**
+     * removeRequiredFields :: Unit -> Unit
+     * remove all required fields in form named 'evaluation'
+     */
+    function removeRequiredFields () {
+        const form = $("form[name='evaluation']");
+        form.find('input').each(function(){
+            $(this).prop('required',false);
+        });
+    }
 </script>
