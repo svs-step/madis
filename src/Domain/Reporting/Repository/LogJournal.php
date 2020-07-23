@@ -37,4 +37,6 @@ interface LogJournal extends CRUDRepositoryInterface
     public function countLogs();
 
     public function findAllByCollectivity(Collectivity $collectivity, $limit = 15);
+
+    public function deleteAllAnteriorToDate(\DateTime $date);
 }

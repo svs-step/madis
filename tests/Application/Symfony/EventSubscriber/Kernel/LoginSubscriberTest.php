@@ -11,17 +11,29 @@ use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 
 class LoginSubscriberTest extends TestCase
 {
     /**
-     * @var EntityManagerInterface
+     * @var EntityManagerInterface|ObjectProphecy
      */
     private $entityManager;
+
+    /**
+     * @var \App\Domain\Reporting\Repository\LogJournal|ObjectProphecy
+     */
+    private $logRepository;
+
+    /**
+     * @var Security|ObjectProphecy
+     */
+    private $security;
 
     /**
      * @var LoginSubscriber
@@ -31,7 +43,17 @@ class LoginSubscriberTest extends TestCase
     protected function setUp(): void
     {
         $this->entityManager = $this->prophesize(EntityManagerInterface::class);
-        $this->sut           = new LoginSubscriber($this->entityManager->reveal());
+        $this->logRepository = $this->prophesize(\App\Domain\Reporting\Repository\LogJournal::class);
+        $this->security      = $this->prophesize(Security::class);
+
+        $this->security->isGranted('ROLE_ADMIN')->willReturn(true);
+
+        $this->sut           = new LoginSubscriber(
+            $this->entityManager->reveal(),
+            $this->logRepository->reveal(),
+            $this->security->reveal(),
+            '6months'
+        );
 
         parent::setUp();
     }

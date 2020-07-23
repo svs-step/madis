@@ -42,3 +42,7 @@ services:
     App\Domain\User\Symfony\EventSubscriber\Doctrine\DefinePasswordSubscriber:
         tags:
             - { name: 'doctrine.event_subscriber', priority: 2 }
+
+    App\Application\Symfony\EventSubscriber\Kernel\LoginSubscriber:
+        arguments:
+            $logJournalDuration: '%env(APP_LOG_JOURNAL_DURATION)%'

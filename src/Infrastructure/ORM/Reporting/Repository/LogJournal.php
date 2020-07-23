@@ -161,4 +161,13 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal
 
         return $qb->getQuery()->getResult();
     }
+
+    public function deleteAllAnteriorToDate(\DateTime $date)
+    {
+        $query = $this->getManager()->createQuery("DELETE FROM App\Domain\Reporting\Model\LogJournal o WHERE o.date < :dateP")
+            ->setParameter('dateP', $date)
+        ;
+
+        return $query->execute();
+    }
 }
