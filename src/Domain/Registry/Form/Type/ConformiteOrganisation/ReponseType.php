@@ -21,8 +21,11 @@ class ReponseType extends AbstractType
                 'label'       => false,
                 'name'        => 'registry_conformite_organisation_reponse',
                 'expanded'    => true,
-                'required'    => false,
+                'required'    => true,
                 'placeholder' => false,
+                'choice_attr' => function () {
+                    return ['required' => 'required'];
+                },
             ])
             ->add('reponseRaison', TextType::class, [
                 'label'    => false,

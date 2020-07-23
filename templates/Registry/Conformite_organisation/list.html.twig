@@ -120,6 +120,7 @@
                             {% endif %}
                             <th>{{ 'registry.conformite_organisation.list.date_creation'|trans }}</th>
                             <th>{{ 'registry.conformite_organisation.list.nb_participants'|trans }}</th>
+                            <th>{{ 'registry.conformite_organisation.list.draft'|trans }}</th>
                             <th>{{ 'registry.conformite_organisation.list.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -131,6 +132,14 @@
                                 {% endif %}
                                 <td>{% if evaluation.date is not null %}{{ evaluation.date|date('d/m/Y') }}{% endif %}</td>
                                 <td>{{ evaluation.participants|length }}</td>
+                                <td>
+                                    <span class="badge bg-gr">
+                                    {% if evaluation.draft %}
+                                        {{ 'label.yes'|trans }}
+                                    {% else %}
+                                        {{ 'label.no'|trans }}
+                                    {% endif %}
+                                </span></td>
                                 <td>
                                     <a href="{{ path('registry_conformite_organisation_report', {'id': evaluation.id}) }}">
                                         <i class="fa fa-clipboard-list"></i>

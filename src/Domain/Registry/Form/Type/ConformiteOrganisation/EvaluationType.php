@@ -43,6 +43,7 @@ class EvaluationType extends AbstractType
                 'row_attr' => ['class' => 'btn'],
             ])
             ->add('saveDraft', SubmitType::class, [
+                'validation_groups' => false,
             ])
         ;
     }

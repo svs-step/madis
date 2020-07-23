@@ -561,6 +561,7 @@ registry:
             list: Lister les évaluations
         list:
             collectivite: Nom de la collectivité
+            draft: Brouillon
             pilote: Pilote
             processus: Processus
             conformite: Conformité

@@ -11,7 +11,6 @@
         <id name="id" column="id" type="uuid"/>
 
         <field name="date" column="date" type="date" nullable="true"/>
-        <field name="complete" column="complete" type="boolean"/>
         <field name="isDraft" column="draft" type="boolean"/>
 
         <one-to-many field="participants" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Participant" mapped-by="evaluation" orphan-removal="true">

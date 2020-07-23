@@ -3,3 +3,9 @@ App\Domain\Registry\Model\ConformiteOrganisation\Reponse:
         - App\Domain\Registry\Symfony\Validator\Constraints\ConformiteOrganisationReponseRaison:
               message: 'registry_conformite_organisation_reponse.reponse_raison.mandatory'
               groups: ['default']
+
+    properties:
+        reponse:
+            - NotNull:
+                message: 'registry_conformite_organisation_reponse.reponse.not_null'
+                groups: ['default']

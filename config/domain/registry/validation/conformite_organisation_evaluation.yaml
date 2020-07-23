@@ -3,7 +3,10 @@ App\Domain\Registry\Model\ConformiteOrganisation\Evaluation:
         conformites:
             - Valid: ~
         date:
+            - NotNull:
+                message: 'registry_conformite_organisation_date.date.not_null'
+                groups: ['default']
             - LessThanOrEqual:
-                  value: today
-                  groups: ['default']
-                  message: 'registry_conformite_organisation_date.date.not_posterior'
+                value: today
+                message: 'registry_conformite_organisation_date.date.not_posterior'
+                groups: ['default']

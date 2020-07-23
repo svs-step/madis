@@ -26,13 +26,6 @@ class Evaluation
     private $participants;
 
     /**
-     * Determine if the evaluation is complete, or if it's only a draft.
-     *
-     * @var bool
-     */
-    private $complete;
-
-    /**
      * @var iterable
      */
     private $conformites;
@@ -46,7 +39,6 @@ class Evaluation
     {
         $this->id           = Uuid::uuid4();
         $this->participants = [];
-        $this->complete     = false;
         $this->conformites  = [];
         $this->isDraft      = true;
     }
@@ -91,16 +83,6 @@ class Evaluation
         }
 
         unset($this->participants[$key]);
-    }
-
-    public function isComplete(): bool
-    {
-        return $this->complete;
-    }
-
-    public function setComplete(bool $complete): void
-    {
-        $this->complete = $complete;
     }
 
     public function __toString()
