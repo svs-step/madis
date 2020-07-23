@@ -6,7 +6,8 @@
 {% block title %}{{ 'reporting.journalisation.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
 {% endblock %}
 
 {% block body_head %}
@@ -82,7 +83,7 @@
             {"data": "subject"},
             {"data": "action"},
             {"data": "subjectId"},
-            {"data": "link"}
+            {"data": "link", "className": "noVis"}
         ],
         order: [
             [2, 'desc']

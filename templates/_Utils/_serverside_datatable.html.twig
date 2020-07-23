@@ -1,7 +1,9 @@
-<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
-<script src="//cdn.datatables.net/1.10.18/js/dataTables.bootstrap.min.js"></script>
-<script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script>
+<script src="//cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.21/sorting/datetime-moment.js"></script>
+<script src="//cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script src="//cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
 
 <script>
     // Define our used dates formats
@@ -13,6 +15,9 @@
 
         {% set dataTableOptions = dataTableOptions|merge({
             language: {
+                buttons: {
+                    colvis: "Colonnes"
+                },
                 sProcessing: "Traitement en cours...",
                 sSearch: "Rechercher&nbsp;:",
                 sLengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments",
@@ -56,7 +61,15 @@
             autoWidth: false,
             pageLength: 15,
             recordsFiltered:  totalItem,
-            recordsTotal:  totalItem
+            recordsTotal:  totalItem,
+            dom: "Bfrtip",
+            stateSave: true,
+            buttons: [
+                {
+                    extend: "colvis",
+                    columns: ":not(.noVis)"
+                }
+            ]
         }) %}
         $('#table').DataTable({{ dataTableOptions|json_encode|raw }});
     });
