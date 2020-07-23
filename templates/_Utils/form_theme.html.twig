@@ -87,3 +87,34 @@
         </div>
     </div>
 {% endblock _evaluation_conformites_entry_reponses_entry_widget %}
+
+{% block _evaluation_conformites_entry_reponses_entry_reponse_entry_widget %}
+    <div class="radio">
+        <label
+                {% if form.vars.value != constant('App\\Domain\\Registry\\Dictionary\\ConformiteOrganisation\\ReponseDictionary::NON_CONCERNE') %}
+                class="tooltipreponse"
+                {% endif %}
+                for="{{ form.vars.id }}">
+                <input type="radio" {{ block('widget_attributes') }} value="{{ form.vars.value }}" {% if checked %} checked="checked"{% endif %}/>
+                {{ form.vars.label }}
+            {% if form.vars.value != constant('App\\Domain\\Registry\\Dictionary\\ConformiteOrganisation\\ReponseDictionary::NON_CONCERNE') %}
+                <span class="tooltipbox">
+
+                    {% if form.vars.value == constant('App\\Domain\\Registry\\Dictionary\\ConformiteOrganisation\\ReponseDictionary::INEXISTANTE') %}
+                        {{ tooltip_conformite_organisation_inexistante|raw }}
+                    {% elseif form.vars.value == constant('App\\Domain\\Registry\\Dictionary\\ConformiteOrganisation\\ReponseDictionary::TRES_ELOIGNEE') %}
+                        {{ tooltip_conformite_organisation_tres_eloignee|raw }}
+                    {% elseif form.vars.value == constant('App\\Domain\\Registry\\Dictionary\\ConformiteOrganisation\\ReponseDictionary::PARTIELLE') %}
+                        {{ tooltip_conformite_organisation_partielle|raw }}
+                    {% elseif form.vars.value == constant('App\\Domain\\Registry\\Dictionary\\ConformiteOrganisation\\ReponseDictionary::QUASI_CONFORME') %}
+                        {{ tooltip_conformite_organisation_quasi_conforme|raw }}
+                    {% elseif form.vars.value == constant('App\\Domain\\Registry\\Dictionary\\ConformiteOrganisation\\ReponseDictionary::MESURABLE') %}
+                        {{ tooltip_conformite_organisation_mesurable|raw }}
+                    {% elseif form.vars.value == constant('App\\Domain\\Registry\\Dictionary\\ConformiteOrganisation\\ReponseDictionary::REVISEE') %}
+                        {{ tooltip_conformite_organisation_revisee|raw }}
+                    {% endif %}
+                </span>
+            {% endif %}
+        </label>
+    </div>
+{% endblock %}
