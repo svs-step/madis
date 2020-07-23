@@ -14,15 +14,15 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
         return Model\ConformiteOrganisation\Evaluation::class;
     }
 
-    public function findAllByOrganisationOrderedByDate(string $idOrganisation = null)
+    public function findAllByOrganisationOrderedByDate(Collectivity $organisation = null)
     {
         $qBuilder = $this
             ->createQueryBuilder()
         ;
-        if (null !== $idOrganisation) {
+        if (null !== $organisation) {
             $qBuilder
                 ->andWhere('o.collectivity = :organisation_id')
-                ->setParameter('organisation_id', $idOrganisation);
+                ->setParameter('organisation_id', $organisation->getId());
         } else {
             $qBuilder
                 ->addSelect('c')
@@ -47,6 +47,7 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
             ->addSelect('conformites, processus, reponses, questions, actionProtections')
             ->andWhere('o.collectivity = :organisation')
             ->setParameter('organisation', $organisation)
+            ->andWhere('o.isDraft = 0')
             ->leftJoin('o.conformites', 'conformites')
             ->leftJoin('conformites.processus', 'processus')
             ->leftJoin('conformites.reponses', 'reponses')
