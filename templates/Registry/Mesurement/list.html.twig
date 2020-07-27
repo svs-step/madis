@@ -6,7 +6,8 @@
 {% block title %}{{ 'registry.mesurement.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
 {% endblock %}
 
 {% block body_head %}
@@ -45,10 +46,38 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>
+                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_statut" style="width: 100%;">
+                                    <option value="">Statut</option>
+                                    {% for key, subject in dictionary('registry_mesurement_status') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_cout" placeholder="Coût" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_charge" placeholder="Charge" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_priorite" style="width: 100%;">
+                                    <option value="">Priorité</option>
+                                    {% for key, subject in dictionary('registry_mesurement_priority') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                        </tr>
+                        <tr>
                             <th>{{ 'registry.mesurement.list.name'|trans }}</th>
-                            {% if is_granted('ROLE_ADMIN') %}
                                 <th>{{ 'registry.mesurement.list.collectivity'|trans }}</th>
-                            {% endif %}
                             <th>{{ 'registry.mesurement.list.status'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.cost'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.charge'|trans }}</th>
@@ -58,42 +87,7 @@
                             {% endif %}
                         </tr>
                         </thead>
-                        <tbody>
-                        {% for object in objects %}
-                            <tr>
-                                <td>
-                                    <a href="{{ path('registry_mesurement_show', {'id': object.id}) }}">
-                                        {{ object.name }}
-                                    </a>
-                                </td>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <td>{{ object.collectivity }}</td>
-                                {% endif %}
-                                <td>{{ object.status|dictionary('registry_mesurement_status') }}</td>
-                                <td>{{ object.cost }}</td>
-                                <td>{{ object.charge }}</td>
-                                <td>
-                                    {% if object.priority is not null %}
-                                        {{ object.priority|dictionary('registry_mesurement_priority') }}
-                                    {% endif %}
-                                </td>
-                                {% if is_granted('ROLE_USER') %}
-                                    <td>
-                                        <a href="{{ path('registry_mesurement_edit', { 'id': object.id }) }}">
-                                            <i class="fa fa-pencil-alt"></i>
-                                            {{ 'action.edit'|trans }}
-                                        </a>
-                                        <a href="{{ path('registry_mesurement_delete', { 'id': object.id }) }}">
-                                            <i class="fa fa-trash"></i>
-                                            {{ 'action.delete'|trans }}
-                                        </a>
-                                    </td>
-                                {% endif %}
-                            </tr>
-                        {% endfor %}
-                        </tbody>
                     </table>
-
                 </div>
             </div>
         </div>
@@ -101,9 +95,56 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set collectivityIsVisible = false %}
+    {% set collectivityClassname = "noVis" %}
+    {% set actionIsVisible = true %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set collectivityIsVisible = true %}
+        {% set collectivityClassname = "" %}
+        {% set actionIsVisible = false %}
+    {% endif %}
+
     {% set dataTableOptions = {
-        'order':  [[5, 'desc' ]]
+        columns: [
+            {"data": "nom"},
+            {"data" : "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
+            {"data": "statut"},
+            {"data": "cout"},
+            {"data": "charge"},
+            {"data": "priorite"},
+            {"data": "actions", "className": "noVis", "visible": actionIsVisible},
+        ],
+        order:  [
+            [5, 'desc' ]
+        ],
     } %}
 
-    {{ include('_Utils/_datatable.html.twig') }}
+    {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            var oTable = $('#table').DataTable();
+            $('#search_nom').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+            $('#search_statut').change(function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            });
+            $('#search_cout').keyup($.debounce(250, function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            }));
+            $('#search_charge').keyup($.debounce(250, function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            }));
+            $('#search_priorite').change(function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            });
+        } );
+    </script>
 {% endblock %}

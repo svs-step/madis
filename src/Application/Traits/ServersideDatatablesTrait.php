@@ -30,13 +30,13 @@ trait ServersideDatatablesTrait
      */
     abstract public function listDataTables(Request $request): JsonResponse;
 
-    protected function getBaseDataTablesResponse(Request $request, $results)
+    protected function getBaseDataTablesResponse(Request $request, $results, array $criteria = [])
     {
         $draw = $request->request->get('draw');
 
         $reponse = [
             'draw'            => $draw,
-            'recordsTotal'    => $this->repository->count(),
+            'recordsTotal'    => $this->repository->count($criteria),
             'recordsFiltered' => count($results),
             'data'            => [],
         ];

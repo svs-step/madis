@@ -25,16 +25,13 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
+use App\Application\Doctrine\Repository\DataTablesRepository;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Collectivity;
 
-interface LogJournal extends CRUDRepositoryInterface
+interface LogJournal extends CRUDRepositoryInterface, DataTablesRepository
 {
     public function updateDeletedLog(LoggableSubject $subject);
-
-    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches);
-
-    public function count();
 
     public function findAllByCollectivityWithoutSubjects(Collectivity $collectivity, $limit, array $subjects = []);
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\Reporting\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
-use App\Application\Doctrine\Repository\DataTablesRepository;
 use App\Domain\Reporting\Dictionary\LogJournalActionDictionary;
 use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
 use App\Domain\Reporting\Model;
@@ -15,7 +14,7 @@ use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
-class LogJournal extends CRUDRepository implements Repository\LogJournal, DataTablesRepository
+class LogJournal extends CRUDRepository implements Repository\LogJournal
 {
     /**
      * {@inheritdoc}
@@ -57,12 +56,10 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal, DataTa
         $query->setFirstResult($firstResult);
         $query->setMaxResults($maxResults);
 
-        $paginator = new Paginator($query);
-
-        return $paginator;
+        return new Paginator($query);
     }
 
-    public function count()
+    public function count(array $criteria = [])
     {
         return $this
             ->createQueryBuilder()
