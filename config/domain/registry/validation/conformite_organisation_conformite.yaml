@@ -1,0 +1,4 @@
+App\Domain\Registry\Model\ConformiteOrganisation\Conformite:
+    properties:
+        reponses:
+            - Valid: ~

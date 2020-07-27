@@ -91,14 +91,14 @@
                     <div class="box box-solid">
                     <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.comite_il'|trans }}</h3></div>
                     <div class="box-body">
-                        <div class="js-comite-il-contacts-wrapper"
+                        <div class="js-collection-wrapper"
                              data-prototype="{{ formMacros.printComiteIlContact(form.comiteIlContacts.vars.prototype)|e('html_attr') }}"
                              data-index="{{ form.comiteIlContacts|length }}"
                         >
                             {% for contact in form.comiteIlContacts %}
                                 {{ formMacros.printComiteIlContact(contact) }}
                             {% endfor %}
-                            <a href="#" class="js-comite-il-contacts-add">
+                            <a href="#" class="js-collection-add">
                                 <span class="fa fa-plus-circle"></span>
                                 Ajouter un membre
                             </a>
@@ -128,5 +128,5 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script src="{{ asset('build/js/comiteIlContact.js') }}"></script>
+    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
 {% endblock %}

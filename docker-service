@@ -71,6 +71,12 @@ install() {
     docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "yarn && yarn run encore production"
 }
 
+installDb() {
+  docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "bin/console doctrine:database:drop --force &&
+                                                                                                                          bin/console doctrine:database:create &&
+                                                                                                                          bin/console doctrine:migration:migrate -n"
+}
+
 populate() {
     docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "bin/console hautelook:fixtures:load -n"
 }
@@ -104,6 +110,10 @@ csFixer() {
     fi
 
     docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ $DOCKER_IMAGE_PHP bash -c "vendor/bin/php-cs-fixer fix --config=$config $paths -vv"
+}
+
+phpStan() {
+    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ $DOCKER_IMAGE_PHP bash -c "vendor/bin/phpstan analyse --error-format=raw -c phpstan.neon -l2 src"
 }
 
 # Tests
@@ -204,12 +214,14 @@ Commands:
   build                       Build docker containers
   start                       Start docker containers
   install                     Run app installation scripts
+  installDb                   Reset database
   populate                    Load data fixtures in app
   serve                       Serve Webpack Encore files for local dev
   stop                        Stop docker containers
   down                        Remove docker containers
   debug                       XDebug
   csFixer                     Execute php-cs-fixer and php lint
+  phpStan                     Execute phpStan
   tests                       Run unit tests and functional tests
   unitTests                   Run unit tests
   qualityTests                Run quality tests
@@ -251,6 +263,9 @@ case "$1" in
  install)
         install
         ;;
+ installDb)
+        installDb
+        ;;
  populate)
         populate
         ;;
@@ -283,6 +298,9 @@ case "$1" in
         else
             csFixer $2
         fi
+        ;;
+ phpStan)
+        phpStan
         ;;
  pushImages)
         pushImages

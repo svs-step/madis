@@ -135,7 +135,7 @@
                             <td>
                                 <ul>
                                     {% for contractor in object.contractors %}
-                                        <li>{{ contractor }}</li>
+                                        <li><a href="{{ path('registry_contractor_show', {'id': contractor.id}) }}" >{{ contractor }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </td>

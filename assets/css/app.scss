@@ -192,3 +192,68 @@ body.show .content ul {
     cursor: pointer;
   }
 }
+
+.content-header-custom-padding {
+  padding: 15px 0;
+}
+
+.stacked-bar-graph {
+  width: 100%;
+  height: 20px;
+
+  span {
+    display: inline-block;
+    height:100%;
+    box-sizing: border-box;
+    float: left;
+  }
+
+  .bar-conforme {
+    background: #00A65A;
+  }
+
+  .bar-non-conforme-mineure {
+    background: #F39C12;
+  }
+
+  .bar-non-conforme-majeure {
+    background: #DD4B39;
+  }
+}
+
+.reponse-modal-button {
+  background-color: transparent;
+}
+
+div.mesurement-hide {
+
+  > i {
+    color: #f1902a;
+  }
+
+  > div {
+    display: none;
+  }
+
+  > i:hover + div {
+    display: block;
+    position: fixed;
+    border: solid #f1902a 1px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: #fff;
+    border-radius: 2px;
+    padding: 5px;
+
+    > ul {
+      font-weight: bold;
+    }
+  }
+}
+
+td.reponse-vertical-align {
+  vertical-align: middle !important;
+}
+
+.nopadding {
+  padding-left: 0 !important;
+}

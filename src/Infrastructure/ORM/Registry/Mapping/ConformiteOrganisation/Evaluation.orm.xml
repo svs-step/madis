@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                            https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\Registry\Model\ConformiteOrganisation\Evaluation" table="registry_conformite_organisation_evaluation">
+
+        <id name="id" column="id" type="uuid"/>
+
+        <field name="date" column="date" type="date" nullable="true"/>
+        <field name="isDraft" column="draft" type="boolean"/>
+
+        <one-to-many field="participants" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Participant" mapped-by="evaluation" orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove />
+            </cascade>
+        </one-to-many>
+        <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">
+            <join-column on-delete="CASCADE" />
+        </many-to-one>
+        <one-to-many field="conformites" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Conformite" orphan-removal="true" mapped-by="evaluation">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+            <!-- Added Order-by to always retrive processus in the same order to avoid issues while
+                 saving them in the ConformiteOrganisation list action -->
+            <order-by>
+                <order-by-field name="id"/>
+            </order-by>
+        </one-to-many>
+    </entity>
+
+</doctrine-mapping>

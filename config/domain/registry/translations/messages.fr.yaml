@@ -152,6 +152,10 @@ registry:
             edit: Modifier une action de protection
             list: Liste des actions de protection
             show: Visualiser une action de protection
+        modal:
+          cancel: Annuler
+          create: Créer
+          title: Ajouter une action de protection
 
     proof:
         action:
@@ -225,7 +229,7 @@ registry:
             legitimate_applicant: Demandeur légitime
             legitimate_request: Demande légitime
             object: Objet de la demande
-            other_object: Autre demande
+            other_object: Demande explicite
             reason: Motif
             state: État de la demande
             state_rejection_reason: Motifs du refus*
@@ -265,7 +269,7 @@ registry:
             legitimate_applicant: Demandeur légitime
             legitimate_request: Demande légitime
             object: Objet de la demande
-            other_object: Autre demande
+            other_object: Demande explicite
             reason: Motif
             state: État de la demande
             state_rejection_reason: Motifs du refus
@@ -396,6 +400,9 @@ registry:
             concerned_people_partner: Partenaires
             concerned_people_other: Autres
             concerned_people_user: Internautes
+            conformite_traitement: Conformité du traitement
+            conformite_traitement_created_at: Conformité du traitement - Date création
+            conformite_traitement_updated_at: Conformité du traitement - Date modification
             collectivity: Collectivité
             contractors: Sous-traitants
             created_at: Date de création
@@ -520,4 +527,70 @@ registry:
             edit: Modifier une violation
             list: Liste des violations
             show: Visualiser une violation
+    conformite_traitement:
+        list:
+            collectivity: Collectivité
+            conformite: Conformité
+            conformite_reponse: Conformité des questions
+            date_conformite: Date de l'évaluation
+            gestionnaire: Gestionnaire
+            traitement: Traitement
+        action:
+            back_to_list: Retour à la liste
+            report: Générer une impression
+            show_conformite_traitement: Voir
+        title:
+            list: Conformité des traitements
+            create: Evaluer un traitement
+            edit: Evaluer un traitement
+        form:
+            action_protection: Action de protection
+            conformite: Conformité
+            header: Évaluation du traitement
+            question: Question
+        flashbag:
+            success:
+                edit: Conformité du traitement "%object%" modifiée avec succès
+                create: Conformité du traitement "%object%" créée avec succès
 
+
+    conformite_organisation:
+        title:
+            create: Créer une évaluation
+            edit: Modifier une évaluation
+            list: Lister les évaluations
+        list:
+            collectivite: Nom de la collectivité
+            draft: Brouillon
+            pilote: Pilote
+            processus: Processus
+            conformite: Conformité
+            action_protection: Action de protection
+            date_creation: Date de l'évaluation
+            actions: Actions
+            nb_participants: Nombre de participants
+        form:
+            date: Date
+            participants: Participants
+            contexte: Contexte
+            actions_protection: Actions de protection
+        participant:
+            form:
+                civilite: Civilité
+                prenom: Prénom
+                nom_famille: Nom
+                fonction: Fonction
+                add: Ajouter un participant
+        flashbag:
+            success:
+                create: Conformité de l'organisation "%object%" créée avec succès
+                pilote: Les pilotes ont été enregistrés avec succès
+                edit: Conformité de l'organisation "%object%" éditée avec succès
+                delete: Conformité de l'organisation "%object%" supprimée avec succès
+        action:
+            create: Nouvelle évaluation de l'organisation
+            back_to_list: Retour à la liste
+            edit: Modifier
+            delete: Supprimer
+            report: Générer une impression
+            print: Imprimer

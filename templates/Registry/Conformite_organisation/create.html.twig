@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_conformite_organisation form create' %}
+{% set menuItem = 'registry_conformite_organisation' %}
+
+{% block title %}{{ 'registry.conformite_organisation.title.create'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'registry.conformite_organisation.title.create'|trans }}
+        <small>{{ form.vars.value }}</small>
+    </h1>
+{% endblock %}
+
+{% block body %}
+    {{ include('Registry/Conformite_organisation/_form.html.twig') }}
+    {{ include('Registry/Mesurement/_modal_form.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ include('Registry/Mesurement/_modal_form_js.html.twig') }}
+    {{ include('Registry/Conformite_organisation/_form_js.html.twig') }}
+
+    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+{% endblock %}
+
+{% block style %}
+    {{ include('/Registry/Conformite_organisation/_style_tooltip.html.twig') }}
+{% endblock %}

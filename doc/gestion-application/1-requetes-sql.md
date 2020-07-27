@@ -40,3 +40,43 @@ BLOCK1: BEGIN
   	CLOSE listetraitements;
 END BLOCK1
 ```
+
+## Conformité des traitements
+### Ajouter une question 
+
+Pour ajouter une nouvelle question dans la conformité des traitements il faut vérifier en base de données la 
+dernière valeur pour le champ qui ordonne les questions.
+
+Dans l'exemple suivant l'ordre de la question est à 13 car la dernière question en base a la valeur 12. 
+Bien faire attention à la génération de la clef primaire qui est ici un uuid.
+
+```sql
+INSERT INTO `conformite_traitement_question` (`id`, `question`, `position`) VALUES ('4d66c04e-62e7-4216-85a2-6d9feb71722a', 'Ceci est le texte de la question', '13')
+```
+
+## Conformité de l'organisation
+### Ajouter une question 
+
+2 cas se présentent pour ajouter une question à la conformité de l'organisation :
+
+####1 - Pour ajouter une nouvelle question dans à un processus existant 
+Il faut vérifier en base de données la dernière valeur pour le champ `position` qui ordonne les questions liées à ce processus.
+
+Dans l'exemple suivant la position de la question est à 5 car la dernière question en base a la valeur 4. 
+Bien faire attention à la génération de la clef primaire qui est ici un uuid.
+
+```sql
+INSERT INTO `registry_conformite_organisation_question` (`id`, `processus_id`, `nom`, `position`) VALUES ('4d66c04e-62e7-4216-85a2-6d9feb71722a', 'b2a186df-cf81-4199-a292-53dbdb43b609', 'Ceci est le texte de la question', '5')
+```
+
+####2 - Pour ajouter un nouveau processus et une nouvelle question
+Il faut vérifier en base de données la dernière valeur pour le champ `position` qui ordonne les processus.
+
+Dans l'exemple suivant la position du processus est à 13 car le dernier processus en base a la valeur 12. 
+Bien faire attention à la génération de la clef primaire qui est ici un uuid.
+
+```sql
+INSERT INTO `registry_conformite_organisation_processus` (`id`, `nom`, `couleur`, `description`, `position`) VALUES ('b2a186df-cf81-4199-a292-53dbdb43b609', 'Nom du processus', 'info', 'Description du processus', '13')
+```
+Puis, ajouter la question en utilisant l'uuid du processus précédemment créé pour la colonne `processus_id`. 
+Suivre alors la procédure décrite dans le cas n°1

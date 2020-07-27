@@ -21,7 +21,7 @@ registry_mesurement_edit:
 registry_mesurement_show:
     path: '/visualiser/{id}'
     methods: ['GET']
-    controller: 'App\Domain\Registry\Controller\MesurementController:showAction'
+    controller: 'App\Domain\Registry\Controller\MesurementController:showMesurementAction'
 
 registry_mesurement_report:
     path: '/bilan'
@@ -42,3 +42,8 @@ api_registry_mesurement_collectivity:
     path: '/api/collectivite/{collectivityId}'
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\MesurementController:apiGetMesurementsByCollectivity'
+
+api_registry_mesurement_modal_create:
+    path: '/modal-create'
+    methods: ['POST']
+    controller: 'App\Domain\Registry\Controller\MesurementController:createFromJsonAction'

@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Word;
 
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
 use App\Domain\User\Dictionary\ContactCivilityDictionary;
 use PhpOffice\PhpWord\Element\Section;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -61,6 +62,16 @@ class OverviewGenerator extends AbstractGenerator
      */
     protected $violationGenerator;
 
+    /**
+     * @var ConformiteTraitementGenerator
+     */
+    protected $conformiteTraitementGenerator;
+
+    /**
+     * @var ConformiteOrganisationGenerator
+     */
+    protected $conformiteOrganisationGenerator;
+
     public function __construct(
         UserProvider $userProvider,
         ParameterBagInterface $parameterBag,
@@ -69,15 +80,19 @@ class OverviewGenerator extends AbstractGenerator
         MaturityGenerator $maturityGenerator,
         MesurementGenerator $mesurementGenerator,
         RequestGenerator $requestGenerator,
-        ViolationGenerator $violationGenerator
+        ViolationGenerator $violationGenerator,
+        ConformiteTraitementGenerator $conformiteTraitementGenerator,
+        ConformiteOrganisationGenerator $conformiteOrganisationGenerator
     ) {
         parent::__construct($userProvider, $parameterBag);
-        $this->treatmentGenerator  = $treatmentGenerator;
-        $this->contractorGenerator = $contractorGenerator;
-        $this->maturityGenerator   = $maturityGenerator;
-        $this->mesurementGenerator = $mesurementGenerator;
-        $this->requestGenerator    = $requestGenerator;
-        $this->violationGenerator  = $violationGenerator;
+        $this->treatmentGenerator              = $treatmentGenerator;
+        $this->contractorGenerator             = $contractorGenerator;
+        $this->maturityGenerator               = $maturityGenerator;
+        $this->mesurementGenerator             = $mesurementGenerator;
+        $this->requestGenerator                = $requestGenerator;
+        $this->violationGenerator              = $violationGenerator;
+        $this->conformiteTraitementGenerator   = $conformiteTraitementGenerator;
+        $this->conformiteOrganisationGenerator = $conformiteOrganisationGenerator;
     }
 
     public function generateObjectPart(Section $section): void
@@ -162,11 +177,24 @@ class OverviewGenerator extends AbstractGenerator
         $this->violationGenerator->addGlobalOverview($section, $violations);
     }
 
-    public function generateManagementSystemAndCompliance(Section $section, array $maturity = [], array $mesurements = []): void
-    {
+    public function generateManagementSystemAndCompliance(
+        Section $section,
+        array $maturity = [],
+        array $conformiteTraitements = [],
+        array $mesurements = [],
+        Evaluation $evaluation = null
+    ): void {
         $section->addTitle('Système de management des données à caractère personnel et conformité', 1);
 
         $this->maturityGenerator->addGlobalOverview($section, $maturity);
+        $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+
+        if ($collectivity->isHasModuleConformiteTraitement()) {
+            $this->conformiteTraitementGenerator->addGlobalOverview($section, $conformiteTraitements);
+        }
+        if ($collectivity->isHasModuleConformiteOrganisation()) {
+            $this->conformiteOrganisationGenerator->addGlobalOverview($section, $evaluation);
+        }
         $this->mesurementGenerator->addGlobalOverview($section, $mesurements);
     }
 

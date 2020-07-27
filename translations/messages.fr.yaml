@@ -16,7 +16,9 @@ action:
     print: Imprimer
     reinitialize: Réinitialisation
     submit: Soumettre
+    draft: Enregistrer un brouillon
     unarchive: Rétablir
+    save: Enregistrer
 
 label:
     actions: Actions
@@ -36,3 +38,21 @@ label:
 placeholder:
     precision: Précisez
     multiple_select: Sélectionner une ou plusieurs valeurs
+
+sidebar_menu:
+  admin_duplication: Module de Duplication
+  conformite_traitements: Conformité des traitements
+  dashboard: Tableau de bord
+  maturity_survey: Indice de maturité
+  registry_action_plan: Plan d'actions
+  registry_contractors: Sous-traitants
+  registry_mesurements: Actions de protection
+  registry_proofs: Documents
+  registry_requests: Demandes
+  registry_treatments: Traitements
+  registry_violations: Violations
+  reporting_review: Générer un bilan
+  user_collectivities: Collectivités
+  user_profile_collectivity: Ma collectivité
+  user_profile_user: Mon compte
+  user_users: Utilisateurs

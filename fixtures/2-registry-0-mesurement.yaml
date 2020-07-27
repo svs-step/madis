@@ -9,6 +9,16 @@ App\Domain\Registry\Model\Mesurement:
         collectivity: '@user_collectivity_awkan'
         priority: '70%? <dictionary("registry_mesurement_priority")>'
 
+    registry_mesurement_awkan_{6..8}:
+        name: Action de protection <current()>
+        description: <text()>
+        cost: <words(3, true)>
+        charge: <words(3, true)>
+        status: '<(App\Domain\Registry\Dictionary\MesurementStatusDictionary::STATUS_NOT_APPLIED)>'
+        comment: <words(10, true)>
+        collectivity: '@user_collectivity_awkan'
+        priority: '70%? <dictionary("registry_mesurement_priority")>'
+
     registry_mesurement_soluris_{1..3}:
         name: Action de protection <current()>
         description: <text()>

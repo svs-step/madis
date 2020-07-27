@@ -109,11 +109,13 @@ class Treatment extends CRUDRepository implements Repository\Treatment
     /**
      * {@inheritdoc}
      */
-    public function findAllActiveByCollectivity(Collectivity $collectivity, bool $active = true, array $order = [])
+    public function findAllActiveByCollectivity(Collectivity $collectivity = null, bool $active = true, array $order = [])
     {
         $qb = $this->createQueryBuilder();
 
-        $this->addCollectivityClause($qb, $collectivity);
+        if (!\is_null($collectivity)) {
+            $this->addCollectivityClause($qb, $collectivity);
+        }
         $this->addActiveClause($qb, $active);
         $this->addOrder($qb, $order);
 
@@ -174,11 +176,48 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         $qb->leftJoin('o.collectivity', 'c')
             ->andWhere($qb->expr()->eq('c.active', ':active'))
             ->setParameter('active', $active)
+            ->addOrderBy('c.name')
+            ->addOrderBy('o.createdAt', 'DESC')
         ;
 
         return $qb
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    public function findAllActiveByCollectivityWithHasModuleConformiteTraitement(Collectivity $collectivity = null, bool $active = true, array $order = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        if (!\is_null($collectivity)) {
+            $this->addCollectivityClause($qb, $collectivity);
+        }
+        $this->addActiveClause($qb, $active);
+        $this->addOrder($qb, $order);
+
+        $qb->leftJoin('o.collectivity', 'c')
+            ->andWhere($qb->expr()->eq('c.hasModuleConformiteTraitement', ':active'))
+            ->setParameter('active', true)
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function countAllWithNoConformiteTraitementByCollectivity(?Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+        $this->addCollectivityClause($qb, $collectivity);
+        $this->addActiveClause($qb, true);
+        $qb->leftJoin('o.conformiteTraitement', 'cT')
+            ->andWhere($qb->expr()->isNull('cT.id'))
+        ;
+
+        return $qb->getQuery()->getSingleScalarResult();
     }
 }

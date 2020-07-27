@@ -1,4 +1,5 @@
 twig:
+    exception_controller: null
     paths: 
         '%kernel.project_dir%/templates': templates_path
         '%kernel.project_dir%/public': public_path
@@ -33,4 +34,11 @@ twig:
         default_dpo_mail: '%env(APP_DPO_MAIL)%'
         default_dpo_phoneNumber: '%env(APP_DPO_PHONE_NUMBER)%'
         timezone: 'Europe/Paris'
+        tooltip_conformite_organisation_inexistante: '%env(TOOLTIP_CONFORMITE_ORGANISATION_INEXISTANTE)%'
+        tooltip_conformite_organisation_tres_eloignee: '%env(TOOLTIP_CONFORMITE_ORGANISATION_TRES_ELOIGNEE)%'
+        tooltip_conformite_organisation_partielle: '%env(TOOLTIP_CONFORMITE_ORGANISATION_PARTIELLE)%'
+        tooltip_conformite_organisation_quasi_conforme: '%env(TOOLTIP_CONFORMITE_ORGANISATION_QUASI_CONFORME)%'
+        tooltip_conformite_organisation_mesurable: '%env(TOOLTIP_CONFORMITE_ORGANISATION_MESURABLE)%'
+        tooltip_conformite_organisation_revisee: '%env(TOOLTIP_CONFORMITE_ORGANISATION_REVISEE)%'
+
 

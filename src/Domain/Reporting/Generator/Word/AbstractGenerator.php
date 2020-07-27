@@ -363,9 +363,10 @@ abstract class AbstractGenerator implements GeneratorInterface
                         $cell->addText($item, $this->textHeadStyle);
                     }
                 } else {
-                    $cell    = $table->addCell(5000 / \count($lineData), $lineStyle);
+                    /* If a style for the cell is specified, it bypass the line style */
+                    $cell    = $table->addCell(5000 / \count($lineData), $col['style'] ?? $lineStyle);
                     $textrun = $cell->addTextRun();
-                    foreach ($col as $key => $item) {
+                    foreach ($col['content'] ?? $col as $key => $item) {
                         if (0 != $key) {
                             $textrun->addTextBreak();
                         }
@@ -376,11 +377,22 @@ abstract class AbstractGenerator implements GeneratorInterface
                             continue;
                         }
 
-                        // If item is array, then there is specific contiguration
-                        $textrun->addText(
-                            $item['text'] ?? '',
-                            $item['style'] ?? []
-                        );
+                        /* If item is array, there is 2 possibility :
+                            - this is an array of item to display in a single cell
+                            - there is additionnal configuration */
+                        if (isset($item['array']) && null !== $item['array']) {
+                            foreach ($item['array'] as $subItemKey => $subItem) {
+                                $textrun->addText($subItem);
+                                if ($subItemKey !== count($item['array']) - 1) {
+                                    $textrun->addTextBreak(2);
+                                }
+                            }
+                        } else {
+                            $textrun->addText(
+                                $item['text'] ?? '',
+                                $item['style'] ?? []
+                            );
+                        }
                     }
                 }
             }

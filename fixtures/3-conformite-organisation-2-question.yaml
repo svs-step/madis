@@ -1,0 +1,250 @@
+App\Domain\Registry\Model\ConformiteOrganisation\Question:
+    conformite_organisation_question_1:
+        processus: '@processus_1'
+        position: 1
+        nom: "La politique de protection des données informe les personnes concernées sur  les engagements du responsable du traitement notamment : licéité des traitements, exercice des droits des personnes,  transferts vers un pays tiers, destinataires des données, conservation des données collectées, mesures de sécurité des données. Elle précise les coordonnées du responsable du traitement, celles du délégué ou du référent à la protection des données."
+    conformite_organisation_question_2:
+        processus: '@processus_1'
+        position: 2
+        nom: "L'entreprise a identifié son DPO ou son référent DPO. Dans les deux cas, il dispose des compétences nécessaires et/ou a reçu une formation. Sa mission est reconnue, positionnée et légitimée dans l'organisation. Il existe une fiche de mission qui formalise ses rôles responsabilités et précise les temps et ressources alloués. Lorsque les tâches du DPO sont réparties sur plusieurs personnes, la répartition des activités est claire."
+    conformite_organisation_question_3:
+        processus: '@processus_1'
+        position: 3
+        nom: "Le responsable du traitement s'appuie sur une instance de gouvernance (ex : Comité Informatique et libertés, Comité RGPD) dont les rôles et responsabilités sont clairement identifiés. Elle prend les décisions en matière de gestion des données à caractère personnel : ressources allouées, cas des traitements ultérieurs, violation de données."
+    conformite_organisation_question_4:
+        processus: '@processus_1'
+        position: 4
+        nom: " La politique de gestion des données détaille les mesures techniques et organisationnelles définis par le responsable du traitement pour répondre dans le temps aux exigences du RGPD et pouvoir le démontrer : rôles et responsabilités, règles relatives aux processus du RGPD, procédures de gestion des droits de la personne, procédure en cas de violation de données, sommaire du bilan annuel..."
+    conformite_organisation_question_5:
+        processus: '@processus_2'
+        position: 1
+        nom: "L'entreprise dispose d'un registre des traitements. Le registre renseigne sur les critères minimum précisé à l'article 30 du règlement : nom du responsable du traitement et du DPO, les finalités du traitement, les catégories de personnes concernées et les catégories de DCP, les catégories de destinataires, les transferts de données à caractère personnel vers un pays tiers, les délais prévus pour l'effacement, une description générale des mesures de sécurité."
+    conformite_organisation_question_6:
+        processus: '@processus_2'
+        position: 2
+        nom: "A chaque traitement est associé un gestionnaire.
+          Tout nouveau traitement est signalé par le gestionnaire au DPO ou au référent DPO pour mise à jour du registre.
+          Tout traitement ultérieur est porté à la connaissance du DPO ou du référent DPO pour avis puis partagé par la gouvernance."
+    conformite_organisation_question_7:
+        processus: '@processus_2'
+        position: 3
+        nom: "Le DPO ou le référent DPO peut disposer d'une cartographie des flux de données mettant en évidence les points de collecte des données et les échanges inter-application et/ou avec les parties prenantes externes."
+    conformite_organisation_question_8:
+        processus: '@processus_2'
+        position: 4
+        nom: "L'entreprise dispose des connaissances nécessaires pour gérer  les transferts de Données à Caractère Personnel, transfrontaliers UE, vers des pays tiers ou des organisations internationales .L'inventaire de ces transferts est tenu à jour.
+              (Lien sur la protection des données dans le monde : <a target=\"_blank\" href=\"https://www.cnil.fr/fr/la-protection-des-donnees-dans-le-monde\">https://www.cnil.fr/fr/la-protection-des-donnees-dans-le-monde</a>)"
+    conformite_organisation_question_9:
+        processus: '@processus_3'
+        position: 1
+        nom: "Les modalités de l'exercice des droits sont communiquées à la personne concernée : Droit d’accès aux données (Art 15) ; Droit de rectification des données (Art 16) ; Droit d’effacement des données (Art 17) ; Droit de limitation du traitement (Art 18) ; Droit de portabilité des données (Art 20) ; Droit d’opposition au traitement (Art 21) ; Droit d’opposition au transfert de données (Art 46)"
+    conformite_organisation_question_10:
+        processus: '@processus_3'
+        position: 2
+        nom: "Dans les cas où le traitement repose sur le consentement, le responsable du traitement est en mesure de démontrer que la personne concernée a donné son consentement. La personne concernée a le droit de retirer son consentement à tout moment. Il est aussi simple de retirer que de donner son consentement."
+    conformite_organisation_question_11:
+        processus: '@processus_3'
+        position: 3
+        nom: "La procédure de gestion de demande d'exercice des droits est documentée. Elle permet de garantir un délai de réponse inférieur à 30 jours.
+              Il existe un point de contact unique à disposition des personnes concernées pour recueillir, enregistrer, qualifier les demandes relatives aux droits de la personne concernée."
+    conformite_organisation_question_12:
+        processus: '@processus_3'
+        position: 4
+        nom: "Les demandes des personnes concernées et les réponses apportées sont historisées et protégées contre les falsifications et les accès non autorisés, de façon à servir de preuve le cas échéant."
+    conformite_organisation_question_13:
+        processus: '@processus_4'
+        position: 1
+        nom: "Le traitement par un sous-traitant est régi par un contrat ou un autre acte juridique au titre du droit de l'Union ou du droit d'un État membre, qui lie le sous-traitant à l'égard du responsable du traitement, définit l'objet et la durée du traitement, la nature et la finalité du traitement, le type de données à caractère personnel, les catégories de personnes concernées, les obligations et les droits du responsable du traitement (violation de données)."
+    conformite_organisation_question_14:
+        processus: '@processus_4'
+        position: 2
+        nom: "Le sous-traitant ne recrute pas un autre sous-traitant sans l'autorisation écrite préalable, spécifique ou générale, du responsable du traitement. Dans le cas d'une autorisation écrite générale, le sous-traitant informe le responsable du traitement de tout changement prévu concernant l'ajout ou le remplacement d'autres sous-traitants, donnant ainsi au responsable du traitement la possibilité d'émettre des objections à l'encontre de ces changements."
+    conformite_organisation_question_15:
+        processus: '@processus_4'
+        position: 3
+        nom: "L'organisation dispose de la liste exhaustive des sous-traitants à qui elle a délégué des traitements de DCP.
+              Le gestionnaire de ces contrats est clairement identifié."
+    conformite_organisation_question_16:
+        processus: '@processus_4'
+        position: 4
+        nom: "L'organisation surveille à intervalles réguliers la conformité des traitements de DCP confiés à des sous-traitants. Pour tout changement majeur, les risques sont réappréciés."
+    conformite_organisation_question_17:
+        processus: '@processus_5'
+        position: 1
+        nom: "L'organisation partage une méthode de gestion de projet.  Le lancement d'un projet traitant de DCP implique: une information préalable auprès du DPO ou du référent DPO. La note de cadrage qui définit la licéité du traitement, précise  les droits que la personne concernée pourra exercer et renseigne sur la finalité, la minimisation des données, la limitation des durées de conservation."
+    conformite_organisation_question_18:
+        processus: '@processus_5'
+        position: 2
+        nom: "Une étude sécurité est réalisée pour définir les mesures techniques et organisationnelles qui préserveront la disponibilité, l'intégrité et la confidentialité des données.
+              Les données de test sont anonymisées."
+    conformite_organisation_question_19:
+        processus: '@processus_5'
+        position: 3
+        nom: "Si le traitement entre dans la liste des critères exigeant une évaluation d'impact sur la vie privée, celle-ci est réalisée avant la mise en production du nouveau service."
+    conformite_organisation_question_20:
+        processus: '@processus_5'
+        position: 4
+        nom: "La procédure de livraison du projet permet au DPO ou référent DPO de vérifier qu'il est conforme à la règlementation et que les procédures visant à permettre à la personne concernée d'exercer ses droits sont opérationnelles."
+    conformite_organisation_question_21:
+        processus: '@processus_6'
+        position: 1
+        nom: "L'entreprise dispose d'un document (Politique de sécurité du système d'information - PSSI) qui rassemble l'ensemble des mesures de sécurité appliquées."
+    conformite_organisation_question_22:
+        processus: '@processus_6'
+        position: 2
+        nom: "Il existe un responsable de la sécurité ou un référent sécurité de l'information. Cette personne est clairement identifiée au sein de l'entreprise. Ses responsabilités couvrent la disponibilité, l'intégrité et la confidentialité de l'information. Elles font l'objet d'une fiche de poste ou d’une lettre de mission."
+    conformite_organisation_question_23:
+        processus: '@processus_6'
+        position: 3
+        nom: "L'entreprise est organisée pour détecter et gérer les incidents de sécurité. Les incidents sont historisés et partagés avec le DPO pour déterminer s'il s'agit d'une violation de données."
+    conformite_organisation_question_24:
+        processus: '@processus_6'
+        position: 4
+        nom: "L'accès physique aux locaux contenant des équipements informatiques (serveurs, équipements du réseau)  est contrôlé. Seule les personnes autorisés peuvent y avoir accès.
+              Les armoires et coffres-forts contenant des données sensibles sont systématiquement fermés à clés."
+    conformite_organisation_question_25:
+        processus: '@processus_6'
+        position: 5
+        nom: "Tous les équipements ( Postes de travail, smartphones, objets connectés) sont protégés par un antivirus géré par une console centralisée.
+              Les patchs logiciels sont gérés pour éviter les \"trous\" de sécurité.
+              Les postes sont verrouillés en fin de session."
+    conformite_organisation_question_26:
+        processus: '@processus_6'
+        position: 6
+        nom: "Lorsque des mobiles multifonctions (smartphone), ordinateurs portables ou clé USB sont utilisés, leur usage est encadré.
+              Les utilisateurs en situation de mobilité sont sensibilisés au vol,  à l'écoute et à l'observation passive.
+              Lorsque cela est justifié, les données sont chiffrées sur les équipements ou supports mobiles."
+    conformite_organisation_question_27:
+        processus: '@processus_6'
+        position: 7
+        nom: "L'ensemble des données est sauvegardé. Des tests de restauration sont planifiés et réalisés pour vérifier l'intégrité des données sauvegardées.
+              Les saugegardes sont externalisées dans un lieu sécurisé."
+    conformite_organisation_question_28:
+        processus: '@processus_6'
+        position: 8
+        nom: "L'ensemble des utilisateurs est sensibilisé à la sécurité informatique, à la protection de la vie privée.
+              Les utilisateurs sont formés aux outils et vigilant dans leurs usages pour éviter les erreurs de manipulation .
+              La charte informatique est signée par chaque utilisateur."
+    conformite_organisation_question_29:
+        processus: '@processus_6'
+        position: 9
+        nom: "Une gestion de droits d'accès ou d'habilitation définit des profils distincts selon les besoins des utilisateurs pour accéder aux données.
+              Il existe une procédure Arrivée/Changement de poste/Départ qui garantit que les comptes utilisateurs sont systématiquement fermés en fin de contrat.
+              Les accès aux applications sont tracés et permettent d'enregistrer qui accède à quoi."
+    conformite_organisation_question_30:
+        processus: '@processus_6'
+        position: 10
+        nom: "La politique de mot de passe s'applique à l'accès réseau et aux applications. Elle précise la force du mot de passe : 12 caractères ou plus, un nombre, une majuscule, un signe de ponctuation ou un caractère spécial (dollar, dièse, ...).
+              Les mots de passe sont gardés secret par chacun des utilisateurs."
+    conformite_organisation_question_31:
+        processus: '@processus_6'
+        position: 11
+        nom: "Les contrats passés avec les hébergeurs de données intègrent un plan d'assurance sécurité : clause de réversibilité, signalement en cas de violation de données, test d'intrusion."
+    conformite_organisation_question_32:
+        processus: '@processus_6'
+        position: 12
+        nom: "La mise au rebus des supports numériques est contrôlée.
+              Les données sont effacées avant le recyclage."
+    conformite_organisation_question_33:
+        processus: '@processus_6'
+        position: 13
+        nom: "Les services en ligne, les échanges ou transferts sur les réseaux sont protégés contre l'interception (Chiffrement)
+              Les configurations sont systématiquement contrôlées après la mise à jour d'un service en ligne."
+    conformite_organisation_question_34:
+        processus: '@processus_7'
+        position: 1
+        nom: "L'organisation dispose d'une méthode formalisée d'analyse de risque : Outillage de la CNIL ou d'une autre autorité : ISO 31000, ISO 27005, AMDEC, EBIOS, HAZOP,HACCP, MEHARI, qu'elle saurait utiliser pour réaliser l'analyse d'impacts sur la protection des données"
+    conformite_organisation_question_35:
+        processus: '@processus_7'
+        position: 2
+        nom: "L'organisation a déjà procédé à une ou plusieurs analyses de risques de son système d'information. Elle dispose d'une compétence interne ou externe pouvant réaliser des analyses d'impacts sur la protection des données"
+    conformite_organisation_question_36:
+        processus: '@processus_7'
+        position: 3
+        nom: "Conformément à l'article 35 et aux lignes directrices PIA, les nouveaux traitements de DCP \"à risque élevé\" de type activités de contrôle des personnes, évaluations systématiques font l'objet d'une analyse.
+              L'entreprise a pris connaissance du document \"liste-traitements-avec-aipd-requise\" publié par la CNIL."
+    conformite_organisation_question_37:
+        processus: '@processus_7'
+        position: 4
+        nom: "Les résultats des analyses sont documentés, partagés avec le DPO ou le référent DPO. Ils font l'objet d'un plan de traitement formalisé et approuvé par le responsable de traitement. Le DPO contrôle la réalisation du plan de traitement."
+    conformite_organisation_question_38:
+        processus: '@processus_8'
+        position: 1
+        nom: "Le DPO ou le référent DPO peut justifier de ses connaissances en matière juridique. Il dispose de canaux d'information pour maintenir à jour ses connaissances : abonnement newsletter CNIL, ouvrages spécialisés, associations compétentes, participation à des séminaires."
+    conformite_organisation_question_39:
+        processus: '@processus_8'
+        position: 2
+        nom: "Les catégories de collaborateurs directement impliqués dans les traitements de DCP bénéficient de formations ou des sensibilisations spécifiques centrées sur les principes qui les concernent : gestion du consentement, privacy by design, privacy by default, protection contre les traitements non autorisés, exactitude, gestion des droits, violtion de données.."
+    conformite_organisation_question_40:
+        processus: '@processus_8'
+        position: 3
+        nom: "Un plan de formation est  établi lorsque la ressource nécessite d'acquérir de nouvelles connaissances pour avoir la compétence attendue : chef de projet privacy by design, gestionnaire de risque, gestionnaire de contrat."
+    conformite_organisation_question_41:
+        processus: '@processus_8'
+        position: 4
+        nom: "Les messages essentiels de la protection des DCP sont repris régulièrement sous la forme de campagne d'affichages, de mails, d'intervention dans les réunions ou sur les réseaux internes. Les opérations de sensibilisation, de formation et de communication sont mesurées et archivées. Les obligations de l'utilisateur en matière de DCP sont précisées dans la charte informatique."
+    conformite_organisation_question_42:
+        processus: '@processus_9'
+        position: 1
+        nom: "L'entreprise veille de manière récurrente sur les évolutions de la réglementation comme par exemple: le transfert de données hors UE, les icônes normalisés, les spécificités nationales pour le seuil d'âge des mineurs, le consentement parental pour les données hors ligne, la publication de nouveaux codes de conduite, les certifications ou encore les labels."
+    conformite_organisation_question_43:
+        processus: '@processus_9'
+        position: 2
+        nom: "L'entreprise a clairement identifié une expertise juridique interne ou externe, spécialisée dans le RGPD et ses périmètres connexes comme par exemple les spécifications juridiques locales."
+    conformite_organisation_question_44:
+        processus: '@processus_9'
+        position: 3
+        nom: "L’entreprise dispose d'un processus lui permettant de réagir en cas de sollicitation ou de poursuite : disponibilité de preuves opposables, ressources juridiques identifiées, plan de communication interne et externe, contrat d'assurance spécifique."
+    conformite_organisation_question_45:
+        processus: '@processus_9'
+        position: 4
+        nom: "Conformément à de multiples articles du RGPD, en cas de violation avérée, l'entreprise est organisée pour analyser et notifier l'incident auprès de l'autorité de contrôle au plus tard dans les 72 h, et si nécessaire en informer les personnes concernées. Elle serait en capacité de produire un bilan décrivant les circonstances, la chronologie, les dommages et leurs conséquences, les actions correctives décidées. Il existe un registre des violations."
+    conformite_organisation_question_46:
+        processus: '@processus_10'
+        position: 1
+        nom: "Conformément à l'article 32, de manière régulière, l'organisation teste, analyse, et évalue l'efficacité des mesures techniques et organisationnelles, pour assurer la sécurité du traitement. Les mesures de sécurité en prévention de la violation de données à caractère personnel sont contrôlées régulièrement et en cas de violation de données."
+    conformite_organisation_question_47:
+        processus: '@processus_10'
+        position: 2
+        nom: "Les évaluations internes sont réalisées par le DPO ou le référent DPO. Lorsque l'évaluation est réalisée par une autre personne physique ou morale, les critères d'évaluation sont définis en collaboration avec le DPO ou le référent DPO."
+    conformite_organisation_question_48:
+        processus: '@processus_10'
+        position: 3
+        nom: "L'organisation est en capacité de faire réaliser des audits externes pour attester de la conformité des traitements c'est à dire le respect des obligations juridiques d'une part et les mesures de sécurité en prévention des violations de données d'autre part."
+    conformite_organisation_question_49:
+        processus: '@processus_10'
+        position: 4
+        nom: "Tout rapport d'évaluation ou d'audit fait l'objet d'un plan d'action correctif et préventif dont la réalisation est contrôlée par le DPO ou le référent DPO. Ces rapports sont intégrés dans le bilan annuel du DPO ou du référent DPO."
+    conformite_organisation_question_50:
+        processus: '@processus_11'
+        position: 1
+        nom: "Il existe un processus de gestion de la documentation applicable au RGPD et comprenant a minima : une organisation du stockage, des règles de marquage, nommage et versioning."
+    conformite_organisation_question_51:
+        processus: '@processus_11'
+        position: 2
+        nom: "Le DPO ou le référent DPO a établi une  liste des documents  à produire comme par exemple  : politique générale de protection des données, politique de gestion des données,  compte rendu de gouvernance, registre des traitements, procédures relative à l'exercice des droits de la personne concernée, modèle de cadrage d'un projet Privacy by design, poltique de sécurité. "
+    conformite_organisation_question_52:
+        processus: '@processus_11'
+        position: 3
+        nom: "Conformément à l'article 47, les groupes d'entreprises engagées dans une activité économique conjointe ayant définis des codes de conduite, ou des règles d'entreprise contraignantes) doivent préciser  la procédure de validation et de révision de leur contenu par le responsable du traitement."
+    conformite_organisation_question_53:
+        processus: '@processus_11'
+        position: 4
+        nom: "Les documents à valeur de preuve sont enregistrés (signés par le responsable du traitement). Ils sont protégés contre les pertes, les divulgations, les falsifications et les accès non autorisés. La liste des documents à valeur de preuve est disponible et tenue à jour (voir onglet liste preuves)"
+    conformite_organisation_question_54:
+        processus: '@processus_12'
+        position: 1
+        nom: "Il existe une cartographie des processus de gestion des données mentionnant les objectifs, les rôles et responsabilités, les activités et les éléments de sortie.
+              Si le DPO ou le référent DPO ne réalise pas les activités des processus, il les coordonne et les contrôle."
+    conformite_organisation_question_55:
+        processus: '@processus_12'
+        position: 2
+        nom: "L'ensemble des plans d'action, plan de traitement, plan de progrès sont consolidés dans un tableau unique afin de s'assurer de leur réalisation."
+    conformite_organisation_question_56:
+        processus: '@processus_12'
+        position: 3
+        nom: "Le DPO ou le référent DPO a défini un tableau de bord comprend des indicateurs permettent d'apprécier la conformité au règlement et les progrès réalisés. Les indicateurs sont simples à comprendre et partageable avec les membres de la gouvernance. Exemple d'indicateurs : maturité des processus du système de gestion, ratio d'actions réalisées et à réaliser, ratio nombre de traitement interne/sous-traités."
+    conformite_organisation_question_57:
+        processus: '@processus_12'
+        position: 4
+        nom: "Conformément aux lignes directrices DPO, le DPO ou le référent DPO produit un bilan annuel (Rapport annuel) partagé avec la structure de gouvernance et validé par le responsable du traitement..Ce rapport comprend entre autre : bilan de conformité des traitements, bilan des opérations de sensibilisation, bilan des PIA, bilan de plan de progrès."
