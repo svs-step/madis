@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Security;
@@ -90,6 +91,9 @@ class LoginSubscriberTest extends TestCase
         $tokenInterface = $this->prophesize(TokenInterface::class);
         $eventProphecy->getAuthenticationToken()->shouldBeCalled()->willReturn($tokenInterface);
         $tokenInterface->getUser()->shouldBeCalled()->willReturn($user);
+        $user->getFullName()->shouldBeCalled()->willReturn('foo');
+        $user->getEmail()->shouldBeCalled()->willReturn('foo@foo.fr');
+        $user->getId()->shouldBeCalled()->willReturn(Uuid::uuid4());
         $user->setLastLogin(Argument::type(\DateTimeImmutable::class))->shouldBeCalled();
         $user->getCollectivity()->shouldBeCalled()->willReturn($collectivity->reveal());
 

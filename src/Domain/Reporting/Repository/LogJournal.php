@@ -30,13 +30,13 @@ use App\Domain\User\Model\Collectivity;
 
 interface LogJournal extends CRUDRepositoryInterface
 {
-    public function updateLastKnownNameEntriesForGivenSubject(LoggableSubject $subject);
+    public function updateDeletedLog(LoggableSubject $subject);
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches);
 
     public function countLogs();
 
-    public function findAllByCollectivity(Collectivity $collectivity, $limit = 15);
+    public function findAllByCollectivityWithoutUserSubjects(Collectivity $collectivity, $limit);
 
     public function deleteAllAnteriorToDate(\DateTime $date);
 }

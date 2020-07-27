@@ -241,16 +241,17 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">Journalisation <small>15 derniers</small></h3></div>
+                <div class="box-header with-border"><h3 class="box-title">Journalisation <small>{{ app_user_dashboard_journalisation_limit }} derniers</small></h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Utilisateur</th>
-                                <th>Collectivité</th>
+                                <th>Nom utilisateur</th>
+                                <th>Email utilisateur</th>
                                 <th>Date</th>
                                 <th>Sujet</th>
                                 <th>Action</th>
+                                <th>Nom</th>
                                 <th>Lien</th>
                             </tr>
                         </thead>
@@ -258,13 +259,14 @@
                         {% for logJournal in data.logJournal %}
                             {% set logJournalLink = getLogJournalLink(logJournal) %}
                             <tr>
-                                <td>{{ logJournal.user }}</td>
-                                <td>{{ logJournal.collectivity }}</td>
-                                <td>{{ logJournal.date|date('d/m/Y H:i:s') }}</td>
+                                <td>{{ logJournal.userFullName }}</td>
+                                <td>{{ logJournal.userEmail }}</td>
+                                <td>{{ logJournal.date|date('d/m/Y') }}</td>
                                 <td>{{ logJournal.subjectType|dictionary('reporting_log_journal_subject') }}</td>
                                 <td>{{ logJournal.action|dictionary('reporting_log_journal_action') }}</td>
+                                <td>{{ logJournal.subjectName }}</td>
                                 <td>
-                                    {% if logJournalLink == constant('App\\Domain\\Reporting\\Generator\\LogJournalLinkGenerator::DELETE_LABEL') %}
+                                    {% if logJournal.isDeleted %}
                                         {{ logJournalLink }}
                                     {% elseif logJournalLink is not null %}
                                         <a href="{{ logJournalLink }}">Lien</a>

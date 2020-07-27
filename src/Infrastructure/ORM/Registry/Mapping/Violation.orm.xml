@@ -8,6 +8,8 @@
 
     <entity name="App\Domain\Registry\Model\Violation" table="registry_violation">
 
+        <id name="id" column="id" type="uuid"/>
+
         <field name="date" column="date" type="date"/>
         <field name="inProgress" column="in_progress" type="boolean"/>
         <field name="violationNature" column="violation_nature"/>

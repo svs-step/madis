@@ -73,6 +73,11 @@ class UserMetric implements MetricInterface
      */
     private $logJournalRepository;
 
+    /**
+     * @var int
+     */
+    private $userLogJounalViewLimit;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         Repository\ConformiteTraitement\ConformiteTraitement $conformiteTraitementRepository,
@@ -80,7 +85,8 @@ class UserMetric implements MetricInterface
         Repository\Treatment $treatmentRepository,
         UserProvider $userProvider,
         Evaluation $evaluationRepository,
-        LogJournal $logJournalRepository
+        LogJournal $logJournalRepository,
+        int $userLogJounalViewLimit
     ) {
         $this->entityManager                  = $entityManager;
         $this->conformiteTraitementRepository = $conformiteTraitementRepository;
@@ -89,6 +95,7 @@ class UserMetric implements MetricInterface
         $this->userProvider                   = $userProvider;
         $this->evaluationRepository           = $evaluationRepository;
         $this->logJournalRepository           = $logJournalRepository;
+        $this->userLogJounalViewLimit         = $userLogJounalViewLimit;
     }
 
     public function getData(): array
@@ -193,7 +200,7 @@ class UserMetric implements MetricInterface
             ['collectivity' => $collectivity]
         );
 
-        $data['logJournal'] = $this->logJournalRepository->findAllByCollectivity($collectivity);
+        $data['logJournal'] = $this->logJournalRepository->findAllByCollectivityWithoutUserSubjects($collectivity, $this->userLogJounalViewLimit);
 
         $maturity = $this->entityManager->getRepository(Survey::class)->findBy(
             ['collectivity' => $collectivity],

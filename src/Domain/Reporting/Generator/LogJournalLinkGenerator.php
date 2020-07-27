@@ -23,13 +23,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Generator;
 
-use App\Domain\Maturity\Model\Survey;
-use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
-use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
-use App\Domain\Registry\Model\Proof;
+use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
 use App\Domain\Reporting\Model\LogJournal;
-use App\Domain\User\Model\User;
-use Doctrine\Common\Persistence\Proxy;
 use Symfony\Component\Routing\RouterInterface;
 
 class LogJournalLinkGenerator
@@ -48,32 +43,27 @@ class LogJournalLinkGenerator
 
     public function getLink(LogJournal $log)
     {
-        if (null === $log->getSubject()) {
+        if ($log->isDeleted()) {
             return self::DELETE_LABEL;
         }
 
-        $classname = \get_class($log->getSubject());
-        $subject   = $log->getSubject();
+        $id = $log->getSubjectId();
 
-        /* Sometimes doctrine retrieve a Proxy object instead of a true object for the subject for an unknown reason
-           To avoid any issue we retrieve the classname of the parent if the subject is a proxy */
-        if ($subject instanceof Proxy) {
-            $reflect   = new \ReflectionClass($subject);
-            $parent    = $reflect->getParentClass();
-            $classname = $parent->getName();
-        }
-
-        switch ($classname) {
-            case User::class:
-                return $this->router->generate('user_user_edit', ['id' => $log->getSubject()->getId()]);
-            case ConformiteTraitement::class:
-            case Proof::class:
-            case Survey::class:
-                return $this->router->generate($log->getSubjectType() . '_edit', ['id' => $log->getSubject()->getId()]);
-            case Evaluation::class:
-                return $this->router->generate('registry_conformite_organisation_edit', ['id' => $log->getSubject()->getId()]);
+        switch ($log->getSubjectType()) {
+            case LogJournalSubjectDictionary::USER_USER:
+            case LogJournalSubjectDictionary::USER_EMAIL:
+            case LogJournalSubjectDictionary::USER_PASSWORD:
+            case LogJournalSubjectDictionary::USER_FIRSTNAME:
+            case LogJournalSubjectDictionary::USER_LASTNAME:
+                return $this->router->generate('user_user_edit', ['id' => $id]);
+            case LogJournalSubjectDictionary::REGISTRY_CONFORMITE_TRAITEMENT:
+            case LogJournalSubjectDictionary::REGISTRY_PROOF:
+            case LogJournalSubjectDictionary::MATURITY_SURVEY:
+                return $this->router->generate($log->getSubjectType() . '_edit', ['id' => $id]);
+            case LogJournalSubjectDictionary::REGISTRY_CONFORMITE_ORGANISATION_EVALUATION:
+                return $this->router->generate('registry_conformite_organisation_edit', ['id' => $id]);
             default:
-                return $this->router->generate($log->getSubjectType() . '_show', ['id' => $log->getSubject()->getId()]);
+                return $this->router->generate($log->getSubjectType() . '_show', ['id' => $id]);
         }
     }
 }

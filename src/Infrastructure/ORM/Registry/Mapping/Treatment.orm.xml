@@ -8,6 +8,8 @@
 
     <entity name="App\Domain\Registry\Model\Treatment" table="registry_treatment">
 
+        <id name="id" column="id" type="uuid"/>
+
         <field name="name" column="name"/>
         <field name="goal" column="goal" type="text" nullable="true"/>
         <field name="manager" column="manager" nullable="true"/>

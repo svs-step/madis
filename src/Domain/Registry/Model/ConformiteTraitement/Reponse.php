@@ -27,9 +27,15 @@ namespace App\Domain\Registry\Model\ConformiteTraitement;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
-class Reponse extends LoggableSubject
+class Reponse implements LoggableSubject
 {
+    /**
+     * @var UuidInterface
+     */
+    private $id;
+
     /**
      * @var bool
      */
@@ -63,11 +69,15 @@ class Reponse extends LoggableSubject
 
     public function __construct()
     {
-        parent::__construct();
         $this->id                                 = Uuid::uuid4();
         $this->conforme                           = false;
         $this->actionProtections                  = [];
         $this->actionProtectionsPlanifiedNotSeens = [];
+    }
+
+    public function getId(): UuidInterface
+    {
+        return $this->id;
     }
 
     public function isConforme(): bool

@@ -30,12 +30,19 @@ use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Embeddable\Address;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Embeddable\Contact;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
-class Contractor extends LoggableSubject
+class Contractor implements LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;
     use HistoryTrait;
+
+    /**
+     * @var UuidInterface
+     */
+    private $id;
 
     /**
      * @var string|null
@@ -114,7 +121,7 @@ class Contractor extends LoggableSubject
      */
     public function __construct()
     {
-        parent::__construct();
+        $this->id                         = Uuid::uuid4();
         $this->contractualClausesVerified = false;
         $this->adoptedSecurityFeatures    = false;
         $this->maintainsTreatmentRegister = false;
@@ -122,6 +129,11 @@ class Contractor extends LoggableSubject
         $this->hasDpo                     = false;
         $this->treatments                 = [];
         $this->proofs                     = [];
+    }
+
+    public function getId(): UuidInterface
+    {
+        return $this->id;
     }
 
     public function __toString(): string

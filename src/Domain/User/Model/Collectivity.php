@@ -30,13 +30,20 @@ use App\Domain\User\Model\Embeddable\Address;
 use App\Domain\User\Model\Embeddable\Contact;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Organisation.
  */
-class Collectivity extends LoggableSubject
+class Collectivity implements LoggableSubject
 {
     use HistoryTrait;
+
+    /**
+     * @var UuidInterface
+     */
+    private $id;
 
     /**
      * @var string|null
@@ -145,7 +152,7 @@ class Collectivity extends LoggableSubject
      */
     public function __construct()
     {
-        parent::__construct();
+        $this->id                              = Uuid::uuid4();
         $this->users                           = new ArrayCollection();
         $this->comiteIlContacts                = new ArrayCollection();
         $this->active                          = true;
@@ -154,6 +161,11 @@ class Collectivity extends LoggableSubject
         $this->hasModuleConformiteTraitement   = false;
         $this->hasModuleConformiteOrganisation = false;
         $this->evaluations                     = [];
+    }
+
+    public function getId(): UuidInterface
+    {
+        return $this->id;
     }
 
     public function __toString(): string

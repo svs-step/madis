@@ -109,7 +109,8 @@ class LogJournalDoctrineSubscriberTest extends TestCase
 
     public function testPostPersistAndRegisterALogIfNotPresentInCache()
     {
-        $user         = new User();
+        $user = new User();
+        $user->setEmail('foo');
         $collectivity = $this->prophesize(Collectivity::class);
         $treatment    = new Treatment();
         $treatment->setCollectivity($collectivity->reveal());
@@ -155,7 +156,8 @@ class LogJournalDoctrineSubscriberTest extends TestCase
 
     public function testPostUpdate()
     {
-        $user         = new User();
+        $user = new User();
+        $user->setEmail('foo');
         $collectivity = $this->prophesize(Collectivity::class);
         $treatment    = new Treatment();
         $treatment->setCollectivity($collectivity->reveal());
@@ -180,12 +182,13 @@ class LogJournalDoctrineSubscriberTest extends TestCase
 
     public function testPreRemove()
     {
-        $user         = $this->prophesize(User::class);
+        $user = new User();
+        $user->setEmail('foo');
         $collectivity = $this->prophesize(Collectivity::class);
         $treatment    = new Treatment();
         $treatment->setCollectivity($collectivity->reveal());
 
-        $this->security->getUser()->willReturn($user->reveal());
+        $this->security->getUser()->willReturn($user);
 
         $this->assertTrue($this->invokeMethod($this->subscriber, 'supports', [$treatment]));
 
@@ -218,41 +221,45 @@ class LogJournalDoctrineSubscriberTest extends TestCase
 
     public function testItReturnNullOnLoginUser()
     {
-        $user = $this->prophesize(User::class);
+        $user = new User();
         $uow  = $this->createMock(UnitOfWork::class);
         $uow->method('getEntityChangeSet')
             ->willReturn(['lastLogin' => []])
         ;
         $this->entityManager->getUnitOfWork()->shouldBeCalled()->willReturn($uow);
-        $this->assertNull($this->invokeMethod($this->subscriber, 'registerLogForUser', [$user->reveal()]));
+        $this->assertNull($this->invokeMethod($this->subscriber, 'registerLogForUser', [$user]));
     }
 
     public function testItRegisterLogForUser()
     {
-        $user = $this->prophesize(User::class);
-        $user->getCollectivity()->shouldBeCalled()->willReturn(new Collectivity());
-        $this->security->getUser()->shouldBeCalled()->willReturn(new User());
+        $user = new User();
+        $user->setCollectivity(new Collectivity());
+        $connectedUser = new User();
+        $connectedUser->setEmail('foo');
+        $this->security->getUser()->shouldBeCalled()->willReturn($connectedUser);
         $uow = $this->createMock(UnitOfWork::class);
         $uow->method('getEntityChangeSet')
             ->willReturn(['firstName' => [], 'lastName' => [], 'email' => [], 'password' => []])
         ;
         $this->entityManager->getUnitOfWork()->shouldBeCalled()->willReturn($uow);
         $this->eventDispatcher->dispatch(Argument::type(LogJournalEvent::class))->shouldBeCalledTimes(4);
-        $this->invokeMethod($this->subscriber, 'registerLogForUser', [$user->reveal()]);
+        $this->invokeMethod($this->subscriber, 'registerLogForUser', [$user]);
     }
 
     public function testItRegisterLogForSoftDeleteUser()
     {
-        $user = $this->prophesize(User::class);
-        $user->getCollectivity()->shouldBeCalled()->willReturn(new Collectivity());
-        $this->security->getUser()->shouldBeCalled()->willReturn(new User());
+        $user = new User();
+        $user->setCollectivity(new Collectivity());
+        $connectedUser = new User();
+        $connectedUser->setEmail('foo');
+        $this->security->getUser()->shouldBeCalled()->willReturn($connectedUser);
         $uow = $this->createMock(UnitOfWork::class);
         $uow->method('getEntityChangeSet')
             ->willReturn(['deletedAt' => [null, new \DateTimeImmutable()]])
         ;
         $this->entityManager->getUnitOfWork()->shouldBeCalled()->willReturn($uow);
         $this->eventDispatcher->dispatch(Argument::type(LogJournalEvent::class))->shouldBeCalled();
-        $this->invokeMethod($this->subscriber, 'registerLogForUser', [$user->reveal()]);
+        $this->invokeMethod($this->subscriber, 'registerLogForUser', [$user]);
     }
 
     /**

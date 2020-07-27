@@ -65,6 +65,9 @@ APP_DPO_PHONE_NUMBER=0546923905
 APP_FOOTER_PROVIDER_NAME=SOLURIS
 APP_FOOTER_PROVIDER_URL="https://example.fr"
 
+# Dashboard utilisateur paramétrage du nombre de données affiché dans le tableau de journalisation des logs
+APP_USER_DASHBOARD_JOURNALISATION_LIMIT=15
+
 # Configuration des images MADIS
 # Favicon
 APP_IMAGE_FAVICON_PATH="favicon.ico"

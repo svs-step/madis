@@ -8,6 +8,8 @@
 
     <entity name="App\Domain\Registry\Model\Request" table="registry_request">
 
+        <id name="id" column="id" type="uuid"/>
+
         <field name="object" column="object" nullable="true"/>
         <field name="otherObject" column="other_object" nullable="true"/>
         <field name="date" column="date" type="date"/>

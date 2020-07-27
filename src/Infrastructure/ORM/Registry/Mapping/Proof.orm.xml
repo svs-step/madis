@@ -8,6 +8,8 @@
 
     <entity name="App\Domain\Registry\Model\Proof" table="registry_proof">
 
+        <id name="id" column="id" type="uuid"/>
+
         <field name="name" column="name"/>
         <field name="type" column="type"/>
         <field name="document" column="document"/>

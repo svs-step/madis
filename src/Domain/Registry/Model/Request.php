@@ -32,13 +32,20 @@ use App\Domain\Registry\Model\Embeddable\RequestAnswer;
 use App\Domain\Registry\Model\Embeddable\RequestApplicant;
 use App\Domain\Registry\Model\Embeddable\RequestConcernedPeople;
 use App\Domain\Reporting\Model\LoggableSubject;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
-class Request extends LoggableSubject
+class Request implements LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;
     use HistoryTrait;
     use SoftDeletableTrait;
+
+    /**
+     * @var UuidInterface
+     */
+    private $id;
 
     /**
      * @var string|null
@@ -112,7 +119,7 @@ class Request extends LoggableSubject
      */
     public function __construct()
     {
-        parent::__construct();
+        $this->id                  = Uuid::uuid4();
         $this->date                = new \DateTime();
         $this->applicant           = new RequestApplicant();
         $this->concernedPeople     = new RequestConcernedPeople();
@@ -121,6 +128,11 @@ class Request extends LoggableSubject
         $this->legitimateApplicant = false;
         $this->legitimateRequest   = false;
         $this->proofs              = [];
+    }
+
+    public function getId(): UuidInterface
+    {
+        return $this->id;
     }
 
     public function __toString(): string

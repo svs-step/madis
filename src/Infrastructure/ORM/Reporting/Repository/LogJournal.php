@@ -24,17 +24,17 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal
         return Model\LogJournal::class;
     }
 
-    public function updateLastKnownNameEntriesForGivenSubject(LoggableSubject $subject)
+    public function updateDeletedLog(LoggableSubject $subject)
     {
         $qb = $this->getManager()->createQueryBuilder();
         $qb
             ->update($this->getModelClass(), 'o')
-            ->set('o.lastKnownName', ':lastName')
-            ->andWhere($qb->expr()->eq('o.subject', ':uuid'))
+            ->set('o.isDeleted', ':true')
+            ->andWhere($qb->expr()->eq('o.subjectId', ':uuid'))
             ->setParameters(
                 [
-                    'lastName' => $subject->__toString() . ' - ' . $subject->getId()->toString(),
-                    'uuid'     => $subject->getId()->toString(),
+                    'true' => true,
+                    'uuid' => $subject->getId()->toString(),
                 ]
             )
         ;
@@ -42,13 +42,10 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal
         $qb->getQuery()->execute();
     }
 
-    // TODO Implements order & filter
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches)
     {
         $query = $this->createQueryBuilder()
-            ->addSelect('subject', 'user', 'collectivite')
-            ->leftJoin('o.subject', 'subject')
-            ->leftJoin('o.user', 'user')
+            ->addSelect('collectivite')
             ->leftJoin('o.collectivity', 'collectivite')
         ;
 
@@ -77,12 +74,21 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal
     private function addOrder(&$queryBuilder, $orderColumn, $orderDir)
     {
         switch ($orderColumn) {
-            case 'date':
-                $queryBuilder->addOrderBy('o.date', $orderDir);
+            case 'subjectId':
+                $queryBuilder->addOrderBy('o.subjectId', $orderDir);
+                break;
+            case 'userFullName':
+                $queryBuilder->addOrderBy('o.userFullName', $orderDir);
+                break;
+            case 'userEmail':
+                $queryBuilder->addOrderBy('o.userEmail', $orderDir);
                 break;
             case 'collectivite':
                 $queryBuilder
                     ->addOrderBy('collectivite.name', $orderDir);
+                break;
+            case 'date':
+                $queryBuilder->addOrderBy('o.date', $orderDir);
                 break;
             case 'subject':
                 $queryBuilder->addSelect('(case 
@@ -108,12 +114,8 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal
                 $queryBuilder->addSelect('(case when o.action = \'' . LogJournalActionDictionary::LOGIN . '\' THEN 1 WHEN o.action = \'' . LogJournalActionDictionary::CREATE . '\' THEN 2 WHEN o.action = \'' . LogJournalActionDictionary::UPDATE . '\' THEN 3 ELSE 4 END) AS HIDDEN action_order')
                     ->addOrderBy('action_order', $orderDir);
                 break;
-            case 'subjectId':
-                $queryBuilder->addOrderBy('o.lastKnownName', $orderDir);
-                break;
-            case 'utilisateur':
-                $queryBuilder->addOrderBy('user.firstName', $orderDir)
-                ->addOrderBy('user.lastName', $orderDir);
+            case 'subjectName':
+                $queryBuilder->addOrderBy('o.subjectName', $orderDir);
                 break;
         }
     }
@@ -122,13 +124,25 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal
     {
         foreach ($searches as $columnName => $search) {
             switch ($columnName) {
-                case 'date':
-                    $queryBuilder->andWhere('o.date LIKE :date')
-                    ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                case 'subjectId':
+                    $queryBuilder->andWhere('o.subjectId LIKE :id')
+                        ->setParameter('id', '%' . $search . '%');
+                    break;
+                case 'userFullName':
+                    $queryBuilder->andWhere('o.userFullName LIKE :name')
+                        ->setParameter('name', '%' . $search . '%');
+                    break;
+                case 'userEmail':
+                    $queryBuilder->andWhere('o.userEmail LIKE :email')
+                        ->setParameter('email', '%' . $search . '%');
                     break;
                 case 'collectivite':
                     $queryBuilder->andWhere('collectivite.name LIKE :collectivite')
                         ->setParameter('collectivite', '%' . $search . '%');
+                    break;
+                case 'date':
+                    $queryBuilder->andWhere('o.date LIKE :date')
+                    ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
                     break;
                 case 'subject':
                     $queryBuilder->andWhere('o.subjectType = :subject')
@@ -138,23 +152,30 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal
                     $queryBuilder->andWhere('o.action = :action')
                         ->setParameter('action', $search);
                     break;
-                case 'subjectId':
-                    $queryBuilder->andWhere('o.subjectId LIKE :subjectId')
-                        ->setParameter('subjectId', '%' . $search . '%');
-                    break;
-                case 'utilisateur':
-                    $queryBuilder->andWhere('CONCAT(user.firstName, \' \', user.lastName) LIKE :name')
-                        ->setParameter('name', '%' . $search . '%');
+                case 'subjectName':
+                    $queryBuilder->andWhere('o.subjectName LIKE :subjectName')
+                        ->setParameter('subjectName', '%' . $search . '%');
                     break;
             }
         }
     }
 
-    public function findAllByCollectivity(Collectivity $collectivity, $limit = 15)
+    public function findAllByCollectivityWithoutUserSubjects(Collectivity $collectivity, $limit)
     {
         $qb = $this->createQueryBuilder();
         $qb->andWhere($qb->expr()->eq('o.collectivity', ':collectivity'))
-            ->setParameter('collectivity', $collectivity)
+            ->andWhere($qb->expr()->notIn('o.subjectType', ':userTypes'))
+            ->setParameters([
+                'collectivity' => $collectivity,
+                'userTypes'    => [
+                    LogJournalSubjectDictionary::USER_COLLECTIVITY,
+                    LogJournalSubjectDictionary::USER_EMAIL,
+                    LogJournalSubjectDictionary::USER_FIRSTNAME,
+                    LogJournalSubjectDictionary::USER_LASTNAME,
+                    LogJournalSubjectDictionary::USER_PASSWORD,
+                    LogJournalSubjectDictionary::USER_USER,
+                ],
+            ])
             ->addOrderBy('o.date', 'DESC')
             ->setMaxResults($limit)
         ;

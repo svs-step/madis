@@ -80,16 +80,21 @@ class LogJournalSubscriberTest extends TestCase
         $this->entityManager->persist($logJournal)->shouldBeCalled();
         $this->entityManager->flush()->shouldBeCalled();
 
-        $this->logJournalRepository->updateLastKnownNameEntriesForGivenSubject($event->getSubject())->shouldBeCalled();
+        $this->logJournalRepository->updateDeletedLog($event->getSubject())->shouldBeCalled();
 
         $this->sut->saveLogJournal($event);
     }
 }
 
-class FooLoggableSubject extends LoggableSubject
+class FooLoggableSubject implements LoggableSubject
 {
     public function __toString(): string
     {
         return 'foo';
+    }
+
+    public function getId()
+    {
+        return '1';
     }
 }

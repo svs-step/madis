@@ -28,13 +28,14 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
+use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 /**
  * Action de protection / Plan d'action.
  */
-class Mesurement
+class Mesurement implements LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;

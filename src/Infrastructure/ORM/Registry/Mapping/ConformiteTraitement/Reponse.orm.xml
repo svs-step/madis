@@ -8,6 +8,8 @@
 
     <entity name="App\Domain\Registry\Model\ConformiteTraitement\Reponse" table="conformite_traitement_reponse">
 
+        <id name="id" column="id" type="uuid"/>
+
         <field name="conforme" type="boolean"/>
 
         <many-to-one field="question" target-entity="App\Domain\Registry\Model\ConformiteTraitement\Question"/>

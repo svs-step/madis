@@ -7,6 +7,8 @@
 
     <entity name="App\Domain\User\Model\ComiteIlContact" table="user_comite_il_contact">
 
+        <id name="id" column="id" type="uuid"/>
+
         <embedded name="contact" class="App\Domain\User\Model\Embeddable\Contact"/>
 
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity" inversed-by="comiteIlContacts"/>

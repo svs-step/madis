@@ -29,13 +29,20 @@ use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Application\Traits\Model\SoftDeletableTrait;
 use App\Domain\Reporting\Model\LoggableSubject;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
-class Violation extends LoggableSubject
+class Violation implements LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;
     use HistoryTrait;
     use SoftDeletableTrait;
+
+    /**
+     * @var UuidInterface
+     */
+    private $id;
 
     /**
      * @var \DateTime|null
@@ -134,7 +141,7 @@ class Violation extends LoggableSubject
      */
     public function __construct()
     {
-        parent::__construct();
+        $this->id                        = Uuid::uuid4();
         $this->date                      = new \DateTime();
         $this->inProgress                = false;
         $this->origins                   = [];
@@ -142,6 +149,11 @@ class Violation extends LoggableSubject
         $this->concernedPeopleCategories = [];
         $this->potentialImpactsNature    = [];
         $this->proofs                    = [];
+    }
+
+    public function getId(): UuidInterface
+    {
+        return $this->id;
     }
 
     public function __toString(): string

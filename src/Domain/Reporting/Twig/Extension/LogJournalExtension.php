@@ -59,6 +59,7 @@ class LogJournalExtension extends AbstractExtension
             case LogJournalSubjectDictionary::USER_FIRSTNAME:
             case LogJournalSubjectDictionary::USER_USER:
             case LogJournalSubjectDictionary::USER_PASSWORD:
+            case LogJournalSubjectDictionary::USER_COLLECTIVITY:
                 return null;
                 break;
             case LogJournalSubjectDictionary::REGISTRY_CONFORMITE_TRAITEMENT:
@@ -70,9 +71,6 @@ class LogJournalExtension extends AbstractExtension
                 if (!$user->getCollectivity()->isHasModuleConformiteOrganisation()) {
                     return null;
                 }
-                break;
-            case LogJournalSubjectDictionary::USER_COLLECTIVITY:
-                return $this->router->generate('user_profile_collectivity_show');
                 break;
         }
 

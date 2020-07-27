@@ -8,6 +8,8 @@
 
     <entity name="App\Domain\Registry\Model\ConformiteOrganisation\Participant" table="registry_conformite_organisation_participant">
 
+        <id name="id" column="id" type="uuid"/>
+
         <field name="prenom" column="prenom" nullable="true"/>
         <field name="nomDeFamille" column="nom_de_famille" nullable="true"/>
         <field name="civilite" column="civilite" nullable="true"/>

@@ -28,11 +28,18 @@ use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Reporting\Model\LoggableSubject;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
-class ConformiteTraitement extends LoggableSubject
+class ConformiteTraitement implements LoggableSubject
 {
     use CreatorTrait;
     use HistoryTrait;
+
+    /**
+     * @var UuidInterface
+     */
+    private $id;
 
     /**
      * @var Treatment
@@ -61,11 +68,16 @@ class ConformiteTraitement extends LoggableSubject
 
     public function __construct()
     {
-        parent::__construct();
+        $this->id                       = Uuid::uuid4();
         $this->reponses                 = [];
         $this->nbConformes              = 0;
         $this->nbNonConformesMineures   = 0;
         $this->nbNonConformesMajeures   = 0;
+    }
+
+    public function getId(): UuidInterface
+    {
+        return $this->id;
     }
 
     public function getTraitement(): Treatment

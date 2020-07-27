@@ -7,6 +7,8 @@
 
     <entity name="App\Domain\User\Model\Collectivity" table="user_collectivity">
 
+        <id name="id" column="id" type="uuid"/>
+
         <field name="name" column="name"/>
         <field name="shortName" column="short_name" length="80"/>
         <field name="type" column="type"/>

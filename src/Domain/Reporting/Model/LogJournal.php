@@ -6,7 +6,6 @@ use App\Domain\Reporting\Dictionary\LogJournalActionDictionary;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Contain all user actions (Create, update, delete, login, and update user account).
@@ -24,9 +23,14 @@ class LogJournal
     private $collectivity;
 
     /**
-     * @var User
+     * @var string
      */
-    private $user;
+    private $userFullName;
+
+    /**
+     * @var string
+     */
+    private $userEmail;
 
     /**
      * @var \DateTimeImmutable
@@ -41,7 +45,7 @@ class LogJournal
     private $action;
 
     /**
-     * @see LogJournalSubjectDictionar
+     * @see LogJournalSubjectDictionary
      *
      * @var string
      */
@@ -50,33 +54,39 @@ class LogJournal
     /**
      * Can be null on delete action.
      *
-     * @var LoggableSubject|null
-     */
-    private $subject;
-
-    /*
-     * Need to know the last name subject on delete action
-     *
      * @var string
      */
-    private $lastKnownName;
+    private $subjectId;
+
+    /**
+     * @var string
+     */
+    private $subjectName;
+
+    /**
+     * @var bool
+     */
+    private $isDeleted;
 
     public function __construct(
         Collectivity $collectivity,
-        UserInterface $user,
+        string $userFullName,
+        string $userEmail,
         string $action,
         string $subjectType,
-        LoggableSubject $subject = null,
-        string $lastKnownName = null
+        string $subjectId,
+        string $subjectName
     ) {
-        $this->id            = Uuid::uuid4();
-        $this->collectivity  = $collectivity;
-        $this->user          = $user;
-        $this->date          = new \DateTimeImmutable();
-        $this->action        = $action;
-        $this->subjectType   = $subjectType;
-        $this->subject       = $subject;
-        $this->lastKnownName = $lastKnownName;
+        $this->id           = Uuid::uuid4();
+        $this->collectivity = $collectivity;
+        $this->userFullName = $userFullName;
+        $this->userEmail    = $userEmail;
+        $this->date         = new \DateTimeImmutable();
+        $this->action       = $action;
+        $this->subjectType  = $subjectType;
+        $this->subjectId    = $subjectId;
+        $this->subjectName  = $subjectName;
+        $this->isDeleted    = false;
     }
 
     public function getId(): Uuid
@@ -89,9 +99,14 @@ class LogJournal
         return $this->collectivity;
     }
 
-    public function getUser(): User
+    public function getUserFullName(): string
     {
-        return $this->user;
+        return $this->userFullName;
+    }
+
+    public function getUserEmail(): string
+    {
+        return $this->userEmail;
     }
 
     public function getDate(): \DateTimeImmutable
@@ -109,13 +124,18 @@ class LogJournal
         return $this->subjectType;
     }
 
-    public function getSubject(): ?LoggableSubject
+    public function getSubjectId(): string
     {
-        return $this->subject;
+        return $this->subjectId;
     }
 
-    public function getLastKnownName(): ?string
+    public function getSubjectName(): string
     {
-        return $this->lastKnownName;
+        return $this->subjectName;
+    }
+
+    public function isDeleted(): bool
+    {
+        return $this->isDeleted;
     }
 }

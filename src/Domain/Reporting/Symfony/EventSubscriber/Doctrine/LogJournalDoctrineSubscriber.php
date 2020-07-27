@@ -196,7 +196,15 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
 
         $subject = LogJournalSubjectDictionary::getSubjectFromClassName(\get_class($object));
 
-        $log = new LogJournal($this->getCollectivity($object), $user, $action, $subject, $object);
+        $log = new LogJournal(
+            $this->getCollectivity($object),
+            $user->getFullName(),
+            $user->getEmail(),
+            $action,
+            $subject,
+            $object->getId()->toString(),
+            $object->__toString()
+        );
         $this->eventDispatcher->dispatch(new LogJournalEvent($log));
     }
 
@@ -208,17 +216,19 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
             return;
         }
 
-        $user   = $this->security->getUser();
+        /** @var User $user */
+        $user = $this->security->getUser();
 
         $subject = LogJournalSubjectDictionary::getSubjectFromClassName(\get_class($object));
 
         $log = new LogJournal(
             $this->getCollectivity($object),
-            $user,
+            $user->getFullName(),
+            $user->getEmail(),
             LogJournalActionDictionary::DELETE,
             $subject,
-            null,
-            $object->__toString() . '-' . $object->getId()->__toString()
+            $object->getId()->toString(),
+            $object->__toString()
         );
 
         $this->eventDispatcher->dispatch(new LogJournalEvent($log, $object));
@@ -247,6 +257,7 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
 
     private function registerLogForUser(LoggableSubject $object)
     {
+        /** @var User $user */
         $user    = $this->security->getUser();
         $changes = $this->entityManager->getUnitOfWork()->getEntityChangeSet($object);
 
@@ -261,7 +272,15 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
             if (!\is_null($changes['deletedAt'][0])) {
                 $action = LogJournalActionDictionary::SOFT_DELETE_REVOKE;
             }
-            $log = new LogJournal($collectivity, $user, $action, LogJournalSubjectDictionary::USER_USER, $object);
+            $log = new LogJournal(
+                $collectivity,
+                $user->getFullName(),
+                $user->getEmail(),
+                $action,
+                LogJournalSubjectDictionary::USER_USER,
+                $object->getId()->toString(),
+                $object->__toString()
+            );
             $this->eventDispatcher->dispatch(new LogJournalEvent($log));
 
             return;
@@ -285,13 +304,22 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
         }
 
         foreach ($subjectTypes as $subjectType) {
-            $log = new LogJournal($collectivity, $user, LogJournalActionDictionary::UPDATE, $subjectType, $object);
+            $log = new LogJournal(
+                $collectivity,
+                $user->getFullName(),
+                $user->getEmail(),
+                LogJournalActionDictionary::UPDATE,
+                $subjectType,
+                $object->getId()->toString(),
+                $object->__toString()
+            );
             $this->eventDispatcher->dispatch(new LogJournalEvent($log));
         }
     }
 
     private function registerLogSoftDelete(LoggableSubject $object)
     {
+        /** @var User $user */
         $user         = $this->security->getUser();
         $changes      = $this->entityManager->getUnitOfWork()->getEntityChangeSet($object);
         $collectivity = $this->getCollectivity($object);
@@ -303,7 +331,15 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
         }
 
         $subject = LogJournalSubjectDictionary::getSubjectFromClassName(\get_class($object));
-        $log     = new LogJournal($collectivity, $user, $action, $subject, $object);
+        $log     = new LogJournal(
+            $collectivity,
+            $user->getFullName(),
+            $user->getEmail(),
+            $action,
+            $subject,
+            $object->getId()->toString(),
+            $object->__toString()
+        );
         $this->eventDispatcher->dispatch(new LogJournalEvent($log));
     }
 

@@ -28,12 +28,19 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Reporting\Model\LoggableSubject;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
-class Survey extends LoggableSubject
+class Survey implements LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;
     use HistoryTrait;
+
+    /**
+     * @var UuidInterface
+     */
+    private $id;
 
     /**
      * @var iterable
@@ -57,10 +64,15 @@ class Survey extends LoggableSubject
      */
     public function __construct()
     {
-        parent::__construct();
+        $this->id       = Uuid::uuid4();
         $this->answers  = [];
         $this->maturity = [];
         $this->score    = 0;
+    }
+
+    public function getId(): UuidInterface
+    {
+        return $this->id;
     }
 
     public function __toString(): string

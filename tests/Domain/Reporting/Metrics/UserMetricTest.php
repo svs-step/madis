@@ -102,7 +102,8 @@ class UserMetricTest extends TestCase
             $this->treatmentRepository->reveal(),
             $this->userProvider->reveal(),
             $this->evaluationRepository->reveal(),
-            $this->logJournalRepository->reveal()
+            $this->logJournalRepository->reveal(),
+            15
         );
     }
 
@@ -142,7 +143,7 @@ class UserMetricTest extends TestCase
         $collectivity->setHasModuleConformiteTraitement(true);
         $this->conformiteTraitementRepository->findAllByCollectivity(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $this->evaluationRepository->findLastByOrganisation(Argument::any())->shouldBeCalled()->willReturn(null);
-        $this->logJournalRepository->findAllByCollectivity($collectivity)->shouldBeCalled()->willReturn([]);
+        $this->logJournalRepository->findAllByCollectivityWithoutUserSubjects($collectivity, 15)->shouldBeCalled()->willReturn([]);
 
         $this->assertIsArray($this->userMetric->getData());
     }

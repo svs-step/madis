@@ -92,10 +92,12 @@ class LoginSubscriber implements EventSubscriberInterface
 
         $log = new LogJournal(
             $user->getCollectivity(),
-            $user,
+            $user->getFullName(),
+            $user->getEmail(),
             LogJournalActionDictionary::LOGIN,
             LogJournalSubjectDictionary::USER_USER,
-            $user
+            $user->getId()->toString(),
+            $user->getFullName()
         );
 
         $this->entityManager->persist($log);

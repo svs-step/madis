@@ -6,13 +6,19 @@ use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Modelize the relation between Processus and Evaluation.
  * Contain the conformité rating.
  */
-class Conformite extends LoggableSubject
+class Conformite implements LoggableSubject
 {
+    /**
+     * @var UuidInterface
+     */
+    private $id;
+
     /**
      * @var float|null
      */
@@ -45,10 +51,14 @@ class Conformite extends LoggableSubject
 
     public function __construct()
     {
-        parent::__construct();
         $this->id                = Uuid::uuid4();
         $this->reponses          = [];
         $this->actionProtections = [];
+    }
+
+    public function getId(): UuidInterface
+    {
+        return $this->id;
     }
 
     public function getConformite(): ?float

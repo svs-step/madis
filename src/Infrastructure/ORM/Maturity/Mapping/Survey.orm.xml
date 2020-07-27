@@ -8,6 +8,8 @@
 
     <entity name="App\Domain\Maturity\Model\Survey" table="maturity_survey">
 
+        <id name="id" column="id" type="uuid"/>
+
         <field name="score" column="score" type="integer"/>
 
         <one-to-many field="maturity" target-entity="App\Domain\Maturity\Model\Maturity" mapped-by="survey" orphan-removal="true">

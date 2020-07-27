@@ -77,12 +77,14 @@ class JournalisationController extends AbstractController
         /** @var LogModel $log */
         foreach ($logs as $log) {
             $reponse['data'][] = [
-                'utilisateur'  => $log->getUser()->getFullName(),
+                'subjectId'    => $log->getSubjectId(),
+                'userFullName' => $log->getUserFullName(),
+                'userEmail'    => $log->getUserEmail(),
                 'collectivite' => $log->getCollectivity()->getName(),
                 'date'         => date_format($log->getDate(), 'd-m-Y H:i:s'),
                 'subject'      => LogJournalSubjectDictionary::getSubjectLabelFromSubjectType($log->getSubjectType()),
                 'action'       => LogJournalActionDictionary::getActions()[$log->getAction()],
-                'subjectId'    => $log->getLastKnownName(),
+                'subjectName'  => $log->getSubjectName(),
                 'link'         => $this->generateLinkCellContent($this->logJournalLinkGenerator->getLink($log)),
             ];
         }
@@ -105,13 +107,15 @@ class JournalisationController extends AbstractController
     private function getCorrespondingLabelFromkey(string $key)
     {
         $array = [
-            '0' => 'utilisateur',
-            '1' => 'collectivite',
-            '2' => 'date',
-            '3' => 'subject',
-            '4' => 'action',
-            '5' => 'subjectId',
-            '6' => 'link',
+            '0' => 'subjectId',
+            '1' => 'userFullName',
+            '2' => 'userEmail',
+            '3' => 'collectivite',
+            '4' => 'date',
+            '5' => 'subject',
+            '6' => 'action',
+            '7' => 'subjectName',
+            '8' => 'link',
         ];
 
         return \array_key_exists($key, $array) ? $array[$key] : null;

@@ -12,19 +12,16 @@
 
         <field name="date" type="datetime_immutable"/>
         <field name="action"/>
+        <field name="userFullName"/>
+        <field name="userEmail"/>
         <field name="subjectType"/>
-        <field name="lastKnownName" nullable="true"/>
+        <field name="subjectId"/>
+        <field name="subjectName"/>
+        <field name="isDeleted" type="boolean"/>
 
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity" fetch="EAGER">
             <join-column nullable="false" on-delete="CASCADE" />
         </many-to-one>
-        <many-to-one field="user" target-entity="App\Domain\User\Model\User" fetch="EAGER">
-            <join-column nullable="false" on-delete="CASCADE" />
-        </many-to-one>
-        <many-to-one field="subject" target-entity="App\Domain\Reporting\Model\LoggableSubject" fetch="EAGER">
-            <join-column on-delete="SET NULL"/>
-        </many-to-one>
-
     </entity>
 
 </doctrine-mapping>

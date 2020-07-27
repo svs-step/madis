@@ -26,6 +26,7 @@ twig:
         app_image_sidebar_bottom_path: '%env(APP_IMAGE_SIDEBAR_BOTTOM_PATH)%'
         app_image_sidebar_reduced_path: '%env(APP_IMAGE_SIDEBAR_REDUCED_PATH)%'
         app_commune_svg_reduced_path: '%env(APP_COMMUNE_SVG_REDUCED_PATH)%'
+        app_user_dashboard_journalisation_limit: '%env(APP_USER_DASHBOARD_JOURNALISATION_LIMIT)%'
         default_dpo_civility: '%env(APP_DPO_CIVILITY)%'
         default_dpo_firstName: '%env(APP_DPO_FIRST_NAME)%'
         default_dpo_lastName: '%env(APP_DPO_LAST_NAME)%'

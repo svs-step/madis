@@ -25,7 +25,13 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <input class="form-control" type="text" id="search_utilisateur" placeholder="Utilisateur" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_subject_id" placeholder="Id" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_user_fullname" placeholder="Nom utilisateur" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_user_email" placeholder="Email utilisateur" style="width: 100%;">
                                 </th>
                                 <th>
                                     <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
@@ -50,17 +56,19 @@
                                     </select>
                                 </th>
                                 <th>
-                                    <input class="form-control" type="text" id="search_last_know_name" placeholder="Nom" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_subject_name" placeholder="Nom" style="width: 100%;">
                                 </th>
                                 <th></th>
                             </tr>
                             <tr>
-                                <th>Utilisateur</th>
+                                <th>Id</th>
+                                <th>Nom utilisateur</th>
+                                <th>Email utilisateur</th>
                                 <th>Collectivité</th>
                                 <th>Date</th>
                                 <th>Sujet</th>
                                 <th>Action</th>
-                                <th>Dernier nom connu - id</th>
+                                <th>Nom</th>
                                 <th>Lien</th>
                             </tr>
                         </thead>
@@ -77,16 +85,18 @@
 
     {% set dataTableOptions = {
         columns: [
-            {"data": "utilisateur"},
+            {"data": "subjectId"},
+            {"data": "userFullName"},
+            {"data": "userEmail"},
             {"data": "collectivite"},
             {"data": "date"},
             {"data": "subject"},
             {"data": "action"},
-            {"data": "subjectId"},
+            {"data": "subjectName"},
             {"data": "link", "className": "noVis"}
         ],
         order: [
-            [2, 'desc']
+            [4, 'desc']
         ],
     } %}
 
@@ -96,23 +106,29 @@
         $(document).ready(function() {
             $('#table_filter').hide();
             var oTable = $('#table').DataTable();
-            $('#search_utilisateur').keyup($.debounce(250, function(){
+            $('#search_subject_id').keyup($.debounce(250, function(){
                 oTable.column('0').search($(this).val()).draw() ;
             }));
-            $('#search_collectivite').keyup($.debounce(250, function(){
+            $('#search_user_fullname').keyup($.debounce(250, function(){
                 oTable.column('1').search($(this).val()).draw() ;
             }));
-            $('#search_date').change(function(){
+            $('#search_user_email').keyup($.debounce(250, function(){
                 oTable.column('2').search($(this).val()).draw() ;
-            });
-            $('#search_sujet').change(function(){
+            }));
+            $('#search_collectivite').keyup($.debounce(250, function(){
                 oTable.column('3').search($(this).val()).draw() ;
-            });
-            $('#search_action').change(function(){
+            }));
+            $('#search_date').change(function(){
                 oTable.column('4').search($(this).val()).draw() ;
             });
-            $('#search_last_know_name').keyup($.debounce(250, function(){
+            $('#search_sujet').change(function(){
                 oTable.column('5').search($(this).val()).draw() ;
+            });
+            $('#search_action').change(function(){
+                oTable.column('6').search($(this).val()).draw() ;
+            });
+            $('#search_subject_name').keyup($.debounce(250, function(){
+                oTable.column('7').search($(this).val()).draw() ;
             }));
         } );
     </script>
