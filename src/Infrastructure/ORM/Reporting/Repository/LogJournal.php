@@ -161,21 +161,14 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal, DataTa
         }
     }
 
-    public function findAllByCollectivityWithoutUserSubjects(Collectivity $collectivity, $limit)
+    public function findAllByCollectivityWithoutSubjects(Collectivity $collectivity, $limit, array $subjects = [])
     {
         $qb = $this->createQueryBuilder();
         $qb->andWhere($qb->expr()->eq('o.collectivity', ':collectivity'))
-            ->andWhere($qb->expr()->notIn('o.subjectType', ':userTypes'))
+            ->andWhere($qb->expr()->notIn('o.subjectType', ':subjects'))
             ->setParameters([
                 'collectivity' => $collectivity,
-                'userTypes'    => [
-                    LogJournalSubjectDictionary::USER_COLLECTIVITY,
-                    LogJournalSubjectDictionary::USER_EMAIL,
-                    LogJournalSubjectDictionary::USER_FIRSTNAME,
-                    LogJournalSubjectDictionary::USER_LASTNAME,
-                    LogJournalSubjectDictionary::USER_PASSWORD,
-                    LogJournalSubjectDictionary::USER_USER,
-                ],
+                'subjects'     => $subjects,
             ])
             ->addOrderBy('o.date', 'DESC')
             ->setMaxResults($limit)

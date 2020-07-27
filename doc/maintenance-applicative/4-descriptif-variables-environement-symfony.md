@@ -68,6 +68,9 @@ APP_FOOTER_PROVIDER_URL="https://example.fr"
 # Dashboard utilisateur paramétrage du nombre de données affiché dans le tableau de journalisation des logs
 APP_USER_DASHBOARD_JOURNALISATION_LIMIT=15
 
+# Nombre d'entrées affichées par page dans les tableaux des vues listes
+APP_DATATABLE_DEFAULT_PAGE_LENGTH=15
+
 # Configuration des images MADIS
 # Favicon
 APP_IMAGE_FAVICON_PATH="favicon.ico"

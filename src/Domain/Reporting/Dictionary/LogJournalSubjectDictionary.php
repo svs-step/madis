@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Dictionary;
 
 use App\Application\Dictionary\SimpleDictionary;
+use App\Domain\Admin\Model\Duplication;
 use App\Domain\Maturity\Model\Survey;
 use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
@@ -39,6 +40,7 @@ use App\Domain\User\Model\User;
 
 class LogJournalSubjectDictionary extends SimpleDictionary
 {
+    const ADMIN_DUPLICATION                           = 'admin_duplication';
     const MATURITY_SURVEY                             = 'maturity_survey';
     const REGISTRY_CONFORMITE_ORGANISATION_EVALUATION = 'registry_conformite_organisation_evaluation';
     const REGISTRY_CONFORMITE_TRAITEMENT              = 'registry_conformite_traitement';
@@ -56,6 +58,7 @@ class LogJournalSubjectDictionary extends SimpleDictionary
     const REGISTRY_VIOLATION                          = 'registry_violation';
 
     const CLASS_NAME_SUBJECT = [
+        Duplication::class          => self::ADMIN_DUPLICATION,
         Survey::class               => self::MATURITY_SURVEY,
         Collectivity::class         => self::USER_COLLECTIVITY,
         Evaluation::class           => self::REGISTRY_CONFORMITE_ORGANISATION_EVALUATION,
@@ -80,6 +83,7 @@ class LogJournalSubjectDictionary extends SimpleDictionary
     public static function getSubjects()
     {
         return [
+            self::ADMIN_DUPLICATION                           => 'Duplication',
             self::REGISTRY_MESUREMENT                         => 'Action de protection',
             self::USER_COLLECTIVITY                           => 'Collectivité',
             self::REGISTRY_CONFORMITE_TRAITEMENT              => 'Conformité traitement',

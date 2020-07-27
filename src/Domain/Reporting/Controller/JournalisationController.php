@@ -64,7 +64,7 @@ class JournalisationController extends AbstractController
                 'subject'      => LogJournalSubjectDictionary::getSubjectLabelFromSubjectType($log->getSubjectType()),
                 'action'       => LogJournalActionDictionary::getActions()[$log->getAction()],
                 'subjectName'  => $log->getSubjectName(),
-                'link'         => $this->generateLinkCellContent($this->logJournalLinkGenerator->getLink($log)),
+                'link'         => $this->generateLinkCellContent($log),
             ];
         }
 
@@ -74,8 +74,14 @@ class JournalisationController extends AbstractController
         return $jsonResponse;
     }
 
-    private function generateLinkCellContent(string $content)
+    private function generateLinkCellContent(LogModel $log)
     {
+        if (LogJournalSubjectDictionary::ADMIN_DUPLICATION === $log->getSubjectType()) {
+            return;
+        }
+
+        $content = $this->logJournalLinkGenerator->getLink($log);
+
         if (LogJournalLinkGenerator::DELETE_LABEL === $content) {
             return $content;
         }

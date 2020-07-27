@@ -50,6 +50,10 @@ class LogJournalExtension extends AbstractExtension
 
     public function getLogJournalLink(LogJournal $logJournal): ?string
     {
+        if (LogJournalSubjectDictionary::ADMIN_DUPLICATION === $logJournal->getSubjectType()) {
+            return null;
+        }
+
         /** @var User $user */
         $user = $this->security->getUser();
         $link = $this->logJournalLinkGenerator->getLink($logJournal);

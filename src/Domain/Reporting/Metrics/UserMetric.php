@@ -31,6 +31,7 @@ use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Registry\Service\ConformiteOrganisationService;
+use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
 use App\Domain\Reporting\Repository\LogJournal;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
 use Doctrine\Common\Inflector\Inflector;
@@ -200,7 +201,20 @@ class UserMetric implements MetricInterface
             ['collectivity' => $collectivity]
         );
 
-        $data['logJournal'] = $this->logJournalRepository->findAllByCollectivityWithoutUserSubjects($collectivity, $this->userLogJounalViewLimit);
+        $data['logJournal'] = $this->logJournalRepository
+            ->findAllByCollectivityWithoutSubjects(
+                $collectivity,
+                $this->userLogJounalViewLimit,
+                [
+                    LogJournalSubjectDictionary::USER_COLLECTIVITY,
+                    LogJournalSubjectDictionary::USER_EMAIL,
+                    LogJournalSubjectDictionary::USER_FIRSTNAME,
+                    LogJournalSubjectDictionary::USER_LASTNAME,
+                    LogJournalSubjectDictionary::USER_PASSWORD,
+                    LogJournalSubjectDictionary::USER_USER,
+                    LogJournalSubjectDictionary::ADMIN_DUPLICATION,
+                ]
+            );
 
         $maturity = $this->entityManager->getRepository(Survey::class)->findBy(
             ['collectivity' => $collectivity],

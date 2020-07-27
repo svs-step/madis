@@ -36,7 +36,7 @@ interface LogJournal extends CRUDRepositoryInterface
 
     public function count();
 
-    public function findAllByCollectivityWithoutUserSubjects(Collectivity $collectivity, $limit);
+    public function findAllByCollectivityWithoutSubjects(Collectivity $collectivity, $limit, array $subjects = []);
 
     public function deleteAllAnteriorToDate(\DateTime $date);
 }
