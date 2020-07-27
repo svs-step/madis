@@ -5,6 +5,7 @@ namespace App\Domain\Reporting\Generator\Word;
 use App\Domain\Registry\Dictionary\ConformiteOrganisation\ReponseDictionary;
 use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
 use App\Domain\Registry\Model\ConformiteOrganisation\Reponse;
+use App\Domain\Registry\Model\Mesurement;
 use App\Domain\User\Dictionary\ContactCivilityDictionary;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shared\Converter;
@@ -64,9 +65,12 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
                     $this->getFormattedReponse($reponse),
                 ];
             }
+            $actions = !empty(\iterable_to_array($conformite->getActionProtections()))
+                ? $this->getFormattedActionsDeProtection(\iterable_to_array($conformite->getActionProtections()))
+                : 'Aucune';
             $processus[] = [
                 'Actions de protection',
-                !empty(\iterable_to_array($conformite->getActionProtections())) ? \iterable_to_array($conformite->getActionProtections()) : 'Aucune',
+                $actions,
             ];
 
             $this->addTable($section, $processus, true, self::TABLE_ORIENTATION_VERTICAL);
@@ -185,5 +189,16 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         });
 
         return $conformites;
+    }
+
+    private function getFormattedActionsDeProtection(array $actions)
+    {
+        $formattedActions = [];
+        /** @var Mesurement $action */
+        foreach ($actions as $action) {
+            $formattedActions[] = $action->getName();
+        }
+
+        return $formattedActions;
     }
 }

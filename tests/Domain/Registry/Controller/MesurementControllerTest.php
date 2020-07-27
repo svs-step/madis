@@ -39,6 +39,7 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -46,6 +47,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -91,6 +93,11 @@ class MesurementControllerTest extends TestCase
     private $formFactory;
 
     /**
+     * @var RouterInterface|ObjectProphecy
+     */
+    private $router;
+
+    /**
      * @var MesurementController
      */
     private $controller;
@@ -105,6 +112,7 @@ class MesurementControllerTest extends TestCase
         $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
         $this->formFactory                    = $this->prophesize(FormFactoryInterface::class);
+        $this->router                         = $this->prophesize(RouterInterface::class);
 
         $this->controller = new MesurementController(
             $this->managerProphecy->reveal(),
@@ -114,7 +122,8 @@ class MesurementControllerTest extends TestCase
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
-            $this->formFactory->reveal()
+            $this->formFactory->reveal(),
+            $this->router->reveal()
         );
     }
 
