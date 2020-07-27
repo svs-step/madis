@@ -2,8 +2,8 @@
 {% import _self as formMacros %}
 
 {% macro printComiteIlContact(contact) %}
-    <div class="js-comite-il-contacts-item">
-        <a href="#" class="js-remove-contact pull-right">
+    <div class="js-collection-item">
+        <a href="#" class="js-remove-item pull-right">
             <i class="fa fa-times" style="color:#ff746d;"></i>
         </a>
         {{ form_errors(contact) }}
@@ -26,6 +26,8 @@
                 {{ form_row(form.siren) }}
                 {{ form_row(form.active) }}
                 {{ form_row(form.website) }}
+                {{ form_row(form.hasModuleConformiteTraitement) }}
+                {{ form_row(form.hasModuleConformiteOrganisation) }}
             </div>
         </div>
 
@@ -94,14 +96,14 @@
         <div class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.comite_il'|trans }}</h3></div>
             <div class="box-body">
-                <div class="js-comite-il-contacts-wrapper"
+                <div class="js-collection-wrapper"
                      data-prototype="{{ formMacros.printComiteIlContact(form.comiteIlContacts.vars.prototype)|e('html_attr') }}"
                      data-index="{{ form.comiteIlContacts|length }}"
                 >
                     {% for contact in form.comiteIlContacts %}
                         {{ formMacros.printComiteIlContact(contact) }}
                     {% endfor %}
-                    <a href="#" class="js-comite-il-contacts-add">
+                    <a href="#" class="js-collection-add">
                         <span class="fa fa-plus-circle"></span>
                         Ajouter un membre
                     </a>

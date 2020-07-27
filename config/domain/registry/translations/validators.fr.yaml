@@ -109,3 +109,14 @@ registry_mesurement:
 registry_treatment_data_category:
     name:
         not_blank: Vous devez renseigner un nom
+
+registry_conformite_organisation_reponse:
+    reponse_raison:
+        mandatory: La raison est obligatoire
+    reponse:
+        not_null: La réponse est obligatoire
+
+registry_conformite_organisation_date:
+    date:
+        not_posterior: La date indiquée ne peut être postérieure à la date du jour
+        not_null: La date est obligatoire

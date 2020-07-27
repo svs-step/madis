@@ -27,8 +27,10 @@ namespace App\Tests\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Controller\MesurementController;
+use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Form\Type\MesurementType;
 use App\Domain\Registry\Model;
+use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Model as UserModel;
@@ -37,7 +39,15 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
+use Ramsey\Uuid\Uuid;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -80,6 +90,13 @@ class MesurementControllerTest extends TestCase
      */
     private $userProviderProphecy;
 
+    private $formFactory;
+
+    /**
+     * @var RouterInterface|ObjectProphecy
+     */
+    private $router;
+
     /**
      * @var MesurementController
      */
@@ -94,6 +111,8 @@ class MesurementControllerTest extends TestCase
         $this->wordHandlerProphecy            = $this->prophesize(WordHandler::class);
         $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
+        $this->formFactory                    = $this->prophesize(FormFactoryInterface::class);
+        $this->router                         = $this->prophesize(RouterInterface::class);
 
         $this->controller = new MesurementController(
             $this->managerProphecy->reveal(),
@@ -102,7 +121,9 @@ class MesurementControllerTest extends TestCase
             $this->collectivityRepositoryProphecy->reveal(),
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
-            $this->userProviderProphecy->reveal()
+            $this->userProviderProphecy->reveal(),
+            $this->formFactory->reveal(),
+            $this->router->reveal()
         );
     }
 
@@ -257,5 +278,43 @@ class MesurementControllerTest extends TestCase
             $response,
             $this->controller->reportAction()
         );
+    }
+
+    public function testCreateFromJsonAction()
+    {
+        $mesurementName = 'fooName';
+        $request        = new Request([], [
+            'mesurement[name]' => $mesurementName,
+        ]);
+
+        $fomType    = $this->prophesize(FormInterface::class);
+        $mesurement = $this->prophesize(Mesurement::class);
+
+        $this->formFactory->create(MesurementType::class, null, ['csrf_protection' => false])->shouldBeCalled()->willReturn($fomType->reveal());
+
+        $fomType->handleRequest($request)->shouldBeCalled()->willReturn(true);
+        $fomType->isSubmitted()->shouldBeCalled()->willReturn(true);
+        $fomType->isValid()->shouldBeCalled()->willReturn(true);
+        $fomType->getData()->shouldBeCalled()->willReturn($mesurement->reveal());
+        $mesurement->setStatus(MesurementStatusDictionary::STATUS_NOT_APPLIED)->shouldBeCalled();
+
+        $this->managerProphecy->persist($mesurement->reveal())->shouldBeCalled();
+        $this->managerProphecy->flush()->shouldBeCalled();
+
+        $uuid = Uuid::uuid4();
+        $mesurement->getId()->shouldBeCalled()->willReturn($uuid);
+        $mesurement->getName()->shouldBeCalled()->willReturn($mesurementName);
+
+        $expectedResponse = \json_encode([
+            'id'   => $uuid->toString(),
+            'name' => $mesurementName,
+        ]);
+
+        $response = $this->controller->createFromJsonAction($request);
+
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertSame(Response::HTTP_CREATED, $response->getStatusCode());
+        $decoded_response = \json_decode($response->getContent(), true);
+        $this->assertEquals($expectedResponse, $decoded_response);
     }
 }

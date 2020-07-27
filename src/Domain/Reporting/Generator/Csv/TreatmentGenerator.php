@@ -23,12 +23,15 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Generator\Csv;
 
+use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
+use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentCollectingMethodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use App\Domain\Registry\Dictionary\TreatmentUltimateFateDictionary;
 use App\Domain\User\Repository\Collectivity;
+use App\Infrastructure\ORM\Registry\Repository\ConformiteTraitement\Question;
 use App\Infrastructure\ORM\Registry\Repository\Treatment;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -49,14 +52,21 @@ class TreatmentGenerator extends AbstractGenerator
      */
     private $treatmentRepository;
 
+    /**
+     * @var Question
+     */
+    private $questionRepository;
+
     public function __construct(
         TranslatorInterface $translatorInterface,
         Collectivity $collectivityRepository,
-        Treatment $treatmentRepository
+        Treatment $treatmentRepository,
+        Question $questionRepository
     ) {
         $this->translator             = $translatorInterface;
         $this->collectivityRepository = $collectivityRepository;
         $this->treatmentRepository    = $treatmentRepository;
+        $this->questionRepository     = $questionRepository;
     }
 
     /**
@@ -74,7 +84,8 @@ class TreatmentGenerator extends AbstractGenerator
             $this->treatmentDetailsHeaders(),
             $this->treatmentSecurityHeaders(),
             $this->treatmentSpecificHeaders(),
-            $this->treatmentProofHeaders()
+            $this->treatmentProofHeaders(),
+            $this->treatmentConformiteHeaders()
         );
         $data = [$headers];
 
@@ -90,7 +101,8 @@ class TreatmentGenerator extends AbstractGenerator
                 $this->initializeTreatmentDetails($treatment),
                 $this->initializeTreatmentSecurity($treatment),
                 $this->initializeTreatmentSpecific($treatment),
-                $this->initializeTreatmentProof($treatment)
+                $this->initializeTreatmentProof($treatment),
+                $this->initializeTreatmentConformite($treatment)
             );
             array_push($data, $extract);
         }
@@ -100,12 +112,12 @@ class TreatmentGenerator extends AbstractGenerator
 
     private function collectivityHeaders(): array
     {
-        $colletivityTrans = $this->translator->trans('registry.treatment.list.collectivity');
+        $collectivityTrans = $this->translator->trans('registry.treatment.list.collectivity');
 
         return [
-            $colletivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.name'),
-            $colletivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.siren'),
-            $colletivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.address_insee'),
+            $collectivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.name'),
+            $collectivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.siren'),
+            $collectivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.address_insee'),
         ];
     }
 
@@ -352,5 +364,53 @@ class TreatmentGenerator extends AbstractGenerator
         return [
             count($treatment->getProofs()),
         ];
+    }
+
+    private function treatmentConformiteHeaders()
+    {
+        $conformiteTraitementHeaders = [
+            $this->translator->trans('registry.treatment.show.conformite_traitement'),
+            $this->translator->trans('registry.treatment.show.conformite_traitement_created_at'),
+            $this->translator->trans('registry.treatment.show.conformite_traitement_updated_at'),
+        ];
+
+        foreach ($this->questionRepository->findAll(['position' => 'asc']) as $question) {
+            $conformiteTraitementHeaders[] = $this->translator->trans('registry.treatment.show.conformite_traitement') . ' - Question : ' . $question->getQuestion();
+        }
+
+        return $conformiteTraitementHeaders;
+    }
+
+    private function initializeTreatmentConformite(\App\Domain\Registry\Model\Treatment $treatment): array
+    {
+        if (!$treatment->getCollectivity()->isHasModuleConformiteTraitement()) {
+            return ['Module non actif'];
+        }
+
+        $conformtiteTraitement = $treatment->getConformiteTraitement();
+        if (\is_null($conformtiteTraitement)) {
+            return ['Non effectuée'];
+        }
+
+        $data = [
+            ConformiteTraitementLevelDictionary::getConformites()[ConformiteTraitementCompletion::getConformiteTraitementLevel($conformtiteTraitement)],
+            $this->getDate($conformtiteTraitement->getCreatedAt()),
+            $this->getDate($conformtiteTraitement->getUpdatedAt()),
+        ];
+
+        $responses = $treatment->getConformiteTraitement()->getReponses();
+
+        $ordered = [];
+        foreach ($responses as $reponse) {
+            $ordered[$reponse->getQuestion()->getPosition()] = $reponse;
+        }
+
+        \ksort($ordered);
+
+        foreach ($ordered as $reponse) {
+            $data[] = $reponse->isConforme() ? 'Conforme' : 'Non-conforme';
+        }
+
+        return $data;
     }
 }

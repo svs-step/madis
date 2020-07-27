@@ -30,6 +30,9 @@ use App\Application\Traits\Model\HistoryTrait;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * Action de protection / Plan d'action.
+ */
 class Mesurement
 {
     use CollectivityTrait;
@@ -116,14 +119,26 @@ class Mesurement
     private $manager;
 
     /**
+     * @var iterable
+     */
+    private $conformiteOrganisation;
+
+    /**
+     * @var iterable
+     */
+    private $conformiteTraitementReponses;
+
+    /**
      * Mesurement constructor.
      *
      * @throws \Exception
      */
     public function __construct()
     {
-        $this->id     = Uuid::uuid4();
-        $this->proofs = [];
+        $this->id                           = Uuid::uuid4();
+        $this->proofs                       = [];
+        $this->conformiteTraitementReponses = [];
+        $this->conformiteOrganisation       = [];
     }
 
     public function __toString(): string
@@ -257,5 +272,15 @@ class Mesurement
     public function setManager(?string $manager): void
     {
         $this->manager = $manager;
+    }
+
+    public function getConformiteOrganisation()
+    {
+        return $this->conformiteOrganisation;
+    }
+
+    public function getConformiteTraitementReponses()
+    {
+        return $this->conformiteTraitementReponses;
     }
 }

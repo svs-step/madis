@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Model;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\Embeddable\ComplexChoice;
 use App\Domain\Registry\Model\Embeddable\Delay;
 use Ramsey\Uuid\Uuid;
@@ -355,6 +356,11 @@ class Treatment
      * @var string|null
      */
     private $ultimateFate;
+
+    /**
+     * @var ConformiteTraitement|null
+     */
+    private $conformiteTraitement;
 
     /**
      * Treatment constructor.
@@ -892,5 +898,15 @@ class Treatment
     public function setInnovativeUse(bool $innovativeUse): void
     {
         $this->innovativeUse = $innovativeUse;
+    }
+
+    public function getConformiteTraitement(): ?ConformiteTraitement
+    {
+        return $this->conformiteTraitement;
+    }
+
+    public function setConformiteTraitement(ConformiteTraitement $conformiteTraitement = null): void
+    {
+        $this->conformiteTraitement = $conformiteTraitement;
     }
 }

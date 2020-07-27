@@ -1,0 +1,5 @@
+App\Domain\Registry\Model\ConformiteOrganisation\Evaluation:
+  evaluation_1:
+    date: <(new \DateTime('-3 days'))>
+    collectivity: '@user_collectivity_awkan'
+

@@ -89,7 +89,13 @@
         </many-to-many>
         <many-to-one field="clonedFrom" target-entity="App\Domain\Registry\Model\Treatment" >
             <join-column on-delete="SET NULL" />
-        </many-to-one>>
+        </many-to-one>
+        <one-to-one field="conformiteTraitement" target-entity="App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement" mapped-by="traitement">
+            <cascade>
+                <cascade-remove/>
+            </cascade>
+            <join-column nullable="true"/>
+        </one-to-one>
 
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">

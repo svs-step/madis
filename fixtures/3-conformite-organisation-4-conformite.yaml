@@ -1,0 +1,64 @@
+App\Domain\Registry\Model\ConformiteOrganisation\Conformite :
+  evaluation_1_processus_1_conformite:
+    processus: '@processus_1'
+    evaluation: '@evaluation_1'
+    pilote: <firstName()> <lastName()>
+    conformite: 2.3
+    actionProtections: ['@registry_mesurement_awkan_1', '@registry_mesurement_awkan_6']
+
+  evaluation_1_processus_2_conformite:
+    processus: '@processus_2'
+    evaluation: '@evaluation_1'
+    conformite: 2.7
+    pilote: <firstName()> <lastName()>
+
+  evaluation_1_processus_3_conformite:
+    processus: '@processus_3'
+    evaluation: '@evaluation_1'
+    pilote: <firstName()> <lastName()>
+
+  evaluation_1_processus_4_conformite:
+    processus: '@processus_4'
+    evaluation: '@evaluation_1'
+    pilote: <firstName()> <lastName()>
+
+  evaluation_1_processus_5_conformite:
+    processus: '@processus_5'
+    evaluation: '@evaluation_1'
+    pilote: <firstName()> <lastName()>
+    actionProtections: ['@registry_mesurement_awkan_7','@registry_mesurement_awkan_8']
+
+  evaluation_1_processus_6_conformite:
+    processus: '@processus_6'
+    evaluation: '@evaluation_1'
+    pilote: <firstName()> <lastName()>
+
+  evaluation_1_processus_7_conformite:
+    processus: '@processus_7'
+    evaluation: '@evaluation_1'
+    pilote: <firstName()> <lastName()>
+
+  evaluation_1_processus_8_conformite:
+    processus: '@processus_8'
+    evaluation: '@evaluation_1'
+    pilote: <firstName()> <lastName()>
+
+  evaluation_1_processus_9_conformite:
+    processus: '@processus_9'
+    evaluation: '@evaluation_1'
+    pilote: <firstName()> <lastName()>
+
+  evaluation_1_processus_10_conformite:
+    processus: '@processus_10'
+    evaluation: '@evaluation_1'
+    pilote: <firstName()> <lastName()>
+
+  evaluation_1_processus_11_conformite:
+    processus: '@processus_11'
+    evaluation: '@evaluation_1'
+    pilote: <firstName()> <lastName()>
+
+  evaluation_1_processus_12_conformite:
+    processus: '@processus_12'
+    evaluation: '@evaluation_1'
+    pilote: <firstName()> <lastName()>

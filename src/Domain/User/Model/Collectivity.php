@@ -32,6 +32,9 @@ use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * Organisation.
+ */
 class Collectivity
 {
     use HistoryTrait;
@@ -127,18 +130,36 @@ class Collectivity
     private $comiteIlContacts;
 
     /**
+     * @var bool
+     */
+    private $hasModuleConformiteTraitement;
+
+    /**
+     * @var bool
+     */
+    private $hasModuleConformiteOrganisation;
+
+    /**
+     * @var iterable
+     */
+    private $evaluations;
+
+    /**
      * Collectivity constructor.
      *
      * @throws \Exception
      */
     public function __construct()
     {
-        $this->id                 = Uuid::uuid4();
-        $this->users              = new ArrayCollection();
-        $this->comiteIlContacts   = new ArrayCollection();
-        $this->active             = true;
-        $this->differentDpo       = false;
-        $this->differentItManager = false;
+        $this->id                              = Uuid::uuid4();
+        $this->users                           = new ArrayCollection();
+        $this->comiteIlContacts                = new ArrayCollection();
+        $this->active                          = true;
+        $this->differentDpo                    = false;
+        $this->differentItManager              = false;
+        $this->hasModuleConformiteTraitement   = false;
+        $this->hasModuleConformiteOrganisation = false;
+        $this->evaluations                     = [];
     }
 
     public function __toString(): string
@@ -344,5 +365,38 @@ class Collectivity
     public function getComiteIlContacts()
     {
         return $this->comiteIlContacts;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHasModuleConformiteTraitement(): ?bool
+    {
+        return $this->hasModuleConformiteTraitement;
+    }
+
+    public function setHasModuleConformiteTraitement(bool $hasModuleConformiteTraitement): void
+    {
+        $this->hasModuleConformiteTraitement = $hasModuleConformiteTraitement;
+    }
+
+    public function isHasModuleConformiteOrganisation(): bool
+    {
+        return $this->hasModuleConformiteOrganisation;
+    }
+
+    public function setHasModuleConformiteOrganisation(bool $hasModuleConformiteOrganisation): void
+    {
+        $this->hasModuleConformiteOrganisation = $hasModuleConformiteOrganisation;
+    }
+
+    public function getEvaluations(): iterable
+    {
+        return $this->evaluations;
+    }
+
+    public function setEvaluations(iterable $evaluations): void
+    {
+        $this->evaluations = $evaluations;
     }
 }

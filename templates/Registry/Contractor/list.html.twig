@@ -93,9 +93,9 @@
                             </td>
                             <td>
                                 {% if object.sendingDataOutsideEu %}
-                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
+                                    <span class="label label-danger">{{ 'label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
+                                    <span class="label label-success">{{ 'label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                             {% if is_granted('ROLE_USER') %}

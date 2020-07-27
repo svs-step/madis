@@ -1,3 +1,7 @@
+_registry_conformite_traitement:
+    resource: 'conformite_traitement.yaml'
+    prefix:   '/conformite-traitement'
+
 _registry_contractor:
     resource: 'contractor.yaml'
     prefix:   '/sous-traitants'
@@ -21,3 +25,7 @@ _registry_treatment:
 _registry_violation:
     resource: 'violation.yaml'
     prefix:   '/violations'
+
+_registry_conformite_organisation:
+    resource: 'conformite_organisation.yaml'
+    prefix:   '/conformite-organisation'

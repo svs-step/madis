@@ -1,0 +1,17 @@
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+
+{{ form_start(form) }}
+
+<div class="row"></div>
+
+{% include 'Registry/Conformite_traitement/_form_reponse.html.twig' with {'form': form.reponses} %}
+<div class="content-header content-header-custom-padding">
+    <h1>
+        {{ 'registry.treatment.title.edit'|trans }}
+        <small>{{ form.vars.value }}</small>
+    </h1>
+</div>
+{% include 'Registry/Treatment/_form.html.twig' with {'form': form.traitement} %}
+
+
+{{ form_end(form) }}

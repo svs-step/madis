@@ -1,0 +1,21 @@
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+
+{{ form_start(form) }}
+
+{{ include('Registry/Treatment/_form.html.twig') }}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">
+                    {{ 'registry.treatment.action.back_to_list'|trans }}
+                </a>
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ form_end(form) }}
+

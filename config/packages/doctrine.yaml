@@ -44,6 +44,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/ORM/Registry/Mapping/Embeddable'
                 prefix: App\Domain\Registry\Model\Embeddable
                 alias: RegistryEmbeddable
+            ConformiteTraitement:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/ORM/Registry/Mapping/ConformiteTraitement'
+                prefix: App\Domain\Registry\Model\ConformiteTraitement
+                alias: ConformiteTraitement
             User:
                 is_bundle: false
                 type: xml
@@ -56,4 +62,11 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/ORM/User/Mapping/Embeddable'
                 prefix: App\Domain\User\Model\Embeddable
                 alias: UserEmbeddable
+            ConformiteOrganisation:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/ORM/Registry/Mapping/ConformiteOrganisation'
+                prefix: App\Domain\Registry\Model\ConformiteOrganisation
+                alias: ConformiteOrganisation
+
 

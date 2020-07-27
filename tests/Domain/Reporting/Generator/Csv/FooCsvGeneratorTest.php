@@ -27,7 +27,7 @@ use App\Domain\Reporting\Generator\Csv\AbstractGenerator;
 use App\Domain\Reporting\Generator\Csv\GeneratorInterface;
 use PHPUnit\Framework\TestCase;
 
-class ExportCsvHandlerTest extends TestCase
+class FooCsvGeneratorTest extends TestCase
 {
     /**
      * @var FooCsvGenerator

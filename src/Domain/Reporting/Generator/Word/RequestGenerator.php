@@ -140,7 +140,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                     $request->getObject() ? RequestObjectDictionary::getObjects()[$request->getObject()] : null,
                 ],
                 [
-                    'Autre demande',
+                    'Demande explicite',
                     $request->getOtherObject(),
                 ],
                 [

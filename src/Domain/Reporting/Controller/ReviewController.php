@@ -28,6 +28,7 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Maturity\Repository as MaturityRepository;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -80,6 +81,16 @@ class ReviewController extends AbstractController
      */
     private $violationRepository;
 
+    /**
+     * @var Repository\ConformiteTraitement\ConformiteTraitement
+     */
+    private $conformiteTraitementRepository;
+
+    /**
+     * @var Evaluation
+     */
+    private $evaluationRepository;
+
     public function __construct(
         WordHandler $wordHandler,
         UserProvider $userProvider,
@@ -89,17 +100,21 @@ class ReviewController extends AbstractController
         Repository\Mesurement $mesurementRepository,
         Repository\Request $requestRepository,
         Repository\Violation $violationRepository,
-        MaturityRepository\Survey $surveyRepository
+        MaturityRepository\Survey $surveyRepository,
+        Repository\ConformiteTraitement\ConformiteTraitement $conformiteTraitementRepository,
+        Repository\ConformiteOrganisation\Evaluation $evaluationRepository
     ) {
-        $this->wordHandler          = $wordHandler;
-        $this->userProvider         = $userProvider;
-        $this->authorizationChecker = $authorizationChecker;
-        $this->treatmentRepository  = $treatmentRepository;
-        $this->contractorRepository = $contractorRepository;
-        $this->mesurementRepository = $mesurementRepository;
-        $this->requestRepository    = $requestRepository;
-        $this->violationRepository  = $violationRepository;
-        $this->surveyRepository     = $surveyRepository;
+        $this->wordHandler                    = $wordHandler;
+        $this->userProvider                   = $userProvider;
+        $this->authorizationChecker           = $authorizationChecker;
+        $this->treatmentRepository            = $treatmentRepository;
+        $this->contractorRepository           = $contractorRepository;
+        $this->mesurementRepository           = $mesurementRepository;
+        $this->requestRepository              = $requestRepository;
+        $this->violationRepository            = $violationRepository;
+        $this->surveyRepository               = $surveyRepository;
+        $this->conformiteTraitementRepository = $conformiteTraitementRepository;
+        $this->evaluationRepository           = $evaluationRepository;
     }
 
     /**
@@ -131,7 +146,9 @@ class ReviewController extends AbstractController
             $this->mesurementRepository->findAllByCollectivity($collectivity),
             $maturity,
             $this->requestRepository->findAllArchivedByCollectivity($collectivity, false),
-            $this->violationRepository->findAllArchivedByCollectivity($collectivity, false)
+            $this->violationRepository->findAllArchivedByCollectivity($collectivity, false),
+            $this->conformiteTraitementRepository->findAllByCollectivity($collectivity),
+            $this->evaluationRepository->findLastByOrganisation($collectivity)
         );
     }
 }
