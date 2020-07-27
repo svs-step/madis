@@ -43,7 +43,7 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal, DataTa
         $qb->getQuery()->execute();
     }
 
-    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches)
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
     {
         $query = $this->createQueryBuilder()
             ->addSelect('collectivite')

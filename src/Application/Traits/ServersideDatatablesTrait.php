@@ -44,7 +44,7 @@ trait ServersideDatatablesTrait
         return $reponse;
     }
 
-    protected function getResults(Request $request): ?Paginator
+    protected function getResults(Request $request, array $criteria = []): ?Paginator
     {
         $first      = $request->request->get('start');
         $maxResults = $request->request->get('length');
@@ -61,7 +61,7 @@ trait ServersideDatatablesTrait
             }
         }
 
-        return $this->repository->findPaginated($first, $maxResults, $orderColumn, $orderDir, $searches);
+        return $this->repository->findPaginated($first, $maxResults, $orderColumn, $orderDir, $searches, $criteria);
     }
 
     /**
