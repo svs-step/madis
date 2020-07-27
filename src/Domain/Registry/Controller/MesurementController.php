@@ -40,6 +40,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -73,6 +74,11 @@ class MesurementController extends CRUDController
      */
     protected $formFactory;
 
+    /**
+     * @var RouterInterface
+     */
+    protected $router;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -81,7 +87,8 @@ class MesurementController extends CRUDController
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
-        FormFactoryInterface $formFactory
+        FormFactoryInterface $formFactory,
+        RouterInterface $router
     ) {
         parent::__construct($entityManager, $translator, $repository);
         $this->collectivityRepository = $collectivityRepository;
@@ -89,6 +96,7 @@ class MesurementController extends CRUDController
         $this->authorizationChecker   = $authorizationChecker;
         $this->userProvider           = $userProvider;
         $this->formFactory            = $formFactory;
+        $this->router                 = $router;
     }
 
     /**
@@ -240,5 +248,24 @@ class MesurementController extends CRUDController
         ];
 
         return new JsonResponse(\json_encode($dataToSerialize), Response::HTTP_CREATED);
+    }
+
+    public function showMesurementAction(Request $request, string $id): Response
+    {
+        /* We get the referer to know if we come from MesurementListe or from PlanActionListe to return to the corresponding list */
+        $referer = filter_var($request->headers->get('referer'), FILTER_SANITIZE_URL);
+        if (null === $referer) {
+            $this->router->generate('registry_mesurement_list');
+        }
+
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        return $this->render($this->getTemplatingBasePath('show'), [
+            'object'  => $object,
+            'referer' => $referer,
+        ]);
     }
 }

@@ -104,9 +104,9 @@
                                 <td>
                                     {% if conformiteTraitement is not null %}
                                         <div class="stacked-bar-graph">
-                                            {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme tooltipchart"><span class="tooltipcharttext" style="width:50px;">{{ conformiteTraitement.nbConformes }}</span></span>{% endif %}
-                                            {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure tooltipchart"><span class="tooltipcharttext">{{ conformiteTraitement.nbNonConformesMineures }}</span></span>{% endif %}
-                                            {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure tooltipchart"><span class="tooltipcharttext">{{ conformiteTraitement.nbNonConformesMajeures }}</span></span>{% endif %}
+                                            {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme tooltipchart"><span class="tooltipcharttext">{{ labelConformite }} : {{ conformiteTraitement.nbConformes }}</span></span>{% endif %}
+                                            {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure tooltipchart"><span class="tooltipcharttext">{{ labelConformite }} : {{ conformiteTraitement.nbNonConformesMineures }}</span></span>{% endif %}
+                                            {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure tooltipchart"><span class="tooltipcharttext">{{ labelConformite }} : {{ conformiteTraitement.nbNonConformesMajeures }}</span></span>{% endif %}
                                         </div>
                                     {% endif %}
                                 </td>
@@ -167,16 +167,16 @@
             background-color: black;
             color: #fff;
             text-align: center;
-            padding: 5px 0;
+            padding: 5px;
             border-radius: 6px;
             height: 30px;
-            width: 50px;
             display: block;
             position: absolute;
             z-index: 2;
             top: 120%;
             left: 50%;
             transform: translateX(-50%);
+            white-space: nowrap;
         }
 
         .tooltipchart:hover .tooltipcharttext {
