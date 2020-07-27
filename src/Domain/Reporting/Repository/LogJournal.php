@@ -34,7 +34,7 @@ interface LogJournal extends CRUDRepositoryInterface
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches);
 
-    public function countLogs();
+    public function count();
 
     public function findAllByCollectivityWithoutUserSubjects(Collectivity $collectivity, $limit);
 

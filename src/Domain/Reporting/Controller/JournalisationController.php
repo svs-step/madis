@@ -2,6 +2,7 @@
 
 namespace App\Domain\Reporting\Controller;
 
+use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Reporting\Dictionary\LogJournalActionDictionary;
 use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
 use App\Domain\Reporting\Generator\LogJournalLinkGenerator;
@@ -15,10 +16,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 class JournalisationController extends AbstractController
 {
-    /**
-     * @var LogJournal
-     */
-    private $logRepository;
+    use ServersideDatatablesTrait;
 
     /**
      * @var RouterInterface
@@ -32,7 +30,7 @@ class JournalisationController extends AbstractController
 
     public function __construct(LogJournal $logRepository, RouterInterface $router, LogJournalLinkGenerator $logJournalLinkGenerator)
     {
-        $this->logRepository           = $logRepository;
+        $this->repository              = $logRepository;
         $this->router                  = $router;
         $this->logJournalLinkGenerator = $logJournalLinkGenerator;
     }
@@ -40,39 +38,20 @@ class JournalisationController extends AbstractController
     public function indexAction()
     {
         return $this->render('Reporting/Journalisation/list.html.twig', [
-            'totalItem' => $this->logRepository->countLogs(),
+            'totalItem' => $this->repository->count(),
             'route'     => $this->router->generate('reporting_journalisation_list_datatables'),
         ]);
     }
 
-    public function listDataTables(Request $request)
+    /**
+     * {@inheritdoc}
+     */
+    public function listDataTables(Request $request): JsonResponse
     {
-        $draw       = $request->request->get('draw');
-        $first      = $request->request->get('start');
-        $maxResults = $request->request->get('length');
-        $orders     = $request->request->get('order');
-        $columns    = $request->request->get('columns');
-
-        $orderColumn = $this->getCorrespondingLabelFromkey($orders[0]['column']);
-        $orderDir    = $orders[0]['dir'];
-
-        $searches = [];
-        foreach ($columns as $column) {
-            if ('' !== $column['search']['value']) {
-                $searches[$column['data']] = $column['search']['value'];
-            }
-        }
-
         /** @var Paginator $logs */
-        $logs  = $this->logRepository->findPaginated($first, $maxResults, $orderColumn, $orderDir, $searches);
-        $count = $this->logRepository->countLogs();
+        $logs  = $this->getResults($request);
 
-        $reponse = [
-            'draw'            => $draw,
-            'recordsTotal'    => $count,
-            'recordsFiltered' => count($logs),
-            'data'            => [],
-        ];
+        $reponse = $this->getBaseDataTablesResponse($request, $logs);
 
         /** @var LogModel $log */
         foreach ($logs as $log) {
@@ -104,9 +83,12 @@ class JournalisationController extends AbstractController
         return '<a href="' . $content . '">Voir</a>';
     }
 
-    private function getCorrespondingLabelFromkey(string $key)
+    /**
+     * {@inheritdoc}
+     */
+    protected function getLabelAndKeysArray(): array
     {
-        $array = [
+        return [
             '0' => 'subjectId',
             '1' => 'userFullName',
             '2' => 'userEmail',
@@ -117,7 +99,5 @@ class JournalisationController extends AbstractController
             '7' => 'subjectName',
             '8' => 'link',
         ];
-
-        return \array_key_exists($key, $array) ? $array[$key] : null;
     }
 }
