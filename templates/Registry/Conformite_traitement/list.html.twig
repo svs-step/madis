@@ -113,7 +113,7 @@
                                 <td>{% if conformiteTraitement is not null %}{{ conformiteTraitement.updatedAt|date('d/m/Y') }}{% endif %}</td>
                                 <td>
                                     <a href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
-                                        <i class="fa fa-eye"></i>
+                                        <i class="fa fa-pencil-alt"></i>
                                         {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}
                                     </a>
                                 </td>

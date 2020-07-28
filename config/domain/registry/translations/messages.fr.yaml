@@ -538,7 +538,7 @@ registry:
         action:
             back_to_list: Retour à la liste
             report: Générer une impression
-            show_conformite_traitement: Voir
+            show_conformite_traitement: Évaluer
         title:
             list: Conformité des traitements
             create: Evaluer un traitement
