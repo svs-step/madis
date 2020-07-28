@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Model;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -279,6 +280,9 @@ class Mesurement
         return $this->conformiteOrganisation;
     }
 
+    /**
+     * @return Reponse[]
+     */
     public function getConformiteTraitementReponses()
     {
         return $this->conformiteTraitementReponses;
