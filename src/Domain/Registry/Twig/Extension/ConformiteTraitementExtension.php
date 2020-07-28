@@ -67,8 +67,12 @@ class ConformiteTraitementExtension extends AbstractExtension
     {
         $planifiedMesurementsToBeNotified = [];
         foreach ($conformiteTraitement->getReponses() as $reponse) {
-            $mesurements                      = \iterable_to_array($reponse->getActionProtectionsPlanifiedNotSeens());
-            $planifiedMesurementsToBeNotified = \array_merge($planifiedMesurementsToBeNotified, $mesurements);
+            $mesurements = \iterable_to_array($reponse->getActionProtectionsPlanifiedNotSeens());
+            foreach ($mesurements as $mesurement) {
+                if (!\in_array($mesurement, $planifiedMesurementsToBeNotified)) {
+                    \array_push($planifiedMesurementsToBeNotified, $mesurement);
+                }
+            }
         }
 
         return $planifiedMesurementsToBeNotified;
