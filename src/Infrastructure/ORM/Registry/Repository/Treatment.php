@@ -245,14 +245,62 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             $this->addWhereClause($qb, $key, $value);
         }
 
-//        $this->addOrder($query, $orderColumn, $orderDir);
-//        $this->addSearches($query, $searches);
+        $this->addTableOrder($qb, $orderColumn, $orderDir);
+//        $this->addTableSearches($qb, $searches);
 
         $qb = $qb->getQuery();
         $qb->setFirstResult($firstResult);
         $qb->setMaxResults($maxResults);
 
         return new Paginator($qb);
+    }
+
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'name':
+                $queryBuilder->addOrderBy('o.name', $orderDir);
+                break;
+            case 'collectivite':
+                $queryBuilder->addOrderBy('collectivite.name', $orderDir);
+                break;
+            case 'baseLegal':
+                $queryBuilder->addOrderBy('o.legalBasis', $orderDir);
+                break;
+            case 'logiciel':
+                $queryBuilder->addOrderBy('o.software', $orderDir);
+                break;
+            case 'enTantQue':
+                $queryBuilder->addOrderBy('o.author', $orderDir);
+                break;
+            case 'gestionnaire':
+                $queryBuilder->addOrderBy('o.manager', $orderDir);
+                break;
+            case 'controleAcces':
+                $queryBuilder->addOrderBy('o.securityAccessControl.check', $orderDir);
+                break;
+            case 'tracabilite':
+                $queryBuilder->addOrderBy('o.securityTracability.check', $orderDir);
+                break;
+            case 'saving':
+                $queryBuilder->addOrderBy('o.securitySaving.check', $orderDir);
+                break;
+            case 'update':
+                $queryBuilder->addOrderBy('o.securityUpdate.check', $orderDir);
+                break;
+            case 'other':
+                $queryBuilder->addOrderBy('o.securityOther.check', $orderDir);
+                break;
+            case 'entitledPersons':
+                $queryBuilder->addOrderBy('o.securityEntitledPersons', $orderDir);
+                break;
+            case 'openAccounts':
+                $queryBuilder->addOrderBy('o.securityOpenAccounts', $orderDir);
+                break;
+            case 'specificitiesDelivered':
+                $queryBuilder->addOrderBy('o.securitySpecificitiesDelivered', $orderDir);
+                break;
+        }
     }
 
     /**
