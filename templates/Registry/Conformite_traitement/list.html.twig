@@ -41,14 +41,16 @@
                         <tr>
                             <th></th>
                             <th>{{ 'registry.conformite_traitement.list.traitement'|trans }}</th>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <th>{{ 'registry.conformite_traitement.list.collectivity'|trans }}</th>
-                                {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>{{ 'registry.conformite_traitement.list.collectivity'|trans }}</th>
+                            {% endif %}
                             <th>{{ 'registry.conformite_traitement.list.gestionnaire'|trans }}</th>
                             <th>{{ 'registry.conformite_traitement.list.conformite'|trans }}</th>
                             <th>{{ 'registry.conformite_traitement.list.conformite_reponse'|trans }}</th>
                             <th>{{ 'registry.conformite_traitement.list.date_conformite'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            {% if is_granted('ROLE_USER') %}
+                                <th>{{ 'label.actions'|trans }}</th>
+                            {% endif %}
                         </tr>
                         </thead>
                         <tbody>
@@ -87,14 +89,18 @@
                                 {% if conformiteTraitement is not null and conformiteBackgroundColor is defined %}
                                     <td>
                                         <span style="display: none;">{{ conformiteBackgroundColor }}</span>
+                                        {% set labelConforme = 'Conforme' %}
+                                        {% set labelNonConformeMineure = 'Non-conforme mineure' %}
+                                        {% set labelNonConformeMajeure = 'Non-conforme majeure' %}
+
                                         {% set labelConformiteColor = 'label-danger' %}
-                                        {% set labelConformite = 'Non-conforme majeure' %}
+                                        {% set labelConformite = labelNonConformeMajeure %}
                                         {% if conformiteBackgroundColor == 1 %}
                                             {% set labelConformiteColor = 'label-success' %}
-                                            {% set labelConformite = 'Conforme' %}
+                                            {% set labelConformite = labelConforme %}
                                         {% elseif conformiteBackgroundColor == 2 %}
                                             {% set labelConformiteColor = 'label-warning' %}
-                                            {% set labelConformite = 'Non-conforme mineure' %}
+                                            {% set labelConformite = labelNonConformeMineure %}
                                         {% endif %}
                                         <span class="label {{ labelConformiteColor }}" style="min-width: 100%; display: inline-block;">{{ labelConformite }}</span>
                                     </td>
@@ -104,19 +110,21 @@
                                 <td>
                                     {% if conformiteTraitement is not null %}
                                         <div class="stacked-bar-graph">
-                                            {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme tooltipchart"><span class="tooltipcharttext">{{ labelConformite }} : {{ conformiteTraitement.nbConformes }}</span></span>{% endif %}
-                                            {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure tooltipchart"><span class="tooltipcharttext">{{ labelConformite }} : {{ conformiteTraitement.nbNonConformesMineures }}</span></span>{% endif %}
-                                            {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure tooltipchart"><span class="tooltipcharttext">{{ labelConformite }} : {{ conformiteTraitement.nbNonConformesMajeures }}</span></span>{% endif %}
+                                            {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme tooltipchart"><span class="tooltipcharttext">{{ labelConforme }} : {{ conformiteTraitement.nbConformes }}</span></span>{% endif %}
+                                            {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure tooltipchart"><span class="tooltipcharttext">{{ labelNonConformeMineure }} : {{ conformiteTraitement.nbNonConformesMineures }}</span></span>{% endif %}
+                                            {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure tooltipchart"><span class="tooltipcharttext">{{ labelNonConformeMajeure }} : {{ conformiteTraitement.nbNonConformesMajeures }}</span></span>{% endif %}
                                         </div>
                                     {% endif %}
                                 </td>
                                 <td>{% if conformiteTraitement is not null %}{{ conformiteTraitement.updatedAt|date('d/m/Y') }}{% endif %}</td>
-                                <td>
-                                    <a href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
-                                        <i class="fa fa-eye"></i>
-                                        {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}
-                                    </a>
-                                </td>
+                                {% if is_granted('ROLE_USER') %}
+                                    <td>
+                                        <a href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
+                                            <i class="fa fa-pencil-alt"></i>
+                                            {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}
+                                        </a>
+                                    </td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                         </tbody>

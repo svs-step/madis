@@ -29,6 +29,7 @@ use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
 use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Registry\Model\Treatment;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\Shared\Converter;
@@ -46,7 +47,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
         $section->addTitle('Analyse de la conformité des traitements', 2);
 
-        uasort($data, [$this, 'sortConformiteTraitementByLevel']);
+        uasort($data, [$this, 'sortTreatmentByConformiteTraitementByLevelAndTreatmentName']);
 
         // Table data
         // Add header
@@ -62,21 +63,26 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         $chartCategories = [];
         $chartData       = [];
         $conformites     = ConformiteTraitementLevelDictionary::getConformites();
-        unset($conformites[ConformiteTraitementLevelDictionary::NON_EVALUE]);
         foreach ($conformites as $key => $label) {
             $chartCategories[] = $label;
             $chartData[$key]   = 0;
         }
 
-        /** @var ConformiteTraitement $conformiteTraitement */
-        foreach ($data as $conformiteTraitement) {
-            $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);
+        /** @var Treatment $treatment */
+        foreach ($data as $treatment) {
+            $conformiteTraitement = $treatment->getConformiteTraitement();
+            $level                = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);
+
+            $date = null;
+            if (!\is_null($conformiteTraitement)) {
+                $date = $conformiteTraitement->getCreatedAt();
+            }
 
             $tableData[] = [
-                $conformiteTraitement->getTraitement()->getName(),
-                $conformiteTraitement->getTraitement()->getManager(),
+                $treatment->getName(),
+                $treatment->getManager(),
                 ConformiteTraitementLevelDictionary::getConformites()[$level],
-                $this->getDate($conformiteTraitement->getCreatedAt(), 'd/m/Y'),
+                $this->getDate($date, 'd/m/Y'),
             ];
 
             ++$chartData[$level];
@@ -104,7 +110,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
     {
         $section->addTitle('Liste des traitements', 1);
 
-        uasort($data, [$this, 'sortConformiteTraitementByLevel']);
+        uasort($data, [$this, 'sortTreatmentByConformiteTraitementByLevelAndTreatmentName']);
 
         // Table data
         // Add header
@@ -117,15 +123,21 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
             ],
         ];
 
-        /** @var ConformiteTraitement $conformiteTraitement */
-        foreach ($data as $conformiteTraitement) {
-            $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);
+        /** @var Treatment $treatment */
+        foreach ($data as $treatment) {
+            $conformiteTraitement = $treatment->getConformiteTraitement();
+            $level                = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);
+
+            $date = null;
+            if (!\is_null($conformiteTraitement)) {
+                $date = $conformiteTraitement->getCreatedAt();
+            }
 
             $tableData[] = [
-                $conformiteTraitement->getTraitement()->getName(),
-                $conformiteTraitement->getTraitement()->getManager(),
+                $treatment->getName(),
+                $treatment->getManager(),
                 ConformiteTraitementLevelDictionary::getConformites()[$level],
-                $this->getDate($conformiteTraitement->getCreatedAt(), 'd/m/Y'),
+                $this->getDate($date, 'd/m/Y'),
             ];
         }
 
@@ -139,8 +151,13 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
     {
         $section->addTitle('Détail des traitements', 1);
 
-        /** @var ConformiteTraitement $conformiteTraitement */
-        foreach ($data as $key => $conformiteTraitement) {
+        /** @var Treatment $treatment */
+        foreach ($data as $key => $treatment) {
+            $conformiteTraitement = $treatment->getConformiteTraitement();
+            if (\is_null($conformiteTraitement)) {
+                continue;
+            }
+
             if (0 != $key) {
                 $section->addPageBreak();
             }
@@ -199,13 +216,13 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         }
     }
 
-    private function sortConformiteTraitementByLevel(ConformiteTraitement $a, ConformiteTraitement $b)
+    private function sortTreatmentByConformiteTraitementByLevelAndTreatmentName(Treatment $a, Treatment $b)
     {
-        $weightA = ConformiteTraitementLevelDictionary::getConformitesWeight()[ConformiteTraitementCompletion::getConformiteTraitementLevel($a)];
-        $weightB = ConformiteTraitementLevelDictionary::getConformitesWeight()[ConformiteTraitementCompletion::getConformiteTraitementLevel($b)];
+        $weightA = ConformiteTraitementLevelDictionary::getConformitesWeight()[ConformiteTraitementCompletion::getConformiteTraitementLevel($a->getConformiteTraitement())];
+        $weightB = ConformiteTraitementLevelDictionary::getConformitesWeight()[ConformiteTraitementCompletion::getConformiteTraitementLevel($b->getConformiteTraitement())];
 
         if ($weightA === $weightB) {
-            return 0;
+            return strcmp($a->getName(), $b->getName());
         }
 
         return ($weightA < $weightB) ? -1 : 1;

@@ -40,6 +40,7 @@ security:
         - { path: ^/reinitialisation-de-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # Manager routes
         - { path: ^/.+/creer$, roles: ROLE_USER }
+        - { path: ^/.+/creer/.+$, roles: ROLE_USER }
         - { path: ^/.+/editer/.+$, roles: ROLE_USER }
         - { path: ^/.+/supprimer/.+$, roles: ROLE_USER }
         - { path: ^/.+/supprimer/.+/confirmation$, roles: ROLE_USER }

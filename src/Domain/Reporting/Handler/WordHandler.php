@@ -135,7 +135,6 @@ class WordHandler
         array $maturity = [],
         array $requests = [],
         array $violations = [],
-        array $conformiteTraitements = [],
         Evaluation $evaluation = null
     ): BinaryFileResponse {
         $title = 'Bilan de gestion des données à caractère personnel';
@@ -156,7 +155,7 @@ class WordHandler
         $this->overviewGenerator->generateObjectPart($contentSection);
         $this->overviewGenerator->generateOrganismIntroductionPart($contentSection);
         $this->overviewGenerator->generateRegistries($contentSection, $treatments, $contractors, $requests, $violations);
-        $this->overviewGenerator->generateManagementSystemAndCompliance($contentSection, $maturity, $conformiteTraitements, $mesurements, $evaluation);
+        $this->overviewGenerator->generateManagementSystemAndCompliance($contentSection, $maturity, $treatments, $mesurements, $evaluation);
         $this->overviewGenerator->generateContinuousImprovements($contentSection);
         $this->overviewGenerator->generateAnnexeMention($contentSection, $treatments);
 
@@ -360,14 +359,14 @@ class WordHandler
     /**
      * Generate conformiteTraitement report.
      *
-     * @param array $conformiteTraitements conformiteTraitement to use for generation
+     * @param array $treatments treatments to use for generation conformite traitement
      *
+     *@throws \Exception
      * @throws \PhpOffice\PhpWord\Exception\Exception
-     * @throws \Exception
      *
      * @return Response The generated Word file
      */
-    public function generateRegistryConformiteTraitementReport(array $conformiteTraitements = []): Response
+    public function generateRegistryConformiteTraitementReport(array $treatments = []): Response
     {
         $title = 'Diagnostic de la conformité des traitements';
         // Initialize document
@@ -383,13 +382,13 @@ class WordHandler
         $this->conformiteTraitementGenerator->addTableOfContent($contentSection, 1);
 
         // Content
-        $this->conformiteTraitementGenerator->addSyntheticView($contentSection, $conformiteTraitements);
-        $this->conformiteTraitementGenerator->addDetailedView($contentSection, $conformiteTraitements);
+        $this->conformiteTraitementGenerator->addSyntheticView($contentSection, $treatments);
+        $this->conformiteTraitementGenerator->addDetailedView($contentSection, $treatments);
 
         return $this->conformiteTraitementGenerator->generateResponse($this->document, 'conformite_des_traitements');
     }
 
-    public function generateRegistryConformiteOrganisationReport(Evaluation $evaluation): Response
+    public function generateRegistryConformiteOrganisationReport(Evaluation $evaluation, bool $withAllActions): Response
     {
         $title = 'Diagnostic de la conformite de l\'organisation';
 
@@ -404,7 +403,7 @@ class WordHandler
         $this->conformiteOrganisationGenerator->addTableOfContent($contentSection, 1);
 
         /* Content */
-        $this->conformiteOrganisationGenerator->addDetailedView($contentSection, [$evaluation]);
+        $this->conformiteOrganisationGenerator->addDetailedView($contentSection, [$evaluation, $withAllActions]);
 
         return $this->conformiteOrganisationGenerator->generateResponse($this->document, 'conformite_des_organisations');
     }

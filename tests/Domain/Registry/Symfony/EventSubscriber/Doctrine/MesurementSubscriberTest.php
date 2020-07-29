@@ -92,6 +92,7 @@ class MesurementSubscriberTest extends TestCase
         $this->lifeCycleEventArgs->getObjectManager()->shouldBeCalled()->willReturn($objectManager->reveal());
 
         $reponse->addActionProtectionsPlanifiedNotSeen($object->reveal())->shouldBeCalled();
+        $reponse->removeActionProtection($object->reveal())->shouldBeCalled();
 
         $objectManager->persist($reponse->reveal())->shouldBeCalled();
         $objectManager->flush()->shouldBeCalled();

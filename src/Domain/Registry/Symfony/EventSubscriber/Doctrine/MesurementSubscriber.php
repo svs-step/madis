@@ -58,6 +58,7 @@ class MesurementSubscriber implements EventSubscriber
         foreach ($object->getConformiteTraitementReponses() as $reponse) {
             if (MesurementStatusDictionary::STATUS_APPLIED === $status) {
                 $reponse->addActionProtectionsPlanifiedNotSeen($object);
+                $reponse->removeActionProtection($object);
             } else {
                 $reponse->removeActionProtectionsPlanifiedNotSeen($object);
             }

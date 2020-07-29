@@ -3,9 +3,11 @@
 namespace App\Domain\Reporting\Generator\Word;
 
 use App\Domain\Registry\Dictionary\ConformiteOrganisation\ReponseDictionary;
+use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
 use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
 use App\Domain\Registry\Model\ConformiteOrganisation\Reponse;
 use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Registry\Service\ConformiteOrganisationService;
 use App\Domain\User\Dictionary\ContactCivilityDictionary;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shared\Converter;
@@ -40,7 +42,8 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         /* ////////////////////////////////////////////////////////////// */
         $section->addTitle('Liste des processus', 1);
 
-        $tableData = $this->getConformitesTable($this->getOrderedConformites(\iterable_to_array($evaluation->getConformites())));
+        $orderedConformites = ConformiteOrganisationService::getOrderedConformites($evaluation);
+        $tableData          = $this->getConformitesTable($orderedConformites);
 
         $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
 
@@ -48,8 +51,8 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         $section->addPageBreak();
         $section->addTitle('Détail des processus', 1);
 
-        $conformites = $this->getOrderedConformites(\iterable_to_array($evaluation->getConformites()));
-        foreach ($conformites as $key => $conformite) {
+        /** @var Conformite $conformite */
+        foreach ($orderedConformites as $key => $conformite) {
             if (0 != $key) {
                 $section->addPageBreak();
             }
@@ -59,14 +62,20 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
             $section->addTitle($conformite->getProcessus()->getNom(), 3);
             $section->addText($conformite->getProcessus()->getDescription());
 
-            foreach ($conformite->getReponses() as $reponse) {
+            foreach (ConformiteOrganisationService::getOrderedReponse($conformite) as $reponse) {
                 $processus[] = [
-                    $reponse->getQuestion()->getNom(),
+                    \strip_tags($reponse->getQuestion()->getNom()),
                     $this->getFormattedReponse($reponse),
                 ];
             }
+            $actions        = \iterable_to_array($conformite->getActionProtections());
+            $withAllActions = $data[1]; /* Useless, for reading purpose only */
+            if (!$withAllActions) {
+                $actions = $conformite->getNonAppliedActionProtections();
+            }
+
             $actions = !empty(\iterable_to_array($conformite->getActionProtections()))
-                ? $this->getFormattedActionsDeProtection(\iterable_to_array($conformite->getActionProtections()))
+                ? $this->getFormattedActionsDeProtection($actions)
                 : 'Aucune';
             $processus[] = [
                 'Actions de protection',
@@ -83,7 +92,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
             return;
         }
 
-        $conformites = $this->getOrderedConformites(\iterable_to_array($evaluation->getConformites()));
+        $conformites = ConformiteOrganisationService::getOrderedConformites($evaluation);
 
         $scores = [];
         foreach ($conformites as $conformite) {
@@ -145,7 +154,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
     private function extractConformiteProcessus(Evaluation $evaluation): array
     {
         $processus = [];
-        foreach ($this->getOrderedConformites(\iterable_to_array($evaluation->getConformites())) as $conformite) {
+        foreach (ConformiteOrganisationService::getOrderedConformites($evaluation) as $conformite) {
             $processus[] = $conformite->getProcessus()->getNom();
         }
 
@@ -180,15 +189,6 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         }
 
         return $participants;
-    }
-
-    private function getOrderedConformites(array $conformites): array
-    {
-        usort($conformites, function ($a, $b) {
-            return $a->getProcessus()->getPosition() > $b->getProcessus()->getPosition() ? 1 : -1;
-        });
-
-        return $conformites;
     }
 
     private function getFormattedActionsDeProtection(array $actions)

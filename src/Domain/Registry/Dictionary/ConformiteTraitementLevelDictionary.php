@@ -91,6 +91,7 @@ class ConformiteTraitementLevelDictionary extends SimpleDictionary
             self::CONFORME               => 1,
             self::NON_CONFORMITE_MINEURE => 2,
             self::NON_CONFORMITE_MAJEURE => 3,
+            self::NON_EVALUE             => 4,
         ];
     }
 }
