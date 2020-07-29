@@ -32,7 +32,8 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
         $qBuilder
             ->addSelect('conformites')
             ->leftJoin('o.conformites', 'conformites')
-            ->orderBy('o.date', 'DESC')
+            ->addOrderBy('o.date', 'DESC')
+            ->addOrderBy('o.createdAt', 'DESC')
             ;
 
         return $qBuilder
@@ -53,7 +54,8 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
             ->leftJoin('conformites.reponses', 'reponses')
             ->leftJoin('conformites.actionProtections', 'actionProtections')
             ->leftJoin('processus.questions', 'questions')
-            ->orderBy('o.date', 'DESC')
+            ->addOrderBy('o.date', 'DESC')
+            ->addOrderBy('o.createdAt', 'DESC')
             ->getQuery()
             ->getResult()
         ;

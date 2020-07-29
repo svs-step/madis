@@ -389,7 +389,7 @@ class WordHandler
         return $this->conformiteTraitementGenerator->generateResponse($this->document, 'conformite_des_traitements');
     }
 
-    public function generateRegistryConformiteOrganisationReport(Evaluation $evaluation): Response
+    public function generateRegistryConformiteOrganisationReport(Evaluation $evaluation, bool $withAllActions): Response
     {
         $title = 'Diagnostic de la conformite de l\'organisation';
 
@@ -404,7 +404,7 @@ class WordHandler
         $this->conformiteOrganisationGenerator->addTableOfContent($contentSection, 1);
 
         /* Content */
-        $this->conformiteOrganisationGenerator->addDetailedView($contentSection, [$evaluation]);
+        $this->conformiteOrganisationGenerator->addDetailedView($contentSection, [$evaluation, $withAllActions]);
 
         return $this->conformiteOrganisationGenerator->generateResponse($this->document, 'conformite_des_organisations');
     }

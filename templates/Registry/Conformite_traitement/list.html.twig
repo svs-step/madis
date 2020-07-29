@@ -87,14 +87,18 @@
                                 {% if conformiteTraitement is not null and conformiteBackgroundColor is defined %}
                                     <td>
                                         <span style="display: none;">{{ conformiteBackgroundColor }}</span>
+                                        {% set labelConforme = 'Conforme' %}
+                                        {% set labelNonConformeMineure = 'Non-conforme mineure' %}
+                                        {% set labelNonConformeMajeure = 'Non-conforme majeure' %}
+
                                         {% set labelConformiteColor = 'label-danger' %}
-                                        {% set labelConformite = 'Non-conforme majeure' %}
+                                        {% set labelConformite = labelNonConformeMajeure %}
                                         {% if conformiteBackgroundColor == 1 %}
                                             {% set labelConformiteColor = 'label-success' %}
-                                            {% set labelConformite = 'Conforme' %}
+                                            {% set labelConformite = labelConforme %}
                                         {% elseif conformiteBackgroundColor == 2 %}
                                             {% set labelConformiteColor = 'label-warning' %}
-                                            {% set labelConformite = 'Non-conforme mineure' %}
+                                            {% set labelConformite = labelNonConformeMineure %}
                                         {% endif %}
                                         <span class="label {{ labelConformiteColor }}" style="min-width: 100%; display: inline-block;">{{ labelConformite }}</span>
                                     </td>
@@ -104,9 +108,9 @@
                                 <td>
                                     {% if conformiteTraitement is not null %}
                                         <div class="stacked-bar-graph">
-                                            {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme tooltipchart"><span class="tooltipcharttext">{{ labelConformite }} : {{ conformiteTraitement.nbConformes }}</span></span>{% endif %}
-                                            {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure tooltipchart"><span class="tooltipcharttext">{{ labelConformite }} : {{ conformiteTraitement.nbNonConformesMineures }}</span></span>{% endif %}
-                                            {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure tooltipchart"><span class="tooltipcharttext">{{ labelConformite }} : {{ conformiteTraitement.nbNonConformesMajeures }}</span></span>{% endif %}
+                                            {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme tooltipchart"><span class="tooltipcharttext">{{ labelConforme }} : {{ conformiteTraitement.nbConformes }}</span></span>{% endif %}
+                                            {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure tooltipchart"><span class="tooltipcharttext">{{ labelNonConformeMineure }} : {{ conformiteTraitement.nbNonConformesMineures }}</span></span>{% endif %}
+                                            {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure tooltipchart"><span class="tooltipcharttext">{{ labelNonConformeMajeure }} : {{ conformiteTraitement.nbNonConformesMajeures }}</span></span>{% endif %}
                                         </div>
                                     {% endif %}
                                 </td>

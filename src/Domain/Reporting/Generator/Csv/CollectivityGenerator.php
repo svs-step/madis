@@ -30,6 +30,7 @@ use App\Domain\Registry\Repository\Mesurement;
 use App\Domain\Registry\Repository\Proof;
 use App\Domain\Registry\Repository\Request;
 use App\Domain\Registry\Repository\Violation;
+use App\Domain\Registry\Service\ConformiteOrganisationService;
 use App\Domain\User\Dictionary\CollectivityTypeDictionary;
 use App\Domain\User\Dictionary\ContactCivilityDictionary;
 use App\Domain\User\Repository\Collectivity;
@@ -433,10 +434,7 @@ class CollectivityGenerator extends AbstractGenerator
         $conformiteOrganisationEvaluation = $this->evaluationRepository->findLastByOrganisation($collectivity);
 
         if ($collectivity->isHasModuleConformiteOrganisation() && null !== $conformiteOrganisationEvaluation) {
-            $conformites = \iterable_to_array($conformiteOrganisationEvaluation->getConformites());
-            usort($conformites, function ($a, $b) {
-                return $a->getProcessus()->getPosition() > $b->getProcessus()->getPosition() ? 1 : -1;
-            });
+            $conformites = ConformiteOrganisationService::getOrderedConformites($conformiteOrganisationEvaluation);
 
             $data[] = $conformiteOrganisationEvaluation->isDraft() ? 'Oui' : 'Non';
             foreach ($conformites as $conformite) {
