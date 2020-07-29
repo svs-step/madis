@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type\ConformiteTraitement;
 
+use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\User\Model\User;
@@ -74,6 +75,8 @@ class ReponseType extends AbstractType
                     return $er->createQueryBuilder('m')
                         ->andWhere('m.collectivity = :collectivity')
                         ->setParameter('collectivity', $user->getCollectivity())
+                        ->andWhere('m.status = :nonApplied')
+                        ->setParameter('nonApplied', MesurementStatusDictionary::STATUS_NOT_APPLIED)
                         ->orderBy('m.name', 'ASC');
                 },
                 'choice_label' => 'name',

@@ -30,6 +30,7 @@ use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
+use App\Domain\Registry\Service\ConformiteOrganisationService;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
 use Doctrine\Common\Inflector\Inflector;
 use Doctrine\ORM\EntityManagerInterface;
@@ -366,10 +367,7 @@ class UserMetric implements MetricInterface
 
         //CONFORMITE ORGANISATION
         if ($collectivity->isHasModuleConformiteOrganisation() && null !== $conformiteOrganisationEvaluation) {
-            $conformites = \iterable_to_array($conformiteOrganisationEvaluation->getConformites());
-            usort($conformites, function ($a, $b) {
-                return $a->getProcessus()->getPosition() > $b->getProcessus()->getPosition() ? 1 : -1;
-            });
+            $conformites = ConformiteOrganisationService::getOrderedConformites($conformiteOrganisationEvaluation);
 
             foreach ($conformites as $conformite) {
                 $data['conformiteOrganisation'][$conformite->getProcessus()->getPosition()]['processus']  = $conformite->getProcessus()->getNom();

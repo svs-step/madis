@@ -200,14 +200,15 @@ class ConformiteOrganisationController extends CRUDController
         ]);
     }
 
-    public function reportAction(string $id)
+    public function reportAction(Request $request, string $id)
     {
         $evaluation = $this->repository->findOneById($id);
         if (!$evaluation) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
+        $withAllActions = $request->query->getBoolean('all_actions', true);
 
-        return $this->wordHandler->generateRegistryConformiteOrganisationReport($evaluation);
+        return $this->wordHandler->generateRegistryConformiteOrganisationReport($evaluation, $withAllActions);
     }
 
     private function addMissingNewQuestionsAndProcessus(Evaluation $evaluation)
