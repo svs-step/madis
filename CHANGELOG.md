@@ -1,7 +1,11 @@
 CHANGELOG
 =========
 
-## [1.7.4] - 2020-27-28
+## [1.7.4] - 2020-07-29
+### Changement
+- Divers changements suite à la mise en production du lot 2
+
+## [1.7.4] - 2020-07-28
 ### Ajout
 - [MODULE] Conformité des traitements, #279
 - [MODULE] Conformité de l'organisation, #280
