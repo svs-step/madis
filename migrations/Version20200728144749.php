@@ -22,7 +22,7 @@ final class Version20200728144749 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE registry_conformite_organisation_evaluation ADD created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', ADD updated_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\'');
+        $this->addSql('ALTER TABLE registry_conformite_organisation_evaluation ADD created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\' DEFAULT \'2020-07-29 09-56-01\', ADD updated_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\' DEFAULT \'2020-07-29 09-56-01\'');
     }
 
     public function down(Schema $schema): void
