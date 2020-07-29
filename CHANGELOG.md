@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-## [1.7.4] - 2020-07-29
+## [1.7.5] - 2020-07-29
 ### Changement
 - Divers changements suite à la mise en production du lot 2
 
