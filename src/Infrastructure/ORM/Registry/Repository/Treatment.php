@@ -29,6 +29,7 @@ use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class Treatment extends CRUDRepository implements Repository\Treatment
 {
@@ -219,5 +220,51 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         ;
 
         return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function count(array $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
+    {
+        $qb = $this->createQueryBuilder()
+            ->addSelect('collectivite')
+            ->leftJoin('o.collectivity', 'collectivite')
+        ;
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+//        $this->addOrder($query, $orderColumn, $orderDir);
+//        $this->addSearches($query, $searches);
+
+        $qb = $qb->getQuery();
+        $qb->setFirstResult($firstResult);
+        $qb->setMaxResults($maxResults);
+
+        return new Paginator($qb);
+    }
+
+    /**
+     * Add a where clause to query.
+     *
+     * @param mixed $value
+     */
+    protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
+    {
+        return $qb
+            ->andWhere("o.{$key} = :{$key}_value")
+            ->setParameter("{$key}_value", $value)
+            ;
     }
 }

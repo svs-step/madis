@@ -42,3 +42,8 @@ registry_treatment_pdf:
     path: '/pdf/{id}'
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\TreatmentController:pdfAction'
+
+registry_treatment_list_datatables:
+    path: '/datatables'
+    methods: ['POST']
+    controller: 'App\Domain\Registry\Controller\TreatmentController:listDataTables'
