@@ -180,7 +180,7 @@ class OverviewGenerator extends AbstractGenerator
     public function generateManagementSystemAndCompliance(
         Section $section,
         array $maturity = [],
-        array $conformiteTraitements = [],
+        array $treatments = [],
         array $mesurements = [],
         Evaluation $evaluation = null
     ): void {
@@ -190,7 +190,7 @@ class OverviewGenerator extends AbstractGenerator
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
 
         if ($collectivity->isHasModuleConformiteTraitement()) {
-            $this->conformiteTraitementGenerator->addGlobalOverview($section, $conformiteTraitements);
+            $this->conformiteTraitementGenerator->addGlobalOverview($section, $treatments);
         }
         if ($collectivity->isHasModuleConformiteOrganisation()) {
             $this->conformiteOrganisationGenerator->addGlobalOverview($section, $evaluation);

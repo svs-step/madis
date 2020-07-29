@@ -41,14 +41,16 @@
                         <tr>
                             <th></th>
                             <th>{{ 'registry.conformite_traitement.list.traitement'|trans }}</th>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <th>{{ 'registry.conformite_traitement.list.collectivity'|trans }}</th>
-                                {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>{{ 'registry.conformite_traitement.list.collectivity'|trans }}</th>
+                            {% endif %}
                             <th>{{ 'registry.conformite_traitement.list.gestionnaire'|trans }}</th>
                             <th>{{ 'registry.conformite_traitement.list.conformite'|trans }}</th>
                             <th>{{ 'registry.conformite_traitement.list.conformite_reponse'|trans }}</th>
                             <th>{{ 'registry.conformite_traitement.list.date_conformite'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            {% if is_granted('ROLE_USER') %}
+                                <th>{{ 'label.actions'|trans }}</th>
+                            {% endif %}
                         </tr>
                         </thead>
                         <tbody>
@@ -111,12 +113,14 @@
                                     {% endif %}
                                 </td>
                                 <td>{% if conformiteTraitement is not null %}{{ conformiteTraitement.updatedAt|date('d/m/Y') }}{% endif %}</td>
-                                <td>
-                                    <a href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
-                                        <i class="fa fa-pencil-alt"></i>
-                                        {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}
-                                    </a>
-                                </td>
+                                {% if is_granted('ROLE_USER') %}
+                                    <td>
+                                        <a href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
+                                            <i class="fa fa-pencil-alt"></i>
+                                            {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}
+                                        </a>
+                                    </td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                         </tbody>

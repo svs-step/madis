@@ -194,7 +194,7 @@ class CollectivityGenerator extends AbstractGenerator
                 $this->initializeSurvey($collectivity),
                 $this->initializeUser($collectivity),
                 $this->initializeProof($collectivity),
-                $this->initializeconformiteOrganisation($collectivity)
+                $this->initializeConformiteOrganisation($collectivity)
             );
             array_push($data, $extract);
         }
@@ -217,6 +217,8 @@ class CollectivityGenerator extends AbstractGenerator
             $this->translator->trans('user.collectivity.show.siren'),
             $this->translator->trans('user.collectivity.show.active'),
             $this->translator->trans('user.collectivity.show.website'),
+            $this->translator->trans('user.collectivity.show.has_module_conformite_traitement'),
+            $this->translator->trans('user.collectivity.show.has_module_conformite_organisation'),
             $this->translator->trans('user.collectivity.show.address_line_one'),
             $this->translator->trans('user.collectivity.show.address_line_two'),
             $this->translator->trans('user.collectivity.show.address_zip_code'),
@@ -274,6 +276,8 @@ class CollectivityGenerator extends AbstractGenerator
             $collectivity->getSiren(),
             $collectivity->isActive() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
             $collectivity->getWebsite(),
+            $collectivity->isHasModuleConformiteTraitement() ? $yes : $no,
+            $collectivity->isHasModuleConformiteOrganisation() ? $yes : $no,
             $collectivity->getAddress()->getLineOne(),
             $collectivity->getAddress()->getLineTwo(),
             $collectivity->getAddress()->getZipCode(),
@@ -426,7 +430,7 @@ class CollectivityGenerator extends AbstractGenerator
         return $headers;
     }
 
-    private function initializeconformiteOrganisation(\App\Domain\User\Model\Collectivity $collectivity)
+    private function initializeConformiteOrganisation(\App\Domain\User\Model\Collectivity $collectivity)
     {
         $data = [];
 

@@ -128,7 +128,7 @@ class ConformiteTraitementController extends CRUDController
 
     public function reportAction()
     {
-        $objects = $this->repository->findAllByCollectivity(
+        $objects = $this->treatmentRepository->findAllByCollectivity(
             $this->userProvider->getAuthenticatedUser()->getCollectivity()
         );
 

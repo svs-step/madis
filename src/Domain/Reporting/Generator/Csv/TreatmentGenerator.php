@@ -26,10 +26,12 @@ namespace App\Domain\Reporting\Generator\Csv;
 use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
 use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
+use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentCollectingMethodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use App\Domain\Registry\Dictionary\TreatmentUltimateFateDictionary;
+use App\Domain\Registry\Model\Mesurement;
 use App\Domain\User\Repository\Collectivity;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteTraitement\Question;
 use App\Infrastructure\ORM\Registry\Repository\Treatment;
@@ -408,7 +410,25 @@ class TreatmentGenerator extends AbstractGenerator
         \ksort($ordered);
 
         foreach ($ordered as $reponse) {
-            $data[] = $reponse->isConforme() ? 'Conforme' : 'Non-conforme';
+            if ($reponse->isConforme()) {
+                $data[] = 'Conforme';
+                continue;
+            }
+
+            if (\count($reponse->getActionProtections()) > 0) {
+                $planified = array_filter(\iterable_to_array($reponse->getActionProtections()), function (Mesurement $mesurement) {
+                    return MesurementStatusDictionary::STATUS_NOT_APPLIED === $mesurement->getStatus()
+                        && !\is_null($mesurement->getPlanificationDate())
+                    ;
+                });
+
+                if (\count($planified) > 0) {
+                    $data[] = 'Non-conforme mineure';
+                    continue;
+                }
+            }
+
+            $data[] = 'Non-conforme majeure';
         }
 
         return $data;

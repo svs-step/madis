@@ -82,11 +82,6 @@ class ReviewController extends AbstractController
     private $violationRepository;
 
     /**
-     * @var Repository\ConformiteTraitement\ConformiteTraitement
-     */
-    private $conformiteTraitementRepository;
-
-    /**
      * @var Evaluation
      */
     private $evaluationRepository;
@@ -101,7 +96,6 @@ class ReviewController extends AbstractController
         Repository\Request $requestRepository,
         Repository\Violation $violationRepository,
         MaturityRepository\Survey $surveyRepository,
-        Repository\ConformiteTraitement\ConformiteTraitement $conformiteTraitementRepository,
         Repository\ConformiteOrganisation\Evaluation $evaluationRepository
     ) {
         $this->wordHandler                    = $wordHandler;
@@ -113,7 +107,6 @@ class ReviewController extends AbstractController
         $this->requestRepository              = $requestRepository;
         $this->violationRepository            = $violationRepository;
         $this->surveyRepository               = $surveyRepository;
-        $this->conformiteTraitementRepository = $conformiteTraitementRepository;
         $this->evaluationRepository           = $evaluationRepository;
     }
 
@@ -147,7 +140,6 @@ class ReviewController extends AbstractController
             $maturity,
             $this->requestRepository->findAllArchivedByCollectivity($collectivity, false),
             $this->violationRepository->findAllArchivedByCollectivity($collectivity, false),
-            $this->conformiteTraitementRepository->findAllByCollectivity($collectivity),
             $this->evaluationRepository->findLastByOrganisation($collectivity)
         );
     }

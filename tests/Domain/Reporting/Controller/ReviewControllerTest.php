@@ -85,11 +85,6 @@ class ReviewControllerTest extends TestCase
     private $violationRepositoryProphecy;
 
     /**
-     * @var RegistryRepository\ConformiteTraitement\ConformiteTraitement
-     */
-    private $conformiteTraitementRepositoryProphecy;
-
-    /**
      * @var Evaluation|ObjectProphecy
      */
     private $evaluationRepository;
@@ -110,7 +105,6 @@ class ReviewControllerTest extends TestCase
         $this->surveyRepositoryProphecy               = $this->prophesize(MaturityRepository\Survey::class);
         $this->requestRepositoryProphecy              = $this->prophesize(RegistryRepository\Request::class);
         $this->violationRepositoryProphecy            = $this->prophesize(RegistryRepository\Violation::class);
-        $this->conformiteTraitementRepositoryProphecy = $this->prophesize(RegistryRepository\ConformiteTraitement\ConformiteTraitement::class);
         $this->evaluationRepository                   = $this->prophesize(Evaluation::class);
 
         $this->controller = new ReviewController(
@@ -123,7 +117,6 @@ class ReviewControllerTest extends TestCase
             $this->requestRepositoryProphecy->reveal(),
             $this->violationRepositoryProphecy->reveal(),
             $this->surveyRepositoryProphecy->reveal(),
-            $this->conformiteTraitementRepositoryProphecy->reveal(),
             $this->evaluationRepository->reveal()
         );
     }
@@ -158,10 +151,9 @@ class ReviewControllerTest extends TestCase
         $this->surveyRepositoryProphecy->findAllByCollectivity($collectivity, ['createdAt' => 'DESC'], 2)->shouldBeCalled()->willReturn($survey);
         $this->requestRepositoryProphecy->findAllArchivedByCollectivity($collectivity, false)->shouldBeCalled()->willReturn($requests);
         $this->violationRepositoryProphecy->findAllArchivedByCollectivity($collectivity, false)->shouldBeCalled()->willReturn($violations);
-        $this->conformiteTraitementRepositoryProphecy->findAllByCollectivity($collectivity)->shouldBeCalled()->willReturn($conformiteTraitements);
         $this->evaluationRepository->findLastByOrganisation($collectivity)->shouldBeCalled()->willReturn($evaluation->reveal());
         $this->wordHandlerProphecy
-            ->generateOverviewReport($treatments, $contractors, $mesurements, $maturity, $requests, $violations, $conformiteTraitements, $evaluation->reveal())
+            ->generateOverviewReport($treatments, $contractors, $mesurements, $maturity, $requests, $violations, $evaluation->reveal())
             ->shouldBeCalled()
             ->willReturn($responseProphecy->reveal())
         ;
