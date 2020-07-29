@@ -24,7 +24,8 @@
 {% block body %}
 
     {% if form is not null  %}
-        {% if not is_granted('ROLE_ADMIN') %}
+        {% set userRole = app.user.roles[0] %}
+        {% if userRole == 'ROLE_USER' %}
             {{ form_start(form) }}
         {% endif %}
         <div class="row">
@@ -36,7 +37,7 @@
                             {{ 'registry.conformite_organisation.action.report'|trans }}
                         </a>
                     {% endif %}
-                    {% if not is_granted('ROLE_ADMIN') %}
+                    {% if userRole == 'ROLE_USER' %}
                         <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
                     {% endif %}
                 </div>
@@ -92,21 +93,23 @@
             </div>
         {% endif %}
 
-        {% if not is_granted('ROLE_ADMIN') %}
+        {% if userRole == 'ROLE_USER' %}
             {{ form_end(form) }}
         {% endif %}
     {% endif %}
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="action-bar">
-                                <a href="{{ path('registry_conformite_organisation_create') }}" class="btn btn-default">
-                                    <i class="fa fa-clipboard-list"></i>
-                                    {{ 'registry.conformite_organisation.action.create'|trans }}
-                                </a>
+    {% if is_granted('ROLE_USER') %}
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="action-bar">
+                    <a href="{{ path('registry_conformite_organisation_create') }}" class="btn btn-default">
+                        <i class="fa fa-clipboard-list"></i>
+                        {{ 'registry.conformite_organisation.action.create'|trans }}
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 
     <div class="row">
         <div class="col-xs-12">
@@ -145,16 +148,18 @@
                                         <i class="fa fa-clipboard-list"></i>
                                         {{ 'registry.conformite_organisation.action.print'|trans }}
                                     </a>
-                                    {% if evaluation.isDraft %}
-                                    <a href="{{ path('registry_conformite_organisation_edit', {'id': evaluation.id}) }}">
-                                        <i class="fa fa-pencil-alt"></i>
-                                        {{ 'registry.conformite_organisation.action.edit'|trans }}
-                                    </a>
+                                    {% if is_granted('ROLE_USER') %}
+                                        {% if evaluation.isDraft %}
+                                            <a href="{{ path('registry_conformite_organisation_edit', {'id': evaluation.id}) }}">
+                                                <i class="fa fa-pencil-alt"></i>
+                                                {{ 'registry.conformite_organisation.action.edit'|trans }}
+                                            </a>
+                                        {% endif %}
+                                        <a href="{{ path('registry_conformite_organisation_delete', {'id': evaluation.id}) }}">
+                                            <i class="fa fa-trash"></i>
+                                            {{ 'registry.conformite_organisation.action.delete'|trans }}
+                                        </a>
                                     {% endif %}
-                                    <a href="{{ path('registry_conformite_organisation_delete', {'id': evaluation.id}) }}">
-                                        <i class="fa fa-trash"></i>
-                                        {{ 'registry.conformite_organisation.action.delete'|trans }}
-                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}

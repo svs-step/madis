@@ -72,9 +72,12 @@ class ConformiteTraitementCompletion
         $conformiteTraitement->setNbNonConformesMajeures($calculs['nbNonConformesMajeures']);
     }
 
-    public static function getConformiteTraitementLevel(Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement)
+    public static function getConformiteTraitementLevel(?Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement)
     {
         switch (true) {
+            case \is_null($conformiteTraitement):
+                return ConformiteTraitementLevelDictionary::NON_EVALUE;
+                break;
             case $conformiteTraitement->getNbNonConformesMajeures() >= 1:
             case $conformiteTraitement->getNbNonConformesMineures() >= 3:
                 return ConformiteTraitementLevelDictionary::NON_CONFORMITE_MAJEURE;
