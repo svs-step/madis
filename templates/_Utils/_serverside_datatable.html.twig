@@ -10,6 +10,14 @@
     $.fn.dataTable.moment('DD/MM/YYYY');
     $.fn.dataTable.moment('DD/MM/YYYY HH:mm');
 
+    function resetFilters() {
+        $('[id^=search_]').each(function() {
+            $(this).val('');
+        });
+        var table = $('#table').DataTable();
+        table.columns().search('');
+    }
+
     {% set dataTableOptions = dataTableOptions|default({}) %}
     $(function () {
 
@@ -72,5 +80,17 @@
             ]
         }) %}
         $('#table').DataTable({{ dataTableOptions|json_encode|raw }});
+
+        $('.dt-buttons').append('<button id="button-reset" class="dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="table" type="button" aria-haspopup="true" aria-expanded="false"><span>Réinitialiser les filtres</span></button>');
+
+        $('#button-reset').on('click', function() {
+            resetFilters();
+            var table = $('#table').DataTable();
+            table.columns().search('').draw();
+        })
+    });
+
+    $('#table').on( 'preInit.dt', function(e, settings) {
+        resetFilters();
     });
 </script>
