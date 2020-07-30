@@ -259,8 +259,8 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
                 case 'charge':
                     $this->addWhereClause($queryBuilder, 'charge', '%' . $search . '%', 'LIKE');
                     break;
-                case '':
-                    $this->addWhereClause($queryBuilder, 'priorite', $search);
+                case 'priorite':
+                    $this->addWhereClause($queryBuilder, 'priority', $search);
                     break;
             }
         }
