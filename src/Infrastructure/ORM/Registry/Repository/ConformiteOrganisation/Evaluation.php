@@ -14,10 +14,11 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
         return Model\ConformiteOrganisation\Evaluation::class;
     }
 
-    public function findAllByOrganisationOrderedByDate(Collectivity $organisation = null)
+    public function findAllByActiveOrganisationWhithHasModuleConformiteOrganisationAndOrderedByDate(Collectivity $organisation = null)
     {
         $qBuilder = $this
             ->createQueryBuilder()
+            ->leftJoin('o.collectivity', 'c')
         ;
         if (null !== $organisation) {
             $qBuilder
@@ -25,13 +26,14 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
                 ->setParameter('organisation_id', $organisation->getId());
         } else {
             $qBuilder
-                ->addSelect('c')
-                ->leftJoin('o.collectivity', 'c');
+                ->addSelect('c');
         }
 
         $qBuilder
             ->addSelect('conformites')
             ->leftJoin('o.conformites', 'conformites')
+            ->andWhere($qBuilder->expr()->eq('c.hasModuleConformiteOrganisation', ':true'))
+            ->setParameter('true', true)
             ->addOrderBy('o.date', 'DESC')
             ->addOrderBy('o.createdAt', 'DESC')
             ;
