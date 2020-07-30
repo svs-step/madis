@@ -26,6 +26,7 @@ namespace App\Application\Controller;
 
 use App\Application\DDD\Repository\RepositoryInterface;
 use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Domain\Tools\ChainManipulator;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
@@ -308,8 +309,15 @@ abstract class CRUDController extends AbstractController
 
         return new PdfResponse($this->pdf->getOutputFromHtml(
             $this->renderView($this->getTemplatingBasePath('pdf'), ['object' => $object])),
-            str_replace('/', '', (string) $object) . '-' . date('mdY') . '.pdf'
+            $this->getPdfName((string) $object) . '.pdf'
         );
+    }
+
+    private function getPdfName(string $name): string
+    {
+        $name = ChainManipulator::removeAllNonAlphaNumericChar(ChainManipulator::removeAccents($name));
+
+        return  $name . '-' . date('mdY');
     }
 
     /**
