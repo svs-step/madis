@@ -14,7 +14,7 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
         return Model\ConformiteOrganisation\Evaluation::class;
     }
 
-    public function findAllByActiveOrganisationWhithHasModuleConformiteOrganisationAndOrderedByDate(Collectivity $organisation = null)
+    public function findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate(Collectivity $organisation = null)
     {
         $qBuilder = $this
             ->createQueryBuilder()

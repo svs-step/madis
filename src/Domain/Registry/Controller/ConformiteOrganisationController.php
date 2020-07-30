@@ -141,7 +141,7 @@ class ConformiteOrganisationController extends CRUDController
         $isAdminView = $this->authorizationChecker->isGranted('ROLE_ADMIN');
         if (!$isAdminView) {
             $collectivity   = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-            $evaluations    = $this->repository->findAllByActiveOrganisationWhithHasModuleConformiteOrganisationAndOrderedByDate($collectivity);
+            $evaluations    = $this->repository->findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate($collectivity);
             $lastEvaluation = $this->repository->findLastByOrganisation($collectivity);
             if (null !== $lastEvaluation) {
                 $form = $this->createForm(EvaluationPiloteType::class, $lastEvaluation);
@@ -157,7 +157,7 @@ class ConformiteOrganisationController extends CRUDController
                 $form = $form->createView();
             }
         } else {
-            $evaluations  = $this->repository->findAllByActiveOrganisationWhithHasModuleConformiteOrganisationAndOrderedByDate();
+            $evaluations  = $this->repository->findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate();
         }
 
         return $this->render($this->getTemplatingBasePath('list'), [

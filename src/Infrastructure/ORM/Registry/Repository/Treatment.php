@@ -239,6 +239,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         $qb = $this->createQueryBuilder()
             ->addSelect('collectivite')
             ->leftJoin('o.collectivity', 'collectivite')
+            ->leftJoin('o.contractors', 'sous_traitants')
         ;
 
         foreach ($criteria as $key => $value) {
@@ -246,7 +247,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         }
 
         $this->addTableOrder($qb, $orderColumn, $orderDir);
-//        $this->addTableSearches($qb, $searches);
+        $this->addTableSearches($qb, $searches);
 
         $qb = $qb->getQuery();
         $qb->setFirstResult($firstResult);
@@ -303,15 +304,78 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         }
     }
 
+    private function addTableSearches(QueryBuilder $queryBuilder, $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'nom':
+                    $this->addWhereClause($queryBuilder, 'name', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'collectivite':
+                    $queryBuilder->andWhere('collectivite.name LIKE :nom')
+                        ->setParameter('nom', '%' . $search . '%');
+                    break;
+                case 'baseLegal':
+                    $this->addWhereClause($queryBuilder, 'legalBasis', $search);
+                    break;
+                case 'logiciel':
+                    $this->addWhereClause($queryBuilder, 'software', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'enTantQue':
+                    $this->addWhereClause($queryBuilder, 'author', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'gestionnaire':
+                    $this->addWhereClause($queryBuilder, 'manager', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'sousTraitant':
+                    $queryBuilder->andWhere('sous_traitants.name LIKE :st_nom')
+                        ->setParameter('st_nom', '%' . $search . '%');
+                    break;
+                case 'controleAcces':
+                    $queryBuilder->andWhere('o.securityAccessControl.check = :access_control')
+                        ->setParameter('access_control', $search);
+                    break;
+                case 'tracabilite':
+                    $queryBuilder->andWhere('o.securityTracability.check = :tracabilite')
+                        ->setParameter('tracabilite', $search);
+                    break;
+                case 'saving':
+                    $queryBuilder->andWhere('o.securitySaving.check = :saving')
+                        ->setParameter('saving', $search);
+                    break;
+                case 'update':
+                    $queryBuilder->andWhere('o.securityUpdate.check = :update')
+                        ->setParameter('update', $search);
+                    break;
+                case 'other':
+                    $queryBuilder->andWhere('o.securityOther.check = :other')
+                        ->setParameter('other', $search);
+                    break;
+                case 'entitledPersons':
+                    $queryBuilder->andWhere('o.securityEntitledPersons = :entitledPersons')
+                        ->setParameter('entitledPersons', $search);
+                    break;
+                case 'openAccounts':
+                    $queryBuilder->andWhere('o.securityOpenAccounts = :openAccounts')
+                        ->setParameter('entitledPersons', $search);
+                    break;
+                case 'specificitiesDelivered':
+                    $queryBuilder->andWhere('o.securitySpecificitiesDelivered = :specificitiesDelivered')
+                        ->setParameter('specificitiesDelivered', $search);
+                    break;
+            }
+        }
+    }
+
     /**
      * Add a where clause to query.
      *
      * @param mixed $value
      */
-    protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
+    protected function addWhereClause(QueryBuilder $qb, string $key, $value, $operator = '='): QueryBuilder
     {
         return $qb
-            ->andWhere("o.{$key} = :{$key}_value")
+            ->andWhere("o.{$key} $operator :{$key}_value")
             ->setParameter("{$key}_value", $value)
             ;
     }

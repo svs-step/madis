@@ -66,6 +66,96 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>
+                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_base_legal" style="width: 100%;">
+                                    <option value="">Base légale</option>
+                                    {% for key, subject in dictionary('registry_treatment_legal_basis') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_logiciel" placeholder="Logiciel" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_en_tant_que" style="width: 100%;">
+                                    <option value="">En tant que</option>
+                                    {% for key, subject in dictionary('registry_treatment_author') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_gestionnaire" placeholder="Gestionnaire" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_sous_traitants" placeholder="Sous-traitants" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_controle_acces" style="width: 100%;">
+                                    <option value="">Contrôle d'accès</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_tracabilite" style="width: 100%;">
+                                    <option value="">Traçabilité</option>
+                                    <option value="foo">Oui</option>
+                                    <option value="bar">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_sauvegarde" style="width: 100%;">
+                                    <option value="">Sauvegarde</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_mise_a_jour" style="width: 100%;">
+                                    <option value="">Mise à jour</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_autres" style="width: 100%;">
+                                    <option value="">Autres</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_capacite" style="width: 100%;">
+                                    <option value="">En capacité</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_procedure" style="width: 100%;">
+                                    <option value="">Procédure</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_specificite" style="width: 100%;">
+                                    <option value="">Spécificités</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th></th>
+                        </tr>
+                        <tr>
                             <th>{{ 'registry.treatment.list.name'|trans }}</th>
                             <th>{{ 'registry.treatment.list.collectivity'|trans }}</th>
                             <th>{{ 'registry.treatment.list.legal_basis'|trans }}</th>
@@ -115,7 +205,7 @@
             {"data": "logiciel", "visible": false},
             {"data": "enTantQue", "visible": false},
             {"data": "gestionnaire", "visible": false},
-            {"data": "sousTraitant", "visible": false},
+            {"data": "sousTraitant", "visible": false, "orderable": false},
             {"data": "controleAcces", "visible": false},
             {"data": "tracabilite", "visible": false},
             {"data": "saving", "visible": false},
@@ -124,18 +214,101 @@
             {"data": "entitledPersons", "visible": false},
             {"data": "openAccounts", "visible": false},
             {"data": "specificitiesDelivered", "visible": false},
-            {"data": "actions", "className": "noVis", "visible": actionIsVisible},
+            {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
         ],
         order:  [
-            [5, 'desc' ]
+            [0, 'asc' ]
         ],
     } %}
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
 
     <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_nom').off('keyup');
+            $('#search_nom').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+
+            $('#search_collectivite').off('keyup');
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+
+            $('#search_base_legal').off('change');
+            $('#search_base_legal').change(function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            });
+
+            $('#search_logiciel').off('keyup');
+            $('#search_logiciel').keyup($.debounce(250, function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            }));
+
+            $('#search_en_tant_que').off('change');
+            $('#search_en_tant_que').change(function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            });
+
+            $('#search_gestionnaire').off('keyup');
+            $('#search_gestionnaire').keyup($.debounce(250, function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            }));
+
+            $('#search_sous_traitants').off('keyup');
+            $('#search_sous_traitants').keyup($.debounce(250, function(){
+                oTable.column('6').search($(this).val()).draw() ;
+            }));
+
+            $('#search_controle_acces').off('change');
+            $('#search_controle_acces').change(function(){
+                oTable.column('7').search($(this).val()).draw() ;
+            });
+
+            $('#search_tracabilite').off('change');
+            $('#search_tracabilite').change(function(){
+                oTable.column('8').search($(this).val()).draw() ;
+            });
+
+            $('#search_sauvegarde').off('change');
+            $('#search_sauvegarde').change(function(){
+                oTable.column('9').search($(this).val()).draw() ;
+            });
+
+            $('#search_mise_a_jour').off('change');
+            $('#search_mise_a_jour').change(function(){
+                oTable.column('10').search($(this).val()).draw() ;
+            });
+
+            $('#search_autres').off('change');
+            $('#search_autres').change(function(){
+                oTable.column('11').search($(this).val()).draw() ;
+            });
+
+            $('#search_capacite').off('change');
+            $('#search_capacite').change(function(){
+                oTable.column('12').search($(this).val()).draw() ;
+            });
+
+            $('#search_procedure').off('change');
+            $('#search_procedure').change(function(){
+                oTable.column('13').search($(this).val()).draw() ;
+            });
+
+            $('#search_specificite').off('change');
+            $('#search_specificite').change(function(){
+                oTable.column('14').search($(this).val()).draw() ;
+            });
+        }
+
         $(document).ready(function() {
             $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
         } );
     </script>
 {% endblock %}
