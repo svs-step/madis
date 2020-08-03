@@ -126,4 +126,24 @@ class Contractor extends CRUDRepository implements Repository\Contractor
 //                break;
 //        }
 //    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllByActiveCollectivity(bool $active = true)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->leftJoin('o.collectivity', 'c')
+            ->andWhere($qb->expr()->eq('c.active', ':active'))
+            ->setParameter('active', $active)
+            ->addOrderBy('c.name')
+            ->addOrderBy('o.createdAt', 'DESC')
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

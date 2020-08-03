@@ -24,12 +24,14 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Handler;
 
 use App\Domain\Reporting\Generator\Csv\CollectivityGenerator;
+use App\Domain\Reporting\Generator\Csv\ContractorGenerator;
 use App\Domain\Reporting\Generator\Csv\TreatmentGenerator;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ExportCsvHandler
 {
     const COLLECTIVITY_TYPE = 'collectivity';
+    const CONTRACTOR_TYPE   = 'contractor';
     const TREATMENT_TYPE    = 'treatment';
 
     /**
@@ -38,13 +40,22 @@ class ExportCsvHandler
     private $collectivityGenerator;
 
     /**
+     * @var ContractorGenerator
+     */
+    private $contractorGenerator;
+
+    /**
      * @var TreatmentGenerator
      */
     private $treatmentGenerator;
 
-    public function __construct(CollectivityGenerator $collectivityGenerator, TreatmentGenerator $treatmentGenerator)
-    {
+    public function __construct(
+        CollectivityGenerator $collectivityGenerator,
+        ContractorGenerator $contractorGenerator,
+        TreatmentGenerator $treatmentGenerator
+    ) {
         $this->collectivityGenerator = $collectivityGenerator;
+        $this->contractorGenerator   = $contractorGenerator;
         $this->treatmentGenerator    = $treatmentGenerator;
     }
 
@@ -53,6 +64,9 @@ class ExportCsvHandler
         switch ($type) {
             case self::COLLECTIVITY_TYPE:
                 return $this->collectivityGenerator->generateResponse(self::COLLECTIVITY_TYPE);
+                break;
+            case self::CONTRACTOR_TYPE:
+                return $this->contractorGenerator->generateResponse(self::CONTRACTOR_TYPE);
                 break;
             case self::TREATMENT_TYPE:
                 return $this->treatmentGenerator->generateResponse(self::TREATMENT_TYPE);

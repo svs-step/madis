@@ -44,4 +44,11 @@ interface Contractor extends CRUDRepositoryInterface, DataTablesRepository
      * Count all by collectivity.
      */
     public function countAllByCollectivity(Collectivity $collectivity);
+
+    /**
+     * Return all contractors from active collectivity.
+     *
+     * @return array
+     */
+    public function findAllByActiveCollectivity(bool $active = true);
 }

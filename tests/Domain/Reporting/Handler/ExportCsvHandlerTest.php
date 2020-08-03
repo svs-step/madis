@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Reporting\Handler;
 
 use App\Domain\Reporting\Generator\Csv\CollectivityGenerator;
+use App\Domain\Reporting\Generator\Csv\ContractorGenerator;
 use App\Domain\Reporting\Generator\Csv\TreatmentGenerator;
 use App\Domain\Reporting\Handler\ExportCsvHandler;
 use PHPUnit\Framework\TestCase;
@@ -35,6 +36,11 @@ class ExportCsvHandlerTest extends TestCase
      * @var CollectivityGenerator
      */
     private $collectivityGenerator;
+
+    /**
+     * @var ContractorGenerator
+     */
+    private $contractorGenerator;
 
     /**
      * @var TreatmentGenerator
@@ -49,10 +55,12 @@ class ExportCsvHandlerTest extends TestCase
     protected function setUp()
     {
         $this->collectivityGenerator = $this->prophesize(CollectivityGenerator::class);
+        $this->contractorGenerator   = $this->prophesize(ContractorGenerator::class);
         $this->treatmentGenerator    = $this->prophesize(TreatmentGenerator::class);
 
         $this->handler = new ExportCsvHandler(
             $this->collectivityGenerator->reveal(),
+            $this->contractorGenerator->reveal(),
             $this->treatmentGenerator->reveal()
         );
     }
@@ -69,6 +77,14 @@ class ExportCsvHandlerTest extends TestCase
     {
         $this->treatmentGenerator->generateResponse(ExportCsvHandler::TREATMENT_TYPE)->shouldBeCalled()->willReturn($this->prophesize(BinaryFileResponse::class));
         $response = $this->handler->generateCsv(ExportCsvHandler::TREATMENT_TYPE);
+
+        $this->assertInstanceOf(BinaryFileResponse::class, $response);
+    }
+
+    public function testItReturnAnBinaryResponseOnContractorType()
+    {
+        $this->contractorGenerator->generateResponse(ExportCsvHandler::CONTRACTOR_TYPE)->shouldBeCalled()->willReturn($this->prophesize(BinaryFileResponse::class));
+        $response = $this->handler->generateCsv(ExportCsvHandler::CONTRACTOR_TYPE);
 
         $this->assertInstanceOf(BinaryFileResponse::class, $response);
     }
