@@ -101,7 +101,7 @@ class Contractor implements LoggableSubject
     private $maintainsTreatmentRegister;
 
     /**
-     * Données hors EU.
+     * Données hors UE.
      *
      * @var bool
      */

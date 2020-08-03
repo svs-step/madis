@@ -99,7 +99,11 @@ class Contractor extends CRUDRepository implements Repository\Contractor
     {
         $qb = $this->createQueryBuilder();
 
-//        $this->addTableOrder($qb, $orderColumn, $orderDir);
+        $qb->leftJoin('o.collectivity', 'collectivite')
+            ->addSelect('collectivite');
+
+        $this->addTableOrder($qb, $orderColumn, $orderDir);
+        $this->addTableWhere($qb, $searches);
 
         $query = $qb->getQuery();
         $query->setFirstResult($firstResult);
@@ -108,24 +112,56 @@ class Contractor extends CRUDRepository implements Repository\Contractor
         return new Paginator($query);
     }
 
-    // TODO Add table order
-//    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
-//    {
-//        switch ($orderColumn) {
-//            case 'nom':
-//                break;
-//            case 'collectivite':
-//                break;
-//            case 'clauses_contractuelles':
-//                break;
-//            case 'element_securite':
-//                break;
-//            case 'registre_traitements':
-//                break;
-//            case 'donnees_hors_eu':
-//                break;
-//        }
-//    }
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'nom':
+                $queryBuilder->addOrderBy('o.name', $orderDir);
+                break;
+            case 'collectivite':
+                $queryBuilder->addOrderBy('collectivite.name', $orderDir);
+                break;
+            case 'clauses_contractuelles':
+                $queryBuilder->addOrderBy('o.contractualClausesVerified', $orderDir);
+                break;
+            case 'element_securite':
+                $queryBuilder->addOrderBy('o.adoptedSecurityFeatures', $orderDir);
+                break;
+            case 'registre_traitements':
+                $queryBuilder->addOrderBy('o.maintainsTreatmentRegister', $orderDir);
+                break;
+            case 'donnees_hors_eu':
+                $queryBuilder->addOrderBy('o.sendingDataOutsideEu', $orderDir);
+                break;
+        }
+    }
+
+    private function addTableWhere(QueryBuilder $queryBuilder, $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'nom':
+                    $this->addWhereClause($queryBuilder, 'name', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'collectivite':
+                    $queryBuilder->andWhere('collectivity.name LIKE :collectivite_name')
+                        ->setParameter('collectivite_name', '%' . $search . '%');
+                    break;
+                case 'clauses_contractuelles':
+                    $this->addWhereClause($queryBuilder, 'contractualClausesVerified', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'element_securite':
+                    $this->addWhereClause($queryBuilder, 'adoptedSecurityFeatures', $search);
+                    break;
+                case 'registre_traitements':
+                    $this->addWhereClause($queryBuilder, 'maintainsTreatmentRegister', $search);
+                    break;
+                case 'donnees_hors_eu':
+                    $this->addWhereClause($queryBuilder, 'sendingDataOutsideEu', $search);
+                    break;
+            }
+        }
+    }
 
     /**
      * {@inheritdoc}

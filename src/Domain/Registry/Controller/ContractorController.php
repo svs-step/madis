@@ -235,7 +235,7 @@ class ContractorController extends CRUDController
             2 => 'clauses_contractuelles',
             3 => 'element_securite',
             4 => 'registre_traitements',
-            5 => 'donnees_hors_ue',
+            5 => 'donnees_hors_eu',
             6 => 'actions',
         ];
     }
