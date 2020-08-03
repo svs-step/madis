@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\Registry\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Application\Traits\RepositoryUtils;
 use App\Domain\Registry\Dictionary\MesurementPriorityDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model;
@@ -37,6 +38,8 @@ use Symfony\Component\Security\Core\Security;
 
 class Mesurement extends CRUDRepository implements Repository\Mesurement
 {
+    use RepositoryUtils;
+
     /**
      * @var Security
      */
@@ -54,19 +57,6 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
     protected function getModelClass(): string
     {
         return Model\Mesurement::class;
-    }
-
-    /**
-     * Add a where clause to query.
-     *
-     * @param mixed $value
-     */
-    protected function addWhereClause(QueryBuilder $qb, string $key, $value, $operator = '='): QueryBuilder
-    {
-        return $qb
-            ->andWhere("o.{$key} $operator :{$key}_value")
-            ->setParameter("{$key}_value", $value)
-        ;
     }
 
     /**

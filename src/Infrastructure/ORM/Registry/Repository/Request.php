@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\ORM\Registry\Repository;
 
+use App\Application\Traits\RepositoryUtils;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
@@ -33,6 +34,8 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class Request implements Repository\Request
 {
+    use RepositoryUtils;
+
     /**
      * @var ManagerRegistry
      */
@@ -163,19 +166,6 @@ class Request implements Repository\Request
     protected function getModelClass(): string
     {
         return Model\Request::class;
-    }
-
-    /**
-     * Add where clause query.
-     *
-     * @param mixed $value
-     */
-    protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
-    {
-        return $qb
-            ->andWhere("o.{$key} = :{$key}_value")
-            ->setParameter("{$key}_value", $value)
-            ;
     }
 
     /**

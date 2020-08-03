@@ -142,11 +142,7 @@ class MesurementController extends CRUDController
      */
     protected function getListData()
     {
-        $criteria = [];
-
-        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-        }
+        $criteria = $this->getRequestCriteria();
 
         return $this->repository->findBy($criteria);
     }
@@ -182,14 +178,9 @@ class MesurementController extends CRUDController
      */
     public function actionPlanAction()
     {
-        $criteria = [
-            'status' => MesurementStatusDictionary::STATUS_NOT_APPLIED,
-        ];
-
         // Since we have to display planified & not-applied mesurement, filter
-        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-        }
+        $criteria = $this->getRequestCriteria();
+        $criteria = $criteria + ['status' => MesurementStatusDictionary::STATUS_NOT_APPLIED];
 
         return $this->render('Registry/Mesurement/action_plan.html.twig', [
             'objects' => $this->repository->findByPlanified($criteria),

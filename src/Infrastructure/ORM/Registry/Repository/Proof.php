@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\ORM\Registry\Repository;
 
+use App\Application\Traits\RepositoryUtils;
 use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
@@ -34,6 +35,8 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class Proof implements Repository\Proof
 {
+    use RepositoryUtils;
+
     /**
      * @var ManagerRegistry
      */
@@ -173,19 +176,6 @@ class Proof implements Repository\Proof
     protected function getModelClass(): string
     {
         return Model\Proof::class;
-    }
-
-    /**
-     * Add a where clause to query.
-     *
-     * @param mixed $value
-     */
-    protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
-    {
-        return $qb
-            ->andWhere("o.{$key} = :{$key}_value")
-            ->setParameter("{$key}_value", $value)
-        ;
     }
 
     /**

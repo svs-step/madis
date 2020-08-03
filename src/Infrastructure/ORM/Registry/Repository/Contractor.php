@@ -25,12 +25,17 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\Registry\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Application\Traits\RepositoryUtils;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class Contractor extends CRUDRepository implements Repository\Contractor
 {
+    use RepositoryUtils;
+
     /**
      * {@inheritdoc}
      */
@@ -72,4 +77,53 @@ class Contractor extends CRUDRepository implements Repository\Contractor
 
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    public function count(array $criteria = [])
+    {
+        $qb = $this
+            ->createQueryBuilder()
+            ->select('count(o.id)')
+        ;
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+//        $this->addTableOrder($qb, $orderColumn, $orderDir);
+
+        $query = $qb->getQuery();
+        $query->setFirstResult($firstResult);
+        $query->setMaxResults($maxResults);
+
+        return new Paginator($query);
+    }
+
+    // TODO Add table order
+//    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+//    {
+//        switch ($orderColumn) {
+//            case 'nom':
+//                break;
+//            case 'collectivite':
+//                break;
+//            case 'clauses_contractuelles':
+//                break;
+//            case 'element_securite':
+//                break;
+//            case 'registre_traitements':
+//                break;
+//            case 'donnees_hors_eu':
+//                break;
+//        }
+//    }
 }

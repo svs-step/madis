@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\Registry\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Application\Traits\RepositoryUtils;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
@@ -33,6 +34,8 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class Treatment extends CRUDRepository implements Repository\Treatment
 {
+    use RepositoryUtils;
+
     /**
      * {@inheritdoc}
      */
@@ -365,18 +368,5 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     break;
             }
         }
-    }
-
-    /**
-     * Add a where clause to query.
-     *
-     * @param mixed $value
-     */
-    protected function addWhereClause(QueryBuilder $qb, string $key, $value, $operator = '='): QueryBuilder
-    {
-        return $qb
-            ->andWhere("o.{$key} $operator :{$key}_value")
-            ->setParameter("{$key}_value", $value)
-            ;
     }
 }
