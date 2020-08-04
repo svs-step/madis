@@ -60,6 +60,31 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>
+                                <input class="form-control" type="text" id="search_prenom" placeholder="Prénom" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_email" placeholder="Email" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                            </th>
+                            <th> <select class="form-control" id="search_role" style="width: 100%;">
+                                    <option value="">Rôle</option>
+                                    {% for key, subject in dictionary('user_user_role') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select></th>
+                            <th></th>
+                            <th>
+                                <input class="datepicker form-control" type="text" id="search_last_login" placeholder="Date" style="width: 100%;">
+                            </th>
+                            <th></th>
+                        </tr>
+                        <tr>
                             <th>{{ 'user.user.list.first_name'|trans }}</th>
                             <th>{{ 'user.user.list.last_name'|trans }}</th>
                             <th>{{ 'user.user.list.email'|trans }}</th>
@@ -87,7 +112,7 @@
             {"data": "email"},
             {"data": "collectivite"},
             {"data": "roles"},
-            {"data": "actif"},
+            {"data": "actif", "orderable": false},
             {"data": "connexion"},
             {"data": "actions", "className": "noVis", "orderable": false},
         ],
@@ -97,5 +122,50 @@
     } %}
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_prenom').off('keyup');
+            $('#search_prenom').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+
+            $('#search_nom').off('keyup');
+            $('#search_nom').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+
+            $('#search_email').off('keyup');
+            $('#search_email').keyup($.debounce(250, function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            }));
+
+            $('#search_collectivite').off('keyup');
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            }));
+
+            $('#search_role').off('change');
+            $('#search_role').change(function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            });
+
+            $('#search_last_login').off('change');
+            $('#search_last_login').change(function(){
+                oTable.column('6').search($(this).val()).draw() ;
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
+
 
 {% endblock %}

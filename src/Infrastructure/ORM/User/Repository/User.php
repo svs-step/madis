@@ -26,6 +26,7 @@ namespace App\Infrastructure\ORM\User\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Traits\RepositoryUtils;
+use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use Doctrine\ORM\QueryBuilder;
@@ -146,10 +147,87 @@ class User extends CRUDRepository implements Repository\User
             unset($criteria['archive']);
         }
 
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        $qb->leftJoin('o.collectivity', 'collectivite')
+            ->addSelect('collectivite');
+
+        $this->addTableOrder($qb, $orderColumn, $orderDir);
+        $this->addTableWhere($qb, $searches);
+
         $query = $qb->getQuery();
         $query->setFirstResult($firstResult);
         $query->setMaxResults($maxResults);
 
         return new Paginator($query);
+    }
+
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'prenom':
+                $queryBuilder->addOrderBy('o.firstName', $orderDir);
+                break;
+            case 'nom':
+                $queryBuilder->addOrderBy('o.lastName', $orderDir);
+                break;
+            case 'email':
+                $queryBuilder->addOrderBy('o.email', $orderDir);
+                break;
+            case 'collectivite':
+                $queryBuilder->addOrderBy('collectivite.name', $orderDir);
+                break;
+            case 'roles':
+                $queryBuilder->addSelect('
+                CASE
+                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.roles, \'$[0]\')) = :role_admin THEN 1
+                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.roles, \'$[0]\')) = :role_user THEN 2
+                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.roles, \'$[0]\')) = :role_preview THEN 3
+                    ELSE 4
+                END as HIDDEN json_role');
+                $queryBuilder->addOrderBy('json_role', $orderDir);
+                $queryBuilder->setParameters(
+                    [
+                        'role_admin'   => UserRoleDictionary::ROLE_ADMIN,
+                        'role_user'    => UserRoleDictionary::ROLE_USER,
+                        'role_preview' => UserRoleDictionary::ROLE_PREVIEW,
+                    ]
+                );
+                break;
+            case 'connexion':
+                $queryBuilder->addOrderBy('o.lastLogin', $orderDir);
+                break;
+        }
+    }
+
+    private function addTableWhere(QueryBuilder $queryBuilder, $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'prenom':
+                    $this->addWhereClause($queryBuilder, 'firstName', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'nom':
+                    $this->addWhereClause($queryBuilder, 'lastName', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'email':
+                    $this->addWhereClause($queryBuilder, 'email', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'collectivite':
+                    $queryBuilder->andWhere('collectivity.name LIKE :collectivite_name')
+                        ->setParameter('collectivite_name', '%' . $search . '%');
+                    break;
+                case 'roles':
+                    $queryBuilder->andWhere('JSON_CONTAINS(o.roles, :role) = 1')
+                        ->setParameter('role', sprintf('"%s"', $search));
+                    break;
+                case 'connexion':
+                    $queryBuilder->andWhere('o.lastLogin LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+            }
+        }
     }
 }

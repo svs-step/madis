@@ -20,6 +20,7 @@
         "ramsey/uuid": "^3.7",
         "ramsey/uuid-doctrine": "^1.4",
         "rollerworks/password-strength-bundle": "^2.0",
+        "scienta/doctrine-json-functions": "^4.1",
         "stof/doctrine-extensions-bundle": "^1.3",
         "symfony/asset": "*",
         "symfony/cache": "4.4.*",
