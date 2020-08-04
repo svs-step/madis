@@ -265,24 +265,6 @@ class Proof implements Repository\Proof
      *
      * @throws \Exception
      */
-    public function findAllArchived(bool $archived = false, array $order = [])
-    {
-        $qb = $this->createQueryBuilder();
-
-        $this->addArchivedClause($qb, $archived);
-        $this->addOrder($qb, $order);
-
-        return $qb
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @throws \Exception
-     */
     public function findAllArchivedByCollectivity(Collectivity $collectivity, bool $archived = false, array $order = [])
     {
         $qb = $this->createQueryBuilder();

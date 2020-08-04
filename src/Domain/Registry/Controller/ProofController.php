@@ -142,26 +142,6 @@ class ProofController extends CRUDController
 
     /**
      * {@inheritdoc}
-     *
-     * @throws \Exception
-     */
-    protected function getListData()
-    {
-        $request   = $this->requestStack->getMasterRequest();
-        $archived  = 'true' === $request->query->get('archive') ? true : false;
-
-        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return $this->repository->findAllArchived($archived);
-        }
-
-        return $this->repository->findAllArchivedByCollectivity(
-            $this->userProvider->getAuthenticatedUser()->getCollectivity(),
-            $archived
-        );
-    }
-
-    /**
-     * {@inheritdoc}
      * - Upload documentFile before object persistence in database.
      *
      * @throws \Exception

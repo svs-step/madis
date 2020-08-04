@@ -29,6 +29,7 @@ use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 class Violation implements Repository\Violation
@@ -271,24 +272,6 @@ class Violation implements Repository\Violation
      *
      * @throws \Exception
      */
-    public function findAllArchived(bool $archived = false, array $order = [])
-    {
-        $qb = $this->createQueryBuilder();
-
-        $this->addArchivedClause($qb, $archived);
-        $this->addOrder($qb, $order);
-
-        return $qb
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @throws \Exception
-     */
     public function findAllArchivedByCollectivity(Collectivity $collectivity, bool $archived = false, array $order = [])
     {
         $qb = $this->createQueryBuilder();
@@ -328,5 +311,43 @@ class Violation implements Repository\Violation
         $qb->setMaxResults(1);
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function count(array $criteria = [])
+    {
+        $qb = $this
+                ->createQueryBuilder()
+                ->select('count(o.id)')
+            ;
+
+        if (\array_key_exists('archive', $criteria)) {
+            $this->addArchivedClause($qb, $criteria['archive']);
+            unset($criteria['archive']);
+        }
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        return $qb
+                ->getQuery()
+                ->getSingleScalarResult()
+                ;
+    }
+
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        if (\array_key_exists('archive', $criteria)) {
+            $this->addArchivedClause($qb, $criteria['archive']);
+            unset($criteria['archive']);
+        }
+
+        $query = $qb->getQuery();
+        $query->setFirstResult($firstResult);
+        $query->setMaxResults($maxResults);
+
+        return new Paginator($query);
     }
 }

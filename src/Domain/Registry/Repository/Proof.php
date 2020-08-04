@@ -95,16 +95,6 @@ interface Proof extends RepositoryInterface, DataTablesRepository
     public function findBy(array $criteria = []);
 
     /**
-     * Find all proofs.
-     *
-     * @param bool  $archived Get all archived or not
-     * @param array $order    Order results
-     *
-     * @return array The array of proofs
-     */
-    public function findAllArchived(bool $archived = false, array $order = []);
-
-    /**
      * Find all active proofs by associated collectivity.
      *
      * @param Collectivity $collectivity The collectivity to search with
