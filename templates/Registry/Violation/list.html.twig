@@ -68,6 +68,40 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="datepicker form-control" type="text" id="search_date" placeholder="Date de violation" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_nature" style="width: 100%;">
+                                    <option value="">Nature</option>
+                                    {% for key, subject in dictionary('registry_violation_nature') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_cause" style="width: 100%;">
+                                    <option value="">Cause</option>
+                                    {% for key, subject in dictionary('registry_violation_cause') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_gravity" style="width: 100%;">
+                                    <option value="">Gravité</option>
+                                    {% for key, subject in dictionary('registry_violation_gravity') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        <tr>
                             <th>{{ 'registry.violation.list.collectivity'|trans }}</th>
                             <th>{{ 'registry.violation.list.date'|trans }}</th>
                             <th>{{ 'registry.violation.list.violation_nature'|trans }}</th>
@@ -110,5 +144,44 @@
     } %}
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_collectivite').off('keyup');
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+
+            $('#search_date').off('change');
+            $('#search_date').change(function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            });
+
+            $('#search_nature').off('change');
+            $('#search_nature').change(function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            });
+
+            $('#search_cause').off('change');
+            $('#search_cause').change(function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            });
+
+            $('#search_gravity').off('change');
+            $('#search_gravity').change(function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
 
 {% endblock %}

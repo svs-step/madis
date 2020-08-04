@@ -344,10 +344,62 @@ class Violation implements Repository\Violation
             unset($criteria['archive']);
         }
 
+        $qb->leftJoin('o.collectivity', 'collectivite')
+            ->addSelect('collectivite');
+
+        $this->addTableOrder($qb, $orderColumn, $orderDir);
+        $this->addTableWhere($qb, $searches);
+
         $query = $qb->getQuery();
         $query->setFirstResult($firstResult);
         $query->setMaxResults($maxResults);
 
         return new Paginator($query);
+    }
+
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'collectivite':
+                $queryBuilder->addOrderBy('collectivite.name', $orderDir);
+                break;
+            case 'date':
+                $queryBuilder->addOrderBy('o.date', $orderDir);
+                break;
+            case 'nature':
+                $queryBuilder->addOrderBy('o.violationNature', $orderDir);
+                break;
+            case 'cause':
+                $queryBuilder->addOrderBy('o.cause', $orderDir);
+                break;
+            case 'gravity':
+                $queryBuilder->addOrderBy('o.gravity', $orderDir);
+                break;
+        }
+    }
+
+    private function addTableWhere(QueryBuilder $queryBuilder, $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'collectivite':
+                    $queryBuilder->andWhere('collectivite.name LIKE :nom')
+                        ->setParameter('nom', '%' . $search . '%');
+                    break;
+                case 'date':
+                    $queryBuilder->andWhere('o.date LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'nature':
+                    $this->addWhereClause($queryBuilder, 'violationNature', $search);
+                    break;
+                case 'cause':
+                    $this->addWhereClause($queryBuilder, 'cause', $search);
+                    break;
+                case 'gravity':
+                    $this->addWhereClause($queryBuilder, 'gravity', $search);
+                    break;
+            }
+        }
     }
 }
