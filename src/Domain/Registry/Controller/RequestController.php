@@ -255,7 +255,7 @@ class RequestController extends CRUDController
     {
         $link = '<a href="' . $this->router->generate('registry_request_show', ['id'=> $demande->getId()]) . '">';
         if ($demande->getApplicant()->isConcernedPeople() ||
-            $demande->getConcernedPeople()->getFullName()) {
+            ' ' === $demande->getConcernedPeople()->getFullName()) {
             $link .= $demande->getApplicant()->getFullName();
         } else {
             $link .= $demande->getConcernedPeople()->getFullName();

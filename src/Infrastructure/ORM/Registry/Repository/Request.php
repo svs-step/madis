@@ -25,6 +25,8 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\Registry\Repository;
 
 use App\Application\Traits\RepositoryUtils;
+use App\Domain\Registry\Dictionary\RequestObjectDictionary;
+use App\Domain\Registry\Dictionary\RequestStateDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
@@ -345,6 +347,8 @@ class Request implements Repository\Request
             $this->addArchivedClause($qb, $criteria['archive']);
             unset($criteria['archive']);
         }
+        $this->addTableOrder($qb, $orderColumn, $orderDir);
+        $this->addTableWhere($qb, $searches);
 
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
@@ -355,5 +359,93 @@ class Request implements Repository\Request
         $query->setMaxResults($maxResults);
 
         return new Paginator($query);
+    }
+
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'collectivite':
+                $queryBuilder->addOrderBy('collectivite.name', $orderDir);
+                break;
+            case 'personne_concernee':
+                $queryBuilder->addSelect('IFELSE (o.applicant.concernedPeople = 1, 
+                    CONCAT(o.applicant.firstName, \' \', o.applicant.lastName), 
+                    CONCAT(o.concernedPeople.firstName, \' \', o.applicant.lastName))
+                    AS HIDDEN person_name')
+                ->addOrderBy('person_name', $orderDir);
+                break;
+            case 'date_demande':
+                $queryBuilder->addOrderBy('o.date', $orderDir);
+                break;
+            case 'objet_demande':
+                $queryBuilder->addSelect('(case
+                WHEN o.object = \'' . RequestObjectDictionary::OBJECT_ACCESS . '\' THEN 1
+                WHEN o.object = \'' . RequestObjectDictionary::OBJECT_OTHER . '\' THEN 2
+                WHEN o.object = \'' . RequestObjectDictionary::OBJECT_LIMIT_TREATMENT . '\' THEN 3
+                WHEN o.object = \'' . RequestObjectDictionary::OBJECT_DATA_PORTABILITY . '\' THEN 4
+                WHEN o.object = \'' . RequestObjectDictionary::OBJECT_CORRECT . '\' THEN 5
+                WHEN o.object = \'' . RequestObjectDictionary::OBJECT_WITHDRAW_CONSENT . '\' THEN 6
+                WHEN o.object = \'' . RequestObjectDictionary::OBJECT_DELETE . '\' THEN 7
+                ELSE 8 END) AS HIDDEN hidden_object')
+                    ->addOrderBy('hidden_object', $orderDir);
+                break;
+            case 'demande_complete':
+                $queryBuilder->addOrderBy('o.complete', $orderDir);
+                break;
+            case 'demandeur_legitime':
+                $queryBuilder->addOrderBy('o.legitimateApplicant', $orderDir);
+                break;
+            case 'demande_legitime':
+                $queryBuilder->addOrderBy('o.legitimateRequest', $orderDir);
+                break;
+            case 'etat_demande':
+                $queryBuilder->addSelect('(case
+                WHEN o.state = \'' . RequestStateDictionary::STATE_TO_TREAT . '\' THEN 1
+                WHEN o.state = \'' . RequestStateDictionary::STATE_DENIED . '\' THEN 2
+                WHEN o.state = \'' . RequestStateDictionary::STATE_COMPLETED_CLOSED . '\' THEN 3
+                WHEN o.state = \'' . RequestStateDictionary::STATE_AWAITING_CONFIRMATION . '\' THEN 4
+                WHEN o.state = \'' . RequestStateDictionary::STATE_ON_REQUEST . '\' THEN 5
+                WHEN o.state = \'' . RequestStateDictionary::STATE_AWAITING_SERVICE . '\' THEN 6
+                ELSE 7 END) AS HIDDEN hidden_state')
+                ->addOrderBy('hidden_state', $orderDir);
+        }
+    }
+
+    private function addTableWhere(QueryBuilder $queryBuilder, $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'collectivite':
+                    $queryBuilder->andWhere('collectivite.name LIKE :collectivite_nom')
+                        ->setParameter('collectivite_nom', '%' . $search . '%');
+                    break;
+                case 'personne_concernee':
+                    $queryBuilder->andWhere('IFELSE (o.applicant.concernedPeople = 1, 
+                        CONCAT(o.applicant.firstName, \' \', o.applicant.lastName), 
+                        CONCAT(o.concernedPeople.firstName, \' \', o.applicant.lastName))
+                        LIKE :person_name')
+                        ->setParameter('person_name', '%' . $search . '%');
+                    break;
+                case 'date_demande':
+                    $queryBuilder->andWhere('o.date LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'objet_demande':
+                    $this->addWhereClause($queryBuilder, 'object', $search);
+                    break;
+                case 'demande_complete':
+                    $this->addWhereClause($queryBuilder, 'complete', $search);
+                    break;
+                case 'demandeur_legitime':
+                    $this->addWhereClause($queryBuilder, 'legitimateApplicant', $search);
+                    break;
+                case 'demande_legitime':
+                    $this->addWhereClause($queryBuilder, 'legitimateRequest', $search);
+                    break;
+                case 'etat_demande':
+                    $this->addWhereClause($queryBuilder, 'state', $search);
+                    break;
+            }
+        }
     }
 }

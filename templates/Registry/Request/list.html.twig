@@ -69,6 +69,57 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_personne_concernee" placeholder="Personne" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="datepicker form-control" type="text" id="search_date_demande" placeholder="Date" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_objet" style="width: 100%;">
+                                    <option value="">Objet</option>
+                                    {% for key, subject in dictionary('registry_request_object') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_complete" style="width: 100%;">
+                                    <option value="">Complète</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_demandeur" style="width: 100%;">
+                                    <option value="">Demandeur</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_legitime" style="width: 100%;">
+                                    <option value="">Légitime</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <input class="datepicker form-control" type="text" id="search_date_traitement" placeholder="Date" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_etat" style="width: 100%;">
+                                    <option value="">État</option>
+                                    {% for key, subject in dictionary('registry_request_state') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                        </tr>
+                        <tr>
                             <th>{{ 'registry.request.list.collectivity'|trans }}</th>
                             <th>{{ 'registry.request.list.concerned_people'|trans }}</th>
                             <th>{{ 'registry.request.list.date'|trans }}</th>
@@ -89,6 +140,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 
     {% set actionsIsVisible = is_granted('ROLE_USER') and false == app.request.query.boolean('archive')  %}
 
@@ -110,9 +162,69 @@
             {"data": "demande_legitime"},
             {"data": "date_traitement"},
             {"data": "etat_demande"},
-            {"data": "actions", "visible": actionsIsVisible, "className": "noVis"},
+            {"data": "actions", "visible": actionsIsVisible, "className": "noVis", "orderable": false},
         ]
     } %}
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_collectivite').off('keyup');
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw();
+            }));
+
+            $('#search_personne_concernee').off('keyup');
+            $('#search_personne_concernee').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw();
+            }));
+
+            $('#search_date_demande').off('change');
+            $('#search_date_demande').change(function(){
+                oTable.column('2').search($(this).val()).draw();
+            });
+
+            $('#search_objet').off('change');
+            $('#search_objet').change(function(){
+                oTable.column('3').search($(this).val()).draw();
+            });
+
+            $('#search_complete').off('change');
+            $('#search_complete').change(function(){
+                oTable.column('4').search($(this).val()).draw();
+            });
+
+            $('#search_demandeur').off('change');
+            $('#search_demandeur').change(function(){
+                oTable.column('5').search($(this).val()).draw();
+            });
+
+            $('#search_legitime').off('change');
+            $('#search_legitime').change(function(){
+                oTable.column('6').search($(this).val()).draw();
+            });
+
+            $('#search_date_traitement').off('change');
+            $('#search_date_traitement').change(function(){
+                oTable.column('7').search($(this).val()).draw();
+            });
+
+            $('#search_etat').off('change');
+            $('#search_etat').change(function(){
+                oTable.column('8').search($(this).val()).draw();
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
 {% endblock %}
