@@ -3,6 +3,11 @@ registry_proof_list:
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\ProofController:listAction'
 
+registry_proof_list_datatables:
+    path: '/datatables'
+    methods: ['POST']
+    controller: 'App\Domain\Registry\Controller\ProofController:listDataTables'
+
 registry_proof_create:
     path: '/creer'
     methods: ['GET', 'POST']

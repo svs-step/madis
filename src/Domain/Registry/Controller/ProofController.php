@@ -26,6 +26,8 @@ namespace App\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Form\Type\ProofType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
@@ -36,12 +38,15 @@ use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Intl\Exception\MethodNotImplementedException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -50,6 +55,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class ProofController extends CRUDController
 {
+    use ServersideDatatablesTrait;
+
     /**
      * @var RequestStack
      */
@@ -75,6 +82,11 @@ class ProofController extends CRUDController
      */
     protected $documentFilesystem;
 
+    /**
+     * @var RouterInterface
+     */
+    protected $router;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -84,7 +96,8 @@ class ProofController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
         FilesystemInterface $documentFilesystem,
-        Pdf $pdf
+        Pdf $pdf,
+        RouterInterface $router
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf);
         $this->requestStack         = $requestStack;
@@ -92,6 +105,7 @@ class ProofController extends CRUDController
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
         $this->documentFilesystem   = $documentFilesystem;
+        $this->router               = $router;
     }
 
     /**
@@ -274,5 +288,95 @@ class ProofController extends CRUDController
         );
 
         return $response;
+    }
+
+    public function listAction(): Response
+    {
+        $criteria = $this->getRequestCriteria();
+
+        return $this->render($this->getTemplatingBasePath('list'), [
+            'totalItem' => $this->repository->count($criteria),
+            'route'     => $this->router->generate('registry_proof_list_datatables', ['archive' => $criteria['archive']]),
+        ]);
+    }
+
+    public function listDataTables(Request $request): JsonResponse
+    {
+        $criteria    = $this->getRequestCriteria();
+        $users       = $this->getResults($request, $criteria);
+        $reponse     = $this->getBaseDataTablesResponse($request, $users, $criteria);
+
+        /** @var Model\Proof $proof */
+        foreach ($users as $proof) {
+            $reponse['data'][] = [
+                'nom'          => $proof->getName(),
+                'collectivite' => $proof->getCollectivity()->getName(),
+                'type'         => !\is_null($proof->getType()) ? ProofTypeDictionary::getTypes()[$proof->getType()] : null,
+                'commentaire'  => $proof->getComment(),
+                'date'         => \date_format($proof->getCreatedAt(), 'd/m/Y H:i'),
+                'actions'      => $this->getActionCellsContent($proof),
+            ];
+        }
+
+        $jsonResponse = new JsonResponse();
+        $jsonResponse->setJson(\json_encode($reponse));
+
+        return $jsonResponse;
+    }
+
+    protected function getLabelAndKeysArray(): array
+    {
+        return [
+            0 => 'nom',
+            1 => 'collectivite',
+            2 => 'type',
+            3 => 'commentaire',
+            4 => 'date',
+            5 => 'actions',
+        ];
+    }
+
+    private function getRequestCriteria()
+    {
+        $criteria            = [];
+        $request             = $this->requestStack->getMasterRequest();
+        $criteria['archive'] = $request->query->getBoolean('archive');
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+        }
+
+        return $criteria;
+    }
+
+    private function getActionCellsContent(Model\Proof $proof)
+    {
+        $cellContent = '';
+        if ($this->userProvider->getAuthenticatedUser()->getCollectivity() === $proof->getCollectivity()
+            || $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $cellContent .= '<a href="' . $this->router->generate('registry_proof_download', ['id' => $proof->getId()]) . '">
+                <i class="fa fa-download"></i> ' .
+                $this->translator->trans('action.download') . '
+            </a>';
+        }
+
+        if ($this->authorizationChecker->isGranted('ROLE_USER')) {
+            if (\is_null($proof->getDeletedAt())) {
+                $cellContent .= '<a href="' . $this->router->generate('registry_proof_edit', ['id' => $proof->getId()]) . '">
+                    <i class="fa fa-pencil-alt"></i> ' .
+                        $this->translator->trans('action.edit') . '
+                </a>
+                <a href="' . $this->router->generate('registry_proof_archive', ['id' => $proof->getId()]) . '">
+                    <i class="fa fa-archive"></i> ' .
+                    $this->translator->trans('action.archive') . '
+                </a>';
+            }
+            $cellContent .= '<a href="' . $this->router->generate('registry_proof_delete', ['id' => $proof->getId()]) . '">
+                <i class="fa fa-trash"></i> ' .
+                $this->translator->trans('action.delete') . '
+            </a>';
+        }
+
+        return $cellContent;
     }
 }

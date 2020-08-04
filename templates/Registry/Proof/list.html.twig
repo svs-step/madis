@@ -6,7 +6,8 @@
 {% block title %}{{ 'registry.proof.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
 {% endblock %}
 
 {% block body_head %}
@@ -67,52 +68,13 @@
                         <thead>
                         <tr>
                             <th>{{ 'registry.proof.list.name'|trans }}</th>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <th>{{ 'registry.proof.list.collectivity'|trans }}</th>
-                            {% endif %}
+                            <th>{{ 'registry.proof.list.collectivity'|trans }}</th>
                             <th>{{ 'registry.proof.list.type'|trans }}</th>
                             <th>{{ 'registry.proof.list.comment'|trans }}</th>
                             <th>{{ 'registry.proof.list.created_at'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        {% for object in objects %}
-                        <tr>
-                            <td>{{ object.name }}</td>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <td>{{ object.collectivity }}</td>
-                            {% endif %}
-                            <td>{{ object.type|dictionary('registry_proof_type') }}</td>
-                            <td>{{ object.comment|truncate(10) }}</td>
-                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
-                            <td>
-                                {% if app.user.collectivity == object.collectivity or is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('registry_proof_download', { 'id': object.id }) }}">
-                                    <i class="fa fa-download"></i>
-                                    {{ 'action.download'|trans }}
-                                </a>
-                                {% endif %}
-                                {% if is_granted('ROLE_USER') %}
-                                    {% if object.deletedAt is null %}
-                                        <a href="{{ path('registry_proof_edit', { 'id': object.id }) }}">
-                                            <i class="fa fa-pencil-alt"></i>
-                                            {{ 'action.edit'|trans }}
-                                        </a>
-                                        <a href="{{ path('registry_proof_archive', { 'id': object.id }) }}">
-                                            <i class="fa fa-archive"></i>
-                                            {{ 'action.archive'|trans }}
-                                        </a>
-                                    {% endif %}
-                                    <a href="{{ path('registry_proof_delete', { 'id': object.id }) }}">
-                                        <i class="fa fa-trash"></i>
-                                        {{ 'action.delete'|trans }}
-                                    </a>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -121,5 +83,29 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ include('_Utils/_datatable.html.twig') }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set collectivityIsVisible = false %}
+    {% set collectivityClassname = "noVis" %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set collectivityIsVisible = true %}
+        {% set collectivityClassname = "" %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "nom"},
+            {"data": "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
+            {"data": "type"},
+            {"data": "commentaire"},
+            {"data": "date"},
+            {"data": "actions", "className": "noVis", "orderable": false},
+        ],
+        order:  [
+            [0, 'asc' ]
+        ],
+    } %}
+
+    {{ include('_Utils/_serverside_datatable.html.twig') }}
+
 {% endblock %}

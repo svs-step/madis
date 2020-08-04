@@ -31,6 +31,7 @@ use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 class Proof implements Repository\Proof
@@ -365,5 +366,43 @@ class Proof implements Repository\Proof
         $stmt->execute();
 
         return $stmt->fetchColumn();
+    }
+
+    public function count(array $criteria = [])
+    {
+        $qb = $this
+            ->createQueryBuilder()
+            ->select('count(o.id)')
+        ;
+
+        if (\array_key_exists('archive', $criteria)) {
+            $this->addArchivedClause($qb, $criteria['archive']);
+            unset($criteria['archive']);
+        }
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        if (\array_key_exists('archive', $criteria)) {
+            $this->addArchivedClause($qb, $criteria['archive']);
+            unset($criteria['archive']);
+        }
+
+        $query = $qb->getQuery();
+        $query->setFirstResult($firstResult);
+        $query->setMaxResults($maxResults);
+
+        return new Paginator($query);
     }
 }

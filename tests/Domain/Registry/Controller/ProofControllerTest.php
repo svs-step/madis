@@ -48,6 +48,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -101,6 +102,11 @@ class ProofControllerTest extends TestCase
     private $pdf;
 
     /**
+     * @var RouterInterface|ObjectProphecy
+     */
+    protected $router;
+
+    /**
      * @var ContractorController
      */
     private $controller;
@@ -116,6 +122,7 @@ class ProofControllerTest extends TestCase
         $this->userProviderProphecy          = $this->prophesize(UserProvider::class);
         $this->documentFilesystemProphecy    = $this->prophesize(FilesystemInterface::class);
         $this->pdf                           = $this->prophesize(Pdf::class);
+        $this->router                        = $this->prophesize(RouterInterface::class);
 
         $this->controller = new ProofController(
             $this->managerProphecy->reveal(),
@@ -126,7 +133,8 @@ class ProofControllerTest extends TestCase
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
             $this->documentFilesystemProphecy->reveal(),
-            $this->pdf->reveal()
+            $this->pdf->reveal(),
+            $this->router->reveal()
         );
     }
 
