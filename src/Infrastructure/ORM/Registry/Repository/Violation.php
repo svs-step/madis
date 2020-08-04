@@ -24,6 +24,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\ORM\Registry\Repository;
 
+use App\Domain\Registry\Dictionary\ViolationCauseDictionary;
+use App\Domain\Registry\Dictionary\ViolationGravityDictionary;
+use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
@@ -367,13 +370,31 @@ class Violation implements Repository\Violation
                 $queryBuilder->addOrderBy('o.date', $orderDir);
                 break;
             case 'nature':
-                $queryBuilder->addOrderBy('o.violationNature', $orderDir);
+                $queryBuilder->addSelect('(case
+                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_INTEGRITY . '\' THEN 1
+                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_CONFIDENTIALITY . '\' THEN 2
+                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_AVAILABILITY . '\' THEN 3
+                ELSE 4 END) AS HIDDEN hidden_violation_nature')
+                    ->addOrderBy('hidden_violation_nature', $orderDir);
                 break;
             case 'cause':
-                $queryBuilder->addOrderBy('o.cause', $orderDir);
+                $queryBuilder->addSelect('(case
+                WHEN o.cause = \'' . ViolationCauseDictionary::CAUSE_EXTERNAL_ACCIDENTAL . '\' THEN 1
+                WHEN o.cause = \'' . ViolationCauseDictionary::CAUSE_EXTERNAL_MALICIOUS . '\' THEN 2
+                WHEN o.cause = \'' . ViolationCauseDictionary::CAUSE_INTERNAL_ACCIDENTAL . '\' THEN 3
+                WHEN o.cause = \'' . ViolationCauseDictionary::CAUSE_INTERNAL_MALICIOUS . '\' THEN 4
+                WHEN o.cause = \'' . ViolationCauseDictionary::CAUSE_UNKNOWN . '\' THEN 5
+                ELSE 6 END) AS HIDDEN hidden_cause')
+                    ->addOrderBy('hidden_cause', $orderDir);
                 break;
             case 'gravity':
-                $queryBuilder->addOrderBy('o.gravity', $orderDir);
+                $queryBuilder->addSelect('(case
+                WHEN o.gravity = \'' . ViolationGravityDictionary::GRAVITY_IMPORTANT . '\' THEN 1
+                WHEN o.gravity = \'' . ViolationGravityDictionary::GRAVITY_LIMITED . '\' THEN 2
+                WHEN o.gravity = \'' . ViolationGravityDictionary::GRAVITY_MAXIMUM . '\' THEN 3
+                WHEN o.gravity = \'' . ViolationGravityDictionary::GRAVITY_NEGLIGIBLE . '\' THEN 4
+                ELSE 4 END) AS HIDDEN hidden_gravity')
+                    ->addOrderBy('hidden_gravity', $orderDir);
                 break;
         }
     }

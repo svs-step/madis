@@ -26,6 +26,7 @@ namespace App\Infrastructure\ORM\User\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Traits\RepositoryUtils;
+use App\Domain\User\Dictionary\CollectivityTypeDictionary;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use Doctrine\ORM\QueryBuilder;
@@ -146,7 +147,15 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
                 $queryBuilder->addOrderBy('o.shortName', $orderDir);
                 break;
             case 'type':
-                $queryBuilder->addOrderBy('o.type', $orderDir);
+                $queryBuilder->addSelect('(case
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_OTHER . '\' THEN 1
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_CCAS . '\' THEN 2
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_CIAS . '\' THEN 3
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_COMMUNE . '\' THEN 4
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_EPCI . '\' THEN 5
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_DEPARTMENTAL_UNION . '\' THEN 6
+                ELSE 7 END) AS HIDDEN hidden_type')
+                    ->addOrderBy('hidden_type', $orderDir);
                 break;
             case 'siren':
                 $queryBuilder->addOrderBy('o.siren', $orderDir);

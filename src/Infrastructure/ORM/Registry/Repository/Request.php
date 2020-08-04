@@ -407,7 +407,8 @@ class Request implements Repository\Request
                 WHEN o.state = \'' . RequestStateDictionary::STATE_ON_REQUEST . '\' THEN 5
                 WHEN o.state = \'' . RequestStateDictionary::STATE_AWAITING_SERVICE . '\' THEN 6
                 ELSE 7 END) AS HIDDEN hidden_state')
-                ->addOrderBy('hidden_state', $orderDir);
+                    ->addOrderBy('hidden_state', $orderDir);
+                break;
         }
     }
 

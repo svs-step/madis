@@ -404,7 +404,20 @@ class Proof implements Repository\Proof
                 $queryBuilder->addOrderBy('collectivite.name', $orderDir);
                 break;
             case 'type':
-                $queryBuilder->addOrderBy('o.type', $orderDir);
+                $queryBuilder->addSelect('(case
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_MESUREMENT . '\' THEN 1
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_CERTIFICATION . '\' THEN 2
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_OTHER . '\' THEN 3
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_BALANCE_SHEET . '\' THEN 4
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_IT_CHARTER . '\' THEN 5
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_CONTRACT . '\' THEN 6
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_DELIBERATION . '\' THEN 7
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_CONCERNED_PEOPLE_REQUEST . '\' THEN 8
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_POLICY_MANAGEMENT . '\' THEN 9
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_POLICY_PROTECTION . '\' THEN 10
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_SENSITIZATION . '\' THEN 11
+                ELSE 12 END) AS HIDDEN hidden_type')
+                    ->addOrderBy('hidden_type', $orderDir);
                 break;
             case 'commentaire':
                 $queryBuilder->addOrderBy('o.comment', $orderDir);
