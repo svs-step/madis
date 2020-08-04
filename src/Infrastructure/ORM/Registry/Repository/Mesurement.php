@@ -272,7 +272,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             case 'nom':
                 $queryBuilder->addOrderBy('o.name', $orderDir);
                 break;
-            case 'status':
+            case 'statut':
                 $queryBuilder->addOrderBy('o.status', $orderDir);
                 break;
             case 'cout':

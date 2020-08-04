@@ -99,11 +99,14 @@
 
     {% set collectivityIsVisible = false %}
     {% set collectivityClassname = "noVis" %}
-    {% set actionIsVisible = true %}
+    {% set actionIsVisible = false %}
     {% if is_granted('ROLE_ADMIN') %}
         {% set collectivityIsVisible = true %}
         {% set collectivityClassname = "" %}
-        {% set actionIsVisible = false %}
+    {% endif %}
+
+    {% if is_granted('ROLE_USER') %}
+        {% set actionIsVisible = true %}
     {% endif %}
 
     {% set dataTableOptions = {
