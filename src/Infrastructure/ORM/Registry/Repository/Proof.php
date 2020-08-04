@@ -399,10 +399,62 @@ class Proof implements Repository\Proof
             unset($criteria['archive']);
         }
 
+        $qb->leftJoin('o.collectivity', 'collectivite')
+            ->addSelect('collectivite');
+
+        $this->addTableOrder($qb, $orderColumn, $orderDir);
+        $this->addTableWhere($qb, $searches);
+
         $query = $qb->getQuery();
         $query->setFirstResult($firstResult);
         $query->setMaxResults($maxResults);
 
         return new Paginator($query);
+    }
+
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'nom':
+                $queryBuilder->addOrderBy('o.name', $orderDir);
+                break;
+            case 'collectivite':
+                $queryBuilder->addOrderBy('collectivite.name', $orderDir);
+                break;
+            case 'type':
+                $queryBuilder->addOrderBy('o.type', $orderDir);
+                break;
+            case 'commentaire':
+                $queryBuilder->addOrderBy('o.comment', $orderDir);
+                break;
+            case 'date':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
+        }
+    }
+
+    private function addTableWhere(QueryBuilder $queryBuilder, $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'nom':
+                    $this->addWhereClause($queryBuilder, 'name', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'collectivite':
+                    $queryBuilder->andWhere('collectivite.name LIKE :nom')
+                        ->setParameter('nom', '%' . $search . '%');
+                    break;
+                case 'type':
+                    $this->addWhereClause($queryBuilder, 'type', $search);
+                    break;
+                case 'commentaire':
+                    $this->addWhereClause($queryBuilder, 'comment', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'date':
+                    $queryBuilder->andWhere('o.createdAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+            }
+        }
     }
 }

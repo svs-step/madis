@@ -67,6 +67,29 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>
+                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_type" style="width: 100%;">
+                                    <option value="">Type</option>
+                                    {% for key, subject in dictionary('registry_proof_type') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_commentaire" placeholder="Commentaire" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;">
+                            </th>
+                            <th></th>
+                        </tr>
+                        <tr>
                             <th>{{ 'registry.proof.list.name'|trans }}</th>
                             <th>{{ 'registry.proof.list.collectivity'|trans }}</th>
                             <th>{{ 'registry.proof.list.type'|trans }}</th>
@@ -107,5 +130,44 @@
     } %}
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_nom').off('keyup');
+            $('#search_nom').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+
+            $('#search_collectivite').off('keyup');
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+
+            $('#search_type').off('change');
+            $('#search_type').change(function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            });
+
+            $('#search_commentaire').off('keyup');
+            $('#search_commentaire').keyup($.debounce(250, function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            }));
+
+            $('#search_date').off('change');
+            $('#search_date').change(function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
 
 {% endblock %}
