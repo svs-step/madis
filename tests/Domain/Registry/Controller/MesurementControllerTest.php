@@ -47,6 +47,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -107,6 +108,11 @@ class MesurementControllerTest extends TestCase
     private $pdf;
 
     /**
+     * @var RequestStack|ObjectProphecy
+     */
+    private $requestStack;
+
+    /**
      * @var MesurementController
      */
     private $controller;
@@ -123,6 +129,7 @@ class MesurementControllerTest extends TestCase
         $this->formFactory                    = $this->prophesize(FormFactoryInterface::class);
         $this->router                         = $this->prophesize(RouterInterface::class);
         $this->pdf                            = $this->prophesize(Pdf::class);
+        $this->requestStack                   = $this->prophesize(RequestStack::class);
 
         $this->controller = new MesurementController(
             $this->managerProphecy->reveal(),
@@ -134,7 +141,8 @@ class MesurementControllerTest extends TestCase
             $this->userProviderProphecy->reveal(),
             $this->formFactory->reveal(),
             $this->router->reveal(),
-            $this->pdf->reveal()
+            $this->pdf->reveal(),
+            $this->requestStack->reveal()
         );
     }
 

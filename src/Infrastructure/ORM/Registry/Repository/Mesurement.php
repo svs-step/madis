@@ -252,6 +252,13 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
                 case 'priorite':
                     $this->addWhereClause($queryBuilder, 'priority', $search);
                     break;
+                case 'date_planification':
+                    $queryBuilder->andWhere('o.planificationDate LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'responsable_action':
+                    $this->addWhereClause($queryBuilder, 'manager', '%' . $search . '%', 'LIKE');
+                    break;
             }
         }
     }
@@ -281,6 +288,12 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
                 WHEN o.priority = \'' . MesurementPriorityDictionary::PRIORITY_HIGH . '\' THEN 3
                 ELSE 4 END) AS HIDDEN hidden_priority')
                     ->addOrderBy('hidden_priority', $orderDir);
+                break;
+            case 'date_planification':
+                $queryBuilder->addOrderBy('o.planificationDate', $orderDir);
+                break;
+            case 'responsable_action':
+                $queryBuilder->addOrderBy('o.manager', $orderDir);
                 break;
         }
     }

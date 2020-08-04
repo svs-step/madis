@@ -77,7 +77,7 @@
                         </tr>
                         <tr>
                             <th>{{ 'registry.mesurement.list.name'|trans }}</th>
-                                <th>{{ 'registry.mesurement.list.collectivity'|trans }}</th>
+                            <th>{{ 'registry.mesurement.list.collectivity'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.status'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.cost'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.charge'|trans }}</th>
@@ -112,12 +112,12 @@
     {% set dataTableOptions = {
         columns: [
             {"data": "nom", "className": "noVis"},
-            {"data" : "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
+            {"data": "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
             {"data": "statut"},
             {"data": "cout"},
             {"data": "charge"},
             {"data": "priorite"},
-            {"data": "actions", "className": "noVis", "visible": actionIsVisible},
+            {"data": "actions", "orderable": false, "className": "noVis", "visible": actionIsVisible},
         ],
         order:  [
             [5, 'desc' ]
