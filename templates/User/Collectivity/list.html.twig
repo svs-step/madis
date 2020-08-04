@@ -40,6 +40,32 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>
+                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_prenom" placeholder="Prénom" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_type" style="width: 100%;">
+                                    <option value="">Type</option>
+                                    {% for key, subject in dictionary('user_collectivity_type') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_siren" placeholder="Siren" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_actif" style="width: 100%;">
+                                    <option value="">Statut</option>
+                                    <option value="1">{{ 'label.active'|trans }}</option>
+                                    <option value="0">{{ 'label.inactive'|trans }}</option>
+                                </select>
+                            </th>
+                        </tr>
+                        <tr>
                             <th>{{ 'user.collectivity.list.name'|trans }}</th>
                             <th>{{ 'user.collectivity.list.short_name'|trans }}</th>
                             <th>{{ 'user.collectivity.list.type'|trans }}</th>
@@ -64,7 +90,7 @@
             {"data": "nom_court"},
             {"data": "type"},
             {"data": "siren"},
-            {"data": "actif"},
+            {"data": "statut"},
             {"data": "actions", "className": "noVis", "orderable": false},
         ],
         order:  [
@@ -73,5 +99,44 @@
     } %}
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_nom').off('keyup');
+            $('#search_nom').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+
+            $('#search_prenom').off('keyup');
+            $('#search_prenom').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+
+            $('#search_type').off('change');
+            $('#search_type').change(function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            });
+
+            $('#search_siren').off('keyup');
+            $('#search_siren').keyup($.debounce(250, function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            }));
+
+            $('#search_actif').off('change');
+            $('#search_actif').change(function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
 
 {% endblock %}

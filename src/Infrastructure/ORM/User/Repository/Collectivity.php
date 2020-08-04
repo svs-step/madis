@@ -28,6 +28,7 @@ use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Traits\RepositoryUtils;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class Collectivity extends CRUDRepository implements Repository\Collectivity
@@ -125,10 +126,57 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
             $this->addWhereClause($qb, $key, $value);
         }
 
+        $this->addTableOrder($qb, $orderColumn, $orderDir);
+        $this->addTableWhere($qb, $searches);
+
         $query = $qb->getQuery();
         $query->setFirstResult($firstResult);
         $query->setMaxResults($maxResults);
 
         return new Paginator($query);
+    }
+
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'nom':
+                $queryBuilder->addOrderBy('o.name', $orderDir);
+                break;
+            case 'nom_court':
+                $queryBuilder->addOrderBy('o.shortName', $orderDir);
+                break;
+            case 'type':
+                $queryBuilder->addOrderBy('o.type', $orderDir);
+                break;
+            case 'siren':
+                $queryBuilder->addOrderBy('o.siren', $orderDir);
+                break;
+            case 'statut':
+                $queryBuilder->addOrderBy('o.active', $orderDir);
+                break;
+        }
+    }
+
+    private function addTableWhere(QueryBuilder $queryBuilder, $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'nom':
+                    $this->addWhereClause($queryBuilder, 'name', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'nom_court':
+                    $this->addWhereClause($queryBuilder, 'shortName', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'type':
+                    $this->addWhereClause($queryBuilder, 'type', $search);
+                    break;
+                case 'siren':
+                    $this->addWhereClause($queryBuilder, 'siren', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'statut':
+                    $this->addWhereClause($queryBuilder, 'active', $search);
+                    break;
+            }
+        }
     }
 }

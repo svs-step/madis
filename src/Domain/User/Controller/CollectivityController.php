@@ -115,7 +115,7 @@ class CollectivityController extends CRUDController
                 'nom_court' => $collectivity->getShortName(),
                 'type'      => !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] : null,
                 'siren'     => $collectivity->getSiren(),
-                'actif'     => $collectivity->isActive() ? $active : $inactive,
+                'statut'    => $collectivity->isActive() ? $active : $inactive,
                 'actions'   => $this->getActionCellsContent($collectivity),
             ];
         }
@@ -150,7 +150,7 @@ class CollectivityController extends CRUDController
             1 => 'nom_court',
             2 => 'type',
             3 => 'siren',
-            4 => 'actif',
+            4 => 'statut',
             5 => 'actions',
         ];
     }
