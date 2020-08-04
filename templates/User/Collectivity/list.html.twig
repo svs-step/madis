@@ -6,7 +6,8 @@
 {% block title %}{{ 'user.collectivity.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
 {% endblock %}
 
 {% block body_head %}
@@ -47,39 +48,6 @@
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        {% for object in objects %}
-                        <tr>
-                            <td>
-                                <a href="{{ path('user_collectivity_show', {'id': object.id}) }}">
-                                    {{ object.name }}
-                                </a>
-                            </td>
-                            <td>{{ object.shortName }}</td>
-                            <td>{{ object.type|dictionary('user_collectivity_type') }}</td>
-                            <td>{{ object.siren|number_format(0, '.', ' ') }}</td>
-                            <td>
-                                {% if object.active %}
-                                    <span class="badge bg-green">{{ 'label.active'|trans }}</span>
-                                {% else %}
-                                    <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <a href="{{ path('user_collectivity_edit', { 'id': object.id }) }}">
-                                    <i class="fa fa-pencil-alt"></i>
-                                    {{ 'action.edit'|trans }}
-                                </a>
-                                {% if 0 == object.users|length %}
-                                    <a href="{{ path('user_collectivity_delete', { 'id': object.id }) }}">
-                                        <i class="fa fa-trash"></i>
-                                        {{ 'action.delete'|trans }}
-                                    </a>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -88,5 +56,22 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ include('_Utils/_datatable.html.twig') }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "nom"},
+            {"data": "nom_court"},
+            {"data": "type"},
+            {"data": "siren"},
+            {"data": "actif"},
+            {"data": "actions", "className": "noVis", "orderable": false},
+        ],
+        order:  [
+            [0, 'asc' ]
+        ],
+    } %}
+
+    {{ include('_Utils/_serverside_datatable.html.twig') }}
+
 {% endblock %}

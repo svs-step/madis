@@ -3,6 +3,11 @@ user_collectivity_list:
     methods: ['GET']
     controller: 'App\Domain\User\Controller\CollectivityController:listAction'
 
+user_collectivity_list_datatables:
+    path: '/datatables'
+    methods: ['POST']
+    controller: 'App\Domain\User\Controller\CollectivityController:listDataTables'
+
 user_collectivity_create:
     path: '/creer'
     methods: ['GET', 'POST']

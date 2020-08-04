@@ -25,9 +25,10 @@ declare(strict_types=1);
 namespace App\Domain\User\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
+use App\Application\Doctrine\Repository\DataTablesRepository;
 use App\Domain\User\Model;
 
-interface Collectivity extends CRUDRepositoryInterface
+interface Collectivity extends CRUDRepositoryInterface, DataTablesRepository
 {
     /**
      * {@inheritdoc}

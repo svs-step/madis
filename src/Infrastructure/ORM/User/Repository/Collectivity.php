@@ -25,11 +25,15 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\User\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Application\Traits\RepositoryUtils;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class Collectivity extends CRUDRepository implements Repository\Collectivity
 {
+    use RepositoryUtils;
+
     /**
      * {@inheritdoc}
      */
@@ -94,5 +98,37 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    public function count(array $criteria = [])
+    {
+        $qb = $this
+            ->createQueryBuilder()
+            ->select('count(o.id)')
+        ;
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        $query = $qb->getQuery();
+        $query->setFirstResult($firstResult);
+        $query->setMaxResults($maxResults);
+
+        return new Paginator($query);
     }
 }

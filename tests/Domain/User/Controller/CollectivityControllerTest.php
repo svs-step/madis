@@ -33,6 +33,7 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CollectivityControllerTest extends TestCase
@@ -50,7 +51,8 @@ class CollectivityControllerTest extends TestCase
             $this->prophesize(EntityManagerInterface::class)->reveal(),
             $this->prophesize(TranslatorInterface::class)->reveal(),
             $this->prophesize(Repository\Collectivity::class)->reveal(),
-            $this->prophesize(Pdf::class)->reveal()
+            $this->prophesize(Pdf::class)->reveal(),
+            $this->prophesize(RouterInterface::class)->reveal()
         );
     }
 
