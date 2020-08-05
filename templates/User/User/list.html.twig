@@ -105,6 +105,11 @@
 {% block javascripts %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 
+    {% set actionsIsVisible = false %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set actionsIsVisible = true %}
+    {% endif %}
+
     {% set dataTableOptions = {
         columns: [
             {"data": "prenom"},
@@ -114,7 +119,7 @@
             {"data": "roles"},
             {"data": "actif", "orderable": false},
             {"data": "connexion"},
-            {"data": "actions", "className": "noVis", "orderable": false},
+            {"data": "actions", "className": "noVis", "orderable": false, "visible": actionsIsVisible},
         ],
         order:  [
             [0, 'asc' ]

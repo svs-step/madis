@@ -46,9 +46,10 @@ class UserRoleDictionaryTest extends TestCase
     public function testGetRoles()
     {
         $data = [
-            UserRoleDictionary::ROLE_PREVIEW => 'Lecteur',
-            UserRoleDictionary::ROLE_USER    => 'Gestionnaire',
-            UserRoleDictionary::ROLE_ADMIN   => 'Administrateur',
+            UserRoleDictionary::ROLE_PREVIEW    => 'Lecteur',
+            UserRoleDictionary::ROLE_USER       => 'Gestionnaire',
+            UserRoleDictionary::ROLE_ADMIN      => 'Administrateur',
+            UserRoleDictionary::ROLE_REFERENT   => 'Référent multi-collectivité',
         ];
 
         $this->assertEquals($data, UserRoleDictionary::getRoles());
@@ -60,6 +61,7 @@ class UserRoleDictionaryTest extends TestCase
             UserRoleDictionary::ROLE_PREVIEW,
             UserRoleDictionary::ROLE_USER,
             UserRoleDictionary::ROLE_ADMIN,
+            UserRoleDictionary::ROLE_REFERENT,
         ];
 
         $this->assertEquals($data, UserRoleDictionary::getRolesKeys());

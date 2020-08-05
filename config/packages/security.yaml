@@ -10,6 +10,7 @@ security:
 
     role_hierarchy:
         ROLE_USER: [ROLE_PREVIEW]
+        ROLE_REFERENT: [ROLE_USER]
         ROLE_ADMIN: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
 
     firewalls:

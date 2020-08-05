@@ -159,6 +159,7 @@ user:
             unarchive: Rétablir "%name%"
         form:
             collectivity: Collectivité
+            collectivitesReferees: Collectivités rattachées
             email: E-mail
             enabled: Actif
             first_name: Prénom

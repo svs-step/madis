@@ -94,6 +94,11 @@ $(document).ready(function() {
         checkRequestStateRejectionReason()
     });
 
+    checkUserCollectivitesReferees();
+    $('input:radio[name="user[roles]"]').change(function() {
+        checkUserCollectivitesReferees();
+    });
+
     // Check Contractor dpo | onLoad & onChange
     checkContractorHasDpo();
     $('#contractor_hasDpo').on('change', function() {
@@ -195,6 +200,22 @@ function checkRequestStateRejectionReason()
         blockSateRejectionReason.hide();
         fieldSateRejectionReason.prop('required',false);
         fieldSateRejectionReason.val("");
+    }
+}
+
+function checkUserCollectivitesReferees()
+{
+    let selectedRole = $('input:radio[name="user[roles]"]:checked').val();
+    let blockUserCollectivitesReferees = $('#user_collectivitesReferees_div');
+    let fieldUserCollectivitesReferees = $('#user_collectivitesReferees');
+
+    if ("ROLE_REFERENT" === selectedRole) {
+        blockUserCollectivitesReferees.show();
+        fieldUserCollectivitesReferees.prop('required',true);
+    } else {
+        blockUserCollectivitesReferees.hide();
+        fieldUserCollectivitesReferees.prop('required',false);
+        fieldUserCollectivitesReferees.val("");
     }
 }
 
