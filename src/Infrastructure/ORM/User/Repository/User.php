@@ -127,6 +127,14 @@ class User extends CRUDRepository implements Repository\User
             $this->addArchivedClause($qb, $criteria['archive']);
             unset($criteria['archive']);
         }
+        if (\array_key_exists('collectivitesReferees', $criteria)) {
+            $qb->leftJoin('o.collectivity', 'collectivite')
+                ->andWhere($qb->expr()->in('collectivite.id', ':collectivitesReferees'))
+                ->setParameter('collectivitesReferees', $criteria['collectivitesReferees'])
+                ->andWhere('JSON_UNQUOTE(JSON_EXTRACT(o.roles, \'$[0]\')) <> :role_admin')
+                ->setParameter('role_admin', UserRoleDictionary::ROLE_ADMIN);
+            unset($criteria['collectivitesReferees']);
+        }
 
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
@@ -142,17 +150,24 @@ class User extends CRUDRepository implements Repository\User
     {
         $qb = $this->createQueryBuilder();
 
+        $qb->leftJoin('o.collectivity', 'collectivite')
+            ->addSelect('collectivite');
+
         if (\array_key_exists('archive', $criteria)) {
             $this->addArchivedClause($qb, $criteria['archive']);
             unset($criteria['archive']);
+        }
+        if (\array_key_exists('collectivitesReferees', $criteria)) {
+            $qb->andWhere($qb->expr()->in('collectivite.id', ':collectivitesReferees'))
+                ->setParameter('collectivitesReferees', $criteria['collectivitesReferees'])
+                ->andWhere('JSON_UNQUOTE(JSON_EXTRACT(o.roles, \'$[0]\')) <> :role_admin')
+                ->setParameter('role_admin', UserRoleDictionary::ROLE_ADMIN);
+            unset($criteria['collectivitesReferees']);
         }
 
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
         }
-
-        $qb->leftJoin('o.collectivity', 'collectivite')
-            ->addSelect('collectivite');
 
         $this->addTableOrder($qb, $orderColumn, $orderDir);
         $this->addTableWhere($qb, $searches);

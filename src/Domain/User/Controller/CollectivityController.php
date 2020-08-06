@@ -36,6 +36,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -50,15 +51,22 @@ class CollectivityController extends CRUDController
      */
     protected $router;
 
+    /**
+     * @var Security
+     */
+    protected $security;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Collectivity $repository,
         Pdf $pdf,
-        RouterInterface $router
+        RouterInterface $router,
+        Security $security
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf);
-        $this->router = $router;
+        $this->router       = $router;
+        $this->security     = $security;
     }
 
     /**
@@ -95,23 +103,28 @@ class CollectivityController extends CRUDController
 
     public function listAction(): Response
     {
+        $criteria = $this->getRequestCriteria();
+
         return $this->render($this->getTemplatingBasePath('list'), [
-            'totalItem' => $this->repository->count(),
+            'totalItem' => $this->repository->count($criteria),
             'route'     => $this->router->generate('user_collectivity_list_datatables'),
         ]);
     }
 
     public function listDataTables(Request $request): JsonResponse
     {
-        $collectivities = $this->getResults($request);
-        $reponse        = $this->getBaseDataTablesResponse($request, $collectivities);
+        $criteria       = $this->getRequestCriteria();
+        $collectivities = $this->getResults($request, $criteria);
+        $reponse        = $this->getBaseDataTablesResponse($request, $collectivities, $criteria);
 
         $active   = '<span class="badge bg-green">' . $this->translator->trans('label.active') . '</span>';
         $inactive = '<span class="badge bg-red">' . $this->translator->trans('label.inactive') . '</span>';
         /** @var Model\Collectivity $collectivity */
         foreach ($collectivities as $collectivity) {
             $reponse['data'][] = [
-                'nom'       => $collectivity->getName(),
+                'nom'       => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' .
+                                    $collectivity->getName() .
+                                '</a>',
                 'nom_court' => $collectivity->getShortName(),
                 'type'      => !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] : null,
                 'siren'     => $collectivity->getSiren(),
@@ -153,5 +166,18 @@ class CollectivityController extends CRUDController
             4 => 'statut',
             5 => 'actions',
         ];
+    }
+
+    private function getRequestCriteria()
+    {
+        $criteria            = [];
+
+        if (!$this->security->isGranted('ROLE_ADMIN')) {
+            /** @var Model\User $user */
+            $user                              = $this->security->getUser();
+            $criteria['collectivitesReferees'] = $user->getCollectivitesReferees();
+        }
+
+        return $criteria;
     }
 }

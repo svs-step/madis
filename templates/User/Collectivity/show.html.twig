@@ -29,10 +29,12 @@
                     <i class="fa fa-arrow-left"></i>
                     {{ 'user.collectivity.action.back_to_list'|trans }}
                 </a>
-                <a href="{{ path('user_collectivity_edit', {'id': object.id}) }}" class="btn btn-default">
-                    <i class="fa fa-pencil-alt"></i>
-                    {{ 'action.edit'|trans }}
-                </a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('user_collectivity_edit', {'id': object.id}) }}" class="btn btn-default">
+                        <i class="fa fa-pencil-alt"></i>
+                        {{ 'action.edit'|trans }}
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>

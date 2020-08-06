@@ -97,13 +97,16 @@
 
        {# ADMINISTRATION #}
         <li class="header">Espace d'administration</li>
-        {% if is_granted('ROLE_ADMIN') %}
-            <li {% if menuItem == 'admin_duplication' %}class="active"{% endif %}>
-                <a href="{{ path('admin_duplication_new') }}">
-                    <i class="fa fa-clone"></i>
-                    <span>{{ 'sidebar_menu.admin_duplication'|trans }}</span>
-                </a>
-            </li>
+        {% if is_granted('ROLE_REFERENT') %}
+            {# Referent is not allowed to duplicate#}
+            {% if is_granted('ROLE_ADMIN') %}
+                <li {% if menuItem == 'admin_duplication' %}class="active"{% endif %}>
+                    <a href="{{ path('admin_duplication_new') }}">
+                        <i class="fa fa-clone"></i>
+                        <span>{{ 'sidebar_menu.admin_duplication'|trans }}</span>
+                    </a>
+                </li>
+            {% endif %}
             <li {% if menuItem == 'user_collectivity' %}class="active"{% endif %}>
                 <a href="{{ path('user_collectivity_list') }}">
                     <i class="fa fa-home"></i>
@@ -116,13 +119,16 @@
                     <span>{{ 'sidebar_menu.user_users'|trans }}</span>
                 </a>
             </li>
-            <li {% if menuItem == 'reporting_journalisation' %}class="active"{% endif %}>
-                <a href="{{ path('reporting_journalisation_index') }}">
-                    <i class="fa fa-list"></i>
-                    <span>{{ 'sidebar_menu.reporting_journalisation'|trans }}</span>
-                </a>
-            </li>
-        {# If not an admin & is write granted, let user edit informations #}
+            {# Referent is not allowed to journalisation #}
+            {% if is_granted('ROLE_ADMIN') %}
+                <li {% if menuItem == 'reporting_journalisation' %}class="active"{% endif %}>
+                    <a href="{{ path('reporting_journalisation_index') }}">
+                        <i class="fa fa-list"></i>
+                        <span>{{ 'sidebar_menu.reporting_journalisation'|trans }}</span>
+                    </a>
+                </li>
+            {% endif %}
+        {# If not an admin nor a referent & is write granted, let user edit informations #}
         {% else %}
             <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
                 <a href="{{ path('user_profile_collectivity_show') }}">

@@ -109,6 +109,13 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
             ->select('count(o.id)')
         ;
 
+        if (\array_key_exists('collectivitesReferees', $criteria)) {
+            $qb
+                ->andWhere($qb->expr()->in('o.id', ':collectivitesReferees'))
+                ->setParameter('collectivitesReferees', $criteria['collectivitesReferees']);
+            unset($criteria['collectivitesReferees']);
+        }
+
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
         }
@@ -122,6 +129,13 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
     {
         $qb = $this->createQueryBuilder();
+
+        if (\array_key_exists('collectivitesReferees', $criteria)) {
+            $qb
+                ->andWhere($qb->expr()->in('o.id', ':collectivitesReferees'))
+                ->setParameter('collectivitesReferees', $criteria['collectivitesReferees']);
+            unset($criteria['collectivitesReferees']);
+        }
 
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);

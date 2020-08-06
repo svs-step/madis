@@ -243,8 +243,8 @@ class UserController extends CRUDController
 
         if (!$this->security->isGranted('ROLE_ADMIN')) {
             /** @var Model\User $user */
-            $user                     = $this->security->getUser();
-            $criteria['collectivity'] = $user->getCollectivity();
+            $user                              = $this->security->getUser();
+            $criteria['collectivitesReferees'] = $user->getCollectivitesReferees();
         }
 
         return $criteria;
@@ -253,7 +253,7 @@ class UserController extends CRUDController
     private function getActionCellsContent(Model\User $user)
     {
         $cellContent = '';
-        if ($this->security->isGranted('CAN_CONNECT', $user) && $this->security->getUser() !== $user && \is_null($user->getDeletedAt())) {
+        if ($this->security->getUser() !== $user && \is_null($user->getDeletedAt())) {
             $cellContent .=
                 '<a href="' . $this->router->generate('reporting_dashboard_index', ['_switch_user' => $user->getUsername()]) . '">
                     <i class="fa fa-user-lock"></i> ' .
@@ -261,27 +261,29 @@ class UserController extends CRUDController
                 '</a>';
         }
 
-        if (\is_null($user->getDeletedAt())) {
-            $cellContent .=
-                '<a href="' . $this->router->generate('user_user_edit', ['id' => $user->getId()]) . '">
-                    <i class="fa fa-pencil-alt"></i> ' .
-                $this->translator->trans('action.edit') .
-                '</a>';
-        }
-
-        if ($this->security->getUser() !== $user) {
+        if ($this->security->isGranted('ROLE_ADMIN')) {
             if (\is_null($user->getDeletedAt())) {
                 $cellContent .=
-                    '<a href="' . $this->router->generate('user_user_delete', ['id' => $user->getId()]) . '">
-                    <i class="fa fa-archive"></i> ' .
-                    $this->translator->trans('action.archive') .
+                    '<a href="' . $this->router->generate('user_user_edit', ['id' => $user->getId()]) . '">
+                        <i class="fa fa-pencil-alt"></i> ' .
+                    $this->translator->trans('action.edit') .
                     '</a>';
-            } else {
-                $cellContent .=
-                    '<a href="' . $this->router->generate('user_user_unarchive', ['id' => $user->getId()]) . '">
-                    <i class="fa fa-archive"></i> ' .
-                    $this->translator->trans('action.unarchive') .
-                    '</a>';
+            }
+
+            if ($this->security->getUser() !== $user) {
+                if (\is_null($user->getDeletedAt())) {
+                    $cellContent .=
+                        '<a href="' . $this->router->generate('user_user_delete', ['id' => $user->getId()]) . '">
+                        <i class="fa fa-archive"></i> ' .
+                        $this->translator->trans('action.archive') .
+                        '</a>';
+                } else {
+                    $cellContent .=
+                        '<a href="' . $this->router->generate('user_user_unarchive', ['id' => $user->getId()]) . '">
+                        <i class="fa fa-archive"></i> ' .
+                        $this->translator->trans('action.unarchive') .
+                        '</a>';
+                }
             }
         }
 

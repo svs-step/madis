@@ -49,4 +49,12 @@ App\Domain\User\Model\User:
         roles: ['ROLE_REFERENT']
         collectivitesReferees:
             - '@user_collectivity_awkan'
-            - '@user_collectivity_soluris'
+            - '@user_collectivity_foobar'
+
+    user_user_manager_foobar:
+        collectivity: '@user_collectivity_foobar'
+        email: foobar@foobar.fr
+        firstName: <firstName()>
+        lastName: <lastName()>
+        plainPassword: 111111
+        roles: ['ROLE_USER']
