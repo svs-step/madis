@@ -29,11 +29,13 @@ use App\Application\Dictionary\SimpleDictionary;
 class LogJournalActionDictionary extends SimpleDictionary
 {
     const CREATE             = 'create';
-    const UPDATE             = 'update';
     const DELETE             = 'delete';
     const LOGIN              = 'login';
     const SOFT_DELETE        = 'soft_delete';
     const SOFT_DELETE_REVOKE = 'soft_delete_revoke';
+    const UPDATE             = 'update';
+    const SWITCH_USER_ON     = 'switch_user_on';
+    const SWITCH_USER_OFF    = 'switch_user_off';
 
     public function __construct()
     {
@@ -52,6 +54,8 @@ class LogJournalActionDictionary extends SimpleDictionary
             self::LOGIN              => 'Connexion',
             self::SOFT_DELETE        => 'Archivage',
             self::SOFT_DELETE_REVOKE => 'Désarchivage',
+            self::SWITCH_USER_ON     => 'Se connecter en tant que - Début',
+            self::SWITCH_USER_OFF    => 'Se connecter en tant que - Fin',
         ];
     }
 
