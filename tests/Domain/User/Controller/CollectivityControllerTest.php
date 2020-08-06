@@ -26,6 +26,7 @@ namespace App\Tests\Domain\User\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Domain\User\Controller\CollectivityController;
+use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
@@ -33,7 +34,10 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ObjectProphecy;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -42,19 +46,32 @@ class CollectivityControllerTest extends TestCase
     use ReflectionTrait;
 
     /**
+     * @var Security|ObjectProphecy
+     */
+    private $security;
+
+    /**
+     * @var Repository\Collectivity|ObjectProphecy
+     */
+    private $repository;
+
+    /**
      * @var CollectivityController
      */
     private $controller;
 
     public function setUp()
     {
+        $this->security   = $this->prophesize(Security::class);
+        $this->repository = $this->prophesize(Repository\Collectivity::class);
+
         $this->controller = new CollectivityController(
             $this->prophesize(EntityManagerInterface::class)->reveal(),
             $this->prophesize(TranslatorInterface::class)->reveal(),
-            $this->prophesize(Repository\Collectivity::class)->reveal(),
+            $this->repository->reveal(),
             $this->prophesize(Pdf::class)->reveal(),
             $this->prophesize(RouterInterface::class)->reveal(),
-            $this->prophesize(Security::class)->reveal()
+            $this->security->reveal()
         );
     }
 
@@ -93,5 +110,21 @@ class CollectivityControllerTest extends TestCase
             CollectivityType::class,
             $this->invokeMethod($this->controller, 'getFormType', [])
         );
+    }
+
+    public function testItDeniedAccessOnNonReferedCollectivity()
+    {
+        $this->expectException(AccessDeniedException::class);
+
+        $user         = $this->prophesize(Model\User::class);
+        $collectivity = $this->prophesize(Model\Collectivity::class);
+
+        $user->getRoles()->shouldBeCalled()->willReturn([UserRoleDictionary::ROLE_REFERENT]);
+        $user->getCollectivitesReferees()->shouldBeCalled()->willReturn([$collectivity->reveal()]);
+        $collectivity->getId()->shouldBeCalled()->willReturn(Uuid::uuid4());
+
+        $this->security->getUser()->shouldBeCalled()->willReturn($user->reveal());
+
+        $this->controller->showAction('foo');
     }
 }

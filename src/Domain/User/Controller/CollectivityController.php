@@ -27,6 +27,7 @@ namespace App\Domain\User\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\User\Dictionary\CollectivityTypeDictionary;
+use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
@@ -141,6 +142,10 @@ class CollectivityController extends CRUDController
 
     private function getActionCellsContent(Model\Collectivity $collectivity)
     {
+        if (!$this->security->isGranted('ROLE_ADMIN')) {
+            return;
+        }
+
         $cellContent = '<a href="' . $this->router->generate('user_collectivity_edit', ['id'=> $collectivity->getId()]) . '">
             <i class="fa fa-pencil-alt"></i> ' .
             $this->translator->trans('action.edit') .
@@ -179,5 +184,25 @@ class CollectivityController extends CRUDController
         }
 
         return $criteria;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function showAction(string $id): Response
+    {
+        /** @var Model\User $user */
+        $user = $this->security->getUser();
+        if (\in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
+            $collectivities = \array_filter(\iterable_to_array($user->getCollectivitesReferees()), function (Model\Collectivity $collectivity) use ($id) {
+                return $collectivity->getId()->toString() === $id;
+            });
+
+            if (empty($collectivities)) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+
+        return parent::showAction($id);
     }
 }
