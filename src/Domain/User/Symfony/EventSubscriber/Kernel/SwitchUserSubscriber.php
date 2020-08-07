@@ -27,9 +27,12 @@ namespace App\Domain\User\Symfony\EventSubscriber\Kernel;
 use App\Domain\Reporting\Dictionary\LogJournalActionDictionary;
 use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
 use App\Domain\Reporting\Model\LogJournal;
+use App\Domain\User\Dictionary\UserRoleDictionary;
+use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
@@ -46,10 +49,19 @@ class SwitchUserSubscriber implements EventSubscriberInterface
      */
     private $entityManager;
 
-    public function __construct(Security $security, EntityManagerInterface $em)
-    {
-        $this->security      = $security;
-        $this->entityManager = $em;
+    /**
+     * @var \App\Domain\User\Repository\User
+     */
+    private $userRepository;
+
+    public function __construct(
+        Security $security,
+        EntityManagerInterface $em,
+        \App\Domain\User\Repository\User $userRepository
+    ) {
+        $this->security       = $security;
+        $this->entityManager  = $em;
+        $this->userRepository = $userRepository;
     }
 
     public static function getSubscribedEvents()
@@ -59,8 +71,49 @@ class SwitchUserSubscriber implements EventSubscriberInterface
         ];
     }
 
+    private function supports(SwitchUserEvent $event)
+    {
+        $request             = $event->getRequest();
+        $switchUserAttribute = $request->get('_switch_user');
+
+        if ('_exit' === $switchUserAttribute || $this->security->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+
+        /** @var User $switchUser */
+        $switchUser = $this->userRepository->findOneOrNullByEmail($switchUserAttribute);
+
+        if (\is_null($switchUser)) {
+            return false;
+        }
+
+        $deniedRoles = [UserRoleDictionary::ROLE_REFERENT, UserRoleDictionary::ROLE_ADMIN];
+        if (\in_array($switchUser->getRoles()[0], $deniedRoles)) {
+            return false;
+        }
+
+        /** @var User $connectedUser */
+        $connectedUser  = $this->security->getUser();
+        $collectivities = \array_filter(
+            \iterable_to_array($connectedUser->getCollectivitesReferees()),
+            function (Collectivity $collectivity) use ($switchUser) {
+                return $collectivity === $switchUser->getCollectivity();
+            }
+        );
+
+        if (empty($collectivities)) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function onSwitchUser(SwitchUserEvent $event)
     {
+        if (!$this->supports($event)) {
+            throw new AccessDeniedException();
+        }
+
         $request    = $event->getRequest();
         $switchUser = $request->get('_switch_user');
 
