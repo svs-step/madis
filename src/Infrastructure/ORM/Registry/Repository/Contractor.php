@@ -29,6 +29,7 @@ use App\Application\Traits\RepositoryUtils;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -166,7 +167,7 @@ class Contractor extends CRUDRepository implements Repository\Contractor
     /**
      * {@inheritdoc}
      */
-    public function findAllByActiveCollectivity(bool $active = true)
+    public function findAllByActiveCollectivity(bool $active = true, User $user = null)
     {
         $qb = $this->createQueryBuilder();
 
@@ -176,6 +177,12 @@ class Contractor extends CRUDRepository implements Repository\Contractor
             ->addOrderBy('c.name')
             ->addOrderBy('o.createdAt', 'DESC')
         ;
+
+        if (null !== $user) {
+            $qb->leftJoin('c.userReferents', 'u')
+                ->andWhere('u.id = :user')
+                ->setParameter('user', $user);
+        }
 
         return $qb
             ->getQuery()

@@ -26,6 +26,7 @@ namespace App\Domain\Reporting\Generator\Csv;
 use App\Domain\User\Dictionary\ContactCivilityDictionary;
 use App\Domain\User\Repository\Collectivity;
 use App\Infrastructure\ORM\Registry\Repository\Contractor;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContractorGenerator extends AbstractGenerator
@@ -46,6 +47,11 @@ class ContractorGenerator extends AbstractGenerator
     private $contractorRepository;
 
     /**
+     * @var Security
+     */
+    private $security;
+
+    /**
      * @var string
      */
     private $yes;
@@ -58,11 +64,13 @@ class ContractorGenerator extends AbstractGenerator
     public function __construct(
         TranslatorInterface $translatorInterface,
         Collectivity $collectivityRepository,
-        Contractor $contractorRepository
+        Contractor $contractorRepository,
+        Security $security
     ) {
         $this->translator              = $translatorInterface;
         $this->collectivityRepository  = $collectivityRepository;
         $this->contractorRepository    = $contractorRepository;
+        $this->security                = $security;
     }
 
     /**
@@ -85,8 +93,13 @@ class ContractorGenerator extends AbstractGenerator
         );
         $data = [$headers];
 
+        $user = null;
+        if (!$this->security->isGranted('ROLE_ADMIN')) {
+            $user = $this->security->getUser();
+        }
+
         /** @var \App\Domain\Registry\Model\Contractor $contractor */
-        foreach ($this->contractorRepository->findAllByActiveCollectivity() as $contractor) {
+        foreach ($this->contractorRepository->findAllByActiveCollectivity(true, $user) as $contractor) {
             $extract = array_merge(
                 [$contractor->getName()],
                 $this->initializeCollectivity($contractor->getCollectivity()),

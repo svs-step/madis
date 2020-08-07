@@ -315,13 +315,23 @@ class Proof implements Repository\Proof
     /**
      * {@inheritdoc}
      */
-    public function averageProofFiled()
+    public function averageProofFiled(array $collectivities = [])
     {
         $sql = 'SELECT AVG(a.rcount) FROM (
             SELECT COUNT(rp.id) as rcount
             FROM user_collectivity uc
             LEFT OUTER JOIN registry_proof rp ON uc.id = rp.collectivity_id
-            WHERE uc.active = 1
+            WHERE uc.active = 1';
+
+        if (!empty($collectivities)) {
+            $sql .= ' AND uc.id IN (';
+            $sql .= \implode(',', \array_map(function ($collectivity) {
+                return '\'' . $collectivity->getId() . '\'';
+            }, $collectivities));
+            $sql .= ') ';
+        }
+
+        $sql .= ' 
             GROUP BY uc.id
         ) a';
 
@@ -334,13 +344,23 @@ class Proof implements Repository\Proof
     /**
      * {@inheritdoc}
      */
-    public function averageBalanceSheetProof()
+    public function averageBalanceSheetProof(array $collectivities = [])
     {
         $sql = 'SELECT AVG(a.rcount) FROM (
             SELECT IF(COUNT(rp.id) > 0, 1, 0) as rcount
             FROM user_collectivity uc
             LEFT OUTER JOIN registry_proof rp ON (uc.id = rp.collectivity_id AND rp.created_at >= NOW() - INTERVAL 1 YEAR AND rp.type = "' . ProofTypeDictionary::TYPE_BALANCE_SHEET . '")
-            WHERE uc.active = 1
+            WHERE uc.active = 1';
+
+        if (!empty($collectivities)) {
+            $sql .= ' AND uc.id IN (';
+            $sql .= \implode(',', \array_map(function ($collectivity) {
+                return '\'' . $collectivity->getId() . '\'';
+            }, $collectivities));
+            $sql .= ') ';
+        }
+
+        $sql .= ' 
             GROUP BY uc.id
         ) a';
 

@@ -29,6 +29,8 @@ use App\Domain\Reporting\Metrics\AdminMetric;
 use App\Domain\Reporting\Metrics\MetricInterface;
 use App\Domain\User;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
+use Symfony\Component\Security\Core\Security;
 
 class AdminMetricTest extends TestCase
 {
@@ -58,6 +60,11 @@ class AdminMetricTest extends TestCase
     private $treatmentRepository;
 
     /**
+     * @var Security
+     */
+    private $security;
+
+    /**
      * @var AdminMetric
      */
     private $adminMetric;
@@ -69,13 +76,15 @@ class AdminMetricTest extends TestCase
         $this->proofRepository        = $this->prophesize(Registry\Repository\Proof::class);
         $this->surveyRepository       = $this->prophesize(Maturity\Repository\Survey::class);
         $this->treatmentRepository    = $this->prophesize(Registry\Repository\Treatment::class);
+        $this->security               = $this->prophesize(Security::class);
 
         $this->adminMetric = new AdminMetric(
             $this->collectivityRepository->reveal(),
             $this->mesurementRepository->reveal(),
             $this->proofRepository->reveal(),
             $this->surveyRepository->reveal(),
-            $this->treatmentRepository->reveal()
+            $this->treatmentRepository->reveal(),
+            $this->security->reveal()
         );
     }
 
@@ -92,6 +101,7 @@ class AdminMetricTest extends TestCase
     public function testItReturnData()
     {
         $this->collectivityRepository->findAllActive()->shouldBeCalled()->willReturn([]);
+        $this->security->isGranted(Argument::any())->willReturn(true);
 
         $this->assertIsArray($this->adminMetric->getData());
     }

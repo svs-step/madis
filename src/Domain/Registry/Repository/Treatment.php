@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Repository;
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
 use App\Application\Doctrine\Repository\DataTablesRepository;
 use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 
 interface Treatment extends CRUDRepositoryInterface, DataTablesRepository
 {
@@ -92,7 +93,7 @@ interface Treatment extends CRUDRepositoryInterface, DataTablesRepository
      *
      * @return array
      */
-    public function findAllByActiveCollectivity(bool $active = true);
+    public function findAllByActiveCollectivity(bool $active = true, User $user = null);
 
     /**
      * Count all with no conformite traitement by collectivity.

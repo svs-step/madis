@@ -50,5 +50,5 @@ interface Survey extends CRUDRepositoryInterface
      *
      * @return string The count of mesurements
      */
-    public function averageSurveyDuringLastYear();
+    public function averageSurveyDuringLastYear(array $collectivites = []);
 }

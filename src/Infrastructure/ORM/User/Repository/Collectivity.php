@@ -202,4 +202,17 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
             }
         }
     }
+
+    public function findByUserReferent(Model\User $userReferent, bool $active = true)
+    {
+        return $this->createQueryBuilder()
+            ->leftJoin('o.userReferents', 'u')
+            ->andWhere('u.id = :user')
+            ->setParameter('user', $userReferent)
+            ->andWhere('o.active = :active')
+            ->setParameter('active', $active)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

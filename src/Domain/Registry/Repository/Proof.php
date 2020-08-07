@@ -120,12 +120,12 @@ interface Proof extends RepositoryInterface, DataTablesRepository
      *
      * @return string The average
      */
-    public function averageProofFiled();
+    public function averageProofFiled(array $collectivities = []);
 
     /**
      * Average balance sheet proof created during the last year.
      *
      * @return string The count of mesurements
      */
-    public function averageBalanceSheetProof();
+    public function averageBalanceSheetProof(array $collectivities = []);
 }

@@ -62,4 +62,11 @@ interface Collectivity extends CRUDRepositoryInterface, DataTablesRepository
      * @return Model\Collectivity[] The array of collectivity
      */
     public function findAllActive(bool $active = true, array $order = []);
+
+    /**
+     * Find all collectivity by.
+     *
+     * @return mixed
+     */
+    public function findByUserReferent(Model\User $userReferent, bool $active = true);
 }

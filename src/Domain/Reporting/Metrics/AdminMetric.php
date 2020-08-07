@@ -27,6 +27,8 @@ use App\Domain\Maturity;
 use App\Domain\Registry;
 use App\Domain\User;
 use App\Domain\User\Dictionary\CollectivityTypeDictionary;
+use App\Domain\User\Dictionary\UserRoleDictionary;
+use Symfony\Component\Security\Core\Security;
 
 class AdminMetric implements MetricInterface
 {
@@ -55,18 +57,25 @@ class AdminMetric implements MetricInterface
      */
     private $treatmentRepository;
 
+    /**
+     * @var Security
+     */
+    private $security;
+
     public function __construct(
         User\Repository\Collectivity $collectivityRepository,
         Registry\Repository\Mesurement $mesurementRepository,
         Registry\Repository\Proof $proofRepository,
         Maturity\Repository\Survey $surveyRepository,
-        Registry\Repository\Treatment $treatmentRepository
+        Registry\Repository\Treatment $treatmentRepository,
+        Security $security
     ) {
         $this->collectivityRepository = $collectivityRepository;
         $this->mesurementRepository   = $mesurementRepository;
         $this->proofRepository        = $proofRepository;
         $this->surveyRepository       = $surveyRepository;
         $this->treatmentRepository    = $treatmentRepository;
+        $this->security               = $security;
     }
 
     /**
@@ -74,16 +83,21 @@ class AdminMetric implements MetricInterface
      */
     public function getData(): array
     {
+        if (!$this->security->isGranted(UserRoleDictionary::ROLE_ADMIN)) {
+            $collectivities = $this->collectivityRepository->findByUserReferent($this->security->getUser());
+        } else {
+            $collectivities = $this->collectivityRepository->findAllActive();
+        }
+
         $collectivityByType = [];
         foreach (CollectivityTypeDictionary::getTypesKeys() as $type) {
             $collectivityByType[$type] = 0;
         }
 
-        $averageMesurement       = floatval($this->mesurementRepository->planifiedAverageOnAllCollectivity());
-        $averageProof            = floatval($this->proofRepository->averageProofFiled());
-        $averageBalanceSheetPoof = floatval($this->proofRepository->averageBalanceSheetProof());
-        $averageSurveyLastYer    = floatval($this->surveyRepository->averageSurveyDuringLastYear());
-        $collectivities          = $this->collectivityRepository->findAllActive();
+        $averageMesurement       = floatval($this->mesurementRepository->planifiedAverageOnAllCollectivity($collectivities));
+        $averageProof            = floatval($this->proofRepository->averageProofFiled($collectivities));
+        $averageBalanceSheetPoof = floatval($this->proofRepository->averageBalanceSheetProof($collectivities));
+        $averageSurveyLastYer    = floatval($this->surveyRepository->averageSurveyDuringLastYear($collectivities));
 
         $totalCollectivity = count($collectivities);
 

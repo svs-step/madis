@@ -77,5 +77,5 @@ interface Mesurement extends CRUDRepositoryInterface, DataTablesRepository
      *
      * @return string The average
      */
-    public function planifiedAverageOnAllCollectivity();
+    public function planifiedAverageOnAllCollectivity($collectivities);
 }

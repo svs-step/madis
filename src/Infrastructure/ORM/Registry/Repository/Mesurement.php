@@ -175,15 +175,24 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
     /**
      * {@inheritdoc}
      */
-    public function planifiedAverageOnAllCollectivity()
+    public function planifiedAverageOnAllCollectivity($collectivities)
     {
         $sql = 'SELECT AVG(a.rcount) FROM (
             SELECT COUNT(rm.id) as rcount
             FROM user_collectivity uc
             LEFT OUTER JOIN registry_mesurement rm ON (uc.id = rm.collectivity_id AND rm.planification_date is not null
             AND rm.status = "applied" )
-            WHERE uc.active = 1
-            GROUP BY uc.id
+            WHERE uc.active = 1';
+
+        if (!empty($collectivities)) {
+            $sql .= ' AND uc.id IN (';
+            $sql .= \implode(',', \array_map(function ($collectivity) {
+                return '\'' . $collectivity->getId() . '\'';
+            }, $collectivities));
+            $sql .= ') ';
+        }
+
+        $sql .= ' GROUP BY uc.id
         ) a';
 
         $stmt = $this->getManager()->getConnection()->prepare($sql);

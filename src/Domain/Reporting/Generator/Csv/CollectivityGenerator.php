@@ -38,6 +38,7 @@ use App\Infrastructure\ORM\Maturity\Repository\Survey;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
 use App\Infrastructure\ORM\Registry\Repository\Treatment;
 use App\Infrastructure\ORM\User\Repository\User;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CollectivityGenerator extends AbstractGenerator
@@ -103,6 +104,11 @@ class CollectivityGenerator extends AbstractGenerator
     private $evaluationRepository;
 
     /**
+     * @var Security
+     */
+    private $security;
+
+    /**
      * @var string
      */
     private $defaultDpoCivility;
@@ -144,6 +150,7 @@ class CollectivityGenerator extends AbstractGenerator
         Request $requestRepository,
         Processus $processusRepository,
         Evaluation $evaluationRepository,
+        Security $security,
         string $defaultDpoCivility,
         string $defaultDpoFirstName,
         string $defaultDpoLastName,
@@ -164,6 +171,7 @@ class CollectivityGenerator extends AbstractGenerator
         $this->requestRepository      = $requestRepository;
         $this->processsusRepository   = $processusRepository;
         $this->evaluationRepository   = $evaluationRepository;
+        $this->security               = $security;
         $this->defaultDpoCivility     = $defaultDpoCivility;
         $this->defaultDpoFirstName    = $defaultDpoFirstName;
         $this->defaultDpoLastName     = $defaultDpoLastName;
@@ -187,8 +195,13 @@ class CollectivityGenerator extends AbstractGenerator
             $this->conformiteOrganisationHeaders(),
         );
         $data = [$headers];
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            $collectivities = $this->collectivityRepository->findAll();
+        } else {
+            $collectivities = $this->collectivityRepository->findByUserReferent($this->security->getUser(), true);
+        }
 
-        foreach ($this->collectivityRepository->findAll() as $collectivity) {
+        foreach ($collectivities as $collectivity) {
             $extract = array_merge(
                 $this->initializeCollectivity($collectivity),
                 $this->initializeRegistry($collectivity),
