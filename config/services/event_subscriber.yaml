@@ -46,3 +46,11 @@ services:
     App\Application\Symfony\EventSubscriber\Kernel\LoginSubscriber:
         arguments:
             $logJournalDuration: '%env(APP_LOG_JOURNAL_DURATION)%'
+
+    Symfony\Component\Cache\Adapter\ArrayAdapter: ~
+
+    App\Domain\Reporting\Symfony\EventSubscriber\Doctrine\LogJournalDoctrineSubscriber:
+        arguments:
+            $cacheAdapter: '@Symfony\Component\Cache\Adapter\ArrayAdapter'
+        tags:
+            - { name: 'doctrine.event_subscriber' }

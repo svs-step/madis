@@ -22,6 +22,7 @@ use Doctrine\ORM\UnitOfWork;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Security;
@@ -71,7 +72,7 @@ class LogJournalDoctrineSubscriberTest extends TestCase
         $this->security                   = $this->prophesize(Security::class);
         $this->eventDispatcher            = $this->prophesize(EventDispatcherInterface::class);
         $this->entityManager              = $this->prophesize(EntityManagerInterface::class);
-        $this->cacheAdapter               = $this->prophesize(AdapterInterface::class);
+        $this->cacheAdapter               = $this->prophesize(ArrayAdapter::class);
         $this->requestStack               = $this->prophesize(RequestStack::class);
         $this->lifeCycleEventArgsProphecy = $this->prophesize(LifecycleEventArgs::class);
 

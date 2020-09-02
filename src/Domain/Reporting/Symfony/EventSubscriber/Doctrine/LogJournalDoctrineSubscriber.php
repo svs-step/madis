@@ -43,6 +43,7 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Security;
@@ -80,7 +81,7 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
         Security $security,
         EventDispatcherInterface $eventDispatcher,
         EntityManagerInterface $entityManager,
-        AdapterInterface $cacheAdapter,
+        ArrayAdapter $cacheAdapter,
         RequestStack $requestStack
     ) {
         $this->security        = $security;
