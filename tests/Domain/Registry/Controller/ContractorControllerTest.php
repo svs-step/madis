@@ -35,7 +35,9 @@ use App\Domain\User\Model as UserModel;
 use App\Domain\User\Repository as UserRepository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -80,6 +82,11 @@ class ContractorControllerTest extends TestCase
     private $userProviderProphecy;
 
     /**
+     * @var Pdf|ObjectProphecy
+     */
+    private $pdf;
+
+    /**
      * @var ContractorController
      */
     private $controller;
@@ -93,6 +100,7 @@ class ContractorControllerTest extends TestCase
         $this->wordHandlerProphecy            = $this->prophesize(WordHandler::class);
         $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
+        $this->pdf                            = $this->prophesize(Pdf::class);
 
         $this->controller = new ContractorController(
             $this->managerProphecy->reveal(),
@@ -101,7 +109,8 @@ class ContractorControllerTest extends TestCase
             $this->collectivityRepositoryProphecy->reveal(),
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
-            $this->userProviderProphecy->reveal()
+            $this->userProviderProphecy->reveal(),
+            $this->pdf->reveal()
         );
     }
 

@@ -33,6 +33,7 @@ use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\Tools\ChainManipulator;
 use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\FilesystemInterface;
+use Knp\Snappy\Pdf;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -82,9 +83,10 @@ class ProofController extends CRUDController
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
-        FilesystemInterface $documentFilesystem
+        FilesystemInterface $documentFilesystem,
+        Pdf $pdf
     ) {
-        parent::__construct($entityManager, $translator, $repository);
+        parent::__construct($entityManager, $translator, $repository, $pdf);
         $this->requestStack         = $requestStack;
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;

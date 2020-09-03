@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+## [1.7.6] - 2020-09-03
+### Ajout
+- Personnaliser les listes et les trier (Traitements, Actions de protection et Utilisateurs) #286
+- Journalisation des actions, log, traçabilité #286
+- Imprimer (PDF) une fiche (traitements, sous-traitants, ...) #286
+### Changement
+- Divers changements sur le dashboard des collectivités #285
+
 ## [1.7.5] - 2020-07-29
 ### Changement
 - Divers changements suite à la mise en production du lot 2

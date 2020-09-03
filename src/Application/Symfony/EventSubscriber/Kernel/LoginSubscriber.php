@@ -23,9 +23,14 @@ declare(strict_types=1);
 
 namespace App\Application\Symfony\EventSubscriber\Kernel;
 
+use App\Domain\Reporting\Dictionary\LogJournalActionDictionary;
+use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
+use App\Domain\Reporting\Model\LogJournal;
+use App\Domain\Reporting\Repository\LogJournal as LogRepository;
 use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 
@@ -36,9 +41,31 @@ class LoginSubscriber implements EventSubscriberInterface
      */
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * @var LogRepository
+     */
+    private $logJournalRepository;
+
+    /**
+     * @var string
+     */
+    private $logJournalDuration;
+
+    /**
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(
+        EntityManagerInterface $em,
+        LogRepository $logRepository,
+        Security $security,
+        string $logJournalDuration)
     {
-        $this->entityManager = $em;
+        $this->entityManager        = $em;
+        $this->logJournalRepository = $logRepository;
+        $this->security             = $security;
+        $this->logJournalDuration   = $logJournalDuration;
     }
 
     /**
@@ -56,11 +83,24 @@ class LoginSubscriber implements EventSubscriberInterface
         /** @var User $user */
         $user = $event->getAuthenticationToken()->getUser();
 
-        // Update your field here.
         $user->setLastLogin(new \DateTimeImmutable());
-
-        // Persist the data to database.
         $this->entityManager->persist($user);
+
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            $this->logJournalRepository->deleteAllAnteriorToDate(new \DateTime('-' . $this->logJournalDuration));
+        }
+
+        $log = new LogJournal(
+            $user->getCollectivity(),
+            $user->getFullName(),
+            $user->getEmail(),
+            LogJournalActionDictionary::LOGIN,
+            LogJournalSubjectDictionary::USER_USER,
+            $user->getId()->toString(),
+            $user->getFullName()
+        );
+
+        $this->entityManager->persist($log);
         $this->entityManager->flush();
     }
 }

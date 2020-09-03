@@ -2,10 +2,11 @@
 
 namespace App\Domain\Registry\Model\ConformiteOrganisation;
 
+use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Participant
+class Participant implements LoggableSubject
 {
     /**
      * @var UuidInterface
@@ -100,5 +101,10 @@ class Participant
     public function __clone()
     {
         $this->id   = Uuid::uuid4();
+    }
+
+    public function __toString(): string
+    {
+        return $this->nomDeFamille . ' ' . $this->prenom;
     }
 }

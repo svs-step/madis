@@ -31,10 +31,11 @@ use App\Application\Traits\Model\SoftDeletableTrait;
 use App\Domain\Registry\Model\Embeddable\RequestAnswer;
 use App\Domain\Registry\Model\Embeddable\RequestApplicant;
 use App\Domain\Registry\Model\Embeddable\RequestConcernedPeople;
+use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Request
+class Request implements LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;
@@ -129,6 +130,11 @@ class Request
         $this->proofs              = [];
     }
 
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
     public function __toString(): string
     {
         if (\is_null($this->getApplicant()->getFirstName())) {
@@ -140,11 +146,6 @@ class Request
         }
 
         return $this->getApplicant()->getFullName();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function getObject(): ?string

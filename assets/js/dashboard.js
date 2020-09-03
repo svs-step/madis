@@ -26,6 +26,44 @@ function doughnutChart(id, labels, data, color) {
     });
 }
 
+function doughnutChartPadding(id, labels, data, color) {
+    new Chart($('#' + id), {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: color,
+                hoverBackgroundColor: color
+            }],
+        },
+        options: {
+            layout: {
+                padding: {
+                    left: 15,
+                    right: 15,
+                }
+            },
+            legend: {
+                display: false,
+                labels: {
+                    defaultFontSize: 5
+                },
+            },
+            tooltips: {
+                displayColors: false,
+                bodyFontSize: 10,
+            },
+            responsive: true,
+            scales: {
+                label: {
+                    display: false,
+                }
+            }
+        }
+    });
+}
+
 function pieChart(id, labels, data, color) {
     new Chart($('#' + id), {
         type: 'pie',
@@ -141,18 +179,18 @@ $(document).ready(function() {
         [colorBlue, colorRed]
     );
 
-    doughnutChart(
+    doughnutChartPadding(
         'request-type',
         requestTypeLabel,
         requestTypeData,
         [colorBlue, colorRed, colorGreen, colorOrange, colorPurple, colorTeal]
     );
 
-    doughnutChart(
+    doughnutChartPadding(
         'request-status',
         requestStatusLabel,
         requestStatusData,
-        [colorBlue, colorRed, colorGreen]
+        [colorGreen, colorRed, colorOrange]
     );
 
     radarChart(

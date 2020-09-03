@@ -4,16 +4,18 @@ namespace App\Domain\Registry\Model\ConformiteOrganisation;
 
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Modelize the relation between Processus and Evaluation.
  * Contain the conformité rating.
  */
-class Conformite
+class Conformite implements LoggableSubject
 {
     /**
-     * @var Uuid
+     * @var UuidInterface
      */
     private $id;
 
@@ -54,7 +56,7 @@ class Conformite
         $this->actionProtections = [];
     }
 
-    public function getId(): Uuid
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
@@ -153,5 +155,10 @@ class Conformite
         foreach ($reponses as $reponse) {
             $this->addReponse(clone $reponse);
         }
+    }
+
+    public function __toString(): string
+    {
+        return 'Conformité ' . $this->processus->getNom();
     }
 }

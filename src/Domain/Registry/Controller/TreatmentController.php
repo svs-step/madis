@@ -26,6 +26,9 @@ namespace App\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
+use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
@@ -33,11 +36,15 @@ use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Model as UserModel;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -46,6 +53,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class TreatmentController extends CRUDController
 {
+    use ServersideDatatablesTrait;
+
     /**
      * @var UserRepository\Collectivity
      */
@@ -70,6 +79,11 @@ class TreatmentController extends CRUDController
      */
     protected $userProvider;
 
+    /**
+     * @var RouterInterface
+     */
+    private $router;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -78,14 +92,17 @@ class TreatmentController extends CRUDController
         RequestStack $requestStack,
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
-        UserProvider $userProvider
+        UserProvider $userProvider,
+        Pdf $pdf,
+        RouterInterface $router
     ) {
-        parent::__construct($entityManager, $translator, $repository);
+        parent::__construct($entityManager, $translator, $repository, $pdf);
         $this->collectivityRepository = $collectivityRepository;
         $this->requestStack           = $requestStack;
         $this->wordHandler            = $wordHandler;
         $this->authorizationChecker   = $authorizationChecker;
         $this->userProvider           = $userProvider;
+        $this->router                 = $router;
     }
 
     /**
@@ -123,22 +140,22 @@ class TreatmentController extends CRUDController
     /**
      * {@inheritdoc}
      */
-    protected function getListData()
+    public function listAction(): Response
     {
-        $request = $this->requestStack->getMasterRequest();
-        $active  = 'true' === $request->query->get('active') || \is_null($request->query->get('active'))
+        $request            = $this->requestStack->getMasterRequest();
+        $criteria['active'] = 'true' === $request->query->get('active') || \is_null($request->query->get('active'))
             ? true
             : false
         ;
 
-        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return $this->repository->findAllActive($active);
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
         }
 
-        return $this->repository->findAllActiveByCollectivity(
-            $this->userProvider->getAuthenticatedUser()->getCollectivity(),
-            $active
-        );
+        return $this->render('Registry/Treatment/list.html.twig', [
+            'totalItem' => $this->repository->count($criteria),
+            'route'     => $this->router->generate('registry_treatment_list_datatables', ['active' => $criteria['active']]),
+        ]);
     }
 
     /**
@@ -190,5 +207,105 @@ class TreatmentController extends CRUDController
         }
 
         return new JsonResponse($responseData);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function listDataTables(Request $request): JsonResponse
+    {
+        $request            = $this->requestStack->getMasterRequest();
+        $criteria['active'] = $request->query->getBoolean('active');
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+        }
+
+        /** @var Paginator $treatments */
+        $treatments  = $this->getResults($request, $criteria);
+
+        $reponse = $this->getBaseDataTablesResponse($request, $treatments, $criteria);
+
+        /** @var Model\Treatment $treatment */
+        foreach ($treatments as $treatment) {
+            $treatmentLink = '<a href="' . $this->router->generate('registry_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
+                ' . $treatment->getName() . '
+            </a>';
+
+            $contractors = '<ul>';
+            foreach ($treatment->getContractors() as $contractor) {
+                $contractors .= '<li>' . $contractor->getName() . '</li>';
+            }
+            $contractors .= '</ul>';
+
+            $yes = '<span class="badge bg-green">' . $this->translator->trans('label.yes') . '</span>';
+            $no  = '<span class="badge bg-orange">' . $this->translator->trans('label.no') . '</span>';
+
+            $reponse['data'][] = [
+                'nom'                    => $treatmentLink,
+                'collectivite'           => $treatment->getCollectivity()->getName(),
+                'baseLegal'              => !empty($treatment->getLegalBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : null,
+                'logiciel'               => $treatment->getSoftware(),
+                'enTantQue'              => !empty($treatment->getAuthor()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : null,
+                'gestionnaire'           => $treatment->getManager(),
+                'sousTraitant'           => $contractors,
+                'controleAcces'          => $treatment->getSecurityAccessControl()->isCheck() ? $yes : $no,
+                'tracabilite'            => $treatment->getSecurityTracability()->isCheck() ? $yes : $no,
+                'saving'                 => $treatment->getSecuritySaving()->isCheck() ? $yes : $no,
+                'update'                 => $treatment->getSecurityUpdate()->isCheck() ? $yes : $no,
+                'other'                  => $treatment->getSecurityOther()->isCheck() ? $yes : $no,
+                'entitledPersons'        => $treatment->isSecurityEntitledPersons() ? $yes : $no,
+                'openAccounts'           => $treatment->isSecurityOpenAccounts() ? $yes : $no,
+                'specificitiesDelivered' => $treatment->isSecuritySpecificitiesDelivered() ? $yes : $no,
+                'actions'                => $this->generateActionCellContent($treatment),
+            ];
+        }
+
+        $jsonResponse = new JsonResponse();
+        $jsonResponse->setJson(json_encode($reponse));
+
+        return $jsonResponse;
+    }
+
+    private function generateActionCellContent(Model\Treatment $treatment)
+    {
+        $id         = $treatment->getId();
+        $editPath   = $this->router->generate('registry_treatment_edit', ['id' => $id]);
+        $deletePath = $this->router->generate('registry_treatment_delete', ['id' => $id]);
+
+        return '<a href="' . $editPath . '">
+            <i class="fa fa-pencil-alt"></i>
+                ' . $this->translator->trans('action.edit') . '
+            </a>
+            <a href="' . $deletePath . '">
+                <i class="fa fa-trash"></i>
+                ' . $this->translator->trans('action.delete') . '
+            </a>'
+        ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getLabelAndKeysArray(): array
+    {
+        return [
+            '0'  => 'name',
+            '1'  => 'collectivite',
+            '2'  => 'baseLegal',
+            '3'  => 'logiciel',
+            '4'  => 'enTantQue',
+            '5'  => 'gestionnaire',
+            '6'  => 'sousTraitant',
+            '7'  => 'controleAcces',
+            '8'  => 'tracabilite',
+            '9'  => 'saving',
+            '10' => 'update',
+            '11' => 'other',
+            '12' => 'entitledPersons',
+            '13' => 'openAccounts',
+            '14' => 'specificitiesDelivered',
+            '15' => 'actions',
+        ];
     }
 }

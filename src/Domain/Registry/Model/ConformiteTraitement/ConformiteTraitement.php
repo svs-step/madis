@@ -27,10 +27,11 @@ namespace App\Domain\Registry\Model\ConformiteTraitement;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Treatment;
+use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class ConformiteTraitement
+class ConformiteTraitement implements LoggableSubject
 {
     use CreatorTrait;
     use HistoryTrait;
@@ -144,7 +145,7 @@ class ConformiteTraitement
         $this->nbNonConformesMajeures = $nbNonConformesMajeures;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->traitement->__toString();
     }

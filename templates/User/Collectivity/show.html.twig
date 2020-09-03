@@ -414,7 +414,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {% for user in object.users %}
+                        {% for user in object.users|filter(user => user.deletedAt is null) %}
                             <tr>
                                 <td>{{ user.firstName }}</td>
                                 <td>{{ user.lastName }}</td>

@@ -6,7 +6,8 @@
 {% block title %}{{ 'registry.treatment.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
 {% endblock %}
 
 {% block body_head %}
@@ -65,45 +66,114 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>
+                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_base_legal" style="width: 100%;">
+                                    <option value="">Base légale</option>
+                                    {% for key, subject in dictionary('registry_treatment_legal_basis') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_logiciel" placeholder="Logiciel" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_en_tant_que" style="width: 100%;">
+                                    <option value="">En tant que</option>
+                                    {% for key, subject in dictionary('registry_treatment_author') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_gestionnaire" placeholder="Gestionnaire" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_sous_traitants" placeholder="Sous-traitants" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_controle_acces" style="width: 100%;">
+                                    <option value="">Contrôle d'accès</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_tracabilite" style="width: 100%;">
+                                    <option value="">Traçabilité</option>
+                                    <option value="foo">Oui</option>
+                                    <option value="bar">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_sauvegarde" style="width: 100%;">
+                                    <option value="">Sauvegarde</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_mise_a_jour" style="width: 100%;">
+                                    <option value="">Mise à jour</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_autres" style="width: 100%;">
+                                    <option value="">Autres</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_capacite" style="width: 100%;">
+                                    <option value="">En capacité</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_procedure" style="width: 100%;">
+                                    <option value="">Procédure</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_specificite" style="width: 100%;">
+                                    <option value="">Spécificités</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th></th>
+                        </tr>
+                        <tr>
                             <th>{{ 'registry.treatment.list.name'|trans }}</th>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <th>{{ 'registry.treatment.list.collectivity'|trans }}</th>
-                            {% endif %}
+                            <th>{{ 'registry.treatment.list.collectivity'|trans }}</th>
                             <th>{{ 'registry.treatment.list.legal_basis'|trans }}</th>
                             <th>{{ 'registry.treatment.list.software'|trans }}</th>
-                            {% if is_granted('ROLE_USER') %}
-                                <th>{{ 'label.actions'|trans }}</th>
-                            {% endif %}
+                            <th>{{ 'registry.treatment.list.author'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.manager'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.contractors'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.access_control'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.tracability'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.saving'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.update'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.other'|trans }}</th>
+                            <th style="max-width: 60px;">{{ 'registry.treatment.list.entitled_persons'|trans }}</th>
+                            <th style="max-width: 60px;">{{ 'registry.treatment.list.open_accounts'|trans }}</th>
+                            <th style="max-width: 60px;">{{ 'registry.treatment.list.specificities_delivered'|trans }}</th>
+                            <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        {% for object in objects %}
-                        <tr>
-                            <td>
-                                <a href="{{ path('registry_treatment_show', {'id': object.id}) }}">
-                                    {{ object.name }}
-                                </a>
-                            </td>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <td>{{ object.collectivity }}</td>
-                            {% endif %}
-                            <td>{{ object.legalBasis|dictionary('registry_treatment_legal_basis') }}</td>
-                            <td>{{ object.software }}</td>
-                            {% if is_granted('ROLE_USER') %}
-                                <td>
-                                    <a href="{{ path('registry_treatment_edit', { 'id': object.id }) }}">
-                                        <i class="fa fa-pencil-alt"></i>
-                                        {{ 'action.edit'|trans }}
-                                    </a>
-                                    <a href="{{ path('registry_treatment_delete', { 'id': object.id }) }}">
-                                        <i class="fa fa-trash"></i>
-                                        {{ 'action.delete'|trans }}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        </tr>
-                        {% endfor %}
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -112,5 +182,133 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ include('_Utils/_datatable.html.twig') }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+
+    {% set collectivityIsVisible = false %}
+    {% set collectivityClassname = "noVis" %}
+    {% set actionIsVisible = true %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set collectivityIsVisible = true %}
+        {% set collectivityClassname = "" %}
+    {% endif %}
+
+    {% if not is_granted('ROLE_USER') %}
+        {% set actionIsVisible = false %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "nom", "className": "noVis"},
+            {"data" : "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
+            {"data": "baseLegal", "visible": false},
+            {"data": "logiciel", "visible": false},
+            {"data": "enTantQue", "visible": false},
+            {"data": "gestionnaire", "visible": false},
+            {"data": "sousTraitant", "visible": false, "orderable": false},
+            {"data": "controleAcces", "visible": false},
+            {"data": "tracabilite", "visible": false},
+            {"data": "saving", "visible": false},
+            {"data": "update", "visible": false},
+            {"data": "other", "visible": false},
+            {"data": "entitledPersons", "visible": false},
+            {"data": "openAccounts", "visible": false},
+            {"data": "specificitiesDelivered", "visible": false},
+            {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
+        ],
+        order:  [
+            [0, 'asc' ]
+        ],
+    } %}
+
+    {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_nom').off('keyup');
+            $('#search_nom').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+
+            $('#search_collectivite').off('keyup');
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+
+            $('#search_base_legal').off('change');
+            $('#search_base_legal').change(function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            });
+
+            $('#search_logiciel').off('keyup');
+            $('#search_logiciel').keyup($.debounce(250, function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            }));
+
+            $('#search_en_tant_que').off('change');
+            $('#search_en_tant_que').change(function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            });
+
+            $('#search_gestionnaire').off('keyup');
+            $('#search_gestionnaire').keyup($.debounce(250, function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            }));
+
+            $('#search_sous_traitants').off('keyup');
+            $('#search_sous_traitants').keyup($.debounce(250, function(){
+                oTable.column('6').search($(this).val()).draw() ;
+            }));
+
+            $('#search_controle_acces').off('change');
+            $('#search_controle_acces').change(function(){
+                oTable.column('7').search($(this).val()).draw() ;
+            });
+
+            $('#search_tracabilite').off('change');
+            $('#search_tracabilite').change(function(){
+                oTable.column('8').search($(this).val()).draw() ;
+            });
+
+            $('#search_sauvegarde').off('change');
+            $('#search_sauvegarde').change(function(){
+                oTable.column('9').search($(this).val()).draw() ;
+            });
+
+            $('#search_mise_a_jour').off('change');
+            $('#search_mise_a_jour').change(function(){
+                oTable.column('10').search($(this).val()).draw() ;
+            });
+
+            $('#search_autres').off('change');
+            $('#search_autres').change(function(){
+                oTable.column('11').search($(this).val()).draw() ;
+            });
+
+            $('#search_capacite').off('change');
+            $('#search_capacite').change(function(){
+                oTable.column('12').search($(this).val()).draw() ;
+            });
+
+            $('#search_procedure').off('change');
+            $('#search_procedure').change(function(){
+                oTable.column('13').search($(this).val()).draw() ;
+            });
+
+            $('#search_specificite').off('change');
+            $('#search_specificite').change(function(){
+                oTable.column('14').search($(this).val()).draw() ;
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
 {% endblock %}

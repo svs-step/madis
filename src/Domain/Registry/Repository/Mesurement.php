@@ -25,9 +25,10 @@ declare(strict_types=1);
 namespace App\Domain\Registry\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
+use App\Application\Doctrine\Repository\DataTablesRepository;
 use App\Domain\User\Model\Collectivity;
 
-interface Mesurement extends CRUDRepositoryInterface
+interface Mesurement extends CRUDRepositoryInterface, DataTablesRepository
 {
     /**
      * Find all mesurements by associated collectivity.

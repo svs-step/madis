@@ -6,11 +6,12 @@ namespace App\Domain\Admin\Model;
 
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Admin\Dictionary\DuplicationTypeDictionary;
+use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Collectivity;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Duplication
+class Duplication implements LoggableSubject
 {
     use HistoryTrait;
 
@@ -162,5 +163,10 @@ class Duplication
         }
 
         unset($this->targetCollectivities[$key]);
+    }
+
+    public function __toString()
+    {
+        return 'Duplication ' . $this->sourceCollectivity->__toString();
     }
 }

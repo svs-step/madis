@@ -48,6 +48,7 @@ RUN apt update && apt install -y \
 
 # Configure PHP
 COPY fpm-pool.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY php.ini /etc/php/7.4/fpm/php.ini
 RUN touch /var/log/php7.4-fpm.log && chown www-data:www-data /var/log/php7.4-fpm.log
 RUN mkdir -p /run/php/ /var/www/.composer/
 RUN chown www-data:www-data -R /run/php/ /var/www
@@ -79,6 +80,12 @@ RUN apt-get install -y nodejs
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN apt-get update && apt-get install -y yarn
+
+# INSTALL WKHTMLTOPDF
+# ===================
+RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb
+RUN apt-get install -y fontconfig libfreetype6 libjpeg62-turbo libpng16-16 libxrender1 xfonts-75dpi xfonts-base
+RUN dpkg -i wkhtmltox_0.12.5-1.buster_amd64.deb
 
 
 # FINISH CONFIGURATION

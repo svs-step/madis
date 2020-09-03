@@ -13,11 +13,6 @@ registry_proof_edit:
     methods: ['GET', 'POST']
     controller: 'App\Domain\Registry\Controller\ProofController:editAction'
 
-registry_proof_show:
-    path: '/visualiser/{id}'
-    methods: ['GET']
-    controller: 'App\Domain\Registry\Controller\ProofController:showAction'
-
 registry_proof_download:
     path: '/{id}/telecharger'
     methods: ['GET']

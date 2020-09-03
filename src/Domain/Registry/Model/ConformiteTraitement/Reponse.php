@@ -25,10 +25,11 @@ declare(strict_types=1);
 namespace App\Domain\Registry\Model\ConformiteTraitement;
 
 use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Reponse
+class Reponse implements LoggableSubject
 {
     /**
      * @var UuidInterface
@@ -160,5 +161,10 @@ class Reponse
     public function resetActionProtectionsPlanifiedNotSeens(): void
     {
         $this->actionProtectionsPlanifiedNotSeens = [];
+    }
+
+    public function __toString(): string
+    {
+        return 'Reponse .' . $this->question->getQuestion();
     }
 }

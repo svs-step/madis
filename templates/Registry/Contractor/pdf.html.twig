@@ -1,0 +1,212 @@
+{% extends 'base_pdf.html.twig' %}
+
+{% set bodyClass = 'registry_contractor show' %}
+{% set menuItem = 'registry_contractor' %}
+
+{% block body_head %}{{ object.name }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            {# GENERAL #}
+            <div class="box box-solid box-info">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.general'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.name'|trans }}</strong></td>
+                            <td>{{ object.name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.referent'|trans }}</strong></td>
+                            <td>{{ object.referent }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.contractual_clauses_verified'|trans }}</strong></td>
+                            <td>
+                                {% if object.contractualClausesVerified %}
+                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.adopted_security_features'|trans }}</strong></td>
+                            <td>
+                                {% if object.adoptedSecurityFeatures %}
+                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.maintains_treatment_register'|trans }}</strong></td>
+                            <td>
+                                {% if object.maintainsTreatmentRegister %}
+                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.sending_data_outside_eu'|trans }}</strong></td>
+                            <td>
+                                {% if object.sendingDataOutsideEu %}
+                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.other_informations'|trans }}</strong></td>
+                            <td>{{ object.otherInformations|nl2br }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {# DPO #}
+            <div class="box box-solid box-success">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.dpo'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.has_dpo'|trans }}</strong></td>
+                            <td>
+                                <span class="badge bg-gr">
+                                    {% if object.hasDpo %}
+                                        {{ 'label.yes'|trans }}
+                                    {% else %}
+                                        {{ 'label.no'|trans }}
+                                    {% endif %}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.contact_civility'|trans }}</strong></td>
+                            <td>
+                                {% if object.dpo.civility is not null %}
+                                    {{ object.dpo.civility|dictionary('user_contact_civility') }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.contact_first_name'|trans }}</strong></td>
+                            <td>{{ object.dpo.firstName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.contact_last_name'|trans }}</strong></td>
+                            <td>{{ object.dpo.lastName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.contact_job'|trans }}</strong></td>
+                            <td>{{ object.dpo.job }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.contact_mail'|trans }}</strong></td>
+                            <td>{{ object.dpo.mail }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.contact_phone_number'|trans }}</strong></td>
+                            <td>{{ object.dpo.phoneNumber }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            {# COORDINATES #}
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.coordinates'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.contact_first_name'|trans }}</strong></td>
+                            <td>{{ object.legalManager.firstName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.contact_last_name'|trans }}</strong></td>
+                            <td>{{ object.legalManager.lastName }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.address.show.line_one'|trans }}</strong></td>
+                            <td>{{ object.address.lineOne }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.address.show.line_two'|trans }}</strong></td>
+                            <td>{{ object.address.lineTwo }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.address.show.zip_code'|trans }}</strong></td>
+                            <td>{{ object.address.zipCode }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.address.show.city'|trans }}</strong></td>
+                            <td>{{ object.address.city }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.address.show.mail'|trans }}</strong></td>
+                            <td>{{ object.address.mail }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.address.show.phone_number'|trans }}</strong></td>
+                            <td>{{ object.address.phoneNumber }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {# PROOFS #}
+            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+
+            {# TREATMENTS #}
+            {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
+
+
+            {# HISTORIC #}
+            <div class="box box-solid box-default">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.historic'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.creator'|trans }}</strong></td>
+                            <td>
+                                {{ object.creator }}
+                            </td>
+                        </tr>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <tr>
+                                <td><strong>{{ 'registry.contractor.show.collectivity'|trans }}</strong></td>
+                                <td>
+                                    {{ object.collectivity }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.created_at'|trans }}</strong></td>
+                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.updated_at'|trans }}</strong></td>
+                            <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

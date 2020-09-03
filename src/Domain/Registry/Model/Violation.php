@@ -28,10 +28,11 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Application\Traits\Model\SoftDeletableTrait;
+use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Violation
+class Violation implements LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;
@@ -150,6 +151,11 @@ class Violation
         $this->proofs                    = [];
     }
 
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
     public function __toString(): string
     {
         if (\is_null($this->getDate())) {
@@ -157,11 +163,6 @@ class Violation
         }
 
         return "Violation du {$this->getDate()->format('d/m/Y')}";
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function getDate(): ?\DateTime

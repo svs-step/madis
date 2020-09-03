@@ -30,10 +30,11 @@ use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\Embeddable\ComplexChoice;
 use App\Domain\Registry\Model\Embeddable\Delay;
+use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Treatment
+class Treatment implements LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;
@@ -403,6 +404,11 @@ class Treatment
         $this->concernedPeopleOther              = new ComplexChoice();
     }
 
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
     public function __toString(): string
     {
         if (\is_null($this->getName())) {
@@ -414,11 +420,6 @@ class Treatment
         }
 
         return $this->getName();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function getName(): ?string

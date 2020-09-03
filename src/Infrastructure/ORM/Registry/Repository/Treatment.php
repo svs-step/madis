@@ -29,6 +29,7 @@ use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class Treatment extends CRUDRepository implements Repository\Treatment
 {
@@ -219,5 +220,163 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         ;
 
         return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function count(array $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
+    {
+        $qb = $this->createQueryBuilder()
+            ->addSelect('collectivite')
+            ->leftJoin('o.collectivity', 'collectivite')
+            ->leftJoin('o.contractors', 'sous_traitants')
+        ;
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        $this->addTableOrder($qb, $orderColumn, $orderDir);
+        $this->addTableSearches($qb, $searches);
+
+        $qb = $qb->getQuery();
+        $qb->setFirstResult($firstResult);
+        $qb->setMaxResults($maxResults);
+
+        return new Paginator($qb);
+    }
+
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'name':
+                $queryBuilder->addOrderBy('o.name', $orderDir);
+                break;
+            case 'collectivite':
+                $queryBuilder->addOrderBy('collectivite.name', $orderDir);
+                break;
+            case 'baseLegal':
+                $queryBuilder->addOrderBy('o.legalBasis', $orderDir);
+                break;
+            case 'logiciel':
+                $queryBuilder->addOrderBy('o.software', $orderDir);
+                break;
+            case 'enTantQue':
+                $queryBuilder->addOrderBy('o.author', $orderDir);
+                break;
+            case 'gestionnaire':
+                $queryBuilder->addOrderBy('o.manager', $orderDir);
+                break;
+            case 'controleAcces':
+                $queryBuilder->addOrderBy('o.securityAccessControl.check', $orderDir);
+                break;
+            case 'tracabilite':
+                $queryBuilder->addOrderBy('o.securityTracability.check', $orderDir);
+                break;
+            case 'saving':
+                $queryBuilder->addOrderBy('o.securitySaving.check', $orderDir);
+                break;
+            case 'update':
+                $queryBuilder->addOrderBy('o.securityUpdate.check', $orderDir);
+                break;
+            case 'other':
+                $queryBuilder->addOrderBy('o.securityOther.check', $orderDir);
+                break;
+            case 'entitledPersons':
+                $queryBuilder->addOrderBy('o.securityEntitledPersons', $orderDir);
+                break;
+            case 'openAccounts':
+                $queryBuilder->addOrderBy('o.securityOpenAccounts', $orderDir);
+                break;
+            case 'specificitiesDelivered':
+                $queryBuilder->addOrderBy('o.securitySpecificitiesDelivered', $orderDir);
+                break;
+        }
+    }
+
+    private function addTableSearches(QueryBuilder $queryBuilder, $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'nom':
+                    $this->addWhereClause($queryBuilder, 'name', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'collectivite':
+                    $queryBuilder->andWhere('collectivite.name LIKE :nom')
+                        ->setParameter('nom', '%' . $search . '%');
+                    break;
+                case 'baseLegal':
+                    $this->addWhereClause($queryBuilder, 'legalBasis', $search);
+                    break;
+                case 'logiciel':
+                    $this->addWhereClause($queryBuilder, 'software', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'enTantQue':
+                    $this->addWhereClause($queryBuilder, 'author', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'gestionnaire':
+                    $this->addWhereClause($queryBuilder, 'manager', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'sousTraitant':
+                    $queryBuilder->andWhere('sous_traitants.name LIKE :st_nom')
+                        ->setParameter('st_nom', '%' . $search . '%');
+                    break;
+                case 'controleAcces':
+                    $queryBuilder->andWhere('o.securityAccessControl.check = :access_control')
+                        ->setParameter('access_control', $search);
+                    break;
+                case 'tracabilite':
+                    $queryBuilder->andWhere('o.securityTracability.check = :tracabilite')
+                        ->setParameter('tracabilite', $search);
+                    break;
+                case 'saving':
+                    $queryBuilder->andWhere('o.securitySaving.check = :saving')
+                        ->setParameter('saving', $search);
+                    break;
+                case 'update':
+                    $queryBuilder->andWhere('o.securityUpdate.check = :update')
+                        ->setParameter('update', $search);
+                    break;
+                case 'other':
+                    $queryBuilder->andWhere('o.securityOther.check = :other')
+                        ->setParameter('other', $search);
+                    break;
+                case 'entitledPersons':
+                    $queryBuilder->andWhere('o.securityEntitledPersons = :entitledPersons')
+                        ->setParameter('entitledPersons', $search);
+                    break;
+                case 'openAccounts':
+                    $queryBuilder->andWhere('o.securityOpenAccounts = :openAccounts')
+                        ->setParameter('entitledPersons', $search);
+                    break;
+                case 'specificitiesDelivered':
+                    $queryBuilder->andWhere('o.securitySpecificitiesDelivered = :specificitiesDelivered')
+                        ->setParameter('specificitiesDelivered', $search);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Add a where clause to query.
+     *
+     * @param mixed $value
+     */
+    protected function addWhereClause(QueryBuilder $qb, string $key, $value, $operator = '='): QueryBuilder
+    {
+        return $qb
+            ->andWhere("o.{$key} $operator :{$key}_value")
+            ->setParameter("{$key}_value", $value)
+            ;
     }
 }

@@ -36,6 +36,7 @@ use App\Domain\Reporting\Metrics\UserMetric;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
+use App\Infrastructure\ORM\Reporting\Repository\LogJournal;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
 use PHPUnit\Framework\TestCase;
@@ -79,6 +80,11 @@ class UserMetricTest extends TestCase
      */
     private $userMetric;
 
+    /**
+     * @var LogJournal
+     */
+    private $logJournalRepository;
+
     protected function setUp()
     {
         $this->entityManager                    = $this->prophesize(EntityManagerInterface::class);
@@ -87,6 +93,7 @@ class UserMetricTest extends TestCase
         $this->treatmentRepository              = $this->prophesize(\App\Domain\Registry\Repository\Treatment::class);
         $this->userProvider                     = $this->prophesize(UserProvider::class);
         $this->evaluationRepository             = $this->prophesize(Evaluation::class);
+        $this->logJournalRepository             = $this->prophesize(LogJournal::class);
 
         $this->userMetric = new UserMetric(
             $this->entityManager->reveal(),
@@ -94,7 +101,9 @@ class UserMetricTest extends TestCase
             $this->requestRepository->reveal(),
             $this->treatmentRepository->reveal(),
             $this->userProvider->reveal(),
-            $this->evaluationRepository->reveal()
+            $this->evaluationRepository->reveal(),
+            $this->logJournalRepository->reveal(),
+            15
         );
     }
 
@@ -134,6 +143,7 @@ class UserMetricTest extends TestCase
         $collectivity->setHasModuleConformiteTraitement(true);
         $this->conformiteTraitementRepository->findAllByCollectivity(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $this->evaluationRepository->findLastByOrganisation(Argument::any())->shouldBeCalled()->willReturn(null);
+        $this->logJournalRepository->findAllByCollectivityWithoutSubjects($collectivity, 15, Argument::any())->shouldBeCalled()->willReturn([]);
 
         $this->assertIsArray($this->userMetric->getData());
     }

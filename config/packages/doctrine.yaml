@@ -68,5 +68,11 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/ORM/Registry/Mapping/ConformiteOrganisation'
                 prefix: App\Domain\Registry\Model\ConformiteOrganisation
                 alias: ConformiteOrganisation
+            Reporting:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/ORM/Reporting/Mapping'
+                prefix: App\Domain\Reporting\Model
+                alias: Reporting
 
 

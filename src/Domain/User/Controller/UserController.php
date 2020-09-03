@@ -29,6 +29,7 @@ use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -56,9 +57,10 @@ class UserController extends CRUDController
         TranslatorInterface $translator,
         Repository\User $repository,
         RequestStack $requestStack,
-        EncoderFactoryInterface $encoderFactory
+        EncoderFactoryInterface $encoderFactory,
+        Pdf $pdf
     ) {
-        parent::__construct($entityManager, $translator, $repository);
+        parent::__construct($entityManager, $translator, $repository, $pdf);
         $this->requestStack   = $requestStack;
         $this->encoderFactory = $encoderFactory;
     }

@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'reporting_journalisation show' %}
+{% set menuItem = 'reporting_journalisation' %}
+
+{% block title %}{{ 'reporting.journalisation.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'reporting.journalisation.title.list'|trans }}
+    </h1>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input class="form-control" type="text" id="search_subject_id" placeholder="Id" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_user_fullname" placeholder="Nom utilisateur" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_user_email" placeholder="Email utilisateur" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <select class="form-control" id="search_sujet" style="width: 100%;">
+                                        <option value="">Sujet</option>
+                                        {% for key, subject in dictionary('reporting_log_journal_subject') %}
+                                            <option value="{{ key }}">{{ subject }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                <th>
+                                    <select class="form-control" id="search_action" style="width: 100%;">
+                                        <option value="">Action</option>
+                                        {% for key, action in dictionary('reporting_log_journal_action') %}
+                                            <option value="{{ key }}">{{ action }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_subject_name" placeholder="Nom" style="width: 100%;">
+                                </th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nom utilisateur</th>
+                                <th>Email utilisateur</th>
+                                <th>Collectivité</th>
+                                <th>Date</th>
+                                <th>Sujet</th>
+                                <th>Action</th>
+                                <th>Nom</th>
+                                <th>Lien</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "subjectId"},
+            {"data": "userFullName"},
+            {"data": "userEmail"},
+            {"data": "collectivite"},
+            {"data": "date"},
+            {"data": "subject"},
+            {"data": "action"},
+            {"data": "subjectName"},
+            {"data": "link", "className": "noVis"}
+        ],
+        order: [
+            [4, 'desc']
+        ],
+    } %}
+
+    {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            var oTable = $('#table').DataTable();
+            $('#search_subject_id').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+            $('#search_user_fullname').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+            $('#search_user_email').keyup($.debounce(250, function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            }));
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            }));
+            $('#search_date').change(function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            });
+            $('#search_sujet').change(function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            });
+            $('#search_action').change(function(){
+                oTable.column('6').search($(this).val()).draw() ;
+            });
+            $('#search_subject_name').keyup($.debounce(250, function(){
+                oTable.column('7').search($(this).val()).draw() ;
+            }));
+        } );
+    </script>
+{% endblock %}
+

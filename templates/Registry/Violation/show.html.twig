@@ -35,6 +35,10 @@
                     {{ 'action.edit'|trans }}
                 </a>
                 {% endif %}
+                <a href="{{ path('registry_violation_pdf', {'id': object.id}) }}" class="btn btn-default">
+                    <i class="fa fa-print"></i>
+                    {{ 'action.print'|trans }}
+                </a>
             </div>
         </div>
     </div>

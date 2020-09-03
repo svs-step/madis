@@ -31,6 +31,7 @@ use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -68,9 +69,10 @@ class ViolationController extends CRUDController
         RequestStack $requestStack,
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
-        UserProvider $userProvider
+        UserProvider $userProvider,
+        Pdf $pdf
     ) {
-        parent::__construct($entityManager, $translator, $repository);
+        parent::__construct($entityManager, $translator, $repository, $pdf);
         $this->requestStack         = $requestStack;
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;

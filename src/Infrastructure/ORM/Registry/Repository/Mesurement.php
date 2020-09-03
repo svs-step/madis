@@ -25,14 +25,29 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\Registry\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Domain\Registry\Dictionary\MesurementPriorityDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 class Mesurement extends CRUDRepository implements Repository\Mesurement
 {
+    /**
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(ManagerRegistry $registry, Security $security)
+    {
+        parent::__construct($registry);
+        $this->security = $security;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -46,10 +61,10 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
      *
      * @param mixed $value
      */
-    protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
+    protected function addWhereClause(QueryBuilder $qb, string $key, $value, $operator = '='): QueryBuilder
     {
         return $qb
-            ->andWhere("o.{$key} = :{$key}_value")
+            ->andWhere("o.{$key} $operator :{$key}_value")
             ->setParameter("{$key}_value", $value)
         ;
     }
@@ -185,5 +200,98 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         $stmt->execute();
 
         return $stmt->fetchColumn();
+    }
+
+    public function count(array $criteria = [])
+    {
+        $qb = $this
+            ->createQueryBuilder()
+            ->select('count(o.id)')
+        ;
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
+    {
+        $query = $this->createQueryBuilder();
+
+        $query->leftJoin('o.collectivity', 'collectivite')
+            ->addSelect('collectivite');
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($query, $key, $value);
+        }
+        $this->addTableWhere($query, $searches);
+        $this->addTableOrder($query, $orderColumn, $orderDir);
+
+        $query = $query->getQuery();
+        $query->setFirstResult($firstResult);
+        $query->setMaxResults($maxResults);
+
+        return new Paginator($query);
+    }
+
+    private function addTableWhere(QueryBuilder $queryBuilder, array $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'nom':
+                    $this->addWhereClause($queryBuilder, 'name', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'collectivite':
+                    $queryBuilder->andWhere('collectivite.name LIKE :collectivite')
+                        ->setParameter('collectivite', '%' . $search . '%');
+                    break;
+                case 'statut':
+                    $this->addWhereClause($queryBuilder, 'status', $search);
+                    break;
+                case 'cout':
+                    $this->addWhereClause($queryBuilder, 'cost', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'charge':
+                    $this->addWhereClause($queryBuilder, 'charge', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'priorite':
+                    $this->addWhereClause($queryBuilder, 'priority', $search);
+                    break;
+            }
+        }
+    }
+
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'nom':
+                $queryBuilder->addOrderBy('o.name', $orderDir);
+                break;
+            case 'statut':
+                $queryBuilder->addOrderBy('o.status', $orderDir);
+                break;
+            case 'cout':
+                $queryBuilder->addOrderBy('o.cost', $orderDir);
+                break;
+            case 'charge':
+                $queryBuilder->addOrderBy('o.charge', $orderDir);
+                break;
+            case 'collectivite':
+                $queryBuilder->addOrderBy('collectivite.name', $orderDir);
+                break;
+            case 'priorite':
+                $queryBuilder->addSelect('(case
+                WHEN o.priority = \'' . MesurementPriorityDictionary::PRIORITY_LOW . '\' THEN 1
+                WHEN o.priority = \'' . MesurementPriorityDictionary::PRIORITY_NORMAL . '\' THEN 2
+                WHEN o.priority = \'' . MesurementPriorityDictionary::PRIORITY_HIGH . '\' THEN 3
+                ELSE 4 END) AS HIDDEN hidden_priority')
+                    ->addOrderBy('hidden_priority', $orderDir);
+                break;
+        }
     }
 }

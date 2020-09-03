@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Model;
 
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Embeddable\Address;
 use App\Domain\User\Model\Embeddable\Contact;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -35,7 +36,7 @@ use Ramsey\Uuid\UuidInterface;
 /**
  * Organisation.
  */
-class Collectivity
+class Collectivity implements LoggableSubject
 {
     use HistoryTrait;
 
@@ -162,6 +163,11 @@ class Collectivity
         $this->evaluations                     = [];
     }
 
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
     public function __toString(): string
     {
         if (\is_null($this->getName())) {
@@ -173,11 +179,6 @@ class Collectivity
         }
 
         return $this->getName();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function getName(): ?string

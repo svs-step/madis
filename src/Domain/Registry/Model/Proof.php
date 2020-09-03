@@ -28,11 +28,12 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Application\Traits\Model\SoftDeletableTrait;
+use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class Proof
+class Proof implements LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;
@@ -109,6 +110,11 @@ class Proof
         $this->violations  = [];
     }
 
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
     public function __toString(): string
     {
         if (\is_null($this->getName())) {
@@ -120,11 +126,6 @@ class Proof
         }
 
         return $this->getName();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function getName(): ?string

@@ -13,6 +13,7 @@ use App\Domain\Registry\Repository\ConformiteOrganisation as Repository;
 use App\Domain\Registry\Symfony\EventSubscriber\Event\ConformiteOrganisationEvent;
 use App\Domain\Reporting\Handler\WordHandler;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,9 +73,10 @@ class ConformiteOrganisationController extends CRUDController
         UserProvider $userProvider,
         AuthorizationCheckerInterface $authorizationChecker,
         EventDispatcherInterface $dispatcher,
-        WordHandler $wordHandler
+        WordHandler $wordHandler,
+        Pdf $pdf
     ) {
-        parent::__construct($entityManager, $translator, $repository);
+        parent::__construct($entityManager, $translator, $repository, $pdf);
         $this->questionRepository     = $questionRepository;
         $this->processusRepository    = $processusRepository;
         $this->conformiteRepository   = $conformiteRepository;
@@ -139,7 +141,7 @@ class ConformiteOrganisationController extends CRUDController
         $isAdminView = $this->authorizationChecker->isGranted('ROLE_ADMIN');
         if (!$isAdminView) {
             $collectivity   = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-            $evaluations    = $this->repository->findAllByOrganisationOrderedByDate($collectivity);
+            $evaluations    = $this->repository->findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate($collectivity);
             $lastEvaluation = $this->repository->findLastByOrganisation($collectivity);
             if (null !== $lastEvaluation) {
                 $form = $this->createForm(EvaluationPiloteType::class, $lastEvaluation);
@@ -155,7 +157,7 @@ class ConformiteOrganisationController extends CRUDController
                 $form = $form->createView();
             }
         } else {
-            $evaluations  = $this->repository->findAllByOrganisationOrderedByDate();
+            $evaluations  = $this->repository->findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate();
         }
 
         return $this->render($this->getTemplatingBasePath('list'), [

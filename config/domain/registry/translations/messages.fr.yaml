@@ -377,12 +377,23 @@ registry:
                 edit: Traitement "%object%" modifié avec succès
                 delete: Traitement "%object%" supprimé avec succès
         list:
+            access_control: Controle d'accès
             active: Statut
+            author: En tant que
             collectivity: Collectivité
             completion: Taux de complétion
+            contractors: Sous-traitants
+            entitled_persons: Je suis en capacité de ressortir les personnes habilitées
             legal_basis: Base légale
+            manager: Gestionnaire
             name: Nom
+            open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
+            other: Autres
+            saving: Sauvegarde
+            specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             software: Logiciel
+            tracability: Traçabilité
+            update: Mise à jour
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce traitement ?
         show:

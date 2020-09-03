@@ -8,3 +8,4 @@ Des bonnes pratiques sont à adopter pour le développement :
 -	**Tests** : A chaque développement de fonctionnalité, pensez à créer les tests associés (PHPUnit, Behat).
 -	**Migration de BDD** : Si des modifications de base de données sont à effectuer, générez les doctrines migrations associées.
 -	**Merge requests** : Si vous travaillez à plusieurs développeurs, utilisez des Merge Requests afin de faire valider votre code par une tierce personne.
+-	**Ubiquitous language** : Le projet a été développé initialement sans utiliser l'ubiquitous language, menant à une compréhension ardue des modèles/propriétés et de mauvaises traductions. Il est désormais utilisé afin de faciliter la compréhension et d'éviter ces problèmes

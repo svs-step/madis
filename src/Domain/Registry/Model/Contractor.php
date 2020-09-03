@@ -28,11 +28,12 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Embeddable\Address;
+use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Embeddable\Contact;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Contractor
+class Contractor implements LoggableSubject
 {
     use CollectivityTrait;
     use CreatorTrait;
@@ -130,6 +131,11 @@ class Contractor
         $this->proofs                     = [];
     }
 
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
     public function __toString(): string
     {
         if (\is_null($this->getName())) {
@@ -141,11 +147,6 @@ class Contractor
         }
 
         return $this->getName();
-    }
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
     }
 
     public function getName(): ?string

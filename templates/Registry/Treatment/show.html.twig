@@ -34,6 +34,10 @@
                     <i class="fa fa-pencil-alt"></i>
                     {{ 'action.edit'|trans }}
                 </a>
+                <a href="{{ path('registry_treatment_pdf', {'id': object.id}) }}" class="btn btn-default">
+                    <i class="fa fa-print"></i>
+                    {{ 'action.print'|trans }}
+                </a>
             </div>
         </div>
     </div>

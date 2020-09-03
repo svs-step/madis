@@ -17,6 +17,7 @@ services:
 
     App\Domain\Registry\Symfony\EventSubscriber\Kernel\ConformiteTraitementSubscriber: ~
     App\Domain\Registry\Symfony\EventSubscriber\Kernel\ConformiteOrganisationSubscriber: ~
+    App\Domain\Reporting\Symfony\EventSubscriber\Kernel\LogJournalSubscriber: ~
 
     # ========
     # DOCTRINE
@@ -41,3 +42,15 @@ services:
     App\Domain\User\Symfony\EventSubscriber\Doctrine\DefinePasswordSubscriber:
         tags:
             - { name: 'doctrine.event_subscriber', priority: 2 }
+
+    App\Application\Symfony\EventSubscriber\Kernel\LoginSubscriber:
+        arguments:
+            $logJournalDuration: '%env(APP_LOG_JOURNAL_DURATION)%'
+
+    Symfony\Component\Cache\Adapter\ArrayAdapter: ~
+
+    App\Domain\Reporting\Symfony\EventSubscriber\Doctrine\LogJournalDoctrineSubscriber:
+        arguments:
+            $cacheAdapter: '@Symfony\Component\Cache\Adapter\ArrayAdapter'
+        tags:
+            - { name: 'doctrine.event_subscriber' }

@@ -31,7 +31,9 @@ use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -66,6 +68,11 @@ class UserControllerTest extends TestCase
     private $encoderFactoryProphecy;
 
     /**
+     * @var Pdf|ObjectProphecy
+     */
+    private $pdf;
+
+    /**
      * @var UserController
      */
     private $controller;
@@ -77,13 +84,15 @@ class UserControllerTest extends TestCase
         $this->repositoryProphecy     = $this->prophesize(Repository\User::class);
         $this->requestStackProphecy   = $this->prophesize(RequestStack::class);
         $this->encoderFactoryProphecy = $this->prophesize(EncoderFactoryInterface::class);
+        $this->pdf                    = $this->prophesize(Pdf::class);
 
         $this->controller = new UserController(
             $this->managerProphecy->reveal(),
             $this->translatorProphecy->reveal(),
             $this->repositoryProphecy->reveal(),
             $this->requestStackProphecy->reveal(),
-            $this->encoderFactoryProphecy->reveal()
+            $this->encoderFactoryProphecy->reveal(),
+            $this->pdf->reveal()
         );
 
         parent::setUp();

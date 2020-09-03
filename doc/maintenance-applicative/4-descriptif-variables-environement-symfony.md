@@ -65,6 +65,12 @@ APP_DPO_PHONE_NUMBER=0546923905
 APP_FOOTER_PROVIDER_NAME=SOLURIS
 APP_FOOTER_PROVIDER_URL="https://example.fr"
 
+# Dashboard utilisateur paramétrage du nombre de données affiché dans le tableau de journalisation des logs
+APP_USER_DASHBOARD_JOURNALISATION_LIMIT=15
+
+# Nombre d'entrées affichées par page dans les tableaux des vues listes
+APP_DATATABLE_DEFAULT_PAGE_LENGTH=15
+
 # Configuration des images MADIS
 # Favicon
 APP_IMAGE_FAVICON_PATH="favicon.ico"
@@ -87,10 +93,31 @@ APP_MAIL_SENDER_EMAIL=ne-pas-repondre@example.fr
 # Nom de l'expéditeur qui apparaitra dans les mails envoyés par MADIS
 APP_MAIL_SENDER_NAME="Madis"
 
+# Date relative permettant de supprimer, lors de la connexion de l'admin, les logs antérieurs à cette date.
+Doit respecter le format de date relative de PHP (ligne "unit") : https://www.php.net/manual/fr/datetime.formats.relative.php 
+APP_LOG_JOURNAL_DURATION=6months
+
+# Valeurs utilisées pour les tooltips sur les réponses dans les formulaires de création/édition 
+d'évaluation de conformité d'organisation
+###> CONFORMITE ORGANISATION TOOLTIP ###
+TOOLTIP_CONFORMITE_ORGANISATION_INEXISTANTE="Rien n'est fait"
+TOOLTIP_CONFORMITE_ORGANISATION_TRES_ELOIGNEE="La ou les pratique(s) sont très éloignées de la définition (Pratique <20%)."
+TOOLTIP_CONFORMITE_ORGANISATION_PARTIELLE="La ou les pratique(s) sont partielles (20%<Pratique>80%) au regard de la définition.<br/>Elles ne sont pas documentées."
+TOOLTIP_CONFORMITE_ORGANISATION_QUASI_CONFORME="La ou les pratiques sont conformes ou quasiment conforme à la définition (80%<Pratique>100%)."
+TOOLTIP_CONFORMITE_ORGANISATION_MESURABLE="La ou les pratiques sont conforme à la définition.<br/>Elles sont documentées et contrôlables dans le cas d'un audit."
+TOOLTIP_CONFORMITE_ORGANISATION_REVISEE="La ou les pratiques sont coordonnées et conforme à la définition.<br/>Des évaluations sont réalisées.<br/>Des améliorations sont systématiquement apportées à partir de l'analyse des évaluations effectuées. "
+
+
 # URL vers le mailer que doit utiliser MADIS
 ###> symfony/swiftmailer-bundle ###
 # Pour GMAIL, utiliser: "gmail://username:password@localhost"
 # Pour un SMTP générique, utiliser: "smtp://localhost:25?encryption=&auth_mode="
 # Pour désactiver les mails, utiliser: "null://localhost"
 MAILER_URL=gmail://username:password@localhost
+
+# Configuration de KnpSnappyBundle : Emplacement de wkhtmltopdf
+###> knplabs/knp-snappy-bundle ###
+WKHTMLTOPDF_PATH=/usr/local/bin/wkhtmltopdf
+WKHTMLTOIMAGE_PATH=/usr/local/bin/wkhtmltoimage
+###< knplabs/knp-snappy-bundle ###
 ```

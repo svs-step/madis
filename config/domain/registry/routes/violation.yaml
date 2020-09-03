@@ -32,3 +32,8 @@ registry_violation_delete_confirm:
     path: '/archiver/{id}/confirmation'
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\ViolationController:deleteConfirmationAction'
+
+registry_violation_pdf:
+    path: '/pdf/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ViolationController:pdfAction'

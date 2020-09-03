@@ -4,10 +4,11 @@ namespace App\Domain\Registry\Model\ConformiteOrganisation;
 
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Evaluation
+class Evaluation implements LoggableSubject
 {
     use HistoryTrait;
     use CollectivityTrait;
@@ -45,7 +46,7 @@ class Evaluation
         $this->isDraft      = true;
     }
 
-    public function getId()
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
@@ -87,7 +88,7 @@ class Evaluation
         unset($this->participants[$key]);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         if (null !== $this->date) {
             return $this->collectivity->getName() . ' ' . date_format($this->date, 'Y-m-d');

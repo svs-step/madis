@@ -54,12 +54,12 @@
                     {% if 0 == data.request.value.all %}
                     Aucune donnée à afficher
                     {% else %}
-                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
-                            <canvas id="request-type" width="400" height="400"></canvas>
+                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center" style="padding-left: 0; padding-right: 0;">
+                            <canvas id="request-type" width="500" height="500"></canvas>
                             <p>{{ 'reporting.dashboard.request.type.title'|trans }}</p>
                         </div>
-                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
-                            <canvas id="request-status" width="400" height="400"></canvas>
+                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center" style="padding-left: 0; padding-right: 0;">
+                            <canvas id="request-status" width="500" height="500"></canvas>
                             <p>{{ 'reporting.dashboard.request.status.title'|trans }}</p>
                         </div>
                     {% endif %}
@@ -236,6 +236,50 @@
         {% endif %}
     </div>
     {% endif %}
+
+    {# JOURNALISATION #}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">Journalisation <small>{{ app_user_dashboard_journalisation_limit }} derniers</small></h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nom utilisateur</th>
+                                <th>Email utilisateur</th>
+                                <th>Date</th>
+                                <th>Sujet</th>
+                                <th>Action</th>
+                                <th>Nom</th>
+                                <th>Lien</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for logJournal in data.logJournal %}
+                            {% set logJournalLink = getLogJournalLink(logJournal) %}
+                            <tr>
+                                <td>{{ logJournal.userFullName }}</td>
+                                <td>{{ logJournal.userEmail }}</td>
+                                <td>{{ logJournal.date|date('d/m/Y') }}</td>
+                                <td>{{ logJournal.subjectType|dictionary('reporting_log_journal_subject') }}</td>
+                                <td>{{ logJournal.action|dictionary('reporting_log_journal_action') }}</td>
+                                <td>{{ logJournal.subjectName }}</td>
+                                <td>
+                                    {% if logJournal.isDeleted %}
+                                        {{ logJournalLink }}
+                                    {% elseif logJournalLink is not null %}
+                                        <a href="{{ logJournalLink }}">Lien</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -317,7 +361,7 @@
         let requestStatusLabel = [
             'Traité',
             'À traiter',
-            'Incomplète',
+            'Non-recevable',
         ];
         let requestStatusData = [
             {{ data.request.value.status.processed }},

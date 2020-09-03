@@ -14,7 +14,7 @@
         <field name="nbNonConformesMineures" type="smallint"/>
         <field name="nbNonConformesMajeures" type="smallint"/>
 
-        <one-to-one field="traitement" target-entity="App\Domain\Registry\Model\Treatment" inversed-by="conformiteTraitement">
+        <one-to-one field="traitement" target-entity="App\Domain\Registry\Model\Treatment" inversed-by="conformiteTraitement" fetch="EAGER">
             <cascade>
                 <cascade-persist/>
             </cascade>

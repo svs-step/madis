@@ -26,6 +26,8 @@ namespace App\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Registry\Dictionary\MesurementPriorityDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Form\Type\MesurementType;
 use App\Domain\Registry\Model;
@@ -34,6 +36,7 @@ use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Model as UserModel;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Snappy\Pdf;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,6 +52,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class MesurementController extends CRUDController
 {
+    use ServersideDatatablesTrait;
+
     /**
      * @var UserRepository\Collectivity
      */
@@ -88,9 +93,10 @@ class MesurementController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
         FormFactoryInterface $formFactory,
-        RouterInterface $router
+        RouterInterface $router,
+        Pdf $pdf
     ) {
-        parent::__construct($entityManager, $translator, $repository);
+        parent::__construct($entityManager, $translator, $repository, $pdf);
         $this->collectivityRepository = $collectivityRepository;
         $this->wordHandler            = $wordHandler;
         $this->authorizationChecker   = $authorizationChecker;
@@ -143,6 +149,14 @@ class MesurementController extends CRUDController
         }
 
         return $this->repository->findBy($criteria);
+    }
+
+    public function listAction(): Response
+    {
+        return $this->render($this->getTemplatingBasePath('list'), [
+            'totalItem' => $this->repository->count($this->getRequestCriteria()),
+            'route'     => $this->router->generate('registry_mesurement_list_datatables'),
+        ]);
     }
 
     /**
@@ -267,5 +281,76 @@ class MesurementController extends CRUDController
             'object'  => $object,
             'referer' => $referer,
         ]);
+    }
+
+    private function getRequestCriteria()
+    {
+        $criteria = [];
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+        }
+
+        return $criteria;
+    }
+
+    protected function getLabelAndKeysArray(): array
+    {
+        return [
+            0 => 'nom',
+            1 => 'collectivite',
+            2 => 'statut',
+            3 => 'cout',
+            4 => 'charge',
+            5 => 'priorite',
+            6 => 'actions',
+        ];
+    }
+
+    public function listDataTables(Request $request)
+    {
+        $criteria = $this->getRequestCriteria();
+        $actions  = $this->getResults($request, $criteria);
+        $reponse  = $this->getBaseDataTablesResponse($request, $actions, $criteria);
+
+        /** @var Model\Mesurement $action */
+        foreach ($actions as $action) {
+            $reponse['data'][] = [
+                'nom'          => $this->generateShowLink($action),
+                'collectivite' => $action->getCollectivity()->getName(),
+                'statut'       => MesurementStatusDictionary::getStatus()[$action->getStatus()],
+                'cout'         => $action->getCost(),
+                'charge'       => $action->getCharge(),
+                'priorite'     => MesurementPriorityDictionary::getPriorities()[$action->getPriority()],
+                'actions'      => $this->generateActionCell($action),
+            ];
+        }
+
+        $jsonResponse = new JsonResponse();
+        $jsonResponse->setJson(json_encode($reponse));
+
+        return $jsonResponse;
+    }
+
+    private function generateShowLink(Model\Mesurement $mesurement)
+    {
+        return '<a href="' .
+            $this->router->generate('registry_mesurement_show', ['id' => $mesurement->getId()]) .
+            '">' . $mesurement->getName() . '</a>';
+    }
+
+    private function generateActionCell(Model\Mesurement $mesurement)
+    {
+        return '<a href="' .
+            $this->router->generate('registry_mesurement_edit', ['id' => $mesurement->getId()]) . '">
+            <i class="fa fa-pencil-alt"></i>' .
+            $this->translator->trans('action.edit')
+            . '</a>
+            
+            <a href="' .
+            $this->router->generate('registry_mesurement_delete', ['id' => $mesurement->getId()]) .
+            '"><i class="fa fa-trash"></i>' .
+            $this->translator->trans('action.delete')
+            . '</a>';
     }
 }

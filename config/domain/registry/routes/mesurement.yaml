@@ -3,6 +3,11 @@ registry_mesurement_list:
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\MesurementController:listAction'
 
+registry_mesurement_list_datatables:
+    path: '/datatables'
+    methods: ['POST']
+    controller: 'App\Domain\Registry\Controller\MesurementController:listDataTables'
+
 registry_mesurement_action_plan:
     path: '/plan-d-actions'
     methods: ['GET']
@@ -47,3 +52,8 @@ api_registry_mesurement_modal_create:
     path: '/modal-create'
     methods: ['POST']
     controller: 'App\Domain\Registry\Controller\MesurementController:createFromJsonAction'
+
+registry_mesurement_pdf:
+    path: '/pdf/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\MesurementController:pdfAction'
