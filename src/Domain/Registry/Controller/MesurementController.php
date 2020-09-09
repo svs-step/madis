@@ -340,7 +340,7 @@ class MesurementController extends CRUDController
                 'statut'             => MesurementStatusDictionary::getStatus()[$action->getStatus()],
                 'cout'               => $action->getCost(),
                 'charge'             => $action->getCharge(),
-                'priorite'           => MesurementPriorityDictionary::getPriorities()[$action->getPriority()],
+                'priorite'           => !\is_null($action->getPriority()) ? MesurementPriorityDictionary::getPriorities()[$action->getPriority()] : null,
                 'date_planification' => !\is_null($action->getPlanificationDate()) ? \date_format($action->getPlanificationDate(), 'd/m/Y') : null,
                 'responsable_action' => $action->getManager(),
                 'actions'            => $this->generateActionCell($action, $isActionPlan),

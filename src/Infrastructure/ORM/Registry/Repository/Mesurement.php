@@ -31,6 +31,7 @@ use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -305,5 +306,31 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
                 $queryBuilder->addOrderBy('o.manager', $orderDir);
                 break;
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllByActiveCollectivity(bool $active = true, User $user = null)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->leftJoin('o.collectivity', 'c')
+            ->andWhere($qb->expr()->eq('c.active', ':active'))
+            ->setParameter('active', $active)
+            ->addOrderBy('c.name')
+            ->addOrderBy('o.createdAt', 'DESC')
+        ;
+
+        if (null !== $user) {
+            $qb->leftJoin('c.userReferents', 'u')
+                ->andWhere('u.id = :user')
+                ->setParameter('user', $user);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
     }
 }
