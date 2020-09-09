@@ -130,6 +130,7 @@ registry:
         show:
             charge: Charge
             collectivity: Collectivité
+            comment: Observations
             created_at: Date de création
             creator: Créateur
             cost: Coût

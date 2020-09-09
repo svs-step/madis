@@ -138,6 +138,14 @@
                   Exporter <i class="fa fa-arrow-circle-right"></i>
               </a>
           </div>
+          <div class="small-box bg-yellow">
+              <div class="inner">
+                  <p>Exporter les actions de protection</p>
+              </div>
+              <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::MESUREMENT_TYPE')}) }}" class="small-box-footer">
+                  Exporter <i class="fa fa-arrow-circle-right"></i>
+              </a>
+          </div>
       </div>
 
     </div>{# end row #}

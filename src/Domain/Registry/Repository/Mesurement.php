@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Repository;
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
 use App\Application\Doctrine\Repository\DataTablesRepository;
 use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 
 interface Mesurement extends CRUDRepositoryInterface, DataTablesRepository
 {
@@ -78,4 +79,11 @@ interface Mesurement extends CRUDRepositoryInterface, DataTablesRepository
      * @return string The average
      */
     public function planifiedAverageOnAllCollectivity($collectivities);
+
+    /**
+     * Return all mesurement from active collectivity.
+     *
+     * @return array
+     */
+    public function findAllByActiveCollectivity(bool $active = true, User $user = null);
 }
