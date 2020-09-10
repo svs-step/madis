@@ -51,4 +51,15 @@ interface Survey extends CRUDRepositoryInterface
      * @return string The count of mesurements
      */
     public function averageSurveyDuringLastYear(array $collectivites = []);
+
+    /**
+     * Find all survey by associated collectivities.
+     *
+     * @param array $collectivities The array of collectivity to search with
+     * @param array $order          Order the data
+     * @param int   $limit
+     *
+     * @return array The array of survey given by the collectivity
+     */
+    public function findAllByCollectivities(array $collectivities, array $order = [], int $limit = null): iterable;
 }

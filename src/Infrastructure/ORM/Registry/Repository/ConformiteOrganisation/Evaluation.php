@@ -14,16 +14,25 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
         return Model\ConformiteOrganisation\Evaluation::class;
     }
 
-    public function findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate(Collectivity $organisation = null)
+    public function findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate($organisation = null)
     {
         $qBuilder = $this
             ->createQueryBuilder()
             ->leftJoin('o.collectivity', 'c')
         ;
         if (null !== $organisation) {
-            $qBuilder
-                ->andWhere('o.collectivity = :organisation_id')
-                ->setParameter('organisation_id', $organisation->getId());
+            if (\is_array($organisation)) {
+                $qBuilder
+                    ->andWhere(
+                        $qBuilder->expr()->in('o.collectivity', ':collectivities')
+                    )
+                    ->setParameter('collectivities', $organisation)
+                ;
+            } else {
+                $qBuilder
+                    ->andWhere('o.collectivity = :organisation_id')
+                    ->setParameter('organisation_id', $organisation->getId());
+            }
         } else {
             $qBuilder
                 ->addSelect('c');

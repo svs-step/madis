@@ -30,6 +30,7 @@ use App\Domain\Registry\Dictionary\RequestStateDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -327,6 +328,12 @@ class Request implements Repository\Request
             unset($criteria['archive']);
         }
 
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $qb->leftJoin('o.collectivity', 'collectivite');
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
         }
@@ -347,6 +354,12 @@ class Request implements Repository\Request
             $this->addArchivedClause($qb, $criteria['archive']);
             unset($criteria['archive']);
         }
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
         $this->addTableOrder($qb, $orderColumn, $orderDir);
         $this->addTableWhere($qb, $searches);
 

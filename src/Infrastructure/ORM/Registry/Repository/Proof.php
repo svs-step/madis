@@ -29,6 +29,7 @@ use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -382,6 +383,12 @@ class Proof implements Repository\Proof
             unset($criteria['archive']);
         }
 
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $qb->leftJoin('o.collectivity', 'collectivite');
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
         }
@@ -403,6 +410,15 @@ class Proof implements Repository\Proof
 
         $qb->leftJoin('o.collectivity', 'collectivite')
             ->addSelect('collectivite');
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
 
         $this->addTableOrder($qb, $orderColumn, $orderDir);
         $this->addTableWhere($qb, $searches);

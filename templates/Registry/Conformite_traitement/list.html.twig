@@ -41,7 +41,7 @@
                         <tr>
                             <th></th>
                             <th>{{ 'registry.conformite_traitement.list.traitement'|trans }}</th>
-                            {% if is_granted('ROLE_ADMIN') %}
+                            {% if is_granted('ROLE_REFERENT') %}
                                 <th>{{ 'registry.conformite_traitement.list.collectivity'|trans }}</th>
                             {% endif %}
                             <th>{{ 'registry.conformite_traitement.list.gestionnaire'|trans }}</th>
@@ -82,7 +82,7 @@
                                     {% endif %}
                                 </td>
                                 <td>{{ object.name }}</td>
-                                {% if is_granted('ROLE_ADMIN') %}
+                                {% if is_granted('ROLE_REFERENT') %}
                                     <td>{{ object.collectivity }}</td>
                                 {% endif %}
                                 <td>{{ object.manager }}</td>

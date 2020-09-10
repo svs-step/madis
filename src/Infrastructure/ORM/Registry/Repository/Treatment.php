@@ -30,6 +30,7 @@ use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -197,12 +198,21 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             ;
     }
 
-    public function findAllActiveByCollectivityWithHasModuleConformiteTraitement(Collectivity $collectivity = null, bool $active = true, array $order = [])
+    public function findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity = null, bool $active = true, array $order = [])
     {
         $qb = $this->createQueryBuilder();
 
         if (!\is_null($collectivity)) {
-            $this->addCollectivityClause($qb, $collectivity);
+            if (\is_array($collectivity)) {
+                $qb
+                    ->andWhere(
+                        $qb->expr()->in('o.collectivity', ':collectivities')
+                    )
+                    ->setParameter('collectivities', $collectivity)
+                ;
+            } else {
+                $this->addCollectivityClause($qb, $collectivity);
+            }
         }
         $this->addActiveClause($qb, $active);
         $this->addOrder($qb, $order);
@@ -237,6 +247,13 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         $qb = $this->createQueryBuilder();
 
         $qb->select('COUNT(o.id)');
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $qb->leftJoin('o.collectivity', 'collectivite');
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
         }
@@ -251,6 +268,11 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             ->leftJoin('o.collectivity', 'collectivite')
             ->leftJoin('o.contractors', 'sous_traitants')
         ;
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
 
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);

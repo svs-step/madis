@@ -65,13 +65,13 @@ interface Treatment extends CRUDRepositoryInterface, DataTablesRepository
     /**
      * Find all active treatments by associated collectivity and hasModuleConformiteTraitement active.
      *
-     * @param Collectivity $collectivity The collectivity to search with
-     * @param bool         $active       Get active / inactive treatment
-     * @param array        $order        Order results
+     * @param Collectivity|array $collectivity The collectivity to search with
+     * @param bool               $active       Get active / inactive treatment
+     * @param array              $order        Order results
      *
      * @return array The array of treatments given by the collectivity
      */
-    public function findAllActiveByCollectivityWithHasModuleConformiteTraitement(Collectivity $collectivity = null, bool $active = true, array $order = []);
+    public function findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity = null, bool $active = true, array $order = []);
 
     /**
      * Count all by collectivity.

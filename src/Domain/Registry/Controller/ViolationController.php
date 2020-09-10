@@ -34,6 +34,7 @@ use App\Domain\Registry\Form\Type\ViolationType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Dictionary\UserRoleDictionary;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -219,9 +220,14 @@ class ViolationController extends CRUDController
         $criteria            = [];
         $request             = $this->requestStack->getMasterRequest();
         $criteria['archive'] = $request->query->getBoolean('archive');
+        $user                = $this->userProvider->getAuthenticatedUser();
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+            $criteria['collectivity'] = $user->getCollectivity();
+        }
+
+        if (\in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
+            $criteria['collectivity'] = $user->getCollectivitesReferees();
         }
 
         return $criteria;

@@ -32,6 +32,7 @@ use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -209,6 +210,12 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ->select('count(o.id)')
         ;
 
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $qb->leftJoin('o.collectivity', 'collectivite');
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
         }
@@ -225,6 +232,11 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
 
         $query->leftJoin('o.collectivity', 'collectivite')
             ->addSelect('collectivite');
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $this->addInClauseCollectivities($query, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
 
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($query, $key, $value);

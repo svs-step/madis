@@ -79,7 +79,7 @@
 
     {% set collectivityIsVisible = false %}
     {% set collectivityClassname = "noVis" %}
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_REFERENT') %}
         {% set collectivityIsVisible = true %}
         {% set collectivityClassname = "" %}
     {% endif %}

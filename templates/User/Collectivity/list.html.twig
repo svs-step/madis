@@ -22,6 +22,7 @@
 {% endblock %}
 
 {% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
@@ -32,6 +33,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 
     <div class="row">
         <div class="col-xs-12">

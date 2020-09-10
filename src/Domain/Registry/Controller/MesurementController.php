@@ -33,6 +33,7 @@ use App\Domain\Registry\Form\Type\MesurementType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model as UserModel;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -286,9 +287,14 @@ class MesurementController extends CRUDController
     private function getRequestCriteria()
     {
         $criteria = [];
+        $user     = $this->userProvider->getAuthenticatedUser();
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+            $criteria['collectivity'] = $user->getCollectivity();
+        }
+
+        if (\in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
+            $criteria['collectivity'] = $user->getCollectivitesReferees();
         }
 
         return $criteria;
