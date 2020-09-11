@@ -128,6 +128,7 @@
                     </a>
                 </li>
             {% endif %}
+
         {# If not an admin nor a referent & is write granted, let user edit informations #}
         {% else %}
             <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
@@ -136,6 +137,8 @@
                     <span>{{ 'sidebar_menu.user_profile_collectivity'|trans }}</span>
                 </a>
             </li>
+        {% endif %}
+        {% if not is_granted('ROLE_ADMIN') %}
             <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
                 <a href="{{ path('user_profile_user_edit') }}">
                     <i class="fa fa-user"></i>

@@ -30,6 +30,7 @@ use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -81,19 +82,21 @@ class Contractor extends CRUDRepository implements Repository\Contractor
 
     public function count(array $criteria = [])
     {
-        $qb = $this
-            ->createQueryBuilder()
-            ->select('count(o.id)')
-        ;
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $qb->leftJoin('o.collectivity', 'collectivite');
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
 
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
         }
 
-        return $qb
-            ->getQuery()
-            ->getSingleScalarResult()
-            ;
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
@@ -102,6 +105,15 @@ class Contractor extends CRUDRepository implements Repository\Contractor
 
         $qb->leftJoin('o.collectivity', 'collectivite')
             ->addSelect('collectivite');
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
 
         $this->addTableOrder($qb, $orderColumn, $orderDir);
         $this->addTableWhere($qb, $searches);

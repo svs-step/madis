@@ -191,17 +191,20 @@ class MesurementControllerTest extends TestCase
     {
         $valueReturnedByRepository = ['dummyValues'];
 
+        $user         = $this->prophesize(UserModel\User::class);
+        $user->getRoles()->shouldBeCalled()->willReturn([]);
+
+        $this->userProviderProphecy
+            ->getAuthenticatedUser()
+            ->shouldBeCalled()
+            ->willReturn($user)
+        ;
+
         // Granted
         $this->authenticationCheckerProphecy
             ->isGranted('ROLE_ADMIN')
             ->shouldBeCalled()
             ->willReturn(true)
-        ;
-
-        // No need to restrict query to collectivity
-        $this->userProviderProphecy
-            ->getAuthenticatedUser()
-            ->shouldNotBeCalled()
         ;
 
         $this->repositoryProphecy
@@ -238,6 +241,7 @@ class MesurementControllerTest extends TestCase
         $collectivity = $this->prophesize(UserModel\Collectivity::class)->reveal();
         $userProphecy = $this->prophesize(UserModel\User::class);
         $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($collectivity);
+        $userProphecy->getRoles()->shouldBeCalled()->willReturn([]);
         $this->userProviderProphecy
             ->getAuthenticatedUser()
             ->shouldBeCalled()

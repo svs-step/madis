@@ -24,12 +24,14 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\ORM\Registry\Repository;
 
+use App\Application\Traits\RepositoryUtils;
 use App\Domain\Registry\Dictionary\ViolationCauseDictionary;
 use App\Domain\Registry\Dictionary\ViolationGravityDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -37,6 +39,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class Violation implements Repository\Violation
 {
+    use RepositoryUtils;
     /**
      * @var ManagerRegistry
      */
@@ -328,6 +331,12 @@ class Violation implements Repository\Violation
             unset($criteria['archive']);
         }
 
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $qb->leftJoin('o.collectivity', 'collectivite');
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
         }
@@ -349,6 +358,15 @@ class Violation implements Repository\Violation
 
         $qb->leftJoin('o.collectivity', 'collectivite')
             ->addSelect('collectivite');
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
 
         $this->addTableOrder($qb, $orderColumn, $orderDir);
         $this->addTableWhere($qb, $searches);

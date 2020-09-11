@@ -33,6 +33,7 @@ use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\Tools\ChainManipulator;
+use App\Domain\User\Dictionary\UserRoleDictionary;
 use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
@@ -321,9 +322,14 @@ class ProofController extends CRUDController
         $criteria            = [];
         $request             = $this->requestStack->getMasterRequest();
         $criteria['archive'] = $request->query->getBoolean('archive');
+        $user                = $this->userProvider->getAuthenticatedUser();
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+            $criteria['collectivity'] = $user->getCollectivity();
+        }
+
+        if (\in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
+            $criteria['collectivity'] = $user->getCollectivitesReferees();
         }
 
         return $criteria;

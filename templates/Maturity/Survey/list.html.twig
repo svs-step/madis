@@ -42,7 +42,7 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            {% if is_granted('ROLE_ADMIN') %}
+                            {% if is_granted('ROLE_REFERENT') %}
                                 <th>{{ 'maturity.survey.list.collectivity'|trans }}</th>
                             {% endif %}
                             <th>{{ 'maturity.survey.list.created_at'|trans }}</th>
@@ -53,7 +53,7 @@
                         <tbody>
                         {% for object in objects %}
                         <tr>
-                            {% if is_granted('ROLE_ADMIN') %}
+                            {% if is_granted('ROLE_REFERENT') %}
                                 <td>{{ object.collectivity }}</td>
                             {% endif %}
                             <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>

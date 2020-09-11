@@ -253,7 +253,7 @@ class UserController extends CRUDController
     private function getActionCellsContent(Model\User $user)
     {
         $cellContent = '';
-        if ($this->security->getUser() !== $user && \is_null($user->getDeletedAt()) && UserRoleDictionary::ROLE_REFERENT !== $user->getRoles()[0]) {
+        if ($this->security->getUser() !== $user && \is_null($user->getDeletedAt()) && !$this->isGranted('ROLE_PREVIOUS_ADMIN')) {
             $cellContent .=
                 '<a href="' . $this->router->generate('reporting_dashboard_index', ['_switch_user' => $user->getUsername()]) . '">
                     <i class="fa fa-user-lock"></i> ' .

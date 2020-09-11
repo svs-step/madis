@@ -41,10 +41,12 @@
                         {{ 'registry.violation.action.new'|trans }}
                     </a>
                     {% endif %}
+                    {% if app.user.roles[0] != 'ROLE_REFERENT' %}
                     <a href="{{ path('registry_violation_report') }}" class="btn btn-default">
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.violation.action.report'|trans }}
                     </a>
+                    {% endif %}
                     {% if app.request.query.get('archive') == 'true' %}
                         <a href="{{ path('registry_violation_list', {'archive' : 'false'}) }}" class="btn btn-default">
                             <i class="fa fa-trash"></i>
@@ -123,7 +125,7 @@
     {% set collectivityIsVisible = false %}
     {% set collectivityClassname = "noVis" %}
     {% set actionIsVisible = false %}
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_REFERENT') %}
         {% set collectivityIsVisible = true %}
         {% set collectivityClassname = "" %}
     {% endif %}

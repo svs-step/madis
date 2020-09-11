@@ -112,4 +112,34 @@ class Survey extends CRUDRepository implements Repository\Survey
 
         return $stmt->fetchColumn();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllByCollectivities(array $collectivities, array $order = [], int $limit = null): iterable
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb
+            ->andWhere(
+                $qb->expr()->in('o.collectivity', ':collectivities')
+            )
+            ->setParameter('collectivities', $collectivities)
+        ;
+
+        foreach ($order as $key => $dir) {
+            $qb->addOrderBy("o.{$key}", $dir);
+        }
+
+        if (!\is_null($limit)) {
+            $qb
+                ->setFirstResult(0)
+                ->setMaxResults($limit);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

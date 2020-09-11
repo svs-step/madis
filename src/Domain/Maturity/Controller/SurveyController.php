@@ -132,6 +132,12 @@ class SurveyController extends CRUDController
             return $this->repository->findAll($order);
         }
 
+        if ($this->authorizationChecker->isGranted('ROLE_REFERENT')) {
+            $collectivities = \iterable_to_array($this->userProvider->getAuthenticatedUser()->getCollectivitesReferees());
+
+            return $this->repository->findAllByCollectivities($collectivities, $order);
+        }
+
         $data = $this->repository->findAllByCollectivity(
             $this->userProvider->getAuthenticatedUser()->getCollectivity(),
             $order

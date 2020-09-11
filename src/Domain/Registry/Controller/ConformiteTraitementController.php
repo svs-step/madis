@@ -31,6 +31,7 @@ use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Registry\Symfony\EventSubscriber\Event\ConformiteTraitementEvent;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
@@ -151,9 +152,14 @@ class ConformiteTraitementController extends CRUDController
     protected function getListData()
     {
         $collectivity = null;
+        $user         = $this->userProvider->getAuthenticatedUser();
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+            $collectivity = $user->getCollectivity();
+        }
+
+        if (\in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
+            $collectivity = \iterable_to_array($user->getCollectivitesReferees());
         }
 
         return $this->treatmentRepository->findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity);

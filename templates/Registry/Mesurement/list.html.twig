@@ -31,10 +31,12 @@
                         {{ 'registry.mesurement.action.new'|trans }}
                     </a>
                     {% endif %}
+                    {% if app.user.roles[0] != 'ROLE_REFERENT' %}
                     <a href="{{ path('registry_mesurement_report') }}" class="btn btn-default">
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.treatment.action.report'|trans }}
                     </a>
+                    {% endif %}
                 </div>
             </div>
     </div>
@@ -100,7 +102,7 @@
     {% set collectivityIsVisible = false %}
     {% set collectivityClassname = "noVis" %}
     {% set actionIsVisible = false %}
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_REFERENT') %}
         {% set collectivityIsVisible = true %}
         {% set collectivityClassname = "" %}
     {% endif %}

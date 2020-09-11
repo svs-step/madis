@@ -18,4 +18,13 @@ trait RepositoryUtils
             ->setParameter("{$key}_value", $value)
             ;
     }
+
+    protected function addInClauseCollectivities(QueryBuilder $qb, array $collectivities)
+    {
+        $qb->andWhere(
+            $qb->expr()->in('collectivite', ':collectivities')
+        )
+            ->setParameter('collectivities', $collectivities)
+        ;
+    }
 }

@@ -14,3 +14,11 @@ App\Domain\Registry\Model\Embeddable\Address:
         mail: <email()>
         phoneNumber: 0<randomNumber(9)>
         zipCode: <randomNumber(5)>
+
+    registry_address_contractor_foobar_{1..3}:
+        city: <word()>
+        lineOne: <words(3, true)>
+        lineTwo: <words(3, true)>
+        mail: <email()>
+        phoneNumber: 0<randomNumber(9)>
+        zipCode: <randomNumber(5)>

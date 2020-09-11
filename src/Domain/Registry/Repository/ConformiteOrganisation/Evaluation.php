@@ -7,7 +7,12 @@ use App\Domain\User\Model\Collectivity;
 
 interface Evaluation extends CRUDRepositoryInterface
 {
-    public function findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate(Collectivity $organisation = null);
+    /**
+     * @param Collectivity|array|null $organisation
+     *
+     * @return mixed
+     */
+    public function findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate($organisation = null);
 
     public function findLastByOrganisation(Collectivity $organisation): ?\App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
 }

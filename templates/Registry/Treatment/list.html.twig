@@ -40,10 +40,12 @@
                         {{ 'registry.treatment.action.new'|trans }}
                     </a>
                     {% endif %}
+                    {% if app.user.roles[0] != 'ROLE_REFERENT' %}
                     <a href="{{ path('registry_treatment_report') }}" class="btn btn-default">
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.treatment.action.report'|trans }}
                     </a>
+                    {% endif %}
                     {% if app.request.query.get('active') == 'false' %}
                         <a href="{{ path('registry_treatment_list', {'active' : 'true'}) }}" class="btn btn-default">
                             <i class="fa fa-list"></i>
@@ -188,7 +190,7 @@
     {% set collectivityIsVisible = false %}
     {% set collectivityClassname = "noVis" %}
     {% set actionIsVisible = true %}
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_REFERENT') %}
         {% set collectivityIsVisible = true %}
         {% set collectivityClassname = "" %}
     {% endif %}

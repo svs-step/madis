@@ -12,6 +12,7 @@ use App\Domain\Registry\Model\ConformiteOrganisation\Reponse;
 use App\Domain\Registry\Repository\ConformiteOrganisation as Repository;
 use App\Domain\Registry\Symfony\EventSubscriber\Event\ConformiteOrganisationEvent;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Dictionary\UserRoleDictionary;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -137,10 +138,11 @@ class ConformiteOrganisationController extends CRUDController
 
     public function listConformitesAction(Request $request): Response
     {
-        $form        = null;
-        $isAdminView = $this->authorizationChecker->isGranted('ROLE_ADMIN');
+        $form          = null;
+        $isAdminView   = $this->authorizationChecker->isGranted('ROLE_REFERENT');
+        $connectedUser = $this->userProvider->getAuthenticatedUser();
         if (!$isAdminView) {
-            $collectivity   = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+            $collectivity   = $connectedUser->getCollectivity();
             $evaluations    = $this->repository->findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate($collectivity);
             $lastEvaluation = $this->repository->findLastByOrganisation($collectivity);
             if (null !== $lastEvaluation) {
@@ -157,7 +159,11 @@ class ConformiteOrganisationController extends CRUDController
                 $form = $form->createView();
             }
         } else {
-            $evaluations  = $this->repository->findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate();
+            $collectivities = null;
+            if (\in_array(UserRoleDictionary::ROLE_REFERENT, $connectedUser->getRoles())) {
+                $collectivities = \iterable_to_array($connectedUser->getCollectivitesReferees());
+            }
+            $evaluations  = $this->repository->findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate($collectivities);
         }
 
         return $this->render($this->getTemplatingBasePath('list'), [
