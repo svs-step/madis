@@ -231,7 +231,7 @@ class User extends CRUDRepository implements Repository\User
                     $this->addWhereClause($queryBuilder, 'email', '%' . $search . '%', 'LIKE');
                     break;
                 case 'collectivite':
-                    $queryBuilder->andWhere('collectivity.name LIKE :collectivite_name')
+                    $queryBuilder->andWhere('collectivite.name LIKE :collectivite_name')
                         ->setParameter('collectivite_name', '%' . $search . '%');
                     break;
                 case 'roles':

@@ -157,7 +157,7 @@ class Contractor extends CRUDRepository implements Repository\Contractor
                     $this->addWhereClause($queryBuilder, 'name', '%' . $search . '%', 'LIKE');
                     break;
                 case 'collectivite':
-                    $queryBuilder->andWhere('collectivity.name LIKE :collectivite_name')
+                    $queryBuilder->andWhere('collectivite.name LIKE :collectivite_name')
                         ->setParameter('collectivite_name', '%' . $search . '%');
                     break;
                 case 'clauses_contractuelles':
