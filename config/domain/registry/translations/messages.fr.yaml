@@ -361,7 +361,7 @@ registry:
             paper_processing: Traitement papier
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
-            security_entitled_persons: Je suis en capacité de ressortir les personnes habilitées
+            security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
             security_open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
             security_other: Autres
             security_saving: Sauvegarde
@@ -384,7 +384,7 @@ registry:
             collectivity: Collectivité
             completion: Taux de complétion
             contractors: Sous-traitants
-            entitled_persons: Je suis en capacité de ressortir les personnes habilitées
+            entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
             legal_basis: Base légale
             manager: Gestionnaire
             name: Nom
@@ -437,7 +437,7 @@ registry:
             paper_processing: Traitement papier
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
-            security_entitled_persons: Je suis en capacité de ressortir les personnes habilitées
+            security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
             security_open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
             security_other: Autres
             security_saving: Sauvegarde

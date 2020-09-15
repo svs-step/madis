@@ -174,7 +174,7 @@ class ConformiteTraitementController extends CRUDController
         /**
          * @var Model\ConformiteTraitement\ConformiteTraitement
          */
-        $object     = new Model\ConformiteTraitement\ConformiteTraitement();
+        $object = new Model\ConformiteTraitement\ConformiteTraitement();
 
         $traitement = $this->treatmentRepository->findOneById($request->get('idTraitement'));
         $object->setTraitement($traitement);

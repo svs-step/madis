@@ -151,68 +151,86 @@ function barChart(id, labels, serieLabel, data, color) {
 
 // LOAD GRAPHS
 $(document).ready(function() {
-    doughnutChart(
-        'contractor-clauses',
-        labelYesNo,
-        contractorClausesData,
-        [colorBlue, colorRed]
-    );
+    if (contractorClausesData.length > 0) {
+        doughnutChart(
+            'contractor-clauses',
+            labelYesNo,
+            contractorClausesData,
+            [colorBlue, colorRed]
+        );
+    }
 
-    doughnutChart(
-        'contractor-adopted-security-features',
-        labelYesNo,
-        contractorAdoptedSecurityFeaturesData,
-        [colorBlue, colorRed]
-    );
+    if (contractorAdoptedSecurityFeaturesData.length > 0) {
+        doughnutChart(
+            'contractor-adopted-security-features',
+            labelYesNo,
+            contractorAdoptedSecurityFeaturesData,
+            [colorBlue, colorRed]
+        )
+    }
 
-    doughnutChart(
-        'contractor-maintains-treatment-register',
-        labelYesNo,
-        contractorMaintainsTreatmentRegisterData,
-        [colorBlue, colorRed]
-    );
+    if (contractorMaintainsTreatmentRegisterData.length > 0) {
+        doughnutChart(
+            'contractor-maintains-treatment-register',
+            labelYesNo,
+            contractorMaintainsTreatmentRegisterData,
+            [colorBlue, colorRed]
+        );
+    }
 
-    doughnutChart(
-        'contractor-sending-data-outside-eu',
-        labelYesNo,
-        contractorSendingDataOutsideEuData,
-        [colorBlue, colorRed]
-    );
+    if (contractorSendingDataOutsideEuData.length > 0) {
+        doughnutChart(
+            'contractor-sending-data-outside-eu',
+            labelYesNo,
+            contractorSendingDataOutsideEuData,
+            [colorBlue, colorRed]
+        );
+    }
 
-    doughnutChartPadding(
-        'request-type',
-        requestTypeLabel,
-        requestTypeData,
-        [colorBlue, colorRed, colorGreen, colorOrange, colorPurple, colorTeal]
-    );
+    if (requestTypeData.length > 0) {
+        doughnutChartPadding(
+            'request-type',
+            requestTypeLabel,
+            requestTypeData,
+            [colorBlue, colorRed, colorGreen, colorOrange, colorPurple, colorTeal]
+        );
+    }
 
-    doughnutChartPadding(
-        'request-status',
-        requestStatusLabel,
-        requestStatusData,
-        [colorGreen, colorRed, colorOrange]
-    );
+    if (requestStatusData.length > 0) {
+        doughnutChartPadding(
+            'request-status',
+            requestStatusLabel,
+            requestStatusData,
+            [colorGreen, colorRed, colorOrange]
+        );
+    }
 
-    radarChart(
-        'maturity-radar',
-        maturityLabels,
-        maturitySerieLabel,
-        maturityData,
-        [colorBlueOpacity, colorRedOpacity]
-    );
+    if (maturityData.length > 0) {
+        radarChart(
+            'maturity-radar',
+            maturityLabels,
+            maturitySerieLabel,
+            maturityData,
+            [colorBlueOpacity, colorRedOpacity]
+        );
+    }
 
-    barChart(
-        'treatment-bar',
-        treatmentLabels,
-        ['Conforme', 'Non conforme'],
-        [treatmentDatasetYes, treatmentDatasetNo],
-        [colorBlueOpacity, colorRedOpacity]
-    );
+    if (treatmentDatasetYes.length  > 0 && treatmentDatasetNo.length > 0) {
+        barChart(
+            'treatment-bar',
+            treatmentLabels,
+            ['Conforme', 'Non conforme'],
+            [treatmentDatasetYes, treatmentDatasetNo],
+            [colorBlueOpacity, colorRedOpacity]
+        );
+    }
 
-    pieChart(
-        'conformiteTraitement-pie',
-        conformiteTraitementLabels,
-        conformiteTraitementData,
-        conformiteTraitementColors
-    );
+    if (conformiteTraitementData.length > 0) {
+        pieChart(
+            'conformiteTraitement-pie',
+            conformiteTraitementLabels,
+            conformiteTraitementData,
+            conformiteTraitementColors
+        );
+    }
 });

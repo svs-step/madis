@@ -5,44 +5,40 @@ namespace App\Domain\Registry\Form\Type\ConformiteOrganisation;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
 use App\Domain\Registry\Model\Mesurement;
-use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 
 class ConformiteType extends AbstractType
 {
-    /**
-     * @var Security
-     */
-    private $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
-    }
-
     /**
      * Build type form.
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('actionProtections', EntityType::class, [
+            ->add('reponses', CollectionType::class, [
+                    'required'   => false,
+                    'entry_type' => ReponseType::class,
+                ]
+            );
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $parentForm = $event->getForm()->getParent()->getParent();
+            $collectivity = $parentForm->getData()->getCollectivity();
+            $event->getForm()->add('actionProtections', EntityType::class, [
                 'required'      => false,
                 'label'         => false,
                 'class'         => Mesurement::class,
-                'query_builder' => function (EntityRepository $er) {
-                    /** @var User $user */
-                    $user = $this->security->getUser();
-
+                'query_builder' => function (EntityRepository $er) use ($collectivity) {
                     return $er->createQueryBuilder('m')
                         ->andWhere('m.collectivity = :collectivity')
-                        ->setParameter('collectivity', $user->getCollectivity())
+                        ->setParameter('collectivity', $collectivity)
                         ->andWhere('m.status = :nonApplied')
                         ->setParameter('nonApplied', MesurementStatusDictionary::STATUS_NOT_APPLIED)
                         ->orderBy('m.name', 'ASC');
@@ -64,12 +60,8 @@ class ConformiteType extends AbstractType
 
                     return ['data-content' => $name];
                 },
-            ])
-            ->add('reponses', CollectionType::class, [
-                    'required'   => false,
-                    'entry_type' => ReponseType::class,
-                ]
-            );
+            ]);
+        });
     }
 
     /**
