@@ -160,14 +160,27 @@ class TreatmentGenerator extends AbstractGenerator
 
     private function initializeTreatmentGeneralInformations(\App\Domain\Registry\Model\Treatment $treatment): array
     {
+        $goal                    = $treatment->getGoal();
+        $legalBasisJustification = $treatment->getLegalBasisJustification();
+        $observation             = $treatment->getObservation();
+        if (!\is_null($goal) && isset($goal[0]) && '-' === $goal[0]) {
+            $goal = ' ' . $goal;
+        }
+        if (!\is_null($legalBasisJustification) && isset($legalBasisJustification[0]) && '-' === $legalBasisJustification[0]) {
+            $legalBasisJustification = ' ' . $legalBasisJustification;
+        }
+        if (!\is_null($observation) && isset($observation[0]) && '-' === $observation[0]) {
+            $observation = ' ' . $observation;
+        }
+
         return [
             !\is_null($treatment->getAuthor()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : null,
-            $treatment->getGoal(),
+            $goal,
             $treatment->getManager(),
             $treatment->isActive() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
             !\is_null($treatment->getLegalBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : null,
-            $treatment->getLegalBasisJustification(),
-            $treatment->getObservation(),
+            $legalBasisJustification,
+            $observation,
         ];
     }
 

@@ -38,12 +38,16 @@ class ConformiteTraitementType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var ConformiteTraitement $conformiteTraitement */
+        $conformiteTraitement = $options['data'];
         $builder
             ->add('reponses', CollectionType::class, [
                     'entry_type' => ReponseType::class,
                 ]
             )
-            ->add('traitement', TreatmentType::class)
+            ->add('traitement', TreatmentType::class, [
+                'data' => $conformiteTraitement->getTraitement(),
+            ])
         ;
     }
 

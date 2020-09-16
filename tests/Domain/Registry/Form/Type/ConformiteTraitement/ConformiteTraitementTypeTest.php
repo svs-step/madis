@@ -27,6 +27,7 @@ namespace App\Tests\Domain\Registry\Form\Type\ConformiteTraitement;
 use App\Domain\Registry\Form\Type\ConformiteTraitement\ConformiteTraitementType;
 use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
+use App\Domain\Registry\Model\Treatment;
 use App\Tests\Utils\FormTypeHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -46,7 +47,10 @@ class ConformiteTraitementTypeTest extends FormTypeHelper
             'traitement' => TreatmentType::class,
         ];
 
-        (new ConformiteTraitementType())->buildForm($this->prophesizeBuilder($builder), []);
+        $conformiteTraitement = new ConformiteTraitement();
+        $conformiteTraitement->setTraitement(new Treatment());
+
+        (new ConformiteTraitementType())->buildForm($this->prophesizeBuilder($builder), ['data' => $conformiteTraitement]);
     }
 
     public function testConfigureOptions(): void

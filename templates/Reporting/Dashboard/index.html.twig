@@ -348,26 +348,37 @@
             'Limiter le traitement',
             'Autre',
         ];
-        let requestTypeData = [
-            {{ data.request.value.type.correct }},
-            {{ data.request.value.type.delete }},
-            {{ data.request.value.type.withdrawConsent }},
-            {{ data.request.value.type.access }},
-            {{ data.request.value.type.dataPortability }},
-            {{ data.request.value.type.limitTreatment }},
-            {{ data.request.value.type.other }},
-        ];
+
+        let requestTypeData = [];
+        {% if data.request.value.type.correct %}
+            requestTypeData.push({{ data.request.value.type.correct }});
+        {% elseif data.request.value.type.delete %}
+            requestTypeData.push({{ data.request.value.type.delete }});
+        {% elseif data.request.value.type.withdrawConsent %}
+            requestTypeData.push({{ data.request.value.type.withdrawConsent }});
+        {% elseif data.request.value.type.access %}
+            requestTypeData.push({{ data.request.value.type.access }});
+        {% elseif data.request.value.type.dataPortability %}
+            requestTypeData.push({{ data.request.value.type.dataPortability }});
+        {% elseif data.request.value.type.limitTreatment %}
+            requestTypeData.push({{ data.request.value.type.limitTreatment }});
+        {% elseif data.request.value.type.other %}
+            requestTypeData.push({{ data.request.value.type.other }});
+        {% endif %}
 
         let requestStatusLabel = [
             'Traité',
             'À traiter',
             'Non-recevable',
         ];
-        let requestStatusData = [
-            {{ data.request.value.status.processed }},
-            {{ data.request.value.status.toProcess }},
-            {{ data.request.value.status.incomplete }},
-        ];
+        let requestStatusData = [];
+        {% if data.request.value.status.processed %}
+            requestStatusData.push({{ data.request.value.status.processed }});
+        {% elseif data.request.value.status.toProcess %}
+            requestStatusData.push({{ data.request.value.status.toProcess }});
+        {% elseif data.request.value.status.incomplete %}
+            requestStatusData.push({{ data.request.value.status.incomplete }});
+        {% endif %}
 
         // TREATMENT
         let treatmentLabels = [
@@ -379,13 +390,20 @@
         let treatmentDatasetYes = [];
         let treatmentDatasetNo = [];
         {% for key, item in data.treatment.value.data %}
+            {% set yesItem = attribute(item, 'yes') %}
+            {% set noItem = attribute(item, 'no') %}
+            {% if yesItem > 0 or noItem > 0  %}
             treatmentDatasetYes.push('{{ attribute(item, 'yes') }}');
             treatmentDatasetNo.push('{{ attribute(item, 'no') }}');
+            {% endif %}
         {% endfor %}
 
         // CONFORMITE TRAITEMENT
         let conformiteTraitementLabels = {{ data.conformiteTraitement.labels|json_encode|raw }};
-        let conformiteTraitementData = {{ data.conformiteTraitement.data|json_encode|raw }};
+        let conformiteTraitementData = [];
+        {% if data.conformiteTraitement.data %}
+            let conformiteTraitementDat= {{ data.conformiteTraitement.data|json_encode|raw }};
+        {% endif %}
         let conformiteTraitementColors = {{ data.conformiteTraitement.colors|json_encode|raw }};
     </script>
 
