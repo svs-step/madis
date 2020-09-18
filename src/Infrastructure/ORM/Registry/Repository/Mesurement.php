@@ -216,6 +216,11 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             unset($criteria['collectivity']);
         }
 
+        if (isset($criteria['planificationDate']) && 'null' === $criteria['planificationDate']) {
+            $qb->andWhere($qb->expr()->isNotNull('o.planificationDate'));
+            unset($criteria['planificationDate']);
+        }
+
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
         }
@@ -236,6 +241,11 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
             $this->addInClauseCollectivities($query, $criteria['collectivity']->toArray());
             unset($criteria['collectivity']);
+        }
+
+        if (isset($criteria['planificationDate']) && 'null' === $criteria['planificationDate']) {
+            $query->andWhere($query->expr()->isNotNull('o.planificationDate'));
+            unset($criteria['planificationDate']);
         }
 
         foreach ($criteria as $key => $value) {

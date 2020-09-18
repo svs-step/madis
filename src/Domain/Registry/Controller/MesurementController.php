@@ -151,15 +151,18 @@ class MesurementController extends CRUDController
      */
     protected function getListData()
     {
-        $criteria = $this->getRequestCriteria();
+        $request  = $this->requestStack->getCurrentRequest();
+        $criteria = $this->getRequestCriteria($request);
 
         return $this->repository->findBy($criteria);
     }
 
     public function listAction(): Response
     {
+        $request = $this->requestStack->getCurrentRequest();
+
         return $this->render($this->getTemplatingBasePath('list'), [
-            'totalItem' => $this->repository->count($this->getRequestCriteria()),
+            'totalItem' => $this->repository->count($this->getRequestCriteria($request)),
             'route'     => $this->router->generate('registry_mesurement_list_datatables'),
         ]);
     }
@@ -187,8 +190,9 @@ class MesurementController extends CRUDController
      */
     public function actionPlanAction()
     {
+        $request = $this->requestStack->getCurrentRequest();
         // Since we have to display planified & not-applied mesurement, filter
-        $criteria = $this->getRequestCriteria();
+        $criteria = $this->getRequestCriteria($request);
         $criteria = $criteria + ['status' => MesurementStatusDictionary::STATUS_NOT_APPLIED];
 
         return $this->render('Registry/Mesurement/action_plan.html.twig', [
@@ -284,7 +288,7 @@ class MesurementController extends CRUDController
         ]);
     }
 
-    private function getRequestCriteria()
+    private function getRequestCriteria(Request $request)
     {
         $criteria = [];
         $user     = $this->userProvider->getAuthenticatedUser();
@@ -295,6 +299,10 @@ class MesurementController extends CRUDController
 
         if (\in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
             $criteria['collectivity'] = $user->getCollectivitesReferees();
+        }
+
+        if ($request->query->getBoolean('action_plan')) {
+            $criteria['planificationDate'] = 'null';
         }
 
         return $criteria;
@@ -331,7 +339,7 @@ class MesurementController extends CRUDController
 
     public function listDataTables(Request $request)
     {
-        $criteria = $this->getRequestCriteria();
+        $criteria = $this->getRequestCriteria($request);
         $actions  = $this->getResults($request, $criteria);
         $reponse  = $this->getBaseDataTablesResponse($request, $actions, $criteria);
 
