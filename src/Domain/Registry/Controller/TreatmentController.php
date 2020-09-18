@@ -263,6 +263,7 @@ class TreatmentController extends CRUDController
                 'entitledPersons'        => $treatment->isSecurityEntitledPersons() ? $yes : $no,
                 'openAccounts'           => $treatment->isSecurityOpenAccounts() ? $yes : $no,
                 'specificitiesDelivered' => $treatment->isSecuritySpecificitiesDelivered() ? $yes : $no,
+                'updatedAt'              => date_format($treatment->getUpdatedAt(), 'd-m-Y H:i:s'),
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
@@ -311,7 +312,8 @@ class TreatmentController extends CRUDController
             '12' => 'entitledPersons',
             '13' => 'openAccounts',
             '14' => 'specificitiesDelivered',
-            '15' => 'actions',
+            '15' => 'updatedAt',
+            '16' => 'actions',
         ];
     }
 }

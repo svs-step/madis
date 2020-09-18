@@ -194,6 +194,8 @@ class MesurementControllerTest extends TestCase
         $user         = $this->prophesize(UserModel\User::class);
         $user->getRoles()->shouldBeCalled()->willReturn([]);
 
+        $this->requestStack->getCurrentRequest()->shouldBeCalled()->willReturn(new Request());
+
         $this->userProviderProphecy
             ->getAuthenticatedUser()
             ->shouldBeCalled()
@@ -230,6 +232,8 @@ class MesurementControllerTest extends TestCase
     public function testGetListDataForRoleNotGranted()
     {
         $valueReturnedByRepository = ['dummyValues'];
+
+        $this->requestStack->getCurrentRequest()->shouldBeCalled()->willReturn(new Request());
 
         // Not granted
         $this->authenticationCheckerProphecy

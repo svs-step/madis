@@ -61,9 +61,17 @@
                 <div class="box-body">
                     <ul>
                         <li>Vous disposez d'un compte associé à la collectivité <strong>{{ form.vars.value.collectivity }}.</strong></li>
-                        <li>Vous disposez des droits de <strong>lecture</strong> sur votre collectivité.</li>
+                        <li>Vous disposez des droits de <strong>lecture</strong> sur votre collectivité{% if app.user.roles[0] == 'ROLE_REFERENT' %} et sur vos collectivités rattacheés{% endif %}.</li>
                         {% if is_granted('ROLE_USER') %}
-                            <li>Vous disposez des droits d'<strong>écriture</strong> sur votre collectivité.</li>
+                            <li>Vous disposez des droits d'<strong>écriture</strong> sur votre collectivité{% if app.user.roles[0] == 'ROLE_REFERENT' %} et  sur vos collectivités rattacheés via la fonctionnalité "se connecter en tant que"{% endif %}.</li>
+                        {% endif %}
+                        {% if app.user.roles[0] == 'ROLE_REFERENT' %}
+                            <li>Liste des collectivités rattachées :</li>
+                            <ul>
+                                {% for collectivity in app.user.collectivitesReferees %}
+                                    <li>{{ collectivity.name }}</li>
+                                {% endfor %}
+                            </ul>
                         {% endif %}
                     </ul>
                 </div>
