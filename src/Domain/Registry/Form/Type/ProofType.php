@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
-use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Model;
 use App\Domain\User\Model as UserModel;
 use Doctrine\Common\Collections\Criteria;
@@ -36,17 +35,18 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class ProofType extends AbstractType
 {
     /**
-     * @var UserProvider
+     * @var Security
      */
-    private $userProvider;
+    private $security;
 
-    public function __construct(UserProvider $userProvider)
+    public function __construct(Security $security)
     {
-        $this->userProvider = $userProvider;
+        $this->security = $security;
     }
 
     /**
@@ -56,9 +56,16 @@ class ProofType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var UserModel\User $authenticatedUser */
-        $authenticatedUser = $this->userProvider->getAuthenticatedUser();
-        $collectivity      = $authenticatedUser->getCollectivity();
+        /** @var Model\Proof $proof */
+        $proof = $options['data'];
+
+        if (!\is_null($proof->getCollectivity())) {
+            $collectivity = $proof->getCollectivity();
+        } else {
+            /** @var UserModel\User $authenticatedUser */
+            $authenticatedUser = $this->security->getUser();
+            $collectivity      = $authenticatedUser->getCollectivity();
+        }
 
         $builder
             ->add('name', TextType::class, [

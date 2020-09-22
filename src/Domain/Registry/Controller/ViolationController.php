@@ -26,14 +26,22 @@ namespace App\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Registry\Dictionary\ViolationCauseDictionary;
+use App\Domain\Registry\Dictionary\ViolationGravityDictionary;
+use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\Registry\Form\Type\ViolationType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Dictionary\UserRoleDictionary;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -42,6 +50,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class ViolationController extends CRUDController
 {
+    use ServersideDatatablesTrait;
+
     /**
      * @var RequestStack
      */
@@ -62,6 +72,11 @@ class ViolationController extends CRUDController
      */
     protected $userProvider;
 
+    /**
+     * @var RouterInterface
+     */
+    protected $router;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -70,13 +85,15 @@ class ViolationController extends CRUDController
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
-        Pdf $pdf
+        Pdf $pdf,
+        RouterInterface $router
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf);
         $this->requestStack         = $requestStack;
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
+        $this->router               = $router;
     }
 
     /**
@@ -114,24 +131,6 @@ class ViolationController extends CRUDController
     /**
      * {@inheritdoc}
      */
-    protected function getListData()
-    {
-        $request   = $this->requestStack->getMasterRequest();
-        $archived  = 'true' === $request->query->get('archive') ? true : false;
-
-        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return $this->repository->findAllArchived($archived);
-        }
-
-        return $this->repository->findAllArchivedByCollectivity(
-            $this->userProvider->getAuthenticatedUser()->getCollectivity(),
-            $archived
-        );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function isSoftDelete(): bool
     {
         return true;
@@ -151,5 +150,86 @@ class ViolationController extends CRUDController
         );
 
         return $this->wordHandler->generateRegistryViolationReport($objects);
+    }
+
+    public function listAction(): Response
+    {
+        $criteria = $this->getRequestCriteria();
+
+        return $this->render($this->getTemplatingBasePath('list'), [
+            'totalItem' => $this->repository->count($criteria),
+            'route'     => $this->router->generate('registry_violation_list_datatables', ['archive' => $criteria['archive']]),
+        ]);
+    }
+
+    public function listDataTables(Request $request): JsonResponse
+    {
+        $criteria    = $this->getRequestCriteria();
+        $users       = $this->getResults($request, $criteria);
+        $reponse     = $this->getBaseDataTablesResponse($request, $users, $criteria);
+
+        /** @var Model\Violation $violation */
+        foreach ($users as $violation) {
+            $reponse['data'][] = [
+                'collectivite' => $violation->getCollectivity()->getName(),
+                'date'         => \date_format($violation->getDate(), 'd/m/Y'),
+                'nature'       => !\is_null($violation->getViolationNature()) ? ViolationNatureDictionary::getNatures()[$violation->getViolationNature()] : null,
+                'cause'        => !\is_null($violation->getCause()) ? ViolationCauseDictionary::getNatures()[$violation->getCause()] : null,
+                'gravity'      => !\is_null($violation->getGravity()) ? ViolationGravityDictionary::getGravities()[$violation->getGravity()] : null,
+                'actions'      => $this->getActionCellsContent($violation),
+            ];
+        }
+
+        $jsonResponse = new JsonResponse();
+        $jsonResponse->setJson(\json_encode($reponse));
+
+        return $jsonResponse;
+    }
+
+    protected function getLabelAndKeysArray(): array
+    {
+        return [
+            0 => 'collectivite',
+            1 => 'date',
+            2 => 'nature',
+            3 => 'cause',
+            4 => 'gravity',
+            5 => 'actions',
+        ];
+    }
+
+    private function getActionCellsContent(Model\Violation $violation)
+    {
+        $cellContent = '';
+        if ($this->authorizationChecker->isGranted('ROLE_USER') && \is_null($violation->getDeletedAt())) {
+            $cellContent .= '<a href="' . $this->router->generate('registry_violation_edit', ['id' => $violation->getId()]) . '">
+                    <i class="fa fa-pencil-alt"></i> ' .
+                    $this->translator->trans('action.edit') . '
+                </a>
+                <a href="' . $this->router->generate('registry_violation_delete', ['id' => $violation->getId()]) . '">
+                    <i class="fa fa-archive"></i> ' .
+                    $this->translator->trans('action.archive') . '
+                </a>';
+        }
+
+        return $cellContent;
+    }
+
+    private function getRequestCriteria()
+    {
+        $criteria            = [];
+        $request             = $this->requestStack->getMasterRequest();
+        $criteria['archive'] = $request->query->getBoolean('archive');
+        $user                = $this->userProvider->getAuthenticatedUser();
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $criteria['collectivity'] = $user->getCollectivity();
+        }
+
+        if (\in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
+            $criteria['collectivity'] = $user->getCollectivitesReferees();
+        }
+
+        return $criteria;
     }
 }

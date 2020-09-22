@@ -3,6 +3,11 @@ registry_request_list:
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\RequestController:listAction'
 
+registry_request_list_datatables:
+    path: '/datatables'
+    methods: ['POST']
+    controller: 'App\Domain\Registry\Controller\RequestController:listDataTables'
+
 registry_request_create:
     path: '/creer'
     methods: ['GET', 'POST']

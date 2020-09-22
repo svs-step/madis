@@ -27,9 +27,10 @@ namespace App\Tests\Domain\Registry\Form\Type\ConformiteTraitement;
 use App\Domain\Registry\Form\Type\ConformiteTraitement\ReponseType;
 use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
 use App\Tests\Utils\FormTypeHelper;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Prophecy\Argument;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 
@@ -53,11 +54,17 @@ class ReponseTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'conforme'          => ChoiceType::class,
-            'actionProtections' => EntityType::class,
+            'conforme' => ChoiceType::class,
         ];
 
-        (new ReponseType($this->security))->buildForm($this->prophesizeBuilder($builder), []);
+        $builderProphecy = $this->prophesizeBuilder($builder, false);
+
+        $builderProphecy
+            ->addEventListener(FormEvents::PRE_SET_DATA, Argument::any())
+            ->shouldBeCalled()
+        ;
+
+        (new ReponseType($this->security))->buildForm($builderProphecy->reveal(), ['data' => 'foo']);
     }
 
     public function testConfigureOptions(): void

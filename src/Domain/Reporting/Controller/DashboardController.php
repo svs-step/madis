@@ -69,7 +69,7 @@ class DashboardController extends AbstractController
      */
     public function exportCsvAction(string $exportType)
     {
-        if (!$this->isGranted('ROLE_ADMIN')) {
+        if (!$this->isGranted('ROLE_REFERENT')) {
             throw new AccessDeniedHttpException('You can\'t access to csv export');
         }
 

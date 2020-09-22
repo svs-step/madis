@@ -55,6 +55,8 @@ class Contractor implements LoggableSubject
     private $referent;
 
     /**
+     * Clauses contractuelles vérifiées.
+     *
      * @var bool
      */
     private $contractualClausesVerified;
@@ -85,16 +87,22 @@ class Contractor implements LoggableSubject
     private $clonedFrom;
 
     /**
+     * Adopte les éléments de sécurité.
+     *
      * @var bool
      */
     private $adoptedSecurityFeatures;
 
     /**
+     * Registre des traitements.
+     *
      * @var bool
      */
     private $maintainsTreatmentRegister;
 
     /**
+     * Données hors UE.
+     *
      * @var bool
      */
     private $sendingDataOutsideEu;

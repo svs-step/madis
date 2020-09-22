@@ -24,16 +24,21 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\ORM\Registry\Repository;
 
+use App\Application\Traits\RepositoryUtils;
 use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 class Proof implements Repository\Proof
 {
+    use RepositoryUtils;
+
     /**
      * @var ManagerRegistry
      */
@@ -176,19 +181,6 @@ class Proof implements Repository\Proof
     }
 
     /**
-     * Add a where clause to query.
-     *
-     * @param mixed $value
-     */
-    protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
-    {
-        return $qb
-            ->andWhere("o.{$key} = :{$key}_value")
-            ->setParameter("{$key}_value", $value)
-        ;
-    }
-
-    /**
      * Add archive clause to query.
      */
     protected function addArchivedClause(QueryBuilder $qb, bool $archived = false): QueryBuilder
@@ -274,24 +266,6 @@ class Proof implements Repository\Proof
      *
      * @throws \Exception
      */
-    public function findAllArchived(bool $archived = false, array $order = [])
-    {
-        $qb = $this->createQueryBuilder();
-
-        $this->addArchivedClause($qb, $archived);
-        $this->addOrder($qb, $order);
-
-        return $qb
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @throws \Exception
-     */
     public function findAllArchivedByCollectivity(Collectivity $collectivity, bool $archived = false, array $order = [])
     {
         $qb = $this->createQueryBuilder();
@@ -342,13 +316,23 @@ class Proof implements Repository\Proof
     /**
      * {@inheritdoc}
      */
-    public function averageProofFiled()
+    public function averageProofFiled(array $collectivities = [])
     {
         $sql = 'SELECT AVG(a.rcount) FROM (
             SELECT COUNT(rp.id) as rcount
             FROM user_collectivity uc
             LEFT OUTER JOIN registry_proof rp ON uc.id = rp.collectivity_id
-            WHERE uc.active = 1
+            WHERE uc.active = 1';
+
+        if (!empty($collectivities)) {
+            $sql .= ' AND uc.id IN (';
+            $sql .= \implode(',', \array_map(function ($collectivity) {
+                return '\'' . $collectivity->getId() . '\'';
+            }, $collectivities));
+            $sql .= ') ';
+        }
+
+        $sql .= ' 
             GROUP BY uc.id
         ) a';
 
@@ -361,13 +345,23 @@ class Proof implements Repository\Proof
     /**
      * {@inheritdoc}
      */
-    public function averageBalanceSheetProof()
+    public function averageBalanceSheetProof(array $collectivities = [])
     {
         $sql = 'SELECT AVG(a.rcount) FROM (
             SELECT IF(COUNT(rp.id) > 0, 1, 0) as rcount
             FROM user_collectivity uc
             LEFT OUTER JOIN registry_proof rp ON (uc.id = rp.collectivity_id AND rp.created_at >= NOW() - INTERVAL 1 YEAR AND rp.type = "' . ProofTypeDictionary::TYPE_BALANCE_SHEET . '")
-            WHERE uc.active = 1
+            WHERE uc.active = 1';
+
+        if (!empty($collectivities)) {
+            $sql .= ' AND uc.id IN (';
+            $sql .= \implode(',', \array_map(function ($collectivity) {
+                return '\'' . $collectivity->getId() . '\'';
+            }, $collectivities));
+            $sql .= ') ';
+        }
+
+        $sql .= ' 
             GROUP BY uc.id
         ) a';
 
@@ -375,5 +369,123 @@ class Proof implements Repository\Proof
         $stmt->execute();
 
         return $stmt->fetchColumn();
+    }
+
+    public function count(array $criteria = [])
+    {
+        $qb = $this
+            ->createQueryBuilder()
+            ->select('count(o.id)')
+        ;
+
+        if (\array_key_exists('archive', $criteria)) {
+            $this->addArchivedClause($qb, $criteria['archive']);
+            unset($criteria['archive']);
+        }
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $qb->leftJoin('o.collectivity', 'collectivite');
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        if (\array_key_exists('archive', $criteria)) {
+            $this->addArchivedClause($qb, $criteria['archive']);
+            unset($criteria['archive']);
+        }
+
+        $qb->leftJoin('o.collectivity', 'collectivite')
+            ->addSelect('collectivite');
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        $this->addTableOrder($qb, $orderColumn, $orderDir);
+        $this->addTableWhere($qb, $searches);
+
+        $query = $qb->getQuery();
+        $query->setFirstResult($firstResult);
+        $query->setMaxResults($maxResults);
+
+        return new Paginator($query);
+    }
+
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'nom':
+                $queryBuilder->addOrderBy('o.name', $orderDir);
+                break;
+            case 'collectivite':
+                $queryBuilder->addOrderBy('collectivite.name', $orderDir);
+                break;
+            case 'type':
+                $queryBuilder->addSelect('(case
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_MESUREMENT . '\' THEN 1
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_CERTIFICATION . '\' THEN 2
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_OTHER . '\' THEN 3
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_BALANCE_SHEET . '\' THEN 4
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_IT_CHARTER . '\' THEN 5
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_CONTRACT . '\' THEN 6
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_DELIBERATION . '\' THEN 7
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_CONCERNED_PEOPLE_REQUEST . '\' THEN 8
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_POLICY_MANAGEMENT . '\' THEN 9
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_POLICY_PROTECTION . '\' THEN 10
+                WHEN o.type = \'' . ProofTypeDictionary::TYPE_SENSITIZATION . '\' THEN 11
+                ELSE 12 END) AS HIDDEN hidden_type')
+                    ->addOrderBy('hidden_type', $orderDir);
+                break;
+            case 'commentaire':
+                $queryBuilder->addOrderBy('o.comment', $orderDir);
+                break;
+            case 'date':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
+        }
+    }
+
+    private function addTableWhere(QueryBuilder $queryBuilder, $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'nom':
+                    $this->addWhereClause($queryBuilder, 'name', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'collectivite':
+                    $queryBuilder->andWhere('collectivite.name LIKE :nom')
+                        ->setParameter('nom', '%' . $search . '%');
+                    break;
+                case 'type':
+                    $this->addWhereClause($queryBuilder, 'type', $search);
+                    break;
+                case 'commentaire':
+                    $this->addWhereClause($queryBuilder, 'comment', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'date':
+                    $queryBuilder->andWhere('o.createdAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+            }
+        }
     }
 }

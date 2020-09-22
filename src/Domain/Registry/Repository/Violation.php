@@ -25,9 +25,10 @@ declare(strict_types=1);
 namespace App\Domain\Registry\Repository;
 
 use App\Application\DDD\Repository\RepositoryInterface;
+use App\Application\Doctrine\Repository\DataTablesRepository;
 use App\Domain\User\Model\Collectivity;
 
-interface Violation extends RepositoryInterface
+interface Violation extends RepositoryInterface, DataTablesRepository
 {
     /**
      * Insert an object.
@@ -92,16 +93,6 @@ interface Violation extends RepositoryInterface
      * @return array The array of proofs given by criteria
      */
     public function findBy(array $criteria = []);
-
-    /**
-     * Find all requests.
-     *
-     * @param bool  $archived Get all archived or not
-     * @param array $order    Order results
-     *
-     * @return array The array of requests
-     */
-    public function findAllArchived(bool $archived = false, array $order = []);
 
     /**
      * Find all active requests by associated collectivity.

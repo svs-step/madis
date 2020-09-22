@@ -35,6 +35,7 @@ use App\Domain\Registry\Model\Mesurement;
 use App\Domain\User\Repository\Collectivity;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteTraitement\Question;
 use App\Infrastructure\ORM\Registry\Repository\Treatment;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TreatmentGenerator extends AbstractGenerator
@@ -59,16 +60,23 @@ class TreatmentGenerator extends AbstractGenerator
      */
     private $questionRepository;
 
+    /**
+     * @var Security
+     */
+    private $security;
+
     public function __construct(
         TranslatorInterface $translatorInterface,
         Collectivity $collectivityRepository,
         Treatment $treatmentRepository,
-        Question $questionRepository
+        Question $questionRepository,
+        Security $security
     ) {
         $this->translator             = $translatorInterface;
         $this->collectivityRepository = $collectivityRepository;
         $this->treatmentRepository    = $treatmentRepository;
         $this->questionRepository     = $questionRepository;
+        $this->security               = $security;
     }
 
     /**
@@ -91,8 +99,13 @@ class TreatmentGenerator extends AbstractGenerator
         );
         $data = [$headers];
 
+        $user = null;
+        if (!$this->security->isGranted('ROLE_ADMIN')) {
+            $user = $this->security->getUser();
+        }
+
         /** @var \App\Domain\Registry\Model\Treatment $treatment */
-        foreach ($this->treatmentRepository->findAllByActiveCollectivity() as $treatment) {
+        foreach ($this->treatmentRepository->findAllByActiveCollectivity(true, $user) as $treatment) {
             $extract = array_merge(
                 [$treatment->getName()],
                 $this->initializeCollectivity($treatment->getCollectivity()),
@@ -147,14 +160,27 @@ class TreatmentGenerator extends AbstractGenerator
 
     private function initializeTreatmentGeneralInformations(\App\Domain\Registry\Model\Treatment $treatment): array
     {
+        $goal                    = $treatment->getGoal();
+        $legalBasisJustification = $treatment->getLegalBasisJustification();
+        $observation             = $treatment->getObservation();
+        if (!\is_null($goal) && isset($goal[0]) && '-' === $goal[0]) {
+            $goal = ' ' . $goal;
+        }
+        if (!\is_null($legalBasisJustification) && isset($legalBasisJustification[0]) && '-' === $legalBasisJustification[0]) {
+            $legalBasisJustification = ' ' . $legalBasisJustification;
+        }
+        if (!\is_null($observation) && isset($observation[0]) && '-' === $observation[0]) {
+            $observation = ' ' . $observation;
+        }
+
         return [
             !\is_null($treatment->getAuthor()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : null,
-            $treatment->getGoal(),
+            $goal,
             $treatment->getManager(),
             $treatment->isActive() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
             !\is_null($treatment->getLegalBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : null,
-            $treatment->getLegalBasisJustification(),
-            $treatment->getObservation(),
+            $legalBasisJustification,
+            $observation,
         ];
     }
 

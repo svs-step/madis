@@ -103,33 +103,56 @@
     {{ include('_Utils/_serverside_datatable.html.twig') }}
 
     <script>
-        $(document).ready(function() {
-            $('#table_filter').hide();
+        function setEvents() {
             var oTable = $('#table').DataTable();
+
+            $('#search_subject_id').off('keyup');
             $('#search_subject_id').keyup($.debounce(250, function(){
                 oTable.column('0').search($(this).val()).draw() ;
             }));
+
+            $('#search_user_fullname').off('keyup');
             $('#search_user_fullname').keyup($.debounce(250, function(){
                 oTable.column('1').search($(this).val()).draw() ;
             }));
+
+            $('#search_user_email').off('keyup');
             $('#search_user_email').keyup($.debounce(250, function(){
                 oTable.column('2').search($(this).val()).draw() ;
             }));
+
+            $('#search_collectivite').off('keyup');
             $('#search_collectivite').keyup($.debounce(250, function(){
                 oTable.column('3').search($(this).val()).draw() ;
             }));
+
+            $('#search_date').off('change');
             $('#search_date').change(function(){
                 oTable.column('4').search($(this).val()).draw() ;
             });
+
+            $('#search_sujet').off('change');
             $('#search_sujet').change(function(){
                 oTable.column('5').search($(this).val()).draw() ;
-            });
+            })
+
+            $('#search_action').off('change');
             $('#search_action').change(function(){
                 oTable.column('6').search($(this).val()).draw() ;
             });
+
+            $('#search_subject_name').off('keyup');
             $('#search_subject_name').keyup($.debounce(250, function(){
                 oTable.column('7').search($(this).val()).draw() ;
             }));
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
         } );
     </script>
 {% endblock %}

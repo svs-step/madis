@@ -33,6 +33,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 
@@ -64,41 +66,46 @@ class ReponseType extends AbstractType
                     'class' => 'conformite-select',
                 ],
             ])
-            ->add('actionProtections', EntityType::class, [
-                'required'      => false,
-                'label'         => false,
-                'class'         => Mesurement::class,
-                'query_builder' => function (EntityRepository $er) {
-                    /** @var User $user */
-                    $user = $this->security->getUser();
-
-                    return $er->createQueryBuilder('m')
-                        ->andWhere('m.collectivity = :collectivity')
-                        ->setParameter('collectivity', $user->getCollectivity())
-                        ->andWhere('m.status = :nonApplied')
-                        ->setParameter('nonApplied', MesurementStatusDictionary::STATUS_NOT_APPLIED)
-                        ->orderBy('m.name', 'ASC');
-                },
-                'choice_label' => 'name',
-                'expanded'     => false,
-                'multiple'     => true,
-                'attr'         => [
-                    'class'            => 'selectpicker',
-                    'title'            => 'placeholder.multiple_select',
-                    'data-live-search' => true,
-                    'data-width'       => '450px',
-                ],
-                'choice_attr' => function (Mesurement $choice) {
-                    $name = $choice->getName();
-                    if (\mb_strlen($name) > 50) {
-                        $name =  \mb_substr($name, 0, 50) . '...';
-                    }
-
-                    return ['data-content' => $name];
-                },
-            ]
-            )
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $parentForm = $event->getForm()->getParent()->getParent();
+            $collectivity = $parentForm->getData()->getTraitement()->getCollectivity();
+            $event->getForm()->add('actionProtections', EntityType::class, [
+                    'required'      => false,
+                    'label'         => false,
+                    'class'         => Mesurement::class,
+                    'query_builder' => function (EntityRepository $er) use ($collectivity) {
+                        /** @var User $user */
+                        $user = $this->security->getUser();
+
+                        return $er->createQueryBuilder('m')
+                            ->andWhere('m.collectivity = :collectivity')
+                            ->setParameter('collectivity', $collectivity)
+                            ->andWhere('m.status = :nonApplied')
+                            ->setParameter('nonApplied', MesurementStatusDictionary::STATUS_NOT_APPLIED)
+                            ->orderBy('m.name', 'ASC');
+                    },
+                    'choice_label' => 'name',
+                    'expanded'     => false,
+                    'multiple'     => true,
+                    'attr'         => [
+                        'class'            => 'selectpicker',
+                        'title'            => 'placeholder.multiple_select',
+                        'data-live-search' => true,
+                        'data-width'       => '450px',
+                    ],
+                    'choice_attr' => function (Mesurement $choice) {
+                        $name = $choice->getName();
+                        if (\mb_strlen($name) > 50) {
+                            $name =  \mb_substr($name, 0, 50) . '...';
+                        }
+
+                        return ['data-content' => $name];
+                    },
+                ]
+            );
+        });
     }
 
     /**

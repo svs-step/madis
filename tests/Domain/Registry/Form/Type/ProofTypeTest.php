@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
-use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Form\Type\ProofType;
 use App\Domain\Registry\Model;
 use App\Domain\User\Model as UserModel;
@@ -35,13 +34,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class ProofTypeTest extends FormTypeHelper
 {
     /**
-     * @var UserProvider
+     * @var Security
      */
-    private $userProviderProphecy;
+    private $security;
 
     /**
      * @var ProofType
@@ -50,16 +50,16 @@ class ProofTypeTest extends FormTypeHelper
 
     protected function setUp(): void
     {
-        $this->userProviderProphecy = $this->prophesize(UserProvider::class);
+        $this->security = $this->prophesize(Security::class);
 
         $this->sut = new ProofType(
-            $this->userProviderProphecy->reveal()
+            $this->security->reveal()
         );
 
         $user         = new UserModel\User();
         $collectivity = new UserModel\Collectivity();
         $user->setCollectivity($collectivity);
-        $this->userProviderProphecy->getAuthenticatedUser()->willReturn($user);
+        $this->security->getUser()->willReturn($user);
 
         parent::setUp();
     }
@@ -91,7 +91,7 @@ class ProofTypeTest extends FormTypeHelper
 
         $this->sut->buildForm(
             $this->prophesizeBuilder($builder),
-            []
+            ['data' => new Model\Proof()]
         );
     }
 

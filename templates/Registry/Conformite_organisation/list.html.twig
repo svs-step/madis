@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        {% if not is_granted('ROLE_ADMIN') %}
+        {% if not is_granted('ROLE_REFERENT') %}
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box box-solid">
@@ -118,7 +118,7 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            {% if is_granted('ROLE_ADMIN') %}
+                            {% if is_granted('ROLE_REFERENT') %}
                                 <th>{{ 'registry.conformite_organisation.list.collectivite'|trans }}</th>
                             {% endif %}
                             <th>{{ 'registry.conformite_organisation.list.date_creation'|trans }}</th>
@@ -130,7 +130,7 @@
                         <tbody>
                         {% for evaluation in evaluations %}
                             <tr>
-                                {% if is_granted('ROLE_ADMIN') %}
+                                {% if is_granted('ROLE_REFERENT') %}
                                     <td>{{ evaluation.collectivity.name }}</td>
                                 {% endif %}
                                 <td>{% if evaluation.date is not null %}{{ evaluation.date|date('d/m/Y') }}{% endif %}</td>

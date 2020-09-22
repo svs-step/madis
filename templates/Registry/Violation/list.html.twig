@@ -6,7 +6,9 @@
 {% block title %}{{ 'registry.violation.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+
 {% endblock %}
 
 {% block body_head %}
@@ -39,10 +41,12 @@
                         {{ 'registry.violation.action.new'|trans }}
                     </a>
                     {% endif %}
+                    {% if app.user.roles[0] != 'ROLE_REFERENT' %}
                     <a href="{{ path('registry_violation_report') }}" class="btn btn-default">
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.violation.action.report'|trans }}
                     </a>
+                    {% endif %}
                     {% if app.request.query.get('archive') == 'true' %}
                         <a href="{{ path('registry_violation_list', {'archive' : 'false'}) }}" class="btn btn-default">
                             <i class="fa fa-trash"></i>
@@ -66,47 +70,48 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <th>{{ 'registry.violation.list.collectivity'|trans }}</th>
-                            {% endif %}
+                            <th>
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="datepicker form-control" type="text" id="search_date" placeholder="Date de violation" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_nature" style="width: 100%;">
+                                    <option value="">Nature</option>
+                                    {% for key, subject in dictionary('registry_violation_nature') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_cause" style="width: 100%;">
+                                    <option value="">Cause</option>
+                                    {% for key, subject in dictionary('registry_violation_cause') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_gravity" style="width: 100%;">
+                                    <option value="">Gravité</option>
+                                    {% for key, subject in dictionary('registry_violation_gravity') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        <tr>
+                            <th>{{ 'registry.violation.list.collectivity'|trans }}</th>
                             <th>{{ 'registry.violation.list.date'|trans }}</th>
                             <th>{{ 'registry.violation.list.violation_nature'|trans }}</th>
                             <th>{{ 'registry.violation.list.cause'|trans }}</th>
                             <th>{{ 'registry.violation.list.gravity'|trans }}</th>
-                            {% if is_granted('ROLE_USER') and 'true' != app.request.get('archive') %}
-                                <th>{{ 'label.actions'|trans }}</th>
-                            {% endif %}
+                            <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        {% for object in objects %}
-                        <tr>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <td>{{ object.collectivity }}</td>
-                            {% endif %}
-                            <td>
-                                <a href="{{ path('registry_violation_show', { 'id':object.id }) }}">
-                                    {{ object.date|date('d/m/Y') }}
-                                </a>
-                            </td>
-                            <td>{{ object.violationNature|dictionary('registry_violation_nature') }}</td>
-                            <td>{{ object.cause|dictionary('registry_violation_cause') }}</td>
-                            <td>{{ object.gravity|dictionary('registry_violation_gravity') }}</td>
-                            {% if is_granted('ROLE_USER') and object.deletedAt is null %}
-                                <td>
-                                    <a href="{{ path('registry_violation_edit', { 'id': object.id }) }}">
-                                        <i class="fa fa-pencil-alt"></i>
-                                        {{ 'action.edit'|trans }}
-                                    </a>
-                                    <a href="{{ path('registry_violation_delete', { 'id': object.id }) }}">
-                                        <i class="fa fa-trash"></i>
-                                        {{ 'action.archive'|trans }}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        </tr>
-                        {% endfor %}
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -115,5 +120,70 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ include('_Utils/_datatable.html.twig') }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set collectivityIsVisible = false %}
+    {% set collectivityClassname = "noVis" %}
+    {% set actionIsVisible = false %}
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set collectivityIsVisible = true %}
+        {% set collectivityClassname = "" %}
+    {% endif %}
+
+    {% if is_granted('ROLE_USER') and 'true' != app.request.get('archive') %}
+        {% set actionIsVisible = true %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
+            {"data": "date"},
+            {"data": "nature"},
+            {"data": "cause"},
+            {"data": "gravity"},
+            {"data": "actions", "className": "noVis", "orderable": false, "visible": actionIsVisible},
+        ],
+    } %}
+
+    {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_collectivite').off('keyup');
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+
+            $('#search_date').off('change');
+            $('#search_date').change(function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            });
+
+            $('#search_nature').off('change');
+            $('#search_nature').change(function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            });
+
+            $('#search_cause').off('change');
+            $('#search_cause').change(function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            });
+
+            $('#search_gravity').off('change');
+            $('#search_gravity').change(function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
+
 {% endblock %}

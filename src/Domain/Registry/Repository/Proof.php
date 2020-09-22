@@ -25,9 +25,10 @@ declare(strict_types=1);
 namespace App\Domain\Registry\Repository;
 
 use App\Application\DDD\Repository\RepositoryInterface;
+use App\Application\Doctrine\Repository\DataTablesRepository;
 use App\Domain\User\Model\Collectivity;
 
-interface Proof extends RepositoryInterface
+interface Proof extends RepositoryInterface, DataTablesRepository
 {
     /**
      * Insert an object.
@@ -94,16 +95,6 @@ interface Proof extends RepositoryInterface
     public function findBy(array $criteria = []);
 
     /**
-     * Find all proofs.
-     *
-     * @param bool  $archived Get all archived or not
-     * @param array $order    Order results
-     *
-     * @return array The array of proofs
-     */
-    public function findAllArchived(bool $archived = false, array $order = []);
-
-    /**
      * Find all active proofs by associated collectivity.
      *
      * @param Collectivity $collectivity The collectivity to search with
@@ -129,12 +120,12 @@ interface Proof extends RepositoryInterface
      *
      * @return string The average
      */
-    public function averageProofFiled();
+    public function averageProofFiled(array $collectivities = []);
 
     /**
      * Average balance sheet proof created during the last year.
      *
      * @return string The count of mesurements
      */
-    public function averageBalanceSheetProof();
+    public function averageBalanceSheetProof(array $collectivities = []);
 }

@@ -28,9 +28,10 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class UserRoleDictionary extends SimpleDictionary
 {
-    const ROLE_PREVIEW = 'ROLE_PREVIEW';
-    const ROLE_USER    = 'ROLE_USER';
-    const ROLE_ADMIN   = 'ROLE_ADMIN';
+    const ROLE_PREVIEW  = 'ROLE_PREVIEW';
+    const ROLE_USER     = 'ROLE_USER';
+    const ROLE_ADMIN    = 'ROLE_ADMIN';
+    const ROLE_REFERENT = 'ROLE_REFERENT';
 
     public function __construct()
     {
@@ -45,9 +46,10 @@ class UserRoleDictionary extends SimpleDictionary
     public static function getRoles()
     {
         return [
-            self::ROLE_PREVIEW => 'Lecteur',
-            self::ROLE_USER    => 'Gestionnaire',
-            self::ROLE_ADMIN   => 'Administrateur',
+            self::ROLE_PREVIEW  => 'Lecteur',
+            self::ROLE_USER     => 'Gestionnaire',
+            self::ROLE_ADMIN    => 'Administrateur',
+            self::ROLE_REFERENT => 'Référent multi-collectivité',
         ];
     }
 

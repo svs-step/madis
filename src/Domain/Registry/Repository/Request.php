@@ -25,9 +25,10 @@ declare(strict_types=1);
 namespace App\Domain\Registry\Repository;
 
 use App\Application\DDD\Repository\RepositoryInterface;
+use App\Application\Doctrine\Repository\DataTablesRepository;
 use App\Domain\User\Model\Collectivity;
 
-interface Request extends RepositoryInterface
+interface Request extends RepositoryInterface, DataTablesRepository
 {
     /**
      * Insert an object.

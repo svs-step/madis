@@ -6,7 +6,8 @@
 {% block title %}{{ 'registry.contractor.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
 {% endblock %}
 
 {% block body_head %}
@@ -30,10 +31,12 @@
                         {{ 'registry.contractor.action.new'|trans }}
                     </a>
                     {% endif %}
+                    {% if app.user.roles[0] != 'ROLE_REFERENT' %}
                     <a href="{{ path('registry_contractor_report') }}" class="btn btn-default">
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.contractor.action.report'|trans }}
                     </a>
+                    {% endif %}
                 </div>
             </div>
 
@@ -46,75 +49,51 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>
+                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_clauses" style="width: 100%;">
+                                    <option value="">Clauses</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_adoption" style="width: 100%;">
+                                    <option value="">Sécurité</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_registre" style="width: 100%;">
+                                    <option value="">Registre</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_hors_eu" style="width: 100%;">
+                                    <option value="">Hors UE</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                        </tr>
+                        <tr>
                             <th>{{ 'registry.contractor.list.name'|trans }}</th>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <th>{{ 'registry.contractor.list.collectivity'|trans }}</th>
-                            {% endif %}
+                            <th>{{ 'registry.contractor.list.collectivity'|trans }}</th>
                             <th>{{ 'registry.contractor.list.contractual_clauses_verified'|trans }}</th>
                             <th>{{ 'registry.contractor.list.adopted_security_features'|trans }}</th>
                             <th>{{ 'registry.contractor.list.maintains_treatment_register'|trans }}</th>
                             <th>{{ 'registry.contractor.list.sending_data_outside_eu'|trans }}</th>
-                            {% if is_granted('ROLE_USER') %}
-                                <th>{{ 'label.actions'|trans }}</th>
-                            {% endif %}
+                            <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        {% for object in objects %}
-                        <tr>
-                            <td>
-                                <a href="{{ path('registry_contractor_show', {'id': object.id}) }}">
-                                    {{ object.name }}
-                                </a>
-                            </td>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <td>{{ object.collectivity }}</td>
-                            {% endif %}
-                            <td>
-                                {% if object.contractualClausesVerified %}
-                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
-                                {% else %}
-                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if object.adoptedSecurityFeatures %}
-                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
-                                {% else %}
-                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if object.maintainsTreatmentRegister %}
-                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
-                                {% else %}
-                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if object.sendingDataOutsideEu %}
-                                    <span class="label label-danger">{{ 'label.yes'|trans }}</span>
-                                {% else %}
-                                    <span class="label label-success">{{ 'label.no'|trans }}</span>
-                                {% endif %}
-                            </td>
-                            {% if is_granted('ROLE_USER') %}
-                                <td>
-                                    <a href="{{ path('registry_contractor_edit', { 'id': object.id }) }}">
-                                        <i class="fa fa-pencil-alt"></i>
-                                        {{ 'action.edit'|trans }}
-                                    </a>
-                                    {% if object.treatments|length == 0 %}
-                                    <a href="{{ path('registry_contractor_delete', { 'id': object.id }) }}">
-                                        <i class="fa fa-trash"></i>
-                                        {{ 'action.delete'|trans }}
-                                    </a>
-                                    {% endif %}
-                                </td>
-                            {% endif %}
-                        </tr>
-                        {% endfor %}
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -123,5 +102,77 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ include('_Utils/_datatable.html.twig') }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set collectivityIsVisible = false %}
+    {% set collectivityClassname = "noVis" %}
+    {% set actionIsVisible = true %}
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set collectivityIsVisible = true %}
+        {% set collectivityClassname = "" %}
+    {% endif %}
+    {% if not is_granted('ROLE_USER') %}
+        {% set actionIsVisible = false %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "nom", "className": "noVis"},
+            {"data": "collectivite", "visible": collectivityIsVisible, "className": collectivityClassname},
+            {"data": "clauses_contractuelles"},
+            {"data": "element_securite"},
+            {"data": "registre_traitements"},
+            {"data": "donnees_hors_eu"},
+            {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
+        ],
+        order:  [
+            [0, 'asc' ]
+        ],
+    } %}
+
+    {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_nom').off('keyup');
+            $('#search_nom').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+
+            $('#search_collectivite').off('keyup');
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+
+            $('#search_clauses').off('change');
+            $('#search_clauses').change(function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            });
+
+            $('#search_adoption').off('change');
+            $('#search_adoption').change(function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            });
+
+            $('#search_registre').off('change');
+            $('#search_registre').change(function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            });
+
+            $('#search_hors_eu').off('change');
+            $('#search_hors_eu').change(function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
 {% endblock %}

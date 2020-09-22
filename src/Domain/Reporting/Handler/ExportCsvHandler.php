@@ -24,13 +24,17 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Handler;
 
 use App\Domain\Reporting\Generator\Csv\CollectivityGenerator;
+use App\Domain\Reporting\Generator\Csv\ContractorGenerator;
+use App\Domain\Reporting\Generator\Csv\MesurementGenerator;
 use App\Domain\Reporting\Generator\Csv\TreatmentGenerator;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ExportCsvHandler
 {
     const COLLECTIVITY_TYPE = 'collectivity';
+    const CONTRACTOR_TYPE   = 'contractor';
     const TREATMENT_TYPE    = 'treatment';
+    const MESUREMENT_TYPE   = 'mesurement';
 
     /**
      * @var CollectivityGenerator
@@ -38,14 +42,30 @@ class ExportCsvHandler
     private $collectivityGenerator;
 
     /**
+     * @var ContractorGenerator
+     */
+    private $contractorGenerator;
+
+    /**
      * @var TreatmentGenerator
      */
     private $treatmentGenerator;
 
-    public function __construct(CollectivityGenerator $collectivityGenerator, TreatmentGenerator $treatmentGenerator)
-    {
+    /**
+     * @var MesurementGenerator
+     */
+    private $mesurementGenerator;
+
+    public function __construct(
+        CollectivityGenerator $collectivityGenerator,
+        ContractorGenerator $contractorGenerator,
+        TreatmentGenerator $treatmentGenerator,
+        MesurementGenerator $mesurementGenerator
+    ) {
         $this->collectivityGenerator = $collectivityGenerator;
+        $this->contractorGenerator   = $contractorGenerator;
         $this->treatmentGenerator    = $treatmentGenerator;
+        $this->mesurementGenerator   = $mesurementGenerator;
     }
 
     public function generateCsv(string $type): BinaryFileResponse
@@ -54,8 +74,14 @@ class ExportCsvHandler
             case self::COLLECTIVITY_TYPE:
                 return $this->collectivityGenerator->generateResponse(self::COLLECTIVITY_TYPE);
                 break;
+            case self::CONTRACTOR_TYPE:
+                return $this->contractorGenerator->generateResponse(self::CONTRACTOR_TYPE);
+                break;
             case self::TREATMENT_TYPE:
                 return $this->treatmentGenerator->generateResponse(self::TREATMENT_TYPE);
+                break;
+            case self::MESUREMENT_TYPE:
+                return $this->mesurementGenerator->generateResponse(self::MESUREMENT_TYPE);
                 break;
             default:
                 throw new \LogicException('The type ' . $type . ' is not support for csv export');

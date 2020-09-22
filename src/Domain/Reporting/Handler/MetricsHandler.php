@@ -63,6 +63,7 @@ class MetricsHandler
 
         switch ($role) {
             case UserRoleDictionary::ROLE_ADMIN:
+            case UserRoleDictionary::ROLE_REFERENT:
                 return $this->adminMetric;
                 break;
             default:

@@ -24,15 +24,22 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\ORM\Registry\Repository;
 
+use App\Application\Traits\RepositoryUtils;
+use App\Domain\Registry\Dictionary\ViolationCauseDictionary;
+use App\Domain\Registry\Dictionary\ViolationGravityDictionary;
+use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 class Violation implements Repository\Violation
 {
+    use RepositoryUtils;
     /**
      * @var ManagerRegistry
      */
@@ -271,24 +278,6 @@ class Violation implements Repository\Violation
      *
      * @throws \Exception
      */
-    public function findAllArchived(bool $archived = false, array $order = [])
-    {
-        $qb = $this->createQueryBuilder();
-
-        $this->addArchivedClause($qb, $archived);
-        $this->addOrder($qb, $order);
-
-        return $qb
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @throws \Exception
-     */
     public function findAllArchivedByCollectivity(Collectivity $collectivity, bool $archived = false, array $order = [])
     {
         $qb = $this->createQueryBuilder();
@@ -328,5 +317,128 @@ class Violation implements Repository\Violation
         $qb->setMaxResults(1);
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function count(array $criteria = [])
+    {
+        $qb = $this
+                ->createQueryBuilder()
+                ->select('count(o.id)')
+            ;
+
+        if (\array_key_exists('archive', $criteria)) {
+            $this->addArchivedClause($qb, $criteria['archive']);
+            unset($criteria['archive']);
+        }
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $qb->leftJoin('o.collectivity', 'collectivite');
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        return $qb
+                ->getQuery()
+                ->getSingleScalarResult()
+                ;
+    }
+
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        if (\array_key_exists('archive', $criteria)) {
+            $this->addArchivedClause($qb, $criteria['archive']);
+            unset($criteria['archive']);
+        }
+
+        $qb->leftJoin('o.collectivity', 'collectivite')
+            ->addSelect('collectivite');
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        $this->addTableOrder($qb, $orderColumn, $orderDir);
+        $this->addTableWhere($qb, $searches);
+
+        $query = $qb->getQuery();
+        $query->setFirstResult($firstResult);
+        $query->setMaxResults($maxResults);
+
+        return new Paginator($query);
+    }
+
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'collectivite':
+                $queryBuilder->addOrderBy('collectivite.name', $orderDir);
+                break;
+            case 'date':
+                $queryBuilder->addOrderBy('o.date', $orderDir);
+                break;
+            case 'nature':
+                $queryBuilder->addSelect('(case
+                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_INTEGRITY . '\' THEN 1
+                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_CONFIDENTIALITY . '\' THEN 2
+                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_AVAILABILITY . '\' THEN 3
+                ELSE 4 END) AS HIDDEN hidden_violation_nature')
+                    ->addOrderBy('hidden_violation_nature', $orderDir);
+                break;
+            case 'cause':
+                $queryBuilder->addSelect('(case
+                WHEN o.cause = \'' . ViolationCauseDictionary::CAUSE_EXTERNAL_ACCIDENTAL . '\' THEN 1
+                WHEN o.cause = \'' . ViolationCauseDictionary::CAUSE_EXTERNAL_MALICIOUS . '\' THEN 2
+                WHEN o.cause = \'' . ViolationCauseDictionary::CAUSE_INTERNAL_ACCIDENTAL . '\' THEN 3
+                WHEN o.cause = \'' . ViolationCauseDictionary::CAUSE_INTERNAL_MALICIOUS . '\' THEN 4
+                WHEN o.cause = \'' . ViolationCauseDictionary::CAUSE_UNKNOWN . '\' THEN 5
+                ELSE 6 END) AS HIDDEN hidden_cause')
+                    ->addOrderBy('hidden_cause', $orderDir);
+                break;
+            case 'gravity':
+                $queryBuilder->addSelect('(case
+                WHEN o.gravity = \'' . ViolationGravityDictionary::GRAVITY_IMPORTANT . '\' THEN 1
+                WHEN o.gravity = \'' . ViolationGravityDictionary::GRAVITY_LIMITED . '\' THEN 2
+                WHEN o.gravity = \'' . ViolationGravityDictionary::GRAVITY_MAXIMUM . '\' THEN 3
+                WHEN o.gravity = \'' . ViolationGravityDictionary::GRAVITY_NEGLIGIBLE . '\' THEN 4
+                ELSE 4 END) AS HIDDEN hidden_gravity')
+                    ->addOrderBy('hidden_gravity', $orderDir);
+                break;
+        }
+    }
+
+    private function addTableWhere(QueryBuilder $queryBuilder, $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'collectivite':
+                    $queryBuilder->andWhere('collectivite.name LIKE :nom')
+                        ->setParameter('nom', '%' . $search . '%');
+                    break;
+                case 'date':
+                    $queryBuilder->andWhere('o.date LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'nature':
+                    $this->addWhereClause($queryBuilder, 'violationNature', $search);
+                    break;
+                case 'cause':
+                    $this->addWhereClause($queryBuilder, 'cause', $search);
+                    break;
+                case 'gravity':
+                    $this->addWhereClause($queryBuilder, 'gravity', $search);
+                    break;
+            }
+        }
     }
 }

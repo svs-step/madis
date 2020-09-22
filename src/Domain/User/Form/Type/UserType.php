@@ -96,6 +96,23 @@ class UserType extends AbstractType
                     'label'    => 'user.user.form.enabled',
                     'required' => false,
                 ])
+                ->add('collectivitesReferees', EntityType::class, [
+                    'class'         => Collectivity::class,
+                    'label'         => 'user.user.form.collectivitesReferees',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('c')
+                            ->orderBy('c.name', 'ASC');
+                    },
+                    'required' => false,
+                    'multiple' => true,
+                    'expanded' => false,
+                    'attr'     => [
+                        'class'            => 'selectpicker',
+                        'title'            => 'placeholder.multiple_select',
+                        'data-live-search' => true,
+                        'data-width'       => '450px',
+                    ],
+                ])
             ;
 
             $builder

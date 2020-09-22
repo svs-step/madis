@@ -219,6 +219,13 @@ class SurveyControllerTest extends TestCase
             ->willReturn(false)
         ;
 
+        // Not granted
+        $this->authenticationCheckerProphecy
+            ->isGranted('ROLE_REFERENT')
+            ->shouldBeCalled()
+            ->willReturn(false)
+        ;
+
         $collectivity = $this->prophesize(Collectivity::class)->reveal();
         $userProphecy = $this->prophesize(User::class);
         $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($collectivity);

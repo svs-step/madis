@@ -146,6 +146,11 @@ class Collectivity implements LoggableSubject
     private $evaluations;
 
     /**
+     * @var iterable
+     */
+    private $userReferents;
+
+    /**
      * Collectivity constructor.
      *
      * @throws \Exception
@@ -161,6 +166,7 @@ class Collectivity implements LoggableSubject
         $this->hasModuleConformiteTraitement   = false;
         $this->hasModuleConformiteOrganisation = false;
         $this->evaluations                     = [];
+        $this->userReferents                   = [];
     }
 
     public function getId(): UuidInterface
@@ -396,8 +402,8 @@ class Collectivity implements LoggableSubject
         return $this->evaluations;
     }
 
-    public function setEvaluations(iterable $evaluations): void
+    public function getUserReferents(): iterable
     {
-        $this->evaluations = $evaluations;
+        return $this->userReferents;
     }
 }

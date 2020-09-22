@@ -25,11 +25,14 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\Registry\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Application\Traits\RepositoryUtils;
 use App\Domain\Registry\Dictionary\MesurementPriorityDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -37,6 +40,8 @@ use Symfony\Component\Security\Core\Security;
 
 class Mesurement extends CRUDRepository implements Repository\Mesurement
 {
+    use RepositoryUtils;
+
     /**
      * @var Security
      */
@@ -54,19 +59,6 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
     protected function getModelClass(): string
     {
         return Model\Mesurement::class;
-    }
-
-    /**
-     * Add a where clause to query.
-     *
-     * @param mixed $value
-     */
-    protected function addWhereClause(QueryBuilder $qb, string $key, $value, $operator = '='): QueryBuilder
-    {
-        return $qb
-            ->andWhere("o.{$key} $operator :{$key}_value")
-            ->setParameter("{$key}_value", $value)
-        ;
     }
 
     /**
@@ -185,15 +177,24 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
     /**
      * {@inheritdoc}
      */
-    public function planifiedAverageOnAllCollectivity()
+    public function planifiedAverageOnAllCollectivity($collectivities)
     {
         $sql = 'SELECT AVG(a.rcount) FROM (
             SELECT COUNT(rm.id) as rcount
             FROM user_collectivity uc
             LEFT OUTER JOIN registry_mesurement rm ON (uc.id = rm.collectivity_id AND rm.planification_date is not null
             AND rm.status = "applied" )
-            WHERE uc.active = 1
-            GROUP BY uc.id
+            WHERE uc.active = 1';
+
+        if (!empty($collectivities)) {
+            $sql .= ' AND uc.id IN (';
+            $sql .= \implode(',', \array_map(function ($collectivity) {
+                return '\'' . $collectivity->getId() . '\'';
+            }, $collectivities));
+            $sql .= ') ';
+        }
+
+        $sql .= ' GROUP BY uc.id
         ) a';
 
         $stmt = $this->getManager()->getConnection()->prepare($sql);
@@ -208,6 +209,17 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ->createQueryBuilder()
             ->select('count(o.id)')
         ;
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $qb->leftJoin('o.collectivity', 'collectivite');
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
+        if (isset($criteria['planificationDate']) && 'null' === $criteria['planificationDate']) {
+            $qb->andWhere($qb->expr()->isNotNull('o.planificationDate'));
+            unset($criteria['planificationDate']);
+        }
 
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
@@ -225,6 +237,16 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
 
         $query->leftJoin('o.collectivity', 'collectivite')
             ->addSelect('collectivite');
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $this->addInClauseCollectivities($query, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
+        if (isset($criteria['planificationDate']) && 'null' === $criteria['planificationDate']) {
+            $query->andWhere($query->expr()->isNotNull('o.planificationDate'));
+            unset($criteria['planificationDate']);
+        }
 
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($query, $key, $value);
@@ -262,6 +284,13 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
                 case 'priorite':
                     $this->addWhereClause($queryBuilder, 'priority', $search);
                     break;
+                case 'date_planification':
+                    $queryBuilder->andWhere('o.planificationDate LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'responsable_action':
+                    $this->addWhereClause($queryBuilder, 'manager', '%' . $search . '%', 'LIKE');
+                    break;
             }
         }
     }
@@ -292,6 +321,38 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
                 ELSE 4 END) AS HIDDEN hidden_priority')
                     ->addOrderBy('hidden_priority', $orderDir);
                 break;
+            case 'date_planification':
+                $queryBuilder->addOrderBy('o.planificationDate', $orderDir);
+                break;
+            case 'responsable_action':
+                $queryBuilder->addOrderBy('o.manager', $orderDir);
+                break;
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllByActiveCollectivity(bool $active = true, User $user = null)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->leftJoin('o.collectivity', 'c')
+            ->andWhere($qb->expr()->eq('c.active', ':active'))
+            ->setParameter('active', $active)
+            ->addOrderBy('c.name')
+            ->addOrderBy('o.createdAt', 'DESC')
+        ;
+
+        if (null !== $user) {
+            $qb->leftJoin('c.userReferents', 'u')
+                ->andWhere('u.id = :user')
+                ->setParameter('user', $user);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
     }
 }

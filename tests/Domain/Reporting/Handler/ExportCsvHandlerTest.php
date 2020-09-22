@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Reporting\Handler;
 
 use App\Domain\Reporting\Generator\Csv\CollectivityGenerator;
+use App\Domain\Reporting\Generator\Csv\ContractorGenerator;
+use App\Domain\Reporting\Generator\Csv\MesurementGenerator;
 use App\Domain\Reporting\Generator\Csv\TreatmentGenerator;
 use App\Domain\Reporting\Handler\ExportCsvHandler;
 use PHPUnit\Framework\TestCase;
@@ -37,9 +39,19 @@ class ExportCsvHandlerTest extends TestCase
     private $collectivityGenerator;
 
     /**
+     * @var ContractorGenerator
+     */
+    private $contractorGenerator;
+
+    /**
      * @var TreatmentGenerator
      */
     private $treatmentGenerator;
+
+    /**
+     * @var MesurementGenerator
+     */
+    private $mesurementGenerator;
 
     /**
      * @var ExportCsvHandler
@@ -49,26 +61,25 @@ class ExportCsvHandlerTest extends TestCase
     protected function setUp()
     {
         $this->collectivityGenerator = $this->prophesize(CollectivityGenerator::class);
+        $this->contractorGenerator   = $this->prophesize(ContractorGenerator::class);
         $this->treatmentGenerator    = $this->prophesize(TreatmentGenerator::class);
+        $this->mesurementGenerator   = $this->prophesize(MesurementGenerator::class);
 
         $this->handler = new ExportCsvHandler(
             $this->collectivityGenerator->reveal(),
-            $this->treatmentGenerator->reveal()
+            $this->contractorGenerator->reveal(),
+            $this->treatmentGenerator->reveal(),
+            $this->mesurementGenerator->reveal()
         );
     }
 
-    public function testItReturnAnBinaryResponseOnCollectivityType()
+    /**
+     * @dataProvider typesProvider
+     */
+    public function testItReturnAnBinaryResponseOnType(string $generator, string $type)
     {
-        $this->collectivityGenerator->generateResponse(ExportCsvHandler::COLLECTIVITY_TYPE)->shouldBeCalled()->willReturn($this->prophesize(BinaryFileResponse::class));
-        $response = $this->handler->generateCsv(ExportCsvHandler::COLLECTIVITY_TYPE);
-
-        $this->assertInstanceOf(BinaryFileResponse::class, $response);
-    }
-
-    public function testItReturnAnBinaryResponseOnTreatmentType()
-    {
-        $this->treatmentGenerator->generateResponse(ExportCsvHandler::TREATMENT_TYPE)->shouldBeCalled()->willReturn($this->prophesize(BinaryFileResponse::class));
-        $response = $this->handler->generateCsv(ExportCsvHandler::TREATMENT_TYPE);
+        $this->$generator->generateResponse($type)->shouldBeCalled()->willReturn($this->prophesize(BinaryFileResponse::class));
+        $response = $this->handler->generateCsv($type);
 
         $this->assertInstanceOf(BinaryFileResponse::class, $response);
     }
@@ -79,5 +90,15 @@ class ExportCsvHandlerTest extends TestCase
         $this->expectExceptionMessage('The type foo is not support for csv export');
 
         $this->handler->generateCsv('foo');
+    }
+
+    public function typesProvider()
+    {
+        return [
+            ['collectivityGenerator', ExportCsvHandler::COLLECTIVITY_TYPE],
+            ['treatmentGenerator', ExportCsvHandler::TREATMENT_TYPE],
+            ['contractorGenerator', ExportCsvHandler::CONTRACTOR_TYPE],
+            ['mesurementGenerator', ExportCsvHandler::MESUREMENT_TYPE],
+        ];
     }
 }

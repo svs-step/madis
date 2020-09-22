@@ -33,6 +33,7 @@ use App\Domain\Registry\Form\Type\MesurementType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model as UserModel;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -40,6 +41,7 @@ use Knp\Snappy\Pdf;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -84,6 +86,11 @@ class MesurementController extends CRUDController
      */
     protected $router;
 
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -94,7 +101,8 @@ class MesurementController extends CRUDController
         UserProvider $userProvider,
         FormFactoryInterface $formFactory,
         RouterInterface $router,
-        Pdf $pdf
+        Pdf $pdf,
+        RequestStack $requestStack
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf);
         $this->collectivityRepository = $collectivityRepository;
@@ -103,6 +111,7 @@ class MesurementController extends CRUDController
         $this->userProvider           = $userProvider;
         $this->formFactory            = $formFactory;
         $this->router                 = $router;
+        $this->requestStack           = $requestStack;
     }
 
     /**
@@ -142,19 +151,18 @@ class MesurementController extends CRUDController
      */
     protected function getListData()
     {
-        $criteria = [];
-
-        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-        }
+        $request  = $this->requestStack->getCurrentRequest();
+        $criteria = $this->getRequestCriteria($request);
 
         return $this->repository->findBy($criteria);
     }
 
     public function listAction(): Response
     {
+        $request = $this->requestStack->getCurrentRequest();
+
         return $this->render($this->getTemplatingBasePath('list'), [
-            'totalItem' => $this->repository->count($this->getRequestCriteria()),
+            'totalItem' => $this->repository->count($this->getRequestCriteria($request)),
             'route'     => $this->router->generate('registry_mesurement_list_datatables'),
         ]);
     }
@@ -182,17 +190,14 @@ class MesurementController extends CRUDController
      */
     public function actionPlanAction()
     {
-        $criteria = [
-            'status' => MesurementStatusDictionary::STATUS_NOT_APPLIED,
-        ];
-
+        $request = $this->requestStack->getCurrentRequest();
         // Since we have to display planified & not-applied mesurement, filter
-        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-        }
+        $criteria = $this->getRequestCriteria($request);
+        $criteria = $criteria + ['status' => MesurementStatusDictionary::STATUS_NOT_APPLIED];
 
         return $this->render('Registry/Mesurement/action_plan.html.twig', [
-            'objects' => $this->repository->findByPlanified($criteria),
+            'totalItem' => $this->repository->count($criteria),
+            'route'     => $this->router->generate('registry_mesurement_list_datatables', ['action_plan' => true]),
         ]);
     }
 
@@ -283,12 +288,21 @@ class MesurementController extends CRUDController
         ]);
     }
 
-    private function getRequestCriteria()
+    private function getRequestCriteria(Request $request)
     {
         $criteria = [];
+        $user     = $this->userProvider->getAuthenticatedUser();
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+            $criteria['collectivity'] = $user->getCollectivity();
+        }
+
+        if (\in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
+            $criteria['collectivity'] = $user->getCollectivitesReferees();
+        }
+
+        if ($request->query->getBoolean('action_plan')) {
+            $criteria['planificationDate'] = 'null';
         }
 
         return $criteria;
@@ -296,6 +310,22 @@ class MesurementController extends CRUDController
 
     protected function getLabelAndKeysArray(): array
     {
+        $request      = $this->requestStack->getCurrentRequest();
+        $isActionPlan = $request->query->getBoolean('action_plan');
+
+        if ($isActionPlan) {
+            return  [
+                0 => 'nom',
+                1 => 'collectivite',
+                2 => 'date_planification',
+                3 => 'cout',
+                4 => 'charge',
+                5 => 'responsable_action',
+                6 => 'priorite',
+                7 => 'actions',
+            ];
+        }
+
         return [
             0 => 'nom',
             1 => 'collectivite',
@@ -309,20 +339,25 @@ class MesurementController extends CRUDController
 
     public function listDataTables(Request $request)
     {
-        $criteria = $this->getRequestCriteria();
+        $criteria = $this->getRequestCriteria($request);
         $actions  = $this->getResults($request, $criteria);
         $reponse  = $this->getBaseDataTablesResponse($request, $actions, $criteria);
+
+        $request      = $this->requestStack->getCurrentRequest();
+        $isActionPlan = $request->query->getBoolean('action_plan');
 
         /** @var Model\Mesurement $action */
         foreach ($actions as $action) {
             $reponse['data'][] = [
-                'nom'          => $this->generateShowLink($action),
-                'collectivite' => $action->getCollectivity()->getName(),
-                'statut'       => MesurementStatusDictionary::getStatus()[$action->getStatus()],
-                'cout'         => $action->getCost(),
-                'charge'       => $action->getCharge(),
-                'priorite'     => MesurementPriorityDictionary::getPriorities()[$action->getPriority()],
-                'actions'      => $this->generateActionCell($action),
+                'nom'                => !$isActionPlan ? $this->generateShowLink($action) : $action->getName(),
+                'collectivite'       => $action->getCollectivity()->getName(),
+                'statut'             => MesurementStatusDictionary::getStatus()[$action->getStatus()],
+                'cout'               => $action->getCost(),
+                'charge'             => $action->getCharge(),
+                'priorite'           => !\is_null($action->getPriority()) ? MesurementPriorityDictionary::getPriorities()[$action->getPriority()] : null,
+                'date_planification' => !\is_null($action->getPlanificationDate()) ? \date_format($action->getPlanificationDate(), 'd/m/Y') : null,
+                'responsable_action' => $action->getManager(),
+                'actions'            => $this->generateActionCell($action, $isActionPlan),
             ];
         }
 
@@ -339,8 +374,16 @@ class MesurementController extends CRUDController
             '">' . $mesurement->getName() . '</a>';
     }
 
-    private function generateActionCell(Model\Mesurement $mesurement)
+    private function generateActionCell(Model\Mesurement $mesurement, bool $isActionPlan = false)
     {
+        if ($isActionPlan) {
+            return '<a href="' .
+                $this->router->generate('registry_mesurement_show', ['id' => $mesurement->getId()]) . '">
+                <i class="fa fa-pencil-alt"></i> ' .
+                $this->translator->trans('registry.mesurement.action.show_mesurement')
+                . '</a>';
+        }
+
         return '<a href="' .
             $this->router->generate('registry_mesurement_edit', ['id' => $mesurement->getId()]) . '">
             <i class="fa fa-pencil-alt"></i>' .

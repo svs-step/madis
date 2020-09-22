@@ -18,6 +18,7 @@ services:
     App\Domain\Registry\Symfony\EventSubscriber\Kernel\ConformiteTraitementSubscriber: ~
     App\Domain\Registry\Symfony\EventSubscriber\Kernel\ConformiteOrganisationSubscriber: ~
     App\Domain\Reporting\Symfony\EventSubscriber\Kernel\LogJournalSubscriber: ~
+    App\Domain\User\Symfony\EventSubscriber\Kernel\SwitchUserSubscriber: ~
 
     # ========
     # DOCTRINE

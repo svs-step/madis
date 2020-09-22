@@ -6,7 +6,9 @@
 {% block title %}{{ 'registry.request.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+
 {% endblock %}
 
 {% block body_head %}
@@ -39,10 +41,12 @@
                         {{ 'registry.request.action.new'|trans }}
                     </a>
                     {% endif %}
+                    {% if app.user.roles[0] != 'ROLE_REFERENT' %}
                     <a href="{{ path('registry_request_report') }}" class="btn btn-default">
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.request.action.report'|trans }}
                     </a>
+                    {% endif %}
                     {% if app.request.query.get('archive') == 'true' %}
                         <a href="{{ path('registry_request_list', {'archive' : 'false'}) }}" class="btn btn-default">
                             <i class="fa fa-trash"></i>
@@ -67,9 +71,58 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <th>{{ 'registry.request.list.collectivity'|trans }}</th>
-                            {% endif %}
+                            <th>
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_personne_concernee" placeholder="Personne" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="datepicker form-control" type="text" id="search_date_demande" placeholder="Date" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_objet" style="width: 100%;">
+                                    <option value="">Objet</option>
+                                    {% for key, subject in dictionary('registry_request_object') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_complete" style="width: 100%;">
+                                    <option value="">Complète</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_demandeur" style="width: 100%;">
+                                    <option value="">Demandeur</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_legitime" style="width: 100%;">
+                                    <option value="">Légitime</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <input class="datepicker form-control" type="text" id="search_date_traitement" placeholder="Date" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_etat" style="width: 100%;">
+                                    <option value="">État</option>
+                                    {% for key, subject in dictionary('registry_request_state') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>{{ 'registry.request.list.collectivity'|trans }}</th>
                             <th>{{ 'registry.request.list.concerned_people'|trans }}</th>
                             <th>{{ 'registry.request.list.date'|trans }}</th>
                             <th>{{ 'registry.request.list.object'|trans }}</th>
@@ -78,66 +131,9 @@
                             <th>{{ 'registry.request.list.legitimate_request'|trans }}</th>
                             <th>{{ 'registry.request.list.answer_date'|trans }}</th>
                             <th>{{ 'registry.request.list.state'|trans }}</th>
-                            {% if is_granted('ROLE_USER') and 'true' != app.request.get('archive') %}
-                                <th>{{ 'label.actions'|trans }}</th>
-                            {% endif %}
+                            <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        {% for object in objects %}
-                        <tr>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <td>{{ object.collectivity }}</td>
-                            {% endif %}
-                            <td>
-                                <a href="{{ path('registry_request_show', {'id': object.id}) }}">
-                                    {% if object.applicant.concernedPeople or ' ' == object.concernedPeople.fullName %}
-                                        {{ object.applicant.fullName }}
-                                    {% else %}
-                                        {{ object.concernedPeople.fullName }}
-                                    {% endif %}
-                                </a>
-                            </td>
-                            <td>{{ object.date|date('d/m/Y') }}</td>
-                            <td>{{ object.object|dictionary('registry_request_object') }}</td>
-                            <td>
-                                {% if object.complete %}
-                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
-                                {% else %}
-                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if object.legitimateApplicant %}
-                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
-                                {% else %}
-                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if object.legitimateRequest %}
-                                    <span class="label label-success">{{ 'label.yes'|trans }}</span>
-                                {% else %}
-                                    <span class="label label-danger">{{ 'label.no'|trans }}</span>
-                                {% endif %}
-                            </td>
-                            <td>{% if object.answer.date is not null %}{{ object.answer.date|date('d/m/Y') }}{% endif %}</td>
-                            <td>{{ object.state|dictionary('registry_request_state') }}</td>
-                            {% if is_granted('ROLE_USER') and object.deletedAt is null %}
-                                <td>
-                                    <a href="{{ path('registry_request_edit', { 'id': object.id }) }}">
-                                        <i class="fa fa-pencil-alt"></i>
-                                        {{ 'action.edit'|trans }}
-                                    </a>
-                                    <a href="{{ path('registry_request_delete', { 'id': object.id }) }}">
-                                        <i class="fa fa-trash"></i>
-                                        {{ 'action.archive'|trans }}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        </tr>
-                        {% endfor %}
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -146,5 +142,91 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ include('_Utils/_datatable.html.twig') }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set actionsIsVisible = is_granted('ROLE_USER') and false == app.request.query.boolean('archive')  %}
+
+    {% set collectiviteIsVisible = false %}
+    {% set collectiviteClassname = "noVis" %}
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set collectiviteIsVisible = true %}
+        {% set collectiviteClassname = "" %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "collectivite", "visible": collectiviteIsVisible, "className": collectiviteClassname},
+            {"data": "personne_concernee"},
+            {"data": "date_demande"},
+            {"data": "objet_demande"},
+            {"data": "demande_complete"},
+            {"data": "demandeur_legitime"},
+            {"data": "demande_legitime"},
+            {"data": "date_traitement"},
+            {"data": "etat_demande"},
+            {"data": "actions", "visible": actionsIsVisible, "className": "noVis", "orderable": false},
+        ]
+    } %}
+
+    {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_collectivite').off('keyup');
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw();
+            }));
+
+            $('#search_personne_concernee').off('keyup');
+            $('#search_personne_concernee').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw();
+            }));
+
+            $('#search_date_demande').off('change');
+            $('#search_date_demande').change(function(){
+                oTable.column('2').search($(this).val()).draw();
+            });
+
+            $('#search_objet').off('change');
+            $('#search_objet').change(function(){
+                oTable.column('3').search($(this).val()).draw();
+            });
+
+            $('#search_complete').off('change');
+            $('#search_complete').change(function(){
+                oTable.column('4').search($(this).val()).draw();
+            });
+
+            $('#search_demandeur').off('change');
+            $('#search_demandeur').change(function(){
+                oTable.column('5').search($(this).val()).draw();
+            });
+
+            $('#search_legitime').off('change');
+            $('#search_legitime').change(function(){
+                oTable.column('6').search($(this).val()).draw();
+            });
+
+            $('#search_date_traitement').off('change');
+            $('#search_date_traitement').change(function(){
+                oTable.column('7').search($(this).val()).draw();
+            });
+
+            $('#search_etat').off('change');
+            $('#search_etat').change(function(){
+                oTable.column('8').search($(this).val()).draw();
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
 {% endblock %}
