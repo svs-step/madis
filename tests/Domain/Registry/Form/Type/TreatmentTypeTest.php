@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
-use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Form\Type\TreatmentType;
@@ -39,13 +38,14 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class TreatmentTypeTest extends FormTypeHelper
 {
     /**
-     * @var UserProvider
+     * @var Security
      */
-    private $userProviderProphecy;
+    private $security;
 
     /**
      * @var TreatmentType
@@ -54,10 +54,10 @@ class TreatmentTypeTest extends FormTypeHelper
 
     protected function setUp()
     {
-        $this->userProviderProphecy = $this->prophesize(UserProvider::class);
+        $this->security = $this->prophesize(Security::class);
 
         $this->formType = new TreatmentType(
-            $this->userProviderProphecy->reveal()
+            $this->security->reveal()
         );
     }
 
@@ -113,7 +113,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'ultimateFate'                      => DictionaryType::class,
         ];
 
-        $this->formType->buildForm($this->prophesizeBuilder($builder), []);
+        $this->formType->buildForm($this->prophesizeBuilder($builder), ['data' => 'foo']);
     }
 
     public function testConfigureOptions(): void

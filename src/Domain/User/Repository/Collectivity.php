@@ -25,9 +25,10 @@ declare(strict_types=1);
 namespace App\Domain\User\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
+use App\Application\Doctrine\Repository\DataTablesRepository;
 use App\Domain\User\Model;
 
-interface Collectivity extends CRUDRepositoryInterface
+interface Collectivity extends CRUDRepositoryInterface, DataTablesRepository
 {
     /**
      * {@inheritdoc}
@@ -61,4 +62,11 @@ interface Collectivity extends CRUDRepositoryInterface
      * @return Model\Collectivity[] The array of collectivity
      */
     public function findAllActive(bool $active = true, array $order = []);
+
+    /**
+     * Find all collectivity by.
+     *
+     * @return mixed
+     */
+    public function findByUserReferent(Model\User $userReferent, bool $active = true);
 }

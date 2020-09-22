@@ -26,18 +26,23 @@ namespace App\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Registry\Form\Type\ContractorType;
 use App\Domain\Registry\Model;
+use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model as UserModel;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -46,6 +51,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class ContractorController extends CRUDController
 {
+    use ServersideDatatablesTrait;
+
     /**
      * @var UserRepository\Collectivity
      */
@@ -66,6 +73,11 @@ class ContractorController extends CRUDController
      */
     protected $userProvider;
 
+    /**
+     * @var RouterInterface
+     */
+    protected $router;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -74,13 +86,15 @@ class ContractorController extends CRUDController
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
-        Pdf $pdf
+        Pdf $pdf,
+        RouterInterface $router
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf);
         $this->collectivityRepository = $collectivityRepository;
         $this->wordHandler            = $wordHandler;
         $this->authorizationChecker   = $authorizationChecker;
         $this->userProvider           = $userProvider;
+        $this->router                 = $router;
     }
 
     /**
@@ -113,6 +127,14 @@ class ContractorController extends CRUDController
     protected function getFormType(): string
     {
         return ContractorType::class;
+    }
+
+    public function listAction(): Response
+    {
+        return $this->render($this->getTemplatingBasePath('list'), [
+            'totalItem' => $this->repository->count($this->getRequestCriteria()),
+            'route'     => $this->router->generate('registry_contractor_list_datatables'),
+        ]);
     }
 
     /**
@@ -174,5 +196,82 @@ class ContractorController extends CRUDController
         }
 
         return new JsonResponse($responseData);
+    }
+
+    public function listDataTables(Request $request): JsonResponse
+    {
+        $criteria    = $this->getRequestCriteria();
+        $contractors = $this->getResults($request, $criteria);
+        $reponse     = $this->getBaseDataTablesResponse($request, $contractors, $criteria);
+
+        $yes = '<span class="label label-success">' . $this->translator->trans('label.yes') . '</span>';
+        $no  = '<span class="label label-danger">' . $this->translator->trans('label.no') . '</span>';
+
+        /** @var Model\Contractor $contractor */
+        foreach ($contractors as $contractor) {
+            $reponse['data'][] = [
+                'nom'                    => $contractor->getName(),
+                'collectivite'           => $contractor->getCollectivity()->getName(),
+                'clauses_contractuelles' => $contractor->isContractualClausesVerified() ? $yes : $no,
+                'element_securite'       => $contractor->isAdoptedSecurityFeatures() ? $yes : $no,
+                'registre_traitements'   => $contractor->isMaintainsTreatmentRegister() ? $yes : $no,
+                'donnees_hors_eu'        => $contractor->isSendingDataOutsideEu() ?
+                    '<span class="label label-danger">' . $this->translator->trans('label.yes') . '</span>' :
+                    '<span class="label label-success">' . $this->translator->trans('label.no') . '</span>',
+                'actions'                => $this->getActionCellsContent($contractor),
+            ];
+        }
+
+        $jsonResponse = new JsonResponse();
+        $jsonResponse->setJson(\json_encode($reponse));
+
+        return $jsonResponse;
+    }
+
+    protected function getLabelAndKeysArray(): array
+    {
+        return [
+            0 => 'nom',
+            1 => 'collectivite',
+            2 => 'clauses_contractuelles',
+            3 => 'element_securite',
+            4 => 'registre_traitements',
+            5 => 'donnees_hors_eu',
+            6 => 'actions',
+        ];
+    }
+
+    private function getRequestCriteria()
+    {
+        $criteria = [];
+        $user     = $this->userProvider->getAuthenticatedUser();
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $criteria['collectivity'] = $user->getCollectivity();
+        }
+
+        if (\in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
+            $criteria['collectivity'] = $user->getCollectivitesReferees();
+        }
+
+        return $criteria;
+    }
+
+    private function getActionCellsContent(Contractor $sousTraitant)
+    {
+        $cellContent =
+            '<a href="' . $this->router->generate('registry_contractor_edit', ['id' => $sousTraitant->getId()]) . '">
+                <i class="fa fa-pencil-alt"></i>' .
+                $this->translator->trans('action.edit') .
+            '</a>';
+        if (0 === count(\iterable_to_array($sousTraitant->getTreatments()))) {
+            $cellContent .=
+                '<a href="' . $this->router->generate('registry_contractor_delete', ['id' => $sousTraitant->getId()]) . '">
+                    <i class="fa fa-trash"></i>' .
+                    $this->translator->trans('action.delete') .
+                '</a>';
+        }
+
+        return $cellContent;
     }
 }

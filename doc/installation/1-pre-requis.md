@@ -31,6 +31,7 @@ Vous trouverez ci-dessous la stack technique utilisée et testée.
 -	Composer
 -	GIT
 -	YARN 1
+-   Wkhtmltopdf
 
 Ainsi que des extensions PHP : *php7.1-apcu php7.1-common php-fdomdocument php7.1-xml php7.1-cli php7.1-common php7.1-curl php7.1-fpm php7.1-gd php7.1-intl php7.1-json php7.1-mbstring php7.1-mysql php7.1-opcache php7.1-readline php7.1-bz2 php7.1-zip*.
 
@@ -58,3 +59,5 @@ Installer php-fpm 7.1
 ​	Pour Debian 9 (Stretch)
 
   - https://computingforgeeks.com/how-to-install-mariadb-10-3-on-debian-9-debian-8/
+
+Pour installer Wkhtmltopdf suivre la documentation suivante : [Installer wkhtmltopdf](6-installer-wkhtmltopdf.md).

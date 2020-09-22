@@ -40,10 +40,12 @@
                         {{ 'registry.treatment.action.new'|trans }}
                     </a>
                     {% endif %}
+                    {% if app.user.roles[0] != 'ROLE_REFERENT' %}
                     <a href="{{ path('registry_treatment_report') }}" class="btn btn-default">
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.treatment.action.report'|trans }}
                     </a>
+                    {% endif %}
                     {% if app.request.query.get('active') == 'false' %}
                         <a href="{{ path('registry_treatment_list', {'active' : 'true'}) }}" class="btn btn-default">
                             <i class="fa fa-list"></i>
@@ -134,7 +136,7 @@
                             </th>
                             <th>
                                 <select class="form-control" id="search_capacite" style="width: 100%;">
-                                    <option value="">En capacité</option>
+                                    <option value="">Ressortir les personnes habilitées</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
@@ -171,6 +173,7 @@
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.entitled_persons'|trans }}</th>
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.open_accounts'|trans }}</th>
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.specificities_delivered'|trans }}</th>
+                            <th style="max-width: 60px;">{{ 'registry.treatment.list.update'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -188,7 +191,7 @@
     {% set collectivityIsVisible = false %}
     {% set collectivityClassname = "noVis" %}
     {% set actionIsVisible = true %}
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_REFERENT') %}
         {% set collectivityIsVisible = true %}
         {% set collectivityClassname = "" %}
     {% endif %}
@@ -214,6 +217,7 @@
             {"data": "entitledPersons", "visible": false},
             {"data": "openAccounts", "visible": false},
             {"data": "specificitiesDelivered", "visible": false},
+            {"data": "updatedAt", "visible": false},
             {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
         ],
         order:  [

@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Repository;
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
 use App\Application\Doctrine\Repository\DataTablesRepository;
 use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 
 interface Treatment extends CRUDRepositoryInterface, DataTablesRepository
 {
@@ -64,13 +65,13 @@ interface Treatment extends CRUDRepositoryInterface, DataTablesRepository
     /**
      * Find all active treatments by associated collectivity and hasModuleConformiteTraitement active.
      *
-     * @param Collectivity $collectivity The collectivity to search with
-     * @param bool         $active       Get active / inactive treatment
-     * @param array        $order        Order results
+     * @param Collectivity|array $collectivity The collectivity to search with
+     * @param bool               $active       Get active / inactive treatment
+     * @param array              $order        Order results
      *
      * @return array The array of treatments given by the collectivity
      */
-    public function findAllActiveByCollectivityWithHasModuleConformiteTraitement(Collectivity $collectivity = null, bool $active = true, array $order = []);
+    public function findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity = null, bool $active = true, array $order = []);
 
     /**
      * Count all by collectivity.
@@ -92,7 +93,7 @@ interface Treatment extends CRUDRepositoryInterface, DataTablesRepository
      *
      * @return array
      */
-    public function findAllByActiveCollectivity(bool $active = true);
+    public function findAllByActiveCollectivity(bool $active = true, User $user = null);
 
     /**
      * Count all with no conformite traitement by collectivity.

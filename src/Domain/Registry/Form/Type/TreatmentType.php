@@ -24,12 +24,12 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
-use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\TreatmentDataCategory;
+use App\Domain\User\Model\User;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
@@ -42,17 +42,18 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class TreatmentType extends AbstractType
 {
     /**
-     * @var UserProvider
+     * @var Security
      */
-    private $userProvider;
+    private $security;
 
-    public function __construct(UserProvider $userProvider)
+    public function __construct(Security $security)
     {
-        $this->userProvider = $userProvider;
+        $this->security = $security;
     }
 
     /**
@@ -60,6 +61,8 @@ class TreatmentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var Treatment $treatment */
+        $treatment = $options['data'];
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'registry.treatment.form.name',
@@ -190,11 +193,20 @@ class TreatmentType extends AbstractType
                 'required'      => false,
                 'multiple'      => true,
                 'expanded'      => false,
-                'query_builder' => function (EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) use ($treatment) {
+                    $collectivity = null;
+                    if (!\is_null($treatment->getCollectivity())) {
+                        $collectivity = $treatment->getCollectivity();
+                    } else {
+                        /** @var User $authenticatedUser */
+                        $authenticatedUser = $this->security->getUser();
+                        $collectivity      = $authenticatedUser->getCollectivity();
+                    }
+
                     return $er->createQueryBuilder('c')
                         ->where('c.collectivity = :collectivity')
                         ->addOrderBy('c.name', 'asc')
-                        ->setParameter('collectivity', $this->userProvider->getAuthenticatedUser()->getCollectivity())
+                        ->setParameter('collectivity', $collectivity)
                     ;
                 },
                 'attr' => [

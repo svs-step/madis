@@ -226,19 +226,31 @@ body.show .content ul {
 }
 
 div.mesurement-hide {
+  display: inline-block;
 
-  > i {
-    color: #f1902a;
+  > i.primary-i {
+    color: #3779B6;
+  }
+
+  > i.warning-i {
+    color: #F1902A;
   }
 
   > div {
     display: none;
   }
 
+  > i:hover + div.primary {
+      border: solid #3779B6 1px;
+    }
+
+  > i:hover + div.warning {
+    border: solid #F1902A 1px;
+  }
+
   > i:hover + div {
     display: block;
     position: absolute;
-    border: solid #f1902a 1px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background: #fff;
     border-radius: 2px;

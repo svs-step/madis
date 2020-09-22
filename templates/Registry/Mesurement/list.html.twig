@@ -31,10 +31,12 @@
                         {{ 'registry.mesurement.action.new'|trans }}
                     </a>
                     {% endif %}
+                    {% if app.user.roles[0] != 'ROLE_REFERENT' %}
                     <a href="{{ path('registry_mesurement_report') }}" class="btn btn-default">
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.treatment.action.report'|trans }}
                     </a>
+                    {% endif %}
                 </div>
             </div>
     </div>
@@ -77,7 +79,7 @@
                         </tr>
                         <tr>
                             <th>{{ 'registry.mesurement.list.name'|trans }}</th>
-                                <th>{{ 'registry.mesurement.list.collectivity'|trans }}</th>
+                            <th>{{ 'registry.mesurement.list.collectivity'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.status'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.cost'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.charge'|trans }}</th>
@@ -100,7 +102,7 @@
     {% set collectivityIsVisible = false %}
     {% set collectivityClassname = "noVis" %}
     {% set actionIsVisible = false %}
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_REFERENT') %}
         {% set collectivityIsVisible = true %}
         {% set collectivityClassname = "" %}
     {% endif %}
@@ -112,12 +114,12 @@
     {% set dataTableOptions = {
         columns: [
             {"data": "nom", "className": "noVis"},
-            {"data" : "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
+            {"data": "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
             {"data": "statut"},
             {"data": "cout"},
             {"data": "charge"},
             {"data": "priorite"},
-            {"data": "actions", "className": "noVis", "visible": actionIsVisible},
+            {"data": "actions", "orderable": false, "className": "noVis", "visible": actionIsVisible},
         ],
         order:  [
             [5, 'desc' ]

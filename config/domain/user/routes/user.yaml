@@ -3,6 +3,11 @@ user_user_list:
     methods: ['GET']
     controller: 'App\Domain\User\Controller\UserController:listAction'
 
+user_user_list_datatables:
+    path: '/datatables'
+    methods: ['POST']
+    controller: 'App\Domain\User\Controller\UserController:listDataTables'
+
 user_user_create:
     path: '/creer'
     methods: ['GET', 'POST']

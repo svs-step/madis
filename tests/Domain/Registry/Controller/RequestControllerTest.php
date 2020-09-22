@@ -43,6 +43,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -91,6 +92,11 @@ class RequestControllerTest extends TestCase
     private $pdf;
 
     /**
+     * @var RouterInterface|ObjectProphecy
+     */
+    private $router;
+
+    /**
      * @var ContractorController
      */
     private $controller;
@@ -105,6 +111,7 @@ class RequestControllerTest extends TestCase
         $this->authenticationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy          = $this->prophesize(UserProvider::class);
         $this->pdf                           = $this->prophesize(Pdf::class);
+        $this->router                        = $this->prophesize(RouterInterface::class);
 
         $this->controller = new RequestController(
             $this->managerProphecy->reveal(),
@@ -114,7 +121,8 @@ class RequestControllerTest extends TestCase
             $this->wordHandlerProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
-            $this->pdf->reveal()
+            $this->pdf->reveal(),
+            $this->router->reveal()
         );
     }
 

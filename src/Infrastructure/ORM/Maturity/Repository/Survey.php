@@ -87,13 +87,23 @@ class Survey extends CRUDRepository implements Repository\Survey
     /**
      * {@inheritdoc}
      */
-    public function averageSurveyDuringLastYear()
+    public function averageSurveyDuringLastYear(array $collectivities = [])
     {
         $sql = 'SELECT AVG(a.rcount) FROM (
             SELECT IF(COUNT(ms.id) > 0, 1, 0) as rcount
             FROM user_collectivity uc
             LEFT OUTER JOIN maturity_survey ms ON (uc.id = ms.collectivity_id AND ms.created_at >= NOW() - INTERVAL 1 YEAR)
-            WHERE uc.active = 1
+            WHERE uc.active = 1';
+
+        if (!empty($collectivities)) {
+            $sql .= ' AND uc.id IN (';
+            $sql .= \implode(',', \array_map(function ($collectivity) {
+                return '\'' . $collectivity->getId() . '\'';
+            }, $collectivities));
+            $sql .= ') ';
+        }
+
+        $sql .= ' 
             GROUP BY uc.id
         ) a';
 
@@ -101,5 +111,35 @@ class Survey extends CRUDRepository implements Repository\Survey
         $stmt->execute();
 
         return $stmt->fetchColumn();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllByCollectivities(array $collectivities, array $order = [], int $limit = null): iterable
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb
+            ->andWhere(
+                $qb->expr()->in('o.collectivity', ':collectivities')
+            )
+            ->setParameter('collectivities', $collectivities)
+        ;
+
+        foreach ($order as $key => $dir) {
+            $qb->addOrderBy("o.{$key}", $dir);
+        }
+
+        if (!\is_null($limit)) {
+            $qb
+                ->setFirstResult(0)
+                ->setMaxResults($limit);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
     }
 }

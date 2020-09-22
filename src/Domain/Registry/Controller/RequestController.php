@@ -26,14 +26,21 @@ namespace App\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Registry\Dictionary\RequestObjectDictionary;
+use App\Domain\Registry\Dictionary\RequestStateDictionary;
 use App\Domain\Registry\Form\Type\RequestType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Dictionary\UserRoleDictionary;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -42,6 +49,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class RequestController extends CRUDController
 {
+    use ServersideDatatablesTrait;
+
     /**
      * @var RequestStack
      */
@@ -62,6 +71,11 @@ class RequestController extends CRUDController
      */
     protected $userProvider;
 
+    /**
+     * @var RouterInterface
+     */
+    protected $router;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -70,13 +84,15 @@ class RequestController extends CRUDController
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
-        Pdf $pdf
+        Pdf $pdf,
+        RouterInterface $router
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf);
         $this->requestStack         = $requestStack;
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
+        $this->router               = $router;
     }
 
     /**
@@ -151,5 +167,106 @@ class RequestController extends CRUDController
         );
 
         return $this->wordHandler->generateRegistryRequestReport($objects);
+    }
+
+    public function listAction(): Response
+    {
+        $criteria = $this->getRequestCriteria();
+
+        return $this->render($this->getTemplatingBasePath('list'), [
+            'totalItem' => $this->repository->count($criteria),
+            'route'     => $this->router->generate('registry_request_list_datatables', ['archive' => $criteria['archive']]),
+        ]);
+    }
+
+    public function listDataTables(Request $request): JsonResponse
+    {
+        $criteria = $this->getRequestCriteria();
+        $demandes = $this->getResults($request, $criteria);
+
+        $reponse = $this->getBaseDataTablesResponse($request, $demandes, $criteria);
+
+        $yes = '<span class="label label-success">' . $this->translator->trans('label.yes') . '</span>';
+        $no  = '<span class="label label-danger">' . $this->translator->trans('label.no') . '</span>';
+
+        /** @var Model\Request $demande */
+        foreach ($demandes as $demande) {
+            $reponse['data'][] = [
+                'collectivite'       => $demande->getCollectivity()->getName(),
+                'personne_concernee' => $this->getLinkForPersonneConcernee($demande),
+                'date_demande'       => null !== $demande->getDate() ? \date_format($demande->getDate(), 'd/m/Y') : '',
+                'objet_demande'      => RequestObjectDictionary::getObjects()[$demande->getObject()],
+                'demande_complete'   => $demande->isComplete() ? $yes : $no,
+                'demandeur_legitime' => $demande->isLegitimateApplicant() ? $yes : $no,
+                'demande_legitime'   => $demande->isLegitimateRequest() ? $yes : $no,
+                'date_traitement'    => null !== $demande->getAnswer()->getDate() ? \date_format($demande->getAnswer()->getDate(), 'd/m/Y') : '',
+                'etat_demande'       => RequestStateDictionary::getStates()[$demande->getState()],
+                'actions'            => $this->getActionsCellContent($demande),
+            ];
+        }
+
+        $jsonResponse = new JsonResponse();
+        $jsonResponse->setJson(\json_encode($reponse));
+
+        return $jsonResponse;
+    }
+
+    protected function getLabelAndKeysArray(): array
+    {
+        return [
+            0 => 'collectivite',
+            1 => 'personne_concernee',
+            2 => 'date_demande',
+            3 => 'objet_demande',
+            4 => 'demande_complete',
+            5 => 'demandeur_legitime',
+            6 => 'demande_legitime',
+            7 => 'date_traitement',
+            8 => 'etat_demande',
+            9 => 'actions',
+        ];
+    }
+
+    private function getRequestCriteria()
+    {
+        $criteria            = [];
+        $criteria['archive'] = $this->requestStack->getMasterRequest()->query->getBoolean('archive');
+        $user                = $this->userProvider->getAuthenticatedUser();
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $criteria['collectivity'] = $user->getCollectivity();
+        }
+
+        if (\in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
+            $criteria['collectivity'] = $user->getCollectivitesReferees();
+        }
+
+        return $criteria;
+    }
+
+    private function getActionsCellContent(Model\Request $demande)
+    {
+        return
+            '<a href="' . $this->router->generate('registry_request_edit', ['id' => $demande->getId()]) . '">
+                <i class="fa fa-pencil-alt"></i>' .
+                $this->translator->trans('action.edit') . '
+            </a>
+            <a href="' . $this->router->generate('registry_request_delete', ['id'=> $demande->getId()]) . '">
+                <i class="fa fa-trash"></i>' .
+                $this->translator->trans('action.archive') .
+            '</a>';
+    }
+
+    private function getLinkForPersonneConcernee(Model\Request $demande)
+    {
+        $link = '<a href="' . $this->router->generate('registry_request_show', ['id'=> $demande->getId()]) . '">';
+        if ($demande->getApplicant()->isConcernedPeople() ||
+            ' ' === $demande->getConcernedPeople()->getFullName()) {
+            $link .= $demande->getApplicant()->getFullName();
+        } else {
+            $link .= $demande->getConcernedPeople()->getFullName();
+        }
+
+        return $link . '</a>';
     }
 }

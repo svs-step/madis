@@ -35,7 +35,9 @@ use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserControllerTest extends TestCase
@@ -73,6 +75,16 @@ class UserControllerTest extends TestCase
     private $pdf;
 
     /**
+     * @var RouterInterface
+     */
+    protected $router;
+
+    /**
+     * @var Security
+     */
+    protected $security;
+
+    /**
      * @var UserController
      */
     private $controller;
@@ -85,6 +97,8 @@ class UserControllerTest extends TestCase
         $this->requestStackProphecy   = $this->prophesize(RequestStack::class);
         $this->encoderFactoryProphecy = $this->prophesize(EncoderFactoryInterface::class);
         $this->pdf                    = $this->prophesize(Pdf::class);
+        $this->router                 = $this->prophesize(RouterInterface::class);
+        $this->security               = $this->prophesize(Security::class);
 
         $this->controller = new UserController(
             $this->managerProphecy->reveal(),
@@ -92,7 +106,9 @@ class UserControllerTest extends TestCase
             $this->repositoryProphecy->reveal(),
             $this->requestStackProphecy->reveal(),
             $this->encoderFactoryProphecy->reveal(),
-            $this->pdf->reveal()
+            $this->pdf->reveal(),
+            $this->router->reveal(),
+            $this->security->reveal()
         );
 
         parent::setUp();

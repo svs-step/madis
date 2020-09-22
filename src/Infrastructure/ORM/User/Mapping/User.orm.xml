@@ -24,7 +24,15 @@
         <field name="lastLogin" column="last_login" type="datetime_immutable" nullable="true"/>
 
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity" inversed-by="users" fetch="EAGER"/>
-
+        <many-to-many field="collectivitesReferees" target-entity="App\Domain\User\Model\Collectivity" inversed-by="userReferents">
+            <join-table name="user_collectivite_referent">
+                <join-columns><join-column on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </entity>
 
 </doctrine-mapping>

@@ -35,3 +35,19 @@ App\Domain\Registry\Model\Treatment:
         contractors: ['@registry_contractor_soluris_3']
         active: '80%? 1 : 0'
         collectivity: '@user_collectivity_soluris'
+
+    registry_treatment_foobar_{1..3}:
+        name: Traitement <current()>
+        goal: <text()>
+        manager: <firstName()> <lastName()>
+        software: '50%? <word()>'
+        legalBasis: '<(App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary::BASE_LEGAL_OBLIGATION)>'
+        legalBasisJustification: '50%? <text()>'
+        dataCategories: [ '@registry_treatment_data_category_filiation', '@registry_treatment_data_category_social_security_number' ]
+        dataCategoryOther: <text()>
+        recipientCategory: <text()>
+        concernedPeopleParticular: '@registry_treatment'
+        concernedPeopleAgent: '@registry_treatment'
+        contractors: [ '@registry_contractor_foobar_3' ]
+        active: '80%? 1 : 0'
+        collectivity: '@user_collectivity_foobar'

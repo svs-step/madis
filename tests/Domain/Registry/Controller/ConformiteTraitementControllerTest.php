@@ -183,6 +183,7 @@ class ConformiteTraitementControllerTest extends TestCase
 
         $user         = $this->prophesize(UserModel\User::class);
         $collectivity = $this->prophesize(UserModel\Collectivity::class);
+        $user->getRoles()->shouldBeCalled()->willReturn([]);
 
         $this->userProviderProphecy
             ->getAuthenticatedUser()

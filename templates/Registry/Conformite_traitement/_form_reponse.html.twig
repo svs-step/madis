@@ -16,7 +16,7 @@
                 <table id="table" class="table">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th style="width: 3%;"></th>
                             <th class="col-md-6">{{ 'registry.conformite_traitement.form.question'|trans }}</th>
                             <th class="col-md-2">{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
                             <th class="col-md-4">{{ 'registry.conformite_traitement.form.action_protection'|trans }}</th>
@@ -25,15 +25,32 @@
                     </thead>
                     <tbody>
                     {% for reponse in orderReponseByQuestionPositionAsc(form) %}
+                        {% set actionProtectionsNonPlanifiees = [] %}
+                        {% for key, action in reponse.vars.value.actionProtections|filter((action, key) => action.planificationDate is null) -%}
+                            {% set actionProtectionsNonPlanifiees = actionProtectionsNonPlanifiees|merge([action]) %}
+                        {% endfor %}
                         <tr>
                             <td class="reponse-vertical-align">
                                 {% if reponse.vars.value.actionProtectionsPlanifiedNotSeens is not empty %}
                                     <div class="mesurement-hide">
-                                        <i class="fas fa-exclamation-circle"></i>
-                                        <div>
+                                        <i class="primary-i fas fa-exclamation-circle"></i>
+                                        <div class="primary">
                                             <span>Action de protections appliquées : </span>
                                             <ul>
                                                 {% for mesurement in reponse.vars.value.actionProtectionsPlanifiedNotSeens %}
+                                                    <li>{{ mesurement.name }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if actionProtectionsNonPlanifiees is not empty %}
+                                    <div class="mesurement-hide">
+                                        <i class="warning-i fas fa-exclamation-circle"></i>
+                                        <div class="warning">
+                                            <span>Action de protections non planifiées : </span>
+                                            <ul>
+                                                {% for mesurement in actionProtectionsNonPlanifiees %}
                                                     <li>{{ mesurement.name }}</li>
                                                 {% endfor %}
                                             </ul>

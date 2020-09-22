@@ -85,6 +85,11 @@ class User implements LoggableSubject, UserInterface
     private $collectivity;
 
     /**
+     * @var iterable
+     */
+    private $collectivitesReferees;
+
+    /**
      * @var \DateTimeImmutable|null
      */
     private $lastLogin;
@@ -96,9 +101,10 @@ class User implements LoggableSubject, UserInterface
      */
     public function __construct()
     {
-        $this->id      = Uuid::uuid4();
-        $this->roles   = [];
-        $this->enabled = true;
+        $this->id                    = Uuid::uuid4();
+        $this->roles                 = [];
+        $this->enabled               = true;
+        $this->collectivitesReferees = [];
     }
 
     public function getId(): UuidInterface
@@ -237,5 +243,15 @@ class User implements LoggableSubject, UserInterface
     public function setLastLogin(?\DateTimeImmutable $lastLogin): void
     {
         $this->lastLogin = $lastLogin;
+    }
+
+    public function getCollectivitesReferees(): iterable
+    {
+        return $this->collectivitesReferees;
+    }
+
+    public function setCollectivitesReferees(iterable $collectivitesReferees): void
+    {
+        $this->collectivitesReferees = $collectivitesReferees;
     }
 }

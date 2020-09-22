@@ -22,3 +22,17 @@ App\Domain\Registry\Model\Contractor:
         address: '@registry_address_contractor_soluris_<current()>'
         collectivity: '@user_collectivity_soluris'
         creator: '@user_user_manager_2'
+
+    registry_contractor_foobar_{1..3}:
+        name: Sous-traitant <current()>
+        referent: <firstName()> <lastName()>
+        contractualClausesVerified: <boolean()>
+        adoptedSecurityFeatures: <boolean()>
+        maintainsTreatmentRegister: <boolean()>
+        sendingDataOutsideEu: <boolean()>
+        otherInformations: '50%? <text()>'
+        address: '@registry_address_contractor_foobar_<current()>'
+        collectivity: '@user_collectivity_foobar'
+        creator: '@user_user_manager_foobar'
+
+

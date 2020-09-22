@@ -25,15 +25,11 @@ declare(strict_types=1);
 namespace App\Domain\User\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
+use App\Application\Doctrine\Repository\DataTablesRepository;
 use App\Domain\User\Model;
 
-interface User extends CRUDRepositoryInterface
+interface User extends CRUDRepositoryInterface, DataTablesRepository
 {
-    /**
-     * Get all users which are / are not soft deleted.
-     */
-    public function findAllArchived(bool $archived, array $order = []): iterable;
-
     /**
      * Get a user by it email.
      *

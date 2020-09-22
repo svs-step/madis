@@ -25,12 +25,17 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\User\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Application\Traits\RepositoryUtils;
+use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class User extends CRUDRepository implements Repository\User
 {
+    use RepositoryUtils;
+
     /**
      * {@inheritdoc}
      */
@@ -98,19 +103,6 @@ class User extends CRUDRepository implements Repository\User
     /**
      * {@inheritdoc}
      */
-    public function findAllArchived(bool $archived, array $order = []): iterable
-    {
-        $qb = $this->createQueryBuilder();
-
-        $this->addArchivedClause($qb, $archived);
-        $this->addOrder($qb, $order);
-
-        return $qb->getQuery()->getResult();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function findOneOrNullLastLoginUserByCollectivity(Model\Collectivity $collectivity): ?Model\User
     {
         $qb = $this->createQueryBuilder();
@@ -122,5 +114,135 @@ class User extends CRUDRepository implements Repository\User
         $qb->setMaxResults(1);
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function count(array $criteria = [])
+    {
+        $qb = $this
+            ->createQueryBuilder()
+            ->select('count(o.id)')
+        ;
+
+        if (\array_key_exists('archive', $criteria)) {
+            $this->addArchivedClause($qb, $criteria['archive']);
+            unset($criteria['archive']);
+        }
+        if (\array_key_exists('collectivitesReferees', $criteria)) {
+            $qb->leftJoin('o.collectivity', 'collectivite')
+                ->andWhere($qb->expr()->in('collectivite.id', ':collectivitesReferees'))
+                ->setParameter('collectivitesReferees', $criteria['collectivitesReferees'])
+                ->andWhere('JSON_UNQUOTE(JSON_EXTRACT(o.roles, \'$[0]\')) <> :role_admin')
+                ->setParameter('role_admin', UserRoleDictionary::ROLE_ADMIN);
+            unset($criteria['collectivitesReferees']);
+        }
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->leftJoin('o.collectivity', 'collectivite')
+            ->addSelect('collectivite');
+
+        if (\array_key_exists('archive', $criteria)) {
+            $this->addArchivedClause($qb, $criteria['archive']);
+            unset($criteria['archive']);
+        }
+        if (\array_key_exists('collectivitesReferees', $criteria)) {
+            $qb->andWhere($qb->expr()->in('collectivite.id', ':collectivitesReferees'))
+                ->setParameter('collectivitesReferees', $criteria['collectivitesReferees'])
+                ->andWhere('JSON_UNQUOTE(JSON_EXTRACT(o.roles, \'$[0]\')) <> :role_admin')
+                ->setParameter('role_admin', UserRoleDictionary::ROLE_ADMIN);
+            unset($criteria['collectivitesReferees']);
+        }
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        $this->addTableOrder($qb, $orderColumn, $orderDir);
+        $this->addTableWhere($qb, $searches);
+
+        $query = $qb->getQuery();
+        $query->setFirstResult($firstResult);
+        $query->setMaxResults($maxResults);
+
+        return new Paginator($query);
+    }
+
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'prenom':
+                $queryBuilder->addOrderBy('o.firstName', $orderDir);
+                break;
+            case 'nom':
+                $queryBuilder->addOrderBy('o.lastName', $orderDir);
+                break;
+            case 'email':
+                $queryBuilder->addOrderBy('o.email', $orderDir);
+                break;
+            case 'collectivite':
+                $queryBuilder->addOrderBy('collectivite.name', $orderDir);
+                break;
+            case 'roles':
+                $queryBuilder->addSelect('
+                CASE
+                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.roles, \'$[0]\')) = :role_admin THEN 1
+                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.roles, \'$[0]\')) = :role_user THEN 2
+                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.roles, \'$[0]\')) = :role_preview THEN 3
+                    ELSE 4
+                END as HIDDEN json_role');
+                $queryBuilder->addOrderBy('json_role', $orderDir);
+                $queryBuilder->setParameters(
+                    [
+                        'role_admin'   => UserRoleDictionary::ROLE_ADMIN,
+                        'role_user'    => UserRoleDictionary::ROLE_USER,
+                        'role_preview' => UserRoleDictionary::ROLE_PREVIEW,
+                    ]
+                );
+                break;
+            case 'connexion':
+                $queryBuilder->addOrderBy('o.lastLogin', $orderDir);
+                break;
+        }
+    }
+
+    private function addTableWhere(QueryBuilder $queryBuilder, $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'prenom':
+                    $this->addWhereClause($queryBuilder, 'firstName', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'nom':
+                    $this->addWhereClause($queryBuilder, 'lastName', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'email':
+                    $this->addWhereClause($queryBuilder, 'email', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'collectivite':
+                    $queryBuilder->andWhere('collectivite.name LIKE :collectivite_name')
+                        ->setParameter('collectivite_name', '%' . $search . '%');
+                    break;
+                case 'roles':
+                    $queryBuilder->andWhere('JSON_CONTAINS(o.roles, :role) = 1')
+                        ->setParameter('role', sprintf('"%s"', $search));
+                    break;
+                case 'connexion':
+                    $queryBuilder->andWhere('o.lastLogin LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+            }
+        }
     }
 }

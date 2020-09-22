@@ -25,9 +25,10 @@ declare(strict_types=1);
 namespace App\Domain\Registry\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
+use App\Application\Doctrine\Repository\DataTablesRepository;
 use App\Domain\User\Model\Collectivity;
 
-interface Contractor extends CRUDRepositoryInterface
+interface Contractor extends CRUDRepositoryInterface, DataTablesRepository
 {
     /**
      * Find all contractors by associated collectivity.
@@ -43,4 +44,11 @@ interface Contractor extends CRUDRepositoryInterface
      * Count all by collectivity.
      */
     public function countAllByCollectivity(Collectivity $collectivity);
+
+    /**
+     * Return all contractors from active collectivity.
+     *
+     * @return array
+     */
+    public function findAllByActiveCollectivity(bool $active = true);
 }

@@ -68,7 +68,7 @@
       <div class="col-sm-6 col-xs-12">
         <div class="box box-solid">
           <div class="box-header with-border">
-            <h3 class="box-title">Carte des collectivités</h3>
+            <h3 class="box-title">Carte des communes</h3>
           </div>
           <div class="box-body no-padding map-wrapper">
             <div class="row">
@@ -129,7 +129,23 @@
             <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::TREATMENT_TYPE')}) }}" class="small-box-footer">
                 Exporter <i class="fa fa-arrow-circle-right"></i>
             </a>
-        </div>
+          </div>
+          <div class="small-box bg-yellow">
+              <div class="inner">
+                  <p>Exporter les sous-traitants</p>
+              </div>
+              <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::CONTRACTOR_TYPE')}) }}" class="small-box-footer">
+                  Exporter <i class="fa fa-arrow-circle-right"></i>
+              </a>
+          </div>
+          <div class="small-box bg-yellow">
+              <div class="inner">
+                  <p>Exporter les actions de protection</p>
+              </div>
+              <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::MESUREMENT_TYPE')}) }}" class="small-box-footer">
+                  Exporter <i class="fa fa-arrow-circle-right"></i>
+              </a>
+          </div>
       </div>
 
     </div>{# end row #}

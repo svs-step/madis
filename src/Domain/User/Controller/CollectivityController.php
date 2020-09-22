@@ -25,22 +25,49 @@ declare(strict_types=1);
 namespace App\Domain\User\Controller;
 
 use App\Application\Controller\CRUDController;
+use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\User\Dictionary\CollectivityTypeDictionary;
+use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @property Repository\Collectivity $repository
+ */
 class CollectivityController extends CRUDController
 {
+    use ServersideDatatablesTrait;
+
+    /**
+     * @var RouterInterface
+     */
+    protected $router;
+
+    /**
+     * @var Security
+     */
+    protected $security;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Collectivity $repository,
-        Pdf $pdf
+        Pdf $pdf,
+        RouterInterface $router,
+        Security $security
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf);
+        $this->router       = $router;
+        $this->security     = $security;
     }
 
     /**
@@ -73,5 +100,109 @@ class CollectivityController extends CRUDController
     protected function getFormType(): string
     {
         return CollectivityType::class;
+    }
+
+    public function listAction(): Response
+    {
+        $criteria = $this->getRequestCriteria();
+
+        return $this->render($this->getTemplatingBasePath('list'), [
+            'totalItem' => $this->repository->count($criteria),
+            'route'     => $this->router->generate('user_collectivity_list_datatables'),
+        ]);
+    }
+
+    public function listDataTables(Request $request): JsonResponse
+    {
+        $criteria       = $this->getRequestCriteria();
+        $collectivities = $this->getResults($request, $criteria);
+        $reponse        = $this->getBaseDataTablesResponse($request, $collectivities, $criteria);
+
+        $active   = '<span class="badge bg-green">' . $this->translator->trans('label.active') . '</span>';
+        $inactive = '<span class="badge bg-red">' . $this->translator->trans('label.inactive') . '</span>';
+        /** @var Model\Collectivity $collectivity */
+        foreach ($collectivities as $collectivity) {
+            $reponse['data'][] = [
+                'nom'       => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' .
+                                    $collectivity->getName() .
+                                '</a>',
+                'nom_court' => $collectivity->getShortName(),
+                'type'      => !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] : null,
+                'siren'     => $collectivity->getSiren(),
+                'statut'    => $collectivity->isActive() ? $active : $inactive,
+                'actions'   => $this->getActionCellsContent($collectivity),
+            ];
+        }
+
+        $jsonResponse = new JsonResponse();
+        $jsonResponse->setJson(\json_encode($reponse));
+
+        return $jsonResponse;
+    }
+
+    private function getActionCellsContent(Model\Collectivity $collectivity)
+    {
+        if (!$this->security->isGranted('ROLE_ADMIN')) {
+            return;
+        }
+
+        $cellContent = '<a href="' . $this->router->generate('user_collectivity_edit', ['id'=> $collectivity->getId()]) . '">
+            <i class="fa fa-pencil-alt"></i> ' .
+            $this->translator->trans('action.edit') .
+        '</a>';
+
+        if (0 === \count($collectivity->getUsers())) {
+            $cellContent .= '<a href="' . $this->router->generate('user_collectivity_delete', ['id'=> $collectivity->getId()]) . '">
+                <i class="fa fa-trash"></i> ' .
+                $this->translator->trans('action.delete') .
+            '</a>';
+        }
+
+        return $cellContent;
+    }
+
+    protected function getLabelAndKeysArray(): array
+    {
+        return [
+            0 => 'nom',
+            1 => 'nom_court',
+            2 => 'type',
+            3 => 'siren',
+            4 => 'statut',
+            5 => 'actions',
+        ];
+    }
+
+    private function getRequestCriteria()
+    {
+        $criteria            = [];
+
+        if (!$this->security->isGranted('ROLE_ADMIN')) {
+            /** @var Model\User $user */
+            $user                              = $this->security->getUser();
+            $criteria['collectivitesReferees'] = $user->getCollectivitesReferees();
+        }
+
+        return $criteria;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function showAction(string $id): Response
+    {
+        /** @var Model\User $user */
+        $user = $this->security->getUser();
+        if (\in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
+            $collectivities = \array_filter(\iterable_to_array($user->getCollectivitesReferees()), function (Model\Collectivity $collectivity) use ($id) {
+                return $collectivity->getId()->toString() === $id;
+            });
+
+            if (empty($collectivities)) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+
+        return parent::showAction($id);
     }
 }

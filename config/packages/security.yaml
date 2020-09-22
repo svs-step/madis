@@ -10,7 +10,8 @@ security:
 
     role_hierarchy:
         ROLE_USER: [ROLE_PREVIEW]
-        ROLE_ADMIN: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_REFERENT: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ADMIN: [ROLE_REFERENT]
 
     firewalls:
         dev:
@@ -38,15 +39,21 @@ security:
         - { path: ^/deconnexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/mot-de-passe-oublie, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reinitialisation-de-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # Referent routes
+        - { path: ^/collectivites/liste, roles: ROLE_REFERENT }
+        - { path: ^/collectivites/visualiser/.+$, roles: ROLE_REFERENT }
+        - { path: ^/collectivites/datatables, roles: ROLE_REFERENT }
+        - { path: ^/utilisateurs/liste, roles: ROLE_REFERENT }
+        - { path: ^/utilisateurs/datatables, roles: ROLE_REFERENT }
+        # Admin routes
+        - { path: ^/collectivites, roles: ROLE_ADMIN }
+        - { path: ^/utilisateurs, roles: ROLE_ADMIN }
+        - { path: ^/journalisation, roles: ROLE_ADMIN }
         # Manager routes
         - { path: ^/.+/creer$, roles: ROLE_USER }
         - { path: ^/.+/creer/.+$, roles: ROLE_USER }
         - { path: ^/.+/editer/.+$, roles: ROLE_USER }
         - { path: ^/.+/supprimer/.+$, roles: ROLE_USER }
         - { path: ^/.+/supprimer/.+/confirmation$, roles: ROLE_USER }
-        # Admin routes
-        - { path: ^/collectivites, roles: ROLE_ADMIN }
-        - { path: ^/utilisateurs, roles: ROLE_ADMIN }
-        - { path: ^/journalisation, roles: ROLE_ADMIN }
         # Others
         - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }

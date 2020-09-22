@@ -86,13 +86,14 @@ class UserTypeTest extends FormTypeHelper
     public function testBuildFormAdmin()
     {
         $builder = [
-            'firstName'     => TextType::class,
-            'lastName'      => TextType::class,
-            'email'         => EmailType::class,
-            'collectivity'  => EntityType::class,
-            'roles'         => DictionaryType::class,
-            'enabled'       => CheckboxType::class,
-            'plainPassword' => RepeatedType::class,
+            'firstName'             => TextType::class,
+            'lastName'              => TextType::class,
+            'email'                 => EmailType::class,
+            'collectivity'          => EntityType::class,
+            'roles'                 => DictionaryType::class,
+            'enabled'               => CheckboxType::class,
+            'plainPassword'         => RepeatedType::class,
+            'collectivitesReferees' => EntityType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
