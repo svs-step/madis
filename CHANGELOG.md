@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+## [1.7.7] - 2020-09-21
+### Ajout
+- Ajout du Lot 4
+- Ajout d'un export de CSV des actions de protections, sous-traitants sur le dashboard
+- Ajout du traitement côté serveur pour les sous-traitants, utilisateurs, demandes, collectivités, preuves et violations
+- Ajout du référent multi-collectivités
+
 ## [1.7.6] - 2020-09-03
 ### Ajout
 - Personnaliser les listes et les trier (Traitements, Actions de protection et Utilisateurs) #286
