@@ -46,7 +46,7 @@
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
                             <th>
-                                <input class="form-control" type="text" id="search_prenom" placeholder="Prénom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom_court" placeholder="Nom court" style="width: 100%;">
                             </th>
                             <th>
                                 <select class="form-control" id="search_type" style="width: 100%;">
@@ -115,8 +115,8 @@
                 oTable.column('0').search($(this).val()).draw() ;
             }));
 
-            $('#search_prenom').off('keyup');
-            $('#search_prenom').keyup($.debounce(250, function(){
+            $('#search_nom_court').off('keyup');
+            $('#search_nom_court').keyup($.debounce(250, function(){
                 oTable.column('1').search($(this).val()).draw() ;
             }));
 
