@@ -402,7 +402,7 @@
         let conformiteTraitementLabels = {{ data.conformiteTraitement.labels|json_encode|raw }};
         let conformiteTraitementData = [];
         {% if data.conformiteTraitement.data %}
-            let conformiteTraitementDat= {{ data.conformiteTraitement.data|json_encode|raw }};
+            conformiteTraitementData = {{ data.conformiteTraitement.data|json_encode|raw }};
         {% endif %}
         let conformiteTraitementColors = {{ data.conformiteTraitement.colors|json_encode|raw }};
     </script>
