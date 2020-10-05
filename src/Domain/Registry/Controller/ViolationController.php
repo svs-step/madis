@@ -170,9 +170,13 @@ class ViolationController extends CRUDController
 
         /** @var Model\Violation $violation */
         foreach ($users as $violation) {
+            $violationLink = '<a href="' . $this->router->generate('registry_violation_show', ['id' => $violation->getId()->toString()]) . '">
+                ' . \date_format($violation->getDate(), 'd/m/Y') . '
+            </a>';
+
             $reponse['data'][] = [
                 'collectivite' => $violation->getCollectivity()->getName(),
-                'date'         => \date_format($violation->getDate(), 'd/m/Y'),
+                'date'         => $violationLink,
                 'nature'       => !\is_null($violation->getViolationNature()) ? ViolationNatureDictionary::getNatures()[$violation->getViolationNature()] : null,
                 'cause'        => !\is_null($violation->getCause()) ? ViolationCauseDictionary::getNatures()[$violation->getCause()] : null,
                 'gravity'      => !\is_null($violation->getGravity()) ? ViolationGravityDictionary::getGravities()[$violation->getGravity()] : null,
