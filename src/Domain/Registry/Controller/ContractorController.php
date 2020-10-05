@@ -209,8 +209,12 @@ class ContractorController extends CRUDController
 
         /** @var Model\Contractor $contractor */
         foreach ($contractors as $contractor) {
+            $contractorLink = '<a href="' . $this->router->generate('registry_contractor_show', ['id' => $contractor->getId()->toString()]) . '">
+                ' . $contractor->getName() . '
+            </a>';
+
             $reponse['data'][] = [
-                'nom'                    => $contractor->getName(),
+                'nom'                    => $contractorLink,
                 'collectivite'           => $contractor->getCollectivity()->getName(),
                 'clauses_contractuelles' => $contractor->isContractualClausesVerified() ? $yes : $no,
                 'element_securite'       => $contractor->isAdoptedSecurityFeatures() ? $yes : $no,
