@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+## [1.7.9] - 2020-01-06
+### Changement
+- Ajout des liens pour accéder à la vue de consultation depuis la vue la liste d'un sous-traitant et d'une violation 
+
+
+## [1.7.8] - 2020-09-30
+### Changement
+- Correction sur le dashboard utilisateur et correction des placeholders sur la liste des collectivités. 
+
 ## [1.7.7] - 2020-09-21
 ### Ajout
 - Ajout du Lot 4
