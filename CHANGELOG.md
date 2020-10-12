@@ -1,7 +1,11 @@
 CHANGELOG
 =========
 
-## [1.7.9] - 2020-01-06
+## [1.7.10] - 2020-10-12
+### Changement
+- Correctif des cases à cocher (Mesures de sécurité et confidentialité) lors de la modification d'un traitement.
+
+## [1.7.9] - 2020-10-06
 ### Changement
 - Ajout des liens pour accéder à la vue de consultation depuis la vue la liste d'un sous-traitant et d'une violation 
 
