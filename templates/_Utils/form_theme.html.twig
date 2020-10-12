@@ -62,7 +62,7 @@
 {% block custom_checkbox_row -%}
     <div class="col-sm-12 custom-checkbox">
         <div class="col-sm-1">
-            <input type="checkbox" id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" value="1">
+            <input type="checkbox" id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" value="1" {% if form.vars.data %}checked="checked"{% endif %}>
         </div>
         <div class="col-sm-11">
             <label class="col-sm-12" for="{{ form.vars.id }}">{{ form.vars.label|trans() }}</label>
