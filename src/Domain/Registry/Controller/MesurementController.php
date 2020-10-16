@@ -191,12 +191,9 @@ class MesurementController extends CRUDController
     public function actionPlanAction()
     {
         $request = $this->requestStack->getCurrentRequest();
-        // Since we have to display planified & not-applied mesurement, filter
-        $criteria = $this->getRequestCriteria($request);
-        $criteria = $criteria + ['status' => MesurementStatusDictionary::STATUS_NOT_APPLIED];
 
         return $this->render('Registry/Mesurement/action_plan.html.twig', [
-            'totalItem' => $this->repository->count($criteria),
+            'totalItem' => $this->repository->count($this->getRequestCriteria($request)),
             'route'     => $this->router->generate('registry_mesurement_list_datatables', ['action_plan' => true]),
         ]);
     }
@@ -302,7 +299,9 @@ class MesurementController extends CRUDController
         }
 
         if ($request->query->getBoolean('action_plan')) {
+            // Since we have to display planified & not-applied mesurement, filter
             $criteria['planificationDate'] = 'null';
+            $criteria['status']            = MesurementStatusDictionary::STATUS_NOT_APPLIED;
         }
 
         return $criteria;

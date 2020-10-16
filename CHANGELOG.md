@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+## [1.7.11] - 2020-10-16
+### Changement
+- Correctif bug utilisateur archivé visible dans la liste "Ma collectivité" #295
+- Dans le bilan chapitre 4.1 le nombre de domaine est désormais calculé
+- Correctif sur la liste des plans d'actions qui affiche bien les actions de protections non planifiées et non appliquées
+
 ## [1.7.10] - 2020-10-12
 ### Changement
 - Correctif des cases à cocher (Mesures de sécurité et confidentialité) lors de la modification d'un traitement.

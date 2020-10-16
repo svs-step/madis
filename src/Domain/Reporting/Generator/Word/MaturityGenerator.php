@@ -40,13 +40,33 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
     public function addGlobalOverview(Section $section, array $data): void
     {
         if (empty($data)) {
+            $section->addTextBreak(2);
+            $section->addText("Aucune évaluation de la mise en conformité n'a pour l'heure été effectuée.", ['italic' => true]);
+
             return;
+        }
+
+        $maturityList = [];
+        $domainsName  = [];
+        if (isset($data['old'])) {
+            foreach ($data['old']->getMaturity() as $maturity) {
+                $maturityList[$maturity->getDomain()->getPosition()]['old'] = $maturity->getScore();
+                if (!isset($domainsName[$maturity->getDomain()->getPosition()])) {
+                    $domainsName[$maturity->getDomain()->getPosition()] = $maturity->getDomain()->getName();
+                }
+            }
+        }
+        foreach ($data['new']->getMaturity() as $maturity) {
+            $maturityList[$maturity->getDomain()->getPosition()]['new'] = $maturity->getScore();
+            if (!isset($domainsName[$maturity->getDomain()->getPosition()])) {
+                $domainsName[$maturity->getDomain()->getPosition()] = $maturity->getDomain()->getName();
+            }
         }
 
         $section->addTitle('Évaluation de la mise en conformité', 2);
 
-        $section->addText('Afin de répondre aux objectifs du RGPD, la gestion des données à caractère personnel est structurée en 6 domaines.');
-        $section->addText('Chacun des 6 domaines a été évalué par la collectivité selon l’échelle de maturité ci-après.');
+        $section->addText('Afin de répondre aux objectifs du RGPD, la gestion des données à caractère personnel est structurée en ' . \count($domainsName) . ' domaines.');
+        $section->addText('Chacun des ' . \count($domainsName) . ' domaines a été évalué par la collectivité selon l’échelle de maturité ci-après.');
 
         $table = $section->addTable($this->tableStyle);
         $row   = $table->addRow(200, ['valign' => 'center']);
@@ -87,60 +107,39 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $serie2 = [];
 
         // Radar
-        if (empty($data)) {
-            $section->addTextBreak(2);
-            $section->addText("Aucune évaluation de la mise en conformité n'a pour l'heure été effectuée.", ['italic' => true]);
-        } else {
-            $maturityList = [];
-            $domainsName  = [];
-            if (isset($data['old'])) {
-                foreach ($data['old']->getMaturity() as $maturity) {
-                    $maturityList[$maturity->getDomain()->getPosition()]['old'] = $maturity->getScore();
-                    if (!isset($domainsName[$maturity->getDomain()->getPosition()])) {
-                        $domainsName[$maturity->getDomain()->getPosition()] = $maturity->getDomain()->getName();
-                    }
-                }
-            }
-            foreach ($data['new']->getMaturity() as $maturity) {
-                $maturityList[$maturity->getDomain()->getPosition()]['new'] = $maturity->getScore();
-                if (!isset($domainsName[$maturity->getDomain()->getPosition()])) {
-                    $domainsName[$maturity->getDomain()->getPosition()] = $maturity->getDomain()->getName();
-                }
-            }
-            \ksort($maturityList);
-            \ksort($domainsName);
+        \ksort($maturityList);
+        \ksort($domainsName);
 
-            foreach ($maturityList as $score) {
-                if (isset($score['old'])) {
-                    $serie2[] = $score['old'] / 10;
-                }
-                $serie1[] = $score['new'] / 10;
+        foreach ($maturityList as $score) {
+            if (isset($score['old'])) {
+                $serie2[] = $score['old'] / 10;
             }
-            // Display
-            $section->addTitle("Résultat de l'évaluation du {$data['new']->getCreatedAt()->format('d/m/Y')}", 2);
-
-            $chart = $section->addChart(
-                'radar',
-                $domainsName,
-                $serie1,
-                [
-                    'height' => Converter::cmToEmu(11),
-                    'width'  => Converter::cmToEmu(15),
-                    '3d'     => true,
-                ]
-            );
-            if (!empty($serie2)) {
-                $chart->addSeries(\array_keys($maturityList), $serie2, $data['old']->getCreatedAt()->format('d/m/Y'));
-            }
-            $table = $section->addTable(['unit' => TblWidth::PERCENT, 'width' => 5000]);
-            $row   = $table->addRow();
-            if (!empty($serie2)) {
-                $cell = $row->addCell(2500);
-                $cell->addText("                         {$data['old']}", ['color' => 'b30000']);
-            }
-            $cell = $row->addCell(2500);
-            $cell->addText("{$data['new']}", ['align' => 'right', 'color' => '3c8dbc']);
+            $serie1[] = $score['new'] / 10;
         }
+        // Display
+        $section->addTitle("Résultat de l'évaluation du {$data['new']->getCreatedAt()->format('d/m/Y')}", 2);
+
+        $chart = $section->addChart(
+            'radar',
+            $domainsName,
+            $serie1,
+            [
+                'height' => Converter::cmToEmu(11),
+                'width'  => Converter::cmToEmu(15),
+                '3d'     => true,
+            ]
+        );
+        if (!empty($serie2)) {
+            $chart->addSeries(\array_keys($maturityList), $serie2, $data['old']->getCreatedAt()->format('d/m/Y'));
+        }
+        $table = $section->addTable(['unit' => TblWidth::PERCENT, 'width' => 5000]);
+        $row   = $table->addRow();
+        if (!empty($serie2)) {
+            $cell = $row->addCell(2500);
+            $cell->addText("{$data['old']}", ['color' => 'b30000']);
+        }
+        $cell = $row->addCell(2500);
+        $cell->addText("{$data['new']}", ['align' => 'right', 'color' => '3c8dbc']);
     }
 
     /**
