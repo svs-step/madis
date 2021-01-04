@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## [1.7.12] - 2021-01-04
+### Changement
+- Correction d'un bug empêchant la suppression d'une action de protection pour laquelle il existe un duplicat
+
 ## [1.7.11] - 2020-10-16
 ### Changement
 - Correctif bug utilisateur archivé visible dans la liste "Ma collectivité" #295
