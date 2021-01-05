@@ -201,4 +201,21 @@ class Contractor extends CRUDRepository implements Repository\Contractor
             ->getResult()
             ;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findBy(array $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
