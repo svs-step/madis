@@ -51,4 +51,13 @@ interface Contractor extends CRUDRepositoryInterface, DataTablesRepository
      * @return array
      */
     public function findAllByActiveCollectivity(bool $active = true);
+
+    /**
+     * Find all contractors by criteria.
+     *
+     * @param array $criteria List of criteria
+     *
+     * @return array The array of contractors given by criteria
+     */
+    public function findBy(array $criteria = []);
 }

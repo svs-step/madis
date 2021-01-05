@@ -13,7 +13,7 @@ stages:
 .job-base-template: &job-base-defintion
     image: mykiwi/docker
     services:
-        - docker:dind
+        - docker:19.03-dind
 
 .vendor-install-template: &vendor-install-defintion
     before_script:
