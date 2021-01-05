@@ -1,9 +1,9 @@
 CHANGELOG
 =========
 
-## [1.7.12] - 2021-01-04
+## [1.7.12] - 2021-01-05
 ### Changement
-- Correction d'un bug empêchant la suppression d'une action de protection pour laquelle il existe un duplicat
+- Correction d'un bug empêchant la suppression d'une action de protection ou d'un sous-traitant pour lesquels il existe un duplicat
 
 ## [1.7.11] - 2020-10-16
 ### Changement
