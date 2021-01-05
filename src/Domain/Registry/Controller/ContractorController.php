@@ -42,6 +42,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -277,5 +278,39 @@ class ContractorController extends CRUDController
         }
 
         return $cellContent;
+    }
+
+    /**
+     * The deletion action
+     * Delete the data.
+     * OVERRIDE of the CRUDController to manage clone id.
+     *
+     * @throws \Exception
+     */
+    public function deleteConfirmationAction(string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        if ($this->isSoftDelete()) {
+            if (!\method_exists($object, 'setDeletedAt')) {
+                throw new MethodNotImplementedException('setDeletedAt');
+            }
+            $object->setDeletedAt(new \DateTimeImmutable());
+            $this->repository->update($object);
+        } else {
+            /* Delete clonedFrom id from clone to prevent SQL error on foreign key */
+            foreach ($this->repository->findBy(['clonedFrom' => $id]) as $clone) {
+                $clone->setClonedFrom(null);
+            }
+            $this->entityManager->remove($object);
+            $this->entityManager->flush();
+        }
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
+
+        return $this->redirectToRoute($this->getRouteName('list'));
     }
 }
