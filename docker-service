@@ -128,6 +128,11 @@ unitTests() {
     docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ $DOCKER_IMAGE_PHP bash -c "APP_ENV=test vendor/bin/simple-phpunit"
 }
 
+security() {
+    echo -e "\n\n\nSecurity check"
+    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ $DOCKER_IMAGE_PHP bash -c "php-security-checker"
+}
+
 qualityTests() {
     docker-compose -f docker-compose.test.yml up -d php
 
@@ -230,6 +235,7 @@ Commands:
   pushImagePhp                Update registry php image
   pushImageNginx              Update registry nginx api image
   pullImages                  Pull latest images from private repository
+  securityCheck               Check vulnerabilities in project libraries
 EOF
 }
 
@@ -313,6 +319,9 @@ case "$1" in
         ;;
  pullImages)
         pullImages
+        ;;
+ securityCheck)
+        security
         ;;
  *)
         show_help >&2
