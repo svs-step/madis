@@ -64,7 +64,7 @@ check-security:
     <<: *vendor-install-defintion
     <<: *cache-pull-defintion
     script:
-        - make security
+        - sh docker-service securityCheck
     stage: quality-assurance
     except:
         - master

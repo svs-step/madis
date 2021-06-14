@@ -31,7 +31,7 @@ lint-yaml: ## Lint twig templates
 	$(QA) bin/console lint:yaml fixtures
 
 security: ## Check security of your dependencies (https://security.sensiolabs.org/)
-	$(QA) ./vendor/bin/security-checker security:check
+	$(QA) php-security-checker
 
 phploc: ## PHPLoc (https://github.com/sebastianbergmann/phploc)
 	$(QA) phploc src/
