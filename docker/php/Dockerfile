@@ -69,7 +69,6 @@ RUN chown www-data:www-data -R /run/php/ /var/www
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN chmod +x /usr/local/bin/composer
-RUN su www-data -c "composer global require hirak/prestissimo"
 
 
 # YARN INSTALL (used for webpack-encore)
@@ -80,6 +79,12 @@ RUN apt-get install -y nodejs
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN apt-get update && apt-get install -y yarn
+
+
+# SECURITY CHECKER
+# ======================================
+RUN curl -L https://github.com/fabpot/local-php-security-checker/releases/download/v1.0.0/local-php-security-checker_1.0.0_linux_386 --output /bin/php-security-checker
+RUN chmod 755 /bin/php-security-checker
 
 # INSTALL WKHTMLTOPDF
 # ===================
