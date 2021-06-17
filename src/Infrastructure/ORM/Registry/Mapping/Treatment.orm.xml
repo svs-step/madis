@@ -15,7 +15,7 @@
         <field name="manager" column="manager" nullable="true"/>
         <field name="software" column="software" nullable="true"/>
         <field name="paperProcessing" column="paper_processing" type="boolean"/>
-        <field name="legalBasis" column="legal_basis" type="json_array"/>
+        <field name="legalBasis" column="legal_basis" type="json_array" nullable="true"/>
         <field name="legalBasisJustification" column="legal_basis_justification" type="text" nullable="true"/>
         <field name="observation" column="observation" type="text" nullable="true"/>
         <field name="dataCategoryOther" column="data_category_other" type="text" nullable="true"/>
@@ -37,7 +37,8 @@
         <field name="securityOpenAccounts" column="security_open_accounts" type="boolean"/>
         <field name="securitySpecificitiesDelivered" column="security_specificities_delivered" type="boolean"/>
         <field name="author" column="author" nullable="true"/>
-        <field name="collectingMethod" column="collecting_method" nullable="true"/>
+        <field name="coordonneesResponsableTraitement" column="coordonnees_responsable_traitement" nullable="true"/>
+        <field name="collectingMethod" column="collecting_method" type="json_array" nullable="true"/>
         <field name="estimatedConcernedPeople" column="estimated_concerned_people" type="integer" nullable="true"/>
         <field name="ultimateFate" column="ultimate_fate" nullable="true"/>
 

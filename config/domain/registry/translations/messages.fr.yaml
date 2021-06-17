@@ -346,6 +346,7 @@ registry:
             data_crossing: Croisement de données
             data_category: Catégorie de données
             data_category_other: Autres catégories
+            coordonnees_responsable_traitement: Coordonnées du responsable de traitement
             data_origin: Origine des données
             delay: Délai de conservation
             estimated_concerned_people: Nombre de concernées
@@ -417,6 +418,7 @@ registry:
             conformite_traitement_updated_at: Conformité du traitement - Date modification
             collectivity: Collectivité
             contractors: Sous-traitants
+            coordonnees_responsable_traitement: Coordonnées responsable
             created_at: Date de création
             creator: Créateur
             data_crossing: Croisement de données

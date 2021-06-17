@@ -285,10 +285,19 @@ class TreatmentType extends AbstractType
                 'name'     => 'registry_treatment_author',
                 'required' => true,
             ])
+            ->add('coordonneesResponsableTraitement', TextareaType::class, [
+                'label'    => 'registry.treatment.form.coordonnees_responsable_traitement',
+                'required' => false,
+                'attr'     => [
+                    'rows' => 3,
+                ],
+            ])
             ->add('collectingMethod', DictionaryType::class, [
                 'label'       => 'registry.treatment.form.collecting_method',
                 'name'        => 'registry_treatment_collecting_method',
                 'required'    => false,
+                'multiple'    => true,
+                'expanded'    => true,
                 'placeholder' => 'placeholder.precision',
             ])
             ->add('estimatedConcernedPeople', IntegerType::class, [
