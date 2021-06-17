@@ -52,6 +52,11 @@ $(document).ready(function() {
         })
     });
 
+    $('#treatment_author').change(function() {
+        var textArea = $('#treatment_coordonneesResponsableTraitement');
+        textArea.prop('disabled', !($(this).val() === 'processing_manager'));
+    });
+
     // Check Collectivity dpo | onLoad & onChange
     checkCollectivityDifferentDpo();
     $('#collectivity_differentDpo').on('change', function() {
