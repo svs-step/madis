@@ -105,6 +105,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'innovativeUse'                     => CheckboxType::class,
             'active'                            => ChoiceType::class,
             'author'                            => DictionaryType::class,
+            'coordonneesResponsableTraitement'  => TextareaType::class,
             'collectingMethod'                  => DictionaryType::class,
             'estimatedConcernedPeople'          => IntegerType::class,
             'securityEntitledPersons'           => CheckboxType::class,

@@ -11,10 +11,12 @@ App\Domain\Registry\Model\Treatment:
             - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
                   name: 'registry_treatment_author'
                   groups: ['default']
+
         collectingMethod:
-            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
-                  name: 'registry_treatment_collecting_method'
-                  groups: ['default']
+            -   All:
+                    - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                        name: 'registry_treatment_collecting_method'
+                        groups: ['default']
         estimatedConcernedPeople:
             - GreaterThanOrEqual:
                   value: 0
@@ -27,9 +29,6 @@ App\Domain\Registry\Model\Treatment:
                 max: 255
                 groups: ['default']
         legalBasis:
-            - NotBlank:
-                message: 'registry_treatment.legal_basis.not_blank'
-                groups: ['default']
             - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
                 name: 'registry_treatment_legal_basis'
                 groups: ['default']
