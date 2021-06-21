@@ -338,6 +338,11 @@ class Treatment implements LoggableSubject
     private $author;
 
     /**
+     * @var string|null
+     */
+    private $coordonneesResponsableTraitement;
+
+    /**
      * FR: Moyens de la collecte des données (Détails).
      *
      * @var string|null
@@ -831,12 +836,22 @@ class Treatment implements LoggableSubject
         $this->author = $author;
     }
 
-    public function getCollectingMethod(): ?string
+    public function getCoordonneesResponsableTraitement(): ?string
+    {
+        return $this->coordonneesResponsableTraitement;
+    }
+
+    public function setCoordonneesResponsableTraitement(?string $coordonneesResponsableTraitement): void
+    {
+        $this->coordonneesResponsableTraitement = $coordonneesResponsableTraitement;
+    }
+
+    public function getCollectingMethod()
     {
         return $this->collectingMethod;
     }
 
-    public function setCollectingMethod(?string $collectingMethod): void
+    public function setCollectingMethod($collectingMethod): void
     {
         $this->collectingMethod = $collectingMethod;
     }
