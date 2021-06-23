@@ -151,6 +151,11 @@ class Collectivity implements LoggableSubject
     private $userReferents;
 
     /**
+     * @var string|null
+     */
+    private $informationsComplementaires;
+
+    /**
      * Collectivity constructor.
      *
      * @throws \Exception
@@ -405,5 +410,15 @@ class Collectivity implements LoggableSubject
     public function getUserReferents(): iterable
     {
         return $this->userReferents;
+    }
+
+    public function getInformationsComplementaires(): ?string
+    {
+        return $this->informationsComplementaires;
+    }
+
+    public function setInformationsComplementaires(?string $informationsComplementaires): void
+    {
+        $this->informationsComplementaires = $informationsComplementaires;
     }
 }
