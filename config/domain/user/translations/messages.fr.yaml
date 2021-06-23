@@ -41,6 +41,7 @@ user:
             siren: SIREN
             type: Type
             website: Site internet
+            informations_complementaires: Informations complémentaires
         flashbag:
             success:
                 create: Collectivité "%object%" créée avec succès
@@ -52,6 +53,7 @@ user:
             short_name: Nom court
             siren: SIREN
             type: Type
+            informations_complementaires: Informations complémentaires
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cette collectivité ?
         show:
@@ -79,6 +81,7 @@ user:
             type: Type
             updated_at: Date de dernière modification
             website: Site internet
+            informations_complementaires: Informations complémentaires
         tab:
           address: Adresse
           comite_il: Composition du comité Informatique et Libertés
