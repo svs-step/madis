@@ -32,6 +32,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -116,6 +117,10 @@ class CollectivityType extends AbstractType
                 ])
                 ->add('hasModuleConformiteOrganisation', CheckboxType::class, [
                     'label'    => 'user.collectivity.form.has_module_conformite_organisation',
+                    'required' => false,
+                ])
+                ->add('informationsComplementaires', TextareaType::class, [
+                    'label'    => 'user.collectivity.form.informations_complementaires',
                     'required' => false,
                 ])
             ;
