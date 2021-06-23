@@ -57,6 +57,9 @@
                                 </select>
                             </th>
                             <th>
+                                <input class="form-control" type="text" id="search_informations_complementaires" placeholder="Infos complémentaires" style="width: 100%;">
+                            </th>
+                            <th>
                                 <input class="form-control" type="text" id="search_siren" placeholder="Siren" style="width: 100%;">
                             </th>
                             <th>
@@ -71,6 +74,7 @@
                             <th>{{ 'user.collectivity.list.name'|trans }}</th>
                             <th>{{ 'user.collectivity.list.short_name'|trans }}</th>
                             <th>{{ 'user.collectivity.list.type'|trans }}</th>
+                            <th>{{ 'user.collectivity.list.informations_complementaires'|trans }}</th>
                             <th>{{ 'user.collectivity.list.siren'|trans }}</th>
                             <th>{{ 'user.collectivity.list.active'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
@@ -95,6 +99,7 @@
             {"data": "nom"},
             {"data": "nom_court"},
             {"data": "type"},
+            {"data": "informations_complementaires"},
             {"data": "siren"},
             {"data": "statut"},
             {"data": "actions", "className": "noVis", "orderable": false, "visible": actionsIsVisible},
@@ -125,14 +130,19 @@
                 oTable.column('2').search($(this).val()).draw() ;
             });
 
+            $('#search_informations_complementaires').off('keyup');
+            $('#search_informations_complementaires').keyup($.debounce(250, function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            }));
+
             $('#search_siren').off('keyup');
             $('#search_siren').keyup($.debounce(250, function(){
-                oTable.column('3').search($(this).val()).draw() ;
+                oTable.column('4').search($(this).val()).draw() ;
             }));
 
             $('#search_actif').off('change');
             $('#search_actif').change(function(){
-                oTable.column('4').search($(this).val()).draw() ;
+                oTable.column('5').search($(this).val()).draw() ;
             });
         }
 
