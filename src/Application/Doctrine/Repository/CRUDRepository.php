@@ -169,4 +169,13 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
             ->find($id)
         ;
     }
+
+    public function findBy(array $criterias)
+    {
+        return $this->registry
+            ->getManager()
+            ->getRepository($this->getModelClass())
+            ->findBy($criterias)
+            ;
+    }
 }

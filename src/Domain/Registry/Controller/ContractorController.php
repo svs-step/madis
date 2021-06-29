@@ -269,13 +269,12 @@ class ContractorController extends CRUDController
                 <i class="fa fa-pencil-alt"></i>' .
                 $this->translator->trans('action.edit') .
             '</a>';
-        if (0 === count(\iterable_to_array($sousTraitant->getTreatments()))) {
-            $cellContent .=
-                '<a href="' . $this->router->generate('registry_contractor_delete', ['id' => $sousTraitant->getId()]) . '">
-                    <i class="fa fa-trash"></i>' .
-                    $this->translator->trans('action.delete') .
-                '</a>';
-        }
+
+        $cellContent .=
+            '<a href="' . $this->router->generate('registry_contractor_delete', ['id' => $sousTraitant->getId()]) . '">
+                <i class="fa fa-trash"></i>' .
+                $this->translator->trans('action.delete') .
+            '</a>';
 
         return $cellContent;
     }

@@ -3,7 +3,11 @@
 {% set bodyClass = 'user_collectivity delete' %}
 {% set menuItem = 'user_collectivity' %}
 
-{% block title %}{{ 'user.collectivity.title.delete'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}
+    {{ 'user.collectivity.title.delete'|trans }}
+    -
+    {{ parent() }}
+{% endblock %}
 
 {% block body_head %}
     <h1>
@@ -27,8 +31,17 @@
                 <div class="box-header"></div>
                 <div class="box-body">
                     Souhaitez vous vraiment supprimer la collectivité "{{ object }}" ?
-                    <p><b>La suppression de la collectivité entrainera la suppression de toutes les données liées à cette collectivité (Traitements, Sous-traitants, Documents, ...)</b></p>
-
+                    <p>
+                        <b>La suppression de la collectivité entrainera la suppression de toutes les données liées à cette collectivité :
+                            <ul>
+                                {% for deletedObject in deletedObjects %}
+                                    <li>
+                                        {{ deletedObject }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </b>
+                    </p>
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('user_collectivity_list') }}" class="btn btn-default">
