@@ -284,6 +284,12 @@ class UserController extends CRUDController
                         $this->translator->trans('action.unarchive') .
                         '</a>';
                 }
+
+                $cellContent .=
+                '<a href="' . $this->router->generate('user_user_delete', ['id' => $user->getId()]) . '">
+                    <i class="fa fa-trash-alt"></i> ' .
+                $this->translator->trans('action.delete') .
+                '</a>';
             }
         }
 

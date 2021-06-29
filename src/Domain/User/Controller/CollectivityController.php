@@ -26,6 +26,9 @@ namespace App\Domain\User\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Registry\Repository\Contractor as ContractorRepository;
+use App\Domain\Registry\Repository\Proof as ProofRepository;
+use App\Domain\Registry\Repository\Treatment as TreatmentRepository;
 use App\Domain\User\Dictionary\CollectivityTypeDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\CollectivityType;
@@ -36,6 +39,7 @@ use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -57,17 +61,33 @@ class CollectivityController extends CRUDController
      */
     protected $security;
 
+    protected TreatmentRepository $treatmentRepository;
+
+    protected Repository\User $userRepository;
+
+    protected ProofRepository $proofRepository;
+
+    protected ContractorRepository $contractorRepository;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Collectivity $repository,
         Pdf $pdf,
         RouterInterface $router,
-        Security $security
+        Security $security,
+        TreatmentRepository $treatmentRepository,
+        ContractorRepository $contractorRepository,
+        ProofRepository $proofRepository,
+        Repository\User $userRepository
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf);
-        $this->router       = $router;
-        $this->security     = $security;
+        $this->router                   = $router;
+        $this->security                 = $security;
+        $this->treatmentRepository      = $treatmentRepository;
+        $this->contractorRepository     = $contractorRepository;
+        $this->proofRepository          = $proofRepository;
+        $this->userRepository           = $userRepository;
     }
 
     /**
@@ -124,8 +144,8 @@ class CollectivityController extends CRUDController
         foreach ($collectivities as $collectivity) {
             $reponse['data'][] = [
                 'nom'                          => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' .
-                                                        $collectivity->getName() .
-                                                  '</a>',
+                    $collectivity->getName() .
+                    '</a>',
                 'nom_court'                    => $collectivity->getShortName(),
                 'type'                         => !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] : null,
                 'informations_complementaires' => !\is_null($collectivity->getInformationsComplementaires()) ? nl2br($collectivity->getInformationsComplementaires()) : null,
@@ -152,12 +172,10 @@ class CollectivityController extends CRUDController
             $this->translator->trans('action.edit') .
         '</a>';
 
-        if (0 === \count($collectivity->getUsers())) {
-            $cellContent .= '<a href="' . $this->router->generate('user_collectivity_delete', ['id'=> $collectivity->getId()]) . '">
-                <i class="fa fa-trash"></i> ' .
-                $this->translator->trans('action.delete') .
-            '</a>';
-        }
+        $cellContent .= '<a href="' . $this->router->generate('user_collectivity_delete', ['id'=> $collectivity->getId()]) . '">
+            <i class="fa fa-trash"></i> ' .
+            $this->translator->trans('action.delete') .
+        '</a>';
 
         return $cellContent;
     }
@@ -205,5 +223,46 @@ class CollectivityController extends CRUDController
         }
 
         return parent::showAction($id);
+    }
+
+    /**
+     * The delete action view
+     * Display a confirmation message to confirm data deletion.
+     *
+     * @Override
+     */
+    public function deleteAction(string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $stringObjects = [];
+
+        $deletedTreaments = $this->treatmentRepository->findBy(['collectivity' => $object]);
+        foreach ($deletedTreaments as $deletedTreament) {
+            $stringObjects[] = $deletedTreament->getName();
+        }
+
+        $deletedContractors = $this->contractorRepository->findBy(['collectivity' => $object]);
+        foreach ($deletedContractors as $deletedContractor) {
+            $stringObjects[] = $deletedContractor->getName();
+        }
+
+        $deletedProofs =  $this->proofRepository->findBy(['collectivity' => $object]);
+        foreach ($deletedProofs as $deletedProof) {
+            $stringObjects[] = $deletedProof->getName();
+        }
+
+        $deletedUsers =  $this->userRepository->findBy(['collectivity' => $object]);
+        foreach ($deletedUsers as $deletedUser) {
+            $stringObjects[] = $deletedUser->getFirstname() . ' ' . $deletedUser->getLastname();
+        }
+
+        return $this->render($this->getTemplatingBasePath('delete'), [
+            'object'            => $object,
+            'deletedObjects'    => $stringObjects,
+        ]);
     }
 }
