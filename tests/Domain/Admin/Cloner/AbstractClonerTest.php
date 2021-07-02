@@ -27,6 +27,7 @@ namespace App\Tests\Domain\Admin\Cloner;
 use App\Domain\Admin\Cloner\AbstractCloner;
 use App\Domain\Admin\Cloner\ClonerInterface;
 use App\Domain\Admin\Dictionary\DuplicationTypeDictionary;
+use App\Domain\Admin\Model\DuplicatedObject;
 use App\Domain\Admin\Model\Duplication;
 use App\Domain\Registry\Model;
 use App\Domain\User\Model as UserModel;
@@ -76,20 +77,38 @@ class AbstractClonerTest extends TestCase
      */
     public function dataProviderDuplicationModel(): array
     {
+        $treatment            = new Model\Treatment();
         $type                 = DuplicationTypeDictionary::KEY_TREATMENT;
         $sourceCollectivity   = new UserModel\Collectivity();
+        $duplicatedObjects    = [
+            new DuplicatedObject(
+                new Duplication(
+                    DuplicationTypeDictionary::KEY_TREATMENT,
+                    $sourceCollectivity
+                ),
+                $sourceCollectivity,
+                $treatment->getId()->toString()
+            ),
+        ];
         $targetCollectivities = [
             new UserModel\Collectivity(),
             new UserModel\Collectivity(),
         ];
+
         $data = [
-            new Model\Treatment(),
-            new Model\Treatment(),
-            new Model\Treatment(),
+            $treatment,
         ];
-        $duplication = new Duplication($type, $sourceCollectivity, $targetCollectivities);
+        $duplication = new Duplication($type, $sourceCollectivity, $targetCollectivities, $duplicatedObjects);
         foreach ($data as $dataItem) {
             $duplication->addData($dataItem);
+        }
+
+        $duplicatedObjects = [
+            new DuplicatedObject($duplication, $targetCollectivities[0], $treatment->getId()->toString()),
+            new DuplicatedObject($duplication, $targetCollectivities[1], $treatment->getId()->toString()),
+        ];
+        foreach ($duplicatedObjects as $duplicatedObject) {
+            $duplication->addDuplicatedObjet($duplicatedObject);
         }
 
         return [

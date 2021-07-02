@@ -98,6 +98,11 @@ class DuplicationFormDTOTransformerTest extends TestCase
         $targetOption = DuplicationTargetOptionDictionary::KEY_PER_COLLECTIVITY;
         $dto->setTargetOption($targetOption);
 
+        $targetCollectivitesIds = [
+            $dto->getTargetCollectivities()[0]->getId()->toString(),
+            $dto->getTargetCollectivities()[1]->getId()->toString(),
+        ];
+
         $this->hydratorProphecy->hydrate(Argument::type(Duplication::class))->shouldBeCalled();
         $this->collectivityRepositoryProphecy->findByTypes(Argument::cetera())->shouldNotBeCalled();
 
@@ -108,7 +113,13 @@ class DuplicationFormDTOTransformerTest extends TestCase
         $this->assertEquals($dto->getSourceCollectivity(), $model->getSourceCollectivity());
         $this->assertEquals($dto->getData(), $model->getDataIds());
         // hydrator would set data to $model::$data but we don't check it here
-        $this->assertEquals($dto->getTargetCollectivities(), $model->getTargetCollectivities());
+
+        $modelCollectivitiesIds = [];
+        foreach ($model->getTargetCollectivities() as $collectivity) {
+            $modelCollectivitiesIds[] = $collectivity->getId()->toString();
+        }
+
+        $this->assertEquals($targetCollectivitesIds, $modelCollectivitiesIds);
     }
 
     /**
@@ -126,6 +137,10 @@ class DuplicationFormDTOTransformerTest extends TestCase
         $targetCollectivities = [
             new UserModel\Collectivity(),
             new UserModel\Collectivity(),
+        ];
+        $targetCollectivitiesIds = [
+            $targetCollectivities[0]->getId()->toString(),
+            $targetCollectivities[1]->getId()->toString(),
         ];
 
         $this->hydratorProphecy->hydrate(Argument::type(Duplication::class))->shouldBeCalled();
@@ -145,6 +160,12 @@ class DuplicationFormDTOTransformerTest extends TestCase
         $this->assertEquals($dto->getSourceCollectivity(), $model->getSourceCollectivity());
         $this->assertEquals($dto->getData(), $model->getDataIds());
         // hydrator would set data to $model::$data but we don't check it here
-        $this->assertEquals($targetCollectivities, $model->getTargetCollectivities());
+
+        $ids = [];
+        foreach ($model->getTargetCollectivities() as $collectivity) {
+            $ids[] = $collectivity->getId()->toString();
+        }
+
+        $this->assertEquals($targetCollectivitiesIds, $targetCollectivitiesIds);
     }
 }
