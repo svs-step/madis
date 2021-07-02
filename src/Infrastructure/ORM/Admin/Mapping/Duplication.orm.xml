@@ -15,12 +15,11 @@
         <many-to-one field="sourceCollectivity" target-entity="App\Domain\User\Model\Collectivity">
             <join-column on-delete="CASCADE" />
         </many-to-one>
-        <many-to-many field="targetCollectivities" target-entity="App\Domain\User\Model\Collectivity">
-            <join-table name="admin_duplication_collectivity">
-                <join-columns><join-column on-delete="CASCADE"/></join-columns>
-                <inverse-join-columns><join-column on-delete="CASCADE"/></inverse-join-columns>
-            </join-table>
-        </many-to-many>
+        <one-to-many field="duplicatedObjects" target-entity="App\Domain\Admin\Model\DuplicatedObject" mapped-by="duplication" >
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
 
         <!-- Traits -->
         <field name="createdAt" column="created_at" type="datetime_immutable"/>
