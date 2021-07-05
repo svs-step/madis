@@ -69,4 +69,13 @@ interface CRUDRepositoryInterface extends RepositoryInterface
      * @return mixed
      */
     public function findOneById(string $id);
+
+    /**
+     * Get an object by criteria.
+     *
+     * @param array $criteria list of criteria
+     *
+     * @return mixed
+     */
+    public function findBy(array $criteria);
 }

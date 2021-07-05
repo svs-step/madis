@@ -268,9 +268,15 @@
                     <table class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.creator'|trans }}</strong></td>
                             <td>
-                                {{ object.creator }}
+                                <strong>{{ 'registry.treatment.show.creator'|trans }}</strong>
+                            </td>
+                            <td>
+                                {% if object.creator %}
+                                    {{ object.creator }}
+                                {% else %}
+                                    {{ 'registry.treatment.show.deleted_user'|trans }}
+                                {% endif %}
                             </td>
                         </tr>
                         {% if is_granted('ROLE_ADMIN') %}
