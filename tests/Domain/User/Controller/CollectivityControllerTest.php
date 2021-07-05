@@ -25,6 +25,9 @@ declare(strict_types=1);
 namespace App\Tests\Domain\User\Controller;
 
 use App\Application\Controller\CRUDController;
+use App\Domain\Registry\Repository\Contractor as ContractorRepository;
+use App\Domain\Registry\Repository\Proof as ProofRepository;
+use App\Domain\Registry\Repository\Treatment as TreatmentRepository;
 use App\Domain\User\Controller\CollectivityController;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\CollectivityType;
@@ -71,7 +74,11 @@ class CollectivityControllerTest extends TestCase
             $this->repository->reveal(),
             $this->prophesize(Pdf::class)->reveal(),
             $this->prophesize(RouterInterface::class)->reveal(),
-            $this->security->reveal()
+            $this->security->reveal(),
+            $this->prophesize(TreatmentRepository::class)->reveal(),
+            $this->prophesize(ContractorRepository::class)->reveal(),
+            $this->prophesize(ProofRepository::class)->reveal(),
+            $this->prophesize(Repository\User::class)->reveal()
         );
     }
 
