@@ -1,0 +1,784 @@
+{% extends 'base_publique.html.twig' %}
+
+{% set bodyClass = 'registry_treatment show' %}
+{% set menuItem = 'registry_treatment' %}
+
+{% block title %}
+    {{ 'registry.treatment.title.show'|trans }}
+    -
+    {{ parent() }}
+{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'registry.treatment.title.show'|trans }}
+        {% if (object.name and config.name == true) %}
+            <small>{{ object.name }}</small>
+        {% endif %}
+    </h1>
+{% endblock %}
+
+
+{% block body %}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="action-bar">
+            <a href="{{ path('registry_public_treatment_list', {id: object.collectivity.id}) }}" class="btn btn-default">
+                <i class="fa fa-arrow-left"></i>
+                {{ 'registry.treatment.action.back_to_list'|trans }}
+            </a>
+        </div>
+    </div>
+</div>
+
+<div
+    class="row">
+    {# LEFT #}
+    <div
+        class="col-md-6">
+        {# GENERAL INFORMATIONS #}
+        {% if (
+            (object.name and config.name == true)
+            or (object.goal and config.goal == true)
+            or (object.author and config.author == true)
+            or (object.author == "processing_manager" and object.coordonneesResponsableTraitement and config.coordonneesResponsableTraitement == true)
+            or (object.manager and config.manager == true)
+            or (object.active and config.active == true)
+            or (object.legalBasis and config.legalBasis == true)
+            or (object.legalBasisJustification and config.legalBasisJustification == true)
+            or (object.observation and config.observation == true)
+        ) %}
+            <div class="box box-solid box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                            {% if (object.name and config.name == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.name'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.name }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.goal and config.goal == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.goal'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.goal|nl2br }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.author and config.author == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.author'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.author is not null %}
+                                            {{ object.author|dictionary('registry_treatment_author') }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.author == "processing_manager" and object.coordonneesResponsableTraitement and config.coordonneesResponsableTraitement == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.coordonnees_responsable_traitement'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.coordonneesResponsableTraitement|nl2br }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.manager and config.manager == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.manager'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.manager }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.active and config.active == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.active'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.active %}
+                                            <span class="badge bg-green">{{ 'label.active'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.legalBasis and config.legalBasis == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.legal_basis'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.legalBasis|dictionary('registry_treatment_legal_basis') }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.legalBasisJustification and config.legalBasisJustification == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.legal_basis_justification'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.legalBasisJustification|nl2br }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.observation and config.observation == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.observation'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.observation|nl2br }}</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        {# DATA CATEGORY #}
+        {% if (
+            (object.dataCategories and config.dataCategories == true)
+            or  (object.dataCategoryOther and config.dataCategoryOther == true)
+            ) %}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                {% if (object.dataCategories and config.dataCategories == true) %}
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.data_category'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% for category in object.dataCategories %}
+                                                <li>
+                                                    {% if category.sensible %}
+                                                        <strong>
+                                                        {% endif %}
+                                                        {{ category.name }}
+                                                        {% if category.sensible %}
+                                                        </strong>
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                            {% if (object.dataCategoryOther and config.dataCategoryOther == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.data_category_other'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.dataCategoryOther|nl2br }}</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        {# RECIPIENTS #}
+        {% if (
+            (object.recipientCategory and config.recipientCategory == true) 
+            or (object.contractors and config.contractors == true)) %}
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                            {% if (object.recipientCategory and config.recipientCategory == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.recipient_category'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.recipientCategory|nl2br }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.contractors and config.contractors == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.contractors'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% for contractor in object.contractors %}
+                                                <li>
+                                                    <a href="{{ path('registry_contractor_show', {'id': contractor.id}) }}">{{ contractor }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        {# SPECIFIC #}
+        {% if (
+            (config.systematicMonitoring == true)
+            or (config.largeScaleCollection == true)
+            or (config.vulnerablePeople == true)
+            or (config.dataCrossing == true)
+            or (config.evaluationOrRating == true)
+            or (config.automatedDecisionsWithLegalEffect == true)
+            or (config.automaticExclusionService == true) 
+            or (config.innovativeUse == true)) %}
+            <div class="box box-solid box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                            {% if (config.systematicMonitoring == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.systematic_monitoring'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% if object.systematicMonitoring %}
+                                                <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            {% else %}
+                                                <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.largeScaleCollection == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.large_scale_collection'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% if object.largeScaleCollection %}
+                                                <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            {% else %}
+                                                <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.vulnerablePeople == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.vulnerable_people'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% if object.vulnerablePeople %}
+                                                <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            {% else %}
+                                                <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.dataCrossing == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.data_crossing'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% if object.dataCrossing %}
+                                                <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            {% else %}
+                                                <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.evaluationOrRating == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.evaluation_or_rating'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% if object.evaluationOrRating %}
+                                                <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            {% else %}
+                                                <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.automatedDecisionsWithLegalEffect == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.automated_decisions_with_legal_effect'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% if object.automatedDecisionsWithLegalEffect %}
+                                                <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            {% else %}
+                                                <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.automaticExclusionService == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.automatic_exclusion_service'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% if object.automaticExclusionService %}
+                                                <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            {% else %}
+                                                <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.innovativeUse == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.innovative_use'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% if object.innovativeUse %}
+                                                <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            {% else %}
+                                                <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        {# HISTORIC #}
+        {% if (
+            (object.creator and config.creator == true) 
+            or (object.collectivity and config.collectivity == true)
+            ) %}
+            <div class="box box-solid box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                            {% if (object.creator and config.creator == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.creator'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {{ object.creator }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.collectivity and config.collectivity == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.collectivity'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                            {{ object.collectivity }}
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    {# RIGHT #}
+    <div
+        class="col-md-6">
+        {# DETAILS #}
+        {% if (
+            (object.concernedPeopleParticular and config.concernedPeopleParticular == true) 
+        or (object.concernedPeopleUser and config.concernedPeopleUser == true) 
+        or (object.concernedPeopleAgent and config.concernedPeopleAgent == true) 
+        or (object.concernedPeopleElected and config.concernedPeopleElected == true) 
+        or (object.concernedPeopleCompany and config.concernedPeopleCompany == true) 
+        or (object.concernedPeoplePartner and config.concernedPeoplePartner == true) 
+        or (object.concernedPeopleOther and config.concernedPeopleOther == true) 
+        or (object.estimatedConcernedPeople and config.estimatedConcernedPeople == true) 
+        or (object.software and config.software == true) 
+        or (object.paperProcessing and config.paperProcessing == true) 
+        or (object.delay and config.delay == true) 
+        or (object.ultimateFate and config.ultimateFate == true) 
+        or (object.dataOrigin and config.dataOrigin == true) 
+        or (object.collectingMethod and config.collectingMethod == true)) %}
+
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>{{ 'registry.treatment.show.concerned_people'|trans }}</strong>
+                                </td>
+                            </tr>
+                            {% if (object.concernedPeopleParticular and config.concernedPeopleParticular == true) %}
+                                <tr>
+                                    <td class="concerned-people-type">
+                                        <strong>{{ 'registry.treatment.show.concerned_people_particular'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.concernedPeopleParticular.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.concernedPeopleParticular.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.concernedPeopleUser and config.concernedPeopleUser == true) %}
+                                <tr>
+                                    <td class="concerned-people-type">
+                                        <strong>{{ 'registry.treatment.show.concerned_people_user'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.concernedPeopleUser.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.concernedPeopleUser.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.concernedPeopleAgent and config.concernedPeopleAgent == true) %}
+                                <tr>
+                                    <td class="concerned-people-type">
+                                        <strong>{{ 'registry.treatment.show.concerned_people_agent'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.concernedPeopleAgent.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.concernedPeopleAgent.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.concernedPeopleElected and config.concernedPeopleElected == true) %}
+                                <tr>
+                                    <td class="concerned-people-type">
+                                        <strong>{{ 'registry.treatment.show.concerned_people_elected'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.concernedPeopleElected.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.concernedPeopleElected.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.concernedPeopleCompany and config.concernedPeopleCompany == true) %}
+                                <tr>
+                                    <td class="concerned-people-type">
+                                        <strong>{{ 'registry.treatment.show.concerned_people_company'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.concernedPeopleCompany.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.concernedPeopleCompany.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.concernedPeoplePartner and config.concernedPeoplePartner == true) %}
+                                <tr>
+                                    <td class="concerned-people-type">
+                                        <strong>{{ 'registry.treatment.show.concerned_people_partner'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.concernedPeoplePartner.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.concernedPeoplePartner.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.concernedPeopleOther and config.concernedPeopleOther == true) %}
+                                <tr>
+                                    <td class="concerned-people-type">
+                                        <strong>{{ 'registry.treatment.show.concerned_people_other'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.concernedPeopleOther.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.concernedPeopleOther.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.estimatedConcernedPeople and config.estimatedConcernedPeople == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.estimated_concerned_people'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.estimatedConcernedPeople }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.software and config.software == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.software'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.software }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.paperProcessing and config.paperProcessing == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.paper_processing'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.paperProcessing %}
+                                            <span class="badge bg-gray">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.delay and config.delay == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.delay'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.delay.number and object.delay.period %}
+                                            {{ object.delay.number }}
+                                            {{ object.delay.period|dictionary('registry_delay_period') }}
+                                        {% elseif object.delay.otherDelay %}
+                                            {{ object.delay.comment }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+
+                            {% if (object.ultimateFate and config.ultimateFate == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.ultimate_fate'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.ultimateFate is not null %}
+                                            {{ object.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.dataOrigin and config.dataOrigin == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.dataOrigin }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.collectingMethod and config.collectingMethod == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% for method in object.collectingMethod %}
+                                                <li>{{ method|dictionary('registry_treatment_collecting_method') }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% if object.collectingMethod is not null %}{% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        {# SECURITY #}
+        {% if (config.securityAccessControl == true or config.securityTracability == true or config.securitySaving == true or config.securityUpdate == true or config.securityOther == true or config.securityEntitledPersons == true) %}
+            <div class="box box-solid box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                            {% if (config.securityAccessControl == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.security_access_control'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.securityAccessControl.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.securityAccessControl.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.securityTracability == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.security_tracability'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.securitytracability.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.securitytracability.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.securitySaving == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.security_saving'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.securitySaving.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.securitySaving.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.securityUpdate == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.security_update'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.securityUpdate.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.securityUpdate.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.securityOther == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.security_other'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.securityOther.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.securityOther.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.securityEntitledPersons == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.security_entitled_persons'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.securityEntitledPersons %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </td>
+                </tr>
+                <tr>
+                    {% if (config.securityOpenAccounts == true) %}
+                        <td>
+                            <strong>{{ 'registry.treatment.show.security_open_accounts'|trans }}</strong>
+                        </td>
+                        <td>
+                            {% if object.securityOpenAccounts %}
+                                <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+                {% if (config.securitySpecificitiesDelivered == true) %}
+                    <tr>
+                        <td>
+                            <strong>{{ 'registry.treatment.show.security_specificities_delivered'|trans }}</strong>
+                        </td>
+                        <td>
+                            {% if object.securitySpecificitiesDelivered %}
+                                <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        {% endif %}
+    </table>
+</div></div>{# PROOFS #}{% if (object.proofs and config.proofs == true) %}
+{% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}</div></div></div>{% endif %}{% endblock %}

@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_treatment form configuration' %}
+{% set menuItem = 'registry_treatment_configuration' %}
+
+{% block title %}
+    {{ 'registry.treatment.title.configure'|trans }}
+    -
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body_head %}
+    <h1>
+        {{ 'registry.treatment.title.configure'|trans }}
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}{% endblock %}
+
+
+{% block body %}
+
+    {% set submitValue = submitValue|default('action.submit'|trans) %}
+
+    {{ form_start(form) }}
+
+    <div class="row">
+        <div
+            class="col-md-6">
+            {# GENERAL INFORMATIONS #}
+            <div class="box box-solid box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3>
+                </div>
+                <div class="box-body">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.goal) }}
+                    <div id="author_group">
+                        {{ form_row(form.author) }}
+                        {{ form_row(form.coordonneesResponsableTraitement) }}
+                    </div>
+                    {{ form_row(form.manager) }}
+                    {{ form_row(form.active) }}
+                    {{ form_row(form.legalBasis) }}
+                    {{ form_row(form.legalBasisJustification) }}
+                    {{ form_row(form.observation) }}
+                </div>
+            </div>
+
+            {# DATA CATEGORY #}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3>
+                </div>
+                <div class="box-body">
+                    {{ form_row(form.dataCategories) }}
+                    {{ form_row(form.dataCategoryOther) }}
+                </div>
+            </div>
+
+            {# RECIPIENTS #}
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3>
+                </div>
+                <div class="box-body">
+                    {{ form_row(form.recipientCategory) }}
+                    {{ form_row(form.contractors) }}
+                </div>
+            </div>
+
+            {# SPECIFIC #}
+            <div class="box box-solid box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3>
+                </div>
+                <div class="box-body">
+                    {{ form_row(form.systematicMonitoring) }}
+                    {{ form_row(form.largeScaleCollection) }}
+                    {{ form_row(form.vulnerablePeople) }}
+                    {{ form_row(form.dataCrossing) }}
+                    {{ form_row(form.evaluationOrRating) }}
+                    {{ form_row(form.automatedDecisionsWithLegalEffect) }}
+                    {{ form_row(form.automaticExclusionService) }}
+                    {{ form_row(form.innovativeUse) }}
+                </div>
+            </div>
+
+            {# HISTORIC #}
+            <div class="box box-solid box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    {{ form_row(form.creator) }}
+                    {{ form_row(form.collectivity) }}
+                </div>
+            </div>
+
+        </div>
+
+        <div
+            class="col-md-6">
+            {# DETAILS #}
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label class="col-sm-2 control-label">
+                            {{ 'registry.treatment.show.concerned_people'|trans }}*
+                        </label>
+
+                        {% set concernedPeopleErrorBlock = null %}
+                        {% for error in form.vars.errors %}
+                            {% if error.origin.name == 'concernedPeopleParticular' %}
+                                {% set concernedPeopleErrorBlock %}
+                                <span class="help-block">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                            {{ error.message }}
+                                        </li>
+                                    </ul>
+                                </span>
+                                {% endset %}
+                            {% endif %}
+                        {% endfor %}
+                        <div class="col-sm-10 is-paddingless {% if concernedPeopleErrorBlock is not null %} has-error{% endif %}">
+                            {{ form_row(form.concernedPeopleParticular) }}
+                            {{ form_row(form.concernedPeopleUser) }}
+                            {{ form_row(form.concernedPeopleAgent) }}
+                            {{ form_row(form.concernedPeopleElected) }}
+                            {{ form_row(form.concernedPeopleCompany) }}
+                            {{ form_row(form.concernedPeoplePartner) }}
+                            {{ form_row(form.concernedPeopleOther) }}
+                            {% if concernedPeopleErrorBlock is not null %}
+                                {{ concernedPeopleErrorBlock }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {{ form_row(form.estimatedConcernedPeople) }}
+                    {{ form_row(form.software) }}
+                    {{ form_row(form.paperProcessing) }}
+
+                    {{ form_row(form.delay) }}
+
+                    {{ form_row(form.ultimateFate) }}
+                    {{ form_row(form.dataOrigin) }}
+                    {{ form_row(form.collectingMethod) }}
+                </div>
+            </div>
+
+            {# SECURITY #}
+            <div class="box box-solid box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3>
+                </div>
+                <div class="box-body">
+                    {{ form_row(form.securityAccessControl) }}
+                    {{ form_row(form.securityTracability) }}
+                    {{ form_row(form.securitySaving) }}
+                    {{ form_row(form.securityUpdate) }}
+                    {{ form_row(form.securityOther) }}
+                    {{ form_row(form.securityEntitledPersons) }}
+                    {{ form_row(form.securityOpenAccounts) }}
+                    {{ form_row(form.securitySpecificitiesDelivered) }}
+                </div>
+            </div>
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'label.linked_documents'|trans }}</h3>
+                </div>
+                <div class="box-body">
+                    {{ form_row(form.proofs) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+     {{ form_rest(form) }}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class="box-body text-center">
+                    <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
+    
+{% endblock %}

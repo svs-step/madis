@@ -4,6 +4,7 @@
         <div class="box box-solid box-info">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
             <div class="box-body">
+                {{ form_row(form.public) }}
                 {{ form_row(form.name) }}
                 {{ form_row(form.goal) }}
                 <div id="author_group">
