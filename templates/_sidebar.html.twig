@@ -95,6 +95,19 @@
             {% endif %}
         {% endif %}
 
+        {# CONFIGURATION #}
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="header">Configuration</li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li {% if menuItem == 'registry_treatment_configuration' %}class="active"{% endif %}>
+                    <a href="{{ path('registry_treatment_configuration') }}">
+                        <i class="fa fa-clipboard-list"></i>
+                        <span>{{ 'sidebar_menu.configuration_treatments'|trans }}</span>
+                    </a>
+                </li>
+            {% endif %}
+        {% endif %}
+
        {# ADMINISTRATION #}
         <li class="header">Espace d'administration</li>
         {% if is_granted('ROLE_REFERENT') %}

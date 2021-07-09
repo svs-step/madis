@@ -360,6 +360,7 @@ registry:
             name: Nom
             observation: Observations
             paper_processing: Traitement papier
+            public: Publique
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
             security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
@@ -422,6 +423,7 @@ registry:
             created_at: Date de création
             creator: Créateur
             data_crossing: Croisement de données
+            data_categories: Catégorie de données
             data_category: Catégorie de données
             data_category_other: Autres catégories
             data_origin: Origine des données
@@ -437,6 +439,8 @@ registry:
             name: Nom
             observation: Observations
             paper_processing: Traitement papier
+            proofs: Documents associés
+            public: Publique
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
             security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
@@ -457,6 +461,7 @@ registry:
             edit: Modifier un traitement
             list: Liste des traitements
             show: Visualiser un traitement
+            configure: Configurer les traitements
         tab:
           data_category: Catégorie des données
           details: Détails

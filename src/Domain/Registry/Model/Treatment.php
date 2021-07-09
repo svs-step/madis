@@ -51,6 +51,11 @@ class Treatment implements LoggableSubject
     private $name;
 
     /**
+     * @var bool
+     */
+    private $public = false;
+
+    /**
      * FR: Finalités (Objectif).
      *
      * @var string|null
@@ -435,6 +440,16 @@ class Treatment implements LoggableSubject
     public function setName(?string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getPublic(): ?bool
+    {
+        return $this->public;
+    }
+
+    public function setPublic(?bool $public): void
+    {
+        $this->public = $public;
     }
 
     public function getGoal(): ?string
