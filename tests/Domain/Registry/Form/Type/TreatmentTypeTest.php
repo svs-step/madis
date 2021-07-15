@@ -69,6 +69,7 @@ class TreatmentTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
+            'public'                            => CheckboxType::class,
             'name'                              => TextType::class,
             'goal'                              => TextareaType::class,
             'manager'                           => TextType::class,
