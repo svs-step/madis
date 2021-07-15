@@ -71,6 +71,11 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // Role est mono-valué dans le form, j'enleve ROLE_API
+        if (array_key_exists('data', $options)) {
+            $options['data']->setRoles(array_diff($options['data']->getRoles(), ['ROLE_API']));
+        }
+
         $encoderFactory = $this->encoderFactory;
 
         // Add collectivity general information only for admins
@@ -91,6 +96,10 @@ class UserType extends AbstractType
                     'name'     => 'user_user_role',
                     'multiple' => false,
                     'expanded' => true,
+                ])
+                ->add('apiAuthorized', CheckboxType::class, [
+                    'label'    => 'user.user.form.apiAuthorized',
+                    'required' => false,
                 ])
                 ->add('enabled', CheckboxType::class, [
                     'label'    => 'user.user.form.enabled',

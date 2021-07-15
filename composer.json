@@ -11,12 +11,22 @@
     "require": {
         "php": "^7.4",
         "ext-json": "*",
+        "api-platform/core": "^2.6",
         "beberlei/doctrineextensions": "^1.2",
+        "composer/package-versions-deprecated": "^1.8",
+        "doctrine/annotations": "^1.0",
+        "doctrine/common": "^2",
+        "doctrine/doctrine-bundle": "^2",
+        "doctrine/doctrine-migrations-bundle": "^2",
+        "doctrine/orm": "^2",
         "friendsofsymfony/ckeditor-bundle": "^2.2",
         "ircmaxell/random-lib": "^1.2",
         "knplabs/dictionary-bundle": "^2.1",
         "knplabs/knp-gaufrette-bundle": "^0.5.3",
         "knplabs/knp-snappy-bundle": "^1.7",
+        "lexik/jwt-authentication-bundle": "^2.12",
+        "nelmio/cors-bundle": "^2.1",
+        "phpdocumentor/reflection-docblock": "^5.1",
         "phpoffice/phpword": "^0.15",
         "ramsey/uuid": "^3.7",
         "ramsey/uuid-doctrine": "^1.4",
@@ -29,9 +39,12 @@
         "symfony/expression-language": "*",
         "symfony/flex": "^1.1",
         "symfony/form": "*",
-        "symfony/orm-pack": "^1.0",
+        "symfony/property-access": "4.4.*",
+        "symfony/property-info": "4.4.*",
+        "symfony/proxy-manager-bridge": "4.4.*",
         "symfony/security": "*",
         "symfony/security-bundle": "*",
+        "symfony/serializer": "4.4.*",
         "symfony/skeleton": "*",
         "symfony/swiftmailer-bundle": "^3.2",
         "symfony/twig-bundle": "*",
@@ -70,8 +83,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
-            "php-security-checker": "script"
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"

@@ -17,6 +17,23 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        docs:
+            pattern: ^/api/docs
+            anonymous: ~
+        api_login:
+            pattern: ^/api/login
+            stateless: true
+            json_login:
+                check_path: api_login
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        api:
+            pattern:   ^/api
+            stateless: true
+            provider: user_provider
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
         main:
             pattern: ^/
             form_login:
@@ -57,5 +74,10 @@ security:
         - { path: ^/.+/editer/.+$, roles: ROLE_USER }
         - { path: ^/.+/supprimer/.+$, roles: ROLE_USER }
         - { path: ^/.+/supprimer/.+/confirmation$, roles: ROLE_USER }
+        # API routes
+        - { path: ^/api/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Allows accessing API documentations and Swagger UI
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/, roles: [ IS_AUTHENTICATED_FULLY ] } #IS_AUTHENTICATED_FULLY
+
         # Others
         - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }

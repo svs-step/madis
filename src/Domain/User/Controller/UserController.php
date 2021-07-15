@@ -183,7 +183,7 @@ class UserController extends CRUDController
         foreach ($users as $user) {
             $roles = '';
             foreach ($user->getRoles() as $role) {
-                $span = '<span class="badge ' . $this->getRolesColor($role) . '">' . UserRoleDictionary::getRoles()[$role] . '</span>';
+                $span = '<span class="badge ' . $this->getRolesColor($role) . '">' . UserRoleDictionary::getFullRoles()[$role] . '</span>';
                 $roles .= $span;
             }
 
@@ -303,6 +303,8 @@ class UserController extends CRUDController
                 return 'bg-red';
             case UserRoleDictionary::ROLE_USER:
                 return 'bg-blue';
+            case UserRoleDictionary::ROLE_API:
+                return 'bg-green';
             default:
                 return 'bg-red';
         }
