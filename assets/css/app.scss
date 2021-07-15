@@ -29,6 +29,11 @@ body > div.banner-impersonate {
   max-height: 2em;
 }
 
+/* Footer */
+.footer-public > footer{
+  margin-left:0;
+}
+
 .main-header .sidebar-toggle:before {
   content: "";
 }
@@ -69,6 +74,10 @@ body > div.banner-impersonate {
 }
 
 /* Pages */
+.content-wrapper.public{
+  margin-left: 0;
+}
+
 div.action-bar {
   margin-bottom: 1em;
 }

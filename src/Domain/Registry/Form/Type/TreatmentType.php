@@ -64,6 +64,10 @@ class TreatmentType extends AbstractType
         /** @var Treatment $treatment */
         $treatment = $options['data'];
         $builder
+            ->add('public', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.public',
+                'required' => false,
+            ])
             ->add('name', TextType::class, [
                 'label'    => 'registry.treatment.form.name',
                 'required' => true,
