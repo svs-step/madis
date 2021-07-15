@@ -1,0 +1,13 @@
+App\Domain\User\Model\Collectivity:
+    attributes:
+        denormalization_context:
+            groups: ['collectivity_write']
+        normalization_context:
+            groups: ['collectivity_read']
+
+    collectionOperations:
+        get: ~
+    itemOperations:
+        get: ~
+            
+       

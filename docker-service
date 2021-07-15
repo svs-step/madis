@@ -44,6 +44,7 @@ initialize() {
     start
     install
     populate
+    jwtKeys
 }
 
 build() {
@@ -58,6 +59,14 @@ start() {
     docker-compose -f docker-compose"$env".yml ps
 }
 
+jwtKeys() {
+    if [ ! -f config/jwt/private.pem ]; then
+        echo "JWT keys do not exist, generate them"
+        docker-compose -f docker-compose"$env".yml exec php bin/console lexik:jwt:generate-keypair
+    else
+        echo "JWT keys already exist, skip"
+    fi
+}
 
 
 install() {
@@ -219,6 +228,7 @@ Commands:
   build                       Build docker containers
   start                       Start docker containers
   install                     Run app installation scripts
+  jwtKeys                     Generate JWT keys
   installDb                   Reset database
   populate                    Load data fixtures in app
   serve                       Serve Webpack Encore files for local dev
@@ -274,6 +284,9 @@ case "$1" in
         ;;
  populate)
         populate
+        ;;
+ jwtKeys)
+        jwtKeys
         ;;
  serve)
         if [ "$#" -ne 2 ]; then
