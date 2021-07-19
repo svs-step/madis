@@ -95,6 +95,11 @@ class User implements LoggableSubject, UserInterface
     private $lastLogin;
 
     /**
+     * @var bool
+     */
+    private $apiAuthorized;
+
+    /**
      * User constructor.
      *
      * @throws \Exception
@@ -253,5 +258,15 @@ class User implements LoggableSubject, UserInterface
     public function setCollectivitesReferees(iterable $collectivitesReferees): void
     {
         $this->collectivitesReferees = $collectivitesReferees;
+    }
+
+    public function getApiAuthorized(): ?bool
+    {
+        return $this->apiAuthorized;
+    }
+
+    public function setApiAuthorized(?bool $apiAuthorized): void
+    {
+        $this->apiAuthorized = $apiAuthorized;
     }
 }
