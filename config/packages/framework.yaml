@@ -24,3 +24,7 @@ framework:
                 - '%kernel.project_dir%/config/domain/admin/validation'
                 - '%kernel.project_dir%/config/domain/registry/validation'
                 - '%kernel.project_dir%/config/domain/user/validation'
+
+    serializer:
+        mapping:
+            paths: ['%kernel.project_dir%/config/api_platform/serialization']

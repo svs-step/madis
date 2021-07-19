@@ -1,0 +1,94 @@
+App\Domain\Registry\Model\Treatment:
+    attributes:
+        name:
+            groups: ['treatment_read']
+        goal:
+            groups: ['treatment_read']
+        manager:
+            groups: ['treatment_read']
+        software:
+            groups: ['treatment_read']
+        paperProcessing:
+            groups: ['treatment_read']
+        legalBasis:
+            groups: ['treatment_read']
+        legalBasisJustification:
+            groups: ['treatment_read']
+        observation:
+            groups: ['treatment_read']
+        dataCategories:
+            groups: ['treatment_read']
+        dataCategoryOther:
+            groups: ['treatment_read']
+        dataOrigin:
+            groups: ['treatment_read']
+        recipentCategory:
+            groups: ['treatment_read']
+        contractors:
+            groups: ['treatment_read']
+        delay:
+            groups: ['treatment_read']
+        securityAccessControll:
+            groups: ['treatment_read']
+        securitySaving:
+            groups: ['treatment_read']
+        securityUpdate:
+            groups: ['treatment_read']
+        securityOther:
+            groups: ['treatment_read']
+        securityEntitledPersons:
+            groups: ['treatment_read']
+        securityOpenAccounts:
+            groups: ['treatment_read']
+        securitySpecificitiesDelivered:
+            groups: ['treatment_read']
+        systematicMonitoring:
+            groups: ['treatment_read']
+        lagreScaleCollection:
+            groups: ['treatment_read']
+        vulnerablePeople:
+            groups: ['treatment_read']
+        dataCrossing:
+            groups: ['treatment_read']
+        evaluationOrRating:
+            groups: ['treatment_read']
+        automaticExclusionService:
+            groups: ['treatment_read']
+        innovativeUse:
+            groups: ['treatment_read']    
+        active:
+            groups: ['treatment_read']  
+        completion:
+            groups: ['treatment_read']  
+        template:
+            groups: ['treatment_read']  
+        templateIdentifier:
+            groups: ['treatment_read']  
+        clonedFrom:
+            groups: ['treatment_read']  
+        concernedPeopleParticular:
+            groups: ['treatment_read']  
+        concernedPeopleUser:
+            groups: ['treatment_read']  
+        concernedPeopleAgent:
+            groups: ['treatment_read']                
+        concernedPeopleElected:
+            groups: ['treatment_read']  
+        concernedPeopleCompany:
+            groups: ['treatment_read']  
+        concernedPeoplePartner:
+            groups: ['treatment_read']  
+        concernedPeopleOter:
+            groups: ['treatment_read']  
+        author:
+            groups: ['treatment_read']  
+        coordonneesResponsableTraitement:
+            groups: ['treatment_read']  
+        collectingMethod:
+            groups: ['treatment_read']  
+        estimatedConcernedPeople:
+            groups: ['treatment_read']  
+        ultimateFate:
+            groups: ['treatment_read']                
+        conformiteTraitement:
+            groups: ['treatment_read']

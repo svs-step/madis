@@ -1,0 +1,4 @@
+App\Domain\Registry\Model\TreatmentDataCategory:
+    attributes:
+        name:
+            groups: ['treatment_read']

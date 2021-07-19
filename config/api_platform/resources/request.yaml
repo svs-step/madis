@@ -1,0 +1,5 @@
+App\Domain\Registry\Model\Request:
+    collectionOperations: ~
+    itemOperations:
+        get: ~ 
+        put: ~ 
