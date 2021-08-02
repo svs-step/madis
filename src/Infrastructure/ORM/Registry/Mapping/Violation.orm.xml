@@ -28,6 +28,10 @@
         <field name="notificationDetails" column="notification_details" nullable="true"/>
         <field name="comment" column="comment" type="text" nullable="true"/>
 
+        <many-to-one field="service" target-entity="App\Domain\User\Model\Service" inversed-by="violations">
+            <join-column on-delete="SET NULL"/>
+        </many-to-one>
+
         <many-to-many field="proofs" target-entity="App\Domain\Registry\Model\Proof" mapped-by="violations">
             <order-by>
                 <order-by-field name="name"/>

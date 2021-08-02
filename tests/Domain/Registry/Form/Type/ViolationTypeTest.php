@@ -28,6 +28,7 @@ use App\Domain\Registry\Form\Type\ViolationType;
 use App\Domain\Registry\Model\Violation;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -47,6 +48,7 @@ class ViolationTypeTest extends FormTypeHelper
     {
         $builder = [
             'date'                          => DateType::class,
+            'service'                       => EntityType::class,
             'inProgress'                    => CheckboxType::class,
             'violationNature'               => DictionaryType::class,
             'origins'                       => DictionaryType::class,

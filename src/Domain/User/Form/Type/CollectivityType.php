@@ -163,6 +163,17 @@ class CollectivityType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
             ])
+            ->add('isServicesEnabled', CheckboxType::class, [
+                'label'     => 'user.collectivity.form.is_services_enabled',
+                'required'  => false,
+            ])
+            ->add('services', CollectionType::class, [
+                'label'        => false,
+                'entry_type'   => ServiceType::class,
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ])
         ;
     }
 

@@ -94,6 +94,9 @@
         <many-to-one field="clonedFrom" target-entity="App\Domain\Registry\Model\Treatment" >
             <join-column on-delete="SET NULL" />
         </many-to-one>
+        <many-to-one field="service" target-entity="App\Domain\User\Model\Service" inversed-by="treatments">
+            <join-column on-delete="SET NULL"/>
+        </many-to-one>
         <one-to-one field="conformiteTraitement" target-entity="App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement" mapped-by="traitement">
             <cascade>
                 <cascade-remove/>

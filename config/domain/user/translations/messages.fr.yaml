@@ -34,6 +34,7 @@ user:
             different_it_manager: Différent du Référent Opérationnel
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de l'organisation
+            is_services_enabled: Activation des services
             name: Nom
             placeholder:
                 website: https://
@@ -94,6 +95,7 @@ user:
           reporting_block:
             management_commitment: Bilan paragraphe "Engagement de la direction"
             continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
+          services: Services
         title:
             create: Créer une collectivité
             delete: Supprimer une collectivité
@@ -173,6 +175,7 @@ user:
             password: Mot de passe
             password_repeat: Répéter le mot de passe
             roles: Role
+            services: Services
         flashbag:
             success:
                 create: Utilisateur "%object%" créée avec succès
@@ -192,6 +195,7 @@ user:
         tab:
             general: Informations générales
             optional: Informations facultatives
+            services: Services & Habilitations
         title:
             create: Créer un utilisateur
             edit: Éditer un utilisateur

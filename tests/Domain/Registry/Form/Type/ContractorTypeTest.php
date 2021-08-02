@@ -29,6 +29,7 @@ use App\Domain\Registry\Form\Type\Embeddable\AddressType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\User\Form\Type\ContactType;
 use App\Tests\Utils\FormTypeHelper;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -46,6 +47,7 @@ class ContractorTypeTest extends FormTypeHelper
     {
         $builder = [
             'name'                       => TextType::class,
+            'service'                    => EntityType::class,
             'referent'                   => TextType::class,
             'contractualClausesVerified' => CheckboxType::class,
             'adoptedSecurityFeatures'    => CheckboxType::class,

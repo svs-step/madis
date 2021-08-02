@@ -71,6 +71,7 @@ class TreatmentTypeTest extends FormTypeHelper
         $builder = [
             'public'                            => CheckboxType::class,
             'name'                              => TextType::class,
+            'service'                           => EntityType::class,
             'goal'                              => TextareaType::class,
             'manager'                           => TextType::class,
             'software'                          => TextType::class,

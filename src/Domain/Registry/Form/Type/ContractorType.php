@@ -27,6 +27,9 @@ namespace App\Domain\Registry\Form\Type;
 use App\Domain\Registry\Form\Type\Embeddable\AddressType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\User\Form\Type\ContactType;
+use App\Domain\User\Model\Service;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -48,6 +51,15 @@ class ContractorType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+            ])
+            ->add('service', EntityType::class, [
+                'class'         => Service::class,
+                'label'         => 'registry.treatment.form.service',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.name', 'ASC');
+                },
+                'required'      => false,
             ])
             ->add('referent', TextType::class, [
                 'label'    => 'registry.contractor.form.referent',
