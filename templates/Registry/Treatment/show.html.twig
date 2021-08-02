@@ -30,10 +30,12 @@
                     <i class="fa fa-arrow-left"></i>
                     {{ 'registry.treatment.action.back_to_list'|trans }}
                 </a>
-                <a href="{{ path('registry_treatment_edit', {'id': object.id}) }}" class="btn btn-default">
-                    <i class="fa fa-pencil-alt"></i>
-                    {{ 'action.edit'|trans }}
-                </a>
+                {% if (actionEnabled) %}
+                    <a href="{{ path('registry_treatment_edit', {'id': object.id}) }}" class="btn btn-default">
+                        <i class="fa fa-pencil-alt"></i>
+                        {{ 'action.edit'|trans }}
+                    </a>
+                {% endif %}
                 <a href="{{ path('registry_treatment_pdf', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-print"></i>
                     {{ 'action.print'|trans }}
@@ -66,6 +68,12 @@
                             <td><strong>{{ 'registry.treatment.show.name'|trans }}</strong></td>
                             <td>{{ object.name }}</td>
                         </tr>
+                        {% if serviceEnabled %}
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.service'|trans }}</strong></td>
+                                <td>{{ object.service }}</td>
+                            </tr>
+                        {% endif %}
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.goal'|trans }}</strong></td>
                             <td>{{ object.goal|nl2br }}</td>

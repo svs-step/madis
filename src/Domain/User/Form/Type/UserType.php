@@ -26,6 +26,7 @@ namespace App\Domain\User\Form\Type;
 
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
@@ -71,8 +72,8 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // Role est mono-valué dans le form, j'enleve ROLE_API
         if (array_key_exists('data', $options)) {
+            // Role est mono-valué dans le form, j'enleve ROLE_API
             $options['data']->setRoles(array_diff($options['data']->getRoles(), ['ROLE_API']));
         }
 
@@ -123,6 +124,14 @@ class UserType extends AbstractType
                     ],
                 ])
             ;
+
+            $builder->add('services', EntityType::class, [
+                'class'      => Service::class,
+                'label'      => 'user.user.form.services',
+                'required'   => false,
+                'multiple'   => true,
+                'expanded'   => false,
+            ]);
 
             $builder
                 ->get('roles')

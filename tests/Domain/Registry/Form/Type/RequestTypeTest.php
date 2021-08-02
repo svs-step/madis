@@ -31,6 +31,7 @@ use App\Domain\Registry\Form\Type\RequestType;
 use App\Domain\Registry\Model\Request;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -49,6 +50,7 @@ class RequestTypeTest extends FormTypeHelper
     {
         $builder = [
             'object'               => DictionaryType::class,
+            'service'              => EntityType::class,
             'otherObject'          => TextType::class,
             'date'                 => DateType::class,
             'reason'               => TextType::class,

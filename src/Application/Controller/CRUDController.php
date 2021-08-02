@@ -26,7 +26,10 @@ namespace App\Application\Controller;
 
 use App\Application\DDD\Repository\RepositoryInterface;
 use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Application\Interfaces\CollectivityRelated;
+use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Tools\ChainManipulator;
+use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
@@ -35,6 +38,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Intl\Exception\MethodNotImplementedException;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class CRUDController extends AbstractController
@@ -60,18 +64,32 @@ abstract class CRUDController extends AbstractController
     protected $pdf;
 
     /**
+     * @var UserProvider
+     */
+    protected $userProvider;
+
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    protected $authorizationChecker;
+
+    /**
      * CRUDController constructor.
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         RepositoryInterface $repository,
-        Pdf $pdf
+        Pdf $pdf,
+        UserProvider $userProvider,
+        AuthorizationCheckerInterface $authorizationChecker
     ) {
-        $this->entityManager = $entityManager;
-        $this->translator    = $translator;
-        $this->repository    = $repository;
-        $this->pdf           = $pdf;
+        $this->entityManager            = $entityManager;
+        $this->translator               = $translator;
+        $this->repository               = $repository;
+        $this->pdf                      = $pdf;
+        $this->userProvider             = $userProvider;
+        $this->authorizationChecker     = $authorizationChecker;
     }
 
     /**
@@ -185,9 +203,18 @@ abstract class CRUDController extends AbstractController
      */
     public function createAction(Request $request): Response
     {
-        $modelClass = $this->getModelClass();
-        $object     = new $modelClass();
-        $form       = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'create']]);
+        $modelClass     = $this->getModelClass();
+        /** @var CollectivityRelated $object */
+        $object         = new $modelClass();
+        $serviceEnabled = false;
+
+        if ($object instanceof CollectivityRelated) {
+            $user       = $this->userProvider->getAuthenticatedUser();
+            $object->setCollectivity($user->getCollectivity());
+            $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
+        }
+
+        $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'create']]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -203,7 +230,8 @@ abstract class CRUDController extends AbstractController
         }
 
         return $this->render($this->getTemplatingBasePath('create'), [
-            'form' => $form->createView(),
+            'form'              => $form->createView(),
+            'serviceEnabled'    => $serviceEnabled,
         ]);
     }
 
@@ -215,10 +243,29 @@ abstract class CRUDController extends AbstractController
      */
     public function editAction(Request $request, string $id): Response
     {
+        /** @var CollectivityRelated $object */
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
+
+        $serviceEnabled = false;
+
+        if ($object instanceof Collectivity) {
+            $serviceEnabled = $object->getIsServicesEnabled();
+        } else {
+            $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
+        }
+
+        $actionEnabled = true;
+        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
+        }
+
+        if (!$actionEnabled) {
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
         $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
 
         $form->handleRequest($request);
@@ -233,7 +280,8 @@ abstract class CRUDController extends AbstractController
         }
 
         return $this->render($this->getTemplatingBasePath('edit'), [
-            'form' => $form->createView(),
+            'form'              => $form->createView(),
+            'serviceEnabled'    => $serviceEnabled,
         ]);
     }
 
@@ -245,13 +293,27 @@ abstract class CRUDController extends AbstractController
      */
     public function showAction(string $id): Response
     {
+        /** @var CollectivityRelated $object */
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
+        if ($object instanceof Collectivity) {
+            $serviceEnabled = $object->getIsServicesEnabled();
+        } else {
+            $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
+        }
+
+        $actionEnabled = true;
+        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
+        }
+
         return $this->render($this->getTemplatingBasePath('show'), [
-            'object' => $object,
+            'object'            => $object,
+            'actionEnabled'     => $actionEnabled,
+            'serviceEnabled'    => $serviceEnabled,
         ]);
     }
 
@@ -261,9 +323,19 @@ abstract class CRUDController extends AbstractController
      */
     public function deleteAction(string $id): Response
     {
+        /** @var CollectivityRelated $object */
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $actionEnabled = true;
+        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
+        }
+
+        if (!$actionEnabled) {
+            return $this->redirectToRoute($this->getRouteName('list'));
         }
 
         return $this->render($this->getTemplatingBasePath('delete'), [
@@ -307,8 +379,10 @@ abstract class CRUDController extends AbstractController
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
-        return new PdfResponse($this->pdf->getOutputFromHtml(
-            $this->renderView($this->getTemplatingBasePath('pdf'), ['object' => $object])),
+        return new PdfResponse(
+            $this->pdf->getOutputFromHtml(
+                $this->renderView($this->getTemplatingBasePath('pdf'), ['object' => $object])
+            ),
             $this->getPdfName((string) $object) . '.pdf'
         );
     }
