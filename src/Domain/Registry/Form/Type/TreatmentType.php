@@ -29,6 +29,7 @@ use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\TreatmentDataCategory;
+use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
@@ -74,6 +75,24 @@ class TreatmentType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+            ])
+            ->add('service', EntityType::class, [
+                'class'         => Service::class,
+                'label'         => 'registry.treatment.form.service',
+                'query_builder' => function (EntityRepository $er) use ($treatment) {
+                    if ($treatment->getCollectivity()) {
+                        $collectivity = $treatment->getCollectivity();
+
+                        return $er->createQueryBuilder('s')
+                        ->where('s.collectivity = :collectivity')
+                        ->setParameter(':collectivity', $collectivity)
+                        ->orderBy('s.name', 'ASC');
+                    }
+
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.name', 'ASC');
+                },
+                'required'      => false,
             ])
             ->add('goal', TextareaType::class, [
                 'label'    => 'registry.treatment.form.goal',

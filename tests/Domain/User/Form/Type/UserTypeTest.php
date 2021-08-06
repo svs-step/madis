@@ -95,6 +95,7 @@ class UserTypeTest extends FormTypeHelper
             'plainPassword'         => RepeatedType::class,
             'collectivitesReferees' => EntityType::class,
             'apiAuthorized'         => CheckboxType::class,
+            'services'              => EntityType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);

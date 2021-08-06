@@ -87,7 +87,7 @@ class RequestController extends CRUDController
         Pdf $pdf,
         RouterInterface $router
     ) {
-        parent::__construct($entityManager, $translator, $repository, $pdf);
+        parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->requestStack         = $requestStack;
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;
@@ -211,6 +211,17 @@ class RequestController extends CRUDController
         return $jsonResponse;
     }
 
+    private function isRequestInUserServices(Model\Request $request): bool
+    {
+        $user   = $this->userProvider->getAuthenticatedUser();
+
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+
+        return $request->isInUserServices($user);
+    }
+
     protected function getLabelAndKeysArray(): array
     {
         return [
@@ -246,15 +257,19 @@ class RequestController extends CRUDController
 
     private function getActionsCellContent(Model\Request $demande)
     {
-        return
-            '<a href="' . $this->router->generate('registry_request_edit', ['id' => $demande->getId()]) . '">
-                <i class="fa fa-pencil-alt"></i>' .
-                $this->translator->trans('action.edit') . '
-            </a>
-            <a href="' . $this->router->generate('registry_request_delete', ['id'=> $demande->getId()]) . '">
-                <i class="fa fa-trash"></i>' .
-                $this->translator->trans('action.archive') .
-            '</a>';
+        if ($this->isRequestInUserServices($demande)) {
+            return
+                '<a href="' . $this->router->generate('registry_request_edit', ['id' => $demande->getId()]) . '">
+                    <i class="fa fa-pencil-alt"></i>' .
+                    $this->translator->trans('action.edit') . '
+                </a>
+                <a href="' . $this->router->generate('registry_request_delete', ['id'=> $demande->getId()]) . '">
+                    <i class="fa fa-trash"></i>' .
+                    $this->translator->trans('action.archive') .
+                '</a>';
+        }
+
+        return null;
     }
 
     private function getLinkForPersonneConcernee(Model\Request $demande)

@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Model;
 
+use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
@@ -32,10 +33,12 @@ use App\Domain\Registry\Model\Embeddable\RequestAnswer;
 use App\Domain\Registry\Model\Embeddable\RequestApplicant;
 use App\Domain\Registry\Model\Embeddable\RequestConcernedPeople;
 use App\Domain\Reporting\Model\LoggableSubject;
+use App\Domain\User\Model\Service;
+use App\Domain\User\Model\User;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Request implements LoggableSubject
+class Request implements LoggableSubject, CollectivityRelated
 {
     use CollectivityTrait;
     use CreatorTrait;
@@ -111,6 +114,11 @@ class Request implements LoggableSubject
      * @var string|null
      */
     private $stateRejectionReason;
+
+    /**
+     * @var Service|null
+     */
+    private $service;
 
     /**
      * Request constructor.
@@ -271,5 +279,32 @@ class Request implements LoggableSubject
     public function setStateRejectionReason(?string $stateRejectionReason): void
     {
         $this->stateRejectionReason = $stateRejectionReason;
+    }
+
+    public function getService(): ?Service
+    {
+        return $this->service;
+    }
+
+    public function setService(Service $service = null): void
+    {
+        $this->service = $service;
+    }
+
+    public function isInUserServices(User $user): bool
+    {
+        if (false == $user->getCollectivity()->getIsServicesEnabled()) {
+            return true;
+        }
+
+        $result = false;
+
+        foreach ($user->getServices() as $service) {
+            if ($this->getService() && $service->getId() == $this->getService()->getId()) {
+                $result = true;
+            }
+        }
+
+        return $result;
     }
 }

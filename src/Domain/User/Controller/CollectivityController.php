@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Controller;
 
 use App\Application\Controller\CRUDController;
+use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Registry\Repository\Contractor as ContractorRepository;
 use App\Domain\Registry\Repository\Proof as ProofRepository;
@@ -41,6 +42,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -79,15 +81,19 @@ class CollectivityController extends CRUDController
         TreatmentRepository $treatmentRepository,
         ContractorRepository $contractorRepository,
         ProofRepository $proofRepository,
-        Repository\User $userRepository
+        Repository\User $userRepository,
+        UserProvider $userProvider,
+        AuthorizationCheckerInterface $authorizationChecker
     ) {
-        parent::__construct($entityManager, $translator, $repository, $pdf);
+        parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->router                   = $router;
         $this->security                 = $security;
         $this->treatmentRepository      = $treatmentRepository;
         $this->contractorRepository     = $contractorRepository;
         $this->proofRepository          = $proofRepository;
         $this->userRepository           = $userRepository;
+        $this->userProvider             = $userProvider;
+        $this->authorizationChecker     = $authorizationChecker;
     }
 
     /**

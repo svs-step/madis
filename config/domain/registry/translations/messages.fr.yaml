@@ -36,6 +36,7 @@ registry:
             other_informations: Autres informations
             referent: Agent référent
             sending_data_outside_eu: Envoi des données hors UE
+            service: Service
         flashbag:
             success:
                 create: Sous-traitant "%object%" créé avec succès
@@ -233,6 +234,7 @@ registry:
             object: Objet de la demande
             other_object: Demande explicite
             reason: Motif
+            service: Service
             state: État de la demande
             state_rejection_reason: Motifs du refus*
         list:
@@ -372,6 +374,7 @@ registry:
             security_specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             security_tracability: Traçabilité
             security_update: Mise à jour
+            service: Service
             systematic_monitoring: Surveillance systématique
             software: Logiciel
             ultimate_fate: Sort final
@@ -453,6 +456,7 @@ registry:
             security_specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             security_tracability: Traçabilité
             security_update: Mise à jour
+            service: Service
             software: Logiciel
             ultimate_fate: Sort final
             systematic_monitoring: Surveillance systématique
@@ -510,6 +514,7 @@ registry:
             notification_details: Précisions sur les notifications
             origins: Origine de la perte de données
             potential_impacts_nature: Nature des impacts potentiels pour les personnes
+            service: Service
             violation_nature: Nature de la violation
         list:
             cause: Cause

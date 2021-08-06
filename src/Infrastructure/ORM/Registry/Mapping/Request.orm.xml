@@ -26,6 +26,10 @@
 
         <embedded name="answer" class="App\Domain\Registry\Model\Embeddable\RequestAnswer" column-prefix="answer_"/>
 
+        <many-to-one field="service" target-entity="App\Domain\User\Model\Service" inversed-by="requests">
+            <join-column on-delete="SET NULL"/>
+        </many-to-one>
+
         <many-to-many field="proofs" target-entity="App\Domain\Registry\Model\Proof" mapped-by="requests">
             <order-by>
                 <order-by-field name="name"/>

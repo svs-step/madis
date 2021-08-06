@@ -75,16 +75,6 @@ class TreatmentController extends CRUDController
     protected $wordHandler;
 
     /**
-     * @var AuthorizationCheckerInterface
-     */
-    protected $authorizationChecker;
-
-    /**
-     * @var UserProvider
-     */
-    protected $userProvider;
-
-    /**
      * @var RouterInterface
      */
     private $router;
@@ -101,12 +91,10 @@ class TreatmentController extends CRUDController
         Pdf $pdf,
         RouterInterface $router
     ) {
-        parent::__construct($entityManager, $translator, $repository, $pdf);
+        parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->collectivityRepository = $collectivityRepository;
         $this->requestStack           = $requestStack;
         $this->wordHandler            = $wordHandler;
-        $this->authorizationChecker   = $authorizationChecker;
-        $this->userProvider           = $userProvider;
         $this->router                 = $router;
     }
 
@@ -323,14 +311,12 @@ class TreatmentController extends CRUDController
      */
     public function listDataTables(Request $request): JsonResponse
     {
-        $request            = $this->requestStack->getMasterRequest();
-        $criteria['active'] = $request->query->getBoolean('active');
-        $user               = $this->userProvider->getAuthenticatedUser();
+        $request                   = $this->requestStack->getMasterRequest();
+        $criteria['active']        = $request->query->getBoolean('active');
+        $user                      = $this->userProvider->getAuthenticatedUser();
 
-        if (
-            !$this->authorizationChecker->isGranted('ROLE_ADMIN')
-            && !$this->authorizationChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
-            $criteria['collectivity'] = $user->getCollectivity();
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $criteria['collectivity']  = $user->getCollectivity();
         }
 
         if ($user) {
@@ -392,21 +378,36 @@ class TreatmentController extends CRUDController
         return $jsonResponse;
     }
 
+    private function isTreatmentInUserServices(Model\Treatment $treatment): bool
+    {
+        $user   = $this->userProvider->getAuthenticatedUser();
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+
+        return $treatment->isInUserServices($user);
+    }
+
     private function generateActionCellContent(Model\Treatment $treatment)
     {
-        $id         = $treatment->getId();
-        $editPath   = $this->router->generate('registry_treatment_edit', ['id' => $id]);
-        $deletePath = $this->router->generate('registry_treatment_delete', ['id' => $id]);
+        $id = $treatment->getId();
 
-        return '<a href="' . $editPath . '">
-            <i class="fa fa-pencil-alt"></i>
-                ' . $this->translator->trans('action.edit') . '
-            </a>
-            <a href="' . $deletePath . '">
-                <i class="fa fa-trash"></i>
-                ' . $this->translator->trans('action.delete') . '
-            </a>'
-        ;
+        if ($this->isTreatmentInUserServices($treatment)) {
+            $editPath   = $this->router->generate('registry_treatment_edit', ['id' => $id]);
+            $deletePath = $this->router->generate('registry_treatment_delete', ['id' => $id]);
+
+            return '<a href="' . $editPath . '">
+             <i class="fa fa-pencil-alt"></i>
+                 ' . $this->translator->trans('action.edit') . '
+             </a>
+             <a href="' . $deletePath . '">
+                 <i class="fa fa-trash"></i>
+                 ' . $this->translator->trans('action.delete') . '
+             </a>'
+         ;
+        }
+
+        return null;
     }
 
     /**

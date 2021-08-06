@@ -34,6 +34,13 @@
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
+
+        <many-to-many field="services" target-entity="App\Domain\User\Model\Service" inversed-by="users">
+            <join-table name="registry_service_user">
+                <join-columns><join-column on-delete="CASCADE"/></join-columns>
+                <inverse-join-columns><join-column on-delete="CASCADE"/></inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </entity>
 
 </doctrine-mapping>

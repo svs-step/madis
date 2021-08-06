@@ -26,6 +26,7 @@ namespace App\Domain\User\Model;
 
 use App\Application\Traits\Model\SoftDeletableTrait;
 use App\Domain\Reporting\Model\LoggableSubject;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -83,6 +84,11 @@ class User implements LoggableSubject, UserInterface
      * @var Collectivity
      */
     private $collectivity;
+
+    /**
+     * @var Collection|Service[]
+     */
+    private $services;
 
     /**
      * @var iterable
@@ -248,6 +254,16 @@ class User implements LoggableSubject, UserInterface
     public function setLastLogin(?\DateTimeImmutable $lastLogin): void
     {
         $this->lastLogin = $lastLogin;
+    }
+
+    public function getServices(): ?Collection
+    {
+        return $this->services;
+    }
+
+    public function setServices($services): void
+    {
+        $this->services = $services;
     }
 
     public function getCollectivitesReferees(): iterable
