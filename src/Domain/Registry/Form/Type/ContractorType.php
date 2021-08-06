@@ -59,7 +59,7 @@ class ContractorType extends AbstractType
                     return $er->createQueryBuilder('s')
                         ->orderBy('s.name', 'ASC');
                 },
-                'required'      => false,
+                'required'      => true,
             ])
             ->add('referent', TextType::class, [
                 'label'    => 'registry.contractor.form.referent',

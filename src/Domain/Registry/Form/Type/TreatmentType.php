@@ -92,7 +92,7 @@ class TreatmentType extends AbstractType
                     return $er->createQueryBuilder('s')
                         ->orderBy('s.name', 'ASC');
                 },
-                'required'      => false,
+                'required'      => true,
             ])
             ->add('goal', TextareaType::class, [
                 'label'    => 'registry.treatment.form.goal',

@@ -468,7 +468,7 @@ registry:
             edit: Modifier un traitement
             list: Liste des traitements
             show: Visualiser un traitement
-            configure: Configurer les traitements
+            configure: Registres grand publique
         tab:
           data_category: Catégorie des données
           details: Détails

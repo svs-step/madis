@@ -61,7 +61,7 @@ class RequestType extends AbstractType
                     return $er->createQueryBuilder('s')
                         ->orderBy('s.name', 'ASC');
                 },
-                'required'      => false,
+                'required'      => true,
             ])
             ->add('otherObject', TextType::class, [
                 'label'    => 'registry.request.form.other_object',

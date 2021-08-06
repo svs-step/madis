@@ -2,3 +2,49 @@ App\Domain\User\Model\Collectivity:
     attributes:
         name:
             groups: ['collectivity_read']
+        shortName:
+            groups: ['collectivity_read']
+        type:
+            groups: ['collectivity_read']
+        siren:
+            groups: ['collectivity_read']
+        active:
+            groups: ['collectivity_read']
+        website:
+            groups: ['collectivity_read']
+        address:
+            groups: ['collectivity_read']
+        legalManager:
+            groups: ['collectivity_read']
+        referent:
+            groups: ['collectivity_read']
+        differentDpo:
+            groups: ['collectivity_read']
+        dpo:
+            groups: ['collectivity_read']
+        differentManager:
+            groups: ['collectivity_read']
+        itManager:
+            groups: ['collectivity_read']
+        users:
+            groups: ['collectivity_read']
+        services:
+            groups: ['collectivity_read']
+        isServicesEnabled:
+            groups: ['collectivity_read']
+        reportingBlockManagementCommitment:
+            groups: ['collectivity_read']
+        reportingBlockContinuousImprovement:
+            groups: ['collectivity_read']
+        comiteIlContacts:
+            groups: ['collectivity_read']
+        hasModuleConformiteTraitement:
+            groups: ['collectivity_read']
+        hasModuleConformiteOrganisation:
+            groups: ['collectivity_read']
+        evaluations:
+            groups: ['collectivity_read']
+        userReferents:
+            groups: ['collectivity_read']
+        informationsComplementaires:
+            groups: ['collectivity_read']

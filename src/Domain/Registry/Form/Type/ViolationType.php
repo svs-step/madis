@@ -63,7 +63,7 @@ class ViolationType extends AbstractType
                     return $er->createQueryBuilder('s')
                         ->orderBy('s.name', 'ASC');
                 },
-                'required'      => false,
+                'required'      => true,
             ])
             ->add('inProgress', CheckboxType::class, [
                 'label'    => 'registry.violation.form.in_progress',
