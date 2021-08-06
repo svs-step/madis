@@ -30,10 +30,12 @@
                     <i class="fa fa-arrow-left"></i>
                     {{ 'registry.contractor.action.back_to_list'|trans }}
                 </a>
-                <a href="{{ path('registry_contractor_edit', {'id': object.id}) }}" class="btn btn-default">
-                    <i class="fa fa-pencil-alt"></i>
-                    {{ 'action.edit'|trans }}
-                </a>
+                {% if (actionEnabled) %}
+                    <a href="{{ path('registry_contractor_edit', {'id': object.id}) }}" class="btn btn-default">
+                        <i class="fa fa-pencil-alt"></i>
+                        {{ 'action.edit'|trans }}
+                    </a>
+                {% endif %}
                 <a href="{{ path('registry_contractor_pdf', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-print"></i>
                     {{ 'action.print'|trans }}

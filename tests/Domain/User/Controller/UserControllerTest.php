@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Tests\Domain\User\Controller;
 
 use App\Application\Controller\CRUDController;
+use App\Application\Symfony\Security\UserProvider;
 use App\Domain\User\Controller\UserController;
 use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Model;
@@ -36,6 +37,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -89,6 +91,11 @@ class UserControllerTest extends TestCase
      */
     private $controller;
 
+    /**
+     * @var UserProvider
+     */
+    private $userProviderProphecy;
+
     protected function setUp(): void
     {
         $this->managerProphecy        = $this->prophesize(EntityManagerInterface::class);
@@ -99,6 +106,8 @@ class UserControllerTest extends TestCase
         $this->pdf                    = $this->prophesize(Pdf::class);
         $this->router                 = $this->prophesize(RouterInterface::class);
         $this->security               = $this->prophesize(Security::class);
+        $this->userProviderProphecy   = $this->prophesize(UserProvider::class);
+        $this->authorizationChecker   = $this->prophesize(AuthorizationCheckerInterface::class);
 
         $this->controller = new UserController(
             $this->managerProphecy->reveal(),
@@ -108,7 +117,9 @@ class UserControllerTest extends TestCase
             $this->encoderFactoryProphecy->reveal(),
             $this->pdf->reveal(),
             $this->router->reveal(),
-            $this->security->reveal()
+            $this->security->reveal(),
+            $this->userProviderProphecy->reveal(),
+            $this->authorizationChecker->reveal(),
         );
 
         parent::setUp();

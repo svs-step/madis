@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Tests\Domain\User\Controller;
 
 use App\Application\Controller\CRUDController;
+use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Repository\Contractor as ContractorRepository;
 use App\Domain\Registry\Repository\Proof as ProofRepository;
 use App\Domain\Registry\Repository\Treatment as TreatmentRepository;
@@ -40,6 +41,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -78,7 +80,9 @@ class CollectivityControllerTest extends TestCase
             $this->prophesize(TreatmentRepository::class)->reveal(),
             $this->prophesize(ContractorRepository::class)->reveal(),
             $this->prophesize(ProofRepository::class)->reveal(),
-            $this->prophesize(Repository\User::class)->reveal()
+            $this->prophesize(Repository\User::class)->reveal(),
+            $this->prophesize(UserProvider::class)->reveal(),
+            $this->prophesize(AuthorizationCheckerInterface::class)->reveal(),
         );
     }
 

@@ -100,7 +100,7 @@ class ProofController extends CRUDController
         Pdf $pdf,
         RouterInterface $router
     ) {
-        parent::__construct($entityManager, $translator, $repository, $pdf);
+        parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->requestStack         = $requestStack;
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;

@@ -28,7 +28,10 @@ use App\Domain\Registry\Form\Type\Embeddable\RequestAnswerType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestApplicantType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestConcernedPeopleType;
 use App\Domain\Registry\Model\Request;
+use App\Domain\User\Model\Service;
+use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -50,6 +53,15 @@ class RequestType extends AbstractType
                 'name'     => 'registry_request_object',
                 'required' => true,
                 'expanded' => true,
+            ])
+            ->add('service', EntityType::class, [
+                'class'         => Service::class,
+                'label'         => 'registry.treatment.form.service',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.name', 'ASC');
+                },
+                'required'      => false,
             ])
             ->add('otherObject', TextType::class, [
                 'label'    => 'registry.request.form.other_object',

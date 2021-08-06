@@ -25,10 +25,14 @@ declare(strict_types=1);
 namespace App\Domain\User\Controller;
 
 use App\Application\Controller\CRUDController;
+use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Model;
+use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\Service;
+use App\Domain\User\Model\User;
 use App\Domain\User\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
@@ -39,6 +43,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -69,6 +74,11 @@ class UserController extends CRUDController
      */
     protected $security;
 
+    /**
+     * @var UserProvider
+     */
+    protected $userProvider;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -77,13 +87,17 @@ class UserController extends CRUDController
         EncoderFactoryInterface $encoderFactory,
         Pdf $pdf,
         RouterInterface $router,
-        Security $security
+        Security $security,
+        UserProvider $userProvider,
+        AuthorizationCheckerInterface $authorizationChecker
     ) {
-        parent::__construct($entityManager, $translator, $repository, $pdf);
-        $this->requestStack   = $requestStack;
-        $this->encoderFactory = $encoderFactory;
-        $this->router         = $router;
-        $this->security       = $security;
+        parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
+        $this->requestStack             = $requestStack;
+        $this->encoderFactory           = $encoderFactory;
+        $this->router                   = $router;
+        $this->security                 = $security;
+        $this->userProvider             = $userProvider;
+        $this->authorizationChecker     = $authorizationChecker;
     }
 
     /**
@@ -294,6 +308,49 @@ class UserController extends CRUDController
         }
 
         return $cellContent;
+    }
+
+    public function getServicesContent(string $collectivityId, string $userId): Response
+    {
+        $collectivity = $this->entityManager->getRepository(Collectivity::class)->findOneBy(['id' => $collectivityId]);
+        if (null === $collectivity) {
+            throw new NotFoundHttpException('Can\'t find collectivity for id ' . $collectivityId);
+        }
+
+        $services = $this
+        ->getDoctrine()
+        ->getRepository(Service::class)
+        ->findBy(
+            ['collectivity' => $collectivity],
+            ['name' => 'ASC']
+        );
+
+        $serviceIdsSelected = [];
+
+        if ('creer' !== $userId) {
+            $user = $this
+            ->getDoctrine()
+            ->getRepository(User::class)
+            ->find($userId);
+
+            $servicesAlreadySelected = $user->getServices()->getValues();
+
+            foreach ($servicesAlreadySelected as $service) {
+                $serviceIdsSelected[] = $service->getId();
+            }
+        }
+
+        $responseData = [];
+
+        foreach ($services as $service) {
+            $responseData[] = [
+                'value'     => $service->getId()->toString(),
+                'text'      => $service->__toString(),
+                'selected'  => in_array($service->getId(), $serviceIdsSelected),
+            ];
+        }
+
+        return new JsonResponse($responseData);
     }
 
     private function getRolesColor(string $role)

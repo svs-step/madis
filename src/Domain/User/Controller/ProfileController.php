@@ -100,8 +100,7 @@ class ProfileController
     {
         $request      = $this->requestStack->getMasterRequest();
         $object       = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-
-        $form = $this->helper->createForm(
+        $form         = $this->helper->createForm(
             CollectivityType::class,
             $object,
             [

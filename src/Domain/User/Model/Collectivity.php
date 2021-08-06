@@ -116,6 +116,16 @@ class Collectivity implements LoggableSubject
     private $users;
 
     /**
+     * @var Collection|Service[]
+     */
+    private $services;
+
+    /**
+     * @var bool|null
+     */
+    private $isServicesEnabled;
+
+    /**
      * @var string|null
      */
     private $reportingBlockManagementCommitment;
@@ -165,6 +175,7 @@ class Collectivity implements LoggableSubject
         $this->id                              = Uuid::uuid4();
         $this->users                           = new ArrayCollection();
         $this->comiteIlContacts                = new ArrayCollection();
+        $this->services                        = new ArrayCollection();
         $this->active                          = true;
         $this->differentDpo                    = false;
         $this->differentItManager              = false;
@@ -330,6 +341,48 @@ class Collectivity implements LoggableSubject
     public function setUsers(Collection $users): void
     {
         $this->users = $users;
+    }
+
+    public function addService(Service $service)
+    {
+        if ($this->services->contains($service)) {
+            return;
+        }
+
+        $this->services[] = $service;
+        $service->setCollectivity($this);
+    }
+
+    public function removeService(Service $service)
+    {
+        if (!$this->services->contains($service)) {
+            return;
+        }
+
+        $this->services->removeElement($service);
+    }
+
+    /**
+     * @return Collection|Service[]
+     */
+    public function getServices(): Collection
+    {
+        return $this->services;
+    }
+
+    public function setServices(Collection $services): void
+    {
+        $this->services = $services;
+    }
+
+    public function getIsServicesEnabled(): ?bool
+    {
+        return $this->isServicesEnabled;
+    }
+
+    public function setIsServicesEnabled(?bool $isServicesEnabled): void
+    {
+        $this->isServicesEnabled = $isServicesEnabled;
     }
 
     public function getReportingBlockManagementCommitment(): ?string

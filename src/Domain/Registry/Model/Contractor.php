@@ -24,16 +24,19 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Model;
 
+use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Embeddable\Address;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Embeddable\Contact;
+use App\Domain\User\Model\Service;
+use App\Domain\User\Model\User;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Contractor implements LoggableSubject
+class Contractor implements LoggableSubject, CollectivityRelated
 {
     use CollectivityTrait;
     use CreatorTrait;
@@ -121,6 +124,11 @@ class Contractor implements LoggableSubject
      * @var bool
      */
     private $hasDpo;
+
+    /**
+     * @var Service|null
+     */
+    private $service;
 
     /**
      * Contractor constructor.
@@ -301,5 +309,32 @@ class Contractor implements LoggableSubject
     public function setHasDpo(bool $hasDpo): void
     {
         $this->hasDpo = $hasDpo;
+    }
+
+    public function getService(): ?Service
+    {
+        return $this->service;
+    }
+
+    public function setService(Service $service = null): void
+    {
+        $this->service = $service;
+    }
+
+    public function isInUserServices(User $user): bool
+    {
+        if (false == $user->getCollectivity()->getIsServicesEnabled()) {
+            return true;
+        }
+
+        $result = false;
+
+        foreach ($user->getServices() as $service) {
+            if ($this->getService() && $service->getId() == $this->getService()->getId()) {
+                $result = true;
+            }
+        }
+
+        return $result;
     }
 }
