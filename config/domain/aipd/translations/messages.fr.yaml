@@ -1,0 +1,41 @@
+aipd:
+    modele_analyse:
+        action:
+            new: Nouveau modèle
+        title:
+            list: Liste des modèles d'analyse
+            create: Créer un modèle
+            edit: Modifier un modèle
+        list:
+            name: Nom du modèle d'analyse d'impact
+            description: Description
+            updated_at: Date de modification
+        form:
+            scenario_menace:
+                add: Ajouter un scenario de menace
+    mesure_protection:
+        action:
+            new: Nouvelle mesure
+        title:
+            list: Liste des mesures de protection
+            create: Créer une mesure
+        list:
+            nom: Nom de la mesure
+            nom_court: Nom court
+            detail: Détail
+            poids_vraisemblance: Poids de la vraisemblance
+            poids_gravite: Poids de la gravité
+        form:
+            information_generale: Informations générales
+            information_livrable: Informations pour livrable
+        flashbag:
+            success:
+                create: Mesure de protection "%object%" créée avec succès
+    scenario_menace:
+        list:
+            nom: Scénarios de menace
+            mesures: Associer des mesures
+            visible: Visible
+            vraisemblance: Vraisemblance
+            gravite: Gravité
+            precision: Précision

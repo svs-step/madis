@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'aipd_mesure_protection list' %}
+{% set menuItem = 'aipd_mesure_protection' %}
+
+{% block title %}{{ 'aipd.mesure_protection.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'aipd.mesure_protection.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'aipd.mesure_protection.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="action-bar">
+                {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('aipd_mesure_protection_create') }}" class="btn btn-default">
+                        <i class="fa fa-plus"></i>
+                        {{ 'aipd.mesure_protection.action.new'|trans }}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+
+                        </tr>
+                        <tr>
+                            <th>{{ 'aipd.mesure_protection.list.nom'|trans }}</th>
+                            <th>{{ 'aipd.mesure_protection.list.nom_court'|trans }}</th>
+                            <th>{{ 'aipd.mesure_protection.list.detail'|trans }}</th>
+                            <th>{{ 'aipd.mesure_protection.list.poids_vraisemblance'|trans }}</th>
+                            <th>{{ 'aipd.mesure_protection.list.poids_gravite'|trans }}</th>
+                            <th>{{ 'label.actions'|trans }}</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "nom", "classname": "noVis"},
+            {"data": "nomCourt"},
+            {"data": "detail"},
+            {"data": "poidsVraisemblance"},
+            {"data": "poidsGravite"},
+            {"data": "poidsGravite"},
+            {"data": "actions", "className": "noVis", "orderable": false}
+        ]
+    } %}
+
+    {{ include('_Utils/_serverside_datatable.html.twig') }}
+{% endblock javascripts %}

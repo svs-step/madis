@@ -1,0 +1,8 @@
+_aipd_modele:
+    resource: 'modele_analyse.yaml'
+    prefix:   '/modele-analyse'
+
+_aipd_mesure_protection:
+    resource: 'mesure_protection.yaml'
+    prefix:   '/mesure-protection'
+

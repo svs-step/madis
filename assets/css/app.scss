@@ -278,3 +278,9 @@ td.reponse-vertical-align {
 .nopadding {
   padding-left: 0 !important;
 }
+
+.js-table-collection-wrapper .checkbox label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
