@@ -70,7 +70,6 @@
                          data-prototype="{{ formMacros.printParticipant(form.participants.vars.prototype)|e('html_attr') }}"
                          data-index="{{ form.participants|length }}"
                     >
-
                     {% for participant in form.participants %}
                         {{ formMacros.printParticipant(participant) }}
                     {% endfor %}

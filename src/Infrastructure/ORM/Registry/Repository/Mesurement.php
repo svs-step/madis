@@ -198,6 +198,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         ) a';
 
         $stmt = $this->getManager()->getConnection()->prepare($sql);
+
         $stmt->execute();
 
         return $stmt->fetchColumn();
