@@ -1,0 +1,29 @@
+aipd_modele_analyse_list:
+    path: '/liste'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\ModeleAnalyseController:listAction'
+
+aipd_modele_analyse_create:
+    path: '/creer'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\AIPD\Controller\ModeleAnalyseController:createAction'
+
+aipd_modele_analyse_edit:
+    path: '/editer/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\AIPD\Controller\ModeleAnalyseController:editAction'
+
+aipd_modele_analyse_delete:
+    path: '/supprimer/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\ModeleAnalyseController:deleteAction'
+
+aipd_modele_analyse_duplicate:
+    path: '/dupliquer/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\ModeleAnalyseController:duplicateAction'
+
+aipd_modele_analyse_list_datatables:
+    path: '/datatables'
+    methods: ['POST']
+    controller: 'App\Domain\AIPD\Controller\ModeleAnalyseController:listDataTables'

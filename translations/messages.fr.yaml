@@ -19,6 +19,7 @@ action:
     draft: Enregistrer un brouillon
     unarchive: Rétablir
     save: Enregistrer
+    back_to_list: Retourner à la liste
 
 label:
     actions: Actions
@@ -41,6 +42,8 @@ placeholder:
 
 sidebar_menu:
   admin_duplication: Module de Duplication
+  aipd_modele: Modèle d'analyse
+  aipd_mesure_protection: Mesure de protection
   configuration_treatments: Configuration des traitements
   conformite_traitements: Conformité des traitements
   dashboard: Tableau de bord

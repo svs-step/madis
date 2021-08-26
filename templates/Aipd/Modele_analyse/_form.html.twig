@@ -1,0 +1,120 @@
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+{% import _self as formMacros %}
+
+{% macro printScenariosMenaces(scenarioMenace) %}
+    <tr class="js-table-collection-item">
+        {{ form_errors(scenarioMenace) }}
+        <td>{{ form_widget(scenarioMenace.nom) }}</td>
+        <td>{{ form_row(scenarioMenace.mesuresProtections) }}</td>
+        <td style="max-width: 40px">{{ form_widget(scenarioMenace.isVisible) }}</td>
+        <td style="max-width: 30px">{{ form_row(scenarioMenace.isDisponibilite) }}</td>
+        <td style="max-width: 30px">{{ form_row(scenarioMenace.isIntegrite) }}</td>
+        <td style="max-width: 30px">{{ form_row(scenarioMenace.isConfidentialite) }}</td>
+        <td>{{ form_widget(scenarioMenace.vraisemblance) }}</td>
+        <td>{{ form_widget(scenarioMenace.gravite) }}</td>
+        <td>{{ form_widget(scenarioMenace.precisions) }}</td>
+        <td>
+            <a href="#" class="js-table-remove-item">
+                <i class="fa fa-trash"></i>
+                {{ 'action.delete'|trans }}
+            </a>
+        </td>
+    </tr>
+{% endmacro %}
+
+<link type="text/css" rel="stylesheet" href="{{ asset('bundles/craueformflow/css/buttons.css') }}" />
+
+<div class="row">
+{{ form_start(form) }}
+    <div class="col-md-12">
+    {{ form_errors(form) }}
+
+    {% if flow.getCurrentStepNumber() == 1 %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-solid box-info">
+                    <div class="box-header with-border">Informations générales</div>
+                    <div class="box-body">
+                        {{ form_row(form.nom) }}
+                        {{ form_row(form.description) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border">Personnalisation des labels pour les mesures</div>
+                    <div class="box-body">
+                        {{ form_row(form.labelAmeliorationPrevue) }}
+                        {{ form_row(form.labelInsatisfaisant) }}
+                        {{ form_row(form.labelSatisfaisant) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <table class="table">
+                <tr>
+                    <th>Label</th>
+                    <th>Label pour livrable</th>
+                    <th>Réponses</th>
+                    <th>Visible</th>
+                    <th>Texte en cas de conformité</th>
+                    <th>Texte en cas de non-conformité</th>
+                    <th>Texte en cas de non-applicabilité</th>
+                    <th>Justificatif</th>
+                    <th>Joindre un fichier</th>
+                </tr>
+                {% for critere in form.criterePrincipeFondamentaux %}
+                    {% include '@templates_path/Aipd/Modele_analyse/_form_criteres.html.twig' with {
+                        form: critere,
+                    } %}
+                {% endfor %}
+            </table>
+        </div>
+    {% elseif flow.getCurrentStepNumber() == 2 %}
+        <div class="box box-body">
+            {% include'@templates_path/Aipd/Modele_analyse/_form_question_conformite.html.twig' with {
+                form: form
+            } %}
+        </div>
+    {% elseif flow.getCurrentStepNumber() == 3 %}
+        <div class="box box-body">
+            <div class="js-table-collection-wrapper"
+                data-prototype="{{ formMacros.printScenariosMenaces(form.scenarioMenaces.vars.prototype)|e('html_attr') }}"
+                data-index="{{ form.scenarioMenaces|length }}"
+            >
+                <a href="#" class="js-table-collection-add btn btn-default">
+                    {{ 'aipd.modele_analyse.form.scenario_menace.add'|trans }}
+                </a>
+                <table id="js-table-collection" class="table table-bordered">
+                    <tr>
+                        <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
+                        <th>{{ 'aipd.scenario_menace.list.mesures'|trans }}</th>
+                        <th style="max-width: 40px">{{ 'aipd.scenario_menace.list.visible'|trans }}</th>
+                        <th style="max-width: 30px">D</th>
+                        <th style="max-width: 30px">I</th>
+                        <th style="max-width: 30px">C</th>
+                        <th>{{ 'aipd.scenario_menace.list.vraisemblance'|trans }}</th>
+                        <th>{{ 'aipd.scenario_menace.list.gravite'|trans }}</th>
+                        <th>{{ 'aipd.scenario_menace.list.precision'|trans }}</th>
+                        <th>{{ 'label.actions'|trans }}</th>
+                    </tr>
+                    {% for scenarioMenace in form.scenarioMenaces %}
+                        {{ formMacros.printScenariosMenaces(scenarioMenace) }}
+                    {% endfor %}
+                </table>
+                {{ form_widget(form.scenarioMenaces) }}
+            </div>
+        </div>
+    {% endif %}
+
+    {% include '@CraueFormFlow/FormFlow/buttons.html.twig' with {
+        craue_formflow_button_class_last: 'btn btn-primary',
+        craue_formflow_button_class_back: 'btn',
+        craue_formflow_button_render_reset: false,
+    } %}
+    </div>
+{{ form_end(form) }}
+</div>
+
+

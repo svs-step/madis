@@ -46,6 +46,9 @@
     "container-interop/container-interop": {
         "version": "1.2.0"
     },
+    "craue/formflow-bundle": {
+        "version": "3.5.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {

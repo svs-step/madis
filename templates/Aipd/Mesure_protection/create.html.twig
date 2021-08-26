@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'aipd_mesure_protection form create' %}
+{% set menuItem = 'aipd_mesure_protection' %}
+
+{% block title %}{{ 'aipd.mesure_protection.title.create'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'aipd.mesure_protection.title.create'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'aipd.mesure_protection.title.list'|trans, 'link': path('aipd_modele_analyse_list') },
+        { 'name': 'aipd.mesure_protection.title.create'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    {{ include('Aipd/Mesure_protection/_form.html.twig') }}
+{% endblock %}
