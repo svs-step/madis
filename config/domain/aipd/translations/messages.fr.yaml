@@ -5,7 +5,7 @@ aipd:
         title:
             create: Créer un modèle
             edit: Modifier un modèle
-            list: Liste des modèles d'analyse  
+            list: Liste des modèles d'analyse
         list:
             description: Description
             name: Nom du modèle d'analyse d'impact

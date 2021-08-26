@@ -113,7 +113,7 @@
             $('#search_poids_gravite').off('keyup');
             $('#search_poids_gravite').keyup($.debounce(250, function(){
                 oTable.column('4').search($(this).val()).draw() ;
-            }));            
+            }));
         }
 
         $(document).ready(function() {
