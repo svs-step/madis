@@ -33,6 +33,9 @@ services:
         decorates: 'api_platform.openapi.factory'
         autoconfigure: false
 
+    aipd.form.flow.modele_analyse:
+        class: App\Domain\AIPD\Form\Flow\ModeleAIPDFlow
+
 imports:
     - { resource: services/cloner.yaml }
     - { resource: services/controller.yaml }

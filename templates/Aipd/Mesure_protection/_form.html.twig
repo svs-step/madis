@@ -1,0 +1,44 @@
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+<link type="text/css" rel="stylesheet" href="{{ asset('bundles/craueformflow/css/buttons.css') }}" />
+
+<div class="row">
+    {{ form_start(form) }}
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-solid box-info">
+                    <div class="box-header with-border">{{ 'aipd.mesure_protection.form.information_generale'|trans }}</div>
+                    <div class="box-body">
+                        {{ form_row(form.nom) }}
+                        {{ form_row(form.nomCourt) }}
+                        {{ form_row(form.detail) }}
+                        {{ form_row(form.poidsVraisemblance) }}
+                        {{ form_row(form.poidsGravite) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border">{{ 'aipd.mesure_protection.form.information_livrable'|trans }}</div>
+                    <div class="box-body">
+                        {{ form_row(form.labelLivrable) }}
+                        {{ form_row(form.phrasePreconisation) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class="box-body text-center">
+                    <a href="{{ path('aipd_mesure_protection_list') }}" class="btn btn-default">
+                        {{ 'action.back_to_list'|trans }}
+                    </a>
+                    <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>

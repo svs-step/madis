@@ -80,5 +80,11 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/ORM/Reporting/Mapping'
                 prefix: App\Domain\Reporting\Model
                 alias: Reporting
+            AIPD:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Infrastructure/ORM/AIPD/Mapping'
+                prefix: App\Domain\AIPD\Model
+                alias: AIPD
 
 
