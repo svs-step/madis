@@ -183,7 +183,7 @@ $(document).ready(function() {
             'contractor-sending-data-outside-eu',
             labelYesNo,
             contractorSendingDataOutsideEuData,
-            [colorBlue, colorRed]
+            [colorRed, colorBlue]
         );
     }
 

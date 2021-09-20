@@ -60,10 +60,12 @@ class Maturity
 
             // Make an addition with answer response by domain
             if (isset($points[$domainId])) {
-                $points[$domainId] += $answer->getResponse();
+                $points[$domainId]['value'] += $answer->getResponse();
             } else {
-                $points[$domainId] = $answer->getResponse();
+                $points[$domainId]['value']  = $answer->getResponse();
+                $points[$domainId]['nbItem'] = 0;
             }
+            ++$points[$domainId]['nbItem'];
         }
 
         // Update maturityList with new points
@@ -75,7 +77,7 @@ class Maturity
                 $maturityList[$key]->setSurvey($survey);
             }
             // * 10 to keep int data in order to display a {int}/10 in report
-            $maturityList[$key]->setScore(\intval(\ceil($point / 14 * 5 * 10)));
+            $maturityList[$key]->setScore(\intval(\ceil($point['value'] / ($point['nbItem'] * 2) * 5 * 10)));
         }
 
         return $maturityList;
