@@ -91,15 +91,15 @@ class MaturityTest extends TestCase
         $this->assertTrue(isset($result[$domain3->getId()->toString()]));
 
         $this->assertEquals(
-            \intval(\ceil($answer1->getResponse() / 14 * 5 * 10)),
+            \intval(\ceil($answer1->getResponse() / 2 * 5 * 10)),
             $result[$domain1->getId()->toString()]->getScore()
         );
         $this->assertEquals(
-            \intval(\ceil($answer2->getResponse() / 14 * 5 * 10)),
+            \intval(\ceil($answer2->getResponse() / 2 * 5 * 10)),
             $result[$domain2->getId()->toString()]->getScore()
         );
         $this->assertEquals(
-            \intval(\ceil(($answer3->getResponse() + $answer4->getResponse()) / 14 * 5 * 10)),
+            \intval(\ceil(($answer3->getResponse() + $answer4->getResponse()) / 4 * 5 * 10)),
             $result[$domain3->getId()->toString()]->getScore()
         );
     }
