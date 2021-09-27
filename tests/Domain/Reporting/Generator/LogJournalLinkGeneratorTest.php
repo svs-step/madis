@@ -26,6 +26,7 @@ namespace App\Tests\Domain\Reporting\Generator;
 use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
 use App\Domain\Reporting\Generator\LogJournalLinkGenerator;
 use App\Domain\Reporting\Model\LogJournal;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Ramsey\Uuid\Uuid;
@@ -43,11 +44,17 @@ class LogJournalLinkGeneratorTest extends TestCase
      */
     private $generator;
 
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
     protected function setUp()
     {
-        $this->router = $this->prophesize(RouterInterface::class);
+        $this->router           = $this->prophesize(RouterInterface::class);
+        $this->entityManager    = $this->prophesize(EntityManagerInterface::class);
 
-        $this->generator = new LogJournalLinkGenerator($this->router->reveal());
+        $this->generator = new LogJournalLinkGenerator($this->router->reveal(), $this->entityManager->reveal());
     }
 
     public function testItReturnDeleteLabelOnNullSubject()

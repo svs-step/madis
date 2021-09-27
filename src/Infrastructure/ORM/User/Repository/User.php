@@ -148,10 +148,10 @@ class User extends CRUDRepository implements Repository\User
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
     {
-        $qb = $this->createQueryBuilder();
-
-        $qb->leftJoin('o.collectivity', 'collectivite')
-            ->addSelect('collectivite');
+        $qb = $this->createQueryBuilder()
+            ->addSelect('collectivite')
+            ->leftJoin('o.collectivity', 'collectivite')
+            ->leftJoin('o.services', 'services');
 
         if (\array_key_exists('archive', $criteria)) {
             $this->addArchivedClause($qb, $criteria['archive']);
@@ -241,6 +241,10 @@ class User extends CRUDRepository implements Repository\User
                 case 'connexion':
                     $queryBuilder->andWhere('o.lastLogin LIKE :date')
                         ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'services':
+                    $queryBuilder->andWhere('services.name LIKE :service_name')
+                        ->setParameter('service_name', '%' . $search . '%');
                     break;
             }
         }

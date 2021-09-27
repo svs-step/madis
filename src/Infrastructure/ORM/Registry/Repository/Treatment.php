@@ -398,6 +398,17 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     $queryBuilder->andWhere('o.securitySpecificitiesDelivered = :specificitiesDelivered')
                         ->setParameter('specificitiesDelivered', $search);
                     break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'public':
+                    $queryBuilder->andWhere('o.public = :public')
+                        ->setParameter('public', $search);
+                    break;
+                case 'responsableTraitement':
+                    $this->addWhereClause($queryBuilder, 'coordonneesResponsableTraitement', '%' . $search . '%', 'LIKE');
+                    break;
             }
         }
     }

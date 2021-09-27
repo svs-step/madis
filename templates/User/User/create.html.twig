@@ -47,8 +47,6 @@
             let url = window.location.pathname.split('/');
             let userId = url[url.length - 1];
 
-            console.log(userId);
-
             let route = '';
             if (sourceCollectivityId) {
                 route = "{{ path('user_user_get_services_content', {collectivityId: ':collectivityId', userId: ':userId' }) }}".replace(':collectivityId', sourceCollectivityId).replace(':userId', userId);
@@ -63,7 +61,6 @@
             }).done(function(response) {
                 dataField.find('option').remove();
                 response.forEach(function(responseItem) {
-                    console.log(responseItem.selected);
                     let selected = responseItem.selected ? 'selected="selected"' : ''
                     dataField.append('<option value="' + responseItem.value + '"' + selected + '>' + responseItem.text + '</option>')
                 

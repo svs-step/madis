@@ -149,6 +149,11 @@ class PublicConfiguration
         $this->savedConfiguration   = json_encode($this->mappedObject);
     }
 
+    public function __call(string $name, $arguments)
+    {
+        return $this->__get($name);
+    }
+
     private function _initMappedObject()
     {
         if (!$this->mappedObject) {

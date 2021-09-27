@@ -264,6 +264,7 @@ class TreatmentController extends CRUDController
         } else {
             $configuration = new PublicConfiguration(Treatment::class);
         }
+        //dd($configuration);
 
         return $this->render($this->getTemplatingBasePath('public_show'), [
             'object' => $object,
@@ -368,6 +369,8 @@ class TreatmentController extends CRUDController
                 'openAccounts'           => $treatment->isSecurityOpenAccounts() ? $yes : $no,
                 'specificitiesDelivered' => $treatment->isSecuritySpecificitiesDelivered() ? $yes : $no,
                 'updatedAt'              => date_format($treatment->getUpdatedAt(), 'd-m-Y H:i:s'),
+                'public'                 => $treatment->getPublic() ? $yes : $no,
+                'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
@@ -432,7 +435,9 @@ class TreatmentController extends CRUDController
             '13' => 'openAccounts',
             '14' => 'specificitiesDelivered',
             '15' => 'updatedAt',
-            '16' => 'actions',
+            '16' => 'public',
+            '17' => 'responsableTraitement',
+            '18' => 'actions',
         ];
     }
 }

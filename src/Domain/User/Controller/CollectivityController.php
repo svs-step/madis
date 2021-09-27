@@ -248,22 +248,22 @@ class CollectivityController extends CRUDController
 
         $deletedTreaments = $this->treatmentRepository->findBy(['collectivity' => $object]);
         foreach ($deletedTreaments as $deletedTreament) {
-            $stringObjects[] = $deletedTreament->getName();
+            $stringObjects[] = 'Traitement - ' . $deletedTreament->getName();
         }
 
         $deletedContractors = $this->contractorRepository->findBy(['collectivity' => $object]);
         foreach ($deletedContractors as $deletedContractor) {
-            $stringObjects[] = $deletedContractor->getName();
+            $stringObjects[] = 'Sous-traitent - ' . $deletedContractor->getName();
         }
 
         $deletedProofs =  $this->proofRepository->findBy(['collectivity' => $object]);
         foreach ($deletedProofs as $deletedProof) {
-            $stringObjects[] = $deletedProof->getName();
+            $stringObjects[] = 'Preuve - ' . $deletedProof->getName();
         }
 
         $deletedUsers =  $this->userRepository->findBy(['collectivity' => $object]);
         foreach ($deletedUsers as $deletedUser) {
-            $stringObjects[] = $deletedUser->getFirstname() . ' ' . $deletedUser->getLastname();
+            $stringObjects[] = 'Utilisateur - ' . $deletedUser->getFirstname() . ' ' . $deletedUser->getLastname();
         }
 
         return $this->render($this->getTemplatingBasePath('delete'), [
