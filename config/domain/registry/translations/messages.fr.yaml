@@ -392,11 +392,14 @@ registry:
             completion: Taux de complétion
             contractors: Sous-traitants
             entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
+            goal: Finalité
             legal_basis: Base légale
             manager: Gestionnaire
             name: Nom
             open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
             other: Autres
+            public: Publique
+            responsable_traitement: Responsable traitement
             saving: Sauvegarde
             specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             software: Logiciel
@@ -447,6 +450,7 @@ registry:
             paper_processing: Traitement papier
             proofs: Documents associés
             public: Publique
+            public_register: Registre publique
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
             security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
@@ -475,6 +479,7 @@ registry:
           general: Informations générales
           historic: Historique
           proofs: Documents associés
+          public: Registre publique
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
           recipients: Destination

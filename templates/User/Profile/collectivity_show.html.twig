@@ -406,5 +406,31 @@
                 </div>
             </div>
         {% endif %}
+
+        {% if object.isServicesEnabled %}
+            <div class="col-md-6 pull-right">
+                <div class="box box-solid box-default">
+                    <div class="box-header with-border"><h3 class="box-title">{{ 'user.user.list.services_list'|trans }}</h3></div>
+                    <div class="box-body no-padding">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th><strong>{{ 'user.user.list.last_name'|trans }}</strong></th>
+                                    <th><strong>{{ 'user.user.list.service_number_users'|trans }}</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for service in object.services %}
+                                <tr>
+                                    <td>{{ service.name }}</td>
+                                    <td>{{ service.users|length }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

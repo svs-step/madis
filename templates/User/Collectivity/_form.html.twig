@@ -3,12 +3,14 @@
 
 {% macro printService(service) %}
     <div class="js-collection-item">
-        <a href="#" class="js-remove-item pull-right">
-            <i class="fa fa-times" style="color:#ff746d;"></i>
-        </a>
         {{ form_errors(service) }}
-        <div class="col-sm-11">
+        <div class="col-sm-10">
             {{ form_widget(service) }}
+        </div>
+        <div class="col-sm-2">
+            <a href="#" class="js-remove-item pull-right">
+                <i class="fa fa-times" style="color:#ff746d;"></i>
+            </a>
         </div>
     </div>
 {% endmacro %}

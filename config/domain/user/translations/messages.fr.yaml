@@ -74,15 +74,16 @@ user:
             created_at: Date de création
             different_dpo: Différent du DPD moral
             different_it_manager: Différent du Référent Opérationnel
+            informations_complementaires: Informations complémentaires
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de l'organisation
             name: Nom
             short_name: Nom court
+            services: Services
             siren: SIREN
             type: Type
             updated_at: Date de dernière modification
             website: Site internet
-            informations_complementaires: Informations complémentaires
         tab:
           address: Adresse
           comite_il: Composition du comité Informatique et Libertés
@@ -163,7 +164,7 @@ user:
             edit: Éditer "%name%"
             unarchive: Rétablir "%name%"
         form:
-            apiAuthorized: API
+            apiAuthorized: Accès aux Webservices (API)
             collectivity: Collectivité
             collectivitesReferees: Collectivités rattachées
             email: E-mail
@@ -190,6 +191,9 @@ user:
             last_login: Dernière connexion
             last_name: Nom
             roles: Role
+            services: Service
+            services_list: Liste des services
+            service_number_users: Nombre d'utilisateurs dans ce service
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cet utilisateur ?
         tab:

@@ -194,7 +194,7 @@
         {# RECIPIENTS #}
         {% if (
             (object.recipientCategory and config.recipientCategory == true) 
-            or (object.contractors and config.contractors == true)) %}
+            or ((object.contractors is not empty) and config.contractors == true)) %}
             <div class="box box-solid box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3>
@@ -442,7 +442,7 @@
         or (object.delay and config.delay == true) 
         or (object.ultimateFate and config.ultimateFate == true) 
         or (object.dataOrigin and config.dataOrigin == true) 
-        or (object.collectingMethod and config.collectingMethod == true)) %}
+        or ((object.collectingMethod is not empty) and config.collectingMethod == true)) %}
 
             <div class="box box-solid box-primary">
                 <div class="box-header with-border">
@@ -627,7 +627,7 @@
                                     <td>{{ object.dataOrigin }}</td>
                                 </tr>
                             {% endif %}
-                            {% if (object.collectingMethod and config.collectingMethod == true) %}
+                            {% if ((object.collectingMethod is not empty) and config.collectingMethod == true) %}
                                 <tr>
                                     <td>
                                         <strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong>

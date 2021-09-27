@@ -149,17 +149,22 @@ class TreatmentGenerator extends AbstractGenerator
     {
         return [
             $this->translator->trans('registry.treatment.show.author'),
+            $this->translator->trans('registry.treatment.show.coordonnees_responsable_traitement'),
             $this->translator->trans('registry.treatment.show.goal'),
             $this->translator->trans('registry.treatment.show.manager'),
             $this->translator->trans('registry.treatment.show.active'),
             $this->translator->trans('registry.treatment.show.legal_basis'),
             $this->translator->trans('registry.treatment.show.legal_basis_justification'),
             $this->translator->trans('registry.treatment.show.observation'),
+            $this->translator->trans('registry.treatment.show.public_register'),
         ];
     }
 
     private function initializeTreatmentGeneralInformations(\App\Domain\Registry\Model\Treatment $treatment): array
     {
+        $yes = $this->translator->trans('label.yes');
+        $no  = $this->translator->trans('label.no');
+
         $goal                    = $treatment->getGoal();
         $legalBasisJustification = $treatment->getLegalBasisJustification();
         $observation             = $treatment->getObservation();
@@ -175,12 +180,14 @@ class TreatmentGenerator extends AbstractGenerator
 
         return [
             !\is_null($treatment->getAuthor()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : null,
+            $treatment->getCoordonneesResponsableTraitement(),
             $goal,
             $treatment->getManager(),
             $treatment->isActive() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
             !\is_null($treatment->getLegalBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : null,
             $legalBasisJustification,
             $observation,
+            $treatment->getPublic() ? $yes : $no,
         ];
     }
 
@@ -300,7 +307,7 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getDelay()->getComment(),
             !\is_null($treatment->getUltimateFate()) ? TreatmentUltimateFateDictionary::getUltimateFates()[$treatment->getUltimateFate()] : null,
             $treatment->getDataOrigin(),
-            !\is_null($treatment->getCollectingMethod()) ? TreatmentCollectingMethodDictionary::getMethods()[$treatment->getCollectingMethod()] : null,
+            !\is_array($treatment->getCollectingMethod()) ? TreatmentCollectingMethodDictionary::getMethods()[$treatment->getCollectingMethod()] : null,
         ];
     }
 
