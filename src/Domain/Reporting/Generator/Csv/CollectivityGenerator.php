@@ -238,6 +238,8 @@ class CollectivityGenerator extends AbstractGenerator
             $this->translator->trans('user.collectivity.show.address_zip_code'),
             $this->translator->trans('user.collectivity.show.address_city'),
             $this->translator->trans('user.collectivity.show.address_insee'),
+            $this->translator->trans('user.collectivity.show.services'),
+            $this->translator->trans('user.collectivity.show.informations_complementaires'),
             $legalManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_civility'),
             $legalManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_first_name'),
             $legalManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_last_name'),
@@ -279,6 +281,7 @@ class CollectivityGenerator extends AbstractGenerator
 
         $legalManager = $collectivity->getLegalManager();
         $itManager    = $collectivity->getItManager();
+        $services     = $collectivity->getServices();
         $referent     = $collectivity->getReferent();
         $dpo          = $collectivity->getDpo();
 
@@ -297,6 +300,8 @@ class CollectivityGenerator extends AbstractGenerator
             $collectivity->getAddress()->getZipCode(),
             $collectivity->getAddress()->getCity(),
             $collectivity->getAddress()->getInsee(),
+            implode(' - ', \iterable_to_array($collectivity->getServices())),
+            $collectivity->getInformationsComplementaires(),
             !\is_null($legalManager->getCivility()) ? ContactCivilityDictionary::getCivilities()[$legalManager->getCivility()] : '',
             $legalManager->getFirstName(),
             $legalManager->getLastName(),
@@ -461,5 +466,19 @@ class CollectivityGenerator extends AbstractGenerator
         }
 
         return $data;
+    }
+
+    private function collectivityServiceHeaders()
+    {
+        return [
+            $this->translator->trans('user.collectivity.show.services'),
+        ];
+    }
+
+    private function initializeService(\App\Domain\User\Model\Collectivity $collectivity): array
+    {
+        return [
+            implode(' - ', \iterable_to_array($collectivity->getServices())),
+        ];
     }
 }

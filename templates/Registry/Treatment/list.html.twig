@@ -155,6 +155,19 @@
                                     <option value="0">Non</option>
                                 </select>
                             </th>
+                            <th>
+                                <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_public" placeholder="Publique" style="width: 100%;">
+                                    <option value="">Publique</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_responsable_traitement" placeholder="Responsable traitement" style="width: 100%;">
+                            </th>
                             <th></th>
                         </tr>
                         <tr>
@@ -174,6 +187,8 @@
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.open_accounts'|trans }}</th>
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.specificities_delivered'|trans }}</th>
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.update'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.public'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.responsable_traitement'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -218,6 +233,8 @@
             {"data": "openAccounts", "visible": false},
             {"data": "specificitiesDelivered", "visible": false},
             {"data": "updatedAt", "visible": false},
+            {"data": "public", "visible": false},
+            {"data": "responsableTraitement", "visible": false},
             {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
         ],
         order:  [
@@ -305,6 +322,18 @@
             $('#search_specificite').change(function(){
                 oTable.column('14').search($(this).val()).draw() ;
             });
+            $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
+                oTable.column('15').search($(this).val()).draw();
+            });
+            $('#search_public').off('change');
+            $('#search_public').change(function(){
+                oTable.column('16').search($(this).val()).draw() ;
+            });
+            $('#search_responsable_traitement').off('keyup');
+            $('#search_responsable_traitement').keyup($.debounce(250, function(){
+                oTable.column('17').search($(this).val()).draw() ;
+            }));
         }
 
         $(document).ready(function() {

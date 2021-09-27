@@ -28,6 +28,7 @@ use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model\Treatment;
+use App\Domain\User\Model\Collectivity;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -68,6 +69,11 @@ class TreatmentTypeTest extends FormTypeHelper
 
     public function testBuildForm()
     {
+        $treatment      = new Treatment();
+        $collectivity   = new Collectivity();
+        $collectivity->setIsServicesEnabled(true);
+        $treatment->setCollectivity($collectivity);
+
         $builder = [
             'public'                            => CheckboxType::class,
             'name'                              => TextType::class,
@@ -116,7 +122,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'ultimateFate'                      => DictionaryType::class,
         ];
 
-        $this->formType->buildForm($this->prophesizeBuilder($builder), ['data' => 'foo']);
+        $this->formType->buildForm($this->prophesizeBuilder($builder), ['data' => $treatment]);
     }
 
     public function testConfigureOptions(): void

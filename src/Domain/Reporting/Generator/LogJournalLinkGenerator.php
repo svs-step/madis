@@ -25,6 +25,8 @@ namespace App\Domain\Reporting\Generator;
 
 use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
 use App\Domain\Reporting\Model\LogJournal;
+use App\Domain\User\Model\Service;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 class LogJournalLinkGenerator
@@ -36,9 +38,15 @@ class LogJournalLinkGenerator
      */
     private $router;
 
-    public function __construct(RouterInterface $router)
+    /**
+     * @var EntityManagerInterface
+     */
+    protected $entityManager;
+
+    public function __construct(RouterInterface $router, EntityManagerInterface $entityManager)
     {
-        $this->router = $router;
+        $this->router           = $router;
+        $this->entityManager    = $entityManager;
     }
 
     public function getLink(LogJournal $log)
@@ -62,6 +70,13 @@ class LogJournalLinkGenerator
                 return $this->router->generate($log->getSubjectType() . '_edit', ['id' => $id]);
             case LogJournalSubjectDictionary::REGISTRY_CONFORMITE_ORGANISATION_EVALUATION:
                 return $this->router->generate('registry_conformite_organisation_edit', ['id' => $id]);
+            case LogJournalSubjectDictionary::USER_SERVICE:
+                $service = $this
+                ->entityManager
+                ->getRepository(Service::class)
+                ->findOneBy(['id' => $id]);
+
+                return $this->router->generate('user_collectivity_show', ['id' => $service->getCollectivity()->getId()]);
             default:
                 return $this->router->generate($log->getSubjectType() . '_show', ['id' => $id]);
         }

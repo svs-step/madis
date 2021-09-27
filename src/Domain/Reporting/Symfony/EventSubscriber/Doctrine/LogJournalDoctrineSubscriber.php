@@ -119,7 +119,6 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
                 break;
             //l'ajout d'un contact IL ou d'un service entraine la modification de la collectivité
             case ComiteIlContact::class:
-            case Service::class:
                 $object = $object->getCollectivity();
                 $action = LogJournalActionDictionary::UPDATE;
                 break;
@@ -155,7 +154,6 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
                 $this->registerLog($object->getEvaluation(), LogJournalActionDictionary::UPDATE);
                 break;
             case ComiteIlContact::class:
-            case Service::class:
                 $this->registerLog($object->getCollectivity(), LogJournalActionDictionary::UPDATE);
                 break;
             case Reponse::class:

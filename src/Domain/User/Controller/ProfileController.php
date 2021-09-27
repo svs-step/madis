@@ -29,11 +29,20 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Repository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\ControllerTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProfileController
 {
+    use ControllerTrait;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
     /**
      * @var ControllerHelper
      */
@@ -60,12 +69,14 @@ class ProfileController
     private $userRepository;
 
     public function __construct(
+        EntityManagerInterface $entityManager,
         ControllerHelper $helper,
         RequestStack $requestStack,
         UserProvider $userProvider,
         Repository\Collectivity $collectivityRepository,
         Repository\User $userRepository
     ) {
+        $this->entityManager          = $entityManager;
         $this->helper                 = $helper;
         $this->requestStack           = $requestStack;
         $this->userProvider           = $userProvider;
@@ -138,6 +149,12 @@ class ProfileController
         $request = $this->requestStack->getMasterRequest();
         $object  = $this->userProvider->getAuthenticatedUser();
 
+        $services = false;
+
+        if ($object) {
+            $services = $object->getServices();
+        }
+
         $form = $this->helper->createForm(
             UserType::class,
             $object,
@@ -160,7 +177,9 @@ class ProfileController
         }
 
         return $this->helper->render('User/Profile/user_edit.html.twig', [
-            'form' => $form->createView(),
+            'form'     => $form->createView(),
+            'roles'    => $object->getRoles(),
+            'services' => $services,
         ]);
     }
 }

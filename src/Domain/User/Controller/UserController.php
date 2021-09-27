@@ -216,6 +216,12 @@ class UserController extends CRUDController
                 <span class="badge ' . $collectivityActifBgColor . '">' . $this->translator->trans('user.collectivity.title.label') . '</span>'
             ;
 
+            $services = '<ul>';
+            foreach ($user->getServices() as $service) {
+                $services .= '<li>' . $service->getName() . '</li>';
+            }
+            $services .= '</ul>';
+
             $europeTimezone    = new \DateTimeZone('Europe/Paris');
             $reponse['data'][] = [
                 'prenom'       => $user->getFirstName(),
@@ -225,6 +231,7 @@ class UserController extends CRUDController
                 'roles'        => $roles,
                 'actif'        => $actif,
                 'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('Y-m-d H:i:s') : null,
+                'services'     => $services,
                 'actions'      => $this->getActionCellsContent($user),
             ];
         }
@@ -245,7 +252,8 @@ class UserController extends CRUDController
             4 => 'roles',
             5 => 'actif',
             6 => 'connexion',
-            7 => 'actions',
+            7 => 'services',
+            8 => 'actions',
         ];
     }
 
