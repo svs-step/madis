@@ -12,3 +12,8 @@ user_profile_user_edit:
     path: '/mon-compte/editer'
     methods: ['GET', 'POST']
     controller: 'App\Domain\User\Controller\ProfileController:userEditAction'
+
+user_profile_get_services_content:
+    path: 'mon-compte/services/{collectivityId}/{userId}'
+    methods: ['GET']
+    controller: 'App\Domain\User\Controller\ProfileController:getServicesContent'

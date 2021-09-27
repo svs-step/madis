@@ -66,7 +66,7 @@ class TreatmentType extends AbstractType
         $treatment = $options['data'];
         $builder
             ->add('public', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.public',
+                'label'    => ' ',
                 'required' => false,
             ])
             ->add('name', TextType::class, [
@@ -75,24 +75,6 @@ class TreatmentType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
-            ])
-            ->add('service', EntityType::class, [
-                'class'         => Service::class,
-                'label'         => 'registry.treatment.form.service',
-                'query_builder' => function (EntityRepository $er) use ($treatment) {
-                    if ($treatment->getCollectivity()) {
-                        $collectivity = $treatment->getCollectivity();
-
-                        return $er->createQueryBuilder('s')
-                        ->where('s.collectivity = :collectivity')
-                        ->setParameter(':collectivity', $collectivity)
-                        ->orderBy('s.name', 'ASC');
-                    }
-
-                    return $er->createQueryBuilder('s')
-                        ->orderBy('s.name', 'ASC');
-                },
-                'required'      => false,
             ])
             ->add('goal', TextareaType::class, [
                 'label'    => 'registry.treatment.form.goal',
@@ -316,12 +298,16 @@ class TreatmentType extends AbstractType
                 ],
             ])
             ->add('collectingMethod', DictionaryType::class, [
-                'label'       => 'registry.treatment.form.collecting_method',
-                'name'        => 'registry_treatment_collecting_method',
-                'required'    => false,
-                'multiple'    => true,
-                'expanded'    => true,
-                'placeholder' => 'placeholder.precision',
+                'label'         => 'registry.treatment.form.collecting_method',
+                'name'          => 'registry_treatment_collecting_method',
+                'required'      => false,
+                'expanded'      => false,
+                'multiple'      => true,
+                'placeholder'   => 'placeholder.precision',
+                'attr'          => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
             ])
             ->add('estimatedConcernedPeople', IntegerType::class, [
                 'label'    => 'registry.treatment.form.estimated_concerned_people',
@@ -352,6 +338,28 @@ class TreatmentType extends AbstractType
                 'placeholder' => 'placeholder.precision',
             ])
         ;
+
+        // Check if services are enabled for the collectivity's treatment
+        if ($options['data']->getCollectivity()->getIsServicesEnabled()) {
+            $builder->add('service', EntityType::class, [
+                'class'         => Service::class,
+                'label'         => 'registry.treatment.form.service',
+                'query_builder' => function (EntityRepository $er) use ($treatment) {
+                    if ($treatment->getCollectivity()) {
+                        $collectivity = $treatment->getCollectivity();
+
+                        return $er->createQueryBuilder('s')
+                        ->where('s.collectivity = :collectivity')
+                        ->setParameter(':collectivity', $collectivity)
+                        ->orderBy('s.name', 'ASC');
+                    }
+
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.name', 'ASC');
+                },
+                'required'      => false,
+            ]);
+        }
     }
 
     /**

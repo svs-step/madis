@@ -33,6 +33,7 @@
                         <thead>
                         <tr>
                             <th>{{ 'registry.treatment.list.name'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.goal'|trans }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -41,6 +42,12 @@
                                     <td><a href="{{ path('registry_public_treatment_show', {id: object.id}) }}">
                                         {{ object.name }}
                                     </a></td>
+                                    <td>
+                                        {{ object.goal|striptags|slice(0, 60) }}
+                                        {% if (object.goal|length > 60 ) %}
+                                            ...
+                                        {% endif %}
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
