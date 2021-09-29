@@ -29,7 +29,7 @@ class ModeleAnalyse
     private $criterePrincipeFondamentaux;
 
     /**
-     * @var array|ModeleAnalyseQuestionConformite[]
+     * @var array|ModeleQuestionConformite[]
      */
     private $questionConformites;
 
@@ -103,6 +103,11 @@ class ModeleAnalyse
         return $this->criterePrincipeFondamentaux;
     }
 
+//    public function getCriterePrincipeFondamentals()
+//    {
+//        return $this->getCriterePrincipeFondamentals();
+//    }
+
     public function setCriterePrincipeFondamentaux($criterePrincipeFondamentaux): void
     {
         /** @var CriterePrincipeFondamental $critere */
@@ -112,6 +117,12 @@ class ModeleAnalyse
         $this->criterePrincipeFondamentaux = $criterePrincipeFondamentaux;
     }
 
+//    public function setCriterePrincipeFondamentals($criterePrincipeFondamentaux): void
+//    {
+//        dump("Set critere");
+//       $this->setCriterePrincipeFondamentals($criterePrincipeFondamentaux);
+//    }
+
     public function getQuestionConformites()
     {
         return $this->questionConformites;
@@ -119,6 +130,7 @@ class ModeleAnalyse
 
     public function setQuestionConformites($questionConformites): void
     {
+        dump('Set questions');
         $this->questionConformites = $questionConformites;
     }
 
@@ -129,6 +141,7 @@ class ModeleAnalyse
 
     public function setScenarioMenaces($scenarioMenaces): void
     {
+        dump('Set menaces');
         foreach ($scenarioMenaces as $scenarioMenace) {
             $scenarioMenace->setModeleAnalyse($this);
         }

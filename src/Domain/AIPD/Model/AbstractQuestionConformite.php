@@ -7,23 +7,19 @@ namespace App\Domain\AIPD\Model;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class ModeleAnalyseQuestionConformite
+class AbstractQuestionConformite
 {
-    private UuidInterface $id;
-    private string $question;
-    private bool $isJustificationObligatoire;
-    private ?string $texteConformite;
-    private ?string $texteNonConformiteMineure;
-    private ?string $texteNonConformiteMajeure;
-    private ModeleAnalyse $modeleAnalyse;
+    protected UuidInterface $id;
+    protected string $question;
+    protected bool $isJustificationObligatoire;
+    protected ?string $texteConformite;
+    protected ?string $texteNonConformiteMineure;
+    protected ?string $texteNonConformiteMajeure;
 
-    public function __construct(string $question, ?ModeleAnalyse $modeleAnalyse = null)
+    public function __construct(string $question)
     {
         $this->id       = Uuid::uuid4();
         $this->question = $question;
-        if (!is_null($modeleAnalyse)) {
-            $this->modeleAnalyse = $modeleAnalyse;
-        }
     }
 
     public function getId(): UuidInterface
@@ -41,7 +37,7 @@ class ModeleAnalyseQuestionConformite
         $this->question = $question;
     }
 
-    public function getIsJustificationObligatoire(): bool
+    public function isJustificationObligatoire(): bool
     {
         return $this->isJustificationObligatoire;
     }

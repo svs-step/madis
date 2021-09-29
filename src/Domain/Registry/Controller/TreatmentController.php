@@ -279,7 +279,6 @@ class TreatmentController extends CRUDController
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedHttpException('You can\'t access to a collectivity treatment data');
         }
-
         /** @var UserModel\Collectivity|null $collectivity */
         $collectivity = $this->collectivityRepository->findOneById($collectivityId);
         if (null === $collectivity) {

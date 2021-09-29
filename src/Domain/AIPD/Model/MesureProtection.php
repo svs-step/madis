@@ -19,7 +19,7 @@ class MesureProtection
     private int $poidsGravite;
 
     /**
-     * @var array|ModeleScenarioMenace[]
+     * @var array|AbstractScenarioMenace
      */
     private $scenariosMenaces;
 

@@ -7,6 +7,10 @@
                             https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <entity name="App\Domain\AIPD\Model\CriterePrincipeFondamental" table="aipd_critere_principe_fondamental">
+        <discriminator-map>
+            <discriminator-mapping value="modele" class="App\Domain\AIPD\Model\ModeleCriterePrincipeFondamental"/>
+            <discriminator-mapping value="analyse" class="App\Domain\AIPD\Model\AnalyseCriterePrincipeFondamental"/>
+        </discriminator-map>
         <id name="id" column="id" type="uuid"/>
 
         <field name="label" column="label"/>
@@ -16,8 +20,9 @@
         <field name="texteConformite" column="texte_conformite"/>
         <field name="texteNonConformite" column="texte_non_conformite"/>
         <field name="texteNonApplicable" column="non_applicable"/>
-        <field name="justification" column="justification"/>
+        <field name="justification" column="justification" nullable="true"/>
 
+        <many-to-one field="analyseImpact" target-entity="App\Domain\AIPD\Model\AnalyseImpact" inversed-by="criteresPrincipesFondamentaux"/>
         <many-to-one field="modeleAnalyse" target-entity="App\Domain\AIPD\Model\ModeleAnalyse" inversed-by="criteresPrincipesFondamentaux"/>
     </entity>
 </doctrine-mapping>

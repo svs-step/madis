@@ -1,0 +1,13 @@
+<tr>
+    <td>{{ form.vars.value.label }}</td>
+    <td>
+        {% if(form.reponse.vars.value == 'non_renseigne') %}
+            {{ form_widget(form.reponse) }}
+        {% else %}
+            {{ form.reponse.vars.value|dictionary('reponse_critere_fondamental') }}
+        {% endif %}
+    </td>
+    <td>{{ form_widget(form.justification) }}</td>
+{#    <td>{{ form_widget(form.fichier) }}</td>#}
+    <td></td>
+</tr>

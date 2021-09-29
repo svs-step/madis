@@ -31,7 +31,7 @@
             <cascade><cascade-persist/><cascade-remove/></cascade>
         </one-to-many>
         <one-to-many field="questionConformites"
-                     target-entity="App\Domain\AIPD\Model\ModeleAnalyseQuestionConformite" mapped-by="modeleAnalyse">
+                     target-entity="App\Domain\AIPD\Model\ModeleQuestionConformite" mapped-by="modeleAnalyse">
             <cascade><cascade-persist/><cascade-remove/></cascade>
         </one-to-many>
     </entity>

@@ -42,7 +42,7 @@ class ModeleAnalyseType extends AbstractType
             case 2:
                 $builder
                     ->add('questionConformites', CollectionType::class, [
-                        'entry_type' => ModeleAnalyseQuestionConformiteType::class,
+                        'entry_type' => ModeleQuestionConformiteType::class,
                     ])
                 ;
                 break;

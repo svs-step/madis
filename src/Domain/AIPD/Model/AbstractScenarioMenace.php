@@ -16,7 +16,7 @@ abstract class AbstractScenarioMenace
     /**
      * @var array|MesureProtection
      */
-    private $mesuresProtections;
+    protected $mesuresProtections;
 
     protected bool $isVisible;
     protected bool $isDisponibilite;
@@ -33,6 +33,11 @@ abstract class AbstractScenarioMenace
     protected string $precisions;
 
     public function __construct()
+    {
+        $this->id = Uuid::uuid4();
+    }
+
+    public function __clone()
     {
         $this->id = Uuid::uuid4();
     }

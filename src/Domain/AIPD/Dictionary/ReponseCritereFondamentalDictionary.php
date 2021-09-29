@@ -6,7 +6,7 @@ namespace App\Domain\AIPD\Dictionary;
 
 use App\Application\Dictionary\SimpleDictionary;
 
-class ReponseCritereFondamental extends SimpleDictionary
+class ReponseCritereFondamentalDictionary extends SimpleDictionary
 {
     const NON_RENSEIGNE  = 'non_renseigne';
     const NON_CONFORME   = 'non_conforme';
@@ -15,7 +15,7 @@ class ReponseCritereFondamental extends SimpleDictionary
 
     public function __construct()
     {
-        parent::__construct('reponse_critere_conformite', $this->getReponses());
+        parent::__construct('reponse_critere_fondamental', $this->getReponses());
     }
 
     public function getReponses()

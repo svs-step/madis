@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'aipd_analyse_impact list' %}
+{% set menuItem = 'registry_conformite_traitement' %}
+
+{% block title %}{{ 'aipd.analyse_impact.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+{% endblock %}
+
+{% set smallTitle = form.vars.value.conformiteTraitement.traitement.name ~ ' - Étape 1 sur 5 : Conformité' %}
+{% block body_head %}
+    <h1>
+        {{ 'aipd.analyse_impact.title.list'|trans }}
+        <small>{{ smallTitle }}</small>
+    </h1>
+{% endblock %}
+
+
+{% block body %}
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/craueformflow/css/buttons.css') }}" />
+
+    {{ form_start(form) }}
+{#    {% set smallTitle = form.vars.value.conformiteTraitement.traitement.name ~ ' - Étape 1 sur 5 : Conformité' %}#}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    {% if flow.getCurrentStepNumber() == 1 %}
+                        {% include '@templates_path/Aipd/Analyse_impact/_form_step_1.html.twig' with {
+                            form: form
+                        } %}
+                    {% elseif flow.getCurrentStepNumber() == 2 %}
+                        {% include '@templates_path/Aipd/Analyse_impact/_form_step_2.html.twig' with {
+                            form: form
+                        } %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body text-center">
+                {% include '@CraueFormFlow/FormFlow/buttons.html.twig' with {
+                    craue_formflow_button_class_last: 'btn btn-primary',
+                    craue_formflow_button_class_back: 'btn',
+                    craue_formflow_button_render_reset: false,
+                } %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

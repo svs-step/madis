@@ -5,8 +5,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                             https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
-
-    <entity name="App\Domain\AIPD\Model\ModeleAnalyseQuestionConformite" table="aipd_modele_question_conformite">
+    <mapped-superclass name="App\Domain\AIPD\Model\AbstractQuestionConformite">
         <id name="id" column="id" type="uuid"/>
 
         <field name="question" column="question"/>
@@ -16,6 +15,6 @@
         <field name="texteNonConformiteMajeure" column="texte_non_conformite_majeure" nullable="true"/>
         <field name="texteNonConformiteMineure" column="texte_non_conformite_mineure" nullable="true"/>
 
-        <many-to-one field="modeleAnalyse" target-entity="App\Domain\AIPD\Model\ModeleAnalyse" inversed-by="questionConformites"/>
-    </entity>
+
+    </mapped-superclass>
 </doctrine-mapping>

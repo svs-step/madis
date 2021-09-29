@@ -4,27 +4,27 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Model;
 
-use App\Domain\AIPD\Dictionary\ReponseCritereFondamental;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class CriterePrincipeFondamental
 {
-    private UuidInterface $id;
+    protected UuidInterface $id;
 
-    private ModeleAnalyse $modeleAnalyse;
-    private string $label;
-    private string $labelLivrable;
+    protected string $label;
+    protected string $labelLivrable;
     /**
-     * @see ReponseCritereFondamental
+     * @see ReponseCritereFondamentalDictionary
      */
-    private string $reponse;
-    private bool $isVisible;
-    private string $texteConformite;
-    private string $texteNonConformite;
-    private string $texteNonApplicable;
-    private string $justification;
-    private $fichier; //TODO File
+    protected string $reponse;
+    protected bool $isVisible;
+    protected string $texteConformite;
+    protected string $texteNonConformite;
+    protected string $texteNonApplicable;
+    protected string $justification;
+    protected $fichier; //TODO File
+    private ?ModeleAnalyse $modeleAnalyse;
+    private ?AnalyseImpact $analyseImpact;
 
     public function __construct(string $label = null)
     {
@@ -34,19 +34,14 @@ class CriterePrincipeFondamental
         }
     }
 
+    public function __clone()
+    {
+        $this->id = Uuid::uuid4();
+    }
+
     public function getId(): UuidInterface
     {
         return $this->id;
-    }
-
-    public function getModeleAnalyse(): ModeleAnalyse
-    {
-        return $this->modeleAnalyse;
-    }
-
-    public function setModeleAnalyse(ModeleAnalyse $modeleAnalyse): void
-    {
-        $this->modeleAnalyse = $modeleAnalyse;
     }
 
     public function getLabel(): string
@@ -137,5 +132,25 @@ class CriterePrincipeFondamental
     public function setFichier($fichier): void
     {
         $this->fichier = $fichier;
+    }
+
+    public function getModeleAnalyse(): ?ModeleAnalyse
+    {
+        return $this->modeleAnalyse;
+    }
+
+    public function setModeleAnalyse(?ModeleAnalyse $modeleAnalyse): void
+    {
+        $this->modeleAnalyse = $modeleAnalyse;
+    }
+
+    public function getAnalyseImpact(): ?AnalyseImpact
+    {
+        return $this->analyseImpact;
+    }
+
+    public function setAnalyseImpact(?AnalyseImpact $analyseImpact): void
+    {
+        $this->analyseImpact = $analyseImpact;
     }
 }

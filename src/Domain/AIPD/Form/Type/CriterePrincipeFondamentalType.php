@@ -20,7 +20,7 @@ class CriterePrincipeFondamentalType extends AbstractType
             ->add('label', TextType::class)
             ->add('labelLivrable', TextType::class)
             ->add('reponse', DictionaryType::class, [
-                'name' => 'reponse_critere_conformite',
+                'name' => 'reponse_critere_fondamental',
             ])
             ->add('isVisible', CheckboxType::class, [
                 'label'    => false,
@@ -29,7 +29,9 @@ class CriterePrincipeFondamentalType extends AbstractType
             ->add('texteConformite', TextType::class)
             ->add('texteNonConformite', TextType::class)
             ->add('texteNonApplicable', TextType::class)
-            ->add('justification', TextType::class)
+            ->add('justification', TextType::class, [
+                'required' => false,
+            ])
         ;
     }
 

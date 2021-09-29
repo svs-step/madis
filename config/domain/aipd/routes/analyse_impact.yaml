@@ -1,0 +1,30 @@
+aipd_analyse_impact_list:
+    path: '/liste'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:listAction'
+
+# TODO Check if still relevant
+#aipd_analyse_impact_create:
+#    path: '/creer'
+#    methods: ['GET', 'POST']
+#    controller: 'App\Domain\AIPD\Controller\AnalyseImpact:createAction'
+
+aipd_analyse_impact_datatables:
+    path: '/datatables'
+    methods: ['POST']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:listDataTables'
+
+aipd_analyse_impact_modele_datatables:
+    path: '/modele_datatables'
+    methods: ['POST']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:modelesDatatablesAction'
+
+aipd_analyse_impact_create:
+    path: '/creer/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:createAnalyseAction'
+
+aidp_analyse_impact_evaluation:
+    path: '/evaluation'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:evaluationAction'

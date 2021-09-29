@@ -26,6 +26,7 @@ namespace App\Domain\Registry\Model\ConformiteTraitement;
 
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
@@ -65,6 +66,11 @@ class ConformiteTraitement implements LoggableSubject
      * @var int
      */
     private $nbNonConformesMajeures;
+
+    /**
+     * @var array|AnalyseImpact[]
+     */
+    private $analyseImpacts;
 
     public function __construct()
     {
@@ -143,6 +149,16 @@ class ConformiteTraitement implements LoggableSubject
     public function setNbNonConformesMajeures(int $nbNonConformesMajeures): void
     {
         $this->nbNonConformesMajeures = $nbNonConformesMajeures;
+    }
+
+    public function getAnalyseImpacts()
+    {
+        return $this->analyseImpacts;
+    }
+
+    public function setAnalyseImpacts($analyseImpacts): void
+    {
+        $this->analyseImpacts = $analyseImpacts;
     }
 
     public function __toString(): string

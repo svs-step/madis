@@ -15,6 +15,7 @@
         <field name="detail" column="detail"/>
         <field name="poidsVraisemblance" column="poids_vraisemblance" type="integer"/>
         <field name="poidsGravite" column="poids_gravite" type="integer"/>
+
         <many-to-many field="scenariosMenaces" target-entity="App\Domain\AIPD\Model\AbstractScenarioMenace" mapped-by="mesuresProtections"/>
     </entity>
 </doctrine-mapping>
