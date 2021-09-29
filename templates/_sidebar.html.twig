@@ -73,6 +73,12 @@
                 <span>{{ 'sidebar_menu.aipd_mesure_protection'|trans }}</span>
             </a>
         </li>
+        <li {% if menuItem == 'aipd_analyse_impact' %}class="active"{% endif %}>
+            <a href="{{ path('aipd_analyse_impact_list') }}">
+                <i class="fa fa-chart-bar"></i>
+                <span>{{ 'sidebar_menu.aipd_analyse_impact'|trans }}</span>
+            </a>
+        </li>
 
         {# REPORTING #}
         <li class="header">Rapports</li>

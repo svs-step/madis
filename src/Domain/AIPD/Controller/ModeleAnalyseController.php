@@ -12,7 +12,7 @@ use App\Domain\AIPD\Form\Flow\ModeleAIPDFlow;
 use App\Domain\AIPD\Form\Type\ModeleAnalyseRightsType;
 use App\Domain\AIPD\Form\Type\ModeleAnalyseType;
 use App\Domain\AIPD\Model\ModeleAnalyse;
-use App\Domain\AIPD\Model\ModeleAnalyseQuestionConformite;
+use App\Domain\AIPD\Model\ModeleQuestionConformite;
 use App\Domain\AIPD\Repository;
 use App\Domain\Registry\Repository\ConformiteTraitement\Question;
 use App\Domain\User\Repository\Collectivity;
@@ -186,7 +186,7 @@ class ModeleAnalyseController extends CRUDController
     {
         $questions = [];
         foreach ($this->questionRepository->findAll(['position' => 'ASC']) as $question) {
-            $questions[] = new ModeleAnalyseQuestionConformite($question->getQuestion(), $modeleAnalyse);
+            $questions[] = new ModeleQuestionConformite($question->getQuestion(), $question->getPosition(), $modeleAnalyse);
         }
 
         return $questions;

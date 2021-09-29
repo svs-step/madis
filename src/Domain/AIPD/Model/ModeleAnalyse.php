@@ -36,7 +36,7 @@ class ModeleAnalyse
     private $criterePrincipeFondamentaux;
 
     /**
-     * @var array|ModeleAnalyseQuestionConformite[]
+     * @var array|ModeleQuestionConformite[]
      */
     private $questionConformites;
 

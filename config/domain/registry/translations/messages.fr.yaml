@@ -569,6 +569,8 @@ registry:
             date_conformite: Date de l'évaluation
             gestionnaire: Gestionnaire
             traitement: Traitement
+            avis_aipd: Avis AIPD
+            date_aipd: Date de l'AIPD
         action:
             back_to_list: Retour à la liste
             report: Générer une impression
