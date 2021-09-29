@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+
+    App\Infrastructure\ORM\AIPD\Repository\:
+        resource: '../../../../src/Infrastructure/ORM/AIPD/Repository'
+
+    App\Domain\AIPD\Repository\ModeleAnalyse: '@App\Infrastructure\ORM\AIPD\Repository\ModeleAnalyse'
+    App\Domain\AIPD\Repository\MesureProtection: '@App\Infrastructure\ORM\AIPD\Repository\MesureProtection'

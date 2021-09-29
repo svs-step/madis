@@ -1,0 +1,19 @@
+<table class="table">
+    <tr>
+        <th>Label</th>
+        <th>Justification obligatoire</th>
+        <th>Texte en cas de conformité</th>
+        <th>Texte en cas de non-conformité mineure</th>
+        <th>Texte en cas de non-conformité majeure</th>
+    </tr>
+
+    {% for question in form.questionConformites %}
+        <tr>
+            <td>{{ question.vars.value.question }}</td>
+            <td>{{ form_widget(question.isJustificationObligatoire) }}</td>
+            <td>{{ form_widget(question.texteConformite) }}</td>
+            <td>{{ form_widget(question.texteNonConformiteMineure ) }}</td>
+            <td>{{ form_widget(question.texteNonConformiteMajeure) }}</td>
+        </tr>
+    {% endfor %}
+</table>

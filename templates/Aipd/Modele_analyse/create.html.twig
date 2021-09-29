@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'aipd_modele_analyse form create' %}
+{% set menuItem = 'aipd_modele_analyse' %}
+
+{% block title %}{{ 'aipd.modele_analyse.title.create'|trans }} - {{ parent() }}{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+    {{ include('Aipd/Modele_analyse/_form_js.html.twig') }}
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'aipd.modele_analyse.title.create'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'aipd.modele_analyse.title.list'|trans, 'link': path('aipd_modele_analyse_list') },
+        { 'name': 'aipd.modele_analyse.title.create'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('Aipd/Modele_analyse/_form.html.twig') }}
+{% endblock %}
