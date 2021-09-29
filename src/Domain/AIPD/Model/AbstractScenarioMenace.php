@@ -16,7 +16,7 @@ abstract class AbstractScenarioMenace
     /**
      * @var array|MesureProtection
      */
-    private $mesuresProtections;
+    protected $mesuresProtections;
 
     protected bool $isVisible;
     protected bool $isDisponibilite;
@@ -30,9 +30,14 @@ abstract class AbstractScenarioMenace
      * @see VraisemblanceGraviteDictionary
      */
     protected string $gravite;
-    protected string $precisions;
+    protected ?string $precisions;
 
     public function __construct()
+    {
+        $this->id = Uuid::uuid4();
+    }
+
+    public function __clone()
     {
         $this->id = Uuid::uuid4();
     }
@@ -122,12 +127,12 @@ abstract class AbstractScenarioMenace
         $this->gravite = $gravite;
     }
 
-    public function getPrecisions(): string
+    public function getPrecisions(): ?string
     {
         return $this->precisions;
     }
 
-    public function setPrecisions(string $precisions): void
+    public function setPrecisions(?string $precisions): void
     {
         $this->precisions = $precisions;
     }

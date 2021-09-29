@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "388c875844c8f41a143ece710a1440ff",
+    "content-hash": "b159d69f3b53442fa547bb515a1f075d",
     "packages": [
         {
             "name": "api-platform/core",
@@ -9352,7 +9352,14 @@
                     "Hautelook\\AliceBundle\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Hautelook\\AliceBundle\\": [
+                        "fixtures",
+                        "tests"
+                    ]
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -9369,11 +9376,11 @@
             ],
             "description": "Symfony bundle to manage fixtures with Alice and Faker.",
             "keywords": [
+                "Alice",
+                "Faker",
                 "Fixture",
-                "alice",
-                "faker",
-                "orm",
-                "symfony"
+                "ORM",
+                "Symfony"
             ],
             "support": {
                 "source": "https://github.com/theofidry/AliceBundle/tree/2.7.3"

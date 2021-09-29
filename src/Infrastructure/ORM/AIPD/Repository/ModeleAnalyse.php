@@ -8,6 +8,7 @@ use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Traits\RepositoryUtils;
 use App\Domain\AIPD\Model;
 use App\Domain\AIPD\Repository;
+use App\Domain\User\Repository\Collectivity;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -74,5 +75,35 @@ class ModeleAnalyse extends CRUDRepository implements Repository\ModeleAnalyse
                     break;
             }
         }
+    }
+
+    public function findAllByCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+        //TODO Gestion des droits
+
+        $qb = $qb->getQuery();
+        $qb->setFirstResult(0);
+        $qb->setMaxResults(100);
+
+        return new Paginator($qb);
+    }
+
+    public function findOneById(string $id)
+    {
+        return $this->createQueryBuilder()
+            ->leftJoin('o.scenarioMenaces', 's')
+            ->addSelect('s')
+            ->leftJoin('s.mesuresProtections', 'm')
+            ->addSelect('m')
+            ->leftJoin('o.criterePrincipeFondamentaux', 'c')
+            ->addSelect('c')
+            ->leftJoin('o.questionConformites', 'q')
+            ->addSelect('q')
+            ->andWhere('o.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 }

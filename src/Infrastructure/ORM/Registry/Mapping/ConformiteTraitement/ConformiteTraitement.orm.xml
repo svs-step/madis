@@ -25,6 +25,7 @@
                 <cascade-remove/>
             </cascade>
         </one-to-many>
+        <one-to-many field="analyseImpacts" target-entity="App\Domain\AIPD\Model\AnalyseImpact" mapped-by="conformiteTraitement"/>
 
         <!-- Traits -->
         <many-to-one field="creator" target-entity="App\Domain\User\Model\User">

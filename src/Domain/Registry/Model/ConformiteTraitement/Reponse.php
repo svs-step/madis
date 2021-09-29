@@ -110,7 +110,7 @@ class Reponse implements LoggableSubject
         $this->conformiteTraitement = $conformiteTraitement;
     }
 
-    public function getActionProtections(): iterable
+    public function getActionProtections()
     {
         return $this->actionProtections;
     }

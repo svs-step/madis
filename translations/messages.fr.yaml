@@ -44,6 +44,7 @@ sidebar_menu:
   admin_duplication: Module de Duplication
   aipd_modele: Modèle d'analyse
   aipd_mesure_protection: Mesure de protection
+  aipd_analyse_impact: Analyse d'impacts
   configuration_treatments: Configuration des traitements
   conformite_traitements: Conformité des traitements
   dashboard: Tableau de bord

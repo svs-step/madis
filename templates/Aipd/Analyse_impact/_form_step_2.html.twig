@@ -1,0 +1,19 @@
+<table class="table table-bordered">
+    <tr>
+        <th>{{ 'registry.conformite_traitement.form.question'|trans }}</th>
+        <th>{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
+        <th>{{ 'aipd.analyse_impact.form.action_protection'|trans }}</th>
+        <th>{{ 'aipd.analyse_impact.form.justificatif'|trans }}</th>
+    </tr>
+    {% for question in form.questionConformites %}
+        <tr>
+            <td>{{ question.vars.value.question }}</td>
+            <td>
+                {{ (getConformiteLabel(question.vars.value))|raw }}
+            </td>
+            <td>{{ getFormattedActionProtectionsFromQuestion(question.vars.value) }}</td>
+            {% set isRequired = question.vars.value.justificationObligatoire %}
+            <td><span {% if(isRequired) %}style="visibility: hidden"{% endif %}>{{ form_widget(question.justificatif, {'required': isRequired}) }}</span></td>
+        </tr>
+    {% endfor %}
+</table>

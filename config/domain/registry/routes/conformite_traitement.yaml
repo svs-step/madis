@@ -17,3 +17,8 @@ registry_conformite_traitement_report:
     path: '/bilan'
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\ConformiteTraitementController:reportAction'
+
+registry_conformite_traitement_start_aipd:
+    path: '/commencer-aipd/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Registry\Controller\ConformiteTraitementController:startAipdAction'
