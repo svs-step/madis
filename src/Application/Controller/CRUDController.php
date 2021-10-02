@@ -253,7 +253,7 @@ abstract class CRUDController extends AbstractController
 
         if ($object instanceof Collectivity) {
             $serviceEnabled = $object->getIsServicesEnabled();
-        } else {
+        } elseif ($object instanceof CollectivityRelated) {
             $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
         }
 
@@ -340,6 +340,7 @@ abstract class CRUDController extends AbstractController
 
         return $this->render($this->getTemplatingBasePath('delete'), [
             'object' => $object,
+            'id'     => $id,
         ]);
     }
 

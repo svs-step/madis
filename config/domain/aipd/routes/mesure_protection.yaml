@@ -18,6 +18,11 @@ aipd_mesure_protection_delete:
     methods: ['GET']
     controller: 'App\Domain\AIPD\Controller\MesureProtectionController:deleteAction'
 
+aipd_mesure_protection_delete_confirm:
+    path: '/supprimer/{id}/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\MesureProtectionController:deleteConfirmationAction'
+
 aipd_mesure_protection_list_datatables:
     path: '/datatables'
     methods: ['POST']
