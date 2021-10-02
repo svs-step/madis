@@ -42,7 +42,21 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-
+                            <th>
+                                <input class="form-control" type="text" id="search_nom" placeholder={{ 'aipd.mesure_protection.list.nom'|trans }} style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_nomCourt" placeholder="Nom court" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_detail" placeholder={{ 'aipd.mesure_protection.list.detail'|trans }} style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_poids_vraisemblance" placeholder="Poids de la vraisemblance" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_poids_gravite" placeholder="Poids de la gravité" style="width: 100%;">
+                            </th>
                         </tr>
                         <tr>
                             <th>{{ 'aipd.mesure_protection.list.nom'|trans }}</th>
@@ -67,13 +81,47 @@
         columns: [
             {"data": "nom", "classname": "noVis"},
             {"data": "nomCourt"},
-            {"data": "detail"},
-            {"data": "poidsVraisemblance"},
-            {"data": "poidsGravite"},
-            {"data": "poidsGravite"},
+            {"data": "detail", "visible": false},
+            {"data": "poidsVraisemblance", "visible": false},
+            {"data": "poidsGravite", "visible": false},
             {"data": "actions", "className": "noVis", "orderable": false}
         ]
     } %}
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_nom').off('keyup');
+            $('#search_nom').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+            $('#search_nomCourt').off('keyup');
+            $('#search_nomCourt').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+            $('#search_detail').off('keyup');
+            $('#search_detail').keyup($.debounce(250, function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            }));
+            $('#search_poids_vraisemblance').off('keyup');
+            $('#search_poids_vraisemblance').keyup($.debounce(250, function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            }));
+            $('#search_poids_gravite').off('keyup');
+            $('#search_poids_gravite').keyup($.debounce(250, function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            }));            
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
 {% endblock javascripts %}

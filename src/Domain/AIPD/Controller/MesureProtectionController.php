@@ -87,12 +87,12 @@ class MesureProtectionController extends CRUDController
         /** @var MesureProtection $mesure */
         foreach ($mesures as $mesure) {
             $reponse['data'][] = [
-              'nom'                => $mesure->getNom(),
-              'nomCourt'           => $mesure->getNomCourt(),
-              'detail'             => $mesure->getDetail(),
-              'poidsVraisemblance' => $mesure->getPoidsVraisemblance(),
-              'poidsGravite'       => $mesure->getPoidsGravite(),
-              'actions'            => '',
+              'nom'                => $mesure[0]->getNom(),
+              'nomCourt'           => $mesure[0]->getNomCourt(),
+              'detail'             => $mesure[0]->getDetail(),
+              'poidsVraisemblance' => $mesure[0]->getPoidsVraisemblance(),
+              'poidsGravite'       => $mesure[0]->getPoidsGravite(),
+              'actions'            => $this->generateActionCellContent($mesure['id']),
             ];
         }
 
@@ -114,20 +114,23 @@ class MesureProtectionController extends CRUDController
         ];
     }
 
-    private function generateActionCell(MesureProtection $mesureProtection)
+    private function generateActionCellContent($id)
     {
-        $editPath = $this->router->generate('aipd_mesure_protection_list', ['id' => $mesureProtection->getId()]);
+        if ($id) {
+            $editPath   = $this->router->generate('aipd_mesure_protection_edit', ['id' => $id]);
+            $deletePath = $this->router->generate('aipd_mesure_protection_delete', ['id' => $id]);
 
-        return '<a href="' .
-                 $editPath . '">
-            <i class="fa fa-pencil-alt"></i>' .
-            $this->translator->trans('action.edit') .
-            '</a>
-            <a href="' .
-//            $this->router->generate('aipd_mesure_protection_delete', ['id' => $mesureProtection->getId()]) .
-            '"><i class="fa fa-trash"></i>' .
-            $this->translator->trans('action.delete') .
-            '</a>'
-        ;
+            return '<a href="' . $editPath . '">
+                    <i class="fa fa-pencil-alt"></i>
+                        ' . $this->translator->trans('action.edit') . '
+                    </a>
+                    <a href="' . $deletePath . '">
+                        <i class="fa fa-trash"></i>
+                        ' . $this->translator->trans('action.delete') . '
+                    </a>'
+                ;
+        }
+
+        return null;
     }
 }

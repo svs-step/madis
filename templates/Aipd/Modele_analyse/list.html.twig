@@ -73,7 +73,7 @@
     {% set dataTableOptions = {
         columns: [
             {"data": "nom", "className": "noVis"},
-            {"data" : "description"},
+            {"data": "description"},
             {"data": "updatedAt"},
             {"data": "actions", "className": "noVis", "orderable": false},
         ],
@@ -83,5 +83,34 @@
     } %}
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_nom').off('keyup');
+            $('#search_nom').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+
+            $('#search_description').off('keyup');
+            $('#search_description').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+
+             $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
+                oTable.column('2').search($(this).val()).draw();
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
 
 {% endblock %}
