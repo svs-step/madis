@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Model;
 
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\AIPD\Model\ModeleAnalyse;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Embeddable\Address;
 use App\Domain\User\Model\Embeddable\Contact;
@@ -139,6 +140,11 @@ class Collectivity implements LoggableSubject
      * @var Collection|Contact[]
      */
     private $comiteIlContacts;
+
+    /**
+     * @var Collection|ModeleAnalyse[]
+     */
+    private $modeleAnalyses;
 
     /**
      * @var bool
@@ -430,6 +436,26 @@ class Collectivity implements LoggableSubject
     public function getComiteIlContacts()
     {
         return $this->comiteIlContacts;
+    }
+
+    public function getModeleAnalyses()
+    {
+        return $this->modeleAnalyses;
+    }
+
+    public function setModeleAnalyses($modeleAnalyses): void
+    {
+        $this->modeleAnalyses = $modeleAnalyses;
+    }
+
+    public function addModeleAnalyse(ModeleAnalyse $modeleAnalyse)
+    {
+        if ($this->modeleAnalyses->contains($modeleAnalyse)) {
+            return;
+        }
+
+        $this->modeleAnalyses[] = $modeleAnalyse;
+        $modeleAnalyse->setAuthorizedCollectivities($this);
     }
 
     /**

@@ -31,7 +31,9 @@ class ModeleAnalyse extends CRUDRepository implements Repository\ModeleAnalyse
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
     {
-        $qb = $this->createQueryBuilder();
+        $qb = $this->createQueryBuilder()
+        ->addSelect('c')
+        ->leftJoin('o.authorizedCollectivities', 'c');
 
         $this->addTableSearches($qb, $searches);
 

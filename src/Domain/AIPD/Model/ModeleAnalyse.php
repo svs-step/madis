@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Domain\AIPD\Model;
 
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\User\Model\Collectivity;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -22,6 +24,11 @@ class ModeleAnalyse
     private string $labelInsatisfaisant;
 
     private string $labelSatisfaisant;
+
+    /**
+     * @var Collection|Collectivity[]
+     */
+    private $authorizedCollectivities;
 
     /**
      * @var array|CriterePrincipeFondamental[]
@@ -46,6 +53,19 @@ class ModeleAnalyse
     public function getId(): UuidInterface
     {
         return $this->id;
+    }
+
+    public function __toString(): string
+    {
+        if (\is_null($this->getNom())) {
+            return '';
+        }
+
+        if (\mb_strlen($this->getNom()) > 50) {
+            return \mb_substr($this->getNom(), 0, 50) . '...';
+        }
+
+        return $this->getNom();
     }
 
     public function getNom(): string
@@ -96,6 +116,28 @@ class ModeleAnalyse
     public function setLabelSatisfaisant(string $labelSatisfaisant): void
     {
         $this->labelSatisfaisant = $labelSatisfaisant;
+    }
+
+    public function getAuthorizedCollectivities()
+    {
+        return $this->authorizedCollectivities;
+    }
+
+    public function setAuthorizedCollectivities($authorizedCollectivities): void
+    {
+        foreach ($authorizedCollectivities as $collectivity) {
+            $collectivity->addModeleAnalyse($this);
+        }
+    }
+
+    public function addAuthorizedCollectivity(Collectivity $collectivity)
+    {
+        if ($this->authorizedCollectivities->contains($collectivity)) {
+            return;
+        }
+
+        $this->authorizedCollectivities[] = $collectivity;
+        $collectivity->setModeleAnalyses($this);
     }
 
     public function getCriterePrincipeFondamentaux()

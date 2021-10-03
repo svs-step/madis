@@ -6,6 +6,7 @@ aipd:
             list: Liste des modèles d'analyse
             create: Créer un modèle
             edit: Modifier un modèle
+            rights: Modifier les droits
         list:
             name: Nom du modèle d'analyse d'impact
             description: Description
