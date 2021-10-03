@@ -9,11 +9,13 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\AIPD\Dictionary\BaseCriterePrincipeFondamental;
 use App\Domain\AIPD\Form\Flow\ModeleAIPDFlow;
+use App\Domain\AIPD\Form\Type\ModeleAnalyseRightsType;
 use App\Domain\AIPD\Form\Type\ModeleAnalyseType;
 use App\Domain\AIPD\Model\ModeleAnalyse;
 use App\Domain\AIPD\Model\ModeleAnalyseQuestionConformite;
 use App\Domain\AIPD\Repository;
 use App\Domain\Registry\Repository\ConformiteTraitement\Question;
+use App\Domain\User\Repository\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
@@ -34,6 +36,11 @@ class ModeleAnalyseController extends CRUDController
 {
     use ServersideDatatablesTrait;
 
+    /**
+     * @var Collectivity
+     */
+    protected $collectivityRepository;
+
     private ModeleAIPDFlow $modeleFlow;
     private Question $questionRepository;
     private RouterInterface $router;
@@ -46,16 +53,18 @@ class ModeleAnalyseController extends CRUDController
         Pdf $pdf,
         UserProvider $userProvider,
         AuthorizationCheckerInterface $authorizationChecker,
+        Collectivity $collectivityRepository,
         ModeleAIPDFlow $modeleFlow,
         Question $questionRepository,
         RouterInterface $router,
         FilesystemInterface $fichierFilesystem
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->modeleFlow         = $modeleFlow;
-        $this->questionRepository = $questionRepository;
-        $this->router             = $router;
-        $this->fichierFilesystem  = $fichierFilesystem;
+        $this->collectivityRepository   = $collectivityRepository;
+        $this->modeleFlow               = $modeleFlow;
+        $this->questionRepository       = $questionRepository;
+        $this->router                   = $router;
+        $this->fichierFilesystem        = $fichierFilesystem;
     }
 
     protected function getDomain(): string
@@ -188,12 +197,53 @@ class ModeleAnalyseController extends CRUDController
         throw new NotImplementedException('Not implemented yet');
     }
 
+    public function rightsAction(Request $request, string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+        $form = $this->createForm(ModeleAnalyseRightsType::class, $object);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->formPrePersistData($object);
+            $this->entityManager->persist($object);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'rights', $object));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render('Aipd/Modele_analyse/rights.html.twig', [
+            'form'  => $form->createView(),
+        ]);
+    }
+
     public function listDataTables(Request $request): JsonResponse
     {
         $modeles = $this->getResults($request);
         $reponse = $this->getBaseDataTablesResponse($request, $modeles);
 
         foreach ($modeles as $modele) {
+            if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+                $userCollectivity               = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+                $userCollectivityType           = $userCollectivity->getType();
+                $authorizedCollectivities       = $modele->getAuthorizedCollectivities();
+                $authorizedCollectivityTypes    = $modele->getAuthorizedCollectivityTypes();
+
+                if (!\is_null($authorizedCollectivityTypes)
+                && in_array($userCollectivityType, $authorizedCollectivityTypes)) {
+                    continue;
+                }
+
+                if ($authorizedCollectivities->contains($userCollectivity)) {
+                    continue;
+                }
+            }
+
             $reponse['data'][] = [
                 'nom'         => $modele->getNom(),
                 'description' => $modele->getDescription(),
@@ -210,7 +260,16 @@ class ModeleAnalyseController extends CRUDController
 
     private function generateActioNCellContent(ModeleAnalyse $modele)
     {
-        $id = $modele->getId();
+        $id                     = $modele->getId();
+        $htmltoReturnIfAdmin    = '';
+
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $htmltoReturnIfAdmin =
+            '<a href="' . $this->router->generate('aipd_modele_analyse_rights', ['id' => $id]) . '">
+                <i class="fa fa-user-shield"></i>'
+                . $this->translator->trans('action.rights') .
+            '</a>';
+        }
 
         return
             '<a href="' . $this->router->generate('aipd_modele_analyse_edit', ['id' => $id]) . '">
@@ -220,8 +279,9 @@ class ModeleAnalyseController extends CRUDController
             <a href="' . $this->router->generate('aipd_modele_analyse_duplicate', ['id' => $id]) . '">
                 <i class="fa fa-clone"></i>'
                 . $this->translator->trans('action.duplicate') .
-            '</a>
-            <a href="' . $this->router->generate('aipd_modele_analyse_delete', ['id' => $id]) . '">
+            '</a>'
+            . $htmltoReturnIfAdmin .
+            '<a href="' . $this->router->generate('aipd_modele_analyse_delete', ['id' => $id]) . '">
                 <i class="fa fa-trash"></i>' .
                 $this->translator->trans('action.delete') .
             '</a>';

@@ -15,6 +15,7 @@ action:
     impersonate: Se connecter
     print: Imprimer
     reinitialize: Réinitialisation
+    rights: Droits
     submit: Soumettre
     draft: Enregistrer un brouillon
     unarchive: Rétablir
