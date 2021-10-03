@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Domain\AIPD\Model;
 
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\User\Model\Collectivity;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -24,6 +26,11 @@ class ModeleAnalyse
     private string $labelSatisfaisant;
 
     /**
+     * @var Collection|Collectivity[]
+     */
+    private $authorizedCollectivities;
+
+    /**
      * @var array|CriterePrincipeFondamental[]
      */
     private $criterePrincipeFondamentaux;
@@ -38,6 +45,16 @@ class ModeleAnalyse
      */
     private $scenarioMenaces;
 
+    /**
+     * @see DuplicationTargetOptionDictionary
+     */
+    private ?string $optionRightSelection;
+
+    /**
+     * @see CollectivityTypeDictionary
+     */
+    private ?iterable $authorizedCollectivityTypes;
+
     public function __construct()
     {
         $this->id = Uuid::uuid4();
@@ -46,6 +63,19 @@ class ModeleAnalyse
     public function getId(): UuidInterface
     {
         return $this->id;
+    }
+
+    public function __toString(): string
+    {
+        if (\is_null($this->getNom())) {
+            return '';
+        }
+
+        if (\mb_strlen($this->getNom()) > 50) {
+            return \mb_substr($this->getNom(), 0, 50) . '...';
+        }
+
+        return $this->getNom();
     }
 
     public function getNom(): string
@@ -98,6 +128,26 @@ class ModeleAnalyse
         $this->labelSatisfaisant = $labelSatisfaisant;
     }
 
+    public function getAuthorizedCollectivities()
+    {
+        return $this->authorizedCollectivities;
+    }
+
+    public function setAuthorizedCollectivities($authorizedCollectivities): void
+    {
+        $this->authorizedCollectivities = $authorizedCollectivities;
+    }
+
+    public function addAuthorizedCollectivity(Collectivity $collectivity)
+    {
+        if ($this->authorizedCollectivities->contains($collectivity)) {
+            return;
+        }
+
+        $this->authorizedCollectivities[] = $collectivity;
+        $collectivity->addModeleAnalyse($this);
+    }
+
     public function getCriterePrincipeFondamentaux()
     {
         return $this->criterePrincipeFondamentaux;
@@ -133,5 +183,25 @@ class ModeleAnalyse
             $scenarioMenace->setModeleAnalyse($this);
         }
         $this->scenarioMenaces = $scenarioMenaces;
+    }
+
+    public function getOptionRightSelection()
+    {
+        return $this->optionRightSelection;
+    }
+
+    public function setOptionRightSelection(iterable $optionRightSelection)
+    {
+        $this->optionRightSelection = $optionRightSelection;
+    }
+
+    public function getAuthorizedCollectivityTypes()
+    {
+        return $this->authorizedCollectivityTypes;
+    }
+
+    public function setAuthorizedCollectivityTypes(iterable $authorizedCollectivityTypes)
+    {
+        $this->authorizedCollectivityTypes = $authorizedCollectivityTypes;
     }
 }
