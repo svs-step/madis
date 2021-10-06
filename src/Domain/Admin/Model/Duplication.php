@@ -8,6 +8,7 @@ use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Admin\Dictionary\DuplicationTypeDictionary;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Collectivity;
+use Doctrine\ORM\PersistentCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -46,13 +47,18 @@ class Duplication implements LoggableSubject
     private $targetCollectivities;
 
     /**
+     * @var DuplicatedObject[]|PersistentCollection
+     */
+    private $duplicatedObjects;
+
+    /**
      * DuplicationDTO constructor.
      *
      * @param Collectivity[] $targetCollectivities
      *
      * @throws \Exception
      */
-    public function __construct(string $type, Collectivity $sourceCollectivity, array $targetCollectivities = [])
+    public function __construct(string $type, Collectivity $sourceCollectivity, array $targetCollectivities = [], array $duplicatedObjects = [])
     {
         if (!\in_array($type, DuplicationTypeDictionary::getDataKeys())) {
             throw new \RuntimeException('Provided type is not an available one. Please check keys in ' . DuplicationTypeDictionary::class . ' class.');
@@ -63,6 +69,7 @@ class Duplication implements LoggableSubject
         $this->dataIds              = [];
         $this->data                 = [];
         $this->targetCollectivities = $targetCollectivities;
+        $this->duplicatedObjects    = $duplicatedObjects;
     }
 
     public function getId(): UuidInterface
@@ -146,23 +153,41 @@ class Duplication implements LoggableSubject
      */
     public function getTargetCollectivities(): iterable
     {
-        return $this->targetCollectivities;
+        return array_unique(array_map(function ($duplicatedObject) {
+            return $duplicatedObject->getCollectivity();
+        }, is_array($this->duplicatedObjects) ? $this->duplicatedObjects : $this->duplicatedObjects->getValues()), SORT_REGULAR);
     }
 
-    public function addTargetCollectivity(Collectivity $collectivity): void
+    public function getDuplicatedObjects()
     {
-        $this->targetCollectivities[] = $collectivity;
+        return $this->duplicatedObjects;
     }
 
-    public function removeTargetCollectivity(Collectivity $collectivity): void
+    public function getDuplicatedObjectOfCollectivityAndOriginId(Collectivity $collectivity, string $originId): ?DuplicatedObject
     {
-        $key = \array_search($collectivity, $this->targetCollectivities, true);
+        foreach ($this->getDuplicatedObjects() as $duplicatedObject) {
+            if ($duplicatedObject->getCollectivity() === $collectivity && $duplicatedObject->getOriginObjectId() === $originId) {
+                return $duplicatedObject;
+            }
+        }
+
+        return null;
+    }
+
+    public function addDuplicatedObjet(DuplicatedObject $duplicatedObject)
+    {
+        $this->duplicatedObjects[] = $duplicatedObject;
+    }
+
+    public function removeDuplicatedObject(DuplicatedObject $duplicatedObject)
+    {
+        $key = \array_search($duplicatedObject, $this->duplicatedObjects, true);
 
         if (false === $key) {
             return;
         }
 
-        unset($this->targetCollectivities[$key]);
+        unset($this->duplicatedObjects[$key]);
     }
 
     public function __toString()

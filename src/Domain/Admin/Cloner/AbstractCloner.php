@@ -60,9 +60,12 @@ abstract class AbstractCloner implements ClonerInterface
      */
     public function cloneToSpecifiedTarget(Model\Duplication $duplication, UserModel\Collectivity $targetCollectivity): void
     {
+//        dump($duplication->getData());
         foreach ($duplication->getData() as $data) {
             $clonedData = $this->cloneReferentForCollectivity($data, $targetCollectivity);
             $this->entityManager->persist($clonedData);
+            $duplicatedObject = $duplication->getDuplicatedObjectOfCollectivityAndOriginId($targetCollectivity, $data->getId()->toString());
+            $duplicatedObject->setDuplicatId($clonedData->getId()->toString());
         }
 
         $this->entityManager->flush();

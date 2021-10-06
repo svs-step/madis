@@ -25,6 +25,9 @@ declare(strict_types=1);
 namespace App\Domain\Admin\Dictionary;
 
 use App\Application\Dictionary\SimpleDictionary;
+use App\Domain\Registry\Model\Contractor;
+use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Registry\Model\Treatment;
 
 class DuplicationTypeDictionary extends SimpleDictionary
 {
@@ -61,5 +64,25 @@ class DuplicationTypeDictionary extends SimpleDictionary
     public static function getDataKeys()
     {
         return \array_keys(self::getData());
+    }
+
+    public static function getClassName(string $key)
+    {
+        $className = '';
+        switch ($key) {
+            case self::KEY_TREATMENT:
+                $className = Treatment::class;
+                break;
+            case self::KEY_CONTRACTOR:
+                $className =  Contractor::class;
+                break;
+            case self::KEY_MESUREMENT:
+                $className =  Mesurement::class;
+                break;
+            default:
+                break;
+        }
+
+        return $className;
     }
 }

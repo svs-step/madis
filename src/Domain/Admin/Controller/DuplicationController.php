@@ -25,12 +25,17 @@ declare(strict_types=1);
 namespace App\Domain\Admin\Controller;
 
 use App\Domain\Admin\Cloner\ClonerProvider;
+use App\Domain\Admin\Dictionary\DuplicationTypeDictionary;
 use App\Domain\Admin\DTO\DuplicationFormDTO;
 use App\Domain\Admin\Form\Type\DuplicationType;
 use App\Domain\Admin\Hydrator\DuplicationHydrator;
+use App\Domain\Admin\Model\DuplicatedObject;
+use App\Domain\Admin\Model\Duplication;
 use App\Domain\Admin\Repository as AdminRepository;
 use App\Domain\Admin\Transformer\DuplicationFormDTOTransformer;
 use App\Domain\User\Repository as UserRepository;
+// utilisés dynamiquements pour revert duplication, ne pas supprimer
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -164,5 +169,52 @@ class DuplicationController extends AbstractController
         $this->clonerProvider->getCloner($duplication->getType())->cloneToSpecifiedTarget($duplication, $targetCollectivity);
 
         return new JsonResponse();
+    }
+
+    public function revertAction()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $duplicationId = $entityManager->getRepository(Duplication::class)->findBy([], ['createdAt' => 'DESC'], 1)[0];
+
+        if ($duplicationId) {
+            $duplication = $entityManager->getRepository(Duplication::class)->find($duplicationId);
+
+            $objectIdsToDelete = $duplication->getDataIds();
+
+            try {
+                $typeToDelete = DuplicationTypeDictionary::getClassName($duplication->getType());
+            } catch (Exception $e) {
+                $this->addFlash('error', 'Impossible d\'annuler la dernière duplication');
+
+                return $this->redirectToRoute('admin_duplication_new');
+            }
+
+            // Aller chercher puis supprimer tous les objets liés à la duplication
+            if ($objectIdsToDelete) {
+                foreach ($objectIdsToDelete as $objectId) {
+                    $objectDuplicated = $entityManager
+                    ->getRepository(DuplicatedObject::class)
+                    ->findOneBy(['duplication' => $duplication, 'originObjectId' => $objectId]);
+
+                    if ($objectDuplicated) {
+                        $objectToDelete = $entityManager->getRepository($typeToDelete)->find($objectDuplicated->getDuplicatId());
+
+                        $entityManager->remove($objectToDelete);
+                    }
+                }
+                $entityManager->remove($duplication);
+
+                $entityManager->flush();
+
+                $this->addFlash('success', 'La dernière duplication a été annulée.');
+            } else {
+                $this->addFlash('error', 'Il n\'y a aucune duplication à annuler');
+            }
+        } else {
+            $this->addFlash('error', 'Il n\'y a aucune duplication à annuler');
+        }
+
+        return $this->redirectToRoute('admin_duplication_new');
     }
 }
