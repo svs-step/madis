@@ -12,3 +12,8 @@ api_admin_duplication_duplicate:
     path: '/api/dupliquer/{duplicationId}/{targetCollectivityId}'
     methods: ['POST']
     controller: 'App\Domain\Admin\Controller\DuplicationController:duplicateAction'
+
+admin_duplication_revert:
+    path: '/annuler'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Admin\Controller\DuplicationController:revertAction'
