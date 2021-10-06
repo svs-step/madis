@@ -27,9 +27,7 @@ namespace App\Domain\User\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
-use App\Domain\Registry\Repository\Contractor as ContractorRepository;
-use App\Domain\Registry\Repository\Proof as ProofRepository;
-use App\Domain\Registry\Repository\Treatment as TreatmentRepository;
+use App\Domain\Registry\Repository as RegistryRepository;
 use App\Domain\User\Dictionary\CollectivityTypeDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\CollectivityType;
@@ -63,13 +61,15 @@ class CollectivityController extends CRUDController
      */
     protected $security;
 
-    protected TreatmentRepository $treatmentRepository;
+    protected RegistryRepository\Treatment $treatmentRepository;
 
     protected Repository\User $userRepository;
 
-    protected ProofRepository $proofRepository;
+    protected RegistryRepository\Proof $proofRepository;
 
-    protected ContractorRepository $contractorRepository;
+    protected RegistryRepository\Contractor $contractorRepository;
+
+    protected RegistryRepository\Mesurement $mesurementRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -78,9 +78,10 @@ class CollectivityController extends CRUDController
         Pdf $pdf,
         RouterInterface $router,
         Security $security,
-        TreatmentRepository $treatmentRepository,
-        ContractorRepository $contractorRepository,
-        ProofRepository $proofRepository,
+        RegistryRepository\Treatment $treatmentRepository,
+        RegistryRepository\Contractor $contractorRepository,
+        RegistryRepository\Proof $proofRepository,
+        RegistryRepository\Mesurement $mesurementRepository,
         Repository\User $userRepository,
         UserProvider $userProvider,
         AuthorizationCheckerInterface $authorizationChecker
@@ -92,6 +93,7 @@ class CollectivityController extends CRUDController
         $this->contractorRepository     = $contractorRepository;
         $this->proofRepository          = $proofRepository;
         $this->userRepository           = $userRepository;
+        $this->mesurementRepository     = $mesurementRepository;
         $this->userProvider             = $userProvider;
         $this->authorizationChecker     = $authorizationChecker;
     }
@@ -266,9 +268,41 @@ class CollectivityController extends CRUDController
             $stringObjects[] = 'Utilisateur - ' . $deletedUser->getFirstname() . ' ' . $deletedUser->getLastname();
         }
 
+        $deletedMesurements = $this->mesurementRepository->findBy(['collectivity' => $object]);
+        foreach ($deletedMesurements as $deletedMesurement) {
+            $stringObjects[] = 'Action de protection - ' . $deletedMesurement->getName();
+        }
+
         return $this->render($this->getTemplatingBasePath('delete'), [
             'object'            => $object,
             'deletedObjects'    => $stringObjects,
         ]);
+    }
+
+    public function deleteConfirmationAction(string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+        $clonedTreatments = $this->treatmentRepository->findAllByClonedFromCollectivity($object);
+        foreach ($clonedTreatments as $clonedTreatment) {
+            $clonedTreatment->setClonedFrom(null);
+        }
+        $clonedMesurements = $this->mesurementRepository->findAllByClonedFromCollectivity($object);
+        foreach ($clonedMesurements as $clonedMesurement) {
+            $clonedMesurement->setClonedFrom(null);
+        }
+        $clonedContractors = $this->contractorRepository->findAllByClonedFromCollectivity($object);
+        foreach ($clonedContractors as $clonedContractor) {
+            $clonedContractor->setClonedFrom(null);
+        }
+
+        $this->entityManager->remove($object);
+        $this->entityManager->flush();
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
+
+        return $this->redirectToRoute($this->getRouteName('list'));
     }
 }
