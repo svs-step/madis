@@ -99,4 +99,9 @@ interface Treatment extends CRUDRepositoryInterface, DataTablesRepository
      * Count all with no conformite traitement by collectivity.
      */
     public function countAllWithNoConformiteTraitementByCollectivity(?Collectivity $collectivity);
+
+    /**
+     * Find all by collectivity of their clonedFrom.
+     */
+    public function findAllByClonedFromCollectivity(Collectivity $collectivity);
 }

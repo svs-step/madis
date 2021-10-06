@@ -60,4 +60,9 @@ interface Contractor extends CRUDRepositoryInterface, DataTablesRepository
      * @return array The array of contractors given by criteria
      */
     public function findBy(array $criteria = []);
+
+    /**
+     * Find all by collectivity of their clonedFrom.
+     */
+    public function findAllByClonedFromCollectivity(Collectivity $collectivity);
 }

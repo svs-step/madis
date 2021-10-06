@@ -26,9 +26,7 @@ namespace App\Tests\Domain\User\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
-use App\Domain\Registry\Repository\Contractor as ContractorRepository;
-use App\Domain\Registry\Repository\Proof as ProofRepository;
-use App\Domain\Registry\Repository\Treatment as TreatmentRepository;
+use App\Domain\Registry\Repository as RegistryRepository;
 use App\Domain\User\Controller\CollectivityController;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\CollectivityType;
@@ -77,9 +75,10 @@ class CollectivityControllerTest extends TestCase
             $this->prophesize(Pdf::class)->reveal(),
             $this->prophesize(RouterInterface::class)->reveal(),
             $this->security->reveal(),
-            $this->prophesize(TreatmentRepository::class)->reveal(),
-            $this->prophesize(ContractorRepository::class)->reveal(),
-            $this->prophesize(ProofRepository::class)->reveal(),
+            $this->prophesize(RegistryRepository\Treatment::class)->reveal(),
+            $this->prophesize(RegistryRepository\Contractor::class)->reveal(),
+            $this->prophesize(RegistryRepository\Proof::class)->reveal(),
+            $this->prophesize(RegistryRepository\Mesurement::class)->reveal(),
             $this->prophesize(Repository\User::class)->reveal(),
             $this->prophesize(UserProvider::class)->reveal(),
             $this->prophesize(AuthorizationCheckerInterface::class)->reveal(),
