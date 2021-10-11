@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Model;
 
+use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Traits\Model\SoftDeletableTrait;
 use App\Domain\Reporting\Model\LoggableSubject;
 use Doctrine\Common\Collections\Collection;
@@ -31,7 +32,7 @@ use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User implements LoggableSubject, UserInterface
+class User implements LoggableSubject, UserInterface, CollectivityRelated
 {
     use SoftDeletableTrait;
 
@@ -284,5 +285,20 @@ class User implements LoggableSubject, UserInterface
     public function setApiAuthorized(?bool $apiAuthorized): void
     {
         $this->apiAuthorized = $apiAuthorized;
+    }
+
+    public function isInUserServices(User $user): bool
+    {
+        if (false == $user->getCollectivity()->getIsServicesEnabled()) {
+            return true;
+        }
+
+        $result = false;
+
+        if ($user->getServices() === $this->getServices()) {
+            $result = true;
+        }
+
+        return $result;
     }
 }
