@@ -16,7 +16,9 @@
         <field name="texteConformite" column="texte_conformite"/>
         <field name="texteNonConformite" column="texte_non_conformite"/>
         <field name="texteNonApplicable" column="non_applicable"/>
-        <field name="justification" column="justification"/>
+        <field name="justification" column="justification" nullable="true"/>
+        <field name="fichier" column="fichier" nullable="true"/>
+
 
         <many-to-one field="modeleAnalyse" target-entity="App\Domain\AIPD\Model\ModeleAnalyse" inversed-by="criteresPrincipesFondamentaux"/>
     </entity>

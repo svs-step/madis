@@ -7,6 +7,7 @@ namespace App\Domain\AIPD\Model;
 use App\Domain\AIPD\Dictionary\ReponseCritereFondamental;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CriterePrincipeFondamental
 {
@@ -24,7 +25,8 @@ class CriterePrincipeFondamental
     private string $texteNonConformite;
     private string $texteNonApplicable;
     private string $justification;
-    private $fichier; //TODO File
+    private ?string $fichier;
+    private ?UploadedFile $fichierFile = null;
 
     public function __construct(string $label = null)
     {
@@ -129,13 +131,23 @@ class CriterePrincipeFondamental
         $this->justification = $justification;
     }
 
-    public function getFichier()
+    public function getFichier(): ?string
     {
         return $this->fichier;
     }
 
-    public function setFichier($fichier): void
+    public function setFichier(?string $fichier): void
     {
         $this->fichier = $fichier;
+    }
+
+    public function getFichierFile(): ?UploadedFile
+    {
+        return $this->fichierFile;
+    }
+
+    public function setFichierFile(?UploadedFile $fichierFile): void
+    {
+        $this->fichierFile = $fichierFile;
     }
 }

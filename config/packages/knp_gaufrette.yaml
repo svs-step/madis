@@ -3,9 +3,14 @@ knp_gaufrette:
         registry_proof_document:
             local:
                 directory: '%kernel.project_dir%/public/uploads/registry/proof/document'
+        aipd_critere_principe_fondamentaux_fichier:
+            local:
+                directory: '%kernel.project_dir%/public/uploads/aipd/critere_principe_fondamentaux/fichier'
     filesystems:
         registry_proof_document:
             adapter: registry_proof_document
+        aipd_critere_principe_fondamentaux_fichier:
+            adapter: aipd_critere_principe_fondamentaux_fichier
 
     stream_wrapper: ~
 

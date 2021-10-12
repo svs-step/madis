@@ -38,7 +38,7 @@ registry_delay:
 registry_proof:
     document_file:
         not_null: Vous devez ajouter un document
-        file: Vous ne pouvez associer q'un document de type png, jpg, pdf, doc, docx, odt, xls, xlsx ou ods
+        file: Vous ne pouvez associer qu'un document de type png, jpg, pdf, doc, docx, odt, xls, xlsx ou ods
     name:
         not_blank: Vous devez saisir un nom
 
