@@ -117,10 +117,12 @@
             <div class="box box-solid">
                 <div class="box-body text-center">
                     <a  href="{{ path('aipd_modele_analyse_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
-                    {% include '@CraueFormFlow/FormFlow/buttons.html.twig' with {
+                    {% include '@templates_path/_Utils/_craue_buttons.html.twig' with {
                         craue_formflow_button_class_last: 'btn btn-primary',
-                        craue_formflow_button_class_back: 'btn',
+                        craue_formflow_button_class_back: 'btn btn-default',
                         craue_formflow_button_render_reset: false,
+                        craue_formflow_button_label_next: 'Suivant',
+                        craue_formflow_button_label_back: 'Précédent',
                     } %}
                 </div>
             </div>
