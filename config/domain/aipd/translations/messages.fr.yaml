@@ -1,0 +1,55 @@
+aipd:
+    modele_analyse:
+        action:
+            new: Nouveau modèle
+        title:
+            create: Créer un modèle
+            edit: Modifier un modèle
+            list: Liste des modèles d'analyse  
+        list:
+            description: Description
+            name: Nom du modèle d'analyse d'impact
+            updated_at: Date de modification
+        form:
+            scenario_menace:
+                add: Ajouter un scenario de menace
+    mesure_protection:
+        action:
+            new: Nouvelle mesure
+            back_to_list: Retour à la liste
+        breadcrumb:
+            create: Créer
+            delete: Supprimer "%name%"
+            edit: Modifier "%name%"
+            list: Liste des mesures de protection
+            show: Visualiser "%name%"
+        form:
+            information_generale: Informations générales
+            information_livrable: Informations pour livrable
+        flashbag:
+            success:
+                create: Mesure de protection "%object%" créée avec succès
+                edit: Mesure de protection "%object%" modifiée avec succès
+                delete: Mesure de protection "%object%" supprimée avec succès
+        list:
+            detail: Détail
+            nom: Nom de la mesure
+            nom_court: Nom court
+            poids_vraisemblance: Poids de la vraisemblance
+            poids_gravite: Poids de la gravité
+        modal:
+            confirm_deletion: Voulez vous vraiment supprimer cette mesure de protection ?
+        title:
+            create: Créer une mesure
+            delete: Supprimer une mesure de protection
+            edit: Modifier une mesure de protection
+            list: Liste des mesures de protection
+            show: Visualiser une mesure de protection
+    scenario_menace:
+        list:
+            gravite: Gravité
+            mesures: Associer des mesures
+            nom: Scénarios de menace
+            precision: Précision
+            visible: Visible
+            vraisemblance: Vraisemblance

@@ -1,0 +1,29 @@
+aipd_mesure_protection_list:
+    path: '/liste'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\MesureProtectionController:listAction'
+
+aipd_mesure_protection_create:
+    path: '/creer'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\AIPD\Controller\MesureProtectionController:createAction'
+
+aipd_mesure_protection_edit:
+    path: '/editer/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\AIPD\Controller\MesureProtectionController:editAction'
+
+aipd_mesure_protection_delete:
+    path: '/supprimer/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\MesureProtectionController:deleteAction'
+
+aipd_mesure_protection_delete_confirm:
+    path: '/supprimer/{id}/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\MesureProtectionController:deleteConfirmationAction'
+
+aipd_mesure_protection_list_datatables:
+    path: '/datatables'
+    methods: ['POST']
+    controller: 'App\Domain\AIPD\Controller\MesureProtectionController:listDataTables'

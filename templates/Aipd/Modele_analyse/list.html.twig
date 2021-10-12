@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'aipd_modele_analyse list' %}
+{% set menuItem = 'aipd_modele_analyse' %}
+
+{% block title %}{{ 'aipd.modele_analyse.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'aipd.modele_analyse.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'aipd.modele_analyse.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="action-bar">
+                {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('aipd_modele_analyse_create') }}" class="btn btn-default">
+                        <i class="fa fa-plus"></i>
+                        {{ 'aipd.modele_analyse.action.new'|trans }}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_description" placeholder="Description" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date" style="width: 100%;">
+                                </th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th>{{ 'aipd.modele_analyse.list.name'|trans }}</th>
+                                <th>{{ 'aipd.modele_analyse.list.description'|trans }}</th>
+                                <th>{{ 'aipd.modele_analyse.list.updated_at'|trans }}</th>
+                                <th>{{ 'label.actions'|trans }}</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "nom", "className": "noVis"},
+            {"data": "description"},
+            {"data": "updatedAt"},
+            {"data": "actions", "className": "noVis", "orderable": false},
+        ],
+        order:  [
+            [0, 'asc' ]
+        ],
+    } %}
+
+    {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_nom').off('keyup');
+            $('#search_nom').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+
+            $('#search_description').off('keyup');
+            $('#search_description').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+
+             $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
+                oTable.column('2').search($(this).val()).draw();
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
+
+{% endblock %}

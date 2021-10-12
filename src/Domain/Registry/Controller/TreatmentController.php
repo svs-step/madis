@@ -264,7 +264,6 @@ class TreatmentController extends CRUDController
         } else {
             $configuration = new PublicConfiguration(Treatment::class);
         }
-        //dd($configuration);
 
         return $this->render($this->getTemplatingBasePath('public_show'), [
             'object' => $object,
