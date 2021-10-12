@@ -1,0 +1,10 @@
+App\Domain\Aipd\Model\CriterePrincipeFondamental:
+    properties:
+        fichier:
+            - File:
+                  maxSize: 3072k
+                  mimeTypes:
+                      - image/jpeg
+                      - image/png
+                  mimeTypesMessage: 'aipd.critere_principe_fondamental.fichier.file'
+                  groups: ['default']

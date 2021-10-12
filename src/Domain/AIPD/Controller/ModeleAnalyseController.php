@@ -15,7 +15,9 @@ use App\Domain\AIPD\Model\ModeleAnalyseQuestionConformite;
 use App\Domain\AIPD\Repository;
 use App\Domain\Registry\Repository\ConformiteTraitement\Question;
 use Doctrine\ORM\EntityManagerInterface;
+use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,6 +37,7 @@ class ModeleAnalyseController extends CRUDController
     private ModeleAIPDFlow $modeleFlow;
     private Question $questionRepository;
     private RouterInterface $router;
+    private FilesystemInterface $fichierFilesystem;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -45,12 +48,14 @@ class ModeleAnalyseController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker,
         ModeleAIPDFlow $modeleFlow,
         Question $questionRepository,
-        RouterInterface $router
+        RouterInterface $router,
+        FilesystemInterface $fichierFilesystem
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->modeleFlow         = $modeleFlow;
         $this->questionRepository = $questionRepository;
         $this->router             = $router;
+        $this->fichierFilesystem  = $fichierFilesystem;
     }
 
     protected function getDomain(): string
@@ -81,6 +86,30 @@ class ModeleAnalyseController extends CRUDController
         ]);
     }
 
+    /**
+     * {@inheritdoc}
+     * - Upload documentFile before object persistence in database.
+     *
+     * @throws \Exception
+     */
+    public function formPrePersistData($object)
+    {
+        if (!$object instanceof ModeleAnalyse) {
+            throw new \RuntimeException('You must persist a ' . ModeleAnalyse::class . ' object class with your form');
+        }
+
+        foreach ($object->getCriterePrincipeFondamentaux() as $criterePrincipeFondamental) {
+            $file = $criterePrincipeFondamental->getFichierFile();
+
+            if ($file) {
+                $filename = Uuid::uuid4()->toString() . '.' . $file->getClientOriginalExtension();
+                $this->fichierFilesystem->write($filename, \fopen($file->getRealPath(), 'r'));
+                $criterePrincipeFondamental->setFichier($filename);
+                $criterePrincipeFondamental->setFichierFile(null);
+            }
+        }
+    }
+
     public function createAction(Request $request): Response
     {
         $object = new ModeleAnalyse();
@@ -91,6 +120,7 @@ class ModeleAnalyseController extends CRUDController
         $form = $this->modeleFlow->createForm();
 
         if ($this->modeleFlow->isValid($form)) {
+            $this->formPrePersistData($object);
             $this->modeleFlow->saveCurrentStepData($form);
 
             if ($this->modeleFlow->nextStep()) {
@@ -122,6 +152,7 @@ class ModeleAnalyseController extends CRUDController
         $form = $this->modeleFlow->createForm();
 
         if ($this->modeleFlow->isValid($form)) {
+            $this->formPrePersistData($object);
             $this->modeleFlow->saveCurrentStepData($form);
 
             if ($this->modeleFlow->nextStep()) {

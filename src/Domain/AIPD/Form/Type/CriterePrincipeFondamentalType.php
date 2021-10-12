@@ -8,6 +8,7 @@ use App\Domain\AIPD\Model\CriterePrincipeFondamental;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,7 +30,12 @@ class CriterePrincipeFondamentalType extends AbstractType
             ->add('texteConformite', TextType::class)
             ->add('texteNonConformite', TextType::class)
             ->add('texteNonApplicable', TextType::class)
-            ->add('justification', TextType::class)
+            ->add('justification', TextType::class, [
+                'required' => false,
+            ])
+            ->add('fichierFile', FileType::class, [
+                'required' => false,
+            ])
         ;
     }
 
