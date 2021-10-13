@@ -455,7 +455,7 @@ class Collectivity implements LoggableSubject
         }
 
         $this->modeleAnalyses[] = $modeleAnalyse;
-        $modeleAnalyse->setAuthorizedCollectivities($this);
+        $modeleAnalyse->addAuthorizedCollectivity($this);
     }
 
     /**

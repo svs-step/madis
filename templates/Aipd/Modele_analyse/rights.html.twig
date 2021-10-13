@@ -25,16 +25,16 @@
             <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title"> Gestion des droits </h3></div>
                 <div class="box-body">
-                    {{ form_row(form.targetOption) }}
-                    {{ form_row(form.targetCollectivityTypes) }}
+                    {{ form_row(form.optionRightSelection) }}
+                    {{ form_row(form.authorizedCollectivityTypes) }}
                     {{ form_row(form.authorizedCollectivities) }}
                 </div>
             </div>
         </div>
 
         <div class="box-footer">
-            <a href="{{ path('aipd_mesure_protection_list') }}" class="btn btn-default">
-                {{ 'aipd.mesure_protection.action.back_to_list'|trans }}
+            <a href="{{ path('aipd_modele_analyse_list') }}" class="btn btn-default">
+                {{ 'aipd.modele_analyse.action.back_to_list'|trans }}
             </a>
              <input type="submit" class="btn btn-primary" value="Soumettre">
         </div>
@@ -59,15 +59,15 @@
             checkTargetOption();
             checkTargetCollectivities();
 
-            $('#modele_analyse_rights_targetOption').on('change', function() {
+            $('#modele_analyse_rights_optionRightSelection').on('change', function() {
                 checkTargetOption();
             });
 
         });
 
         function checkTargetOption() {
-            let targetOption = $('#modele_analyse_rights_targetOption input[type=radio]:checked').val();
-            let targetPerType = $('#modele_analyse_rights_targetCollectivityTypes');
+            let targetOption = $('#modele_analyse_rights_optionRightSelection input[type=radio]:checked').val();
+            let targetPerType = $('#modele_analyse_rights_authorizedCollectivityTypes');
             let targetPerCollectivity = $('#modele_analyse_rights_authorizedCollectivities');
 
             if (targetOption === '{{ constant('App\\Domain\\Admin\\Dictionary\\DuplicationTargetOptionDictionary::KEY_PER_TYPE') }}') {
@@ -88,5 +88,16 @@
             $('#modele_analyse_rights_authorizedCollectivities option[value!=\'' + sourceCollectivityVal + '\']').prop('disabled', false);
             $('#modele_analyse_rights_authorizedCollectivities option[value=\'' + sourceCollectivityVal + '\']').prop('disabled', true);
         }
+
+        // Clear the radio button
+        $('form').submit(function() {
+            if($('#modele_analyse_rights_optionRightSelection input[type=radio]:checked').val() == 'per_collectivity') {
+                $('#modele_analyse_rights_authorizedCollectivityTypes').val(null);
+            }
+
+            if($('#modele_analyse_rights_optionRightSelection input[type=radio]:checked').val() == 'per_type') {
+                $('#modele_analyse_rights_authorizedCollectivities').val(null);
+            }
+        });
     </script>
 {% endblock %}

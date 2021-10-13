@@ -177,28 +177,6 @@ class ModeleAnalyseController extends CRUDController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $authorizedCollectivities = null;
-
-            // find all collectivities by type
-            if ($form->get('targetCollectivityTypes')->getViewData()) {
-                $arrayCollectivityTypes     = $form->get('targetCollectivityTypes')->getViewData();
-                $authorizedCollectivities   = $this->collectivityRepository->findByTypes($arrayCollectivityTypes);
-            }
-
-            // get collectivity
-            if ($form->get('authorizedCollectivities')->getViewData()) {
-                $arrayIdCollectivities      = $form->get('authorizedCollectivities')->getViewData();
-                $authorizedCollectivities   = [];
-
-                foreach ($arrayIdCollectivities as $idCollectivity) {
-                    $authorizedCollectivities[] = $this->collectivityRepository->findOneById($idCollectivity);
-                }
-            }
-
-            if ($authorizedCollectivities) {
-                $object->setAuthorizedCollectivities($authorizedCollectivities);
-            }
-
             $this->formPrePersistData($object);
             $this->entityManager->persist($object);
             $this->entityManager->flush();
@@ -220,8 +198,15 @@ class ModeleAnalyseController extends CRUDController
 
         foreach ($modeles as $modele) {
             if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-                $userCollectivity           = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-                $authorizedCollectivities   = $modele->getAuthorizedCollectivities();
+                $userCollectivity               = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+                $userCollectivityType           = $userCollectivity->getType();
+                $authorizedCollectivities       = $modele->getAuthorizedCollectivities();
+                $authorizedCollectivityTypes    = $modele->getAuthorizedCollectivityTypes();
+
+                if (!\is_null($authorizedCollectivityTypes)
+                && in_array($userCollectivityType, $authorizedCollectivityTypes)) {
+                    continue;
+                }
 
                 if ($authorizedCollectivities->contains($userCollectivity)) {
                     continue;

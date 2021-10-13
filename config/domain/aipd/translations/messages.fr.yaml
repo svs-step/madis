@@ -2,6 +2,7 @@ aipd:
     modele_analyse:
         action:
             new: Nouveau modèle
+            back_to_list: Retour à la liste
         title:
             list: Liste des modèles d'analyse
             create: Créer un modèle
@@ -11,6 +12,12 @@ aipd:
             name: Nom du modèle d'analyse d'impact
             description: Description
             updated_at: Date de modification
+        flashbag:
+            success:
+                create: Modele d'analyse "%object%" créé avec succès
+                edit: Modele d'analyse "%object%" modifié avec succès
+                delete: Modele d'analyse "%object%" supprimé avec succès
+                rights: Droits du modele d'analyse "%object%" modifiés avec succès
         form:
             scenario_menace:
                 add: Ajouter un scenario de menace

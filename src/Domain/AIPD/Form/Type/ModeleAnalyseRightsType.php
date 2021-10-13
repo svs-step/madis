@@ -37,19 +37,25 @@ class ModeleAnalyseRightsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $dataOptionRightSelectionValue = DuplicationTargetOptionDictionary::KEY_PER_COLLECTIVITY;
+
+        if ($options['data']->getAuthorizedCollectivityTypes()) {
+            $dataOptionRightSelectionValue = DuplicationTargetOptionDictionary::KEY_PER_TYPE;
+        }
+
         $builder
-            ->add('targetOption', DictionaryType::class, [
+            ->add('optionRightSelection', DictionaryType::class, [
                 'name'     => DuplicationTargetOptionDictionary::NAME,
                 'label'    => false,
                 'mapped'   => false,
                 'required' => true,
                 'multiple' => false,
                 'expanded' => true,
+                'data'     => $dataOptionRightSelectionValue,
             ])
-            ->add('targetCollectivityTypes', DictionaryType::class, [
+            ->add('authorizedCollectivityTypes', DictionaryType::class, [
                 'name'     => 'user_collectivity_type',
                 'label'    => false,
-                'mapped'   => false,
                 'required' => false,
                 'multiple' => true,
                 'expanded' => false,
@@ -71,11 +77,6 @@ class ModeleAnalyseRightsType extends AbstractType
                     'size' => 18,
                 ],
             ]);
-
-        // Reset view transformer to disable mapping between choices values & given values
-        // Since we send "random" values which are not defined in Form, no need to validate sended values with transformer
-        // This data initial view transformer is \Symfony\Component\Form\Extension\Core\DataTransformer\ChoicesToValuesTransformer
-        //$builder->get('data')->resetViewTransformers();
     }
 
     public function configureOptions(OptionsResolver $resolver)

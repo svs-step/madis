@@ -22,6 +22,8 @@
         <field name="labelAmeliorationPrevue" column="label_amelioration_prevue"/>
         <field name="labelInsatisfaisant" column="label_insatisfait"/>
         <field name="labelSatisfaisant" column="label_satisfaisant"/>
+        <field name="authorizedCollectivityTypes" column="authorized_collectivity_types" type="json_array"/>
+        
         <one-to-many field="criterePrincipeFondamentaux"
                      target-entity="App\Domain\AIPD\Model\CriterePrincipeFondamental" mapped-by="modeleAnalyse">
             <cascade><cascade-persist/><cascade-remove/></cascade>

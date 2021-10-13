@@ -45,6 +45,16 @@ class ModeleAnalyse
      */
     private $scenarioMenaces;
 
+    /**
+     * @see DuplicationTargetOptionDictionary
+     */
+    private ?string $optionRightSelection;
+
+    /**
+     * @see CollectivityTypeDictionary
+     */
+    private ?iterable $authorizedCollectivityTypes;
+
     public function __construct()
     {
         $this->id = Uuid::uuid4();
@@ -125,9 +135,7 @@ class ModeleAnalyse
 
     public function setAuthorizedCollectivities($authorizedCollectivities): void
     {
-        foreach ($authorizedCollectivities as $collectivity) {
-            $collectivity->addModeleAnalyse($this);
-        }
+        $this->authorizedCollectivities = $authorizedCollectivities;
     }
 
     public function addAuthorizedCollectivity(Collectivity $collectivity)
@@ -137,7 +145,7 @@ class ModeleAnalyse
         }
 
         $this->authorizedCollectivities[] = $collectivity;
-        $collectivity->setModeleAnalyses($this);
+        $collectivity->addModeleAnalyse($this);
     }
 
     public function getCriterePrincipeFondamentaux()
@@ -175,5 +183,25 @@ class ModeleAnalyse
             $scenarioMenace->setModeleAnalyse($this);
         }
         $this->scenarioMenaces = $scenarioMenaces;
+    }
+
+    public function getOptionRightSelection()
+    {
+        return $this->optionRightSelection;
+    }
+
+    public function setOptionRightSelection(iterable $optionRightSelection)
+    {
+        $this->optionRightSelection = $optionRightSelection;
+    }
+
+    public function getAuthorizedCollectivityTypes()
+    {
+        return $this->authorizedCollectivityTypes;
+    }
+
+    public function setAuthorizedCollectivityTypes(iterable $authorizedCollectivityTypes)
+    {
+        $this->authorizedCollectivityTypes = $authorizedCollectivityTypes;
     }
 }
