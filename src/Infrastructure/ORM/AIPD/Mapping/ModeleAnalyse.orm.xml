@@ -22,6 +22,8 @@
         <field name="labelAmeliorationPrevue" column="label_amelioration_prevue"/>
         <field name="labelInsatisfaisant" column="label_insatisfait"/>
         <field name="labelSatisfaisant" column="label_satisfaisant"/>
+        <field name="authorizedCollectivityTypes" column="authorized_collectivity_types" type="json_array" nullable="true"/>
+        
         <one-to-many field="criterePrincipeFondamentaux"
                      target-entity="App\Domain\AIPD\Model\CriterePrincipeFondamental" mapped-by="modeleAnalyse">
             <cascade><cascade-persist/><cascade-remove/></cascade>
@@ -34,5 +36,11 @@
                      target-entity="App\Domain\AIPD\Model\ModeleAnalyseQuestionConformite" mapped-by="modeleAnalyse">
             <cascade><cascade-persist/><cascade-remove/></cascade>
         </one-to-many>
+        <many-to-many field="authorizedCollectivities" target-entity="App\Domain\User\Model\Collectivity" inversed-by="modeleAnalyses">
+            <join-table name="aipd_modele_analyse_collectivity">
+                <join-columns><join-column/></join-columns>
+                <inverse-join-columns><join-column/></inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </entity>
 </doctrine-mapping>

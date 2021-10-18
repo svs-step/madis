@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'aipd_modele_analyse form rights' %}
+{% set menuItem = 'aipd_modele_analyse' %}
+
+{% block title %}{{ 'aipd.modele_analyse.title.rights'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'aipd.modele_analyse.title.rights'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'aipd.modele_analyse.title.list'|trans, 'link': path('aipd_modele_analyse_list') },
+        { 'name': 'aipd.modele_analyse.title.rights'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {{ form_start(form) }}
+
+        <div class="col-md-12">
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border"><h3 class="box-title"> Gestion des droits </h3></div>
+                <div class="box-body">
+                    {{ form_row(form.optionRightSelection) }}
+                    {{ form_row(form.authorizedCollectivityTypes) }}
+                    {{ form_row(form.authorizedCollectivities) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            <a href="{{ path('aipd_modele_analyse_list') }}" class="btn btn-default">
+                {{ 'aipd.modele_analyse.action.back_to_list'|trans }}
+            </a>
+             <input type="submit" class="btn btn-primary" value="Soumettre">
+        </div>
+
+
+        {{ form_end(form) }}
+    </div>
+
+    
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+
+    {{ include('Aipd/Modele_analyse/_form_js.html.twig') }}
+
+    <script>
+        $(document).ready(function() {
+
+            // Initialize form
+            checkTargetOption();
+            checkTargetCollectivities();
+
+            $('#modele_analyse_rights_optionRightSelection').on('change', function() {
+                checkTargetOption();
+            });
+
+        });
+
+        function checkTargetOption() {
+            let targetOption = $('#modele_analyse_rights_optionRightSelection input[type=radio]:checked').val();
+            let targetPerType = $('#modele_analyse_rights_authorizedCollectivityTypes');
+            let targetPerCollectivity = $('#modele_analyse_rights_authorizedCollectivities');
+
+            if (targetOption === '{{ constant('App\\Domain\\Admin\\Dictionary\\DuplicationTargetOptionDictionary::KEY_PER_TYPE') }}') {
+                targetPerType.show();
+                targetPerCollectivity.hide();
+            } else if (targetOption === '{{ constant('App\\Domain\\Admin\\Dictionary\\DuplicationTargetOptionDictionary::KEY_PER_COLLECTIVITY') }}') {
+                targetPerType.hide();
+                targetPerCollectivity.show();
+            } else {
+                targetPerType.hide();
+                targetPerCollectivity.hide();
+            }
+        }
+
+        function checkTargetCollectivities() {
+            let sourceCollectivityVal = $('#duplication_sourceCollectivity').val();
+
+            $('#modele_analyse_rights_authorizedCollectivities option[value!=\'' + sourceCollectivityVal + '\']').prop('disabled', false);
+            $('#modele_analyse_rights_authorizedCollectivities option[value=\'' + sourceCollectivityVal + '\']').prop('disabled', true);
+        }
+
+        // Clear the radio button
+        $('form').submit(function() {
+            if($('#modele_analyse_rights_optionRightSelection input[type=radio]:checked').val() == 'per_collectivity') {
+                $('#modele_analyse_rights_authorizedCollectivityTypes').val(null);
+            }
+
+            if($('#modele_analyse_rights_optionRightSelection input[type=radio]:checked').val() == 'per_type') {
+                $('#modele_analyse_rights_authorizedCollectivities').val(null);
+            }
+        });
+    </script>
+{% endblock %}
