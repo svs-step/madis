@@ -45,6 +45,7 @@ aipd:
             nom_court: Nom court
             poids_vraisemblance: Poids de la vraisemblance
             poids_gravite: Poids de la gravité
+            reponse: Réponses
         modal:
             confirm_deletion: Voulez vous vraiment supprimer cette mesure de protection ?
         title:
@@ -56,8 +57,36 @@ aipd:
     scenario_menace:
         list:
             gravite: Gravité
+            impact_potentiel: Impact potentiel
             mesures: Associer des mesures
             nom: Scénarios de menace
             precision: Précision
             visible: Visible
             vraisemblance: Vraisemblance
+    analyse_impact:
+        action:
+            create: Réaliser une AIPD
+            edit: Modifier l'AIPD
+            modele: Choisir ce modèle
+        form:
+            justificatif: Justificatif
+            action_protection: Action de protection associées
+        title:
+            list: Analyses d'impacts
+            create: Réaliser une AIPD
+        list:
+            traitement: Traitement
+            date_creation: Date de création
+            date_validation: Date de validation
+        values:
+            non_realisee: Non réalisée
+            non_favorable: Défavorable
+            favorable_avec_reserves: Favorable avec réserves
+            favorable: Favorable
+    critere_principe_fondamental:
+        table:
+            label: Label
+            reponse: Réponse
+            justification: Justification
+            fichier: Joindre un fichier
+

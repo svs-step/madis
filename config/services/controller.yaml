@@ -20,3 +20,7 @@ services:
     App\Domain\AIPD\Controller\ModeleAnalyseController:
         arguments:
             $fichierFilesystem: '@gaufrette.aipd_critere_principe_fondamentaux_fichier_filesystem'
+
+    App\Domain\AIPD\Controller\AnalyseImpactController:
+        arguments:
+            $fichierFilesystem: '@gaufrette.aipd_critere_principe_fondamentaux_fichier_filesystem'
