@@ -97,10 +97,11 @@ class AnalyseImpactController extends CRUDController
         /** @var AnalyseImpact $analyse */
         foreach ($analyses as $analyse) {
             $response['data'][] = [
-                'traitement'       => $analyse->getConformiteTraitement()->getTraitement()->getName(),
-                'dateDeCreation'   => $analyse->getCreatedAt()->format('d/i/Y H:m'),
-                'dateDeValidation' => null === $analyse->getDateValidation() ? '' : $analyse->getDateValidation()->format('d/i/Y H:m'),
-                'actions'          => ' ', //TODO Get actions
+                'traitement'       => '<a href="' . $this->router->generate('registry_treatment_show', ['id' => $analyse->getConformiteTraitement()->getTraitement()->getId()]) . '">' . $analyse->getConformiteTraitement()->getTraitement()->getName() . '</a>',
+                'dateDeCreation'   => $analyse->getCreatedAt()->format('d/m/Y H:i'),
+                'dateDeValidation' => null === $analyse->getDateValidation() ? '' : $analyse->getDateValidation()->format('d/m/Y H:i'),
+                'modele'           => $analyse->getModeleAnalyse(),
+                'actions'          => $this->generateActionCell($analyse),
             ];
         }
 
@@ -116,8 +117,23 @@ class AnalyseImpactController extends CRUDController
             0 => 'traitement',
             1 => 'dateDeCreation',
             2 => 'dateDeValidation',
-            3 => 'actions',
+            3 => 'modele',
+            4 => 'actions',
         ];
+    }
+
+    private function generateActionCell(AnalyseImpact $analyseImpact): string
+    {
+        $cell = '<a href="' . $this->router->generate('aipd_analyse_impact_print', ['id' => $analyseImpact->getId()]) . '">
+        <i class="fa fa-print"></i>' .
+            $this->translator->trans('action.print') . '
+        </a>';
+        $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
+        <i class="fa fa-pencil-alt"></i>' .
+            $this->translator->trans('action.edit') . '
+        </a>';
+
+        return $cell;
     }
 
     /**
@@ -177,6 +193,39 @@ class AnalyseImpactController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('create'), [
+            'flow' => $this->analyseFlow,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    public function editAction(Request $request, string $id): Response
+    {
+        if (null === $object = $this->repository->findOneByIdWithoutInvisibleScenarios($id)) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $this->analyseFlow->bind($object);
+        $form = $this->analyseFlow->createForm();
+
+        if ($this->analyseFlow->isValid($form)) {
+            $this->formPrePersistData($object);
+            $this->analyseFlow->saveCurrentStepData($form);
+
+            if ($this->analyseFlow->nextStep()) {
+                $form = $this->analyseFlow->createForm();
+            } else {
+                $this->entityManager->persist($object);
+                $this->entityManager->flush();
+
+                $this->analyseFlow->reset();
+
+                return $this->redirectToRoute($this->getRouteName('evaluation'), [
+                    'id' => $id,
+                ]);
+            }
+        }
+
+        return $this->render($this->getTemplatingBasePath('edit'), [
             'flow' => $this->analyseFlow,
             'form' => $form->createView(),
         ]);
@@ -246,5 +295,9 @@ class AnalyseImpactController extends CRUDController
             '0' => 'nom',
             '1' => 'description',
         ];
+    }
+
+    public function printAction(string $id)
+    {
     }
 }
