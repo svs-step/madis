@@ -38,7 +38,6 @@ class AnalyseImpactExtension extends AbstractExtension
     public function getConformiteLabel(AnalyseQuestionConformite $questionAnalyse): string
     {
         $reponseConformite = $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getReponseOfPosition($questionAnalyse->getPosition());
-        dump($reponseConformite->getActionProtections());
         if ($reponseConformite->isConforme()) {
             return '<span class="label label-success" style="min-width: 100%; display: inline-block;">Conforme</span>';
         } elseif (!$reponseConformite->getActionProtections()->isEmpty()) {

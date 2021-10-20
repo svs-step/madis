@@ -18,7 +18,17 @@ aipd_analyse_impact_create:
     methods: ['GET', 'POST']
     controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:createAnalyseAction'
 
+aipd_analyse_impact_edit:
+    path: '/editer/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:editAction'
+
 aipd_analyse_impact_evaluation:
     path: '/evaluation/{id}'
     methods: ['GET']
     controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:evaluationAction'
+
+aipd_analyse_impact_print:
+    path: '/imprimer/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:printAction'
