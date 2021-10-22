@@ -13,7 +13,7 @@
             </td>
             <td>{{ getFormattedActionProtectionsFromQuestion(question.vars.value) }}</td>
             {% set isRequired = question.vars.value.justificationObligatoire %}
-            <td><span {% if(isRequired) %}style="visibility: hidden"{% endif %}>{{ form_widget(question.justificatif, {'required': isRequired}) }}</span></td>
+            <td><span {% if(isRequired == 0) %}style="visibility: hidden"{% endif %}>{{ form_widget(question.justificatif, {'required': isRequired}) }}</span></td>
         </tr>
     {% endfor %}
 </table>

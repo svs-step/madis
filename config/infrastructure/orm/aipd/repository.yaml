@@ -9,5 +9,5 @@ services:
         resource: '../../../../src/Infrastructure/ORM/AIPD/Repository'
 
     App\Domain\AIPD\Repository\ModeleAnalyse: '@App\Infrastructure\ORM\AIPD\Repository\ModeleAnalyse'
-    App\Domain\AIPD\Repository\MesureProtection: '@App\Infrastructure\ORM\AIPD\Repository\MesureProtection'
+    App\Domain\AIPD\Repository\ModeleMesureProtection: '@App\Infrastructure\ORM\AIPD\Repository\ModeleMesureProtection'
     App\Domain\AIPD\Repository\AnalyseImpact: '@App\Infrastructure\ORM\AIPD\Repository\AnalyseImpact'

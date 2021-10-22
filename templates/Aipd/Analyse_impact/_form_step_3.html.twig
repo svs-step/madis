@@ -62,7 +62,7 @@
                 {% else %}
                     {{ form_widget(scenario.gravite) }}
                 {% endif %}
-            <td>{{ getScenarioMenaceImpactLabel(scenario.vars.value)|raw }}</td>
+            <td>{{ getScenarioMenaceImpactPotentielLabel(scenario.vars.value)|raw }}</td>
             <td>{{ form_widget(scenario.precisions) }}</td>
         </tr>
     {% endfor %}

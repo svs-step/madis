@@ -132,6 +132,14 @@ class AnalyseImpactController extends CRUDController
         <i class="fa fa-pencil-alt"></i>' .
             $this->translator->trans('action.edit') . '
         </a>';
+        $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
+        <i class="fa fa-pencil-alt"></i>' .
+            $this->translator->trans('action.delete') . '
+        </a>';
+        $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
+        <i class="fa fa-pencil-alt"></i>' .
+            $this->translator->trans('action.delete') . '
+        </a>';
 
         return $cell;
     }

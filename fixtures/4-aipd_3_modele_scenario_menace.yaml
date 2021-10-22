@@ -1,0 +1,31 @@
+App\Domain\AIPD\Model\ModeleScenarioMenace:
+    modele_scenario_menace_1:
+        nom: "Incendie, dégâts des eaux"
+        isVisible: true
+        vraisemblance: '<(App\Domain\AIPD\Dictionary\VraisemblanceGraviteDictionary::IMPORTANTE)>'
+        gravite: '<(App\Domain\AIPD\Dictionary\VraisemblanceGraviteDictionary::LIMITEE)>'
+        isDisponibilite: true
+        isIntegrite: false
+        isConfidentialite: false
+        modeleAnalyse: '@modele_analyse_1'
+
+    modele_scenario_menace_2:
+        nom: "Intrusion physique, vol, dégradation ou perte"
+        isVisible: true
+        vraisemblance: '<(App\Domain\AIPD\Dictionary\VraisemblanceGraviteDictionary::MAXIMALE)>'
+        gravite: '<(App\Domain\AIPD\Dictionary\VraisemblanceGraviteDictionary::IMPORTANTE)>'
+        isDisponibilite: false
+        isIntegrite: true
+        isConfidentialite: true
+        precisions: "D'après le rapport MIPS"
+        modeleAnalyse: '@modele_analyse_1'
+
+    modele_scenario_menace_3:
+        nom: "Phénomènes météorologiques et naturels"
+        isVisible: true
+        vraisemblance: '<(App\Domain\AIPD\Dictionary\VraisemblanceGraviteDictionary::NEGLIGEABLE)>'
+        gravite: '<(App\Domain\AIPD\Dictionary\VraisemblanceGraviteDictionary::NEGLIGEABLE)>'
+        isDisponibilite: false
+        isIntegrite: false
+        isConfidentialite: false
+        modeleAnalyse: '@modele_analyse_1'

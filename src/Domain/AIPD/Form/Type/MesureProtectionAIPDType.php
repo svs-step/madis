@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Form\Type;
 
-use App\Domain\AIPD\Model\MesureProtection;
+use App\Domain\AIPD\Model\AbstractMesureProtection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -29,7 +29,7 @@ class MesureProtectionAIPDType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-                'data_class' => MesureProtection::class,
+                'data_class' => AbstractMesureProtection::class,
         ]);
     }
 }
