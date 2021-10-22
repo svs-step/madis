@@ -20,7 +20,7 @@
         <field name="fichier" column="fichier" nullable="true"/>
 
 
-        <many-to-one field="analyseImpact" target-entity="App\Domain\AIPD\Model\AnalyseImpact" inversed-by="criteresPrincipesFondamentaux"/>
-        <many-to-one field="modeleAnalyse" target-entity="App\Domain\AIPD\Model\ModeleAnalyse" inversed-by="criteresPrincipesFondamentaux"/>
+        <many-to-one field="analyseImpact" target-entity="App\Domain\AIPD\Model\AnalyseImpact" inversed-by="criterePrincipeFondamentaux"/>
+        <many-to-one field="modeleAnalyse" target-entity="App\Domain\AIPD\Model\ModeleAnalyse" inversed-by="criterePrincipeFondamentaux"/>
     </entity>
 </doctrine-mapping>

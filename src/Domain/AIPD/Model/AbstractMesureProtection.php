@@ -7,7 +7,7 @@ namespace App\Domain\AIPD\Model;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class MesureProtection
+class AbstractMesureProtection
 {
     private UuidInterface $id;
     private string $nom;
@@ -17,11 +17,6 @@ class MesureProtection
     private string $detail;
     private int $poidsVraisemblance;
     private int $poidsGravite;
-
-    /**
-     * @var array|AbstractScenarioMenace
-     */
-    private $scenariosMenaces;
 
     public function __construct()
     {
@@ -106,15 +101,5 @@ class MesureProtection
     public function setPoidsGravite(int $poidsGravite): void
     {
         $this->poidsGravite = $poidsGravite;
-    }
-
-    public function getScenariosMenaces()
-    {
-        return $this->scenariosMenaces;
-    }
-
-    public function setScenariosMenaces($scenariosMenaces): void
-    {
-        $this->scenariosMenaces = $scenariosMenaces;
     }
 }

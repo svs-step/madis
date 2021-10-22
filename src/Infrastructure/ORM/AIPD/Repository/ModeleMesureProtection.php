@@ -11,13 +11,13 @@ use App\Domain\AIPD\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
-class MesureProtection extends CRUDRepository implements Repository\MesureProtection
+class ModeleMesureProtection extends CRUDRepository implements Repository\ModeleMesureProtection
 {
     use RepositoryUtils;
 
     protected function getModelClass(): string
     {
-        return Model\MesureProtection::class;
+        return Model\ModeleMesureProtection::class;
     }
 
     public function count(array $criteria = [])

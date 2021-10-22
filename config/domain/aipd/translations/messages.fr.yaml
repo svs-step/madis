@@ -58,6 +58,7 @@ aipd:
         list:
             gravite: Gravité
             impact_potentiel: Impact potentiel
+            impact_résiduel: Impact résiduel
             mesures: Associer des mesures
             nom: Scénarios de menace
             precision: Précision
@@ -68,18 +69,23 @@ aipd:
             create: Réaliser une AIPD
             edit: Modifier l'AIPD
             modele: Choisir ce modèle
+        flashbag:
+            success:
+                delete: L'analyse d'impact "%object%" a bien été supprimée
         form:
             justificatif: Justificatif
             action_protection: Action de protection associées
         title:
             list: Analyses d'impacts
             create: Réaliser une AIPD
+            delete: Supprimer une AIPD
         list:
             traitement: Traitement
             date_creation: Date de création
             date_validation: Date de validation
             modele: Modèle utilisé
         values:
+            en_cours: En cours
             non_realisee: Non réalisée
             non_favorable: Défavorable
             favorable_avec_reserves: Favorable avec réserves

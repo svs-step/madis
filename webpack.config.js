@@ -13,6 +13,7 @@ Encore
     .addEntry('js/dashboard', './assets/js/dashboard.js')
     .addEntry('js/dashboard_admin', './assets/js/dashboard_admin.js')
     .addEntry('js/collectionManager', './assets/js/collectionManager.js')
+    .addEntry('js/evaluation', './assets/js/evaluation.js')
     .addStyleEntry('css/app', './assets/css/app.scss')
 
     .copyFiles([

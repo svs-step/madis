@@ -21,9 +21,68 @@
 {% block body %}
 
     <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-solid">
+        <div class="col-md-6">
+            <div class="box box-solid box-info">
+                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.grands_domaines'|trans }}</div>
                 <div class="box-body">
+                    <canvas id="grandsDomaines-chart"></canvas>
+                </div>
+            </div>
+            <div class="box box-solid box-info">
+                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.description_conformite'|trans }}</div>
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>{{ 'aipd.critere_principe_fondamental.table.label'|trans }}</th>
+                            <th style="width: 25%;">{{ 'aipd.critere_principe_fondamental.table.conformite'|trans }}</th>
+                        </tr>
+                        {% for critere in analyseImpact.criterePrincipeFondamentaux %}
+                        <tr>
+                            <td>{{ critere.label }}</td>
+                            <td>{{ getCritereLabel(critere)|raw }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <hr style="border: 0"/>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>{{ 'registry.conformite_traitement.form.question'|trans }}</th>
+                            <th style="width: 25%">{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
+                        </tr>
+                        {% for question in analyseImpact.questionConformites %}
+                            <tr>
+                                <td>{{ question.question }}</td>
+                                <td>{{ getConformiteLabel(question)|raw }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.mesures_securites'|trans }}</div>
+                <div class="box-body">
+                    <canvas id="mesuresSecurite-chart"></canvas>
+                </div>
+            </div>
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
+                            <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
+                            <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
+                        </tr>
+                        {% for scenario in analyseImpact.scenarioMenaces %}
+                            <tr>
+                                <td>{{ scenario.nom }}</td>
+                                <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
+                                <td></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </div>
             </div>
         </div>
@@ -38,4 +97,54 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+
+    <script>
+        let colorBlue = 'rgba(54, 162, 235, 0.5)';
+        let colorPurple = 'rgba(153, 51, 204, 0.5)';
+
+        let domainesLabels = [];
+        let domainesDatas = [];
+        {% for critere in analyseImpact.criterePrincipeFondamentaux %}
+            domainesLabels.push('{{ critere.label|truncate(28,'...') }}');
+
+            domainesDatas.push(1);
+        {% endfor %}
+        {% for question in analyseImpact.questionConformites %}
+        {% set reponse = analyseImpact.conformiteTraitement.reponseOfPosition(question.position) %}
+            {% if reponse.conforme %}
+                domainesDatas.push(5);
+            {% elseif reponse.actionProtections is not empty %}
+                domainesDatas.push(3);
+            {% else %}
+                domainesDatas.push(1);
+            {% endif %}
+            domainesLabels.push('{{ question.question|truncate(28, '...') }}');
+        {% endfor %}
+        /* The format of the data used by the chart is [[],[]] but here we use only 1 set of data */
+        domainesDatas = [domainesDatas];
+
+        let mesuresLabels = [];
+        let mesuresDatas = [];
+        {% for scenario in analyseImpact.scenarioMenaces %}
+            {% for mesure in scenario.mesuresProtections %}
+                mesuresLabels.push('{{ mesure.nom }}');
+                {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
+                    mesuresDatas.push(1);
+                {% elseif mesure.reponse == 'besoin_amelioration' %}
+                    mesuresDatas.push(3);
+                {% else %}
+                    mesuresDatas.push(5);
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        mesuresDatas = [mesuresDatas];
+
+    </script>
+
+    <script src="{{ asset('build/js/evaluation.js') }}"></script>
 {% endblock %}

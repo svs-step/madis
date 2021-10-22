@@ -32,7 +32,7 @@ class AnalyseImpact extends CRUDRepository implements \App\Domain\AIPD\Repositor
         $qb->setFirstResult($firstResult);
         $qb->setMaxResults($maxResults);
 
-        return new Paginator($this->createQueryBuilder()); //TODO Implements findPaginated
+        return new Paginator($this->createQueryBuilder());
     }
 
     public function findOneById(string $id)
@@ -54,11 +54,11 @@ class AnalyseImpact extends CRUDRepository implements \App\Domain\AIPD\Repositor
     public function findOneByIdWithoutInvisibleScenarios(string $id)
     {
         return $this->createQueryBuilder()
-            ->leftJoin('o.criterePrincipeFondamentaux', 'c')
+            ->leftJoin('o.criterePrincipeFondamentaux', 'c', 'WITH', 'c.isVisible = 1')
             ->addSelect('c')
             ->leftJoin('o.questionConformites', 'q')
             ->addSelect('q')
-            ->leftJoin('o.scenarioMenaces', 's', 'WITH', 's.isVisible = 0')
+            ->leftJoin('o.scenarioMenaces', 's', 'WITH', 's.isVisible = 1')
             ->addSelect('s')
             ->andWhere('o.id = :id')
             ->setParameter('id', $id)

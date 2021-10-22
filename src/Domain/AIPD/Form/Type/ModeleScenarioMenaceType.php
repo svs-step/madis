@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Form\Type;
 
-use App\Domain\AIPD\Model\MesureProtection;
+use App\Domain\AIPD\Model\ModeleMesureProtection;
 use App\Domain\AIPD\Model\ModeleScenarioMenace;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -27,7 +27,7 @@ class ModeleScenarioMenaceType extends AbstractType
                 'label'    => false,
                 'multiple' => true,
                 'expanded' => false,
-                'class'    => MesureProtection::class,
+                'class'    => ModeleMesureProtection::class,
                 'attr'     => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',

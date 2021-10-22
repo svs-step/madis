@@ -8,7 +8,7 @@
     <entity name="App\Domain\AIPD\Model\ModeleScenarioMenace" table="aipd_modele_scenario_menace">
         <many-to-one field="modeleAnalyse" target-entity="App\Domain\AIPD\Model\ModeleAnalyse" inversed-by="scenarioMenaces"/>
 
-        <many-to-many field="mesuresProtections" target-entity="App\Domain\AIPD\Model\MesureProtection" inversed-by="scenariosMenaces">
+        <many-to-many field="mesuresProtections" target-entity="App\Domain\AIPD\Model\ModeleMesureProtection" inversed-by="scenariosMenaces">
             <join-table name="aipd_modele_scenario_menace_mesure_protection">
                 <join-columns><join-column/></join-columns>
                 <inverse-join-columns><join-column/></inverse-join-columns>

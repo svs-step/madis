@@ -5,7 +5,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                             https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
-    <entity name="App\Domain\AIPD\Model\MesureProtection" table="aipd_mesure_protection">
+    <mapped-superclass name="App\Domain\AIPD\Model\AbstractMesureProtection">
         <id name="id" column="id" type="uuid"/>
 
         <field name="nom" column="nom"/>
@@ -15,7 +15,5 @@
         <field name="detail" column="detail"/>
         <field name="poidsVraisemblance" column="poids_vraisemblance" type="integer"/>
         <field name="poidsGravite" column="poids_gravite" type="integer"/>
-
-        <many-to-many field="scenariosMenaces" target-entity="App\Domain\AIPD\Model\AbstractScenarioMenace" mapped-by="mesuresProtections"/>
-    </entity>
+    </mapped-superclass>
 </doctrine-mapping>

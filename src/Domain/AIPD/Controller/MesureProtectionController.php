@@ -8,7 +8,7 @@ use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\AIPD\Form\Type\MesureProtectionAIPDType;
-use App\Domain\AIPD\Model\MesureProtection;
+use App\Domain\AIPD\Model\ModeleMesureProtection;
 use App\Domain\AIPD\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @property Repository\MesureProtection $repository
+ * @property Repository\ModeleMesureProtection $repository
  */
 class MesureProtectionController extends CRUDController
 {
@@ -37,7 +37,7 @@ class MesureProtectionController extends CRUDController
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
-        Repository\MesureProtection $repository,
+        Repository\ModeleMesureProtection $repository,
         Pdf $pdf,
         UserProvider $userProvider,
         AuthorizationCheckerInterface $authorizationChecker,
@@ -61,7 +61,7 @@ class MesureProtectionController extends CRUDController
 
     protected function getModelClass(): string
     {
-        return MesureProtection::class;
+        return ModeleMesureProtection::class;
     }
 
     protected function getFormType(): string
@@ -84,7 +84,7 @@ class MesureProtectionController extends CRUDController
         $mesures = $this->getResults($request);
 
         $reponse = $this->getBaseDataTablesResponse($request, $mesures);
-        /** @var MesureProtection $mesure */
+        /** @var ModeleMesureProtection $mesure */
         foreach ($mesures as $mesure) {
             $reponse['data'][] = [
               'nom'                => $mesure[0]->getNom(),

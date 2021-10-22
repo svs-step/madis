@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'aipd_analyse_impact delete' %}
+{% set menuItem = 'aipd_analyse_impact' %}
+
+{% block title %}{{ 'aipd.analyse_impact.title.delete'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'aipd.analyse_impact.title.delete'|trans }}
+        <small>Analyse d'impact {{ object.conformiteTraitement.traitement.name }} du {{ object.createdAt|date("d/m/Y") }}</small>
+    </h1>
+{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-header"></div>
+                <div class="box-body">
+                    Souhaitez vous vraiment supprimer l'analyse d'impact du traitement "{{ object.conformiteTraitement.traitement.name }}" réalisée le {{ object.createdAt|date('d/m/Y')}} ?
+                </div>
+                <div class="box-footer">
+                    <a href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">
+                        {{ 'action.back_to_list'|trans }}
+                    </a>
+                    <a href="{{ path('aipd_analyse_impact_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'action.confirm_delete'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

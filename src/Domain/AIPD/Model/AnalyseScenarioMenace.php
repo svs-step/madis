@@ -8,6 +8,8 @@ class AnalyseScenarioMenace extends AbstractScenarioMenace
 {
     private AnalyseImpact $analyseImpact;
 
+    private AnalyseMesureProtection $scenarioMenace;
+
     public function getAnalyseImpact(): AnalyseImpact
     {
         return $this->analyseImpact;
