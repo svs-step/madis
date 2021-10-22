@@ -23,6 +23,16 @@ aipd_analyse_impact_edit:
     methods: ['GET', 'POST']
     controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:editAction'
 
+aipd_analyse_impact_delete:
+    path: '/supprimer/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:deleteAction'
+
+aipd_analyse_impact_delete_confirm:
+    path: '/supprimer/{id}/confirmer'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:deleteConfirmationAction'
+
 aipd_analyse_impact_evaluation:
     path: '/evaluation/{id}'
     methods: ['GET']

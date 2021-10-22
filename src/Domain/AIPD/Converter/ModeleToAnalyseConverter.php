@@ -27,7 +27,6 @@ class ModeleToAnalyseConverter
         $analyseImpact->setCriterePrincipeFondamentaux(self::convertCriteres($analyseImpact, $modeleAnalyse->getCriterePrincipeFondamentaux()));
         $analyseImpact->setQuestionConformites(self::convertQuestionsConformite($analyseImpact, $modeleAnalyse->getQuestionConformites()));
         $analyseImpact->setScenarioMenaces(self::convertScenariosMenace($analyseImpact, $modeleAnalyse->getScenarioMenaces()));
-        $analyseImpact->setMesureProtections(self::convertMesuresProtections($analyseImpact, $modeleAnalyse));
 
         return $analyseImpact;
     }
@@ -78,23 +77,17 @@ class ModeleToAnalyseConverter
             $scenario->setGravite($scenarioModele->getGravite());
             $scenario->setPrecisions($scenarioModele->getPrecisions());
             $scenario->setAnalyseImpact($analyseImpact);
+            $scenario->setMesuresProtections(self::convertMesuresProtections($scenarioModele, $scenario));
             $res[] = $scenario;
         }
 
         return $res;
     }
 
-    private static function convertMesuresProtections(AnalyseImpact $analyseImpact, ModeleAnalyse $modeleAnalyse): array
+    private static function convertMesuresProtections(ModeleScenarioMenace $modeleScenarioMenace, AnalyseScenarioMenace $analyseScenarioMenace): array
     {
-        $mesureProtections = [];
-        foreach ($modeleAnalyse->getScenarioMenaces() as $scenarioMenace) {
-            foreach ($scenarioMenace->getMesuresProtections() as $mesureProtection) {
-                $mesureProtections[] = $mesureProtection;
-            }
-        }
-
         $res = [];
-        foreach ($mesureProtections as $mesureProtection) {
+        foreach ($modeleScenarioMenace->getMesuresProtections() as $mesureProtection) {
             $analyseMesure = new AnalyseMesureProtection();
             $analyseMesure->setNom($mesureProtection->getNom());
             $analyseMesure->setNomCourt($mesureProtection->getNomCourt());
@@ -103,7 +96,7 @@ class ModeleToAnalyseConverter
             $analyseMesure->setDetail($mesureProtection->getDetail());
             $analyseMesure->setPoidsVraisemblance($mesureProtection->getPoidsVraisemblance());
             $analyseMesure->setPoidsGravite($mesureProtection->getPoidsGravite());
-            $analyseMesure->setAnalyseImpact($analyseImpact);
+            $analyseMesure->setScenarioMenace($analyseScenarioMenace);
             $res[] = $analyseMesure;
         }
 

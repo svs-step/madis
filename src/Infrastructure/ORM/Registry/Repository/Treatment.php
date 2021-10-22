@@ -226,7 +226,8 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             ->addSelect('k')
         ;
 
-        $qb->leftJoin('k.analyseImpacts', 'a', 'WITH', 'a.dateValidation = (SELECT MAX(a2.dateValidation) FROM App\Domain\AIPD\Model\AnalyseImpact as a2 WHERE a2.conformiteTraitement = k)')
+        $qb->leftJoin('k.analyseImpacts', 'a')
+            //, 'WITH', 'a.dateValidation = (SELECT MAX(a2.dateValidation) FROM App\Domain\AIPD\Model\AnalyseImpact as a2 WHERE a2.conformiteTraitement = k)
             ->addSelect('a')
         ;
 

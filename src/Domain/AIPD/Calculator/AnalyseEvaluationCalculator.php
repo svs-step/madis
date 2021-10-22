@@ -9,12 +9,26 @@ use App\Domain\AIPD\Model\AnalyseScenarioMenace;
 
 class AnalyseEvaluationCalculator
 {
-    public static function calculateRisque(AnalyseScenarioMenace $scenarioMenace)
+    public static function calculateImpactPotentiel(AnalyseScenarioMenace $scenarioMenace)
     {
         $vraisemblance = VraisemblanceGraviteDictionary::getPoidsFromImpact($scenarioMenace->getVraisemblance());
         $gravite       = VraisemblanceGraviteDictionary::getPoidsFromImpact($scenarioMenace->getGravite());
-        $max           = $vraisemblance > $gravite ? $vraisemblance : $gravite;
+        $value         = 1;
+        if ($gravite >= 3 && $vraisemblance >= 3) {
+            $value = 4;
+        } elseif ($gravite >= 3 && $vraisemblance < 3) {
+            $value = 3;
+        } elseif ($gravite < 3 && $vraisemblance >= 3) {
+            $value = 2;
+        }
 
-        return VraisemblanceGraviteDictionary::getImpact($max);
+        return VraisemblanceGraviteDictionary::getImpact($value);
+    }
+
+    public static function calculateImpactResiduel(AnalyseScenarioMenace $scenarioMenace)
+    {
+        $value = 0;
+
+        return VraisemblanceGraviteDictionary::getImpact($value);
     }
 }

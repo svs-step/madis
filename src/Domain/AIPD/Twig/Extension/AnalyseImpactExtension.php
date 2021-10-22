@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace App\Domain\AIPD\Twig\Extension;
 
 use App\Domain\AIPD\Calculator\AnalyseEvaluationCalculator;
+use App\Domain\AIPD\Dictionary\ReponseCritereFondamentalDictionary;
 use App\Domain\AIPD\Dictionary\VraisemblanceGraviteDictionary;
+use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\AIPD\Model\AnalyseQuestionConformite;
 use App\Domain\AIPD\Model\AnalyseScenarioMenace;
+use App\Domain\AIPD\Model\CriterePrincipeFondamental;
+use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\Mesurement;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -19,7 +23,10 @@ class AnalyseImpactExtension extends AbstractExtension
         return [
             new TwigFunction('getFormattedActionProtectionsFromQuestion', [$this, 'getFormattedActionProtectionsFromQuestion']),
             new TwigFunction('getConformiteLabel', [$this, 'getConformiteLabel']),
-            new TwigFunction('getScenarioMenaceImpactLabel', [$this, 'getScenarioMenaceImpactLabel']),
+            new TwigFunction('getCritereLabel', [$this, 'getCritereLabel']),
+            new TwigFunction('getScenarioMenaceImpactPotentielLabel', [$this, 'getScenarioMenaceImpactPotentielLabel']),
+            new TwigFunction('getScenarioMenaceImpactResiduelLabel', [$this, 'getScenarioMenaceImpactResiduelLabel']),
+            new TwigFunction('getLastAnalyseImpact', [$this, 'getLastAnalyseImpact']),
         ];
     }
 
@@ -47,9 +54,9 @@ class AnalyseImpactExtension extends AbstractExtension
         return '<span class="label label-danger" style="min-width: 100%; display: inline-block;">Non-conforme majeure</span>';
     }
 
-    public function getScenarioMenaceImpactLabel(AnalyseScenarioMenace $scenarioMenace)
+    public function getScenarioMenaceImpactPotentielLabel(AnalyseScenarioMenace $scenarioMenace)
     {
-        $impact = AnalyseEvaluationCalculator::calculateRisque($scenarioMenace);
+        $impact = AnalyseEvaluationCalculator::calculateImpactPotentiel($scenarioMenace);
 
         $labelColor = null;
         switch ($impact) {
@@ -68,5 +75,59 @@ class AnalyseImpactExtension extends AbstractExtension
         }
 
         return '<span class="label label-' . $labelColor . '" style="min-width: 100%; display: inline-block;">' . VraisemblanceGraviteDictionary::getMasculineValues()[$impact] . '</span>';
+    }
+
+    public function getScenarioMenaceImpactResiduelLabel(AnalyseScenarioMenace $scenarioMenace)
+    {
+        $mesures = $scenarioMenace->getMesuresProtections();
+
+//        Gr = max[(Gi - (Gi * <mG/<pG)), 0.01];
+//        Vr = max[(Vi - (Vi * <mV/<pV)), 0.01];
+    }
+
+    private function getCompleteLabel($impact)
+    {
+        //TODO Factoriser les 2 méthodes ci-dessus
+    }
+
+    public function getCritereLabel(CriterePrincipeFondamental $critere)
+    {
+        $labelColor = null;
+        switch ($critere->getReponse()) {
+            case ReponseCritereFondamentalDictionary::REPONSE_CONFORME:
+                $labelColor = 'success';
+                break;
+            case ReponseCritereFondamentalDictionary::REPONSE_NON_CONFORME:
+                $labelColor = 'danger';
+                break;
+            default:
+                $labelColor = 'default';
+                break;
+        }
+
+        return '<span class="label label-' . $labelColor . '" style="min-width: 100%; display: inline-block;">' . ReponseCritereFondamentalDictionary::getLabelReponse($critere->getReponse()) . '</span>';
+    }
+
+    public function getLastAnalyseImpact(ConformiteTraitement $conformiteTraitement): ?AnalyseImpact
+    {
+        if (empty($conformiteTraitement->getAnalyseImpacts())) {
+            return null;
+        }
+        $lastAnalyse = null;
+
+        foreach ($conformiteTraitement->getAnalyseImpacts() as $analyseImpact) {
+            if (is_null($analyseImpact->getDateValidation())) {
+                return $analyseImpact;
+            }
+            if (is_null($lastAnalyse)) {
+                $lastAnalyse = $analyseImpact;
+                continue;
+            }
+            if ($analyseImpact->getDateValidation() > $lastAnalyse->getDateValidation()) {
+                $lastAnalyse = $analyseImpact;
+            }
+        }
+
+        return $lastAnalyse;
     }
 }

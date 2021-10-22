@@ -8,7 +8,7 @@
     <entity name="App\Domain\AIPD\Model\AnalyseScenarioMenace" table="aipd_analyse_scenario_menace">
         <many-to-one field="analyseImpact" target-entity="App\Domain\AIPD\Model\AnalyseImpact" inversed-by="scenarioMenaces"/>
 
-        <one-to-many field="mesuresProtections" target-entity="App\Domain\AIPD\Model\MesureProtection" mapped-by="scenariosMenaces">
+        <one-to-many field="mesuresProtections" target-entity="App\Domain\AIPD\Model\AnalyseMesureProtection" mapped-by="scenarioMenace">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

@@ -57,6 +57,11 @@ class AnalyseImpact
         $this->statut = StatutAnalyseImpactDictionary::EN_COURS;
     }
 
+    public function __toString()
+    {
+        return $this->conformiteTraitement->getTraitement()->getName() . ' du ' . date_format($this->createdAt, 'd/m/Y');
+    }
+
     public function getId(): UuidInterface
     {
         return $this->id;
@@ -134,11 +139,13 @@ class AnalyseImpact
 
     public function getMesureProtections()
     {
-        return $this->mesureProtections;
-    }
+        $mesures = [];
+        foreach ($this->scenarioMenaces as $scenario) {
+            foreach ($scenario->getMesuresProtections() as $mesureProtection) {
+                $mesures[] = $mesureProtection;
+            }
+        }
 
-    public function setMesureProtections($mesureProtections): void
-    {
-        $this->mesureProtections = $mesureProtections;
+        return $mesures;
     }
 }

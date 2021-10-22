@@ -14,7 +14,7 @@ abstract class AbstractScenarioMenace
 
     protected string $nom;
     /**
-     * @var array|MesureProtection
+     * @var array|AbstractMesureProtection
      */
     protected $mesuresProtections;
 

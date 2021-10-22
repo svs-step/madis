@@ -68,7 +68,7 @@
                                 {% set widthnbNonConformesMajeures = 100 - (widthNbConforme + widthnbNonConformesMineures) %}
                                 {% set conformiteBackgroundColor = getConformiteLevelWeight(conformiteTraitement) %}
                                 {% if conformiteTraitement.analyseImpacts is not empty %}
-                                    {% set analyseImpact = (conformiteTraitement.analyseImpacts|first) %}
+                                    {% set analyseImpact = getLastAnalyseImpact(conformiteTraitement) %}
                                 {% endif %}
                             {% endif %}
                             <tr>
@@ -154,10 +154,17 @@
                                             {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}
                                         </a>
                                         {% if conformiteTraitement is not null %}
-                                            <a href="{{ path('registry_conformite_traitement_start_aipd', {'id': conformiteTraitement.id}) }}">
-                                                <i class="fa fa-chalkboard-teacher"></i>
-                                                {{ 'aipd.analyse_impact.action.create'|trans }}
-                                            </a>
+                                            {% if analyseImpact is not null %}
+                                                <a href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
+                                                    <i class="fa fa-chalkboard-teacher"></i>
+                                                    {{ 'aipd.analyse_impact.action.edit'|trans }}
+                                                </a>
+                                            {% else %}
+                                                <a href="{{ path('registry_conformite_traitement_start_aipd', {'id': conformiteTraitement.id}) }}">
+                                                    <i class="fa fa-chalkboard-teacher"></i>
+                                                    {{ 'aipd.analyse_impact.action.create'|trans }}
+                                                </a>
+                                            {% endif %}
                                         {% endif %}
                                     </td>
                                 {% endif %}
