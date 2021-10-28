@@ -42,3 +42,8 @@ aipd_analyse_impact_print:
     path: '/imprimer/{id}'
     methods: ['GET']
     controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:printAction'
+
+aipd_analyse_impact_validation:
+    path: '/validation/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:validationAction'

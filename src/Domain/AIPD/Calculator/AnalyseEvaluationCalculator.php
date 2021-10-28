@@ -25,10 +25,14 @@ class AnalyseEvaluationCalculator
         return VraisemblanceGraviteDictionary::getImpact($value);
     }
 
-    public static function calculateImpactResiduel(AnalyseScenarioMenace $scenarioMenace)
+    public static function calculateIndicateurResiduel(int $indicateurPotentiel, AnalyseScenarioMenace $scenarioMenace)
     {
+        //Gr = max[Gi - (Gi * <mG/<pG); 0,01]
+        //Gr = max[Gi - (Gi * <mG/<pG); 0,01]
         $value = 0;
 
-        return VraisemblanceGraviteDictionary::getImpact($value);
+        $indicateurResiduel = max($indicateurPotentiel - ($indicateurPotentiel * 1), 0.25);
+
+        return $indicateurResiduel;
     }
 }

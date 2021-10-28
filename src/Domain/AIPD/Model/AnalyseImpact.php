@@ -51,10 +51,23 @@ class AnalyseImpact
      */
     private $mesureProtections;
 
+    private bool $isReadyForValidation = false;
+
+    private AnalyseAvis $avisReferent;
+    private AnalyseAvis $avisDpd;
+    private AnalyseAvis $avisRepresentant;
+    private AnalyseAvis $avisResponsable;
+
+    private $isValidated = false;
+
     public function __construct()
     {
-        $this->id     = Uuid::uuid4();
-        $this->statut = StatutAnalyseImpactDictionary::EN_COURS;
+        $this->id               = Uuid::uuid4();
+        $this->statut           = StatutAnalyseImpactDictionary::EN_COURS;
+        $this->avisReferent     = new AnalyseAvis();
+        $this->avisDpd          = new AnalyseAvis();
+        $this->avisRepresentant = new AnalyseAvis();
+        $this->avisResponsable  = new AnalyseAvis();
     }
 
     public function __toString()
@@ -147,5 +160,65 @@ class AnalyseImpact
         }
 
         return $mesures;
+    }
+
+    public function isReadyForValidation(): bool
+    {
+        return $this->isReadyForValidation;
+    }
+
+    public function setIsReadyForValidation(bool $isReadyForValidation): void
+    {
+        $this->isReadyForValidation = $isReadyForValidation;
+    }
+
+    public function getAvisReferent(): AnalyseAvis
+    {
+        return $this->avisReferent;
+    }
+
+    public function setAvisReferent(AnalyseAvis $avisReferent): void
+    {
+        $this->avisReferent = $avisReferent;
+    }
+
+    public function getAvisDpd(): AnalyseAvis
+    {
+        return $this->avisDpd;
+    }
+
+    public function setAvisDpd(AnalyseAvis $avisDpd): void
+    {
+        $this->avisDpd = $avisDpd;
+    }
+
+    public function getAvisRepresentant(): AnalyseAvis
+    {
+        return $this->avisRepresentant;
+    }
+
+    public function setAvisRepresentant(AnalyseAvis $avisRepresentant): void
+    {
+        $this->avisRepresentant = $avisRepresentant;
+    }
+
+    public function getAvisResponsable(): AnalyseAvis
+    {
+        return $this->avisResponsable;
+    }
+
+    public function setAvisResponsable(AnalyseAvis $avisResponsable): void
+    {
+        $this->avisResponsable = $avisResponsable;
+    }
+
+    public function isValidated(): bool
+    {
+        return $this->isValidated;
+    }
+
+    public function setIsValidated(bool $isValidated): void
+    {
+        $this->isValidated = $isValidated;
     }
 }

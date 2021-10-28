@@ -69,6 +69,7 @@ aipd:
             create: Réaliser une AIPD
             edit: Modifier l'AIPD
             modele: Choisir ce modèle
+            validation: Passer en validation
         flashbag:
             success:
                 delete: L'analyse d'impact "%object%" a bien été supprimée
@@ -79,7 +80,13 @@ aipd:
             list: Analyses d'impacts
             create: Réaliser une AIPD
             delete: Supprimer une AIPD
+            evaluation: Évaluer une AIPD
+            validation: Valider une AIPD
         list:
+            avis_dpd: Avis du DPD
+            avis_referent: Avis du référent RGPD
+            avis_representant: Avis des représentants des personnes concernées
+            avis_responsable: Validation du responsable de traitement
             traitement: Traitement
             date_creation: Date de création
             date_validation: Date de validation

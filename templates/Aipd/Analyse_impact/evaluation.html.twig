@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'aipd_analyse_impact list' %}
+{% set bodyClass = 'aipd_analyse_impact evaluation' %}
 {% set menuItem = 'registry_conformite_traitement' %}
 
-{% block title %}{{ 'aipd.analyse_impact.title.list'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'aipd.analyse_impact.title.evaluation'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
@@ -12,7 +12,7 @@
 
 {% block body_head %}
     <h1>
-        {{ 'aipd.analyse_impact.title.list'|trans }}
+        {{ 'aipd.analyse_impact.title.evaluation'|trans }}
         <small>{{ analyseImpact.conformiteTraitement.traitement.name ~ ' - Étape 5 sur 5 : Évaluation' }}</small>
     </h1>
 {% endblock %}
@@ -26,6 +26,12 @@
                 <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.grands_domaines'|trans }}</div>
                 <div class="box-body">
                     <canvas id="grandsDomaines-chart"></canvas>
+                </div>
+            </div>
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.risques_residuels'|trans }}</div>
+                <div class="box-body">
+                    <canvas id="risquesResiduels-chart"></canvas>
                 </div>
             </div>
             <div class="box box-solid box-info">
@@ -66,6 +72,49 @@
                     <canvas id="mesuresSecurite-chart"></canvas>
                 </div>
             </div>
+
+            <div class="box box-solid box-success">
+                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.moyenne_dic_residuel'|trans }}</div>
+                <div class="box-body">
+                    <table class="table dic-table" style="height: 450px; width:80%">
+                        <tr class="dic-darkpink">
+                            <td class="dic-nocolor">Maximale</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="dic-nocolor">Importante</td>
+                            <td class="dic-lightpink"></td>
+                            <td class="dic-lightpink"></td>
+                            <td class="dic-lightpink"></td>
+                            <td class="dic-darkpink"></td>
+                        </tr>
+                        <tr>
+                            <td class="dic-nocolor">Limitée</td>
+                            <td class="dic-lightgreen"></td>
+                            <td class="dic-lightgreen"></td>
+                            <td class="dic-lightpink"></td>
+                            <td class="dic-darkpink"></td>
+                        </tr>
+                        <tr>
+                            <td class="dic-nocolor">Négligeable</td>
+                            <td class="dic-darkgreen"></td>
+                            <td class="dic-lightgreen"></td>
+                            <td class="dic-lightpink"></td>
+                            <td class="dic-darkpink"></td>
+                        </tr>
+                        <tr>
+                            <td class="dic-nocolor"></td>
+                            <td>Négligeable</td>
+                            <td>Limitée</td>
+                            <td>Importante</td>
+                            <td>Maximale</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
             <div class="box box-solid box-primary">
                 <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
                 <div class="box-body">
@@ -92,7 +141,9 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body text-center">
-                    <a  href="{{ path('aipd_modele_analyse_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
+                    <a href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
+                    <a href="{{ path('aipd_analyse_impact_validation', {'id': analyseImpact.id}) }}" class="btn btn-primary">{{ 'aipd.analyse_impact.action.validation'|trans }}</a>
+                    <a href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-info">{{ 'action.draft'|trans }}</a>
                 </div>
             </div>
         </div>
@@ -106,6 +157,8 @@
     <script>
         let colorBlue = 'rgba(54, 162, 235, 0.5)';
         let colorPurple = 'rgba(153, 51, 204, 0.5)';
+        let colorTeal = 'rgba(109, 199, 200, 1)';
+        let colorPink = 'rgba(243, 109, 143, 1)';
 
         let domainesLabels = [];
         let domainesDatas = [];
@@ -130,7 +183,11 @@
 
         let mesuresLabels = [];
         let mesuresDatas = [];
+        let risquesLabels = [];
+        let risquesDataSet1 = [1];
+        let risquesDataSet2 = [2];
         {% for scenario in analyseImpact.scenarioMenaces %}
+            risquesLabels.push('{{ scenario.nom|truncate(20, '...') }}');
             {% for mesure in scenario.mesuresProtections %}
                 mesuresLabels.push('{{ mesure.nom }}');
                 {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
@@ -143,6 +200,9 @@
             {% endfor %}
         {% endfor %}
         mesuresDatas = [mesuresDatas];
+        risquesDataSet1 = {label: "Risque couvert", data: risquesDataSet1, color: colorTeal};
+        risquesDataSet2 = {label: "Risque résiduel", data: risquesDataSet2, colorPink};
+        let risquesDatas = [risquesDataSet1, risquesDataSet2];
 
     </script>
 

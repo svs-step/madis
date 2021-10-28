@@ -32,13 +32,23 @@
                             <th>
                                 <input class="datepicker form-control" type="text" id="search_date_de_validation" placeholder="Date validation" style="width: 100%;">
                             </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_modele" placeholder="Modèle utilisé" style="width: 100%;">
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                             <th></th>
                         </tr>
                         <tr>
                             <th>{{ 'aipd.analyse_impact.list.traitement'|trans }}</th>
                             <th>{{ 'aipd.analyse_impact.list.date_creation'|trans }}</th>
                             <th>{{ 'aipd.analyse_impact.list.date_validation'|trans }}</th>
-                            <th>{{ 'aipd.analyse_impact.list.modele'|trans }}</th>
+                            <th style="width: 15%">{{ 'aipd.analyse_impact.list.modele'|trans }}</th>
+                            <th>{{ 'aipd.analyse_impact.list.avis_referent'|trans }}</th>
+                            <th>{{ 'aipd.analyse_impact.list.avis_dpd'|trans }}</th>
+                            <th>{{ 'aipd.analyse_impact.list.avis_representant'|trans }}</th>
+                            <th>{{ 'aipd.analyse_impact.list.avis_responsable'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -58,6 +68,10 @@
             {"data" : "dateDeCreation"},
             {"data": "dateDeValidation"},
             {"data": "modele"},
+            {"data": "avisReferent"},
+            {"data": "avisDpd"},
+            {"data": "avisRepresentant"},
+            {"data": "avisResponsable"},
             {"data": "actions", "className": "noVis", "orderable": false},
         ],
         order:  [
