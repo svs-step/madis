@@ -69,6 +69,8 @@ security:
         - { path: ^/utilisateurs, roles: ROLE_ADMIN }
         - { path: ^/journalisation, roles: ROLE_ADMIN }
         - { path: ^/traitements/configuration, roles: ROLE_ADMIN }
+        - { path: ^/modele-analyse, roles: ROLE_ADMIN }
+        - { path: ^/mesure-protection, roles: ROLE_ADMIN }
         # Manager routes
         - { path: ^/.+/creer$, roles: ROLE_USER }
         - { path: ^/.+/creer/.+$, roles: ROLE_USER }

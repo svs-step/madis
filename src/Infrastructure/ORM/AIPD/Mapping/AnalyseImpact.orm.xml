@@ -11,6 +11,7 @@
         <field name="statut" column="statut"/>
         <field name="modeleAnalyse" column="modele_analyse"/>
         <field name="dateValidation" column="date_validation" type="date" nullable="true"/>
+        <field name="isReadyForValidation" column="ready_validation" type="boolean"/>
 
         <field name="createdAt" column="created_at" type="datetime_immutable">
             <gedmo:timestampable on="create"/>
@@ -44,5 +45,30 @@
                 <cascade-remove/>
             </cascade>
         </one-to-many>
+        
+        <one-to-one field="avisReferent" target-entity="App\Domain\AIPD\Model\AnalyseAvis">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-one>
+        <one-to-one field="avisDpd" target-entity="App\Domain\AIPD\Model\AnalyseAvis">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-one>
+        <one-to-one field="avisRepresentant" target-entity="App\Domain\AIPD\Model\AnalyseAvis">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-one>
+        <one-to-one field="avisResponsable" target-entity="App\Domain\AIPD\Model\AnalyseAvis">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-one>
     </entity>
 </doctrine-mapping>

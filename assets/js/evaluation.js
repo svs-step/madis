@@ -28,6 +28,34 @@ function radarChart(id, labels, serieLabel, data, color) {
     });
 }
 
+
+function stackedBarChart(id, labels, data) {
+
+    new Chart($('#' + id), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: data,
+        },
+        options: {
+            scale: {
+                ticks: {
+                    min: 0,
+                    max: 5,
+                },
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true,
+                }
+            }
+        }
+    });
+}
+
+
+
 $(document).ready(function() {
     radarChart(
         'grandsDomaines-chart',
@@ -43,5 +71,11 @@ $(document).ready(function() {
         [''],
         mesuresDatas,
         [colorPurple]
+    );
+
+    stackedBarChart(
+        'risquesResiduels-chart',
+        risquesLabels,
+        risquesDatas,
     );
 });

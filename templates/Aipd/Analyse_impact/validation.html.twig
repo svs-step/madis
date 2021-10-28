@@ -1,0 +1,93 @@
+{% import _self as formMacros %}
+{% macro printFormAvisLine(formAvis, firstColumnText) %}
+    <tr>
+
+        <td>{{ firstColumnText }}</td>
+        <td>{{ form_widget(formAvis.date) }}</td>
+        <td>{{ form_widget(formAvis.reponse) }}</td>
+        <td>{{ form_widget(formAvis.detail) }}</td>
+
+    </tr>
+{% endmacro %}
+
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'aipd_analyse_impact validation' %}
+{% set menuItem = 'registry_conformite_traitement' %}
+
+{% block title %}{{ 'aipd.analyse_impact.title.validation'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'aipd.analyse_impact.title.validation'|trans }}
+        <small>{{ form.vars.value.conformiteTraitement.traitement.name }}</small>
+    </h1>
+{% endblock %}
+
+
+{% block body %}
+{{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Avis des acteurs</th>
+                                <th>Date</th>
+                                <th>Réponse</th>
+                                <th>Détail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{ formMacros.printFormAvisLine(form.avisReferent, "Avis du référent RGPD") }}
+                            {{ formMacros.printFormAvisLine(form.avisDpd, "Avis du DPD") }}
+                            {{ formMacros.printFormAvisLine(form.avisRepresentant, "Avis des représentants des personnes concernées") }}
+                            {{ formMacros.printFormAvisLine(form.avisResponsable, "Validation formelle du responsable de traitement") }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body text-center">
+                    <a href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
+                    <input type="submit" class="btn btn-primary" value="Valider l'AIPD">
+                    {{ form_widget(form.saveDraft) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function removeRequiredFields () {
+            const form = $("form[name='analyse_avis']");
+            form.find('input').each(function(){
+                console.log("ksjnfk");
+                $(this).prop('required',false);
+            });
+        }
+
+        $(document).ready(function() {
+            $("button[name='analyse_avis[saveDraft]']").on("click", function (e) {
+                console.log("sdjnfksjdnf");
+                removeRequiredFields();
+            });
+        });
+
+    </script>
+{% endblock %}
+

@@ -7,8 +7,11 @@ namespace App\Domain\AIPD\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\AIPD\Dictionary\ReponseAvisDictionary;
 use App\Domain\AIPD\Form\Flow\AnalyseImpactFlow;
+use App\Domain\AIPD\Form\Type\AnalyseAvisType;
 use App\Domain\AIPD\Form\Type\AnalyseImpactType;
+use App\Domain\AIPD\Model\AnalyseAvis;
 use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\AIPD\Repository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,6 +19,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use Gaufrette\Filesystem;
 use Knp\Snappy\Pdf;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -89,11 +93,16 @@ class AnalyseImpactController extends CRUDController
 
     public function listDataTables(Request $request): JsonResponse
     {
-        $request = $this->requestStack->getMasterRequest();
+        $request  = $this->requestStack->getMasterRequest();
+        $user     = $this->userProvider->getAuthenticatedUser();
+        $criteria = [];
 
-        $analyses = $this->getResults($request);
-
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $criteria['collectivity']  = $user->getCollectivity();
+        }
+        $analyses = $this->getResults($request, $criteria);
         $response = $this->getBaseDataTablesResponse($request, $analyses);
+
         /** @var AnalyseImpact $analyse */
         foreach ($analyses as $analyse) {
             $response['data'][] = [
@@ -101,6 +110,10 @@ class AnalyseImpactController extends CRUDController
                 'dateDeCreation'   => $analyse->getCreatedAt()->format('d/m/Y H:i'),
                 'dateDeValidation' => null === $analyse->getDateValidation() ? '' : $analyse->getDateValidation()->format('d/m/Y H:i'),
                 'modele'           => $analyse->getModeleAnalyse(),
+                'avisReferent'     => $this->generateAvisLabel($analyse->getAvisReferent()),
+                'avisDpd'          => $this->generateAvisLabel($analyse->getAvisDpd()),
+                'avisRepresentant' => $this->generateAvisLabel($analyse->getAvisRepresentant()),
+                'avisResponsable'  => $this->generateAvisLabel($analyse->getAvisResponsable()),
                 'actions'          => $this->generateActionCell($analyse),
             ];
         }
@@ -118,7 +131,11 @@ class AnalyseImpactController extends CRUDController
             1 => 'dateDeCreation',
             2 => 'dateDeValidation',
             3 => 'modele',
-            4 => 'actions',
+            4 => 'avisReferent',
+            5 => 'avisDpd',
+            6 => 'avisRepresentant',
+            7 => 'avisResponsable',
+            8 => 'actions',
         ];
     }
 
@@ -128,20 +145,37 @@ class AnalyseImpactController extends CRUDController
         <i class="fa fa-print"></i>' .
             $this->translator->trans('action.print') . '
         </a>';
-        $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
-        <i class="fa fa-pencil-alt"></i>' .
-            $this->translator->trans('action.edit') . '
-        </a>';
-        $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
-        <i class="fa fa-pencil-alt"></i>' .
-            $this->translator->trans('action.delete') . '
-        </a>';
+        if (!$analyseImpact->isReadyForValidation()) {
+            $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
+            <i class="fa fa-pencil-alt"></i>' .
+                    $this->translator->trans('action.edit') . '
+            </a>';
+        }
         $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
         <i class="fa fa-pencil-alt"></i>' .
             $this->translator->trans('action.delete') . '
         </a>';
 
         return $cell;
+    }
+
+    public function generateAvisLabel(AnalyseAvis $avis)
+    {
+        switch ($avis->getReponse()) {
+            case ReponseAvisDictionary::REPONSE_FAVORABLE:
+                $color = 'success';
+                break;
+            case ReponseAvisDictionary::REPONSE_FAVORABLE_RESERVE:
+                $color = 'warning';
+                break;
+            case ReponseAvisDictionary::REPONSE_DEFAVORABLE:
+                $color = 'danger';
+                break;
+            default:
+                $color = 'default';
+        }
+
+        return '<span class="label label-' . $color . '" style="min-width: 100%; display: inline-block;">' . ReponseAvisDictionary::getReponseAvis()[$avis->getReponse()] . '</span>';
     }
 
     /**
@@ -307,5 +341,28 @@ class AnalyseImpactController extends CRUDController
 
     public function printAction(string $id)
     {
+    }
+
+    public function validationAction(Request $request, string $id)
+    {
+        if (null === $object = $this->repository->findOneById($id)) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+        /** @var Form $form */
+        $form = $this->createForm(AnalyseAvisType::class, $object);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ('saveDraft' !== $form->getClickedButton() && ReponseAvisDictionary::REPONSE_NONE !== $object->getAvisResponsable()) {
+                $object->setIsValidated(true);
+            }
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('validation'), [
+            'form' => $form->createView(),
+        ]);
     }
 }
