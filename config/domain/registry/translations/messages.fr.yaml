@@ -474,15 +474,17 @@ registry:
             show: Visualiser un traitement
             configure: Configurer les traitements
         tab:
+          conformite: Évaluation de la conformoite du traitement
           data_category: Catégorie des données
           details: Détails
           general: Informations générales
           historic: Historique
+          last_aipd: Dernière analyse d'impact réalisée
           proofs: Documents associés
           public: Registre publique
+          recipients: Destination
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
-          recipients: Destination
 
     violation:
         action:

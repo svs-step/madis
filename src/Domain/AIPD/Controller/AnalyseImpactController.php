@@ -107,9 +107,10 @@ class AnalyseImpactController extends CRUDController
         foreach ($analyses as $analyse) {
             $response['data'][] = [
                 'traitement'       => '<a href="' . $this->router->generate('registry_treatment_show', ['id' => $analyse->getConformiteTraitement()->getTraitement()->getId()]) . '">' . $analyse->getConformiteTraitement()->getTraitement()->getName() . '</a>',
-                'dateDeCreation'   => $analyse->getCreatedAt()->format('d/m/Y H:i'),
-                'dateDeValidation' => null === $analyse->getDateValidation() ? '' : $analyse->getDateValidation()->format('d/m/Y H:i'),
+                'dateDeCreation'   => $analyse->getCreatedAt()->format('d/m/Y'),
+                'dateDeValidation' => null === $analyse->getDateValidation() ? '' : $analyse->getDateValidation()->format('d/m/Y'),
                 'modele'           => $analyse->getModeleAnalyse(),
+                'collectivite'     => $analyse->getConformiteTraitement()->getTraitement()->getCollectivity()->getShortName(),
                 'avisReferent'     => $this->generateAvisLabel($analyse->getAvisReferent()),
                 'avisDpd'          => $this->generateAvisLabel($analyse->getAvisDpd()),
                 'avisRepresentant' => $this->generateAvisLabel($analyse->getAvisRepresentant()),
@@ -131,11 +132,12 @@ class AnalyseImpactController extends CRUDController
             1 => 'dateDeCreation',
             2 => 'dateDeValidation',
             3 => 'modele',
-            4 => 'avisReferent',
-            5 => 'avisDpd',
-            6 => 'avisRepresentant',
-            7 => 'avisResponsable',
-            8 => 'actions',
+            4 => 'collectivite',
+            5 => 'avisReferent',
+            6 => 'avisDpd',
+            7 => 'avisRepresentant',
+            8 => 'avisResponsable',
+            9 => 'actions',
         ];
     }
 
@@ -145,11 +147,17 @@ class AnalyseImpactController extends CRUDController
         <i class="fa fa-print"></i>' .
             $this->translator->trans('action.print') . '
         </a>';
-        if (!$analyseImpact->isReadyForValidation()) {
+        if (!$analyseImpact->isValidated()) {
             $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
-            <i class="fa fa-pencil-alt"></i>' .
-                    $this->translator->trans('action.edit') . '
-            </a>';
+                <i class="fa fa-pencil-alt"></i>' .
+                        $this->translator->trans('action.edit') . '
+                </a>';
+            if ($analyseImpact->isReadyForValidation()) {
+                $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_validation', ['id' => $analyseImpact->getId()]) . '">
+                <i class="fa fa-check-square"></i>' .
+                    $this->translator->trans('action.validate') . '
+                </a>';
+            }
         }
         $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
         <i class="fa fa-pencil-alt"></i>' .
@@ -347,6 +355,10 @@ class AnalyseImpactController extends CRUDController
     {
         if (null === $object = $this->repository->findOneById($id)) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+        if (!$object->isReadyForValidation()) {
+            $object->setIsReadyForValidation(true);
+            $this->entityManager->flush();
         }
         /** @var Form $form */
         $form = $this->createForm(AnalyseAvisType::class, $object);
