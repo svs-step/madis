@@ -43,6 +43,7 @@ class ConformiteTraitementExtension extends AbstractExtension
             new TwigFunction('orderReponseByQuestionPositionAsc', [$this, 'orderReponseByQuestionPositionAsc']),
             new TwigFunction('getPlanifiedMesurements', [$this, 'getPlanifiedMesurements']),
             new TwigFunction('getConformiteLevelWeight', [$this, 'getConformiteLevelWeight']),
+            new TwigFunction('getConformiteTraitementLabel', [$this, 'getConformiteTraitementLabel']),
         ];
     }
 
@@ -83,5 +84,23 @@ class ConformiteTraitementExtension extends AbstractExtension
         $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);
 
         return ConformiteTraitementLevelDictionary::getConformitesWeight()[$level];
+    }
+
+    public function getConformiteTraitementLabel(ConformiteTraitement $conformiteTraitement): string
+    {
+        $level = $this->getConformiteLevelWeight($conformiteTraitement);
+        $label = ConformiteTraitementLevelDictionary::getConformites()[array_flip(ConformiteTraitementLevelDictionary::getConformitesWeight())[$level]];
+        switch ($level) {
+            case 1:
+                $color = 'green';
+                break;
+            case 2:
+                $color = 'orange';
+                break;
+            default:
+                $color = 'red';
+        }
+
+        return '<span class="badge bg-' . $color . '">' . $label . '</span>';
     }
 }

@@ -45,6 +45,7 @@
                             <th>{{ 'aipd.analyse_impact.list.date_creation'|trans }}</th>
                             <th>{{ 'aipd.analyse_impact.list.date_validation'|trans }}</th>
                             <th style="width: 15%">{{ 'aipd.analyse_impact.list.modele'|trans }}</th>
+                            <th>{{ 'aipd.analyse_impact.list.collectivite'|trans }}</th>
                             <th>{{ 'aipd.analyse_impact.list.avis_referent'|trans }}</th>
                             <th>{{ 'aipd.analyse_impact.list.avis_dpd'|trans }}</th>
                             <th>{{ 'aipd.analyse_impact.list.avis_representant'|trans }}</th>
@@ -62,12 +63,18 @@
 {% block javascripts %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 
+    {% set collectivityIsVisible = false %}
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set collectivityIsVisible = true %}
+    {% endif %}
+
     {% set dataTableOptions = {
         columns: [
             {"data": "traitement", "className": "noVis"},
             {"data" : "dateDeCreation"},
             {"data": "dateDeValidation"},
             {"data": "modele"},
+            {"data": "collectivite"},
             {"data": "avisReferent"},
             {"data": "avisDpd"},
             {"data": "avisRepresentant"},

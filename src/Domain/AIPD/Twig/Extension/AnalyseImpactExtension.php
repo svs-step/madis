@@ -116,6 +116,8 @@ class AnalyseImpactExtension extends AbstractExtension
         $lastAnalyse = null;
 
         foreach ($conformiteTraitement->getAnalyseImpacts() as $analyseImpact) {
+            /* Une seule analyse d'impact peut être sans date de validation, car on ne peut en commencer une nouvelle
+            tant que l'actuelle n'a pas été validé. S'il n'y a pas de date, cela indique donc que c'est la dernière analyse */
             if (is_null($analyseImpact->getDateValidation())) {
                 return $analyseImpact;
             }

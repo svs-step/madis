@@ -17,4 +17,7 @@
             </td>
         </tr>
     {% endfor %}
+    {% if form.mesureProtections is empty %}
+        {% do form.mesureProtections.setRendered() %}
+    {% endif %}
 </table>

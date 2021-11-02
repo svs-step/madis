@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Model;
 
+use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\AIPD\Dictionary\StatutAnalyseImpactDictionary;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
-use Gedmo\Timestampable\Traits\Timestampable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class AnalyseImpact
 {
-    use Timestampable;
+    use HistoryTrait;
 
     private UuidInterface $id;
 
