@@ -7,14 +7,18 @@ namespace App\Domain\AIPD\Model;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\Common\Collections\Collection;
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @Serializer\ExclusionPolicy("none")
+ */
 class ModeleAnalyse
 {
     use HistoryTrait;
 
-    private UuidInterface $id;
+    private ?UuidInterface $id;
 
     private string $nom;
     private string $description;
@@ -27,40 +31,97 @@ class ModeleAnalyse
 
     /**
      * @var Collection|Collectivity[]
+     * @Serializer\Exclude
      */
     private $authorizedCollectivities;
 
     /**
      * @var array|CriterePrincipeFondamental[]
+     * @Serializer\Type("array<App\Domain\AIPD\Model\CriterePrincipeFondamental>")
      */
-    private $criterePrincipeFondamentaux;
+    private iterable $criterePrincipeFondamentaux;
 
     /**
      * @var array|ModeleQuestionConformite[]
+     * @Serializer\Type("array<App\Domain\AIPD\Model\ModeleQuestionConformite>")
      */
     private $questionConformites;
 
     /**
      * @var array|ModeleScenarioMenace[]
+     * @Serializer\Type("array<App\Domain\AIPD\Model\ModeleScenarioMenace>")
      */
     private $scenarioMenaces;
 
     /**
      * @see DuplicationTargetOptionDictionary
+     * @Serializer\Exclude
      */
-    private ?string $optionRightSelection;
+    private ?string $optionRightSelection = null;
 
     /**
      * @see CollectivityTypeDictionary
+     * @Serializer\Exclude
      */
     private ?iterable $authorizedCollectivityTypes;
+
+    /**
+     * @var \DateTimeImmutable|null
+     * @Serializer\Type("DateTimeImmutable")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTimeImmutable|null
+     * @Serializer\Type("DateTimeImmutable")
+     */
+    private $updatedAt;
 
     public function __construct()
     {
         $this->id = Uuid::uuid4();
     }
 
-    public function getId(): UuidInterface
+    public function __clone()
+    {
+        $this->id                       = null;
+        $this->authorizedCollectivities = null;
+
+        /* JetBrains complains for below error, but it's a false positive
+        See https://youtrack.jetbrains.com/issue/WI-56951 */
+//        $criteres = clone $this->criterePrincipeFondamentaux;
+//        $this->criterePrincipeFondamentaux = $criteres->toArray();
+        $questions = [];
+        foreach ($this->questionConformites as $questionConformite) {
+            $questions[] = clone $questionConformite;
+        }
+        $this->questionConformites = $questions;
+
+        $scenarios = [];
+        foreach ($this->scenarioMenaces as $scenario) {
+            $scenarios[] = clone $scenario;
+        }
+        $this->scenarioMenaces = $scenarios;
+    }
+
+    public function deserialize(): void
+    {
+        $this->id = Uuid::uuid4();
+        foreach ($this->scenarioMenaces as $scenario) {
+            $scenario->deserialize();
+            $scenario->setModeleAnalyse($this);
+        }
+        foreach ($this->questionConformites as $question) {
+            $question->deserialize();
+            $question->setModeleAnalyse($this);
+        }
+        foreach ($this->criterePrincipeFondamentaux as $critere) {
+            $critere->deserialize();
+            $critere->setModeleAnalyse($this);
+        }
+    }
+
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }
@@ -190,7 +251,7 @@ class ModeleAnalyse
         return $this->optionRightSelection;
     }
 
-    public function setOptionRightSelection(iterable $optionRightSelection)
+    public function setOptionRightSelection($optionRightSelection)
     {
         $this->optionRightSelection = $optionRightSelection;
     }

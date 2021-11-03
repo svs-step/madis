@@ -4,11 +4,18 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Model;
 
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @Serializer\ExclusionPolicy("none")
+ */
 class AbstractQuestionConformite
 {
+    /**
+     * @Serializer\Exclude
+     */
     protected UuidInterface $id;
     protected string $question;
     protected int $position;
@@ -22,6 +29,11 @@ class AbstractQuestionConformite
         $this->id       = Uuid::uuid4();
         $this->question = $question;
         $this->position = $position;
+    }
+
+    public function deserialize(): void
+    {
+        $this->id = Uuid::uuid4();
     }
 
     public function getId(): UuidInterface

@@ -166,6 +166,12 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "jms/metadata": {
+        "version": "2.5.1"
+    },
+    "jms/serializer": {
+        "version": "3.15.0"
+    },
     "knplabs/dictionary-bundle": {
         "version": "2.0",
         "recipe": {
@@ -282,6 +288,9 @@
     },
     "phpspec/prophecy": {
         "version": "v1.10.3"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "1.2.0"
     },
     "phpstan/phpstan": {
         "version": "0.12.18"

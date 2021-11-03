@@ -1,6 +1,7 @@
 aipd:
     modele_analyse:
         action:
+            import: Importer un modèle
             new: Nouveau modèle
             back_to_list: Retour à la liste
         title:
@@ -8,6 +9,7 @@ aipd:
             edit: Modifier un modèle
             list: Liste des modèles d'analyse  
             rights: Modifier les droits
+            import: Importer un modèle
         list:
             description: Description
             name: Nom du modèle d'analyse d'impact
@@ -18,6 +20,7 @@ aipd:
                 edit: Modele d'analyse "%object%" modifié avec succès
                 delete: Modele d'analyse "%object%" supprimé avec succès
                 rights: Droits du modele d'analyse "%object%" modifiés avec succès
+                import: Modèle d'analyse "%object%" importé avec succès
         form:
             scenario_menace:
                 add: Ajouter un scenario de menace

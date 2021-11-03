@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'aipd_modele_analyse form import' %}
+{% set menuItem = 'aipd_modele_analyse' %}
+
+{% block title %}{{ 'aipd.modele_analyse.title.import'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'aipd.modele_analyse.title.import'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'aipd.modele_analyse.title.list'|trans, 'link': path('aipd_modele_analyse_list') },
+        { 'name': 'aipd.modele_analyse.title.import'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {{ form_start(form) }}
+
+        <div class="col-md-12">
+            <div class="box box-solid box-solid">
+                <div class="box-body">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        {{ form_row(form.file) }}
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="box-footer text-center">
+            <a href="{{ path('aipd_modele_analyse_list') }}" class="btn btn-default">
+                {{ 'aipd.modele_analyse.action.back_to_list'|trans }}
+            </a>
+            <input type="submit" class="btn btn-primary" value="Soumettre">
+        </div>
+
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
