@@ -14,6 +14,7 @@ action:
     draft: Enregistrer un brouillon
     duplicate: Dupliquer
     edit: Modifier
+    export: Exporter
     impersonate: Se connecter
     print: Imprimer
     reinitialize: Réinitialisation

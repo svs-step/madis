@@ -32,3 +32,13 @@ aipd_modele_analyse_list_datatables:
     path: '/datatables'
     methods: ['POST']
     controller: 'App\Domain\AIPD\Controller\ModeleAnalyseController:listDataTables'
+
+aipd_modele_analyse_export:
+    path: '/export/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\ModeleAnalyseController:exportAction'
+
+aipd_modele_analyse_import:
+    path: '/import'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\AIPD\Controller\ModeleAnalyseController:importAction'

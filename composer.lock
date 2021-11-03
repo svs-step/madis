@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b159d69f3b53442fa547bb515a1f075d",
+    "content-hash": "e4957c88d17b0e4f22c220eb69b7b353",
     "packages": [
         {
             "name": "api-platform/core",
@@ -409,26 +409,27 @@
         },
         {
             "name": "doctrine/annotations",
-            "version": "1.10.2",
+            "version": "1.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "b9d758e831c70751155c698c2f7df4665314a1cb"
+                "reference": "bfe91e31984e2ba76df1c1339681770401ec262f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/b9d758e831c70751155c698c2f7df4665314a1cb",
-                "reference": "b9d758e831c70751155c698c2f7df4665314a1cb",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/bfe91e31984e2ba76df1c1339681770401ec262f",
+                "reference": "bfe91e31984e2ba76df1c1339681770401ec262f",
                 "shasum": ""
             },
             "require": {
                 "doctrine/lexer": "1.*",
                 "ext-tokenizer": "*",
-                "php": "^7.1"
+                "php": "^7.1 || ^8.0"
             },
             "require-dev": {
                 "doctrine/cache": "1.*",
-                "phpunit/phpunit": "^7.5"
+                "phpstan/phpstan": "^0.12.20",
+                "phpunit/phpunit": "^7.5 || ^9.1.5"
             },
             "type": "library",
             "extra": {
@@ -474,7 +475,11 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2020-04-20T09:18:32+00:00"
+            "support": {
+                "issues": "https://github.com/doctrine/annotations/issues",
+                "source": "https://github.com/doctrine/annotations/tree/1.10.x"
+            },
+            "time": "2020-08-10T19:35:50+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -1998,6 +2003,163 @@
             "time": "2014-01-12T16:20:24+00:00"
         },
         {
+            "name": "jms/metadata",
+            "version": "2.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/metadata.git",
+                "reference": "a995e6cef6d6f56a6226e1616a519630e2ef0aeb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/metadata/zipball/a995e6cef6d6f56a6226e1616a519630e2ef0aeb",
+                "reference": "a995e6cef6d6f56a6226e1616a519630e2ef0aeb",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "doctrine/cache": "^1.0",
+                "doctrine/coding-standard": "^8.0",
+                "mikey179/vfsstream": "^1.6.7",
+                "phpunit/phpunit": "^8.5|^9.0",
+                "psr/container": "^1.0",
+                "symfony/cache": "^3.1|^4.0|^5.0",
+                "symfony/dependency-injection": "^3.1|^4.0|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Metadata\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                },
+                {
+                    "name": "Asmir Mustafic",
+                    "email": "goetas@gmail.com"
+                }
+            ],
+            "description": "Class/method/property metadata management in PHP",
+            "keywords": [
+                "annotations",
+                "metadata",
+                "xml",
+                "yaml"
+            ],
+            "support": {
+                "issues": "https://github.com/schmittjoh/metadata/issues",
+                "source": "https://github.com/schmittjoh/metadata/tree/2.5.1"
+            },
+            "time": "2021-08-04T19:32:08+00:00"
+        },
+        {
+            "name": "jms/serializer",
+            "version": "3.15.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/serializer.git",
+                "reference": "9d6d9b81889904603383722ca0cd7f7999baeebc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/9d6d9b81889904603383722ca0cd7f7999baeebc",
+                "reference": "9d6d9b81889904603383722ca0cd7f7999baeebc",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/annotations": "^1.10.4",
+                "doctrine/instantiator": "^1.0.3",
+                "doctrine/lexer": "^1.1",
+                "jms/metadata": "^2.0",
+                "php": "^7.2||^8.0",
+                "phpstan/phpdoc-parser": "^0.4 || ^0.5 || ^1.0"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^8.1",
+                "doctrine/orm": "~2.1",
+                "doctrine/persistence": "^1.3.3|^2.0|^3.0",
+                "doctrine/phpcr-odm": "^1.3|^2.0",
+                "ext-pdo_sqlite": "*",
+                "jackalope/jackalope-doctrine-dbal": "^1.1.5",
+                "ocramius/proxy-manager": "^1.0|^2.0",
+                "phpstan/phpstan": "^0.12.65",
+                "phpunit/phpunit": "^8.0||^9.0",
+                "psr/container": "^1.0",
+                "symfony/dependency-injection": "^3.0|^4.0|^5.0|^6.0",
+                "symfony/expression-language": "^3.0|^4.0|^5.0|^6.0",
+                "symfony/filesystem": "^3.0|^4.0|^5.0|^6.0",
+                "symfony/form": "^3.0|^4.0|^5.0|^6.0",
+                "symfony/translation": "^3.0|^4.0|^5.0|^6.0",
+                "symfony/validator": "^3.1.9|^4.0|^5.0|^6.0",
+                "symfony/yaml": "^3.3|^4.0|^5.0|^6.0",
+                "twig/twig": "~1.34|~2.4|^3.0"
+            },
+            "suggest": {
+                "doctrine/collections": "Required if you like to use doctrine collection types as ArrayCollection.",
+                "symfony/cache": "Required if you like to use cache functionality.",
+                "symfony/yaml": "Required if you'd like to use the YAML metadata format."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JMS\\Serializer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                },
+                {
+                    "name": "Asmir Mustafic",
+                    "email": "goetas@gmail.com"
+                }
+            ],
+            "description": "Library for (de-)serializing data of any complexity; supports XML, JSON, and YAML.",
+            "homepage": "http://jmsyst.com/libs/serializer",
+            "keywords": [
+                "deserialization",
+                "jaxb",
+                "json",
+                "serialization",
+                "xml"
+            ],
+            "support": {
+                "issues": "https://github.com/schmittjoh/serializer/issues",
+                "source": "https://github.com/schmittjoh/serializer/tree/3.15.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/goetas",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-10-14T20:02:48+00:00"
+        },
+        {
             "name": "knplabs/dictionary-bundle",
             "version": "v2.3.0",
             "source": {
@@ -3312,6 +3474,55 @@
                 "writer"
             ],
             "time": "2018-07-14T16:59:43+00:00"
+        },
+        {
+            "name": "phpstan/phpdoc-parser",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpdoc-parser.git",
+                "reference": "dbc093d7af60eff5cd575d2ed761b15ed40bd08e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/dbc093d7af60eff5cd575d2ed761b15ed40bd08e",
+                "reference": "dbc093d7af60eff5cd575d2ed761b15ed40bd08e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan": "^1.0",
+                "phpstan/phpstan-strict-rules": "^1.0",
+                "phpunit/phpunit": "^9.5",
+                "symfony/process": "^5.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PHPStan\\PhpDocParser\\": [
+                        "src/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPDoc parser with support for nullable, intersection and generic types",
+            "support": {
+                "issues": "https://github.com/phpstan/phpdoc-parser/issues",
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.2.0"
+            },
+            "time": "2021-09-16T20:46:02+00:00"
         },
         {
             "name": "psr/cache",

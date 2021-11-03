@@ -9,6 +9,7 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\AIPD\Dictionary\BaseCriterePrincipeFondamental;
 use App\Domain\AIPD\Form\Flow\ModeleAIPDFlow;
+use App\Domain\AIPD\Form\Type\ImportModeleType;
 use App\Domain\AIPD\Form\Type\ModeleAnalyseRightsType;
 use App\Domain\AIPD\Form\Type\ModeleAnalyseType;
 use App\Domain\AIPD\Model\ModeleAnalyse;
@@ -18,11 +19,13 @@ use App\Domain\Registry\Repository\ConformiteTraitement\Question;
 use App\Domain\User\Repository\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\FilesystemInterface;
+use JMS\Serializer\SerializerBuilder;
 use Knp\Snappy\Pdf;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Intl\Exception\NotImplementedException;
 use Symfony\Component\Routing\RouterInterface;
@@ -281,6 +284,10 @@ class ModeleAnalyseController extends CRUDController
                 . $this->translator->trans('action.duplicate') .
             '</a>'
             . $htmltoReturnIfAdmin .
+            '<a href="' . $this->router->generate('aipd_modele_analyse_export', ['id' => $id]) . '">
+                <i class="fa fa-file-code"></i>' .
+                $this->translator->trans('action.export') .
+            '</a>' .
             '<a href="' . $this->router->generate('aipd_modele_analyse_delete', ['id' => $id]) . '">
                 <i class="fa fa-trash"></i>' .
                 $this->translator->trans('action.delete') .
@@ -295,5 +302,64 @@ class ModeleAnalyseController extends CRUDController
             '2' => 'updatedAt',
             '3' => 'actions',
         ];
+    }
+
+    public function exportAction(string $id)
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+        /** @var ModeleAnalyse $toExport */
+        $toExport = clone $object;
+        $toExport->setCriterePrincipeFondamentaux($toExport->getCriterePrincipeFondamentaux()->toArray());
+
+        $serializer = SerializerBuilder::create()->build();
+        $xml        = $serializer->serialize($toExport, 'xml');
+
+        $response    = new Response($xml);
+        $disposition = $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            self::formatToFileCompliant($object->getNom()) . '.xml'
+        );
+
+        $response->headers->set('Content-Disposition', $disposition);
+
+        return $response;
+    }
+
+    public function importAction(Request $request)
+    {
+        $form = $this->createForm(ImportModeleType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $content    = file_get_contents($form->getData()['file']->getPathname());
+            $serializer = SerializerBuilder::create()->build();
+            $object     = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
+            $object->deserialize();
+            $this->entityManager->persist($object);
+            $this->entityManager->flush();
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'import', $object));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('import'), [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    private static function formatToFileCompliant(string $string)
+    {
+        $unwanted_array = [
+            'Š'=> 'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+            'Ê'=> 'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
+            'Ú'=> 'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
+            'è'=> 'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
+            'ö'=> 'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y',
+        ];
+
+        return strtr($string, $unwanted_array);
     }
 }
