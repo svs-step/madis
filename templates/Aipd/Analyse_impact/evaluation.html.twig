@@ -76,43 +76,44 @@
             <div class="box box-solid box-success">
                 <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.moyenne_dic_residuel'|trans }}</div>
                 <div class="box-body">
-                    <table class="table dic-table" style="height: 450px; width:80%">
-                        <tr class="dic-darkpink">
-                            <td class="dic-nocolor">Maximale</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="dic-nocolor">Importante</td>
-                            <td class="dic-lightpink"></td>
-                            <td class="dic-lightpink"></td>
-                            <td class="dic-lightpink"></td>
-                            <td class="dic-darkpink"></td>
-                        </tr>
-                        <tr>
-                            <td class="dic-nocolor">Limitée</td>
-                            <td class="dic-lightgreen"></td>
-                            <td class="dic-lightgreen"></td>
-                            <td class="dic-lightpink"></td>
-                            <td class="dic-darkpink"></td>
-                        </tr>
-                        <tr>
-                            <td class="dic-nocolor">Négligeable</td>
-                            <td class="dic-darkgreen"></td>
-                            <td class="dic-lightgreen"></td>
-                            <td class="dic-lightpink"></td>
-                            <td class="dic-darkpink"></td>
-                        </tr>
-                        <tr>
-                            <td class="dic-nocolor"></td>
-                            <td>Négligeable</td>
-                            <td>Limitée</td>
-                            <td>Importante</td>
-                            <td>Maximale</td>
-                        </tr>
-                    </table>
+                    <canvas id="dicResiduels-chart"></canvas>
+{#                    <table class="table dic-table" style="height: 450px; width:80%">#}
+{#                        <tr class="dic-darkpink">#}
+{#                            <td class="dic-nocolor">Maximale</td>#}
+{#                            <td></td>#}
+{#                            <td></td>#}
+{#                            <td></td>#}
+{#                            <td></td>#}
+{#                        </tr>#}
+{#                        <tr>#}
+{#                            <td class="dic-nocolor">Importante</td>#}
+{#                            <td class="dic-lightpink"></td>#}
+{#                            <td class="dic-lightpink"></td>#}
+{#                            <td class="dic-lightpink"></td>#}
+{#                            <td class="dic-darkpink"></td>#}
+{#                        </tr>#}
+{#                        <tr>#}
+{#                            <td class="dic-nocolor">Limitée</td>#}
+{#                            <td class="dic-lightgreen"></td>#}
+{#                            <td class="dic-lightgreen"></td>#}
+{#                            <td class="dic-lightpink"></td>#}
+{#                            <td class="dic-darkpink"></td>#}
+{#                        </tr>#}
+{#                        <tr>#}
+{#                            <td class="dic-nocolor">Négligeable</td>#}
+{#                            <td class="dic-darkgreen"></td>#}
+{#                            <td class="dic-lightgreen"></td>#}
+{#                            <td class="dic-lightpink"></td>#}
+{#                            <td class="dic-darkpink"></td>#}
+{#                        </tr>#}
+{#                        <tr>#}
+{#                            <td class="dic-nocolor"></td>#}
+{#                            <td>Négligeable</td>#}
+{#                            <td>Limitée</td>#}
+{#                            <td>Importante</td>#}
+{#                            <td>Maximale</td>#}
+{#                        </tr>#}
+{#                    </table>#}
                 </div>
             </div>
             <div class="box box-solid box-primary">
@@ -128,7 +129,7 @@
                             <tr>
                                 <td>{{ scenario.nom }}</td>
                                 <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
-                                <td></td>
+                                <td>{{ getScenarioMenaceImpactResiduelLabel(scenario)|raw }}</td>
                             </tr>
                         {% endfor %}
                     </table>
@@ -184,10 +185,18 @@
         let mesuresLabels = [];
         let mesuresDatas = [];
         let risquesLabels = [];
-        let risquesDataSet1 = [1];
-        let risquesDataSet2 = [2];
+        let risquesDataSet1 = [];
+        let risquesDataSet2 = [];
+        let dicResiduelsData = [];
         {% for scenario in analyseImpact.scenarioMenaces %}
             risquesLabels.push('{{ scenario.nom|truncate(20, '...') }}');
+            risquesDataSet2.push({{ getScenarioMenaceImpactPotentiel(scenario) }});
+            risquesDataSet1.push({{ getScenarioMenaceImpactResiduel(scenario) }})
+            dicResiduelsData.push({
+                label: "{{ scenario.nom }}",
+                data: [{x: {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}, y: {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}, r: 10}],
+                backgroundColor: colorBlue
+            });
             {% for mesure in scenario.mesuresProtections %}
                 mesuresLabels.push('{{ mesure.nom }}');
                 {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
@@ -200,10 +209,9 @@
             {% endfor %}
         {% endfor %}
         mesuresDatas = [mesuresDatas];
-        risquesDataSet1 = {label: "Risque couvert", data: risquesDataSet1, color: colorTeal};
-        risquesDataSet2 = {label: "Risque résiduel", data: risquesDataSet2, colorPink};
+        risquesDataSet1 = {label: "Risque couvert", data: risquesDataSet1, backgroundColor: colorTeal};
+        risquesDataSet2 = {label: "Risque résiduel", data: risquesDataSet2, backgroundColor: colorPink};
         let risquesDatas = [risquesDataSet1, risquesDataSet2];
-
     </script>
 
     <script src="{{ asset('build/js/evaluation.js') }}"></script>

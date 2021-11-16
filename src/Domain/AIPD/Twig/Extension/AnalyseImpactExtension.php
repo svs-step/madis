@@ -24,9 +24,12 @@ class AnalyseImpactExtension extends AbstractExtension
             new TwigFunction('getFormattedActionProtectionsFromQuestion', [$this, 'getFormattedActionProtectionsFromQuestion']),
             new TwigFunction('getConformiteLabel', [$this, 'getConformiteLabel']),
             new TwigFunction('getCritereLabel', [$this, 'getCritereLabel']),
-            new TwigFunction('getScenarioMenaceImpactPotentielLabel', [$this, 'getScenarioMenaceImpactPotentielLabel']),
-            new TwigFunction('getScenarioMenaceImpactResiduelLabel', [$this, 'getScenarioMenaceImpactResiduelLabel']),
             new TwigFunction('getLastAnalyseImpact', [$this, 'getLastAnalyseImpact']),
+            new TwigFunction('getScenarioMenaceImpactPotentielLabel', [$this, 'getScenarioMenaceImpactPotentielLabel']),
+            new TwigFunction('getScenarioMenaceImpactPotentiel', [$this, 'getScenarioMenaceImpactPotentiel']),
+            new TwigFunction('getScenarioMenaceImpactResiduelLabel', [$this, 'getScenarioMenaceImpactResiduelLabel']),
+            new TwigFunction('getScenarioMenaceImpactResiduel', [$this, 'getScenarioMenaceImpactResiduel']),
+            new TwigFunction('getScenarioMenaceIndicateurResiduel', [$this, 'getScenarioMenaceIndicateurResiduel']),
         ];
     }
 
@@ -54,10 +57,32 @@ class AnalyseImpactExtension extends AbstractExtension
         return '<span class="label label-danger" style="min-width: 100%; display: inline-block;">Non-conforme majeure</span>';
     }
 
-    public function getScenarioMenaceImpactPotentielLabel(AnalyseScenarioMenace $scenarioMenace)
+    public function getScenarioMenaceImpactPotentiel(AnalyseScenarioMenace $scenarioMenace)
     {
-        $impact = AnalyseEvaluationCalculator::calculateImpactPotentiel($scenarioMenace);
+        return AnalyseEvaluationCalculator::calculateImpactPotentiel($scenarioMenace);
+    }
 
+    public function getScenarioMenaceImpactResiduel(AnalyseScenarioMenace $scenarioMenace)
+    {
+        return AnalyseEvaluationCalculator::calculateImpactResiduel($scenarioMenace);
+    }
+
+    public function getScenarioMenaceImpactPotentielLabel(AnalyseScenarioMenace $scenarioMenace): string
+    {
+        $impact = VraisemblanceGraviteDictionary::getImpact($this->getScenarioMenaceImpactPotentiel($scenarioMenace));
+
+        return $this->getImpactLabel($impact);
+    }
+
+    public function getScenarioMenaceImpactResiduelLabel(AnalyseScenarioMenace $scenarioMenace): string
+    {
+        $impact = VraisemblanceGraviteDictionary::getImpact($this->getScenarioMenaceImpactResiduel($scenarioMenace));
+
+        return $this->getImpactLabel($impact);
+    }
+
+    private function getImpactLabel(string $impact): string
+    {
         $labelColor = null;
         switch ($impact) {
             case VraisemblanceGraviteDictionary::NEGLIGEABLE:
@@ -77,17 +102,15 @@ class AnalyseImpactExtension extends AbstractExtension
         return '<span class="label label-' . $labelColor . '" style="min-width: 100%; display: inline-block;">' . VraisemblanceGraviteDictionary::getMasculineValues()[$impact] . '</span>';
     }
 
-    public function getScenarioMenaceImpactResiduelLabel(AnalyseScenarioMenace $scenarioMenace)
+    public function getScenarioMenaceIndicateurResiduel(AnalyseScenarioMenace $scenarioMenace, string $poidsType)
     {
-        $mesures = $scenarioMenace->getMesuresProtections();
+        if ('vraisemblance' === $poidsType) {
+            $indicateurInitial = VraisemblanceGraviteDictionary::getPoidsFromImpact($scenarioMenace->getVraisemblance());
+        } else {
+            $indicateurInitial = VraisemblanceGraviteDictionary::getPoidsFromImpact($scenarioMenace->getGravite());
+        }
 
-//        Gr = max[(Gi - (Gi * <mG/<pG)), 0.01];
-//        Vr = max[(Vi - (Vi * <mV/<pV)), 0.01];
-    }
-
-    private function getCompleteLabel($impact)
-    {
-        //TODO Factoriser les 2 méthodes ci-dessus
+        return AnalyseEvaluationCalculator::calculateIndicateurResiduel($scenarioMenace, $indicateurInitial, $poidsType);
     }
 
     public function getCritereLabel(CriterePrincipeFondamental $critere)
