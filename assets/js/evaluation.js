@@ -1,4 +1,3 @@
-
 function radarChart(id, labels, serieLabel, data, color) {
     let dataset = [];
     data.forEach(function(item, index) {
@@ -28,9 +27,7 @@ function radarChart(id, labels, serieLabel, data, color) {
     });
 }
 
-
 function stackedBarChart(id, labels, data) {
-
     new Chart($('#' + id), {
         type: 'bar',
         data: {
@@ -38,23 +35,63 @@ function stackedBarChart(id, labels, data) {
             datasets: data,
         },
         options: {
-            scale: {
-                ticks: {
-                    min: 0,
-                    max: 5,
-                },
+            scales: {
+                yAxes: [{
+                    ticks : {
+                        beginAtZero: true,
+                        stepSize: 1,
+                    },
+                }],
+                xAxes: [{
+                    stacked: true,
+                }],
                 x: {
                     stacked: true,
                 },
                 y: {
                     stacked: true,
-                }
+                },
             }
         }
     });
 }
 
-
+function bubbleChart(id, labels, data) {
+    new Chart($('#' + id), {
+        type: 'bubble',
+        data: {
+            datasets: data,
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks : {
+                        beginAtZero: true,
+                        stepSize: 1,
+                        min: 0,
+                        max: 4,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Gravité',
+                    }
+                }],
+                xAxes: [{
+                    ticks : {
+                        beginAtZero: true,
+                        stepSize: 1,
+                        min: 0,
+                        max: 4,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Vraisemblance',
+                    }
+                }],
+            }
+        }
+    });
+}
 
 $(document).ready(function() {
     radarChart(
@@ -77,5 +114,11 @@ $(document).ready(function() {
         'risquesResiduels-chart',
         risquesLabels,
         risquesDatas,
+    );
+
+    bubbleChart(
+        'dicResiduels-chart',
+        risquesLabels,
+        dicResiduelsData,
     );
 });

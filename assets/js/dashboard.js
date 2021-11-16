@@ -141,7 +141,7 @@ function barChart(id, labels, serieLabel, data, color) {
                 yAxes: [{
                     ticks : {
                         beginAtZero: true,
-                        stepSize: 1,
+                        stepSize: 0.5,
                     },
                 }]
             }
