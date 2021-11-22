@@ -23,7 +23,7 @@ abstract class AbstractScenarioMenace
     protected string $nom;
 
     /**
-     * @var array|PersistentCollection|AbstractMesureProtection[]
+     * @var array|PersistentCollection|AnalyseMesureProtection[]
      * @Serializer\Type("array<App\Domain\AIPD\Model\ModeleMesureProtection>")
      */
     protected $mesuresProtections;
