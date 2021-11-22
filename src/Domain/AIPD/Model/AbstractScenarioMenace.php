@@ -5,16 +5,26 @@ declare(strict_types=1);
 namespace App\Domain\AIPD\Model;
 
 use App\Domain\AIPD\Dictionary\VraisemblanceGraviteDictionary;
+use Doctrine\ORM\PersistentCollection;
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @Serializer\ExclusionPolicy("none")
+ */
 abstract class AbstractScenarioMenace
 {
+    /**
+     * @Serializer\Exclude
+     */
     protected UuidInterface $id;
 
     protected string $nom;
+
     /**
-     * @var array|AbstractMesureProtection
+     * @var array|PersistentCollection|AbstractMesureProtection[]
+     * @Serializer\Type("array<App\Domain\AIPD\Model\ModeleMesureProtection>")
      */
     protected $mesuresProtections;
 
@@ -38,6 +48,12 @@ abstract class AbstractScenarioMenace
     }
 
     public function __clone()
+    {
+        $this->id                 = Uuid::uuid4();
+        $this->mesuresProtections = (clone $this->mesuresProtections)->toArray();
+    }
+
+    public function deserialize(): void
     {
         $this->id = Uuid::uuid4();
     }

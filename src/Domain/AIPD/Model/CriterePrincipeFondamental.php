@@ -4,12 +4,19 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Model;
 
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/**
+ * @Serializer\ExclusionPolicy("none")
+ */
 class CriterePrincipeFondamental
 {
+    /**
+     * @Serializer\Exclude
+     */
     protected UuidInterface $id;
 
     protected string $label;
@@ -22,11 +29,18 @@ class CriterePrincipeFondamental
     private string $texteConformite;
     private string $texteNonConformite;
     private string $texteNonApplicable;
-    private string $justification;
+    private ?string $justification;
     private ?string $fichier;
     private ?UploadedFile $fichierFile = null;
 
+    /**
+     * @Serializer\Exclude
+     */
     private ?ModeleAnalyse $modeleAnalyse;
+
+    /**
+     * @Serializer\Exclude
+     */
     private ?AnalyseImpact $analyseImpact;
 
     public function __construct(string $label = null)
@@ -38,6 +52,11 @@ class CriterePrincipeFondamental
     }
 
     public function __clone()
+    {
+        $this->id = Uuid::uuid4();
+    }
+
+    public function deserialize(): void
     {
         $this->id = Uuid::uuid4();
     }
@@ -117,12 +136,12 @@ class CriterePrincipeFondamental
         $this->texteNonApplicable = $texteNonApplicable;
     }
 
-    public function getJustification(): string
+    public function getJustification(): ?string
     {
         return $this->justification;
     }
 
-    public function setJustification(string $justification): void
+    public function setJustification(?string $justification): void
     {
         $this->justification = $justification;
     }
