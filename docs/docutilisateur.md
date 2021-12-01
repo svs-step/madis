@@ -43,7 +43,7 @@ Les légendes et le détail des contenus sont affichés au survol de la souris.
 
 ``Astuce : vous pouvez réduire le bandeau du menu en cliquant sur « ☰ ». ``
 
-Dans le bandeau supérieur, en haut à droite, l'icone « ![Bouton Power](images\Bouton-Power.png) » permet de se déconnecter.
+Dans le bandeau supérieur, en haut à droite, l'icone « ![Bouton Power](images/Bouton-Power.png) » permet de se déconnecter.
 
 
 
@@ -546,7 +546,7 @@ Cette partie est réservée aux personnes administratrices, c'est-à-dire, princ
 
 Le tableau de bord administrateur permet d'avoir des indications plus avancées sur l'utilisation de Madis par l'ensemble des collectivités utilisatrices.
 
-![Capture d’écran 2021-11-23 172632](images\2021-11-23-172632.png)
+![Capture d’écran 2021-11-23 172632](images/2021-11-23-172632.png)
 
 Plusieurs indicateurs sont disponibles :
 
@@ -568,7 +568,7 @@ Enfin, plusieurs exports (en excel) sont disponibles pour pouvoir faire des rech
 
 ## Gestion des collectivités
 
-![Capture d’écran 2021-11-29 114310](images\2021-11-29-114310.png)
+![Capture d’écran 2021-11-29 114310](images/2021-11-29-114310.png)
 
 Dans ce module, on retrouve la liste des collectivités qui ont été créées dans Madis. 
 
@@ -578,7 +578,7 @@ Il est possible de créer une collectivité ou simplement voir les informations 
 
 ## Gestion des utilisateurs
 
-![Capture d’écran 2021-11-29 115444](images\2021-11-29-115823.png)
+![Capture d’écran 2021-11-29 115444](images/2021-11-29-115823.png)
 
 Dans ce module, on retrouve la liste des utilisateurs enregistrés dans Madis. Tous les champs sont remplis sauf potentiellement le champ dernière connexion si la personne ne s'est pas connecté au logiciel depuis la mise en place de la journalisation.
 
@@ -599,11 +599,11 @@ Les différents rôles sont :
 - Administrateur : l'utilisateur peut voir et modifier tout ce qui se trouve dans Madis pour toutes les collectivités.
 - Référent multi-collectivité : l'utilisateur peut voir tout ce qui se trouve dans Madis pour les collectivités pour lesquels il est référent et modifier les informations. Il ne peut cependant pas créer ou modifier de nouvelles collectivités ni d'utilisateurs ou modifier son propre profil utilisateur (en ajoutant des collectivités dans son champ d'action).
 
-![Capture d’écran 2021-12-01 104134](images\2021-12-01-104134.png)
+![Capture d’écran 2021-12-01 104134](images/2021-12-01-104134.png)
 
 ## Module de duplication
 
-![Capture d’écran 2021-11-29 120859](images\2021-11-29-121029.png)
+![Capture d’écran 2021-11-29 120859](images/2021-11-29-121029.png)
 
 Le module de duplication sert à dupliquer une ou plusieurs données (un traitement, un sous-traitant ou une action de protection) enregistrée dans une collectivité pour l'intégrer à une ou plusieurs autres collectivités. 
 
@@ -613,7 +613,7 @@ Le module de duplication sert à dupliquer une ou plusieurs données (un traitem
 
 ## La journalisation
 
-![Capture d’écran 2021-11-29 121633](images\2021-11-29-121946.png)
+![Capture d’écran 2021-11-29 121633](images/2021-11-29-121946.png)
 
 Le module de journalisation permet de tracer tout ce qui a été fait dans Madis. Madis associant un ID à chaque personne, même si la personne change de nom, elle ne peut pas changer d'ID ni le nom enregistré avant donc il est possible de remonter afin de savoir ce qu'il s'est passé dans Madis.
 
