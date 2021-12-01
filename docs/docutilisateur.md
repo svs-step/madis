@@ -1,4 +1,3 @@
-
 # Présentation générale de MADIS
 
 Madis est un logiciel conçu pour accompagner les collectivités à la mise en œuvre de leur conformité au RGPD.
@@ -44,7 +43,7 @@ Les légendes et le détail des contenus sont affichés au survol de la souris.
 
 ``Astuce : vous pouvez réduire le bandeau du menu en cliquant sur « ☰ ». ``
 
-Dans le bandeau supérieur, en haut à droite, l'icone « ![Bouton Power](images\Bouton Power.png) » permet de se déconnecter.
+Dans le bandeau supérieur, en haut à droite, l'icone « ![Bouton Power](images\Bouton-Power.png) » permet de se déconnecter.
 
 
 
