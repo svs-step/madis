@@ -3,13 +3,13 @@
 
 Madis est un logiciel conçu pour accompagner les collectivités à la mise en œuvre de leur conformité au RGPD.
 
-Cette notice pourra évoluer en fonction des évolutions règlementaires et des besoins des collectivités.
+Cette notice pourra évoluer en fonction des évolutions règlementaires, du logiciel et des besoins des collectivités.
 
 # Se connecter à MADIS
 
 Madis est accessible depuis les navigateurs récents connectés à internet et sur la plupart des systèmes d'exploitation. L'interface est responsive et peut être consultée depuis tout client mobile tactile (préférer une tablette pour un confort d'affichage).
 
-Pour vous connecter, vous devez avoir un compte (celui-ci est composé de votre adresse email).
+Pour vous connecter, vous devez avoir un compte (celui-ci est composé de votre adresse email). Si vous n'en n'avez pas, demandez sa création à votre Délégué à la Protection des Données.
 
 ![](images/Screenshot-2021-06-09-Madis-Connexion.png)
 
@@ -33,20 +33,20 @@ La fenêtre principale vous permet de visualiser en un coup d’œil l’état d
 ![](images/Screenshot-2021-06-09-Madis-6.png)
 
 Vous retrouvez les éléments suivants :
-* Les Sous-traitants conformes et non conformes ;
+* Les sous-traitants conformes et non conformes ;
 * Les demandes à traiter et celles traitées ;
 * Des statistiques et accès rapide des 4 modules de registres figurants également dans le menu à gauche ;
 * Les deux derniers indices de maturité sous forme de radar. Vous pouvez visualiser qu'un seul radar en cliquant sur la date de l'indice de maturité à masquer ;
 * Le graphique synthétisant les mesures de sécurité de base conformes et non conformes sur les traitements informatisés ;
 * D'autres indicateurs peuvent être affichés si les modules sont activés (Conformité des traitements, ...).
 
+Les légendes et le détail des contenus sont affichés au survol de la souris.
 
-Les légendes et le détail des contenus sont affichés au survole de la souris.
+``Astuce : vous pouvez réduire le bandeau du menu en cliquant sur « ☰ ». ``
+
+Dans le bandeau supérieur, en haut à droite, l'icone « ![Bouton Power](images\Bouton Power.png) » permet de se déconnecter.
 
 
-Astuce : vous pouvez réduire le bandeau du menu en cliquant sur « ☰ ».
-
-Dans le bandeau supérieur, en haut à droite, l'icone « ⏻ » permet de se déconnecter.
 
 ## Présentation du menu
 
@@ -74,7 +74,7 @@ Renseignez vos informations dans « **Collectivités** » et « **Utilisateurs**
 
 Vous pouvez visualiser les données de votre collectivité. Vous n’avez pas la possibilité de modifier les informations générales et l’adresse. En cas de rectification souhaitée, merci de faire votre demande à votre Délégué à la Protection des Données.
 
-Vous avez la possibilité de modifier les différents acteurs de votre mise en conformité (référent opérationnel, responsable informatique, éventuellement responsable de traitement).
+Vous avez la possibilité de modifier les différents acteurs de votre mise en conformité (référent opérationnel, responsable de traitement, éventuellement responsable informatique).
 
 * **Référent opérationnel** : personne qui tient à jour les registres.
 * **Référent informatique** : personne qui garantit l'organisation, le suivi ainsi que la gestion du système informatique.
@@ -94,7 +94,7 @@ Votre compte utilisateur vous permet de vous identifier (nom, prénom, adresse m
 
 ![](images/Screenshot-2021-06-09-diter-un-utilisateur-Madis.png)
 
-L'adresse mail renseignée ne doit pas déjà avoir été utilisée par un autre compte.
+**L'adresse mail renseignée ne doit pas déjà avoir été utilisée par un autre compte.**
 
 ## Navigation générale
 
@@ -136,19 +136,17 @@ Lorsque vous cliquez sur le bouton « **+ Nouveau traitement** », la fenêtre d
 
 ![](images/Screenshot-2021-06-09-Cr-er-un-traitement-Madis.png)
 
-:::info
-Dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.
-:::
+**Dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
 
 Dans les informations générales, vous pouvez renseigner les éléments suivants :
 
 * **Nom** : Indiquez ici l’intitulé précis du traitement ;
 * **Finalités** : Objectifs du traitement et ses fonctions (Exemple pour une activité de formation des personnels : suivi des demandes et des périodes de formations effectuées, organisation des sessions et évaluation des connaissances) ;
-* **En tant que** : Précisez ici si le traitement est effectué en tant que Responsable de traitement ou en tant que sous-traitant ;
+* **En tant que** : Précisez ici si le traitement est effectué en tant que Responsable de traitement, en tant que sous-traitant ou lorsque la responsabilité est conjointe ;
 * **Gestionnaire** : Personne(s) ou service qui gère le traitement. Peut être différent du responsable de traitement ou du référent opérationnel ;
-* **Statut** : Le statut actif est coché par défaut. Un traitement inactif n'apparaît pas dans le bilan et dans le registre des traitements ;
+* **Statut** : Le statut actif est coché par défaut. Un traitement inactif n'apparaît pas dans le registre des traitements ni dans le bilan ;
 * **Base légale** : Liste des bases légales énumérées dans le RGPD ;
-* **Justification de la base légale** : Toute base légale doit être justifiée. Par exemple, pour le consentement vous devez avoir l'accord écrit de la personne concernée..Indiquez ici les références du texte réglementaire (Exemple CGCT) qui permet de justifier le choix de la base légale. Vous pouvez également indiquer le texte réglementaire qui vous permet de justifier votre choix du délai de conservation ;
+* **Justification de la base légale** : Toute base légale doit être justifiée. Par exemple, pour le consentement vous devez avoir l'accord écrit de la personne concernée. Indiquez ici les références du texte réglementaire (Exemple CGCT) qui permet de justifier le choix de la base légale. Vous pouvez également indiquer le texte réglementaire qui vous permet de justifier votre choix du délai de conservation ;
 * **Observations** : Toute précision complémentaire sur la tenue de ce traitement.
 
 Ci-après un exemple d’informations générales pré-rempli :
@@ -160,58 +158,58 @@ Dans les catégories de données, vous pouvez renseigner les éléments suivants
 * **Les catégories de données** : Vous devez préciser ici toutes les catégories de données concernées par le traitement ;
 * **Autres catégories** : Champs de texte libre pour préciser toute catégories de donnée supplémentaire.
 
+Dans la destination, vous pouvez renseigner les éléments suivants :
+
+* **Catégorie de destinataires** : Indiquez les destinataires des données à caractère personnel (service, organisation extérieure, partenaires, ...) ;
+* **Sous-traitants** : Apparaissent ici tous les sous-traitants identifiés dans le registre des sous-traitants. 
 
 Dans les détails, vous pouvez renseigner les éléments suivants :
+
 * **Personnes concernés** : Type de personnes concernées par le traitement. Il est possible de cocher la case correspondante et de préciser avec le champs de texte à côté ;
 * **Nombre de concernés** : Approximativement le nombre de personnes concernées par le traitement ;
 * **Logiciel** : Si le traitement est informatisé, vous pouvez préciser ici le nom du logiciel utilisé (ex: Cosoluce, Excel, ...). Dans le cas où le traitement est exclusivement papier, laisser ce champs vide ;
 * **Délai de conservation** : Le délai de conservation indiqué est le délai réel mis en œuvre par la collectivité. Si le délais est calculé, préciser les critères utilisés pour déterminer le délai de conservation (Exemple : 3 ans à compter de la fin de la relation contractuelle) ;
 * **Sort final** : Sort final appliqué à l'issue du traitement ;
-* **Originel des données** : Si les données proviennent d'un tiers (CAF, Société, ...), le préciser ici ;
+* **Origine des données** : Si les données proviennent d'un tiers (CAF, Société, ...) ou de la personne concernée directement, le préciser ici ;
 * **Moyens de la collecte** : Moyen utilisé pour collecter les données à caractère personnel.
-
-Dans la destination, vous pouvez renseigner les éléments suivants :
-* **Catégorie de destinataires** : Indiquez les destinataires des données à caractère personnelles (service, organisation extérieure, partenaires, ...) ;
-* **Sous-traitants** : Apparaissent ici tous les sous-traitants identifiés dans le registre des sous-traitants. 
 
 Les mesures de sécurité sont propres à chaque traitement concerné, vous pouvez renseigner les éléments suivants :
 * **Contrôle d'accès** : exemple : accès via login/mot de passe ou certification, gestion des habilitations, badges... ;
 * **Traçabilité** : exemple : journalisation des accès utilisateurs, données enregistrées (identifiant, date et heure de connexion, actions)... ;
 * **Sauvegarde** : Précisez le type de sauvegarde (support, interne/externalisée, fréquence...) ;
-* **Mise à jour** : Configuration des mises à jour automatique ? contrat de mise à jour... ;
-* **Autres** : Préciser toute autre mesure que vous souhaitez documenter ;
+* **Mise à jour** : Configuration des mises à jour automatique ?, contrat de mise à jour... ;
+* **Autres** : Préciser toute autre mesure que vous souhaitez documenter. Les quatre mesures au-dessus concernent principalement les traitements informatisés, celui-ci peut servir pour la protection des traitements papier. Par exemple, documents stockés dans un coffre-fort ou une armoire ignifugée fermant à clé, ... ;
 * S'il est possible de ressortir les personnes habilitées (qui ont un accès sur les données à caractère personnel) à tout moment ;
 * Si la personne et/ou la procédure qui permet d’ouvrir des comptes est clairement identifiée ;
-* Si Les spécificités de sensibilisation liées au traitement sont délivrées. Il faut cocher cette case par défaut, sauf si le traitement nécessite une sensibilisation spécifique et qu'elle n'a pas été délivrée.
+* Si les spécificités de sensibilisation liées au traitement sont délivrées. Il faut cocher cette case si les personnes pouvant avoir accès aux données ont été sensibilisées à la protection des données, il peut également arriver que le traitement nécessite une sensibilisation spécifique.
 
 Un ou plusieurs traitement(s) spécifique(s) va/vont peut-être conditionner une analyse d’impact, notamment s‘ils sont croisés avec des données sensibles, vous pouvez alors renseigner les éléments suivants :
-* **Surveillance systématique de personnes** : exemple : télésurveillance... ;
-* **Collecte à large échelle** : exemple : qui visent à traiter un volume considérable de données à caractère personnel au niveau régional... ;
+* **Surveillance systématique de personnes** : Exemple : télésurveillance... ;
+* **Collecte à large échelle** : Exemple : qui visent à traiter un volume considérable de données à caractère personnel au niveau régional... ;
 * **Personnes vulnérables** : Personnes âgées, enfant de moins de 15 ans, personne en situation de handicap, patients, employés... ;
-* **Croissement de données** : Croisement ou combinaison d’ensemble de données ;
-* **Évaluation ou notation** : Se référer au RGPD pour plus de détails ;
-* **Décisions automatisées avec effet** : Se référer au RGPD pour plus de détails ;
-* **Exclusion automatique d'un service** : Se référer au RGPD pour plus de détails ;
-* **Usage innovant** : Se référer au RGPD pour plus de détails.
+* **Croisement de données** : Croisement ou combinaison d’ensemble de données ;
+* **Évaluation ou notation** : Possibilité d'utiliser des données pour évaluer, noter, prédire ou établir le profil d'une personne sur des aspects concernant le rendement au travail, la santé, la situation économique, les préférences, le comportement etc... ;
+* **Décisions automatisées avec effet** : Décision automatique sans supervision humaine pouvant par exemple, exclure ou discriminer une personne d'un droit ;
+* **Exclusion automatique d'un service** : Décision automatique sans supervision humaine excluant à l'accès à un service ou à un contrat ;
+* **Usage innovant** : Les conséquences de l'utilisation de cette nouvelle technologie ne sont pas toutes connues et peuvent à l'avenir devenir une nouvelle source de collecte de données personnelles pouvant porter atteinte aux droits et libertés individuelles..
 
 ## Le registre des sous-traitants
 
 Un sous-traitant est un prestataire de services qui traite de données à caractère personnel pour le compte, sur instruction et sous l’autorité du responsable de traitement.
 
-Le registre des sous-traitants vise à recenser les sous-traitants de votre collectivité et d’effectuer le suivi de leur conformité au RGPD (clauses contractuelles vérifiées, conforme au RGPD)
+Le registre des sous-traitants vise à recenser les sous-traitants de votre collectivité et d’effectuer le suivi de leur conformité au RGPD (clauses contractuelles vérifiées, conforme au RGPD).
 
 Lorsque vous cliquez sur « **Sous-traitants** », la fenêtre ci-dessous s’ouvre. Vous visualisez ainsi l’ensemble des sous-traitants recensés dans votre collectivité.
 
 ![](images/Screenshot-2021-07-19-Liste-des-sous-traitants-Madis.png)
 
-:::warning
-Il est intéressant de recenser vos sous-traitants en premier lieu car ils seront disponibles dans les fiches de traitements. Il vous suffira alors de sélectionner les sous-traitants rattachés au moment de la création du traitement en question.
-:::
+```Il est préférable de recenser les sous-traitants en premier lieu car ils seront disponibles dans les fiches de traitements. Il suffira alors de sélectionner les sous-traitants rattachés au moment de la création du traitement en question.```
 
 Vous pouvez modifier ou créer un nouveau sous-traitant :
 
 ![](images/Screenshot-2021-06-09-Cr-er-un-sous-traitant-Madis.png)
 
+* **Agent référent** : La personne qui s'occupe dans votre collectivité de gérer les relations avec ce sous-traitant
 * **Clauses contractuelles vérifiées** : Cochez si vous avez contrôlé les clauses contractuelles de ce contrat et qu'elles sont conformes au RGPD ;
 * **A adopté les éléments de sécurité nécessaires** : Cochez si vous avez demandé (voire vérifié), que le sous-traitant a adopté les mesures de sécurité que vous jugez suffisantes ;
 * **Tient à jour un registre des traitements** : Cochez si le sous-traitant tient et vous a communiqué son registre de traitement ;
@@ -229,23 +227,25 @@ Lorsque vous cliquez sur « **Demandes** », la fenêtre ci-dessous s’ouvre.
 
 ### Créer une nouvelle demande
 
-Vous devez enregistrer ici chaque nouvelle demande d'exercice de droit de personne concernée (droit d’accès, d’opposition, ...).
+Vous devez enregistrer ici chaque nouvelle demande d'exercice de droit de personne concernée basé sur le RGPD (droit d’accès, d’opposition, ...).
 
 ![](images/Screenshot-2021-06-09-Cr-er-une-demande-Madis.png)
 
 Vous pouvez alors renseigner les éléments suivants :
-* **Object de la demande** : Préciser le type de demande formulée ;
-* **Date de la demande** : Date à laquelle la demande a été formulée ;
+* **Objet de la demande** : Préciser le type de demande formulée ;
+* **Date de la demande** : Date de la réception de la demande  ;
 * **Motif** : Indiquez l'objet de la demande ;
 * **Demande complète** : Le formulaire est correctement rempli et accompagné des justificatifs ;
-* **Demandeur légitime** : La personne concernée est la personne qui fait la demande ou est le tuteur dument habilité à faire la demande (ou autre ayant droit) ;
+* **Demandeur légitime** : La personne concernée est la personne qui fait la demande ou est le tuteur dûment habilité à faire la demande, ou possède un mandat de la personne concernée ;
 * **Demande légitime** : La demande repose sur une base légale pertinente et proportionnée.
 
-Lorsque la réponse est délivrée, vous devez retourner dans la demande, la modifier et enregistrer la réponse apportée, les moyens de réponse ainsi que la date de réponse.
+Lorsque la réponse est délivrée, vous devez retourner dans la demande, la modifier et enregistrer la réponse apportée, le moyens de la réponse ainsi que la date de réponse.
 
-:::warning
-Rappel : La réponse doit être délivrée dans un délai maximum de 1 mois.
-:::
+
+
+``Rappel : La réponse doit être délivrée dans un délai maximum de 1 mois (art. 12 RGPD).``
+
+
 
 Le tableau de bord affiche les demandes saisies dans ce registre (non traitées). Vous pouvez ainsi suivre les demandes recensées et restantes à traiter sur la page d’accueil en un coup d’œil.
 
@@ -253,42 +253,34 @@ Le tableau de bord affiche les demandes saisies dans ce registre (non traitées)
 
 Un incident de sécurité, d’origine malveillante ou non, intentionnel ou non, et qui risque de compromettre l’intégrité, la confidentialité ou la disponibilité de données personnelles est une violation de données.
 
-Pour vous aider à remplir le registre des violations de données, n’oubliez pas de vous référer aux fiches mémo Soluris, téléchargeables sur votre espace adhérent [https://faq.soluris.fr](https://faq.soluris.fr)
-
 Lorsque vous cliquez sur « **Violations** », vous retrouverez la liste des violations recensées dans votre collectivité.
 
 ![](images/Screenshot-2021-07-19-Liste-des-violations-Madis.png)
 
 Pour enregistrer une nouvelle violation, cliquez sur « **+ Nouvelle violation** », puis suivez les étapes ci-dessous :
 
-:::info
-La date de la violation renseignée est celle de la constatation de la violation.
-:::
+``La date de la violation renseignée est celle de la constatation de la violation. ``
+
+Par défaut, elle se mettra sur la date à laquelle vous commencez à l'enregistrer.
 
 ![](images/Screenshot-2021-06-09-Cr-er-une-violation-Madis.png)
 ![](images/Screenshot-2021-06-09-Cr-er-une-violation-Madis-1.png)
+
+``N'oubliez pas qu'en cas de risque pour les personnes concernées, une notification à la CNIL doit être faite dans les 72 heures en plus de l'enregistrement en interne et en cas de risque élevé, aux personnes concernées également (art.33 RGPD).``
 
 # Les actions de protection
 
 Les actions de protection sont les mesures (techniques, organisationnelles, juridiques etc...) que vous avez déjà mises en place dans votre collectivité.
 
-Vous trouverez dans la liste des propositions d’actions de protection classées par thématiques :
-* 1- vie privée ;
-* 2- organisation ;
-* 3- sensibilisation/formation ;
-* 4- technique ;
-* 5- violation de données ;
-* 6- juridique.
-
-Cette liste, non exhaustive, a été créée pour vous aider dans votre recensement. Vous pouvez modifier les actions en fonction de votre propre organisation, ajouter les mesures déjà mises en place dans votre collectivité et qui n’auraient pas été identifiées ici.
+Vous trouverez dans la liste des propositions d’actions de protection. Cette liste, non exhaustive, a été créée pour vous aider dans votre recensement. Vous pouvez modifier les actions en fonction de votre propre organisation, ajouter les mesures déjà mises en place dans votre collectivité et qui n’auraient pas été identifiées ici.
 
 ![](images/Screenshot-2021-06-09-Liste-des-actions-de-protection-Madis.png)
 
 ## Modifier une action de protection
 
-Lorsqu’une action de protection est non appliquée, vous pouvez la modifier pour la planifier. Une fois réalisé vous pourrez changer le statut de « **non appliquée** » à « **appliquée** ».
+Lorsqu’une action de protection est non appliquée, vous pouvez la modifier pour la planifier. Une fois l'action entièrement réalisée vous pourrez changer le statut de « **non appliquée** » à « **appliquée** ».
 
-Seules les actions « **non appliquées** » et pour lesquelles vous avez programmé une date, apparaitrons dans le plan d’actions.
+Seules les actions « **non appliquées** » et pour lesquelles vous avez programmé une date, apparaitront dans le plan d’actions.
 
 ![](images/Screenshot-2021-06-09-Modifier-une-action-de-protection-Madis.png)
 
@@ -301,16 +293,14 @@ Vous avez la possibilité d’ajouter de nouvelles actions de protection, mais �
 Si une action de protection n’existe pas dans la liste préétablie, vous pouvez l’ajouter en cliquant sur « **+ Nouvelle action** ».
 
 Vous pouvez alors renseigner les éléments suivants :
-* **Nom** ;
-* **Description** ;
-* **Responsable d'action** ;
-* **Priorité** ;
-* **Coût** ;
-* **Charge** : temps passé pour effectuer l’action.
+* **Nom** : Nom de l'action que vous souhaitez renseigner ;
+* **Description** : Description brève pour vous aider à vous rappeler ultérieurement de cette action. *Pensez que cette liste d'actions servira également pour vos prédécesseurs.* ;
+* **Responsable d'action** : Le nom de la personne qui doit faire en sorte que l'action se fasse ;
+* **Priorité** : Possibilité de prioriser certaines actions avec trois niveaux de priorité ;
+* **Coût** : Montant estimé pour réaliser l'action. Peut être nul ou peut demander un arbitrage ou une planification plus longue ;
+* **Charge** : Temps passé pour effectuer l’action.
 
-:::info
-Dans planification, indiquez une date prévisionnelle des actions que vous choisissez de planifier. Celles-ci apparaîtront alors dans le plan d'action
-:::
+``Dans planification, indiquez une date prévisionnelle des actions que vous choisissez de planifier. Celles-ci apparaîtront alors dans le plan d'action``
 
 ![](images/Screenshot-2021-06-09-Cr-er-une-action-de-protection-Madis.png)
 
@@ -324,9 +314,7 @@ Dans la liste des indices de maturité, vous retrouvez l’historique des indice
 
 À chaque nouvel indice, vous devez répondre à l‘ensemble des 42 questions.
 
-:::warning
-Attention si vous n’êtes pas certain de la réponse, veuillez cocher « Non/Je ne sais pas ».
-:::
+``Attention si vous n’êtes pas certain de la réponse, veuillez cocher « Non/Je ne sais pas ».``
 
 *Figure 1 : Critères Indice de maturité : Technique – Vie privée*
 ![](images/Screenshot-2021-06-09-Nouvel-indice-de-maturit-Madis.png)
@@ -337,8 +325,7 @@ Attention si vous n’êtes pas certain de la réponse, veuillez cocher « Non/J
 *Figure 3 : Critères indice de maturité : Juridique - Sensibilisation Formation*
 ![](images/Screenshot-2021-06-09-Nouvel-indice-de-maturit-Madis-2.png)
 
-Lorsque vous avez répondu aux 42 questions et que vous avez validé, un
-nouvel indice de maturité est généré.
+Lorsque vous avez répondu aux 42 questions et que vous avez validé, un nouvel indice de maturité est généré.
 
 ![](images/Screenshot-2021-06-09-Madis-5.png)
 
@@ -351,13 +338,10 @@ Le plan d’action recense l’ensemble des mesures planifiées et reflète les 
 
 ![](images/Screenshot-2021-06-09-Plan-d-actions-Madis.png)
 
-:::info
-Pour ajouter des actions de protection au plan d'actions, indiquez la date prévisionnelle des action en question.
-:::
+Pour ajouter des actions de protection au plan d'actions, indiquez la date prévisionnelle dans les action en question.
 
-:::success
-Astuce : vous avez la possibilité de trier les actions par date / coût / charge...
-:::
+``Astuce : vous avez la possibilité de trier les actions par date / coût / charge...``
+
 
 # Générer un bilan
 
@@ -376,7 +360,7 @@ Afin de prouver votre conformité, vous devez constituer un dossier documentaire
 
 Vous devez ajouter dans « **Documents** », l’ensemble des preuves.
 
-La taille du fichier est volontairement limitée à 4 Mo.
+``La taille maximale d'un fichier déposé est défini dans l'administration.``
 
 ![](images/Screenshot-2021-06-09-Liste-des-preuves-Madis.png)
 
@@ -384,7 +368,7 @@ La taille du fichier est volontairement limitée à 4 Mo.
 
 ## Activation
 
-Le module conformité des traitements peut être activé par collectivité en cochant la case « **Module conformité des traitements** » dans l'administration de la collectivité.
+Le module conformité des traitements peut être activé par collectivité en cochant la case « **Module conformité des traitements** » dans l'administration de la collectivité. Cette action est réalisable par le DPO (compte administrateur).
 
 ![](images/7image.png)
 
@@ -406,6 +390,8 @@ Ce module permet d'évaluer la conformité au RGPD de chaque traitement selon le
 
 Pour chacun de ces critères il est possible de dire si le traitement est conforme ou non-conforme. C'est à dire si l'obligation règlementaire est respectée ou non.
 
+``Pour le cas particulier du recueil du consentement, si la base légale n'est pas le consentement, il faut donc considérer que l'obligation est respectée.``
+
 Afin de pouvoir vérifier la conformité des critères le contenu du traitement est affiché en dessous. Il est alors possible de compléter/corriger le traitement directement depuis cet écran.
 
 À chaque critère non conforme il est proposé d'affecter une ou plusieurs actions de protection. Celles-ci peuvent être choisies dans la liste ou ajouter avec le bouton « **+** ». Idéalement ces actions doivent être planifiées.
@@ -413,6 +399,7 @@ Afin de pouvoir vérifier la conformité des critères le contenu du traitement 
 ## Les niveaux de conformité
 
 Bien qu'on ne puisse définir que deux niveau, conforme ou non conforme, pour chaque critère de l'évaluation d'un traitement, celui ci peut-être : 
+
 * **Conforme** : (vert) le critère est marqué comme conforme et répond donc à l'obligation réglementaire ;
 * **Non-conforme mineure** : (orange) le critère est marqué comme non conforme, mais au moins une action de protection planifiée lui a été affectée ;
 * **Non-conforme majeure** : (rouge) le critère est marqué comme non conforme et aucune action de protection planifiée lui a été affectée.
@@ -461,9 +448,7 @@ L'icône orange d'exclamation « **!** » devant un critère, indique que les ac
 
 ![](images/11image.png)
 
-:::info
-Ce module est prévu pour être utilisé régulièrement tout au long de l'année pour gérer, au fil de l'eau, l'avancé de la mise en conformité des traitements au RGPD.
-:::
+``Ce module est prévu pour être utilisé régulièrement tout au long de l'année pour gérer, au fil de l'eau, l'avancé de la mise en conformité des traitements au RGPD.``
 
 ## Tableau de bord
 
@@ -475,7 +460,7 @@ Un indicateur sur le tableau de bord de la collectivité affiche la proportion d
 
 ## Activation
 
-Le module conformité de l'organisation peut être activé par collectivité en cochant la case « **Module conformité de l'organisation** » dans l'administration de la collectivité.
+Le module conformité de l'organisation peut être activé par collectivité en cochant la case « **Module conformité de l'organisation** » dans l'administration de la collectivité. Cette action est réalisable par le DPO (compte administrateur).
 
 ![](images/13image.png)
 
@@ -484,18 +469,18 @@ Le module conformité de l'organisation peut être activé par collectivité en 
 Ce module permet de gérer la mise en conformité au RGPD de l'ensemble de la collectivité.
 
 Les obligations détaillées dans le RGPD ont été regroupées en 12 processus : 
-1. Responsabilités ;
-1. Traitements et transferts de données	;
-1. Droits de la personne concernée ;
-1. Sous-traitants ;
-1. Protection des données dès la conception ;
-1. Gestion des mesures de sécurité ;
-1. Analyse d'impacts sur la protection des données ;
-1. Sensibiliser, former et communiquer ;
-1. Exigences, sollicitations, violations, poursuites ;
-1. Évaluer et auditer ;
-1. Gérer de la documentation et des preuves ;
-1. Piloter le Système de Management des Données à Caractère Personnel (SMDCP).
+1. **Responsabilités** ;
+1. **Traitements et transferts de données** ;
+1. **Droits de la personne concernée ;**
+1. **Sous-traitants** ;
+1. **Protection des données dès la conception** ;
+1. **Gestion des mesures de sécurité** ;
+1. **Analyse d'impacts sur la protection des données** ;
+1. **Sensibiliser, former et communiquer** ;
+1. **Exigences, sollicitations, violations, poursuites** ;
+1. **Évaluer et auditer** ;
+1. **Gérer de la documentation et des preuves** ;
+1. **Piloter le Système de Management des Données à Caractère Personnel (SMDCP)**.
 
 Il est proposé dans ce module d'identifier (et nommer) un responsable par processus (une personne peut être reponsable de plusieurs processus) que l'on nomme le pilote.
 
@@ -509,15 +494,15 @@ La collectivité procèdera, à intervalle régulier, à l'évaluation de son or
 
 ## Gestion de la conformité de l'organisation
 
-Le bouton « **Nouvelle évalutaion** » permet de débuter une nouvelle évaluation de la conformité de l'organisation.
+Le bouton « **Nouvelle évaluation** » permet de débuter une nouvelle évaluation de la conformité de l'organisation.
 
 Il est dans un premier temps nécessaire de définir les éléments de contexte : 
 * Date de l'évaluation ;
 * Les personnes présentes et leur fonction.
 
-:::info
+``
 Il est nécessaire que le plus haut niveau hierarchique de la structure soit associé à cette demarche. Une évaluation réalisée en présence du DGS, du Maire, du RSSI aura beaucoup plus de valeur (Accountability).
-:::
+``
 
 ![](images/15image.png)
 
@@ -531,7 +516,7 @@ Pour chaque processus, il est demandé de préciser si les pratiques associées 
 * Mesurable ;
 * Révisée.
 
-Une information en survole donne des précisions sur les échelles de valeur ([détails des échelles de valeur en annexe](#D%C3%A9finitions-des-pratiques)).
+Une information en survol donne des précisions sur les échelles de valeur ([détails des échelles de valeur en annexe](#D%C3%A9finitions-des-pratiques)).
 
 ![](images/16image.png)
 
@@ -539,9 +524,10 @@ Il est possible de mettre « **Non concerné** ». Dans ce cas, il est nécessai
 
 En bas du bloc de chaque processus (après les pratiques), il est possible d'affecter une ou plusieurs actions de protections (ou en créer avec le « **+** »).
 
-:::info
-Toutes les questions doivent être remplies pour qu'une évaluation soit soumise. Si l'évaluation prend du temps, il est possible d'enregistrer la saisie en enregistrant un brouillon (les notes ne sont pas actualisées). **Il n'est pas possible de modifier une évaluation qui a été soumise.**
-:::
+``
+Toutes les questions doivent être remplies pour qu'une évaluation soit soumise. Si l'évaluation prend du temps, il est possible d'enregistrer la saisie en enregistrant un brouillon (les notes ne sont pas actualisées). ``
+
+**Il n'est pas possible de modifier une évaluation qui a été soumise.**
 
 Une fois l'évaluation terminée et soumise, le tableau avec les pilotes est repris et les notes actualisées.
 
@@ -553,18 +539,84 @@ Un indicateur sur le tableau de bord reprend les pourcentages de conformité des
 
 ![](images/17image.png)
 
-
 # Administration
+
+Cette partie est réservée aux personnes administratrices, c'est-à-dire, principalement les Délégués à la Protection des Données. Le profil "référent multi-collectivité" a également accès au tableau de bord administrateur mais seulement dans la limite de son périmètre d'action.
 
 ## Tableau de bord administrateur
 
+Le tableau de bord administrateur permet d'avoir des indications plus avancées sur l'utilisation de Madis par l'ensemble des collectivités utilisatrices.
+
+![Capture d’écran 2021-11-23 172632](images\Capture d’écran 2021-11-23 172632.png)
+
+Plusieurs indicateurs sont disponibles :
+
+* La moyenne d'actions planifiées
+* La moyenne de preuves déposées dans l'espace "Documents".
+* Le nombre en pourcentage de collectivités ayant déposé dans Madis, dans l'espace "Documents", un document avec le type "Bilan" au cours des 12 derniers mois.
+* Le nombre de collectivités, en pourcentage, ayant fait un indice de maturité dans Madis au cours des 12 derniers mois.
+
+On retrouve également une cartographie des collectivités accompagnées grâce à l'indication du code INSEE dans le module "Collectivités". Il se peut qu'une commune possède plusieurs collectivités (CCAS, SIVOS, syndicats,...) et tous se retrouvent sous la même commune. De même, il se peut que la commune ne soit pas accompagnée mais qu'une autre structure basée sur ce territoire le soit. Au survol les collectivités identifiées sur ce territoire sont listées.
+
+Il y a également un graphe représentant la répartition des collectivités en fonction de leur type identifié dans le module "Collectivités".
+
+Enfin, plusieurs exports (en excel) sont disponibles pour pouvoir faire des recherches plus facilement et plus précisément sur des éléments dans Madis. Il y a 4 exports disponibles actuellement :
+
+* L'export des collectivités qui reprend l'ID de la collectivité + tous les éléments enregistrés dans le module "Collectivités" (exemples : actif/inactif ; nom ; SIREN ; dernier utilisateur connecté ; date de la dernière connexion ; ...) + les informations comprises dans le module "Conformité de l'organisation" (notes attribuées et nom du pilote) 
+* L'export des traitements (attention, celui-ci peut être volumineux donc l'export peut prendre un peu de temps) qui reprend toutes les informations comprises dans le module "Traitements" (exemples : fiche active/inactive ; date de dernière modification) + les informations comprises dans le module "Conformité des traitements" (module inactif ou niveau de conformité enregistré et le niveau de conformité de chaque réponse)
+* L'export des sous-traitants qui reprend toutes les informations comprises dans le module "Sous-traitants" (exemples : Nom du sous-traitant ; clauses vérifiées ; traitements associés; ...).
+* L'export des actions de protection qui reprend toutes les informations comprises dans les modules "Actions de protection" et "Plan d'actions" (exemples : Nom de l'action ; appliqué/non appliqué/non applicable ; la date de planification ; ...).
+
 ## Gestion des collectivités
+
+![Capture d’écran 2021-11-29 114310](images\Capture d’écran 2021-11-29 114310.png)
+
+Dans ce module, on retrouve la liste des collectivités qui ont été créées dans Madis. 
+
+Il est possible de créer une collectivité ou simplement voir les informations la concernant, de la modifier ou de supprimer la collectivité (cette option n'est possible que pour celle n'ayant plus d'utilisateur).
+
+**Les écrans sont ensuite les mêmes que ceux des utilisateurs dans le module "Ma collectivité" avec la possibilité d'activer ou non des modules conformité ainsi que de modifier le bloc Informations Générales.**
 
 ## Gestion des utilisateurs
 
+![Capture d’écran 2021-11-29 115444](images\Capture d’écran 2021-11-29 115823.png)
+
+Dans ce module, on retrouve la liste des utilisateurs enregistrés dans Madis. Tous les champs sont remplis sauf potentiellement le champ dernière connexion si la personne ne s'est pas connecté au logiciel depuis la mise en place de la journalisation.
+
+L'administrateur a la possibilité de créer un nouvel utilisateur, d'archiver ceux qui ne doivent plus accéder à Madis, de modifier un utilisateur ou bien de se connecter en tant que l'utilisateur sélectionné. Il aura ainsi accès à la vue de l'utilisateur sélectionné.
+
+Il est également possible de voir la liste des utilisateurs archivés en cliquant sur le bouton "Voir les utilisateurs archivés" et la seule option possible est de rétablir la personne.
+
+**Le module de journalisation enregistre lorsqu'une personne se connecte en tant qu'un autre utilisateur.**
+
+Lorsque l'administrateur appuie sur le bouton "Nouvel utilisateur", il a la possibilité de modifier le nom, prénom, e-mail, mot de passe de l'utilisateur, comme le ferait l'utilisateur via le module "Mon compte". 
+
+Il a également la possibilité de changer sa collectivité, le rendre inactif ce qui l'empêche d'accéder à Madis, ou de modifier son rôle dans la collectivité.
+
+Les différents rôles sont :
+
+- Lecteur : l'utilisateur peut accéder aux informations comprises dans Madis. Il peut générer des bilans et faire des impressions mais ne peut modifier les informations.
+- Gestionnaire : l'utilisateur peut modifier tout ce qui se trouve dans Madis pour sa collectivité
+- Administrateur : l'utilisateur peut voir et modifier tout ce qui se trouve dans Madis pour toutes les collectivités.
+- Référent multi-collectivité : l'utilisateur peut voir tout ce qui se trouve dans Madis pour les collectivités pour lesquels il est référent et modifier les informations. Il ne peut cependant pas créer ou modifier de nouvelles collectivités ni d'utilisateurs ou modifier son propre profil utilisateur (en ajoutant des collectivités dans son champ d'action).
+
+![Capture d’écran 2021-12-01 104134](images\Capture d’écran 2021-12-01 104134.png)
+
 ## Module de duplication
 
+![Capture d’écran 2021-11-29 120859](images\Capture d’écran 2021-11-29 121029.png)
+
+Le module de duplication sert à dupliquer une ou plusieurs données (un traitement, un sous-traitant ou une action de protection) enregistrée dans une collectivité pour l'intégrer à une ou plusieurs autres collectivités. 
+
+``Il est également possible de dupliquer les traitements inactifs. ``
+
+``Pensez à utiliser ctrl pour sélectionner quand vous voulez dupliquer certains éléments sans tout vouloir dupliquer.``
+
 ## La journalisation
+
+![Capture d’écran 2021-11-29 121633](images\Capture d’écran 2021-11-29 121946.png)
+
+Le module de journalisation permet de tracer tout ce qui a été fait dans Madis. Madis associant un ID à chaque personne, même si la personne change de nom, elle ne peut pas changer d'ID ni le nom enregistré avant donc il est possible de remonter afin de savoir ce qu'il s'est passé dans Madis.
 
 ## Paramètres de configuration
 
@@ -643,11 +695,11 @@ WKHTMLTOIMAGE_PATH=/usr/local/bin/wkhtmltoimage
 
 #### 1. Responsabilités
 
-Définir et communiquer aux personnes concernées la politique générale de protection des données de l'entreprise Définir, mettre en œuvre et réexaminer la politique de gestion des données (Processus, ressources, mesures) S’assurer que la politique de gestion des données est communiquée, comprise et appliquée au sein de l’entreprise.
+Définir et communiquer aux personnes concernées la politique générale de protection des données de l'entreprise. Définir, mettre en œuvre et réexaminer la politique de gestion des données (processus, ressources, mesures). S’assurer que la politique de gestion des données est communiquée, comprise et appliquée au sein de l’entreprise.
 
 #### 2. Traitements et transferts de données
 
-Disposer d’un registre des activités de traitement à jour. S'assurer que les mesures de conformité des traitements de DCP sont effectivement prises en compte en cas de traitements nouveaux ou modifiés. Gérer les transferts de données.
+Disposer d’un registre des activités de traitement à jour. S'assurer que les mesures de conformité des traitements de données à caractère personnel sont effectivement prises en compte en cas de traitements nouveaux ou modifiés. Gérer les transferts de données.
 
 #### 3. Droits de la personne concernée
 
@@ -655,7 +707,7 @@ S'assurer que l'information est concise pour l'exercice des droits par la person
 
 #### 4. Sous-traitants
 
-En tant que responsable du traitement, s'assurer de la conformité des contrats de sous-traitance Si l'entreprise agit en tant que sous-traitant, s'assurer que le responsable du traitement a pris en compte ses obligations.
+En tant que responsable du traitement, s'assurer de la conformité des contrats de sous-traitance. Si l'entreprise agit en tant que sous-traitant, s'assurer que le responsable du traitement a pris en compte ses obligations.
 
 #### 5. Protection des données dès la conception
 
@@ -663,15 +715,15 @@ Garantir que la gestion des droits de la personne concernée et la sécurité de
 
 #### 6. Gestion des mesures de sécurité
 
-En relation avec la fonction sécurité de l'information de l'entreprise, mettre en œuvre les mesures de protection sélectionnées afin de répondre aux objectifs de disponibilité, d’intégrité et de confidentialité des DCP. Détecter les incidents de sécurité pouvant avoir pour conséquence une violation de données.
+S'assurer de la mettre en œuvre des mesures de protection sélectionnées afin de répondre aux objectifs de disponibilité, d’intégrité et de confidentialité des données à caractère personnel. Détecter les incidents de sécurité pouvant avoir pour conséquence une violation de données.
 
 #### 7. Analyse d'impacts sur la protection des données
 
-Réaliser une évaluation d'impact sur la protection des données lorsque le traitement est susceptible d’engendrer un risque élevé pour les droits et libertés ou lorsqu'une partie intéressée demande une preuve de conformité.
+Réaliser une analyse d'impact sur la protection des données lorsque le traitement est susceptible d’engendrer un risque élevé pour les droits et libertés ou lorsqu'une partie intéressée demande une preuve de conformité.
 
 #### 8. Sensibiliser, former et communiquer
 
-S'assurer que le personnel à qui ont été affectées les responsabilités définies dans le SMDCP, a les compétences nécessaires pour exécuter les tâches requises. S'assurer que tout le personnel approprié a conscience de la pertinence et de l'importance de ses activités liées aux traitements des DCP.
+S'assurer que le personnel à qui ont été affectées les responsabilités définies dans le système de management des données à caractère personnel, a les compétences nécessaires pour exécuter les tâches requises. S'assurer que tout le personnel approprié a conscience de la pertinence et de l'importance de ses activités liées aux traitements des données à caractère personnel.
 
 #### 9. Exigences, sollicitations, violations, poursuites
 
@@ -679,11 +731,11 @@ Connaître la réglementation applicable et ses évolutions. Etre en capacité d
 
 #### 10. Évaluer et auditer
 
-A intervalles réguliers, vérifier que le SMDCP est conforme à la politique définie. Apporter la preuve que les traitements effectués par le responsable du traitement et les sous-traitants sont conformes au règlement.
+A intervalles réguliers, vérifier que le système de management des données à caractère personnel est conforme à la politique définie. Apporter la preuve que les traitements effectués par le responsable du traitement et les sous-traitants sont conformes au règlement.
 
 #### 11. Gérer de la documentation et des preuves
 
-Gérer le patrimoine documentaire attaché à la protection des données Etablir et conserver des enregistrements pour apporter la preuve des mesures techniques et organisationnelles.
+Gérer le patrimoine documentaire attaché à la protection des données. Etablir et conserver des enregistrements pour apporter la preuve des mesures techniques et organisationnelles.
 
 #### 12. Piloter le Système de Management des Données à Caractère Personnel (SMDCP)
 
