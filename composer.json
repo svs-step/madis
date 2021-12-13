@@ -26,7 +26,7 @@
         "knplabs/knp-snappy-bundle": "^1.7",
         "lexik/jwt-authentication-bundle": "^2.12",
         "nelmio/cors-bundle": "^2.1",
-        "phpdocumentor/reflection-docblock": "^5.1",
+        "phpdocumentor/reflection-docblock": "^5",
         "phpoffice/phpword": "^0.15",
         "ramsey/uuid": "^3.7",
         "ramsey/uuid-doctrine": "^1.4",
