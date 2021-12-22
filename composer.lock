@@ -7899,16 +7899,16 @@
         },
         {
             "name": "hautelook/alice-bundle",
-            "version": "2.7.2",
+            "version": "2.7.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/hautelook/AliceBundle.git",
-                "reference": "2f2005fcdb1a6181ba6db07db702ca3a3d8b47bc"
+                "url": "https://github.com/theofidry/AliceBundle.git",
+                "reference": "0fb5cefc3efc3a120be0458ac68b974fa124bfb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hautelook/AliceBundle/zipball/2f2005fcdb1a6181ba6db07db702ca3a3d8b47bc",
-                "reference": "2f2005fcdb1a6181ba6db07db702ca3a3d8b47bc",
+                "url": "https://api.github.com/repos/theofidry/AliceBundle/zipball/0fb5cefc3efc3a120be0458ac68b974fa124bfb3",
+                "reference": "0fb5cefc3efc3a120be0458ac68b974fa124bfb3",
                 "shasum": ""
             },
             "require": {
@@ -7963,7 +7963,16 @@
                 "orm",
                 "symfony"
             ],
-            "time": "2020-03-15T10:07:54+00:00"
+            "support": {
+                "source": "https://github.com/theofidry/AliceBundle/tree/2.7.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/theofidry",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-09-24T20:52:16+00:00"
         },
         {
             "name": "monolog/monolog",

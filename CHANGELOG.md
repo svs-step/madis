@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+## [1.7.13] - 2021-12-22
+### Changement
+- Correction d'un bug concernant le calcul de l'indice de maturité #337
+- Augmentation de la limite du nombre de caractère de la justification de refus des demandes #338
+- Inversion des couleurs du graphique des sous-traitants #297
+- Mise à jour de librairies suite à des vulnérabilités découvertes ou des changements de propriété (dont #380)
+
 ## [1.7.12] - 2021-01-05
 ### Changement
 - Correction d'un bug empêchant la suppression d'une action de protection ou d'un sous-traitant pour lesquels il existe un duplicat
