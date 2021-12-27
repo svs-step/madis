@@ -1,6 +1,6 @@
 # Présentation générale de MADIS
 
-Madis est un logiciel conçu pour accompagner les collectivités à la mise en œuvre de leur conformité au RGPD.
+Madis est un logiciel OpenSource conçu pour accompagner les collectivités à la mise en œuvre de leur conformité au RGPD.
 
 Cette notice pourra évoluer en fonction des évolutions règlementaires, du logiciel et des besoins des collectivités.
 
@@ -8,7 +8,7 @@ Cette notice pourra évoluer en fonction des évolutions règlementaires, du log
 
 Madis est accessible depuis les navigateurs récents connectés à internet et sur la plupart des systèmes d'exploitation. L'interface est responsive et peut être consultée depuis tout client mobile tactile (préférer une tablette pour un confort d'affichage).
 
-Pour vous connecter, vous devez avoir un compte (celui-ci est composé de votre adresse email). Si vous n'en n'avez pas, demandez sa création à votre Délégué à la Protection des Données.
+Pour vous connecter, vous devez avoir un compte (le login est votre adresse email). Si vous n'en n'avez pas, demandez sa création à votre Délégué à la Protection des Données (un mail ne peut être associé qu'à un seul compte utilisateur).
 
 ![](images/Screenshot-2021-06-09-Madis-Connexion.png)
 
@@ -71,7 +71,7 @@ Renseignez vos informations dans « **Collectivités** » et « **Utilisateurs**
 
 ### Paramétrage : Ma collectivité
 
-Vous pouvez visualiser les données de votre collectivité. Vous n’avez pas la possibilité de modifier les informations générales et l’adresse. En cas de rectification souhaitée, merci de faire votre demande à votre Délégué à la Protection des Données.
+Vous pouvez visualiser les données de votre collectivité. Vous n’avez pas la possibilité de modifier les informations générales et l’adresse. En cas de rectification souhaitée, merci de faire votre demande à votre Délégué à la Protection des Données (DPD).
 
 Vous avez la possibilité de modifier les différents acteurs de votre mise en conformité (référent opérationnel, responsable de traitement, éventuellement responsable informatique).
 
@@ -83,9 +83,20 @@ Ces informations seront reprises dans le bilan.
 
 ![](images/Screenshot-2021-06-09-Visualiser-une-collectivit-Madis.png)
 
-N’oubliez pas de cocher « **oui** » si votre DPD est différent du DPD moral mutualisé :
+Par défaut les coordonnées du DPD sont celles du DPD mutualisé. Dans le cas où vous avez désigné un DPD en interne, définissez **Différent du DPD moral** à **Oui** et complétez ses coordonnées :
 
 ![](images/Screenshot-2021-06-09-Visualiser-une-collectivit-Madis-1.png)
+
+
+
+Les blocs **Engagement de la direction** et **Principe d'amélioration continue** permettent de personnaliser ces deux paragraphes dans les bilans générés. Dans le cas où ces champs sont laissés vides, les informations standards sont reprises dans le bilan.
+
+Le bloc **Composition du comité Informatique et Libertés** permet d'ajouter des membres qui seront repris dans le bilan.
+Par défaut, seuls le responsable de traitement et le référent opérationnel sont dans ce comité. Si un Responsable Informatique ou un DPD ont été définis, ils seront aussi automatiquement ajoutés.
+
+Le bloc **Liste des utilisateurs** permet de prendre connaissance des comptes utilisateurs de la structure. Il est important d'identifier et d'alerter votre DPD si des comptes sont à désactiver.
+
+
 
 ### Mon compte utilisateur
 
@@ -165,7 +176,7 @@ Dans la destination, vous pouvez renseigner les éléments suivants :
 Dans les détails, vous pouvez renseigner les éléments suivants :
 
 * **Personnes concernés** : Type de personnes concernées par le traitement. Il est possible de cocher la case correspondante et de préciser avec le champs de texte à côté ;
-* **Nombre de concernés** : Approximativement le nombre de personnes concernées par le traitement ;
+* **Nombre de concernés** : Approximativement le nombre de personnes concernées par le traitement ; Cette information est utile en cas de violations de données personnelles.
 * **Logiciel** : Si le traitement est informatisé, vous pouvez préciser ici le nom du logiciel utilisé (ex: Cosoluce, Excel, ...). Dans le cas où le traitement est exclusivement papier, laisser ce champs vide ;
 * **Délai de conservation** : Le délai de conservation indiqué est le délai réel mis en œuvre par la collectivité. Si le délais est calculé, préciser les critères utilisés pour déterminer le délai de conservation (Exemple : 3 ans à compter de la fin de la relation contractuelle) ;
 * **Sort final** : Sort final appliqué à l'issue du traitement ;
@@ -194,7 +205,7 @@ Un ou plusieurs traitement(s) spécifique(s) va/vont peut-être conditionner une
 
 ## Le registre des sous-traitants
 
-Un sous-traitant est un prestataire de services qui traite de données à caractère personnel pour le compte, sur instruction et sous l’autorité du responsable de traitement.
+Un sous-traitant est un prestataire de services qui traite de données à caractère personnel pour le compte, sur instruction et sous l’autorité de la collectivité en tant que responsable de traitement.
 
 Le registre des sous-traitants vise à recenser les sous-traitants de votre collectivité et d’effectuer le suivi de leur conformité au RGPD (clauses contractuelles vérifiées, conforme au RGPD).
 
@@ -244,9 +255,9 @@ Lorsque la réponse est délivrée, vous devez retourner dans la demande, la mod
 
 ``Rappel : La réponse doit être délivrée dans un délai maximum de 1 mois (art. 12 RGPD).``
 
-
-
 Le tableau de bord affiche les demandes saisies dans ce registre (non traitées). Vous pouvez ainsi suivre les demandes recensées et restantes à traiter sur la page d’accueil en un coup d’œil.
+
+``Rappel : La gestion des demandes des personnes concernées est un traitement de données personnelles qui doit être mentionné dans votre registre de traitements.``
 
 ## Les registres de violations de données
 
@@ -367,7 +378,7 @@ Vous devez ajouter dans « **Documents** », l’ensemble des preuves.
 
 ## Activation
 
-Le module conformité des traitements peut être activé par collectivité en cochant la case « **Module conformité des traitements** » dans l'administration de la collectivité. Cette action est réalisable par le DPO (compte administrateur).
+Le module conformité des traitements peut être activé par collectivité en cochant la case « **Module conformité des traitements** » dans l'administration de la collectivité. Cette action est réalisable par le DPD (compte administrateur).
 
 ![](images/7image.png)
 
@@ -459,7 +470,7 @@ Un indicateur sur le tableau de bord de la collectivité affiche la proportion d
 
 ## Activation
 
-Le module conformité de l'organisation peut être activé par collectivité en cochant la case « **Module conformité de l'organisation** » dans l'administration de la collectivité. Cette action est réalisable par le DPO (compte administrateur).
+Le module conformité de l'organisation peut être activé par collectivité en cochant la case « **Module conformité de l'organisation** » dans l'administration de la collectivité. Cette action est réalisable par le DPD (compte administrateur).
 
 ![](images/13image.png)
 
