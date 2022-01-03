@@ -221,8 +221,12 @@ class TreatmentController extends CRUDController
         ->getRepository(Treatment::class)
         ->findBy(
             [
-            'collectivity'  => $collectivity,
-            'public'        => 1, ],
+                'collectivity'  => $collectivity,
+                'public'        => 1,
+            ],
+            [
+                'name' => 'ASC',
+            ],
         );
 
         $objects = [];
@@ -234,9 +238,10 @@ class TreatmentController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('public_list'), [
-            'objects'   => $objects,
-            'route'     => '/publique/traitements/datatables?active=1',
-            'totalItem' => count($objects),
+            'objects'      => $objects,
+            'route'        => '/publique/traitements/datatables?active=1',
+            'totalItem'    => count($objects),
+            'collectivity' => $collectivity,
         ]);
     }
 
