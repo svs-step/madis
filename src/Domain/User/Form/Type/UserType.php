@@ -26,6 +26,7 @@ namespace App\Domain\User\Form\Type;
 
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
@@ -42,6 +43,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Security;
 
 class UserType extends AbstractType
 {
@@ -56,14 +58,21 @@ class UserType extends AbstractType
     private $encoderFactory;
 
     /**
+     * @var Security
+     */
+    private $security;
+
+    /**
      * UserType constructor.
      */
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
-        EncoderFactoryInterface $encoderFactory
+        EncoderFactoryInterface $encoderFactory,
+        Security $security
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->encoderFactory       = $encoderFactory;
+        $this->security             = $security;
     }
 
     /**
@@ -71,10 +80,20 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if (array_key_exists('data', $options)) {
+            // Role est mono-valué dans le form, j'enleve ROLE_API
+            $options['data']->setRoles(array_diff($options['data']->getRoles(), ['ROLE_API']));
+        }
+
+        $serviceDisabled = true;
+        /** @var User $authenticatedUser */
+        $authenticatedUser = $this->security->getUser();
+
         $encoderFactory = $this->encoderFactory;
 
         // Add collectivity general information only for admins
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $serviceDisabled = false;
             $builder
                 ->add('collectivity', EntityType::class, [
                     'class'         => Collectivity::class,
@@ -91,6 +110,10 @@ class UserType extends AbstractType
                     'name'     => 'user_user_role',
                     'multiple' => false,
                     'expanded' => true,
+                ])
+                ->add('apiAuthorized', CheckboxType::class, [
+                    'label'    => 'user.user.form.apiAuthorized',
+                    'required' => false,
                 ])
                 ->add('enabled', CheckboxType::class, [
                     'label'    => 'user.user.form.enabled',
@@ -119,6 +142,31 @@ class UserType extends AbstractType
                 ->get('roles')
                 ->addModelTransformer(new RoleTransformer())
             ;
+        }
+
+        if ($this->authorizationChecker->isGranted('ROLE_PREVIEW')) {
+            $builder->add('services', EntityType::class, [
+                'class'         => Service::class,
+                'label'         => 'user.user.form.services',
+                'disabled'      => $serviceDisabled,
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
+                'attr'          => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
+                'query_builder' => function (EntityRepository $er) use ($serviceDisabled, $authenticatedUser) {
+                    if ($serviceDisabled) {
+                        return $er->createQueryBuilder('s')
+                        ->where(':user MEMBER OF s.users')
+                        ->setParameter(':user', $authenticatedUser)
+                        ->orderBy('s.name', 'ASC');
+                    }
+
+                    return $er->createQueryBuilder('s');
+                },
+            ]);
         }
 
         // Now add standard information
@@ -159,8 +207,7 @@ class UserType extends AbstractType
                     ],
                 ],
                 'required' => false,
-            ])
-        ;
+            ]);
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($encoderFactory) {
             $user = $event->getData();

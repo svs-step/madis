@@ -7,6 +7,7 @@ namespace App\Domain\Admin\Transformer;
 use App\Domain\Admin\Dictionary\DuplicationTargetOptionDictionary;
 use App\Domain\Admin\DTO\DuplicationFormDTO;
 use App\Domain\Admin\Hydrator\DuplicationHydrator;
+use App\Domain\Admin\Model\DuplicatedObject;
 use App\Domain\Admin\Model\Duplication;
 use App\Domain\User\Repository as UserRepository;
 
@@ -46,6 +47,10 @@ class DuplicationFormDTOTransformer
             []
         );
 
+        foreach ($formDTO->getData() as $data) {
+            $model->addDataId($data);
+        }
+
         switch ($formDTO->getTargetOption()) {
             case DuplicationTargetOptionDictionary::KEY_PER_COLLECTIVITY:
                 $this->addTargetCollectivitiesPerCollectivity($formDTO, $model);
@@ -55,10 +60,6 @@ class DuplicationFormDTOTransformer
                 break;
             default:
                 throw new \RuntimeException('Unable to read target collectivities for provided target option ' . $formDTO->getTargetOption());
-        }
-
-        foreach ($formDTO->getData() as $data) {
-            $model->addDataId($data);
         }
 
         $this->hydrator->hydrate($model);
@@ -72,7 +73,9 @@ class DuplicationFormDTOTransformer
     protected function addTargetCollectivitiesPerCollectivity(DuplicationFormDTO $formDTO, Duplication $model): void
     {
         foreach ($formDTO->getTargetCollectivities() as $collectivity) {
-            $model->addTargetCollectivity($collectivity);
+            foreach ($model->getDataIds() as $id) {
+                $model->addDuplicatedObjet(new DuplicatedObject($model, $collectivity, $id));
+            }
         }
     }
 
@@ -87,7 +90,9 @@ class DuplicationFormDTOTransformer
         );
 
         foreach ($collectivities as $collectivity) {
-            $model->addTargetCollectivity($collectivity);
+            foreach ($model->getDataIds() as $id) {
+                $model->addDuplicatedObjet(new DuplicatedObject($model, $collectivity, $id));
+            }
         }
     }
 }

@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+## [1.8] - 2022-01-05
+### Changement
+- Ajout des webservices
+- Ajout du registre grand publique
+- Nombreuses améliorations ergonomiques diverses
+- Nombreuses corrections et améliorations mineures
+
 ## [1.7.13] - 2021-12-22
 ### Changement
 - Correction d'un bug concernant le calcul de l'indice de maturité #337

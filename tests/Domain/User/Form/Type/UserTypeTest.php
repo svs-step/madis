@@ -41,6 +41,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\Security;
 
 class UserTypeTest extends FormTypeHelper
 {
@@ -53,6 +54,11 @@ class UserTypeTest extends FormTypeHelper
      * @var EncoderFactoryInterface
      */
     private $encoderFactoryProphecy;
+
+    /**
+     * @var Security
+     */
+    private $security;
 
     /**
      * @var PasswordEncoderInterface
@@ -68,13 +74,15 @@ class UserTypeTest extends FormTypeHelper
     {
         $this->authorizationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->encoderFactoryProphecy       = $this->prophesize(EncoderFactoryInterface::class);
+        $this->security                     = $this->prophesize(Security::class);
         $this->encoderProphecy              = $this->prophesize(PasswordEncoderInterface::class);
 
         $this->encoderFactoryProphecy->getEncoder(Argument::any())->willReturn($this->encoderProphecy->reveal());
 
         $this->formType = new UserType(
             $this->authorizationCheckerProphecy->reveal(),
-            $this->encoderFactoryProphecy->reveal()
+            $this->encoderFactoryProphecy->reveal(),
+            $this->security->reveal(),
         );
     }
 
@@ -94,9 +102,12 @@ class UserTypeTest extends FormTypeHelper
             'enabled'               => CheckboxType::class,
             'plainPassword'         => RepeatedType::class,
             'collectivitesReferees' => EntityType::class,
+            'apiAuthorized'         => CheckboxType::class,
+            'services'              => EntityType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
+        $this->authorizationCheckerProphecy->isGranted('ROLE_PREVIEW')->shouldBeCalled()->willReturn(true);
 
         $builderProphecy = $this->prophesizeBuilder($builder, false);
         $builderProphecy->get('roles')->shouldBeCalled()->willReturn($builderProphecy);
@@ -120,9 +131,11 @@ class UserTypeTest extends FormTypeHelper
             'lastName'      => TextType::class,
             'email'         => EmailType::class,
             'plainPassword' => RepeatedType::class,
+            'services'      => EntityType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(false);
+        $this->authorizationCheckerProphecy->isGranted('ROLE_PREVIEW')->shouldBeCalled()->willReturn(true);
 
         // No transformer since not granted admin
         $builderProphecy = $this->prophesizeBuilder($builder, false);

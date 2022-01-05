@@ -52,6 +52,13 @@ $(document).ready(function() {
         })
     });
 
+    var textArea = $('#treatment_coordonneesResponsableTraitement');
+    textArea.prop('disabled', !($('#treatment_author').val() === 'processing_manager'));
+    $('#treatment_author').on('change', function() {
+        var textArea = $('#treatment_coordonneesResponsableTraitement');
+        textArea.prop('disabled', !($(this).val() === 'processing_manager'));
+    });
+
     // Check Collectivity dpo | onLoad & onChange
     checkCollectivityDifferentDpo();
     $('#collectivity_differentDpo').on('change', function() {
@@ -62,6 +69,12 @@ $(document).ready(function() {
     checkCollectivityDifferentItManager();
     $('#collectivity_differentItManager').on('change', function() {
         checkCollectivityDifferentItManager();
+    });
+
+    // Check Collectivity services | onLoad & onChange
+    checkCollectivityDifferentServices();
+    $('#collectivity_isServicesEnabled').on('change', function() {
+        checkCollectivityDifferentServices();
     });
 
     // Check Mesurement status | onLoad & onChange
@@ -155,6 +168,25 @@ function checkDifferentItManager(id, boxId)
     id.prop('disabled', false);
 }
 
+function checkDifferentServices(id, boxId)
+{
+    boxId.find('input').each(function() {
+        $(this).prop('disabled', !id.is(':checked'));
+    });
+    boxId.find('select').each(function() {
+        $(this).prop('disabled', !id.is(':checked'));
+    });
+    boxId.find('#add-services').each(function() {
+        if ($('#collectivity_isServicesEnabled').prop('checked')) {
+            $('#add-services').css('display', 'inline-table');
+        } else {
+            $('#add-services').css('display', 'none');
+        }
+    })
+    // Be sure to not disable checkbox
+    id.prop('disabled', false);
+}
+
 function checkCollectivityDifferentDpo()
 {
     let differentDpo = $('#collectivity_differentDpo');
@@ -169,6 +201,14 @@ function checkCollectivityDifferentItManager()
     let boxItManager = $('body.user_collectivity.form #box-it-manager');
 
     checkDifferentItManager(differentItManager, boxItManager);
+}
+
+function checkCollectivityDifferentServices()
+{
+    let differentServices = $('#collectivity_isServicesEnabled');
+    let boxServices = $('body.user_collectivity.form #box-services');
+
+    checkDifferentServices(differentServices, boxServices);
 }
 
 function checkProfileDifferentDpo()

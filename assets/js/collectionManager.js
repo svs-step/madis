@@ -12,14 +12,14 @@
         $wrapper.on('click', '.js-collection-add', function(e) {
             e.preventDefault();
             // Get the data-prototype explained earlier
-            var prototype = $wrapper.data('prototype');
+            var prototype = $(this).parent().data('prototype');
             // get the new index
-            var index = $wrapper.data('index');
+            var index = $(this).parent().data('index');
             // Replace '__name__' in the prototype's HTML to
             // instead be a number based on how many items we have
             var newForm = prototype.replace(/__name__/g, index);
             // increase the index with one for the next item
-            $wrapper.data('index', index + 1);
+            $(this).parent().data('index', index + 1);
             // Display the form in the page before the "new" link
             $(this).before(newForm);
         });

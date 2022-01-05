@@ -19,6 +19,20 @@ services:
         arguments:
             $userLogJounalViewLimit: '%env(APP_USER_DASHBOARD_JOURNALISATION_LIMIT)%'
 
+    Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordRequirementsValidator: ~
+
+    App\Domain\User\Validator\Constraints\CustomPasswordValidator:
+        arguments:
+            $minLength: '%env(APP_PASSWORD_REQUIRE_MIN_LENGTH)%'
+            $requireCaseDiff: '%env(APP_PASSWORD_REQUIRE_CASE_DIFF)%'
+            $requireLetters: '%env(APP_PASSWORD_REQUIRE_LETTERS)%'
+            $requireNumbers: '%env(APP_PASSWORD_REQUIRE_NUMBERS)%'
+            $requireSpecialCharacter: '%env(APP_PASSWORD_REQUIRE_SPECIAL_CHARACTERS)%'
+
+    App\Application\Symfony\OpenApi\JwtDecorator:
+        decorates: 'api_platform.openapi.factory'
+        autoconfigure: false
+
 imports:
     - { resource: services/cloner.yaml }
     - { resource: services/controller.yaml }

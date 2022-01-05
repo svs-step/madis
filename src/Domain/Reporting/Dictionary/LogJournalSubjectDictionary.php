@@ -36,6 +36,7 @@ use App\Domain\Registry\Model\Request;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
 
 class LogJournalSubjectDictionary extends SimpleDictionary
@@ -56,6 +57,7 @@ class LogJournalSubjectDictionary extends SimpleDictionary
     const USER_PASSWORD                               = 'user_password';
     const USER_USER                                   = 'user_user';
     const REGISTRY_VIOLATION                          = 'registry_violation';
+    const USER_SERVICE                                = 'user_service';
 
     const CLASS_NAME_SUBJECT = [
         Duplication::class          => self::ADMIN_DUPLICATION,
@@ -70,6 +72,7 @@ class LogJournalSubjectDictionary extends SimpleDictionary
         Treatment::class            => self::REGISTRY_TREATMENT,
         User::class                 => self::USER_USER,
         Violation::class            => self::REGISTRY_VIOLATION,
+        Service::class              => self::USER_SERVICE,
     ];
 
     public function __construct()
@@ -99,6 +102,7 @@ class LogJournalSubjectDictionary extends SimpleDictionary
             self::REGISTRY_TREATMENT                          => 'Traitement',
             self::USER_USER                                   => 'Utilisateur',
             self::REGISTRY_VIOLATION                          => 'Violation',
+            self::USER_SERVICE                                => 'Service',
         ];
     }
 

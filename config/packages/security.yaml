@@ -17,6 +17,23 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        docs:
+            pattern: ^/api/docs
+            anonymous: ~
+        api_login:
+            pattern: ^/api/login
+            stateless: true
+            json_login:
+                check_path: api_login
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        api:
+            pattern:   ^/api
+            stateless: true
+            provider: user_provider
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
         main:
             pattern: ^/
             form_login:
@@ -39,21 +56,29 @@ security:
         - { path: ^/deconnexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/mot-de-passe-oublie, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reinitialisation-de-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/publique, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # Referent routes
         - { path: ^/collectivites/liste, roles: ROLE_REFERENT }
         - { path: ^/collectivites/visualiser/.+$, roles: ROLE_REFERENT }
         - { path: ^/collectivites/datatables, roles: ROLE_REFERENT }
         - { path: ^/utilisateurs/liste, roles: ROLE_REFERENT }
         - { path: ^/utilisateurs/datatables, roles: ROLE_REFERENT }
+        - { path: ^profil/mon-compte/services/.+/.+$, roles: ROLE_REFERENT}
         # Admin routes
         - { path: ^/collectivites, roles: ROLE_ADMIN }
         - { path: ^/utilisateurs, roles: ROLE_ADMIN }
         - { path: ^/journalisation, roles: ROLE_ADMIN }
+        - { path: ^/traitements/configuration, roles: ROLE_ADMIN }
         # Manager routes
         - { path: ^/.+/creer$, roles: ROLE_USER }
         - { path: ^/.+/creer/.+$, roles: ROLE_USER }
         - { path: ^/.+/editer/.+$, roles: ROLE_USER }
         - { path: ^/.+/supprimer/.+$, roles: ROLE_USER }
         - { path: ^/.+/supprimer/.+/confirmation$, roles: ROLE_USER }
+        # API routes
+        - { path: ^/api/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Allows accessing API documentations and Swagger UI
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/, roles: [ IS_AUTHENTICATED_FULLY ] } #IS_AUTHENTICATED_FULLY
+
         # Others
         - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }

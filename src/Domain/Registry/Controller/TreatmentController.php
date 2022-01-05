@@ -29,12 +29,16 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
+use App\Domain\Registry\Form\Type\TreatmentConfigurationType;
 use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model;
+use App\Domain\Registry\Model\PublicConfiguration;
+use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model as UserModel;
+use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -71,16 +75,6 @@ class TreatmentController extends CRUDController
     protected $wordHandler;
 
     /**
-     * @var AuthorizationCheckerInterface
-     */
-    protected $authorizationChecker;
-
-    /**
-     * @var UserProvider
-     */
-    protected $userProvider;
-
-    /**
      * @var RouterInterface
      */
     private $router;
@@ -97,12 +91,10 @@ class TreatmentController extends CRUDController
         Pdf $pdf,
         RouterInterface $router
     ) {
-        parent::__construct($entityManager, $translator, $repository, $pdf);
+        parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->collectivityRepository = $collectivityRepository;
         $this->requestStack           = $requestStack;
         $this->wordHandler            = $wordHandler;
-        $this->authorizationChecker   = $authorizationChecker;
-        $this->userProvider           = $userProvider;
         $this->router                 = $router;
     }
 
@@ -176,6 +168,116 @@ class TreatmentController extends CRUDController
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function configurationAction(): Response
+    {
+        $request            = $this->requestStack->getMasterRequest();
+        $criteria['active'] = 'true' === $request->query->get('active') || \is_null($request->query->get('active'))
+            ? true
+            : false
+        ;
+
+        $configuration = $this
+            ->getDoctrine()
+            ->getRepository(PublicConfiguration::class)
+            // find by type
+            ->findOneBy(['type' => Treatment::class]);
+
+        if (!$configuration) {
+            $configuration = new PublicConfiguration(Treatment::class);
+        }
+
+        $form = $this->createForm(TreatmentConfigurationType::class, $configuration);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $task = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($task);
+            $entityManager->flush();
+        }
+
+        return $this->render('Registry/Treatment/configuration.html.twig', [
+            'route'     => $this->router->generate('registry_treatment_configuration', ['active' => $criteria['active']]),
+            'form'      => $form->createView(),
+        ]);
+    }
+
+    /**
+     * The list public action view
+     * Get collectivity treatments & display them.
+     */
+    public function publicListAction(string $id): Response
+    {
+        $collectivity = $this
+            ->getDoctrine()
+            ->getRepository(Collectivity::class)
+            ->find($id);
+
+        $data = $this
+        ->getDoctrine()
+        ->getRepository(Treatment::class)
+        ->findBy(
+            [
+                'collectivity'  => $collectivity,
+                'public'        => 1,
+            ],
+            [
+                'name' => 'ASC',
+            ],
+        );
+
+        $objects = [];
+
+        foreach ($data as $treatment) {
+            if (true == $treatment->getPublic()) {
+                $objects[] = $treatment;
+            }
+        }
+
+        return $this->render($this->getTemplatingBasePath('public_list'), [
+            'objects'      => $objects,
+            'route'        => '/publique/traitements/datatables?active=1',
+            'totalItem'    => count($objects),
+            'collectivity' => $collectivity,
+        ]);
+    }
+
+    /**
+     * The public show action view
+     * Display the public information of the object.
+     *
+     * @param string $id The ID of the treatment to display
+     */
+    public function publicShowAction(string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $configurationEntity = $this
+            ->getDoctrine()
+            ->getRepository(PublicConfiguration::class)
+            // find by type
+            ->findOneBy(['type' => Treatment::class]);
+
+        if ($configurationEntity) {
+            $configuration = json_decode($configurationEntity->getSavedConfiguration(), true);
+        } else {
+            $configuration = new PublicConfiguration(Treatment::class);
+        }
+        //dd($configuration);
+
+        return $this->render($this->getTemplatingBasePath('public_show'), [
+            'object' => $object,
+            'config' => $configuration,
+        ]);
+    }
+
+    /**
      * Get all active treatments of a collectivity and return their id/name as JSON.
      */
     public function apiGetTreatmentsByCollectivity(string $collectivityId): Response
@@ -215,16 +317,18 @@ class TreatmentController extends CRUDController
      */
     public function listDataTables(Request $request): JsonResponse
     {
-        $request            = $this->requestStack->getMasterRequest();
-        $criteria['active'] = $request->query->getBoolean('active');
-        $user               = $this->userProvider->getAuthenticatedUser();
+        $request                   = $this->requestStack->getMasterRequest();
+        $criteria['active']        = $request->query->getBoolean('active');
+        $user                      = $this->userProvider->getAuthenticatedUser();
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity'] = $user->getCollectivity();
+            $criteria['collectivity']  = $user->getCollectivity();
         }
 
-        if (\in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
-            $criteria['collectivity'] = $user->getCollectivitesReferees();
+        if ($user) {
+            if (\in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
+                $criteria['collectivity'] = $user->getCollectivitesReferees();
+            }
         }
 
         /** @var Paginator $treatments */
@@ -234,9 +338,15 @@ class TreatmentController extends CRUDController
 
         /** @var Model\Treatment $treatment */
         foreach ($treatments as $treatment) {
-            $treatmentLink = '<a href="' . $this->router->generate('registry_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
+            if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
+                $treatmentLink = '<a href="' . $this->router->generate('registry_public_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
                 ' . $treatment->getName() . '
-            </a>';
+                </a>';
+            } else {
+                $treatmentLink = '<a href="' . $this->router->generate('registry_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
+                ' . $treatment->getName() . '
+                </a>';
+            }
 
             $contractors = '<ul>';
             foreach ($treatment->getContractors() as $contractor) {
@@ -264,6 +374,8 @@ class TreatmentController extends CRUDController
                 'openAccounts'           => $treatment->isSecurityOpenAccounts() ? $yes : $no,
                 'specificitiesDelivered' => $treatment->isSecuritySpecificitiesDelivered() ? $yes : $no,
                 'updatedAt'              => date_format($treatment->getUpdatedAt(), 'd-m-Y H:i:s'),
+                'public'                 => $treatment->getPublic() ? $yes : $no,
+                'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
@@ -274,21 +386,36 @@ class TreatmentController extends CRUDController
         return $jsonResponse;
     }
 
+    private function isTreatmentInUserServices(Model\Treatment $treatment): bool
+    {
+        $user   = $this->userProvider->getAuthenticatedUser();
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+
+        return $treatment->isInUserServices($user);
+    }
+
     private function generateActionCellContent(Model\Treatment $treatment)
     {
-        $id         = $treatment->getId();
-        $editPath   = $this->router->generate('registry_treatment_edit', ['id' => $id]);
-        $deletePath = $this->router->generate('registry_treatment_delete', ['id' => $id]);
+        $id = $treatment->getId();
 
-        return '<a href="' . $editPath . '">
-            <i class="fa fa-pencil-alt"></i>
-                ' . $this->translator->trans('action.edit') . '
-            </a>
-            <a href="' . $deletePath . '">
-                <i class="fa fa-trash"></i>
-                ' . $this->translator->trans('action.delete') . '
-            </a>'
-        ;
+        if ($this->isTreatmentInUserServices($treatment)) {
+            $editPath   = $this->router->generate('registry_treatment_edit', ['id' => $id]);
+            $deletePath = $this->router->generate('registry_treatment_delete', ['id' => $id]);
+
+            return '<a href="' . $editPath . '">
+             <i class="fa fa-pencil-alt"></i>
+                 ' . $this->translator->trans('action.edit') . '
+             </a>
+             <a href="' . $deletePath . '">
+                 <i class="fa fa-trash"></i>
+                 ' . $this->translator->trans('action.delete') . '
+             </a>'
+         ;
+        }
+
+        return null;
     }
 
     /**
@@ -313,7 +440,9 @@ class TreatmentController extends CRUDController
             '13' => 'openAccounts',
             '14' => 'specificitiesDelivered',
             '15' => 'updatedAt',
-            '16' => 'actions',
+            '16' => 'public',
+            '17' => 'responsableTraitement',
+            '18' => 'actions',
         ];
     }
 }

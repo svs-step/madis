@@ -18,6 +18,22 @@
 
 {% block body %}
     <div class="row">
+        <div class="col-xs-12">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <div class="action-bar">
+                <a href="{{ path('admin_duplication_revert') }}" class="btn btn-default">
+                    <i class="fa fa-times-circle"></i>
+                    {{ 'admin.duplication.revert'|trans }}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         {{ form_start(form) }}
 
         {# LEFT #}
@@ -49,7 +65,21 @@
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class="box-body text-center">
-                    <input type="submit" class="btn btn-primary" value="{{ 'action.duplicate'|trans }}">
+                    <a class="btn btn-primary" data-toggle="modal" data-target="#validate_modal"> Dupliquer</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="validate_modal" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        Attention, vous allez dupliquer des éléments sur un ensemble de collectivités
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <input type="submit" class="btn btn-primary" value="{{ 'action.duplicate'|trans }}">
+                    </div>
                 </div>
             </div>
         </div>
@@ -99,7 +129,7 @@
                 } else {
                     console.error('Cannot find route for provided type : ' + type)
                 }
-
+                console.log(route);
                 // Get data and display them
                 $.ajax({
                     url: route,

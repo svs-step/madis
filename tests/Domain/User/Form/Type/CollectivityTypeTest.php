@@ -36,6 +36,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -76,6 +77,7 @@ class CollectivityTypeTest extends FormTypeHelper
             'siren'                               => NumberType::class,
             'active'                              => ChoiceType::class,
             'website'                             => UrlType::class,
+            'informationsComplementaires'         => TextareaType::class,
             'address'                             => AddressType::class,
             'legalManager'                        => ContactType::class,
             'referent'                            => ContactType::class,
@@ -88,6 +90,8 @@ class CollectivityTypeTest extends FormTypeHelper
             'comiteIlContacts'                    => CollectionType::class,
             'hasModuleConformiteTraitement'       => CheckboxType::class,
             'hasModuleConformiteOrganisation'     => CheckboxType::class,
+            'isServicesEnabled'                   => CheckboxType::class,
+            'services'                            => CollectionType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);

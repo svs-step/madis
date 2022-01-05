@@ -45,16 +45,6 @@ class ConformiteOrganisationController extends CRUDController
     private $conformiteRepository;
 
     /**
-     * @var UserProvider
-     */
-    private $userProvider;
-
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    private $authorizationChecker;
-
-    /**
      * @var EventDispatcherInterface
      */
     private $dispatcher;
@@ -77,12 +67,10 @@ class ConformiteOrganisationController extends CRUDController
         WordHandler $wordHandler,
         Pdf $pdf
     ) {
-        parent::__construct($entityManager, $translator, $repository, $pdf);
+        parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->questionRepository     = $questionRepository;
         $this->processusRepository    = $processusRepository;
         $this->conformiteRepository   = $conformiteRepository;
-        $this->userProvider           = $userProvider;
-        $this->authorizationChecker   = $authorizationChecker;
         $this->dispatcher             = $dispatcher;
         $this->wordHandler            = $wordHandler;
     }

@@ -37,6 +37,7 @@ use App\Domain\Reporting\Model\LogJournal;
 use App\Domain\Reporting\Symfony\EventSubscriber\Event\LogJournalEvent;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\ComiteIlContact;
+use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
@@ -116,7 +117,7 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
                 $object = $object->getEvaluation();
                 $action = LogJournalActionDictionary::UPDATE;
                 break;
-            //l'ajout d'un contact IL entraine la modification de la collectivité
+            //l'ajout d'un contact IL ou d'un service entraine la modification de la collectivité
             case ComiteIlContact::class:
                 $object = $object->getCollectivity();
                 $action = LogJournalActionDictionary::UPDATE;
@@ -350,6 +351,7 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
             Conformite::class,
             Participant::class,
             ComiteIlContact::class,
+            Service::class,
             Reponse::class,
         ]);
     }

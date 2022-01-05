@@ -25,6 +25,8 @@ declare(strict_types=1);
 namespace App\Tests\Domain\User\Controller;
 
 use App\Application\Controller\CRUDController;
+use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Registry\Repository as RegistryRepository;
 use App\Domain\User\Controller\CollectivityController;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\CollectivityType;
@@ -37,6 +39,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -71,7 +74,14 @@ class CollectivityControllerTest extends TestCase
             $this->repository->reveal(),
             $this->prophesize(Pdf::class)->reveal(),
             $this->prophesize(RouterInterface::class)->reveal(),
-            $this->security->reveal()
+            $this->security->reveal(),
+            $this->prophesize(RegistryRepository\Treatment::class)->reveal(),
+            $this->prophesize(RegistryRepository\Contractor::class)->reveal(),
+            $this->prophesize(RegistryRepository\Proof::class)->reveal(),
+            $this->prophesize(RegistryRepository\Mesurement::class)->reveal(),
+            $this->prophesize(Repository\User::class)->reveal(),
+            $this->prophesize(UserProvider::class)->reveal(),
+            $this->prophesize(AuthorizationCheckerInterface::class)->reveal(),
         );
     }
 

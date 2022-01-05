@@ -30,10 +30,12 @@
                     <i class="fa fa-arrow-left"></i>
                     {{ 'registry.treatment.action.back_to_list'|trans }}
                 </a>
-                <a href="{{ path('registry_treatment_edit', {'id': object.id}) }}" class="btn btn-default">
-                    <i class="fa fa-pencil-alt"></i>
-                    {{ 'action.edit'|trans }}
-                </a>
+                {% if (actionEnabled) %}
+                    <a href="{{ path('registry_treatment_edit', {'id': object.id}) }}" class="btn btn-default">
+                        <i class="fa fa-pencil-alt"></i>
+                        {{ 'action.edit'|trans }}
+                    </a>
+                {% endif %}
                 <a href="{{ path('registry_treatment_pdf', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-print"></i>
                     {{ 'action.print'|trans }}
@@ -53,9 +55,25 @@
                     <table class="table">
                         <tbody>
                         <tr>
+                            <td><strong>{{ 'registry.treatment.show.public'|trans }}</strong></td>
+                            <td>
+                                {% if object.public == true %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'registry.treatment.show.name'|trans }}</strong></td>
                             <td>{{ object.name }}</td>
                         </tr>
+                        {% if serviceEnabled %}
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.service'|trans }}</strong></td>
+                                <td>{{ object.service }}</td>
+                            </tr>
+                        {% endif %}
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.goal'|trans }}</strong></td>
                             <td>{{ object.goal|nl2br }}</td>
@@ -64,6 +82,12 @@
                             <td><strong>{{ 'registry.treatment.show.author'|trans }}</strong></td>
                             <td>{% if object.author is not null %}{{ object.author|dictionary('registry_treatment_author') }}{% endif %}</td>
                         </tr>
+                        {% if object.author == "processing_manager" %}
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.coordonnees_responsable_traitement'|trans }}</strong></td>
+                                <td>{{ object.coordonneesResponsableTraitement|nl2br }}</td>
+                            </tr>
+                        {% endif %}
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.manager'|trans }}</strong></td>
                             <td>{{ object.manager }}</td>
@@ -262,9 +286,15 @@
                     <table class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.creator'|trans }}</strong></td>
                             <td>
-                                {{ object.creator }}
+                                <strong>{{ 'registry.treatment.show.creator'|trans }}</strong>
+                            </td>
+                            <td>
+                                {% if object.creator %}
+                                    {{ object.creator }}
+                                {% else %}
+                                    {{ 'registry.treatment.show.deleted_user'|trans }}
+                                {% endif %}
                             </td>
                         </tr>
                         {% if is_granted('ROLE_ADMIN') %}
@@ -417,7 +447,14 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong></td>
-                            <td>{% if object.collectingMethod is not null %}{{ object.collectingMethod|dictionary('registry_treatment_collecting_method') }}{% endif %}</td>
+                            <td>
+                                <ul>
+                                    {% for method in object.collectingMethod %}
+                                        <li>{{ method|dictionary('registry_treatment_collecting_method') }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% if object.collectingMethod is not null %}{% endif %}
+                            </td>
                         </tr>
                     </table>
                 </div>

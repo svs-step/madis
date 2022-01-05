@@ -17,6 +17,7 @@
         <field name="website" column="website" nullable="true"/>
         <field name="differentDpo" column="different_dpo" type="boolean"/>
         <field name="differentItManager" column="different_it_manager" type="boolean"/>
+        <field name="isServicesEnabled" column="is_services_enabled" type="boolean" nullable="true"/>
         <field name="reportingBlockManagementCommitment" type="text" nullable="true"/>
         <field name="reportingBlockContinuousImprovement" type="text" nullable="true"/>
         <field name="hasModuleConformiteTraitement" type="boolean">
@@ -29,6 +30,7 @@
                 <option name="default">0</option>
             </options>
         </field>
+        <field name="informationsComplementaires" type="text" nullable="true"/>
 
         <embedded name="address" class="App\Domain\User\Model\Embeddable\Address" column-prefix="address_"/>
         <embedded name="legalManager" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="legal_manager_"/>
@@ -38,6 +40,12 @@
 
         <one-to-many field="users" target-entity="App\Domain\User\Model\User" mapped-by="collectivity" orphan-removal="true">
             <cascade>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+        <one-to-many field="services" target-entity="App\Domain\User\Model\Service" mapped-by="collectivity" orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
                 <cascade-remove/>
             </cascade>
         </one-to-many>

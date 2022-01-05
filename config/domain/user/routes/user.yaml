@@ -37,3 +37,8 @@ user_user_unarchive_confirm:
     path: '/desarchiver/{id}/confirmation'
     methods: ['GET']
     controller: 'App\Domain\User\Controller\UserController:unarchiveConfirmationAction'
+
+user_user_get_services_content:
+    path: '/services/{collectivityId}/{userId}'
+    methods: ['GET']
+    controller: 'App\Domain\User\Controller\UserController:getServicesContent'

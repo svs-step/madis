@@ -79,7 +79,7 @@ class SurveyController extends CRUDController
         MaturityHandler $maturityHandler,
         Pdf $pdf
     ) {
-        parent::__construct($entityManager, $translator, $repository, $pdf);
+        parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->questionRepository   = $questionRepository;
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;

@@ -60,8 +60,8 @@ class LoginSubscriber implements EventSubscriberInterface
         EntityManagerInterface $em,
         LogRepository $logRepository,
         Security $security,
-        string $logJournalDuration)
-    {
+        string $logJournalDuration
+    ) {
         $this->entityManager        = $em;
         $this->logJournalRepository = $logRepository;
         $this->security             = $security;

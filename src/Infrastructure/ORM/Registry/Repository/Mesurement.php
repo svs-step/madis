@@ -355,4 +355,18 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ->getResult()
             ;
     }
+
+    public function findAllByClonedFromCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->leftJoin('o.clonedFrom', 'c')
+            ->andWhere('c.collectivity = :collectivity')
+            ->setParameter('collectivity', $collectivity);
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

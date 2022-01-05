@@ -76,6 +76,19 @@
                     </ul>
                 </div>
             </div>
+
+            {% for role in roles %}
+                {% if role == "ROLE_USER" %}
+                    <div class="box box-solid box-success">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{{ 'user.user.tab.services'|trans }}</h3>
+                        </div>
+                        <div class="box-body">
+                            {{form_row(form.services)}}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
 
         <div class="col-md-12">
@@ -86,6 +99,5 @@
             </div>
         </div>
 
-        {{ form_end(form) }}
     </div>
 {% endblock %}

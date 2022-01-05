@@ -5,13 +5,21 @@
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.name) }}
+                {% if serviceEnabled is defined and serviceEnabled %}
+                    {{ form_row(form.service) }}
+                {% endif %}
                 {{ form_row(form.goal) }}
-                {{ form_row(form.author) }}
+                <div id="author_group">
+                    {{ form_row(form.author) }}
+                    {{ form_row(form.coordonneesResponsableTraitement) }}
+                </div>
                 {{ form_row(form.manager) }}
                 {{ form_row(form.active) }}
                 {{ form_row(form.legalBasis) }}
                 {{ form_row(form.legalBasisJustification) }}
                 {{ form_row(form.observation) }}
+                <label class="col-sm-2">{{ 'registry.treatment.tab.public'|trans }}</label>
+                {{ form_widget(form.public) }}
             </div>
         </div>
 

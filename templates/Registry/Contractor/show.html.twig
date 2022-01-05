@@ -30,10 +30,12 @@
                     <i class="fa fa-arrow-left"></i>
                     {{ 'registry.contractor.action.back_to_list'|trans }}
                 </a>
-                <a href="{{ path('registry_contractor_edit', {'id': object.id}) }}" class="btn btn-default">
-                    <i class="fa fa-pencil-alt"></i>
-                    {{ 'action.edit'|trans }}
-                </a>
+                {% if (actionEnabled) %}
+                    <a href="{{ path('registry_contractor_edit', {'id': object.id}) }}" class="btn btn-default">
+                        <i class="fa fa-pencil-alt"></i>
+                        {{ 'action.edit'|trans }}
+                    </a>
+                {% endif %}
                 <a href="{{ path('registry_contractor_pdf', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-print"></i>
                     {{ 'action.print'|trans }}
@@ -166,9 +168,15 @@
                     <table class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.contractor.show.creator'|trans }}</strong></td>
                             <td>
-                                {{ object.creator }}
+                                <strong>{{ 'registry.contractor.show.creator'|trans }}</strong>
+                            </td>
+                            <td>
+                                {% if object.creator %}
+                                    {{ object.creator }}
+                                {% else %}
+                                    {{ 'registry.contractor.show.deleted_user'|trans }}
+                                {% endif %}
                             </td>
                         </tr>
                         {% if is_granted('ROLE_ADMIN') %}

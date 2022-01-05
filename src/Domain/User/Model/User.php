@@ -24,13 +24,15 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Model;
 
+use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Traits\Model\SoftDeletableTrait;
 use App\Domain\Reporting\Model\LoggableSubject;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User implements LoggableSubject, UserInterface
+class User implements LoggableSubject, UserInterface, CollectivityRelated
 {
     use SoftDeletableTrait;
 
@@ -85,6 +87,11 @@ class User implements LoggableSubject, UserInterface
     private $collectivity;
 
     /**
+     * @var Collection|Service[]
+     */
+    private $services;
+
+    /**
      * @var iterable
      */
     private $collectivitesReferees;
@@ -93,6 +100,11 @@ class User implements LoggableSubject, UserInterface
      * @var \DateTimeImmutable|null
      */
     private $lastLogin;
+
+    /**
+     * @var bool
+     */
+    private $apiAuthorized;
 
     /**
      * User constructor.
@@ -245,6 +257,16 @@ class User implements LoggableSubject, UserInterface
         $this->lastLogin = $lastLogin;
     }
 
+    public function getServices(): ?Collection
+    {
+        return $this->services;
+    }
+
+    public function setServices($services): void
+    {
+        $this->services = $services;
+    }
+
     public function getCollectivitesReferees(): iterable
     {
         return $this->collectivitesReferees;
@@ -253,5 +275,30 @@ class User implements LoggableSubject, UserInterface
     public function setCollectivitesReferees(iterable $collectivitesReferees): void
     {
         $this->collectivitesReferees = $collectivitesReferees;
+    }
+
+    public function getApiAuthorized(): ?bool
+    {
+        return $this->apiAuthorized;
+    }
+
+    public function setApiAuthorized(?bool $apiAuthorized): void
+    {
+        $this->apiAuthorized = $apiAuthorized;
+    }
+
+    public function isInUserServices(User $user): bool
+    {
+        if (false == $user->getCollectivity()->getIsServicesEnabled()) {
+            return true;
+        }
+
+        $result = false;
+
+        if ($user->getServices() === $this->getServices()) {
+            $result = true;
+        }
+
+        return $result;
     }
 }

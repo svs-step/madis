@@ -1,0 +1,181 @@
+{% extends 'base_publique.html.twig' %}
+
+{% set bodyClass = 'registry_treatment list' %}
+{% set menuItem = 'registry_treatment' %}
+
+{% block title %}{{ 'registry.treatment.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+{% endblock %}
+
+ {% block body_head %}
+    <h1>
+        {{ 'registry.treatment.title.list'|trans }}
+        <small>
+            {% if app.request.query.get('active') == 'false' %}
+                {{ 'label.inactive'|trans }}
+            {% else %}
+                {{ 'label.active'|trans }}
+            {% endif %}
+        </small>
+    </h1>
+{% endblock %}
+
+{% block body %}
+ 
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>{{ 'registry.treatment.list.name'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.goal'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for object in objects %}
+                                <tr>
+                                    <td><a href="{{ path('registry_public_treatment_show', {id: object.id}) }}">
+                                        {{ object.name }}
+                                    </a></td>
+                                    <td>
+                                        {{ object.goal|striptags|slice(0, 60) }}
+                                        {% if (object.goal|length > 60 ) %}
+                                            ...
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+
+    {% set collectivityIsVisible = false %}
+    {% set collectivityClassname = "noVis" %}
+    {% set actionIsVisible = true %}
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "nom", "className": "noVis"},
+            {"data" : "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
+            {"data": "baseLegal", "visible": false},
+            {"data": "logiciel", "visible": false},
+            {"data": "enTantQue", "visible": false},
+            {"data": "gestionnaire", "visible": false},
+            {"data": "sousTraitant", "visible": false, "orderable": false},
+            {"data": "controleAcces", "visible": false},
+            {"data": "tracabilite", "visible": false},
+            {"data": "saving", "visible": false},
+            {"data": "update", "visible": false},
+            {"data": "other", "visible": false},
+            {"data": "entitledPersons", "visible": false},
+            {"data": "openAccounts", "visible": false},
+            {"data": "specificitiesDelivered", "visible": false},
+            {"data": "updatedAt", "visible": false},
+        ],
+        order:  [
+            [0, 'asc' ]
+        ],
+    } %}
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_nom').off('keyup');
+            $('#search_nom').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+
+            $('#search_collectivite').off('keyup');
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+
+            $('#search_base_legal').off('change');
+            $('#search_base_legal').change(function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            });
+
+            $('#search_logiciel').off('keyup');
+            $('#search_logiciel').keyup($.debounce(250, function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            }));
+
+            $('#search_en_tant_que').off('change');
+            $('#search_en_tant_que').change(function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            });
+
+            $('#search_gestionnaire').off('keyup');
+            $('#search_gestionnaire').keyup($.debounce(250, function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            }));
+
+            $('#search_sous_traitants').off('keyup');
+            $('#search_sous_traitants').keyup($.debounce(250, function(){
+                oTable.column('6').search($(this).val()).draw() ;
+            }));
+
+            $('#search_controle_acces').off('change');
+            $('#search_controle_acces').change(function(){
+                oTable.column('7').search($(this).val()).draw() ;
+            });
+
+            $('#search_tracabilite').off('change');
+            $('#search_tracabilite').change(function(){
+                oTable.column('8').search($(this).val()).draw() ;
+            });
+
+            $('#search_sauvegarde').off('change');
+            $('#search_sauvegarde').change(function(){
+                oTable.column('9').search($(this).val()).draw() ;
+            });
+
+            $('#search_mise_a_jour').off('change');
+            $('#search_mise_a_jour').change(function(){
+                oTable.column('10').search($(this).val()).draw() ;
+            });
+
+            $('#search_autres').off('change');
+            $('#search_autres').change(function(){
+                oTable.column('11').search($(this).val()).draw() ;
+            });
+
+            $('#search_capacite').off('change');
+            $('#search_capacite').change(function(){
+                oTable.column('12').search($(this).val()).draw() ;
+            });
+
+            $('#search_procedure').off('change');
+            $('#search_procedure').change(function(){
+                oTable.column('13').search($(this).val()).draw() ;
+            });
+
+            $('#search_specificite').off('change');
+            $('#search_specificite').change(function(){
+                oTable.column('14').search($(this).val()).draw() ;
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
+{% endblock %} 

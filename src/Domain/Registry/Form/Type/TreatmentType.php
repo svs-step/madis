@@ -29,6 +29,7 @@ use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\TreatmentDataCategory;
+use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
@@ -64,6 +65,10 @@ class TreatmentType extends AbstractType
         /** @var Treatment $treatment */
         $treatment = $options['data'];
         $builder
+            ->add('public', CheckboxType::class, [
+                'label'    => ' ',
+                'required' => false,
+            ])
             ->add('name', TextType::class, [
                 'label'    => 'registry.treatment.form.name',
                 'required' => true,
@@ -285,11 +290,24 @@ class TreatmentType extends AbstractType
                 'name'     => 'registry_treatment_author',
                 'required' => true,
             ])
+            ->add('coordonneesResponsableTraitement', TextareaType::class, [
+                'label'    => 'registry.treatment.form.coordonnees_responsable_traitement',
+                'required' => false,
+                'attr'     => [
+                    'rows' => 3,
+                ],
+            ])
             ->add('collectingMethod', DictionaryType::class, [
-                'label'       => 'registry.treatment.form.collecting_method',
-                'name'        => 'registry_treatment_collecting_method',
-                'required'    => false,
-                'placeholder' => 'placeholder.precision',
+                'label'         => 'registry.treatment.form.collecting_method',
+                'name'          => 'registry_treatment_collecting_method',
+                'required'      => false,
+                'expanded'      => false,
+                'multiple'      => true,
+                'placeholder'   => 'placeholder.precision',
+                'attr'          => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
             ])
             ->add('estimatedConcernedPeople', IntegerType::class, [
                 'label'    => 'registry.treatment.form.estimated_concerned_people',
@@ -320,6 +338,28 @@ class TreatmentType extends AbstractType
                 'placeholder' => 'placeholder.precision',
             ])
         ;
+
+        // Check if services are enabled for the collectivity's treatment
+        if ($options['data']->getCollectivity()->getIsServicesEnabled()) {
+            $builder->add('service', EntityType::class, [
+                'class'         => Service::class,
+                'label'         => 'registry.treatment.form.service',
+                'query_builder' => function (EntityRepository $er) use ($treatment) {
+                    if ($treatment->getCollectivity()) {
+                        $collectivity = $treatment->getCollectivity();
+
+                        return $er->createQueryBuilder('s')
+                        ->where('s.collectivity = :collectivity')
+                        ->setParameter(':collectivity', $collectivity)
+                        ->orderBy('s.name', 'ASC');
+                    }
+
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.name', 'ASC');
+                },
+                'required'      => false,
+            ]);
+        }
     }
 
     /**

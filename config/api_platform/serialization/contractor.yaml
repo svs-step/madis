@@ -1,0 +1,4 @@
+App\Domain\Registry\Model\Contractor:
+    attributes:
+        name:
+            groups: ['treatment_read']

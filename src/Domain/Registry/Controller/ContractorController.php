@@ -90,7 +90,7 @@ class ContractorController extends CRUDController
         Pdf $pdf,
         RouterInterface $router
     ) {
-        parent::__construct($entityManager, $translator, $repository, $pdf);
+        parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->collectivityRepository = $collectivityRepository;
         $this->wordHandler            = $wordHandler;
         $this->authorizationChecker   = $authorizationChecker;
@@ -233,6 +233,17 @@ class ContractorController extends CRUDController
         return $jsonResponse;
     }
 
+    private function isContractorInUserServices(Model\Contractor $contractor): bool
+    {
+        $user   = $this->userProvider->getAuthenticatedUser();
+
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+
+        return $contractor->isInUserServices($user);
+    }
+
     protected function getLabelAndKeysArray(): array
     {
         return [
@@ -264,20 +275,23 @@ class ContractorController extends CRUDController
 
     private function getActionCellsContent(Contractor $sousTraitant)
     {
-        $cellContent =
-            '<a href="' . $this->router->generate('registry_contractor_edit', ['id' => $sousTraitant->getId()]) . '">
-                <i class="fa fa-pencil-alt"></i>' .
-                $this->translator->trans('action.edit') .
-            '</a>';
-        if (0 === count(\iterable_to_array($sousTraitant->getTreatments()))) {
+        if ($this->isContractorInUserServices($sousTraitant)) {
+            $cellContent =
+                '<a href="' . $this->router->generate('registry_contractor_edit', ['id' => $sousTraitant->getId()]) . '">
+                    <i class="fa fa-pencil-alt"></i>' .
+                    $this->translator->trans('action.edit') .
+                '</a>';
+
             $cellContent .=
                 '<a href="' . $this->router->generate('registry_contractor_delete', ['id' => $sousTraitant->getId()]) . '">
                     <i class="fa fa-trash"></i>' .
                     $this->translator->trans('action.delete') .
                 '</a>';
+
+            return $cellContent;
         }
 
-        return $cellContent;
+        return null;
     }
 
     /**

@@ -36,6 +36,7 @@ registry:
             other_informations: Autres informations
             referent: Agent référent
             sending_data_outside_eu: Envoi des données hors UE
+            service: Service
         flashbag:
             success:
                 create: Sous-traitant "%object%" créé avec succès
@@ -62,6 +63,7 @@ registry:
             contact_phone_number: N° tél.
             created_at: Date de création
             creator: Créateur
+            deleted_user: Utilisateur supprimé
             has_dpo: Le sous-traitant a désigné un DPD
             maintains_treatment_register: Tient à jour un registre des traitements
             name: Nom
@@ -232,6 +234,7 @@ registry:
             object: Objet de la demande
             other_object: Demande explicite
             reason: Motif
+            service: Service
             state: État de la demande
             state_rejection_reason: Motifs du refus*
         list:
@@ -267,6 +270,7 @@ registry:
             created_at: Date de création
             creator: Créateur
             date: Date
+            deleted_user: Utilisateur supprimé
             legitimate_applicant: Demandeur légitime
             legitimate_request: Demande légitime
             object: Objet de la demande
@@ -346,6 +350,7 @@ registry:
             data_crossing: Croisement de données
             data_category: Catégorie de données
             data_category_other: Autres catégories
+            coordonnees_responsable_traitement: Coordonnées du responsable de traitement
             data_origin: Origine des données
             delay: Délai de conservation
             estimated_concerned_people: Nombre de concernées
@@ -359,6 +364,7 @@ registry:
             name: Nom
             observation: Observations
             paper_processing: Traitement papier
+            public: Publique
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
             security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
@@ -368,6 +374,7 @@ registry:
             security_specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             security_tracability: Traçabilité
             security_update: Mise à jour
+            service: Service
             systematic_monitoring: Surveillance systématique
             software: Logiciel
             ultimate_fate: Sort final
@@ -385,11 +392,14 @@ registry:
             completion: Taux de complétion
             contractors: Sous-traitants
             entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
+            goal: Finalité
             legal_basis: Base légale
             manager: Gestionnaire
             name: Nom
             open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
             other: Autres
+            public: Publique
+            responsable_traitement: Responsable traitement
             saving: Sauvegarde
             specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             software: Logiciel
@@ -417,13 +427,16 @@ registry:
             conformite_traitement_updated_at: Conformité du traitement - Date modification
             collectivity: Collectivité
             contractors: Sous-traitants
+            coordonnees_responsable_traitement: Coordonnées responsable
             created_at: Date de création
             creator: Créateur
             data_crossing: Croisement de données
+            data_categories: Catégorie de données
             data_category: Catégorie de données
             data_category_other: Autres catégories
             data_origin: Origine des données
             delay: Délai de conservation
+            deleted_user: Utilisateur supprimé
             estimated_concerned_people: Nombre de concernées
             evaluation_or_rating: Évaluation ou notation
             goal: Finalités
@@ -435,6 +448,9 @@ registry:
             name: Nom
             observation: Observations
             paper_processing: Traitement papier
+            proofs: Documents associés
+            public: Publique
+            public_register: Registre publique
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
             security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
@@ -444,6 +460,7 @@ registry:
             security_specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             security_tracability: Traçabilité
             security_update: Mise à jour
+            service: Service
             software: Logiciel
             ultimate_fate: Sort final
             systematic_monitoring: Surveillance systématique
@@ -455,12 +472,14 @@ registry:
             edit: Modifier un traitement
             list: Liste des traitements
             show: Visualiser un traitement
+            configure: Configurer les traitements
         tab:
           data_category: Catégorie des données
           details: Détails
           general: Informations générales
           historic: Historique
           proofs: Documents associés
+          public: Registre publique
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
           recipients: Destination
@@ -500,6 +519,7 @@ registry:
             notification_details: Précisions sur les notifications
             origins: Origine de la perte de données
             potential_impacts_nature: Nature des impacts potentiels pour les personnes
+            service: Service
             violation_nature: Nature de la violation
         list:
             cause: Cause
@@ -520,6 +540,7 @@ registry:
             creator: Créateur
             date: Date de la violation
             gravity: Niveau de gravité
+            deleted_user: Utilisateur supprimé
             in_progress: La violation est toujours en cours
             nb_affected_persons: Nombre approximatif de personnes concernées par la violation
             nb_affected_rows: Nombre approximatif d'enregistrements concernés par la violation

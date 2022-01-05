@@ -24,15 +24,18 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Model;
 
+use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Application\Traits\Model\SoftDeletableTrait;
 use App\Domain\Reporting\Model\LoggableSubject;
+use App\Domain\User\Model\Service;
+use App\Domain\User\Model\User;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Violation implements LoggableSubject
+class Violation implements LoggableSubject, CollectivityRelated
 {
     use CollectivityTrait;
     use CreatorTrait;
@@ -133,6 +136,11 @@ class Violation implements LoggableSubject
      * @var iterable
      */
     private $proofs;
+
+    /**
+     * @var Service|null
+     */
+    private $service;
 
     /**
      * Violation constructor.
@@ -338,5 +346,32 @@ class Violation implements LoggableSubject
     public function getProofs(): iterable
     {
         return $this->proofs;
+    }
+
+    public function getService(): ?Service
+    {
+        return $this->service;
+    }
+
+    public function setService(Service $service = null): void
+    {
+        $this->service = $service;
+    }
+
+    public function isInUserServices(User $user): bool
+    {
+        if (false == $user->getCollectivity()->getIsServicesEnabled()) {
+            return true;
+        }
+
+        $result = false;
+
+        foreach ($user->getServices() as $service) {
+            if ($this->getService() && $service->getId() == $this->getService()->getId()) {
+                $result = true;
+            }
+        }
+
+        return $result;
     }
 }

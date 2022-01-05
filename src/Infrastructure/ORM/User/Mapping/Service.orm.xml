@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                            https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\User\Model\Service" table="registry_service">
+
+        <id name="id" column="id" type="uuid"/>
+
+        <field name="name" column="name" nullable="true"/>
+
+        <many-to-many field="users" target-entity="App\Domain\User\Model\User" mapped-by="services">
+        </many-to-many>
+
+        <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity" inversed-by="services"/>
+
+        <one-to-many field="treatments" target-entity="App\Domain\Registry\Model\Treatment" mapped-by="service" orphan-removal="false">
+            <join-column nullable="true"/>
+        </one-to-many>
+        <one-to-many field="contractors" target-entity="App\Domain\Registry\Model\Contractor" mapped-by="service" orphan-removal="false">
+            <join-column nullable="true"/>
+        </one-to-many>
+        <one-to-many field="requests" target-entity="App\Domain\Registry\Model\Request" mapped-by="service" orphan-removal="false">
+            <join-column nullable="true"/>
+        </one-to-many>
+        <one-to-many field="violations" target-entity="App\Domain\Registry\Model\Violation" mapped-by="service" orphan-removal="false">
+            <join-column nullable="true"/>
+        </one-to-many>
+        <!-- Traits -->
+        <field name="createdAt" column="created_at" type="datetime_immutable">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" column="updated_at" type="datetime_immutable">
+            <gedmo:timestampable on="update"/>
+        </field>
+
+    </entity>
+
+</doctrine-mapping>

@@ -46,6 +46,7 @@ class TreatmentLegalBasisDictionaryTest extends TestCase
     public function testGetBasis()
     {
         $data = [
+            TreatmentLegalBasisDictionary::BASE_NONE                    => 'À déterminer',
             TreatmentLegalBasisDictionary::BASE_CONSENT                 => 'Le consentement',
             TreatmentLegalBasisDictionary::BASE_LEGAL_OBLIGATION        => 'L\'obligation légale',
             TreatmentLegalBasisDictionary::BASE_CONTRACT_EXECUTION      => 'L\'exécution d\'un contrat',
@@ -60,6 +61,7 @@ class TreatmentLegalBasisDictionaryTest extends TestCase
     public function testGetBasisKeys()
     {
         $data = [
+            TreatmentLegalBasisDictionary::BASE_NONE,
             TreatmentLegalBasisDictionary::BASE_CONSENT,
             TreatmentLegalBasisDictionary::BASE_LEGAL_OBLIGATION,
             TreatmentLegalBasisDictionary::BASE_CONTRACT_EXECUTION,

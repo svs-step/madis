@@ -34,6 +34,7 @@ user:
             different_it_manager: Différent du Référent Opérationnel
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de l'organisation
+            is_services_enabled: Activation des services
             name: Nom
             placeholder:
                 website: https://
@@ -41,6 +42,7 @@ user:
             siren: SIREN
             type: Type
             website: Site internet
+            informations_complementaires: Informations complémentaires
         flashbag:
             success:
                 create: Collectivité "%object%" créée avec succès
@@ -52,6 +54,7 @@ user:
             short_name: Nom court
             siren: SIREN
             type: Type
+            informations_complementaires: Informations complémentaires
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cette collectivité ?
         show:
@@ -71,10 +74,12 @@ user:
             created_at: Date de création
             different_dpo: Différent du DPD moral
             different_it_manager: Différent du Référent Opérationnel
+            informations_complementaires: Informations complémentaires
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de l'organisation
             name: Nom
             short_name: Nom court
+            services: Services
             siren: SIREN
             type: Type
             updated_at: Date de dernière modification
@@ -91,6 +96,7 @@ user:
           reporting_block:
             management_commitment: Bilan paragraphe "Engagement de la direction"
             continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
+          services: Services
         title:
             create: Créer une collectivité
             delete: Supprimer une collectivité
@@ -158,6 +164,7 @@ user:
             edit: Éditer "%name%"
             unarchive: Rétablir "%name%"
         form:
+            apiAuthorized: Accès aux Webservices (API)
             collectivity: Collectivité
             collectivitesReferees: Collectivités rattachées
             email: E-mail
@@ -169,6 +176,7 @@ user:
             password: Mot de passe
             password_repeat: Répéter le mot de passe
             roles: Role
+            services: Services
         flashbag:
             success:
                 create: Utilisateur "%object%" créée avec succès
@@ -183,11 +191,15 @@ user:
             last_login: Dernière connexion
             last_name: Nom
             roles: Role
+            services: Service
+            services_list: Liste des services
+            service_number_users: Nombre d'utilisateurs dans ce service
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cet utilisateur ?
         tab:
             general: Informations générales
             optional: Informations facultatives
+            services: Services & Habilitations
         title:
             create: Créer un utilisateur
             edit: Éditer un utilisateur

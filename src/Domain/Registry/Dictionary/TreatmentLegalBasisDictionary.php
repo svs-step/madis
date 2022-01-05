@@ -28,6 +28,7 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class TreatmentLegalBasisDictionary extends SimpleDictionary
 {
+    const BASE_NONE                    = 'to-be-decided';
     const BASE_CONSENT                 = 'consent';
     const BASE_LEGAL_OBLIGATION        = 'legal-obligation';
     const BASE_CONTRACT_EXECUTION      = 'contract-execution';
@@ -48,6 +49,7 @@ class TreatmentLegalBasisDictionary extends SimpleDictionary
     public static function getBasis()
     {
         return [
+            self::BASE_NONE                    => 'À déterminer',
             self::BASE_CONSENT                 => 'Le consentement',
             self::BASE_LEGAL_OBLIGATION        => 'L\'obligation légale',
             self::BASE_CONTRACT_EXECUTION      => 'L\'exécution d\'un contrat',

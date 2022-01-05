@@ -25,10 +25,14 @@ declare(strict_types=1);
 namespace App\Domain\User\Controller;
 
 use App\Application\Controller\CRUDController;
+use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Model;
+use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\Service;
+use App\Domain\User\Model\User;
 use App\Domain\User\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
@@ -39,6 +43,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -69,6 +74,11 @@ class UserController extends CRUDController
      */
     protected $security;
 
+    /**
+     * @var UserProvider
+     */
+    protected $userProvider;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -77,13 +87,17 @@ class UserController extends CRUDController
         EncoderFactoryInterface $encoderFactory,
         Pdf $pdf,
         RouterInterface $router,
-        Security $security
+        Security $security,
+        UserProvider $userProvider,
+        AuthorizationCheckerInterface $authorizationChecker
     ) {
-        parent::__construct($entityManager, $translator, $repository, $pdf);
-        $this->requestStack   = $requestStack;
-        $this->encoderFactory = $encoderFactory;
-        $this->router         = $router;
-        $this->security       = $security;
+        parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
+        $this->requestStack             = $requestStack;
+        $this->encoderFactory           = $encoderFactory;
+        $this->router                   = $router;
+        $this->security                 = $security;
+        $this->userProvider             = $userProvider;
+        $this->authorizationChecker     = $authorizationChecker;
     }
 
     /**
@@ -183,7 +197,7 @@ class UserController extends CRUDController
         foreach ($users as $user) {
             $roles = '';
             foreach ($user->getRoles() as $role) {
-                $span = '<span class="badge ' . $this->getRolesColor($role) . '">' . UserRoleDictionary::getRoles()[$role] . '</span>';
+                $span = '<span class="badge ' . $this->getRolesColor($role) . '">' . UserRoleDictionary::getFullRoles()[$role] . '</span>';
                 $roles .= $span;
             }
 
@@ -202,6 +216,12 @@ class UserController extends CRUDController
                 <span class="badge ' . $collectivityActifBgColor . '">' . $this->translator->trans('user.collectivity.title.label') . '</span>'
             ;
 
+            $services = '<ul>';
+            foreach ($user->getServices() as $service) {
+                $services .= '<li>' . $service->getName() . '</li>';
+            }
+            $services .= '</ul>';
+
             $europeTimezone    = new \DateTimeZone('Europe/Paris');
             $reponse['data'][] = [
                 'prenom'       => $user->getFirstName(),
@@ -211,6 +231,7 @@ class UserController extends CRUDController
                 'roles'        => $roles,
                 'actif'        => $actif,
                 'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('Y-m-d H:i:s') : null,
+                'services'     => $services,
                 'actions'      => $this->getActionCellsContent($user),
             ];
         }
@@ -231,7 +252,8 @@ class UserController extends CRUDController
             4 => 'roles',
             5 => 'actif',
             6 => 'connexion',
-            7 => 'actions',
+            7 => 'services',
+            8 => 'actions',
         ];
     }
 
@@ -284,10 +306,59 @@ class UserController extends CRUDController
                         $this->translator->trans('action.unarchive') .
                         '</a>';
                 }
+
+                $cellContent .=
+                '<a href="' . $this->router->generate('user_user_delete', ['id' => $user->getId()]) . '">
+                    <i class="fa fa-trash-alt"></i> ' .
+                $this->translator->trans('action.delete') .
+                '</a>';
             }
         }
 
         return $cellContent;
+    }
+
+    public function getServicesContent(string $collectivityId, string $userId): Response
+    {
+        $collectivity = $this->entityManager->getRepository(Collectivity::class)->findOneBy(['id' => $collectivityId]);
+        if (null === $collectivity) {
+            throw new NotFoundHttpException('Can\'t find collectivity for id ' . $collectivityId);
+        }
+
+        $services = $this
+        ->getDoctrine()
+        ->getRepository(Service::class)
+        ->findBy(
+            ['collectivity' => $collectivity],
+            ['name' => 'ASC']
+        );
+
+        $serviceIdsSelected = [];
+
+        if ('creer' !== $userId) {
+            $user = $this
+            ->getDoctrine()
+            ->getRepository(User::class)
+            ->find($userId);
+
+            $servicesAlreadySelected = $user->getServices()->getValues();
+
+            foreach ($servicesAlreadySelected as $service) {
+                $serviceIdsSelected[] = $service->getId();
+            }
+        }
+
+        $responseData = [];
+
+        foreach ($services as $service) {
+            $responseData[] = [
+                'value'     => $service->getId()->toString(),
+                'text'      => $service->__toString(),
+                'selected'  => in_array($service->getId(), $serviceIdsSelected),
+            ];
+        }
+
+        return new JsonResponse($responseData);
     }
 
     private function getRolesColor(string $role)
@@ -297,6 +368,8 @@ class UserController extends CRUDController
                 return 'bg-red';
             case UserRoleDictionary::ROLE_USER:
                 return 'bg-blue';
+            case UserRoleDictionary::ROLE_API:
+                return 'bg-green';
             default:
                 return 'bg-red';
         }

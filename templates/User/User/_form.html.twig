@@ -6,13 +6,20 @@
     {# LEFT #}
     <div class="col-md-6">
         <div class="box box-solid box-primary">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'user.user.tab.general'|trans }}</h3></div>
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ 'user.user.tab.general'|trans }}</h3>
+            </div>
             <div class="box-body">
                 {{ form_row(form.firstName) }}
                 {{ form_row(form.lastName) }}
                 {{ form_row(form.email) }}
                 {{ form_row(form.collectivity) }}
-                {{ form_row(form.roles) }}
+                {% for role in form.roles %}
+                    {% if role.vars.value != "ROLE_API" %}
+                        {{ form_row(form.roles) }}
+                    {% endif %}
+                {% endfor %}
+                {{ form_row(form.apiAuthorized) }}
                 <div id="user_collectivitesReferees_div">
                     {{ form_row(form.collectivitesReferees) }}
                 </div>
@@ -24,7 +31,9 @@
     {# RIGHT #}
     <div class="col-md-6">
         <div class="box box-solid box-danger">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'user.user.tab.optional'|trans }}</h3></div>
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ 'user.user.tab.optional'|trans }}</h3>
+            </div>
             <div class="box-body">
                 <blockquote>
                     <small>{{ 'user.user.form.help.password'|trans }}</small>
@@ -32,6 +41,17 @@
                 {{ form_row(form.plainPassword) }}
             </div>
         </div>
+
+        {% if serviceEnabled %}
+            <div class="box box-solid box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'user.user.tab.services'|trans }}</h3>
+                </div>
+                <div class="box-body">
+                    {{ form_row(form.services) }}
+                </div>
+            </div>
+        {% endif %}
     </div>
 
     <div class="col-md-12">

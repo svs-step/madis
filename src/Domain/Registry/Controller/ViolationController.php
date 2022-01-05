@@ -88,7 +88,7 @@ class ViolationController extends CRUDController
         Pdf $pdf,
         RouterInterface $router
     ) {
-        parent::__construct($entityManager, $translator, $repository, $pdf);
+        parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->requestStack         = $requestStack;
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;
@@ -190,6 +190,17 @@ class ViolationController extends CRUDController
         return $jsonResponse;
     }
 
+    private function isRequestInUserServices(Model\Violation $violation): bool
+    {
+        $user   = $this->userProvider->getAuthenticatedUser();
+
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+
+        return $violation->isInUserServices($user);
+    }
+
     protected function getLabelAndKeysArray(): array
     {
         return [
@@ -205,7 +216,9 @@ class ViolationController extends CRUDController
     private function getActionCellsContent(Model\Violation $violation)
     {
         $cellContent = '';
-        if ($this->authorizationChecker->isGranted('ROLE_USER') && \is_null($violation->getDeletedAt())) {
+        if ($this->authorizationChecker->isGranted('ROLE_USER')
+        && \is_null($violation->getDeletedAt())
+        && $this->isRequestInUserServices($violation)) {
             $cellContent .= '<a href="' . $this->router->generate('registry_violation_edit', ['id' => $violation->getId()]) . '">
                     <i class="fa fa-pencil-alt"></i> ' .
                     $this->translator->trans('action.edit') . '
