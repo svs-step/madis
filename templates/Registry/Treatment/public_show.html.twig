@@ -228,7 +228,7 @@
                                         <ul>
                                             {% for contractor in object.contractors %}
                                                 <li>
-                                                    <a href="{{ path('registry_contractor_show', {'id': contractor.id}) }}">{{ contractor }}</a>
+                                                    {{ contractor }}
                                                 </li>
                                             {% endfor %}
                                         </ul>
@@ -790,4 +790,4 @@
         {% endif %}
     </table>
 </div></div>{# PROOFS #}{% if (object.proofs and config.proofs == true) %}
-{% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}</div></div></div>{% endif %}{% endblock %}
+{% include '_Utils/_show_public_block_proofs.html.twig' with { proofs: object.proofs } %}</div></div></div>{% endif %}{% endblock %}
