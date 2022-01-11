@@ -15,9 +15,11 @@ use App\Domain\User\Model as UserModel;
 use App\Domain\User\Repository as UserRepository;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class DuplicationFormDTOTransformerTest extends TestCase
 {
+    use ProphecyTrait;
     /**
      * @var UserRepository\Collectivity
      */

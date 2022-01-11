@@ -22,7 +22,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Domain\Event\Symfony\EventSubscriber\Doctrine;
+namespace App\Tests\Application\Symfony\EventSubscriber\Doctrine;
 
 use App\Application\Symfony\EventSubscriber\Doctrine\HistorySubscriber;
 use App\Application\Traits\Model\HistoryTrait;
@@ -30,10 +30,12 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class HistorySubscriberTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var LifecycleEventArgs
@@ -45,7 +47,7 @@ class HistorySubscriberTest extends TestCase
      */
     private $subscriber;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->lifeCycleEventArgsProphecy = $this->prophesize(LifecycleEventArgs::class);
 

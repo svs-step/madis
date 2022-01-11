@@ -8,10 +8,13 @@ use App\Domain\Registry\Symfony\EventSubscriber\Doctrine\ConformiteOrganisationS
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 
 class ConformiteOrganisationSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var LifecycleEventArgs|ObjectProphecy
      */
@@ -27,7 +30,7 @@ class ConformiteOrganisationSubscriberTest extends TestCase
      */
     private $subscriber;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->lifeCycleEventArgs = $this->prophesize(LifecycleEventArgs::class);
         $this->calculator         = $this->prophesize(ConformiteOrganisationConformiteCalculator::class);

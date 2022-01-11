@@ -34,6 +34,7 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Security\Core\Security;
@@ -41,6 +42,7 @@ use Symfony\Component\Security\Core\Security;
 class MesurementTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var RegistryInterface
@@ -62,7 +64,7 @@ class MesurementTest extends TestCase
      */
     private $infraRepo;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registryProphecy      = $this->prophesize(RegistryInterface::class);
         $this->entityManagerProphecy = $this->prophesize(EntityManagerInterface::class);

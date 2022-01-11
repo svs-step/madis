@@ -70,7 +70,7 @@ class UserTypeTest extends FormTypeHelper
      */
     private $formType;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->authorizationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->encoderFactoryProphecy       = $this->prophesize(EncoderFactoryInterface::class);

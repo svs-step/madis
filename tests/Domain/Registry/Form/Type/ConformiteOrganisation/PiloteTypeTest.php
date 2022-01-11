@@ -5,6 +5,7 @@ namespace App\Tests\Domain\Registry\Form\Type\ConformiteOrganisation;
 use App\Domain\Registry\Form\Type\ConformiteOrganisation\PiloteType;
 use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
 use App\Tests\Utils\FormTypeHelper;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -13,6 +14,8 @@ use Symfony\Component\Security\Core\Security;
 
 class PiloteTypeTest extends FormTypeHelper
 {
+    use ProphecyTrait;
+
     /**
      * @var Security|ObjectProphecy
      */
@@ -23,7 +26,7 @@ class PiloteTypeTest extends FormTypeHelper
      */
     private $formType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->security = $this->prophesize(Security::class);
         $this->formType = new PiloteType($this->security->reveal());

@@ -29,10 +29,13 @@ use App\Domain\Reporting\Generator\Csv\MesurementGenerator;
 use App\Domain\Reporting\Generator\Csv\TreatmentGenerator;
 use App\Domain\Reporting\Handler\ExportCsvHandler;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ExportCsvHandlerTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var CollectivityGenerator
      */
@@ -58,7 +61,7 @@ class ExportCsvHandlerTest extends TestCase
      */
     private $handler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->collectivityGenerator = $this->prophesize(CollectivityGenerator::class);
         $this->contractorGenerator   = $this->prophesize(ContractorGenerator::class);

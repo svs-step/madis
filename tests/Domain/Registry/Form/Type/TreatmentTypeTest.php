@@ -31,6 +31,7 @@ use App\Domain\Registry\Model\Treatment;
 use App\Domain\User\Model\Collectivity;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -43,6 +44,8 @@ use Symfony\Component\Security\Core\Security;
 
 class TreatmentTypeTest extends FormTypeHelper
 {
+    use ProphecyTrait;
+
     /**
      * @var Security
      */
@@ -53,7 +56,7 @@ class TreatmentTypeTest extends FormTypeHelper
      */
     private $formType;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->security = $this->prophesize(Security::class);
 

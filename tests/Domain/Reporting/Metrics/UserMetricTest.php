@@ -41,10 +41,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 
 class UserMetricTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var EntityManagerInterface
      */
@@ -85,7 +88,7 @@ class UserMetricTest extends TestCase
      */
     private $logJournalRepository;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->entityManager                    = $this->prophesize(EntityManagerInterface::class);
         $this->conformiteTraitementRepository   = $this->prophesize(ConformiteTraitement::class);

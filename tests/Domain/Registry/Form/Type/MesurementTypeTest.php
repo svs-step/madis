@@ -28,6 +28,7 @@ use App\Domain\Registry\Form\Type\MesurementType;
 use App\Domain\Registry\Model\Mesurement;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -36,6 +37,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MesurementTypeTest extends FormTypeHelper
 {
+    use ProphecyTrait;
+
     public function testInstanceOf()
     {
         $this->assertInstanceOf(AbstractType::class, new MesurementType());

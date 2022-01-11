@@ -27,11 +27,13 @@ namespace App\Tests\Application\Symfony\Security;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\User\Model as UserModel;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class UserProviderTest extends TestCase
 {
+    use ProphecyTrait;
     /**
      * @var TokenStorageInterface
      */

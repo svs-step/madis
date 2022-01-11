@@ -33,9 +33,12 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Persistence\ObjectManager;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class MesurementSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var LifecycleEventArgs
      */
@@ -51,7 +54,7 @@ class MesurementSubscriberTest extends TestCase
      */
     private $subscriber;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->lifeCycleEventArgs = $this->prophesize(LifecycleEventArgs::class);
 

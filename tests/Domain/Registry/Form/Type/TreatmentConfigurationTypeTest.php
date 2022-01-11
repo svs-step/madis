@@ -27,12 +27,15 @@ namespace App\Tests\Domain\Registry\Form\Type;
 use App\Domain\Registry\Form\Type\TreatmentConfigurationType;
 use App\Domain\Registry\Model\PublicConfiguration;
 use App\Tests\Utils\FormTypeHelper;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 
-class TreatmentConfigurationTest extends FormTypeHelper
+class TreatmentConfigurationTypeTest extends FormTypeHelper
 {
+    use ProphecyTrait;
+
     /**
      * @var Security
      */
@@ -43,7 +46,7 @@ class TreatmentConfigurationTest extends FormTypeHelper
      */
     private $formType;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->security = $this->prophesize(Security::class);
 

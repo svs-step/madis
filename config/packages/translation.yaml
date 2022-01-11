@@ -9,5 +9,6 @@ framework:
             - '%kernel.project_dir%/config/domain/registry/translations'
             - '%kernel.project_dir%/config/domain/reporting/translations'
             - '%kernel.project_dir%/config/domain/user/translations'
+            - '%kernel.project_dir%/config/translations'
         fallbacks:
             - '%locale%'

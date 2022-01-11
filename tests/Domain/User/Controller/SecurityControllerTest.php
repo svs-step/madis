@@ -33,6 +33,7 @@ use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -44,6 +45,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityControllerTest extends TestCase
 {
+    use ProphecyTrait;
     /**
      * @var ControllerHelper
      */

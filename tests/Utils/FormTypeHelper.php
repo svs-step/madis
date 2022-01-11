@@ -26,11 +26,14 @@ namespace App\Tests\Utils;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class FormTypeHelper extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * Create a FormBuilder thanks to provided data.
      *

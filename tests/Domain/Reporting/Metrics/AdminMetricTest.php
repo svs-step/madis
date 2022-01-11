@@ -30,10 +30,13 @@ use App\Domain\Reporting\Metrics\MetricInterface;
 use App\Domain\User;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Security\Core\Security;
 
 class AdminMetricTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var User\Repository\Collectivity
      */
@@ -69,7 +72,7 @@ class AdminMetricTest extends TestCase
      */
     private $adminMetric;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->collectivityRepository = $this->prophesize(User\Repository\Collectivity::class);
         $this->mesurementRepository   = $this->prophesize(Registry\Repository\Mesurement::class);

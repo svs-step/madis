@@ -27,9 +27,12 @@ namespace App\Tests\Domain\Registry\Repository;
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
 use App\Domain\Registry\Repository;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class ContractorTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testInstanceOf()
     {
         $this->assertInstanceOf(

@@ -11,6 +11,7 @@ use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -21,6 +22,8 @@ use Symfony\Component\Security\Http\SecurityEvents;
 
 class LoginSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var EntityManagerInterface|ObjectProphecy
      */

@@ -28,12 +28,15 @@ use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Model\Survey;
 use App\Domain\Registry\Form\Type\ContractorType;
 use App\Tests\Utils\FormTypeHelper;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SurveyTypeTest extends FormTypeHelper
 {
+    use ProphecyTrait;
+
     public function testInstanceOf()
     {
         $this->assertInstanceOf(AbstractType::class, new ContractorType());
