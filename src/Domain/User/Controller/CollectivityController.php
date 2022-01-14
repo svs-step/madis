@@ -274,8 +274,10 @@ class CollectivityController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('delete'), [
-            'object'            => $object,
-            'deletedObjects'    => $stringObjects,
+            'object'             => $object,
+            'deletedObjects'     => $stringObjects,
+            'deletedTreatments'  => $deletedTreaments,
+            'deletedContractors' => $deletedContractors,
         ]);
     }
 
@@ -285,21 +287,83 @@ class CollectivityController extends CRUDController
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
+
+        return $this->render($this->getTemplatingBasePath('delete_processing'), [
+            'object'            => $object,
+        ]);
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
+
+        return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
+    public function clonedFromOnNullAction(string $id)
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
         $clonedTreatments = $this->treatmentRepository->findAllByClonedFromCollectivity($object);
         foreach ($clonedTreatments as $clonedTreatment) {
             $clonedTreatment->setClonedFrom(null);
         }
+
         $clonedMesurements = $this->mesurementRepository->findAllByClonedFromCollectivity($object);
         foreach ($clonedMesurements as $clonedMesurement) {
             $clonedMesurement->setClonedFrom(null);
         }
+
         $clonedContractors = $this->contractorRepository->findAllByClonedFromCollectivity($object);
         foreach ($clonedContractors as $clonedContractor) {
             $clonedContractor->setClonedFrom(null);
         }
 
-        $this->entityManager->remove($object);
         $this->entityManager->flush();
+
+        return new JsonResponse();
+    }
+
+    public function deleteRelatedObjectsAction($id, string $objectType)
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        switch ($objectType) {
+            case 'treatments':
+                foreach ($this->treatmentRepository->findAllByCollectivity($object) as $treatment) {
+                    $this->entityManager->remove($treatment);
+                }
+                break;
+            case 'mesurements':
+                foreach ($this->mesurementRepository->findAllByCollectivity($object) as $mesurement) {
+                    $this->entityManager->remove($mesurement);
+                }
+                break;
+            case 'contractors':
+                foreach ($this->contractorRepository->findAllByCollectivity($object) as $mesurement) {
+                    $this->entityManager->remove($mesurement);
+                }
+                break;
+            case 'users':
+                foreach ($this->userRepository->findBy(['collectivity' => $object]) as $user) {
+                    $this->entityManager->remove($user);
+                }
+                break;
+        }
+        $this->entityManager->flush();
+
+        return new JsonResponse();
+    }
+
+    public function deleteCollectivityAction(string $id)
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
 
         $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
 
