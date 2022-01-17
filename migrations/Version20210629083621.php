@@ -28,7 +28,6 @@ final class Version20210629083621 extends AbstractMigration
 
         $rowsToReInsert = $this->connection->query('SELECT duplication_id, collectivity_id FROM admin_duplication_collectivity')->fetchAll();
         foreach ($rowsToReInsert as $item) {
-            dump($item);
             $this->addSql("INSERT INTO admin_duplicated_object (collectivity_id, duplication_id) VALUES ('" . $item['collectivity_id'] . "', '" . $item['duplication_id'] . "')");
         }
         $this->addSql('DROP TABLE admin_duplication_collectivity');

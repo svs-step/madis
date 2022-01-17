@@ -53,10 +53,9 @@ $(document).ready(function() {
     });
 
     var textArea = $('#treatment_coordonneesResponsableTraitement');
-    textArea.prop('disabled', !($('#treatment_author').val() === 'processing_manager'));
     $('#treatment_author').on('change', function() {
         var textArea = $('#treatment_coordonneesResponsableTraitement');
-        textArea.prop('disabled', !($(this).val() === 'processing_manager'));
+        textArea.prop('disabled', ($(this).val() === 'processing_manager'));
     });
 
     // Check Collectivity dpo | onLoad & onChange

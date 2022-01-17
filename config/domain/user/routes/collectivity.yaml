@@ -32,3 +32,18 @@ user_collectivity_delete_confirm:
     path: '/supprimer/{id}/confirmation'
     methods: ['GET']
     controller: 'App\Domain\User\Controller\CollectivityController:deleteConfirmationAction'
+
+user_collectivity_delete_update_cloned_from:
+    path: '/supprimer/{id}/clone'
+    methods: ['POST']
+    controller: 'App\Domain\User\Controller\CollectivityController:clonedFromOnNullAction'
+
+user_collectivity_delete_related:
+    path: '/supprimer/{id}/{objectType}'
+    methods: ['POST']
+    controller: 'App\Domain\User\Controller\CollectivityController:deleteRelatedObjectsAction'
+
+user_collectivity_delete_process:
+    path: '/supprimer/{id}/process'
+    methods: ['POST']
+    controller: 'App\Domain\User\Controller\CollectivityController:deleteCollectivityAction'
