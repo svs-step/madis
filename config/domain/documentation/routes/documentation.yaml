@@ -1,0 +1,24 @@
+documentation_document_list:
+    path: '/liste'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:listAction'
+
+documentation_document_create:
+    path: '/creer'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:createAction'
+
+documentation_document_edit:
+    path: '/editer/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:editAction'
+
+documentation_document_delete:
+    path: '/supprimer/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:deleteAction'
+
+documentation_document_delete_confirm:
+    path: '/supprimer/{id}/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:deleteConfirmationAction'

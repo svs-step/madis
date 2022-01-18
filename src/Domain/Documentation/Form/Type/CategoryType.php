@@ -22,15 +22,15 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Maturity\Form\Type;
+namespace App\Domain\Documentation\Form\Type;
 
-use App\Domain\Maturity\Model;
+use App\Domain\Documentation\Model;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SurveyType extends AbstractType
+class CategoryType extends AbstractType
 {
     /**
      * Build type form.
@@ -38,11 +38,8 @@ class SurveyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('answers', CollectionType::class, [
-                'label'        => 'Questions',
-                'entry_type'   => DocumentType::class,
-                'allow_add'    => false,
-                'allow_delete' => false,
+            ->add('name', TextType::class, [
+                'label'   => false,
             ])
         ;
     }
@@ -54,12 +51,11 @@ class SurveyType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => Model\Survey::class,
+                'data_class'        => Model\Category::class,
                 'validation_groups' => [
                     'default',
-                    'survey',
+                    'category',
                 ],
-            ])
-        ;
+            ]);
     }
 }

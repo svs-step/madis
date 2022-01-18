@@ -1,0 +1,24 @@
+documentation:
+    document:
+        action:
+            back_to_list: Retour à la liste
+            new: Nouveau document
+        breadcrumb:
+            create: Nouveau document
+            edit: Modifier un document
+            list: Liste des documents
+            delete: Supprimer un document
+        flashbag:
+            success:
+                create: Document "%object%" créé avec succès
+                edit: Document "%object%" modifié avec succès
+                delete: Document "%object%" supprimé avec succès
+        list:
+            collectivity: Collectivité
+            created_at: Date de création
+            score: Score
+        title:
+            create: Nouveau document
+            edit: Modifier un document
+            list: Liste des documents
+            delete: Supprimer un document
