@@ -24,49 +24,54 @@ declare(strict_types=1);
 
 namespace App\Domain\Documentation\Model;
 
+use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=DocumentRepository::class)
  */
-
 class Document
 {
     /**
      * @ORM\Id()
      * @ORM\Column(type="uuid")
+     *
      * @var UuidInterface
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @var string|null
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     *
      * @var string|null
      */
     private $url;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @var string|null
      */
     private $file;
 
     /**
      * @ORM\Column(type="boolean")
+     *
      * @var bool|null
      */
     private $pinned;
 
     /**
      * @ORM\ManyToMany(targetEntity="Category", mappedBy="documents")
+     *
      * @var array|null
      */
     private $categories;
@@ -86,17 +91,11 @@ class Document
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
@@ -112,53 +111,33 @@ class Document
         $this->categories = $categories;
     }
 
-
-    /**
-     * @return string|null
-     */
     public function getUrl(): ?string
     {
         return $this->url;
     }
 
-    /**
-     * @param string|null $url
-     */
     public function setUrl(?string $url): void
     {
         $this->url = $url;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFile(): ?string
     {
         return $this->file;
     }
 
-    /**
-     * @param string|null $file
-     */
     public function setFile(?string $file): void
     {
         $this->file = $file;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getPinned(): ?bool
     {
         return $this->pinned;
     }
 
-    /**
-     * @param bool|null $pinned
-     */
     public function setPinned(?bool $pinned): void
     {
         $this->pinned = $pinned;
     }
-
 }

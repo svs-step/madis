@@ -24,32 +24,33 @@ declare(strict_types=1);
 
 namespace App\Domain\Documentation\Model;
 
+use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Doctrine\ORM\Mapping as ORM;
-
 
 /**
  * @ORM\Entity(repositoryClass=DocumentRepository::class)
  */
-
 class Category
 {
     /**
      * @ORM\Id()
      * @ORM\Column(type="uuid")
+     *
      * @var UuidInterface
      */
     private $id;
 
     /**
      * @ORM\Column(type="string")
+     *
      * @var string|null
      */
     private $name;
 
     /**
      * @ORM\Column(type="boolean")
+     *
      * @var bool|null
      */
     private $system;
@@ -60,6 +61,7 @@ class Category
      *      joinColumns={@ORM\JoinColumn(name="document_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}
      *      )
+     *
      * @var array|null
      */
     private $documents;
@@ -79,52 +81,33 @@ class Category
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getSystem(): ?bool
     {
         return $this->system;
     }
 
-    /**
-     * @param bool|null $system
-     */
     public function setSystem(?bool $system): void
     {
         $this->system = $system;
     }
 
-    /**
-     * @return array|null
-     */
     public function getDocuments(): ?array
     {
         return $this->documents;
     }
 
-    /**
-     * @param array|null $documents
-     */
     public function setDocuments(?array $documents): void
     {
         $this->documents = $documents;
     }
-
 }

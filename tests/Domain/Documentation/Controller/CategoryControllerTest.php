@@ -30,15 +30,12 @@ use App\Domain\Documentation\Controller\CategoryController;
 use App\Domain\Documentation\Form\Type\CategoryType;
 use App\Domain\Documentation\Model;
 use App\Domain\Documentation\Repository;
-use App\Domain\User\Model\User;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -71,7 +68,6 @@ class CategoryControllerTest extends TestCase
      * @var UserProvider
      */
     private $userProviderProphecy;
-
 
     /**
      * @var Pdf|ObjectProphecy

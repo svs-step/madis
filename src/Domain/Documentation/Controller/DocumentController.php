@@ -49,7 +49,6 @@ class DocumentController extends CRUDController
      */
     protected $userProvider;
 
-
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -106,6 +105,5 @@ class DocumentController extends CRUDController
 
         // Everybody can access all documents
         return $this->repository->findAll($order);
-
     }
 }

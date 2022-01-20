@@ -59,7 +59,7 @@ phpmetrics: ## PhpMetrics (http://www.phpmetrics.org)
 	$(QA) phpmetrics --report-html=$(ARTEFACTS)/phpmetrics --exclude=migrations .
 
 php-cs-fixer: ## php-cs-fixer (http://cs.sensiolabs.org)
-	$(QA) php-cs-fixer fix --config=.php_cs.dist --dry-run --using-cache=no --verbose --diff
+	$(QA) php-cs-fixer fix --config=.php_cs.dist --dry-run --using-cache=no --verbose --diff --stop-on-violation
 
 apply-php-cs-fixer: ## apply php-cs-fixer fixes
 	$(QA) php-cs-fixer fix --using-cache=no --verbose --diff

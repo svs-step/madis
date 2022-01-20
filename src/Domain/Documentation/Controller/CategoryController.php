@@ -49,7 +49,6 @@ class CategoryController extends CRUDController
      */
     protected $userProvider;
 
-
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
