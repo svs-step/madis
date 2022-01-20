@@ -45,9 +45,8 @@ unit_tests:
     <<: *vendor-install-defintion
     <<: *cache-pull-defintion
     script:
-        - sh docker-service unitTests
-# TODO : Fix make commnd since mykiwi/paudit does not have composer installed (in order to use simple-phpunit)
-#        - make tu-report
+#        - sh docker-service unitTests
+        - make tu-report
     coverage: '/^\s*Lines:\s*\d+.\d+\%/'
     artifacts:
         paths:
