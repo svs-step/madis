@@ -4,6 +4,8 @@ App\Domain\Documentation\Model\Document:
         pinned: true
         file: 'fichier'
         url: 'fichier 1'
+        categories: ['@cat_1']
+        favoritedUsers: ['@user_user_admin']
 
     doc_2:
         name: "test 1"
