@@ -41,6 +41,16 @@
                 <inverse-join-columns><join-column on-delete="CASCADE"/></inverse-join-columns>
             </join-table>
         </many-to-many>
+
+        <many-to-many field="favoriteDocuments" target-entity="App\Domain\Documentation\Model\Document" inversed-by="favoritedUsers">
+            <join-table name="user_favorite_documents">
+                <join-columns><join-column on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </entity>
 
 </doctrine-mapping>

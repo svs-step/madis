@@ -1,0 +1,18 @@
+App\Domain\Documentation\Model\Document:
+    doc_1:
+        name: "test"
+        pinned: true
+        file: 'fichier'
+        url: 'fichier 1'
+
+    doc_2:
+        name: "test 1"
+        pinned: true
+        file: 'fichier 1'
+        url: 'fichier 1'
+
+    doc_3:
+        name: "test 2"
+        pinned: true
+        file: 'fichier 2'
+        url: 'fichier 1'

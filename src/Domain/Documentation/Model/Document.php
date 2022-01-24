@@ -81,6 +81,13 @@ class Document
     private $categories;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Domain\User\Model\User", mappedBy="favoriteDocuments")
+     *
+     * @var array|null
+     */
+    private $favoritedUsers;
+
+    /**
      * Answer constructor.
      *
      * @throws \Exception
@@ -88,6 +95,11 @@ class Document
     public function __construct()
     {
         $this->id = Uuid::uuid4();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): UuidInterface
@@ -100,9 +112,10 @@ class Document
         return $this->name;
     }
 
-    public function setName(?string $name): void
+    public function setName(?string $name): Document
     {
         $this->name = $name;
+        return $this;
     }
 
     public function getCategories(): ?array
@@ -110,9 +123,10 @@ class Document
         return $this->categories;
     }
 
-    public function setCategories(?array $categories): void
+    public function setCategories(?array $categories): Document
     {
         $this->categories = $categories;
+        return $this;
     }
 
     public function getUrl(): ?string
@@ -120,9 +134,10 @@ class Document
         return $this->url;
     }
 
-    public function setUrl(?string $url): void
+    public function setUrl(?string $url): Document
     {
         $this->url = $url;
+        return $this;
     }
 
     public function getFile(): ?string
@@ -130,9 +145,10 @@ class Document
         return $this->file;
     }
 
-    public function setFile(?string $file): void
+    public function setFile(?string $file): Document
     {
         $this->file = $file;
+        return $this;
     }
 
     public function getPinned(): ?bool
@@ -140,8 +156,27 @@ class Document
         return $this->pinned;
     }
 
-    public function setPinned(?bool $pinned): void
+    public function setPinned(?bool $pinned): Document
     {
         $this->pinned = $pinned;
+        return $this;
     }
+
+    /**
+     * @return array|null
+     */
+    public function getFavoritedUsers(): ?array
+    {
+        return $this->favoritedUsers;
+    }
+
+    /**
+     * @param array|null $favoritedUsers
+     */
+    public function setFavoritedUsers(?array $favoritedUsers): Document
+    {
+        $this->favoritedUsers = $favoritedUsers;
+        return $this;
+    }
+
 }

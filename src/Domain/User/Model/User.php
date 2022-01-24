@@ -107,6 +107,11 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     private $apiAuthorized;
 
     /**
+     * @var array|null
+     */
+    private $favoriteDocuments;
+
+    /**
      * User constructor.
      *
      * @throws \Exception
