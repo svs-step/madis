@@ -14,7 +14,8 @@ documentation:
                 edit: Document "%object%" modifié avec succès
                 delete: Document "%object%" supprimé avec succès
         list:
-            collectivity: Collectivité
+            name: Nom
+            fichier: Fichier
             created_at: Date de création
             score: Score
         title:

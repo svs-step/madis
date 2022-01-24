@@ -24,15 +24,19 @@ declare(strict_types=1);
 
 namespace App\Domain\Documentation\Model;
 
+use App\Application\Traits\Model\CreatorTrait;
+use App\Application\Traits\Model\HistoryTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * @ORM\Entity(repositoryClass=DocumentRepository::class)
+ * @ORM\Entity
  */
 class Document
 {
+    use HistoryTrait;
+    use CreatorTrait;
     /**
      * @ORM\Id()
      * @ORM\Column(type="uuid")
