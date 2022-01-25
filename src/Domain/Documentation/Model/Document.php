@@ -76,7 +76,6 @@ class Document
     private $pinned;
 
     /**
-     *
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="documents")
      * @ORM\JoinTable(name="document_categories",
      *      joinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")},
