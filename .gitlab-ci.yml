@@ -48,7 +48,7 @@ unit_tests:
     script:
 #        - sh docker-service unitTests
         - make tu-report
-    coverage: /^\s+Lines:\s+(\d+\.\d+)%/
+    coverage: /^\s+Lines:\s+(\d+)\.\d+%/
     artifacts:
         paths:
             - var/artefacts/coverage/
@@ -147,11 +147,11 @@ check-coverage:
         JOB_NAME: unit_tests
         TARGET_BRANCH: develop
     before_script:
-        - apk add --update --no-cache curl jq
+        - apk add --update --no-cache curl jq bc
     rules:
         - if: '$CI_COMMIT_BRANCH != $TARGET_BRANCH'
     script:
         - TARGET_PIPELINE_ID=`curl -s "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/pipelines?ref=${TARGET_BRANCH}&status=success" | jq ".[0].id"`
         - TARGET_COVERAGE=`curl -s "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/pipelines/${TARGET_PIPELINE_ID}/jobs" | jq --arg JOB_NAME "$JOB_NAME" '.[] | select(.name==$JOB_NAME) | .coverage'`
-        - CURRENT_COVERAGE=`curl -s "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs" | jq --arg JOB_NAME "$JOB_NAME" '.[] | select(.name==$JOB_NAME) | .coverage'`
+        - CURRENT_COVERAGE=`bc <<< '$(curl -s "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs" | jq --arg JOB_NAME "$JOB_NAME" '.[] | select(.name==$JOB_NAME) | .coverage') * 100'`
         - if  [ "$CURRENT_COVERAGE" -lt "$TARGET_COVERAGE" ]; then echo "Coverage decreased from ${TARGET_COVERAGE} to ${CURRENT_COVERAGE}" && exit 1; fi;
