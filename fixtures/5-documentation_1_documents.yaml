@@ -4,7 +4,7 @@ App\Domain\Documentation\Model\Document:
         pinned: true
         file: 'fichier'
         url: 'fichier 1'
-        categories: ['@cat_1']
+        categories: ['@documentation_category_1', '@documentation_category_3']
         favoritedUsers: ['@user_user_admin']
 
     doc_2:
@@ -12,9 +12,11 @@ App\Domain\Documentation\Model\Document:
         pinned: true
         file: 'fichier 1'
         url: 'fichier 1'
+        categories: ['@documentation_category_4', '@documentation_category_5']
 
     doc_3:
         name: "test 2"
         pinned: true
         file: 'fichier 2'
         url: 'fichier 1'
+        categories: ['@documentation_category_1', '@documentation_category_6']
