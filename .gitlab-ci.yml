@@ -48,7 +48,7 @@ unit_tests:
     script:
 #        - sh docker-service unitTests
         - make tu-report
-    coverage: /\s+Lines:\s+(\d+\.\d+%)/
+    coverage: /^\s+Lines:\s+(\d+\.\d+)%/
     artifacts:
         paths:
             - var/artefacts/coverage/
