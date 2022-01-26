@@ -3,6 +3,11 @@ documentation_document_list:
     methods: ['GET']
     controller: 'App\Domain\Documentation\Controller\DocumentController:listAction'
 
+documentation_document_grid:
+    path: '/grille'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:gridAction'
+
 documentation_document_create:
     path: '/creer'
     methods: ['GET', 'POST']

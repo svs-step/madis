@@ -106,4 +106,11 @@ class DocumentController extends CRUDController
         // Everybody can access all documents
         return $this->repository->findAll($order);
     }
+
+    public function gridAction()
+    {
+        return $this->render($this->getTemplatingBasePath('grid'), [
+            'objects' => $this->getListData(),
+        ]);
+    }
 }

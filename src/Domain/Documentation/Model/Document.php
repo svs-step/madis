@@ -115,6 +115,7 @@ class Document
     public function setName(?string $name): Document
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -126,6 +127,7 @@ class Document
     public function setCategories(?array $categories): Document
     {
         $this->categories = $categories;
+
         return $this;
     }
 
@@ -137,6 +139,7 @@ class Document
     public function setUrl(?string $url): Document
     {
         $this->url = $url;
+
         return $this;
     }
 
@@ -148,6 +151,7 @@ class Document
     public function setFile(?string $file): Document
     {
         $this->file = $file;
+
         return $this;
     }
 
@@ -159,24 +163,19 @@ class Document
     public function setPinned(?bool $pinned): Document
     {
         $this->pinned = $pinned;
+
         return $this;
     }
 
-    /**
-     * @return array|null
-     */
     public function getFavoritedUsers(): ?array
     {
         return $this->favoritedUsers;
     }
 
-    /**
-     * @param array|null $favoritedUsers
-     */
     public function setFavoritedUsers(?array $favoritedUsers): Document
     {
         $this->favoritedUsers = $favoritedUsers;
+
         return $this;
     }
-
 }

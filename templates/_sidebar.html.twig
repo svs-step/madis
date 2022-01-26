@@ -135,6 +135,15 @@
             {% endif %}
         {% endif %}
 
+        {# DOCUMENTATION #}
+        <li class="header">Centre d'aide</li>
+        <li {% if menuItem == 'documentation' %}class="active"{% endif %}>
+            <a href="{{ path('documentation_document_list') }}">
+                <i class="fa fa-file"></i>
+                <span>{{ 'sidebar_menu.documentation'|trans }}</span>
+            </a>
+        </li>
+
        {# ADMINISTRATION #}
         <li class="header">Espace d'administration</li>
         {% if is_granted('ROLE_REFERENT') %}

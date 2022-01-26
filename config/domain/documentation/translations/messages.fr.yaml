@@ -3,6 +3,8 @@ documentation:
         action:
             back_to_list: Retour à la liste
             new: Nouveau document
+            list: Afficher en liste
+            grid: Afficher en grille
         breadcrumb:
             create: Nouveau document
             edit: Modifier un document
@@ -14,7 +16,11 @@ documentation:
                 edit: Document "%object%" modifié avec succès
                 delete: Document "%object%" supprimé avec succès
         list:
+            favorite: Favoris
+            type: Type
+            weight: Poids
             name: Nom
+            category: Catégorie
             fichier: Fichier
             created_at: Date de création
             score: Score
