@@ -17,6 +17,7 @@ use App\Domain\AIPD\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Gaufrette\Filesystem;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\Form;
@@ -349,6 +350,24 @@ class AnalyseImpactController extends CRUDController
 
     public function printAction(string $id)
     {
+        if (null === $object = $this->repository->findOneById($id)) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $this->pdf->setOption('header-html', $this->renderView($this->getTemplatingBasePath('pdf_header')));
+        $this->pdf->setOption('margin-top', '20');
+        $this->pdf->setOption('margin-bottom', '15');
+        $this->pdf->setOption('margin-left', '20');
+        $this->pdf->setOption('margin-right', '20');
+
+//        return $this->render($this->getTemplatingBasePath('pdf'), [
+//            'object' => $object,
+//        ]);
+        return new PdfResponse(
+            $this->pdf->getOutputFromHtml(
+                $this->renderView($this->getTemplatingBasePath('pdf'), ['object' => $object]), ['javascript-delay' => 1000]),
+            $object->getConformiteTraitement()->getTraitement()->getName() . '.pdf'
+        );
     }
 
     public function validationAction(Request $request, string $id)

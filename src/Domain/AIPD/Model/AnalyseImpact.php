@@ -9,6 +9,7 @@ use App\Domain\AIPD\Dictionary\StatutAnalyseImpactDictionary;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AnalyseImpact
 {
@@ -115,6 +116,17 @@ class AnalyseImpact
         return $this->criterePrincipeFondamentaux;
     }
 
+    public function getCriterePrincipeFondamentalByCode($code): ?CriterePrincipeFondamental
+    {
+        foreach ($this->criterePrincipeFondamentaux as $critere) {
+            if ($critere->getCode() === $code) {
+                return $critere;
+            }
+        }
+
+        throw new NotFoundHttpException('No critere with code ' . $code . ' has been found.');
+    }
+
     public function setCriterePrincipeFondamentaux($criterePrincipeFondamentaux): void
     {
         $this->criterePrincipeFondamentaux = $criterePrincipeFondamentaux;
@@ -123,6 +135,29 @@ class AnalyseImpact
     public function getQuestionConformites()
     {
         return $this->questionConformites;
+    }
+
+    public function getQuestionConformitesOfPositions(int $start, int $end)
+    {
+        $res = [];
+        foreach ($this->questionConformites as $question) {
+            if ($question->getPosition() >= $start && $question->getPosition() <= $end) {
+                $res[] = $question;
+            }
+        }
+
+        return $res;
+    }
+
+    public function getQuestionConformitesOfPosition(int $position)
+    {
+        foreach ($this->questionConformites as $question) {
+            if ($question->getPosition() === $position) {
+                return $question;
+            }
+        }
+
+        return null;
     }
 
     public function setQuestionConformites($questionConformites): void

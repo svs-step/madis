@@ -21,6 +21,7 @@ class CriterePrincipeFondamental
 
     protected string $label;
     protected string $labelLivrable;
+    protected string $code;
     /**
      * @see ReponseCritereFondamentalDictionary
      */
@@ -43,11 +44,14 @@ class CriterePrincipeFondamental
      */
     private ?AnalyseImpact $analyseImpact;
 
-    public function __construct(string $label = null)
+    public function __construct(string $label = null, string $code = null)
     {
         $this->id = Uuid::uuid4();
         if (!\is_null($label)) {
             $this->label = $label;
+        }
+        if (!\is_null($code)) {
+            $this->code = $code;
         }
     }
 
@@ -84,6 +88,16 @@ class CriterePrincipeFondamental
     public function setLabelLivrable(string $labelLivrable): void
     {
         $this->labelLivrable = $labelLivrable;
+    }
+
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): void
+    {
+        $this->code = $code;
     }
 
     public function getReponse()
