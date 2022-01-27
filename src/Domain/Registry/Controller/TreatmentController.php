@@ -317,6 +317,7 @@ class TreatmentController extends CRUDController
      */
     public function listDataTables(Request $request): JsonResponse
     {
+        dump($request);
         $request                   = $this->requestStack->getMasterRequest();
         $criteria['active']        = $request->query->getBoolean('active');
         $user                      = $this->userProvider->getAuthenticatedUser();
@@ -340,11 +341,11 @@ class TreatmentController extends CRUDController
         foreach ($treatments as $treatment) {
             if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
                 $treatmentLink = '<a href="' . $this->router->generate('registry_public_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
-                ' . $treatment->getName() . '
+                ' . \htmlspecialchars($treatment->getName()) . '
                 </a>';
             } else {
                 $treatmentLink = '<a href="' . $this->router->generate('registry_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
-                ' . $treatment->getName() . '
+                ' . \htmlspecialchars($treatment->getName()) . '
                 </a>';
             }
 
