@@ -31,6 +31,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
@@ -69,11 +70,23 @@ class Document
     private $file;
 
     /**
+     * @var UploadedFile|null
+     */
+    private $uploadedFile;
+
+    /**
      * @ORM\Column(type="boolean")
      *
      * @var bool|null
      */
     private $pinned;
+
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     * @var bool|null
+     */
+    private $isLink;
 
     /**
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="documents")
@@ -134,7 +147,7 @@ class Document
         return $this->categories;
     }
 
-    public function setCategories(?array $categories): Document
+    public function setCategories(?Collection $categories): Document
     {
         $this->categories = $categories;
 
@@ -185,6 +198,28 @@ class Document
     public function setFavoritedUsers(?array $favoritedUsers): Document
     {
         $this->favoritedUsers = $favoritedUsers;
+
+        return $this;
+    }
+
+    public function getUploadedFile(): ?UploadedFile
+    {
+        return $this->uploadedFile;
+    }
+
+    public function setUploadedFile(?UploadedFile $uploadedFile): void
+    {
+        $this->uploadedFile = $uploadedFile;
+    }
+
+    public function getIsLink(): ?bool
+    {
+        return $this->isLink;
+    }
+
+    public function setIsLink(?bool $isLink): Document
+    {
+        $this->isLink = $isLink;
 
         return $this;
     }

@@ -1,5 +1,5 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
-
+{{ form_errors(form) }}
 {{ form_start(form) }}
 
 
@@ -17,3 +17,4 @@
 </div>
 
 {{ form_end(form) }}
+

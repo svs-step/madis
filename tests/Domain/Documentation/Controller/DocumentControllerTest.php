@@ -33,6 +33,7 @@ use App\Domain\Documentation\Model;
 use App\Domain\Documentation\Repository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
+use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -88,13 +89,14 @@ class DocumentControllerTest extends TestCase
         $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
         $this->pdf                            = $this->prophesize(Pdf::class);
-
-        $this->controller = new DocumentController(
+        $this->documentFilesystem             = $this->prophesize(FilesystemInterface::class);
+        $this->controller                     = new DocumentController(
             $this->managerProphecy->reveal(),
             $this->translatorProphecy->reveal(),
             $this->repositoryProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
+            $this->documentFilesystem->reveal(),
             $this->pdf->reveal()
         );
     }

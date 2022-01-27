@@ -3,12 +3,17 @@ knp_gaufrette:
         registry_proof_document:
             local:
                 directory: '%kernel.project_dir%/public/uploads/registry/proof/document'
+        documentation_document:
+            local:
+                directory: '%kernel.project_dir%/var/documents/files'
         aipd_critere_principe_fondamentaux_fichier:
             local:
                 directory: '%kernel.project_dir%/public/uploads/aipd/critere_principe_fondamentaux/fichier'
     filesystems:
         registry_proof_document:
             adapter: registry_proof_document
+        documentation_document:
+            adapter: documentation_document
         aipd_critere_principe_fondamentaux_fichier:
             adapter: aipd_critere_principe_fondamentaux_fichier
 

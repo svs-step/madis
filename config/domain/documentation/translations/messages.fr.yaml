@@ -3,6 +3,17 @@ documentation:
         action:
             back_to_list: Retour à la liste
             new: Nouveau document
+        form:
+            error:
+                fileorurl: Vous devez choisir un fichier ou une URL pour le document
+                missingurl: Vous devez entrer une URL si votre document est un lien
+            label:
+                file: Fichier du document
+                url: URL du document
+                name: Nom du document
+                pinned: Épinglé
+                categories: Catégories
+                islink: Lien direct
         breadcrumb:
             create: Nouveau document
             edit: Modifier un document
@@ -18,8 +29,9 @@ documentation:
             fichier: Fichier
             created_at: Date de création
             score: Score
+            favorited: favori
         title:
-            create: Nouveau document
+            create: Nouveau documentttttttt
             edit: Modifier un document
-            list: Liste des documents
+            list: Liste des documentsssssss
             delete: Supprimer un document

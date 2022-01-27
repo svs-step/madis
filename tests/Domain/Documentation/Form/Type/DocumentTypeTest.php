@@ -28,8 +28,12 @@ use App\Domain\Documentation\Form\Type\DocumentType;
 use App\Domain\Documentation\Model\Document;
 use App\Tests\Utils\FormTypeHelper;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DocumentTypeTest extends FormTypeHelper
@@ -44,10 +48,19 @@ class DocumentTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'file' => FileType::class,
+            'isLink'       => CheckboxType::class,
+            'uploadedFile' => FileType::class,
+            'name'         => TextType::class,
+            'url'          => UrlType::class,
+            'pinned'       => CheckboxType::class,
+            'categories'   => EntityType::class,
         ];
 
-        (new DocumentType())->buildForm($this->prophesizeBuilder($builder), []);
+        $dt = new DocumentType();
+
+        $prophecy = $this->prophesizeBuilder($builder, true, $dt);
+
+        $dt->buildForm($prophecy, []);
     }
 
     public function testConfigureOptions(): void

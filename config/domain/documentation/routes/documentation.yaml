@@ -22,3 +22,8 @@ documentation_document_delete_confirm:
     path: '/supprimer/{id}/confirmation'
     methods: ['GET']
     controller: 'App\Domain\Documentation\Controller\DocumentController:deleteConfirmationAction'
+
+documentation_document_download:
+    path: '/telecharger/{name}'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:downloadAction'

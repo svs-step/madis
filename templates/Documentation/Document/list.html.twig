@@ -45,7 +45,7 @@
                             <th>{{ 'documentation.document.list.name'|trans }}</th>
                             <th>{{ 'documentation.document.list.fichier'|trans }}</th>
 
-                            <th>{{ 'documentation.document.list.favorite'|trans }}</th>
+                            <th>{{ 'documentation.document.list.favorited'|trans }}</th>
                             <th>{{ 'documentation.document.list.created_at'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
@@ -54,7 +54,7 @@
                         {% for object in objects %}
                         <tr>
                             <td>{{ object.name }}</td>
-                            <td>{{ object.file }}</td>
+                            <td><a href="{{ object.url }}" target="_blank">{{ object.url }}</a></td>
                             <td>{{ object.categories | json_encode }}</td>
                             <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
 

@@ -28,6 +28,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class FormTypeHelper extends TestCase
@@ -37,17 +38,26 @@ class FormTypeHelper extends TestCase
     /**
      * Create a FormBuilder thanks to provided data.
      *
-     * @param array $data The array of field to add. Key is field name, value field type.
+     * @param array                    $data       The array of field to add. Key is field name, value field type.
+     * @param bool                     $reveal     reveal the prophecy
+     * @param EventSubscriberInterface $subscriber an optional event subscriber for this form
      *
      * @return FormBuilderInterface|ObjectProphecy The prophesized FormBuilderInterface, revealled or not
      */
-    protected function prophesizeBuilder(array $data, bool $reveal = true)
+    protected function prophesizeBuilder(array $data, bool $reveal = true, EventSubscriberInterface $subscriber = null)
     {
         $builderProphecy = $this->prophesize(FormBuilderInterface::class);
 
         foreach ($data as $field => $type) {
             $builderProphecy
                 ->add($field, $type, Argument::cetera())
+                ->shouldBeCalled()
+                ->willReturn($builderProphecy)
+            ;
+        }
+
+        if ($subscriber) {
+            $builderProphecy->addEventSubscriber($subscriber)
                 ->shouldBeCalled()
                 ->willReturn($builderProphecy)
             ;
