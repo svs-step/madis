@@ -211,7 +211,7 @@ class ContractorController extends CRUDController
         /** @var Model\Contractor $contractor */
         foreach ($contractors as $contractor) {
             $contractorLink = '<a href="' . $this->router->generate('registry_contractor_show', ['id' => $contractor->getId()->toString()]) . '">
-                ' . $contractor->getName() . '
+                ' . \htmlspecialchars($contractor->getName()) . '
             </a>';
 
             $reponse['data'][] = [
