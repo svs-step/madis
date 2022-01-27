@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+## [1.8.2] - 2022-01-27
+### Changement
+- Correction d'un bug rendant incorrect le nombre d'élément affiché dans le texte des tableaux #391
+- Correction d'un bug permettant de rediriger vers un lien externe lorsqu'une balise était ajouté dans le nom d'un élément #392
+
+## [1.8.1] - 2022-01-17
+### Changement
+- Corrections de diverses erreur mineures
+- Registre publique : suppression des liens
+
 ## [1.8] - 2022-01-05
 ### Changement
 - Ajout des webservices
