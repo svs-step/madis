@@ -80,7 +80,7 @@
 
                             <td>
                                 {% if is_granted('ROLE_USER') %}
-                                <a href="{{ path('documentation_document_share', { 'id': object.id }) }}">
+                                <a href="{{ path('documentation_document_share', { 'id': object.id }) }}" data-toggle="modal" data-target="#shareModal">
                                     <i class="fa fa-share"></i>
                                     {{ 'action.share'|trans }}
                                 </a>
@@ -102,8 +102,45 @@
             </div>
         </div>
     </div>
+    <div id="shareModal" class="modal fade" >
+        <div class="modal-dialog">
+            <div class="box box-solid box-default">
+                <div class="box-header with-border text-center">
+                    <h3 class="box-title">Voici le lien du fichier</h3>
+                    <div class="box-tools pull-right">
+                        <!-- Collapse Button -->
+                        <button type="button" class="btn btn-box-tool" data-dismiss="modal">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body text-center">
+                    <div id="linkDocument" class="modal-body">Voici le lien du fichier</div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer text-center">
+                    <button onclick="copyToClipBoard()">Enregistrer le lien dans le presse papier</button>
+                </div>
+                <!-- box-footer -->
+            </div>
+        </div>
+    </div>
+    <script>
+        function copyToClipBoard() {
+            var text = $('#linkDocument').text();
+
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+        }
+    </script>
 {% endblock %}
 
 {% block javascripts %}
     {{ include('_Utils/_datatable.html.twig') }}
+
 {% endblock %}

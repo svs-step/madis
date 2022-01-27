@@ -188,4 +188,14 @@ class DocumentController extends CRUDController
             $object->setThumbUrl('/uploads/documentation/vignettes/' . $filename);
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function shareAction(string $id)
+    {
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            return $this->repository->findOneById($id);
+        }
+    }
 }
