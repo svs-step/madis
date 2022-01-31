@@ -164,9 +164,14 @@
         let domainesLabels = [];
         let domainesDatas = [];
         {% for critere in analyseImpact.criterePrincipeFondamentaux %}
-            domainesLabels.push('{{ critere.label|truncate(28,'...') }}');
-
-            domainesDatas.push(1);
+            {% if critere.reponse != 'non_applicable' %}
+                domainesLabels.push('{{ critere.label|truncate(28,'...') }}');
+                {% if critere.reponse == 'conforme' %}
+                    domainesDatas.push(5);
+                {% else %}
+                    domainesDatas.push(1);
+                {% endif %}
+            {% endif %}
         {% endfor %}
         {% for question in analyseImpact.questionConformites %}
         {% set reponse = analyseImpact.conformiteTraitement.reponseOfPosition(question.position) %}
