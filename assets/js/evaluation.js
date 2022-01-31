@@ -51,6 +51,9 @@ function stackedBarChart(id, labels, data) {
                 y: {
                     stacked: true,
                 },
+            },
+            animation: {
+                duration: 0
             }
         }
     });
@@ -88,6 +91,9 @@ function bubbleChart(id, labels, data) {
                         labelString: 'Vraisemblance',
                     }
                 }],
+            },
+            animation: {
+                duration: 0
             }
         }
     });

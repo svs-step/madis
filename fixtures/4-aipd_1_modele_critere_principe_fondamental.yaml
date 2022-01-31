@@ -2,6 +2,7 @@ App\Domain\AIPD\Model\CriterePrincipeFondamental:
     critere_1:
         label: "Portée du traitement"
         labelLivrable: "Portée traitement"
+        code: "portee_traitement"
         reponse: '<(App\Domain\AIPD\Dictionary\ReponseCritereFondamentalDictionary::REPONSE_NON_RENSEIGNE)>'
         isVisible: true
         texteConformite: "Conforme"
@@ -11,7 +12,8 @@ App\Domain\AIPD\Model\CriterePrincipeFondamental:
 
     critere_2:
         label: "Contexte du traitement"
-        labelLivrable: "COntexte traitement"
+        labelLivrable: "Contexte traitement"
+        code: "contexte_traitement"
         reponse: '<(App\Domain\AIPD\Dictionary\ReponseCritereFondamentalDictionary::REPONSE_NON_RENSEIGNE)>'
         isVisible: true
         texteConformite: "Conforme"
@@ -22,6 +24,7 @@ App\Domain\AIPD\Model\CriterePrincipeFondamental:
     critere_3:
         label: "Conformité à un code de conduite existant"
         labelLivrable: "Code de conduite"
+        code: "conformite_code"
         reponse: '<(App\Domain\AIPD\Dictionary\ReponseCritereFondamentalDictionary::REPONSE_NON_RENSEIGNE)>'
         isVisible: true
         texteConformite: "Conforme"
@@ -32,6 +35,7 @@ App\Domain\AIPD\Model\CriterePrincipeFondamental:
     critere_4:
         label: "Description fonctionnelle du traitement"
         labelLivrable: "Description fonctionnelle"
+        code: "description_fonctionnelle"
         reponse: '<(App\Domain\AIPD\Dictionary\ReponseCritereFondamentalDictionary::REPONSE_NON_RENSEIGNE)>'
         isVisible: true
         texteConformite: "Conforme"
@@ -42,6 +46,7 @@ App\Domain\AIPD\Model\CriterePrincipeFondamental:
     critere_5:
         label: "Identifications des biens"
         labelLivrable: "Identification"
+        code: "identification_biens"
         reponse: '<(App\Domain\AIPD\Dictionary\ReponseCritereFondamentalDictionary::REPONSE_NON_RENSEIGNE)>'
         isVisible: true
         texteConformite: "Conforme"

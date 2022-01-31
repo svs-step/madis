@@ -9,5 +9,6 @@
         <field name="justificatif" column="justificatif" nullable="true" length="510"/>
 
         <many-to-one field="analyseImpact" target-entity="App\Domain\AIPD\Model\AnalyseImpact" inversed-by="questionConformites"/>
+        <many-to-one field="reponseConformite" target-entity="App\Domain\Registry\Model\ConformiteTraitement\Reponse" inversed-by="analyseQuestionsConformites"/>
     </entity>
 </doctrine-mapping>

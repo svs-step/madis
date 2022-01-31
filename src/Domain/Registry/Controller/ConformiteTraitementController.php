@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\AIPD\Converter\ModeleToAnalyseConverter;
+use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\AIPD\Repository as AipdRepository;
 use App\Domain\Registry\Form\Type\ConformiteTraitement\ConformiteTraitementType;
 use App\Domain\Registry\Model;
@@ -281,11 +282,20 @@ class ConformiteTraitementController extends CRUDController
 
         $analyseImpact = ModeleToAnalyseConverter::createFromModeleAnalyse($modele);
         $analyseImpact->setConformiteTraitement($conformiteTraitement);
+        $this->setAnalyseReponsesQuestionConformite($analyseImpact, $conformiteTraitement);
+        dump($analyseImpact);
         $this->entityManager->persist($analyseImpact);
         $this->entityManager->flush();
 
         return $this->redirectToRoute('aipd_analyse_impact_create', [
             'id' => $analyseImpact->getId(),
         ]);
+    }
+
+    private function setAnalyseReponsesQuestionConformite(AnalyseImpact &$analyseImpact, Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement)
+    {
+        foreach ($conformiteTraitement->getReponses() as $reponse) {
+            $analyseImpact->getQuestionConformitesOfPosition($reponse->getQuestion()->getPosition())->setReponseConformite($reponse);
+        }
     }
 }

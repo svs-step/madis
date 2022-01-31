@@ -11,6 +11,7 @@
 
         <field name="label" column="label"/>
         <field name="labelLivrable" column="label_livrable"/>
+        <field name="code" column="code"/>
         <field name="reponse" column="reponse"/>
         <field name="isVisible" column="visible" type="boolean"/>
         <field name="texteConformite" column="texte_conformite"/>
@@ -18,7 +19,6 @@
         <field name="texteNonApplicable" column="non_applicable"/>
         <field name="justification" column="justification" nullable="true"/>
         <field name="fichier" column="fichier" nullable="true"/>
-
 
         <many-to-one field="analyseImpact" target-entity="App\Domain\AIPD\Model\AnalyseImpact" inversed-by="criterePrincipeFondamentaux"/>
         <many-to-one field="modeleAnalyse" target-entity="App\Domain\AIPD\Model\ModeleAnalyse" inversed-by="criterePrincipeFondamentaux"/>
