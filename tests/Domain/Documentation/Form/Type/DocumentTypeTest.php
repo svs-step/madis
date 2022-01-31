@@ -32,8 +32,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -57,11 +57,9 @@ class DocumentTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'isLink'            => CheckboxType::class,
-            'uploadedFile'      => FileType::class,
+            'isLink'            => HiddenType::class,
             'name'              => TextType::class,
             'categories'        => EntityType::class,
-            'url'               => UrlType::class,
             'pinned'            => CheckboxType::class,
             'thumbUploadedFile' => FileType::class,
         ];

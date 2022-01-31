@@ -31,6 +31,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -56,17 +57,8 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
     {
         $request = $this->requestStack->getCurrentRequest();
         $builder
-            ->add('isLink', CheckboxType::class, [
+            ->add('isLink', HiddenType::class, [
                 'label'    => false,
-                'required' => false,
-                'attr'     => ['hidden' => true],
-            ])
-            ->add('uploadedFile', FileType::class, [
-                'label'    => 'documentation.document.form.label.file',
-                'required' => false,
-            ])
-            ->add('url', UrlType::class, [
-                'label'    => 'documentation.document.form.label.url',
                 'required' => false,
             ])
             ->add('name', TextType::class, [
@@ -123,10 +115,23 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
 
     public function setIsLink(FormEvent $event)
     {
-        $isLink = $this->requestStack->getCurrentRequest()->get('isLink');
+        $isLink = (bool) $this->requestStack->getCurrentRequest()->get('isLink');
         $data   = $event->getData();
-        $data->setIsLink((bool) $isLink);
+        $data->setIsLink($isLink);
         $event->setData($data);
+
+        $form = $event->getForm();
+        if ($isLink) {
+            $form->add('url', UrlType::class, [
+                'label'    => 'documentation.document.form.label.url',
+                'required' => false,
+            ]);
+        } else {
+            $form->add('uploadedFile', FileType::class, [
+                'label'    => 'documentation.document.form.label.file',
+                'required' => false,
+            ]);
+        }
     }
 
     public function ensureOneFieldIsSubmitted(FormEvent $event)

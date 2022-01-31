@@ -1,7 +1,16 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
 {{ form_errors(form) }}
 {{ form_start(form) }}
-
+{{ form_row(form.name) }}
+{% if form.url is defined %}
+    {{ form_row(form.url) }}
+{% endif %}
+{% if form.uploadedFile is defined %}
+    {{ form_row(form.uploadedFile) }}
+{% endif %}
+{{ form_row(form.categories) }}
+{{ form_row(form.thumbUploadedFile) }}
+{{ form_row(form.pinned) }}
 
 <div class="row">
     <div class="col-md-12">
@@ -15,6 +24,8 @@
         </div>
     </div>
 </div>
+
+
 
 {{ form_end(form) }}
 

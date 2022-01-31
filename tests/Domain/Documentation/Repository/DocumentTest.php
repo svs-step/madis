@@ -44,5 +44,6 @@ class DocumentTest extends TestCase
     public function testMethodsExist()
     {
         $repository = $this->prophesize(Repository\Document::class)->reveal();
+        $this->assertTrue(\method_exists($repository, 'create'));
     }
 }
