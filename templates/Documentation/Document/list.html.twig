@@ -30,6 +30,26 @@
                         {{ 'documentation.document.action.new'|trans }}
                     </a>
                     {% endif %}
+                    {# RESET FILTERS #}
+                    <button id="button-reset" class="btn btn-default">
+                        Réinitialiser les filtres
+                    </button>
+
+                    <select class="form-control" id="search_type">
+                        <option value="" selected>Type</option>
+                        {% for key, subject in dictionary('documentation_document_type') %}
+                            <option value="{{ key }}">{{ subject }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <input class="form-control" type="text" id="search_name" placeholder="Nom">
+
+                    <select class="form-control" id="search_category">
+                        <option value="">Catégorie</option>
+                        {# {% for key, subject in dictionary('documentation_document_category') %}
+                            <option value="{{ key }}">{{ subject }}</option>
+                        {% endfor %} #}
+                    </select>
                 </div>
             </div>
     </div>
@@ -44,6 +64,13 @@
                         <a href="{{ path('documentation_document_grid') }}" class="btn btn-default">
                             <i class="fas fa-th"></i>
                             {{ 'documentation.document.action.grid'|trans }}
+                        </a>
+                    {% endif %}
+
+                    {# Uniquement pour les DPO #}
+                    {% if is_granted('ROLE_USER') %}
+                        <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                            {{ 'documentation.category.action.list'|trans }}
                         </a>
                     {% endif %}
 
@@ -101,6 +128,63 @@
     </div>
 {% endblock %}
 
-{% block javascripts %}
+{# {% block javascripts %}
     {{ include('_Utils/_datatable.html.twig') }}
+{% endblock %} #}
+{% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "favorite"},
+            {"data": "type"},
+            {"data": "weight"},
+            {"data": "name"},
+            {"data": "category"},
+            {"data": "file", "orderable": false},
+            {"data": "created_at"},
+            {"data": "actions", "orderable": false},
+        ],
+    } %}
+
+    {# {{ include('_Utils/_serverside_datatable.html.twig') }} #}
+    {{ include('_Utils/_datatable.html.twig') }}
+
+    <script>
+        function resetFilters() {
+            $('[id^=search_]').each(function() {
+                $(this).val('');
+            });
+            var table = $('#table').DataTable();
+            table.columns().search('');
+        }
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_type').off('keyup');
+            $('#search_type').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+
+            $('#search_name').off('keyup');
+            $('#search_name').keyup($.debounce(250, function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            }));
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+        $('#button-reset').on('click', function() {
+            resetFilters();
+            var table = $('#table').DataTable();
+            table.columns().search('').draw();
+        })
+    </script>
+
 {% endblock %}

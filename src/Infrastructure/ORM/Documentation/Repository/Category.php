@@ -28,13 +28,13 @@ use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Domain\Documentation\Model;
 use App\Domain\Documentation\Repository;
 
-class Category extends CRUDRepository implements Repository\Document
+class Category extends CRUDRepository implements Repository\Category
 {
     /**
      * {@inheritdoc}
      */
     protected function getModelClass(): string
     {
-        return Model\Document::class;
+        return Model\Category::class;
     }
 }

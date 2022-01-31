@@ -27,6 +27,7 @@ namespace App\Domain\Documentation\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Documentation\Form\Type\DocumentType;
+use App\Domain\Registry\Dictionary\DocumentTypeDictionary;
 use App\Domain\Documentation\Model;
 use App\Domain\Documentation\Repository;
 use Doctrine\ORM\EntityManagerInterface;

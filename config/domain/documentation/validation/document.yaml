@@ -1,0 +1,9 @@
+App\Domain\Registry\Model\Document:
+    properties:
+        category:
+            - NotBlank:
+                message: 'documentation_document.type.not_blank'
+                groups: ['default']
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'documentation_document_type'
+                groups: ['default']

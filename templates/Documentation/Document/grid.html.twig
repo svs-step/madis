@@ -42,34 +42,35 @@
                 
                         {# SWITCH GRID LIST #}
                         {% if is_granted('ROLE_USER') %}
-                        <div class="col-md-3 col-xl-2">
+                        <div class="col-md-12 col-xl-2">
                             <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
                                 <i class="fas fa-list"></i>
                                 {{ 'documentation.document.action.list'|trans }}
                             </a>
                             {# RESET FILTERS #}
-                            <a href="{{ path('documentation_document_grid') }}" class="btn btn-default">
-                                Todo : Réinitialiser les filtres
-                            </a>
-                        </div>
-                        {% endif %}
-                        
-                        <div class="col-md-">
+                            <button id="button-reset" class="btn btn-default">
+                                Réinitialiser les filtres
+                            </button>
+
                             <select class="form-control" id="search_type">
-                                <option value="" selected disabled>Type</option>
-                                {# {% for key, subject in dictionary('documentation_document_type') %}
+                                <option value="" selected>Type</option>
+                                {% for key, subject in dictionary('documentation_document_type') %}
+                                    <option value="{{ key }}">{{ subject }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <input class="form-control" type="text" id="search_name" placeholder="Nom">
+
+                            <select class="form-control" id="search_category">
+                                <option value="">Catégorie</option>
+                                {# {% for key, subject in dictionary('documentation_document_category') %}
                                     <option value="{{ key }}">{{ subject }}</option>
                                 {% endfor %} #}
                             </select>
+
                         </div>
-                        <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
-                        <select class="form-control" id="search_category" style="width: 100%;">
-                            <option value="">Catégorie</option>
-                            {# {% for key, subject in dictionary('documentation_document_category') %}
-                                <option value="{{ key }}">{{ subject }}</option>
-                            {% endfor %} #}
-                        </select>
-                        <input class="datepicker form-control" type="text" id="search_date" placeholder="Date de violation" style="width: 100%;">
+                        {% endif %}
+                        
                     </div>
                     <div class="content">
                         <div class="row">
@@ -96,7 +97,58 @@
     </div>
 {% endblock %}
 
-{% block javascripts %}
+{# {% block javascripts %}
     {{ include('_Utils/_datatable.html.twig') }}
+{% endblock %} #}
+{% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+{# 
+    {% set collectivityIsVisible = false %}
+    {% set collectivityClassname = "noVis" %}
+    {% set actionIsVisible = false %}
+
+
+    {% if is_granted('ROLE_USER') and 'true' != app.request.get('archive') %}
+        {% set actionIsVisible = true %}
+    {% endif %} #}
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "collectivite"},
+            {"data": "date"},
+            {"data": "nature"},
+            {"data": "cause"},
+            {"data": "gravity"},
+            {"data": "actions", "orderable": false},
+        ],
+    } %}
+
     {# {{ include('_Utils/_serverside_datatable.html.twig') }} #}
+    {{ include('_Utils/_datatable.html.twig') }}
+
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_type').off('keyup');
+            $('#search_type').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+        $('#button-reset').on('click', function() {
+            resetFilters();
+            var table = $('#table').DataTable();
+            table.columns().search('').draw();
+        })
+    </script>
+
 {% endblock %}

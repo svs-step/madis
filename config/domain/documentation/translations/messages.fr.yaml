@@ -8,7 +8,7 @@ documentation:
         breadcrumb:
             create: Nouveau document
             edit: Modifier un document
-            list: Liste des documents
+            list: Espace documentaire
             delete: Supprimer un document
         flashbag:
             success:
@@ -27,5 +27,16 @@ documentation:
         title:
             create: Nouveau document
             edit: Modifier un document
-            list: Liste des documents
+            list: Espace documentaire
             delete: Supprimer un document
+    category:
+        action:
+            back_to_list: Retour à la liste
+            new: Ajouter une catégorie
+            list: Afficher les catégories
+            files: Tous les fichiers
+        list:
+            name: Nom
+            count: Total
+        title:
+            list: Espace documentaire

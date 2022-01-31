@@ -27,3 +27,13 @@ documentation_document_delete_confirm:
     path: '/supprimer/{id}/confirmation'
     methods: ['GET']
     controller: 'App\Domain\Documentation\Controller\DocumentController:deleteConfirmationAction'
+
+documentation_category_list:
+    path: '/categorie'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\CategoryController:listAction'
+
+documentation_category_create:
+    path: '/categorie/creer'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Documentation\Controller\CategoryController:createAction'

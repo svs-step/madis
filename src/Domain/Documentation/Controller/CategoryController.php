@@ -106,4 +106,35 @@ class CategoryController extends CRUDController
         // Everybody can access all documents
         return $this->repository->findAll($order);
     }
+
+    /**
+     * {@inheritdoc}
+     * Here, we wanna compute maturity score.
+     *
+     * @param Model\Survey $object
+     */
+    public function formPrePersistData($object)
+    {
+        $object->setSystem(false);
+    }
+
+    /**
+     * Generate the flashbag message dynamically depending on the domain, model & object.
+     * Replace word `%object%` in translation by the related object (thanks to it `__toString` method).
+     *
+     * @param string      $type     The flashbag type
+     * @param string|null $template The related template to use
+     * @param mixed|null  $object   The object to use to generate flashbag (eg. show object name)
+     *
+     * @return string The generated flashbag
+     */
+    protected function getFlashbagMessage(string $type, string $template = null, $object = null): string
+    {
+        $params = [];
+
+        return $this->translator->trans(
+            "{$this->getDomain()}.{$this->getModel()}.flashbag.{$type}.{$template}",
+            $params
+        );
+    }
 }
