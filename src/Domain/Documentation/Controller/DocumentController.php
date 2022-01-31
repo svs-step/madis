@@ -31,7 +31,10 @@ use App\Domain\Registry\Dictionary\DocumentTypeDictionary;
 use App\Domain\Documentation\Model;
 use App\Domain\Documentation\Repository;
 use Doctrine\ORM\EntityManagerInterface;
+use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
+use Ramsey\Uuid\Uuid;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -50,17 +53,23 @@ class DocumentController extends CRUDController
      */
     protected $userProvider;
 
+    /**
+     * @var FilesystemInterface
+     */
+    protected $documentFilesystem;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Document $repository,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
+        FilesystemInterface $documentFilesystem,
         Pdf $pdf
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->authorizationChecker = $authorizationChecker;
-        $this->userProvider         = $userProvider;
+        $this->authorizationChecker     = $authorizationChecker;
+        $this->documentFilesystem       = $documentFilesystem;
     }
 
     /**
@@ -113,5 +122,26 @@ class DocumentController extends CRUDController
         return $this->render($this->getTemplatingBasePath('grid'), [
             'objects' => $this->getListData(),
         ]);
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function formPrePersistData($object)
+    {
+        if (false === $object->getIsLink() && null !== $file = $object->getUploadedFile()) {
+            $filename = Uuid::uuid4()->toString() . '.' . $file->getClientOriginalExtension();
+            $this->documentFilesystem->write($filename, \fopen($file->getRealPath(), 'r'));
+            $object->setFile($filename);
+            $object->setUploadedFile(null);
+
+            $url = $this->generateUrl('documentation_document_download', [
+                'name' => $filename,
+            ], UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $object->setUrl($url);
+        } elseif (true === $object->getIsLink()) {
+            $object->setFile('');
+        }
     }
 }

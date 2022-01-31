@@ -60,7 +60,7 @@ class Category
     private $system;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Document", inversedBy="categories")
+     * @ORM\ManyToMany(targetEntity="Document", mappedBy="categories")
      * @ORM\JoinTable(name="document_categories",
      *      joinColumns={@ORM\JoinColumn(name="document_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}

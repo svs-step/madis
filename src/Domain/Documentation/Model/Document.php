@@ -26,9 +26,12 @@ namespace App\Domain\Documentation\Model;
 
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
@@ -67,6 +70,11 @@ class Document
     private $file;
 
     /**
+     * @var UploadedFile|null
+     */
+    private $uploadedFile;
+
+    /**
      * @ORM\Column(type="boolean")
      *
      * @var bool|null
@@ -74,16 +82,31 @@ class Document
     private $pinned;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Category", mappedBy="documents")
+     * @ORM\Column(type="boolean")
      *
-     * @var array|null
+     * @var bool|null
+     */
+    private $isLink;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="documents")
+     * @ORM\JoinTable(name="document_categories",
+     *      joinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="document_id", referencedColumnName="id")}
+     *      )
+     *
+     * @var Collection|Category[]
      */
     private $categories;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Domain\User\Model\User", mappedBy="favoriteDocuments")
+     * @ORM\ManyToMany(targetEntity="App\Domain\User\Model\User", inversedBy="favoriteDocuments")
+     * @ORM\JoinTable(name="user_favorite_documents",
+     *      joinColumns={@ORM\JoinColumn(name="document_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *      )
      *
-     * @var array|null
+     * @var Collection|User[]
      */
     private $favoritedUsers;
 
@@ -119,12 +142,12 @@ class Document
         return $this;
     }
 
-    public function getCategories(): ?array
+    public function getCategories(): ?Collection
     {
         return $this->categories;
     }
 
-    public function setCategories(?array $categories): Document
+    public function setCategories(?Collection $categories): Document
     {
         $this->categories = $categories;
 
@@ -167,7 +190,7 @@ class Document
         return $this;
     }
 
-    public function getFavoritedUsers(): ?array
+    public function getFavoritedUsers(): ?Collection
     {
         return $this->favoritedUsers;
     }
@@ -175,6 +198,28 @@ class Document
     public function setFavoritedUsers(?array $favoritedUsers): Document
     {
         $this->favoritedUsers = $favoritedUsers;
+
+        return $this;
+    }
+
+    public function getUploadedFile(): ?UploadedFile
+    {
+        return $this->uploadedFile;
+    }
+
+    public function setUploadedFile(?UploadedFile $uploadedFile): void
+    {
+        $this->uploadedFile = $uploadedFile;
+    }
+
+    public function getIsLink(): ?bool
+    {
+        return $this->isLink;
+    }
+
+    public function setIsLink(?bool $isLink): Document
+    {
+        $this->isLink = $isLink;
 
         return $this;
     }

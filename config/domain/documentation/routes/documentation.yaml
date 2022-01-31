@@ -37,3 +37,7 @@ documentation_category_create:
     path: '/categorie/creer'
     methods: ['GET', 'POST']
     controller: 'App\Domain\Documentation\Controller\CategoryController:createAction'
+documentation_document_download:
+    path: '/telecharger/{name}'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:downloadAction'

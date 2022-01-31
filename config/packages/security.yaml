@@ -64,6 +64,9 @@ security:
         - { path: ^/utilisateurs/liste, roles: ROLE_REFERENT }
         - { path: ^/utilisateurs/datatables, roles: ROLE_REFERENT }
         - { path: ^profil/mon-compte/services/.+/.+$, roles: ROLE_REFERENT}
+        - { path: ^espace-documentaire/creer$, roles: ROLE_REFERENT}
+        - { path: ^espace-documentaire/editer/.+$, roles: ROLE_REFERENT}
+        - { path: ^espace-documentaire/supprimer/.+$, roles: ROLE_REFERENT}
         # Admin routes
         - { path: ^/collectivites, roles: ROLE_ADMIN }
         - { path: ^/utilisateurs, roles: ROLE_ADMIN }

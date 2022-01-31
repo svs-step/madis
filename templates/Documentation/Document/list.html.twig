@@ -78,7 +78,7 @@
                         <thead>
                             
                             <tr>
-                                <th>{{ 'documentation.document.list.favorite'|trans }}</th>
+                                <th>{{ 'documentation.document.list.favorited'|trans }}</th>
                                 <th>{{ 'documentation.document.list.type'|trans }}</th>
                                 <th>{{ 'documentation.document.list.weight'|trans }}</th>
                                 <th>{{ 'documentation.document.list.name'|trans }}</th>
@@ -102,8 +102,8 @@
                             <td></td>
                             <td></td>
                             <td>{{ object.name }}</td>
-                            <td></td>
-                            <td>{{ object.file }}</td>
+                            <td><a href="{{ object.url }}" target="_blank">{{ object.url }}</a></td>
+                            <td>{{ object.categories | json_encode }}</td>
                             <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
 
                             <td>

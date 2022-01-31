@@ -7,7 +7,7 @@ tu: ## Run unit tests
 	$(QA) vendor/bin/phpunit
 
 tu-report: ## Run unit tests
-	$(QA) phpdbg -d memory_limit=-1 -qrr ./vendor/bin/phpunit --coverage-text --coverage-html $(ARTEFACTS)/coverage/
+	$(QA) phpdbg -d memory_limit=-1 -qrr ./vendor/bin/phpunit --coverage-text --colors=never --coverage-html $(ARTEFACTS)/coverage/
 
 .PHONY: tu tu-report
 

@@ -25,12 +25,20 @@ declare(strict_types=1);
 namespace App\Domain\Documentation\Form\Type;
 
 use App\Domain\Documentation\Model;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Exception\TransformationFailedException;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DocumentType extends AbstractType
+class DocumentType extends AbstractType implements EventSubscriberInterface
 {
     /**
      * Build type form.
@@ -38,10 +46,35 @@ class DocumentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', FileType::class, [
-                'label'   => false,
+            ->add('isLink', CheckboxType::class, [
+                'label'    => 'documentation.document.form.label.islink',
+                'required' => false,
+            ])
+            ->add('uploadedFile', FileType::class, [
+                'label'    => 'documentation.document.form.label.file',
+                'required' => false,
+            ])
+            ->add('url', UrlType::class, [
+                'label'    => 'documentation.document.form.label.url',
+                'required' => false,
+            ])
+            ->add('name', TextType::class, [
+                'label'   => 'documentation.document.form.label.name',
+            ])
+            ->add('pinned', CheckboxType::class, [
+                'label'    => 'documentation.document.form.label.pinned',
+                'required' => false,
+            ])
+            ->add('categories', EntityType::class, [
+                'label'        => 'documentation.document.form.label.categories',
+                'class'        => 'App\Domain\Documentation\Model\Category',
+                'choice_label' => 'name',
+                'multiple'     => true,
+                'required'     => false,
             ])
         ;
+
+        $builder->addEventSubscriber($this);
     }
 
     /**
@@ -57,5 +90,25 @@ class DocumentType extends AbstractType
                     'document',
                 ],
             ]);
+    }
+
+    public static function getSubscribedEvents()
+    {
+        return [
+            FormEvents::SUBMIT => 'ensureOneFieldIsSubmitted',
+        ];
+    }
+
+    public function ensureOneFieldIsSubmitted(FormEvent $event)
+    {
+        $submittedData = $event->getData();
+
+        if (!$submittedData->getUploadedFile() && !$submittedData->getUrl()) {
+            throw new TransformationFailedException('documentation.document.form.error.fileorurl', 400, /* code */ null, /* previous */ 'documentation.document.form.error.fileorurl', /* user message */ ['{{ what }}' => 'aa'] /* message context for the translater */);
+        }
+
+        if (true === $submittedData->getIsLink() && !$submittedData->getUrl()) {
+            throw new TransformationFailedException('documentation.document.form.error.missingurl', 401, /* code */ null, /* previous */ 'documentation.document.form.error.missingurl', /* user message */ ['{{ what }}' => 'aa'] /* message context for the translater */);
+        }
     }
 }
