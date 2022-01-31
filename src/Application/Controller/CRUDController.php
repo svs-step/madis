@@ -281,6 +281,7 @@ abstract class CRUDController extends AbstractController
 
         return $this->render($this->getTemplatingBasePath('edit'), [
             'form'              => $form->createView(),
+            'object'            => $object,
             'serviceEnabled'    => $serviceEnabled,
         ]);
     }
@@ -392,7 +393,7 @@ abstract class CRUDController extends AbstractController
     {
         $name = ChainManipulator::removeAllNonAlphaNumericChar(ChainManipulator::removeAccents($name));
 
-        return  $name . '-' . date('mdY');
+        return $name . '-' . date('mdY');
     }
 
     /**

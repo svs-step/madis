@@ -32,7 +32,8 @@ documentation:
             fichier: Fichier
             created_at: Date de création
             score: Score
-            favorited: favori
+            favorited: Favori
+            thumbnail: Télécharger
         title:
             create: Nouveau documentttttttt
             edit: Modifier un document

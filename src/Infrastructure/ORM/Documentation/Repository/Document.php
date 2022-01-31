@@ -37,4 +37,16 @@ class Document extends CRUDRepository implements Repository\Document
     {
         return Model\Document::class;
     }
+
+    public function findOneByName(string $name)
+    {
+        $docs = $this->registry
+            ->getManager()
+            ->getRepository($this->getModelClass())
+            ->findBy(['file' => $name])
+            ;
+        if (count($docs) > 0) {
+            return $docs[0];
+        }
+    }
 }
