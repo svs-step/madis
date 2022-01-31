@@ -75,6 +75,17 @@ class Document
     private $uploadedFile;
 
     /**
+     * @var UploadedFile|null
+     */
+    private $thumbUploadedFile;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="text", length=255, nullable=true)
+     */
+    private $thumbUrl;
+
+    /**
      * @ORM\Column(type="boolean")
      *
      * @var bool|null
@@ -222,5 +233,25 @@ class Document
         $this->isLink = $isLink;
 
         return $this;
+    }
+
+    public function getThumbUploadedFile(): ?UploadedFile
+    {
+        return $this->thumbUploadedFile;
+    }
+
+    public function setThumbUploadedFile(?UploadedFile $thumbUploadedFile): void
+    {
+        $this->thumbUploadedFile = $thumbUploadedFile;
+    }
+
+    public function getThumbUrl(): ?string
+    {
+        return $this->thumbUrl;
+    }
+
+    public function setThumbUrl(?string $thumbUrl): void
+    {
+        $this->thumbUrl = $thumbUrl;
     }
 }

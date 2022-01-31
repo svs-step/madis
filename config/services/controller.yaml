@@ -19,6 +19,7 @@ services:
     App\Domain\Documentation\Controller\DocumentController:
         arguments:
             $documentFilesystem: '@gaufrette.documentation_document_filesystem'
+            $thumbFilesystem: '@gaufrette.documentation_thumbnail_filesystem'
 
     App\Domain\AIPD\Controller\ModeleAnalyseController:
         arguments:

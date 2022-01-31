@@ -34,29 +34,39 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DocumentTypeTest extends FormTypeHelper
 {
     use ProphecyTrait;
 
+    private $requestStack;
+
+    public function setUp(): void
+    {
+        $this->requestStack = $this->prophesize(RequestStack::class)->reveal();
+        parent::setUp();
+    }
+
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, new DocumentType());
+        $this->assertInstanceOf(AbstractType::class, new DocumentType($this->requestStack));
     }
 
     public function testBuildForm()
     {
         $builder = [
-            'isLink'       => CheckboxType::class,
-            'uploadedFile' => FileType::class,
-            'name'         => TextType::class,
-            'url'          => UrlType::class,
-            'pinned'       => CheckboxType::class,
-            'categories'   => EntityType::class,
+            'isLink'            => CheckboxType::class,
+            'uploadedFile'      => FileType::class,
+            'name'              => TextType::class,
+            'categories'        => EntityType::class,
+            'url'               => UrlType::class,
+            'pinned'            => CheckboxType::class,
+            'thumbUploadedFile' => FileType::class,
         ];
 
-        $dt = new DocumentType();
+        $dt = new DocumentType($this->requestStack);
 
         $prophecy = $this->prophesizeBuilder($builder, true, $dt);
 
@@ -76,6 +86,6 @@ class DocumentTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new DocumentType())->configureOptions($resolverProphecy->reveal());
+        (new DocumentType($this->requestStack))->configureOptions($resolverProphecy->reveal());
     }
 }

@@ -3,6 +3,8 @@ documentation:
         action:
             back_to_list: Retour à la liste
             new: Nouveau document
+            file: Nouveau fichier
+            url: Nouveau lien
         form:
             error:
                 fileorurl: Vous devez choisir un fichier ou une URL pour le document
@@ -14,6 +16,7 @@ documentation:
                 pinned: Épinglé
                 categories: Catégories
                 islink: Lien direct
+                thumbnail: Vignette
         breadcrumb:
             create: Nouveau document
             edit: Modifier un document

@@ -57,6 +57,11 @@ class DocumentController extends CRUDController
      */
     protected $documentFilesystem;
 
+    /**
+     * @var FilesystemInterface
+     */
+    protected $thumbFilesystem;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -64,11 +69,13 @@ class DocumentController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
         FilesystemInterface $documentFilesystem,
+        FilesystemInterface $thumbFilesystem,
         Pdf $pdf
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->authorizationChecker     = $authorizationChecker;
         $this->documentFilesystem       = $documentFilesystem;
+        $this->thumbFilesystem          = $thumbFilesystem;
     }
 
     /**
@@ -134,6 +141,13 @@ class DocumentController extends CRUDController
             $object->setUrl($url);
         } elseif (true === $object->getIsLink()) {
             $object->setFile('');
+        }
+        if (null !== $thumb = $object->getThumbUploadedFile()) {
+            $filename = Uuid::uuid4()->toString() . '.' . $thumb->getClientOriginalExtension();
+            $this->thumbFilesystem->write($filename, \fopen($thumb->getRealPath(), 'r'));
+
+            $object->setThumbUploadedFile(null);
+            $object->setThumbUrl('/uploads/documentation/vignettes/' . $filename);
         }
     }
 }

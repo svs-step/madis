@@ -36,19 +36,30 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class DocumentType extends AbstractType implements EventSubscriberInterface
 {
+    private $requestStack;
+
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
     /**
      * Build type form.
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $request = $this->requestStack->getCurrentRequest();
         $builder
             ->add('isLink', CheckboxType::class, [
-                'label'    => 'documentation.document.form.label.islink',
+                'label'    => false,
                 'required' => false,
+                'attr'     => ['hidden' => true],
             ])
             ->add('uploadedFile', FileType::class, [
                 'label'    => 'documentation.document.form.label.file',
@@ -61,16 +72,26 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
             ->add('name', TextType::class, [
                 'label'   => 'documentation.document.form.label.name',
             ])
-            ->add('pinned', CheckboxType::class, [
-                'label'    => 'documentation.document.form.label.pinned',
-                'required' => false,
-            ])
             ->add('categories', EntityType::class, [
                 'label'        => 'documentation.document.form.label.categories',
                 'class'        => 'App\Domain\Documentation\Model\Category',
                 'choice_label' => 'name',
                 'multiple'     => true,
                 'required'     => false,
+            ])
+            ->add('thumbUploadedFile', FileType::class, [
+                'label'       => 'documentation.document.form.label.thumbnail',
+                'required'    => false,
+                'constraints' => [
+                    new Image(['groups' => ['default']]),
+                ],
+                'attr'     => [
+                    'accept' => 'image/*',
+                ],
+            ])
+            ->add('pinned', CheckboxType::class, [
+                'label'    => 'documentation.document.form.label.pinned',
+                'required' => false,
             ])
         ;
 
@@ -95,8 +116,17 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            FormEvents::SUBMIT => 'ensureOneFieldIsSubmitted',
+            FormEvents::SUBMIT       => 'ensureOneFieldIsSubmitted',
+            FormEvents::PRE_SET_DATA => 'setIsLink',
         ];
+    }
+
+    public function setIsLink(FormEvent $event)
+    {
+        $isLink = $this->requestStack->getCurrentRequest()->get('isLink');
+        $data   = $event->getData();
+        $data->setIsLink((bool) $isLink);
+        $event->setData($data);
     }
 
     public function ensureOneFieldIsSubmitted(FormEvent $event)

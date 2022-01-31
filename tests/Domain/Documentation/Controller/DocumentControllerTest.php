@@ -90,6 +90,7 @@ class DocumentControllerTest extends TestCase
         $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
         $this->pdf                            = $this->prophesize(Pdf::class);
         $this->documentFilesystem             = $this->prophesize(FilesystemInterface::class);
+        $this->thumbFilesystem                = $this->prophesize(FilesystemInterface::class);
         $this->controller                     = new DocumentController(
             $this->managerProphecy->reveal(),
             $this->translatorProphecy->reveal(),
@@ -97,6 +98,7 @@ class DocumentControllerTest extends TestCase
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
             $this->documentFilesystem->reveal(),
+            $this->thumbFilesystem->reveal(),
             $this->pdf->reveal()
         );
     }

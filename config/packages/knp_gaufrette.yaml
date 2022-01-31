@@ -6,6 +6,9 @@ knp_gaufrette:
         documentation_document:
             local:
                 directory: '%kernel.project_dir%/var/documents/files'
+        documentation_thumbnail:
+            local:
+                directory: '%kernel.project_dir%/public/uploads/documentation/vignettes'
         aipd_critere_principe_fondamentaux_fichier:
             local:
                 directory: '%kernel.project_dir%/public/uploads/aipd/critere_principe_fondamentaux/fichier'
@@ -14,6 +17,8 @@ knp_gaufrette:
             adapter: registry_proof_document
         documentation_document:
             adapter: documentation_document
+        documentation_thumbnail:
+            adapter: documentation_thumbnail
         aipd_critere_principe_fondamentaux_fichier:
             adapter: aipd_critere_principe_fondamentaux_fichier
 
