@@ -30,26 +30,6 @@
                         {{ 'documentation.document.action.new'|trans }}
                     </a>
                     {% endif %}
-                    {# RESET FILTERS #}
-                    <button id="button-reset" class="btn btn-default">
-                        Réinitialiser les filtres
-                    </button>
-
-                    <select class="form-control" id="search_type">
-                        <option value="" selected>Type</option>
-                        {% for key, subject in dictionary('documentation_document_type') %}
-                            <option value="{{ key }}">{{ subject }}</option>
-                        {% endfor %}
-                    </select>
-
-                    <input class="form-control" type="text" id="search_name" placeholder="Nom">
-
-                    <select class="form-control" id="search_category">
-                        <option value="">Catégorie</option>
-                        {# {% for key, subject in dictionary('documentation_document_category') %}
-                            <option value="{{ key }}">{{ subject }}</option>
-                        {% endfor %} #}
-                    </select>
                 </div>
             </div>
     </div>
@@ -67,8 +47,17 @@
                         </a>
                     {% endif %}
 
+                    <button id="button-column" class="btn btn-warning">
+                        Colonnes
+                    </button>
+                    
+                    {# RESET FILTERS #}
+                    <button id="button-reset" class="btn btn-default">
+                        Réinitialiser les filtres
+                    </button>
+
                     {# Uniquement pour les DPO #}
-                    {% if is_granted('ROLE_USER') %}
+                    {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
                             {{ 'documentation.category.action.list'|trans }}
                         </a>
@@ -76,6 +65,34 @@
 
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" class="form-check-input" id="search_pinned">
+                                    <label class="form-check-label" for="search_pinned">Favoris</label>
+                                </th>
+                                <th>
+                                    <select class="form-control" id="search_type" style="width: 100%;">
+                                        <option value="" selected>Type</option>
+                                        {% for key, subject in dictionary('documentation_document_type') %}
+                                            <option value="{{ key }}">{{ subject }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                <th></th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <select class="form-control" id="search_category" style="width: 100%;">
+                                        <option value="">Catégorie</option>
+                                        {# {% for key, subject in dictionary('documentation_document_category') %}
+                                            <option value="{{ key }}">{{ subject }}</option>
+                                        {% endfor %} #}
+                                    </select>
+                                </th>
+                                <th><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
+                                <th></th>
+                            </tr>
                             
                             <tr>
                                 <th>{{ 'documentation.document.list.favorited'|trans }}</th>
@@ -83,9 +100,7 @@
                                 <th>{{ 'documentation.document.list.weight'|trans }}</th>
                                 <th>{{ 'documentation.document.list.name'|trans }}</th>
                                 <th>{{ 'documentation.document.list.category'|trans }}</th>
-                                <th>{{ 'documentation.document.list.fichier'|trans }}</th>
                                 <th>{{ 'documentation.document.list.created_at'|trans }}</th>
-
                                 <th>{{ 'label.actions'|trans }}</th>
                             </tr>
                         </thead>
@@ -93,16 +108,18 @@
                         {% for object in objects %}
                         <tr>
                             <td class="text-center">
-                                <a class="text-warning" href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
-                                    <i class="far fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                                <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}" style="color:#f39c12;">
+                                    {% if object.pinned %}
+                                        <i class="fas fa-star"></i>
+                                    {% else %}
+                                        <i class="far fa-star"></i>
+                                    {% endif %}
                                     {# #f39c12 #}
                                 </a>
                             </td>
                             <td></td>
                             <td></td>
-                            <td>{{ object.name }}</td>
-                            <td><a href="{{ object.url }}" target="_blank">{{ object.url }}</a></td>
+                            <td><a href="{{ object.url }}" target="_blank">{{ object.name }}</a></td>
                             <td>{{ object.categories | json_encode }}</td>
                             <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
 
@@ -136,12 +153,11 @@
 
     {% set dataTableOptions = {
         columns: [
-            {"data": "favorite"},
+            {"data": "pinned"},
             {"data": "type"},
             {"data": "weight"},
             {"data": "name"},
             {"data": "category"},
-            {"data": "file", "orderable": false},
             {"data": "created_at"},
             {"data": "actions", "orderable": false},
         ],
@@ -160,6 +176,12 @@
         }
         function setEvents() {
             var oTable = $('#table').DataTable();
+            
+            $('#search_pinned').off('change');
+            $('#search_pinned').change(function(){
+                console.log($(this).prop('checked'), oTable.column('0'))
+                oTable.column('0').search($(this).prop('checked')).draw();
+            });
 
             $('#search_type').off('keyup');
             $('#search_type').keyup($.debounce(250, function(){
@@ -170,6 +192,11 @@
             $('#search_name').keyup($.debounce(250, function(){
                 oTable.column('3').search($(this).val()).draw() ;
             }));
+
+            $('#search_date').off('change');
+            $('#search_date').change(function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            });
         }
 
         $(document).ready(function() {

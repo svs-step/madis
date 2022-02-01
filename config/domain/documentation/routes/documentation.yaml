@@ -28,6 +28,11 @@ documentation_document_delete_confirm:
     methods: ['GET']
     controller: 'App\Domain\Documentation\Controller\DocumentController:deleteConfirmationAction'
 
+documentation_document_download:
+    path: '/telecharger/{name}'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:downloadAction'
+
 documentation_category_list:
     path: '/categorie'
     methods: ['GET']
@@ -37,7 +42,18 @@ documentation_category_create:
     path: '/categorie/creer'
     methods: ['GET', 'POST']
     controller: 'App\Domain\Documentation\Controller\CategoryController:createAction'
-documentation_document_download:
-    path: '/telecharger/{name}'
+
+documentation_category_edit:
+    path: '/categorie/editer/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Documentation\Controller\CategoryController:editAction'
+
+documentation_category_delete:
+    path: '/categorie/supprimer/{id}'
     methods: ['GET']
-    controller: 'App\Domain\Documentation\Controller\DocumentController:downloadAction'
+    controller: 'App\Domain\Documentation\Controller\CategoryController:deleteAction'
+
+documentation_category_delete_confirm:
+    path: '/categorie/supprimer/{id}/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\CategoryController:deleteConfirmationAction'

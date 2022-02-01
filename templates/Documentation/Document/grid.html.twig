@@ -78,7 +78,13 @@
                             <div class="col-md-2">
                             <div class="box box-solid" style="box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important">
                                 <div style="position:absolute; background:white; padding: 5px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15)">
-                                    <i class="fas fa-star"></i>
+                                    <a style="color:#f39c12;" href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
+                                        {% if object.pinned %}
+                                            <i class="fas fa-star"></i>
+                                        {% else %}
+                                            <i class="far fa-star"></i>
+                                        {% endif %}
+                                    </a>
                                 </div>
                                 <div class="card-img-top text-center"><img src="https://i.picsum.photos/id/337/200/200.jpg?hmac=9bd24xSAcmLdObO71hB9dXskhXQmQ2b0YB3QTAzhUtY" alt="Card image cap"  style="height:100px;"></div>
                                 <div class="card-body" style="padding:10px">

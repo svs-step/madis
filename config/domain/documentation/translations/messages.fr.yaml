@@ -32,12 +32,11 @@ documentation:
             weight: Poids
             name: Nom
             category: Catégorie
-            fichier: Fichier
             created_at: Date de création
             score: Score
-            favorited: favori
+            favorited: Favoris
         title:
-            create: Nouveau documentttttttt
+            create: Nouveau document
             edit: Modifier un document
             list: Espace documentaire
             delete: Supprimer un document
@@ -52,3 +51,23 @@ documentation:
             count: Total
         title:
             list: Espace documentaire
+            edit: Modifier une catégorie
+            delete: Supprimer une catégorie
+        breadcrumb:
+            create: Nouvelle catégorie
+            edit: Modifier une catégorie
+            list: Espace documentaire
+            delete: Supprimer une catégorie
+        flashbag:
+            success:
+                create: Catégorie "%object%" créée avec succès
+                edit: Catégorie "%object%" modifiée avec succès
+                delete: Catégorie "%object%" supprimée avec succès
+            error:
+                delete: Vous ne pouvez pas supprimer la catégorie "%object%"
+        form:
+            error:
+                fileorurl: Vous devez choisir un fichier ou une URL pour le document
+                missingurl: Vous devez entrer une URL si votre document est un lien
+            label:
+                name: Nom de la catégorie

@@ -123,7 +123,7 @@ class DocumentController extends CRUDController
             'objects' => $this->getListData(),
         ]);
     }
-    
+
     /**
      * {@inheritdoc}
      */
