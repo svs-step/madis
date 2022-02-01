@@ -35,7 +35,7 @@ documentation:
             favorited: Favori
             thumbnail: Télécharger
         title:
-            create: Nouveau documentttttttt
+            create: Nouveau document
             edit: Modifier un document
-            list: Liste des documentsssssss
+            list: Liste des documents
             delete: Supprimer un document
