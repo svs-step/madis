@@ -105,7 +105,7 @@ class Category
         $this->system = $system;
     }
 
-    public function getDocuments(): ?array
+    public function getDocuments(): ?iterable
     {
         return $this->documents;
     }

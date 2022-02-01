@@ -104,7 +104,6 @@ class CategoryController extends CRUDController
             'createdAt' => 'DESC',
         ];
 
-        // Everybody can access all documents
         return $this->repository->findAll($order);
     }
 

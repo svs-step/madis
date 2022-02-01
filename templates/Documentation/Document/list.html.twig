@@ -83,8 +83,7 @@
                                     <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
                                 </th>
                                 <th>
-                                    <select class="form-control" id="search_category" style="width: 100%;">
-                                        <option value="">Catégorie</option>
+                                    <select class="form-control selectpicker" id="search_category" title="Catégories" style="width: 100%;" multiple>
                                         {# {% for key, subject in dictionary('documentation_document_category') %}
                                             <option value="{{ key }}">{{ subject }}</option>
                                         {% endfor %} #}
@@ -120,11 +119,18 @@
                             <td></td>
                             <td></td>
                             <td><a href="{{ object.url }}" target="_blank">{{ object.name }}</a></td>
-                            <td>{{ object.categories | json_encode }}</td>
-                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                            <td>
+                            {% for user in object.categories %}
+                                {{ user.name }}
+                                {% if object.categories|length != loop.index %}
+                                    , 
+                                {% endif %}
+                            {% endfor %}
+                            </td>
+                            <td>{{ object.createdAt|date('d/m/Y') }}</td>
 
                             <td>
-                                {% if is_granted('ROLE_USER') %}
+                                {% if is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
                                     <i class="fa fa-pencil-alt"></i>
                                     {{ 'action.edit'|trans }}
@@ -167,6 +173,10 @@
     {{ include('_Utils/_datatable.html.twig') }}
 
     <script>
+        $(function () {
+            $('.selectpicker').selectpicker();
+        });
+
         function resetFilters() {
             $('[id^=search_]').each(function() {
                 $(this).val('');

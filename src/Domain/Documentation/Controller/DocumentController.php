@@ -31,6 +31,7 @@ use App\Domain\Registry\Dictionary\DocumentTypeDictionary;
 use App\Domain\Documentation\Model;
 use App\Domain\Documentation\Repository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
 use Ramsey\Uuid\Uuid;
@@ -115,6 +116,21 @@ class DocumentController extends CRUDController
 
         // Everybody can access all documents
         return $this->repository->findAll($order);
+    }
+
+    /**
+     * The list action view
+     * Get data & display them.
+     */
+    public function listAction(): Response
+    {
+        // $response = $this->forward('CategoryController::getListData');
+        // var_dump($response);
+
+        return $this->render($this->getTemplatingBasePath('list'), [
+            'objects' => $this->getListData(),
+            // 'categories' => $this->getCategories(),
+        ]);
     }
 
     public function gridAction()

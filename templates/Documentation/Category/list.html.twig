@@ -56,7 +56,9 @@
                         {% for object in objects %}
                         <tr>
                             <td>{{ object.name }}</td>
-                            <td></td>
+                            <td>
+                                <a href="">{{ object.documents|length }}</a>
+                            </td>
                             <td>
                                 {% if object.system == 0 %}
                                     <a href="{{ path('documentation_category_edit', { 'id': object.id }) }}">
