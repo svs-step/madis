@@ -80,7 +80,7 @@
 
                             <td>
                                 {% if is_granted('ROLE_USER') %}
-                                <a href="{{ path('documentation_document_share', { 'id': object.id }) }}" data-toggle="modal" data-target="#shareModal">
+                                <a class="sharelink" href='#' data-id="{{ object.url }}" data-toggle="modal" data-target="#shareModal" onclick="changeLink()">
                                     <i class="fa fa-share"></i>
                                     {{ 'action.share'|trans }}
                                 </a>
@@ -116,7 +116,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body text-center">
-                    <div id="linkDocument" class="modal-body">Voici le lien du fichier</div>
+                    <div id="linkDocument" class="modal-body"></div>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer text-center">
@@ -127,8 +127,12 @@
         </div>
     </div>
     <script>
+        function changeLink(){
+            $('#linkDocument').text($('.sharelink').data('id'));
+        }
+
         function copyToClipBoard() {
-            var text = $('#linkDocument').text();
+            var text = $('.sharelink').data('id');
 
             var dummy = document.createElement("textarea");
             document.body.appendChild(dummy);
