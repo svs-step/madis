@@ -29,12 +29,12 @@ class AnalyseScenarioMenaceType extends AbstractType
             ])
             ->add('vraisemblance', DictionaryType::class, [
                 'name'     => 'vraisemblance_gravite',
-                'required' => false,
+                'required' => true,
                 'label'    => false,
             ])
             ->add('gravite', DictionaryType::class, [
                 'name'     => 'vraisemblance_gravite',
-                'required' => false,
+                'required' => true,
                 'label'    => false,
             ])
             ->add('precisions', TextType::class, [

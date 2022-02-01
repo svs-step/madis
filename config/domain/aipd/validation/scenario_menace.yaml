@@ -1,0 +1,10 @@
+App\Domain\Aipd\Model\CriterePrincipeFondamental:
+    properties:
+        vraisemblance:
+            -   Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                    name: 'vraisemblance_gravite'
+                    groups: ['default']
+        gravite:
+            -   Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                    name: 'vraisemblance_gravite'
+                    groups: ['default']

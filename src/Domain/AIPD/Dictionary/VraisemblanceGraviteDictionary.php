@@ -14,12 +14,15 @@ class VraisemblanceGraviteDictionary extends SimpleDictionary
     const IMPORTANTE  = 'importante';
     const MAXIMALE    = 'maximale';
 
-    public function __construct()
+    public function __construct(string $name = 'vraisemblance_gravite', array $values = [])
     {
-        parent::__construct('vraisemblance_gravite', self::getVraisemblanceGravite());
+        if (empty($values)) {
+            $values = self::getVraisemblanceGravite();
+        }
+        parent::__construct($name, $values);
     }
 
-    public static function getVraisemblanceGravite()
+    public static function getVraisemblanceGravite(): array
     {
         return [
             self::NEGLIGEABLE => 'Négligeable',

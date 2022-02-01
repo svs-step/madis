@@ -51,12 +51,12 @@ class ModeleScenarioMenaceType extends AbstractType
             ])
             ->add('vraisemblance', DictionaryType::class, [
                 'required' => true,
-                'name'     => 'vraisemblance_gravite',
+                'name'     => 'modele_vraisemblance_gravite',
                 'label'    => false,
             ])
             ->add('gravite', DictionaryType::class, [
                 'required' => true,
-                'name'     => 'vraisemblance_gravite',
+                'name'     => 'modele_vraisemblance_gravite',
                 'label'    => false,
             ])
             ->add('precisions', TextType::class, [

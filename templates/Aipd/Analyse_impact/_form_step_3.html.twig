@@ -44,7 +44,7 @@
             <td>
                 {{ scenario.vars.value.nom }}</td>
             <td>
-                {% if scenario.vars.value.vraisemblance is not null %}
+                {% if scenario.vars.value.vraisemblance is not null and scenario.vars.value.vraisemblance != 'vide' %}
                     {{ scenario.vars.value.vraisemblance|dictionary('vraisemblance_gravite') }}
                     <div style="display: none">
                         {{ form_widget(scenario.vraisemblance) }}
@@ -54,7 +54,7 @@
                 {% endif %}
             </td>
             <td>
-                {% if scenario.vars.value.gravite is not null %}
+                {% if scenario.vars.value.gravite is not null and scenario.vars.value.gravite != 'vide' %}
                     {{ scenario.vars.value.gravite|dictionary('vraisemblance_gravite') }}
                     <div style="display: none">
                         {{ form_widget(scenario.gravite) }}
