@@ -106,4 +106,14 @@ class DocumentController extends CRUDController
         // Everybody can access all documents
         return $this->repository->findAll($order);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function shareAction(string $id)
+    {
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            return $this->repository->findOneById($id);
+        }
+    }
 }

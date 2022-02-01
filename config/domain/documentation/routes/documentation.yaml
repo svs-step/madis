@@ -22,3 +22,8 @@ documentation_document_delete_confirm:
     path: '/supprimer/{id}/confirmation'
     methods: ['GET']
     controller: 'App\Domain\Documentation\Controller\DocumentController:deleteConfirmationAction'
+    
+documentation_document_share:
+    path: '/partager/{id}'
+    methods: [ 'GET' ]
+    controller: 'App\Domain\Documentation\Controller\DocumentController:shareAction'
