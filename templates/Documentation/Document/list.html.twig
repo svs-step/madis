@@ -80,6 +80,10 @@
 
                             <td>
                                 {% if is_granted('ROLE_USER') %}
+                                <a href="{{ path('documentation_document_share', { 'id': object.id }) }}">
+                                    <i class="fa fa-share"></i>
+                                    {{ 'action.share'|trans }}
+                                </a>
                                 <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
                                     <i class="fa fa-pencil-alt"></i>
                                     {{ 'action.edit'|trans }}

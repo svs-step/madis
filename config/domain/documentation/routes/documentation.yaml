@@ -27,3 +27,8 @@ documentation_document_download:
     path: '/telecharger/{name}'
     methods: ['GET']
     controller: 'App\Domain\Documentation\Controller\DocumentController:downloadAction'
+
+documentation_document_share:
+    path: '/partager/{id}'
+    methods: [ 'GET' ]
+    controller: 'App\Domain\Documentation\Controller\DocumentController:shareAction'
