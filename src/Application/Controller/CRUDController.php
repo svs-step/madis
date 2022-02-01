@@ -231,6 +231,7 @@ abstract class CRUDController extends AbstractController
 
         return $this->render($this->getTemplatingBasePath('create'), [
             'form'              => $form->createView(),
+            'object'            => $object,
             'serviceEnabled'    => $serviceEnabled,
         ]);
     }
