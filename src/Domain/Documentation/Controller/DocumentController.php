@@ -134,8 +134,6 @@ class DocumentController extends CRUDController
             throw new NotFoundHttpException('Document introuvable');
         }
 
-//        return $this->documentFilesystem->get($doc->getFile());
-
         $fileStream = sprintf('gaufrette://documentation_document/%s', $doc->getFile());
 
         $response = new BinaryFileResponse($fileStream);
@@ -194,8 +192,15 @@ class DocumentController extends CRUDController
      */
     public function shareAction(string $id)
     {
-        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return $this->repository->findOneById($id);
+        $doc = $this->repository->findOneByID($id);
+        if (!$doc) {
+            throw new NotFoundHttpException('Document introuvable');
         }
+
+        if ($doc->getIsLink()) {
+            return $this->redirect($doc->getUrl());
+        }
+
+        return $this->downloadAction($doc->getFile());
     }
 }
