@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## [1.8.3] - 2022-02-02
+### Changement
+- Correction d'une erreur empêchant l'affichage de la liste des traitements
+
 ## [1.8.2] - 2022-01-27
 ### Changement
 - Correction d'un bug rendant incorrect le nombre d'élément affiché dans le texte des tableaux #391
