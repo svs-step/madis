@@ -316,7 +316,6 @@ class TreatmentController extends CRUDController
      */
     public function listDataTables(Request $request): JsonResponse
     {
-        dump($request);
         $request                   = $this->requestStack->getMasterRequest();
         $criteria['active']        = $request->query->getBoolean('active');
         $user                      = $this->userProvider->getAuthenticatedUser();
