@@ -58,8 +58,9 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
         $request = $this->requestStack->getCurrentRequest();
         $builder
             ->add('isLink', HiddenType::class, [
-                'label'    => false,
-                'required' => false,
+                'label'      => false,
+                'required'   => false,
+                'empty_data' => '0',
             ])
             ->add('name', TextType::class, [
                 'label'   => 'documentation.document.form.label.name',

@@ -27,6 +27,7 @@ namespace App\Domain\Documentation\Model;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
@@ -161,6 +162,27 @@ class Document
     public function setCategories(?Collection $categories): Document
     {
         $this->categories = $categories;
+
+        return $this;
+    }
+
+    public function addCategory(Category $category): Document
+    {
+        if (null === $this->categories) {
+            $this->categories = new ArrayCollection();
+        }
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): Document
+    {
+        if (null !== $this->categories && !$this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+        }
 
         return $this;
     }
