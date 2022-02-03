@@ -29,6 +29,8 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Documentation\Form\Type\DocumentType;
 use App\Domain\Documentation\Model;
 use App\Domain\Documentation\Repository;
+use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
@@ -127,9 +129,14 @@ class DocumentController extends CRUDController
         return $this->repository->findAll($order);
     }
 
-    public function downloadAction($name)
+    /**
+     * Trigger document file download.
+     *
+     * @return BinaryFileResponse
+     */
+    public function downloadAction(string $name)
     {
-        $doc = $this->repository->findOneByName((string) $name);
+        $doc = $this->repository->findOneByName($name);
         if (!$doc) {
             throw new NotFoundHttpException('Document introuvable');
         }
@@ -188,7 +195,7 @@ class DocumentController extends CRUDController
     }
 
     /**
-     * {@inheritdoc}
+     * Trigger download or redirect to link when a user open a share link.
      */
     public function shareAction(string $id)
     {
@@ -202,5 +209,37 @@ class DocumentController extends CRUDController
         }
 
         return $this->downloadAction($doc->getFile());
+    }
+
+    /**
+     * Mark this document as favorite for the current user.
+     */
+    public function favoriteAction(string $id)
+    {
+        $doc = $this->repository->findOneByID($id);
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        if (!$doc) {
+            throw new NotFoundHttpException('Document introuvable');
+        }
+
+        $favorited = new ArrayCollection($user->getFavoriteDocuments());
+
+        // Is the current document already favorited ?
+        if ($favorited->contains($doc)) {
+            // If so, remove it
+            $favorited->remove($doc);
+        } else {
+            // Other wise, add it
+            $favorited->add($doc);
+        }
+
+        $user->setFavoriteDocuments($favorited->toArray());
+
+        $this->getDoctrine()->getManagerForClass(User::class)->flush();
+
+        return $this->redirect($this->generateUrl('documentation_document_list'));
     }
 }
