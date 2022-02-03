@@ -76,6 +76,8 @@ aipd:
         flashbag:
             success:
                 delete: L'analyse d'impact "%object%" a bien été supprimée
+            info:
+                cant_edit: "Vous ne pouvez plus modifier cette analyse d'impact : celle-ci a déjà été validée."
         form:
             justificatif: Justificatif
             action_protection: Action de protection associées
@@ -98,7 +100,7 @@ aipd:
         values:
             en_cours: En cours
             non_realisee: Non réalisée
-            non_favorable: Défavorable
+            defavorable: Défavorable
             favorable_avec_reserves: Favorable avec réserves
             favorable: Favorable
             evaluation:
