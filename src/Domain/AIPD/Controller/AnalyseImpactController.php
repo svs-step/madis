@@ -254,6 +254,11 @@ class AnalyseImpactController extends CRUDController
         if (null === $object = $this->repository->findOneByIdWithoutInvisibleScenarios($id)) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
+        if ($object->isValidated()) {
+            $this->addFlash('info', $this->getFlashbagMessage('info', 'cant_edit', $object));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
 
         $this->analyseFlow->bind($object);
         $form = $this->analyseFlow->createForm();
@@ -360,9 +365,6 @@ class AnalyseImpactController extends CRUDController
         $this->pdf->setOption('margin-left', '20');
         $this->pdf->setOption('margin-right', '20');
 
-//        return $this->render($this->getTemplatingBasePath('pdf'), [
-//            'object' => $object,
-//        ]);
         return new PdfResponse(
             $this->pdf->getOutputFromHtml(
                 $this->renderView($this->getTemplatingBasePath('pdf'), ['object' => $object]), ['javascript-delay' => 1000]),
@@ -384,8 +386,10 @@ class AnalyseImpactController extends CRUDController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ('saveDraft' !== $form->getClickedButton() && ReponseAvisDictionary::REPONSE_NONE !== $object->getAvisResponsable()) {
+            if ('saveDraft' !== $form->getClickedButton() && ReponseAvisDictionary::REPONSE_NONE !== $object->getAvisResponsable()->getReponse()) {
+                $object->setDateValidation(new \DateTime());
                 $object->setIsValidated(true);
+                $object->setStatut($object->getAvisResponsable()->getReponse());
             }
             $this->entityManager->flush();
 

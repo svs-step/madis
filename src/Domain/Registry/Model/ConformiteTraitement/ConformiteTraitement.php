@@ -167,6 +167,19 @@ class ConformiteTraitement implements LoggableSubject
         return $this->analyseImpacts;
     }
 
+    public function getLastAnalyseImpact(): ?AnalyseImpact
+    {
+        /** @var AnalyseImpact|null $return */
+        $return = null;
+        foreach ($this->analyseImpacts as $analyseImpact) {
+            if (null === $return || $return->getDateValidation() < $analyseImpact->getDateValidation()) {
+                $return = $analyseImpact;
+            }
+        }
+
+        return $return;
+    }
+
     public function setAnalyseImpacts($analyseImpacts): void
     {
         $this->analyseImpacts = $analyseImpacts;

@@ -283,7 +283,6 @@ class ConformiteTraitementController extends CRUDController
         $analyseImpact = ModeleToAnalyseConverter::createFromModeleAnalyse($modele);
         $analyseImpact->setConformiteTraitement($conformiteTraitement);
         $this->setAnalyseReponsesQuestionConformite($analyseImpact, $conformiteTraitement);
-        dump($analyseImpact);
         $this->entityManager->persist($analyseImpact);
         $this->entityManager->flush();
 
