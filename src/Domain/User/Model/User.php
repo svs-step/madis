@@ -26,7 +26,9 @@ namespace App\Domain\User\Model;
 
 use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Traits\Model\SoftDeletableTrait;
+use App\Domain\Documentation\Model\Document;
 use App\Domain\Reporting\Model\LoggableSubject;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -107,7 +109,7 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     private $apiAuthorized;
 
     /**
-     * @var array|null
+     * @var Collection|null
      */
     private $favoriteDocuments;
 
@@ -305,5 +307,38 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
         }
 
         return $result;
+    }
+
+    public function getFavoriteDocuments(): ?Collection
+    {
+        return $this->favoriteDocuments;
+    }
+
+    public function setFavoriteDocuments(?Collection $favoriteDocuments): User
+    {
+        $this->favoriteDocuments = $favoriteDocuments;
+
+        return $this;
+    }
+
+    public function addFavoriteDocument(Document $doc): User
+    {
+        if (null === $this->favoriteDocuments) {
+            $this->favoriteDocuments = new ArrayCollection();
+        }
+        if (!$this->favoriteDocuments->contains($doc)) {
+            $this->favoriteDocuments->add($doc);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteDocument(Document $doc): User
+    {
+        if (null !== $this->favoriteDocuments && !$this->favoriteDocuments->contains($doc)) {
+            $this->favoriteDocuments->removeElement($doc);
+        }
+
+        return $this;
     }
 }
