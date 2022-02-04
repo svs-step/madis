@@ -28,7 +28,9 @@ use App\Domain\Registry\Form\Type\Embeddable\RequestAnswerType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestApplicantType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestConcernedPeopleType;
 use App\Domain\Registry\Form\Type\RequestType;
+use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Request;
+use App\Domain\User\Model\Collectivity;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -48,6 +50,11 @@ class RequestTypeTest extends FormTypeHelper
 
     public function testBuildForm()
     {
+        $contractor   = new Contractor();
+        $collectivity = new Collectivity();
+        $collectivity->setIsServicesEnabled(true);
+        $contractor->setCollectivity($collectivity);
+
         $builder = [
             'object'               => DictionaryType::class,
             'service'              => EntityType::class,
@@ -64,7 +71,7 @@ class RequestTypeTest extends FormTypeHelper
             'stateRejectionReason' => TextareaType::class,
         ];
 
-        (new RequestType())->buildForm($this->prophesizeBuilder($builder), []);
+        (new RequestType())->buildForm($this->prophesizeBuilder($builder), ['data' => $contractor]);
     }
 
     public function testConfigureOptions(): void

@@ -26,6 +26,7 @@ namespace App\Tests\Domain\Registry\Form\Type;
 
 use App\Domain\Registry\Form\Type\ViolationType;
 use App\Domain\Registry\Model\Violation;
+use App\Domain\User\Model\Collectivity;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -46,6 +47,11 @@ class ViolationTypeTest extends FormTypeHelper
 
     public function testBuildForm()
     {
+        $violation    = new Violation();
+        $collectivity = new Collectivity();
+        $collectivity->setIsServicesEnabled(true);
+        $violation->setCollectivity($collectivity);
+
         $builder = [
             'date'                          => DateType::class,
             'service'                       => EntityType::class,
@@ -67,7 +73,7 @@ class ViolationTypeTest extends FormTypeHelper
             'comment'                       => TextareaType::class,
         ];
 
-        (new ViolationType())->buildForm($this->prophesizeBuilder($builder), []);
+        (new ViolationType())->buildForm($this->prophesizeBuilder($builder), ['data' => $violation]);
     }
 
     public function testConfigureOptions(): void
