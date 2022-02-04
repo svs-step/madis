@@ -28,6 +28,7 @@ use App\Domain\Registry\Form\Type\ContractorType;
 use App\Domain\Registry\Form\Type\Embeddable\AddressType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\User\Form\Type\ContactType;
+use App\Domain\User\Model\Collectivity;
 use App\Tests\Utils\FormTypeHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -45,6 +46,11 @@ class ContractorTypeTest extends FormTypeHelper
 
     public function testBuildForm()
     {
+        $contractor   = new Contractor();
+        $collectivity = new Collectivity();
+        $collectivity->setIsServicesEnabled(true);
+        $contractor->setCollectivity($collectivity);
+
         $builder = [
             'name'                       => TextType::class,
             'service'                    => EntityType::class,
@@ -60,7 +66,7 @@ class ContractorTypeTest extends FormTypeHelper
             'dpo'                        => ContactType::class,
         ];
 
-        (new ContractorType())->buildForm($this->prophesizeBuilder($builder), []);
+        (new ContractorType())->buildForm($this->prophesizeBuilder($builder), ['data' => $contractor]);
     }
 
     public function testConfigureOptions(): void
