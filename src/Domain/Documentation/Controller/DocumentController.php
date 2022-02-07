@@ -35,6 +35,7 @@ use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -242,7 +243,7 @@ class DocumentController extends CRUDController
     /**
      * Mark this document as favorite for the current user.
      */
-    public function favoriteAction(string $id)
+    public function favoriteAction(Request $request, string $id)
     {
         /**
          * @var Model\Document
@@ -277,6 +278,6 @@ class DocumentController extends CRUDController
 
         $this->getDoctrine()->getManagerForClass(User::class)->flush();
 
-        return $this->redirect($this->generateUrl('documentation_document_list'));
+        return $this->redirect($request->get('back'));
     }
 }

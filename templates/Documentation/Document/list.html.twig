@@ -116,7 +116,7 @@
                         {% for object in objects %}
                         <tr>
                             <td class="text-center">
-                                <a href="{{ path('documentation_document_favorite', { 'id': object.id }) }}" style="color:#f39c12;">
+                                <a href="{{ path('documentation_document_favorite', { 'id': object.id, 'back': app.request.uri }) }}" style="color:#f39c12;">
                                     {% if object.favoritedUsers |filter(f => f.id == app.user.id)|length > 0 %}
                                         <i class="fas fa-star"></i>
                                     {% else %}
