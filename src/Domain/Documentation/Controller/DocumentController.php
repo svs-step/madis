@@ -122,6 +122,7 @@ class DocumentController extends CRUDController
     protected function getListData()
     {
         $order = [
+            'pinned'    => 'DESC',
             'createdAt' => 'DESC',
         ];
 
