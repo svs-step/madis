@@ -114,6 +114,11 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     private $favoriteDocuments;
 
     /**
+     * @var bool
+     */
+    private $documentView;
+
+    /**
      * User constructor.
      *
      * @throws \Exception
@@ -340,5 +345,15 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
         }
 
         return $this;
+    }
+
+    public function isDocumentView(): bool
+    {
+        return $this->documentView;
+    }
+
+    public function setDocumentView(bool $documentView): void
+    {
+        $this->documentView = $documentView;
     }
 }

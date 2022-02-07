@@ -129,6 +129,16 @@ class DocumentController extends CRUDController
         return $this->repository->findAll($order);
     }
 
+    public function indexAction()
+    {
+        $user = $this->getUser();
+        if ($user->isDocumentView()) {
+            return $this->gridAction();
+        }
+
+        return $this->listAction();
+    }
+
     /**
      * Trigger document file download.
      *
@@ -172,8 +182,9 @@ class DocumentController extends CRUDController
      */
     public function listAction(): Response
     {
-        // $response = $this->forward('CategoryController::getListData');
-        // var_dump($response);
+        $user = $this->getUser();
+        $user->setDocumentView(false);
+        $this->entityManager->flush();
 
         return $this->render($this->getTemplatingBasePath('list'), [
             'objects' => $this->getListData(),
@@ -183,6 +194,10 @@ class DocumentController extends CRUDController
 
     public function gridAction()
     {
+        $user = $this->getUser();
+        $user->setDocumentView(true);
+        $this->entityManager->flush();
+
         return $this->render($this->getTemplatingBasePath('grid'), [
             'objects' => $this->getListData(),
         ]);

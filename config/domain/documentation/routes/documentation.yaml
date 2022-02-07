@@ -1,3 +1,8 @@
+documentation_document_index:
+    path: '/'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:indexAction'
+
 documentation_document_list:
     path: '/liste'
     methods: ['GET']
