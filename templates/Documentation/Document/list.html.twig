@@ -69,17 +69,17 @@
                             {{ 'documentation.category.action.list'|trans }}
                         </a>
                     {% endif %}
+
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th>
                                     <input type="checkbox" class="form-check-input" id="search_pinned">
-                                    <label class="form-check-label" for="search_pinned">{{ 'documentation.document.list.favorite'|trans }}</label>
+                                    <label class="form-check-label" for="search_pinned">Favoris</label>
                                 </th>
-                                <th></th>
                                 <th>
                                     <select class="form-control" id="search_type" style="width: 100%;">
-                                        <option value="" selected>{{ 'documentation.document.list.type'|trans }}</option>
+                                        <option value="" selected>Type</option>
                                         {% for key, subject in dictionary('documentation_document_type') %}
                                             <option value="{{ key }}">{{ subject }}</option>
                                         {% endfor %}
@@ -101,8 +101,8 @@
                             </tr>
                             
                             <tr>
-                                <th>{{ 'documentation.document.list.favorited'|trans }}</th>
                                 <th>{{ 'documentation.document.list.pinned'|trans }}</th>
+                                <th>{{ 'documentation.document.list.favorite'|trans }}</th>
                                 <th>{{ 'documentation.document.list.type'|trans }}</th>
                                 <th>{{ 'documentation.document.list.weight'|trans }}</th>
                                 <th>{{ 'documentation.document.list.name'|trans }}</th>
@@ -113,9 +113,13 @@
 
                         </thead>
                         <tbody>
-
                         {% for object in objects %}
-                        <tr>
+                            <tr>
+                                <td>
+                                {%  if object.pinned == 1 %}
+                                    <i class="fas fa-paperclip"></i>
+                                {% endif %}
+                            </td>
                             <td class="text-center">
                                 <a href="{{ path('documentation_document_favorite', { 'id': object.id, 'back': app.request.uri }) }}" style="color:#f39c12;">
                                     {% if object.favoritedUsers |filter(f => f.id == app.user.id)|length > 0 %}
@@ -200,6 +204,7 @@
     {% set dataTableOptions = {
         columns: [
             {"data": "pinned"},
+            {"data": "favorite"},
             {"data": "type"},
             {"data": "weight"},
             {"data": "name"},
@@ -207,6 +212,7 @@
             {"data": "created_at"},
             {"data": "actions", "orderable": false},
         ],
+        order: [[0,'desc'],[1,'desc'],[6,'desc']],
     } %}
 
     {# {{ include('_Utils/_serverside_datatable.html.twig') }} #}
@@ -243,15 +249,15 @@
         function setEvents() {
             var oTable = $('#table').DataTable();
             
-            $('#search_pinned').off('change');
-            $('#search_pinned').change(function(){
-                console.log($(this).prop('checked'), oTable.column('0'))
-                oTable.column('0').search($(this).prop('checked')).draw();
+            $('#search_favorite').off('change');
+            $('#search_favorite').change(function(){
+                console.log($(this).prop('checked'), oTable.column('1'))
+                oTable.column('1').search($(this).prop('checked')).draw();
             });
 
             $('#search_type').off('keyup');
             $('#search_type').keyup($.debounce(250, function(){
-                oTable.column('1').search($(this).val()).draw() ;
+                oTable.column('2').search($(this).val()).draw() ;
             }));
 
             $('#search_name').off('keyup');
@@ -261,7 +267,7 @@
 
             $('#search_date').off('change');
             $('#search_date').change(function(){
-                oTable.column('5').search($(this).val()).draw() ;
+                oTable.column('6').search($(this).val()).draw() ;
             });
         }
 

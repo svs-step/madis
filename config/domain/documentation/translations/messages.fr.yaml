@@ -31,6 +31,7 @@ documentation:
                 edit: Document "%object%" modifié avec succès
                 delete: Document "%object%" supprimé avec succès
         list:
+            pinned: Epinglé
             favorite: Favoris
             type: Type
             weight: Poids
