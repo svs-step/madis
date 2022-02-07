@@ -38,6 +38,11 @@ documentation_document_share:
     methods: [ 'GET' ]
     controller: 'App\Domain\Documentation\Controller\DocumentController:shareAction'
 
+documentation_document_favorite:
+    path: '/favori/{id}'
+    methods: [ 'GET' ]
+    controller: 'App\Domain\Documentation\Controller\DocumentController:favoriteAction'
+
 documentation_category_list:
     path: '/categorie'
     methods: ['GET']

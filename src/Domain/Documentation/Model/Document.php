@@ -243,6 +243,20 @@ class Document
         return $this;
     }
 
+    public function addFavoritedUser(User $user): Document
+    {
+        $this->favoritedUsers->add($user);
+
+        return $this;
+    }
+
+    public function removeFavoritedUser(User $user): Document
+    {
+        $this->favoritedUsers->removeElement($user);
+
+        return $this;
+    }
+
     public function getUploadedFile(): ?UploadedFile
     {
         return $this->uploadedFile;

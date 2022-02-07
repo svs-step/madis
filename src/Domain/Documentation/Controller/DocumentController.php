@@ -30,7 +30,6 @@ use App\Domain\Documentation\Form\Type\DocumentType;
 use App\Domain\Documentation\Model;
 use App\Domain\Documentation\Repository;
 use App\Domain\User\Model\User;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
@@ -245,6 +244,9 @@ class DocumentController extends CRUDController
      */
     public function favoriteAction(string $id)
     {
+        /**
+         * @var Model\Document
+         */
         $doc = $this->repository->findOneByID($id);
         /**
          * @var User
@@ -254,18 +256,24 @@ class DocumentController extends CRUDController
             throw new NotFoundHttpException('Document introuvable');
         }
 
-        $favorited = new ArrayCollection($user->getFavoriteDocuments());
+        $favorited = $user->getFavoriteDocuments();
 
         // Is the current document already favorited ?
         if ($favorited->contains($doc)) {
             // If so, remove it
-            $favorited->remove($doc);
+            $favorited->removeElement($doc);
+            $doc->removeFavoritedUser($user);
         } else {
             // Other wise, add it
             $favorited->add($doc);
+            $doc->addFavoritedUser($user);
         }
 
-        $user->setFavoriteDocuments($favorited->toArray());
+        $user->setFavoriteDocuments($favorited);
+
+        $this->entityManager->persist($user);
+        $this->entityManager->persist($doc);
+        $this->entityManager->flush();
 
         $this->getDoctrine()->getManagerForClass(User::class)->flush();
 

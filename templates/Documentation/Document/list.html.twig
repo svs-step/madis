@@ -69,7 +69,6 @@
                             {{ 'documentation.category.action.list'|trans }}
                         </a>
                     {% endif %}
-
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -102,6 +101,7 @@
                             
                             <tr>
                                 <th>{{ 'documentation.document.list.favorited'|trans }}</th>
+                                <th>{{ 'documentation.document.list.pinned'|trans }}</th>
                                 <th>{{ 'documentation.document.list.type'|trans }}</th>
                                 <th>{{ 'documentation.document.list.weight'|trans }}</th>
                                 <th>{{ 'documentation.document.list.name'|trans }}</th>
@@ -112,17 +112,22 @@
 
                         </thead>
                         <tbody>
+
                         {% for object in objects %}
                         <tr>
                             <td class="text-center">
-                                <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}" style="color:#f39c12;">
-                                    {% if object.pinned %}
+                                <a href="{{ path('documentation_document_favorite', { 'id': object.id }) }}" style="color:#f39c12;">
+                                    {% if object.favoritedUsers |filter(f => f.id == app.user.id)|length > 0 %}
                                         <i class="fas fa-star"></i>
                                     {% else %}
                                         <i class="far fa-star"></i>
                                     {% endif %}
-                                    {# #f39c12 #}
                                 </a>
+                            </td>
+                            <td class="text-center">
+                                {% if object.pinned %}
+                                    <i class="fas fa-thumbtack"></i>
+                                {% endif %}
                             </td>
                             <td>
                                 {{ object.typeName }}
