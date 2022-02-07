@@ -39,6 +39,7 @@ label:
     no_linked_document: Aucun document associé
     no_linked_treatment: Aucun traitement associé
     not_archived: Non archivés
+    category: Catégories documentaires
 
 placeholder:
     precision: Précisez
@@ -52,6 +53,7 @@ sidebar_menu:
   configuration_treatments: Configuration des traitements
   conformite_traitements: Conformité des traitements
   dashboard: Tableau de bord
+  documentation: Espace documentaire
   maturity_survey: Indice de maturité
   registry_action_plan: Plan d'actions
   registry_contractors: Sous-traitants

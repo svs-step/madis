@@ -5,6 +5,9 @@ documentation:
             new: Nouveau document
             file: Nouveau fichier
             url: Nouveau lien
+            list: Afficher en liste
+            grid: Afficher en grille
+
         form:
             error:
                 fileorurl: Vous devez choisir un fichier ou une URL pour le document
@@ -20,7 +23,7 @@ documentation:
         breadcrumb:
             create: Nouveau document
             edit: Modifier un document
-            list: Liste des documents
+            list: Espace documentaire
             delete: Supprimer un document
         flashbag:
             success:
@@ -28,8 +31,11 @@ documentation:
                 edit: Document "%object%" modifié avec succès
                 delete: Document "%object%" supprimé avec succès
         list:
+            favorite: Favoris
+            type: Type
+            weight: Poids
             name: Nom
-            fichier: Fichier
+            category: Catégorie
             created_at: Date de création
             score: Score
             favorited: Favori
@@ -37,5 +43,38 @@ documentation:
         title:
             create: Nouveau document
             edit: Modifier un document
-            list: Liste des documents
+            list: Espace documentaire
+            favorited: Favoris
             delete: Supprimer un document
+
+    category:
+        action:
+            back_to_list: Retour à la liste
+            new: Ajouter une catégorie
+            list: Afficher les catégories
+            files: Tous les fichiers
+        list:
+            name: Nom
+            count: Total
+        title:
+            list: Espace documentaire
+            edit: Modifier une catégorie
+            delete: Supprimer une catégorie
+        breadcrumb:
+            create: Nouvelle catégorie
+            edit: Modifier une catégorie
+            list: Espace documentaire
+            delete: Supprimer une catégorie
+        flashbag:
+            success:
+                create: Catégorie "%object%" créée avec succès
+                edit: Catégorie "%object%" modifiée avec succès
+                delete: Catégorie "%object%" supprimée avec succès
+            error:
+                delete: Vous ne pouvez pas supprimer la catégorie "%object%"
+        form:
+            error:
+                fileorurl: Vous devez choisir un fichier ou une URL pour le document
+                missingurl: Vous devez entrer une URL si votre document est un lien
+            label:
+                name: Nom de la catégorie

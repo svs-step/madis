@@ -35,6 +35,6 @@ class Category extends CRUDRepository implements Repository\Category
      */
     protected function getModelClass(): string
     {
-        return Model\Document::class;
+        return Model\Category::class;
     }
 }

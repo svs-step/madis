@@ -3,6 +3,11 @@ documentation_document_list:
     methods: ['GET']
     controller: 'App\Domain\Documentation\Controller\DocumentController:listAction'
 
+documentation_document_grid:
+    path: '/grille'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:gridAction'
+
 documentation_document_create:
     path: '/creer'
     methods: ['GET', 'POST']
@@ -32,3 +37,29 @@ documentation_document_share:
     path: '/partager/{id}'
     methods: [ 'GET' ]
     controller: 'App\Domain\Documentation\Controller\DocumentController:shareAction'
+
+documentation_category_list:
+    path: '/categorie'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\CategoryController:listAction'
+
+documentation_category_create:
+    path: '/categorie/creer'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Documentation\Controller\CategoryController:createAction'
+
+documentation_category_edit:
+    path: '/categorie/editer/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Documentation\Controller\CategoryController:editAction'
+
+documentation_category_delete:
+    path: '/categorie/supprimer/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\CategoryController:deleteAction'
+
+documentation_category_delete_confirm:
+    path: '/categorie/supprimer/{id}/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\CategoryController:deleteConfirmationAction'
+

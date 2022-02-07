@@ -39,52 +39,114 @@
                     {% endif %}
                 </div>
             </div>
-
     </div>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
+                
+                    {# SWITCH GRID LIST #}
+                    {% if is_granted('ROLE_USER') %}
+                        <a href="{{ path('documentation_document_grid') }}" class="btn btn-default">
+                            <i class="fas fa-th"></i>
+                            {{ 'documentation.document.action.grid'|trans }}
+                        </a>
+                    {% endif %}
+
+                    <button id="button-column" class="btn btn-warning">
+                        Colonnes
+                    </button>
+                    
+                    {# RESET FILTERS #}
+                    <button id="button-reset" class="btn btn-default">
+                        Réinitialiser les filtres
+                    </button>
+
+                    {# Uniquement pour les DPO #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                            {{ 'documentation.category.action.list'|trans }}
+                        </a>
+                    {% endif %}
+
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
-                        <tr>
-                            <th>{{ 'documentation.document.list.name'|trans }}</th>
-                            <th>{{ 'documentation.document.list.thumbnail'|trans }}</th>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" class="form-check-input" id="search_pinned">
+                                    <label class="form-check-label" for="search_pinned">Favoris</label>
+                                </th>
+                                <th>
+                                    <select class="form-control" id="search_type" style="width: 100%;">
+                                        <option value="" selected>Type</option>
+                                        {% for key, subject in dictionary('documentation_document_type') %}
+                                            <option value="{{ key }}">{{ subject }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                <th></th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <select class="form-control selectpicker" id="search_category" title="Catégories" style="width: 100%;" multiple>
+                                        {# {% for key, subject in dictionary('documentation_document_category') %}
+                                            <option value="{{ key }}">{{ subject }}</option>
+                                        {% endfor %} #}
+                                    </select>
+                                </th>
+                                <th><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
+                                <th></th>
+                            </tr>
+                            
+                            <tr>
+                                <th>{{ 'documentation.document.list.favorited'|trans }}</th>
+                                <th>{{ 'documentation.document.list.type'|trans }}</th>
+                                <th>{{ 'documentation.document.list.weight'|trans }}</th>
+                                <th>{{ 'documentation.document.list.name'|trans }}</th>
+                                <th>{{ 'documentation.document.list.category'|trans }}</th>
+                                <th>{{ 'documentation.document.list.created_at'|trans }}</th>
+                                <th>{{ 'label.actions'|trans }}</th>
+                            </tr>
 
-                            <th>{{ 'documentation.document.list.favorited'|trans }}</th>
-                            <th>{{ 'documentation.document.list.created_at'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
-                        </tr>
                         </thead>
                         <tbody>
                         {% for object in objects %}
                         <tr>
-                            <td>{{ object.name }}</td>
-                            <td>
-                                {% if object.isLink %}
-                                    <a href="{{ object.url }}" target="_blank">
-                                {% else %}
-                                    <a href="{{ path('documentation_document_download', {name: object.file}) }}" target="_blank">
-                                {% endif %}
-
-                                {% if(object.thumbUrl) %}
-                                <img src="{{ object.thumbUrl }}" alt="" width="100" />
-                                {% else %}
-                                {{ object.file }}
-                                {% endif %}
+                            <td class="text-center">
+                                <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}" style="color:#f39c12;">
+                                    {% if object.pinned %}
+                                        <i class="fas fa-star"></i>
+                                    {% else %}
+                                        <i class="far fa-star"></i>
+                                    {% endif %}
+                                    {# #f39c12 #}
                                 </a>
                             </td>
-                            <td>{{ object.categories | json_encode }}</td>
-                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                            <td>
+                                {% if object.isLink %}
+                                <a href="{{ object.url }}" target="_blank">
+                                    {% else %}
+                                    <a href="{{ path('documentation_document_download', {name: object.file}) }}" target="_blank">
+                                        {% endif %}
+
+                                        {% if(object.thumbUrl) %}
+                                            <img src="{{ object.thumbUrl }}" alt="" width="100" />
+                                        {% else %}
+                                            {{ object.file }}
+                                        {% endif %}
+                                    </a>
+                            </td>
+                            <td></td>
+                            <td><a href="{{ object.url }}" target="_blank">{{ object.name }}</a></td>
+                            <td>
+                                {{ object.categories|map(c => "#{c.name}") | join(', ') }}
+                            </td>
+                            <td>{{ object.createdAt|date('d/m/Y') }}</td>
 
                             <td>
-                                {% if is_granted('ROLE_USER') %}
-                                <a class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
-
-                                    <i class="fa fa-share"></i>
-                                    {{ 'action.share'|trans }}
-                                </a>
+                                {% if is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
                                     <i class="fa fa-pencil-alt"></i>
                                     {{ 'action.edit'|trans }}
@@ -93,7 +155,13 @@
                                     <i class="fa fa-trash"></i>
                                     {{ 'action.delete'|trans }}
                                 </a>
+                                    <a class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
+
+                                        <i class="fa fa-share"></i>
+                                        {{ 'action.share'|trans }}
+                                    </a>
                                 {% endif %}
+
                             </td>
                         </tr>
                         {% endfor %}
@@ -130,7 +198,25 @@
 
 {% endblock %}
 
+{# {% block javascripts %}
+    {{ include('_Utils/_datatable.html.twig') }}
+{% endblock %} #}
 {% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "pinned"},
+            {"data": "type"},
+            {"data": "weight"},
+            {"data": "name"},
+            {"data": "category"},
+            {"data": "created_at"},
+            {"data": "actions", "orderable": false},
+        ],
+    } %}
+
+    {# {{ include('_Utils/_serverside_datatable.html.twig') }} #}
     {{ include('_Utils/_datatable.html.twig') }}
     <script>
         $(document).ready(function() {
@@ -149,6 +235,56 @@
             document.execCommand("copy");
             document.body.removeChild(dummy);
         }
+
+        $(function () {
+            $('.selectpicker').selectpicker();
+        });
+
+        function resetFilters() {
+            $('[id^=search_]').each(function() {
+                $(this).val('');
+            });
+            var table = $('#table').DataTable();
+            table.columns().search('');
+        }
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+            
+            $('#search_pinned').off('change');
+            $('#search_pinned').change(function(){
+                console.log($(this).prop('checked'), oTable.column('0'))
+                oTable.column('0').search($(this).prop('checked')).draw();
+            });
+
+            $('#search_type').off('keyup');
+            $('#search_type').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+
+            $('#search_name').off('keyup');
+            $('#search_name').keyup($.debounce(250, function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            }));
+
+            $('#search_date').off('change');
+            $('#search_date').change(function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+        $('#button-reset').on('click', function() {
+            resetFilters();
+            var table = $('#table').DataTable();
+            table.columns().search('').draw();
+        })
     </script>
 
 {% endblock %}

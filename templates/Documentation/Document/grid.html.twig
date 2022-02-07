@@ -1,0 +1,196 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'documentation_document list' %}
+{% set menuItem = 'documentation_document' %}
+
+{% block title %}{{ 'documentation.document.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'documentation.document.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'documentation.document.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+            <div class="col-xs-12">
+                <div class="action-bar">
+                    {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('documentation_document_create') }}" class="btn btn-default">
+                        <i class="fa fa-plus"></i>
+                        {{ 'documentation.document.action.new'|trans }}
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <div class="row">
+                
+                        {# SWITCH GRID LIST #}
+                        {% if is_granted('ROLE_USER') %}
+                        <div class="col-md-12 col-xl-2">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
+                                        <i class="fas fa-list"></i>
+                                        {{ 'documentation.document.action.list'|trans }}
+                                    </a>
+                                    {# RESET FILTERS #}
+                                    <button id="button-reset" class="btn btn-default">
+                                        Réinitialiser les filtres
+                                    </button>
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="checkbox" class="form-check-input" id="search_pinned">
+                                    <label class="form-check-label" for="search_pinned">Favoris</label>
+                                </div>
+                                <div class=" col-md-2">
+                                    <select class="form-control" id="search_type" style="width: 100%;">
+                                        <option value="" selected>Type</option>
+                                        {% for key, subject in dictionary('documentation_document_type') %}
+                                            <option value="{{ key }}">{{ subject }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class=" col-md-2">
+                                    <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
+                                </div>
+                                <div class=" col-md-2">
+                                    <select class="form-control selectpicker" id="search_category" title="Catégories" style="width: 100%;" multiple>
+                                        {# {% for key, subject in dictionary('documentation_document_category') %}
+                                            <option value="{{ key }}">{{ subject }}</option>
+                                        {% endfor %} #}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            {% for object in objects %}
+                            <div class="col-md-2">
+                                <div class="box box-solid" style="box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important">
+                                    <div style="position:absolute; background:white; padding: 5px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15)">
+                                        <a style="color:#f39c12;" href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
+                                            {% if object.pinned %}
+                                                <i class="fas fa-star"></i>
+                                            {% else %}
+                                                <i class="far fa-star"></i>
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="card-img-top text-center"><img src="https://i.picsum.photos/id/337/200/200.jpg?hmac=9bd24xSAcmLdObO71hB9dXskhXQmQ2b0YB3QTAzhUtY" alt="Card image cap"  style="height:100px;"></div>
+                                    <div class="card-body" style="padding:10px">
+                                        <a class="h4 text-info" href="#">{{ object.name }}</a>
+                                        <div class="small"><i class="far fa-file-pdf"></i> PDF | 230Ko | {{ object.createdAt|date('d/m/Y') }}</div>
+                                        <div class="small">Catégories</div>
+                                    </div>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                    <div class="card-footer" style="padding:10px">
+                                        <div class="row" style="margin:0!important;">
+                                            <a href="" class="btn text-info btn-xs col-md-12" style="border-color:#31708f"><i class="fas fa-share"></i> Partager</a>
+                                            <div class="col-md-6" style="padding: 5px 5px 0 0;">
+                                                <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}" class="btn btn-block text-info btn-xs" style="border-color:#31708f">
+                                                    <i class="fa fa-pencil-alt"></i>
+                                                    {{ 'action.edit'|trans }}
+                                                </a>
+                                            </div>
+                                            <div class="col-md-6" style="padding: 5px 0 0 5px;">
+                                                <a href="{{ path('documentation_document_delete', { 'id': object.id }) }}" class="btn btn-block text-info btn-xs" style="border-color:#31708f">
+                                                    <i class="fa fa-trash"></i>
+                                                    {{ 'action.delete'|trans }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "pinned"},
+            {"data": "type"},
+            {"data": "weight"},
+            {"data": "name"},
+            {"data": "category"},
+            {"data": "created_at"},
+            {"data": "actions", "orderable": false},
+        ],
+    } %}
+
+    {{ include('_Utils/_datatable.html.twig') }}
+
+    <script>
+        function resetFilters() {
+            $('[id^=search_]').each(function() {
+                $(this).val('');
+            });
+            var table = $('#table').DataTable();
+            table.columns().search('');
+        }
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+            
+            $('#search_pinned').off('change');
+            $('#search_pinned').change(function(){
+                console.log($(this).prop('checked'), oTable.column('0'))
+                oTable.column('0').search($(this).prop('checked')).draw();
+            });
+
+            $('#search_type').off('keyup');
+            $('#search_type').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+
+            $('#search_name').off('keyup');
+            $('#search_name').keyup($.debounce(250, function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            }));
+
+            $('#search_date').off('change');
+            $('#search_date').change(function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+
+        $('#button-reset').on('click', function() {
+            resetFilters();
+            var table = $('#table').DataTable();
+            table.columns().search('').draw();
+        })
+    </script>
+
+{% endblock %}

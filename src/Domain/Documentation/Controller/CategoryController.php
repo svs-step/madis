@@ -29,6 +29,7 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Documentation\Form\Type\CategoryType;
 use App\Domain\Documentation\Model;
 use App\Domain\Documentation\Repository;
+use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -103,7 +104,93 @@ class CategoryController extends CRUDController
             'createdAt' => 'DESC',
         ];
 
-        // Everybody can access all documents
         return $this->repository->findAll($order);
+    }
+
+    /**
+     * {@inheritdoc}
+     * Here, we wanna compute maturity score.
+     *
+     * @param Model\Survey $object
+     */
+    public function formPrePersistData($object)
+    {
+        $object->setSystem(false);
+    }
+
+    /**
+     * Generate the flashbag message dynamically depending on the domain, model & object.
+     * Replace word `%object%` in translation by the related object (thanks to it `__toString` method).
+     *
+     * @param string      $type     The flashbag type
+     * @param string|null $template The related template to use
+     * @param mixed|null  $object   The object to use to generate flashbag (eg. show object name)
+     *
+     * @return string The generated flashbag
+     */
+    protected function getFlashbagMessage(string $type, string $template = null, $object = null): string
+    {
+        $params = [];
+
+        return $this->translator->trans(
+            "{$this->getDomain()}.{$this->getModel()}.flashbag.{$type}.{$template}",
+            $params
+        );
+    }
+
+    /**
+     * The delete action view
+     * Display a confirmation message to confirm data deletion.
+     *
+     * @Override
+     */
+    public function deleteAction(string $id): Response
+    {
+
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
+            return $this->redirectToRoute('documentation_document_list');
+        }
+
+        return $this->render($this->getTemplatingBasePath('delete'), [
+            'object'            => $object,
+        ]);
+    }
+    /**
+     * The deletion action
+     * Delete the data.
+     *
+     * @throws \Exception
+     */
+    public function deleteConfirmationAction(string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') || $object->getSystem()) {
+            $this->addFlash('success', $this->getFlashbagMessage('error', 'delete', $object));
+            return $this->redirectToRoute('documentation_document_list');
+        }
+
+        if ($this->isSoftDelete()) {
+            if (!\method_exists($object, 'setDeletedAt')) {
+                throw new MethodNotImplementedException('setDeletedAt');
+            }
+            $object->setDeletedAt(new \DateTimeImmutable());
+            $this->repository->update($object);
+        } else {
+            $this->entityManager->remove($object);
+            $this->entityManager->flush();
+        }
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
+        return $this->redirectToRoute($this->getRouteName('list'));
     }
 }
