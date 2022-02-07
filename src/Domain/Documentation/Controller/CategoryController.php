@@ -29,9 +29,11 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Documentation\Form\Type\CategoryType;
 use App\Domain\Documentation\Model;
 use App\Domain\Documentation\Repository;
-use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -111,7 +113,7 @@ class CategoryController extends CRUDController
      * {@inheritdoc}
      * Here, we wanna compute maturity score.
      *
-     * @param Model\Survey $object
+     * @param Model\Category $object
      */
     public function formPrePersistData($object)
     {
@@ -146,7 +148,6 @@ class CategoryController extends CRUDController
      */
     public function deleteAction(string $id): Response
     {
-
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
@@ -154,6 +155,7 @@ class CategoryController extends CRUDController
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
+
             return $this->redirectToRoute('documentation_document_list');
         }
 
@@ -161,6 +163,7 @@ class CategoryController extends CRUDController
             'object'            => $object,
         ]);
     }
+
     /**
      * The deletion action
      * Delete the data.
@@ -176,6 +179,7 @@ class CategoryController extends CRUDController
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') || $object->getSystem()) {
             $this->addFlash('success', $this->getFlashbagMessage('error', 'delete', $object));
+
             return $this->redirectToRoute('documentation_document_list');
         }
 
@@ -191,6 +195,7 @@ class CategoryController extends CRUDController
         }
 
         $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
+
         return $this->redirectToRoute($this->getRouteName('list'));
     }
 }

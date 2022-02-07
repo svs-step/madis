@@ -2,24 +2,25 @@ App\Domain\Documentation\Model\Document:
     doc_1:
         name: "test"
         pinned: true
-        file: 'fichier'
-        url: 'fichier 1'
+        file: 'fichier.mp4'
+        url: ''
         categories: ['@documentation_category_1', '@documentation_category_3'])>
         favoritedUsers: ['@user_user_admin']
         isLink: false
-
+        size: 1120303
     doc_2:
         name: "test 1"
         pinned: true
-        file: 'fichier 1'
-        url: 'fichier 1'
+        file: 'fichier 1.pdf'
+        url: ''
         categories: ['@documentation_category_1', '@documentation_category_3']
         isLink: false
-
+        size: 1020
     doc_3:
         name: "test 2"
-        pinned: true
-        file: 'fichier 2'
-        url: 'fichier 1'
+        pinned: false
+        file: 'fichier 2.docx'
+        url: ''
         categories: ['@documentation_category_1', '@documentation_category_3']
         isLink: false
+        size: 324050

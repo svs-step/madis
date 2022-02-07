@@ -29,9 +29,9 @@ use App\Application\Dictionary\SimpleDictionary;
 class DocumentTypeDictionary extends SimpleDictionary
 {
     const TYPE_PDF         = 'pdf';
-    const TYPE_MP4         = 'mp4';
-    const TYPE_LINK        = 'url';
-    const TYPE_DOCX        = 'docs';
+    const TYPE_MP4         = 'video';
+    const TYPE_LINK        = 'export';
+    const TYPE_DOCX        = 'word';
 
     public function __construct()
     {
@@ -46,9 +46,9 @@ class DocumentTypeDictionary extends SimpleDictionary
     public static function getTypes()
     {
         return [
-            self::TYPE_PDF          => 'PDF',
-            self::TYPE_MP4           => 'Vidéos',
-            self::TYPE_LINK         => 'Liens',
+            self::TYPE_PDF            => 'PDF',
+            self::TYPE_MP4            => 'Vidéos',
+            self::TYPE_LINK           => 'Liens',
             self::TYPE_DOCX           => 'Documents',
         ];
     }

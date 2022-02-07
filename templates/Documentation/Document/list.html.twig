@@ -125,20 +125,11 @@
                                 </a>
                             </td>
                             <td>
-                                {% if object.isLink %}
-                                <a href="{{ object.url }}" target="_blank">
-                                    {% else %}
-                                    <a href="{{ path('documentation_document_download', {name: object.file}) }}" target="_blank">
-                                        {% endif %}
-
-                                        {% if(object.thumbUrl) %}
-                                            <img src="{{ object.thumbUrl }}" alt="" width="100" />
-                                        {% else %}
-                                            {{ object.file }}
-                                        {% endif %}
-                                    </a>
+                                {{ object.typeName }}
                             </td>
-                            <td></td>
+                            <td>
+                                {{ object.size }}
+                            </td>
                             <td><a href="{{ object.url }}" target="_blank">{{ object.name }}</a></td>
                             <td>
                                 {{ object.categories|map(c => "#{c.name}") | join(', ') }}
@@ -148,18 +139,14 @@
                             <td>
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
-                                    <i class="fa fa-pencil-alt"></i>
-                                    {{ 'action.edit'|trans }}
+                                    <i class="fa fa-pencil-alt"></i>&nbsp;{{ 'action.edit'|trans }}
                                 </a>
                                 <a href="{{ path('documentation_document_delete', { 'id': object.id }) }}">
-                                    <i class="fa fa-trash"></i>
-                                    {{ 'action.delete'|trans }}
+                                    <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
                                 </a>
-                                    <a class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
-
-                                        <i class="fa fa-share"></i>
-                                        {{ 'action.share'|trans }}
-                                    </a>
+                                <a class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
+                                    <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
+                                </a>
                                 {% endif %}
 
                             </td>

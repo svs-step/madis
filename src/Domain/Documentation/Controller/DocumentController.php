@@ -27,17 +27,16 @@ namespace App\Domain\Documentation\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Documentation\Form\Type\DocumentType;
-use App\Domain\Documentation\Dictionary\DocumentTypeDictionary;
 use App\Domain\Documentation\Model;
 use App\Domain\Documentation\Repository;
 use App\Domain\User\Model\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -191,12 +190,18 @@ class DocumentController extends CRUDController
 
     /**
      * {@inheritdoc}
+     *
+     * @param Model\Document $object
      */
     public function formPrePersistData($object)
     {
         if (false === $object->getIsLink() && null !== $file = $object->getUploadedFile()) {
             $filename = Uuid::uuid4()->toString() . '.' . $file->getClientOriginalExtension();
             $this->documentFilesystem->write($filename, \fopen($file->getRealPath(), 'r'));
+            $size = $this->documentFilesystem->size($filename);
+
+            $object->setSize($size);
+
             $object->setFile($filename);
             $object->setUploadedFile(null);
 
@@ -207,6 +212,7 @@ class DocumentController extends CRUDController
             $object->setUrl($url);
         } elseif (true === $object->getIsLink()) {
             $object->setFile('');
+            $object->setSize(0);
         }
         if (null !== $thumb = $object->getThumbUploadedFile()) {
             $filename = Uuid::uuid4()->toString() . '.' . $thumb->getClientOriginalExtension();
@@ -241,7 +247,7 @@ class DocumentController extends CRUDController
     {
         $doc = $this->repository->findOneByID($id);
         /**
-         * @var User $user
+         * @var User
          */
         $user = $this->getUser();
         if (!$doc) {

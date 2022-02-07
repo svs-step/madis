@@ -26,6 +26,7 @@ namespace App\Domain\Documentation\Model;
 
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\Documentation\Dictionary\DocumentTypeDictionary;
 use App\Domain\User\Model\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -62,6 +63,13 @@ class Document
      * @var string|null
      */
     private $url;
+
+    /**
+     * @ORM\Column(type="integer")
+     *
+     * @var string|null
+     */
+    private $size;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -240,9 +248,11 @@ class Document
         return $this->uploadedFile;
     }
 
-    public function setUploadedFile(?UploadedFile $uploadedFile): void
+    public function setUploadedFile(?UploadedFile $uploadedFile): Document
     {
         $this->uploadedFile = $uploadedFile;
+
+        return $this;
     }
 
     public function getIsLink(): ?bool
@@ -262,9 +272,11 @@ class Document
         return $this->thumbUploadedFile;
     }
 
-    public function setThumbUploadedFile(?UploadedFile $thumbUploadedFile): void
+    public function setThumbUploadedFile(?UploadedFile $thumbUploadedFile): Document
     {
         $this->thumbUploadedFile = $thumbUploadedFile;
+
+        return $this;
     }
 
     public function getThumbUrl(): ?string
@@ -272,8 +284,68 @@ class Document
         return $this->thumbUrl;
     }
 
-    public function setThumbUrl(?string $thumbUrl): void
+    public function setThumbUrl(?string $thumbUrl): Document
     {
         $this->thumbUrl = $thumbUrl;
+
+        return $this;
+    }
+
+    public function getSize(): ?string
+    {
+        if ($this->size <= 0) {
+            return 'Vide';
+        }
+        $units = ['o', 'Ko', 'Mo', 'Go', 'To', 'Po', 'Eo', 'Zo', 'Yo'];
+        $pow   = $this->size > 0 ? floor(log((float) $this->size, 1024)) : 0;
+        $size  = number_format($this->size / pow(1024, $pow), 2, ',', ' ') . ' ' . $units[$pow];
+
+        return $size;
+    }
+
+    public function setSize(?int $size): Document
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        $extension = strtolower(pathinfo($this->getFile(), PATHINFO_EXTENSION));
+        if ('pdf' === $extension) {
+            return DocumentTypeDictionary::TYPE_PDF;
+        }
+        if ('mp4' === $extension || 'm4v' === $extension) {
+            return DocumentTypeDictionary::TYPE_MP4;
+        }
+        if ($this->getIsLink()) {
+            return DocumentTypeDictionary::TYPE_LINK;
+        }
+        if ('docx' === $extension) {
+            return DocumentTypeDictionary::TYPE_DOCX;
+        }
+
+        return null;
+    }
+
+    public function getTypeName(): ?string
+    {
+        $types     = DocumentTypeDictionary::getTypes();
+        $extension = strtolower(pathinfo($this->getFile(), PATHINFO_EXTENSION));
+        if ('pdf' === $extension) {
+            return $types[DocumentTypeDictionary::TYPE_PDF];
+        }
+        if ('mp4' === $extension || 'm4v' === $extension) {
+            return $types[DocumentTypeDictionary::TYPE_MP4];
+        }
+        if ($this->getIsLink()) {
+            return $types[DocumentTypeDictionary::TYPE_LINK];
+        }
+        if ('docx' === $extension) {
+            return $types[DocumentTypeDictionary::TYPE_DOCX];
+        }
+
+        return null;
     }
 }

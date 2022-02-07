@@ -326,7 +326,6 @@ abstract class CRUDController extends AbstractController
     public function deleteAction(string $id): Response
     {
         /** @var CollectivityRelated $object */
-
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");

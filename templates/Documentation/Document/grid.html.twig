@@ -24,11 +24,18 @@
     <div class="row">
             <div class="col-xs-12">
                 <div class="action-bar">
-                    {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('documentation_document_create') }}" class="btn btn-default">
-                        <i class="fa fa-plus"></i>
-                        {{ 'documentation.document.action.new'|trans }}
-                    </a>
+                    {% if is_granted('ROLE_REFERENT') %}
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-plus"></i>
+                                {{ 'documentation.document.action.new'|trans }}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
+                                <li><a href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
+                            </ul>
+                        </div>
                     {% endif %}
                 </div>
             </div>
@@ -95,10 +102,16 @@
                                             {% endif %}
                                         </a>
                                     </div>
-                                    <div class="card-img-top text-center"><img src="https://i.picsum.photos/id/337/200/200.jpg?hmac=9bd24xSAcmLdObO71hB9dXskhXQmQ2b0YB3QTAzhUtY" alt="Card image cap"  style="height:100px;"></div>
+                                    <div class="card-img-top text-center">
+                                        {% if(object.thumbUrl) %}
+                                            <img src="{{ object.thumbUrl }}" alt="" height="100" />
+                                        {% else %}
+                                            <img src="https://i.picsum.photos/id/337/200/200.jpg?hmac=9bd24xSAcmLdObO71hB9dXskhXQmQ2b0YB3QTAzhUtY" alt="Card image cap"  style="height:100px;">
+                                        {% endif %}
+                                    </div>
                                     <div class="card-body" style="padding:10px">
                                         <a class="h4 text-info" href="#">{{ object.name }}</a>
-                                        <div class="small"><i class="far fa-file-pdf"></i> PDF | 230Ko | {{ object.createdAt|date('d/m/Y') }}</div>
+                                        <div class="small"><i class="far fa-file-{{ object.type }}"></i> {{ object.typeName }} | {{ object.size }} | {{ object.createdAt|date('d/m/Y') }}</div>
                                         <div class="small">Catégories</div>
                                     </div>
                                     {% if is_granted('ROLE_ADMIN') %}
