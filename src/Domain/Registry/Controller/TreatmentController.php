@@ -239,7 +239,7 @@ class TreatmentController extends CRUDController
 
         return $this->render($this->getTemplatingBasePath('public_list'), [
             'objects'      => $objects,
-            'route'        => '/publique/traitements/datatables?active=1',
+            'route'        => '/public/traitements/datatables?active=1',
             'totalItem'    => count($objects),
             'collectivity' => $collectivity,
         ]);
