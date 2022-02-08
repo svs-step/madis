@@ -211,9 +211,14 @@ class DocumentController extends CRUDController
         $user->setDocumentView(false);
         $this->entityManager->flush();
 
+        $categories = $this
+        ->getDoctrine()
+        ->getRepository(Model\Category::class)
+        ->findAll();
+
         return $this->render($this->getTemplatingBasePath('list'), [
             'objects' => $this->getListData(),
-            // 'categories' => $this->getCategories(),
+            'categories' => $categories,
         ]);
     }
 
@@ -224,8 +229,14 @@ class DocumentController extends CRUDController
         $user->setDocumentView(true);
         $this->entityManager->flush();
 
+        $categories = $this
+        ->getDoctrine()
+        ->getRepository(Model\Category::class)
+        ->findAll();
+
         return $this->render($this->getTemplatingBasePath('grid'), [
             'objects' => $this->getListData(),
+            'categories' => $categories,
         ]);
     }
 

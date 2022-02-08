@@ -38,14 +38,13 @@ documentation:
             category: Catégorie
             created_at: Date de création
             score: Score
-            favorited: Favori
             pinned: Épinglé
             thumbnail: Télécharger
         title:
             create: Nouveau document
             edit: Modifier un document
             list: Espace documentaire
-            favorited: Favoris
+            favorite: Favoris
             delete: Supprimer un document
 
     category:
