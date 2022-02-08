@@ -194,9 +194,6 @@
 
 {% endblock %}
 
-{# {% block javascripts %}
-    {{ include('_Utils/_datatable.html.twig') }}
-{% endblock %} #}
 {% block javascripts %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 
@@ -212,6 +209,17 @@
             {"data": "actions", "orderable": false},
         ],
         order: [[0,'desc'],[1,'desc'],[6,'desc']],
+        language: {
+            buttons: {
+                colvis: "Colonnes"
+            },
+        },
+        buttons: [
+            {
+                extend: "colvis",
+                columns: ":not(.noVis)"
+            }
+        ],
     } %}
 
     {# {{ include('_Utils/_serverside_datatable.html.twig') }} #}
