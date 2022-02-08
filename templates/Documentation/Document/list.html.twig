@@ -69,7 +69,6 @@
                             {{ 'documentation.category.action.list'|trans }}
                         </a>
                     {% endif %}
-
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -77,6 +76,7 @@
                                     <input type="checkbox" class="form-check-input" id="search_favorite">
                                     <label class="form-check-label" for="search_favorite">{{ 'documentation.document.list.favorite'|trans }}</label>
                                 </th>
+                                <th></th>
                                 <th>
                                     <select class="form-control" id="search_type" style="width: 100%;">
                                         <option value="" selected>{{ 'documentation.document.list.type'|trans }}</option>
@@ -91,9 +91,9 @@
                                 </th>
                                 <th>
                                     <select class="form-control selectpicker" id="search_category" title="Catégories" style="width: 100%;" multiple>
-                                        {# {% for key, subject in dictionary('documentation_document_category') %}
-                                            <option value="{{ key }}">{{ subject }}</option>
-                                        {% endfor %} #}
+                                        {% for category in categories %}
+                                            <option value="{{ category.name }}">{{ category.name }}</option>
+                                        {% endfor %}
                                     </select>
                                 </th>
                                 <th><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
@@ -101,8 +101,8 @@
                             </tr>
                             
                             <tr>
+                                <th>{{ 'documentation.document.list.favorited'|trans }}</th>
                                 <th>{{ 'documentation.document.list.pinned'|trans }}</th>
-                                <th>{{ 'documentation.document.list.favorite'|trans }}</th>
                                 <th>{{ 'documentation.document.list.type'|trans }}</th>
                                 <th>{{ 'documentation.document.list.weight'|trans }}</th>
                                 <th>{{ 'documentation.document.list.name'|trans }}</th>
@@ -207,18 +207,6 @@
             {"data": "created_at"},
             {"data": "actions", "orderable": false},
         ],
-        order: [[0,'desc'],[1,'desc'],[6,'desc']],
-        language: {
-            buttons: {
-                colvis: "Colonnes"
-            },
-        },
-        buttons: [
-            {
-                extend: "colvis",
-                columns: ":not(.noVis)"
-            }
-        ],
     } %}
 
     {# {{ include('_Utils/_serverside_datatable.html.twig') }} #}
@@ -257,8 +245,8 @@
             
             $('#search_favorite').off('change');
             $('#search_favorite').change(function(){
-                console.log($(this).prop('checked'), oTable.column('1'))
-                oTable.column('1').search($(this).prop('checked')).draw();
+                console.log($(this).prop('checked'), oTable.column('0'))
+                oTable.column('0').search($(this).prop('checked')).draw();
             });
 
             $('#search_type').off('keyup');
@@ -268,8 +256,13 @@
 
             $('#search_name').off('keyup');
             $('#search_name').keyup($.debounce(250, function(){
-                oTable.column('3').search($(this).val()).draw() ;
+                oTable.column('4').search($(this).val()).draw() ;
             }));
+
+            $('#search_category').off('change');
+            $('#search_category').change(function() {
+                $(this).val() && $(this).val().length ? oTable.column('5').search($(this).val().join(' ')).draw() : oTable.column('5').search('').draw();
+            });
 
             $('#search_date').off('change');
             $('#search_date').change(function(){
