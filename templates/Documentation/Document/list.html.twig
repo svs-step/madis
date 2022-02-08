@@ -90,7 +90,16 @@
                                     <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
                                 </th>
                                 <th>
-                                    <select class="form-control selectpicker" id="search_category" title="Catégories" style="width: 100%;" multiple>
+                                    <select class="form-control selectpicker" id="search_category" style="width: 100%;" 
+                                        multiple 
+                                        {# data-placeholder="My placeholder" data-prefix="My custom prefix:" #}
+                                        {# data-selected-text-format="values" #}
+                                        title="Catégories" 
+                                        {#  data-none-selected-text="Catégories" #}
+                                        {# data-live-search="true" #}
+                                        {# data-selected-text-format="count" #}
+                                        {# data-count-selected-text="Postcode ({0} items selected)" #}
+                                        > 
                                         {% for category in categories %}
                                             <option value="{{ category.name }}">{{ category.name }}</option>
                                         {% endfor %}
@@ -262,7 +271,13 @@
 
             $('#search_category').off('change');
             $('#search_category').change(function() {
-                $(this).val() && $(this).val().length ? oTable.column('5').search($(this).val().join(' ')).draw() : oTable.column('5').search('').draw();
+                if ($(this).val() && $(this).val().length) {
+                    oTable.column('5').search($(this).val().join(' ')).draw()
+                    $('button[data-id="search_category"] .filter-option-inner-inner').html($(this).val().join(', '))
+                } else {
+                    oTable.column('5').search('').draw();
+                    $('button[data-id="search_category"] .filter-option-inner-inner').html("Catégories")
+                }
             });
 
             $('#search_date').off('change');
