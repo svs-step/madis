@@ -114,9 +114,10 @@
                         </thead>
                         <tbody>
                         {% for object in objects %}
-                            <tr>
-                                <td>
+                        <tr>
+                            <td class="text-center">
                                 {%  if object.pinned == 1 %}
+                                    <span style="visibility: hidden">{{ object.pinned }}</span>
                                     <i class="fas fa-paperclip"></i>
                                 {% endif %}
                             </td>
@@ -125,15 +126,13 @@
                                     {% if object.favoritedUsers |filter(f => f.id == app.user.id)|length > 0 %}
                                         <i class="fas fa-star"></i>
                                     {% else %}
+                                        <span style="visibility: hidden">0</span>
                                         <i class="far fa-star"></i>
                                     {% endif %}
+
                                 </a>
                             </td>
-                            <td class="text-center">
-                                {% if object.pinned %}
-                                    <i class="fas fa-thumbtack"></i>
-                                {% endif %}
-                            </td>
+                            
                             <td>
                                 {{ object.typeName }}
                             </td>
