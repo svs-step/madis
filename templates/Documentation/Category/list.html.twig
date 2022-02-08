@@ -57,7 +57,7 @@
                         <tr>
                             <td>{{ object.name }}</td>
                             <td>
-                                <a href="">{{ object.documents|length }}</a>
+                                <a href="{{ path('documentation_document_index') }}?category={{ object.id }}">{{ object.documents|length }}</a>
                             </td>
                             <td>
                                 {% if object.system == 0 %}

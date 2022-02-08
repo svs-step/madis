@@ -2,6 +2,8 @@ documentation_document_index:
     path: '/'
     methods: ['GET']
     controller: 'App\Domain\Documentation\Controller\DocumentController:indexAction'
+    defaults:
+        keepQueryParams: true
 
 documentation_document_list:
     path: '/liste'

@@ -49,4 +49,22 @@ class Document extends CRUDRepository implements Repository\Document
             return $docs[0];
         }
     }
+
+    public function findByCategory(Model\Category $category, $order)
+    {
+        return $this->createQueryBuilder()
+            ->join('o.categories', 'dc')
+            ->where('dc = :category')
+            ->setParameter('category', $category)
+            ->getQuery()
+            ->getResult();
+
+        return $this->registry
+            ->getManager()
+            ->getRepository($this->getModelClass())
+            ->findBy([
+                'cate',
+            ], $order)
+            ;
+    }
 }

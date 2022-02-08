@@ -25,8 +25,11 @@ declare(strict_types=1);
 namespace App\Domain\Documentation\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
+use App\Domain\Documentation\Model\Category;
 
 interface Document extends CRUDRepositoryInterface
 {
     public function findOneByName(string $name);
+
+    public function findByCategory(Category $category, $order);
 }
