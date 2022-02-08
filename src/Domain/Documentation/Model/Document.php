@@ -188,7 +188,7 @@ class Document
 
     public function removeCategory(Category $category): Document
     {
-        if (null !== $this->categories && !$this->categories->contains($category)) {
+        if (null !== $this->categories && $this->categories->contains($category)) {
             $this->categories->removeElement($category);
         }
 
@@ -245,14 +245,21 @@ class Document
 
     public function addFavoritedUser(User $user): Document
     {
-        $this->favoritedUsers->add($user);
+        if (null === $this->favoritedUsers) {
+            $this->favoritedUsers = new ArrayCollection();
+        }
+        if (!$this->favoritedUsers->contains($user)) {
+            $this->favoritedUsers->add($user);
+        }
 
         return $this;
     }
 
     public function removeFavoritedUser(User $user): Document
     {
-        $this->favoritedUsers->removeElement($user);
+        if (null !== $this->favoritedUsers && $this->favoritedUsers->contains($user)) {
+            $this->favoritedUsers->removeElement($user);
+        }
 
         return $this;
     }
