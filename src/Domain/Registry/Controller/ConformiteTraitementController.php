@@ -28,6 +28,7 @@ use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\AIPD\Converter\ModeleToAnalyseConverter;
 use App\Domain\AIPD\Repository as AipdRepository;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Form\Type\ConformiteTraitement\ConformiteTraitementType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
@@ -175,6 +176,21 @@ class ConformiteTraitementController extends CRUDController
         }
 
         return $this->treatmentRepository->findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function listAction(): Response
+    {
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Conformité des traitements',
+        ]);
+
+        return $this->render($this->getTemplatingBasePath('list'), [
+            'objects'   => $this->getListData(),
+            'category'  => $category,
+        ]);
     }
 
     /**

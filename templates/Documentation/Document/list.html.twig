@@ -92,7 +92,14 @@
                                 <th>
                                     <select class="form-control selectpicker" id="search_category" title="Catégories" style="width: 100%;" multiple>
                                         {% for category in categories %}
-                                            <option value="{{ category.name }}">{{ category.name }}</option>
+                                            <option
+                                                value="{{ category.name }}"
+                                                {% if app.request.get('category') and app.request.get('category') == category.id  %}
+                                                selected="selected"
+                                                {% endif %}
+                                            >
+                                                {{ category.name }}
+                                            </option>
                                         {% endfor %}
                                     </select>
                                 </th>
@@ -262,7 +269,8 @@
 
             $('#search_category').off('change');
             $('#search_category').change(function() {
-                $(this).val() && $(this).val().length ? oTable.column('5').search($(this).val().join(' ')).draw() : oTable.column('5').search('').draw();
+                const v = $(this).val();
+                v && v.length ? oTable.column('5').search(v.join(' ')).draw() : oTable.column('5').search('').draw();
             });
 
             $('#search_date').off('change');

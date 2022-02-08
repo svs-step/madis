@@ -217,7 +217,7 @@ class DocumentController extends CRUDController
         ->findAll();
 
         return $this->render($this->getTemplatingBasePath('list'), [
-            'objects' => $this->getListData(),
+            'objects'    => $this->getListData(),
             'categories' => $categories,
         ]);
     }
@@ -235,7 +235,7 @@ class DocumentController extends CRUDController
         ->findAll();
 
         return $this->render($this->getTemplatingBasePath('grid'), [
-            'objects' => $this->getListData(),
+            'objects'    => $this->getListData(),
             'categories' => $categories,
         ]);
     }

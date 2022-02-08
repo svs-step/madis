@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Form\Type\ContractorType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Model\Contractor;
@@ -132,8 +133,13 @@ class ContractorController extends CRUDController
 
     public function listAction(): Response
     {
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Sous-traitant',
+        ]);
+
         return $this->render($this->getTemplatingBasePath('list'), [
             'totalItem' => $this->repository->count($this->getRequestCriteria()),
+            'category'  => $category,
             'route'     => $this->router->generate('registry_contractor_list_datatables'),
         ]);
     }

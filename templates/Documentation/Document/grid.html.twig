@@ -79,7 +79,14 @@
                                 <div class=" col-md-2">
                                     <select class="form-control selectpicker" id="search_category" title="Catégories" style="width: 100%;" multiple>
                                         {% for category in categories %}
-                                            <option value="{{ category.name }}">{{ category.name }}</option>
+                                            <option
+                                                value="{{ category.name }}"
+                                                {% if app.request.get('category') and app.request.get('category') == category.id  %}
+                                                selected="selected"
+                                                {% endif %}
+                                            >
+                                                {{ category.name }}
+                                            </option>
                                         {% endfor %}
                                     </select>
                                 </div>
