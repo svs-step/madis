@@ -124,15 +124,14 @@
                             <td class="text-center">
                                 <a href="{{ path('documentation_document_favorite', { 'id': object.id, 'back': app.request.uri }) }}" style="color:#f39c12;">
                                     {% if object.favoritedUsers |filter(f => f.id == app.user.id)|length > 0 %}
+                                        <span style="visibility: hidden">1</span>
                                         <i class="fas fa-star"></i>
                                     {% else %}
                                         <span style="visibility: hidden">0</span>
                                         <i class="far fa-star"></i>
                                     {% endif %}
-
                                 </a>
                             </td>
-                            
                             <td>
                                 {{ object.typeName }}
                             </td>
