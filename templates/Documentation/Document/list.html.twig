@@ -74,12 +74,12 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <input type="checkbox" class="form-check-input" id="search_pinned">
-                                    <label class="form-check-label" for="search_pinned">Favoris</label>
+                                    <input type="checkbox" class="form-check-input" id="search_favorite">
+                                    <label class="form-check-label" for="search_favorite">{{ 'documentation.document.list.favorite'|trans }}</label>
                                 </th>
                                 <th>
                                     <select class="form-control" id="search_type" style="width: 100%;">
-                                        <option value="" selected>Type</option>
+                                        <option value="" selected>{{ 'documentation.document.list.type'|trans }}</option>
                                         {% for key, subject in dictionary('documentation_document_type') %}
                                             <option value="{{ key }}">{{ subject }}</option>
                                         {% endfor %}

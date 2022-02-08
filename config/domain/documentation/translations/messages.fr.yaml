@@ -40,7 +40,6 @@ documentation:
             created_at: Date de création
             score: Score
             favorited: Favori
-            pinned: Épinglé
             thumbnail: Télécharger
         title:
             create: Nouveau document
