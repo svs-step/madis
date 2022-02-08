@@ -347,7 +347,7 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
         return $this;
     }
 
-    public function isDocumentView(): bool
+    public function isDocumentView(): ?bool
     {
         return $this->documentView;
     }
