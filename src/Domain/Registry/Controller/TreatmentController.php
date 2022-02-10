@@ -400,7 +400,8 @@ class TreatmentController extends CRUDController
     {
         $id = $treatment->getId();
 
-        if ($this->isTreatmentInUserServices($treatment)) {
+        $user = $this->userProvider->getAuthenticatedUser();
+        if ($user->getServices()->isEmpty() || $this->isTreatmentInUserServices($treatment)) {
             $editPath   = $this->router->generate('registry_treatment_edit', ['id' => $id]);
             $deletePath = $this->router->generate('registry_treatment_delete', ['id' => $id]);
 
