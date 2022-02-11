@@ -41,11 +41,7 @@ documentation:
             category: Catégorie
             created_at: Date de création
             score: Score
-<<<<<<< HEAD
-            pinned: Épinglé
-=======
             favorited: Favori
->>>>>>> feature/doc-seb4
             thumbnail: Télécharger
         title:
             create: Nouveau document

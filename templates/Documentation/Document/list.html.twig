@@ -73,6 +73,7 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>
                                     <input type="checkbox" class="form-check-input" id="search_favorite">
                                     <label class="form-check-label" for="search_favorite">{{ 'documentation.document.list.favorite'|trans }}</label>
@@ -137,14 +138,12 @@
                                     <i class="fas fa-paperclip"></i>
                                 {% endif %}
                             </td>
-                            <td class="text-center">
+                            <td class="text-center favorite">
                                 <a href="{{ path('documentation_document_favorite', { 'id': object.id, 'back': app.request.uri }) }}" style="color:#f39c12;">
                                     {% if object.favoritedUsers |filter(f => f.id == app.user.id)|length > 0 %}
-                                        <span style="visibility: hidden">1</span>
-                                        <i class="fas fa-star"></i>
+                                        1
                                     {% else %}
-                                        <span style="visibility: hidden">0</span>
-                                        <i class="far fa-star"></i>
+                                        0
                                     {% endif %}
                                 </a>
                             </td>
@@ -214,7 +213,6 @@
 
     {% set dataTableOptions = {
         columns: [
-            {"data": "favorite"},
             {"data": "pinned"},
             {"data": "favorite"},
             {"data": "type"},
@@ -245,7 +243,16 @@
             $('.sharelink').on('click', function() {
                 $('#linkDocument').text($(this).data('id'));
             })
+
+            // SET FAVORITE ICON
+            console.log($('.favorite > a'))
+
+            $('.favorite > a').each( (fav, obj) => {
+                obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i>' : '<i data-value="0" class="far fa-star"></i>'
+            })
+
         })
+
 
         function copyToClipBoard() {
             var text = $('#linkDocument').text();
@@ -275,13 +282,14 @@
             $('#search_favorite').off('change');
             $('#search_favorite').change(function(){
                 console.log($(this).prop('checked'), oTable.column('1'))
-                oTable.column('1').search($(this).prop('checked')).draw();
+                oTable.column('1').search($(this).prop('checked') ? "1" : "").draw();
             });
 
-            $('#search_type').off('keyup');
-            $('#search_type').keyup($.debounce(250, function(){
+            $('#search_type').off('change');
+            $('#search_type').change(function(){
+                console.log($(this).val())
                 oTable.column('2').search($(this).val()).draw() ;
-            }));
+            });
 
             $('#search_name').off('keyup');
             $('#search_name').keyup($.debounce(250, function(){
