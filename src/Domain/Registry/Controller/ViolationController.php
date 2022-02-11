@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Dictionary\ViolationCauseDictionary;
 use App\Domain\Registry\Dictionary\ViolationGravityDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
@@ -156,9 +157,14 @@ class ViolationController extends CRUDController
     {
         $criteria = $this->getRequestCriteria();
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Violation',
+        ]);
+
         return $this->render($this->getTemplatingBasePath('list'), [
-            'totalItem' => $this->repository->count($criteria),
-            'route'     => $this->router->generate('registry_violation_list_datatables', ['archive' => $criteria['archive']]),
+            'totalItem'   => $this->repository->count($criteria),
+            'category'    => $category,
+            'route'       => $this->router->generate('registry_violation_list_datatables', ['archive' => $criteria['archive']]),
         ]);
     }
 

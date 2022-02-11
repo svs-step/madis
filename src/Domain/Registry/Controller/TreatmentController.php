@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use App\Domain\Registry\Form\Type\TreatmentConfigurationType;
@@ -145,8 +146,13 @@ class TreatmentController extends CRUDController
             $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
         }
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Traitement',
+        ]);
+
         return $this->render('Registry/Treatment/list.html.twig', [
             'totalItem' => $this->repository->count($criteria),
+            'category'  => $category,
             'route'     => $this->router->generate('registry_treatment_list_datatables', ['active' => $criteria['active']]),
         ]);
     }

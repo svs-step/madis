@@ -36,6 +36,7 @@ use Knp\Snappy\Pdf;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -68,20 +69,34 @@ class DocumentController extends CRUDController
      */
     protected $thumbFilesystem;
 
+    /**
+     * @var RequestStack
+     */
+    protected $requestStack;
+
+    /**
+     * @var Repository\Category
+     */
+    protected $categoryRepository;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Document $repository,
+        Repository\Category $categoryRepository,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
         FilesystemInterface $documentFilesystem,
         FilesystemInterface $thumbFilesystem,
-        Pdf $pdf
+        Pdf $pdf,
+        RequestStack $requestStack
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->authorizationChecker     = $authorizationChecker;
-        $this->documentFilesystem       = $documentFilesystem;
-        $this->thumbFilesystem          = $thumbFilesystem;
+        $this->authorizationChecker           = $authorizationChecker;
+        $this->documentFilesystem             = $documentFilesystem;
+        $this->thumbFilesystem                = $thumbFilesystem;
+        $this->requestStack                   = $requestStack;
+        $this->categoryRepository             = $categoryRepository;
     }
 
     /**
@@ -125,6 +140,14 @@ class DocumentController extends CRUDController
             'pinned'    => 'DESC',
             'createdAt' => 'DESC',
         ];
+
+        // get documents for the current category
+        $request    = $this->requestStack->getCurrentRequest();
+        $categoryId = $request->get('category');
+
+        if ($categoryId && null !== $category = $this->categoryRepository->findOneById($categoryId)) {
+            return $this->repository->findByCategory($category, $order);
+        }
 
         // Everybody can access all documents
         return $this->repository->findAll($order);
@@ -183,6 +206,7 @@ class DocumentController extends CRUDController
      */
     public function listAction(): Response
     {
+        // Set default view to list for current user
         $user = $this->getUser();
         $user->setDocumentView(false);
         $this->entityManager->flush();
@@ -193,13 +217,14 @@ class DocumentController extends CRUDController
         ->findAll();
 
         return $this->render($this->getTemplatingBasePath('list'), [
-            'objects' => $this->getListData(),
+            'objects'    => $this->getListData(),
             'categories' => $categories,
         ]);
     }
 
-    public function gridAction()
+    public function gridAction(): Response
     {
+        // Set default view to list for current user
         $user = $this->getUser();
         $user->setDocumentView(true);
         $this->entityManager->flush();
@@ -210,7 +235,7 @@ class DocumentController extends CRUDController
         ->findAll();
 
         return $this->render($this->getTemplatingBasePath('grid'), [
-            'objects' => $this->getListData(),
+            'objects'    => $this->getListData(),
             'categories' => $categories,
         ]);
     }

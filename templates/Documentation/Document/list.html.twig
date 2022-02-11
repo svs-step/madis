@@ -101,7 +101,14 @@
                                         {# data-count-selected-text="Postcode ({0} items selected)" #}
                                         > 
                                         {% for category in categories %}
-                                            <option value="{{ category.name }}">{{ category.name }}</option>
+                                            <option
+                                                value="{{ category.name }}"
+                                                {% if app.request.get('category') and app.request.get('category') == category.id  %}
+                                                selected="selected"
+                                                {% endif %}
+                                            >
+                                                {{ category.name }}
+                                            </option>
                                         {% endfor %}
                                     </select>
                                 </th>
