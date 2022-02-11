@@ -69,6 +69,7 @@
                             {{ 'documentation.category.action.list'|trans }}
                         </a>
                     {% endif %}
+
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -76,7 +77,6 @@
                                     <input type="checkbox" class="form-check-input" id="search_favorite">
                                     <label class="form-check-label" for="search_favorite">{{ 'documentation.document.list.favorite'|trans }}</label>
                                 </th>
-                                <th></th>
                                 <th>
                                     <select class="form-control" id="search_type" style="width: 100%;">
                                         <option value="" selected>{{ 'documentation.document.list.type'|trans }}</option>
@@ -117,8 +117,8 @@
                             </tr>
                             
                             <tr>
-                                <th>{{ 'documentation.document.list.favorite'|trans }}</th>
                                 <th>{{ 'documentation.document.list.pinned'|trans }}</th>
+                                <th>{{ 'documentation.document.list.favorite'|trans }}</th>
                                 <th>{{ 'documentation.document.list.type'|trans }}</th>
                                 <th>{{ 'documentation.document.list.weight'|trans }}</th>
                                 <th>{{ 'documentation.document.list.name'|trans }}</th>
@@ -129,22 +129,24 @@
 
                         </thead>
                         <tbody>
-
                         {% for object in objects %}
                         <tr>
                             <td class="text-center">
+                                {%  if object.pinned == 1 %}
+                                    <span style="visibility: hidden">{{ object.pinned }}</span>
+                                    <i class="fas fa-paperclip"></i>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
                                 <a href="{{ path('documentation_document_favorite', { 'id': object.id, 'back': app.request.uri }) }}" style="color:#f39c12;">
                                     {% if object.favoritedUsers |filter(f => f.id == app.user.id)|length > 0 %}
+                                        <span style="visibility: hidden">1</span>
                                         <i class="fas fa-star"></i>
                                     {% else %}
+                                        <span style="visibility: hidden">0</span>
                                         <i class="far fa-star"></i>
                                     {% endif %}
                                 </a>
-                            </td>
-                            <td class="text-center">
-                                {% if object.pinned %}
-                                    <i class="fas fa-thumbtack"></i>
-                                {% endif %}
                             </td>
                             <td>
                                 {{ object.typeName }}
@@ -207,9 +209,6 @@
 
 {% endblock %}
 
-{# {% block javascripts %}
-    {{ include('_Utils/_datatable.html.twig') }}
-{% endblock %} #}
 {% block javascripts %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 
@@ -217,12 +216,25 @@
         columns: [
             {"data": "favorite"},
             {"data": "pinned"},
+            {"data": "favorite"},
             {"data": "type"},
             {"data": "weight"},
             {"data": "name"},
             {"data": "category"},
             {"data": "created_at"},
             {"data": "actions", "orderable": false},
+        ],
+        order: [[0,'desc'],[1,'desc'],[6,'desc']],
+        language: {
+            buttons: {
+                colvis: "Colonnes"
+            },
+        },
+        buttons: [
+            {
+                extend: "colvis",
+                columns: ":not(.noVis)"
+            }
         ],
     } %}
 
@@ -262,8 +274,8 @@
             
             $('#search_favorite').off('change');
             $('#search_favorite').change(function(){
-                console.log($(this).prop('checked'), oTable.column('0'))
-                oTable.column('0').search($(this).prop('checked')).draw();
+                console.log($(this).prop('checked'), oTable.column('1'))
+                oTable.column('1').search($(this).prop('checked')).draw();
             });
 
             $('#search_type').off('keyup');
