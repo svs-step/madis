@@ -28,7 +28,7 @@
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.conformite_traitement.action.report'|trans }}
                     </a>
-                    {% if category %}
+                    {% if category and category.documents|length > 0 %}
                         <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
                             <i class="far fa-file"></i>
                             {{ 'documentation.document.link.button'|trans }}
