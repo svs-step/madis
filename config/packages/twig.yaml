@@ -44,5 +44,6 @@ twig:
         tooltip_conformite_organisation_quasi_conforme: '%env(TOOLTIP_CONFORMITE_ORGANISATION_QUASI_CONFORME)%'
         tooltip_conformite_organisation_mesurable: '%env(TOOLTIP_CONFORMITE_ORGANISATION_MESURABLE)%'
         tooltip_conformite_organisation_revisee: '%env(TOOLTIP_CONFORMITE_ORGANISATION_REVISEE)%'
+        app_connexion_status_know: '%env(APP_CONNEXION_STATUS_KNOW)%'
 
 
