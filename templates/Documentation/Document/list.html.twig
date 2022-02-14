@@ -224,6 +224,7 @@
             $('.sharelink').on('click', function() {
                 $('#linkDocument').text($(this).data('id'));
             })
+
         })
 
         function copyToClipBoard() {
@@ -239,6 +240,9 @@
 
         $(function () {
             $('.selectpicker').selectpicker();
+            setTimeout(function() {
+                document.getElementById('search_category').dispatchEvent(new Event('change', { 'bubbles': true }));
+            },200);
         });
 
         function resetFilters() {

@@ -30,6 +30,4 @@ use App\Domain\Documentation\Model\Category;
 interface Document extends CRUDRepositoryInterface
 {
     public function findOneByName(string $name);
-
-    public function findByCategory(Category $category, $order);
 }

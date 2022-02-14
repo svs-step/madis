@@ -141,14 +141,6 @@ class DocumentController extends CRUDController
             'createdAt' => 'DESC',
         ];
 
-        // get documents for the current category
-        $request    = $this->requestStack->getCurrentRequest();
-        $categoryId = $request->get('category');
-
-        if ($categoryId && null !== $category = $this->categoryRepository->findOneById($categoryId)) {
-            return $this->repository->findByCategory($category, $order);
-        }
-
         // Everybody can access all documents
         return $this->repository->findAll($order);
     }
