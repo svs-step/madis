@@ -38,6 +38,7 @@ use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -57,9 +58,14 @@ class DocumentControllerTest extends TestCase
     private $translatorProphecy;
 
     /**
-     * @var Repository\Category
+     * @var Repository\Document
      */
     private $repositoryProphecy;
+
+    /**
+     * @var Repository\Category
+     */
+    private $categoryRepositoryProphecy;
 
     /**
      * @var AuthorizationCheckerInterface
@@ -81,25 +87,34 @@ class DocumentControllerTest extends TestCase
      */
     private $controller;
 
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
     public function setUp(): void
     {
         $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
         $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);
         $this->repositoryProphecy             = $this->prophesize(Repository\Document::class);
+        $this->categoryRepositoryProphecy     = $this->prophesize(Repository\Category::class);
         $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
         $this->pdf                            = $this->prophesize(Pdf::class);
         $this->documentFilesystem             = $this->prophesize(FilesystemInterface::class);
         $this->thumbFilesystem                = $this->prophesize(FilesystemInterface::class);
+        $this->requestStack                   = $this->prophesize(RequestStack::class);
         $this->controller                     = new DocumentController(
             $this->managerProphecy->reveal(),
             $this->translatorProphecy->reveal(),
             $this->repositoryProphecy->reveal(),
+            $this->categoryRepositoryProphecy->reveal(),
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
             $this->documentFilesystem->reveal(),
             $this->thumbFilesystem->reveal(),
-            $this->pdf->reveal()
+            $this->pdf->reveal(),
+            $this->requestStack->reveal(),
         );
     }
 
