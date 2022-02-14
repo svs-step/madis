@@ -78,6 +78,11 @@ class ModeleToAnalyseConverter
             $scenario->setPrecisions($scenarioModele->getPrecisions());
             $scenario->setAnalyseImpact($analyseImpact);
             $scenario->setMesuresProtections(self::convertMesuresProtections($scenarioModele, $scenario));
+            if ($scenarioModele->isDisponibilite() || $scenarioModele->isIntegrite() || $scenarioModele->isConfidentialite()) {
+                $scenario->setCanDicBeModified(false);
+            } else {
+                $scenario->setCanDicBeModified(true);
+            }
             $res[] = $scenario;
         }
 
