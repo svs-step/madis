@@ -133,6 +133,7 @@ class CollectivityType extends AbstractType
                 ->add('isServicesEnabled', CheckboxType::class, [
                     'label'     => 'user.collectivity.form.is_services_enabled',
                     'required'  => false,
+                    'data'      => false,
                 ])
             ;
         }

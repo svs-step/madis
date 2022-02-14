@@ -216,9 +216,10 @@ class ViolationController extends CRUDController
     private function getActionCellsContent(Model\Violation $violation)
     {
         $cellContent = '';
+        $user        = $this->userProvider->getAuthenticatedUser();
         if ($this->authorizationChecker->isGranted('ROLE_USER')
         && \is_null($violation->getDeletedAt())
-        && $this->isRequestInUserServices($violation)) {
+        && ($user->getServices()->isEmpty() || $this->isRequestInUserServices($violation))) {
             $cellContent .= '<a href="' . $this->router->generate('registry_violation_edit', ['id' => $violation->getId()]) . '">
                     <i class="fa fa-pencil-alt"></i> ' .
                     $this->translator->trans('action.edit') . '
