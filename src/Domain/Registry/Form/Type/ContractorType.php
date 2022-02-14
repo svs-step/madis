@@ -44,6 +44,7 @@ class ContractorType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $contractor = $options['data'];
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'registry.contractor.form.name',
@@ -55,8 +56,12 @@ class ContractorType extends AbstractType
             ->add('service', EntityType::class, [
                 'class'         => Service::class,
                 'label'         => 'registry.treatment.form.service',
-                'query_builder' => function (EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) use ($contractor) {
+                    $collectivity = $contractor->getCollectivity();
+
                     return $er->createQueryBuilder('s')
+                        ->where('s.collectivity = :collectivity')
+                        ->setParameter(':collectivity', $collectivity)
                         ->orderBy('s.name', 'ASC');
                 },
                 'required'      => false,

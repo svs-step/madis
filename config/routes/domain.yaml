@@ -17,4 +17,4 @@ _domain_user:
     resource: ../domain/user/routes/_index.yaml
 
 _domain_public:
-    resource: ../domain/publique/routes/_index.yaml
+    resource: ../domain/public/routes/_index.yaml

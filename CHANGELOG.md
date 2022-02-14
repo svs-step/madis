@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+## [1.8.4] - 2022-02-14
+### Changement
+- Correction d'une erreur entraînant la multiplication des éléments dupliqués
+- Correction d'un bug affichant tous les services de toutes les collectivités sur certains éléments
+- Ajout de la possibilité pour un utilisateur sans service de modifier tous les éléments de sa collectivité quelque soit le service
+- Renommage "publique" en "public"
+
 ## [1.8.3] - 2022-02-02
 ### Changement
 - Correction d'une erreur empêchant l'affichage de la liste des traitements
@@ -13,12 +20,12 @@ CHANGELOG
 ## [1.8.1] - 2022-01-17
 ### Changement
 - Corrections de diverses erreur mineures
-- Registre publique : suppression des liens
+- Registre public : suppression des liens
 
 ## [1.8] - 2022-01-05
 ### Changement
 - Ajout des webservices
-- Ajout du registre grand publique
+- Ajout du registre grand public
 - Nombreuses améliorations ergonomiques diverses
 - Nombreuses corrections et améliorations mineures
 
