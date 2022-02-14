@@ -62,13 +62,13 @@
 
                         <div class="dt-button-collection" style="top: 34px; left: 0px;">
                             <div role="menu">
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis" type="button" data-column="2">
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="2">
                                     <span>{{ 'documentation.document.list.type'|trans }}</span>
                                 </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis" type="button" data-column="3">
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="3">
                                     <span>{{ 'documentation.document.list.weight'|trans }}</span>
                                 </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis" type="button" data-column="6">
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="6">
                                     <span>{{ 'documentation.document.list.created_at'|trans }}</span>
                                 </button>
                             </div>
@@ -378,6 +378,8 @@
 
         $(document).ready(function() {
             $('#table_filter').hide();
+            $('.dt-button-background').hide();
+            $('.dt-button-collection').hide();
             setEvents();
 
             // Affichage/Masquage d'une colonne
@@ -389,7 +391,17 @@
 
                 // Toggle the visibility
                 column.visible( ! column.visible() );
-            } );
+            });
+
+            $('.dt-button-background').on('click',function(){
+                $('.dt-button-background').hide();
+                $('.dt-button-collection').hide();
+            });
+
+            $('.buttons-colvis').on('click',function(){
+                $('.dt-button-background').show();
+                $('.dt-button-collection').show();
+            });
         } );
 
         $('#table').on('column-visibility.dt', function() {
