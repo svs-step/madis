@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+## [1.8.4] - 2022-02-14
+### Changement
+- Correction d'une erreur entraînant la multiplication des éléments dupliqués
+- Correction d'un bug affichant tous les services de toutes les collectivités sur certains éléments
+- Ajout de la possibilité pour un utilisateur sans service de modifier tous les éléments de sa collectivité quelque soit le service
+- Renommage "publique" en "public"
+
 ## [1.8.3] - 2022-02-02
 ### Changement
 - Correction d'une erreur empêchant l'affichage de la liste des traitements
