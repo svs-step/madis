@@ -26,6 +26,7 @@ namespace App\Tests\Domain\User\Form\Type;
 
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Form\Type\UserType;
+use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
@@ -70,6 +71,8 @@ class UserTypeTest extends FormTypeHelper
      */
     private $formType;
 
+    private User $user;
+
     protected function setUp()
     {
         $this->authorizationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
@@ -84,6 +87,11 @@ class UserTypeTest extends FormTypeHelper
             $this->encoderFactoryProphecy->reveal(),
             $this->security->reveal(),
         );
+
+        $this->user   = new User();
+        $collectivity = new Collectivity();
+        $collectivity->setIsServicesEnabled(true);
+        $this->user->setCollectivity($collectivity);
     }
 
     public function testInstanceOf()
@@ -121,7 +129,7 @@ class UserTypeTest extends FormTypeHelper
             ->shouldBeCalled()
         ;
 
-        $this->formType->buildForm($builderProphecy->reveal(), []);
+        $this->formType->buildForm($builderProphecy->reveal(), ['data' => $this->user]);
     }
 
     public function testBuildFormUser()
@@ -147,7 +155,7 @@ class UserTypeTest extends FormTypeHelper
             ->shouldBeCalled()
         ;
 
-        $this->formType->buildForm($builderProphecy->reveal(), []);
+        $this->formType->buildForm($builderProphecy->reveal(), ['data' => $this->user]);
     }
 
     public function testConfigureOptions(): void

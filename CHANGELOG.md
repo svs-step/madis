@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## [1.8.3] - 2022-02-02
+### Changement
+- Correction d'une erreur empêchant l'affichage de la liste des traitements
+
 ## [1.8.2] - 2022-01-27
 ### Changement
 - Correction d'un bug rendant incorrect le nombre d'élément affiché dans le texte des tableaux #391
@@ -9,12 +13,12 @@ CHANGELOG
 ## [1.8.1] - 2022-01-17
 ### Changement
 - Corrections de diverses erreur mineures
-- Registre publique : suppression des liens
+- Registre public : suppression des liens
 
 ## [1.8] - 2022-01-05
 ### Changement
 - Ajout des webservices
-- Ajout du registre grand publique
+- Ajout du registre grand public
 - Nombreuses améliorations ergonomiques diverses
 - Nombreuses corrections et améliorations mineures
 

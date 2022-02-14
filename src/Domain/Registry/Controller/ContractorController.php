@@ -275,7 +275,8 @@ class ContractorController extends CRUDController
 
     private function getActionCellsContent(Contractor $sousTraitant)
     {
-        if ($this->isContractorInUserServices($sousTraitant)) {
+        $user = $this->userProvider->getAuthenticatedUser();
+        if ($user->getServices()->isEmpty() || $this->isContractorInUserServices($sousTraitant)) {
             $cellContent =
                 '<a href="' . $this->router->generate('registry_contractor_edit', ['id' => $sousTraitant->getId()]) . '">
                     <i class="fa fa-pencil-alt"></i>' .

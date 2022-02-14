@@ -47,6 +47,7 @@ class RequestType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $request = $options['data'];
         $builder
             ->add('object', DictionaryType::class, [
                 'label'    => 'registry.request.form.object',
@@ -57,8 +58,12 @@ class RequestType extends AbstractType
             ->add('service', EntityType::class, [
                 'class'         => Service::class,
                 'label'         => 'registry.treatment.form.service',
-                'query_builder' => function (EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) use ($request) {
+                    $collectivity = $request->getCollectivity();
+
                     return $er->createQueryBuilder('s')
+                        ->where('s.collectivity = :collectivity')
+                        ->setParameter(':collectivity', $collectivity)
                         ->orderBy('s.name', 'ASC');
                 },
                 'required'      => false,

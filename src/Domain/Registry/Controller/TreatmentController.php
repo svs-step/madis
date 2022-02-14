@@ -239,7 +239,7 @@ class TreatmentController extends CRUDController
 
         return $this->render($this->getTemplatingBasePath('public_list'), [
             'objects'      => $objects,
-            'route'        => '/publique/traitements/datatables?active=1',
+            'route'        => '/public/traitements/datatables?active=1',
             'totalItem'    => count($objects),
             'collectivity' => $collectivity,
         ]);
@@ -399,7 +399,8 @@ class TreatmentController extends CRUDController
     {
         $id = $treatment->getId();
 
-        if ($this->isTreatmentInUserServices($treatment)) {
+        $user = $this->userProvider->getAuthenticatedUser();
+        if ($user->getServices()->isEmpty() || $this->isTreatmentInUserServices($treatment)) {
             $editPath   = $this->router->generate('registry_treatment_edit', ['id' => $id]);
             $deletePath = $this->router->generate('registry_treatment_delete', ['id' => $id]);
 

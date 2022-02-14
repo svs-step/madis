@@ -85,7 +85,8 @@ class UserType extends AbstractType
             $options['data']->setRoles(array_diff($options['data']->getRoles(), ['ROLE_API']));
         }
 
-        $serviceDisabled = true;
+        $collectivity    = $options['data']->getCollectivity();
+        $serviceDisabled = !$collectivity->getIsServicesEnabled();
         /** @var User $authenticatedUser */
         $authenticatedUser = $this->security->getUser();
 
@@ -93,7 +94,6 @@ class UserType extends AbstractType
 
         // Add collectivity general information only for admins
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $serviceDisabled = false;
             $builder
                 ->add('collectivity', EntityType::class, [
                     'class'         => Collectivity::class,
@@ -144,19 +144,15 @@ class UserType extends AbstractType
             ;
         }
 
-        if ($this->authorizationChecker->isGranted('ROLE_PREVIEW')) {
+        if ($this->authorizationChecker->isGranted('ROLE_PREVIEW') && !$serviceDisabled) {
             $builder->add('services', EntityType::class, [
                 'class'         => Service::class,
                 'label'         => 'user.user.form.services',
                 'disabled'      => $serviceDisabled,
                 'required'      => false,
-                'multiple'      => true,
+                'multiple'      => false,
                 'expanded'      => false,
-                'attr'          => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
-                ],
-                'query_builder' => function (EntityRepository $er) use ($serviceDisabled, $authenticatedUser) {
+                'query_builder' => function (EntityRepository $er) use ($serviceDisabled, $authenticatedUser, $collectivity) {
                     if ($serviceDisabled) {
                         return $er->createQueryBuilder('s')
                         ->where(':user MEMBER OF s.users')
@@ -164,7 +160,10 @@ class UserType extends AbstractType
                         ->orderBy('s.name', 'ASC');
                     }
 
-                    return $er->createQueryBuilder('s');
+                    return $er->createQueryBuilder('s')
+                        ->where('s.collectivity = :collectivity')
+                        ->setParameter(':collectivity', $collectivity)
+                        ->orderBy('s.name', 'ASC');
                 },
             ]);
         }

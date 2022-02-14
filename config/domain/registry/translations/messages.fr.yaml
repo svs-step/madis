@@ -364,7 +364,7 @@ registry:
             name: Nom
             observation: Observations
             paper_processing: Traitement papier
-            public: Publique
+            public: Public
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
             security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
@@ -398,7 +398,7 @@ registry:
             name: Nom
             open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
             other: Autres
-            public: Publique
+            public: Public
             responsable_traitement: Responsable traitement
             saving: Sauvegarde
             specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
@@ -449,8 +449,8 @@ registry:
             observation: Observations
             paper_processing: Traitement papier
             proofs: Documents associés
-            public: Publique
-            public_register: Registre publique
+            public: Public
+            public_register: Registre public
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
             security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
@@ -482,7 +482,7 @@ registry:
           historic: Historique
           last_aipd: Dernière analyse d'impact réalisée
           proofs: Documents associés
-          public: Registre publique
+          public: Registre public
           recipients: Destination
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
