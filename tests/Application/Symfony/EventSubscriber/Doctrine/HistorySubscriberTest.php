@@ -103,7 +103,7 @@ class HistorySubscriberTest extends TestCase
      */
     public function testPreUpdate()
     {
-        $dateTime = new \DateTimeImmutable('-5 days');
+        $dateTime = (new \DateTimeImmutable())->modify('-5 days');
         $object   = new class() {
             use HistoryTrait;
         };
@@ -112,8 +112,9 @@ class HistorySubscriberTest extends TestCase
 
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
 
-        $this->assertEquals($object->getCreatedAt(), $object->getUpdatedAt());
-        $this->subscriber->prePersist($this->lifeCycleEventArgsProphecy->reveal());
-        $this->assertNotEquals($object->getCreatedAt(), $object->getUpdatedAt());
+        $this->assertEquals($object->getCreatedAt()->format('Y-m-d H:i:s'), $object->getUpdatedAt()->format('Y-m-d H:i:s'));
+        $this->subscriber->preUpdate($this->lifeCycleEventArgsProphecy->reveal());
+
+        $this->assertNotEquals($object->getCreatedAt()->format('Y-m-d H:i:s'), $object->getUpdatedAt()->format('Y-m-d H:i:s'));
     }
 }
