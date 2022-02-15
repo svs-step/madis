@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## [1.8.5] - 2022-02-15
+### Changement
+- Correction d'un bug affichant les services dans les éléments d'une collectivité n'ayant pas de services
+
 ## [1.8.4] - 2022-02-14
 ### Changement
 - Correction d'une erreur entraînant la multiplication des éléments dupliqués
