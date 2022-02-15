@@ -33,7 +33,6 @@ documentation:
                 edit: Document "%object%" modifié avec succès
                 delete: Document "%object%" supprimé avec succès
         list:
-            pinned: Epinglé
             favorite: Favoris
             type: Type
             weight: Poids
@@ -41,6 +40,7 @@ documentation:
             category: Catégorie
             created_at: Date de création
             score: Score
+            pinned: Épinglé
             favorited: Favori
             thumbnail: Télécharger
         title:

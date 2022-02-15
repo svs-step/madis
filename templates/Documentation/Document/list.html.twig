@@ -39,6 +39,7 @@
                                 {{ 'documentation.document.action.new'|trans }}
                                 <span class="caret"></span>
                             </button>
+                            <div class="dt-button-background" style=""></div>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
                                 <li><a href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
@@ -53,31 +54,45 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
-                
-                    {# SWITCH GRID LIST #}
-                    {% if is_granted('ROLE_USER') %}
-                        <a href="{{ path('documentation_document_grid') }}" class="btn btn-default">
-                            <i class="fas fa-th"></i>
-                            {{ 'documentation.document.action.grid'|trans }}
-                        </a>
-                    {% endif %}
+                    <div class="dt-buttons">
+                        {# SWITCH GRID LIST #}
+                        {% if is_granted('ROLE_USER') %}
+                            <a href="{{ path('documentation_document_grid') }}" class="btn btn-default">
+                                <i class="fas fa-th"></i>
+                                {{ 'documentation.document.action.grid'|trans }}
+                            </a>
+                        {% endif %}
 
-                    <button id="button-column" class="btn btn-warning">
-                        Colonnes
-                    </button>
-                    
-                    {# RESET FILTERS #}
-                    <button id="button-reset" class="btn btn-default">
-                        Réinitialiser les filtres
-                    </button>
+                        <button class="btn dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="example" type="button" aria-haspopup="true" aria-expanded="false">
+                            <span>Colonnes</span>
+                            <span class="dt-down-arrow"></span>
+                        </button>
 
-                    {# Uniquement pour les DPO #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
-                            {{ 'documentation.category.action.list'|trans }}
-                        </a>
-                    {% endif %}
+                        <div class="dt-button-collection" style="top: 34px; left: 0px;">
+                            <div role="menu">
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="2">
+                                    <span>{{ 'documentation.document.list.type'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="3">
+                                    <span>{{ 'documentation.document.list.weight'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="6">
+                                    <span>{{ 'documentation.document.list.created_at'|trans }}</span>
+                                </button>
+                            </div>
+                        </div>
 
+                        <button id="button-reset" class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="table" type="button" aria-haspopup="true" aria-expanded="false">
+                            <span>Réinitialiser les filtres</span>
+                        </button>
+
+                        {# Uniquement pour les DPO #}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                                {{ 'documentation.category.action.list'|trans }}
+                            </a>
+                        {% endif %}
+                    </div>
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -86,6 +101,7 @@
                                     <input type="checkbox" class="form-check-input" id="search_favorite">
                                     <label class="form-check-label" for="search_favorite">{{ 'documentation.document.list.favorite'|trans }}</label>
                                 </th>
+                                <th></th>
                                 <th>
                                     <select class="form-control" id="search_type" style="width: 100%;">
                                         <option value="" selected>{{ 'documentation.document.list.type'|trans }}</option>
@@ -123,7 +139,7 @@
                             
                             <tr>
                                 <th>{{ 'documentation.document.list.pinned'|trans }}</th>
-                                <th>{{ 'documentation.document.list.favorite'|trans }}</th>
+                                <th>{{ 'documentation.document.list.favorited'|trans }}</th>
                                 <th>{{ 'documentation.document.list.type'|trans }}</th>
                                 <th>{{ 'documentation.document.list.weight'|trans }}</th>
                                 <th>{{ 'documentation.document.list.name'|trans }}</th>
@@ -210,6 +226,82 @@
         </div>
     </div>
 
+    <style>
+        div.dt-button-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            background: -ms-radial-gradient(center, ellipse farthest-corner, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            background: -moz-radial-gradient(center, ellipse farthest-corner, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            background: -o-radial-gradient(center, ellipse farthest-corner, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            background: -webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, rgba(0,0,0,0.3)), color-stop(1, rgba(0,0,0,0.7)));
+            background: -webkit-radial-gradient(center, ellipse farthest-corner, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            background: radial-gradient(ellipse farthest-corner at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 2001;
+        }
+
+        div.dt-button-collection {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 150px;
+            margin-top: 3px;
+            padding: 8px 8px 4px 8px;
+            border: 1px solid rgba(0,0,0,0.4);
+            background-color: white;
+            overflow: hidden;
+            z-index: 2002;
+            border-radius: 5px;
+            box-shadow: 3px 3px 5px rgb(0 0 0 / 30%);
+            box-sizing: border-box;
+        }
+
+        div.dt-button-collection button.dt-button:active:not(.disabled), div.dt-button-collection button.dt-button.active:not(.disabled), div.dt-button-collection div.dt-button:active:not(.disabled), div.dt-button-collection div.dt-button.active:not(.disabled), div.dt-button-collection a.dt-button:active:not(.disabled), div.dt-button-collection a.dt-button.active:not(.disabled) {
+            background-color: #dadada;
+            background-image: -webkit-linear-gradient(top, #f0f0f0 0%, #dadada 100%);
+            background-image: -moz-linear-gradient(top, #f0f0f0 0%, #dadada 100%);
+            background-image: -ms-linear-gradient(top, #f0f0f0 0%, #dadada 100%);
+            background-image: -o-linear-gradient(top, #f0f0f0 0%, #dadada 100%);
+            background-image: linear-gradient(to bottom, #f0f0f0 0%, #dadada 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f0f0f0', EndColorStr='#dadada');
+            box-shadow: inset 1px 1px 3px #666;
+        }
+
+        button.dt-button, div.dt-button, a.dt-button {
+            position: relative;
+            display: inline-block;
+            box-sizing: border-box;
+            margin-right: 0.333em;
+            margin-bottom: 0.333em;
+            padding: 0.5em 1em;
+            border: 1px solid #999;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 0.88em;
+            line-height: 1.6em;
+            color: black;
+            white-space: nowrap;
+            overflow: hidden;
+            background-color: #e9e9e9;
+            background-image: -webkit-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+            background-image: -moz-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+            background-image: -ms-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+            background-image: -o-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+            background-image: linear-gradient(to bottom, #fff 0%, #e9e9e9 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='white', EndColorStr='#e9e9e9');
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            text-decoration: none;
+            outline: none;
+            text-overflow: ellipsis;
+        }
+    </style>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -226,18 +318,26 @@
             {"data": "created_at"},
             {"data": "actions", "orderable": false},
         ],
+
         order: [[0,'desc'],[6,'desc']],
         language: {
             buttons: {
                 colvis: "Colonnes"
             },
         },
-        buttons: [
+        dom: 'Bfrtip',
+        columnDefs: [
             {
-                extend: "colvis",
-                columns: ":not(.noVis)"
+                targets: 4,
+                className: 'noVis'
             }
         ],
+        buttons: [
+            {
+                extend: 'colvis',
+                columns: ':not(.noVis)'
+            }
+        ]
     } %}
 
     {# {{ include('_Utils/_serverside_datatable.html.twig') }} #}
@@ -285,7 +385,11 @@
             $('#search_favorite').off('change');
             $('#search_favorite').change(function(){
                 console.log($(this).prop('checked'), oTable.column('1'))
+<<<<<<< HEAD
                 oTable.column('1').search($(this).prop('checked') ? "1" : "").draw();
+=======
+                oTable.column('1').search($(this).prop('checked')).draw();
+>>>>>>> feature/doc-seb4
             });
 
             $('#search_type').off('change');
@@ -318,7 +422,30 @@
 
         $(document).ready(function() {
             $('#table_filter').hide();
+            $('.dt-button-background').hide();
+            $('.dt-button-collection').hide();
             setEvents();
+
+            // Affichage/Masquage d'une colonne
+            $('.toggle-vis').on( 'click', function (e) {
+                e.preventDefault();
+                var table = $('#table').DataTable();
+                // Get the column API object
+                var column = table.column( $(this).attr('data-column') );
+
+                // Toggle the visibility
+                column.visible( ! column.visible() );
+            });
+
+            $('.dt-button-background').on('click',function(){
+                $('.dt-button-background').hide();
+                $('.dt-button-collection').hide();
+            });
+
+            $('.buttons-colvis').on('click',function(){
+                $('.dt-button-background').show();
+                $('.dt-button-collection').show();
+            });
         } );
 
         $('#table').on('column-visibility.dt', function() {
