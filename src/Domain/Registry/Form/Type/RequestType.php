@@ -55,19 +55,25 @@ class RequestType extends AbstractType
                 'required' => true,
                 'expanded' => true,
             ])
-            ->add('service', EntityType::class, [
-                'class'         => Service::class,
-                'label'         => 'registry.treatment.form.service',
-                'query_builder' => function (EntityRepository $er) use ($request) {
-                    $collectivity = $request->getCollectivity();
+        ;
+        if ($request->getCollectivity()->getIsServicesEnabled()) {
+            $builder
+                ->add('service', EntityType::class, [
+                    'class'         => Service::class,
+                    'label'         => 'registry.treatment.form.service',
+                    'query_builder' => function (EntityRepository $er) use ($request) {
+                        $collectivity = $request->getCollectivity();
 
-                    return $er->createQueryBuilder('s')
-                        ->where('s.collectivity = :collectivity')
-                        ->setParameter(':collectivity', $collectivity)
-                        ->orderBy('s.name', 'ASC');
-                },
-                'required'      => false,
-            ])
+                        return $er->createQueryBuilder('s')
+                            ->where('s.collectivity = :collectivity')
+                            ->setParameter(':collectivity', $collectivity)
+                            ->orderBy('s.name', 'ASC');
+                    },
+                    'required' => false,
+                ])
+            ;
+        }
+        $builder
             ->add('otherObject', TextType::class, [
                 'label'    => 'registry.request.form.other_object',
                 'required' => false,

@@ -53,19 +53,25 @@ class ContractorType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
-            ->add('service', EntityType::class, [
-                'class'         => Service::class,
-                'label'         => 'registry.treatment.form.service',
-                'query_builder' => function (EntityRepository $er) use ($contractor) {
-                    $collectivity = $contractor->getCollectivity();
+        ;
+        if ($contractor->getCollectivity()->getIsServicesEnabled()) {
+            $builder
+                ->add('service', EntityType::class, [
+                    'class'         => Service::class,
+                    'label'         => 'registry.treatment.form.service',
+                    'query_builder' => function (EntityRepository $er) use ($contractor) {
+                        $collectivity = $contractor->getCollectivity();
 
-                    return $er->createQueryBuilder('s')
-                        ->where('s.collectivity = :collectivity')
-                        ->setParameter(':collectivity', $collectivity)
-                        ->orderBy('s.name', 'ASC');
-                },
-                'required'      => false,
-            ])
+                        return $er->createQueryBuilder('s')
+                            ->where('s.collectivity = :collectivity')
+                            ->setParameter(':collectivity', $collectivity)
+                            ->orderBy('s.name', 'ASC');
+                    },
+                    'required' => false,
+                ])
+            ;
+        }
+        $builder
             ->add('referent', TextType::class, [
                 'label'    => 'registry.contractor.form.referent',
                 'required' => false,

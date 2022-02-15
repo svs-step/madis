@@ -150,7 +150,7 @@ class UserType extends AbstractType
                 'label'         => 'user.user.form.services',
                 'disabled'      => $serviceDisabled,
                 'required'      => false,
-                'multiple'      => false,
+                'multiple'      => true,
                 'expanded'      => false,
                 'query_builder' => function (EntityRepository $er) use ($serviceDisabled, $authenticatedUser, $collectivity) {
                     if ($serviceDisabled) {
