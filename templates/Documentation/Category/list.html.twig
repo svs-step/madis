@@ -31,7 +31,7 @@
                         <i class="fa fa-plus"></i>
                         {{ 'documentation.category.action.new'|trans }}
                     </a>
-                    <a href="{{ path('documentation_category_create') }}" class="btn btn-default">
+                    <a href="{{ path('documentation_document_index') }}" class="btn btn-default">
                         <i class="fa fa-file"></i>
                         {{ 'documentation.category.action.files'|trans }}
                     </a>
@@ -45,7 +45,6 @@
                 {% if is_granted('ROLE_ADMIN') %}
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
-                            
                             <tr>
                                 <th>{{ 'documentation.category.list.name'|trans }}</th>
                                 <th>{{ 'documentation.category.list.count'|trans }}</th>
@@ -55,7 +54,7 @@
                         <tbody>
                         {% for object in objects %}
                         <tr>
-                            <td>{{ object.name }}</td>
+                            <td><a href="{{ path('documentation_document_index') }}?category={{ object.id }}">{{ object.name }}</a></td>
                             <td>
                                 <a href="{{ path('documentation_document_index') }}?category={{ object.id }}">{{ object.documents|length }}</a>
                             </td>

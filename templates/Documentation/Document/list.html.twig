@@ -3,6 +3,14 @@
 {% set bodyClass = 'documentation_document list' %}
 {% set menuItem = 'documentation_document' %}
 
+{% set activeCategories = [] %}
+
+{% for object in objects %}
+    {% for cat in object.categories %}
+        {% set activeCategories = activeCategories|merge([cat.name]) %}
+    {% endfor %}
+{% endfor %}
+
 {% block title %}{{ 'documentation.document.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
@@ -93,23 +101,19 @@
                                 <th>
                                     <select class="form-control selectpicker" id="search_category" style="width: 100%;" 
                                         multiple 
-                                        {# data-placeholder="My placeholder" data-prefix="My custom prefix:" #}
-                                        {# data-selected-text-format="values" #}
                                         title="Catégories" 
-                                        {#  data-none-selected-text="Catégories" #}
-                                        {# data-live-search="true" #}
-                                        {# data-selected-text-format="count" #}
-                                        {# data-count-selected-text="Postcode ({0} items selected)" #}
                                         > 
                                         {% for category in categories %}
-                                            <option
-                                                value="{{ category.name }}"
-                                                {% if app.request.get('category') and app.request.get('category') == category.id  %}
-                                                selected="selected"
-                                                {% endif %}
-                                            >
-                                                {{ category.name }}
-                                            </option>
+                                            {% if category.name in activeCategories %}
+                                                <option
+                                                        value="{{ category.name }}"
+                                                        {% if app.request.get('category') and app.request.get('category') == category.id  %}
+                                                        selected="selected"
+                                                        {% endif %}
+                                                    >
+                                                        {{ category.name }}
+                                                    </option>
+                                            {% endif %}
                                         {% endfor %}
                                     </select>
                                 </th>
@@ -222,7 +226,7 @@
             {"data": "created_at"},
             {"data": "actions", "orderable": false},
         ],
-        order: [[0,'desc'],[1,'desc'],[6,'desc']],
+        order: [[0,'desc'],[6,'desc']],
         language: {
             buttons: {
                 colvis: "Colonnes"
@@ -245,14 +249,10 @@
             })
 
             // SET FAVORITE ICON
-            console.log($('.favorite > a'))
-
             $('.favorite > a').each( (fav, obj) => {
                 obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i>' : '<i data-value="0" class="far fa-star"></i>'
             })
-
         })
-
 
         function copyToClipBoard() {
             var text = $('#linkDocument').text();
