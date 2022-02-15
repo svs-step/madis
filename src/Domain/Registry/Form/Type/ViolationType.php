@@ -57,7 +57,9 @@ class ViolationType extends AbstractType
                     'class' => 'datepicker',
                 ],
             ])
-            ->add('service', EntityType::class, [
+        ;
+        if ($violation->getCollectivity()->getIsServicesEnabled()) {
+            $builder->add('service', EntityType::class, [
                 'class'         => Service::class,
                 'label'         => 'registry.treatment.form.service',
                 'query_builder' => function (EntityRepository $er) use ($violation) {
@@ -69,7 +71,9 @@ class ViolationType extends AbstractType
                         ->orderBy('s.name', 'ASC');
                 },
                 'required'      => false,
-            ])
+            ]);
+        }
+        $builder
             ->add('inProgress', CheckboxType::class, [
                 'label'    => 'registry.violation.form.in_progress',
                 'required' => false,
