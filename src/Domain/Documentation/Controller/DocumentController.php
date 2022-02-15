@@ -135,6 +135,17 @@ class DocumentController extends CRUDController
     /**
      * {@inheritdoc}
      */
+    protected function getRouteName(string $template = null): string
+    {
+        if ($template === 'list') {
+            return "{$this->getDomain()}_{$this->getModel()}_index";
+        }
+        return "{$this->getDomain()}_{$this->getModel()}_{$template}";
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function getListData()
     {
         $order = [
