@@ -337,6 +337,10 @@ class TreatmentType extends AbstractType
                 'required'    => false,
                 'placeholder' => 'placeholder.precision',
             ])
+            ->add('dpoMessage', TextType::class, [
+                'label'       => 'registry.treatment.form.dpoMessage',
+                'required'    => false,
+            ])
         ;
 
         // Check if services are enabled for the collectivity's treatment
