@@ -382,6 +382,13 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $service;
 
     /**
+     * FR: Préconisation DPO.
+     *
+     * @var string|null
+     */
+    private $dpoMessage;
+
+    /**
      * Treatment constructor.
      *
      * @throws \Exception
@@ -974,5 +981,15 @@ class Treatment implements LoggableSubject, CollectivityRelated
         }
 
         return $result;
+    }
+
+    public function getDpoMessage(): ?string
+    {
+        return $this->dpoMessage;
+    }
+
+    public function setDpoMessage(?string $dpoMessage): void
+    {
+        $this->dpoMessage = $dpoMessage;
     }
 }

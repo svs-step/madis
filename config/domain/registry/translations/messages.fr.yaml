@@ -485,6 +485,7 @@ registry:
           recipients: Destination
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
+          dpo_message: Préconisations DPO
 
     violation:
         action:
