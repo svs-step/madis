@@ -325,7 +325,7 @@ class MesurementController extends CRUDController
         $isActionPlan = $request->query->getBoolean('action_plan');
 
         if ($isActionPlan) {
-            return  [
+            return [
                 0 => 'nom',
                 1 => 'collectivite',
                 2 => 'date_planification',

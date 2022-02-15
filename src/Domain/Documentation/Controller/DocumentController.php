@@ -219,7 +219,6 @@ class DocumentController extends CRUDController
         // var_dump($user_meta);
         // {{ object.categories|map(c => "#{c.name}") | join(', ') }}
 
-
         return $this->render($this->getTemplatingBasePath('list'), [
             'objects'    => $this->getListData(),
             'categories' => $categories,

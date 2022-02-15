@@ -283,7 +283,7 @@ class Proof implements Repository\Proof
     /**
      * {@inheritdoc}
      */
-    public function findOneOrNullByTypeAndCollectivity(string $type, Collectivity $collectivity): ?\App\Domain\Registry\Model\Proof
+    public function findOneOrNullByTypeAndCollectivity(string $type, Collectivity $collectivity): ?Model\Proof
     {
         $qb = $this->createQueryBuilder();
 
