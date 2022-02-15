@@ -11,6 +11,13 @@ use Symfony\Component\Validator\Constraints\File;
 
 class ImportModeleType extends AbstractType
 {
+    protected string $maxSize;
+
+    public function __construct(string $maxSize)
+    {
+        $this->maxSize = $maxSize;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -19,7 +26,7 @@ class ImportModeleType extends AbstractType
                 'label'       => 'Sélectionner un fichier XML à importer',
                 'constraints' => [
                     new File([
-                        'maxSize'   => '3072k',
+                        'maxSize'   => $this->maxSize,
                         'mimeTypes' => [
                             'application/xml',
                             'text/xml',

@@ -39,15 +39,18 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Image;
 
 class DocumentType extends AbstractType implements EventSubscriberInterface
 {
-    private $requestStack;
+    private RequestStack $requestStack;
+    private string $maxSize;
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack, string $maxSize)
     {
         $this->requestStack = $requestStack;
+        $this->maxSize      = $maxSize;
     }
 
     /**
@@ -77,6 +80,10 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                 'required'    => false,
                 'constraints' => [
                     new Image(['groups' => ['default']]),
+                    new File([
+                        'maxSize'   => $this->maxSize,
+                        'groups'    => ['default'],
+                    ]),
                 ],
                 'attr'     => [
                     'accept' => 'image/*',
@@ -129,8 +136,14 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
             ]);
         } else {
             $form->add('uploadedFile', FileType::class, [
-                'label'    => 'documentation.document.form.label.file',
-                'required' => false,
+                'label'       => 'documentation.document.form.label.file',
+                'required'    => false,
+                'constraints' => [
+                    new File([
+                        'maxSize'   => $this->maxSize,
+                        'groups'    => ['default'],
+                    ]),
+                ],
             ]);
         }
     }

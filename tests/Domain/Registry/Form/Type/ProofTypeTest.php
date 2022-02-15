@@ -56,7 +56,8 @@ class ProofTypeTest extends FormTypeHelper
         $this->security = $this->prophesize(Security::class);
 
         $this->sut = new ProofType(
-            $this->security->reveal()
+            $this->security->reveal(),
+            '4M',
         );
 
         $user         = new UserModel\User();

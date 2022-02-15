@@ -51,7 +51,7 @@ class DocumentTypeTest extends FormTypeHelper
 
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, new DocumentType($this->requestStack));
+        $this->assertInstanceOf(AbstractType::class, new DocumentType($this->requestStack, '4M'));
     }
 
     public function testBuildForm()
@@ -64,7 +64,7 @@ class DocumentTypeTest extends FormTypeHelper
             'thumbUploadedFile' => FileType::class,
         ];
 
-        $dt = new DocumentType($this->requestStack);
+        $dt = new DocumentType($this->requestStack, '4M');
 
         $prophecy = $this->prophesizeBuilder($builder, true, $dt);
 
@@ -84,6 +84,6 @@ class DocumentTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new DocumentType($this->requestStack))->configureOptions($resolverProphecy->reveal());
+        (new DocumentType($this->requestStack, '4M'))->configureOptions($resolverProphecy->reveal());
     }
 }
