@@ -320,6 +320,38 @@ td.reponse-vertical-align {
     border-top: none !important;
   }
 }
+.border-0 {
+  border: none;
+}
 shadow {
   box-shadow : 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+#documentation-grid tr {
+  display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+#documentation-grid>tbody>tr>td{
+    border : none;
+    line-height: 1;
+}
+
+.cards thead {
+  display: none;
+}
+
+tr.selected td:before {
+  color: #CCC;
+}
+
+.p-0 {
+    padding: 0!important;
+}
+.m-0 {
+    margin : 0!important;
+}
+.float-left {
+    float: left;
 }

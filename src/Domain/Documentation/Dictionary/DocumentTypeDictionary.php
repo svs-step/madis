@@ -28,10 +28,10 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class DocumentTypeDictionary extends SimpleDictionary
 {
-    const TYPE_PDF         = 'pdf';
-    const TYPE_MP4         = 'video';
-    const TYPE_LINK        = 'export';
-    const TYPE_DOCX        = 'word';
+    const TYPE_PDF         = 'PDF';
+    const TYPE_MP4         = 'Vidéos';
+    const TYPE_LINK        = 'Liens';
+    const TYPE_DOCX        = 'Documents';
 
     public function __construct()
     {

@@ -3,6 +3,14 @@
 {% set bodyClass = 'documentation_document list' %}
 {% set menuItem = 'documentation_document' %}
 
+{% set activeCategories = [] %}
+
+{% for object in objects %}
+    {% for cat in object.categories %}
+        {% set activeCategories = activeCategories|merge([cat.name]) %}
+    {% endfor %}
+{% endfor %}
+
 {% block title %}{{ 'documentation.document.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
@@ -69,14 +77,15 @@
                             {{ 'documentation.category.action.list'|trans }}
                         </a>
                     {% endif %}
+
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>
                                     <input type="checkbox" class="form-check-input" id="search_favorite">
                                     <label class="form-check-label" for="search_favorite">{{ 'documentation.document.list.favorite'|trans }}</label>
                                 </th>
-                                <th></th>
                                 <th>
                                     <select class="form-control" id="search_type" style="width: 100%;">
                                         <option value="" selected>{{ 'documentation.document.list.type'|trans }}</option>
@@ -90,16 +99,21 @@
                                     <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
                                 </th>
                                 <th>
-                                    <select class="form-control selectpicker" id="search_category" title="Catégories" style="width: 100%;" multiple>
+                                    <select class="form-control selectpicker" id="search_category" style="width: 100%;" 
+                                        multiple 
+                                        title="Catégories" 
+                                        > 
                                         {% for category in categories %}
-                                            <option
-                                                value="{{ category.name }}"
-                                                {% if app.request.get('category') and app.request.get('category') == category.id  %}
-                                                selected="selected"
-                                                {% endif %}
-                                            >
-                                                {{ category.name }}
-                                            </option>
+                                            {% if category.name in activeCategories %}
+                                                <option
+                                                        value="{{ category.name }}"
+                                                        {% if app.request.get('category') and app.request.get('category') == category.id  %}
+                                                        selected="selected"
+                                                        {% endif %}
+                                                    >
+                                                        {{ category.name }}
+                                                    </option>
+                                            {% endif %}
                                         {% endfor %}
                                     </select>
                                 </th>
@@ -108,8 +122,8 @@
                             </tr>
                             
                             <tr>
-                                <th>{{ 'documentation.document.list.favorite'|trans }}</th>
                                 <th>{{ 'documentation.document.list.pinned'|trans }}</th>
+                                <th>{{ 'documentation.document.list.favorite'|trans }}</th>
                                 <th>{{ 'documentation.document.list.type'|trans }}</th>
                                 <th>{{ 'documentation.document.list.weight'|trans }}</th>
                                 <th>{{ 'documentation.document.list.name'|trans }}</th>
@@ -120,22 +134,22 @@
 
                         </thead>
                         <tbody>
-
                         {% for object in objects %}
                         <tr>
                             <td class="text-center">
+                                {%  if object.pinned == 1 %}
+                                    <span style="visibility: hidden">{{ object.pinned }}</span>
+                                    <i class="fas fa-paperclip"></i>
+                                {% endif %}
+                            </td>
+                            <td class="text-center favorite">
                                 <a href="{{ path('documentation_document_favorite', { 'id': object.id, 'back': app.request.uri }) }}" style="color:#f39c12;">
                                     {% if object.favoritedUsers |filter(f => f.id == app.user.id)|length > 0 %}
-                                        <i class="fas fa-star"></i>
+                                        1
                                     {% else %}
-                                        <i class="far fa-star"></i>
+                                        0
                                     {% endif %}
                                 </a>
-                            </td>
-                            <td class="text-center">
-                                {% if object.pinned %}
-                                    <i class="fas fa-thumbtack"></i>
-                                {% endif %}
                             </td>
                             <td>
                                 {{ object.typeName }}
@@ -198,22 +212,31 @@
 
 {% endblock %}
 
-{# {% block javascripts %}
-    {{ include('_Utils/_datatable.html.twig') }}
-{% endblock %} #}
 {% block javascripts %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 
     {% set dataTableOptions = {
         columns: [
-            {"data": "favorite"},
             {"data": "pinned"},
+            {"data": "favorite"},
             {"data": "type"},
             {"data": "weight"},
             {"data": "name"},
             {"data": "category"},
             {"data": "created_at"},
             {"data": "actions", "orderable": false},
+        ],
+        order: [[0,'desc'],[6,'desc']],
+        language: {
+            buttons: {
+                colvis: "Colonnes"
+            },
+        },
+        buttons: [
+            {
+                extend: "colvis",
+                columns: ":not(.noVis)"
+            }
         ],
     } %}
 
@@ -225,6 +248,10 @@
                 $('#linkDocument').text($(this).data('id'));
             })
 
+            // SET FAVORITE ICON
+            $('.favorite > a').each( (fav, obj) => {
+                obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i>' : '<i data-value="0" class="far fa-star"></i>'
+            })
         })
 
         function copyToClipBoard() {
@@ -257,14 +284,15 @@
             
             $('#search_favorite').off('change');
             $('#search_favorite').change(function(){
-                console.log($(this).prop('checked'), oTable.column('0'))
-                oTable.column('0').search($(this).prop('checked')).draw();
+                console.log($(this).prop('checked'), oTable.column('1'))
+                oTable.column('1').search($(this).prop('checked') ? "1" : "").draw();
             });
 
-            $('#search_type').off('keyup');
-            $('#search_type').keyup($.debounce(250, function(){
+            $('#search_type').off('change');
+            $('#search_type').change(function(){
+                console.log($(this).val())
                 oTable.column('2').search($(this).val()).draw() ;
-            }));
+            });
 
             $('#search_name').off('keyup');
             $('#search_name').keyup($.debounce(250, function(){
@@ -273,8 +301,13 @@
 
             $('#search_category').off('change');
             $('#search_category').change(function() {
-                const v = $(this).val();
-                v && v.length ? oTable.column('5').search(v.join(' ')).draw() : oTable.column('5').search('').draw();
+                if ($(this).val() && $(this).val().length) {
+                    oTable.column('5').search($(this).val().join(' ')).draw()
+                    $('button[data-id="search_category"] .filter-option-inner-inner').html($(this).val().join(', '))
+                } else {
+                    oTable.column('5').search('').draw();
+                    $('button[data-id="search_category"] .filter-option-inner-inner').html("Catégories")
+                }
             });
 
             $('#search_date').off('change');
