@@ -385,11 +385,7 @@
             $('#search_favorite').off('change');
             $('#search_favorite').change(function(){
                 console.log($(this).prop('checked'), oTable.column('1'))
-<<<<<<< HEAD
-                oTable.column('1').search($(this).prop('checked') ? "1" : "").draw();
-=======
                 oTable.column('1').search($(this).prop('checked')).draw();
->>>>>>> feature/doc-seb4
             });
 
             $('#search_type').off('change');
