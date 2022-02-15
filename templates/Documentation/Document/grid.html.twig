@@ -124,9 +124,9 @@
                         {% for object in objects %}
                             <tr class="col-md-2 offset-md-1 p-0" style="margin: 1em; box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;">
                                 <td class="text-center p-0">
-                                <a href="{{ object.url }}" target="_blank" >
-                                    {% if (object.thumbUrl) %}
-                                        <img src="{{ object.thumbUrl }}" alt="" height="150" style="object-fit : cover;width:100%" />
+                                    <a href="{{ object.url }}" target="_blank" >
+                                        {% if (object.thumbUrl) %}
+                                            <img src="{{ object.thumbUrl }}" alt="" height="150" style="object-fit : cover;width:100%" />
                                         {% else %}
                                             <div class="h1 text-muted m-0" style="height:150px;padding: 60px;background: #f2f2f2;"><i class="fas fa-image"></i></div>
                                         {% endif %}
@@ -142,13 +142,18 @@
                                     </a>
                                 </td>
                                 <td><a href="{{ object.url }}" target="_blank" style="word-break: break-word;">{{ object.name }}</a></td>
-                                <td class="float-left divider">
-                                    {{ object.typeName }}
+
+                                <td class="text-sm" style="display: flex; flex-direction: row;justify-content: space-between">
+                                    <div>{{ object.typeName }}</div>
+                                    <div>{{ object.size }}</div>
+                                    <div>{{ object.createdAt|date('d/m/Y') }}</div>
                                 </td>
-                                <td class="float-left divider">
+                                <td class="hidden">
                                     {{ object.size }}
                                 </td>
-                                <td>{{ object.createdAt|date('d/m/Y') }}</td>
+                                <td class="hidden">
+                                    {{ object.createdAt|date('d/m/Y') }}
+                                </td>
                                 <td>
                                     {{ object.categories|map(c => "#{c.name}") | join(', ') }}
                                 </td>
@@ -245,7 +250,7 @@
 
             // SET FAVORITE ICON
             $('.favorite > a').each( (fav, obj) => {
-                obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i>' : '<i data-value="0" class="far fa-star"></i>'
+                obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i><span style="position: absolute;left:-9999px">1</span>' : '<i data-value="0" class="far fa-star"></i><span style="position: absolute;left:-9999px">0</span>'
             })
 
         })
