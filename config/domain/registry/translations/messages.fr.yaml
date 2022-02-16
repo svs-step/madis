@@ -379,6 +379,7 @@ registry:
             software: Logiciel
             ultimate_fate: Sort final
             vulnerable_people: Personnes vulnérables
+            dpoMessage: Préconisations
         flashbag:
             success:
                 create: Traitement "%object%" créé avec succès

@@ -665,8 +665,12 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
                     </div>
-                    <div class="box-body no-padding">
-                        {{  object.dpoMessage }}
+                    <div class="box-body">
+                        {% if object.dpoMessage is null %}
+                            <i>Aucune préconisation</i>
+                        {% else %}
+                            {{  object.dpoMessage }}
+                        {% endif %}
                     </div>
                 </div>
             </div>

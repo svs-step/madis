@@ -129,16 +129,18 @@
             </div>
         </div>
 
-        {# DPO Message  #}
-        <div class="box box-solid box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
-            </div>
-            <div class="box-body">
-                {{ form_row(form.dpoMessage) }}
-            </div>
-        </div>
 
+        {# DPO Message #}
+        {% if is_granted('ROLE_REFERENT') or is_granted('ROLE_ADMIN') %}
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
+                </div>
+                <div class="box-body">
+                    {{ form_row(form.dpoMessage) }}
+                </div>
+            </div>
+        {% endif %}
     </div>
 
 </div>
