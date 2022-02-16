@@ -340,6 +340,10 @@ class TreatmentType extends AbstractType
                 'required'    => false,
                 'placeholder' => 'placeholder.precision',
             ])
+            ->add('otherCollectingMethod', TextType::class, [
+                'label'       => 'registry.treatment.form.otherCollectingMethod',
+                'required'    => false,
+            ])
         ;
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')) {

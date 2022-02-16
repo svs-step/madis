@@ -68,3 +68,7 @@ App\Domain\Registry\Model\Treatment:
             - Length:
                   max: 255
                   groups: [ 'default' ]
+        otherCollectingMethod:
+            - Length:
+                  max: 255
+                  groups: [ 'default' ]
