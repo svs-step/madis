@@ -389,6 +389,13 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $dpoMessage;
 
     /**
+     * FR: Autre moyen de collecte.
+     *
+     * @var string|null
+     */
+    private $otherCollectingMethod;
+
+    /**
      * Treatment constructor.
      *
      * @throws \Exception
@@ -991,5 +998,15 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function setDpoMessage(?string $dpoMessage): void
     {
         $this->dpoMessage = $dpoMessage;
+    }
+
+    public function getOtherCollectingMethod(): ?string
+    {
+        return $this->otherCollectingMethod;
+    }
+
+    public function setOtherCollectingMethod(?string $otherCollectingMethod): void
+    {
+        $this->otherCollectingMethod = $otherCollectingMethod;
     }
 }

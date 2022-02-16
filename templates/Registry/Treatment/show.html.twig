@@ -456,6 +456,12 @@
                                 {% if object.collectingMethod is not null %}{% endif %}
                             </td>
                         </tr>
+                        {% if  object.otherCollectingMethod is not null %}
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.collecting_method_comment'|trans }}</strong></td>
+                                <td>{{ object.otherCollectingMethod }}</td>
+                            </tr>
+                        {% endif %}
                     </table>
                 </div>
             </div>

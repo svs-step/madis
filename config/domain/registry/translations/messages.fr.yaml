@@ -338,6 +338,7 @@ registry:
             automated_decisions_with_legal_effect: Décisions automatisées  avec  effet
             automatic_exclusion_service : Exclusion automatique d'un service
             collecting_method: Moyens de la collecte
+            collecting_method_comment: Autre moyen de collecte
             concerned_people: Personnes concernées
             concerned_people_agent: Agents
             concerned_people_company: Entreprises
@@ -427,6 +428,7 @@ registry:
             conformite_traitement_created_at: Conformité du traitement - Date création
             conformite_traitement_updated_at: Conformité du traitement - Date modification
             collectivity: Collectivité
+            collecting_method_comment: Autre moyen de collecte
             contractors: Sous-traitants
             coordonnees_responsable_traitement: Coordonnées responsable
             created_at: Date de création
