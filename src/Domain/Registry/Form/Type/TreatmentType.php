@@ -52,11 +52,12 @@ class TreatmentType extends AbstractType
      * @var Security
      */
     private $security;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
     public function __construct(Security $security, AuthorizationCheckerInterface $authorizationChecker)
     {
-        $this->security = $security;
-        $this->authorizationChecker = $authorizationChecker;
+        $this->security            = $security;
+        $this->authorizationChecker= $authorizationChecker;
     }
 
     /**
@@ -341,9 +342,9 @@ class TreatmentType extends AbstractType
             ])
         ;
 
-        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')||$this->authorizationChecker->isGranted('ROLE_REFERENT')) {
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')) {
             $builder->add('dpoMessage', TextType::class, [
-                'label' => 'registry.treatment.form.dpoMessage',
+                'label'    => 'registry.treatment.form.dpoMessage',
                 'required' => false,
             ]);
         }
