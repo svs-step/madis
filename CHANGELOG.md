@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+## [1.8.6] - 2022-02-17
+### Changement
+- Correction d'un bug entraînant la multiplication du nombre d'éléments dupliqués
+- Correction d'un bug affichant toujours les services comme inactifs lors de la modification d'une collectivité, empêchant de les désactiver 
+
 ## [1.8.5] - 2022-02-15
 ### Changement
 - Correction d'un bug affichant les services dans les éléments d'une collectivité n'ayant pas de services
