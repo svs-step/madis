@@ -29,6 +29,7 @@ twig:
         app_image_logo_couleur: '%env(APP_IMAGE_LOGO_COULEUR)%'
         app_commune_svg_reduced_path: '%env(APP_COMMUNE_SVG_REDUCED_PATH)%'
         app_user_dashboard_journalisation_limit: '%env(APP_USER_DASHBOARD_JOURNALISATION_LIMIT)%'
+        app_user_dashboard_action_plan_limit: '%env(APP_USER_DASHBOARD_ACTION_PLAN_LIMIT)%'
         app_admin_datable_default_page_length: '%env(APP_DATATABLE_DEFAULT_PAGE_LENGTH)%'
         default_dpo_civility: '%env(APP_DPO_CIVILITY)%'
         default_dpo_firstName: '%env(APP_DPO_FIRST_NAME)%'

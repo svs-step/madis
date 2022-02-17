@@ -27,6 +27,7 @@ action:
 
 label:
     actions: Actions
+    action_link: Lien
     active: Actif
     archived: Archivés
     danger_zone: Zone de danger

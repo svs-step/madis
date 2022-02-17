@@ -57,9 +57,16 @@ class DashboardController extends AbstractController
     {
         $metrics = $this->metricsHandler->getHandler();
 
+        $actions = $this
+            ->getDoctrine()
+            ->getRepository(\App\Domain\Registry\Model\Mesurement::class)
+            ->findAll();
+
         return $this->render($metrics->getTemplateViewName(), [
             'data' => $metrics->getData(),
+            'actions' => $actions,
         ]);
+
     }
 
     /**
