@@ -105,7 +105,7 @@
             {# MESUREMENT : applied #}
             <div class="col-md-12">
                 <div class="box box-solid">
-                    <div class="box-header with-border"><h3 class="box-title">Plan d'actions <small>{{ app_user_dashboard_action_plan_limit }} prochains</small></h3></div>
+                    <div class="box-header with-border"><h3 class="box-title">Plan d'actions <small>{{ app_user_dashboard_action_plan_limit }} prochaines</small></h3></div>
                     <div class="box-body no-padding">
                         <table class="table">
                             <thead>
@@ -121,10 +121,17 @@
                                 {% for action in actions %}
                                 <tr>
                                     <td>{{ action.name }}</td>
-                                    <td>{{ action.createdAt|date('d/m/Y') }}</td>
+                                    <td>{{ action.planificationDate|date('d/m/Y') }}</td>
                                     <td>{{ action.manager }}</td>
-                                    <td>{{ action.priority }}</td>
-                                    <td>{{ action.name }}</td>
+                                    <td>
+                                        {% set key = action.priority %}
+                                        {% if key is not null %}
+                                            {{ dictionary('registry_mesurement_priority')[key] }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="/actions-de-protection/visualiser/{{ action.id }}" ><i class="far fa-eye"></i></a>
+                                    </td>
                                 </tr>
                                 {% endfor %}
 
