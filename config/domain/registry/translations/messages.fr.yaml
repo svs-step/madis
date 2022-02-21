@@ -407,6 +407,7 @@ registry:
             software: Logiciel
             tracability: Traçabilité
             update: Date mise à jour
+            specific_traitement: Traitements spécifiques
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce traitement ?
         show:

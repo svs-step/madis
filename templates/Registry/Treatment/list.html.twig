@@ -181,7 +181,6 @@
                             <th>{{ 'registry.treatment.list.access_control'|trans }}</th>
                             <th>{{ 'registry.treatment.list.tracability'|trans }}</th>
                             <th>{{ 'registry.treatment.list.saving'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.update'|trans }}</th>
                             <th>{{ 'registry.treatment.list.other'|trans }}</th>
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.entitled_persons'|trans }}</th>
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.open_accounts'|trans }}</th>
@@ -189,6 +188,7 @@
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.update'|trans }}</th>
                             <th>{{ 'registry.treatment.list.public'|trans }}</th>
                             <th>{{ 'registry.treatment.list.responsable_traitement'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.specific_traitement'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -227,7 +227,6 @@
             {"data": "controleAcces", "visible": false},
             {"data": "tracabilite", "visible": false},
             {"data": "saving", "visible": true},
-            {"data": "update", "visible": false},
             {"data": "other", "visible": false},
             {"data": "entitledPersons", "visible": false},
             {"data": "openAccounts", "visible": false},
@@ -235,6 +234,7 @@
             {"data": "updatedAt", "visible": true},
             {"data": "public", "visible": false},
             {"data": "responsableTraitement", "visible": false},
+            {"data": "specific_traitement", "render": "[, ]","visible": true},
             {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
         ],
         order:  [
