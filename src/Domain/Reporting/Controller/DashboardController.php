@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Controller;
 
+use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Reporting\Handler\ExportCsvHandler;
 use App\Domain\Reporting\Handler\MetricsHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,8 +58,14 @@ class DashboardController extends AbstractController
     {
         $metrics = $this->metricsHandler->getHandler();
 
+        $actions = $this
+            ->getDoctrine()
+            ->getRepository(Mesurement::class)
+            ->findBy([], ['planificationDate' => 'DESC'], $_ENV['APP_USER_DASHBOARD_ACTION_PLAN_LIMIT']);
+
         return $this->render($metrics->getTemplateViewName(), [
-            'data' => $metrics->getData(),
+            'data'    => $metrics->getData(),
+            'actions' => $actions,
         ]);
     }
 

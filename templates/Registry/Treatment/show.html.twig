@@ -456,6 +456,12 @@
                                 {% if object.collectingMethod is not null %}{% endif %}
                             </td>
                         </tr>
+                        {% if  object.otherCollectingMethod is not null %}
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.otherCollectingMethod'|trans }}</strong></td>
+                                <td>{{ object.otherCollectingMethod }}</td>
+                            </tr>
+                        {% endif %}
                     </table>
                 </div>
             </div>
@@ -660,6 +666,19 @@
                 </div>
             {% endif %}
 
+                {# DPO Message  #}
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
+                    </div>
+                    <div class="box-body">
+                        {% if object.dpoMessage is null %}
+                            <i>Aucune préconisation</i>
+                        {% else %}
+                            {{  object.dpoMessage }}
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

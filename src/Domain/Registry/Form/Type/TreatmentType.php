@@ -43,6 +43,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Security;
 
 class TreatmentType extends AbstractType
@@ -51,10 +52,12 @@ class TreatmentType extends AbstractType
      * @var Security
      */
     private $security;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, AuthorizationCheckerInterface $authorizationChecker)
     {
-        $this->security = $security;
+        $this->security            = $security;
+        $this->authorizationChecker= $authorizationChecker;
     }
 
     /**
@@ -337,7 +340,18 @@ class TreatmentType extends AbstractType
                 'required'    => false,
                 'placeholder' => 'placeholder.precision',
             ])
+            ->add('otherCollectingMethod', TextType::class, [
+                'label'       => 'registry.treatment.form.otherCollectingMethod',
+                'required'    => false,
+            ])
         ;
+
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')) {
+            $builder->add('dpoMessage', TextType::class, [
+                'label'    => 'registry.treatment.form.dpoMessage',
+                'required' => false,
+            ]);
+        }
 
         // Check if services are enabled for the collectivity's treatment
         if ($options['data']->getCollectivity()->getIsServicesEnabled()) {

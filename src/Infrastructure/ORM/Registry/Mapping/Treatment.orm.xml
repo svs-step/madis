@@ -44,6 +44,8 @@
         <field name="collectingMethod" column="collecting_method" type="json_array" nullable="true"/>
         <field name="estimatedConcernedPeople" column="estimated_concerned_people" type="integer" nullable="true"/>
         <field name="ultimateFate" column="ultimate_fate" nullable="true"/>
+        <field name="dpoMessage" column="dpo_message" type="text" nullable="true"/>
+        <field name="otherCollectingMethod" column="other_collecting_method" type="text" nullable="true"/>
 
         <embedded name="delay" class="App\Domain\Registry\Model\Embeddable\Delay" column-prefix="delay_"/>
         <embedded name="securityAccessControl" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_access_control_"/>

@@ -124,17 +124,7 @@ class SecurityController extends AbstractController
         $user  = $this->userRepository->findOneOrNullByEmail($email);
 
         if (!$user) {
-            $this->helper->addFlash(
-                'danger',
-                $this->helper->trans(
-                    'user.security.forget_password_confirm.flashbag.error',
-                    [
-                        '%email%' => $email,
-                    ]
-                )
-            );
-
-            return $this->helper->redirectToRoute('forget_password');
+            return $this->helper->render('User/Security/forget_password_confirm.html.twig');
         }
 
         $user->setForgetPasswordToken($this->tokenGenerator->generateToken());

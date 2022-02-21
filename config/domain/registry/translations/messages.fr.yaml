@@ -338,6 +338,7 @@ registry:
             automated_decisions_with_legal_effect: Décisions automatisées  avec  effet
             automatic_exclusion_service : Exclusion automatique d'un service
             collecting_method: Moyens de la collecte
+            otherCollectingMethod: Autre moyen de collecte
             concerned_people: Personnes concernées
             concerned_people_agent: Agents
             concerned_people_company: Entreprises
@@ -379,6 +380,7 @@ registry:
             software: Logiciel
             ultimate_fate: Sort final
             vulnerable_people: Personnes vulnérables
+            dpoMessage: Préconisations
         flashbag:
             success:
                 create: Traitement "%object%" créé avec succès
@@ -404,7 +406,8 @@ registry:
             specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             software: Logiciel
             tracability: Traçabilité
-            update: Mise à jour
+            update: Date mise à jour
+            specific_traitement: Traitements spécifiques
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce traitement ?
         show:
@@ -426,6 +429,7 @@ registry:
             conformite_traitement_created_at: Conformité du traitement - Date création
             conformite_traitement_updated_at: Conformité du traitement - Date modification
             collectivity: Collectivité
+            otherCollectingMethod: Autre moyen de collecte
             contractors: Sous-traitants
             coordonnees_responsable_traitement: Coordonnées responsable
             created_at: Date de création
@@ -485,6 +489,7 @@ registry:
           recipients: Destination
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
+          dpo_message: Préconisations DPO
 
     violation:
         action:

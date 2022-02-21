@@ -238,6 +238,7 @@ class TreatmentController extends CRUDController
                 $objects[] = $treatment;
             }
         }
+        //die(var_dump($objects));
 
         return $this->render($this->getTemplatingBasePath('public_list'), [
             'objects'   => $objects,
@@ -376,14 +377,46 @@ class TreatmentController extends CRUDController
                 'updatedAt'              => date_format($treatment->getUpdatedAt(), 'd-m-Y H:i:s'),
                 'public'                 => $treatment->getPublic() ? $yes : $no,
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
+                'specific_traitement'    => $this->getSpecificTraitement($treatment),
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
-
         $jsonResponse = new JsonResponse();
         $jsonResponse->setJson(json_encode($reponse));
 
         return $jsonResponse;
+    }
+
+    private function getSpecificTraitement(Treatment $treatment)
+    {
+        $user   = $this->userProvider->getAuthenticatedUser();
+        $values = [];
+        if ($treatment->isSystematicMonitoring()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.systematic_monitoring'));
+        }
+        if ($treatment->isLargeScaleCollection()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.large_scale_collection'));
+        }
+        if ($treatment->isVulnerablePeople()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.vulnerable_people'));
+        }
+        if ($treatment->isDataCrossing()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.data_crossing'));
+        }
+        if ($treatment->isEvaluationOrRating()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.evaluation_or_rating'));
+        }
+        if ($treatment->isAutomatedDecisionsWithLegalEffect()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.automated_decisions_with_legal_effect'));
+        }
+        if ($treatment->isAutomaticExclusionService()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.automatic_exclusion_service'));
+        }
+        if ($treatment->isInnovativeUse()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.innovative_use'));
+        }
+
+        return $values;
     }
 
     private function isTreatmentInUserServices(Model\Treatment $treatment): bool
@@ -442,7 +475,8 @@ class TreatmentController extends CRUDController
             '15' => 'updatedAt',
             '16' => 'public',
             '17' => 'responsableTraitement',
-            '18' => 'actions',
+            '18' => 'specific_traitement',
+            '19' => 'actions',
         ];
     }
 }
