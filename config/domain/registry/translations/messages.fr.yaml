@@ -406,7 +406,7 @@ registry:
             specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             software: Logiciel
             tracability: Traçabilité
-            update: Mise à jour
+            update: Date mise à jour
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce traitement ?
         show:
