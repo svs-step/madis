@@ -396,6 +396,20 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $otherCollectingMethod;
 
     /**
+     * FR: Demandes.
+     *
+     * @var Request
+     */
+    private $requests;
+
+    /**
+     * FR: Demandes.
+     *
+     * @var Violation
+     */
+    private $violations;
+
+    /**
      * Treatment constructor.
      *
      * @throws \Exception
@@ -1008,5 +1022,25 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function setOtherCollectingMethod(?string $otherCollectingMethod): void
     {
         $this->otherCollectingMethod = $otherCollectingMethod;
+    }
+
+    public function getViolations(): Violation
+    {
+        return $this->violations;
+    }
+
+    public function setViolations(Violation $violations): void
+    {
+        $this->violations = $violations;
+    }
+
+    public function getRequests(): Request
+    {
+        return $this->requests;
+    }
+
+    public function setRequests(Request $requests): void
+    {
+        $this->requests = $requests;
     }
 }

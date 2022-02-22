@@ -121,6 +121,11 @@ class Request implements LoggableSubject, CollectivityRelated
     private $service;
 
     /**
+     * @var Treatment|null
+     */
+    private $treatments;
+
+    /**
      * Request constructor.
      *
      * @throws \Exception
@@ -306,5 +311,15 @@ class Request implements LoggableSubject, CollectivityRelated
         }
 
         return $result;
+    }
+
+    public function getTreatments(): Treatment
+    {
+        return $this->treatments;
+    }
+
+    public function setTreatments(Treatment $treatments = null): void
+    {
+        $this->treatments = $treatments;
     }
 }

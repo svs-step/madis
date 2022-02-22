@@ -93,6 +93,20 @@
                 <order-by-field name="name"/>
             </order-by>
         </many-to-many>
+
+        <many-to-many field="requests" target-entity="App\Domain\Registry\Model\Request" inversed-by="treatments">
+            <join-table name="registry_treatment_request">
+                <join-columns><join-column on-delete="CASCADE"/></join-columns>
+                <inverse-join-columns><join-column on-delete="CASCADE"/></inverse-join-columns>
+            </join-table>
+        </many-to-many>
+        <many-to-many field="violations" target-entity="App\Domain\Registry\Model\Violation" inversed-by="treatments">
+            <join-table name="registry_treatment_violation">
+                <join-columns><join-column on-delete="CASCADE"/></join-columns>
+                <inverse-join-columns><join-column on-delete="CASCADE"/></inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
         <many-to-one field="clonedFrom" target-entity="App\Domain\Registry\Model\Treatment" >
             <join-column on-delete="SET NULL" />
         </many-to-one>

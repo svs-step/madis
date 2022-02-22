@@ -143,6 +143,11 @@ class Violation implements LoggableSubject, CollectivityRelated
     private $service;
 
     /**
+     * @var Treatment|null
+     */
+    private $treatments;
+
+    /**
      * Violation constructor.
      *
      * @throws \Exception
@@ -373,5 +378,15 @@ class Violation implements LoggableSubject, CollectivityRelated
         }
 
         return $result;
+    }
+
+    public function getTreatment(): Treatment
+    {
+        return $this->treatments;
+    }
+
+    public function setTreatment(Treatment $treatments = null): void
+    {
+        $this->treatments = $treatments;
     }
 }
