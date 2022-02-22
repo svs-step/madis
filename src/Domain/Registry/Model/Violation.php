@@ -380,7 +380,7 @@ class Violation implements LoggableSubject, CollectivityRelated
         return $result;
     }
 
-    public function getTreatment(): Treatment
+    public function getTreatment(): ?Treatment
     {
         return $this->treatments;
     }

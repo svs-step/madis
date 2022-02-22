@@ -313,12 +313,12 @@ class Request implements LoggableSubject, CollectivityRelated
         return $result;
     }
 
-    public function getTreatments(): Treatment
+    public function getTreatment(): ?Treatment
     {
         return $this->treatments;
     }
 
-    public function setTreatments(Treatment $treatments = null): void
+    public function setTreatment(Treatment $treatments = null): void
     {
         $this->treatments = $treatments;
     }

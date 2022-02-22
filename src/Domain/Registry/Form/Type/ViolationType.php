@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Model\Service;
 use Doctrine\ORM\EntityRepository;
@@ -179,6 +180,15 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'rows' => 5,
                 ],
+            ])
+            ->add('treatment', EntityType::class, [
+                'class'         => Treatment::class,
+                'label'         => 'registry.violation.form.treatment',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.name', 'ASC');
+                },
+                'required'      => false,
             ])
         ;
     }
