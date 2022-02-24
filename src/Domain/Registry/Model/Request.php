@@ -35,6 +35,7 @@ use App\Domain\Registry\Model\Embeddable\RequestConcernedPeople;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -120,9 +121,6 @@ class Request implements LoggableSubject, CollectivityRelated
      */
     private $service;
 
-    /**
-     * @var Treatment|null
-     */
     private $treatments;
 
     /**
@@ -141,6 +139,7 @@ class Request implements LoggableSubject, CollectivityRelated
         $this->legitimateApplicant = false;
         $this->legitimateRequest   = false;
         $this->proofs              = [];
+        $this->treatments          = [];
     }
 
     public function getId(): UuidInterface
@@ -313,13 +312,24 @@ class Request implements LoggableSubject, CollectivityRelated
         return $result;
     }
 
-    public function getTreatment(): ?Treatment
+    public function addTreatment(Treatment $treatment): void
     {
-        return $this->treatments;
+        $this->treatments[] = $treatment;
     }
 
-    public function setTreatment(Treatment $treatments = null): void
+    public function removeTreatment(Treatment $treatment): void
     {
-        $this->treatments = $treatments;
+        $key = \array_search($treatment, $this->treatments, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->treatments[$key]);
+    }
+
+    public function getTreatments(): iterable
+    {
+        return $this->treatments;
     }
 }

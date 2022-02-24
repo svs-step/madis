@@ -124,7 +124,7 @@ class RequestType extends AbstractType
                     'rows' => 4,
                 ],
             ])
-            ->add('treatment', EntityType::class, [
+            ->add('treatments', EntityType::class, [
                 'class'         => Treatment::class,
                 'label'         => 'registry.request.form.treatment',
                 'query_builder' => function (EntityRepository $er) {
@@ -132,6 +132,8 @@ class RequestType extends AbstractType
                         ->orderBy('s.name', 'ASC');
                 },
                 'required'      => false,
+                'multiple' => true,
+                'expanded' => true
             ])
         ;
     }

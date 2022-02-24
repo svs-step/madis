@@ -34,6 +34,7 @@ use App\Domain\Registry\Model\Embeddable\Delay;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -395,18 +396,8 @@ class Treatment implements LoggableSubject, CollectivityRelated
      */
     private $otherCollectingMethod;
 
-    /**
-     * FR: Demandes.
-     *
-     * @var Request
-     */
-    private $requests;
 
-    /**
-     * FR: Demandes.
-     *
-     * @var Violation
-     */
+    private $requests;
     private $violations;
 
     /**
@@ -448,6 +439,8 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->concernedPeopleCompany            = new ComplexChoice();
         $this->concernedPeoplePartner            = new ComplexChoice();
         $this->concernedPeopleOther              = new ComplexChoice();
+        $this->requests                          = [];
+        $this->violations                        = [];
     }
 
     public function getId(): UuidInterface
@@ -1024,23 +1017,51 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->otherCollectingMethod = $otherCollectingMethod;
     }
 
-    public function getViolations(): Violation
+    public function addRequest(Request $request): void
     {
-        return $this->violations;
+        $request->addTreatment($this);
+        $this->requests[] = $request;
     }
 
-    public function setViolations(Violation $violations): void
+    public function removeRequest(Request $request): void
     {
-        $this->violations = $violations;
+        $request->removeTreatment($this);
+
+        $key = \array_search($request, $this->requests, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->requests[$key]);
     }
 
-    public function getRequests(): Request
+    public function getRequests()
     {
         return $this->requests;
     }
 
-    public function setRequests(Request $requests): void
+    public function addViolation(Violation $violation): void
     {
-        $this->requests = $requests;
+        $violation->addTreatment($this);
+        $this->violations[] = $violation;
+    }
+
+    public function removeViolation(Violation $violation): void
+    {
+        $violation->removeTreatment($this);
+
+        $key = \array_search($violation, $this->violations, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->violations[$key]);
+    }
+
+    public function getViolations()
+    {
+        return $this->violations;
     }
 }
