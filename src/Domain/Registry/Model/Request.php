@@ -140,7 +140,7 @@ class Request implements LoggableSubject, CollectivityRelated
         $this->legitimateApplicant = false;
         $this->legitimateRequest   = false;
         $this->proofs              = [];
-        $this->treatments          = [];
+        $this->treatments          = new ArrayCollection();
     }
 
     public function getId(): UuidInterface
