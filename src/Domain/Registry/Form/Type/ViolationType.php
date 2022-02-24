@@ -181,7 +181,7 @@ class ViolationType extends AbstractType
                     'rows' => 5,
                 ],
             ])
-            ->add('treatment', EntityType::class, [
+            ->add('treatments', EntityType::class, [
                 'class'         => Treatment::class,
                 'label'         => 'registry.violation.form.treatment',
                 'query_builder' => function (EntityRepository $er) {
@@ -189,6 +189,8 @@ class ViolationType extends AbstractType
                         ->orderBy('s.name', 'ASC');
                 },
                 'required'      => false,
+                'multiple' => true,
+                'expanded' => true
             ])
         ;
     }
