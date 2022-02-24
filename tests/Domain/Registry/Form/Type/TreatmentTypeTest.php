@@ -40,6 +40,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Security;
 
 class TreatmentTypeTest extends FormTypeHelper
@@ -52,16 +53,23 @@ class TreatmentTypeTest extends FormTypeHelper
     private $security;
 
     /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authCheck;
+
+    /**
      * @var TreatmentType
      */
     private $formType;
 
     protected function setUp(): void
     {
-        $this->security = $this->prophesize(Security::class);
+        $this->security  = $this->prophesize(Security::class);
+        $this->authCheck = $this->prophesize(AuthorizationCheckerInterface::class);
 
         $this->formType = new TreatmentType(
-            $this->security->reveal()
+            $this->security->reveal(),
+            $this->authCheck->reveal()
         );
     }
 
@@ -123,6 +131,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'securityOpenAccounts'              => CheckboxType::class,
             'securitySpecificitiesDelivered'    => CheckboxType::class,
             'ultimateFate'                      => DictionaryType::class,
+            'otherCollectingMethod'             => TextType::class,
         ];
 
         $this->formType->buildForm($this->prophesizeBuilder($builder), ['data' => $treatment]);

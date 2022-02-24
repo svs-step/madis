@@ -75,7 +75,7 @@ class LoginAttempt implements Repository\LoginAttempt
     }
 
     /**
-     * @param $object
+     * @param Model\User $object
      *
      * @throws \Exception
      */
@@ -86,7 +86,7 @@ class LoginAttempt implements Repository\LoginAttempt
     }
 
     /**
-     * @param $object
+     * @param Model\User $object
      *
      * @throws \Exception
      */

@@ -122,7 +122,7 @@ class MesurementType extends AbstractType
             ])
             ->add('contractor', EntityType::class, [
                 'label'    => 'registry.mesurement.form.contractor',
-                'class' => Contractor::class,
+                'class'    => Contractor::class,
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -130,7 +130,7 @@ class MesurementType extends AbstractType
             ])
             ->add('treatment', EntityType::class, [
                 'label'    => 'registry.mesurement.form.treatment',
-                'class' => Treatment::class,
+                'class'    => Treatment::class,
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -138,7 +138,7 @@ class MesurementType extends AbstractType
             ])
             ->add('violation', EntityType::class, [
                 'label'    => 'registry.mesurement.form.violation',
-                'class' => Violation::class,
+                'class'    => Violation::class,
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -146,7 +146,7 @@ class MesurementType extends AbstractType
             ])
             ->add('request', EntityType::class, [
                 'label'    => 'registry.mesurement.form.request',
-                'class' => Request::class,
+                'class'    => Request::class,
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,

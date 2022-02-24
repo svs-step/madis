@@ -210,7 +210,7 @@ class SecurityControllerTest extends TestCase
             'email' => $email,
         ]);
         $translatedFlashBagMessage = 'translatedFlashBagMessage';
-        $response                  = new RedirectResponse('http://dummyUrl');
+        $response                  = new Response();
 
         // Since email doesn't exist, user forget password token is not set
         $userProphecy = $this->prophesize(Model\User::class);
@@ -227,14 +227,14 @@ class SecurityControllerTest extends TestCase
 
         $this->helperProphecy
             ->render('User/Security/forget_password_confirm.html.twig')
-            ->shouldNotBeCalled()
-        ;
-        $this->helperProphecy
-            ->redirectToRoute('forget_password')
             ->shouldBeCalled()
             ->willReturn($response)
         ;
-        $this->helperProphecy->addFlash('danger', $translatedFlashBagMessage)->shouldBeCalled();
+        $this->helperProphecy
+            ->redirectToRoute('forget_password')
+            ->shouldNotBeCalled()
+        ;
+        $this->helperProphecy->addFlash('danger', Argument::type('string'))->shouldNotBeCalled();
         $this->helperProphecy
             ->trans(
                 'user.security.forget_password_confirm.flashbag.error',
@@ -242,8 +242,7 @@ class SecurityControllerTest extends TestCase
                     '%email%' => $email,
                 ]
             )
-            ->shouldBeCalled()
-            ->willReturn($translatedFlashBagMessage)
+            ->shouldNotBeCalled()
         ;
 
         $this->mailerProphecy->sendForgetPassword($userProphecy->reveal())->shouldNotBeCalled();

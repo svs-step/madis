@@ -29,6 +29,7 @@ use App\Domain\Registry\Model\Mesurement;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -56,6 +57,10 @@ class MesurementTypeTest extends FormTypeHelper
             'comment'            => TextType::class,
             'priority'           => DictionaryType::class,
             'manager'            => TextType::class,
+            'contractor'         => EntityType::class,
+            'treatment'          => EntityType::class,
+            'violation'          => EntityType::class,
+            'request'            => EntityType::class,
         ];
 
         (new MesurementType())->buildForm($this->prophesizeBuilder($builder), []);
