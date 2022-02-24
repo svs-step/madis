@@ -35,6 +35,7 @@ use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -397,8 +398,9 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $otherCollectingMethod;
 
 
-    private $requests;
-    private $violations;
+    private Collection $requests;
+
+    private Collection $violations;
 
     /**
      * Treatment constructor.
@@ -439,8 +441,8 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->concernedPeopleCompany            = new ComplexChoice();
         $this->concernedPeoplePartner            = new ComplexChoice();
         $this->concernedPeopleOther              = new ComplexChoice();
-        $this->requests                          = [];
-        $this->violations                        = [];
+        $this->requests                          = new ArrayCollection();
+        $this->violations                        = new ArrayCollection();
     }
 
     public function getId(): UuidInterface
@@ -1027,18 +1029,19 @@ class Treatment implements LoggableSubject, CollectivityRelated
     {
         $request->removeTreatment($this);
 
-        $key = \array_search($request, $this->requests, true);
-
-        if (false === $key) {
-            return;
+        if ($this->requests && $this->requests->count() && $this->requests->contains($request)) {
+            $this->requests->removeElement($request);
         }
-
-        unset($this->requests[$key]);
     }
 
-    public function getRequests()
+    public function getRequests(): Collection
     {
         return $this->requests;
+    }
+
+    public function setRequests(Collection $requests)
+    {
+        $this->requests = $requests;
     }
 
     public function addViolation(Violation $violation): void

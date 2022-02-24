@@ -36,6 +36,7 @@ use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -121,7 +122,7 @@ class Request implements LoggableSubject, CollectivityRelated
      */
     private $service;
 
-    private $treatments;
+    private Collection $treatments;
 
     /**
      * Request constructor.
@@ -319,17 +320,18 @@ class Request implements LoggableSubject, CollectivityRelated
 
     public function removeTreatment(Treatment $treatment): void
     {
-        $key = \array_search($treatment, $this->treatments, true);
-
-        if (false === $key) {
-            return;
+        if ($this->treatments && $this->treatments->count() && $this->treatments->contains($treatment)) {
+            $this->treatments->removeElement($treatment);
         }
-
-        unset($this->treatments[$key]);
     }
 
-    public function getTreatments(): iterable
+    public function getTreatments(): Collection
     {
         return $this->treatments;
+    }
+
+    public function setTreatments(Collection $treatments)
+    {
+        $this->treatments = $treatments;
     }
 }
