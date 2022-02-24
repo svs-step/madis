@@ -189,8 +189,8 @@ class ViolationType extends AbstractType
                         ->orderBy('s.name', 'ASC');
                 },
                 'required'      => false,
-                'multiple' => true,
-                'expanded' => true
+                'multiple'      => true,
+                'expanded'      => true,
             ])
         ;
     }

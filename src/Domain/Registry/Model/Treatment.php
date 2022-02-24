@@ -397,7 +397,6 @@ class Treatment implements LoggableSubject, CollectivityRelated
      */
     private $otherCollectingMethod;
 
-
     private Collection $requests;
 
     private Collection $violations;
