@@ -167,6 +167,15 @@
                                 </a>
                             </td>
                             <td>
+                                {% if object.typeName == "Vidéos" %}
+                                    <i class="far fa-file-video"></i>
+                                {% elseif object.typeName == "PDF" %}
+                                    <i class="far fa-file-pdf"></i>
+                                {% elseif object.typeName == "Documents" %}
+                                    <i class="far fa-file-word"></i>
+                                {% elseif object.typeName == "Lien" %}
+                                    <i class="fas fa-globe"></i>
+                                {% endif %}
                                 {{ object.typeName }}
                             </td>
                             <td>
