@@ -130,10 +130,10 @@ class Mesurement implements LoggableSubject
      */
     private $conformiteTraitementReponses;
 
-    private Treatment $treatment;
-    private Contractor $contractor;
-    private Request $request;
-    private Violation $violation;
+    private ?Treatment $treatment;
+    private ?Contractor $contractor;
+    private ?Request $request;
+    private ?Violation $violation;
 
     /**
      * Mesurement constructor.
@@ -295,9 +295,9 @@ class Mesurement implements LoggableSubject
     }
 
     /**
-     * @return Treatment
+     * @return Treatment|null
      */
-    public function getTreatment(): Treatment
+    public function getTreatment(): ?Treatment
     {
         return $this->treatment;
     }
@@ -311,9 +311,9 @@ class Mesurement implements LoggableSubject
     }
 
     /**
-     * @return Contractor
+     * @return Contractor|null
      */
-    public function getContractor(): Contractor
+    public function getContractor(): ?Contractor
     {
         return $this->contractor;
     }
@@ -327,9 +327,9 @@ class Mesurement implements LoggableSubject
     }
 
     /**
-     * @return Request
+     * @return Request|null
      */
-    public function getRequest(): Request
+    public function getRequest(): ?Request
     {
         return $this->request;
     }
@@ -343,9 +343,9 @@ class Mesurement implements LoggableSubject
     }
 
     /**
-     * @return Violation
+     * @return Violation|null
      */
-    public function getViolation(): Violation
+    public function getViolation(): ?Violation
     {
         return $this->violation;
     }
