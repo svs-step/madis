@@ -39,6 +39,16 @@
                 {{ form_row(form.comment) }}
             </div>
         </div>
+        {# RELATIONS #}
+        <div class="box box-solid box-warning">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.relations'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.contractor) }}
+                {{ form_row(form.treatment) }}
+                {{ form_row(form.request) }}
+                {{ form_row(form.violation) }}
+            </div>
+        </div>
     </div>
 
 </div>

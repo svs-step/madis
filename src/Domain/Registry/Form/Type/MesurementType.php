@@ -24,8 +24,13 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Registry\Model\Request;
+use App\Domain\Registry\Model\Treatment;
+use App\Domain\Registry\Model\Violation;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -110,6 +115,38 @@ class MesurementType extends AbstractType
             ])
             ->add('manager', TextType::class, [
                 'label'    => 'registry.mesurement.form.manager',
+                'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('contractor', EntityType::class, [
+                'label'    => 'registry.mesurement.form.contractor',
+                'class' => Contractor::class,
+                'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('treatment', EntityType::class, [
+                'label'    => 'registry.mesurement.form.treatment',
+                'class' => Treatment::class,
+                'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('violation', EntityType::class, [
+                'label'    => 'registry.mesurement.form.violation',
+                'class' => Violation::class,
+                'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('request', EntityType::class, [
+                'label'    => 'registry.mesurement.form.request',
+                'class' => Request::class,
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,

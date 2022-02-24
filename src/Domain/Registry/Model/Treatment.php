@@ -34,6 +34,8 @@ use App\Domain\Registry\Model\Embeddable\Delay;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -394,6 +396,8 @@ class Treatment implements LoggableSubject, CollectivityRelated
      * @var string|null
      */
     private $otherCollectingMethod;
+
+    private Collection $mesurements;
 
     /**
      * Treatment constructor.
@@ -1008,5 +1012,21 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function setOtherCollectingMethod(?string $otherCollectingMethod): void
     {
         $this->otherCollectingMethod = $otherCollectingMethod;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getMesurements(): Collection
+    {
+        return $this->mesurements;
+    }
+
+    /**
+     * @param Collection $mesurements
+     */
+    public function setMesurement(Collection $mesurements): void
+    {
+        $this->mesurements = $mesurements;
     }
 }

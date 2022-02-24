@@ -111,6 +111,10 @@ registry:
             priority: Priorité
             status: Statut
             type: Type
+            contractor: Sous-traitant
+            treatment: Traitement
+            violation: Violation
+            request: Demande
         flashbag:
             success:
                 create: Action de protection "%object%" créé avec succès
@@ -148,6 +152,7 @@ registry:
             application: Application
             general: Informations générales
             historic: Historique
+            relations: Éléments liés
         title:
             action_plan: Plan d'actions
             create: Créer une action de protection

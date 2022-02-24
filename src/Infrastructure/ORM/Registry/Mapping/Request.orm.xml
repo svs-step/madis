@@ -36,6 +36,8 @@
             </order-by>
         </many-to-many>
 
+        <one-to-many field="mesurements" mapped-by="request" target-entity="App\Domain\Registry\Model\Mesurement"/>
+
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">
             <join-column on-delete="CASCADE" />

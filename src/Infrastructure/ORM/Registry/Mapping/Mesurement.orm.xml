@@ -27,6 +27,10 @@
             </order-by>
         </many-to-many>
         <many-to-one field="clonedFrom" target-entity="App\Domain\Registry\Model\Mesurement"/>
+        <many-to-one field="treatment" target-entity="App\Domain\Registry\Model\Treatment"/>
+        <many-to-one field="contractor" target-entity="App\Domain\Registry\Model\Contractor"/>
+        <many-to-one field="request" target-entity="App\Domain\Registry\Model\Request"/>
+        <many-to-one field="violation" target-entity="App\Domain\Registry\Model\Violation"/>
         <many-to-many field="conformiteTraitementReponses" target-entity="App\Domain\Registry\Model\ConformiteTraitement\Reponse" mapped-by="actionProtections"/>
         <many-to-many field="conformiteOrganisation" target-entity="App\Domain\Registry\Model\ConformiteOrganisation\Conformite" mapped-by="actionProtections"/>
 
