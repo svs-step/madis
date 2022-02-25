@@ -129,6 +129,7 @@ registry:
                 legal: Actions juridiques
                 organisational: Actions organisationnelles
                 technical: Actions techniques
+            responsable: Responsable d'action
         show:
             charge: Charge
             collectivity: Collectivité
