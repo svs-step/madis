@@ -166,6 +166,7 @@ registry:
             back_to_list: Retour à la liste
             new: Ajouter une preuve
             not_archived: Voir les preuves non archivées
+            download: Télécharger tous les documents
         breadcrumb:
             archive: Archiver "%name%"
             create: Créer

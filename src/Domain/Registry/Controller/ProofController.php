@@ -28,6 +28,7 @@ use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Documentation\Model\Category;
+use App\Domain\Documentation\Model\Document;
 use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Form\Type\ProofType;
 use App\Domain\Registry\Model;
@@ -36,8 +37,10 @@ use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\Tools\ChainManipulator;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use Doctrine\ORM\EntityManagerInterface;
+use Gaufrette\Filesystem;
 use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
+use PhpOffice\PhpWord\Shared\ZipArchive;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -51,6 +54,8 @@ use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+
 
 /**
  * @property Repository\Proof $repository
@@ -270,6 +275,40 @@ class ProofController extends CRUDController
         );
 
         return $response;
+    }
+
+    public function downloadAll()
+    {
+
+        /** @var Model\Proof|null $object */
+        $objects = $this->repository->findAll();
+
+        $files = [];
+        foreach ($objects as $object){
+            if (!$object->getDeletedAt()){
+                $files[] = $object->getDocument();
+            }
+        }
+        $zip =  new ZipArchive();
+        $filename = "./uploads/registry/proof/zip/test.zip";
+
+
+        if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
+            exit("Impossible d'ouvrir le fichier $filename>\n");
+        }
+
+        $i = 0;
+        $filesystem = new \Symfony\Component\Filesystem\Filesystem();
+        foreach ($files as $file){
+            $zip->addFile('./uploads/registry/proof/document/'.$file, $file);
+            $i++;
+        }
+
+        echo "Nombre de fichiers : " . $zip->numFiles . "\n";
+        $zip->close();
+        var_dump($zip);
+        die();
+
     }
 
     public function listAction(): Response
