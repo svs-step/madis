@@ -297,17 +297,19 @@ class ProofController extends CRUDController
             exit("Impossible d'ouvrir le fichier $filename>\n");
         }
 
-        $i = 0;
-        $filesystem = new \Symfony\Component\Filesystem\Filesystem();
         foreach ($files as $file){
             $zip->addFile('./uploads/registry/proof/document/'.$file, $file);
-            $i++;
         }
 
-        echo "Nombre de fichiers : " . $zip->numFiles . "\n";
         $zip->close();
-        var_dump($zip);
-        die();
+
+        $date = date('dmY');
+        $response = new Response(file_get_contents($filename));
+        $response->headers->set('Content-Type', 'application/zip');
+        $response->headers->set('Content-Disposition', 'attachment;filename="Documents'.$date.'.zip"');
+        $response->headers->set('Content-length', filesize($filename));
+
+        return $response;
 
     }
 
