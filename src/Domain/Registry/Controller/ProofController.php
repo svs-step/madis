@@ -37,7 +37,6 @@ use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\Tools\ChainManipulator;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use Doctrine\ORM\EntityManagerInterface;
-use Gaufrette\Filesystem;
 use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
 use PhpOffice\PhpWord\Shared\ZipArchive;
@@ -54,8 +53,6 @@ use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
-
 
 /**
  * @property Repository\Proof $repository
@@ -279,38 +276,35 @@ class ProofController extends CRUDController
 
     public function downloadAll()
     {
-
         /** @var Model\Proof|null $object */
         $objects = $this->repository->findAll();
 
         $files = [];
-        foreach ($objects as $object){
-            if (!$object->getDeletedAt()){
+        foreach ($objects as $object) {
+            if (!$object->getDeletedAt()) {
                 $files[] = $object->getDocument();
             }
         }
-        $zip =  new ZipArchive();
-        $filename = "./uploads/registry/proof/zip/test.zip";
+        $zip      =  new ZipArchive();
+        $filename = './uploads/registry/proof/zip/test.zip';
 
-
-        if ($zip->open($filename, ZipArchive::OVERWRITE)!==TRUE) {
+        if (true !== $zip->open($filename, ZipArchive::OVERWRITE)) {
             exit("Impossible d'ouvrir le fichier $filename>\n");
         }
 
-        foreach ($files as $file){
-            $zip->addFile('./uploads/registry/proof/document/'.$file, $file);
+        foreach ($files as $file) {
+            $zip->addFile('./uploads/registry/proof/document/' . $file, $file);
         }
 
         $zip->close();
 
-        $date = date('dmY');
+        $date     = date('dmY');
         $response = new Response(file_get_contents($filename));
         $response->headers->set('Content-Type', 'application/zip');
-        $response->headers->set('Content-Disposition', 'attachment;filename="Documents'.$date.'.zip"');
+        $response->headers->set('Content-Disposition', 'attachment;filename="Documents' . $date . '.zip"');
         $response->headers->set('Content-length', filesize($filename));
 
         return $response;
-
     }
 
     public function listAction(): Response
