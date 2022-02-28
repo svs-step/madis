@@ -133,6 +133,7 @@ class Document
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
+     *
      * @var User|null
      */
     private $creator;
@@ -377,17 +378,11 @@ class Document
         return null;
     }
 
-    /**
-     * @return User|null
-     */
     public function getCreator(): ?User
     {
         return $this->creator;
     }
 
-    /**
-     * @param User|null $creator
-     */
     public function setCreator(?User $creator): void
     {
         $this->creator = $creator;
