@@ -131,6 +131,13 @@ class Document
     private $favoritedUsers;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     * @var User|null
+     */
+    private $creator;
+
+    /**
      * Answer constructor.
      *
      * @throws \Exception
@@ -368,5 +375,21 @@ class Document
         }
 
         return null;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    /**
+     * @param User|null $creator
+     */
+    public function setCreator(?User $creator): void
+    {
+        $this->creator = $creator;
     }
 }

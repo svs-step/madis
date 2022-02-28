@@ -74,6 +74,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                 'choice_label' => 'name',
                 'multiple'     => true,
                 'required'     => false,
+                'expanded'     => true,
             ])
             ->add('thumbUploadedFile', FileType::class, [
                 'label'       => 'documentation.document.form.label.thumbnail',
