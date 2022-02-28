@@ -379,7 +379,6 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ->where('u.planificationDate >= :date_start')
             ->andWhere('u.status = :status')
             ->setParameter('date_start', $date->format('Y-m-d'))
-            ->setFirstResult($_ENV['APP_USER_DASHBOARD_ACTION_PLAN_LIMIT'])
             ->setParameter('status', 'not-applied')
             ->orderBy('u.planificationDate', 'ASC');
 

@@ -62,8 +62,9 @@ class DashboardController extends AbstractController
         $actions = $this->repository->getPlanifiedActionsDashBoard();
 
         return $this->render($metrics->getTemplateViewName(), [
-            'data'    => $metrics->getData(),
-            'actions' => $actions,
+            'data'          => $metrics->getData(),
+            'actions'       => $actions,
+            'limit_actions' => $_ENV['APP_USER_DASHBOARD_ACTION_PLAN_LIMIT'],
         ]);
     }
 
