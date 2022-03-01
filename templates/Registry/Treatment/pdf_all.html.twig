@@ -3,10 +3,9 @@
 {% set bodyClass = 'registry_treatment show' %}
 {% set menuItem = 'registry_treatment' %}
 
-{% block body_head %}{{ object.name }}{% endblock %}
-
 {% block body %}
-
+{% for object in objects %}
+<h1 class="text-center">{{ object.name }}</h1>
     <div class="row">
 {#         LEFT#}
         <div class="col-md-6">
@@ -15,7 +14,7 @@
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
-                        <tbody>
+                    <tbody>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.name'|trans }}</strong></td>
                             <td>{{ object.name }}</td>
@@ -60,7 +59,7 @@
                             <td><strong>{{ 'registry.treatment.show.observation'|trans }}</strong></td>
                             <td>{{ object.observation|nl2br }}</td>
                         </tr>
-                        </tbody>
+                    </tbody>
                     </table>
                 </div>
             </div>
@@ -497,4 +496,6 @@
             </div>
         </div>
     </div>
+{% endfor %}
 {% endblock %}
+

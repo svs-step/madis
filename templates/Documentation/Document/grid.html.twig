@@ -59,8 +59,8 @@
                         {# SWITCH GRID LIST #}
                         {% if is_granted('ROLE_USER') %}
                         <div class="col-md-12 col-xl-2">
-                            <div class="row">
-                                <div class="col-md-3">
+                            <div class="row" style="margin-bottom: 15px;">
+                                <div class="col-md-4">
                                     <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
                                         <i class="fas fa-list"></i>
                                         {{ 'documentation.document.action.list'|trans }}
@@ -69,6 +69,12 @@
                                     <button id="button-reset" class="btn btn-default">
                                         Réinitialiser les filtres
                                     </button>
+                                    {# Uniquement pour les DPO #}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                                            {{ 'documentation.category.action.list'|trans }}
+                                        </a>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-1">
                                     <input type="checkbox" class="form-check-input" id="search_favorite">

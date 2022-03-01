@@ -566,7 +566,7 @@
             {# PROOFS #}
             {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
 
-            {% if object.collectivity.hasModuleConformiteTraitement %}
+            {# {% if object.collectivity.hasModuleConformiteTraitement %} #}
                 <div class="box box-solid box-success">
                     <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.conformite'|trans }}</h3></div>
                     <div class="box-body">
@@ -664,7 +664,7 @@
                         </table>
                     </div>
                 </div>
-            {% endif %}
+            {# {% endif %} #}
 
                 {# DPO Message  #}
                 <div class="box box-solid box-primary">

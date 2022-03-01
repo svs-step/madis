@@ -23,15 +23,35 @@ registry_treatment_report:
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\TreatmentController:reportAction'
 
+registry_treatment_print_all:
+    path: '/imprimer-tous'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\TreatmentController:pdfAllAction'
+
+registry_treatment_archive_all:
+    path: '/archiver'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\TreatmentController:archiveAllAction'
+
 registry_treatment_delete:
     path: '/supprimer/{id}'
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\TreatmentController:deleteAction'
 
+registry_treatment_delete_all:
+    path: '/supprimer-tous/'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\TreatmentController:deleteAllAction'
+
 registry_treatment_delete_confirm:
     path: '/supprimer/{id}/confirmation'
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\TreatmentController:deleteConfirmationAction'
+
+registry_treatment_delete_all_confirm:
+    path: '/supprimer-tous/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\TreatmentController:deleteConfirmationAllAction'
 
 api_registry_treatment_collectivity:
     path: '/api/collectivite/{collectivityId}'
