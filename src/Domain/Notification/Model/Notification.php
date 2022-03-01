@@ -119,4 +119,64 @@ class Notification
     {
         $this->name = $name;
     }
+
+    public function getModule(): ?string
+    {
+        return $this->module;
+    }
+
+    public function setModule(?string $module): void
+    {
+        $this->module = $module;
+    }
+
+    public function getObject(): ?array
+    {
+        return $this->object;
+    }
+
+    public function setObject(?array $object): void
+    {
+        $this->object = $object;
+    }
+
+    public function getCollectivity(): ?Collectivity
+    {
+        return $this->collectivity;
+    }
+
+    public function setCollectivity(?Collectivity $collectivity): void
+    {
+        $this->collectivity = $collectivity;
+    }
+
+    public function getReadBy(): ?User
+    {
+        return $this->readBy;
+    }
+
+    public function setReadBy(?User $readBy): void
+    {
+        $this->readBy = $readBy;
+    }
+
+    public function getReadAt(): ?\DateTimeImmutable
+    {
+        return $this->readAt;
+    }
+
+    public function setReadAt(?\DateTimeImmutable $readAt): void
+    {
+        $this->readAt = $readAt;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): void
+    {
+        $this->createdBy = $createdBy;
+    }
 }
