@@ -26,6 +26,8 @@ namespace App\Domain\Notification\Model;
 
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -51,6 +53,47 @@ class Notification
      * @var string|null
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @var string|null
+     */
+    private $module;
+
+    /**
+     * @ORM\Column(type="json_array")
+     *
+     * @var array|null
+     */
+    private $object;
+
+    /**
+     * @var Collectivity|null
+     * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\Collectivity")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private $collectivity;
+
+    /**
+     * @var User|null
+     * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private $readBy;
+
+    /**
+     * @var \DateTimeImmutable|null
+     * @ORM\Column(type="datetime", name="read_at")
+     */
+    private $readAt;
+
+    /**
+     * @var User|null
+     * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private $createdBy;
 
     /**
      * Category constructor.
