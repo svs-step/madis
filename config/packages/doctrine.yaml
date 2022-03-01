@@ -44,6 +44,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Domain/Documentation/Model'
                 prefix: App\Domain\Documentation\Model
                 alias: Documentation
+            Notification:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Domain/Notification/Model'
+                prefix: App\Domain\Notification\Model
+                alias: Notification
             Registry:
                 is_bundle: false
                 type: xml

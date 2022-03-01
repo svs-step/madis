@@ -7,6 +7,9 @@ _domain_maturity:
 _domain_documentation:
     resource: ../domain/documentation/routes/_index.yaml
 
+_domain_notification:
+    resource: ../domain/notification/routes/_index.yaml
+
 _domain_page:
     resource: ../domain/page/routes/_index.yaml
 

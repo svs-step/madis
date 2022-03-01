@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'notification_notification list' %}
+{% set menuItem = 'notification_notification' %}
+
+{% set activeCategories = [] %}
+
+{% for object in objects %}
+    {% for cat in object.categories %}
+        {% set activeCategories = activeCategories|merge([cat.name]) %}
+    {% endfor %}
+{% endfor %}
+
+{% block title %}{{ 'notification.notification.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'notification.notification.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'notification.notification.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+            <div class="col-xs-12">
+                <div class="action-bar">
+                    {% if is_granted('ROLE_REFERENT') %}
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-plus"></i>
+                                {{ 'documentation.document.action.new'|trans }}
+                                <span class="caret"></span>
+                            </button>
+                            <div class="dt-button-background" style=""></div>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
+                                <li><a href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <div class="dt-buttons">
+                        {# SWITCH GRID LIST #}
+                        {% if is_granted('ROLE_USER') %}
+                            <a href="{{ path('documentation_document_grid') }}" class="btn btn-default">
+                                <i class="fas fa-th"></i>
+                                {{ 'documentation.document.action.grid'|trans }}
+                            </a>
+                        {% endif %}
+
+                        <button class="btn dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="example" type="button" aria-haspopup="true" aria-expanded="false">
+                            <span>Colonnes</span>
+                            <span class="dt-down-arrow"></span>
+                        </button>
+
+                        <div class="dt-button-collection" style="top: 34px; left: 0px;">
+                            <div role="menu">
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="2">
+                                    <span>{{ 'documentation.document.list.type'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="3">
+                                    <span>{{ 'documentation.document.list.weight'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="6">
+                                    <span>{{ 'documentation.document.list.created_at'|trans }}</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button id="button-reset" class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="table" type="button" aria-haspopup="true" aria-expanded="false">
+                            <span>Réinitialiser les filtres</span>
+                        </button>
+
+                        {# Uniquement pour les DPO #}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                                {{ 'documentation.category.action.list'|trans }}
+                            </a>
+                        {% endif %}
+                    </div>
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                            </tr>
+
+                            <tr>
+                                <th>{{ 'notification.notification.title'|trans }}</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+                         <tr><td>{{ object | json_encode }}</td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+<script>
+    {% set dataTableOptions = {
+
+    } %}
+
+    {# {{ include('_Utils/_serverside_datatable.html.twig') }} #}
+    {{ include('_Utils/_datatable.html.twig') }}
+
+    </script>
+
+{% endblock %}

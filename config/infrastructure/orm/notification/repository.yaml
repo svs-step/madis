@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\Infrastructure\ORM\Notification\Repository\:
+        resource: '../../../../src/Infrastructure/ORM/Notification/Repository'
+
+    App\Domain\Notification\Repository\Notification: '@App\Infrastructure\ORM\Notification\Repository\Notification'
