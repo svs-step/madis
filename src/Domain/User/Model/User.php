@@ -119,6 +119,11 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     private $documentView;
 
     /**
+     * @var array|null
+     */
+    private $moreInfos;
+
+    /**
      * User constructor.
      *
      * @throws \Exception
@@ -129,6 +134,7 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
         $this->roles                 = [];
         $this->enabled               = true;
         $this->collectivitesReferees = [];
+        $this->moreInfos             = [];
     }
 
     public function getId(): UuidInterface
@@ -355,5 +361,15 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     public function setDocumentView(bool $documentView): void
     {
         $this->documentView = $documentView;
+    }
+
+    public function getMoreInfos(): ?array
+    {
+        return $this->moreInfos;
+    }
+
+    public function setMoreInfos(array $moreInfos): void
+    {
+        $this->moreInfos = $moreInfos;
     }
 }

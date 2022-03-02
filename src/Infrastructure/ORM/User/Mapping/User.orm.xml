@@ -18,6 +18,7 @@
         <field name="email" column="email"/>
         <field name="password" column="password"/>
         <field name="roles" column="roles" type="json_array"/>
+        <field name="moreInfos" column="moreInfos" type="json_array" nullable="true"/>
         <field name="enabled" column="enabled" type="boolean"/>
         <field name="forgetPasswordToken" column="forget_password_token" nullable="true"/>
         <field name="deletedAt" column="deleted_at" type="datetime_immutable" nullable="true"/>
