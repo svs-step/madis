@@ -46,5 +46,7 @@ twig:
         tooltip_conformite_organisation_mesurable: '%env(TOOLTIP_CONFORMITE_ORGANISATION_MESURABLE)%'
         tooltip_conformite_organisation_revisee: '%env(TOOLTIP_CONFORMITE_ORGANISATION_REVISEE)%'
         app_connexion_status_know: '%env(APP_CONNEXION_STATUS_KNOW)%'
+        app_notification_max_shown: '%env(APP_NOTIFICATION_MAX_SHOWN)%'
+        app_notification_dashboard_shown: '%env(APP_NOTIFICATION_DASHBOARD_SHOWN)%'
 
 

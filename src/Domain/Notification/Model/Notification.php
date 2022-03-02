@@ -61,7 +61,19 @@ class Notification
     {
         $this->id = Uuid::uuid4();
     }
+    
+    public function __toString(): string
+    {
+        if (\is_null($this->getName())) {
+            return '';
+        }
 
+        if (\mb_strlen($this->getName()) > 50) {
+            return \mb_substr($this->getName(), 0, 50) . '...';
+        }
+
+        return $this->getName();
+    }
     public function getId(): UuidInterface
     {
         return $this->id;
@@ -75,5 +87,15 @@ class Notification
     public function setName(?string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): void
+    {
+        $this->status = $status;
     }
 }

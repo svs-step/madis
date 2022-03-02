@@ -430,3 +430,23 @@ button.dt-button, div.dt-button, a.dt-button {
   outline: none;
   text-overflow: ellipsis;
 }
+
+  /* ---------- NOTIFICATIONS ---------- */
+  
+  #notifications i.fa-bell {
+    font-size: 16px;
+  }
+  #notifications .badge {
+    position: relative;
+    top: -10px;
+    left: -5px;
+  }
+  #notifications .dropdown-large{
+    min-width:550px;
+  }
+  #notifications .dropdown-large a {
+    color: #3c8dbc!important;
+  }
+  #notifications .notification li{
+    background-color : #deedf6;
+  }
