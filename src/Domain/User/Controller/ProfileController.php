@@ -26,6 +26,7 @@ namespace App\Domain\User\Controller;
 
 use App\Application\Controller\ControllerHelper;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Repository;
@@ -176,6 +177,7 @@ class ProfileController
         return $this->helper->render('User/Profile/user_edit.html.twig', [
             'form'     => $form->createView(),
             'roles'    => $object->getRoles(),
+            'moreInfos'=> UserMoreInfoDictionary::getMoreInfos()[$object->getMoreInfos()[0]],
             'services' => $services,
         ]);
     }

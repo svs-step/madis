@@ -117,6 +117,7 @@ user:
         form_user:
             tab:
                 general: Vos informations
+                moreInfo: Informations supplémentaires
                 optional: Informations facultatives
             help:
                 password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe

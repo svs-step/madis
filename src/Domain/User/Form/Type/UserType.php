@@ -112,14 +112,7 @@ class UserType extends AbstractType
                     'multiple' => false,
                     'expanded' => true,
                 ])
-                ->add('moreInfos', DictionaryType::class, [
-                    'label'       => 'user.user.form.moreInfos',
-                    'required'    => false,
-                    'name'        => 'user_user_moreInfo',
-                    'multiple'    => false,
-                    'expanded'    => true,
-                    'placeholder' => 'Aucune information',
-                ])
+
                 ->add('apiAuthorized', CheckboxType::class, [
                     'label'    => 'user.user.form.apiAuthorized',
                     'required' => false,
@@ -152,10 +145,6 @@ class UserType extends AbstractType
                 ->addModelTransformer(new RoleTransformer())
             ;
 
-            $builder
-                ->get('moreInfos')
-                ->addModelTransformer(new MoreInfoTransformer())
-            ;
         }
 
         if ($this->authorizationChecker->isGranted('ROLE_PREVIEW')) {
@@ -206,6 +195,14 @@ class UserType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
+            ->add('moreInfos', DictionaryType::class, [
+                'label'       => 'user.user.form.moreInfos',
+                'required'    => false,
+                'name'        => 'user_user_moreInfo',
+                'multiple'    => false,
+                'expanded'    => true,
+                'placeholder' => 'Aucune information',
+            ])
             ->add('plainPassword', RepeatedType::class, [
                 'type'          => PasswordType::class,
                 'first_options' => [
@@ -222,6 +219,11 @@ class UserType extends AbstractType
                 ],
                 'required' => false,
             ]);
+
+        $builder
+            ->get('moreInfos')
+            ->addModelTransformer(new MoreInfoTransformer())
+        ;
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($encoderFactory) {
             $user = $event->getData();
