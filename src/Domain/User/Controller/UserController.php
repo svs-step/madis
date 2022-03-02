@@ -229,6 +229,7 @@ class UserController extends CRUDController
                 'email'        => $user->getEmail(),
                 'collectivite' => $user->getCollectivity()->getName(),
                 'roles'        => $roles,
+                'moreInfos'    => $user->getMoreInfos(),
                 'actif'        => $actif,
                 'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('Y-m-d H:i:s') : null,
                 'services'     => $services,
@@ -254,6 +255,7 @@ class UserController extends CRUDController
             6 => 'connexion',
             7 => 'services',
             8 => 'actions',
+            9 => 'moreInfos',
         ];
     }
 
