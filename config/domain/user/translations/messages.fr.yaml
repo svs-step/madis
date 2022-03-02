@@ -176,7 +176,7 @@ user:
             password: Mot de passe
             password_repeat: Répéter le mot de passe
             roles: Role
-            moreInfos: Fonction
+            moreInfos: Informations supplémentaires
             services: Services
         flashbag:
             success:
@@ -192,6 +192,7 @@ user:
             last_login: Dernière connexion
             last_name: Nom
             roles: Role
+            moreInfos: Informations supplémentaires
             services: Service
             services_list: Liste des services
             service_number_users: Nombre d'utilisateurs dans ce service

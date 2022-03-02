@@ -24,8 +24,8 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
-use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Form\DataTransformer\MoreInfoTransformer;
+use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
@@ -113,11 +113,12 @@ class UserType extends AbstractType
                     'expanded' => true,
                 ])
                 ->add('moreInfos', DictionaryType::class, [
-                    'label'    => 'user.user.form.moreInfos',
-                    'required' => false,
-                    'name'     => 'user_user_moreInfo',
-                    'multiple' => false,
-                    'expanded' => true,
+                    'label'       => 'user.user.form.moreInfos',
+                    'required'    => false,
+                    'name'        => 'user_user_moreInfo',
+                    'multiple'    => false,
+                    'expanded'    => true,
+                    'placeholder' => 'Aucune information',
                 ])
                 ->add('apiAuthorized', CheckboxType::class, [
                     'label'    => 'user.user.form.apiAuthorized',
