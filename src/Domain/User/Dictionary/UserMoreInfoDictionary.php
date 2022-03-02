@@ -28,10 +28,10 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class UserMoreInfoDictionary extends SimpleDictionary
 {
-    const MOREINFO_TREATMENT  = 'MOREINFO_TREATMENT';
-    const MOREINFO_INFORMATIC    = 'MOREINFO_INFORMATIC';
+    const MOREINFO_TREATMENT       = 'MOREINFO_TREATMENT';
+    const MOREINFO_INFORMATIC      = 'MOREINFO_INFORMATIC';
     const MOREINFO_OPERATIONNAL    = 'MOREINFO_OPERATIONNAL';
-    const MOREINFO_DPD = 'MOREINFO_DPD';
+    const MOREINFO_DPD             = 'MOREINFO_DPD';
 
     public function __construct()
     {
@@ -46,10 +46,10 @@ class UserMoreInfoDictionary extends SimpleDictionary
     public static function getMoreInfos()
     {
         return [
-            self::MOREINFO_TREATMENT  => 'Responsable de traitement',
-            self::MOREINFO_INFORMATIC     => 'Référent opérartionnel',
+            self::MOREINFO_TREATMENT       => 'Responsable de traitement',
+            self::MOREINFO_INFORMATIC      => 'Référent opérartionnel',
             self::MOREINFO_OPERATIONNAL    => 'Responsable informatique',
-            self::MOREINFO_DPD => 'DPO'
+            self::MOREINFO_DPD             => 'DPO',
         ];
     }
 

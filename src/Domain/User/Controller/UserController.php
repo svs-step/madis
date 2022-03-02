@@ -27,6 +27,7 @@ namespace App\Domain\User\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Model;
@@ -201,6 +202,12 @@ class UserController extends CRUDController
                 $roles .= $span;
             }
 
+            $infos ='';
+            foreach ($user->getMoreInfos() as $info) {
+                $span = '<span class="badge">' . UserMoreInfoDictionary::getMoreInfos()[$info] . '</span>';
+                $infos .= $span;
+            }
+
             $userActifBgColor = 'bg-green';
             if (!$user->isEnabled()) {
                 $userActifBgColor = 'bg-red';
@@ -229,7 +236,7 @@ class UserController extends CRUDController
                 'email'        => $user->getEmail(),
                 'collectivite' => $user->getCollectivity()->getName(),
                 'roles'        => $roles,
-                'moreInfos'    => $user->getMoreInfos(),
+                'moreInfos'    => $infos,
                 'actif'        => $actif,
                 'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('Y-m-d H:i:s') : null,
                 'services'     => $services,
