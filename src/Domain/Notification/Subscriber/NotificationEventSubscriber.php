@@ -10,14 +10,18 @@ use App\Domain\Notification\Event\ViolationEvent;
 use App\Domain\Notification\Model\Notification;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
 
 class NotificationEventSubscriber implements EventSubscriberInterface
 {
-    protected EntityManagerInterface $entityManager;
+    protected NotificationRepository $notificationRepository;
+    protected SerializerInterface $serializer;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(NotificationRepository $notificationRepository, SerializerInterface $serializer)
     {
-        $this->entityManager = $entityManager;
+        $this->notificationRepository = $notificationRepository;
+        $this->serializer = $serializer;
     }
 
     public static function getSubscribedEvents()
@@ -43,5 +47,8 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification = new Notification();
         $notification->setModule("Actions");
         $notification->setCollectivity($action->getCollectivity());
+        $notification->setName($action->getName());
+        $notification->setObject($this->serializer->normalize($action));
+        $this->notificationRepository->insert($notification);
     }
 }

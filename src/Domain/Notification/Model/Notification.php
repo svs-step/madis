@@ -83,8 +83,8 @@ class Notification
     private $readBy;
 
     /**
-     * @var \DateTimeImmutable|null
-     * @ORM\Column(type="datetime", name="read_at")
+     * @var \DateTime|null
+     * @ORM\Column(type="datetime", name="read_at", nullable=true)
      */
     private $readAt;
 
@@ -160,12 +160,12 @@ class Notification
         $this->readBy = $readBy;
     }
 
-    public function getReadAt(): ?\DateTimeImmutable
+    public function getReadAt(): ?\DateTime
     {
         return $this->readAt;
     }
 
-    public function setReadAt(?\DateTimeImmutable $readAt): void
+    public function setReadAt(?\DateTime $readAt): void
     {
         $this->readAt = $readAt;
     }

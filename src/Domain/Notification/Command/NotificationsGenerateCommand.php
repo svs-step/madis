@@ -51,16 +51,18 @@ class NotificationsGenerateCommand extends Command
 //            // ...
 //        }
 
-        $this->generateLateActionNotifications();
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $cnt = $this->generateLateActionNotifications();
+
+        $io->success($cnt . " late actions notifications generated");
 
         return 0;
     }
 
-    protected function generateLateActionNotifications()
+    protected function generateLateActionNotifications(): Int
     {
         $actions = $this->entityManager->getRepository(Mesurement::class)->findAll();
         $now = new \DateTime();
+        $cnt = 0;
         foreach ($actions as $action) {
             /**
              * @var Mesurement $action
@@ -69,7 +71,10 @@ class NotificationsGenerateCommand extends Command
 
             if ($action->getPlanificationDate() && $action->getPlanificationDate() < $now) {
                 $this->dispatcher->dispatch(new LateActionEvent($action));
+                $cnt ++;
             }
         }
+
+        return $cnt;
     }
 }
