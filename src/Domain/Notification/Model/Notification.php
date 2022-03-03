@@ -172,12 +172,12 @@ class Notification
         $this->readBy = $readBy;
     }
 
-    public function getReadAt(): ?\DateTimeImmutable
+    public function getReadAt(): ?\DateTime
     {
         return $this->readAt;
     }
 
-    public function setReadAt(?\DateTimeImmutable $readAt): void
+    public function setReadAt(?\DateTime $readAt): void
     {
         $this->readAt = $readAt;
     }

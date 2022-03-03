@@ -29,18 +29,21 @@
                         <li class="notification">
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
+                            {# {% for object in objects %} #}
                                 <li class="box-header with-border" style="padding: 0.8em;">
-                                 {# {{app_notification_max_shown}} #}
+                                {# {{app_notification_max_shown}} #}
                                     <div class="row">
                                         <div class="col-md-8" href="#">
                                         <b>[Preuves]</b> Ajout de <a href="#"><b>Lien vers le doc</b></a> par <b>Commune</b>
                                         </div>
+                                        {# <div class="col-md-4 text-center"><a  href="{{ path('notification_notification_mark_as_read', { 'id': object.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;"> #}
                                         <div class="col-md-4 text-center"><a  href="{{ path('notification_notification_mark_as_read') }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
                                             <i class="fas fa-clipboard-check"></i> {{ 'notifications.notification.action.mark_as_read'|trans }}
                                         </a></div>
                                         <div class="col-md-12 text-muted">Ajouté, il y a 3 jours par Agnès DESROSIERS</div>
                                     </div>
                                 </li>
+                            {# {% endfor %} #}
                             </ul>
                         </li>
                         <li class="footer"><a href="{{ path('notification_notification_list') }}">Voir toutes les notifications</a></li>

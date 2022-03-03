@@ -119,6 +119,7 @@
                                         <b>[Preuves]</b> Ajout de <a href="#"><b>Lien vers le doc</b></a> par <b>Commune</b>
                                         </div>
                                     {% if is_granted('ROLE_ADMIN') %}
+                                    {# <div class="col-md-3 text-center"><a href="{{ path('notification_notification_mark_as_read', { 'id': object.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;"> #}
                                     <div class="col-md-3 text-center"><a href="{{ path('notification_notification_mark_as_read') }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
                                         <i class="fas fa-clipboard-check"></i> {{ 'notifications.notification.action.mark_as_read'|trans }}
                                     </a></div>

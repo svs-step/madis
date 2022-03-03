@@ -150,7 +150,7 @@ class NotificationController extends CRUDController
     }
 
     /**
-     * Update read status from notification
+     * Update read_at and read_by from notification
      */
     public function markAsReadAction(string $id)
     {

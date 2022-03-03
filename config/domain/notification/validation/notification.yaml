@@ -4,7 +4,7 @@ App\Domain\Registry\Model\Notification:
             - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
                 name: 'notifications_notification_state'
                 groups: ['default']
-        state:
+        action:
             - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
                 name: 'notifications_notification_action'
                 groups: ['default']

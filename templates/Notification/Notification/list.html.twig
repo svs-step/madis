@@ -146,7 +146,7 @@
                                     <input class="form-control" type="text" id="search_user_name" placeholder="Nom" style="width: 100%;">
                                 </th>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <th><input class="datepicker form-control" type="text" id="search_user_date" placeholder="Date" style="width: 100%;"></th>
+                                <th><input class="datepicker form-control" type="text" id="search_read_at" placeholder="Date" style="width: 100%;"></th>
                                 <th>
                                     <input class="form-control" type="text" id="search_read_by" placeholder="Nom" style="width: 100%;">
                                 </th>
@@ -178,26 +178,33 @@
                                 {# STATE #}
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <td>
-                                    <i class="fas fa-check-circle" style="color:green;"></i> object.state
+                                    {% if object.readAt %}
+                                    <i class="fas fa-check-circle" style="color:green;"></i> Lu
+                                    {% else %}
+                                    Non lu
+                                    {% endif %} 
                                 </td>
                                 {% endif %}
 
-                                <td>object.module</td>
+                                <td>{{object.module}}</td>
                                 <td>object.action</td>
                                 <td>{{object.name}}</td>
                                 <td>object.object</td>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <td>object.collectivity</td>
+                                <td>{{object.collectivity}}</td>
                                 {% endif %}
                                 <td>{{ object.createdAt|date('d/m/Y') }}</td>
-                                <td>object.user</td>
+                                <td>{{object.createdBy}}</td>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <td>object.read_date</td>
-                                <td>object.read_by</td>
+                                <td>{{object.readAt|date('d/m/Y') }}</td>
+                                <td>{{object.readBy}}</td>
                                 <td>
-                                    <a href="{{ path('notification_notification_mark_as_read', { 'id': object.id }) }}">
-                                        <i class="fas fa-clipboard-check"></i>&nbsp;{{ 'notifications.notification.action.mark_as_read'|trans }}
-                                    </a>
+                                    {% if object.readAt == null %}
+                                        <a href="{{ path('notification_notification_mark_as_read', { 'id': object.id }) }}">
+                                            <i class="fas fa-clipboard-check"></i>&nbsp;{{ 'notifications.notification.action.mark_as_read'|trans }}
+                                        </a>
+                                    {% endif %}
+
                                     <a href="{{ path('notification_notification_delete', { 'id': object.id }) }}">
                                         <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
                                     </a>
@@ -266,21 +273,48 @@
         function setEvents() {
             var oTable = $('#table').DataTable();
 
-            /*$('#search_type').off('change');
-            $('#search_type').change(function(){
-                console.log($(this).val())
-                oTable.column('2').search($(this).val()).draw() ;
-            });*/
+            // NON LU SEULEMENT
+            $('#search_state').off('change');
+            $('#search_state').change(function(){
+                oTable.column('0').search($(this).val()).draw();
+            });
+
+            $('#search_module').off('change');
+            $('#search_module').change(function(){
+                isAdmin ? oTable.column('1').search($(this).val()).draw() : oTable.column('0').search($(this).val()).draw() ;
+            });
 
             $('#search_name').off('keyup');
             $('#search_name').keyup($.debounce(250, function(){
                 isAdmin ? oTable.column('3').search($(this).val()).draw() : oTable.column('2').search($(this).val()).draw() ;
             }));
 
+            $('#search_collectivity').off('keyup');
+            $('#search_collectivity').keyup($.debounce(250, function(){
+                oTable.column('5').search($(this).val()).draw();
+            }));
+
             $('#search_date').off('change');
             $('#search_date').change(function(){
                 isAdmin ? oTable.column('6').search($(this).val()).draw() : oTable.column('4').search($(this).val()).draw() ;
             });
+
+            $('#search_user_name').off('keyup');
+            $('#search_user_name').keyup($.debounce(250, function(){
+                isAdmin && oTable.column('7').search($(this).val()).draw();
+            }));
+
+            $('#search_read_at').off('change');
+            $('#search_read_at').change(function(){
+                isAdmin && oTable.column('8').search($(this).val()).draw()
+            });
+
+            $('#search_read_by').off('keyup');
+            $('#search_read_by').keyup($.debounce(250, function(){
+                isAdmin && oTable.column('9').search($(this).val()).draw();
+            }));
+            
+            
         }
 
         $(document).ready(function() {
