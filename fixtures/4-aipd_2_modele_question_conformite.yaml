@@ -107,3 +107,30 @@ App\Domain\AIPD\Model\ModeleQuestionConformite:
         texteConformite: "Conforme"
         texteNonConformiteMineure: "Non-conforme mineure"
         texteNonConformiteMajeure: "Non-conformite majeure"
+    modele_question_conformite_13:
+        __construct:
+            - "Exercice du droit à la portabilité"
+            - 13
+            - '@modele_analyse_1'
+        isJustificationObligatoire: false
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"
+    modele_question_conformite_14:
+        __construct:
+            - "Exercice du droit d'effacement"
+            - 14
+            - '@modele_analyse_1'
+        isJustificationObligatoire: true
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"
+    modele_question_conformite_15:
+        __construct:
+            - "Exercice du droit d'opposition"
+            - 15
+            - '@modele_analyse_1'
+        isJustificationObligatoire: false
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"

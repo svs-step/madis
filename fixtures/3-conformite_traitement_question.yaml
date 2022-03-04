@@ -35,3 +35,12 @@ App\Domain\Registry\Model\ConformiteTraitement\Question:
     conformite_traitement_question_12:
         question: "Transferts : respect des obligations en matière de transfert des données en dehors de l'Union Européenne"
         position: 12
+    conformite_traitement_question_13:
+        question: "Exercice du droit à la portabilité"
+        position: 13
+    conformite_traitement_question_14:
+        question: "Exercice du droit d'effacement"
+        position: 14
+    conformite_traitement_question_15:
+        question: "Exercice du droit d'opposition"
+        position: 15
