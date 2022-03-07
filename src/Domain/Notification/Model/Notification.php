@@ -83,8 +83,8 @@ class Notification
     private $readBy;
 
     /**
-     * @var \DateTimeImmutable|null
-     * @ORM\Column(type="datetime", name="read_at")
+     * @var \DateTime|null
+     * @ORM\Column(type="datetime", name="read_at", nullable=true)
      */
     private $readAt;
 
