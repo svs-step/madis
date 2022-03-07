@@ -2,7 +2,7 @@ App\Domain\Aipd\Model\CriterePrincipeFondamental:
     properties:
         fichier:
             - File:
-                  maxSize: 3072k
+                  maxSize: '%APP_MAX_UPLOAD_SIZE%'
                   mimeTypes:
                       - image/jpeg
                       - image/png

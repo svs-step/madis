@@ -12,15 +12,11 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
 
 class CriterePrincipeFondamentalType extends AbstractType
 {
-    protected string $maxSize;
-
     public function __construct(string $maxSize)
     {
-        $this->maxSize = $maxSize;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -43,11 +39,6 @@ class CriterePrincipeFondamentalType extends AbstractType
             ])
             ->add('fichierFile', FileType::class, [
                 'required'    => false,
-                'constraints' => [
-                    new File([
-                        'maxSize'   => $this->maxSize,
-                    ]),
-                ],
             ])
         ;
     }

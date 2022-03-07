@@ -36,21 +36,17 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Validator\Constraints\File;
 
 class ProofType extends AbstractType
 {
-    protected string $maxSize;
-
     /**
      * @var Security
      */
     private $security;
 
-    public function __construct(Security $security, string $maxSize)
+    public function __construct(Security $security)
     {
         $this->security = $security;
-        $this->maxSize  = $maxSize;
     }
 
     /**
@@ -87,12 +83,6 @@ class ProofType extends AbstractType
             ->add('documentFile', FileType::class, [
                 'label'       => false,
                 'required'    => false,
-                'constraints' => [
-                    new File([
-                        'maxSize'   => $this->maxSize,
-                        'groups'    => ['default'],
-                    ]),
-                ],
             ])
             ->add('comment', TextType::class, [
                 'label'    => 'registry.proof.form.comment',
