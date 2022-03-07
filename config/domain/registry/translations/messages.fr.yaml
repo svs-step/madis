@@ -402,7 +402,8 @@ registry:
             author: En tant que
             collectivity: Collectivité
             completion: Taux de complétion
-            contractors: Sous-traitants
+            contractors: Sous-
+            conformite_traitement: Conformité du traitement
             entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
             goal: Finalité
             legal_basis: Base légale
@@ -488,7 +489,7 @@ registry:
             show: Visualiser un traitement
             configure: Configurer les traitements
         tab:
-          conformite: Évaluation de la conformoite du traitement
+          conformite: Évaluation de la conformite du traitement
           data_category: Catégorie des données
           details: Détails
           general: Informations générales

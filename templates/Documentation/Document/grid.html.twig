@@ -59,8 +59,8 @@
                         {# SWITCH GRID LIST #}
                         {% if is_granted('ROLE_USER') %}
                         <div class="col-md-12 col-xl-2">
-                            <div class="row">
-                                <div class="col-md-3">
+                            <div class="row" style="margin-bottom: 15px;">
+                                <div class="col-md-4">
                                     <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
                                         <i class="fas fa-list"></i>
                                         {{ 'documentation.document.action.list'|trans }}
@@ -69,6 +69,12 @@
                                     <button id="button-reset" class="btn btn-default">
                                         Réinitialiser les filtres
                                     </button>
+                                    {# Uniquement pour les DPO #}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                                            {{ 'documentation.category.action.list'|trans }}
+                                        </a>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-1">
                                     <input type="checkbox" class="form-check-input" id="search_favorite">
@@ -128,7 +134,17 @@
                                         {% if (object.thumbUrl) %}
                                             <img src="{{ object.thumbUrl }}" alt="" height="150" style="object-fit : cover;width:100%" />
                                         {% else %}
-                                            <div class="h1 text-muted m-0" style="height:150px;padding: 60px;background: #f2f2f2;"><i class="fas fa-image"></i></div>
+                                            <div class="text-muted m-0" style="height:150px;padding: 50px;background: #f2f2f2;font-size: 60px;">
+                                            {% if object.typeName == "Vidéos" %}
+                                                <i class="far fa-file-video"></i>
+                                            {% elseif object.typeName == "PDF" %}
+                                                <i class="far fa-file-pdf"></i>
+                                            {% elseif object.typeName == "Documents" %}
+                                                <i class="far fa-file-word"></i>
+                                            {% elseif object.typeName == "Lien" %}
+                                                <i class="fas fa-globe"></i>
+                                            {% endif %}
+                                            </div>
                                         {% endif %}
                                     </a>
                                 </td>
@@ -141,10 +157,21 @@
                                         {% endif %}
                                     </a>
                                 </td>
-                                <td><a href="{{ object.url }}" target="_blank" style="word-break: break-word;">{{ object.name }}</a></td>
+                                <td style="line-height: 1.2em;overflow: hidden;height: 25px;"><a href="{{ object.url }}" target="_blank" style="word-break: break-word;">{{ object.name }}</a></td>
 
                                 <td class="text-sm" style="display: flex; flex-direction: row;justify-content: space-between">
-                                    <div>{{ object.typeName }}</div>
+                                    <div>
+                                        {% if object.typeName == "Vidéos" %}
+                                            <i class="far fa-file-video"></i>
+                                        {% elseif object.typeName == "PDF" %}
+                                            <i class="far fa-file-pdf"></i>
+                                        {% elseif object.typeName == "Documents" %}
+                                            <i class="far fa-file-word"></i>
+                                        {% elseif object.typeName == "Lien" %}
+                                            <i class="fas fa-globe"></i>
+                                        {% endif %}
+                                        {{ object.typeName }}
+                                    </div>
                                     <div>{{ object.size }}</div>
                                     <div>{{ object.createdAt|date('d/m/Y') }}</div>
                                 </td>
@@ -154,7 +181,7 @@
                                 <td class="hidden">
                                     {{ object.createdAt|date('d/m/Y') }}
                                 </td>
-                                <td>
+                                <td style="line-height: 1.2em;overflow: hidden;height: 25px;">
                                     {{ object.categories|map(c => "#{c.name}") | join(', ') }}
                                 </td>
                                 <td>
@@ -225,6 +252,38 @@
 {% block javascripts %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "thumbnail", "orderable": false},
+            {"data": "favorite"},
+            {"data": "name"},
+            {"data": "type"},
+            {"data": "weight"},
+            {"data": "created_at"},
+            {"data": "category"},
+            {"data": "actions", "orderable": false},
+        ],
+        order: [[0,'desc'],[1,'desc'],[6,'desc']],
+        language: {
+            buttons: {
+                colvis: "Colonnes"
+            },
+        },
+        dom: 'Bfrtip',
+        columnDefs: [
+            {
+                targets: 4,
+                className: 'noVis'
+            }
+        ],
+        buttons: [
+            {
+                extend: "colvis",
+                columns: ":not(.noVis)"
+            }
+        ],
+    } %}
 
     {# {{ include('_Utils/_serverside_datatable.html.twig') }} #}
     {{ include('_Utils/_datatable.html.twig') }}
