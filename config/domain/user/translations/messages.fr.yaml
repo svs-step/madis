@@ -15,6 +15,7 @@ user:
             job: Fonction
             mail: Email
             phone_number: Téléphone
+            notification: Notification
 
     collectivity:
         action:
