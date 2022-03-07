@@ -202,9 +202,9 @@
     </div>
     <div id="shareModal" class="modal fade" >
         <div class="modal-dialog">
-            <div class="box box-solid box-default">
-                <div class="box-header with-border text-center">
-                    <h3 class="box-title">Voici le lien du fichier</h3>
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Partager le lien du document</h3>
                     <div class="box-tools pull-right">
                         <!-- Collapse Button -->
                         <button type="button" class="btn btn-box-tool" data-dismiss="modal">
@@ -213,12 +213,22 @@
                     </div>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body text-center">
-                    <div id="linkDocument" class="modal-body"></div>
+                <div class="box-body text-center copyLink" style="display: none">
+                    <i class="fa fa-check fa-3x" style="color:green"></i>
+                    <h4><b>Lien copié</b></h4>
                 </div>
-                <!-- /.box-body -->
-                <div class="box-footer text-center">
-                    <button onclick="copyToClipBoard()">Enregistrer le lien dans le presse papier</button>
+                <div class="box-body text-center">
+                    <div class="input-group">
+                        <input type="text" class="form-control linkDoc">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary btn-flat" data-dashlane-label="true" onclick="copyToClipBoard()" data-form-type="other">Copier</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <blockquote>
+                        <p style="color:grey;font-size:14px;">-Seul les membres ayant un compte Madis pourront accéder au document.</p>
+                    </blockquote>
                 </div>
                 <!-- box-footer -->
             </div>
@@ -268,7 +278,7 @@
     <script>
         $(document).ready(function() {
             $('.sharelink').on('click', function() {
-                $('#linkDocument').text($(this).data('id'));
+                $('.linkDoc').val($(this).data('id'));
             })
 
             // SET FAVORITE ICON
@@ -278,7 +288,7 @@
         })
 
         function copyToClipBoard() {
-            var text = $('#linkDocument').text();
+            var text = $('.linkDoc').val();
 
             var dummy = document.createElement("textarea");
             document.body.appendChild(dummy);
@@ -286,6 +296,8 @@
             dummy.select();
             document.execCommand("copy");
             document.body.removeChild(dummy);
+
+            $('.copyLink').show();
         }
 
         $(function () {
