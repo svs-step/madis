@@ -12,3 +12,7 @@ services:
     App\Domain\AIPD\Form\Type\AnalyseCriterePrincipeFondamentalType:
         arguments:
             $maxSize: '%APP_MAX_UPLOAD_SIZE%'
+
+    App\Domain\AIPD\Form\Type\CriterePrincipeFondamentalType:
+        arguments:
+            $maxSize: '%APP_MAX_UPLOAD_SIZE%'

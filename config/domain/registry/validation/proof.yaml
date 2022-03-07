@@ -16,7 +16,7 @@ App\Domain\Registry\Model\Proof:
                 message: 'registry_proof.document_file.not_null'
                 groups: ['create']
             - File:
-                maxSize: '%APP_MAX_UPLOAD_SIZE%'
+                maxSize: 3072k
                 mimeTypes:
                     # JPG / PNG
                     - image/jpeg
