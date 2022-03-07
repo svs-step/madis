@@ -1,6 +1,17 @@
 CHANGELOG
 =========
 
+## [1.8.7] - 2022-03-04
+### Changement
+- Correction d'un bug affichant tous les services de la collectivité lors de la création d'éléments sans prise en compte des services de l'utilisateur
+- Correction d'un bug empêchant les utilisateurs sans service de supprimer les services des éléments
+- Correction d'une erreur 500 lors de la duplication d'éléments
+
+## [1.8.6] - 2022-02-17
+### Changement
+- Correction d'un bug entraînant la multiplication du nombre d'éléments dupliqués
+- Correction d'un bug affichant toujours les services comme inactifs lors de la modification d'une collectivité, empêchant de les désactiver 
+
 ## [1.8.5] - 2022-02-15
 ### Changement
 - Correction d'un bug affichant les services dans les éléments d'une collectivité n'ayant pas de services
