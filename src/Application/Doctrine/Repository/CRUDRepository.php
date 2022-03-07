@@ -147,6 +147,7 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
             $orderBy[$key] = $value;
         }
 
+
         return $this->registry
             ->getManager()
             ->getRepository($this->getModelClass())

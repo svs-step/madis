@@ -49,4 +49,6 @@ twig:
         app_notification_max_shown: '%env(APP_NOTIFICATION_MAX_SHOWN)%'
         app_notification_dashboard_shown: '%env(APP_NOTIFICATION_DASHBOARD_SHOWN)%'
 
+        notifications: '@App\Domain\Notification\Repository\Notification'
+
 
