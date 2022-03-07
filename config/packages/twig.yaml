@@ -47,4 +47,6 @@ twig:
         tooltip_conformite_organisation_revisee: '%env(TOOLTIP_CONFORMITE_ORGANISATION_REVISEE)%'
         app_connexion_status_know: '%env(APP_CONNEXION_STATUS_KNOW)%'
 
+        notifications: '@App\Domain\Notification\Repository\Notification'
+
 
