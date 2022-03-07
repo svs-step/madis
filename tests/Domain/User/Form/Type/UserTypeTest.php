@@ -111,7 +111,6 @@ class UserTypeTest extends FormTypeHelper
             'plainPassword'         => RepeatedType::class,
             'collectivitesReferees' => EntityType::class,
             'apiAuthorized'         => CheckboxType::class,
-            'services'              => EntityType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
@@ -128,6 +127,14 @@ class UserTypeTest extends FormTypeHelper
             ->addEventListener(FormEvents::POST_SUBMIT, Argument::any())
             ->shouldBeCalled()
         ;
+        $builderProphecy
+            ->addEventListener(FormEvents::PRE_SET_DATA, Argument::any())
+            ->shouldBeCalled()
+        ;
+        $builderProphecy
+            ->addEventListener(FormEvents::SUBMIT, Argument::any())
+            ->shouldBeCalled()
+        ;
 
         $this->formType->buildForm($builderProphecy->reveal(), ['data' => $this->user]);
     }
@@ -139,7 +146,6 @@ class UserTypeTest extends FormTypeHelper
             'lastName'      => TextType::class,
             'email'         => EmailType::class,
             'plainPassword' => RepeatedType::class,
-            'services'      => EntityType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(false);
@@ -152,6 +158,14 @@ class UserTypeTest extends FormTypeHelper
 
         $builderProphecy
             ->addEventListener(FormEvents::POST_SUBMIT, Argument::any())
+            ->shouldBeCalled()
+        ;
+        $builderProphecy
+            ->addEventListener(FormEvents::PRE_SET_DATA, Argument::any())
+            ->shouldBeCalled()
+        ;
+        $builderProphecy
+            ->addEventListener(FormEvents::SUBMIT, Argument::any())
             ->shouldBeCalled()
         ;
 

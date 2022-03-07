@@ -40,6 +40,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
@@ -144,28 +145,41 @@ class UserType extends AbstractType
             ;
         }
 
-        if ($this->authorizationChecker->isGranted('ROLE_PREVIEW') && !$serviceDisabled) {
-            $builder->add('services', EntityType::class, [
+        $formModifier = function (FormInterface $form, Collectivity $collectivity) use ($serviceDisabled, $authenticatedUser) {
+            $queryBuilder = function (EntityRepository $er) use ($serviceDisabled, $authenticatedUser, $collectivity) {
+                if ($serviceDisabled) {
+                    return $er->createQueryBuilder('s')
+                        ->where(':user MEMBER OF s.users')
+                        ->setParameter(':user', $authenticatedUser)
+                        ->orderBy('s.name', 'ASC');
+                }
+
+                return $er->createQueryBuilder('s')
+                    ->where('s.collectivity = :collectivity')
+                    ->setParameter(':collectivity', $collectivity)
+                    ->orderBy('s.name', 'ASC');
+            };
+
+            $form->add('services', EntityType::class, [
                 'class'         => Service::class,
                 'label'         => 'user.user.form.services',
                 'disabled'      => $serviceDisabled,
                 'required'      => false,
                 'multiple'      => true,
                 'expanded'      => false,
-                'query_builder' => function (EntityRepository $er) use ($serviceDisabled, $authenticatedUser, $collectivity) {
-                    if ($serviceDisabled) {
-                        return $er->createQueryBuilder('s')
-                        ->where(':user MEMBER OF s.users')
-                        ->setParameter(':user', $authenticatedUser)
-                        ->orderBy('s.name', 'ASC');
-                    }
-
-                    return $er->createQueryBuilder('s')
-                        ->where('s.collectivity = :collectivity')
-                        ->setParameter(':collectivity', $collectivity)
-                        ->orderBy('s.name', 'ASC');
-                },
+                'query_builder' => $queryBuilder,
             ]);
+        };
+
+        if ($this->authorizationChecker->isGranted('ROLE_PREVIEW') && !$serviceDisabled) {
+            $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($formModifier) {
+                dump($event->getData());
+                $formModifier($event->getForm(), $event->getData()->getCollectivity());
+            });
+            $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($formModifier) {
+                dump($event->getData());
+                $formModifier($event->getForm(), $event->getData()->getCollectivity());
+            });
         }
 
         // Now add standard information
