@@ -173,11 +173,9 @@ class UserType extends AbstractType
 
         if ($this->authorizationChecker->isGranted('ROLE_PREVIEW') && !$serviceDisabled) {
             $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($formModifier) {
-                dump($event->getData());
                 $formModifier($event->getForm(), $event->getData()->getCollectivity());
             });
             $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($formModifier) {
-                dump($event->getData());
                 $formModifier($event->getForm(), $event->getData()->getCollectivity());
             });
         }

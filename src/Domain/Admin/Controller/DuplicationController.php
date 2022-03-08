@@ -180,7 +180,10 @@ class DuplicationController extends AbstractController
         if ($duplicationId) {
             $duplication = $entityManager->getRepository(Duplication::class)->find($duplicationId);
 
-            $objectIdsToDelete = $duplication->getDataIds();
+            $objectsToDelete   = $entityManager->getRepository(DuplicatedObject::class)->findBy(['duplication' => $duplication]);
+            $objectIdsToDelete = array_map(function ($element) {
+                return $element->getDuplicatId();
+            }, $objectsToDelete);
 
             try {
                 $typeToDelete = DuplicationTypeDictionary::getClassName($duplication->getType());
@@ -195,11 +198,10 @@ class DuplicationController extends AbstractController
                 foreach ($objectIdsToDelete as $objectId) {
                     $objectDuplicated = $entityManager
                     ->getRepository(DuplicatedObject::class)
-                    ->findOneBy(['duplication' => $duplication, 'originObjectId' => $objectId]);
+                    ->findOneBy(['duplication' => $duplication, 'duplicatId' => $objectId]);
 
                     if ($objectDuplicated) {
                         $objectToDelete = $entityManager->getRepository($typeToDelete)->find($objectDuplicated->getDuplicatId());
-
                         $entityManager->remove($objectToDelete);
                     }
                 }
