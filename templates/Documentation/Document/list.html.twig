@@ -54,7 +54,7 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
-                    <div class="dt-buttons">
+                    <div class="dt-buttons" style="margin-bottom: 10px">
                         {# SWITCH GRID LIST #}
                         {% if is_granted('ROLE_USER') %}
                             <a href="{{ path('documentation_document_grid') }}" class="btn btn-default">
@@ -361,9 +361,7 @@
         }
 
         $(document).ready(function() {
-            $('#table_filter').hide();
             $('.dt-button-background').hide();
-            $('.dt-button-collection').hide();
             setEvents();
 
             // Affichage/Masquage d'une colonne
@@ -377,25 +375,12 @@
                 column.visible( ! column.visible() );
             });
 
-            $('.dt-button-background').on('click',function(){
-                $('.dt-button-background').hide();
-                $('.dt-button-collection').hide();
-            });
-
-            $('.buttons-colvis').on('click',function(){
-                $('.dt-button-background').show();
-                $('.dt-button-collection').show();
-            });
         } );
 
         $('#table').on('column-visibility.dt', function() {
             setEvents();
         } );
-        $('#button-reset').on('click', function() {
-            resetFilters();
-            var table = $('#table').DataTable();
-            table.columns().search('').draw();
-        })
+
     </script>
 
 {% endblock %}

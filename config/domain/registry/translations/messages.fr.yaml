@@ -133,6 +133,7 @@ registry:
                 legal: Actions juridiques
                 organisational: Actions organisationnelles
                 technical: Actions techniques
+            responsable: Responsable d'action
         show:
             charge: Charge
             collectivity: Collectivité
@@ -176,6 +177,7 @@ registry:
             back_to_list: Retour à la liste
             new: Ajouter une preuve
             not_archived: Voir les preuves non archivées
+            download: Télécharger tous les documents
         breadcrumb:
             archive: Archiver "%name%"
             create: Créer
@@ -247,6 +249,7 @@ registry:
             service: Service
             state: État de la demande
             state_rejection_reason: Motifs du refus*
+            treatment: Traitements associés
         list:
             answer_date: Date de traitement
             collectivity: Collectivité
@@ -295,6 +298,7 @@ registry:
             concerned_people: Personne concernée
             historic: Historique
             request: Demande
+            treatment: Traitements associés
         title:
             create: Créer une demande
             edit: Éditer une demande
@@ -539,6 +543,7 @@ registry:
             potential_impacts_nature: Nature des impacts potentiels pour les personnes
             service: Service
             violation_nature: Nature de la violation
+            treatment: Traitements associés
         list:
             cause: Cause
             collectivity: Collectivité
@@ -572,6 +577,7 @@ registry:
             consequence: Conséquences de la violation
             historic: Historique
             information: Informations sur la violation
+            treatment: Traitements associés
         title:
             create: Créer une violation
             delete: Archiver une violation

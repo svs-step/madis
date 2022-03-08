@@ -40,6 +40,17 @@
 
         <one-to-many field="mesurements" mapped-by="violation" target-entity="App\Domain\Registry\Model\Mesurement"/>
 
+        <many-to-many field="treatments" target-entity="App\Domain\Registry\Model\Treatment" inversed-by="violations">
+            <join-table name="treatment_violation">
+                <join-columns>
+                    <join-column on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">
             <join-column on-delete="CASCADE" />

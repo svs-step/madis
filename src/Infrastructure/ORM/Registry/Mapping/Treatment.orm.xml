@@ -88,6 +88,9 @@
                 <order-by-field name="position"/>
             </order-by>
         </many-to-many>
+        <many-to-many field="requests" target-entity="App\Domain\Registry\Model\Request" mapped-by="treatments"/>
+        <many-to-many field="violations" target-entity="App\Domain\Registry\Model\Violation" mapped-by="treatments"/>
+
         <many-to-many field="proofs" target-entity="App\Domain\Registry\Model\Proof" mapped-by="treatments">
             <order-by>
                 <order-by-field name="name"/>

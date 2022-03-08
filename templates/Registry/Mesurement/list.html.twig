@@ -90,6 +90,7 @@
                             <th>{{ 'registry.mesurement.list.cost'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.charge'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.priority'|trans }}</th>
+                            <th>{{ 'registry.mesurement.list.responsable'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th>{{ 'label.actions'|trans }}</th>
                             {% endif %}
@@ -125,6 +126,7 @@
             {"data": "cout"},
             {"data": "charge"},
             {"data": "priorite"},
+            {"data": "responsable_action"},
             {"data": "actions", "orderable": false, "className": "noVis", "visible": actionIsVisible},
         ],
         order:  [
