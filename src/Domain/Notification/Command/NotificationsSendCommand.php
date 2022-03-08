@@ -3,15 +3,13 @@
 namespace App\Domain\Notification\Command;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class NotificationsSendCommand extends Command
 {
-    protected static $defaultName = 'notifications:send';
+    protected static $defaultName        = 'notifications:send';
     protected static $defaultDescription = 'Send notifications by email to users that have requested it.';
 
     protected function configure(): void

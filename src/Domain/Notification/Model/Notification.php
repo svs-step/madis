@@ -50,23 +50,16 @@ class Notification
 
     /**
      * @ORM\Column(type="string")
-     *
-     * @var string|null
      */
     private ?string $name;
 
-
     /**
      * @ORM\Column(type="string", nullable=true)
-     *
-     * @var string|null
      */
     private ?string $action;
 
     /**
      * @ORM\Column(type="string")
-     *
-     * @var string|null
      */
     private ?string $module;
 
@@ -78,14 +71,12 @@ class Notification
     private $object;
 
     /**
-     * @var Collectivity|null
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\Collectivity")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private ?Collectivity $collectivity;
 
     /**
-     * @var UserInterface|null
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
@@ -98,7 +89,6 @@ class Notification
     private $readAt;
 
     /**
-     * @var UserInterface|null
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
@@ -189,17 +179,11 @@ class Notification
         $this->createdBy = $createdBy;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAction(): ?string
     {
         return $this->action;
     }
 
-    /**
-     * @param string|null $action
-     */
     public function setAction(?string $action): void
     {
         $this->action = $action;

@@ -126,8 +126,7 @@ interface Request extends RepositoryInterface, DataTablesRepository
     public function findOneOrNullLastUpdateByCollectivity(Collectivity $collectivity): ?\App\Domain\Registry\Model\Request;
 
     /**
-     * Get the requests that haven't been updated for more than a month
-     * @return array
+     * Get the requests that haven't been updated for more than a month.
      */
     public function findAllLate(): array;
 }
