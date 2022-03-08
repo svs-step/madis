@@ -308,6 +308,7 @@
             $('[id^=search_]').each(function() {
                 $(this).val('');
             });
+            $('#search_favorite').prop('checked', false);
             var table = $('#documentation-grid').DataTable();
             table.columns().search('');
         }
@@ -317,7 +318,6 @@
             // SET SEARCH
             $('#search_favorite').off('change');
             $('#search_favorite').change(function(){
-                console.log($(this).prop('checked'), oTable.column('1'))
                 oTable.column('1').search($(this).prop('checked') ? "1" : "").draw();
             });
 
