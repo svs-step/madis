@@ -56,6 +56,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification = new Notification();
         $notification->setModule($this->translator->trans("notification.modules.action"));
         $notification->setCollectivity($action->getCollectivity());
+        $notification->setAction("notifications.actions.late_action");
         $notification->setName($action->getName());
         $notification->setObject($this->serializer->normalize($action, 'array', [
             'circular_reference_handler' => function($o) {return $o->getId();}
@@ -71,6 +72,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification = new Notification();
         $notification->setModule($this->translator->trans("notification.modules.request"));
         $notification->setCollectivity($request->getCollectivity());
+        $notification->setAction("notifications.actions.late_request");
         $notification->setName($request->__toString());
         $notification->setObject($this->serializer->normalize($request, null, [
             AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function($o) {return $o->getId();},
