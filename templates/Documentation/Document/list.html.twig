@@ -82,7 +82,7 @@
                             </div>
                         </div>
 
-                        <button id="button-reset" class="btn btn-default dt-button buttons-collection" tabindex="0" aria-controls="table" type="button" aria-haspopup="true" aria-expanded="false">
+                        <button id="button-reset" class="btn btn-default" tabindex="0" aria-controls="table" type="button" aria-haspopup="true" aria-expanded="false">
                             <span>Réinitialiser les filtres</span>
                         </button>
 
@@ -321,6 +321,7 @@
             $('[id^=search_]').each(function() {
                 $(this).val('');
             });
+            $('#search_favorite').prop('checked', false);
             var table = $('#table').DataTable();
             table.columns().search('');
         }
@@ -329,13 +330,11 @@
             
             $('#search_favorite').off('change');
             $('#search_favorite').change(function(){
-                console.log($(this).prop('checked'), oTable.column('1'))
-                oTable.column('1').search($(this).prop('checked')).draw();
+                oTable.column('1').search($(this).prop('checked') ? "1" : "").draw();
             });
 
             $('#search_type').off('change');
             $('#search_type').change(function(){
-                console.log($(this).val())
                 oTable.column('2').search($(this).val()).draw() ;
             });
 
