@@ -214,7 +214,7 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
         $this->plainPassword = null;
     }
 
-    public function getForgetPasswordToken(): string
+    public function getForgetPasswordToken(): ?string
     {
         return $this->forgetPasswordToken;
     }

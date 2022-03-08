@@ -25,3 +25,16 @@ notifications:
             success:
                 delete: Notification "%object%" supprimée avec succès
 
+notification:
+    module: Notification
+    modules:
+        treatment: Traitement
+        contractor: Sous-traitant
+        violation: Violation
+        proof: Preuve
+        action: Action
+
+    actions:
+        delete: Suppression
+        create: Création
+        update: Modification
