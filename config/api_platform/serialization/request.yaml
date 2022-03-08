@@ -1,0 +1,14 @@
+App\Domain\Registry\Model\Request:
+    attributes:
+        applicant:
+            max_depth: 1
+        concernedPeople:
+            max_depth: 1
+        answer:
+            max_depth: 1
+        proofs:
+            max_depth: 1
+        service:
+            max_depth: 1
+        mesurements:
+            max_depth: 1

@@ -52,14 +52,22 @@ class Notification
      *
      * @var string|null
      */
-    private $name;
+    private ?string $name;
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @var string|null
+     */
+    private ?string $action;
 
     /**
      * @ORM\Column(type="string")
      *
      * @var string|null
      */
-    private $module;
+    private ?string $module;
 
     /**
      * @ORM\Column(type="json_array")
@@ -73,14 +81,14 @@ class Notification
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\Collectivity")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private $collectivity;
+    private ?Collectivity $collectivity;
 
     /**
      * @var User|null
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private $readBy;
+    private ?User $readBy;
 
     /**
      * @var \DateTime|null
@@ -190,5 +198,21 @@ class Notification
     public function setCreatedBy(?User $createdBy): void
     {
         $this->createdBy = $createdBy;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAction(): ?string
+    {
+        return $this->action;
+    }
+
+    /**
+     * @param string|null $action
+     */
+    public function setAction(?string $action): void
+    {
+        $this->action = $action;
     }
 }
