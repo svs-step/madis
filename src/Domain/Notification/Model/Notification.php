@@ -31,6 +31,7 @@ use App\Domain\User\Model\User;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
@@ -84,11 +85,11 @@ class Notification
     private ?Collectivity $collectivity;
 
     /**
-     * @var User|null
+     * @var UserInterface|null
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private ?User $readBy;
+    private ?UserInterface $readBy;
 
     /**
      * @var \DateTime|null
@@ -97,11 +98,11 @@ class Notification
     private $readAt;
 
     /**
-     * @var User|null
+     * @var UserInterface|null
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private $createdBy;
+    private ?UserInterface $createdBy;
 
     /**
      * Category constructor.
@@ -178,12 +179,12 @@ class Notification
         $this->readAt = $readAt;
     }
 
-    public function getCreatedBy(): ?User
+    public function getCreatedBy(): ?UserInterface
     {
         return $this->createdBy;
     }
 
-    public function setCreatedBy(?User $createdBy): void
+    public function setCreatedBy(?UserInterface $createdBy): void
     {
         $this->createdBy = $createdBy;
     }
