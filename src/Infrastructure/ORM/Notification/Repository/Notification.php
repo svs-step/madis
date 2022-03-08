@@ -52,5 +52,8 @@ class Notification extends CRUDRepository implements Repository\Notification
             ->findBy([], $orderBy)
             ;
     }
-
+    public function persist($object): void
+    {
+        $this->getManager()->persist($object);
+    }
 }

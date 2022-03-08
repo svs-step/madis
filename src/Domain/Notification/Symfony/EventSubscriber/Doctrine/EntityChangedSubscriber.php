@@ -5,17 +5,20 @@ declare(strict_types=1);
 namespace App\Domain\Notification\Symfony\EventSubscriber\Doctrine;
 
 use App\Domain\Notification\Model\Notification;
-use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Model\Proof;
+use App\Domain\Registry\Model\Request;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\OnFlushEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -30,6 +33,7 @@ class EntityChangedSubscriber implements EventSubscriber
         Violation::class,
         Proof::class,
         Contractor::class,
+        Request::class,
     ];
 
     protected array $modules = [
@@ -38,6 +42,7 @@ class EntityChangedSubscriber implements EventSubscriber
         Violation::class => "violation",
         Proof::class => "proof",
         Contractor::class => "contractor",
+        Request::class => "request"
     ];
 
     protected NotificationRepository $notificationRepository;
@@ -61,68 +66,79 @@ class EntityChangedSubscriber implements EventSubscriber
     public function getSubscribedEvents(): array
     {
         return [
-            Events::prePersist,
-            Events::preRemove,
-            Events::preUpdate,
+            Events::onFlush
         ];
     }
 
-    public function prePersist(LifecycleEventArgs $args): void
+    public function onFlush(OnFlushEventArgs $eventArgs)
     {
-        $object = $args->getObject();
-        $class = get_class($object);
-        if (!in_array($class, $this->classes)) {
-            return;
+        $em = $eventArgs->getEntityManager();
+        $uow = $em->getUnitOfWork();
+
+        foreach ($uow->getScheduledEntityInsertions() as $entity) {
+            $class = get_class($entity);
+            if (!in_array($class, $this->classes) || $class === Request::class) {
+                continue;
+            }
+
+            $notif = $this->createNotification($entity, 'create');
+
+            $this->notificationRepository->persist($notif);
+            $meta = $eventArgs->getEntityManager()->getClassMetadata(Notification::class);
+            $uow->computeChangeSet($meta, $notif);
         }
 
-        $notification = new Notification();
-        $mod = $this->modules[$class];
-        $notification->setModule("notification.modules." . $mod);
-        $notification->setCollectivity($object->getCollectivity());
-        $notification->setName("notification.actions.create");
-        $notification->setObject($this->serializer->normalize($object, 'array', [
-            'circular_reference_handler' => function($o) {return $o->getId();}
-        ]));
-        $this->notificationRepository->insert($notification);
+        foreach ($uow->getScheduledEntityUpdates() as $entity) {
+            $class = get_class($entity);
+            if (!in_array($class, $this->classes)) {
+                continue;
+            }
+            $ch = $uow->getEntityChangeSet($entity);
+            if ($class === Request::class && !isset($ch['state'])) {
+                // Exit if the request has no state change
+                continue;
+            }
+            $action = "update";
+            if ($class === Request::class) {
+                $action = 'state_change';
+            }
+            $notif = $this->createNotification($entity, $action);
 
-        // TODO send email to responsable de traitement
+            $this->notificationRepository->persist($notif);
+            $meta = $eventArgs->getEntityManager()->getClassMetadata(Notification::class);
+            $uow->computeChangeSet($meta, $notif);
+        }
+
+        foreach ($uow->getScheduledEntityDeletions() as $entity) {
+            $class = get_class($entity);
+            if (!in_array($class, $this->classes) || $class == Request::class) {
+                continue;
+            }
+
+            $this->createNotification($entity, 'delete');
+        }
     }
 
-    public function preRemove(LifecycleEventArgs $args): void
+    private function createNotification($object, $action): Notification
     {
-        $object = $args->getObject();
-        $class = get_class($object);
-        if (!in_array($class, $this->classes)) {
-            return;
-        }
-
         $notification = new Notification();
-        $mod = $this->modules[$class];
+        $mod = $this->modules[get_class($object)];
         $notification->setModule("notification.modules." . $mod);
         $notification->setCollectivity($object->getCollectivity());
-        $notification->setName("notification.actions.delete");
-        $notification->setObject($this->serializer->normalize($object, 'array', [
-            'circular_reference_handler' => function($o) {return $o->getId();}
-        ]));
-        $this->notificationRepository->insert($notification);
-    }
+        $notification->setName(method_exists($object, 'getName') ? $object->getName() : $object->__toString());
+        $notification->setAction("notification.actions.".$action);
 
-    public function preUpdate(LifecycleEventArgs $args): void
-    {
-        $object = $args->getObject();
-        $class = get_class($object);
-        if (!in_array($class, $this->classes)) {
-            return;
-        }
-
-        $notification = new Notification();
-        $mod = $this->modules[$class];
-        $notification->setModule("notification.modules." . $mod);
-        $notification->setCollectivity($object->getCollectivity());
-        $notification->setName("notification.actions.update");
-        $notification->setObject($this->serializer->normalize($object, 'array', [
-            'circular_reference_handler' => function($o) {return $o->getId();}
+        $notification->setObject($this->serializer->normalize($object, null, [
+            AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function($o) {return $o->getId();},
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH => true,
+            'depth_App\Domain\Registry\Model\Request::proofs' => 1,
+            'depth_App\Domain\Registry\Model\Request::applicant' => 1,
+            'depth_App\Domain\Registry\Model\Request::concernedPeople' => 1,
+            'depth_App\Domain\Registry\Model\Request::answer' => 1,
+            'depth_App\Domain\Registry\Model\Request::service' => 1,
+            'depth_App\Domain\Registry\Model\Request::mesurements' => 1,
+            AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT => 2,
         ]));
-        $this->notificationRepository->insert($notification);
+        return $notification;
     }
 }

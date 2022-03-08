@@ -6,8 +6,10 @@ notification:
         violation: Violation
         proof: Preuve
         action: Action
+        request: Demande
 
     actions:
         delete: Suppression
         create: Création
         update: Modification
+        state_change: Changement d'état
