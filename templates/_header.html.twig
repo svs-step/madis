@@ -1,5 +1,4 @@
 <header class="main-header">
-    {% set notifs = notifications.findAll() %}
     <!-- Logo -->
     <a href="{{ path('reporting_dashboard_index') }}" class="logo">
         <span class="logo-mini"><img src="{{ asset(app_image_sidebar_reduced_path) }}" alt="Madis"/></span>
@@ -30,21 +29,7 @@
                         <li class="notification">
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
-                            {# {% for object in objects %} #}
-                                <li class="box-header with-border" style="padding: 0.8em;">
-                                {# {{app_notification_max_shown}} #}
-                                    <div class="row">
-                                        <div class="col-md-8" href="#">
-                                        <b>[Preuves]</b> Ajout de <a href="#"><b>Lien vers le doc</b></a> par <b>Commune</b>
-                                        </div>
-                                        {# <div class="col-md-4 text-center"><a  href="{{ path('notification_notification_mark_as_read', { 'id': object.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;"> #}
-                                        <div class="col-md-4 text-center"><a  href="{{ path('notification_notification_mark_as_read') }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
-                                            <i class="fas fa-clipboard-check"></i> {{ 'notifications.notification.action.mark_as_read'|trans }}
-                                        </a></div>
-                                        <div class="col-md-12 text-muted">Ajouté, il y a 3 jours par Agnès DESROSIERS</div>
-                                    </div>
-                                </li>
-                            {# {% endfor %} #}
+                                {{ block("body", "Notification/Notification/box.html.twig") }}
                             </ul>
                         </li>
                         <li class="footer"><a href="{{ path('notification_notification_list') }}">Voir toutes les notifications</a></li>
@@ -59,9 +44,6 @@
                     </a>
                 </li>
 
-                {% for notif in notifs %}
-                <li>{{ notif.module }}</li>
-                {% endfor %}
             </ul>
         </div>
     </nav>

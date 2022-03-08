@@ -1,0 +1,43 @@
+{% block body %}
+{% set notifs = notifications.findAll() %}
+
+    <li class="header" style="list-style: none;">
+        <span class="h4">Vous avez {{ notifs|length }} notifications non lues</span>
+        {% if is_granted('ROLE_ADMIN') %}
+            {% if notifs|length > 0 %}
+                <a style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notifications.notification.action.mark_as_read_all'|trans }}</a>
+            {% endif %}
+        {% endif %}
+    </li>
+
+    {% for key, notif in notifs %}
+        {# {% if app_notification_max_shown == 'true' %} #}
+        {{ key }}
+        <li class="box-header with-border" style="padding: 0.8em;">
+            <div class="row">
+                <div class="col-md-8" href="#">
+                <b>[{{ notif.module }}]</b> <a href="#"><b>{{ notif.name }}</b></a>
+                </div>
+                {# <div class="col-md-4 text-center"><a  href="{{ path('notification_notification_mark_as_read', { 'id': object.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;"> #}
+                <div class="col-md-4 text-center"><a  href="{{ path('notification_notification_mark_as_read') }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
+                    <i class="fas fa-clipboard-check"></i> {{ 'notifications.notification.action.mark_as_read'|trans }}
+                </a></div>
+                <div class="col-md-12 text-muted">
+                Ajouté, 
+                {% set difference = date().diff(date(notif.createdAt)) %}
+                {% set leftDays = difference.days %}
+
+                {% if leftDays ==  0 %}
+                    Aujourd'hui
+                {% elseif leftDays == 1 %}
+                    Hier
+                {% else %}
+                    il y a {{ leftDays }} jours
+                {% endif %} 
+                par notif.createdById</div>
+            </div>
+        </li>
+    {% endfor %}
+    <div class="text-center box-header"><a href="{{ path('notification_notification_list') }}">Voir toutes les notifications (2 autres non lues)</a></div>
+
+{% endblock %}
