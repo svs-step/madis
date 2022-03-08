@@ -390,7 +390,7 @@ abstract class CRUDController extends AbstractController
         );
     }
 
-    private function getPdfName(string $name): string
+    public function getPdfName(string $name): string
     {
         $name = ChainManipulator::removeAllNonAlphaNumericChar(ChainManipulator::removeAccents($name));
 
