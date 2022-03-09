@@ -65,7 +65,7 @@ class CriterePrincipeFondamentalType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class' => CriterePrincipeFondamental::class,
+                'data_class'        => CriterePrincipeFondamental::class,
                 'validation_groups' => [
                     'default',
                     'aipd',

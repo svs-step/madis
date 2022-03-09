@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Valid;
 
 class ModeleAnalyseType extends AbstractType
@@ -36,8 +35,8 @@ class ModeleAnalyseType extends AbstractType
                         'required' => true,
                     ])
                     ->add('criterePrincipeFondamentaux', CollectionType::class, [
-                        'entry_type' => CriterePrincipeFondamentalType::class,
-                        'required'   => true,
+                        'entry_type'  => CriterePrincipeFondamentalType::class,
+                        'required'    => true,
                         'constraints' => [
                             new Valid([
                                 'groups' => ['default'],
@@ -74,7 +73,7 @@ class ModeleAnalyseType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class' => ModeleAnalyse::class,
+                'data_class'        => ModeleAnalyse::class,
                 'validation_groups' => [
                     'default',
                     'aipd',

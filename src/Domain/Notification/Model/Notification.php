@@ -104,7 +104,7 @@ class Notification
     {
         $this->id = Uuid::uuid4();
     }
-    
+
     public function __toString(): string
     {
         if (\is_null($this->getName())) {
@@ -117,6 +117,7 @@ class Notification
 
         return $this->getName();
     }
+
     public function getId(): UuidInterface
     {
         return $this->id;

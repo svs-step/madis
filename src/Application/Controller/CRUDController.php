@@ -405,7 +405,8 @@ abstract class CRUDController extends AbstractController
         return false;
     }
 
-    public function getNotifications () {
+    public function getNotifications()
+    {
         return $this->entityManager->getRepository(Notification::class)->findAll();
     }
 }

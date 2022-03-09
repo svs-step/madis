@@ -43,8 +43,8 @@ use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Knp\Snappy\Pdf;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -380,7 +380,7 @@ class TreatmentController extends CRUDController
                 'public'                 => $treatment->getPublic() ? $yes : $no,
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
                 'specific_traitement'    => $this->getSpecificTraitement($treatment),
-                'conformite_traitement'  => "test",
+                'conformite_traitement'  => 'test',
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
@@ -454,15 +454,13 @@ class TreatmentController extends CRUDController
         return null;
     }
 
-
     public function pdfAllAction()
     {
-
         $request = $this->requestStack->getMasterRequest();
-        $ids = $request->query->get('ids');
-        $ids = explode(",", $ids);
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
 
-        $objects = array();
+        $objects = [];
 
         foreach ($ids as $id) {
             $treatment = $this->repository->findOneById($id);
@@ -484,17 +482,17 @@ class TreatmentController extends CRUDController
     public function archiveAllAction(): Response
     {
         $request = $this->requestStack->getMasterRequest();
-        $ids = $request->query->get('ids');
-        $ids = explode(",", $ids);
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             // $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));
             $this->addFlash('error', 'Vous ne pouvez pas archiver ces traitements');
+
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
         foreach ($ids as $id) {
-
             $treatment = $this->repository->findOneById($id);
             if ($treatment) {
                 $treatment->setActive(false);
@@ -502,6 +500,7 @@ class TreatmentController extends CRUDController
             }
         }
         $this->entityManager->flush();
+
         return $this->redirectToRoute($this->getRouteName('list'));
     }
 
@@ -512,11 +511,12 @@ class TreatmentController extends CRUDController
     public function deleteAllAction(): Response
     {
         $request = $this->requestStack->getMasterRequest();
-        $ids = $request->query->get('ids');
-        $ids = explode(",", $ids);
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));
+
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
@@ -529,11 +529,12 @@ class TreatmentController extends CRUDController
     public function deleteConfirmationAllAction(): Response
     {
         $request = $this->requestStack->getMasterRequest();
-        $ids = $request->query->get('ids');
+        $ids     = $request->query->get('ids');
 
         foreach ($ids as $id) {
             $this->deleteConfirmationAction($id);
         }
+
         return $this->redirectToRoute($this->getRouteName('list'));
     }
 

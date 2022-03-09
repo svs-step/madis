@@ -35,7 +35,6 @@ use App\Domain\Registry\Model\Embeddable\RequestConcernedPeople;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
-use App\Domain\Registry\Model\Treatment;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;

@@ -30,8 +30,8 @@ use App\Domain\Notification\Model;
 use App\Domain\Notification\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -65,8 +65,8 @@ class NotificationController extends CRUDController
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->requestStack           = $requestStack;
-        $this->authorizationChecker = $authorizationChecker;
-        $this->userProvider         = $userProvider;
+        $this->authorizationChecker   = $authorizationChecker;
+        $this->userProvider           = $userProvider;
     }
 
     /**
@@ -124,16 +124,17 @@ class NotificationController extends CRUDController
     }
 
     /**
-     * Update read status from notification
+     * Update read status from notification.
      */
     public function markAsReadAllAction()
     {
         $request = $this->requestStack->getMasterRequest();
-        $ids = $request->query->get('ids');
-        $ids = explode(",", $ids);
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $this->addFlash('error', 'Vous ne pouvez pas mettre à jour ces notifications');
+
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
@@ -145,12 +146,12 @@ class NotificationController extends CRUDController
             }
         }
         $this->entityManager->flush();
-        return $this->redirectToRoute($this->getRouteName('list'));
 
+        return $this->redirectToRoute($this->getRouteName('list'));
     }
 
     /**
-     * Update read_at and read_by from notification
+     * Update read_at and read_by from notification.
      */
     public function markAsReadAction(string $id)
     {

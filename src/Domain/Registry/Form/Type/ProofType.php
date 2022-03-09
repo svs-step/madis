@@ -92,27 +92,27 @@ class ProofType extends AbstractType
                         'maxSize'   => $this->maxSize,
 //                        'mimeTypesMessage' => 'registry_proof.document_file.file',
                         'mimeTypes' => [
-                            # JPG / PNG
+                            // JPG / PNG
                             'image/jpeg',
                             'image/png',
-                            # PDF
+                            // PDF
                             'application/pdf',
-                            # DOC
+                            // DOC
                             'application/msword',
-                            # DOCX
+                            // DOCX
                             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                            # Lors de la génération d'un fichier (Bilan) word son mimetype est doublé.
-                            # On conserve le mimetype suivant car il y avait des bugs avec iOS (ipad et iphone) lors du téléchargement
+                            // Lors de la génération d'un fichier (Bilan) word son mimetype est doublé.
+                            // On conserve le mimetype suivant car il y avait des bugs avec iOS (ipad et iphone) lors du téléchargement
                             'application/vnd.openxmlformats-officedocument.wordprocessingml.documentapplication/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                            # ODT
+                            // ODT
                             'application/vnd.oasis.opendocument.text',
-                            # XLS
+                            // XLS
                             'application/vnd.ms-excel',
-                            # XLSX
+                            // XLSX
                             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                            # ODS
+                            // ODS
                             'application/vnd.oasis.opendocument.spreadsheet',
-                            # PPT / PPTX
+                            // PPT / PPTX
                             'application/vnd.ms-powerpoint',
                             'application/vnd.openxmlformats-officedocument.presentationml.presentation',
                         ],
@@ -294,7 +294,7 @@ class ProofType extends AbstractType
         $resolver
             ->setDefaults([
                 'data_class'        => Model\Proof::class,
-                "validation_groups" => ["default", "proof"]
+                'validation_groups' => ['default', 'proof'],
             ]);
     }
 }
