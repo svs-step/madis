@@ -289,7 +289,9 @@ class ProofController extends CRUDController
         $filename = './uploads/registry/proof/zip/test.zip';
 
         if (true !== $zip->open($filename, ZipArchive::OVERWRITE)) {
-            exit("Impossible d'ouvrir le fichier $filename>\n");
+            if (true !== $zip->open($filename, ZipArchive::CREATE)) {
+                exit("Impossible d'ouvrir le fichier $filename>\n");
+            }
         }
 
         foreach ($files as $file) {
