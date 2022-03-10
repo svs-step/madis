@@ -1,11 +1,16 @@
 CHANGELOG
 =========
 
+## [1.8.8] - 2022-03-10
+### Changement
+- Correction d'un bug empêchant l'administrateur de se connecter en un utilisateur d'une collectivités comportant des services supprimés
+
 ## [1.8.7] - 2022-03-04
 ### Changement
 - Correction d'un bug affichant tous les services de la collectivité lors de la création d'éléments sans prise en compte des services de l'utilisateur
 - Correction d'un bug empêchant les utilisateurs sans service de supprimer les services des éléments
 - Correction d'une erreur 500 lors de la duplication d'éléments
+- Correction d'un bug empêchant d'affecter des services lors de la création d'un utilisateur si la collectivité n'est pas celle par défaut du formulaire
 
 ## [1.8.6] - 2022-02-17
 ### Changement
