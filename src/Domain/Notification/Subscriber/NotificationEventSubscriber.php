@@ -4,6 +4,7 @@ namespace App\Domain\Notification\Subscriber;
 
 use App\Domain\Notification\Event\LateActionEvent;
 use App\Domain\Notification\Event\LateRequestEvent;
+use App\Domain\Notification\Event\LateSurveyEvent;
 use App\Domain\Notification\Event\NoLoginEvent;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\User\Repository\User as UserRepository;
@@ -21,18 +22,15 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     protected NotificationRepository $notificationRepository;
     protected SerializerInterface $serializer;
     protected UserRepository $userRepository;
-    protected TranslatorInterface $translator;
 
     public function __construct(
         NotificationRepository $notificationRepository,
         SerializerInterface $serializer,
-        UserRepository $userRepository,
-        TranslatorInterface $translator
+        UserRepository $userRepository
     ) {
         $this->notificationRepository = $notificationRepository;
         $this->serializer             = $serializer;
         $this->userRepository         = $userRepository;
-        $this->translator             = $translator;
     }
 
     public static function getSubscribedEvents()
@@ -41,19 +39,60 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             LateActionEvent::class  => 'onLateAction',
             LateRequestEvent::class => 'onLateRequest',
             NoLoginEvent::class     => 'onNoLogin',
+            LateSurveyEvent::class  => 'onLateSurvey',
         ];
+    }
+
+
+    public function onLateSurvey(LateSurveyEvent $event)
+    {
+        $survey       = $event->getSurvey();
+        $norm = $this->serializer->normalize($survey, null, [
+            AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH                 => true,
+            'depth_App\Domain\Maturity\Model\Survey::answers'          => 1,
+            'depth_App\Domain\Maturity\Model\Survey::maturity'       => 1,
+            'depth_App\Domain\Maturity\Model\Survey::collectivity'       => 1,
+            'depth_App\Domain\Maturity\Model\Survey::creator'       => 1,
+            'depth_App\Domain\Maturity\Model\Answer::questions'       => 1,
+            'depth_App\Domain\Maturity\Model\Domain::questions'       => 1,
+            'depth_App\Domain\Maturity\Model\Domain::maturity'       => 1,
+            'depth_App\Domain\Maturity\Model\Answer::survey'       => 1,
+            'depth_App\Domain\Maturity\Model\Question::answers'       => 1,
+            'depth_App\Domain\Maturity\Model\Question::domain'       => 1,
+            'depth_App\Domain\Maturity\Model\Maturity::survey'       => 1,
+        ]);
+        dd($norm);
+        $notification = new Notification();
+        $notification->setModule('notification.modules.maturity');
+        $notification->setCollectivity($survey->getCollectivity());
+        $notification->setAction('notifications.actions.late_survey');
+        $notification->setName($survey->__toString());
+        $notification->setObject($norm);
+        $this->notificationRepository->insert($notification);
+
+        // TODO Send email to référent opérationnel
     }
 
     public function onLateAction(LateActionEvent $event)
     {
         $action       = $event->getMesurement();
         $notification = new Notification();
-        $notification->setModule($this->translator->trans('notification.modules.action'));
+        $notification->setModule('notification.modules.action');
         $notification->setCollectivity($action->getCollectivity());
         $notification->setAction('notifications.actions.late_action');
         $notification->setName($action->getName());
-        $notification->setObject($this->serializer->normalize($action, 'array', [
-            'circular_reference_handler' => function ($o) {return $o->getId(); },
+        $notification->setObject($this->serializer->normalize($action, null, [
+            AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH                 => true,
+            'depth_App\Domain\Registry\Model\Mesurement::proofs'          => 1,
+            'depth_App\Domain\Registry\Model\Mesurement::clonedFrom'       => 1,
+            'depth_App\Domain\Registry\Model\Mesurement::conformiteOrganisation' => 1,
+            'depth_App\Domain\Registry\Model\Mesurement::conformiteTraitementReponses'          => 1,
+            'depth_App\Domain\Registry\Model\Mesurement::treatment'         => 1,
+            'depth_App\Domain\Registry\Model\Mesurement::contractor'     => 1,
+            'depth_App\Domain\Registry\Model\Mesurement::request'     => 1,
+            'depth_App\Domain\Registry\Model\Mesurement::violation'     => 1,
         ]));
         $this->notificationRepository->insert($notification);
 
@@ -64,7 +103,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     {
         $request      = $event->getRequest();
         $notification = new Notification();
-        $notification->setModule($this->translator->trans('notification.modules.request'));
+        $notification->setModule('notification.modules.request');
         $notification->setCollectivity($request->getCollectivity());
         $notification->setAction('notifications.actions.late_request');
         $notification->setName($request->__toString());
@@ -77,7 +116,6 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             'depth_App\Domain\Registry\Model\Request::answer'          => 1,
             'depth_App\Domain\Registry\Model\Request::service'         => 1,
             'depth_App\Domain\Registry\Model\Request::mesurements'     => 1,
-            AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT         => 2,
         ]));
         $this->notificationRepository->insert($notification);
 
@@ -87,15 +125,26 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     public function onNoLogin(NoLoginEvent $event)
     {
         $user         = $event->getUser();
+        $existing = $this->notificationRepository->findBy([
+            'module' => 'notification.modules.user',
+            'collectivity' => $user->getCollectivity(),
+            'action' => 'notifications.actions.no_login',
+            'name' => $user->getFullName(),
+            'readAt' => null,
+        ]);
+        if (count($existing)) {
+//            dd('notification exists');
+            return;
+        }
         $notification = new Notification();
-        $notification->setModule($this->translator->trans('notification.modules.user'));
+
+        $notification->setModule('notification.modules.user');
         $notification->setCollectivity($user->getCollectivity());
         $notification->setAction('notifications.actions.no_login');
         $notification->setName($user->getFullName());
         $notification->setObject($this->serializer->normalize($user, null, [
             AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
             AbstractObjectNormalizer::ENABLE_MAX_DEPTH         => true,
-            AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT => 2,
         ]));
         $this->notificationRepository->insert($notification);
     }
