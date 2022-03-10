@@ -565,6 +565,8 @@
 
             {# PROOFS #}
             {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+            {% include '_Utils/_show_block_requests.html.twig' with { requests: object.requests } %}
+            {% include '_Utils/_show_block_violations.html.twig' with { violations: object.violations } %}
 
             {# {% if object.collectivity.hasModuleConformiteTraitement %} #}
                 <div class="box box-solid box-success">
