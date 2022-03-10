@@ -1,0 +1,20 @@
+<div class="box box-solid box-warning">
+    <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_violations'|trans }}</h3></div>
+    <div class="box-body">
+        {% set activeViolations = object.violations %}
+
+        {% if activeViolations|length > 0 %}
+            <ul>
+                {% for violation in activeViolations %}
+                    <li>
+                        <a href="{{ path('registry_treatment_violation_show', { id: violation.id }) }}">
+                            {{ violation.date|date('d/m/Y') }} | {{ violation.violationNature }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <span><i>{{ 'label.no_linked_violations'|trans }}</i></span>
+        {% endif %}
+    </div>
+</div>
