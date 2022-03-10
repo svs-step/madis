@@ -8,7 +8,7 @@
                 {% for request in activeRequests %}
                     <li>
                         <a href="{{ path('registry_treatment_request_show', { id: request.id }) }}">
-                           {{ request.date|date('d/m/Y') }} | {{ request.applicant.lastName }} {{ request.applicant.firstName }} | {{ request.object }}
+                           {{ request.date|date('d/m/Y') }} | {{ request.applicant.lastName }} {{ request.applicant.firstName }} | {{  ("label.request_" ~ request.object)|trans }}
                         </a>
                     </li>
                 {% endfor %}

@@ -8,7 +8,7 @@
                 {% for violation in activeViolations %}
                     <li>
                         <a href="{{ path('registry_treatment_violation_show', { id: violation.id }) }}">
-                            {{ violation.date|date('d/m/Y') }} | {{ violation.violationNature }}
+                            {{ violation.date|date('d/m/Y') }} | {{ ("label.violation_" ~ violation.violationNature)|trans  }}
                         </a>
                     </li>
                 {% endfor %}

@@ -45,6 +45,16 @@ label:
     no_linked_requests: Aucune demande associée
     not_archived: Non archivés
     category: Catégories documentaires
+    request_correct: Supprimer des données
+    request_delete: Retirer le consentement
+    request_withdraw_consent: Accéder à des données
+    request_access: Accéder à des données
+    request_data_portability: Portabilité des données
+    request_limit_treatment: Limiter le traitement
+    request_other: Autre
+    violation_confidentiality: Perte de la confidentialité
+    violation_integrity: Perte de l'intégrité
+    violation_availability: Perte de la disponibilité
 
 placeholder:
     precision: Précisez
