@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Notification\Symfony\EventSubscriber\Doctrine;
 
+use App\Domain\Documentation\Model\Document;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
@@ -32,6 +33,7 @@ class EntityChangedSubscriber implements EventSubscriber
         Proof::class,
         Contractor::class,
         Request::class,
+        Document::class,
     ];
 
     protected array $modules = [
@@ -40,7 +42,7 @@ class EntityChangedSubscriber implements EventSubscriber
         Violation::class  => 'violation',
         Proof::class      => 'proof',
         Contractor::class => 'contractor',
-        Request::class    => 'request',
+        Document::class   => 'documentation',
     ];
 
     protected NotificationRepository $notificationRepository;
@@ -87,7 +89,7 @@ class EntityChangedSubscriber implements EventSubscriber
 
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
             $class = get_class($entity);
-            if (!in_array($class, $this->classes)) {
+            if (!in_array($class, $this->classes) || Document::class === $class) {
                 continue;
             }
             $ch = $uow->getEntityChangeSet($entity);
@@ -108,7 +110,7 @@ class EntityChangedSubscriber implements EventSubscriber
 
         foreach ($uow->getScheduledEntityDeletions() as $entity) {
             $class = get_class($entity);
-            if (!in_array($class, $this->classes) || Request::class == $class) {
+            if (!in_array($class, $this->classes) || Request::class == $class || Document::class === $class) {
                 continue;
             }
 

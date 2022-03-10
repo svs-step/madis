@@ -8,6 +8,7 @@ notification:
         action: Action
         request: Demande
         user: Utilisateur
+        documentation: Documentation
     actions:
         delete: Suppression
         create: Création
