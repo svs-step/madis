@@ -42,6 +42,8 @@ class DashboardController extends AbstractController
      */
     private $exportCsvHandler;
 
+    private Mesurement $repository;
+
     public function __construct(MetricsHandler $metricsHandler, ExportCsvHandler $exportCsvHandler, Mesurement $repository)
     {
         $this->repository       = $repository;

@@ -276,11 +276,11 @@ class ProofController extends CRUDController
 
     public function downloadAll()
     {
-        /** @var Model\Proof|null $object */
         $objects = $this->repository->findAll();
 
         $files = [];
         foreach ($objects as $object) {
+            /** @var Model\Proof|null $object */
             if (!$object->getDeletedAt()) {
                 $files[] = $object->getDocument();
             }

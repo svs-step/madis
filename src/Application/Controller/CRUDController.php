@@ -28,6 +28,7 @@ use App\Application\DDD\Repository\RepositoryInterface;
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Notification\Model\Notification;
 use App\Domain\Tools\ChainManipulator;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
@@ -405,7 +406,7 @@ abstract class CRUDController extends AbstractController
         return false;
     }
 
-    public function getNotifications()
+    public function getNotifications(): array
     {
         return $this->entityManager->getRepository(Notification::class)->findAll();
     }
