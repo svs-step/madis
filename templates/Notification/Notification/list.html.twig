@@ -3,19 +3,37 @@
 {% set bodyClass = 'notification_notification list' %}
 {% set menuItem = 'notification_notification' %}
 
-{% block title %}{{ 'notifications.notification.title.list'|trans }} - {{ parent() }}{% endblock %}
+{% set notifs = objects|map(n => ({id : n.id, read_at: n.readAt})) %}
+
+{# FILTER ACTION INIT #}
+{% set activeActions = [] %}
+{% for object in objects %}
+    {% if object.action not in activeActions %}
+        {% set activeActions = activeActions|merge([object.action]) %}
+    {% endif %}
+{% endfor %}
+
+{# FILTER MODULE INIT #}
+{% set activeModules = [] %}
+{% for object in objects %}
+    {% if object.module not in activeModules %}
+        {% set activeModules = activeModules|merge([object.module]) %}
+    {% endif %}
+{% endfor %}
+
+{% block title %}{{ 'notification.notification.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'notifications.notification.title.list'|trans }}</h1>
+    <h1>{{ 'notification.notification.title.list'|trans }}</h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'notifications.notification.title.list'|trans }
+        { 'name': 'notification.notification.title.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -37,53 +55,53 @@
                                 {# SHOW/HIDE COLUMNS #}
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="0">
-                                    <span>{{ 'notifications.notification.list.state'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.state'|trans }}</span>
                                 </button>
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="1">
-                                    <span>{{ 'notifications.notification.list.module'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.module'|trans }}</span>
                                 </button>
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="2">
-                                    <span>{{ 'notifications.notification.list.action'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.action'|trans }}</span>
                                 </button>
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="3">
-                                    <span>{{ 'notifications.notification.list.name'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.name'|trans }}</span>
                                 </button>
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="4">
-                                    <span>{{ 'notifications.notification.list.object'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.object'|trans }}</span>
                                 </button>
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="5">
-                                    <span>{{ 'notifications.notification.list.collectivity'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.collectivity'|trans }}</span>
                                 </button>
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="6">
-                                    <span>{{ 'notifications.notification.list.date'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.date'|trans }}</span>
                                 </button>
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="7">
-                                    <span>{{ 'notifications.notification.list.user'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.user'|trans }}</span>
                                 </button>
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="8">
-                                    <span>{{ 'notifications.notification.list.read_date'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.read_date'|trans }}</span>
                                 </button>
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="9">
-                                    <span>{{ 'notifications.notification.list.read_by'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.read_by'|trans }}</span>
                                 </button>
                                 {% else %}
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="0">
-                                    <span>{{ 'notifications.notification.list.module'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.module'|trans }}</span>
                                 </button>
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="1">
-                                    <span>{{ 'notifications.notification.list.action'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.action'|trans }}</span>
                                 </button>
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="2">
-                                    <span>{{ 'notifications.notification.list.name'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.name'|trans }}</span>
                                 </button>
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="3">
-                                    <span>{{ 'notifications.notification.list.object'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.object'|trans }}</span>
                                 </button>
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="4">
-                                    <span>{{ 'notifications.notification.list.date'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.date'|trans }}</span>
                                 </button>
                                 <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="5">
-                                    <span>{{ 'notifications.notification.list.user'|trans }}</span>
+                                    <span>{{ 'notification.notification.list.user'|trans }}</span>
                                 </button>
                                 {% endif %}
                                 {# END SHOW/HIDE COLUMNS #}
@@ -93,7 +111,7 @@
                             <span>Réinitialiser les filtres</span>
                         </button>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notifications.notification.action.mark_as_read_all'|trans }}</a>
+                            <a id="read-all" style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
                         {% endif %}
                     </div>
                     <table id="table" class="table table-bordered table-hover">
@@ -102,26 +120,29 @@
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <th>
                                     <select class="form-control" id="search_state" style="width: 100%;">
-                                        <option value="" selected>{{ 'notifications.notification.list.state'|trans }}</option>
-                                        {% for key, subject in dictionary('notifications_notification_state') %}
-                                            <option value="{{ key }}">{{ subject }}</option>
-                                        {% endfor %}
+                                        <option value="" selected>{{ 'notification.notification.list.state'|trans }}</option>
+                                        <option value="Lu">Lu</option>
+                                        <option value="Non lu">Non lu</option>
                                     </select>
                                 </th>
                                 {% endif %}
                                 <th>
-                                    <select class="form-control" id="search_module" style="width: 100%;">
-                                        <option value="" selected>{{ 'notifications.notification.list.module'|trans }}</option>
-                                        {% for key, subject in dictionary('notifications_notification_module') %}
-                                            <option value="{{ key }}">{{ subject }}</option>
+                                    <select class="form-control" id="search_module" style="width: 100%;"> 
+                                            <option value="">{{ 'notification.notification.list.module'|trans }}</option>
+                                        {% for module in activeModules %}
+                                            <option value="{{ module|trans }}">
+                                                {{ module|trans }}
+                                            </option>
                                         {% endfor %}
                                     </select>
                                 </th>
                                 <th>
-                                    <select class="form-control" id="search_action" style="width: 100%;">
-                                        <option value="" selected>{{ 'notifications.notification.list.action'|trans }}</option>
-                                        {% for key, subject in dictionary('notifications_notification_action') %}
-                                            <option value="{{ key }}">{{ subject }}</option>
+                                    <select class="form-control" id="search_action" style="width: 100%;"> 
+                                            <option value="">{{ 'notification.notification.list.action'|trans }}</option>
+                                        {% for action in activeActions %}
+                                            <option value="{{ action|trans }}">
+                                                {{ action|trans }}
+                                            </option>
                                         {% endfor %}
                                     </select>
                                 </th>
@@ -130,10 +151,7 @@
                                 </th>
                                 <th>
                                     <select class="form-control" id="search_object" style="width: 100%;">
-                                        <option value="" selected>{{ 'notifications.notification.list.object'|trans }}</option>
-                                        {# {% for key, subject in dictionary('documentation_document_type') %}
-                                            <option value="{{ key }}">{{ subject }}</option>
-                                        {% endfor %} #}
+                                        <option value="" selected>{{ 'notification.notification.list.object'|trans }}</option>
                                     </select>
                                 </th>
                                 {% if is_granted('ROLE_ADMIN') %}
@@ -154,26 +172,35 @@
                             </tr>
                             <tr>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <th>{{ 'notifications.notification.list.state'|trans }}</th>
+                                <th>{{ 'notification.notification.list.state'|trans }}</th>
                                 {% endif %}
-                                <th>{{ 'notifications.notification.list.module'|trans }}</th>
-                                <th>{{ 'notifications.notification.list.action'|trans }}</th>
-                                <th>{{ 'notifications.notification.list.name'|trans }}</th>
-                                <th>{{ 'notifications.notification.list.object'|trans }}</th>
+                                <th>{{ 'notification.notification.list.module'|trans }}</th>
+                                <th>{{ 'notification.notification.list.action'|trans }}</th>
+                                <th>{{ 'notification.notification.list.name'|trans }}</th>
+                                <th>{{ 'notification.notification.list.object'|trans }}</th>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <th>{{ 'notifications.notification.list.collectivity'|trans }}</th>
+                                <th>{{ 'notification.notification.list.collectivity'|trans }}</th>
                                 {% endif %}
-                                <th>{{ 'notifications.notification.list.date'|trans }}</th>
-                                <th>{{ 'notifications.notification.list.user'|trans }}</th>
+                                <th>{{ 'notification.notification.list.date'|trans }}</th>
+                                <th>{{ 'notification.notification.list.user'|trans }}</th>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <th>{{ 'notifications.notification.list.read_date'|trans }}</th>
-                                <th>{{ 'notifications.notification.list.read_by'|trans }}</th>
+                                <th>{{ 'notification.notification.list.read_date'|trans }}</th>
+                                <th>{{ 'notification.notification.list.read_by'|trans }}</th>
                                 <th>{{ 'label.actions'|trans }}</th>
                                 {% endif %}
                             </tr>
                         </thead>
                         <tbody>
                         {% for object in objects %}
+
+                            {% set currentId = null %}
+                            {% set currentObject = null %}
+                            {% for key, value in object.object %}
+                                {% if key == "name" %}
+                                    {% set currentObject = value %}
+                                {% endif %}
+                            {% endfor %}
+
                             <tr>
                                 {# STATE #}
                                 {% if is_granted('ROLE_ADMIN') %}
@@ -185,23 +212,37 @@
                                     {% endif %} 
                                 </td>
                                 {% endif %}
-
-                                <td>{{object.module}}</td>
-                                <td>object.action</td>
-                                <td>{{object.name}}</td>
-                                <td>object.object</td>
+                                <td>{{ object.module|trans }}</td>
+                                <td>{{ object.action|trans }}</td>
+                                <td>
+                                {% if currentId == null %}
+                                    {% set path = "#" %}
+                                {% elseif 'action' in object.module %}
+                                    {% set path = "/actions-de-protection/visualiser/" ~ currentId %}
+                                {% elseif 'contractor' in object.module %}
+                                    {% set path = "/sous-traitants/visualiser/" ~ currentId %}
+                                {% elseif 'treatment' in object.module %}
+                                    {% set path = "/traitements/visualiser/" ~ currentId %}
+                                {% endif %}
+                                    <a href="{{ path }}">{{object.name}}</a>
+                                </td>
+                                <td>{{ currentObject }}</td>
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <td>{{object.collectivity}}</td>
                                 {% endif %}
                                 <td>{{ object.createdAt|date('d/m/Y') }}</td>
                                 <td>{{object.createdBy}}</td>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <td>{{object.readAt|date('d/m/Y') }}</td>
+                                <td>
+                                    {% if object.readAt != null %}
+                                        {{object.readAt|date('d/m/Y') }}
+                                    {% endif %}
+                                </td>
                                 <td>{{object.readBy}}</td>
                                 <td>
                                     {% if object.readAt == null %}
                                         <a href="{{ path('notification_notification_mark_as_read', { 'id': object.id }) }}">
-                                            <i class="fas fa-clipboard-check"></i>&nbsp;{{ 'notifications.notification.action.mark_as_read'|trans }}
+                                            <i class="fas fa-clipboard-check"></i>&nbsp;{{ 'notification.notification.action.mark_as_read'|trans }}
                                         </a>
                                     {% endif %}
 
@@ -227,6 +268,10 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 <script>
     const isAdmin = {{ is_granted('ROLE_ADMIN')|json_encode() }}
+    var notifs = {{ notifs|json_encode()|raw }};
+
+    var unreadNotifs = notifs.filter(n => !n.read_at);
+    unreadNotifs = unreadNotifs.map(n => n.id).join(',');
 
     {% set dataTableOptions = {
         columns: [
@@ -250,10 +295,7 @@
         },
         dom: 'Bfrtip',
         columnDefs: [
-            {
-                targets: 4,
-                className: 'noVis'
-            }
+            { "visible": false, "targets": 1 }
         ],
         buttons: [
             {
@@ -276,13 +318,20 @@
             // NON LU SEULEMENT
             $('#search_state').off('change');
             $('#search_state').change(function(){
-                oTable.column('0').search($(this).val()).draw();
+                console.log($(this).val(), oTable.column('0').data())
+                oTable.column('0').search($(this).val(), false, false, false).draw();
             });
 
             $('#search_module').off('change');
             $('#search_module').change(function(){
                 isAdmin ? oTable.column('1').search($(this).val()).draw() : oTable.column('0').search($(this).val()).draw() ;
             });
+
+            $('#search_action').off('change');
+            $('#search_action').change(function(){
+                isAdmin ? oTable.column('2').search($(this).val()).draw() : oTable.column('1').search($(this).val()).draw() ;
+            });
+            
 
             $('#search_name').off('keyup');
             $('#search_name').keyup($.debounce(250, function(){

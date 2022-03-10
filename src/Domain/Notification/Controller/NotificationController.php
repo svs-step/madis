@@ -128,23 +128,22 @@ class NotificationController extends CRUDController
      */
     public function markAsReadAllAction()
     {
-        $request = $this->requestStack->getMasterRequest();
-        $ids = $request->query->get('ids');
-        $ids = explode(",", $ids);
+        $notifs = $this->repository->findAll();
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $this->addFlash('error', 'Vous ne pouvez pas mettre à jour ces notifications');
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
-        foreach ($ids as $id) {
-            $notif = $this->repository->findOneById($id);
-            if ($notif) {
-                $notif->setStatus(false);
-                $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $notif));
+        foreach ($notifs as $notif) {
+            $isRead = $notif->getReadAt();
+            if ($isRead == null) {
+                $notif->setReadAt(new \DateTime());
+                $notif->setReadBy($this->getUser());
             }
         }
         $this->entityManager->flush();
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'markall'));
         return $this->redirectToRoute($this->getRouteName('list'));
 
     }
@@ -159,8 +158,9 @@ class NotificationController extends CRUDController
             throw new NotFoundHttpException('Notification introuvable');
         }
 
-        $notif->setStatus(false);
+        $notif->setReadAt(new \DateTime());
+        $notif->setReadBy($this->getUser());
         $this->entityManager->flush();
-        // return $this->redirectToRoute($this->getRouteName('list'));
+        return $this->redirectToRoute($this->getRouteName('list'));
     }
 }

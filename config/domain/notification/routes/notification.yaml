@@ -26,8 +26,7 @@ notification_notification_delete_confirm:
     controller: 'App\Domain\Notification\Controller\NotificationController:deleteConfirmationAction'
 
 notification_notification_mark_as_read:
-    # path: '/marquer-comme-lu/{id}'
-    path: '/marquer-comme-lu'
+    path: '/marquer-comme-lu/{id}'
     methods: ['GET']
     controller: 'App\Domain\Notification\Controller\NotificationController:markAsReadAction'
 

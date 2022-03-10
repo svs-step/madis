@@ -1,27 +1,32 @@
+{% set notifs = notifications.findAll() %}
+{% set unreadNotifs = notifs|filter(n => n.readAt is null) %}
+{% set notifsObject = notifs|map(n => ({id : n.id, read_at: n.readAt})) %}
 {% block body %}
 {% set notifs = notifications.findAll() %}
+{% set unreadNotifs = notifs|filter(n => n.readAt is null) %}
+{% set notifsObject = notifs|map(n => ({id : n.id, read_at: n.readAt})) %}
     <li class="header" style="list-style: none;">
-        <span class="h4">Vous avez {{ notifs|length }} notifications non lues</span>
+        <span class="h4">Vous avez {{ unreadNotifs|length }} notifications non lues</span>
         {% if is_granted('ROLE_ADMIN') %}
             {% if notifs|length > 0 %}
-                <a style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notifications.notification.action.mark_as_read_all'|trans }}</a>
+                <a id="read-all" href="{{ path('notification_notification_mark_as_read_all') }}" style="float:right;">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
             {% endif %}
         {% endif %}
     </li>
 
-    {% for key, notif in notifs %}
-        {% if key < app_notification_max_shown %}
+
+    {% for notif in unreadNotifs %}
+        {% if loop.index0 < app_notification_max_shown %}
             <li class="box-header with-border single-notification" style="padding: 0.8em;">
                 <div class="row">
                     <div class="col-md-8" href="#">
-                    <b>[{{ notif.module }}]</b> <a href="#"><b>{{ notif.name }}</b></a>
+                    <b>[{{ notif.module|trans }}]</b> <a href="#"><b>{{ notif.name }}</b></a>
                     </div>
-                    {# <div class="col-md-4 text-center"><a  href="{{ path('notification_notification_mark_as_read', { 'id': object.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;"> #}
-                    <div class="col-md-4 text-center"><a  href="{{ path('notification_notification_mark_as_read') }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
-                        <i class="fas fa-clipboard-check"></i> {{ 'notifications.notification.action.mark_as_read'|trans }}
+                    <div class="col-md-4 text-center"><a  href="{{ path('notification_notification_mark_as_read', { 'id': notif.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
+                        <i class="fas fa-clipboard-check"></i> {{ 'notification.notification.action.mark_as_read'|trans }}
                     </a></div>
                     <div class="col-md-12 text-muted">
-                    Ajouté, 
+                    {{ notif.action|trans }}, 
                     {% set difference = date().diff(date(notif.createdAt)) %}
                     {% set leftDays = difference.days %}
 
@@ -32,11 +37,15 @@
                     {% else %}
                         il y a {{ leftDays }} jours
                     {% endif %} 
-                    par notif.createdById</div>
+
+                    {% set data = notif.collectivity.name %} {# notif.object.creator.fullName #}
+                    par {{ data }}</div>
                 </div>
             </li>
         {% endif %}
     {% endfor %}
-    <div class="text-center box-header"><a href="{{ path('notification_notification_list') }}">Voir toutes les notifications ({{ notifs|length - app_notification_max_shown }} autres non lues)</a></div>
-
+    {% set notifsLeft = unreadNotifs|length - app_notification_max_shown > 0 ? unreadNotifs|length - app_notification_max_shown : 0 %}
+    <div class="text-center box-header"><a href="{{ path('notification_notification_list') }}">Voir toutes les notifications ({{ notifsLeft }} autres non lues)</a></div>
 {% endblock %}
+
+

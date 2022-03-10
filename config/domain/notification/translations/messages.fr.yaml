@@ -1,5 +1,23 @@
-notifications:
+notification:
+    module: Notification
+    modules:
+        treatment: Traitement
+        contractor: Sous-traitant
+        violation: Violation
+        proof: Preuve
+        action: Action
+        request: Demande
+
+    actions:
+        delete: Suppression
+        create: Création
+        update: Modification
+        state_change: Changement d'état
     notification:
+        flashbag:
+            success:
+                markall: Toutes les notifications sont marquées comme lu
+                delete: Notification "%object%" supprimée avec succès
         title:
             list: Centre de notifications
             delete: Supprimer une notification
@@ -21,22 +39,4 @@ notifications:
             back_to_list: Retour à la liste
             mark_as_read: Marquer comme lu
             mark_as_read_all: Tout marquer comme lu
-        flashbag:
-            success:
-                delete: Notification "%object%" supprimée avec succès
 
-notification:
-    module: Notification
-    modules:
-        treatment: Traitement
-        contractor: Sous-traitant
-        violation: Violation
-        proof: Preuve
-        action: Action
-        request: Demande
-
-    actions:
-        delete: Suppression
-        create: Création
-        update: Modification
-        state_change: Changement d'état
