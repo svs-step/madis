@@ -679,7 +679,10 @@
                         {% endif %}
                     </div>
                 </div>
-            </div>
+
+        {# Mesurements #}
+        {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
+
         </div>
     </div>
 {% endblock %}

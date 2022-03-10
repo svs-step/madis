@@ -166,25 +166,52 @@
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.contractor'|trans }}</strong></td>
                             <td>
-                                {{ object.contractor|default('registry.mesurement.show.none'|trans) }}
+                                {% if object.contractor %}
+                                    <a href="{{ path('registry_contractor_show', {id: object.contractor.id}) }}">
+                                        {{ object.contractor|default('registry.mesurement.show.none'|trans) }}
+                                    </a>
+                                {% else %}
+                                    {{ 'registry.mesurement.show.none'|trans }}
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.treatment'|trans }}</strong></td>
                             <td>
-                                {{ object.treatment|default('registry.mesurement.show.none'|trans) }}
+                                {% if object.treatment %}
+                                    <a href="{{ path('registry_treatment_show', {id: object.treatment.id}) }}">
+                                        {{ object.treatment|default('registry.mesurement.show.none'|trans) }}
+                                    </a>
+                                {% else %}
+                                    {{ 'registry.mesurement.show.none'|trans }}
+                                {% endif %}
+
                             </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.request'|trans }}</strong></td>
                             <td>
-                                {{ object.request|default('registry.mesurement.show.none'|trans) }}
+                                {% if object.request %}
+                                    <a href="{{ path('registry_request_show', {id: object.request.id}) }}">
+                                        {{ object.request|default('registry.mesurement.show.none'|trans) }}
+                                    </a>
+                                {% else %}
+                                    {{ 'registry.mesurement.show.none'|trans }}
+                                {% endif %}
+
                             </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.violation'|trans }}</strong></td>
                             <td>
-                                {{ object.violation|default('registry.mesurement.show.none'|trans) }}
+                                {% if object.violation %}
+                                    <a href="{{ path('registry_violation_show', {id: object.violation.id}) }}">
+                                        {{ object.violation|default('registry.mesurement.show.none'|trans) }}
+                                    </a>
+                                {% else %}
+                                    {{ 'registry.mesurement.show.none'|trans }}
+                                {% endif %}
+
                             </td>
                         </tr>
                         </tbody>

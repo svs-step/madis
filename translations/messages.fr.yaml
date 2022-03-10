@@ -35,10 +35,12 @@ label:
     inactive: Inactif
     linked_documents: Documents associés
     linked_treatment: Traitements associés
+    linked_mesurement: Actions de protection associées
     no: Non
     yes: Oui
     no_linked_document: Aucun document associé
     no_linked_treatment: Aucun traitement associé
+    no_linked_mesurement: Aucune action de protection associée
     not_archived: Non archivés
     category: Catégories documentaires
 
