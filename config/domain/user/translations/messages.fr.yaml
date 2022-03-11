@@ -180,6 +180,10 @@ user:
             roles: Role
             moreInfos: Informations supplémentaires
             services: Services
+            respInfo: Responsable informatique
+            respTreat: Responsable traitement
+            refOp: Référent opérationnel
+            dpo: DPO
         flashbag:
             success:
                 create: Utilisateur "%object%" créée avec succès

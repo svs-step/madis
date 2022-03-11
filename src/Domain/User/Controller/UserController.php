@@ -27,7 +27,6 @@ namespace App\Domain\User\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
-use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Model;
@@ -202,12 +201,6 @@ class UserController extends CRUDController
                 $roles .= $span;
             }
 
-            $infos ='';
-            foreach ($user->getMoreInfos() as $info) {
-                $span = '<span class="badge">' . UserMoreInfoDictionary::getMoreInfos()[$info] . '</span>';
-                $infos .= $span;
-            }
-
             $userActifBgColor = 'bg-green';
             if (!$user->isEnabled()) {
                 $userActifBgColor = 'bg-red';
@@ -229,6 +222,20 @@ class UserController extends CRUDController
             }
             $services .= '</ul>';
 
+            $moreinfos = '';
+            if ($user->isRespTreat()) {
+                $moreinfos .= '<span class="badge bg-blue">Responsable traitement</span>';
+            }
+            if ($user->isRespInfo()) {
+                $moreinfos .= '<span class="badge bg-blue">Responsable informatique</span>';
+            }
+            if ($user->isRefOp()) {
+                $moreinfos .= '<span class="badge bg-blue">Référent opérationnel</span>';
+            }
+            if ($user->isDpo()) {
+                $moreinfos .= '<span class="badge bg-blue">DPO</span>';
+            }
+
             $europeTimezone    = new \DateTimeZone('Europe/Paris');
             $reponse['data'][] = [
                 'prenom'       => $user->getFirstName(),
@@ -236,8 +243,8 @@ class UserController extends CRUDController
                 'email'        => $user->getEmail(),
                 'collectivite' => $user->getCollectivity()->getName(),
                 'roles'        => $roles,
-                'moreInfos'    => $infos,
                 'actif'        => $actif,
+                'moreInfos'    => $moreinfos,
                 'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('Y-m-d H:i:s') : null,
                 'services'     => $services,
                 'actions'      => $this->getActionCellsContent($user),
@@ -262,7 +269,6 @@ class UserController extends CRUDController
             6 => 'connexion',
             7 => 'services',
             8 => 'actions',
-            9 => 'moreInfos',
         ];
     }
 
