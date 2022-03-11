@@ -74,12 +74,14 @@ class Request implements LoggableSubject, CollectivityRelated
 
     /**
      * @MaxDepth(1)
+     *
      * @var RequestApplicant|null
      */
     private $applicant;
 
     /**
      * @MaxDepth(1)
+     *
      * @var RequestConcernedPeople|null
      */
     private $concernedPeople;
@@ -128,7 +130,6 @@ class Request implements LoggableSubject, CollectivityRelated
     private $service;
 
     /**
-     * @var Collection
      * @MaxDepth(1)
      */
     private Collection $mesurements;

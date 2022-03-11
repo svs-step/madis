@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Model;
 
 use App\Application\Interfaces\CollectivityRelated;
+use App\Application\Traits\Model\HistoryTrait;
 use App\Application\Traits\Model\SoftDeletableTrait;
 use App\Domain\Documentation\Model\Document;
 use App\Domain\Reporting\Model\LoggableSubject;
@@ -37,6 +38,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements LoggableSubject, UserInterface, CollectivityRelated
 {
     use SoftDeletableTrait;
+    use HistoryTrait;
 
     /**
      * @var UuidInterface

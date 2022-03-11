@@ -46,7 +46,7 @@ class Question
     private $domain;
 
     /**
-     * @var iterable
+     * @var iterable|null
      */
     private $answers;
 
@@ -86,7 +86,7 @@ class Question
         $this->domain = $domain;
     }
 
-    public function getAnswers(): iterable
+    public function getAnswers(): ?iterable
     {
         return $this->answers;
     }

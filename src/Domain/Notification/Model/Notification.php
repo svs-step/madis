@@ -31,6 +31,7 @@ use App\Domain\User\Model\User;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
@@ -49,23 +50,16 @@ class Notification
 
     /**
      * @ORM\Column(type="string")
-     *
-     * @var string|null
      */
     private ?string $name;
 
-
     /**
      * @ORM\Column(type="string", nullable=true)
-     *
-     * @var string|null
      */
     private ?string $action;
 
     /**
      * @ORM\Column(type="string")
-     *
-     * @var string|null
      */
     private ?string $module;
 
@@ -77,18 +71,16 @@ class Notification
     private $object;
 
     /**
-     * @var Collectivity|null
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\Collectivity")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private ?Collectivity $collectivity;
 
     /**
-     * @var User|null
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private ?User $readBy;
+    private ?UserInterface $readBy;
 
     /**
      * @var \DateTime|null
@@ -97,11 +89,10 @@ class Notification
     private $readAt;
 
     /**
-     * @var User|null
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private $createdBy;
+    private ?UserInterface $createdBy;
 
     /**
      * Category constructor.
@@ -190,27 +181,21 @@ class Notification
         $this->readAt = $readAt;
     }
 
-    public function getCreatedBy(): ?User
+    public function getCreatedBy(): ?UserInterface
     {
         return $this->createdBy;
     }
 
-    public function setCreatedBy(?User $createdBy): void
+    public function setCreatedBy(?UserInterface $createdBy): void
     {
         $this->createdBy = $createdBy;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAction(): ?string
     {
         return $this->action;
     }
 
-    /**
-     * @param string|null $action
-     */
     public function setAction(?string $action): void
     {
         $this->action = $action;

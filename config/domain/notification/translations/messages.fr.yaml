@@ -7,12 +7,18 @@ notification:
         proof: Preuve
         action: Action
         request: Demande
-
+        user: Utilisateur
+        documentation: Documentation
+        maturity: Indice de maturité
     actions:
         delete: Suppression
         create: Création
         update: Modification
         state_change: Changement d'état
+        late_action: En retard
+        late_request: En retard
+        late_survey: En retard
+        no_login: Inactif
     notification:
         flashbag:
             success:
@@ -39,4 +45,3 @@ notification:
             back_to_list: Retour à la liste
             mark_as_read: Marquer comme lu
             mark_as_read_all: Tout marquer comme lu
-

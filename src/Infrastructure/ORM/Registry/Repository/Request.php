@@ -462,4 +462,19 @@ class Request implements Repository\Request
             }
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllLate(): array
+    {
+        $now       = new \DateTime();
+        $lastMonth = $now->sub(\DateInterval::createFromDateString('1 month'));
+
+        return $this->createQueryBuilder()
+            ->andWhere('o.updatedAt < :lastmonth')
+            ->setParameter('lastmonth', $lastMonth->format('Y-m-d'))
+            ->getQuery()
+            ->getResult();
+    }
 }

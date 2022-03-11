@@ -249,4 +249,24 @@ class User extends CRUDRepository implements Repository\User
             }
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllNoLogin(): array
+    {
+        $now       = new \DateTime();
+        $monthsAgo = $now->sub(\DateInterval::createFromDateString('6 month'));
+        $qb        = $this->createQueryBuilder();
+        $query     = $qb->where($qb->expr()->isNull('o.lastLogin'))
+            ->andWhere($qb->expr()->orX(
+                $qb->expr()->isNull('o.createdAt'),
+                'o.createdAt < :monthsAgo'
+            ))
+            ->setParameter('monthsAgo', $monthsAgo->format('Y-m-d H:i:s'))
+            ->getQuery();
+
+        return $query->getResult()
+            ;
+    }
 }
