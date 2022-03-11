@@ -55,49 +55,52 @@ class ContactType extends AbstractType
 
         $builder
             ->add('civility', DictionaryType::class, [
-                'label'    => 'user.contact.form.civility',
+                'label' => 'user.contact.form.civility',
                 'required' => $required,
-                'name'     => 'user_contact_civility',
+                'name' => 'user_contact_civility',
             ])
             ->add('firstName', TextType::class, [
-                'label'    => 'user.contact.form.first_name',
+                'label' => 'user.contact.form.first_name',
                 'required' => $required,
-                'attr'     => [
+                'attr' => [
                     'maxlength' => 255,
                 ],
             ])
             ->add('lastName', TextType::class, [
-                'label'    => 'user.contact.form.last_name',
+                'label' => 'user.contact.form.last_name',
                 'required' => $required,
-                'attr'     => [
+                'attr' => [
                     'maxlength' => 255,
                 ],
             ])
             ->add('job', TextType::class, [
-                'label'    => 'user.contact.form.job',
+                'label' => 'user.contact.form.job',
                 'required' => $required,
-                'attr'     => [
+                'attr' => [
                     'maxlength' => 255,
                 ],
             ])
             ->add('mail', EmailType::class, [
-                'label'    => 'user.contact.form.mail',
+                'label' => 'user.contact.form.mail',
                 'required' => $isComiteIl ? false : $required,
-                'attr'     => [
+                'attr' => [
                     'maxlength' => 255,
                 ],
             ])
             ->add('phoneNumber', TextType::class, [
-                'label'    => 'user.contact.form.phone_number',
+                'label' => 'user.contact.form.phone_number',
                 'required' => $isComiteIl ? false : $required,
-                'attr'     => [
+                'attr' => [
                     'maxlength' => 255,
                 ],
-            ])
-            ->add('notification', CheckboxType::class, [
+            ]);
+
+        if (!$isComiteIl){
+            $builder->add('notification', CheckboxType::class, [
                 'label'    => 'user.contact.form.notification',
                 'required' => false,
             ]);
+        }
     }
 
     /**
