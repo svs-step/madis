@@ -1,7 +1,7 @@
 <tr>
     <td>{{ form.vars.value.label }}</td>
     <td>
-        {% if(form.reponse.vars.value == 'non_renseigne') %}
+        {% if(form.vars.value.canBeModified == 'non_renseigne') %}
             {{ form_widget(form.reponse) }}
         {% else %}
             <span style="display: none">{{ form_widget(form.reponse) }}</span>

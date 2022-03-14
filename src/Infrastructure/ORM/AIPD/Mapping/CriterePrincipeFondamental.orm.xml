@@ -20,6 +20,8 @@
         <field name="justification" column="justification" nullable="true"/>
         <field name="fichier" column="fichier" nullable="true"/>
 
+        <field name="canBeModified" column="can_be_modified" type="boolean"/>
+
         <many-to-one field="analyseImpact" target-entity="App\Domain\AIPD\Model\AnalyseImpact" inversed-by="criterePrincipeFondamentaux"/>
         <many-to-one field="modeleAnalyse" target-entity="App\Domain\AIPD\Model\ModeleAnalyse" inversed-by="criterePrincipeFondamentaux"/>
     </entity>
