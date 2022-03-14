@@ -29,6 +29,7 @@ use App\Domain\Registry\Form\Type\Embeddable\RequestApplicantType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestConcernedPeopleType;
 use App\Domain\Registry\Model\Request;
 use App\Domain\User\Model\Service;
+use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -39,9 +40,27 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class RequestType extends AbstractType
 {
+    /**
+     * @var Security
+     */
+    private $security;
+
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authorizationChecker;
+
+    public function __construct(Security $security, AuthorizationCheckerInterface $authorizationChecker)
+    {
+        $this->security             = $security;
+        $this->authorizationChecker = $authorizationChecker;
+    }
+
     /**
      * Build type form.
      */
@@ -62,12 +81,24 @@ class RequestType extends AbstractType
                     'class'         => Service::class,
                     'label'         => 'registry.treatment.form.service',
                     'query_builder' => function (EntityRepository $er) use ($request) {
+                        /** @var User $authenticatedUser */
+                        $authenticatedUser = $this->security->getUser();
                         $collectivity = $request->getCollectivity();
 
-                        return $er->createQueryBuilder('s')
+                        $qb = $er->createQueryBuilder('s')
                             ->where('s.collectivity = :collectivity')
                             ->setParameter(':collectivity', $collectivity)
+                        ;
+                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && empty($authenticatedUser->getServices())) {
+                            $qb->leftJoin('s.users', 'users')
+                                ->andWhere('users.id = :id')
+                                ->setParameter('id', $authenticatedUser->getId())
+                            ;
+                        }
+                        $qb
                             ->orderBy('s.name', 'ASC');
+
+                        return $qb;
                     },
                     'required' => false,
                 ])

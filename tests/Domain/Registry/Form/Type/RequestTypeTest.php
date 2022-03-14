@@ -40,12 +40,14 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class RequestTypeTest extends FormTypeHelper
 {
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, new RequestType());
+        $this->assertInstanceOf(AbstractType::class, new RequestType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()));
     }
 
     public function testBuildForm()
@@ -71,7 +73,7 @@ class RequestTypeTest extends FormTypeHelper
             'stateRejectionReason' => TextareaType::class,
         ];
 
-        (new RequestType())->buildForm($this->prophesizeBuilder($builder), ['data' => $contractor]);
+        (new RequestType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()))->buildForm($this->prophesizeBuilder($builder), ['data' => $contractor]);
     }
 
     public function testConfigureOptions(): void
@@ -87,6 +89,6 @@ class RequestTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new RequestType())->configureOptions($resolverProphecy->reveal());
+        (new RequestType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()))->configureOptions($resolverProphecy->reveal());
     }
 }
