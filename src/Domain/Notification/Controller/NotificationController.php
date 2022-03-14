@@ -31,6 +31,7 @@ use App\Domain\Notification\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -38,6 +39,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class NotificationController extends CRUDController
 {
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
     /**
      * @var AuthorizationCheckerInterface
      */
@@ -49,6 +55,7 @@ class NotificationController extends CRUDController
     protected $userProvider;
 
     public function __construct(
+        RequestStack $requestStack,
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Notification $repository,
@@ -57,6 +64,7 @@ class NotificationController extends CRUDController
         Pdf $pdf
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
+        $this->requestStack           = $requestStack;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
     }
@@ -113,5 +121,62 @@ class NotificationController extends CRUDController
      */
     public function formPrePersistData($object)
     {
+    }
+
+    /**
+     * Update read status from notification
+     */
+    public function markAsReadAllAction()
+    {
+        $notifs = $this->repository->findAll();
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', 'Vous ne pouvez pas mettre à jour ces notifications');
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        foreach ($notifs as $notif) {
+            $isRead = $notif->getReadAt();
+            if ($isRead == null) {
+                $notif->setReadAt(new \DateTime());
+                $notif->setReadBy($this->getUser());
+            }
+        }
+        $this->entityManager->flush();
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'markall'));
+        return $this->redirectToRoute($this->getRouteName('list'));
+
+    }
+
+    /**
+     * Update read_at and read_by from notification
+     */
+    public function markAsReadAction(string $id)
+    {
+        $notif = $this->repository->findOneByID($id);
+        if (!$notif) {
+            throw new NotFoundHttpException('Notification introuvable');
+        }
+
+        $notif->setReadAt(new \DateTime());
+        $notif->setReadBy($this->getUser());
+        $this->entityManager->flush();
+        return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
+    /**
+     * Update read_at and read_by from notification to null
+     */
+    public function markAsUnreadAction(string $id)
+    {
+        $notif = $this->repository->findOneByID($id);
+        if (!$notif) {
+            throw new NotFoundHttpException('Notification introuvable');
+        }
+
+        $notif->setReadAt(null);
+        $notif->setReadBy(null);
+        $this->entityManager->flush();
+        return $this->redirectToRoute($this->getRouteName('list'));
     }
 }
