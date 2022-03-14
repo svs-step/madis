@@ -36,12 +36,14 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class ContractorTypeTest extends FormTypeHelper
 {
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, new ContractorType());
+        $this->assertInstanceOf(AbstractType::class, new ContractorType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()));
     }
 
     public function testBuildForm()
@@ -66,7 +68,7 @@ class ContractorTypeTest extends FormTypeHelper
             'dpo'                        => ContactType::class,
         ];
 
-        (new ContractorType())->buildForm($this->prophesizeBuilder($builder), ['data' => $contractor]);
+        (new ContractorType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()))->buildForm($this->prophesizeBuilder($builder), ['data' => $contractor]);
     }
 
     public function testConfigureOptions(): void
@@ -82,6 +84,6 @@ class ContractorTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new ContractorType())->configureOptions($resolverProphecy->reveal());
+        (new ContractorType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()))->configureOptions($resolverProphecy->reveal());
     }
 }

@@ -26,7 +26,6 @@ namespace App\Tests\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Form\Type\AnswerType;
 use App\Domain\Maturity\Model\Answer;
-use App\Domain\Registry\Form\Type\ContractorType;
 use App\Tests\Utils\FormTypeHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -36,7 +35,7 @@ class AnswerTypeTest extends FormTypeHelper
 {
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, new ContractorType());
+        $this->assertInstanceOf(AbstractType::class, new AnswerType());
     }
 
     public function testBuildForm()
