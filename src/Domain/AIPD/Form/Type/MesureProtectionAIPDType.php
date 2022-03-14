@@ -21,8 +21,16 @@ class MesureProtectionAIPDType extends AbstractType
             ->add('labelLivrable', TextType::class)
             ->add('phrasePreconisation', TextType::class)
             ->add('detail', TextType::class)
-            ->add('poidsVraisemblance', IntegerType::class)
-            ->add('poidsGravite', IntegerType::class)
+            ->add('poidsVraisemblance', IntegerType::class, [
+                'attr' => [
+                    'min' => 1,
+                ],
+            ])
+            ->add('poidsGravite', IntegerType::class, [
+                'attr' => [
+                    'min' => 1,
+                ],
+            ])
         ;
     }
 
