@@ -123,7 +123,7 @@ class EntityChangedSubscriber implements EventSubscriber
         $notification = new Notification();
         $mod          = $this->modules[get_class($object)];
         $notification->setModule('notification.modules.' . $mod);
-        $notification->setCollectivity($object->getCollectivity());
+        $notification->setCollectivity(method_exists($object, 'getCollectivity') ? $object->getCollectivity() : null);
         $notification->setName(method_exists($object, 'getName') ? $object->getName() : $object->__toString());
         $notification->setAction('notification.actions.' . $action);
         $notification->setCreatedBy($this->security->getUser());
