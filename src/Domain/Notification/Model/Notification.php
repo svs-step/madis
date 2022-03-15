@@ -38,6 +38,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class Notification
 {
+    const NOTIFICATION_DPO = 1;
+    const NOTIFICATION_COLLECTIVITY = 2;
+
     use HistoryTrait;
     use CreatorTrait;
     /**
@@ -93,6 +96,12 @@ class Notification
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private ?UserInterface $createdBy;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private ?UserInterface $user;
 
     /**
      * Category constructor.
@@ -187,5 +196,21 @@ class Notification
     public function setAction(?string $action): void
     {
         $this->action = $action;
+    }
+
+    /**
+     * @return UserInterface|null
+     */
+    public function getUser(): ?UserInterface
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param UserInterface|null $user
+     */
+    public function setUser(?UserInterface $user): void
+    {
+        $this->user = $user;
     }
 }

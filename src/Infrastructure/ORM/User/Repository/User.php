@@ -269,4 +269,13 @@ class User extends CRUDRepository implements Repository\User
         return $query->getResult()
             ;
     }
+
+    public function findNonDpoUsers(): array
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->andWhere('JSON_CONTAINS(o.roles, :role) = 0')
+            // TODO add andwhere with "is_dpo"
+            ->setParameter('role', sprintf('"%s"', "ROLE_ADMIN"));
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -104,14 +104,4 @@ class NotificationController extends CRUDController
 
         return $this->repository->findAll($order);
     }
-
-    /**
-     * {@inheritdoc}
-     * Here, we wanna compute maturity score.
-     *
-     * @param Model\Notification $object
-     */
-    public function formPrePersistData($object)
-    {
-    }
 }
