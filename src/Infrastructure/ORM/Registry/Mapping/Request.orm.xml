@@ -36,7 +36,9 @@
             </order-by>
         </many-to-many>
 
-        <one-to-many field="mesurements" mapped-by="request" target-entity="App\Domain\Registry\Model\Mesurement"/>
+        <many-to-many field="mesurements" target-entity="App\Domain\Registry\Model\Mesurement" mapped-by="requests"/>
+
+
         <many-to-many field="treatments" target-entity="App\Domain\Registry\Model\Treatment" inversed-by="requests">
             <join-table name="treatment_request">
                 <join-columns>

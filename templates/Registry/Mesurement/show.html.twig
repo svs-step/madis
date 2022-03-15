@@ -166,10 +166,12 @@
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.contractor'|trans }}</strong></td>
                             <td>
-                                {% if object.contractor %}
-                                    <a href="{{ path('registry_contractor_show', {id: object.contractor.id}) }}">
-                                        {{ object.contractor|default('registry.mesurement.show.none'|trans) }}
+                                {% if object.contractors and object.contractors |length %}
+                                    {% for contractor in object.contractors %}
+                                    <a href="{{ path('registry_contractor_show', {id: contractor.id}) }}">
+                                        {{ contractor|default('registry.mesurement.show.none'|trans) }}
                                     </a>
+                                    {% endfor %}
                                 {% else %}
                                     {{ 'registry.mesurement.show.none'|trans }}
                                 {% endif %}
@@ -178,10 +180,12 @@
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.treatment'|trans }}</strong></td>
                             <td>
-                                {% if object.treatment %}
-                                    <a href="{{ path('registry_treatment_show', {id: object.treatment.id}) }}">
-                                        {{ object.treatment|default('registry.mesurement.show.none'|trans) }}
+                                {% if object.treatments and object.treatments |length %}
+                                    {% for treatment in object.treatments %}
+                                    <a href="{{ path('registry_treatment_show', {id: treatment.id}) }}">
+                                        {{ treatment|default('registry.mesurement.show.none'|trans) }}
                                     </a>
+                                    {% endfor %}
                                 {% else %}
                                     {{ 'registry.mesurement.show.none'|trans }}
                                 {% endif %}
@@ -191,10 +195,12 @@
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.request'|trans }}</strong></td>
                             <td>
-                                {% if object.request %}
-                                    <a href="{{ path('registry_request_show', {id: object.request.id}) }}">
-                                        {{ object.request|default('registry.mesurement.show.none'|trans) }}
+                                {% if object.requests and object.requests |length %}
+                                    {% for request in object.requests %}
+                                    <a href="{{ path('registry_request_show', {id: request.id}) }}">
+                                        {{ request|default('registry.mesurement.show.none'|trans) }}
                                     </a>
+                                    {% endfor %}
                                 {% else %}
                                     {{ 'registry.mesurement.show.none'|trans }}
                                 {% endif %}
@@ -204,10 +210,12 @@
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.violation'|trans }}</strong></td>
                             <td>
-                                {% if object.violation %}
-                                    <a href="{{ path('registry_violation_show', {id: object.violation.id}) }}">
-                                        {{ object.violation|default('registry.mesurement.show.none'|trans) }}
+                                {% if object.violations and object.violations |length %}
+                                    {% for violation in object.violations %}
+                                    <a href="{{ path('registry_violation_show', {id: violation.id}) }}">
+                                        {{ violation|default('registry.mesurement.show.none'|trans) }}
                                     </a>
+                                    {% endfor %}
                                 {% else %}
                                     {{ 'registry.mesurement.show.none'|trans }}
                                 {% endif %}
