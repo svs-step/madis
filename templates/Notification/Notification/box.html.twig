@@ -45,7 +45,7 @@
                         il y a {{ leftDays }} jours
                     {% endif %} 
 
-                    {% set data = notif.collectivity.name %} {# notif.object.creator.fullName #}
+                    {% set data = notif.collectivity ? notif.collectivity.name : '' %} {# notif.object.creator.fullName #}
                     par {{ data }}</div>
                 </div>
             </li>

@@ -31,6 +31,7 @@ use App\Domain\Notification\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -126,7 +127,7 @@ class NotificationController extends CRUDController
     /**
      * Update read status from notification
      */
-    public function markAsReadAllAction()
+    public function markAsReadAllAction(Request $request)
     {
         $notifs = $this->repository->findAll();
 
@@ -143,15 +144,18 @@ class NotificationController extends CRUDController
             }
         }
         $this->entityManager->flush();
+        
         $this->addFlash('success', $this->getFlashbagMessage('success', 'markall'));
-        return $this->redirectToRoute($this->getRouteName('list'));
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
 
     }
 
     /**
      * Update read_at and read_by from notification
      */
-    public function markAsReadAction(string $id)
+    public function markAsReadAction(Request $request, string $id)
     {
         $notif = $this->repository->findOneByID($id);
         if (!$notif) {
@@ -161,13 +165,14 @@ class NotificationController extends CRUDController
         $notif->setReadAt(new \DateTime());
         $notif->setReadBy($this->getUser());
         $this->entityManager->flush();
-        return $this->redirectToRoute($this->getRouteName('list'));
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
     }
 
     /**
      * Update read_at and read_by from notification to null
      */
-    public function markAsUnreadAction(string $id)
+    public function markAsUnreadAction(Request $request, string $id)
     {
         $notif = $this->repository->findOneByID($id);
         if (!$notif) {
@@ -177,6 +182,7 @@ class NotificationController extends CRUDController
         $notif->setReadAt(null);
         $notif->setReadBy(null);
         $this->entityManager->flush();
-        return $this->redirectToRoute($this->getRouteName('list'));
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
     }
 }
