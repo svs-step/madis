@@ -44,4 +44,5 @@ notification:
         action:
             back_to_list: Retour à la liste
             mark_as_read: Marquer comme lu
+            mark_as_unread: Marquer comme non lu
             mark_as_read_all: Tout marquer comme lu
