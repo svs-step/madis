@@ -110,15 +110,9 @@
                         <button id="button-reset" class="btn btn-default dt-button buttons-collection" tabindex="0" aria-controls="table" type="button" aria-haspopup="true" aria-expanded="false">
                             <span>Réinitialiser les filtres</span>
                         </button>
-
-                        {# TEST #}
-                        <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                            <i class="fa fa-calendar"></i>&nbsp;
-                            <span></span> <i class="fa fa-caret-down"></i>
-                        </div>
-
-                        {# VISIBLE BY ALL #}
-                        <a id="read-all" style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a id="read-all" style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
+                        {% endif %}
                     </div>
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
@@ -250,16 +244,14 @@
                                         <a href="{{ path('notification_notification_mark_as_read', { 'id': object.id }) }}">
                                             <i class="fas fa-clipboard-check"></i>&nbsp;{{ 'notification.notification.action.mark_as_read'|trans }}
                                         </a>
-                                    {% else %}
-                                        <a href="{{ path('notification_notification_mark_as_unread', { 'id': object.id }) }}">
-                                            <i class="fas fa-bell"></i>&nbsp;{{ 'notification.notification.action.mark_as_unread'|trans }}
-                                        </a>
                                     {% endif %}
+
                                     <a href="{{ path('notification_notification_delete', { 'id': object.id }) }}">
                                         <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
                                     </a>
                                 </td>
                                 {% endif %}
+
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -274,18 +266,12 @@
 {% block javascripts %}
 {{ include('_Utils/_datatable.html.twig') }}
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
 <script>
     const isAdmin = {{ is_granted('ROLE_ADMIN')|json_encode() }}
     var notifs = {{ notifs|json_encode()|raw }};
 
     var unreadNotifs = notifs.filter(n => !n.read_at);
     unreadNotifs = unreadNotifs.map(n => n.id).join(',');
-
 
     {% set dataTableOptions = {
         columns: [
@@ -301,7 +287,6 @@
             {"data": "read_by"},
             {"data": "actions", "orderable": false},
         ],
-        order: [[6,'desc']],
 
         language: {
             buttons: {
@@ -319,7 +304,6 @@
             }
         ]
     } %}
-{{ include('_Utils/_datatable.html.twig') }}
 
     function resetFilters() {
             $('[id^=search_]').each(function() {
@@ -408,30 +392,6 @@
                 $('.dt-button-background').show();
                 $('.dt-button-collection').show();
             });
-
-
-    var start = moment().subtract(29, 'days');
-    var end = moment();
-
-    function cb(start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-    }
-
-    $('#reportrange').daterangepicker({
-        startDate: start,
-        endDate: end,
-        ranges: {
-           'Today': [moment(), moment()],
-           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-           'This Month': [moment().startOf('month'), moment().endOf('month')],
-           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        }
-    }, cb);
-
-    cb(start, end);
-    
         } );
 
         $('#table').on('column-visibility.dt', function() {

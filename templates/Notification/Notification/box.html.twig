@@ -7,8 +7,10 @@
 {% set notifsObject = notifs|map(n => ({id : n.id, read_at: n.readAt})) %}
     <li class="header" style="list-style: none;">
         <span class="h4">Vous avez {{ unreadNotifs|length }} notifications non lues</span>
-        {% if notifs|length > 0 %}
-            <a id="read-all" href="{{ path('notification_notification_mark_as_read_all') }}" style="float:right;">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            {% if notifs|length > 0 %}
+                <a id="read-all" href="{{ path('notification_notification_mark_as_read_all') }}" style="float:right;">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
+            {% endif %}
         {% endif %}
     </li>
 
@@ -17,26 +19,17 @@
         {% if loop.index0 < app_notification_max_shown %}
             <li class="box-header with-border single-notification" style="padding: 0.8em;">
                 <div class="row">
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <div class="col-md-8" href="#">
-                    {% else %}
-                        <div class="col-md-12" href="#">
-                    {% endif %}
+                    <div class="col-md-8" href="#">
                     <b>[{{ notif.module|trans }}]</b> <a href="#"><b>{{ notif.name }}</b></a>
                     </div>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <div class="col-md-4 text-center">
-                            <a  href="{{ path('notification_notification_mark_as_read', { 'id': notif.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
-                                <i class="fas fa-clipboard-check"></i> {{ 'notification.notification.action.mark_as_read'|trans }}
-                            </a>
-                        </div>
-                    {% endif %}
-
+                    <div class="col-md-4 text-center"><a  href="{{ path('notification_notification_mark_as_read', { 'id': notif.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
+                        <i class="fas fa-clipboard-check"></i> {{ 'notification.notification.action.mark_as_read'|trans }}
+                    </a></div>
                     <div class="col-md-12 text-muted">
                     {{ notif.action|trans }}, 
-
                     {% set difference = date().diff(date(notif.createdAt)) %}
                     {% set leftDays = difference.days %}
+
                     {% if leftDays ==  0 %}
                         Aujourd'hui
                     {% elseif leftDays == 1 %}

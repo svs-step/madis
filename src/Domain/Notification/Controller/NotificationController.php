@@ -163,20 +163,4 @@ class NotificationController extends CRUDController
         $this->entityManager->flush();
         return $this->redirectToRoute($this->getRouteName('list'));
     }
-
-    /**
-     * Update read_at and read_by from notification to null
-     */
-    public function markAsUnreadAction(string $id)
-    {
-        $notif = $this->repository->findOneByID($id);
-        if (!$notif) {
-            throw new NotFoundHttpException('Notification introuvable');
-        }
-
-        $notif->setReadAt(null);
-        $notif->setReadBy(null);
-        $this->entityManager->flush();
-        return $this->redirectToRoute($this->getRouteName('list'));
-    }
 }

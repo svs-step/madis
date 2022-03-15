@@ -30,11 +30,6 @@ notification_notification_mark_as_read:
     methods: ['GET']
     controller: 'App\Domain\Notification\Controller\NotificationController:markAsReadAction'
 
-notification_notification_mark_as_unread:
-    path: '/marquer-comme-non-lu/{id}'
-    methods: ['GET']
-    controller: 'App\Domain\Notification\Controller\NotificationController:markAsUnreadAction'
-
 notification_notification_mark_as_read_all:
     path: '/tous-marquer-comme-lu'
     methods: ['GET']
