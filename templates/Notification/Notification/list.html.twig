@@ -110,12 +110,6 @@
                         <button id="button-reset" class="btn btn-default dt-button buttons-collection" tabindex="0" aria-controls="table" type="button" aria-haspopup="true" aria-expanded="false">
                             <span>Réinitialiser les filtres</span>
                         </button>
-                        
-                        {# TEST #}
-                        <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                            <i class="fa fa-calendar"></i>&nbsp;
-                            <span></span> <i class="fa fa-caret-down"></i>
-                        </div>
 
                         {# VISIBLE BY ALL #}
                         <a id="read-all" style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
@@ -165,7 +159,13 @@
                                     <input class="form-control" type="text" id="search_collectivity" placeholder="Collectivité" style="width: 100%;">
                                 </th>
                                 {% endif %}
-                                <th><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
+                                <th>
+                                    <div id="search_date" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                        <i class="fa fa-calendar"></i>&nbsp;
+                                        <span></span> <i class="fa fa-caret-down"></i>
+                                    </div>
+
+                                </th>
                                 <th>
                                     <input class="form-control" type="text" id="search_user_name" placeholder="Nom" style="width: 100%;">
                                 </th>
@@ -269,11 +269,19 @@
             </div>
         </div>
     </div>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 {% endblock %}
 
 {% block javascripts %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/moment@2.12.0/moment.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+
+
     {% set dataTableOptions = {
         columns: [
             {"data": "state"},
@@ -307,7 +315,84 @@
     } %}
 
 {{ include('_Utils/_datatable.html.twig') }}
+
 <script>
+
+    // CALENDAR SEARCH INIT
+    var start = moment().subtract(29, 'days');
+    var end = moment();
+    function cb(start, end) {
+        $('#search_date span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+    }
+    $('#search_date').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+            "Aujourd'hui": [moment(), moment()],
+            'Hier': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            '7 derniers jours': [moment().subtract(6, 'days'), moment()],
+            {# 'Last 30 Days': [moment().subtract(29, 'days'), moment()], #}
+            {# 'This Month': [moment().startOf('month'), moment().endOf('month')], #}
+            'Dernier mois': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        locale: {
+            "format": "DD/MM/YYYY",
+            "separator": " - ",
+            "applyLabel": "Valider",
+            "cancelLabel": "Annuler",
+            "fromLabel": "De",
+            "toLabel": "à",
+            "customRangeLabel": "Plage personnalisée",
+            "daysOfWeek": [
+                "Dim",
+                "Lun",
+                "Mar",
+                "Mer",
+                "Jeu",
+                "Ven",
+                "Sam"
+            ],
+            "monthNames": [
+                "Janvier",
+                "Février",
+                "Mars",
+                "Avril",
+                "Mai",
+                "Juin",
+                "Juillet",
+                "Août",
+                "Septembre",
+                "Octobre",
+                "Novembre",
+                "Décembre"
+            ],
+            "firstDay": 1
+        }
+    }, cb);
+
+    var minDate, maxDate;
+
+    $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+            var dateParts = data[6].split("/");
+            var date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+
+            var min = minDate ? new Date(minDate).setHours(0,0,0,0) : null;
+            var max = maxDate? new Date(maxDate).setHours(0,0,0,0) : null;
+
+            if (
+                ( min === null && max === null ) ||
+                ( min === null && date <= max ) ||
+                ( min <= date   && max === null ) ||
+                ( min <= date   && date <= max )
+            ) {
+                return true;
+            }
+            return false;
+        }
+    );
+    // CALENDAR SEARCH END
+
     const isAdmin = {{ is_granted('ROLE_ADMIN')|json_encode() }}
     var notifs = {{ notifs|json_encode()|raw }};
 
@@ -321,6 +406,11 @@
             });
             var table = $('#table').DataTable();
             table.columns().search('');
+
+            $('#search_date span').html('');
+            minDate = null;
+            maxDate = null;
+            table.draw();
         }
         function setEvents() {
             var oTable = $('#table').DataTable();
@@ -356,6 +446,14 @@
             $('#search_date').off('change');
             $('#search_date').change(function(){
                 isAdmin ? oTable.column('6').search($(this).val()).draw() : oTable.column('4').search($(this).val()).draw() ;
+            });
+
+            $('#search_date').on('apply.daterangepicker', function(ev, picker) {
+                {# console.log(picker.startDate.format('YYYY-MM-DD')); #}
+
+                minDate = picker.startDate.format('YYYY-MM-DD')
+                maxDate = picker.endDate.format('YYYY-MM-DD')
+                oTable.draw();
             });
 
             $('#search_user_name').off('keyup');
@@ -411,6 +509,7 @@
             resetFilters();
             var table = $('#table').DataTable();
             table.columns().search('').draw();
+
         })
 
     </script>
