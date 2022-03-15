@@ -51,8 +51,18 @@
             </li>
         {% endif %}
     {% endfor %}
+
+    {% if unreadNotifs|length == 0 %}
+    <div class="text-center p-2">Il n'y a aucune notification non lue</div>
+    {% endif %}
+
     {% set notifsLeft = unreadNotifs|length - app_notification_max_shown > 0 ? unreadNotifs|length - app_notification_max_shown : 0 %}
-    <div class="text-center box-header"><a href="{{ path('notification_notification_list') }}">Voir toutes les notifications ({{ notifsLeft }} autres non lues)</a></div>
+    <div class="text-center box-header">
+        <a href="{{ path('notification_notification_list') }}">
+            Voir toutes les notifications 
+            {% if unreadNotifs|length > app_notification_max_shown %} ({{ notifsLeft }} autres non lues) {% endif %}
+        </a>
+    </div>
 {% endblock %}
 
 
