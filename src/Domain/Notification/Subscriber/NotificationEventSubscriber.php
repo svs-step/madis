@@ -52,7 +52,6 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             'collectivity' => $survey->getCollectivity(),
             'action' => 'notifications.actions.late_survey',
             'name' => $survey->__toString(),
-            'readAt' => null,
         ]);
         if (count($existing)) {
             return;
@@ -80,6 +79,18 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setObject($norm);
         $this->notificationRepository->insert($notification);
 
+        $users = $this->userRepository->findNonDpoUsers();
+        foreach($users as $user) {
+            $notification = new Notification();
+            $notification->setModule('notification.modules.maturity');
+            $notification->setCollectivity($survey->getCollectivity());
+            $notification->setAction('notifications.actions.late_survey');
+            $notification->setName($survey->__toString());
+            $notification->setUser($user);
+            $notification->setObject($norm);
+            $this->notificationRepository->insert($notification);
+        }
+
         // TODO Send email to référent opérationnel
     }
 
@@ -91,17 +102,12 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             'collectivity' => $action->getCollectivity(),
             'action' => 'notifications.actions.late_action',
             'name' => $action->getName(),
-            'readAt' => null,
         ]);
         if (count($existing)) {
             return;
         }
-        $notification = new Notification();
-        $notification->setModule('notification.modules.action');
-        $notification->setCollectivity($action->getCollectivity());
-        $notification->setAction('notifications.actions.late_action');
-        $notification->setName($action->getName());
-        $notification->setObject($this->serializer->normalize($action, null, [
+
+        $norm = $this->serializer->normalize($action, null, [
             AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
             AbstractObjectNormalizer::ENABLE_MAX_DEPTH                 => true,
             'depth_App\Domain\Registry\Model\Mesurement::proofs'          => 1,
@@ -112,8 +118,26 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             'depth_App\Domain\Registry\Model\Mesurement::contractor'     => 1,
             'depth_App\Domain\Registry\Model\Mesurement::request'     => 1,
             'depth_App\Domain\Registry\Model\Mesurement::violation'     => 1,
-        ]));
+        ]);
+        $notification = new Notification();
+        $notification->setModule('notification.modules.action');
+        $notification->setCollectivity($action->getCollectivity());
+        $notification->setAction('notifications.actions.late_action');
+        $notification->setName($action->getName());
+        $notification->setObject($norm);
         $this->notificationRepository->insert($notification);
+
+        $users = $this->userRepository->findNonDpoUsers();
+        foreach($users as $user) {
+            $notification = new Notification();
+            $notification->setModule('notification.modules.action');
+            $notification->setCollectivity($action->getCollectivity());
+            $notification->setAction('notifications.actions.late_action');
+            $notification->setName($action->getName());
+            $notification->setObject($norm);
+            $notification->setUser($user);
+            $this->notificationRepository->insert($notification);
+        }
 
         // TODO Send email to référent opérationnel
     }
@@ -131,12 +155,8 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         if (count($existing)) {
             return;
         }
-        $notification = new Notification();
-        $notification->setModule('notification.modules.request');
-        $notification->setCollectivity($request->getCollectivity());
-        $notification->setAction('notifications.actions.late_request');
-        $notification->setName($request->__toString());
-        $notification->setObject($this->serializer->normalize($request, null, [
+
+        $norm = $this->serializer->normalize($request, null, [
             AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
             AbstractObjectNormalizer::ENABLE_MAX_DEPTH                 => true,
             'depth_App\Domain\Registry\Model\Request::proofs'          => 1,
@@ -145,8 +165,27 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             'depth_App\Domain\Registry\Model\Request::answer'          => 1,
             'depth_App\Domain\Registry\Model\Request::service'         => 1,
             'depth_App\Domain\Registry\Model\Request::mesurements'     => 1,
-        ]));
+        ]);
+
+        $notification = new Notification();
+        $notification->setModule('notification.modules.request');
+        $notification->setCollectivity($request->getCollectivity());
+        $notification->setAction('notifications.actions.late_request');
+        $notification->setName($request->__toString());
+        $notification->setObject($norm);
         $this->notificationRepository->insert($notification);
+
+        $users = $this->userRepository->findNonDpoUsers();
+        foreach($users as $user) {
+            $notification = new Notification();
+            $notification->setModule('notification.modules.request');
+            $notification->setCollectivity($request->getCollectivity());
+            $notification->setAction('notifications.actions.late_request');
+            $notification->setName($request->__toString());
+            $notification->setObject($norm);
+            $notification->setUser($user);
+            $this->notificationRepository->insert($notification);
+        }
 
         // TODO Send email to référent opérationnel and responsable de traitement
     }
