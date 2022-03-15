@@ -294,66 +294,41 @@ class Mesurement implements LoggableSubject
         return $this->conformiteTraitementReponses;
     }
 
-    /**
-     * @return iterable|null
-     */
     public function getTreatments(): ?iterable
     {
         return $this->treatments;
     }
 
-    /**
-     * @param iterable|null $treatments
-     */
     public function setTreatments(?iterable $treatments): void
     {
         $this->treatments = $treatments;
     }
 
-
-    /**
-     * @return iterable|null
-     */
     public function getContractors(): ?iterable
     {
         return $this->contractors;
     }
 
-    /**
-     * @param iterable|null $contractors
-     */
     public function setContractors(?iterable $contractors): void
     {
         $this->contractors = $contractors;
     }
 
-    /**
-     * @return iterable|null
-     */
     public function getRequests(): ?iterable
     {
         return $this->requests;
     }
 
-    /**
-     * @param iterable|null $requests
-     */
     public function setRequests(?iterable $requests): void
     {
         $this->requests = $requests;
     }
 
-    /**
-     * @return iterable|null
-     */
     public function getViolations(): ?iterable
     {
         return $this->violations;
     }
 
-    /**
-     * @param iterable|null $violations
-     */
     public function setViolations(?iterable $violations): void
     {
         $this->violations = $violations;

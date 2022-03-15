@@ -34,13 +34,11 @@ use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Security;
 
 class MesurementType extends AbstractType
@@ -138,7 +136,7 @@ class MesurementType extends AbstractType
                 ],
             ])
             ->add('contractors', EntityType::class, [
-                'label'    => 'registry.mesurement.form.contractor',
+                'label'         => 'registry.mesurement.form.contractor',
                 'class'         => Contractor::class,
                 'required'      => false,
                 'multiple'      => true,
@@ -165,8 +163,8 @@ class MesurementType extends AbstractType
                 ],
             ])
             ->add('treatments', EntityType::class, [
-                'label'    => 'registry.mesurement.form.treatment',
-                'class'    => Treatment::class,
+                'label'         => 'registry.mesurement.form.treatment',
+                'class'         => Treatment::class,
                 'required'      => false,
                 'multiple'      => true,
                 'expanded'      => false,
@@ -192,8 +190,8 @@ class MesurementType extends AbstractType
                 ],
             ])
             ->add('violations', EntityType::class, [
-                'label'    => 'registry.mesurement.form.violation',
-                'class'    => Violation::class,
+                'label'         => 'registry.mesurement.form.violation',
+                'class'         => Violation::class,
                 'required'      => false,
                 'multiple'      => true,
                 'expanded'      => false,
@@ -218,8 +216,8 @@ class MesurementType extends AbstractType
                 ],
             ])
             ->add('requests', EntityType::class, [
-                'label'    => 'registry.mesurement.form.request',
-                'class'    => Request::class,
+                'label'         => 'registry.mesurement.form.request',
+                'class'         => Request::class,
                 'required'      => false,
                 'multiple'      => true,
                 'expanded'      => false,
