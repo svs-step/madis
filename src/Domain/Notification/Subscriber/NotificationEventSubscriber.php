@@ -47,6 +47,16 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     public function onLateSurvey(LateSurveyEvent $event)
     {
         $survey       = $event->getSurvey();
+        $existing = $this->notificationRepository->findBy([
+            'module' => 'notification.modules.maturity',
+            'collectivity' => $survey->getCollectivity(),
+            'action' => 'notifications.actions.late_survey',
+            'name' => $survey->__toString(),
+            'readAt' => null,
+        ]);
+        if (count($existing)) {
+            return;
+        }
         $norm = $this->serializer->normalize($survey, null, [
             AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
             AbstractObjectNormalizer::ENABLE_MAX_DEPTH                 => true,
@@ -62,7 +72,6 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             'depth_App\Domain\Maturity\Model\Question::domain'       => 1,
             'depth_App\Domain\Maturity\Model\Maturity::survey'       => 1,
         ]);
-        dd($norm);
         $notification = new Notification();
         $notification->setModule('notification.modules.maturity');
         $notification->setCollectivity($survey->getCollectivity());
@@ -77,6 +86,16 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     public function onLateAction(LateActionEvent $event)
     {
         $action       = $event->getMesurement();
+        $existing = $this->notificationRepository->findBy([
+            'module' => 'notification.modules.action',
+            'collectivity' => $action->getCollectivity(),
+            'action' => 'notifications.actions.late_action',
+            'name' => $action->getName(),
+            'readAt' => null,
+        ]);
+        if (count($existing)) {
+            return;
+        }
         $notification = new Notification();
         $notification->setModule('notification.modules.action');
         $notification->setCollectivity($action->getCollectivity());
@@ -102,6 +121,16 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     public function onLateRequest(LateRequestEvent $event)
     {
         $request      = $event->getRequest();
+        $existing = $this->notificationRepository->findBy([
+            'module' => 'notification.modules.request',
+            'collectivity' => $request->getCollectivity(),
+            'action' => 'notifications.actions.late_request',
+            'name' => $request->__toString(),
+            'readAt' => null,
+        ]);
+        if (count($existing)) {
+            return;
+        }
         $notification = new Notification();
         $notification->setModule('notification.modules.request');
         $notification->setCollectivity($request->getCollectivity());
@@ -133,7 +162,6 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             'readAt' => null,
         ]);
         if (count($existing)) {
-//            dd('notification exists');
             return;
         }
         $notification = new Notification();
