@@ -75,7 +75,7 @@ class NotificationsGenerateCommand extends Command
         $cnt     = 0;
         foreach ($actions as $action) {
             /**
-             * @var Mesurement $action
+             * @var Mesurement
              */
             if ($action->getPlanificationDate() && $action->getPlanificationDate() < $now) {
                 $this->dispatcher->dispatch(new LateActionEvent($action));

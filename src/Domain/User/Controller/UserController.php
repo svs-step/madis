@@ -222,6 +222,20 @@ class UserController extends CRUDController
             }
             $services .= '</ul>';
 
+            $moreinfos = '';
+            if ($user->isRespTreat()) {
+                $moreinfos .= '<span class="badge bg-blue">Responsable traitement</span>';
+            }
+            if ($user->isRespInfo()) {
+                $moreinfos .= '<span class="badge bg-blue">Responsable informatique</span>';
+            }
+            if ($user->isRefOp()) {
+                $moreinfos .= '<span class="badge bg-blue">Référent opérationnel</span>';
+            }
+            if ($user->isDpo()) {
+                $moreinfos .= '<span class="badge bg-blue">DPO</span>';
+            }
+
             $europeTimezone    = new \DateTimeZone('Europe/Paris');
             $reponse['data'][] = [
                 'prenom'       => $user->getFirstName(),
@@ -230,6 +244,7 @@ class UserController extends CRUDController
                 'collectivite' => $user->getCollectivity()->getName(),
                 'roles'        => $roles,
                 'actif'        => $actif,
+                'moreInfos'    => $moreinfos,
                 'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('Y-m-d H:i:s') : null,
                 'services'     => $services,
                 'actions'      => $this->getActionCellsContent($user),

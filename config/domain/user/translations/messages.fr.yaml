@@ -15,6 +15,7 @@ user:
             job: Fonction
             mail: Email
             phone_number: Téléphone
+            notification: Notification
 
     collectivity:
         action:
@@ -117,6 +118,7 @@ user:
         form_user:
             tab:
                 general: Vos informations
+                moreInfo: Informations supplémentaires
                 optional: Informations facultatives
             help:
                 password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe
@@ -176,7 +178,12 @@ user:
             password: Mot de passe
             password_repeat: Répéter le mot de passe
             roles: Role
+            moreInfos: Informations supplémentaires
             services: Services
+            respInfo: Responsable informatique
+            respTreat: Responsable traitement
+            refOp: Référent opérationnel
+            dpo: DPO
         flashbag:
             success:
                 create: Utilisateur "%object%" créée avec succès
@@ -191,6 +198,7 @@ user:
             last_login: Dernière connexion
             last_name: Nom
             roles: Role
+            moreInfos: Informations supplémentaires
             services: Service
             services_list: Liste des services
             service_number_users: Nombre d'utilisateurs dans ce service
