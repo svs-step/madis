@@ -45,15 +45,15 @@
                 <tbody>
                 <tr>
                     <td><strong>{{ 'documentation.document.form.label.creator'|trans }}</strong></td>
-                    <td>{{ form.vars.value.creator.fullName }}</td>
+                    <td>{{ form.vars.value.creator ? form.vars.value.creator.fullName : '' }}</td>
                 </tr>
                 <tr>
                     <td><strong>{{ 'documentation.document.form.label.created_at'|trans }}</strong></td>
-                    <td>{{ form.vars.value.createdAt.format('d/m/Y H:i:s') }}</td>
+                    <td>{{ form.vars.value.createdAt ? form.vars.value.createdAt.format('d/m/Y H:i:s') : '' }}</td>
                 </tr>
                 <tr>
                     <td><strong>{{ 'documentation.document.form.label.updated_at'|trans }}</strong></td>
-                    <td>{{ form.vars.value.updatedAt.format('d/m/Y H:i:s') }}</td>
+                    <td>{{ form.vars.value.updatedAt ? form.vars.value.updatedAt.format('d/m/Y H:i:s') : '' }}</td>
                 </tr>
                 </tbody>
             </table>

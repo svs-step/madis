@@ -59,4 +59,9 @@ interface User extends CRUDRepositoryInterface, DataTablesRepository
      * get the users that have never logged in and exist for more than 6 months.
      */
     public function findAllNoLogin(): array;
+
+    /**
+     * get the users that have have specified roles.
+     */
+    public function findNonDpoUsers(): array;
 }
