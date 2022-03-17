@@ -104,10 +104,10 @@ aipd:
             favorable_avec_reserves: Favorable avec réserves
             favorable: Favorable
             evaluation:
-                grands_domaines: Évaluation des 4 grands domaines
+                grands_domaines: Évaluation des principes fondamentaux
                 mesures_securites: Évaluation des mesures de sécurité
                 risques_residuels: Risques résiduels
-                moyenne_dic_residuel: Moyennes DIC résiduels
+                moyenne_dic_residuel: Cartographie des risques résiduels
                 description_conformite: Description et conformité
                 gestion_risques: Gestion des risques
     critere_principe_fondamental:

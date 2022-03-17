@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Converter;
 
+use App\Domain\AIPD\Dictionary\ReponseCritereFondamentalDictionary;
 use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\AIPD\Model\AnalyseMesureProtection;
 use App\Domain\AIPD\Model\AnalyseQuestionConformite;
@@ -39,6 +40,10 @@ class ModeleToAnalyseConverter
             $clone = clone $criterePrincipeFondamental;
             $clone->setAnalyseImpact($analyseImpact);
             $clone->setModeleAnalyse(null);
+            $clone->setCanBeModified(true);
+            if (ReponseCritereFondamentalDictionary::REPONSE_NON_RENSEIGNE !== $clone->getReponse()) {
+                $clone->setCanBeModified(false);
+            }
             $res[] = $clone;
         }
 

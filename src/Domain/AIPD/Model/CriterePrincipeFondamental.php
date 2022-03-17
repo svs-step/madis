@@ -33,6 +33,7 @@ class CriterePrincipeFondamental
     private ?string $justification;
     private ?string $fichier;
     private ?UploadedFile $fichierFile = null;
+    private $canBeModified             = true;
 
     /**
      * @Serializer\Exclude
@@ -198,5 +199,15 @@ class CriterePrincipeFondamental
     public function setAnalyseImpact(?AnalyseImpact $analyseImpact): void
     {
         $this->analyseImpact = $analyseImpact;
+    }
+
+    public function isCanBeModified(): bool
+    {
+        return $this->canBeModified;
+    }
+
+    public function setCanBeModified(bool $canBeModified): void
+    {
+        $this->canBeModified = $canBeModified;
     }
 }
