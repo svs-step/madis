@@ -9,5 +9,5 @@
         {% endif %}
     </td>
     <td>{{ form_widget(form.justification) }}</td>
-    <td><span {% if(form.vars.value.fichier is not null) %} style="visibility: hidden"{% endif %}>{{ form_widget(form.fichierFile) }}</span></td>
+    <td><span>{{ form_widget(form.fichierFile) }}</span></td>
 </tr>
