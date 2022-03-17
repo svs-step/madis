@@ -78,7 +78,7 @@
             </div>
 
             {% for role in roles %}
-                {% if role == "ROLE_USER" %}
+                {% if role == "ROLE_USER" and form.vars.value.collectivity.isServicesEnabled %}
                     <div class="box box-solid box-success">
                         <div class="box-header with-border">
                             <h3 class="box-title">{{ 'user.user.tab.services'|trans }}</h3>

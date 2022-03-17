@@ -1,5 +1,5 @@
 parameters:
-    app.version: 1.8.8
+    app.version: 1.8.10
 
 framework:
     secret: '%env(APP_SECRET)%'

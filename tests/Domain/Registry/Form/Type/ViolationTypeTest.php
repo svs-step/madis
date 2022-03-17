@@ -37,12 +37,14 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class ViolationTypeTest extends FormTypeHelper
 {
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, new ViolationType());
+        $this->assertInstanceOf(AbstractType::class, new ViolationType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()));
     }
 
     public function testBuildForm()
@@ -73,7 +75,7 @@ class ViolationTypeTest extends FormTypeHelper
             'comment'                       => TextareaType::class,
         ];
 
-        (new ViolationType())->buildForm($this->prophesizeBuilder($builder), ['data' => $violation]);
+        (new ViolationType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()))->buildForm($this->prophesizeBuilder($builder), ['data' => $violation]);
     }
 
     public function testConfigureOptions(): void
@@ -89,6 +91,6 @@ class ViolationTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new ViolationType())->configureOptions($resolverProphecy->reveal());
+        (new ViolationType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()))->configureOptions($resolverProphecy->reveal());
     }
 }
