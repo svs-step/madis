@@ -150,7 +150,6 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             'collectivity' => $request->getCollectivity(),
             'action' => 'notifications.actions.late_request',
             'name' => $request->__toString(),
-            'readAt' => null,
         ]);
         if (count($existing)) {
             return;
@@ -198,7 +197,6 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             'collectivity' => $user->getCollectivity(),
             'action' => 'notifications.actions.no_login',
             'name' => $user->getFullName(),
-            'readAt' => null,
         ]);
         if (count($existing)) {
             return;
