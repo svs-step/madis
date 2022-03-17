@@ -1,4 +1,6 @@
 <script>
+
+    {% set func = 'function (d) { var exportBody = GetDataToExport(); d.body.length = 0; d.body.push.apply(d.body, exportBody);}' %}
     {% set dataTableOptions = dataTableOptions|merge({
         language: {
             buttons: {
