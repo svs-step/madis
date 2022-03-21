@@ -178,16 +178,15 @@ class EntityChangedSubscriber implements EventSubscriber
 
     private function setMaxDepth($object)
     {
-        $depths = [];
-        $class = get_class($object);
+        $depths  = [];
+        $class   = get_class($object);
         $methods = get_class_methods($class);
         foreach ($methods as $method) {
-            if (substr($method, 0, 3) === "get") {
-                $property = lcfirst(substr($method, 3));
-                $depths['depth_'.$class.'::'.$property] = 0;
+            if ('get' === substr($method, 0, 3)) {
+                $property                                     = lcfirst(substr($method, 3));
+                $depths['depth_' . $class . '::' . $property] = 0;
             }
         }
-
 
         return $depths;
     }

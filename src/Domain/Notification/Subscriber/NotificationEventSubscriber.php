@@ -59,7 +59,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
                 AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
                 AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                 => true,
                 AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT                         => 1,
-                AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {return $o->getId(); },
+                AbstractObjectNormalizer::MAX_DEPTH_HANDLER                                => function ($o) {return $o->getId(); },
             ],
             $this->setMaxDepth($survey)
         ));
@@ -104,7 +104,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
                 AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
                 AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                 => true,
                 AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT                         => 1,
-                AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {return $o->getId(); },
+                AbstractObjectNormalizer::MAX_DEPTH_HANDLER                                => function ($o) {return $o->getId(); },
             ],
             $this->setMaxDepth($action)
         ));
@@ -149,7 +149,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
                 AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
                 AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                 => true,
                 AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT                         => 1,
-                AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {return $o->getId(); },
+                AbstractObjectNormalizer::MAX_DEPTH_HANDLER                                => function ($o) {return $o->getId(); },
             ],
             $this->setMaxDepth($request)
         ));
@@ -200,7 +200,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
                 AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
                 AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                 => true,
                 AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT                         => 1,
-                AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {return $o->getId(); },
+                AbstractObjectNormalizer::MAX_DEPTH_HANDLER                                => function ($o) {return $o->getId(); },
             ],
             $this->setMaxDepth($user)
         )));
@@ -209,16 +209,15 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
     private function setMaxDepth($object)
     {
-        $depths = [];
-        $class = get_class($object);
+        $depths  = [];
+        $class   = get_class($object);
         $methods = get_class_methods($class);
         foreach ($methods as $method) {
-            if (substr($method, 0, 3) === "get") {
-                $property = lcfirst(substr($method, 3));
-                $depths['depth_'.$class.'::'.$property] = 0;
+            if ('get' === substr($method, 0, 3)) {
+                $property                                     = lcfirst(substr($method, 3));
+                $depths['depth_' . $class . '::' . $property] = 0;
             }
         }
-
 
         return $depths;
     }
