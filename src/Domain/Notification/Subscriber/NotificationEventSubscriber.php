@@ -11,7 +11,7 @@ use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * This event subscriber creates notification for things that are trigerred by a cron job.
@@ -19,16 +19,16 @@ use Symfony\Component\Serializer\SerializerInterface;
 class NotificationEventSubscriber implements EventSubscriberInterface
 {
     protected NotificationRepository $notificationRepository;
-    protected SerializerInterface $serializer;
+    protected NormalizerInterface $normalizer;
     protected UserRepository $userRepository;
 
     public function __construct(
         NotificationRepository $notificationRepository,
-        SerializerInterface $serializer,
+        NormalizerInterface $normalizer,
         UserRepository $userRepository
     ) {
         $this->notificationRepository = $notificationRepository;
-        $this->serializer             = $serializer;
+        $this->normalizer             = $normalizer;
         $this->userRepository         = $userRepository;
     }
 
@@ -54,27 +54,21 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         if (count($existing)) {
             return;
         }
-        $norm = $this->serializer->normalize($survey, null, [
-            AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
-            AbstractObjectNormalizer::ENABLE_MAX_DEPTH                   => true,
-            'depth_App\Domain\Maturity\Model\Survey::answers'            => 1,
-            'depth_App\Domain\Maturity\Model\Survey::maturity'           => 1,
-            'depth_App\Domain\Maturity\Model\Survey::collectivity'       => 1,
-            'depth_App\Domain\Maturity\Model\Survey::creator'            => 1,
-            'depth_App\Domain\Maturity\Model\Answer::questions'          => 1,
-            'depth_App\Domain\Maturity\Model\Domain::questions'          => 1,
-            'depth_App\Domain\Maturity\Model\Domain::maturity'           => 1,
-            'depth_App\Domain\Maturity\Model\Answer::survey'             => 1,
-            'depth_App\Domain\Maturity\Model\Question::answers'          => 1,
-            'depth_App\Domain\Maturity\Model\Question::domain'           => 1,
-            'depth_App\Domain\Maturity\Model\Maturity::survey'           => 1,
-        ]);
+        $norm = $this->normalizer->normalize($survey, null, array_merge(
+            [
+                AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
+                AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                 => true,
+                AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT                         => 1,
+                AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {return $o->getId(); },
+            ],
+            $this->setMaxDepth($survey)
+        ));
         $notification = new Notification();
         $notification->setModule('notification.modules.maturity');
         $notification->setCollectivity($survey->getCollectivity());
         $notification->setAction('notifications.actions.late_survey');
         $notification->setName($survey->__toString());
-        $notification->setObject($norm);
+        $notification->setObject((object) $norm);
         $this->notificationRepository->insert($notification);
 
         $users = $this->userRepository->findNonDpoUsers();
@@ -85,7 +79,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             $notification->setAction('notifications.actions.late_survey');
             $notification->setName($survey->__toString());
             $notification->setUser($user);
-            $notification->setObject($norm);
+            $notification->setObject((object) $norm);
             $this->notificationRepository->insert($notification);
         }
 
@@ -105,24 +99,21 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $norm = $this->serializer->normalize($action, null, [
-            AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
-            AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                          => true,
-            'depth_App\Domain\Registry\Model\Mesurement::proofs'                                => 1,
-            'depth_App\Domain\Registry\Model\Mesurement::clonedFrom'                            => 1,
-            'depth_App\Domain\Registry\Model\Mesurement::conformiteOrganisation'                => 1,
-            'depth_App\Domain\Registry\Model\Mesurement::conformiteTraitementReponses'          => 1,
-            'depth_App\Domain\Registry\Model\Mesurement::treatment'                             => 1,
-            'depth_App\Domain\Registry\Model\Mesurement::contractor'                            => 1,
-            'depth_App\Domain\Registry\Model\Mesurement::request'                               => 1,
-            'depth_App\Domain\Registry\Model\Mesurement::violation'                             => 1,
-        ]);
+        $norm = $this->normalizer->normalize($action, null, array_merge(
+            [
+                AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
+                AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                 => true,
+                AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT                         => 1,
+                AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {return $o->getId(); },
+            ],
+            $this->setMaxDepth($action)
+        ));
         $notification = new Notification();
         $notification->setModule('notification.modules.action');
         $notification->setCollectivity($action->getCollectivity());
         $notification->setAction('notifications.actions.late_action');
         $notification->setName($action->getName());
-        $notification->setObject($norm);
+        $notification->setObject((object) $norm);
         $this->notificationRepository->insert($notification);
 
         $users = $this->userRepository->findNonDpoUsers();
@@ -132,7 +123,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             $notification->setCollectivity($action->getCollectivity());
             $notification->setAction('notifications.actions.late_action');
             $notification->setName($action->getName());
-            $notification->setObject($norm);
+            $notification->setObject((object) $norm);
             $notification->setUser($user);
             $this->notificationRepository->insert($notification);
         }
@@ -153,42 +144,22 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $norm = $this->serializer->normalize($request, null, [
-            AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
-            AbstractObjectNormalizer::ENABLE_MAX_DEPTH                 => true,
-            'depth_App\Domain\Registry\Model\Request::proofs'          => 1,
-            'depth_App\Domain\Registry\Model\Request::applicant'       => 1,
-            'depth_App\Domain\Registry\Model\Request::concernedPeople' => 1,
-            'depth_App\Domain\Registry\Model\Request::answer'          => 1,
-            'depth_App\Domain\Registry\Model\Request::service'         => 1,
-            'depth_App\Domain\Registry\Model\Request::mesurements'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::dataCategories'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::contractors'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::delay'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::securityAccessControl'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::securityTracability'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::securitySaving'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::securityUpdate'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::securityOther'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::proofs'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::clonedFrom'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::concernedPeopleParticular'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::concernedPeopleUser'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::concernedPeopleAgent'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::concernedPeopleElected'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::concernedPeopleCompany'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::concernedPeoplePartner'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::concernedPeopleOther'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::conformiteTraitement'     => 1,
-            'depth_App\Domain\Registry\Model\Treatment::service'     => 1,
-        ]);
+        $norm = $this->normalizer->normalize($request, null, array_merge(
+            [
+                AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
+                AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                 => true,
+                AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT                         => 1,
+                AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {return $o->getId(); },
+            ],
+            $this->setMaxDepth($request)
+        ));
 
         $notification = new Notification();
         $notification->setModule('notification.modules.request');
         $notification->setCollectivity($request->getCollectivity());
         $notification->setAction('notifications.actions.late_request');
         $notification->setName($request->__toString());
-        $notification->setObject($norm);
+        $notification->setObject((object) $norm);
         $this->notificationRepository->insert($notification);
 
         $users = $this->userRepository->findNonDpoUsers();
@@ -198,7 +169,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             $notification->setCollectivity($request->getCollectivity());
             $notification->setAction('notifications.actions.late_request');
             $notification->setName($request->__toString());
-            $notification->setObject($norm);
+            $notification->setObject((object) $norm);
             $notification->setUser($user);
             $this->notificationRepository->insert($notification);
         }
@@ -224,10 +195,31 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setCollectivity($user->getCollectivity());
         $notification->setAction('notifications.actions.no_login');
         $notification->setName($user->getFullName());
-        $notification->setObject($this->serializer->normalize($user, null, [
-            AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
-            AbstractObjectNormalizer::ENABLE_MAX_DEPTH         => true,
-        ]));
+        $notification->setObject((object) $this->normalizer->normalize($user, null, array_merge(
+            [
+                AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
+                AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                 => true,
+                AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT                         => 1,
+                AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {return $o->getId(); },
+            ],
+            $this->setMaxDepth($user)
+        )));
         $this->notificationRepository->insert($notification);
+    }
+
+    private function setMaxDepth($object)
+    {
+        $depths = [];
+        $class = get_class($object);
+        $methods = get_class_methods($class);
+        foreach ($methods as $method) {
+            if (substr($method, 0, 3) === "get") {
+                $property = lcfirst(substr($method, 3));
+                $depths['depth_'.$class.'::'.$property] = 0;
+            }
+        }
+
+
+        return $depths;
     }
 }

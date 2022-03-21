@@ -31,7 +31,6 @@ use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class Notification extends CRUDRepository implements Repository\Notification
 {

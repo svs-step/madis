@@ -166,7 +166,7 @@ class Notification
 
     public function getObject(): ?object
     {
-        return $this->object;
+        return (object) $this->object;
     }
 
     public function setObject(?object $object): void

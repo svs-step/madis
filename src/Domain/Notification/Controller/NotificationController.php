@@ -30,10 +30,11 @@ use App\Domain\Notification\Model;
 use App\Domain\Notification\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -125,11 +126,11 @@ class NotificationController extends CRUDController
             return $this->render($this->getTemplatingBasePath('list_admin'), [
                 'objects'    => $this->getListData(),
             ]);
-        } else {
-            return $this->render($this->getTemplatingBasePath('list_user'), [
+        }
+
+        return $this->render($this->getTemplatingBasePath('list_user'), [
                 'objects'    => $this->getListData(),
             ]);
-        }
     }
 
     /**
@@ -151,18 +152,18 @@ class NotificationController extends CRUDController
 
         foreach ($notifs as $notif) {
             $isRead = $notif->getReadAt();
-            if ($isRead == null) {
+            if (null == $isRead) {
                 $notif->setReadAt(new \DateTime());
                 $notif->setReadBy($this->getUser());
             }
         }
         $this->entityManager->flush();
-        
+
         $this->addFlash('success', $this->getFlashbagMessage('success', 'markall'));
 
         $referer = $request->headers->get('referer');
-        return $this->redirect($referer);
 
+        return $this->redirect($referer);
         // return $this->redirectToRoute($this->getRouteName('list'));
     }
 
@@ -180,11 +181,12 @@ class NotificationController extends CRUDController
         $notif->setReadBy($this->getUser());
         $this->entityManager->flush();
         $referer = $request->headers->get('referer');
+
         return $this->redirect($referer);
     }
 
     /**
-     * Update read_at and read_by from notification to null
+     * Update read_at and read_by from notification to null.
      */
     public function markAsUnreadAction(Request $request, string $id)
     {
@@ -197,6 +199,7 @@ class NotificationController extends CRUDController
         $notif->setReadBy(null);
         $this->entityManager->flush();
         $referer = $request->headers->get('referer');
+
         return $this->redirect($referer);
     }
 }
