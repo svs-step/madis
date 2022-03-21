@@ -33,6 +33,7 @@ use Knp\Snappy\Pdf;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -114,6 +115,23 @@ class NotificationController extends CRUDController
         return $this->repository->findAll($order);
     }
 
+    public function listAction(): Response
+    {
+        $user = $this->getUser();
+
+        $isAdminView   = $this->authorizationChecker->isGranted('ROLE_ADMIN');
+
+        if ($isAdminView) {
+            return $this->render($this->getTemplatingBasePath('list_admin'), [
+                'objects'    => $this->getListData(),
+            ]);
+        } else {
+            return $this->render($this->getTemplatingBasePath('list_user'), [
+                'objects'    => $this->getListData(),
+            ]);
+        }
+    }
+
     /**
      * {@inheritdoc}
      * Here, we wanna compute maturity score.
@@ -130,11 +148,6 @@ class NotificationController extends CRUDController
     public function markAsReadAllAction(Request $request)
     {
         $notifs = $this->repository->findAll();
-
-        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $this->addFlash('error', 'Vous ne pouvez pas mettre à jour ces notifications');
-            return $this->redirectToRoute($this->getRouteName('list'));
-        }
 
         foreach ($notifs as $notif) {
             $isRead = $notif->getReadAt();
