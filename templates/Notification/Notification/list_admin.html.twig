@@ -1,0 +1,451 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'notification_notification list' %}
+{% set menuItem = 'notification_notification' %}
+
+{% set notifs = objects|map(n => ({id : n.id, read_at: n.readAt})) %}
+
+{# FILTER ACTION INIT #}
+{% set activeActions = [] %}
+{% for object in objects %}
+    {% if object.action not in activeActions %}
+        {% set activeActions = activeActions|merge([object.action]) %}
+    {% endif %}
+{% endfor %}
+
+{# FILTER MODULE INIT #}
+{% set activeModules = [] %}
+{% for object in objects %}
+    {% if object.module not in activeModules %}
+        {% set activeModules = activeModules|merge([object.module]) %}
+    {% endif %}
+{% endfor %}
+
+{% block title %}{{ 'notification.notification.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'notification.notification.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'notification.notification.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="dt-button-background" style=""></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <div class="dt-buttons">
+                        {# VISIBLE BY ALL #}
+                        <a id="read-all" style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
+                    </div>
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <th>
+                                    <select class="form-control" id="search_state" style="width: 100%;">
+                                        <option value="" selected>{{ 'notification.notification.list.state'|trans }}</option>
+                                        <option value="Lu">Lu</option>
+                                        <option value="Non lu">Non lu</option>
+                                    </select>
+                                </th>
+                                {% endif %}
+                                <th>
+                                    <select class="form-control" id="search_module" style="width: 100%;"> 
+                                            <option value="">{{ 'notification.notification.list.module'|trans }}</option>
+                                        {% for module in activeModules %}
+                                            <option value="{{ module|trans }}">
+                                                {{ module|trans }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                <th>
+                                    <select class="form-control" id="search_action" style="width: 100%;"> 
+                                            <option value="">{{ 'notification.notification.list.action'|trans }}</option>
+                                        {% for action in activeActions %}
+                                            <option value="{{ action|trans }}">
+                                                {{ action|trans }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <select class="form-control" id="search_object" style="width: 100%;">
+                                        <option value="" selected>{{ 'notification.notification.list.object'|trans }}</option>
+                                    </select>
+                                </th>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <th>
+                                    <input class="form-control" type="text" id="search_collectivity" placeholder="Collectivité" style="width: 100%;">
+                                </th>
+                                {% endif %}
+                                <th>
+                                    <div id="search_date" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                        <i class="fa fa-calendar"></i>&nbsp;
+                                        <span></span> <i class="fa fa-caret-down"></i>
+                                    </div>
+
+                                </th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_user_name" placeholder="Nom" style="width: 100%;">
+                                </th>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <th><input class="datepicker form-control" type="text" id="search_read_at" placeholder="Date" style="width: 100%;"></th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_read_by" placeholder="Nom" style="width: 100%;">
+                                </th>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <th>{{ 'notification.notification.list.state'|trans }}</th>
+                                {% endif %}
+
+                                <th>{{ 'notification.notification.list.module'|trans }}</th>
+                                <th>{{ 'notification.notification.list.action'|trans }}</th>
+                                <th>{{ 'notification.notification.list.name'|trans }}</th>
+                                <th>{{ 'notification.notification.list.object'|trans }}</th>
+
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <th>{{ 'notification.notification.list.collectivity'|trans }}</th>
+                                {% endif %}
+
+                                <th>{{ 'notification.notification.list.date'|trans }}</th>
+                                <th>{{ 'notification.notification.list.user'|trans }}</th>
+
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <th>{{ 'notification.notification.list.read_date'|trans }}</th>
+                                    <th>{{ 'notification.notification.list.read_by'|trans }}</th>
+                                    <th>{{ 'label.actions'|trans }}</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+
+                            {% set currentId = null %}
+                            {% set currentObject = null %}
+                            {% for key, value in object.object %}
+                                {% if key == "name" %}
+                                    {% set currentObject = value %}
+                                {% endif %}
+                            {% endfor %}
+
+                            <tr>
+                                {# STATE #}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <td>
+                                        {% if object.readAt %}
+                                        <i class="fas fa-check-circle" style="color:green;"></i> Lu
+                                        {% else %}
+                                        Non lu
+                                        {% endif %} 
+                                    </td>
+                                {% endif %}
+
+                                <td>{{ object.module|trans }}</td>
+                                <td>{{ object.action|trans }}</td>
+
+                                <td>
+                                {% if currentId == null %}
+                                    {% set path = "#" %}
+                                {% elseif 'action' in object.module %}
+                                    {% set path = "/actions-de-protection/visualiser/" ~ currentId %}
+                                {% elseif 'contractor' in object.module %}
+                                    {% set path = "/sous-traitants/visualiser/" ~ currentId %}
+                                {% elseif 'treatment' in object.module %}
+                                    {% set path = "/traitements/visualiser/" ~ currentId %}
+                                {% endif %}
+                                    <a href="{{ path }}">{{object.name}}</a>
+                                </td>
+
+                                <td>{{ currentObject }}</td>
+
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <td>{{object.collectivity}}</td>
+                                {% endif %}
+
+                                <td>{{ object.createdAt|date('d/m/Y') }}</td>
+                                <td>{{object.createdBy}}</td>
+
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <td>
+                                    {% if object.readAt != null %}
+                                        {{object.readAt|date('d/m/Y') }}
+                                    {% endif %}
+                                </td>
+                                <td>{{object.readBy}}</td>
+                                <td>
+                                    {% if object.readAt == null %}
+                                        <a href="{{ path('notification_notification_mark_as_read', { 'id': object.id }) }}">
+                                            <i class="fas fa-clipboard-check"></i>&nbsp;{{ 'notification.notification.action.mark_as_read'|trans }}
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('notification_notification_mark_as_unread', { 'id': object.id }) }}">
+                                            <i class="fas fa-bell"></i>&nbsp;{{ 'notification.notification.action.mark_as_unread'|trans }}
+                                        </a>
+                                    {% endif %}
+                                    <a href="{{ path('notification_notification_delete', { 'id': object.id }) }}">
+                                        <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
+                                    </a>
+                                </td>
+                                {% endif %}
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/moment@2.12.0/moment.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+    {% set isAdmin = is_granted('ROLE_ADMIN') %}
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "state"},
+            {"data": "module"},
+            {"data": "action"},
+            {"data": "name"},
+            {"data": "object"},
+            {"data": "collectivity"},
+            {"data": "date"},
+            {"data": "user"},
+            {"data": "read_date"},
+            {"data": "read_by"},
+            {"data": "actions", "orderable": false},
+        ],
+        order: [[6,'desc']],
+        language: {
+            buttons: {
+                colvis: "Colonnes"
+            },
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'colvis',
+                columns: ':not(.noVis)'
+            }
+        ]
+    } %}
+
+{{ include('_Utils/_datatable.html.twig') }}
+
+<script>
+
+    // CALENDAR SEARCH INIT
+    var start = moment().subtract(29, 'days');
+    var end = moment();
+    function cb(start, end) {
+        $('#search_date span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+    }
+    $('#search_date').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+            "Aujourd'hui": [moment(), moment()],
+            'Hier': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            '7 derniers jours': [moment().subtract(6, 'days'), moment()],
+            'Dernier mois': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        locale: {
+            "format": "DD/MM/YYYY",
+            "separator": " - ",
+            "applyLabel": "Valider",
+            "cancelLabel": "Annuler",
+            "fromLabel": "De",
+            "toLabel": "à",
+            "customRangeLabel": "Plage personnalisée",
+            "daysOfWeek": [
+                "Dim",
+                "Lun",
+                "Mar",
+                "Mer",
+                "Jeu",
+                "Ven",
+                "Sam"
+            ],
+            "monthNames": [
+                "Janvier",
+                "Février",
+                "Mars",
+                "Avril",
+                "Mai",
+                "Juin",
+                "Juillet",
+                "Août",
+                "Septembre",
+                "Octobre",
+                "Novembre",
+                "Décembre"
+            ],
+            "firstDay": 1
+        }
+    }, cb);
+
+    var minDate, maxDate;
+
+    $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+            var dateParts = data[6].split("/");
+            var date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+
+            var min = minDate ? new Date(minDate).setHours(0,0,0,0) : null;
+            var max = maxDate? new Date(maxDate).setHours(0,0,0,0) : null;
+
+            if (
+                ( min === null && max === null ) ||
+                ( min === null && date <= max ) ||
+                ( min <= date   && max === null ) ||
+                ( min <= date   && date <= max )
+            ) {
+                return true;
+            }
+            return false;
+        }
+    );
+    // CALENDAR SEARCH END
+    const isAdmin = {{ is_granted('ROLE_ADMIN')|json_encode() }}
+    var notifs = {{ notifs|json_encode()|raw }};
+
+    var unreadNotifs = notifs.filter(n => !n.read_at);
+    unreadNotifs = unreadNotifs.map(n => n.id).join(',');
+
+
+    function resetFilters() {
+            $('[id^=search_]').each(function() {
+                $(this).val('');
+            });
+            var table = $('#table').DataTable();
+            table.columns().search('');
+
+            $('#search_date span').html('');
+            minDate = null;
+            maxDate = null;
+            table.draw();
+        }
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+            console.log('isAdmin',isAdmin)
+            // NON LU SEULEMENT
+            $('#search_state').off('change');
+            $('#search_state').change(function(){
+                console.log($(this).val(), oTable.column('0').data())
+                oTable.column('0').search($(this).val(), false, false, false).draw();
+            });
+
+            $('#search_module').off('change');
+            $('#search_module').change(function(){
+                isAdmin ? oTable.column('1').search($(this).val()).draw() : oTable.column('0').search($(this).val()).draw() ;
+            });
+
+            $('#search_action').off('change');
+            $('#search_action').change(function(){
+                isAdmin ? oTable.column('2').search($(this).val()).draw() : oTable.column('1').search($(this).val()).draw() ;
+            });
+            
+
+            $('#search_name').off('keyup');
+            $('#search_name').keyup($.debounce(250, function(){
+                isAdmin ? oTable.column('3').search($(this).val()).draw() : oTable.column('2').search($(this).val()).draw() ;
+            }));
+
+            $('#search_collectivity').off('keyup');
+            $('#search_collectivity').keyup($.debounce(250, function(){
+                oTable.column('5').search($(this).val()).draw();
+            }));
+
+            $('#search_date').off('change');
+            $('#search_date').change(function(){
+                isAdmin ? oTable.column('6').search($(this).val()).draw() : oTable.column('4').search($(this).val()).draw() ;
+            });
+
+            $('#search_date').on('apply.daterangepicker', function(ev, picker) {
+                {# console.log(picker.startDate.format('YYYY-MM-DD')); #}
+
+                minDate = picker.startDate.format('YYYY-MM-DD')
+                maxDate = picker.endDate.format('YYYY-MM-DD')
+                oTable.draw();
+            });
+
+            $('#search_user_name').off('keyup');
+            $('#search_user_name').keyup($.debounce(250, function(){
+                isAdmin && oTable.column('7').search($(this).val()).draw();
+            }));
+
+            $('#search_read_at').off('change');
+            $('#search_read_at').change(function(){
+                isAdmin && oTable.column('8').search($(this).val()).draw()
+            });
+
+            $('#search_read_by').off('keyup');
+            $('#search_read_by').keyup($.debounce(250, function(){
+                isAdmin && oTable.column('9').search($(this).val()).draw();
+            }));
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            $('.dt-button-background').hide();
+            $('.dt-button-collection').hide();
+            setEvents();
+
+            // Affichage/Masquage d'une colonne
+            $('.toggle-vis').on( 'click', function (e) {
+                e.preventDefault();
+                var table = $('#table').DataTable();
+                // Get the column API object
+                var column = table.column( $(this).attr('data-column') );
+
+                // Toggle the visibility
+                column.visible( ! column.visible() );
+            });
+
+            $('.dt-button-background').on('click',function(){
+                $('.dt-button-background').hide();
+                $('.dt-button-collection').hide();
+            });
+
+            $('.buttons-colvis').on('click',function(){
+                $('.dt-button-background').show();
+                $('.dt-button-collection').show();
+            });
+
+            $('.buttons-colvisRestore').on('click', function() {
+                resetFilters();
+                var table = $('#table').DataTable();
+                table.columns().search('').draw();
+            })
+
+        } );
+
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+
+    </script>
+{% endblock %}

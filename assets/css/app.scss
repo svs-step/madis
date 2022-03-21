@@ -349,6 +349,9 @@ tr.selected td:before {
 .p-0 {
     padding: 0!important;
 }
+.p-2 {
+  padding: 2rem;
+}
 .m-0 {
     margin : 0!important;
 }
@@ -430,3 +433,23 @@ button.dt-button, div.dt-button, a.dt-button {
   outline: none;
   text-overflow: ellipsis;
 }
+
+  /* ---------- NOTIFICATIONS ---------- */
+  
+  #notifications i.fa-bell {
+    font-size: 16px;
+  }
+  #notifications .badge {
+    position: relative;
+    top: -10px;
+    left: -5px;
+  }
+  #notifications .dropdown-large{
+    min-width:550px;
+  }
+  #notifications .dropdown-large a {
+    color: #3c8dbc!important;
+  }
+  #notifications .single-notification {
+    background-color : #deedf6;
+  }

@@ -43,6 +43,7 @@ use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -359,6 +360,7 @@ class TreatmentController extends CRUDController
             $no  = '<span class="badge bg-orange">' . $this->translator->trans('label.no') . '</span>';
 
             $reponse['data'][] = [
+                'id'                     => $treatment->getId(),
                 'nom'                    => $treatmentLink,
                 'collectivite'           => $treatment->getCollectivity()->getName(),
                 'baseLegal'              => !empty($treatment->getLegalBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : null,
@@ -378,6 +380,7 @@ class TreatmentController extends CRUDController
                 'public'                 => $treatment->getPublic() ? $yes : $no,
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
                 'specific_traitement'    => $this->getSpecificTraitement($treatment),
+                'conformite_traitement'  => 'test',
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
@@ -451,6 +454,90 @@ class TreatmentController extends CRUDController
         return null;
     }
 
+    public function pdfAllAction()
+    {
+        $request = $this->requestStack->getMasterRequest();
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
+
+        $objects = [];
+
+        foreach ($ids as $id) {
+            $treatment = $this->repository->findOneById($id);
+            array_push($objects, $treatment);
+        }
+
+        return new PdfResponse(
+            $this->pdf->getOutputFromHtml(
+                $this->renderView($this->getTemplatingBasePath('pdf_all'), ['objects' => $objects])
+            ),
+            $this->getPdfName((string) 'print') . '.pdf'
+        );
+    }
+
+    /**
+     * The archive action
+     * Display a confirmation message to confirm data archived.
+     */
+    public function archiveAllAction(): Response
+    {
+        $request = $this->requestStack->getMasterRequest();
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            // $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));
+            $this->addFlash('error', 'Vous ne pouvez pas archiver ces traitements');
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        foreach ($ids as $id) {
+            $treatment = $this->repository->findOneById($id);
+            if ($treatment) {
+                $treatment->setActive(false);
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $treatment));
+            }
+        }
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
+    /**
+     * The delete action view
+     * Display a confirmation message to confirm data deletion.
+     */
+    public function deleteAllAction(): Response
+    {
+        $request = $this->requestStack->getMasterRequest();
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('delete_all'), [ // delete_all
+            'ids'               => $ids,
+            'treatment_length'  => count($ids),
+        ]);
+    }
+
+    public function deleteConfirmationAllAction(): Response
+    {
+        $request = $this->requestStack->getMasterRequest();
+        $ids     = $request->query->get('ids');
+
+        foreach ($ids as $id) {
+            $this->deleteConfirmationAction($id);
+        }
+
+        return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -476,7 +563,8 @@ class TreatmentController extends CRUDController
             '16' => 'public',
             '17' => 'responsableTraitement',
             '18' => 'specific_traitement',
-            '19' => 'actions',
+            '19' => 'conformite_traitement',
+            '20' => 'actions',
         ];
     }
 }

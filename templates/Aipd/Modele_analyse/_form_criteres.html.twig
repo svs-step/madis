@@ -7,5 +7,8 @@
     <td>{{ form_widget(form.texteNonConformite) }}</td>
     <td>{{ form_widget(form.texteNonApplicable) }}</td>
     <td>{{ form_widget(form.justification) }}</td>
-    <td>{{ form_widget(form.fichierFile) }}</td>
+    <td>
+        {{ form_widget(form.fichierFile) }}
+        {{ form_errors(form.fichierFile) }}
+    </td>
 </tr>

@@ -1,5 +1,6 @@
+{% set notifs = notifications.findAll() %}
+
 <header class="main-header">
-    {% set notifs = notifications.findAll() %}
     <!-- Logo -->
     <a href="{{ path('reporting_dashboard_index') }}" class="logo">
         <span class="logo-mini"><img src="{{ asset(app_image_sidebar_reduced_path) }}" alt="Madis"/></span>
@@ -17,6 +18,15 @@
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+                <li id="notifications" class="nav-item dropdown notifications-menu">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-bell"></i>
+                        <span class="badge bg-yellow navbar-badge">{{ notifs|filter(n => n.readAt is null)|length }}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-large">
+                        {{ block("body", "Notification/Notification/box.html.twig") }}
+                    </ul>
+                </li>
                 <!-- User Account Menu -->
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button -->
@@ -25,10 +35,6 @@
                         <i class="fa fa-power-off"></i>
                     </a>
                 </li>
-
-                {% for notif in notifs %}
-                <li>{{ notif | sentence }}</li>
-                {% endfor %}
             </ul>
         </div>
     </nav>

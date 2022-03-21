@@ -65,6 +65,7 @@ class ViolationTypeTest extends FormTypeHelper
             'notification'                  => DictionaryType::class,
             'notificationDetails'           => TextType::class,
             'comment'                       => TextareaType::class,
+            'treatments'                    => EntityType::class,
         ];
 
         (new ViolationType())->buildForm($this->prophesizeBuilder($builder), []);

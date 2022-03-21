@@ -28,6 +28,7 @@ use App\Application\DDD\Repository\RepositoryInterface;
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Notification\Model\Notification;
 use App\Domain\Tools\ChainManipulator;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
@@ -390,7 +391,7 @@ abstract class CRUDController extends AbstractController
         );
     }
 
-    private function getPdfName(string $name): string
+    public function getPdfName(string $name): string
     {
         $name = ChainManipulator::removeAllNonAlphaNumericChar(ChainManipulator::removeAccents($name));
 
@@ -403,5 +404,10 @@ abstract class CRUDController extends AbstractController
     protected function isSoftDelete(): bool
     {
         return false;
+    }
+
+    public function getNotifications(): array
+    {
+        return $this->entityManager->getRepository(Notification::class)->findAll();
     }
 }

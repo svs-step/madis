@@ -46,6 +46,12 @@ class CriterePrincipeFondamentalType extends AbstractType
                 'constraints' => [
                     new File([
                         'maxSize'   => $this->maxSize,
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+//                        'mimeTypesMessage' => 'aipd.critere_principe_fondamental.fichier.file',
+                        'groups' => ['default'],
                     ]),
                 ],
             ])
@@ -59,7 +65,11 @@ class CriterePrincipeFondamentalType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class' => CriterePrincipeFondamental::class,
+                'data_class'        => CriterePrincipeFondamental::class,
+                'validation_groups' => [
+                    'default',
+                    'aipd',
+                ],
             ]);
     }
 }
