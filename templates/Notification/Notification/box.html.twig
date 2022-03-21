@@ -7,7 +7,7 @@
 {% set notifsObject = notifs|map(n => ({id : n.id, read_at: n.readAt})) %}
     <li class="header" style="list-style: none;">
         <span class="h4">Vous avez {{ unreadNotifs|length }} notifications non lues</span>
-        {% if notifs|length > 0 %}
+        {% if unreadNotifs|length > 0 %}
             <a id="read-all" href="{{ path('notification_notification_mark_as_read_all') }}" style="float:right;">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
         {% endif %}
     </li>

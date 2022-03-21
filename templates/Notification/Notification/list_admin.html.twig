@@ -45,72 +45,6 @@
             <div class="box box-solid">
                 <div class="box-body">
                     <div class="dt-buttons">
-                        <button class="btn dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="example" type="button" aria-haspopup="true" aria-expanded="false">
-                            <span>Colonnes</span>
-                            <span class="dt-down-arrow"></span>
-                        </button>
-
-                        <div class="dt-button-collection" style="top: 34px; left: 0px;">
-                            <div role="menu">
-                                {# SHOW/HIDE COLUMNS #}
-                                {% if is_granted('ROLE_ADMIN') %}
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="0">
-                                    <span>{{ 'notification.notification.list.state'|trans }}</span>
-                                </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="1">
-                                    <span>{{ 'notification.notification.list.module'|trans }}</span>
-                                </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="2">
-                                    <span>{{ 'notification.notification.list.action'|trans }}</span>
-                                </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="3">
-                                    <span>{{ 'notification.notification.list.name'|trans }}</span>
-                                </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="4">
-                                    <span>{{ 'notification.notification.list.object'|trans }}</span>
-                                </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="5">
-                                    <span>{{ 'notification.notification.list.collectivity'|trans }}</span>
-                                </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="6">
-                                    <span>{{ 'notification.notification.list.date'|trans }}</span>
-                                </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="7">
-                                    <span>{{ 'notification.notification.list.user'|trans }}</span>
-                                </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="8">
-                                    <span>{{ 'notification.notification.list.read_date'|trans }}</span>
-                                </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="9">
-                                    <span>{{ 'notification.notification.list.read_by'|trans }}</span>
-                                </button>
-                                {% else %}
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="0">
-                                    <span>{{ 'notification.notification.list.module'|trans }}</span>
-                                </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="1">
-                                    <span>{{ 'notification.notification.list.action'|trans }}</span>
-                                </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="2">
-                                    <span>{{ 'notification.notification.list.name'|trans }}</span>
-                                </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="3">
-                                    <span>{{ 'notification.notification.list.object'|trans }}</span>
-                                </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="4">
-                                    <span>{{ 'notification.notification.list.date'|trans }}</span>
-                                </button>
-                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="5">
-                                    <span>{{ 'notification.notification.list.user'|trans }}</span>
-                                </button>
-                                {% endif %}
-                                {# END SHOW/HIDE COLUMNS #}
-                            </div>
-                        </div>
-                        <button id="button-reset" class="btn btn-default dt-button buttons-collection" tabindex="0" aria-controls="table" type="button" aria-haspopup="true" aria-expanded="false">
-                            <span>Réinitialiser les filtres</span>
-                        </button>
-
                         {# VISIBLE BY ALL #}
                         <a id="read-all" style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
                     </div>
@@ -472,8 +406,6 @@
             $('#search_read_by').keyup($.debounce(250, function(){
                 isAdmin && oTable.column('9').search($(this).val()).draw();
             }));
-            
-            
         }
 
         $(document).ready(function() {
@@ -502,17 +434,18 @@
                 $('.dt-button-background').show();
                 $('.dt-button-collection').show();
             });
+
+            $('.buttons-colvisRestore').on('click', function() {
+                resetFilters();
+                var table = $('#table').DataTable();
+                table.columns().search('').draw();
+            })
+
         } );
 
         $('#table').on('column-visibility.dt', function() {
             setEvents();
         } );
-        $('#button-reset').on('click', function() {
-            resetFilters();
-            var table = $('#table').DataTable();
-            table.columns().search('').draw();
-
-        })
 
     </script>
 {% endblock %}
