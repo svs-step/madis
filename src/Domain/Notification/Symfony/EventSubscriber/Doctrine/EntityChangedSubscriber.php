@@ -15,7 +15,6 @@ use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
@@ -28,8 +27,6 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class EntityChangedSubscriber implements EventSubscriber
 {
-
-
     protected array $classes = [
         Treatment::class,
         Mesurement::class,
@@ -41,22 +38,13 @@ class EntityChangedSubscriber implements EventSubscriber
     ];
 
     protected array $recipients = [
-        Treatment::class => Notification::NOTIFICATION_DPO,
+        Treatment::class  => Notification::NOTIFICATION_DPO,
         Mesurement::class => Notification::NOTIFICATION_DPO,
-        Violation::class => Notification::NOTIFICATION_DPO,
-        Proof::class => Notification::NOTIFICATION_DPO,
+        Violation::class  => Notification::NOTIFICATION_DPO,
+        Proof::class      => Notification::NOTIFICATION_DPO,
         Contractor::class => Notification::NOTIFICATION_DPO,
-        Request::class => Notification::NOTIFICATION_DPO,
-        Document::class => Notification::NOTIFICATION_COLLECTIVITY,
-    ];
-
-    protected array $modules = [
-        Treatment::class  => 'treatment',
-        Mesurement::class => 'action',
-        Violation::class  => 'violation',
-        Proof::class      => 'proof',
-        Contractor::class => 'contractor',
-        Document::class   => 'documentation',
+        Request::class    => Notification::NOTIFICATION_DPO,
+        Document::class   => Notification::NOTIFICATION_COLLECTIVITY,
     ];
 
     protected NotificationRepository $notificationRepository;
@@ -95,7 +83,7 @@ class EntityChangedSubscriber implements EventSubscriber
             }
 
             $notifications = $this->createNotifications($entity, 'create');
-            $meta = $eventArgs->getEntityManager()->getClassMetadata(Notification::class);
+            $meta          = $eventArgs->getEntityManager()->getClassMetadata(Notification::class);
             foreach ($notifications as $notif) {
                 $this->notificationRepository->persist($notif);
 
@@ -118,7 +106,7 @@ class EntityChangedSubscriber implements EventSubscriber
                 $action = 'state_change';
             }
             $notifications = $this->createNotifications($entity, $action);
-            $meta = $eventArgs->getEntityManager()->getClassMetadata(Notification::class);
+            $meta          = $eventArgs->getEntityManager()->getClassMetadata(Notification::class);
 
             foreach ($notifications as $notif) {
                 $this->notificationRepository->persist($notif);
@@ -144,7 +132,7 @@ class EntityChangedSubscriber implements EventSubscriber
         // create a notification for them if they are not DPO
         // Otherwise create a notification with user_id null
         $notifications = [];
-        $recipients = $this->recipients[get_class($object)];
+        $recipients    = $this->recipients[get_class($object)];
 
         $normalized = $this->serializer->normalize($object, null, [
             AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
@@ -159,7 +147,7 @@ class EntityChangedSubscriber implements EventSubscriber
         ]);
 
         if ($recipients & Notification::NOTIFICATION_DPO) {
-            $notification = $this->createNotificationForUser($object, $action, $normalized);
+            $notification    = $this->createNotificationForUser($object, $action, $normalized);
             $notifications[] = $notification;
         }
 
@@ -167,7 +155,7 @@ class EntityChangedSubscriber implements EventSubscriber
             // get all non-DPO users
             $users = $this->userRepository->findNonDpoUsers();
             foreach ($users as $user) {
-                $notification = $this->createNotificationForUser($object, $action, $normalized, $user);
+                $notification    = $this->createNotificationForUser($object, $action, $normalized, $user);
                 $notifications[] = $notification;
             }
         }
@@ -178,14 +166,15 @@ class EntityChangedSubscriber implements EventSubscriber
     private function createNotificationForUser($object, $action, $normalized, ?User $user = null): Notification
     {
         $notification = new Notification();
-        $mod          = $this->modules[get_class($object)];
+        $mod          = Notification::MODULES[get_class($object)];
         $notification->setModule('notification.modules.' . $mod);
         $notification->setCollectivity(method_exists($object, 'getCollectivity') ? $object->getCollectivity() : null);
         $notification->setName(method_exists($object, 'getName') ? $object->getName() : $object->__toString());
         $notification->setAction('notification.actions.' . $action);
         $notification->setCreatedBy($this->security->getUser());
         $notification->setUser($user);
-        $notification->setObject($normalized);
+        $notification->setObject((object) $normalized);
+
         return $notification;
     }
 }

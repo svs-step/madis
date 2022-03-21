@@ -2,6 +2,7 @@
 
 namespace App\Domain\Notification\Command;
 
+use App\Domain\Maturity\Repository\Survey as SurveyRepository;
 use App\Domain\Notification\Event\LateActionEvent;
 use App\Domain\Notification\Event\LateSurveyEvent;
 use App\Domain\Notification\Event\NoLoginEvent;
@@ -14,7 +15,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use App\Domain\Maturity\Repository\Survey as SurveyRepository;
 
 class NotificationsGenerateCommand extends Command
 {
@@ -34,10 +34,10 @@ class NotificationsGenerateCommand extends Command
         UserRepository $userRepository,
         SurveyRepository $surveyRepository
     ) {
-        $this->dispatcher           = $dispatcher;
-        $this->mesurementRepository = $mesurementRepository;
-        $this->requestRepository    = $requestRepository;
-        $this->userRepository       = $userRepository;
+        $this->dispatcher             = $dispatcher;
+        $this->mesurementRepository   = $mesurementRepository;
+        $this->requestRepository      = $requestRepository;
+        $this->userRepository         = $userRepository;
         $this->surveyRepository       = $surveyRepository;
 
         parent::__construct();
@@ -103,7 +103,7 @@ class NotificationsGenerateCommand extends Command
         $cnt      = 0;
         // Find all late surveys
         $surveys = $this->surveyRepository->findAllLate();
-        
+
         foreach ($surveys as $survey) {
             $this->dispatcher->dispatch(new LateSurveyEvent($survey));
             ++$cnt;

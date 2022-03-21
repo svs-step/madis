@@ -27,7 +27,7 @@
                 </li>
 
                 {% for notif in notifs %}
-                <li>{{ notif.module }}</li>
+                <li>{{ notif | sentence }}</li>
                 {% endfor %}
             </ul>
         </div>

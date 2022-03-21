@@ -31,6 +31,7 @@ use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class Notification extends CRUDRepository implements Repository\Notification
 {
@@ -39,7 +40,7 @@ class Notification extends CRUDRepository implements Repository\Notification
     public function __construct(ManagerRegistry $registry, Security $security)
     {
         parent::__construct($registry);
-        $this->security = $security;
+        $this->security   = $security;
     }
 
     /**
@@ -72,7 +73,7 @@ class Notification extends CRUDRepository implements Repository\Notification
             ->getManager()
             ->getRepository($this->getModelClass())
             ->findBy([
-                'user' => $user
+                'user' => $user,
             ], $orderBy)
             ;
     }

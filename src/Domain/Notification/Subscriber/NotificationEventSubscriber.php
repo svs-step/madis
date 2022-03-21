@@ -12,7 +12,6 @@ use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationR
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * This event subscriber creates notification for things that are trigerred by a cron job.
@@ -43,33 +42,32 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-
     public function onLateSurvey(LateSurveyEvent $event)
     {
         $survey       = $event->getSurvey();
-        $existing = $this->notificationRepository->findBy([
-            'module' => 'notification.modules.maturity',
+        $existing     = $this->notificationRepository->findBy([
+            'module'       => 'notification.modules.maturity',
             'collectivity' => $survey->getCollectivity(),
-            'action' => 'notifications.actions.late_survey',
-            'name' => $survey->__toString(),
+            'action'       => 'notifications.actions.late_survey',
+            'name'         => $survey->__toString(),
         ]);
         if (count($existing)) {
             return;
         }
         $norm = $this->serializer->normalize($survey, null, [
             AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
-            AbstractObjectNormalizer::ENABLE_MAX_DEPTH                 => true,
-            'depth_App\Domain\Maturity\Model\Survey::answers'          => 1,
-            'depth_App\Domain\Maturity\Model\Survey::maturity'       => 1,
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH                   => true,
+            'depth_App\Domain\Maturity\Model\Survey::answers'            => 1,
+            'depth_App\Domain\Maturity\Model\Survey::maturity'           => 1,
             'depth_App\Domain\Maturity\Model\Survey::collectivity'       => 1,
-            'depth_App\Domain\Maturity\Model\Survey::creator'       => 1,
-            'depth_App\Domain\Maturity\Model\Answer::questions'       => 1,
-            'depth_App\Domain\Maturity\Model\Domain::questions'       => 1,
-            'depth_App\Domain\Maturity\Model\Domain::maturity'       => 1,
-            'depth_App\Domain\Maturity\Model\Answer::survey'       => 1,
-            'depth_App\Domain\Maturity\Model\Question::answers'       => 1,
-            'depth_App\Domain\Maturity\Model\Question::domain'       => 1,
-            'depth_App\Domain\Maturity\Model\Maturity::survey'       => 1,
+            'depth_App\Domain\Maturity\Model\Survey::creator'            => 1,
+            'depth_App\Domain\Maturity\Model\Answer::questions'          => 1,
+            'depth_App\Domain\Maturity\Model\Domain::questions'          => 1,
+            'depth_App\Domain\Maturity\Model\Domain::maturity'           => 1,
+            'depth_App\Domain\Maturity\Model\Answer::survey'             => 1,
+            'depth_App\Domain\Maturity\Model\Question::answers'          => 1,
+            'depth_App\Domain\Maturity\Model\Question::domain'           => 1,
+            'depth_App\Domain\Maturity\Model\Maturity::survey'           => 1,
         ]);
         $notification = new Notification();
         $notification->setModule('notification.modules.maturity');
@@ -80,7 +78,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $this->notificationRepository->insert($notification);
 
         $users = $this->userRepository->findNonDpoUsers();
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $notification = new Notification();
             $notification->setModule('notification.modules.maturity');
             $notification->setCollectivity($survey->getCollectivity());
@@ -97,11 +95,11 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     public function onLateAction(LateActionEvent $event)
     {
         $action       = $event->getMesurement();
-        $existing = $this->notificationRepository->findBy([
-            'module' => 'notification.modules.action',
+        $existing     = $this->notificationRepository->findBy([
+            'module'       => 'notification.modules.action',
             'collectivity' => $action->getCollectivity(),
-            'action' => 'notifications.actions.late_action',
-            'name' => $action->getName(),
+            'action'       => 'notifications.actions.late_action',
+            'name'         => $action->getName(),
         ]);
         if (count($existing)) {
             return;
@@ -109,15 +107,15 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
         $norm = $this->serializer->normalize($action, null, [
             AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
-            AbstractObjectNormalizer::ENABLE_MAX_DEPTH                 => true,
-            'depth_App\Domain\Registry\Model\Mesurement::proofs'          => 1,
-            'depth_App\Domain\Registry\Model\Mesurement::clonedFrom'       => 1,
-            'depth_App\Domain\Registry\Model\Mesurement::conformiteOrganisation' => 1,
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                          => true,
+            'depth_App\Domain\Registry\Model\Mesurement::proofs'                                => 1,
+            'depth_App\Domain\Registry\Model\Mesurement::clonedFrom'                            => 1,
+            'depth_App\Domain\Registry\Model\Mesurement::conformiteOrganisation'                => 1,
             'depth_App\Domain\Registry\Model\Mesurement::conformiteTraitementReponses'          => 1,
-            'depth_App\Domain\Registry\Model\Mesurement::treatment'         => 1,
-            'depth_App\Domain\Registry\Model\Mesurement::contractor'     => 1,
-            'depth_App\Domain\Registry\Model\Mesurement::request'     => 1,
-            'depth_App\Domain\Registry\Model\Mesurement::violation'     => 1,
+            'depth_App\Domain\Registry\Model\Mesurement::treatment'                             => 1,
+            'depth_App\Domain\Registry\Model\Mesurement::contractor'                            => 1,
+            'depth_App\Domain\Registry\Model\Mesurement::request'                               => 1,
+            'depth_App\Domain\Registry\Model\Mesurement::violation'                             => 1,
         ]);
         $notification = new Notification();
         $notification->setModule('notification.modules.action');
@@ -128,7 +126,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $this->notificationRepository->insert($notification);
 
         $users = $this->userRepository->findNonDpoUsers();
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $notification = new Notification();
             $notification->setModule('notification.modules.action');
             $notification->setCollectivity($action->getCollectivity());
@@ -145,11 +143,11 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     public function onLateRequest(LateRequestEvent $event)
     {
         $request      = $event->getRequest();
-        $existing = $this->notificationRepository->findBy([
-            'module' => 'notification.modules.request',
+        $existing     = $this->notificationRepository->findBy([
+            'module'       => 'notification.modules.request',
             'collectivity' => $request->getCollectivity(),
-            'action' => 'notifications.actions.late_request',
-            'name' => $request->__toString(),
+            'action'       => 'notifications.actions.late_request',
+            'name'         => $request->__toString(),
         ]);
         if (count($existing)) {
             return;
@@ -175,7 +173,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $this->notificationRepository->insert($notification);
 
         $users = $this->userRepository->findNonDpoUsers();
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $notification = new Notification();
             $notification->setModule('notification.modules.request');
             $notification->setCollectivity($request->getCollectivity());
@@ -192,11 +190,11 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     public function onNoLogin(NoLoginEvent $event)
     {
         $user         = $event->getUser();
-        $existing = $this->notificationRepository->findBy([
-            'module' => 'notification.modules.user',
+        $existing     = $this->notificationRepository->findBy([
+            'module'       => 'notification.modules.user',
             'collectivity' => $user->getCollectivity(),
-            'action' => 'notifications.actions.no_login',
-            'name' => $user->getFullName(),
+            'action'       => 'notifications.actions.no_login',
+            'name'         => $user->getFullName(),
         ]);
         if (count($existing)) {
             return;

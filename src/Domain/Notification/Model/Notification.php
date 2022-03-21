@@ -26,6 +26,12 @@ namespace App\Domain\Notification\Model;
 
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\Documentation\Model\Document;
+use App\Domain\Registry\Model\Contractor;
+use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Registry\Model\Proof;
+use App\Domain\Registry\Model\Treatment;
+use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use Doctrine\ORM\Mapping as ORM;
@@ -38,11 +44,18 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class Notification
 {
-    const NOTIFICATION_DPO = 1;
-    const NOTIFICATION_COLLECTIVITY = 2;
-
     use HistoryTrait;
     use CreatorTrait;
+    const NOTIFICATION_DPO          = 1;
+    const NOTIFICATION_COLLECTIVITY = 2;
+    const MODULES                   = [
+        Treatment::class  => 'treatment',
+        Mesurement::class => 'action',
+        Violation::class  => 'violation',
+        Proof::class      => 'proof',
+        Contractor::class => 'contractor',
+        Document::class   => 'documentation',
+    ];
     /**
      * @ORM\Id()
      * @ORM\Column(type="uuid")
@@ -69,7 +82,7 @@ class Notification
     /**
      * @ORM\Column(type="json_array")
      *
-     * @var array|null
+     * @var array|object|null
      */
     private $object;
 
@@ -138,12 +151,12 @@ class Notification
         $this->module = $module;
     }
 
-    public function getObject(): ?array
+    public function getObject(): ?object
     {
         return $this->object;
     }
 
-    public function setObject(?array $object): void
+    public function setObject(?object $object): void
     {
         $this->object = $object;
     }
@@ -198,17 +211,11 @@ class Notification
         $this->action = $action;
     }
 
-    /**
-     * @return UserInterface|null
-     */
     public function getUser(): ?UserInterface
     {
         return $this->user;
     }
 
-    /**
-     * @param UserInterface|null $user
-     */
     public function setUser(?UserInterface $user): void
     {
         $this->user = $user;

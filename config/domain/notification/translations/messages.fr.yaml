@@ -1,15 +1,15 @@
 notification:
-    module: Notification
+    module: Notifications
     modules:
-        treatment: Traitement
-        contractor: Sous-traitant
-        violation: Violation
-        proof: Preuve
-        action: Action
-        request: Demande
-        user: Utilisateur
+        treatment: Traitements
+        contractor: Sous-traitants
+        violation: Violations
+        proof: Preuves
+        action: Actions de protection
+        request: Demandes
+        user: Utilisateurs
         documentation: Documentation
-        maturity: Indice de maturité
+        maturity: Indices de maturité
     actions:
         delete: Suppression
         create: Création
