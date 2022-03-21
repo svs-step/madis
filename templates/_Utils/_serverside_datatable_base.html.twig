@@ -105,7 +105,6 @@
         };
 
         function getFullData(params) {
-
             console.log('params', params)
             params.start = 0;
             params.length = 1000000;
@@ -118,7 +117,6 @@
             });
             var exportBody = jsonResult.responseJSON.data;
             var colNames = params.columns.map(function(c) { return c. data })
-            console.log('colnames', colNames)
             return exportBody.map(function (el) {
                 return colNames.map(function (key) {
                     return strip(el[key])
@@ -131,7 +129,6 @@
 
             var api = $('#table').DataTable();
 
-            console.log('columns', api.columns().visible())
 
             var visible = api.columns().visible();
             console.log('api.ajax', api.ajax.params())
@@ -145,8 +142,6 @@
         }
 
         $('#table').DataTable(options);
-
-        //
 
         $('.dt-buttons').append('<button id="button-reset" class="dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="table" type="button" aria-haspopup="true" aria-expanded="false"><span>Réinitialiser les filtres</span></button>');
 
