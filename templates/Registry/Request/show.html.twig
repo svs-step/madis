@@ -273,6 +273,12 @@
 
             {# PROOFS #}
             {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+
+            {# TREATMENTS #}
+            {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
+
+            {# Mesurements #}
+            {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
         </div>
 
     </div>

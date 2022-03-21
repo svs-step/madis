@@ -64,7 +64,7 @@ App\Domain\AIPD\Model\ModeleQuestionConformite:
         texteNonConformiteMajeure: "Non-conformite majeure"
     modele_question_conformite_8:
         __construct:
-            - "Exercice des droits d'accès et à la portabilité"
+            - "Exercice du droit d'accès"
             - 8
             - '@modele_analyse_1'
         isJustificationObligatoire: false
@@ -73,7 +73,7 @@ App\Domain\AIPD\Model\ModeleQuestionConformite:
         texteNonConformiteMajeure: "Non-conformite majeure"
     modele_question_conformite_9:
         __construct:
-            - "Exercice des droits de rectification et d'effacement"
+            - "Exercice du droit de rectification"
             - 9
             - '@modele_analyse_1'
         isJustificationObligatoire: true
@@ -82,7 +82,7 @@ App\Domain\AIPD\Model\ModeleQuestionConformite:
         texteNonConformiteMajeure: "Non-conformite majeure"
     modele_question_conformite_10:
         __construct:
-            - "Exercice des droits de limitation du traitement et d'opposition"
+            - "Exercice du droit de limitation du traitement"
             - 10
             - '@modele_analyse_1'
         isJustificationObligatoire: false
@@ -91,7 +91,7 @@ App\Domain\AIPD\Model\ModeleQuestionConformite:
         texteNonConformiteMajeure: "Non-conformite majeure"
     modele_question_conformite_11:
         __construct:
-            - "Sous-traitance : identifiée et contractualisée"
+            - "Exercice du droit à la portabilité"
             - 11
             - '@modele_analyse_1'
         isJustificationObligatoire: false
@@ -100,7 +100,7 @@ App\Domain\AIPD\Model\ModeleQuestionConformite:
         texteNonConformiteMajeure: "Non-conformite majeure"
     modele_question_conformite_12:
         __construct:
-            - "Transferts : respect des obligations en matière de transfert des données en dehors de l'Union Européenne"
+            - "Exercice du droit d'effacement"
             - 12
             - '@modele_analyse_1'
         isJustificationObligatoire: true
@@ -109,7 +109,7 @@ App\Domain\AIPD\Model\ModeleQuestionConformite:
         texteNonConformiteMajeure: "Non-conformite majeure"
     modele_question_conformite_13:
         __construct:
-            - "Exercice du droit à la portabilité"
+            - "Exercice du droit d'opposition"
             - 13
             - '@modele_analyse_1'
         isJustificationObligatoire: false
@@ -118,19 +118,19 @@ App\Domain\AIPD\Model\ModeleQuestionConformite:
         texteNonConformiteMajeure: "Non-conformite majeure"
     modele_question_conformite_14:
         __construct:
-            - "Exercice du droit d'effacement"
+            - "Sous-traitance : identifiée et contractualisée"
             - 14
             - '@modele_analyse_1'
-        isJustificationObligatoire: true
+        isJustificationObligatoire: false
         texteConformite: "Conforme"
         texteNonConformiteMineure: "Non-conforme mineure"
         texteNonConformiteMajeure: "Non-conformite majeure"
     modele_question_conformite_15:
         __construct:
-            - "Exercice du droit d'opposition"
+            - "Transferts : respect des obligations en matière de transfert des données en dehors de l'Union Européenne"
             - 15
             - '@modele_analyse_1'
-        isJustificationObligatoire: false
+        isJustificationObligatoire: true
         texteConformite: "Conforme"
         texteNonConformiteMineure: "Non-conforme mineure"
         texteNonConformiteMajeure: "Non-conformite majeure"

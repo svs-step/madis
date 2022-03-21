@@ -88,6 +88,9 @@
                 <order-by-field name="position"/>
             </order-by>
         </many-to-many>
+        <many-to-many field="requests" target-entity="App\Domain\Registry\Model\Request" mapped-by="treatments"/>
+        <many-to-many field="violations" target-entity="App\Domain\Registry\Model\Violation" mapped-by="treatments"/>
+
         <many-to-many field="proofs" target-entity="App\Domain\Registry\Model\Proof" mapped-by="treatments">
             <order-by>
                 <order-by-field name="name"/>
@@ -106,7 +109,7 @@
             <join-column nullable="true"/>
         </one-to-one>
 
-        <one-to-many field="mesurements" mapped-by="treatment" target-entity="App\Domain\Registry\Model\Mesurement"/>
+        <many-to-many field="mesurements" target-entity="App\Domain\Registry\Model\Mesurement" mapped-by="treatments"/>
 
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">

@@ -67,8 +67,8 @@ class NotificationController extends CRUDController
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->requestStack           = $requestStack;
-        $this->authorizationChecker = $authorizationChecker;
-        $this->userProvider         = $userProvider;
+        $this->authorizationChecker   = $authorizationChecker;
+        $this->userProvider           = $userProvider;
     }
 
     /**
@@ -143,7 +143,7 @@ class NotificationController extends CRUDController
     }
 
     /**
-     * Update read status from notification
+     * Update read status from notification.
      */
     public function markAsReadAllAction(Request $request)
     {
@@ -163,10 +163,11 @@ class NotificationController extends CRUDController
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
 
+        // return $this->redirectToRoute($this->getRouteName('list'));
     }
 
     /**
-     * Update read_at and read_by from notification
+     * Update read_at and read_by from notification.
      */
     public function markAsReadAction(Request $request, string $id)
     {
