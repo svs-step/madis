@@ -48,9 +48,9 @@ class EntityChangedSubscriber implements EventSubscriber
     ];
 
     protected NotificationRepository $notificationRepository;
-    protected NormalizerInterface $normalizer;
     protected UserRepository $userRepository;
     protected Security $security;
+    protected NormalizerInterface $normalizer;
 
     public function __construct(
         NotificationRepository $notificationRepository,
@@ -134,15 +134,31 @@ class EntityChangedSubscriber implements EventSubscriber
         $notifications = [];
         $recipients    = $this->recipients[get_class($object)];
 
-        $normalized = $this->normalizer->normalize($object, null, array_merge(
+        $normalized = $this->normalizer->normalize($object, null,
             [
-                AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
+                AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {
+                    return $this->getObjectSimpleValue($o);
+                },
                 AbstractObjectNormalizer::ENABLE_MAX_DEPTH           => true,
                 AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT   => 1,
-                AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {return $o->getId(); },
+                AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {
+                    if (is_iterable($o)) {
+                        $d = [];
+                        foreach ($o as $item) {
+                            $d[] = $this->getObjectSimpleValue($item);
+                        }
+
+                        return $d;
+                    }
+
+                    return $this->getObjectSimpleValue($o);
+                },
             ],
-            $this->setMaxDepth($object)
-        ));
+        );
+
+        if (Treatment::class === get_class($object)) {
+            //dd(get_class($this->normalizer));
+        }
 
         if ($recipients & Notification::NOTIFICATION_DPO) {
             $notification    = $this->createNotificationForUser($object, $action, $normalized);
@@ -176,18 +192,20 @@ class EntityChangedSubscriber implements EventSubscriber
         return $notification;
     }
 
-    private function setMaxDepth($object)
+    private function getObjectSimpleValue($object)
     {
-        $depths  = [];
-        $class   = get_class($object);
-        $methods = get_class_methods($class);
-        foreach ($methods as $method) {
-            if ('get' === substr($method, 0, 3)) {
-                $property                                     = lcfirst(substr($method, 3));
-                $depths['depth_' . $class . '::' . $property] = 0;
+        if (is_object($object)) {
+            if (method_exists($object, 'getId')) {
+                return $object->getId();
+            } elseif (method_exists($object, '__toString')) {
+                return $object->__toString();
+            } elseif (method_exists($object, 'format')) {
+                return $object->format(DATE_ATOM);
             }
+
+            return '';
         }
 
-        return $depths;
+        return $object;
     }
 }

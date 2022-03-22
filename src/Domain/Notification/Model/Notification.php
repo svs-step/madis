@@ -30,6 +30,7 @@ use App\Domain\Documentation\Model\Document;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Model\Proof;
+use App\Domain\Registry\Model\Request;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Model\Collectivity;
@@ -55,6 +56,7 @@ class Notification
         Proof::class      => 'proof',
         Contractor::class => 'contractor',
         Document::class   => 'documentation',
+        Request::class    => 'request',
     ];
     /**
      * @ORM\Id()

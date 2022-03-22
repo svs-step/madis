@@ -4,6 +4,7 @@ namespace App\Domain\Notification\Command;
 
 use App\Domain\Maturity\Repository\Survey as SurveyRepository;
 use App\Domain\Notification\Event\LateActionEvent;
+use App\Domain\Notification\Event\LateRequestEvent;
 use App\Domain\Notification\Event\LateSurveyEvent;
 use App\Domain\Notification\Event\NoLoginEvent;
 use App\Domain\Registry\Model\Mesurement;
@@ -91,7 +92,7 @@ class NotificationsGenerateCommand extends Command
         $cnt      = 0;
         $requests = $this->requestRepository->findAllLate();
         foreach ($requests as $request) {
-            $this->dispatcher->dispatch(new LateActionEvent($request));
+            $this->dispatcher->dispatch(new LateRequestEvent($request));
             ++$cnt;
         }
 

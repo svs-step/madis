@@ -54,15 +54,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         if (count($existing)) {
             return;
         }
-        $norm = $this->normalizer->normalize($survey, null, array_merge(
-            [
-                AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
-                AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                 => true,
-                AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT                         => 1,
-                AbstractObjectNormalizer::MAX_DEPTH_HANDLER                                => function ($o) {return $o->getId(); },
-            ],
-            $this->setMaxDepth($survey)
-        ));
+        $norm         = $this->normalizer->normalize($survey, null, $this->normalizerOptions());
         $notification = new Notification();
         $notification->setModule('notification.modules.maturity');
         $notification->setCollectivity($survey->getCollectivity());
@@ -99,15 +91,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $norm = $this->normalizer->normalize($action, null, array_merge(
-            [
-                AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
-                AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                 => true,
-                AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT                         => 1,
-                AbstractObjectNormalizer::MAX_DEPTH_HANDLER                                => function ($o) {return $o->getId(); },
-            ],
-            $this->setMaxDepth($action)
-        ));
+        $norm         = $this->normalizer->normalize($action, null, $this->normalizerOptions());
         $notification = new Notification();
         $notification->setModule('notification.modules.action');
         $notification->setCollectivity($action->getCollectivity());
@@ -144,15 +128,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $norm = $this->normalizer->normalize($request, null, array_merge(
-            [
-                AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
-                AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                 => true,
-                AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT                         => 1,
-                AbstractObjectNormalizer::MAX_DEPTH_HANDLER                                => function ($o) {return $o->getId(); },
-            ],
-            $this->setMaxDepth($request)
-        ));
+        $norm = $this->normalizer->normalize($request, null, $this->normalizerOptions());
 
         $notification = new Notification();
         $notification->setModule('notification.modules.request');
@@ -195,30 +171,47 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setCollectivity($user->getCollectivity());
         $notification->setAction('notifications.actions.no_login');
         $notification->setName($user->getFullName());
-        $notification->setObject((object) $this->normalizer->normalize($user, null, array_merge(
-            [
-                AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {return $o->getId(); },
-                AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                 => true,
-                AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT                         => 1,
-                AbstractObjectNormalizer::MAX_DEPTH_HANDLER                                => function ($o) {return $o->getId(); },
-            ],
-            $this->setMaxDepth($user)
-        )));
+        $notification->setObject((object) $this->normalizer->normalize($user, null, $this->normalizerOptions()));
         $this->notificationRepository->insert($notification);
     }
 
-    private function setMaxDepth($object)
+    private function getObjectSimpleValue($object)
     {
-        $depths  = [];
-        $class   = get_class($object);
-        $methods = get_class_methods($class);
-        foreach ($methods as $method) {
-            if ('get' === substr($method, 0, 3)) {
-                $property                                     = lcfirst(substr($method, 3));
-                $depths['depth_' . $class . '::' . $property] = 0;
+        if (is_object($object)) {
+            if (method_exists($object, 'getId')) {
+                return $object->getId();
+            } elseif (method_exists($object, '__toString')) {
+                return $object->__toString();
+            } elseif (method_exists($object, 'format')) {
+                return $object->format(DATE_ATOM);
             }
+
+            return '';
         }
 
-        return $depths;
+        return $object;
+    }
+
+    private function normalizerOptions()
+    {
+        return [
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                 => true,
+            AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT                         => 1,
+            AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER                       => function ($o) {
+                return $this->getObjectSimpleValue($o);
+            },
+            AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {
+                if (is_iterable($o)) {
+                    $d = [];
+                    foreach ($o as $item) {
+                        $d[] = $this->getObjectSimpleValue($item);
+                    }
+
+                    return $d;
+                }
+
+                return $this->getObjectSimpleValue($o);
+            },
+        ];
     }
 }
