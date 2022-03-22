@@ -156,24 +156,17 @@
                                         {% endif %} 
                                     </td>
                                 {% endif %}
-
                                 <td>{{ object.module|trans }}</td>
                                 <td>{{ object.action|trans }}</td>
-
                                 <td>
-                                {% if currentId == null %}
-                                    {% set path = "#" %}
-                                {% elseif 'action' in object.module %}
-                                    {% set path = "/actions-de-protection/visualiser/" ~ currentId %}
-                                {% elseif 'contractor' in object.module %}
-                                    {% set path = "/sous-traitants/visualiser/" ~ currentId %}
-                                {% elseif 'treatment' in object.module %}
-                                    {% set path = "/traitements/visualiser/" ~ currentId %}
-                                {% endif %}
-                                    <a href="{{ path }}">{{object.name}}</a>
+                                    <a href="{{ object | link }}">
+                                    {{object.name}}
+                                    </a>
                                 </td>
 
-                                <td>{{ currentObject }}</td>
+                                <td>
+                                    {{ object.object.name is defined ? object.object.name : '' }}
+                                </td>
 
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <td>{{object.collectivity}}</td>

@@ -30,6 +30,7 @@ class NotificationExtension extends AbstractExtension
     {
         return [
             new TwigFilter('sentence', [$this, 'getSentence']),
+            new TwigFilter('link', [$this, 'getObjectLink']),
         ];
     }
 
@@ -39,7 +40,7 @@ class NotificationExtension extends AbstractExtension
             $this->translator->trans($notification->getAction()) . ' ';
 
         $sentence .= $this->translator->trans('label.de') . ' ' .
-            '<a href="' . $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id]) . '">' . $notification->getName() . '</a> '
+            '<a href="' . $this->getObjectLink($notification) . '">' . $notification->getName() . '</a> '
         ;
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Violation::class]) {
             $sentence .= '<strong>(' . ViolationNatureDictionary::getNatures()[$notification->getObject()->violationNature] . ')</strong> ';
@@ -52,6 +53,11 @@ class NotificationExtension extends AbstractExtension
         }
 
         return $sentence;
+    }
+
+    public function getObjectLink(Notification $notification): string
+    {
+        return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id]);
     }
 
     private function getRouteForModule($module): string

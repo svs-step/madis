@@ -101,35 +101,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {% for object in objects %}
-
-                            {% set currentId = null %}
-                            {% set currentObject = null %}
-                            {% for key, value in object.object %}
-                                {% if key == "name" %}
-                                    {% set currentObject = value %}
-                                {% endif %}
-                            {% endfor %}
-
+                        {% for notification in objects %}
                             <tr>
-                                <td>{{ object.module|trans }}</td>
-                                <td>{{ object.action|trans }}</td>
+                                <td>{{ notification.module|trans }}</td>
+                                <td>{{ notification.action|trans }}</td>
                                 <td>
-                                {% if currentId == null %}
-                                    {% set path = "#" %}
-                                {% elseif 'action' in object.module %}
-                                    {% set path = "/actions-de-protection/visualiser/" ~ currentId %}
-                                {% elseif 'contractor' in object.module %}
-                                    {% set path = "/sous-traitants/visualiser/" ~ currentId %}
-                                {% elseif 'treatment' in object.module %}
-                                    {% set path = "/traitements/visualiser/" ~ currentId %}
-                                {% endif %}
-                                    <a href="{{ path }}">{{object.name}}</a>
+                                    <a href="{{ notification | link }}">
+                                        {{notification.name}}
+                                    </a>
                                 </td>
 
-                                <td>{{ currentObject }}</td>
-                                <td>{{ object.createdAt|date('d/m/Y') }}</td>
-                                <td>{{object.createdBy}}</td>
+                                <td>
+                                    {{ notification.object.name }}
+                                </td>
+                                <td>{{ notification.createdAt|date('d/m/Y') }}</td>
+                                <td>{{notification.createdBy}}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
