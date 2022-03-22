@@ -22,7 +22,7 @@
                     {% else %}
                         <div class="col-md-12" href="#">
                     {% endif %}
-                    <b>[{{ notif.module|trans }}]</b> <a href="#"><b>{{ notif.name }}</b></a>
+                            {{ notif | sentence | raw }}
                     </div>
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="col-md-4 text-center">
@@ -31,24 +31,6 @@
                             </a>
                         </div>
                     {% endif %}
-
-                    <div class="col-md-12 text-muted">
-                        {{ notif | sentence }}
-{#                    {{ notif.action|trans }}, #}
-
-{#                    {% set difference = date().diff(date(notif.createdAt)) %}#}
-{#                    {% set leftDays = difference.days %}#}
-{#                    {% if leftDays ==  0 %}#}
-{#                        Aujourd'hui#}
-{#                    {% elseif leftDays == 1 %}#}
-{#                        Hier#}
-{#                    {% else %}#}
-{#                        il y a {{ leftDays }} jours#}
-{#                    {% endif %} #}
-
-{#                    {% set data = notif.collectivity ? notif.collectivity.name : '' %} #}{# notif.object.creator.fullName #}
-{#                    par {{ data }}#}
-                    </div>
                 </div>
             </li>
         {% endif %}

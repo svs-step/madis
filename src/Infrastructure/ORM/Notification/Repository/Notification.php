@@ -50,7 +50,7 @@ class Notification extends CRUDRepository implements Repository\Notification
         return Model\Notification::class;
     }
 
-    public function findAll(array $order = []): array
+    public function findAll(array $order = ['createdAt' => 'desc']): array
     {
         // TODO only get notifications for the current user.
         $orderBy = [];
