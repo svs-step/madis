@@ -9,7 +9,7 @@ use App\Domain\AIPD\Model\CriterePrincipeFondamental;
 
 class BaseCriterePrincipeFondamental extends SimpleDictionary
 {
-    const PORTE_TRAITEMENT          = 'porte_traitement';
+    const PORTE_TRAITEMENT          = 'portee_traitement';
     const CONTEXTE_TRAITEMENT       = 'contexte_traitement';
     const CONFORMITE_CODE           = 'conformite_code';
     const DESCRIPTION_FONCTIONNELLE = 'description_fonctionnelle';
