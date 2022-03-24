@@ -165,16 +165,16 @@
                 data: [{x: {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}, y: {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}, r: 10}],
                 backgroundColor: colorBlue
             });
-            {% for mesure in scenario.mesuresProtections %}
-                mesuresLabels.push('{{ mesure.nom }}');
-                {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
-                    mesuresDatas.push(1);
-                {% elseif mesure.reponse == 'besoin_amelioration' %}
-                    mesuresDatas.push(3);
-                {% else %}
-                    mesuresDatas.push(5);
-                {% endif %}
-            {% endfor %}
+        {% endfor %}
+        {% for mesure in analyseImpact.mesureProtections %}
+            mesuresLabels.push('{{ mesure.nom }}');
+            {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
+            mesuresDatas.push(1);
+            {% elseif mesure.reponse == 'besoin_amelioration' %}
+            mesuresDatas.push(3);
+            {% else %}
+            mesuresDatas.push(5);
+            {% endif %}
         {% endfor %}
         mesuresDatas = [mesuresDatas];
         risquesDataSet1 = {label: "Risque couvert", data: risquesDataSet1, backgroundColor: colorTeal};
