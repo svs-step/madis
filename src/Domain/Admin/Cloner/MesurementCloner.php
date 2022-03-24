@@ -48,6 +48,8 @@ class MesurementCloner extends AbstractCloner
         $mesurement->setStatus($referent->getStatus());
         $mesurement->setPlanificationDate($referent->getPlanificationDate());
         $mesurement->setComment($referent->getComment());
+        $mesurement->setManager($referent->getManager());
+        $mesurement->setPriority($referent->getPriority());
 
         $mesurement->setCollectivity($collectivity);
         $mesurement->setClonedFrom($referent);
