@@ -25,7 +25,7 @@ class AbstractMesureProtection
 
     public function getId()
     {
-        return $this->getId();
+        return $this->id;
     }
 
     public function __toString(): string

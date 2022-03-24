@@ -29,4 +29,9 @@ class AnalyseScenarioMenace extends AbstractScenarioMenace
     {
         $this->canDicBeModified = $canDicBeModified;
     }
+
+    public function addMesureProtection(AnalyseMesureProtection $mesureProtection): void
+    {
+        $this->mesuresProtections[] = $mesureProtection;
+    }
 }

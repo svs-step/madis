@@ -284,6 +284,12 @@ class ConformiteTraitementController extends CRUDController
         $analyseImpact->setConformiteTraitement($conformiteTraitement);
         $this->setAnalyseReponsesQuestionConformite($analyseImpact, $conformiteTraitement);
         $this->entityManager->persist($analyseImpact);
+        foreach ($analyseImpact->getScenarioMenaces() as $scenarioMenace) {
+            dump($scenarioMenace->getMesuresProtections());
+            foreach ($scenarioMenace->getMesuresProtections() as $mesureProtection) {
+                $this->entityManager->persist($mesureProtection);
+            }
+        }
         $this->entityManager->flush();
 
         return $this->redirectToRoute('aipd_analyse_impact_create', [
