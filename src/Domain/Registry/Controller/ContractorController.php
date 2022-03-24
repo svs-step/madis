@@ -221,6 +221,7 @@ class ContractorController extends CRUDController
             </a>';
 
             $reponse['data'][] = [
+                'id'                     => $contractor->getId(),
                 'nom'                    => $contractorLink,
                 'collectivite'           => $contractor->getCollectivity()->getName(),
                 'clauses_contractuelles' => $contractor->isContractualClausesVerified() ? $yes : $no,

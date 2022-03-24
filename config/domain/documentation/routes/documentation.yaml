@@ -75,3 +75,12 @@ documentation_category_delete_confirm:
     methods: ['GET']
     controller: 'App\Domain\Documentation\Controller\CategoryController:deleteConfirmationAction'
 
+documentation_document_delete_all:
+    path: '/supprimer-tous/'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:deleteAllAction'
+
+documentation_document_delete_all_confirm:
+    path: '/supprimer-tous/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:deleteConfirmationAllAction'

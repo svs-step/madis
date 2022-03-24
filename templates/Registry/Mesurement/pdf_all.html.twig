@@ -1,0 +1,114 @@
+{% extends 'base_pdf.html.twig' %}
+
+{% set bodyClass = 'registry_mesurement show' %}
+{% set menuItem = 'registry_mesurement' %}
+
+{% block body %}
+    {% for object in objects %}
+        <h1 class="text-center">{{ object.name }}</h1>
+        <div class="row">
+        {# LEFT #}
+        <div class="col-md-6">
+            {# GENERAL INFORMATIONS #}
+            <div class="box box-solid box-info">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.general'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.name'|trans }}</strong></td>
+                            <td>{{ object.name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.description'|trans }}</strong></td>
+                            <td>{{ object.description|nl2br }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.manager'|trans }}</strong></td>
+                            <td>{{ object.manager }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.priority'|trans }}</strong></td>
+                            {% if object.priority is not null %}
+                                <td>{{ object.priority|dictionary('registry_mesurement_priority') }}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.cost'|trans }}</strong></td>
+                            <td>{{ object.cost }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.charge'|trans }}</strong></td>
+                            <td>{{ object.charge }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        {# RIGHT #}
+        <div class="col-md-6">
+            {# APPLICATION #}
+            <div class="box box-solid box-success">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.application'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.status'|trans }}</strong></td>
+                            <td>{{ object.status|dictionary('registry_mesurement_status') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.planification_date'|trans }}</strong></td>
+                            <td>
+                                {% if object.planificationDate is not null %}
+                                    {{ object.planificationDate|date('d/m/Y') }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            {# PROOFS #}
+            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+
+
+            {# HISTORIC #}
+            <div class="box box-solid box-default">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.historic'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.creator'|trans }}</strong></td>
+                            <td>
+                                {{ object.creator }}
+                            </td>
+                        </tr>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <tr>
+                                <td><strong>{{ 'registry.mesurement.show.collectivity'|trans }}</strong></td>
+                                <td>
+                                    {{ object.collectivity }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.created_at'|trans }}</strong></td>
+                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.updated_at'|trans }}</strong></td>
+                            <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
+

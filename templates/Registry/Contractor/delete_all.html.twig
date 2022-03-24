@@ -25,13 +25,13 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer {{ objects_length }} traitement{{objects_length > 1 ? 's' : '' }} ?
+                    Souhaitez vous vraiment supprimer {{ objects_length }} sous-traitant{{objects_length > 1 ? 's' : '' }} ?
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">
-                        {{ 'registry.treatment.action.back_to_list'|trans }}
+                        {{ 'registry.contractor.action.back_to_list'|trans }}
                     </a>
-                    <a href="{{ path('registry_treatment_delete_all_confirm', { 'ids': ids }) }}" class="btn btn-primary">
+                    <a href="{{ path('registry_contractor_delete_all_confirm', { 'ids': ids }) }}" class="btn btn-primary">
                         {{ 'action.confirm_delete'|trans }}
                     </a>
                 </div>
