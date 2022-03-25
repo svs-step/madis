@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+## [1.8.14] - 2022-03-25
+### Changement
+- Correction d'un bug sur le champs service dans la conformité des traitements
+- Correction d'un bug permettant d'afficher les boutons d'actions pour un lecteur
+- Correction d'un bug où des propriétés des actions de protections n'étaient pas dupliquées
+- Correction d'un bug déconnectant l'utilisateur lors d'une tentative de modification de son propre profil
+- Correction d'un bug empêchant de se connecter en tant que user avec des services supprimés
+
+
 ## [1.8.10] - 2022-03-14
 ### Changement
 - Modification des services pour afficher tous les services aux utilisateurs n'appartenant à aucun
