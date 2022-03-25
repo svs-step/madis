@@ -404,7 +404,8 @@ class TreatmentController extends CRUDController
             $editPath   = $this->router->generate('registry_treatment_edit', ['id' => $id]);
             $deletePath = $this->router->generate('registry_treatment_delete', ['id' => $id]);
 
-            return '<a href="' . $editPath . '">
+            if ($this->authorizationChecker->isGranted('ROLE_USER')) {
+                return '<a href="' . $editPath . '">
              <i class="fa fa-pencil-alt"></i>
                  ' . $this->translator->trans('action.edit') . '
              </a>
@@ -412,7 +413,8 @@ class TreatmentController extends CRUDController
                  <i class="fa fa-trash"></i>
                  ' . $this->translator->trans('action.delete') . '
              </a>'
-         ;
+                    ;
+            }
         }
 
         return null;
