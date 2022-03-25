@@ -1,5 +1,6 @@
 action:
     archive: Archiver
+    back_to_list: Retourner à la liste
     close: Fermer
     confirm: Confirmer
     confirm_archive: Confirmer l'archivage
@@ -10,15 +11,18 @@ action:
     delete: Supprimer
     deletion: Suppression
     download: Télécharger
+    draft: Enregistrer un brouillon
     duplicate: Dupliquer
     edit: Modifier
+    export: Exporter
     impersonate: Se connecter
     print: Imprimer
     reinitialize: Réinitialisation
-    submit: Soumettre
-    draft: Enregistrer un brouillon
-    unarchive: Rétablir
+    rights: Droits
     save: Enregistrer
+    submit: Soumettre
+    unarchive: Rétablir
+    validate: Valider
 
 label:
     actions: Actions
@@ -41,6 +45,9 @@ placeholder:
 
 sidebar_menu:
   admin_duplication: Module de Duplication
+  aipd_modele: Modèle d'analyse
+  aipd_mesure_protection: Mesure de protection
+  aipd_analyse_impact: Analyse d'impacts
   configuration_treatments: Configuration des traitements
   conformite_traitements: Conformité des traitements
   dashboard: Tableau de bord

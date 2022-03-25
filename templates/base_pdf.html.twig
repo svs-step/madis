@@ -30,6 +30,8 @@
         font-size: 45px;
     }
 </style>
+{% block style %}
+{% endblock %}
 
 <body class="hold-transition skin-blue sidebar-mini {{ bodyClass }}">
 
@@ -44,5 +46,6 @@
         </section>
     </div>
 
+    {% block javascripts %}{% endblock %}
 </body>
 </html>

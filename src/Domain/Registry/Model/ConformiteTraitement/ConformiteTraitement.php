@@ -26,6 +26,7 @@ namespace App\Domain\Registry\Model\ConformiteTraitement;
 
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
@@ -66,6 +67,11 @@ class ConformiteTraitement implements LoggableSubject
      */
     private $nbNonConformesMajeures;
 
+    /**
+     * @var array|AnalyseImpact[]
+     */
+    private $analyseImpacts;
+
     public function __construct()
     {
         $this->id                       = Uuid::uuid4();
@@ -96,6 +102,17 @@ class ConformiteTraitement implements LoggableSubject
     public function getReponses(): iterable
     {
         return $this->reponses;
+    }
+
+    public function getReponseOfPosition(int $position): ?Reponse
+    {
+        foreach ($this->reponses as $reponse) {
+            if ($reponse->getQuestion()->getPosition() === $position) {
+                return $reponse;
+            }
+        }
+
+        return null;
     }
 
     public function addReponse(Reponse $reponse): void
@@ -143,6 +160,29 @@ class ConformiteTraitement implements LoggableSubject
     public function setNbNonConformesMajeures(int $nbNonConformesMajeures): void
     {
         $this->nbNonConformesMajeures = $nbNonConformesMajeures;
+    }
+
+    public function getAnalyseImpacts()
+    {
+        return $this->analyseImpacts;
+    }
+
+    public function getLastAnalyseImpact(): ?AnalyseImpact
+    {
+        /** @var AnalyseImpact|null $return */
+        $return = null;
+        foreach ($this->analyseImpacts as $analyseImpact) {
+            if (null === $return || $return->getDateValidation() < $analyseImpact->getDateValidation()) {
+                $return = $analyseImpact;
+            }
+        }
+
+        return $return;
+    }
+
+    public function setAnalyseImpacts($analyseImpacts): void
+    {
+        $this->analyseImpacts = $analyseImpacts;
     }
 
     public function __toString(): string

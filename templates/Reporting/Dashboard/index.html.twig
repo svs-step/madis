@@ -134,6 +134,24 @@
                     </a>
                 </div>
             </div>
+
+            {% if app.user.collectivity.hasModuleConformiteTraitement == true %}
+                {# AIPD #}
+                <div class="col-sm-6 col-xs-12">
+                    <div class="small-box bg-light-blue">
+                        <div class="inner">
+                            <h3>{{ data.aipd.toDo }}</h3>
+                            <p>AIPD à réaliser</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-clipboard-list"></i>
+                        </div>
+                        <a href="{{ path('registry_conformite_traitement_list') }}" class="small-box-footer">
+                            Plus d'informations <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 
@@ -337,7 +355,8 @@
             {% endfor %}
             maturityData.push(tmpData2);
         {% endif %}
-
+        console.log(maturityLabels);
+        console.log(maturitySerieLabel);
         // REQUEST
         let requestTypeLabel = [
             'Rectifier des données',

@@ -1,0 +1,66 @@
+<table class="table table-bordered" style="text-: center">
+    <tr>
+        <th style="width: 3%">D</th>
+        <th style="width: 3%">I</th>
+        <th style="width: 3%">C</th>
+        <th style="width: 35%">{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
+        <th style="width: 12%">{{ 'aipd.scenario_menace.list.vraisemblance'|trans }}</th>
+        <th style="width: 12%">{{ 'aipd.scenario_menace.list.gravite'|trans }}</th>
+        <th style="width: 10%">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
+        <th>{{ 'aipd.scenario_menace.list.precision'|trans }}</th>
+    </tr>
+    {% for scenario in form.scenarioMenaces %}
+        <tr>
+            <td>
+                {% if scenario.vars.value.canDicBeModified %}
+                    {{ form_widget(scenario.isDisponibilite) }}
+                {% else %}
+                    {% if scenario.vars.value.isDisponibilite %}
+                        <i class="fa fa-check"></i>
+                    {% endif %}
+                {% endif %}
+            </td>
+            <td>
+                {% if scenario.vars.value.canDicBeModified %}
+                    {{ form_widget(scenario.isIntegrite) }}
+                {% else %}
+                    {% if scenario.vars.value.isIntegrite %}
+                        <i class="fa fa-check"></i>
+                    {% endif %}
+                {% endif %}
+            </td>
+            <td>
+                {% if scenario.vars.value.canDicBeModified %}
+                    {{ form_widget(scenario.isConfidentialite) }}
+                {% else %}
+                    {% if scenario.vars.value.isConfidentialite %}
+                        <i class="fa fa-check"></i>
+                    {% endif %}
+                {% endif %}
+            </td>
+            <td>
+                {{ scenario.vars.value.nom }}</td>
+            <td>
+                {% if scenario.vars.value.vraisemblance is not null and scenario.vars.value.vraisemblance != 'vide' %}
+                    {{ scenario.vars.value.vraisemblance|dictionary('vraisemblance_gravite') }}
+                    <div style="display: none">
+                        {{ form_widget(scenario.vraisemblance) }}
+                    </div>
+                {% else %}
+                    {{ form_widget(scenario.vraisemblance) }}
+                {% endif %}
+            </td>
+            <td>
+                {% if scenario.vars.value.gravite is not null and scenario.vars.value.gravite != 'vide' %}
+                    {{ scenario.vars.value.gravite|dictionary('vraisemblance_gravite') }}
+                    <div style="display: none">
+                        {{ form_widget(scenario.gravite) }}
+                    </div>
+                {% else %}
+                    {{ form_widget(scenario.gravite) }}
+                {% endif %}
+            <td>{{ getScenarioMenaceImpactPotentielLabel(scenario.vars.value)|raw }}</td>
+            <td>{{ form_widget(scenario.precisions) }}</td>
+        </tr>
+    {% endfor %}
+</table>

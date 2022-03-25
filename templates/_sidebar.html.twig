@@ -59,6 +59,33 @@
             </a>
         </li>
 
+        {# AIPD #}
+        {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement == true %}
+            <li class="header">Analyse d'impact</li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <li {% if menuItem == 'aipd_modele_analyse' %}class="active"{% endif %}>
+                <a href="{{ path('aipd_modele_analyse_list') }}">
+                    <i class="fa fa-chart-bar"></i>
+                    <span>{{ 'sidebar_menu.aipd_modele'|trans }}</span>
+                </a>
+            </li>
+            <li {% if menuItem == 'aipd_mesure_protection' %}class="active"{% endif %}>
+                <a href="{{ path('aipd_mesure_protection_list') }}">
+                    <i class="fa fa-chart-bar"></i>
+                    <span>{{ 'sidebar_menu.aipd_mesure_protection'|trans }}</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement == true %}
+            <li {% if menuItem == 'aipd_analyse_impact' %}class="active"{% endif %}>
+                <a href="{{ path('aipd_analyse_impact_list') }}">
+                    <i class="fa fa-chart-bar"></i>
+                    <span>{{ 'sidebar_menu.aipd_analyse_impact'|trans }}</span>
+                </a>
+            </li>
+       {% endif%}
+
         {# REPORTING #}
         <li class="header">Rapports</li>
         <li {% if menuItem == 'maturity_survey' %}class="active"{% endif %}>

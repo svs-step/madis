@@ -222,6 +222,15 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             ->setParameter('active', true)
         ;
 
+        $qb->leftJoin('o.conformiteTraitement', 'k')
+            ->addSelect('k')
+        ;
+
+        $qb->leftJoin('k.analyseImpacts', 'a')
+            //, 'WITH', 'a.dateValidation = (SELECT MAX(a2.dateValidation) FROM App\Domain\AIPD\Model\AnalyseImpact as a2 WHERE a2.conformiteTraitement = k)
+            ->addSelect('a')
+        ;
+
         return $qb
             ->getQuery()
             ->getResult()

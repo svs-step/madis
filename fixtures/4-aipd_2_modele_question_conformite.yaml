@@ -1,0 +1,109 @@
+App\Domain\AIPD\Model\ModeleQuestionConformite:
+    modele_question_conformite_1:
+        __construct:
+            - "Finalités : déterminées, explicites et légitime"
+            - 1
+            - '@modele_analyse_1'
+        isJustificationObligatoire: true
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"
+    modele_question_conformite_2:
+        __construct:
+            - "Fondement : licéité du traitement, interdiction du détournement de finalité"
+            - 2
+            - '@modele_analyse_1'
+        isJustificationObligatoire: false
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"
+    modele_question_conformite_3:
+        __construct:
+            - "Minimisation des données : adéquates, pertinentes et limitées"
+            - 3
+            - '@modele_analyse_1'
+        isJustificationObligatoire: false
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"
+    modele_question_conformite_4:
+        __construct:
+            - "Qualité des données : exactes et tenues à jour"
+            - 4
+            - '@modele_analyse_1'
+        isJustificationObligatoire: false
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"
+    modele_question_conformite_5:
+        __construct:
+            - "Durées de conservation : limitées"
+            - 5
+            - '@modele_analyse_1'
+        isJustificationObligatoire: false
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"
+    modele_question_conformite_6:
+        __construct:
+            - "Information des personnes concernées (traitement loyal et transparent"
+            - 6
+            - '@modele_analyse_1'
+        isJustificationObligatoire: false
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"
+    modele_question_conformite_7:
+        __construct:
+            - "Recueil du consentement"
+            - 7
+            - '@modele_analyse_1'
+        isJustificationObligatoire: false
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"
+    modele_question_conformite_8:
+        __construct:
+            - "Exercice des droits d'accès et à la portabilité"
+            - 8
+            - '@modele_analyse_1'
+        isJustificationObligatoire: false
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"
+    modele_question_conformite_9:
+        __construct:
+            - "Exercice des droits de rectification et d'effacement"
+            - 9
+            - '@modele_analyse_1'
+        isJustificationObligatoire: true
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"
+    modele_question_conformite_10:
+        __construct:
+            - "Exercice des droits de limitation du traitement et d'opposition"
+            - 10
+            - '@modele_analyse_1'
+        isJustificationObligatoire: false
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"
+    modele_question_conformite_11:
+        __construct:
+            - "Sous-traitance : identifiée et contractualisée"
+            - 11
+            - '@modele_analyse_1'
+        isJustificationObligatoire: false
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"
+    modele_question_conformite_12:
+        __construct:
+            - "Transferts : respect des obligations en matière de transfert des données en dehors de l'Union Européenne"
+            - 12
+            - '@modele_analyse_1'
+        isJustificationObligatoire: true
+        texteConformite: "Conforme"
+        texteNonConformiteMineure: "Non-conforme mineure"
+        texteNonConformiteMajeure: "Non-conformite majeure"

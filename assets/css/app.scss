@@ -278,3 +278,45 @@ td.reponse-vertical-align {
 .nopadding {
   padding-left: 0 !important;
 }
+
+.js-table-collection-wrapper .checkbox label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.craue_formflow_buttons {
+  display: inline;
+}
+
+.dic-darkgreen {
+  background: #d3f4e4;
+}
+.dic-lightgreen {
+  background: #ddede0;
+}
+.dic-lightpink {
+  background: #f4e7e6;
+}
+.dic-darkpink {
+  background: #fbd7dd;
+}
+.dic-nocolor {
+  background: #ffffff;
+  vertical-align: middle  !important;
+}
+.dic-border-right {
+    border-right: 1px solid black;
+}
+.dic-border-top {
+  border-top: 1px solid black;
+}
+.dic-table {
+  text-align: center;
+  width: 80%;
+
+  td {
+    width: 20%;
+    border-top: none !important;
+  }
+}

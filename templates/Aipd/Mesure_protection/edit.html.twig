@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'aipd_mesure_protection form edit' %}
+{% set menuItem = 'aipd_mesure_protection' %}
+
+{% block title %}{{ 'aipd.mesure_protection.title.edit'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'aipd.mesure_protection.title.edit'|trans }}
+        <small>{{ form.vars.value }}</small>
+    </h1>
+{% endblock %}
+
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'aipd.mesure_protection.breadcrumb.list'|trans, 'link': path('aipd_mesure_protection_list') },
+        { 'name': 'aipd.mesure_protection.breadcrumb.edit'|trans({'%name%': form.vars.value}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('Aipd/Mesure_protection/_form.html.twig') }}
+{% endblock %}

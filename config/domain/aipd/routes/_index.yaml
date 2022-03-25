@@ -1,0 +1,11 @@
+_aipd_modele:
+    resource: 'modele_analyse.yaml'
+    prefix:   '/modele-analyse'
+
+_aipd_mesure_protection:
+    resource: 'mesure_protection.yaml'
+    prefix:   '/mesure-protection'
+
+_aipd_analyse_impact:
+    resource: 'analyse_impact.yaml'
+    prefix:   '/analyse-impact'

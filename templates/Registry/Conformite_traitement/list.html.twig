@@ -48,6 +48,8 @@
                             <th>{{ 'registry.conformite_traitement.list.conformite'|trans }}</th>
                             <th>{{ 'registry.conformite_traitement.list.conformite_reponse'|trans }}</th>
                             <th>{{ 'registry.conformite_traitement.list.date_conformite'|trans }}</th>
+                            <th>{{ 'registry.conformite_traitement.list.avis_aipd'|trans }}</th>
+                            <th>{{ 'registry.conformite_traitement.list.date_aipd'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th>{{ 'label.actions'|trans }}</th>
                             {% endif %}
@@ -57,6 +59,7 @@
                         {% for object in objects %}
                             {% set conformiteTraitement = object.conformiteTraitement %}
                             {% set planifiedMesurementToBeNotified = [] %}
+                            {% set analyseImpact = null %}
                             {% if conformiteTraitement is not null %}
                                 {% set planifiedMesurementToBeNotified = getPlanifiedMesurements(conformiteTraitement) %}
                                 {% set nbTotal = conformiteTraitement.nbConformes + conformiteTraitement.nbNonConformesMineures + conformiteTraitement.nbNonConformesMajeures %}
@@ -64,6 +67,9 @@
                                 {% set widthnbNonConformesMineures = ((conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round %}
                                 {% set widthnbNonConformesMajeures = 100 - (widthNbConforme + widthnbNonConformesMineures) %}
                                 {% set conformiteBackgroundColor = getConformiteLevelWeight(conformiteTraitement) %}
+                                {% if conformiteTraitement.analyseImpacts is not empty %}
+                                    {% set analyseImpact = getLastAnalyseImpact(conformiteTraitement) %}
+                                {% endif %}
                             {% endif %}
                             <tr>
                                 <td>
@@ -117,12 +123,49 @@
                                     {% endif %}
                                 </td>
                                 <td>{% if conformiteTraitement is not null %}{{ conformiteTraitement.updatedAt|date('d/m/Y') }}{% endif %}</td>
+                                <td>
+                                    {% set statut = "non_realisee" %}
+                                    {% set labelAipdColor = "label-default" %}
+                                    {% if conformiteTraitement is not null and analyseImpact is not null %}
+                                        {% if analyseImpact.statut == "defavorable" %}
+                                            {% set labelAipdColor = "label-danger" %}
+                                        {% elseif analyseImpact.statut == "favorable_avec_reserves" %}
+                                            {% set labelAipdColor = "label-warning" %}
+                                        {% elseif analyseImpact.statut == "favorable" %}
+                                            {% set labelAipdColor = "label-success" %}
+                                        {% endif %}
+                                        {% set statut = analyseImpact.statut %}
+                                    {% endif %}
+
+                                    {% set labelStatut = "aipd.analyse_impact.values." ~ statut %}
+                                    <span class="label {{ labelAipdColor }}" style="min-width: 100%; display: inline-block;">
+                                            {{ labelStatut|trans}}
+                                        </span>
+                                </td>
+                                <td>
+                                    {% if conformiteTraitement is not null and analyseImpact is not null %}
+                                        {{ (conformiteTraitement.analyseImpacts|first).dateValidation|date('d/m/Y') }}
+                                    {% endif %}
+                                </td>
                                 {% if is_granted('ROLE_USER') %}
                                     <td>
                                         <a href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
                                             <i class="fa fa-pencil-alt"></i>
                                             {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}
                                         </a>
+                                        {% if conformiteTraitement is not null %}
+                                            {% if analyseImpact is not null %}
+                                                <a href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
+                                                    <i class="fa fa-chalkboard-teacher"></i>
+                                                    {{ 'aipd.analyse_impact.action.edit'|trans }}
+                                                </a>
+                                            {% else %}
+                                                <a href="{{ path('registry_conformite_traitement_start_aipd', {'id': conformiteTraitement.id}) }}">
+                                                    <i class="fa fa-chalkboard-teacher"></i>
+                                                    {{ 'aipd.analyse_impact.action.create'|trans }}
+                                                </a>
+                                            {% endif %}
+                                        {% endif %}
                                     </td>
                                 {% endif %}
                             </tr>

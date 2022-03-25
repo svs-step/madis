@@ -475,15 +475,17 @@ registry:
             show: Visualiser un traitement
             configure: Configurer les traitements
         tab:
+          conformite: Évaluation de la conformoite du traitement
           data_category: Catégorie des données
           details: Détails
           general: Informations générales
           historic: Historique
+          last_aipd: Dernière analyse d'impact réalisée
           proofs: Documents associés
           public: Registre public
+          recipients: Destination
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
-          recipients: Destination
 
     violation:
         action:
@@ -569,6 +571,8 @@ registry:
             date_conformite: Date de l'évaluation
             gestionnaire: Gestionnaire
             traitement: Traitement
+            avis_aipd: Avis AIPD
+            date_aipd: Date de l'AIPD
         action:
             back_to_list: Retour à la liste
             report: Générer une impression

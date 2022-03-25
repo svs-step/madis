@@ -1,0 +1,120 @@
+aipd:
+    modele_analyse:
+        action:
+            import: Importer un modèle
+            new: Nouveau modèle
+            back_to_list: Retour à la liste
+        title:
+            create: Créer un modèle
+            edit: Modifier un modèle
+            list: Liste des modèles d'analyse  
+            rights: Modifier les droits
+            import: Importer un modèle
+        list:
+            description: Description
+            name: Nom du modèle d'analyse d'impact
+            updated_at: Date de modification
+        flashbag:
+            success:
+                create: Modele d'analyse "%object%" créé avec succès
+                edit: Modele d'analyse "%object%" modifié avec succès
+                delete: Modele d'analyse "%object%" supprimé avec succès
+                rights: Droits du modele d'analyse "%object%" modifiés avec succès
+                import: Modèle d'analyse "%object%" importé avec succès
+        form:
+            scenario_menace:
+                add: Ajouter un scenario de menace
+    mesure_protection:
+        action:
+            new: Nouvelle mesure
+            back_to_list: Retour à la liste
+        breadcrumb:
+            create: Créer
+            delete: Supprimer "%name%"
+            edit: Modifier "%name%"
+            list: Liste des mesures de protection
+            show: Visualiser "%name%"
+        form:
+            information_generale: Informations générales
+            information_livrable: Informations pour livrable
+        flashbag:
+            success:
+                create: Mesure de protection "%object%" créée avec succès
+                edit: Mesure de protection "%object%" modifiée avec succès
+                delete: Mesure de protection "%object%" supprimée avec succès
+        list:
+            detail: Détail
+            nom: Nom de la mesure
+            nom_court: Nom court
+            poids_vraisemblance: Poids de la vraisemblance
+            poids_gravite: Poids de la gravité
+            reponse: Réponses
+        modal:
+            confirm_deletion: Voulez vous vraiment supprimer cette mesure de protection ?
+        title:
+            create: Créer une mesure
+            delete: Supprimer une mesure de protection
+            edit: Modifier une mesure de protection
+            list: Liste des mesures de protection
+            show: Visualiser une mesure de protection
+    scenario_menace:
+        list:
+            gravite: Gravité
+            impact_potentiel: Impact potentiel
+            impact_résiduel: Impact résiduel
+            mesures: Associer des mesures
+            nom: Scénarios de menace
+            precision: Précision
+            visible: Visible
+            vraisemblance: Vraisemblance
+    analyse_impact:
+        action:
+            create: Réaliser une AIPD
+            edit: Modifier l'AIPD
+            modele: Choisir ce modèle
+            validation: Passer en validation
+        flashbag:
+            success:
+                delete: L'analyse d'impact "%object%" a bien été supprimée
+            info:
+                cant_edit: "Vous ne pouvez plus modifier cette analyse d'impact : celle-ci a déjà été validée."
+        form:
+            justificatif: Justificatif
+            action_protection: Action de protection associées
+        title:
+            list: Analyses d'impacts
+            create: Réaliser une AIPD
+            delete: Supprimer une AIPD
+            evaluation: Évaluer une AIPD
+            validation: Valider une AIPD
+        list:
+            avis_dpd: Avis du DPD
+            avis_referent: Avis du référent RGPD
+            avis_representant: Avis des représentants des personnes concernées
+            avis_responsable: Validation du responsable de traitement
+            collectivite: Collectivité
+            traitement: Traitement
+            date_creation: Date de création
+            date_validation: Date de validation
+            modele: Modèle utilisé
+        values:
+            en_cours: En cours
+            non_realisee: Non réalisée
+            defavorable: Défavorable
+            favorable_avec_reserves: Favorable avec réserves
+            favorable: Favorable
+            evaluation:
+                grands_domaines: Évaluation des principes fondamentaux
+                mesures_securites: Évaluation des mesures de sécurité
+                risques_residuels: Risques résiduels
+                moyenne_dic_residuel: Cartographie des risques résiduels
+                description_conformite: Description et conformité
+                gestion_risques: Gestion des risques
+    critere_principe_fondamental:
+        table:
+            label: Label
+            reponse: Réponse
+            justification: Justification
+            fichier: Joindre un fichier
+            conformite: Conformité
+

@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_conformite_traitement form edit' %}
+{% set menuItem = 'registry_conformite_traitement' %}
+
+{% block title %}{{ 'aipd.analyse_impact.title.create'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'aipd.analyse_impact.title.create'|trans }}
+        <small>{{ conformiteTraitement.traitement.name }} : Modèle</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'aipd.analyse_impact.title.list'|trans, 'link': path('aipd_modele_analyse_list') },
+        { 'name': 'aipd.analyse_impact.title.create'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class="box-body" style="font-weight: bold">
+                    Une fois le modèle choisi, il n'est plus possible de revenir en arrière
+                </div>
+            </div>
+        </div>
+    </div>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-solid">
+                    <div class="box-body">
+                        <table id="table" class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th><input class="form-control" type="text" id="search_nom" style="width: 100%;" placeholder="Nom"></th>
+                                <th><input class="form-control" type="text" id="search_description" style="width: 100%;" placeholder="Description"></th>
+                            </tr>
+                            <tr>
+                                <th>Nom du modèle d'analyse d'impact</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-solid">
+                    <div class="box-body text-center">
+                        <a href="{{ path('registry_conformite_traitement_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
+                        <input type="submit" class="btn btn-primary" value="{{  'aipd.analyse_impact.action.modele'|trans }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+    {{ include('Aipd/Modele_analyse/_form_js.html.twig') }}
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "nom", "className": "noVis"},
+            {"data" : "description", "className": "noVis"},
+        ],
+        order:  [
+            [0, 'asc' ]
+        ],
+        buttons: [],
+    } %}
+
+    {{ include('_Utils/_serverside_datatable_base.html.twig') }}
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            $('#search_nom').off('keyup');
+            $('#search_nom').keyup($.debounce(250, function () {
+                oTable.column('0').search($(this).val()).draw();
+            }));
+
+            $('#search_description').off('keyup');
+            $('#search_description').keyup($.debounce(250, function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            }));
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
+
+{% endblock %}

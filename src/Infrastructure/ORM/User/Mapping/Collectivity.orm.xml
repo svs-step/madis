@@ -57,6 +57,8 @@
         </one-to-many>
 
         <many-to-many field="userReferents" target-entity="App\Domain\User\Model\User" mapped-by="collectivitesReferees"/>
+        <many-to-many field="modeleAnalyses" target-entity="App\Domain\AIPD\Model\ModeleAnalyse" mapped-by="authorizedCollectivities">
+        </many-to-many>
 
         <!-- Traits -->
         <field name="createdAt" column="created_at" type="datetime_immutable"/>

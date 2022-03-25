@@ -1,0 +1,186 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'aipd_analyse_impact evaluation' %}
+{% set menuItem = 'registry_conformite_traitement' %}
+
+{% block title %}{{ 'aipd.analyse_impact.title.evaluation'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'aipd.analyse_impact.title.evaluation'|trans }}
+        <small>{{ analyseImpact.conformiteTraitement.traitement.name ~ ' - Étape 5 sur 5 : Évaluation' }}</small>
+    </h1>
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-solid box-info">
+                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.grands_domaines'|trans }}</div>
+                <div class="box-body">
+                    <canvas id="grandsDomaines-chart"></canvas>
+                </div>
+            </div>
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.risques_residuels'|trans }}</div>
+                <div class="box-body">
+                    <canvas id="risquesResiduels-chart"></canvas>
+                </div>
+            </div>
+            <div class="box box-solid box-info">
+                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.description_conformite'|trans }}</div>
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>{{ 'aipd.critere_principe_fondamental.table.label'|trans }}</th>
+                            <th style="width: 25%;">{{ 'aipd.critere_principe_fondamental.table.conformite'|trans }}</th>
+                        </tr>
+                        {% for critere in analyseImpact.criterePrincipeFondamentaux %}
+                        <tr>
+                            <td>{{ critere.label }}</td>
+                            <td>{{ getCritereLabel(critere)|raw }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <hr style="border: 0"/>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>{{ 'registry.conformite_traitement.form.question'|trans }}</th>
+                            <th style="width: 25%">{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
+                        </tr>
+                        {% for question in analyseImpact.questionConformites %}
+                            <tr>
+                                <td>{{ question.question }}</td>
+                                <td>{{ getConformiteLabel(question)|raw }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.mesures_securites'|trans }}</div>
+                <div class="box-body">
+                    <canvas id="mesuresSecurite-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="box box-solid box-success">
+                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.moyenne_dic_residuel'|trans }}</div>
+                <div class="box-body">
+                    <canvas id="dicResiduels-chart"></canvas>
+                </div>
+            </div>
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
+                            <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
+                            <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
+                        </tr>
+                        {% for scenario in analyseImpact.scenarioMenaces %}
+                            <tr>
+                                <td>{{ scenario.nom }}</td>
+                                <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
+                                <td>{{ getScenarioMenaceImpactResiduelLabel(scenario)|raw }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body text-center">
+                    <a href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
+                    <a href="{{ path('aipd_analyse_impact_validation', {'id': analyseImpact.id}) }}" class="btn btn-primary">{{ 'aipd.analyse_impact.action.validation'|trans }}</a>
+                    <a href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-info">{{ 'action.draft'|trans }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+
+    <script>
+        let colorBlue = 'rgba(54, 162, 235, 0.5)';
+        let colorPurple = 'rgba(153, 51, 204, 0.5)';
+        let colorTeal = 'rgba(109, 199, 200, 1)';
+        let colorPink = 'rgba(243, 109, 143, 1)';
+
+        let domainesLabels = [];
+        let domainesDatas = [];
+        {% for critere in analyseImpact.criterePrincipeFondamentaux %}
+            {% if critere.reponse != 'non_applicable' %}
+                domainesLabels.push('{{ critere.label|truncate(28,'...') }}');
+                {% if critere.reponse == 'conforme' %}
+                    domainesDatas.push(5);
+                {% else %}
+                    domainesDatas.push(1);
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% for question in analyseImpact.questionConformites %}
+        {% set reponse = analyseImpact.conformiteTraitement.reponseOfPosition(question.position) %}
+            {% if reponse.conforme %}
+                domainesDatas.push(5);
+            {% elseif reponse.actionProtections is not empty %}
+                domainesDatas.push(3);
+            {% else %}
+                domainesDatas.push(1);
+            {% endif %}
+            domainesLabels.push('{{ question.question|truncate(28, '...') }}');
+        {% endfor %}
+        /* The format of the data used by the chart is [[],[]] but here we use only 1 set of data */
+        domainesDatas = [domainesDatas];
+
+        let mesuresLabels = [];
+        let mesuresDatas = [];
+        let risquesLabels = [];
+        let risquesDataSet1 = [];
+        let risquesDataSet2 = [];
+        let dicResiduelsData = [];
+        {% for scenario in analyseImpact.scenarioMenaces %}
+            risquesLabels.push('{{ scenario.nom|truncate(20, '...') }}');
+            risquesDataSet2.push({{ getScenarioMenaceImpactPotentiel(scenario) }});
+            risquesDataSet1.push({{ getScenarioMenaceImpactResiduel(scenario) }})
+            dicResiduelsData.push({
+                label: "{{ scenario.nom }}",
+                data: [{x: {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}, y: {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}, r: 10}],
+                backgroundColor: colorBlue
+            });
+        {% endfor %}
+        {% for mesure in analyseImpact.mesureProtections %}
+            mesuresLabels.push('{{ mesure.nom }}');
+            {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
+            mesuresDatas.push(1);
+            {% elseif mesure.reponse == 'besoin_amelioration' %}
+            mesuresDatas.push(3);
+            {% else %}
+            mesuresDatas.push(5);
+            {% endif %}
+        {% endfor %}
+        mesuresDatas = [mesuresDatas];
+        risquesDataSet1 = {label: "Risque couvert", data: risquesDataSet1, backgroundColor: colorTeal};
+        risquesDataSet2 = {label: "Risque résiduel", data: risquesDataSet2, backgroundColor: colorPink};
+        let risquesDatas = [risquesDataSet1, risquesDataSet2];
+    </script>
+
+    <script src="{{ asset('build/js/evaluation.js') }}"></script>
+{% endblock %}

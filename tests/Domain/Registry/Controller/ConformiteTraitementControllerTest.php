@@ -26,6 +26,7 @@ namespace App\Tests\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\AIPD\Repository\ModeleAnalyse;
 use App\Domain\Registry\Controller\ConformiteTraitementController;
 use App\Domain\Registry\Controller\ContractorController;
 use App\Domain\Registry\Form\Type\ConformiteTraitement\ConformiteTraitementType;
@@ -40,6 +41,7 @@ use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -107,6 +109,16 @@ class ConformiteTraitementControllerTest extends TestCase
      */
     private $pdf;
 
+    /**
+     * @var ModeleAnalyse|ObjectProphecy
+     */
+    private $modeleRepository;
+
+    /**
+     * @var RouterInterface|ObjectProphecy
+     */
+    private $router;
+
     public function setUp()
     {
         $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
@@ -120,6 +132,8 @@ class ConformiteTraitementControllerTest extends TestCase
         $this->questionRepository             = $this->prophesize(Repository\ConformiteTraitement\Question::class);
         $this->eventDispatcher                = $this->prophesize(EventDispatcherInterface::class);
         $this->pdf                            = $this->prophesize(Pdf::class);
+        $this->modeleRepository               = $this->prophesize(ModeleAnalyse::class);
+        $this->router                         = $this->prophesize(RouterInterface::class);
 
         $this->controller = new ConformiteTraitementController(
             $this->managerProphecy->reveal(),
@@ -132,7 +146,9 @@ class ConformiteTraitementControllerTest extends TestCase
             $this->treatmentRepository->reveal(),
             $this->questionRepository->reveal(),
             $this->eventDispatcher->reveal(),
-            $this->pdf->reveal()
+            $this->pdf->reveal(),
+            $this->modeleRepository->reveal(),
+            $this->router->reveal()
         );
     }
 

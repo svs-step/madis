@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'aipd_analyse_impact list' %}
+{% set menuItem = 'aipd_analyse_impact' %}
+
+{% block title %}{{ 'aipd.analyse_impact.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'aipd.analyse_impact.title.list'|trans }}</h1>
+{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                <input class="form-control" type="text" id="search_traitement" placeholder="Traitement" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_date_de_creation" placeholder="Date création" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="datepicker form-control" type="text" id="search_date_de_validation" placeholder="Date validation" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_modele" placeholder="Modèle utilisé" style="width: 100%;">
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th>{{ 'aipd.analyse_impact.list.traitement'|trans }}</th>
+                            <th>{{ 'aipd.analyse_impact.list.date_creation'|trans }}</th>
+                            <th>{{ 'aipd.analyse_impact.list.date_validation'|trans }}</th>
+                            <th style="width: 15%">{{ 'aipd.analyse_impact.list.modele'|trans }}</th>
+                            <th>{{ 'aipd.analyse_impact.list.collectivite'|trans }}</th>
+                            <th>{{ 'aipd.analyse_impact.list.avis_referent'|trans }}</th>
+                            <th>{{ 'aipd.analyse_impact.list.avis_dpd'|trans }}</th>
+                            <th>{{ 'aipd.analyse_impact.list.avis_representant'|trans }}</th>
+                            <th>{{ 'aipd.analyse_impact.list.avis_responsable'|trans }}</th>
+                            <th>{{ 'label.actions'|trans }}</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set collectivityIsVisible = false %}
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set collectivityIsVisible = true %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "traitement", "className": "noVis"},
+            {"data" : "dateDeCreation"},
+            {"data": "dateDeValidation"},
+            {"data": "modele"},
+            {"data": "collectivite"},
+            {"data": "avisReferent"},
+            {"data": "avisDpd"},
+            {"data": "avisRepresentant"},
+            {"data": "avisResponsable"},
+            {"data": "actions", "className": "noVis", "orderable": false},
+        ],
+        order:  [
+            [0, 'asc' ]
+        ],
+    } %}
+
+    {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+{% endblock %}

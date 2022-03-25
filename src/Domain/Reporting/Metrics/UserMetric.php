@@ -191,6 +191,9 @@ class UserMetric implements MetricInterface
                     'all' => 0,
                 ],
             ],
+            'aipd' => [
+                'toDo' => 0,
+            ],
         ];
 
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
@@ -384,9 +387,14 @@ class UserMetric implements MetricInterface
             $nbTreatmentWithNoConformiteTraitements                                                = $this->treatmentRepository->countAllWithNoConformiteTraitementByCollectivity($collectivity);
             $data['conformiteTraitement']['data'][ConformiteTraitementLevelDictionary::NON_EVALUE] = $nbTreatmentWithNoConformiteTraitements;
 
+            /** @var Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement */
             foreach ($conformiteTraitements as $conformiteTraitement) {
                 $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);
                 ++$data['conformiteTraitement']['data'][$level];
+
+                if (0 === count($conformiteTraitement->getAnalyseImpacts())) {
+                    ++$data['aipd']['toDo'];
+                }
             }
 
             //reset data if all values equal zéro. Need to hide the chart.

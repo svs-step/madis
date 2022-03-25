@@ -337,7 +337,7 @@ class MesurementController extends CRUDController
         ];
     }
 
-    public function listDataTables(Request $request)
+    public function listDataTables(Request $request): JsonResponse
     {
         $criteria = $this->getRequestCriteria($request);
         $actions  = $this->getResults($request, $criteria);

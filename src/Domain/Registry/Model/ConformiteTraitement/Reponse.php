@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Model\ConformiteTraitement;
 
+use App\Domain\AIPD\Model\AnalyseQuestionConformite;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
@@ -67,12 +68,18 @@ class Reponse implements LoggableSubject
      */
     private $actionProtectionsPlanifiedNotSeens;
 
+    /**
+     * @var iterable
+     */
+    private $analyseQuestionsConformites;
+
     public function __construct()
     {
         $this->id                                 = Uuid::uuid4();
         $this->conforme                           = false;
         $this->actionProtections                  = [];
         $this->actionProtectionsPlanifiedNotSeens = [];
+        $this->analyseQuestionsConformites        = [];
     }
 
     public function getId(): UuidInterface
@@ -110,7 +117,7 @@ class Reponse implements LoggableSubject
         $this->conformiteTraitement = $conformiteTraitement;
     }
 
-    public function getActionProtections(): iterable
+    public function getActionProtections()
     {
         return $this->actionProtections;
     }
@@ -166,5 +173,32 @@ class Reponse implements LoggableSubject
     public function __toString(): string
     {
         return 'Reponse .' . $this->question->getQuestion();
+    }
+
+    public function getAnalyseQuestionsConformite(): iterable
+    {
+        return $this->analyseQuestionsConformites;
+    }
+
+    public function addAnalyseQuestionConformite(AnalyseQuestionConformite $questionConformite): void
+    {
+        $key = \array_search($questionConformite, \iterable_to_array($this->analyseQuestionsConformites), true);
+
+        if (false !== $key) {
+            return;
+        }
+
+        $this->analyseQuestionsConformites[] = $questionConformite;
+    }
+
+    public function removeAnalyseQuestionConformite(AnalyseQuestionConformite $questionConformite): void
+    {
+        $key = \array_search($questionConformite, \iterable_to_array($this->analyseQuestionsConformites), true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->analyseQuestionsConformites[$key]);
     }
 }

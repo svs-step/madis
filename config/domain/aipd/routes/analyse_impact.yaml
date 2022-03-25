@@ -1,0 +1,49 @@
+aipd_analyse_impact_list:
+    path: '/liste'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:listAction'
+
+aipd_analyse_impact_datatables:
+    path: '/datatables'
+    methods: ['POST']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:listDataTables'
+
+aipd_analyse_impact_modele_datatables:
+    path: '/modele_datatables'
+    methods: ['POST']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:modelesDatatablesAction'
+
+aipd_analyse_impact_create:
+    path: '/creer/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:createAnalyseAction'
+
+aipd_analyse_impact_edit:
+    path: '/editer/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:editAction'
+
+aipd_analyse_impact_delete:
+    path: '/supprimer/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:deleteAction'
+
+aipd_analyse_impact_delete_confirm:
+    path: '/supprimer/{id}/confirmer'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:deleteConfirmationAction'
+
+aipd_analyse_impact_evaluation:
+    path: '/evaluation/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:evaluationAction'
+
+aipd_analyse_impact_print:
+    path: '/imprimer/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:printAction'
+
+aipd_analyse_impact_validation:
+    path: '/validation/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:validationAction'

@@ -26,6 +26,9 @@ namespace App\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\AIPD\Converter\ModeleToAnalyseConverter;
+use App\Domain\AIPD\Model\AnalyseImpact;
+use App\Domain\AIPD\Repository as AipdRepository;
 use App\Domain\Registry\Form\Type\ConformiteTraitement\ConformiteTraitementType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
@@ -38,7 +41,9 @@ use Knp\Snappy\Pdf;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -82,6 +87,10 @@ class ConformiteTraitementController extends CRUDController
      */
     protected $dispatcher;
 
+    private AipdRepository\ModeleAnalyse $modeleRepository;
+
+    private RouterInterface $router;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -93,7 +102,9 @@ class ConformiteTraitementController extends CRUDController
         Repository\Treatment $treatmentRepository,
         Repository\ConformiteTraitement\Question $questionRepository,
         EventDispatcherInterface $dispatcher,
-        Pdf $pdf
+        Pdf $pdf,
+        AipdRepository\ModeleAnalyse $modeleRepository,
+        RouterInterface $router
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->collectivityRepository = $collectivityRepository;
@@ -103,6 +114,8 @@ class ConformiteTraitementController extends CRUDController
         $this->treatmentRepository    = $treatmentRepository;
         $this->questionRepository     = $questionRepository;
         $this->dispatcher             = $dispatcher;
+        $this->modeleRepository       = $modeleRepository;
+        $this->router                 = $router;
     }
 
     /**
@@ -248,5 +261,52 @@ class ConformiteTraitementController extends CRUDController
             'form'           => $form->createView(),
             'serviceEnabled' => $serviceEnabled,
         ]);
+    }
+
+    public function startAipdAction(Request $request, string $id)
+    {
+        /** @var Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement */
+        $conformiteTraitement = $this->repository->findOneById($id);
+        if (!$conformiteTraitement) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        if ($request->isMethod('GET')) {
+            return $this->render($this->getTemplatingBasePath('start'), [
+                'totalItem'            => $this->modeleRepository->count(),
+                'route'                => $this->router->generate('aipd_analyse_impact_modele_datatables', ['collectivity' => $conformiteTraitement->getTraitement()->getCollectivity()->getId()->toString()]),
+                'conformiteTraitement' => $conformiteTraitement,
+            ]);
+        }
+
+        if (!$request->request->has('modele_choice')) {
+            throw new BadRequestHttpException('Parameter modele_choice must be present');
+        }
+
+        if (null === $modele = $this->modeleRepository->findOneById($request->request->get('modele_choice'))) {
+            throw new NotFoundHttpException('No modele with Id ' . $request->request->get('modele_choice') . ' exists.');
+        }
+
+        $analyseImpact = ModeleToAnalyseConverter::createFromModeleAnalyse($modele);
+        $analyseImpact->setConformiteTraitement($conformiteTraitement);
+        $this->setAnalyseReponsesQuestionConformite($analyseImpact, $conformiteTraitement);
+        $this->entityManager->persist($analyseImpact);
+        foreach ($analyseImpact->getScenarioMenaces() as $scenarioMenace) {
+            foreach ($scenarioMenace->getMesuresProtections() as $mesureProtection) {
+                $this->entityManager->persist($mesureProtection);
+            }
+        }
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('aipd_analyse_impact_create', [
+            'id' => $analyseImpact->getId(),
+        ]);
+    }
+
+    private function setAnalyseReponsesQuestionConformite(AnalyseImpact &$analyseImpact, Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement)
+    {
+        foreach ($conformiteTraitement->getReponses() as $reponse) {
+            $analyseImpact->getQuestionConformitesOfPosition($reponse->getQuestion()->getPosition())->setReponseConformite($reponse);
+        }
     }
 }

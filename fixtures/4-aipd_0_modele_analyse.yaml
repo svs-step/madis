@@ -1,0 +1,8 @@
+App\Domain\AIPD\Model\ModeleAnalyse:
+    modele_analyse_1:
+        nom: "Simplifié"
+        description: "Modèle simplifié d'analyse générique"
+        labelAmeliorationPrevue: "Amélioration prévue prochainement"
+        labelInsatisfaisant: "Niveau insatisfaisant"
+        labelSatisfaisant: "Niveau satisfaisant"
+

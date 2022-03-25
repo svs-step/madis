@@ -16,5 +16,8 @@ _domain_reporting:
 _domain_user:
     resource: ../domain/user/routes/_index.yaml
 
+_domain_aipd:
+    resource: ../domain/aipd/routes/_index.yaml
+
 _domain_public:
     resource: ../domain/public/routes/_index.yaml

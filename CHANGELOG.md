@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## [1.9] - 2022-03-25
+### Changement
+- Incorporation de tout le module AIPD : Modèle d'analyse, Mesure protection et Analyse d'impact
+
 ## [1.8.14] - 2022-03-25
 ### Changement
 - Correction d'un bug sur le champs service dans la conformité des traitements
