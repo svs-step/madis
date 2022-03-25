@@ -66,6 +66,9 @@ function bubbleChart(id, labels, data) {
             datasets: data,
         },
         options: {
+            legend: {
+              display: false
+            },
             scales: {
                 yAxes: [{
                     ticks : {
