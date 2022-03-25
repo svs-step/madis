@@ -212,8 +212,11 @@ class ConformiteTraitementController extends CRUDController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
+        $serviceEnabled = $object->getTraitement()->getCollectivity()->getIsServicesEnabled();
+
         return $this->render($this->getTemplatingBasePath('create'), [
-            'form' => $form->createView(),
+            'form'           => $form->createView(),
+            'serviceEnabled' => $serviceEnabled,
         ]);
     }
 
@@ -252,8 +255,11 @@ class ConformiteTraitementController extends CRUDController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
+        $serviceEnabled = $object->getTraitement()->getCollectivity()->getIsServicesEnabled();
+
         return $this->render($this->getTemplatingBasePath('edit'), [
-            'form' => $form->createView(),
+            'form'           => $form->createView(),
+            'serviceEnabled' => $serviceEnabled,
         ]);
     }
 
