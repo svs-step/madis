@@ -14,6 +14,7 @@ use App\Domain\AIPD\Form\Type\AnalyseImpactType;
 use App\Domain\AIPD\Model\AnalyseAvis;
 use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\AIPD\Repository;
+use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Gaufrette\Filesystem;
@@ -289,18 +290,26 @@ class AnalyseImpactController extends CRUDController
 
     public function modelesDatatablesAction()
     {
-        $request = $this->requestStack->getMasterRequest();
-
-        $user = $this->userProvider->getAuthenticatedUser();
+        $request      = $this->requestStack->getMasterRequest();
+        $collectivity = $this->entityManager->getRepository(Collectivity::class)->find($request->query->get('collectivity'));
 
         $modeles = $this->getModeleResults($request);
 
         $reponse = $this->getBaseDataTablesResponse($request, $modeles);
         foreach ($modeles as $modele) {
-            $reponse['data'][] = [
-                'nom'         => '<input type="radio" value="' . $modele->getId() . '" name="modele_choice" required="true"/> ' . $modele->getNom(),
-                'description' => $modele->getDescription(),
-            ];
+            $collectivityType               = $collectivity->getType();
+            $authorizedCollectivities       = $modele->getAuthorizedCollectivities();
+            $authorizedCollectivityTypes    = $modele->getAuthorizedCollectivityTypes();
+
+            if ((!\is_null($authorizedCollectivityTypes)
+                && in_array($collectivityType, $authorizedCollectivityTypes)) ||
+                $authorizedCollectivities->contains($collectivity)
+            ) {
+                $reponse['data'][] = [
+                    'nom'         => '<input type="radio" value="' . $modele->getId() . '" name="modele_choice" required="true"/> ' . $modele->getNom(),
+                    'description' => $modele->getDescription(),
+                ];
+            }
         }
 
         $jsonResponse = new JsonResponse();
