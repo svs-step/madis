@@ -265,6 +265,7 @@ class ConformiteTraitementController extends CRUDController
 
     public function startAipdAction(Request $request, string $id)
     {
+        /** @var Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement */
         $conformiteTraitement = $this->repository->findOneById($id);
         if (!$conformiteTraitement) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
@@ -273,7 +274,7 @@ class ConformiteTraitementController extends CRUDController
         if ($request->isMethod('GET')) {
             return $this->render($this->getTemplatingBasePath('start'), [
                 'totalItem'            => $this->modeleRepository->count(),
-                'route'                => $this->router->generate('aipd_analyse_impact_modele_datatables'),
+                'route'                => $this->router->generate('aipd_analyse_impact_modele_datatables', ['collectivity' => $conformiteTraitement->getTraitement()->getCollectivity()->getId()->toString()]),
                 'conformiteTraitement' => $conformiteTraitement,
             ]);
         }
