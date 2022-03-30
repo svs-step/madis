@@ -1,4 +1,4 @@
-{% extends 'base_publique.html.twig' %}
+{% extends 'base_public.html.twig' %}
 
 {% set bodyClass = 'registry_treatment show' %}
 {% set menuItem = 'registry_treatment' %}
@@ -39,6 +39,7 @@
         {# GENERAL INFORMATIONS #}
         {% if (
             (object.name and config.name == true)
+            or (object.service and config.service == true)
             or (object.goal and config.goal == true)
             or (object.author and config.author == true)
             or (object.author == "processing_manager" and object.coordonneesResponsableTraitement and config.coordonneesResponsableTraitement == true)
@@ -61,6 +62,14 @@
                                         <strong>{{ 'registry.treatment.show.name'|trans }}</strong>
                                     </td>
                                     <td>{{ object.name }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.service and config.service == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.service'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.service }}</td>
                                 </tr>
                             {% endif %}
                             {% if (object.goal and config.goal == true) %}
@@ -219,7 +228,7 @@
                                         <ul>
                                             {% for contractor in object.contractors %}
                                                 <li>
-                                                    <a href="{{ path('registry_contractor_show', {'id': contractor.id}) }}">{{ contractor }}</a>
+                                                    {{ contractor }}
                                                 </li>
                                             {% endfor %}
                                         </ul>
@@ -781,4 +790,4 @@
         {% endif %}
     </table>
 </div></div>{# PROOFS #}{% if (object.proofs and config.proofs == true) %}
-{% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}</div></div></div>{% endif %}{% endblock %}
+{% include '_Utils/_show_public_block_proofs.html.twig' with { proofs: object.proofs } %}</div></div></div>{% endif %}{% endblock %}

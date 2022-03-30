@@ -12,39 +12,36 @@
     {% for scenario in form.scenarioMenaces %}
         <tr>
             <td>
-                {% if scenario.vars.value.isDisponibilite %}
-                    <i class="fa fa-check"></i>
-                    <div style="display: none">
-                        {{ form_widget(scenario.isDisponibilite) }}
-                    </div>
-                {% else %}
+                {% if scenario.vars.value.canDicBeModified %}
                     {{ form_widget(scenario.isDisponibilite) }}
+                {% else %}
+                    {% if scenario.vars.value.isDisponibilite %}
+                        <i class="fa fa-check"></i>
+                    {% endif %}
                 {% endif %}
             </td>
             <td>
-                {% if scenario.vars.value.isIntegrite %}
-                    <i class="fa fa-check"></i>
-                    <div style="display: none">
-                        {{ form_widget(scenario.isIntegrite) }}
-                    </div>
-                {% else %}
+                {% if scenario.vars.value.canDicBeModified %}
                     {{ form_widget(scenario.isIntegrite) }}
+                {% else %}
+                    {% if scenario.vars.value.isIntegrite %}
+                        <i class="fa fa-check"></i>
+                    {% endif %}
                 {% endif %}
             </td>
             <td>
-                {% if scenario.vars.value.isConfidentialite %}
-                    <i class="fa fa-check"></i>
-                    <div style="display: none">
-                        {{ form_widget(scenario.isConfidentialite) }}
-                    </div>
-                {% else %}
+                {% if scenario.vars.value.canDicBeModified %}
                     {{ form_widget(scenario.isConfidentialite) }}
+                {% else %}
+                    {% if scenario.vars.value.isConfidentialite %}
+                        <i class="fa fa-check"></i>
+                    {% endif %}
                 {% endif %}
             </td>
             <td>
                 {{ scenario.vars.value.nom }}</td>
             <td>
-                {% if scenario.vars.value.vraisemblance is not null %}
+                {% if scenario.vars.value.vraisemblance is not null and scenario.vars.value.vraisemblance != 'vide' %}
                     {{ scenario.vars.value.vraisemblance|dictionary('vraisemblance_gravite') }}
                     <div style="display: none">
                         {{ form_widget(scenario.vraisemblance) }}
@@ -54,7 +51,7 @@
                 {% endif %}
             </td>
             <td>
-                {% if scenario.vars.value.gravite is not null %}
+                {% if scenario.vars.value.gravite is not null and scenario.vars.value.gravite != 'vide' %}
                     {{ scenario.vars.value.gravite|dictionary('vraisemblance_gravite') }}
                     <div style="display: none">
                         {{ form_widget(scenario.gravite) }}

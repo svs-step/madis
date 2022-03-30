@@ -612,52 +612,60 @@
                         </table>
                     </div>
                 </div>
+                {% if object.conformiteTraitement is not null and object.conformiteTraitement.lastAnalyseImpact is not null %}
+                    <div class="box box-solid box-primary">
+                        <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.last_aipd'|trans }}</h3></div>
+                        <div class="box-body">
+                            <table class="table">
+                                <tr>
+                                    <td style="width: 35%">
+                                        <strong>Avis</strong>
+                                    </td>
+                                    <td>
+                                        {% set analyseImpact = object.conformiteTraitement.lastAnalyseImpact %}
 
-                <div class="box box-solid box-primary">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.last_aipd'|trans }}</h3></div>
-                    <div class="box-body">
-                        <table class="table">
-                            <tr>
-                                <td style="width: 35%">
-                                    <strong>Conformité</strong>
-                                </td>
-                                <td>
-                                    {% if object.conformiteTraitement is not null %}
-                                        {{ getConformiteTraitementLabel(object.conformiteTraitement)|raw }}
-                                    {% else %}
-                                        <span class="badge bg-gray">Non-réalisée</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Date de validation</strong>
-                                </td>
-                                <td>
-                                    {% if object.conformiteTraitement is not null %}
-                                        {% set nbTotal = object.conformiteTraitement.nbConformes + object.conformiteTraitement.nbNonConformesMineures + object.conformiteTraitement.nbNonConformesMajeures %}
-                                        {% set widthNbConforme = ((object.conformiteTraitement.nbConformes * 100) / nbTotal)|round %}
-                                        {% set widthnbNonConformesMineures = ((object.conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round %}
-                                        {% set widthnbNonConformesMajeures = 100 - (widthNbConforme + widthnbNonConformesMineures) %}
-                                        <div class="stacked-bar-graph">
-                                            {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme tooltipchart"><span class="tooltipcharttext">Conforme : {{ object.conformiteTraitement.nbConformes }}</span></span>{% endif %}
-                                            {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure tooltipchart"><span class="tooltipcharttext">Non-conforme mineure : {{ object.conformiteTraitement.nbNonConformesMineures }}</span></span>{% endif %}
-                                            {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure tooltipchart"><span class="tooltipcharttext">Non-conforme majeure : {{ object.conformiteTraitement.nbNonConformesMajeures }}</span></span>{% endif %}
-                                        </div>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Actions</strong>
-                                </td>
-                                <td>
-                                    <a href="{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}"><i class="fa fa-pencil-alt"></i> {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}</a>
-                                </td>
-                            </tr>
-                        </table>
+                                        {% set labelAipdColor = "label-default" %}
+                                        {% if analyseImpact.statut == "defavorable" %}
+                                            {% set labelAipdColor = "label-danger" %}
+                                        {% elseif analyseImpact.statut == "favorable_avec_reserves" %}
+                                            {% set labelAipdColor = "label-warning" %}
+                                        {% elseif analyseImpact.statut == "favorable" %}
+                                            {% set labelAipdColor = "label-success" %}
+                                        {% endif %}
+                                        {% set statut = analyseImpact.statut %}
+                                        {% set labelStatut = "aipd.analyse_impact.values." ~ object.conformiteTraitement.lastAnalyseImpact.statut %}
+                                        <span class="label {{ labelAipdColor }}" style="min-width: 100%; display: inline-block;">
+                                            {{ labelStatut|trans}}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Date de validation</strong>
+                                    </td>
+                                    <td>
+                                        {% if analyseImpact.isValidated %}
+                                            {{ analyseImpact.dateValidation|date('d/m/Y') }}
+                                        {% else %}
+                                            En cours de validation
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Actions</strong>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
+                                            <i class="fa fa-chalkboard-teacher"></i>
+                                            {{ 'aipd.analyse_impact.action.edit'|trans }}
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             {% endif %}
 
             </div>

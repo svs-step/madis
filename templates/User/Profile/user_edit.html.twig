@@ -78,7 +78,7 @@
             </div>
 
             {% for role in roles %}
-                {% if role == "ROLE_USER" %}
+                {% if role == "ROLE_USER" and form.vars.value.collectivity.isServicesEnabled %}
                     <div class="box box-solid box-success">
                         <div class="box-header with-border">
                             <h3 class="box-title">{{ 'user.user.tab.services'|trans }}</h3>
@@ -90,7 +90,7 @@
                 {% endif %}
             {% endfor %}
         </div>
-
+        {{ form_row(form._token) }}
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class="box-body text-center">

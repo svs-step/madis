@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Converter;
 
+use App\Domain\AIPD\Dictionary\ReponseCritereFondamentalDictionary;
 use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\AIPD\Model\AnalyseMesureProtection;
 use App\Domain\AIPD\Model\AnalyseQuestionConformite;
@@ -26,7 +27,9 @@ class ModeleToAnalyseConverter
         $analyseImpact->setModeleAnalyse($modeleAnalyse->getNom());
         $analyseImpact->setCriterePrincipeFondamentaux(self::convertCriteres($analyseImpact, $modeleAnalyse->getCriterePrincipeFondamentaux()));
         $analyseImpact->setQuestionConformites(self::convertQuestionsConformite($analyseImpact, $modeleAnalyse->getQuestionConformites()));
-        $analyseImpact->setScenarioMenaces(self::convertScenariosMenace($analyseImpact, $modeleAnalyse->getScenarioMenaces()));
+        $mesuresProtections = self::convertDistinctMesureProtections($modeleAnalyse, $analyseImpact);
+        $analyseImpact->setMesureProtections($mesuresProtections);
+        $analyseImpact->setScenarioMenaces(self::convertScenariosMenace($analyseImpact, $modeleAnalyse->getScenarioMenaces(), $mesuresProtections));
 
         return $analyseImpact;
     }
@@ -39,6 +42,10 @@ class ModeleToAnalyseConverter
             $clone = clone $criterePrincipeFondamental;
             $clone->setAnalyseImpact($analyseImpact);
             $clone->setModeleAnalyse(null);
+            $clone->setCanBeModified(true);
+            if (ReponseCritereFondamentalDictionary::REPONSE_NON_RENSEIGNE !== $clone->getReponse()) {
+                $clone->setCanBeModified(false);
+            }
             $res[] = $clone;
         }
 
@@ -62,7 +69,7 @@ class ModeleToAnalyseConverter
         return $res;
     }
 
-    private static function convertScenariosMenace(AnalyseImpact $analyseImpact, $scenariosMenaces): array
+    private static function convertScenariosMenace(AnalyseImpact $analyseImpact, $scenariosMenaces, array $mesuresProtections): array
     {
         $res = [];
         /** @var ModeleScenarioMenace $scenarioModele */
@@ -77,14 +84,29 @@ class ModeleToAnalyseConverter
             $scenario->setGravite($scenarioModele->getGravite());
             $scenario->setPrecisions($scenarioModele->getPrecisions());
             $scenario->setAnalyseImpact($analyseImpact);
-            $scenario->setMesuresProtections(self::convertMesuresProtections($scenarioModele, $scenario));
+            foreach ($scenarioModele->getMesuresProtections() as $scenarioMesures) {
+                /** @var AnalyseMesureProtection $mesuresProtection */
+                foreach ($mesuresProtections as $mesuresProtection) {
+                    if ($scenarioMesures->getId()->toString() === $mesuresProtection->getOriginId()) {
+                        $mesuresProtection->addScenarioMenace($scenario);
+                        $scenario->addMesureProtection($mesuresProtection);
+                        continue;
+                    }
+                }
+            }
+//            $scenario->setMesuresProtections(self::convertMesuresProtections($scenarioModele, $scenario, $analyseImpact));
+            if ($scenarioModele->isDisponibilite() || $scenarioModele->isIntegrite() || $scenarioModele->isConfidentialite()) {
+                $scenario->setCanDicBeModified(false);
+            } else {
+                $scenario->setCanDicBeModified(true);
+            }
             $res[] = $scenario;
         }
 
         return $res;
     }
 
-    private static function convertMesuresProtections(ModeleScenarioMenace $modeleScenarioMenace, AnalyseScenarioMenace $analyseScenarioMenace): array
+    private static function convertMesuresProtections(ModeleScenarioMenace $modeleScenarioMenace, AnalyseScenarioMenace $analyseScenarioMenace, AnalyseImpact $analyseImpact): array
     {
         $res = [];
         foreach ($modeleScenarioMenace->getMesuresProtections() as $mesureProtection) {
@@ -96,10 +118,38 @@ class ModeleToAnalyseConverter
             $analyseMesure->setDetail($mesureProtection->getDetail());
             $analyseMesure->setPoidsVraisemblance($mesureProtection->getPoidsVraisemblance());
             $analyseMesure->setPoidsGravite($mesureProtection->getPoidsGravite());
-            $analyseMesure->setScenarioMenace($analyseScenarioMenace);
+//            $analyseMesure->setScenarioMenace($analyseScenarioMenace);
+            $analyseMesure->setOriginId($mesureProtection->getId()->toString());
+            $analyseMesure->setAnalyseImpact($analyseImpact);
             $res[] = $analyseMesure;
         }
 
         return $res;
+    }
+
+    private static function convertDistinctMesureProtections(ModeleAnalyse $modeleAnalyse, AnalyseImpact $analyseImpact)
+    {
+        $res = [];
+        foreach ($modeleAnalyse->getScenarioMenaces() as $scenario) {
+            foreach ($scenario->getMesuresProtections() as $mesureProtection) {
+                if (!array_key_exists((string) $mesureProtection->getId(), $res)) {
+                    $analyseMesure = new AnalyseMesureProtection();
+                    $analyseMesure->setNom($mesureProtection->getNom());
+                    $analyseMesure->setNomCourt($mesureProtection->getNomCourt());
+                    $analyseMesure->setLabelLivrable($mesureProtection->getLabelLivrable());
+                    $analyseMesure->setPhrasePreconisation($mesureProtection->getPhrasePreconisation());
+                    $analyseMesure->setDetail($mesureProtection->getDetail());
+                    $analyseMesure->setPoidsVraisemblance($mesureProtection->getPoidsVraisemblance());
+                    $analyseMesure->setPoidsGravite($mesureProtection->getPoidsGravite());
+                    $analyseMesure->setOriginId($mesureProtection->getId()->toString());
+                    $analyseMesure->setAnalyseImpact($analyseImpact);
+                    $res[$mesureProtection->getId()->toString()] = $analyseMesure;
+                }
+            }
+        }
+
+        //Set d'abord le tableau de mesure protection, puis set les scenario avec leur mesure et les faire pointer sur celles du tableau
+
+        return array_values($res);
     }
 }

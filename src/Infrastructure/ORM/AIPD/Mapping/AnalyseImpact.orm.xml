@@ -12,6 +12,7 @@
         <field name="modeleAnalyse" column="modele_analyse"/>
         <field name="dateValidation" column="date_validation" type="date" nullable="true"/>
         <field name="isReadyForValidation" column="ready_validation" type="boolean"/>
+        <field name="isValidated" column="is_validated" type="boolean"/>
 
         <field name="createdAt" column="created_at" type="datetime_immutable">
             <gedmo:timestampable on="create"/>

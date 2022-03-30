@@ -76,6 +76,8 @@ aipd:
         flashbag:
             success:
                 delete: L'analyse d'impact "%object%" a bien été supprimée
+            info:
+                cant_edit: "Vous ne pouvez plus modifier cette analyse d'impact : celle-ci a déjà été validée."
         form:
             justificatif: Justificatif
             action_protection: Action de protection associées
@@ -98,14 +100,14 @@ aipd:
         values:
             en_cours: En cours
             non_realisee: Non réalisée
-            non_favorable: Défavorable
+            defavorable: Défavorable
             favorable_avec_reserves: Favorable avec réserves
             favorable: Favorable
             evaluation:
-                grands_domaines: Évaluation des 4 grands domaines
+                grands_domaines: Évaluation des principes fondamentaux
                 mesures_securites: Évaluation des mesures de sécurité
                 risques_residuels: Risques résiduels
-                moyenne_dic_residuel: Moyennes DIC résiduels
+                moyenne_dic_residuel: Cartographie des risques résiduels
                 description_conformite: Description et conformité
                 gestion_risques: Gestion des risques
     critere_principe_fondamental:

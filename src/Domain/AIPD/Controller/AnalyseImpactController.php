@@ -14,9 +14,11 @@ use App\Domain\AIPD\Form\Type\AnalyseImpactType;
 use App\Domain\AIPD\Model\AnalyseAvis;
 use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\AIPD\Repository;
+use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Gaufrette\Filesystem;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\Form;
@@ -253,6 +255,11 @@ class AnalyseImpactController extends CRUDController
         if (null === $object = $this->repository->findOneByIdWithoutInvisibleScenarios($id)) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
+        if ($object->isValidated()) {
+            $this->addFlash('info', $this->getFlashbagMessage('info', 'cant_edit', $object));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
 
         $this->analyseFlow->bind($object);
         $form = $this->analyseFlow->createForm();
@@ -283,18 +290,26 @@ class AnalyseImpactController extends CRUDController
 
     public function modelesDatatablesAction()
     {
-        $request = $this->requestStack->getMasterRequest();
-
-        $user = $this->userProvider->getAuthenticatedUser();
+        $request      = $this->requestStack->getMasterRequest();
+        $collectivity = $this->entityManager->getRepository(Collectivity::class)->find($request->query->get('collectivity'));
 
         $modeles = $this->getModeleResults($request);
 
         $reponse = $this->getBaseDataTablesResponse($request, $modeles);
         foreach ($modeles as $modele) {
-            $reponse['data'][] = [
-                'nom'         => '<input type="radio" value="' . $modele->getId() . '" name="modele_choice" required="true"/> ' . $modele->getNom(),
-                'description' => $modele->getDescription(),
-            ];
+            $collectivityType               = $collectivity->getType();
+            $authorizedCollectivities       = $modele->getAuthorizedCollectivities();
+            $authorizedCollectivityTypes    = $modele->getAuthorizedCollectivityTypes();
+
+            if ((!\is_null($authorizedCollectivityTypes)
+                && in_array($collectivityType, $authorizedCollectivityTypes)) ||
+                $authorizedCollectivities->contains($collectivity)
+            ) {
+                $reponse['data'][] = [
+                    'nom'         => '<input type="radio" value="' . $modele->getId() . '" name="modele_choice" required="true"/> ' . $modele->getNom(),
+                    'description' => $modele->getDescription(),
+                ];
+            }
         }
 
         $jsonResponse = new JsonResponse();
@@ -349,6 +364,21 @@ class AnalyseImpactController extends CRUDController
 
     public function printAction(string $id)
     {
+        if (null === $object = $this->repository->findOneById($id)) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $this->pdf->setOption('header-html', $this->renderView($this->getTemplatingBasePath('pdf_header')));
+        $this->pdf->setOption('margin-top', '20');
+        $this->pdf->setOption('margin-bottom', '15');
+        $this->pdf->setOption('margin-left', '20');
+        $this->pdf->setOption('margin-right', '20');
+
+        return new PdfResponse(
+            $this->pdf->getOutputFromHtml(
+                $this->renderView($this->getTemplatingBasePath('pdf'), ['object' => $object]), ['javascript-delay' => 1000]),
+            $object->getConformiteTraitement()->getTraitement()->getName() . '.pdf'
+        );
     }
 
     public function validationAction(Request $request, string $id)
@@ -365,8 +395,10 @@ class AnalyseImpactController extends CRUDController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ('saveDraft' !== $form->getClickedButton() && ReponseAvisDictionary::REPONSE_NONE !== $object->getAvisResponsable()) {
+            if ('saveDraft' !== $form->getClickedButton() && ReponseAvisDictionary::REPONSE_NONE !== $object->getAvisResponsable()->getReponse()) {
+                $object->setDateValidation(new \DateTime());
                 $object->setIsValidated(true);
+                $object->setStatut($object->getAvisResponsable()->getReponse());
             }
             $this->entityManager->flush();
 

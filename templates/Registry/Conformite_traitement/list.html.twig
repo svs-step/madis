@@ -127,7 +127,7 @@
                                     {% set statut = "non_realisee" %}
                                     {% set labelAipdColor = "label-default" %}
                                     {% if conformiteTraitement is not null and analyseImpact is not null %}
-                                        {% if analyseImpact.statut == "non_favorable" %}
+                                        {% if analyseImpact.statut == "defavorable" %}
                                             {% set labelAipdColor = "label-danger" %}
                                         {% elseif analyseImpact.statut == "favorable_avec_reserves" %}
                                             {% set labelAipdColor = "label-warning" %}

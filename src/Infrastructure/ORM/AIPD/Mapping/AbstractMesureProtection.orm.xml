@@ -8,11 +8,11 @@
     <mapped-superclass name="App\Domain\AIPD\Model\AbstractMesureProtection">
         <id name="id" column="id" type="uuid"/>
 
-        <field name="nom" column="nom"/>
+        <field name="nom" column="nom" length="512"/>
         <field name="nomCourt" column="nom_court"/>
         <field name="labelLivrable" column="label_livrable"/>
         <field name="phrasePreconisation" column="phrase_preconisation"/>
-        <field name="detail" column="detail"/>
+        <field name="detail" column="detail" length="1024"/>
         <field name="poidsVraisemblance" column="poids_vraisemblance" type="integer"/>
         <field name="poidsGravite" column="poids_gravite" type="integer"/>
     </mapped-superclass>
