@@ -34,7 +34,7 @@
             <join-column on-delete="SET NULL"/>
         </many-to-one>
 
-        <one-to-many field="mesurements" mapped-by="contractor" target-entity="App\Domain\Registry\Model\Mesurement"/>
+        <many-to-many field="mesurements" target-entity="App\Domain\Registry\Model\Mesurement" mapped-by="contractors"/>
 
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">

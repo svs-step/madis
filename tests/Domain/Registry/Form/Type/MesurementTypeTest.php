@@ -26,6 +26,7 @@ namespace App\Tests\Domain\Registry\Form\Type;
 
 use App\Domain\Registry\Form\Type\MesurementType;
 use App\Domain\Registry\Model\Mesurement;
+use App\Domain\User\Model\Collectivity;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -35,35 +36,52 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class MesurementTypeTest extends FormTypeHelper
 {
     use ProphecyTrait;
 
+    private MesurementType $formType;
+
+    protected function setUp(): void
+    {
+        $this->security  = $this->prophesize(Security::class);
+
+        $this->formType = new MesurementType(
+            $this->security->reveal(),
+        );
+    }
+
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, new MesurementType());
+        $this->assertInstanceOf(AbstractType::class, $this->formType);
     }
 
     public function testBuildForm()
     {
+        $mesurement      = new Mesurement();
+        $collectivity    = new Collectivity();
+        $collectivity->setIsServicesEnabled(true);
+        $mesurement->setCollectivity($collectivity);
+
         $builder = [
-            'name'               => TextType::class,
-            'description'        => TextareaType::class,
-            'cost'               => TextType::class,
-            'charge'             => TextType::class,
-            'status'             => DictionaryType::class,
-            'planificationDate'  => DateType::class,
-            'comment'            => TextType::class,
-            'priority'           => DictionaryType::class,
-            'manager'            => TextType::class,
-            'contractor'         => EntityType::class,
-            'treatment'          => EntityType::class,
-            'violation'          => EntityType::class,
-            'request'            => EntityType::class,
+            'name'                => TextType::class,
+            'description'         => TextareaType::class,
+            'cost'                => TextType::class,
+            'charge'              => TextType::class,
+            'status'              => DictionaryType::class,
+            'planificationDate'   => DateType::class,
+            'comment'             => TextType::class,
+            'priority'            => DictionaryType::class,
+            'manager'             => TextType::class,
+            'contractors'         => EntityType::class,
+            'treatments'          => EntityType::class,
+            'violations'          => EntityType::class,
+            'requests'            => EntityType::class,
         ];
 
-        (new MesurementType())->buildForm($this->prophesizeBuilder($builder), []);
+        $this->formType->buildForm($this->prophesizeBuilder($builder), ['data' => $mesurement]);
     }
 
     public function testConfigureOptions(): void
@@ -79,6 +97,6 @@ class MesurementTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new MesurementType())->configureOptions($resolverProphecy->reveal());
+        $this->formType->configureOptions($resolverProphecy->reveal());
     }
 }

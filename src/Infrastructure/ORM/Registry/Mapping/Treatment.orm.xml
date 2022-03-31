@@ -109,7 +109,7 @@
             <join-column nullable="true"/>
         </one-to-one>
 
-        <one-to-many field="mesurements" mapped-by="treatment" target-entity="App\Domain\Registry\Model\Mesurement"/>
+        <many-to-many field="mesurements" target-entity="App\Domain\Registry\Model\Mesurement" mapped-by="treatments"/>
 
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">
