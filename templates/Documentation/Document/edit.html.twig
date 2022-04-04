@@ -20,3 +20,18 @@
 {% block body %}
     {{ include('Documentation/Document/_form.html.twig') }}
 {% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var l = $('#document_isLink');
+            var f = $('#document_uploadedFile');
+            var u = $('#document_url');
+            if (l.val() === '1') {
+                u.parents('.form-group').show()
+                u.attr('required', true);
+                f.attr('required', false);
+                f.parents('.form-group').hide()
+            }
+        })
+    </script>
+{% endblock %}

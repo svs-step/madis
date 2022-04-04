@@ -126,14 +126,17 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
     {
         $isLink = (bool) $this->requestStack->getCurrentRequest()->get('isLink');
         $data   = $event->getData();
-        $data->setIsLink($isLink);
+        if (!$data->getId()) {
+            $data->setIsLink($isLink);
+        }
+        //$data->setIsLink($isLink);
         $event->setData($data);
 
         $form = $event->getForm();
-        if ($isLink) {
+        if ($isLink||($data->getIsLink() === true)) {
             $form->add('url', UrlType::class, [
                 'label'    => 'documentation.document.form.label.url',
-                'required' => false,
+                'required' => true,
             ]);
         } else {
             $form->add('uploadedFile', FileType::class, [
