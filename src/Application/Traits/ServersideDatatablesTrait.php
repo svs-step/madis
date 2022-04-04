@@ -3,6 +3,7 @@
 namespace App\Application\Traits;
 
 use App\Application\Doctrine\Repository\DataTablesRepository;
+use App\Infrastructure\ORM\Registry\Repository\Treatment;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,7 +59,7 @@ trait ServersideDatatablesTrait
         foreach ($columns as $column) {
             if ('' !== $column['search']['value']) {
                 $searches[$column['data']] = $column['search']['value'];
-                if ($column['data'] === 'baseLegal') {
+                if ($column['data'] === 'baseLegal' && $this->repository instanceof Treatment) {
                     $searches[$column['data']] = json_encode($column['search']['value']);
                 }
             }
