@@ -18,6 +18,12 @@
             {{ form_row(form.url) }}
         {% endif %}
         {% if form.uploadedFile is defined %}
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <img src="{{ object.url }}" height="100" />
+                </div>
+            </div>
             {{ form_row(form.uploadedFile) }}
         {% endif %}
         {% if object.thumbUrl %}
