@@ -58,6 +58,9 @@ trait ServersideDatatablesTrait
         foreach ($columns as $column) {
             if ('' !== $column['search']['value']) {
                 $searches[$column['data']] = $column['search']['value'];
+                if ($column['data'] === 'baseLegal') {
+                    $searches[$column['data']] = json_encode($column['search']['value']);
+                }
             }
         }
 
