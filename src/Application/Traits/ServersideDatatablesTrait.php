@@ -3,7 +3,6 @@
 namespace App\Application\Traits;
 
 use App\Application\Doctrine\Repository\DataTablesRepository;
-use App\Infrastructure\ORM\Registry\Repository\Treatment;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

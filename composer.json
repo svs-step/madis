@@ -40,7 +40,7 @@
         "symfony/cache": "4.4.*",
         "symfony/dotenv": "*",
         "symfony/expression-language": "*",
-        "symfony/flex": "^1.1",
+        "symfony/flex": "^1.17",
         "symfony/form": "*",
         "symfony/property-access": "4.4.*",
         "symfony/property-info": "4.4.*",
