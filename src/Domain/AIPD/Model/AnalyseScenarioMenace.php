@@ -8,7 +8,7 @@ class AnalyseScenarioMenace extends AbstractScenarioMenace
 {
     private AnalyseImpact $analyseImpact;
 
-    private AnalyseMesureProtection $scenarioMenace;
+    private bool $canDicBeModified = true;
 
     public function getAnalyseImpact(): AnalyseImpact
     {
@@ -18,5 +18,20 @@ class AnalyseScenarioMenace extends AbstractScenarioMenace
     public function setAnalyseImpact(AnalyseImpact $analyseImpact): void
     {
         $this->analyseImpact = $analyseImpact;
+    }
+
+    public function isCanDicBeModified(): bool
+    {
+        return $this->canDicBeModified;
+    }
+
+    public function setCanDicBeModified(bool $canDicBeModified): void
+    {
+        $this->canDicBeModified = $canDicBeModified;
+    }
+
+    public function addMesureProtection(AnalyseMesureProtection $mesureProtection): void
+    {
+        $this->mesuresProtections[] = $mesureProtection;
     }
 }

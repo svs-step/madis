@@ -263,7 +263,8 @@ class RequestController extends CRUDController
 
     private function getActionsCellContent(Model\Request $demande)
     {
-        if ($this->isRequestInUserServices($demande)) {
+        $user = $this->userProvider->getAuthenticatedUser();
+        if ($user->getServices()->isEmpty() || $this->isRequestInUserServices($demande)) {
             return
                 '<a href="' . $this->router->generate('registry_request_edit', ['id' => $demande->getId()]) . '">
                     <i class="fa fa-pencil-alt"></i>' .

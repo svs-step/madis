@@ -29,11 +29,11 @@ class AnalyseEvaluationCalculator
     private static function getImpactFromGraviteAndVraisemblance($gravite, $vraisemblance)
     {
         $value = 1;
-        if ($gravite >= 3 && $vraisemblance >= 3) {
+        if ($gravite >= 2 && $vraisemblance >= 2) {
             $value = 4;
-        } elseif ($gravite >= 3 && $vraisemblance < 3) {
+        } elseif ($gravite >= 2 && $vraisemblance < 2) {
             $value = 3;
-        } elseif ($gravite < 3 && $vraisemblance >= 3) {
+        } elseif ($gravite < 2 && $vraisemblance >= 2) {
             $value = 2;
         }
 

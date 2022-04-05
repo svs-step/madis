@@ -39,6 +39,7 @@
         {# GENERAL INFORMATIONS #}
         {% if (
             (object.name and config.name == true)
+            or (object.service and config.service == true)
             or (object.goal and config.goal == true)
             or (object.author and config.author == true)
             or (object.author == "processing_manager" and object.coordonneesResponsableTraitement and config.coordonneesResponsableTraitement == true)
@@ -63,6 +64,15 @@
                                     <td>{{ object.name }}</td>
                                 </tr>
                             {% endif %}
+                            {% if (object.service and config.service == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.service'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.service }}</td>
+                                </tr>
+                            {% endif %}
+
                             {% if (object.goal and config.goal == true) %}
                                 <tr>
                                     <td>
@@ -781,4 +791,5 @@
         {% endif %}
     </table>
 </div></div>{# PROOFS #}{% if (object.proofs and config.proofs == true) %}
+
 {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}</div></div></div>{% endif %}{% endblock %}

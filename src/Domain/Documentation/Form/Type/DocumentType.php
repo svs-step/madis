@@ -133,7 +133,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
         $event->setData($data);
 
         $form = $event->getForm();
-        if ($isLink||($data->getIsLink() === true)) {
+        if ($isLink || (true === $data->getIsLink())) {
             $form->add('url', UrlType::class, [
                 'label'    => 'documentation.document.form.label.url',
                 'required' => true,

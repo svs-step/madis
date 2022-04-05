@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\AIPD\Converter\ModeleToAnalyseConverter;
+use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\AIPD\Repository as AipdRepository;
 use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Form\Type\ConformiteTraitement\ConformiteTraitementType;
@@ -227,8 +228,11 @@ class ConformiteTraitementController extends CRUDController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
+        $serviceEnabled = $object->getTraitement()->getCollectivity()->getIsServicesEnabled();
+
         return $this->render($this->getTemplatingBasePath('create'), [
-            'form' => $form->createView(),
+            'form'           => $form->createView(),
+            'serviceEnabled' => $serviceEnabled,
         ]);
     }
 
@@ -267,13 +271,17 @@ class ConformiteTraitementController extends CRUDController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
+        $serviceEnabled = $object->getTraitement()->getCollectivity()->getIsServicesEnabled();
+
         return $this->render($this->getTemplatingBasePath('edit'), [
-            'form' => $form->createView(),
+            'form'           => $form->createView(),
+            'serviceEnabled' => $serviceEnabled,
         ]);
     }
 
     public function startAipdAction(Request $request, string $id)
     {
+        /** @var Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement */
         $conformiteTraitement = $this->repository->findOneById($id);
         if (!$conformiteTraitement) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
@@ -282,7 +290,7 @@ class ConformiteTraitementController extends CRUDController
         if ($request->isMethod('GET')) {
             return $this->render($this->getTemplatingBasePath('start'), [
                 'totalItem'            => $this->modeleRepository->count(),
-                'route'                => $this->router->generate('aipd_analyse_impact_modele_datatables'),
+                'route'                => $this->router->generate('aipd_analyse_impact_modele_datatables', ['collectivity' => $conformiteTraitement->getTraitement()->getCollectivity()->getId()->toString()]),
                 'conformiteTraitement' => $conformiteTraitement,
             ]);
         }
@@ -297,11 +305,24 @@ class ConformiteTraitementController extends CRUDController
 
         $analyseImpact = ModeleToAnalyseConverter::createFromModeleAnalyse($modele);
         $analyseImpact->setConformiteTraitement($conformiteTraitement);
+        $this->setAnalyseReponsesQuestionConformite($analyseImpact, $conformiteTraitement);
         $this->entityManager->persist($analyseImpact);
+        foreach ($analyseImpact->getScenarioMenaces() as $scenarioMenace) {
+            foreach ($scenarioMenace->getMesuresProtections() as $mesureProtection) {
+                $this->entityManager->persist($mesureProtection);
+            }
+        }
         $this->entityManager->flush();
 
         return $this->redirectToRoute('aipd_analyse_impact_create', [
             'id' => $analyseImpact->getId(),
         ]);
+    }
+
+    private function setAnalyseReponsesQuestionConformite(AnalyseImpact &$analyseImpact, Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement)
+    {
+        foreach ($conformiteTraitement->getReponses() as $reponse) {
+            $analyseImpact->getQuestionConformitesOfPosition($reponse->getQuestion()->getPosition())->setReponseConformite($reponse);
+        }
     }
 }

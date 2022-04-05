@@ -30,11 +30,14 @@ use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Repository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\ControllerTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProfileController
 {
+    use ControllerTrait;
+
     /**
      * @var EntityManagerInterface
      */

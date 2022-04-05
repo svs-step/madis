@@ -228,8 +228,12 @@ class TreatmentController extends CRUDController
         ->getRepository(Treatment::class)
         ->findBy(
             [
-            'collectivity'  => $collectivity,
-            'public'        => 1, ],
+                'collectivity'  => $collectivity,
+                'public'        => 1,
+            ],
+            [
+                'name' => 'ASC',
+            ],
         );
 
         $objects = [];
@@ -239,12 +243,12 @@ class TreatmentController extends CRUDController
                 $objects[] = $treatment;
             }
         }
-        //die(var_dump($objects));
 
         return $this->render($this->getTemplatingBasePath('public_list'), [
-            'objects'   => $objects,
-            'route'     => '/publique/traitements/datatables?active=1',
-            'totalItem' => count($objects),
+            'objects'      => $objects,
+            'route'        => '/public/traitements/datatables?active=1',
+            'totalItem'    => count($objects),
+            'collectivity' => $collectivity,
         ]);
     }
 
@@ -342,11 +346,11 @@ class TreatmentController extends CRUDController
         foreach ($treatments as $treatment) {
             if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
                 $treatmentLink = '<a href="' . $this->router->generate('registry_public_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
-                ' . $treatment->getName() . '
+                ' . \htmlspecialchars($treatment->getName()) . '
                 </a>';
             } else {
                 $treatmentLink = '<a href="' . $this->router->generate('registry_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
-                ' . $treatment->getName() . '
+                ' . \htmlspecialchars($treatment->getName()) . '
                 </a>';
             }
 
@@ -436,11 +440,13 @@ class TreatmentController extends CRUDController
     {
         $id = $treatment->getId();
 
-        if ($this->isTreatmentInUserServices($treatment)) {
+        $user = $this->userProvider->getAuthenticatedUser();
+        if ($user->getServices()->isEmpty() || $this->isTreatmentInUserServices($treatment)) {
             $editPath   = $this->router->generate('registry_treatment_edit', ['id' => $id]);
             $deletePath = $this->router->generate('registry_treatment_delete', ['id' => $id]);
 
-            return '<a href="' . $editPath . '">
+            if ($this->authorizationChecker->isGranted('ROLE_USER')) {
+                return '<a href="' . $editPath . '">
              <i class="fa fa-pencil-alt"></i>
                  ' . $this->translator->trans('action.edit') . '
              </a>
@@ -448,7 +454,8 @@ class TreatmentController extends CRUDController
                  <i class="fa fa-trash"></i>
                  ' . $this->translator->trans('action.delete') . '
              </a>'
-         ;
+                    ;
+            }
         }
 
         return null;

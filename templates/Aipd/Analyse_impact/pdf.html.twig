@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.17/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.17/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+    <style>
+        .content-wrapper {
+            background-color: white !important;
+            z-index: 800;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 55px;
+        }
+
+        h1, h2, h3, h4 {
+            color: #3674b6;
+        }
+        table {
+            border: 1px solid black;
+        }
+
+        .table-bluecell {
+            background: #3674b6;
+            color: white;
+            width: 45%;
+        }
+        .separator {
+            height: 25px;
+        }
+
+        .annexe-head {
+            color: #3674b6;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        .annexe-prelink {
+            margin-left: 25px;
+        }
+        .annexe-link {
+            color: #3674b6;
+        }
+
+        .table-indicateur-head {
+            background: #808080;
+            color: white;
+            text-align: center;
+        }
+        .table-indicateur-maximale {
+            background: #c00000;
+            color: white;
+            text-align: center;
+        }
+        .table-indicateur-importante {
+            background: #ed7d31;
+            text-align: center;
+        }
+        .table-indicateur-limitee {
+            background: #ffc000;
+            text-align: center;
+        }
+        .table-indicateur-negligeable {
+            background: #6fad47;
+            text-align: center;
+        }
+        .reportGraph {
+            width:900px
+        }
+    </style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1 style="font-size: 55px">Analyse d'Impact relative à la Protection des Données</h1>
+        <div class="separator"></div>
+        <div style="text-align: center; font-size: 2em"> Instruction du dossier</div>
+    </section>
+
+    <section class="content container-fluid">
+
+        <div class="row" style="text-align: center"><h2>{{ object.conformiteTraitement.traitement.name }}</h2></div>
+        <div class="row" style="text-align: center"><h2>{{ object.conformiteTraitement.traitement.collectivity.name }}</h2></div>
+
+        <div class="separator"></div>
+        <div class="separator"></div>
+        <div class="row">
+            <div><strong style="font-size: 1.6em; margin-left:30px;">Responsable du traitement</strong></div>
+            <span style="font-size: 1.2em; margin-left:45px;">{{ object.conformiteTraitement.traitement.collectivity.legalManager.civility|dictionary('user_contact_civility') }} {{ object.conformiteTraitement.traitement.collectivity.legalManager.firstName }} {{ object.conformiteTraitement.traitement.collectivity.legalManager.lastName }}</span>
+        </div>
+        <div class="separator"></div>
+        <div class="row">
+            <div><strong style="font-size: 1.6em; margin-left:30px;">Délégué à la Protection des Données</strong></div>
+            <span style="font-size: 1.2em; margin-left:45px;">{{ object.conformiteTraitement.traitement.collectivity.dpo.civility|dictionary('user_contact_civility') }} {{ object.conformiteTraitement.traitement.collectivity.dpo.firstName }} {{ object.conformiteTraitement.traitement.collectivity.dpo.lastName }}</span>
+        </div>
+        <div  style="page-break-before: always;">
+            <h2>1. Préambule</h2>
+        </div>
+        <div>Le présent document contient tous les éléments nécessaires pour le Resposable de Traitement (RT), le Référent RGPD (RR) et le Délégué à la Protection des Données (DPD) pour mener à bien une Analyse d'Impact relative à la Protection des Données (le sigle AIPD sera utilisé dans la suite de ce document) conforme aux attentes de la CNIL.</div>
+        <div>Il est possible de retrouver l'ensemble des éléments produits dans ce docoment dans le logiciel MADIS.</div>
+
+        <h3>1.1 Méthode d'une Analyse d'Impact relative à la Protection des Données</h3>
+        <div>La démarche pour réaliser une analyse d'ipact comprend quatre étapes :</div>
+        <div>Il s'agit d'un <strong>processus d'amélioration continue</strong>. Il requiert donc parfois plusieurs itérations pour parvenir à un dispositif de protection de la vie privée acceptable. Il requiert en outre une surveillance des évolutions dans le temps (du context, des mesures, des risques, etc.), par exemple tous les ans, et des mises à jur dès qu'une évolution significative a lieu.</div>
+        <div>La démarche devrait être employée <strong>dès la conception d'un nouveau traitement de données à caractère personnel</strong>. En effet, une application en amont permet de déterminer les mesures nécessaires et suffisantes, et donc d'optimiser les coûts. A contrario, une application tardive, alors que le système est déjà créé et les mesures en place, peut remettre en question les choix effectués.</div>
+
+        <h2>2. Étude du contexte</h2>
+        <div>Ce chapitre a pour objectif de fournir une vision claire de l'organisation et du traitement de données personnelles considéré</div>
+        <h3>2.1 Description</h3>
+        <div class="col-md-6">
+            <table class="table table-bordered">
+                <tr>
+                    <td class="table-bluecell">Nature du traitement</td>
+                    <td>{{ object.conformiteTraitement.traitement.name }}</td>
+                </tr>
+            </table>
+            <div class="separator"></div>
+            {% if object.criterePrincipeFondamentalByCode('portee_traitement').reponse == 'non_applicable' %}
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="table-bluecell">Portée du traitement</td>
+                        <td>
+                            {{ object.criterePrincipeFondamentalByCode('portee_traitement').reponse }} <br />
+                            {{ object.criterePrincipeFondamentalByCode('portee_traitement').justification }}
+                        </td>
+                    </tr>
+                </table>
+                <div class="separator"></div>
+            {% endif %}
+            {% if object.criterePrincipeFondamentalByCode('contexte_traitement').reponse != 'non_applicable' %}
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="table-bluecell">Contexte du traitement</td>
+                        <td>
+                            {{ object.criterePrincipeFondamentalByCode('contexte_traitement').reponse|dictionary('reponse_critere_fondamental') }}<br />
+                            {{ object.criterePrincipeFondamentalByCode('contexte_traitement').justification }}
+                        </td>
+                    </tr>
+                </table>
+                <div class="separator"></div>
+            {% endif %}
+            <table class="table table-bordered">
+                <tr>
+                    <td class="table-bluecell">Finalité(s) du traitement</td>
+                    <td>
+                        {{ object.conformiteTraitement.traitement.goal }}</td>
+                </tr>
+            </table>
+            <div class="separator"></div>
+            <table class="table table-bordered">
+                <tr>
+                    <td class="table-bluecell">Données à caractère personnel</td>
+                    <td>
+                        {% for category in object.conformiteTraitement.traitement.dataCategories %}
+                            {{ category }}<br/>
+                        {% endfor %}
+                        {{ object.conformiteTraitement.traitement.dataCategoryOther }}
+                    </td>
+                </tr>
+            </table>
+            <div class="separator"></div>
+            <table class="table table-bordered">
+                <tr>
+                    <td class="table-bluecell">Destinataires</td>
+                    <td>
+                        {{ object.conformiteTraitement.traitement.recipientCategory }}
+                        {% for contractor in object.conformiteTraitement.traitement.contractors %}
+                            <br/>{{ contractor }}
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+            <div class="separator"></div>
+            <table class="table table-bordered">
+                <tr>
+                    <td class="table-bluecell">Durée de conservation</td>
+                    <td>
+                        {% if not object.conformiteTraitement.traitement.delay.otherDelay %}
+                            {{ object.conformiteTraitement.traitement.delay.number }}
+                            {{ object.conformiteTraitement.traitement.delay.period|dictionary('registry_delay_period') }}
+                        {% else %}
+                            {{ object.conformiteTraitement.traitement.delay.comment }}
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+            <div class="separator"></div>
+            {% if object.criterePrincipeFondamentalByCode('conformite_code').reponse == 'non_applicable' %}
+            <table class="table table-bordered">
+                <tr>
+                    <td class="table-bluecell">Conformité à un code de conduite existant</td>
+                    <td>
+                        {{ object.criterePrincipeFondamentalByCode('conformite_code').reponse|dictionary('reponse_critere_fondamental') }}
+                        {{ object.criterePrincipeFondamentalByCode('conformite_code').justification }}
+                    </td>
+                </tr>
+            </table>
+            <div class="separator"></div>
+            {% endif %}
+        </div>
+        <div class="reportGraph"><canvas id="grandsDomaines-chart"></canvas></div>
+
+        <h2>4. Études des risques liés à la sécurité des données</h2>
+        <div>Ce chapitre a pour objectifs d'obtenir une bonne connaissance des mesures contribuant à la sécurité et d'apprécier les risques.</div>
+        <h3>4.1 Évaluation des risques sur les droits et les libertés des personnes concernées</h3>
+
+        <table class="table table-bordered" style="margin-left: 40px; margin-right: 40px;">
+            <tr class="table-indicateur-head">
+                <td>Niveaux</td>
+                <td>Descriptions génériques de l'échelle de gravité</td>
+            </tr>
+            <tr>
+                <td class="table-indicateur-maximale">Maximale</td>
+                <td>Les personnes concernées pourraient connaître des conséquences significatives, voire irrémédiables, qu'elles pourraient ne pas surmonter</td>
+            </tr>
+            <tr>
+                <td class="table-indicateur-importante">Importante</td>
+                <td>Les personnes concernées pourraient connaître des conséquences significatives, qu'elles devraient pouvoir surmonter, mais avec des difficultés réelles et significatives</td>
+            </tr>
+            <tr>
+                <td class="table-indicateur-limitee">Limitée</td>
+                <td>Les personnes concernées pourraient connaître des désagréments significatifs, qu'elles pourront surmonter malgré quelques difficultés</td>
+            </tr>
+            <tr>
+                <td class="table-indicateur-negligeable">Négligeable</td>
+                <td>Les personnes concernées ne seront pas impactés ou pourraient connaître quelques désagréments, qu'elles surmonteront sans difficulté</td>
+            </tr>
+        </table>
+
+        <table class="table table-bordered" style="margin-left: 40px; margin-right: 40px;">
+            <tr class="table-indicateur-head">
+                <td>Niveaux</td>
+                <td>Descriptions génériques de l'échelle de vraisemblance</td>
+            </tr>
+            <tr>
+                <td class="table-indicateur-maximale">Maximale</td>
+                <td>Il semble extrêmement facile pour les sources des risques retenues de réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papier stockés dans le hall public de l'organisme).</td>
+            </tr>
+            <tr>
+                <td class="table-indicateur-importante">Importante</td>
+                <td>Il semble possible pour les sources de risques retenues de réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papiers stockés dans les bureaux d'un organisme dont l'accès est contrôlé par une personne à l'accueil).</td>
+            </tr>
+            <tr>
+                <td class="table-indicateur-limitee">Limitée</td>
+                <td>Il semble difficile pour les sources de risques retenues de réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papiers stockés dans un local de l'organisme dont l'accès est contrôlé par badge).</td>
+            </tr>
+            <tr>
+                <td class="table-indicateur-negligeable">Négligeable</td>
+                <td>Il ne semble pas possible que les sources de risques retenues puissent réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papiers stockés dans un local de l'organisme dont l'accès est contrôlé par badge et code d'accès).</td>
+            </tr>
+        </table>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>D</th>
+                <th>I</th>
+                <th>C</th>
+                <th>Scénario de menace</th>
+                <th>Vraisemblance</th>
+                <th>Gravité</th>
+                <th>Impact potentiel</th>
+            </tr>
+            {% for scenario in object.scenarioMenaces %}
+                <tr>
+                    <td>{% if scenario.isDisponibilite %}X{% endif %}</td>
+                    <td>{% if scenario.isIntegrite %}X{% endif %}</td>
+                    <td>{% if scenario.isConfidentialite %}X{% endif %}</td>
+                    <td>{{ scenario.nom }}</td>
+                    <td>{{ scenario.vraisemblance|dictionary('vraisemblance_gravite') }}</td>
+                    <td>{{ scenario.gravite|dictionary('vraisemblance_gravite') }}</td>
+                    <td>{{ getScenarioMenaceImpactPotentiel(scenario) }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <h3>4.2 Evaluation de l'impact et matrice de décision</h3>
+        <div>La matrice de décision ci-dessous vous informe du comportement attendu par la CNIL selon le niveau d'impact identifié :</div>
+        <div>
+            <table class="table table-bordered">
+                <tr>
+                    <td>Impact maximal</td>
+                    <td>Risque refusé <br />Avis CNIL</td>
+                </tr>
+                <tr>
+                    <td>Impact important</td>
+                    <td>Risque refusé</td>
+                </tr>
+                <tr>
+                    <td>Impact limité</td>
+                    <td>Risque refusé</td>
+                </tr>
+                <tr>
+                    <td>Impact négligeableté</td>
+                    <td>Risque accepté</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>4.3 Mesure(s) de réduction des risques envisagée(s)</h3>
+        <h4>4.3.1 Évaluation</h4>
+        <table class="table table-bordered">
+            <tr>
+                <th>Type de mesure</th>
+                <th>Mesure</th>
+                <th>Évaluation</th>
+                <th>Avis sur les mesures existantes</th>
+            </tr>
+            {% for mesure in object.mesureProtections %}
+                <tr>
+                    <td></td>
+                    <td>{{ mesure.nom }}</td>
+                    <td>{{ mesure.reponse|dictionary('reponse_mesure_protection') }}</td>
+                    <td>{{ mesure.detail }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
+
+        <h3>4.4 Risques résiduels</h3>
+        <div>Les risques résiduels correspondent aux risques non-traités ou pour lesquels il n'est pas prévu de mettre en oeuvre l'ensemble des mesures de sécurité.</div>
+        <div class="reportGraph"><canvas id="risquesResiduels-chart"></canvas></div>
+        <div class="reportGraph"><canvas id="dicResiduels-chart"></canvas></div>
+
+        <h2>5. Validation de l'AIPD</h2>
+        <div>Ce chapitre a pour objectifs de permettre la prise de décision visant à accepter ou non l'AIPD au regard des résultats de l'étude.</div>
+        <h3>5.1 Préparation des éléments utiles à la validation</h3>
+        <h4>5.1.1 Synthèse des quatres étapes</h4>
+        <div>Ci-dessous une synthèse des quatres étapes de l'AIPD.</div>
+
+        <table class="table table-bordered">
+            <tr style="background: #ef7d22; text-align: center;">
+                <td colspan="2">Description</td>
+            </tr>
+            <tr>
+                <td style="width: 80%"></td>
+                <td></td>
+            </tr>
+            <tr style="background: #a6a6a6; text-align: center;">
+                <td colspan="2">Principes fondamentaux</td>
+            </tr>
+            {% for critere in object.criterePrincipeFondamentaux %}
+                <tr>
+                    <td>{{ critere.labelLivrable }}</td>
+                    <td>{{ critere.reponse|dictionary('reponse_critere_fondamental') }}</td>
+                </tr>
+            {% endfor %}
+            <tr style="background: #ffc100; text-align: center;">
+                <td colspan="2">Risques liés à la sécurité</td>
+            </tr>
+            {% for mesure in object.mesureProtections %}
+                <tr>
+                    <td>{{ mesure.nom }}</td>
+                    <td>{{ mesure.reponse|dictionary('reponse_mesure_protection') }}</td>
+                </tr>
+            {% endfor %}
+            <tr style="background: #6eae40; text-align: center;">
+                <td colspan="2">Validation</td>
+            </tr>
+            <tr>
+                <td>Avis du référent RGPD</td>
+                <td>{{ object.avisReferent.reponse }}</td>
+            </tr>
+            <tr>
+                <td>Avis du DPD mutualisé</td>
+                <td>{{ object.avisDpd.reponse }}</td>
+            </tr>
+            <tr>
+                <td>Avis des représentants des personnes concernées</td>
+                <td>{{ object.avisRepresentant.reponse }}</td>
+            </tr>
+            <tr>
+                <td>Validation formelle du Responsable de Traitement</td>
+                <td>{{ object.avisResponsable.reponse }}</td>
+            </tr>
+        </table>
+
+        <h4>5.2 Avis des personnes consultées</h4>
+
+        <table class="table table-bordered">
+            <tr>
+                <td class="table-bluecell">Avis du référent RGPD</td>
+                <td>{{ object.avisReferent.reponse|dictionary('reponse_avis') }}</td>
+            </tr>
+            <tr><td colspan="2">{{ object.avisReferent.date|date('d/m/Y') }}</td></tr>
+            <tr><td colspan="2">{% if object.avisReferent.detail is not null %}{{ object.avisReferent.detail }}{% else %}{% endif %}</td></tr>
+        </table>
+        <table class="table table-bordered">
+            <tr>
+                <td class="table-bluecell">Avis du DPD</td>
+                <td>{{ object.avisDpd.reponse|dictionary('reponse_avis') }}</td>
+            </tr>
+            <tr><td colspan="2">{{ object.avisDpd.date|date('d/m/Y') }}</td></tr>
+            <tr><td colspan="2">{% if object.avisDpd.detail is not null %}{{ object.avisDpd.detail }}{% else %}{% endif %}</td></tr>
+        </table>
+        <table class="table table-bordered">
+            <tr>
+                <td class="table-bluecell">Avis des représentants des personnes concernées</td>
+                <td>{{ object.avisRepresentant.reponse|dictionary('reponse_avis') }}</td>
+            </tr>
+            <tr><td colspan="2">{{ object.avisRepresentant.date|date('d/m/Y') }}</td></tr>
+            <tr><td colspan="2">{% if object.avisRepresentant.detail is not null %}{{ object.avisRepresentant.detail }}{% else %}{% endif %}</td></tr>
+        </table>
+        <table class="table table-bordered">
+            <tr>
+                <td class="table-bluecell">Décision du RT</td>
+                <td>{{ object.avisResponsable.reponse|dictionary('reponse_avis') }}</td>
+            </tr>
+            <tr><td colspan="2">{{ object.avisResponsable.date|date('d/m/Y') }}</td></tr>
+            <tr><td colspan="2">{% if object.avisResponsable.detail is not null %}{{ object.avisResponsable.detail }}{% else %}{% endif %}</td></tr>
+        </table>
+
+{#            //////////////////////////////////////#}
+{#            /////////////// Annexes //////////////#}
+{#            //////////////////////////////////////#}
+        <div style="page-break-before: always;">
+            <h2>6. Annexes</h2>
+            <h3>6.1 Historique AIPD</h3>
+            <div></div>
+            <div></div>
+
+            <h3>6.2 Glossaire</h3>
+            <div class="annexe-head">Donnée à caractère personnel</div>
+            <div>Toute information se rapportant à une personne physique identifiée ou identifiable (ci-après dénommée "personne concernée"); est réputée pour être une "personne physique identifiable" une personne physique qui peut être identifiée, directement ou indirectement, notamment par référence à un identifiant, tel qu'un nom, un numéro d'identification, des données de localisation, un identifiant en ligne, ou à un ou plusieurs éléments spécifiques propres à son identité physique, physiologique, génétique, psychique, économique, culturelle ou sociale.</div>
+            <div class="annexe-head">Événement redouté</div>
+            <div>Violation potentielle de données pouvant mener à des impacts sur la vie privée des personnes concernées.</div>
+            <div class="annexe-head">Gravité</div>
+            <div>Estimation de l'ampleur des impacts potentiels sur la vie privée des personnes concernées.</div>
+            <div class="annexe-head">Menace</div>
+            <div>Mode opératoire composé d'une ou plusieurs actions unitaires sur des supports de données.</div>
+            <div class="annexe-head">Mesure</div>
+            <div>Action à entreprendre.</div>
+            <div class="annexe-head">Personnes concernées</div>
+            <div>Personnes auxquelles se rapportent les données qui font l'objet du traitement.</div>
+            <div class="annexe-head">Responsable de traitement</div>
+            <div>La personne physique ou morale, l'autorité publique, le service ou un autre organisme qui, seul ou conjointement avec d'autres, détermine les finalités et les moyens du traitement ; lorsque les finalités et les moyens de ce traitement sont déterminés par le droit de l'Union ou le droit d'un État membre, le responsable du traitement peut être désigné ou les traitements spécifiques applicables à sa désignation peuvent être prévus par le droit de l'Union ou par le droit d'un État membre.</div>
+            <div class="annexe-head">Traitement de données à caractère personnel (traitement)</div>
+            <div>Tout opération ou tout ensemble d'opérations effectuées ou non à l'aide de procédés automatisés et appliqués à des données ou des ensembles de données à caractère personnel, tel que la collecte, l'enregistrement, l'organisation, la structuration, la conservation, l'adaptation ou la modification, l'extraction, la consultation, l'utilisation, la communication par transmission, la diffusion ou tout autre forme de mise à disposition, le rapprochement ou l'interconnexion, la limitation, l'effacement ou la destruction.</div>
+            <div class="annexe-head">Vraisemblance</div>
+            <div>Estimation de la possibilité qu'un risque se réalise.</div>
+
+            <h3>6.3 Références</h3>
+            <div class="annexe-head">CNIL / CEPD</div>
+            <div class="annexe-link">https://www.cnil.fr/fr/ce-quil-faut-savoir-sur-lanalyse-dimpact-relative-la-protection-des-donnees-aipd</div>
+            <div class="annexe-link">https://www.cnil.fr/fr/nouveautes-sur-le-pia-guides-outil-piaf-etude-de-cas</div>
+            <div class="annexe-link">https://www.cnil.fr/fr/collectivites-territoriales</div>
+            <div class="annexe-link">https://www.edpb.europa.eu/our-work-tools/our-documents/publication-type/guidelines_fr</div>
+
+            <div class="annexe-head">ANSSI</div>
+            <div class="annexe-prelink">- EBIOS RM : Méthode d'analyse des risques</div>
+            <div class="annexe-link">https://www.ssi.gouv.fr/guide/la-methode-ebios-risk-manager-le-guide</div>
+            <div class="annexe-prelink">- Lien RGS / RGPD</div>
+            <div class="annexe-link">https://www.ssi.gouv.fr/administration/reglementation/rgpd-renforcer-la-securite-des-donnees-a-caractere-personnel</div>
+
+            <div class="annexe-head">CLUSIF</div>
+            <div class="annexe-prelink">- Méhari</div>
+            <div class="annexe-link">https://clusif.fr/services/management-des-risques/les-fondamentaux-de-mehari/</div>
+
+            <div class="annexe-head">ISO</div>
+            <div class="annexe-prelink">- ISO/IEC 27701:2019 -Technique de sécurité - Extension d'ISO/IEC 27001 et ISO/IEC 27002 au management de la protection de la vie privée - Exigences et lignes directrices</div>
+            <div class="annexe-link">https://www.iso.org/fr/standard/71670.html</div>
+        </div>
+
+    </section>
+</div>
+
+<script type="text/javascript">
+    // wkhtmltopdf 0.12.5 crash fix.
+    // https://github.com/wkhtmltopdf/wkhtmltopdf/issues/3242#issuecomment-518099192
+    'use strict';
+    (function(setLineDash) {
+        CanvasRenderingContext2D.prototype.setLineDash = function() {
+            if(!arguments[0].length){
+                arguments[0] = [1,0];
+            }
+            // Now, call the original method
+            return setLineDash.apply(this, arguments);
+        };
+    })(CanvasRenderingContext2D.prototype.setLineDash);
+    Function.prototype.bind = Function.prototype.bind || function (thisp) {
+        var fn = this;
+        return function () {
+            return fn.apply(thisp, arguments);
+        };
+    };
+
+    function radarChart(id, labels, serieLabel, data, color) {
+        var dataset = [];
+        data.forEach(function(item, index) {
+            dataset.push(
+                {
+                    label: serieLabel[index],
+                    data: item,
+                    backgroundColor: color[index],
+                }
+            );
+        });
+        new Chart(
+            document.getElementById(id), {
+                "responsive": false,
+                "type":"radar",
+                "data":{
+                    "labels":labels,
+                    "datasets":dataset
+                },
+                "options":{
+                    "scale": {
+                        "ticks": {
+                            "min": 0,
+                            "max": 5,
+                        }
+                    }
+                }
+            }
+        );
+    }
+
+    function stackedBarChart(id, labels, data) {
+        new Chart(document.getElementById(id), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: data,
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks : {
+                            beginAtZero: true,
+                            stepSize: 1,
+                        },
+                    }],
+                    xAxes: [{
+                        stacked: true,
+                    }],
+                    x: {
+                        stacked: true,
+                    },
+                    y: {
+                        stacked: true,
+                    },
+                },
+                animation: {
+                    duration: 0
+                }
+            }
+        });
+    }
+
+    function bubbleChart(id, labels, data) {
+        new Chart(document.getElementById(id), {
+            type: 'bubble',
+            data: {
+                datasets: data,
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks : {
+                            beginAtZero: true,
+                            stepSize: 1,
+                            min: 0,
+                            max: 4,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Gravité',
+                        }
+                    }],
+                    xAxes: [{
+                        ticks : {
+                            beginAtZero: true,
+                            stepSize: 1,
+                            min: 0,
+                            max: 4,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Vraisemblance',
+                        }
+                    }],
+                },
+                animation: {
+                    duration: 0
+                }
+            }
+        });
+    }
+
+    var colorBlue = 'rgba(54, 162, 235, 0.5)';
+    var colorPurple = 'rgba(153, 51, 204, 0.5)';
+    var colorTeal = 'rgba(109, 199, 200, 1)';
+    var colorPink = 'rgba(243, 109, 143, 1)';
+
+    var domainesLabels = [];
+    var domainesDatas = [];
+    {% for critere in object.criterePrincipeFondamentaux %}
+    domainesLabels.push('{{ critere.label|truncate(28,'...') }}');
+
+    domainesDatas.push(1);
+    {% endfor %}
+    {% for question in object.questionConformites %}
+    {% set reponse = object.conformiteTraitement.reponseOfPosition(question.position) %}
+    {% if reponse.conforme %}
+    domainesDatas.push(5);
+    {% elseif reponse.actionProtections is not empty %}
+    domainesDatas.push(3);
+    {% else %}
+    domainesDatas.push(1);
+    {% endif %}
+    domainesLabels.push('{{ question.question|truncate(28, '...') }}');
+    {% endfor %}
+    /* The format of the data used by the chart is [[],[]] but here we use only 1 set of data */
+    domainesDatas = [domainesDatas];
+
+    var mesuresLabels = [];
+    var mesuresDatas = [];
+    var risquesLabels = [];
+    var risquesDataSet1 = [];
+    var risquesDataSet2 = [];
+    var dicResiduelsData = [];
+    {% for scenario in object.scenarioMenaces %}
+        risquesLabels.push('{{ scenario.nom|truncate(20, '...') }}');
+        risquesDataSet2.push({{ getScenarioMenaceImpactPotentiel(scenario) }});
+        risquesDataSet1.push({{ getScenarioMenaceImpactResiduel(scenario) }})
+        dicResiduelsData.push({
+            label: "{{ scenario.nom }}",
+            data: [{x: {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}, y: {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}, r: 10}],
+            backgroundColor: colorBlue
+        });
+        {% for mesure in scenario.mesuresProtections %}
+            mesuresLabels.push('{{ mesure.nom }}');
+            {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
+                mesuresDatas.push(1);
+            {% elseif mesure.reponse == 'besoin_amelioration' %}
+                mesuresDatas.push(3);
+            {% else %}
+                mesuresDatas.push(5);
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    mesuresDatas = [mesuresDatas];
+    risquesDataSet1 = {label: "Risque couvert", data: risquesDataSet1, backgroundColor: colorTeal};
+    risquesDataSet2 = {label: "Risque résiduel", data: risquesDataSet2, backgroundColor: colorPink};
+    var risquesDatas = [risquesDataSet1, risquesDataSet2];
+
+    window.onload = function() {
+        radarChart("grandsDomaines-chart", domainesLabels, [''], domainesDatas, [colorBlue]);
+        radarChart('mesuresSecurite-chart', mesuresLabels, [''], mesuresDatas, [colorPurple]);
+        stackedBarChart("risquesResiduels-chart", risquesLabels, risquesDatas);
+        bubbleChart('dicResiduels-chart', risquesLabels, dicResiduelsData);
+    };
+
+</script>
+</body>
+</html>

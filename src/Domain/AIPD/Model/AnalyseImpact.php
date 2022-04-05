@@ -7,8 +7,10 @@ namespace App\Domain\AIPD\Model;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\AIPD\Dictionary\StatutAnalyseImpactDictionary;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
+use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AnalyseImpact
 {
@@ -62,12 +64,13 @@ class AnalyseImpact
 
     public function __construct()
     {
-        $this->id               = Uuid::uuid4();
-        $this->statut           = StatutAnalyseImpactDictionary::EN_COURS;
-        $this->avisReferent     = new AnalyseAvis();
-        $this->avisDpd          = new AnalyseAvis();
-        $this->avisRepresentant = new AnalyseAvis();
-        $this->avisResponsable  = new AnalyseAvis();
+        $this->id                = Uuid::uuid4();
+        $this->statut            = StatutAnalyseImpactDictionary::EN_COURS;
+        $this->avisReferent      = new AnalyseAvis();
+        $this->avisDpd           = new AnalyseAvis();
+        $this->avisRepresentant  = new AnalyseAvis();
+        $this->avisResponsable   = new AnalyseAvis();
+        $this->mesureProtections = new ArrayCollection();
     }
 
     public function __toString()
@@ -115,6 +118,17 @@ class AnalyseImpact
         return $this->criterePrincipeFondamentaux;
     }
 
+    public function getCriterePrincipeFondamentalByCode($code): ?CriterePrincipeFondamental
+    {
+        foreach ($this->criterePrincipeFondamentaux as $critere) {
+            if ($critere->getCode() === $code) {
+                return $critere;
+            }
+        }
+
+        throw new NotFoundHttpException('No critere with code ' . $code . ' has been found.');
+    }
+
     public function setCriterePrincipeFondamentaux($criterePrincipeFondamentaux): void
     {
         $this->criterePrincipeFondamentaux = $criterePrincipeFondamentaux;
@@ -123,6 +137,29 @@ class AnalyseImpact
     public function getQuestionConformites()
     {
         return $this->questionConformites;
+    }
+
+    public function getQuestionConformitesOfPositions(int $start, int $end)
+    {
+        $res = [];
+        foreach ($this->questionConformites as $question) {
+            if ($question->getPosition() >= $start && $question->getPosition() <= $end) {
+                $res[] = $question;
+            }
+        }
+
+        return $res;
+    }
+
+    public function getQuestionConformitesOfPosition(int $position)
+    {
+        foreach ($this->questionConformites as $question) {
+            if ($question->getPosition() === $position) {
+                return $question;
+            }
+        }
+
+        return null;
     }
 
     public function setQuestionConformites($questionConformites): void
@@ -148,18 +185,6 @@ class AnalyseImpact
     public function setScenarioMenaces($scenarioMenaces): void
     {
         $this->scenarioMenaces = $scenarioMenaces;
-    }
-
-    public function getMesureProtections()
-    {
-        $mesures = [];
-        foreach ($this->scenarioMenaces as $scenario) {
-            foreach ($scenario->getMesuresProtections() as $mesureProtection) {
-                $mesures[] = $mesureProtection;
-            }
-        }
-
-        return $mesures;
     }
 
     public function isReadyForValidation(): bool
@@ -220,5 +245,15 @@ class AnalyseImpact
     public function setIsValidated(bool $isValidated): void
     {
         $this->isValidated = $isValidated;
+    }
+
+    public function setMesureProtections($mesureProtections): void
+    {
+        $this->mesureProtections = $mesureProtections;
+    }
+
+    public function getMesureProtections()
+    {
+        return $this->mesureProtections;
     }
 }

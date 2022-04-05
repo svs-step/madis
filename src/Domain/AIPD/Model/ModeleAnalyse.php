@@ -87,10 +87,6 @@ class ModeleAnalyse
         $this->id                       = null;
         $this->authorizedCollectivities = null;
 
-        /* JetBrains complains for below error, but it's a false positive
-        See https://youtrack.jetbrains.com/issue/WI-56951 */
-//        $criteres = clone $this->criterePrincipeFondamentaux;
-//        $this->criterePrincipeFondamentaux = $criteres->toArray();
         $questions = [];
         foreach ($this->questionConformites as $questionConformite) {
             $questions[] = clone $questionConformite;

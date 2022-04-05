@@ -9,7 +9,7 @@ use App\Domain\AIPD\Model\CriterePrincipeFondamental;
 
 class BaseCriterePrincipeFondamental extends SimpleDictionary
 {
-    const PORTE_TRAITEMENT          = 'porte_traitement';
+    const PORTE_TRAITEMENT          = 'portee_traitement';
     const CONTEXTE_TRAITEMENT       = 'contexte_traitement';
     const CONFORMITE_CODE           = 'conformite_code';
     const DESCRIPTION_FONCTIONNELLE = 'description_fonctionnelle';
@@ -23,11 +23,11 @@ class BaseCriterePrincipeFondamental extends SimpleDictionary
     public static function getBaseCritere()
     {
         return [
-            self::PORTE_TRAITEMENT          => new CriterePrincipeFondamental('Portée du traitement'),
-            self::CONTEXTE_TRAITEMENT       => new CriterePrincipeFondamental('Contexte du traitement'),
-            self::CONFORMITE_CODE           => new CriterePrincipeFondamental('Conformité à un code de conduite existant'),
-            self::DESCRIPTION_FONCTIONNELLE => new CriterePrincipeFondamental('Description fonctionnelle du traitement'),
-            self::IDENTIFICATION_BIENS      => new CriterePrincipeFondamental('Identification des biens'),
+            self::PORTE_TRAITEMENT          => new CriterePrincipeFondamental('Portée du traitement', self::PORTE_TRAITEMENT),
+            self::CONTEXTE_TRAITEMENT       => new CriterePrincipeFondamental('Contexte du traitement', self::CONTEXTE_TRAITEMENT),
+            self::CONFORMITE_CODE           => new CriterePrincipeFondamental('Conformité à un code de conduite existant', self::CONFORMITE_CODE),
+            self::DESCRIPTION_FONCTIONNELLE => new CriterePrincipeFondamental('Description fonctionnelle du traitement', self::DESCRIPTION_FONCTIONNELLE),
+            self::IDENTIFICATION_BIENS      => new CriterePrincipeFondamental('Identification des biens', self::IDENTIFICATION_BIENS),
         ];
     }
 }

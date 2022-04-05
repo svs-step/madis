@@ -382,7 +382,7 @@ class MesurementController extends CRUDController
     {
         return '<a href="' .
             $this->router->generate('registry_mesurement_show', ['id' => $mesurement->getId()]) .
-            '">' . $mesurement->getName() . '</a>';
+            '">' . \htmlspecialchars($mesurement->getName()) . '</a>';
     }
 
     private function generateActionCell(Model\Mesurement $mesurement, bool $isActionPlan = false)

@@ -75,6 +75,9 @@ class LogJournalLinkGenerator
                 ->entityManager
                 ->getRepository(Service::class)
                 ->findOneBy(['id' => $id]);
+                if (null === $service) {
+                    return null;
+                }
 
                 return $this->router->generate('user_collectivity_show', ['id' => $service->getCollectivity()->getId()]);
             default:
