@@ -28,6 +28,7 @@ use App\Domain\Registry\Form\Type\Embeddable\RequestAnswerType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestApplicantType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestConcernedPeopleType;
 use App\Domain\Registry\Model\Request;
+use App\Domain\Registry\Model\Treatment;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityRepository;
@@ -164,6 +165,17 @@ class RequestType extends AbstractType
                 'attr'     => [
                     'rows' => 4,
                 ],
+            ])
+            ->add('treatments', EntityType::class, [
+                'class'         => Treatment::class,
+                'label'         => 'registry.request.form.treatment',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.name', 'ASC');
+                },
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => true,
             ])
         ;
     }

@@ -31,11 +31,13 @@ use App\Infrastructure\ORM\User\Repository as InfraRepo;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class CollectivityTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var RegistryInterface
@@ -52,7 +54,7 @@ class CollectivityTest extends TestCase
      */
     private $infraRepo;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registryProphecy      = $this->prophesize(RegistryInterface::class);
         $this->entityManagerProphecy = $this->prophesize(EntityManagerInterface::class);

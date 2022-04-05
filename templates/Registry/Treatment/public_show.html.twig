@@ -1,4 +1,4 @@
-{% extends 'base_public.html.twig' %}
+{% extends 'base_publique.html.twig' %}
 
 {% set bodyClass = 'registry_treatment show' %}
 {% set menuItem = 'registry_treatment' %}
@@ -72,6 +72,7 @@
                                     <td>{{ object.service }}</td>
                                 </tr>
                             {% endif %}
+
                             {% if (object.goal and config.goal == true) %}
                                 <tr>
                                     <td>
@@ -228,7 +229,7 @@
                                         <ul>
                                             {% for contractor in object.contractors %}
                                                 <li>
-                                                    {{ contractor }}
+                                                    <a href="{{ path('registry_contractor_show', {'id': contractor.id}) }}">{{ contractor }}</a>
                                                 </li>
                                             {% endfor %}
                                         </ul>
@@ -790,4 +791,5 @@
         {% endif %}
     </table>
 </div></div>{# PROOFS #}{% if (object.proofs and config.proofs == true) %}
-{% include '_Utils/_show_public_block_proofs.html.twig' with { proofs: object.proofs } %}</div></div></div>{% endif %}{% endblock %}
+
+{% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}</div></div></div>{% endif %}{% endblock %}

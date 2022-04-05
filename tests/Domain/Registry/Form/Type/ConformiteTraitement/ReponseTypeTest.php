@@ -41,7 +41,7 @@ class ReponseTypeTest extends FormTypeHelper
      */
     private $security;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->security = $this->prophesize(Security::class)->reveal();
     }

@@ -6,6 +6,7 @@ namespace App\Tests\Application\Symfony\EventSubscriber\Kernel;
 
 use App\Application\Symfony\EventSubscriber\Kernel\IdleSubscriber;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class IdleSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
     /**
      * @var int
      */

@@ -22,7 +22,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Domain\Event\Symfony\EventSubscriber\Doctrine;
+namespace App\Tests\Application\Symfony\EventSubscriber\Doctrine;
 
 use App\Application\Symfony\EventSubscriber\Doctrine\LinkCreatorSubscriber;
 use App\Application\Symfony\Security\UserProvider;
@@ -33,6 +33,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Role\SwitchUserRole;
@@ -40,6 +41,7 @@ use Symfony\Component\Security\Core\Role\SwitchUserRole;
 class LinkCreatorSubscriberTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var LifecycleEventArgs

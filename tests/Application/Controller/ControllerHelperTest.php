@@ -26,6 +26,7 @@ namespace App\Tests\Application\Controller;
 
 use App\Application\Controller\ControllerHelper;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -38,6 +39,8 @@ use Twig\Environment;
 
 class ControllerHelperTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var Environment
      */
@@ -68,7 +71,7 @@ class ControllerHelperTest extends TestCase
      */
     private $helper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->twigProphecy        = $this->prophesize(Environment::class);
         $this->routerProphecy      = $this->prophesize(RouterInterface::class);

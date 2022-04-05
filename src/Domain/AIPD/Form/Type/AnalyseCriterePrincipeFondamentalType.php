@@ -11,9 +11,17 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class AnalyseCriterePrincipeFondamentalType extends AbstractType
 {
+    protected string $maxSize;
+
+    public function __construct(string $maxSize)
+    {
+        $this->maxSize = $maxSize;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('reponse', DictionaryType::class, [
@@ -23,8 +31,13 @@ class AnalyseCriterePrincipeFondamentalType extends AbstractType
                 'required' => false,
             ])
             ->add('fichierFile', FileType::class, [
-                'required' => false,
-                'label'    => false,
+                'required'    => false,
+                'label'       => false,
+                'constraints' => [
+                    new File([
+                        'maxSize'   => $this->maxSize,
+                    ]),
+                ],
             ])
         ;
     }

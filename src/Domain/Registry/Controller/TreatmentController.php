@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use App\Domain\Registry\Form\Type\TreatmentConfigurationType;
@@ -42,6 +43,7 @@ use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -145,8 +147,13 @@ class TreatmentController extends CRUDController
             $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
         }
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Traitement',
+        ]);
+
         return $this->render('Registry/Treatment/list.html.twig', [
             'totalItem' => $this->repository->count($criteria),
+            'category'  => $category,
             'route'     => $this->router->generate('registry_treatment_list_datatables', ['active' => $criteria['active']]),
         ]);
     }
@@ -357,6 +364,7 @@ class TreatmentController extends CRUDController
             $no  = '<span class="badge bg-orange">' . $this->translator->trans('label.no') . '</span>';
 
             $reponse['data'][] = [
+                'id'                     => $treatment->getId(),
                 'nom'                    => $treatmentLink,
                 'collectivite'           => $treatment->getCollectivity()->getName(),
                 'baseLegal'              => !empty($treatment->getLegalBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : null,
@@ -375,14 +383,47 @@ class TreatmentController extends CRUDController
                 'updatedAt'              => date_format($treatment->getUpdatedAt(), 'd-m-Y H:i:s'),
                 'public'                 => $treatment->getPublic() ? $yes : $no,
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
+                'specific_traitement'    => $this->getSpecificTraitement($treatment),
+                'conformite_traitement'  => 'test',
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
-
         $jsonResponse = new JsonResponse();
         $jsonResponse->setJson(json_encode($reponse));
 
         return $jsonResponse;
+    }
+
+    private function getSpecificTraitement(Treatment $treatment)
+    {
+        $user   = $this->userProvider->getAuthenticatedUser();
+        $values = [];
+        if ($treatment->isSystematicMonitoring()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.systematic_monitoring'));
+        }
+        if ($treatment->isLargeScaleCollection()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.large_scale_collection'));
+        }
+        if ($treatment->isVulnerablePeople()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.vulnerable_people'));
+        }
+        if ($treatment->isDataCrossing()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.data_crossing'));
+        }
+        if ($treatment->isEvaluationOrRating()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.evaluation_or_rating'));
+        }
+        if ($treatment->isAutomatedDecisionsWithLegalEffect()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.automated_decisions_with_legal_effect'));
+        }
+        if ($treatment->isAutomaticExclusionService()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.automatic_exclusion_service'));
+        }
+        if ($treatment->isInnovativeUse()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.innovative_use'));
+        }
+
+        return $values;
     }
 
     private function isTreatmentInUserServices(Model\Treatment $treatment): bool
@@ -420,6 +461,90 @@ class TreatmentController extends CRUDController
         return null;
     }
 
+    public function pdfAllAction()
+    {
+        $request = $this->requestStack->getMasterRequest();
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
+
+        $objects = [];
+
+        foreach ($ids as $id) {
+            $treatment = $this->repository->findOneById($id);
+            array_push($objects, $treatment);
+        }
+
+        return new PdfResponse(
+            $this->pdf->getOutputFromHtml(
+                $this->renderView($this->getTemplatingBasePath('pdf_all'), ['objects' => $objects])
+            ),
+            $this->getPdfName((string) 'print') . '.pdf'
+        );
+    }
+
+    /**
+     * The archive action
+     * Display a confirmation message to confirm data archived.
+     */
+    public function archiveAllAction(): Response
+    {
+        $request = $this->requestStack->getMasterRequest();
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            // $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));
+            $this->addFlash('error', 'Vous ne pouvez pas archiver ces traitements');
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        foreach ($ids as $id) {
+            $treatment = $this->repository->findOneById($id);
+            if ($treatment) {
+                $treatment->setActive(false);
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $treatment));
+            }
+        }
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
+    /**
+     * The delete action view
+     * Display a confirmation message to confirm data deletion.
+     */
+    public function deleteAllAction(): Response
+    {
+        $request = $this->requestStack->getMasterRequest();
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('delete_all'), [ // delete_all
+            'ids'               => $ids,
+            'treatment_length'  => count($ids),
+        ]);
+    }
+
+    public function deleteConfirmationAllAction(): Response
+    {
+        $request = $this->requestStack->getMasterRequest();
+        $ids     = $request->query->get('ids');
+
+        foreach ($ids as $id) {
+            $this->deleteConfirmationAction($id);
+        }
+
+        return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -444,7 +569,9 @@ class TreatmentController extends CRUDController
             '15' => 'updatedAt',
             '16' => 'public',
             '17' => 'responsableTraitement',
-            '18' => 'actions',
+            '18' => 'specific_traitement',
+            '19' => 'conformite_traitement',
+            '20' => 'actions',
         ];
     }
 }

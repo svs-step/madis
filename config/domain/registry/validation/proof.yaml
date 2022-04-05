@@ -15,34 +15,6 @@ App\Domain\Registry\Model\Proof:
             - NotNull:
                 message: 'registry_proof.document_file.not_null'
                 groups: ['create']
-            - File:
-                maxSize: 3072k
-                mimeTypes:
-                    # JPG / PNG
-                    - image/jpeg
-                    - image/png
-                    # PDF
-                    - application/pdf
-                    # DOC
-                    - application/msword
-                    # DOCX
-                    - application/vnd.openxmlformats-officedocument.wordprocessingml.document
-                    # Lors de la génération d'un fichier (Bilan) word son mimetype est doublé.
-                    # On conserve le mimetype suivant car il y avait des bugs avec iOS (ipad et iphone) lors du téléchargement
-                    - application/vnd.openxmlformats-officedocument.wordprocessingml.documentapplication/vnd.openxmlformats-officedocument.wordprocessingml.document
-                    # ODT
-                    - application/vnd.oasis.opendocument.text
-                    # XLS
-                    - application/vnd.ms-excel
-                    # XLSX
-                    - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-                    # ODS
-                    - application/vnd.oasis.opendocument.spreadsheet
-                    # PPT / PPTX
-                    - application/vnd.ms-powerpoint
-                    - application/vnd.openxmlformats-officedocument.presentationml.presentation
-                mimeTypesMessage: 'registry_proof.document_file.file'
-                groups: ['default']
         comment:
             - Length:
                   max: 255

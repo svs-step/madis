@@ -103,6 +103,7 @@ aipd:
             defavorable: Défavorable
             favorable_avec_reserves: Favorable avec réserves
             favorable: Favorable
+            non_favorable: Défavorable
             evaluation:
                 grands_domaines: Évaluation des principes fondamentaux
                 mesures_securites: Évaluation des mesures de sécurité
@@ -117,4 +118,3 @@ aipd:
             justification: Justification
             fichier: Joindre un fichier
             conformite: Conformité
-

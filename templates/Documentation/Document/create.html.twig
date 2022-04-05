@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'documentation_document form create' %}
+{% set menuItem = 'documentation_document' %}
+
+{% block title %}{{ 'documentation.document.title.create'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'documentation.document.title.create'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'documentation.document.breadcrumb.list'|trans, 'link': path('documentation_document_list') },
+        { 'name': 'documentation.document.breadcrumb.create'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('Documentation/Document/_form.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var l = $('#document_isLink');
+            var f = $('#document_uploadedFile');
+            var u = $('#document_url');
+            console.log(l.val());
+            if (l.val() !== '1') {
+                u.attr('required', false);
+                f.attr('required', true);
+                u.parents('.form-group').hide()
+            }
+        })
+    </script>
+{% endblock %}

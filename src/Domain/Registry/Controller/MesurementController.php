@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Dictionary\MesurementPriorityDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Form\Type\MesurementType;
@@ -162,9 +163,14 @@ class MesurementController extends CRUDController
     {
         $request = $this->requestStack->getCurrentRequest();
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Action de protection',
+        ]);
+
         return $this->render($this->getTemplatingBasePath('list'), [
-            'totalItem' => $this->repository->count($this->getRequestCriteria($request)),
-            'route'     => $this->router->generate('registry_mesurement_list_datatables'),
+            'totalItem'   => $this->repository->count($this->getRequestCriteria($request)),
+            'category'    => $category,
+            'route'       => $this->router->generate('registry_mesurement_list_datatables'),
         ]);
     }
 
@@ -193,9 +199,14 @@ class MesurementController extends CRUDController
     {
         $request = $this->requestStack->getCurrentRequest();
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => "Plan d'action",
+        ]);
+
         return $this->render('Registry/Mesurement/action_plan.html.twig', [
-            'totalItem' => $this->repository->count($this->getRequestCriteria($request)),
-            'route'     => $this->router->generate('registry_mesurement_list_datatables', ['action_plan' => true]),
+            'totalItem'   => $this->repository->count($this->getRequestCriteria($request)),
+            'category'    => $category,
+            'route'       => $this->router->generate('registry_mesurement_list_datatables', ['action_plan' => true]),
         ]);
     }
 
@@ -314,7 +325,7 @@ class MesurementController extends CRUDController
         $isActionPlan = $request->query->getBoolean('action_plan');
 
         if ($isActionPlan) {
-            return  [
+            return [
                 0 => 'nom',
                 1 => 'collectivite',
                 2 => 'date_planification',

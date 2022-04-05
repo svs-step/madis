@@ -14,6 +14,7 @@ action:
     draft: Enregistrer un brouillon
     duplicate: Dupliquer
     edit: Modifier
+    share: Partager
     export: Exporter
     impersonate: Se connecter
     print: Imprimer
@@ -26,6 +27,7 @@ action:
 
 label:
     actions: Actions
+    action_link: Lien
     active: Actif
     archived: Archivés
     danger_zone: Zone de danger
@@ -33,11 +35,28 @@ label:
     inactive: Inactif
     linked_documents: Documents associés
     linked_treatment: Traitements associés
+    linked_mesurement: Actions de protection associées
+    linked_violations: Violations associées
+    linked_request: Demandes associées
     no: Non
     yes: Oui
     no_linked_document: Aucun document associé
     no_linked_treatment: Aucun traitement associé
+    no_linked_mesurement: Aucune action de protection associée
+    no_linked_violations: Aucune violation associée
+    no_linked_requests: Aucune demande associée
     not_archived: Non archivés
+    category: Catégories documentaires
+    request_correct: Supprimer des données
+    request_delete: Retirer le consentement
+    request_withdraw_consent: Accéder à des données
+    request_access: Accéder à des données
+    request_data_portability: Portabilité des données
+    request_limit_treatment: Limiter le traitement
+    request_other: Autre
+    violation_confidentiality: Perte de la confidentialité
+    violation_integrity: Perte de l'intégrité
+    violation_availability: Perte de la disponibilité
 
 placeholder:
     precision: Précisez
@@ -51,6 +70,7 @@ sidebar_menu:
   configuration_treatments: Configuration des traitements
   conformite_traitements: Conformité des traitements
   dashboard: Tableau de bord
+  documentation: Espace documentaire
   maturity_survey: Indice de maturité
   registry_action_plan: Plan d'actions
   registry_contractors: Sous-traitants

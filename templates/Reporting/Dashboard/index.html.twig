@@ -16,7 +16,6 @@
 {% endblock %}
 
 {% block body %}
-
     <div class="row">
 
         {# DETAIL : CONTRACTOR #}
@@ -87,22 +86,6 @@
                 </div>
             </div>
 
-            {# MESUREMENT : planified actions #}
-            <div class="col-sm-6 col-xs-12">
-                <div class="small-box bg-aqua">
-                    <div class="inner">
-                        <h3>{{ data.mesurement.value.planified }}</h3>
-                        <p>Actions planifiées</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-crosshairs"></i>
-                    </div>
-                    <a href="{{ path('registry_mesurement_action_plan') }}" class="small-box-footer">
-                        Plus d'informations <i class="fa fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-
             {# VIOLATION #}
             <div class="col-sm-6 col-xs-12">
                 <div class="small-box bg-red">
@@ -120,18 +103,41 @@
             </div>
 
             {# MESUREMENT : applied #}
-            <div class="col-sm-6 col-xs-12">
-                <div class="small-box bg-green">
-                    <div class="inner">
-                        <h3>{{ data.mesurement.value.applied }}</h3>
-                        <p>Actions mises en place</p>
+            <div class="col-md-12">
+                <div class="box box-solid">
+                    <div class="box-header with-border"><h3 class="box-title">Plan d'actions <small>{{ app_user_dashboard_action_plan_limit }} prochaines</small></h3></div>
+                    <div class="box-body no-padding">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>{{ 'registry.mesurement.list.name'|trans }}</th>
+                                <th>{{ 'registry.mesurement.list.planification_date'|trans }}</th>
+                                <th>{{ 'registry.mesurement.list.manager'|trans }}</th>
+                                <th>{{ 'registry.mesurement.list.priority'|trans }}</th>
+                                <th>{{ 'label.action_link'|trans }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for action in actions | slice(0, limit_actions) %}
+                                <tr>
+                                    <td>{{ action.name }}</td>
+                                    <td>{{ action.planificationDate|date('d/m/Y') }}</td>
+                                    <td>{{ action.manager }}</td>
+                                    <td>
+                                        {% set key = action.priority %}
+                                        {% if key is not null %}
+                                            {{ dictionary('registry_mesurement_priority')[key] }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="/actions-de-protection/visualiser/{{ action.id }}" ><i class="far fa-eye"></i></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="icon">
-                        <i class="fa fa-adjust"></i>
-                    </div>
-                    <a href="{{ path('registry_mesurement_list') }}" class="small-box-footer">
-                        Plus d'informations <i class="fa fa-arrow-circle-right"></i>
-                    </a>
                 </div>
             </div>
 
@@ -247,6 +253,7 @@
                                     {% endfor %}
                                 </tbody>
                             </table>
+                        </div>
                     {% endif %}
                     </div>
                 </div>
@@ -259,7 +266,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">Journalisation <small>{{ app_user_dashboard_journalisation_limit }} derniers</small></h3></div>
+                <div class="box-header with-border">
+                    <h3 class="box-title">Journalisation <small>{{ app_user_dashboard_journalisation_limit }} derniers</small></h3>
+                </div>
                 <div class="box-body no-padding">
                     <table class="table">
                         <thead>

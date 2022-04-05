@@ -28,11 +28,14 @@ use App\Domain\User\Model\User;
 use App\Domain\User\Symfony\Security\Authorization\UserAuthorization;
 use App\Domain\User\Symfony\Security\Checker\UserChecker;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 
 class UserCheckerTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var UserAuthorization
      */
@@ -43,7 +46,7 @@ class UserCheckerTest extends TestCase
      */
     private $checker;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->userAuthorizationProphecy = $this->prophesize(UserAuthorization::class);
 

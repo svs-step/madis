@@ -27,6 +27,8 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Documentation\Model\Category;
+use App\Domain\Documentation\Model\Document;
 use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Form\Type\ProofType;
 use App\Domain\Registry\Model;
@@ -37,6 +39,7 @@ use App\Domain\User\Dictionary\UserRoleDictionary;
 use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
+use PhpOffice\PhpWord\Shared\ZipArchive;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -271,13 +274,53 @@ class ProofController extends CRUDController
         return $response;
     }
 
+    public function downloadAll()
+    {
+        $objects = $this->repository->findAll();
+
+        $files = [];
+        foreach ($objects as $object) {
+            /** @var Model\Proof|null $object */
+            if (!$object->getDeletedAt()) {
+                $files[] = $object->getDocument();
+            }
+        }
+        $zip      =  new ZipArchive();
+        $filename = './uploads/registry/proof/zip/test.zip';
+
+        if (true !== $zip->open($filename, ZipArchive::OVERWRITE)) {
+            if (true !== $zip->open($filename, ZipArchive::CREATE)) {
+                exit("Impossible d'ouvrir le fichier $filename>\n");
+            }
+        }
+
+        foreach ($files as $file) {
+            $zip->addFile('./uploads/registry/proof/document/' . $file, $file);
+        }
+
+        $zip->close();
+
+        $date     = date('dmY');
+        $response = new Response(file_get_contents($filename));
+        $response->headers->set('Content-Type', 'application/zip');
+        $response->headers->set('Content-Disposition', 'attachment;filename="Documents' . $date . '.zip"');
+        $response->headers->set('Content-length', filesize($filename));
+
+        return $response;
+    }
+
     public function listAction(): Response
     {
         $criteria = $this->getRequestCriteria();
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Preuves',
+        ]);
+
         return $this->render($this->getTemplatingBasePath('list'), [
-            'totalItem' => $this->repository->count($criteria),
-            'route'     => $this->router->generate('registry_proof_list_datatables', ['archive' => $criteria['archive']]),
+            'totalItem'   => $this->repository->count($criteria),
+            'category'    => $category,
+            'route'       => $this->router->generate('registry_proof_list_datatables', ['archive' => $criteria['archive']]),
         ]);
     }
 

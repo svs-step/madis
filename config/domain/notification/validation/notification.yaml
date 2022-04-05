@@ -1,0 +1,10 @@
+App\Domain\Registry\Model\Notification:
+    properties:
+        state:
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'notifications_notification_state'
+                groups: ['default']
+        action:
+            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                name: 'notifications_notification_action'
+                groups: ['default']

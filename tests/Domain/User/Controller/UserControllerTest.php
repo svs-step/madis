@@ -34,6 +34,7 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
@@ -45,6 +46,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UserControllerTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var EntityManagerInterface

@@ -33,12 +33,15 @@ use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Model as UserModel;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ReviewControllerTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var WordHandler
      */
@@ -94,7 +97,7 @@ class ReviewControllerTest extends TestCase
      */
     private $controller;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->wordHandlerProphecy                    = $this->prophesize(WordHandler::class);
         $this->userProviderProphecy                   = $this->prophesize(UserProvider::class);

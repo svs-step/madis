@@ -25,7 +25,7 @@ class ConformiteTypeTest extends FormTypeHelper
      */
     private $formType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->security = $this->prophesize(Security::class);
         $this->formType = new ConformiteType($this->security->reveal());

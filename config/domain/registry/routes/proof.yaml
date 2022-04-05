@@ -23,6 +23,12 @@ registry_proof_download:
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\ProofController:downloadAction'
 
+registry_proof_download_all:
+    path: '/telecharger'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ProofController:downloadAll'
+
+
 #registry_proof_report:
 #    path: '/bilan'
 #    methods: ['GET']

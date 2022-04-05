@@ -1,0 +1,369 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'documentation_document list' %}
+{% set menuItem = 'documentation_document' %}
+
+{% set activeCategories = [] %}
+
+{% for object in objects %}
+    {% for cat in object.categories %}
+        {% set activeCategories = activeCategories|merge([cat.name]) %}
+    {% endfor %}
+{% endfor %}
+
+{% block title %}{{ 'documentation.document.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'documentation.document.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'documentation.document.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+            <div class="col-xs-12">
+                <div class="action-bar">
+                    {% if is_granted('ROLE_REFERENT') %}
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-plus"></i>
+                                {{ 'documentation.document.action.new'|trans }}
+                                <span class="caret"></span>
+                            </button>
+                            <div class="dt-button-background" style=""></div>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
+                                <li><a href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <div style="margin-bottom: 10px">
+                        {# SWITCH GRID LIST #}
+                        {% if is_granted('ROLE_USER') %}
+                            <a href="{{ path('documentation_document_grid') }}" class="btn btn-default">
+                                <i class="fas fa-th"></i>
+                                {{ 'documentation.document.action.grid'|trans }}
+                            </a>
+                        {% endif %}
+
+                        {# Uniquement pour les DPO #}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                                {{ 'documentation.category.action.list'|trans }}
+                            </a>
+                        {% endif %}
+                    </div>
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <input type="checkbox" class="form-check-input" id="search_favorite">
+                                    <label class="form-check-label" for="search_favorite">{{ 'documentation.document.list.favorite'|trans }}</label>
+                                </th>
+                                <th>
+                                    <select class="form-control" id="search_type" style="width: 100%;">
+                                        <option value="" selected>{{ 'documentation.document.list.type'|trans }}</option>
+                                        {% for key, subject in dictionary('documentation_document_type') %}
+                                            <option value="{{ key }}">{{ subject }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                <th></th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <select class="form-control selectpicker" id="search_category" style="width: 100%;" 
+                                        multiple 
+                                        title="Catégories" 
+                                        > 
+                                        {% for category in categories %}
+                                            {% if category.name in activeCategories %}
+                                                <option
+                                                        value="{{ category.name }}"
+                                                        {% if app.request.get('category') and app.request.get('category') == category.id  %}
+                                                        selected="selected"
+                                                        {% endif %}
+                                                    >
+                                                        {{ category.name }}
+                                                    </option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                <th><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
+                                <th></th>
+                            </tr>
+                            
+                            <tr>
+                                <th>{{ 'documentation.document.list.pinned'|trans }}</th>
+                                <th>{{ 'documentation.document.list.favorited'|trans }}</th>
+                                <th>{{ 'documentation.document.list.type'|trans }}</th>
+                                <th>{{ 'documentation.document.list.weight'|trans }}</th>
+                                <th>{{ 'documentation.document.list.name'|trans }}</th>
+                                <th>{{ 'documentation.document.list.category'|trans }}</th>
+                                <th>{{ 'documentation.document.list.created_at'|trans }}</th>
+                                <th>{{ 'label.actions'|trans }}</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+                        <tr>
+                            <td class="text-center">
+                                {%  if object.pinned == 1 %}
+                                    <span style="visibility: hidden">{{ object.pinned }}</span>
+                                    <i class="fas fa-paperclip"></i>
+                                {% endif %}
+                            </td>
+                            <td class="text-center favorite">
+                                <a href="{{ path('documentation_document_favorite', { 'id': object.id, 'back': app.request.uri }) }}" style="color:#f39c12;">
+                                    {% if object.favoritedUsers |filter(f => f.id == app.user.id)|length > 0 %}
+                                        1
+                                    {% else %}
+                                        0
+                                    {% endif %}
+                                </a>
+                            </td>
+                            <td>
+                                {% if object.typeName == "Vidéos" %}
+                                    <i class="far fa-file-video"></i>
+                                {% elseif object.typeName == "PDF" %}
+                                    <i class="far fa-file-pdf"></i>
+                                {% elseif object.typeName == "Documents" %}
+                                    <i class="far fa-file-word"></i>
+                                {% elseif object.typeName == "Lien" %}
+                                    <i class="fas fa-globe"></i>
+                                {% endif %}
+                                {{ object.typeName }}
+                            </td>
+                            <td>
+                                {{ object.size }}
+                            </td>
+                            <td><a href="{{ object.url }}" target="_blank">{{ object.name }}</a></td>
+                            <td>
+                                {{ object.categories|map(c => "#{c.name}") | join(', ') }}
+                            </td>
+                            <td>{{ object.createdAt|date('d/m/Y') }}</td>
+
+                            <td>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
+                                    <i class="fa fa-pencil-alt"></i>&nbsp;{{ 'action.edit'|trans }}
+                                </a>
+                                <a href="{{ path('documentation_document_delete', { 'id': object.id }) }}">
+                                    <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
+                                </a>
+                                <a class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
+                                    <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
+                                </a>
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="shareModal" class="modal fade" >
+        <div class="modal-dialog">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Partager le lien du document</h3>
+                    <div class="box-tools pull-right">
+                        <!-- Collapse Button -->
+                        <button type="button" class="btn btn-box-tool" data-dismiss="modal">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body text-center copyLink" style="display: none">
+                    <i class="fa fa-check fa-3x" style="color:green"></i>
+                    <h4><b>Lien copié</b></h4>
+                </div>
+                <div class="box-body text-center">
+                    <div class="input-group">
+                        <input type="text" class="form-control linkDoc">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary btn-flat" data-dashlane-label="true" onclick="copyToClipBoard()" data-form-type="other">Copier</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <blockquote>
+                        <p style="color:grey;font-size:14px;">-Seul les membres ayant un compte Madis pourront accéder au document.</p>
+                    </blockquote>
+                </div>
+                <!-- box-footer -->
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "pinned"},
+            {"data": "favorite"},
+            {"data": "type"},
+            {"data": "weight"},
+            {"data": "name"},
+            {"data": "category"},
+            {"data": "created_at"},
+            {"data": "actions", "orderable": false},
+        ],
+
+        order: [[0,'desc'],[6,'desc']],
+        language: {
+            buttons: {
+                colvis: "Colonnes"
+            },
+        },
+        dom: 'Bfrtip',
+        columnDefs: [
+            {
+                targets: 4,
+                className: 'noVis'
+            }
+        ],
+        buttons: [
+            {
+                extend: 'colvis',
+                columns: ':not(.noVis)'
+            }
+        ]
+    } %}
+
+    {# {{ include('_Utils/_serverside_datatable.html.twig') }} #}
+    {{ include('_Utils/_datatable.html.twig') }}
+    <script>
+        $(document).ready(function() {
+            $('.sharelink').on('click', function() {
+                $('.linkDoc').val($(this).data('id'));
+                $('.copyLink').hide();
+            })
+
+            // SET FAVORITE ICON
+            $('.favorite > a').each( (fav, obj) => {
+                obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i>' : '<i data-value="0" class="far fa-star"></i>'
+            })
+        })
+
+        function copyToClipBoard() {
+            var text = $('.linkDoc').val();
+
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            $('.copyLink').show();
+        }
+
+        $(function () {
+            $('.selectpicker').selectpicker();
+            setTimeout(function() {
+                document.getElementById('search_category').dispatchEvent(new Event('change', { 'bubbles': true }));
+            },200);
+        });
+
+        function resetFilters() {
+            $('[id^=search_]').each(function() {
+                $(this).val('');
+            });
+            $('#search_favorite').prop('checked', false);
+            var table = $('#table').DataTable();
+            table.columns().search('');
+        }
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+            
+            $('#search_favorite').off('change');
+            $('#search_favorite').change(function(){
+                oTable.column('1').search($(this).prop('checked') ? "1" : "").draw();
+            });
+
+            $('#search_type').off('change');
+            $('#search_type').change(function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            });
+
+            $('#search_name').off('keyup');
+            $('#search_name').keyup($.debounce(250, function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            }));
+
+            $('#search_category').off('change');
+            $('#search_category').change(function() {
+                if ($(this).val() && $(this).val().length) {
+                    oTable.column('5').search($(this).val().join(' ')).draw()
+                    $('button[data-id="search_category"] .filter-option-inner-inner').html($(this).val().join(', '))
+                } else {
+                    oTable.column('5').search('').draw();
+                    $('button[data-id="search_category"] .filter-option-inner-inner').html("Catégories")
+                }
+            });
+
+            $('#search_date').off('change');
+            $('#search_date').change(function(){
+                oTable.column('6').search($(this).val()).draw() ;
+            });
+        }
+
+        $(document).ready(function() {
+            $('.dt-button-background').hide();
+            setEvents();
+
+            // Affichage/Masquage d'une colonne
+            $('.toggle-vis').on( 'click', function (e) {
+                e.preventDefault();
+                var table = $('#table').DataTable();
+                // Get the column API object
+                var column = table.column( $(this).attr('data-column') );
+
+                // Toggle the visibility
+                column.visible( ! column.visible() );
+            });
+            $('.dt-button.buttons-colvisRestore').on('click', function() {
+                resetFilters();
+                var table = $('#table').DataTable();
+                table.columns().search('').draw();
+            })
+        } );
+
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+        
+        
+
+    </script>
+
+{% endblock %}

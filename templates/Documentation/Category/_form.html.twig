@@ -1,0 +1,20 @@
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+
+
+<div class="row">
+    {{ form_start(form) }}
+
+    <div class="col-md-12">
+            {{ form_row(form.name) }}
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                    {{ 'documentation.category.action.back_to_list'|trans }}
+                </a>
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>
+

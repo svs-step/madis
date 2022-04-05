@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Controller;
 
+use App\Domain\Registry\Repository\Mesurement;
 use App\Domain\Reporting\Handler\ExportCsvHandler;
 use App\Domain\Reporting\Handler\MetricsHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,8 +42,11 @@ class DashboardController extends AbstractController
      */
     private $exportCsvHandler;
 
-    public function __construct(MetricsHandler $metricsHandler, ExportCsvHandler $exportCsvHandler)
+    private Mesurement $repository;
+
+    public function __construct(MetricsHandler $metricsHandler, ExportCsvHandler $exportCsvHandler, Mesurement $repository)
     {
+        $this->repository       = $repository;
         $this->metricsHandler   = $metricsHandler;
         $this->exportCsvHandler = $exportCsvHandler;
     }
@@ -57,8 +61,12 @@ class DashboardController extends AbstractController
     {
         $metrics = $this->metricsHandler->getHandler();
 
+        $actions = $this->repository->getPlanifiedActionsDashBoard();
+
         return $this->render($metrics->getTemplateViewName(), [
-            'data' => $metrics->getData(),
+            'data'          => $metrics->getData(),
+            'actions'       => $actions,
+            'limit_actions' => $_ENV['APP_USER_DASHBOARD_ACTION_PLAN_LIMIT'],
         ]);
     }
 

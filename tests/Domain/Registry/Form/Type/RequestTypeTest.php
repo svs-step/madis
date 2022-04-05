@@ -71,6 +71,7 @@ class RequestTypeTest extends FormTypeHelper
             'answer'               => RequestAnswerType::class,
             'state'                => DictionaryType::class,
             'stateRejectionReason' => TextareaType::class,
+            'treatments'           => EntityType::class,
         ];
 
         (new RequestType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()))->buildForm($this->prophesizeBuilder($builder), ['data' => $contractor]);

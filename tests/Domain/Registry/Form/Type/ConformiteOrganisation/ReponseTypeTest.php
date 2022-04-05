@@ -6,12 +6,15 @@ use App\Domain\Registry\Form\Type\ConformiteOrganisation\ReponseType;
 use App\Domain\Registry\Model\ConformiteOrganisation\Reponse;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ReponseTypeTest extends FormTypeHelper
 {
+    use ProphecyTrait;
+
     public function testInstanceOf()
     {
         $this->assertInstanceOf(AbstractType::class, (new ReponseType()));

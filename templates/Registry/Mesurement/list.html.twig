@@ -37,6 +37,12 @@
                         {{ 'registry.treatment.action.report'|trans }}
                     </a>
                     {% endif %}
+                    {% if category and category.documents|length > 0 %}
+                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                            <i class="far fa-file"></i>
+                            {{ 'documentation.document.link.button'|trans }}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
     </div>
@@ -84,6 +90,7 @@
                             <th>{{ 'registry.mesurement.list.cost'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.charge'|trans }}</th>
                             <th>{{ 'registry.mesurement.list.priority'|trans }}</th>
+                            <th>{{ 'registry.mesurement.list.responsable'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th>{{ 'label.actions'|trans }}</th>
                             {% endif %}
@@ -119,6 +126,7 @@
             {"data": "cout"},
             {"data": "charge"},
             {"data": "priorite"},
+            {"data": "responsable_action"},
             {"data": "actions", "orderable": false, "className": "noVis", "visible": actionIsVisible},
         ],
         order:  [

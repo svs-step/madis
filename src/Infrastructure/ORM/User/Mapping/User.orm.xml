@@ -23,6 +23,7 @@
         <field name="deletedAt" column="deleted_at" type="datetime_immutable" nullable="true"/>
         <field name="lastLogin" column="last_login" type="datetime_immutable" nullable="true"/>
         <field name="apiAuthorized" column="api_authorized" type="boolean" nullable="true"/>
+        <field name="documentView" column="document_view" type="boolean" nullable="true"/>
 
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity" inversed-by="users" fetch="EAGER"/>
         <many-to-many field="collectivitesReferees" target-entity="App\Domain\User\Model\Collectivity" inversed-by="userReferents">
@@ -37,6 +38,13 @@
 
         <many-to-many field="services" target-entity="App\Domain\User\Model\Service" inversed-by="users">
             <join-table name="registry_service_user">
+                <join-columns><join-column on-delete="CASCADE"/></join-columns>
+                <inverse-join-columns><join-column on-delete="CASCADE"/></inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+        <many-to-many fetch="EAGER" field="favoriteDocuments" target-entity="App\Domain\Documentation\Model\Document" mapped-by="favoritedUsers">
+            <join-table name="user_favorite_documents">
                 <join-columns><join-column on-delete="CASCADE"/></join-columns>
                 <inverse-join-columns><join-column on-delete="CASCADE"/></inverse-join-columns>
             </join-table>

@@ -111,6 +111,10 @@ registry:
             priority: Priorité
             status: Statut
             type: Type
+            contractor: Sous-traitant
+            treatment: Traitement
+            violation: Violation
+            request: Demande
         flashbag:
             success:
                 create: Action de protection "%object%" créé avec succès
@@ -129,6 +133,7 @@ registry:
                 legal: Actions juridiques
                 organisational: Actions organisationnelles
                 technical: Actions techniques
+            responsable: Responsable d'action
         show:
             charge: Charge
             collectivity: Collectivité
@@ -144,10 +149,16 @@ registry:
             status: Statut
             type: Type
             updated_at: Dernière mise à jour
+            contractor: Sous-traitants
+            treatment: Traitements
+            violation: Violations
+            request: Demandes
+            none: Aucun
         tab:
             application: Application
             general: Informations générales
             historic: Historique
+            relations: Éléments liés
         title:
             action_plan: Plan d'actions
             create: Créer une action de protection
@@ -166,6 +177,7 @@ registry:
             back_to_list: Retour à la liste
             new: Ajouter une preuve
             not_archived: Voir les preuves non archivées
+            download: Télécharger tous les documents
         breadcrumb:
             archive: Archiver "%name%"
             create: Créer
@@ -237,6 +249,7 @@ registry:
             service: Service
             state: État de la demande
             state_rejection_reason: Motifs du refus*
+            treatment: Traitements associés
         list:
             answer_date: Date de traitement
             collectivity: Collectivité
@@ -285,6 +298,7 @@ registry:
             concerned_people: Personne concernée
             historic: Historique
             request: Demande
+            treatment: Traitements associés
         title:
             create: Créer une demande
             edit: Éditer une demande
@@ -338,6 +352,7 @@ registry:
             automated_decisions_with_legal_effect: Décisions automatisées  avec  effet
             automatic_exclusion_service : Exclusion automatique d'un service
             collecting_method: Moyens de la collecte
+            otherCollectingMethod: Autre moyen de collecte
             concerned_people: Personnes concernées
             concerned_people_agent: Agents
             concerned_people_company: Entreprises
@@ -364,7 +379,7 @@ registry:
             name: Nom
             observation: Observations
             paper_processing: Traitement papier
-            public: Public
+            public: Publique
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
             security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
@@ -379,6 +394,7 @@ registry:
             software: Logiciel
             ultimate_fate: Sort final
             vulnerable_people: Personnes vulnérables
+            dpoMessage: Préconisations
         flashbag:
             success:
                 create: Traitement "%object%" créé avec succès
@@ -390,7 +406,8 @@ registry:
             author: En tant que
             collectivity: Collectivité
             completion: Taux de complétion
-            contractors: Sous-traitants
+            contractors: Sous-
+            conformite_traitement: Conformité du traitement
             entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
             goal: Finalité
             legal_basis: Base légale
@@ -398,13 +415,14 @@ registry:
             name: Nom
             open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
             other: Autres
-            public: Public
+            public: Publique
             responsable_traitement: Responsable traitement
             saving: Sauvegarde
             specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             software: Logiciel
             tracability: Traçabilité
-            update: Mise à jour
+            update: Date mise à jour
+            specific_traitement: Traitements spécifiques
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce traitement ?
         show:
@@ -426,6 +444,7 @@ registry:
             conformite_traitement_created_at: Conformité du traitement - Date création
             conformite_traitement_updated_at: Conformité du traitement - Date modification
             collectivity: Collectivité
+            otherCollectingMethod: Autre moyen de collecte
             contractors: Sous-traitants
             coordonnees_responsable_traitement: Coordonnées responsable
             created_at: Date de création
@@ -449,8 +468,8 @@ registry:
             observation: Observations
             paper_processing: Traitement papier
             proofs: Documents associés
-            public: Public
-            public_register: Registre public
+            public: Publique
+            public_register: Registre publique
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
             security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
@@ -475,17 +494,18 @@ registry:
             show: Visualiser un traitement
             configure: Configurer les traitements
         tab:
-          conformite: Évaluation de la conformoite du traitement
+          conformite: Évaluation de la conformité du traitement
           data_category: Catégorie des données
           details: Détails
           general: Informations générales
           historic: Historique
           last_aipd: Dernière analyse d'impact réalisée
           proofs: Documents associés
-          public: Registre public
+          public: Registre publique
           recipients: Destination
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
+          dpo_message: Préconisations DPO
 
     violation:
         action:
@@ -524,6 +544,7 @@ registry:
             potential_impacts_nature: Nature des impacts potentiels pour les personnes
             service: Service
             violation_nature: Nature de la violation
+            treatment: Traitements associés
         list:
             cause: Cause
             collectivity: Collectivité
@@ -557,6 +578,7 @@ registry:
             consequence: Conséquences de la violation
             historic: Historique
             information: Informations sur la violation
+            treatment: Traitements associés
         title:
             create: Créer une violation
             delete: Archiver une violation

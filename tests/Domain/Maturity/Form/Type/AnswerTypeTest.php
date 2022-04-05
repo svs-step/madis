@@ -27,12 +27,15 @@ namespace App\Tests\Domain\Maturity\Form\Type;
 use App\Domain\Maturity\Form\Type\AnswerType;
 use App\Domain\Maturity\Model\Answer;
 use App\Tests\Utils\FormTypeHelper;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AnswerTypeTest extends FormTypeHelper
 {
+    use ProphecyTrait;
+
     public function testInstanceOf()
     {
         $this->assertInstanceOf(AbstractType::class, new AnswerType());

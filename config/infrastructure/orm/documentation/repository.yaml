@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\Infrastructure\ORM\Documentation\Repository\:
+        resource: '../../../../src/Infrastructure/ORM/Documentation/Repository'
+
+    App\Domain\Documentation\Repository\Document: '@App\Infrastructure\ORM\Documentation\Repository\Document'
+    App\Domain\Documentation\Repository\Category: '@App\Infrastructure\ORM\Documentation\Repository\Category'

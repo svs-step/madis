@@ -22,7 +22,6 @@
 {% endblock %}
 
 {% block body %}
-
     {% if form is not null  %}
         {% set userRole = app.user.roles[0] %}
         {% if userRole == 'ROLE_USER' %}
@@ -106,6 +105,13 @@
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.conformite_organisation.action.create'|trans }}
                     </a>
+
+                    {% if category and category.documents|length > 0 %}
+                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                            <i class="far fa-file"></i>
+                            {{ 'documentation.document.link.button'|trans }}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
