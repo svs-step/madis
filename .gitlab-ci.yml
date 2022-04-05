@@ -19,7 +19,7 @@ stages:
     before_script:
         - docker login --username gitlab-ci-token --password $CI_JOB_TOKEN $CI_REGISTRY
         # re-install vendors to prevent from ci cache failure
-        - docker run --rm --env-file=./.env.dist --env-file=.env.test -v ${PWD}:/var/www/gestion-rgpd $DOCKER_IMAGE_PHP composer install -vv --prefer-dist --no-interaction --optimize-autoloader --no-scripts
+        - docker run --rm --env-file=./.env.dist --env-file=.env.test -v ${PWD}:/var/www/gestion-rgpd $DOCKER_IMAGE_PHP composer install -vv --prefer-dist --no-interaction --optimize-autoloader --no-scripts || echo "Composer install fail"
 
 .cache-pull-template: &cache-pull-defintion
     cache:
@@ -31,7 +31,7 @@ stages:
 create_cache:
     image: ${DOCKER_IMAGE_PHP}
     script:
-        - composer --version && composer install -vv --prefer-dist --no-interaction --optimize-autoloader --no-scripts
+        - composer --version && composer install -vv --prefer-dist --no-interaction --optimize-autoloader --no-scripts || echo "Composer install fail"
     cache:
         key: "$CI_PROJECT_PATH-php"
         paths:
