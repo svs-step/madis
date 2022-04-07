@@ -116,7 +116,8 @@
                 async: false
             });
             var exportBody = jsonResult.responseJSON.data;
-            var colNames = params.columns.map(function(c) { return c. data })
+            var colNames = params.columns.map(function(c) { return c. data }).filter(i => i !== 'actions')
+            console.log('colNames', colNames)
             return exportBody.map(function (el) {
                 return colNames.map(function (key) {
                     return strip(el[key])
