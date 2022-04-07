@@ -354,14 +354,19 @@ class Document
         if ('docx' === $extension) {
             return DocumentTypeDictionary::TYPE_DOCX;
         }
+        if ('png' === $extension || 'jpg' === $extension) {
+            return DocumentTypeDictionary::TYPE_IMG;
+        }
 
         return null;
     }
 
     public function getTypeName(): ?string
     {
+
         $types     = DocumentTypeDictionary::getTypes();
         $extension = strtolower(pathinfo($this->getFile(), PATHINFO_EXTENSION));
+
         if ('pdf' === $extension) {
             return $types[DocumentTypeDictionary::TYPE_PDF];
         }
@@ -373,6 +378,9 @@ class Document
         }
         if ('docx' === $extension) {
             return $types[DocumentTypeDictionary::TYPE_DOCX];
+        }
+        if ('png' === $extension || 'jpg' === $extension) {
+            return $types[DocumentTypeDictionary::TYPE_IMG];
         }
 
         return null;
