@@ -138,7 +138,13 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                 'label'    => 'documentation.document.form.label.url',
                 'required' => true,
             ]);
+            $form->add('isLink', HiddenType::class, [
+                'data' => 1,
+            ]);
         } else {
+            $form->add('isLink', HiddenType::class, [
+                'data' => 0,
+            ]);
             $form->add('uploadedFile', FileType::class, [
                 'label'       => 'documentation.document.form.label.file',
                 'required'    => false,

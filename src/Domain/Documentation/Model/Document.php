@@ -65,7 +65,7 @@ class Document
     private $url;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      *
      * @var string|null
      */
