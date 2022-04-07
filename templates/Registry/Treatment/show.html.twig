@@ -568,119 +568,19 @@
             {% include '_Utils/_show_block_requests.html.twig' with { requests: object.requests } %}
             {% include '_Utils/_show_block_violations.html.twig' with { violations: object.violations } %}
 
-            {# {% if object.collectivity.hasModuleConformiteTraitement %} #}
-                <div class="box box-solid box-success">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.conformite'|trans }}</h3></div>
-                    <div class="box-body">
-                        <table class="table">
-                            <tr>
-                                <td style="width: 35%">
-                                    <strong>Conformité</strong>
-                                </td>
-                                <td>
-                                    {% if object.conformiteTraitement is not null %}
-                                        {{ getConformiteTraitementLabel(object.conformiteTraitement)|raw }}
-                                    {% else %}
-                                        <span class="badge bg-gray">Non-réalisée</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Conformité des questions</strong>
-                                </td>
-                                <td>
-                                    {% if object.conformiteTraitement is not null %}
-                                        {% set nbTotal = object.conformiteTraitement.nbConformes + object.conformiteTraitement.nbNonConformesMineures + object.conformiteTraitement.nbNonConformesMajeures %}
-                                        {% set widthNbConforme = ((object.conformiteTraitement.nbConformes * 100) / nbTotal)|round %}
-                                        {% set widthnbNonConformesMineures = ((object.conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round %}
-                                        {% set widthnbNonConformesMajeures = 100 - (widthNbConforme + widthnbNonConformesMineures) %}
-                                        <div class="stacked-bar-graph">
-                                            {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme tooltipchart"><span class="tooltipcharttext">Conforme : {{ object.conformiteTraitement.nbConformes }}</span></span>{% endif %}
-                                            {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure tooltipchart"><span class="tooltipcharttext">Non-conforme mineure : {{ object.conformiteTraitement.nbNonConformesMineures }}</span></span>{% endif %}
-                                            {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure tooltipchart"><span class="tooltipcharttext">Non-conforme majeure : {{ object.conformiteTraitement.nbNonConformesMajeures }}</span></span>{% endif %}
-                                        </div>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Actions</strong>
-                                </td>
-                                <td>
-                                    <a href="
-                                        {% if object.conformiteTraitement is null %}
-                                            {{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}
-                                        {% else %}
-                                            {{ path('registry_conformite_traitement_edit', {'id': object.conformiteTraitement.id}) }}
-                                        {% endif %}
-                                    "><i class="fa fa-pencil-alt"></i> {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="box box-solid box-primary">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.last_aipd'|trans }}</h3></div>
-                    <div class="box-body">
-                        <table class="table">
-                            <tr>
-                                <td style="width: 35%">
-                                    <strong>Conformité</strong>
-                                </td>
-                                <td>
-                                    {% if object.conformiteTraitement is not null %}
-                                        {{ getConformiteTraitementLabel(object.conformiteTraitement)|raw }}
-                                    {% else %}
-                                        <span class="badge bg-gray">Non-réalisée</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Date de validation</strong>
-                                </td>
-                                <td>
-                                    {% if object.conformiteTraitement is not null %}
-                                        {% set nbTotal = object.conformiteTraitement.nbConformes + object.conformiteTraitement.nbNonConformesMineures + object.conformiteTraitement.nbNonConformesMajeures %}
-                                        {% set widthNbConforme = ((object.conformiteTraitement.nbConformes * 100) / nbTotal)|round %}
-                                        {% set widthnbNonConformesMineures = ((object.conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round %}
-                                        {% set widthnbNonConformesMajeures = 100 - (widthNbConforme + widthnbNonConformesMineures) %}
-                                        <div class="stacked-bar-graph">
-                                            {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme tooltipchart"><span class="tooltipcharttext">Conforme : {{ object.conformiteTraitement.nbConformes }}</span></span>{% endif %}
-                                            {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure tooltipchart"><span class="tooltipcharttext">Non-conforme mineure : {{ object.conformiteTraitement.nbNonConformesMineures }}</span></span>{% endif %}
-                                            {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure tooltipchart"><span class="tooltipcharttext">Non-conforme majeure : {{ object.conformiteTraitement.nbNonConformesMajeures }}</span></span>{% endif %}
-                                        </div>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Actions</strong>
-                                </td>
-                                <td>
-                                    <a href="{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}"><i class="fa fa-pencil-alt"></i> {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            {# {% endif %} #}
-
-                {# DPO Message  #}
-                <div class="box box-solid box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
-                    </div>
-                    <div class="box-body">
-                        {% if object.dpoMessage is null %}
-                            <i>Aucune préconisation</i>
-                        {% else %}
-                            {{  object.dpoMessage }}
-                        {% endif %}
-                    </div>
-                </div>
+        {# DPO Message  #}
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
+            </div>
+            <div class="box-body">
+                {% if object.dpoMessage is null %}
+                    <i>Aucune préconisation</i>
+                {% else %}
+                    {{  object.dpoMessage }}
+                {% endif %}
+            </div>
+        </div>
 
         {# Mesurements #}
         {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}

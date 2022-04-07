@@ -124,23 +124,22 @@
                 });
             });
         }
+        
+        try {
+            (options.buttons[1].exportOptions.customizeData = function(d) {
+                var api = $('#table').DataTable();
 
-        options.buttons[1].exportOptions.customizeData = function(d) {
-            console.log('original data', d.body);
+                var visible = api.columns().visible();
+                console.log('api.ajax', api.ajax.params())
+                var params = api.ajax.params();
+                params.columns = params.columns.filter(function(c, i) { return visible[i] })
+                var exportBody = getFullData(params);
 
-            var api = $('#table').DataTable();
-
-
-            var visible = api.columns().visible();
-            console.log('api.ajax', api.ajax.params())
-            var params = api.ajax.params();
-            params.columns = params.columns.filter(function(c, i) { return visible[i] })
-            var exportBody = getFullData(params);
-
-            console.log('full data', exportBody)
-            d.body.length = 0;
-            d.body.push.apply(d.body, exportBody);
-        }
+                console.log('full data', exportBody)
+                d.body.length = 0;
+                d.body.push.apply(d.body, exportBody);
+            })
+        } catch { }
 
         $('#table').DataTable(options);
 
