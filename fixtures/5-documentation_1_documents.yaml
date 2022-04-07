@@ -4,7 +4,7 @@ App\Domain\Documentation\Model\Document:
         pinned: true
         file: 'fichier.mp4'
         url: ''
-        categories: ['@documentation_category_1', '@documentation_category_3'])>
+        categories: ['@documentation_category_1', '@documentation_category_3']
         favoritedUsers: ['@user_user_admin']
         isLink: false
         size: 1120303
