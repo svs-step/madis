@@ -1,13 +1,15 @@
 notification:
-    module: Notification
+    module: Notifications
     modules:
-        treatment: Traitement
-        contractor: Sous-traitant
-        violation: Violation
-        proof: Preuve
-        action: Action
-        request: Demande
-        user: Utilisateur
+        treatment: Traitements
+        contractor: Sous-traitants
+        violation: Violations
+        proof: Preuves
+        action: Actions de protection
+        request: Demandes
+        user: Utilisateurs
+        documentation: Documentation
+        maturity: Indices de maturité
     actions:
         delete: Suppression
         create: Création
@@ -15,4 +17,32 @@ notification:
         state_change: Changement d'état
         late_action: En retard
         late_request: En retard
+        late_survey: En retard
         no_login: Inactif
+    notification:
+        flashbag:
+            success:
+                markall: Toutes les notifications sont marquées comme lu
+                delete: Notification "%object%" supprimée avec succès
+        title:
+            list: Centre de notifications
+            delete: Supprimer une notification
+        breadcrumb:
+            list: Centre de notifications
+            delete: Supprimer une notification
+        list:
+            state: État
+            module: Module
+            action: Action
+            name: Nom 
+            object: Objet
+            collectivity: Collectivité
+            date: Date
+            user: Nom d'utilisateur
+            read_date: Lu le
+            read_by: Lu par
+        action:
+            back_to_list: Retour à la liste
+            mark_as_read: Marquer comme lu
+            mark_as_unread: Marquer comme non lu
+            mark_as_read_all: Tout marquer comme lu

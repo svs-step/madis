@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'documentation_document delete' %}
-{% set menuItem = 'documentation_document' %}
+{% set bodyClass = 'notification_delete delete' %}
+{% set menuItem = 'notification_notification' %}
 
-{% block title %}{{ 'documentation.document.title.delete'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'notification.notification.title.delete'|trans }} - {{ parent() }}{% endblock %}
 
 {% block body_head %}
     <h1>
-        {{ 'documentation.document.title.delete'|trans }}
+        {{ 'notification.notification.title.delete'|trans }}
         <small>{{ object }}</small>
     </h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'documentation.document.breadcrumb.list'|trans, 'link': path('documentation_document_list') },
-        { 'name': 'documentation.document.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'notification.notification.breadcrumb.list'|trans, 'link': path('notification_notification_list') },
+        { 'name': 'notification.notification.breadcrumb.delete'|trans({'%name%': object}) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -26,13 +26,13 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer le document {{ object.name }} ?
+                    Souhaitez vous vraiment supprimer la notification {{ object.name }} ?
                 </div>
                 <div class="box-footer">
-                    <a href="{{ path('documentation_document_index') }}" class="btn btn-default">
-                        {{ 'documentation.document.action.back_to_list'|trans }}
+                    <a href="{{ path('notification_notification_index') }}" class="btn btn-default">
+                        {{ 'notification.notification.action.back_to_list'|trans }}
                     </a>
-                    <a href="{{ path('documentation_document_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                    <a href="{{ path('notification_notification_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
                         {{ 'action.confirm_delete'|trans }}
                     </a>
                 </div>

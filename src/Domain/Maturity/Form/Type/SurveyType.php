@@ -40,7 +40,7 @@ class SurveyType extends AbstractType
         $builder
             ->add('answers', CollectionType::class, [
                 'label'        => 'Questions',
-                'entry_type'   => SurveyType::class,
+                'entry_type'   => AnswerType::class,
                 'allow_add'    => false,
                 'allow_delete' => false,
             ])

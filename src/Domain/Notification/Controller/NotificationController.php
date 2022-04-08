@@ -30,6 +30,10 @@ use App\Domain\Notification\Model;
 use App\Domain\Notification\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -38,6 +42,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class NotificationController extends CRUDController
 {
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
     /**
      * @var AuthorizationCheckerInterface
      */
@@ -49,6 +58,7 @@ class NotificationController extends CRUDController
     protected $userProvider;
 
     public function __construct(
+        RequestStack $requestStack,
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Notification $repository,
@@ -57,8 +67,9 @@ class NotificationController extends CRUDController
         Pdf $pdf
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->authorizationChecker = $authorizationChecker;
-        $this->userProvider         = $userProvider;
+        $this->requestStack           = $requestStack;
+        $this->authorizationChecker   = $authorizationChecker;
+        $this->userProvider           = $userProvider;
     }
 
     /**
@@ -105,6 +116,23 @@ class NotificationController extends CRUDController
         return $this->repository->findAll($order);
     }
 
+    public function listAction(): Response
+    {
+        $user = $this->getUser();
+
+        $isAdminView   = $this->authorizationChecker->isGranted('ROLE_ADMIN');
+
+        if ($isAdminView) {
+            return $this->render($this->getTemplatingBasePath('list_admin'), [
+                'objects'    => $this->getListData(),
+            ]);
+        }
+
+        return $this->render($this->getTemplatingBasePath('list_user'), [
+                'objects'    => $this->getListData(),
+            ]);
+    }
+
     /**
      * {@inheritdoc}
      * Here, we wanna compute maturity score.
@@ -113,5 +141,65 @@ class NotificationController extends CRUDController
      */
     public function formPrePersistData($object)
     {
+    }
+
+    /**
+     * Update read status from notification.
+     */
+    public function markAsReadAllAction(Request $request)
+    {
+        $notifs = $this->repository->findAll();
+
+        foreach ($notifs as $notif) {
+            $isRead = $notif->getReadAt();
+            if (null == $isRead) {
+                $notif->setReadAt(new \DateTime());
+                $notif->setReadBy($this->getUser());
+            }
+        }
+        $this->entityManager->flush();
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'markall'));
+
+        $referer = $request->headers->get('referer');
+
+        return $this->redirect($referer);
+        // return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
+    /**
+     * Update read_at and read_by from notification.
+     */
+    public function markAsReadAction(Request $request, string $id)
+    {
+        $notif = $this->repository->findOneByID($id);
+        if (!$notif) {
+            throw new NotFoundHttpException('Notification introuvable');
+        }
+
+        $notif->setReadAt(new \DateTime());
+        $notif->setReadBy($this->getUser());
+        $this->entityManager->flush();
+        $referer = $request->headers->get('referer');
+
+        return $this->redirect($referer);
+    }
+
+    /**
+     * Update read_at and read_by from notification to null.
+     */
+    public function markAsUnreadAction(Request $request, string $id)
+    {
+        $notif = $this->repository->findOneByID($id);
+        if (!$notif) {
+            throw new NotFoundHttpException('Notification introuvable');
+        }
+
+        $notif->setReadAt(null);
+        $notif->setReadBy(null);
+        $this->entityManager->flush();
+        $referer = $request->headers->get('referer');
+
+        return $this->redirect($referer);
     }
 }

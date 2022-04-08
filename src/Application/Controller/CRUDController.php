@@ -28,6 +28,7 @@ use App\Application\DDD\Repository\RepositoryInterface;
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Notification\Model\Notification;
 use App\Domain\Tools\ChainManipulator;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,6 +36,7 @@ use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Intl\Exception\MethodNotImplementedException;
@@ -354,6 +356,8 @@ abstract class CRUDController extends AbstractController
      */
     public function deleteConfirmationAction(string $id): Response
     {
+        var_dump($id);
+        die();
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
@@ -390,7 +394,7 @@ abstract class CRUDController extends AbstractController
         );
     }
 
-    private function getPdfName(string $name): string
+    public function getPdfName(string $name): string
     {
         $name = ChainManipulator::removeAllNonAlphaNumericChar(ChainManipulator::removeAccents($name));
 
@@ -403,5 +407,89 @@ abstract class CRUDController extends AbstractController
     protected function isSoftDelete(): bool
     {
         return false;
+    }
+
+    public function getNotifications(): array
+    {
+        return $this->entityManager->getRepository(Notification::class)->findAll();
+    }
+
+    /**
+     * The delete action list
+     * Display a confirmation message to confirm data deletion.
+     */
+    public function deleteAllAction(Request $request): Response
+    {
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('delete_all'), [ // delete_all
+            'ids'               => $ids,
+            'objects_length'  => count($ids),
+        ]);
+    }
+
+    public function deleteConfirmationAllAction(Request $request): Response
+    {
+        var_dump($id);
+        die();
+        $ids     = $request->query->get('ids');
+
+        foreach ($ids as $id) {
+            var_dump($id);
+        die();
+            $this->deleteConfirmationAction($id);
+        }
+        return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
+    // RETURN A PDF WITH ALL IDS FILTERED
+    public function pdfAllAction(Request $request)
+    {
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
+
+        $objects = [];
+
+        foreach ($ids as $id) {
+            $object = $this->repository->findOneById($id);
+            array_push($objects, $object);
+        }
+
+        return new PdfResponse(
+            $this->pdf->getOutputFromHtml(
+                $this->renderView($this->getTemplatingBasePath('pdf_all'), ['objects' => $objects])
+            ),
+            $this->getPdfName((string) 'print') . '.pdf'
+        );
+    }
+    /**
+     * The archive action
+     * Display a confirmation message to confirm data archived.
+     */
+    public function archiveAllAction(Request $request): Response
+    {
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', 'Vous ne pouvez pas archiver ces traitements');
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        foreach ($ids as $id) {
+            $object = $this->repository->findOneById($id);
+            if ($object) {
+                $object->setActive(false);
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $treatment));
+            }
+        }
+        $this->entityManager->flush();
+        return $this->redirectToRoute($this->getRouteName('list'));
     }
 }

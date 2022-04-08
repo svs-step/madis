@@ -118,7 +118,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                {% for action in actions %}
+                                {% for action in actions | slice(0, limit_actions) %}
                                 <tr>
                                     <td>{{ action.name }}</td>
                                     <td>{{ action.planificationDate|date('d/m/Y') }}</td>

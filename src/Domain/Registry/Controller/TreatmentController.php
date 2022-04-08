@@ -43,6 +43,7 @@ use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -359,6 +360,7 @@ class TreatmentController extends CRUDController
             $no  = '<span class="badge bg-orange">' . $this->translator->trans('label.no') . '</span>';
 
             $reponse['data'][] = [
+                'id'                     => $treatment->getId(),
                 'nom'                    => $treatmentLink,
                 'collectivite'           => $treatment->getCollectivity()->getName(),
                 'baseLegal'              => !empty($treatment->getLegalBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : null,
@@ -378,6 +380,7 @@ class TreatmentController extends CRUDController
                 'public'                 => $treatment->getPublic() ? $yes : $no,
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
                 'specific_traitement'    => $this->getSpecificTraitement($treatment),
+                'conformite_traitement'  => 'test',
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
@@ -476,7 +479,8 @@ class TreatmentController extends CRUDController
             '16' => 'public',
             '17' => 'responsableTraitement',
             '18' => 'specific_traitement',
-            '19' => 'actions',
+            '19' => 'conformite_traitement',
+            '20' => 'actions',
         ];
     }
 }

@@ -62,6 +62,7 @@ class RequestTypeTest extends FormTypeHelper
             'answer'               => RequestAnswerType::class,
             'state'                => DictionaryType::class,
             'stateRejectionReason' => TextareaType::class,
+            'treatments'           => EntityType::class,
         ];
 
         (new RequestType())->buildForm($this->prophesizeBuilder($builder), []);

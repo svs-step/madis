@@ -130,10 +130,10 @@ class Mesurement implements LoggableSubject
      */
     private $conformiteTraitementReponses;
 
-    private ?Treatment $treatment;
-    private ?Contractor $contractor;
-    private ?Request $request;
-    private ?Violation $violation;
+    private ?iterable $treatments;
+    private ?iterable $contractors;
+    private ?iterable $requests;
+    private ?iterable $violations;
 
     /**
      * Mesurement constructor.
@@ -294,43 +294,43 @@ class Mesurement implements LoggableSubject
         return $this->conformiteTraitementReponses;
     }
 
-    public function getTreatment(): ?Treatment
+    public function getTreatments(): ?iterable
     {
-        return $this->treatment;
+        return $this->treatments;
     }
 
-    public function setTreatment(Treatment $treatment): void
+    public function setTreatments(?iterable $treatments): void
     {
-        $this->treatment = $treatment;
+        $this->treatments = $treatments;
     }
 
-    public function getContractor(): ?Contractor
+    public function getContractors(): ?iterable
     {
-        return $this->contractor;
+        return $this->contractors;
     }
 
-    public function setContractor(Contractor $contractor): void
+    public function setContractors(?iterable $contractors): void
     {
-        $this->contractor = $contractor;
+        $this->contractors = $contractors;
     }
 
-    public function getRequest(): ?Request
+    public function getRequests(): ?iterable
     {
-        return $this->request;
+        return $this->requests;
     }
 
-    public function setRequest(Request $request): void
+    public function setRequests(?iterable $requests): void
     {
-        $this->request = $request;
+        $this->requests = $requests;
     }
 
-    public function getViolation(): ?Violation
+    public function getViolations(): ?iterable
     {
-        return $this->violation;
+        return $this->violations;
     }
 
-    public function setViolation(Violation $violation): void
+    public function setViolations(?iterable $violations): void
     {
-        $this->violation = $violation;
+        $this->violations = $violations;
     }
 }

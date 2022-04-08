@@ -352,7 +352,10 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong></td>
-                            <td>{% if object.collectingMethod is not null %}{{ object.collectingMethod|dictionary('registry_treatment_collecting_method') }}{% endif %}</td>
+                            {# <td>{% if (object.collectingMethod is not null) %} #}
+                            <td>{% if (object.collectingMethod|length) %}
+                                {{ object.collectingMethod|dictionary('registry_treatment_collecting_method') }}
+                            {% endif %}</td>
                         </tr>
                     </table>
                 </div>

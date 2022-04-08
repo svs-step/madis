@@ -21,17 +21,26 @@ App\Domain\Registry\Model\ConformiteTraitement\Question:
         question: "Recueil du consentement"
         position: 7
     conformite_traitement_question_8:
-        question: "Exercice des droits d'accès et à la portabilité"
+        question: "Exercice du droit d'accès"
         position: 8
     conformite_traitement_question_9:
-        question: "Exercice des droits de rectification et d'effacement"
+        question: "Exercice du droit de rectification"
         position: 9
     conformite_traitement_question_10:
-        question: "Exercice des droits de limitation du traitement et d'opposition"
+        question: "Exercice du droit de limitation"
         position: 10
     conformite_traitement_question_11:
-        question: "Sous-traitance : identifiée et contractualisée"
+        question: "Exercice du droit à la portabilité"
         position: 11
     conformite_traitement_question_12:
-        question: "Transferts : respect des obligations en matière de transfert des données en dehors de l'Union Européenne"
+        question: "Exercice du droit d'effacement"
         position: 12
+    conformite_traitement_question_13:
+        question: "Exercice du droit d'opposition"
+        position: 13
+    conformite_traitement_question_14:
+        question: "Sous-traitance : identifiée et contractualisée"
+        position: 14
+    conformite_traitement_question_15:
+        question: "Transferts : respect des obligations en matière de transfert des données en dehors de l'Union Européenne"
+        position: 15

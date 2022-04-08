@@ -71,6 +71,17 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
+                    <div style="float:left">
+                        <a id="archive-all"  href="{{ path('registry_treatment_archive_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            Archives
+                        </a>
+                        <a id="delete-all"  href="{{ path('registry_treatment_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            Supprimer
+                        </a>
+                        <a id="print-all"  href="{{ path('registry_treatment_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            Imprimer
+                        </a>
+                    </div>
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
@@ -195,6 +206,7 @@
                             <th>{{ 'registry.treatment.list.public'|trans }}</th>
                             <th>{{ 'registry.treatment.list.responsable_traitement'|trans }}</th>
                             <th>{{ 'registry.treatment.list.specific_traitement'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.conformite_traitement'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -241,6 +253,7 @@
             {"data": "public", "visible": false},
             {"data": "responsableTraitement", "visible": false},
             {"data": "specific_traitement", "render": "[, ]","visible": true},
+            {"data": "conformite_traitement","visible": false},
             {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
         ],
         order:  [

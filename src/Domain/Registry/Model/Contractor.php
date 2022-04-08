@@ -341,12 +341,12 @@ class Contractor implements LoggableSubject, CollectivityRelated
         return $result;
     }
 
-    public function getMesurements(): Collection
+    public function getMesurements(): ?Collection
     {
         return $this->mesurements;
     }
 
-    public function setMesurement(Collection $mesurements): void
+    public function setMesurement(?Collection $mesurements): void
     {
         $this->mesurements = $mesurements;
     }

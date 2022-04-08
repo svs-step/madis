@@ -61,6 +61,12 @@
                             {{ 'documentation.document.link.button'|trans }}
                         </a>
                     {% endif %}
+                    {% if app.request.query.get('archive') != 'true' %}
+                        <a href="{{ path('registry_proof_download_all') }}" class="btn btn-default">
+                            <i class="fa fa-download"></i>
+                            {{ 'registry.proof.action.download'|trans }}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
 

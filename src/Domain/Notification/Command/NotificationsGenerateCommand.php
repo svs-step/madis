@@ -2,7 +2,10 @@
 
 namespace App\Domain\Notification\Command;
 
+use App\Domain\Maturity\Repository\Survey as SurveyRepository;
 use App\Domain\Notification\Event\LateActionEvent;
+use App\Domain\Notification\Event\LateRequestEvent;
+use App\Domain\Notification\Event\LateSurveyEvent;
 use App\Domain\Notification\Event\NoLoginEvent;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\User\Repository\User as UserRepository;
@@ -23,17 +26,20 @@ class NotificationsGenerateCommand extends Command
     private MesurementRepository $mesurementRepository;
     private RequestRepository $requestRepository;
     private UserRepository $userRepository;
+    private SurveyRepository $surveyRepository;
 
     public function __construct(
         EventDispatcherInterface $dispatcher,
         MesurementRepository $mesurementRepository,
         RequestRepository $requestRepository,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        SurveyRepository $surveyRepository
     ) {
-        $this->dispatcher           = $dispatcher;
-        $this->mesurementRepository = $mesurementRepository;
-        $this->requestRepository    = $requestRepository;
-        $this->userRepository       = $userRepository;
+        $this->dispatcher             = $dispatcher;
+        $this->mesurementRepository   = $mesurementRepository;
+        $this->requestRepository      = $requestRepository;
+        $this->userRepository         = $userRepository;
+        $this->surveyRepository       = $surveyRepository;
 
         parent::__construct();
     }
@@ -57,6 +63,9 @@ class NotificationsGenerateCommand extends Command
         $cnt = $this->generateLateRequestNotification();
         $io->success($cnt . ' late requests notifications generated');
 
+        $cnt = $this->generateLateSurveyNotification();
+        $io->success($cnt . ' late survey notifications generated');
+
         return 0;
     }
 
@@ -67,7 +76,7 @@ class NotificationsGenerateCommand extends Command
         $cnt     = 0;
         foreach ($actions as $action) {
             /**
-             * @var Mesurement
+             * @var Mesurement $action
              */
             if ($action->getPlanificationDate() && $action->getPlanificationDate() < $now) {
                 $this->dispatcher->dispatch(new LateActionEvent($action));
@@ -83,7 +92,21 @@ class NotificationsGenerateCommand extends Command
         $cnt      = 0;
         $requests = $this->requestRepository->findAllLate();
         foreach ($requests as $request) {
-            $this->dispatcher->dispatch(new LateActionEvent($request));
+            $this->dispatcher->dispatch(new LateRequestEvent($request));
+            ++$cnt;
+        }
+
+        return $cnt;
+    }
+
+    protected function generateLateSurveyNotification(): int
+    {
+        $cnt      = 0;
+        // Find all late surveys
+        $surveys = $this->surveyRepository->findAllLate();
+
+        foreach ($surveys as $survey) {
+            $this->dispatcher->dispatch(new LateSurveyEvent($survey));
             ++$cnt;
         }
 

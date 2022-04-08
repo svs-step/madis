@@ -59,8 +59,8 @@
                         {# SWITCH GRID LIST #}
                         {% if is_granted('ROLE_USER') %}
                         <div class="col-md-12 col-xl-2">
-                            <div class="row">
-                                <div class="col-md-3">
+                            <div class="row" style="margin-bottom: 15px;">
+                                <div class="col-md-4">
                                     <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
                                         <i class="fas fa-list"></i>
                                         {{ 'documentation.document.action.list'|trans }}
@@ -69,6 +69,12 @@
                                     <button id="button-reset" class="btn btn-default">
                                         Réinitialiser les filtres
                                     </button>
+                                    {# Uniquement pour les DPO #}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                                            {{ 'documentation.category.action.list'|trans }}
+                                        </a>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-1">
                                     <input type="checkbox" class="form-check-input" id="search_favorite">
@@ -128,7 +134,17 @@
                                         {% if (object.thumbUrl) %}
                                             <img src="{{ object.thumbUrl }}" alt="" height="150" style="object-fit : cover;width:100%" />
                                         {% else %}
-                                            <div class="h1 text-muted m-0" style="height:150px;padding: 60px;background: #f2f2f2;"><i class="fas fa-image"></i></div>
+                                            <div class="text-muted m-0" style="height:150px;padding: 50px;background: #f2f2f2;font-size: 60px;">
+                                            {% if object.typeName == "Vidéos" %}
+                                                <i class="far fa-file-video"></i>
+                                            {% elseif object.typeName == "PDF" %}
+                                                <i class="far fa-file-pdf"></i>
+                                            {% elseif object.typeName == "Documents" %}
+                                                <i class="far fa-file-word"></i>
+                                            {% elseif object.typeName == "Lien" %}
+                                                <i class="fas fa-globe"></i>
+                                            {% endif %}
+                                            </div>
                                         {% endif %}
                                     </a>
                                 </td>
@@ -141,10 +157,21 @@
                                         {% endif %}
                                     </a>
                                 </td>
-                                <td><a href="{{ object.url }}" target="_blank" style="word-break: break-word;">{{ object.name }}</a></td>
+                                <td style="line-height: 1.2em;overflow: hidden;height: 25px;"><a href="{{ object.url }}" target="_blank" style="word-break: break-word;">{{ object.name }}</a></td>
 
                                 <td class="text-sm" style="display: flex; flex-direction: row;justify-content: space-between">
-                                    <div>{{ object.typeName }}</div>
+                                    <div>
+                                        {% if object.typeName == "Vidéos" %}
+                                            <i class="far fa-file-video"></i>
+                                        {% elseif object.typeName == "PDF" %}
+                                            <i class="far fa-file-pdf"></i>
+                                        {% elseif object.typeName == "Documents" %}
+                                            <i class="far fa-file-word"></i>
+                                        {% elseif object.typeName == "Lien" %}
+                                            <i class="fas fa-globe"></i>
+                                        {% endif %}
+                                        {{ object.typeName }}
+                                    </div>
                                     <div>{{ object.size }}</div>
                                     <div>{{ object.createdAt|date('d/m/Y') }}</div>
                                 </td>
@@ -154,7 +181,7 @@
                                 <td class="hidden">
                                     {{ object.createdAt|date('d/m/Y') }}
                                 </td>
-                                <td>
+                                <td style="line-height: 1.2em;overflow: hidden;height: 25px;">
                                     {{ object.categories|map(c => "#{c.name}") | join(', ') }}
                                 </td>
                                 <td>
@@ -163,12 +190,12 @@
                                         <a class="sharelink btn btn-block text-info btn-xs col-md-12" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal" style="border-color:#31708f">
                                             <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
                                         </a>
-                                        <div class="col-md-6" style="padding: 5px  5px 0 0">
+                                        <div class="col-md-12" style="padding: 5px 0 0 0">
                                             <a class="btn btn-block text-info btn-xs" href="{{ path('documentation_document_edit', { 'id': object.id }) }}" style="border-color:#31708f">
                                                 <i class="fa fa-pencil-alt"></i>&nbsp;{{ 'action.edit'|trans }}
                                             </a>
                                         </div>
-                                        <div class="col-md-6" style="padding: 5px 0 0  5px;">
+                                        <div class="col-md-12" style="padding: 5px 0 0 0">
                                             <a class="btn btn-block text-info btn-xs col-md-6" href="{{ path('documentation_document_delete', { 'id': object.id }) }}" style="border-color:#31708f">
                                                 <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
                                             </a>
@@ -187,9 +214,9 @@
     </div>
     <div id="shareModal" class="modal fade" >
         <div class="modal-dialog">
-            <div class="box box-solid box-default">
-                <div class="box-header with-border text-center">
-                    <h3 class="box-title">Voici le lien du fichier</h3>
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Partager le lien du document</h3>
                     <div class="box-tools pull-right">
                         <!-- Collapse Button -->
                         <button type="button" class="btn btn-box-tool" data-dismiss="modal">
@@ -198,12 +225,22 @@
                     </div>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body text-center">
-                    <div id="linkDocument" class="modal-body"></div>
+                <div class="box-body text-center copyLink" style="display: none">
+                    <i class="fa fa-check fa-3x" style="color:green"></i>
+                    <h4><b>Lien copié</b></h4>
                 </div>
-                <!-- /.box-body -->
-                <div class="box-footer text-center">
-                    <button onclick="copyToClipBoard()">Enregistrer le lien dans le presse papier</button>
+                <div class="box-body text-center">
+                    <div class="input-group">
+                        <input type="text" class="form-control linkDoc">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary btn-flat" data-dashlane-label="true" onclick="copyToClipBoard()" data-form-type="other">Copier</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <blockquote>
+                        <p style="color:grey;font-size:14px;">-Seul les membres ayant un compte Madis pourront accéder au document.</p>
+                    </blockquote>
                 </div>
                 <!-- box-footer -->
             </div>
@@ -214,6 +251,7 @@
 
 {% block javascripts %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
 
     {% set dataTableOptions = {
         columns: [
@@ -232,6 +270,13 @@
                 colvis: "Colonnes"
             },
         },
+        dom: 'Bfrtip',
+        columnDefs: [
+            {
+                targets: 4,
+                className: 'noVis'
+            }
+        ],
         buttons: [
             {
                 extend: "colvis",
@@ -243,9 +288,66 @@
     {# {{ include('_Utils/_serverside_datatable.html.twig') }} #}
     {{ include('_Utils/_datatable.html.twig') }}
     <script>
+        {% set dataTableOptions = dataTableOptions|default({}) %}
+        {% set dataTableOptions = dataTableOptions|merge({
+            columns: [
+                {"data": "thumbnail", "orderable": false},
+                {"data": "favorite"},
+                {"data": "name"},
+                {"data": "type"},
+                {"data": "weight"},
+                {"data": "created_at"},
+                {"data": "category"},
+                {"data": "actions", "orderable": false},
+            ],
+            order: [[0,'desc'],[1,'desc'],[6,'desc']],
+            language: {
+                sProcessing:     "Traitement en cours...",
+                sSearch:         "Rechercher&nbsp;:",
+                sLengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
+                sInfo:           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                sInfoEmpty:      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                sInfoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                sInfoPostFix:    "",
+                sLoadingRecords: "Chargement en cours...",
+                sZeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                sEmptyTable:     "Aucune donn&eacute;e disponible dans le tableau",
+                oPaginate: {
+                    sFirst:      "Premier",
+                    sPrevious:   "Pr&eacute;c&eacute;dent",
+                    sNext:       "Suivant",
+                    sLast:       "Dernier"
+                },
+                oAria: {
+                    sSortAscending:  ": activer pour trier la colonne par ordre croissant",
+                    sSortDescending: ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                select: {
+                    rows: {
+                        _: "%d lignes séléctionnées",
+                        0: "Aucune ligne séléctionnée",
+                        1: "1 ligne séléctionnée"
+                    }
+                },
+                thousands: " ",
+                buttons: {
+                    colvis: "Colonnes"
+                },
+            },
+
+            buttons: [
+                {
+                    extend: "colvis",
+                    columns: ":not(.noVis)"
+                }
+            ],
+        })%}
+        $('#documentation-grid').DataTable({{ dataTableOptions|json_encode|raw }});
+
         $(document).ready(function() {
             $('.sharelink').on('click', function() {
-                $('#linkDocument').text($(this).data('id'));
+                $('.linkDoc').val($(this).data('id'));
+                $('.copyLink').hide();
             })
 
             // SET FAVORITE ICON
@@ -256,7 +358,7 @@
         })
 
         function copyToClipBoard() {
-            var text = $('#linkDocument').text();
+            var text = $('.linkDoc').val();
 
             var dummy = document.createElement("textarea");
             document.body.appendChild(dummy);
@@ -264,6 +366,8 @@
             dummy.select();
             document.execCommand("copy");
             document.body.removeChild(dummy);
+
+            $('.copyLink').show();
         }
 
         $(function () {
@@ -274,6 +378,7 @@
             $('[id^=search_]').each(function() {
                 $(this).val('');
             });
+            $('#search_favorite').prop('checked', false);
             var table = $('#documentation-grid').DataTable();
             table.columns().search('');
         }
@@ -283,7 +388,6 @@
             // SET SEARCH
             $('#search_favorite').off('change');
             $('#search_favorite').change(function(){
-                console.log($(this).prop('checked'), oTable.column('1'))
                 oTable.column('1').search($(this).prop('checked') ? "1" : "").draw();
             });
 
@@ -317,6 +421,7 @@
 
         $(document).ready(function() {
             $('#table_filter').hide();
+            $('.dt-buttons').hide();
             setEvents();
         } );
 
@@ -327,6 +432,7 @@
             resetFilters();
             var table = $('#documentation-grid').DataTable();
             table.columns().search('').draw();
+            $('button[data-id="search_category"] .filter-option-inner-inner').html("Catégories")
         })
     </script>
 
