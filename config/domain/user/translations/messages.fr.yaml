@@ -182,7 +182,7 @@ user:
             services: Services
             respInfo: Responsable informatique
             respTreat: Responsable traitement
-            refOp: Référent opérationnel
+            refOp: Référent RGPD
             dpo: DPO
         flashbag:
             success:
