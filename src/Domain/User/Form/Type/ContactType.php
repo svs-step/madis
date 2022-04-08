@@ -27,6 +27,7 @@ namespace App\Domain\User\Form\Type;
 use App\Domain\User\Model\Embeddable\Contact;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -93,6 +94,13 @@ class ContactType extends AbstractType
                     'maxlength' => 255,
                 ],
             ]);
+
+        if (!$isComiteIl){
+            $builder->add('notification', CheckboxType::class, [
+                'label'    => 'user.contact.form.notification',
+                'required' => false,
+            ]);
+        }
     }
 
     /**

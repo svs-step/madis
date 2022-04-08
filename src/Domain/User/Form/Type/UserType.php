@@ -119,6 +119,22 @@ class UserType extends AbstractType
                     'label'    => 'user.user.form.enabled',
                     'required' => false,
                 ])
+                ->add('respInfo', CheckboxType::class, [
+                    'label'    => 'user.user.form.respInfo',
+                    'required' => false,
+                ])
+                ->add('respTreat', CheckboxType::class, [
+                    'label'    => 'user.user.form.respTreat',
+                    'required' => false,
+                ])
+                ->add('refOp', CheckboxType::class, [
+                    'label'    => 'user.user.form.refOp',
+                    'required' => false,
+                ])
+                ->add('dpo', CheckboxType::class, [
+                    'label'    => 'user.user.form.dpo',
+                    'required' => false,
+                ])
                 ->add('collectivitesReferees', EntityType::class, [
                     'class'         => Collectivity::class,
                     'label'         => 'user.user.form.collectivitesReferees',
