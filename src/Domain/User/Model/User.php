@@ -128,6 +128,11 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     /**
      * @var bool
      */
+    private $moreInfos;
+
+    /**
+     * @var bool
+     */
     private $refOp;
 
     /**
@@ -421,5 +426,15 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     public function setDpo(bool $dpo): void
     {
         $this->dpo = $dpo;
+    }
+
+    public function getMoreInfos(): ?array
+    {
+        return $this->moreInfos;
+    }
+
+    public function setMoreInfos(array $moreInfos): void
+    {
+        $this->moreInfos = $moreInfos;
     }
 }
