@@ -260,7 +260,7 @@ abstract class CRUDController extends AbstractController
         }
 
         $actionEnabled = true;
-        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+        if ($object instanceof CollectivityRelated && (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$this->getUser()->getServices()->isEmpty())) {
             $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
         }
 
@@ -309,7 +309,7 @@ abstract class CRUDController extends AbstractController
         }
 
         $actionEnabled = true;
-        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$this->getUser()->getServices()->isEmpty()) {
             $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
         }
 
@@ -333,7 +333,7 @@ abstract class CRUDController extends AbstractController
         }
 
         $actionEnabled = true;
-        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$this->getUser()->getServices()->isEmpty()) {
             $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
         }
 

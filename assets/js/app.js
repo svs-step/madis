@@ -57,6 +57,7 @@ $(document).ready(function() {
     $('#treatment_author').on('change', function() {
         var textArea = $('#treatment_coordonneesResponsableTraitement');
         textArea.prop('disabled', !($(this).val() === 'processing_manager'));
+
     });
 
     // Check Collectivity dpo | onLoad & onChange
@@ -171,10 +172,10 @@ function checkDifferentItManager(id, boxId)
 function checkDifferentServices(id, boxId)
 {
     boxId.find('input').each(function() {
-        $(this).prop('disabled', !id.is(':checked'));
+        $(this).prop('readonly', !id.is(':checked'));
     });
     boxId.find('select').each(function() {
-        $(this).prop('disabled', !id.is(':checked'));
+        $(this).prop('readonly', !id.is(':checked'));
     });
     boxId.find('#add-services').each(function() {
         if ($('#collectivity_isServicesEnabled').prop('checked')) {

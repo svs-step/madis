@@ -28,6 +28,7 @@ use App\Domain\Registry\Form\Type\Embeddable\AddressType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\User\Form\Type\ContactType;
 use App\Domain\User\Model\Service;
+use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -36,14 +37,33 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class ContractorType extends AbstractType
 {
+    /**
+     * @var Security
+     */
+    private $security;
+
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authorizationChecker;
+
+    public function __construct(Security $security, AuthorizationCheckerInterface $authorizationChecker)
+    {
+        $this->security             = $security;
+        $this->authorizationChecker = $authorizationChecker;
+    }
+
     /**
      * Build type form.
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $contractor = $options['data'];
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'registry.contractor.form.name',
@@ -52,15 +72,37 @@ class ContractorType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
-            ->add('service', EntityType::class, [
-                'class'         => Service::class,
-                'label'         => 'registry.treatment.form.service',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('s')
-                        ->orderBy('s.name', 'ASC');
-                },
-                'required'      => false,
-            ])
+        ;
+        if ($contractor->getCollectivity()->getIsServicesEnabled()) {
+            $builder
+                ->add('service', EntityType::class, [
+                    'class'         => Service::class,
+                    'label'         => 'registry.treatment.form.service',
+                    'query_builder' => function (EntityRepository $er) use ($contractor) {
+                        /** @var User $authenticatedUser */
+                        $authenticatedUser = $this->security->getUser();
+                        $collectivity = $contractor->getCollectivity();
+
+                        $qb = $er->createQueryBuilder('s')
+                            ->where('s.collectivity = :collectivity')
+                            ->setParameter(':collectivity', $collectivity)
+                        ;
+                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && empty($authenticatedUser->getServices())) {
+                            $qb->leftJoin('s.users', 'users')
+                                ->andWhere('users.id = :id')
+                                ->setParameter('id', $authenticatedUser->getId())
+                            ;
+                        }
+                        $qb
+                            ->orderBy('s.name', 'ASC');
+
+                        return $qb;
+                    },
+                    'required' => false,
+                ])
+            ;
+        }
+        $builder
             ->add('referent', TextType::class, [
                 'label'    => 'registry.contractor.form.referent',
                 'required' => false,

@@ -141,8 +141,10 @@
                                                 <i class="far fa-file-pdf"></i>
                                             {% elseif object.typeName == "Documents" %}
                                                 <i class="far fa-file-word"></i>
-                                            {% elseif object.typeName == "Lien" %}
+                                            {% elseif object.typeName == "Liens" %}
                                                 <i class="fas fa-globe"></i>
+                                            {% elseif object.typeName == "Images" %}
+                                                <i class="fas fa-image"></i>
                                             {% endif %}
                                             </div>
                                         {% endif %}
@@ -167,8 +169,10 @@
                                             <i class="far fa-file-pdf"></i>
                                         {% elseif object.typeName == "Documents" %}
                                             <i class="far fa-file-word"></i>
-                                        {% elseif object.typeName == "Lien" %}
+                                        {% elseif object.typeName == "Liens" %}
                                             <i class="fas fa-globe"></i>
+                                        {% elseif object.typeName == "Images" %}
+                                                <i class="fas fa-image"></i>
                                         {% endif %}
                                         {{ object.typeName }}
                                     </div>

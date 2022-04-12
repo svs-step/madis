@@ -360,7 +360,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                         ->setParameter('nom', '%' . $search . '%');
                     break;
                 case 'baseLegal':
-                    $this->addWhereClause($queryBuilder, 'legalBasis', $search);
+                    $this->addWhereClause($queryBuilder, 'legalBasis', json_encode($search));
                     break;
                 case 'logiciel':
                     $this->addWhereClause($queryBuilder, 'software', '%' . $search . '%', 'LIKE');

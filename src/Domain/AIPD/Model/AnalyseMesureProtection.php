@@ -4,13 +4,23 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class AnalyseMesureProtection extends AbstractMesureProtection
 {
     private AnalyseImpact $analyseImpact;
 
     private ?string $reponse;
 
-    private AnalyseScenarioMenace $scenarioMenace;
+    private iterable $scenariosMenaces;
+
+    private string $originId;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->scenariosMenaces = new ArrayCollection();
+    }
 
     public function getAnalyseImpact(): AnalyseImpact
     {
@@ -32,13 +42,28 @@ class AnalyseMesureProtection extends AbstractMesureProtection
         $this->reponse = $reponse;
     }
 
-    public function getScenarioMenace(): AnalyseScenarioMenace
+    public function getScenariosMenaces(): iterable
     {
-        return $this->scenarioMenace;
+        return $this->scenariosMenaces;
     }
 
-    public function setScenarioMenace(AnalyseScenarioMenace $scenarioMenace): void
+    public function setScenariosMenaces(iterable $scenariosMenaces): void
     {
-        $this->scenarioMenace = $scenarioMenace;
+        $this->scenariosMenaces = $scenariosMenaces;
+    }
+
+    public function addScenarioMenace(AnalyseScenarioMenace $scenarioMenace)
+    {
+        $this->scenariosMenaces[] = $scenarioMenace;
+    }
+
+    public function getOriginId(): string
+    {
+        return $this->originId;
+    }
+
+    public function setOriginId(string $originId): void
+    {
+        $this->originId = $originId;
     }
 }

@@ -28,6 +28,7 @@ use App\Domain\Registry\Form\Type\ContractorType;
 use App\Domain\Registry\Form\Type\Embeddable\AddressType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\User\Form\Type\ContactType;
+use App\Domain\User\Model\Collectivity;
 use App\Tests\Utils\FormTypeHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -35,16 +36,23 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class ContractorTypeTest extends FormTypeHelper
 {
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, new ContractorType());
+        $this->assertInstanceOf(AbstractType::class, new ContractorType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()));
     }
 
     public function testBuildForm()
     {
+        $contractor   = new Contractor();
+        $collectivity = new Collectivity();
+        $collectivity->setIsServicesEnabled(true);
+        $contractor->setCollectivity($collectivity);
+
         $builder = [
             'name'                       => TextType::class,
             'service'                    => EntityType::class,
@@ -60,7 +68,7 @@ class ContractorTypeTest extends FormTypeHelper
             'dpo'                        => ContactType::class,
         ];
 
-        (new ContractorType())->buildForm($this->prophesizeBuilder($builder), []);
+        (new ContractorType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()))->buildForm($this->prophesizeBuilder($builder), ['data' => $contractor]);
     }
 
     public function testConfigureOptions(): void
@@ -76,6 +84,6 @@ class ContractorTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new ContractorType())->configureOptions($resolverProphecy->reveal());
+        (new ContractorType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()))->configureOptions($resolverProphecy->reveal());
     }
 }

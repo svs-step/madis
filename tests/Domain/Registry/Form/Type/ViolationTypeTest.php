@@ -26,6 +26,7 @@ namespace App\Tests\Domain\Registry\Form\Type;
 
 use App\Domain\Registry\Form\Type\ViolationType;
 use App\Domain\Registry\Model\Violation;
+use App\Domain\User\Model\Collectivity;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -36,16 +37,23 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class ViolationTypeTest extends FormTypeHelper
 {
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, new ViolationType());
+        $this->assertInstanceOf(AbstractType::class, new ViolationType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()));
     }
 
     public function testBuildForm()
     {
+        $violation    = new Violation();
+        $collectivity = new Collectivity();
+        $collectivity->setIsServicesEnabled(true);
+        $violation->setCollectivity($collectivity);
+
         $builder = [
             'date'                          => DateType::class,
             'service'                       => EntityType::class,
@@ -68,7 +76,7 @@ class ViolationTypeTest extends FormTypeHelper
             'treatments'                    => EntityType::class,
         ];
 
-        (new ViolationType())->buildForm($this->prophesizeBuilder($builder), []);
+        (new ViolationType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()))->buildForm($this->prophesizeBuilder($builder), ['data' => $violation]);
     }
 
     public function testConfigureOptions(): void
@@ -84,6 +92,6 @@ class ViolationTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new ViolationType())->configureOptions($resolverProphecy->reveal());
+        (new ViolationType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()))->configureOptions($resolverProphecy->reveal());
     }
 }

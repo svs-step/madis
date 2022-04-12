@@ -11,7 +11,7 @@ class StatutAnalyseImpactDictionary extends SimpleDictionary
     const NON_REALISEE            = 'non_realisee';
     const FAVORABLE               = 'favorable';
     const FAVORABLE_AVEC_RESERVES = 'favorable_avec_reserves';
-    const NON_FAVORABLE           = 'non_favorable';
+    const NON_FAVORABLE           = 'defavorable';
     const EN_COURS                = 'en_cours';
 
     public function __construct()

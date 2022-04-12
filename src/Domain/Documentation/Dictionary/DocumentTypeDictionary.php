@@ -32,6 +32,7 @@ class DocumentTypeDictionary extends SimpleDictionary
     const TYPE_MP4         = 'Vidéos';
     const TYPE_LINK        = 'Liens';
     const TYPE_DOCX        = 'Documents';
+    const TYPE_IMG         = 'Images';
 
     public function __construct()
     {
@@ -50,6 +51,7 @@ class DocumentTypeDictionary extends SimpleDictionary
             self::TYPE_MP4            => 'Vidéos',
             self::TYPE_LINK           => 'Liens',
             self::TYPE_DOCX           => 'Documents',
+            self::TYPE_IMG            => 'Images',
         ];
     }
 

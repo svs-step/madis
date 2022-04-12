@@ -38,7 +38,7 @@
         </one-to-many>
         <many-to-many field="authorizedCollectivities" target-entity="App\Domain\User\Model\Collectivity" inversed-by="modeleAnalyses">
             <join-table name="aipd_modele_analyse_collectivity">
-                <join-columns><join-column/></join-columns>
+                <join-columns><join-column /></join-columns>
                 <inverse-join-columns><join-column/></inverse-join-columns>
             </join-table>
         </many-to-many>

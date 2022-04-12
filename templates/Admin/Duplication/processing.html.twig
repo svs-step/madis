@@ -17,6 +17,7 @@
 {% endblock %}
 
 {% block body %}
+
 <div class="row">
     <div class="col-xs-12">
         {# Warning message #}
@@ -83,14 +84,11 @@
         // Disable alert popup when we wanna close tab
         const unloadAlertPopupOnClosing = () => window.onbeforeunload = () => {};
 
-        console.log("Before function");
-{#        {{ dump(targetCollectivityId) }}#}
         // MAKE DUPLICATION
         // Create new promise which will request duplication
         const getAjaxDuplicationPromise = (duplicationId, targetCollectivityId) => {
             showRowProcess(targetCollectivityId);
 
-            console.log("Launch premise");
             return new Promise((resolve, reject) => {
                 let url = '{{ path('api_admin_duplication_duplicate', { duplicationId: 'duplicationIdValue', targetCollectivityId: 'targetCollectivityIdValue' }) }}'
                     .replace('duplicationIdValue', duplicationId)
@@ -135,10 +133,19 @@
 
             let targetCollectivities = [];
             {% for duplicatedObject in duplication.duplicatedObjects.toArray %}
-            targetCollectivities.push({
-                   'id': '{{ duplicatedObject.collectivity.id }}',
-                   'name': '{{ duplicatedObject.collectivity.name }}',
+                var found = false;
+                targetCollectivities.forEach((element) => {
+                    if (element['id'] == '{{ duplicatedObject.collectivity.id }}') {
+                        found = true;
+                    }
                 });
+                if (!found) {
+                    targetCollectivities.push({
+                        'id': '{{ duplicatedObject.collectivity.id }}',
+                        'name': '{{ duplicatedObject.collectivity.name }}',
+                    });
+                }
+
             {% endfor %}
 
             // JAVASCRIPT PROCESSING
