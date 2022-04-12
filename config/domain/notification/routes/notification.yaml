@@ -39,4 +39,9 @@ notification_notification_mark_as_read_all:
     path: '/tous-marquer-comme-lu'
     methods: ['GET']
     controller: 'App\Domain\Notification\Controller\NotificationController:markAsReadAllAction'
+
+notification_notification_unsubscribe:
+    path: '/se-desabonner'
+    methods: ['GET']
+    controller: 'App\Domain\Notification\Controller\NotificationController:unsubscribe'
     

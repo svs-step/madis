@@ -202,4 +202,9 @@ class NotificationController extends CRUDController
 
         return $this->redirect($referer);
     }
+
+    public function unsubscribe()
+    {
+        
+    }
 }
