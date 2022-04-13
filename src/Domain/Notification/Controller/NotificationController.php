@@ -205,6 +205,6 @@ class NotificationController extends CRUDController
 
     public function unsubscribe()
     {
-        
+
     }
 }
