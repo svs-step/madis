@@ -121,29 +121,9 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     private $documentView;
 
     /**
-     * @var bool
-     */
-    private $respTreat;
-
-    /**
-     * @var bool
+     * @var array|null
      */
     private $moreInfos;
-
-    /**
-     * @var bool
-     */
-    private $refOp;
-
-    /**
-     * @var bool
-     */
-    private $respInfo;
-
-    /**
-     * @var bool
-     */
-    private $dpo;
 
     /**
      * User constructor.
@@ -155,11 +135,8 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
         $this->id                    = Uuid::uuid4();
         $this->roles                 = [];
         $this->enabled               = true;
-        $this->respTreat             = false;
-        $this->refOp                 = false;
-        $this->respInfo              = false;
-        $this->dpo                   = false;
         $this->collectivitesReferees = [];
+        $this->moreInfos             = [];
     }
 
     public function getId(): UuidInterface
@@ -386,46 +363,6 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     public function setDocumentView(bool $documentView): void
     {
         $this->documentView = $documentView;
-    }
-
-    public function isRespTreat(): bool
-    {
-        return $this->respTreat;
-    }
-
-    public function setRespTreat(bool $respTreat): void
-    {
-        $this->respTreat = $respTreat;
-    }
-
-    public function isRefOp(): bool
-    {
-        return $this->refOp;
-    }
-
-    public function setRefOp(bool $refOp): void
-    {
-        $this->refOp = $refOp;
-    }
-
-    public function isRespInfo(): bool
-    {
-        return $this->respInfo;
-    }
-
-    public function setRespInfo(bool $respInfo): void
-    {
-        $this->respInfo = $respInfo;
-    }
-
-    public function isDpo(): bool
-    {
-        return $this->dpo;
-    }
-
-    public function setDpo(bool $dpo): void
-    {
-        $this->dpo = $dpo;
     }
 
     public function getMoreInfos(): ?array

@@ -27,7 +27,7 @@ namespace App\Domain\User\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
-use App\Domain\User\Dictionary\UserMoreInfoDictionnary;
+use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Model;
@@ -203,20 +203,8 @@ class UserController extends CRUDController
             }
 
             $infos ='';
-            if ($user->isRefOp()){
-                $span = '<span class="badge bg-blue">Référent RGPD</span>';
-                $infos .= $span;
-            }
-            if ($user->isRespInfo()){
-                $span = '<span class="badge bg-blue">Responsable informatique</span>';
-                $infos .= $span;
-            }
-            if ($user->isRespTreat()){
-                $span = '<span class="badge bg-blue">Responsable traitement</span>';
-                $infos .= $span;
-            }
-            if ($user->isDpo()){
-                $span = '<span class="badge bg-blue">DPO</span>';
+            foreach ($user->getMoreInfos() as $info) {
+                $span = '<span class="badge">' . UserMoreInfoDictionary::getMoreInfos()[$info] . '</span>';
                 $infos .= $span;
             }
 
