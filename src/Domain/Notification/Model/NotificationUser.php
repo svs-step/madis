@@ -49,17 +49,17 @@ class NotificationUser
     private ?string $mail;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      */
     private $notif_id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $user_id;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=false)
      */
     private ?string $token;
 
@@ -93,22 +93,22 @@ class NotificationUser
         $this->mail = $mail;
     }
 
-    public function getNotifId(): ?Integer
+    public function getNotifId(): ?string
     {
         return $this->notif_id;
     }
 
-    public function setNotifId(?int $notif_id): void
+    public function setNotifId(?string $notif_id): void
     {
         $this->notif_id = $notif_id;
     }
 
-    public function getUserId(): ?int
+    public function getUserId(): ?string
     {
         return $this->user_id;
     }
 
-    public function setUserId(?int $user_id): void
+    public function setUserId(?string $user_id): void
     {
         $this->user_id = $user_id;
     }
