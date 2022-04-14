@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'notification_delete delete' %}
+{% set menuItem = 'notification_notification' %}
+
+{% block title %}{{ 'notification.notification.title.delete'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'notification.notification.title.delete'|trans }}
+        <small>{{ object }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'notification.notification.breadcrumb.list'|trans, 'link': path('notification_notification_list') },
+        { 'name': 'notification.notification.breadcrumb.delete'|trans({'%name%': object}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-header"></div>
+                <div class="box-body">
+                    Souhaitez vous vraiment supprimer la notification {{ object.name }} ?
+                </div>
+                <div class="box-footer">
+                    <a href="{{ path('notification_notification_index') }}" class="btn btn-default">
+                        {{ 'notification.notification.action.back_to_list'|trans }}
+                    </a>
+                    <a href="{{ path('notification_notification_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'action.confirm_delete'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+{{ form_errors(form) }}
+{{ form_start(form) }}
+<div class="col-md-6">
+    <div class="box box-solid box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                Notifications
+            </h3>
+        </div>
+        <div class="box-body">
+        {{ form_row(form.is_notified) }}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ form_end(form) }}
+
