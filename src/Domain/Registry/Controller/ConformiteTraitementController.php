@@ -307,9 +307,9 @@ class ConformiteTraitementController extends CRUDController
         $analyseImpact->setConformiteTraitement($conformiteTraitement);
         $this->setAnalyseReponsesQuestionConformite($analyseImpact, $conformiteTraitement);
         $this->entityManager->persist($analyseImpact);
-        
+
         foreach ($analyseImpact->getScenarioMenaces() as $scenarioMenace) {
-            if ($scenarioMenace->getMesuresProtections() !== null) {
+            if (null !== $scenarioMenace->getMesuresProtections()) {
                 foreach ($scenarioMenace->getMesuresProtections() as $mesureProtection) {
                     $this->entityManager->persist($mesureProtection);
                 }

@@ -363,7 +363,6 @@ class Document
 
     public function getTypeName(): ?string
     {
-
         $types     = DocumentTypeDictionary::getTypes();
         $extension = strtolower(pathinfo($this->getFile(), PATHINFO_EXTENSION));
 

@@ -28,7 +28,7 @@ final class Version20220414092438 extends AbstractMigration
         return '';
     }
 
-    public function preUp(Schema $schema) : void
+    public function preUp(Schema $schema): void
     {
         // FIND IDs FROM OLD QUESTIONS
         $this->question1 = $this->getData('SELECT id FROM conformite_traitement_question WHERE question = "Exercice des droits d\'accès et à la portabilité"');
@@ -41,15 +41,15 @@ final class Version20220414092438 extends AbstractMigration
         $this->answer3 = $this->getData('SELECT * FROM conformite_traitement_reponse WHERE question_id = "' . $this->question3[0]['id'] . '"');
 
         foreach ($this->answer1 as $k => $answer) {
-            $this->answer1[$k]['actionProtections'] = $this->getData('SELECT * FROM conformite_traitement_reponse_action_protection WHERE reponse_id = "' . $answer['id'] . '"');
+            $this->answer1[$k]['actionProtections']        = $this->getData('SELECT * FROM conformite_traitement_reponse_action_protection WHERE reponse_id = "' . $answer['id'] . '"');
             $this->answer1[$k]['actionProtectionsNotSeen'] = $this->getData('SELECT * FROM conformite_traitement_reponse_action_protection_not_seen WHERE reponse_id = "' . $answer['id'] . '"');
         }
         foreach ($this->answer2 as $k => $answer) {
-            $this->answer2[$k]['actionProtections'] = $this->getData('SELECT * FROM conformite_traitement_reponse_action_protection WHERE reponse_id = "' . $answer['id'] . '"');
+            $this->answer2[$k]['actionProtections']        = $this->getData('SELECT * FROM conformite_traitement_reponse_action_protection WHERE reponse_id = "' . $answer['id'] . '"');
             $this->answer2[$k]['actionProtectionsNotSeen'] = $this->getData('SELECT * FROM conformite_traitement_reponse_action_protection_not_seen WHERE reponse_id = "' . $answer['id'] . '"');
         }
         foreach ($this->answer3 as $k => $answer) {
-            $this->answer3[$k]['actionProtections'] = $this->getData('SELECT * FROM conformite_traitement_reponse_action_protection WHERE reponse_id = "' . $answer['id'] . '"');
+            $this->answer3[$k]['actionProtections']        = $this->getData('SELECT * FROM conformite_traitement_reponse_action_protection WHERE reponse_id = "' . $answer['id'] . '"');
             $this->answer3[$k]['actionProtectionsNotSeen'] = $this->getData('SELECT * FROM conformite_traitement_reponse_action_protection_not_seen WHERE reponse_id = "' . $answer['id'] . '"');
         }
 
@@ -68,37 +68,38 @@ final class Version20220414092438 extends AbstractMigration
 
         // DUPLICATE ANSWER & APPLY TO NEW QUESTIONS
     }
-    private function getData(string $sql):array
+
+    private function getData(string $sql): array
     {
         $stmt = $this->connection->query($sql);
+
         return $stmt->fetchAll();
     }
 
-    public function postUp(Schema $schema) : void
+    public function postUp(Schema $schema): void
     {
         //Insert responses to new questions
 
         foreach ($this->answer1 as $answer) {
             $answerId = Uuid::uuid4()->__toString();
-            $data = [
-                'id' => $answerId,
-                'question_id' => $this->ids[0],
+            $data     = [
+                'id'                       => $answerId,
+                'question_id'              => $this->ids[0],
                 'conformite_traitement_id' => $answer['conformite_traitement_id'],
-                'conforme' => $answer['conforme'],
+                'conforme'                 => $answer['conforme'],
             ];
             $this->connection->insert('conformite_traitement_reponse', $data);
-            dump('answer1');
-            dump($answer);
+
             foreach ($answer['actionProtections'] as $action) {
                 $data2 = [
-                    'reponse_id' => $answerId,
+                    'reponse_id'    => $answerId,
                     'mesurement_id' => $action['mesurement_id'],
                 ];
                 $this->connection->insert('conformite_traitement_reponse_action_protection', $data2);
             }
             foreach ($answer['actionProtectionsNotSeen'] as $action) {
                 $data2 = [
-                    'reponse_id' => $answerId,
+                    'reponse_id'    => $answerId,
                     'mesurement_id' => $action['mesurement_id'],
                 ];
                 $this->connection->insert('conformite_traitement_reponse_action_protection_not_seen', $data2);
@@ -106,25 +107,24 @@ final class Version20220414092438 extends AbstractMigration
         }
         foreach ($this->answer2 as $answer) {
             $answerId = Uuid::uuid4()->__toString();
-            $data = [
-                'id' => $answerId,
-                'question_id' => $this->ids[1],
+            $data     = [
+                'id'                       => $answerId,
+                'question_id'              => $this->ids[1],
                 'conformite_traitement_id' => $answer['conformite_traitement_id'],
-                'conforme' => $answer['conforme'],
+                'conforme'                 => $answer['conforme'],
             ];
             $this->connection->insert('conformite_traitement_reponse', $data);
-            dump('answer2');
-            dump($answer);
+
             foreach ($answer['actionProtections'] as $action) {
                 $data2 = [
-                    'reponse_id' => $answerId,
+                    'reponse_id'    => $answerId,
                     'mesurement_id' => $action['mesurement_id'],
                 ];
                 $this->connection->insert('conformite_traitement_reponse_action_protection', $data2);
             }
             foreach ($answer['actionProtectionsNotSeen'] as $action) {
                 $data2 = [
-                    'reponse_id' => $answerId,
+                    'reponse_id'    => $answerId,
                     'mesurement_id' => $action['mesurement_id'],
                 ];
                 $this->connection->insert('conformite_traitement_reponse_action_protection_not_seen', $data2);
@@ -132,25 +132,23 @@ final class Version20220414092438 extends AbstractMigration
         }
         foreach ($this->answer3 as $answer) {
             $answerId = Uuid::uuid4()->__toString();
-            $data = [
-                'id' => $answerId,
-                'question_id' => $this->ids[2],
+            $data     = [
+                'id'                       => $answerId,
+                'question_id'              => $this->ids[2],
                 'conformite_traitement_id' => $answer['conformite_traitement_id'],
-                'conforme' => $answer['conforme'],
+                'conforme'                 => $answer['conforme'],
             ];
             $this->connection->insert('conformite_traitement_reponse', $data);
-            dump('answer3');
-            dump($answer);
             foreach ($answer['actionProtections'] as $action) {
                 $data2 = [
-                    'reponse_id' => $answerId,
+                    'reponse_id'    => $answerId,
                     'mesurement_id' => $action['mesurement_id'],
                 ];
                 $this->connection->insert('conformite_traitement_reponse_action_protection', $data2);
             }
             foreach ($answer['actionProtectionsNotSeen'] as $action) {
                 $data2 = [
-                    'reponse_id' => $answerId,
+                    'reponse_id'    => $answerId,
                     'mesurement_id' => $action['mesurement_id'],
                 ];
                 $this->connection->insert('conformite_traitement_reponse_action_protection_not_seen', $data2);
