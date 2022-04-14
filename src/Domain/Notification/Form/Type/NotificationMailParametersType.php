@@ -26,11 +26,13 @@ namespace App\Domain\Notification\Form\Type;
 
 use App\Domain\Notification\Model\NotificationMailParameters;
 use App\Domain\User\Model\Embeddable\Address;
+use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use phpDocumentor\Reflection\Types\Boolean;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -45,60 +47,60 @@ class NotificationMailParametersType extends AbstractType
         $builder
             ->add('is_notified', CheckboxType::class, [
                 'label'    => 'notification.notificationMailParameters.form.is_notified',
+                'required' => false,
             ])
-            ->add('frequency', TextType::class, [
+            ->add('frequencies', DictionaryType::class, [
                 'label'    => 'notification.notificationMailParameters.form.frequency',
-                'required' => false,
+                'required' => true,
+                'name'     => 'notificationMailParametersFrequency',
+                'multiple' => false,
+                'expanded' => true,
             ])
-            ->add('interval_hours', TextType::class, [
-                'label'    => 'notification.notificationMailParameters.form.interval_hours',
-                'required' => false,
-            ])
-            ->add('start_week', TextType::class, [
-                'label'    => 'notification.notificationMailParameters.form.start_week',
-                'required' => false,
-            ])
-            ->add('start_day', TextType::class, [
-                'label'    => 'notification.notificationMailParameters.form.start_day',
-                'required' => false,
-            ])
-            ->add('start_hour', NumberType::class, [
-                'label'    => 'notification.notificationMailParameters.form.start_hour',
-                'required' => false,
-            ])
+
             ->add('is_treatment', CheckboxType::class, [
                 'label'    => 'notification.notificationMailParameters.form.is_treatment',
+                'required' => false,
             ])
 
             ->add('is_subcontract', CheckboxType::class, [
                 'label'    => 'notification.notificationMailParameters.form.is_subcontract',
+                'required' => false,
             ])
             ->add('is_request', CheckboxType::class, [
                 'label'    => 'notification.notificationMailParameters.form.is_request',
+                'required' => false,
             ])
             ->add('is_violation', CheckboxType::class, [
                 'label'    => 'notification.notificationMailParameters.form.is_violation',
+                'required' => false,
             ])
             ->add('is_proof', CheckboxType::class, [
                 'label'    => 'notification.notificationMailParameters.form.is_proof',
+                'required' => false,
             ])
             ->add('is_protectAction', CheckboxType::class, [
                 'label'    => 'notification.notificationMailParameters.form.is_protectAction',
+                'required' => false,
             ])
             ->add('is_maturity', CheckboxType::class, [
                 'label'    => 'notification.notificationMailParameters.form.is_maturity',
+                'required' => false,
             ])
             ->add('is_treatmenConformity', CheckboxType::class, [
                 'label'    => 'notification.notificationMailParameters.form.is_treatmenConformity',
+                'required' => false,
             ])
             ->add('is_organizationConformity', CheckboxType::class, [
                 'label'    => 'notification.notificationMailParameters.form.is_organizationConformity',
+                'required' => false,
             ])
             ->add('is_AIPD', CheckboxType::class, [
                 'label'    => 'notification.notificationMailParameters.form.is_AIPD',
+                'required' => false,
             ])
             ->add('is_document', CheckboxType::class, [
                 'label'    => 'notification.notificationMailParameters.form.is_document',
+                'required' => false,
             ])
         ;
     }
