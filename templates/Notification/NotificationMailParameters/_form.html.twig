@@ -26,7 +26,7 @@
                     <p>
                         <input type="radio" name="alert" value="every_hours"/>
                         Toutes les
-                        <select id="hours_interval">
+                        <select name="hours_interval" id="hours_interval">
                             <option value="{{ 1 }}" selected>1</option>
                             {% for i in 2..23 %}
                                 <option value="{{ i }}">{{ i }}</option>

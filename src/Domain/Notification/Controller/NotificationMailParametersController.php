@@ -89,13 +89,28 @@ class NotificationMailParametersController extends CRUDController
                 $notifParams = $this->repository->findOneByID($id);
 
             } else {
-                dd('dd',$request);
                 $mailParams = $parameters['notification_mail_parameters'];
                 $notifParams = new Model\NotificationMailParameters();
                 if (isset($mailParams['is_notified'])){ $notifParams->setIsNotified($parameters['notification_mail_parameters']['is_notified']);}
                 $notifParams->setFrequency($parameters['alert']);
 
-
+                switch ($parameters['alert']){
+                    case 'every_hours':
+                        $notifParams->setIntervalHours($parameters['alert']);
+                        break;
+                    case 'daily' :
+                        $notifParams->setIntervalHours($parameters['daily_hour']);
+                        break;
+                    case 'weekly' :
+                        $notifParams->setIntervalHours($parameters['weekly_hour']);
+                        $notifParams->setIntervalHours($parameters['weekly_day']);
+                        break;
+                    case 'monthly' :
+                        $notifParams->setIntervalHours($parameters['monthly_hour']);
+                        $notifParams->setIntervalHours($parameters['monthly_day']);
+                        $notifParams->setIntervalHours($parameters['monthly_week']);
+                        break;
+                }
 
                 if (isset($mailParams['is_treatment'])){ $notifParams->setIsTreatment($mailParams['is_treatment']);}
                 if (isset($mailParams['is_subcontract'])){$notifParams->setIsSubcontract($mailParams['is_subcontract']);}
@@ -111,7 +126,6 @@ class NotificationMailParametersController extends CRUDController
 
                 $this->entityManager->persist($notifParams);
                 $this->entityManager->flush();
-                dd('tt',$notifParams, $parameters);
             }
         }
 
