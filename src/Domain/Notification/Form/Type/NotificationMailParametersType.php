@@ -49,13 +49,6 @@ class NotificationMailParametersType extends AbstractType
                 'label'    => 'notification.notificationMailParameters.form.is_notified',
                 'required' => false,
             ])
-            ->add('frequencies', DictionaryType::class, [
-                'label'    => 'notification.notificationMailParameters.form.frequency',
-                'required' => true,
-                'name'     => 'notificationMailParametersFrequency',
-                'multiple' => false,
-                'expanded' => true,
-            ])
 
             ->add('is_treatment', CheckboxType::class, [
                 'label'    => 'notification.notificationMailParameters.form.is_treatment',

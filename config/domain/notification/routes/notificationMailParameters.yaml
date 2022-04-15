@@ -18,6 +18,6 @@ notification_notificationMailParameters_list:
 notification_notificationMailParameters_edit:
     path: '/editer/{id}'
     methods: [ 'GET', 'POST' ]
-    controller: 'App\Domain\Notification\Controller\NotificationController:editAction'
+    controller: 'App\Domain\Notification\Controller\NotificationMailParametersController:createNotifMailParams'
 
     

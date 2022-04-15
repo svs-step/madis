@@ -10,7 +10,85 @@
         </div>
         <div class="box-body">
             {{ form_row(form.is_notified) }}
-            {{ form_row(form.frequency) }}
+            <div class="row">
+                <div class="col-sm-2">
+                    <b>Fréquence par défaut des notifications Email</b>
+                </div>
+                <div class="col-sm-10">
+                    <p>
+                        <input type="radio" name="alert" value="none" checked/>
+                        Aucune notification
+                    </p>
+                    <p>
+                        <input type="radio" name="alert" value="only_one"/>
+                        Notifications unitaires
+                    </p>
+                    <p>
+                        <input type="radio" name="alert" value="every_hours"/>
+                        Toutes les
+                        <select id="hours_interval">
+                            <option value="{{ 1 }}" selected>1</option>
+                            {% for i in 2..23 %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                        heures
+                    </p>
+                    <p>
+                        <input type="radio" name="alert" value="daily"/>
+                        Quotidien à
+                        <select name="daily_hour" id="daily_hour">
+                            <option value="{{ 7 }}" selected>7</option>
+                            {% for i in 8..19 %}
+                                <option value="{{ i }}">{{ i }}h</option>
+                            {% endfor %}
+                        </select>
+                    </p>
+                    <p>
+                        <input type="radio" name="alert" value="weekly"/>
+                        Hebdomadaire le
+                        <select name="weekly_day" id="weekly_day">
+                            <option value="Lundi" selected>Lundi</option>
+                            <option value="Mardi">Mardi</option>
+                            <option value="Mercredi">Mercredi</option>
+                            <option value="Jeudi">Jeudi</option>
+                            <option value="Vendredi">Vendredi</option>
+                        </select>
+                        à
+                        <select name="weekly_hour" id="weekly_hour">
+                            <option value="{{ 7 }}" selected>7</option>
+                            {% for i in 8..19 %}
+                                <option value="{{ i }}">{{ i }}h</option>
+                            {% endfor %}
+                        </select>
+                    </p>
+                    <p>
+                        <input type="radio" name="alert" value="monthly"/>
+                        Mensuelle le
+                        <select name="monthly_week" id="monthly_week">
+                            <option value="Premier">Premier</option>
+                            <option value="Second">Second</option>
+                            <option value="Troisième">Troisième</option>
+                            <option value="Quatrième">Quatrième</option>
+                        </select>
+                        <select name="monthly_day" id="monthly_day">
+                            <option value="Lundi" selected>Lundi</option>
+                            <option value="Mardi">Mardi</option>
+                            <option value="Mercredi">Mercredi</option>
+                            <option value="Jeudi">Jeudi</option>
+                            <option value="Vendredi">Vendredi</option>
+                        </select>
+                        à
+                        <select name="monthly_hour" id="monthly_hour">
+                            <option value="{{ 7 }}" selected>7</option>
+                            {% for i in 8..19 %}
+                                <option value="{{ i }}">{{ i }}h</option>
+                            {% endfor %}
+                        </select>
+                    </p>
+                </div>
+            </div>
+
             {{ form_row(form.is_treatment) }}
             {{ form_row(form.is_subcontract) }}
             {{ form_row(form.is_request) }}

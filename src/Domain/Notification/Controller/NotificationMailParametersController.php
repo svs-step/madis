@@ -32,6 +32,7 @@ use App\Domain\Notification\Model;
 use App\Domain\Notification\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,9 +48,11 @@ class NotificationMailParametersController extends CRUDController
      */
     protected $router;
 
-    public function __construct(ControllerHelper $helper, RouterInterface $router) {
+    public function __construct(EntityManagerInterface $entityManager, ControllerHelper $helper, RouterInterface $router,RequestStack $requestStack) {
         $this->helper = $helper;
         $this->router = $router;
+        $this->requestStack = $requestStack;
+        $this->entityManager          = $entityManager;
     }
 
     protected function getDomain(): string
@@ -72,9 +75,45 @@ class NotificationMailParametersController extends CRUDController
         return NotificationMailParametersType::class;
     }
 
-    public function createNotifMailParams()
+    public function createNotifMailParams(string $id = null)
     {
+        $request = $this->requestStack->getMasterRequest();
+        $parameters = $request->request->all();
+
         $form = $this->helper->createForm(NotificationMailParametersType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (isset($id)){
+                $notifParams = $this->repository->findOneByID($id);
+
+            } else {
+                dd('dd',$request);
+                $mailParams = $parameters['notification_mail_parameters'];
+                $notifParams = new Model\NotificationMailParameters();
+                if (isset($mailParams['is_notified'])){ $notifParams->setIsNotified($parameters['notification_mail_parameters']['is_notified']);}
+                $notifParams->setFrequency($parameters['alert']);
+
+
+
+                if (isset($mailParams['is_treatment'])){ $notifParams->setIsTreatment($mailParams['is_treatment']);}
+                if (isset($mailParams['is_subcontract'])){$notifParams->setIsSubcontract($mailParams['is_subcontract']);}
+                if (isset($mailParams['is_request'])){$notifParams->setIsRequest($mailParams['is_request']);}
+                if (isset($mailParams['is_violation'])){$notifParams->setIsViolation($mailParams['is_violation']);}
+                if (isset($mailParams['is_proof'])){$notifParams->setIsProof($mailParams['is_proof']);}
+                if (isset($mailParams['is_protectAction'])){$notifParams->setIsProtectAction($mailParams['is_protectAction']);}
+                if (isset($mailParams['is_maturity'])){$notifParams->setIsMaturity($mailParams['is_maturity']);}
+                if (isset($mailParams['is_treatmenConformity'])){$notifParams->setIsTreatmenConformity($mailParams['is_treatmenConformity']);}
+                if (isset($mailParams['is_organizationConformity'])){$notifParams->setIsOrganizationConformity($mailParams['is_organizationConformity']);}
+                if (isset($mailParams['is_AIPD'])){$notifParams->setIsAIPD($mailParams['is_AIPD']);}
+                if (isset($mailParams['is_document'])){$notifParams->setIsDocument($mailParams['is_document']);}
+
+                $this->entityManager->persist($notifParams);
+                $this->entityManager->flush();
+                dd('tt',$notifParams, $parameters);
+            }
+        }
 
         return $this->render('Notification/NotificationMailParameters/create.html.twig',
             [

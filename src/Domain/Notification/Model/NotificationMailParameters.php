@@ -47,7 +47,7 @@ class NotificationMailParameters
     /**
      * @ORM\Column(type="boolean")
      */
-    private ?string $is_notified;
+    private $is_notified = false;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
@@ -65,7 +65,7 @@ class NotificationMailParameters
     /**
      * @ORM\Column(type="integer")
      */
-    private ?string $interval_hours;
+    private ?integer $interval_hours;
 
     /**
      * @ORM\Column(type="json_array")
@@ -90,57 +90,57 @@ class NotificationMailParameters
     /**
      * @ORM\Column(type="boolean")
      */
-    private ?string $is_treatment;
+    private $is_treatment = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private ?string $is_subcontract;
+    private $is_subcontract = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private ?string $is_request;
+    private $is_request = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private ?string $is_violation;
+    private $is_violation = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private ?string $is_proof;
+    private $is_proof = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private ?string $is_protectAction;
+    private $is_protectAction = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private ?string $is_maturity;
+    private $is_maturity = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private ?string $is_treatmenConformity;
+    private $is_treatmenConformity = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private ?string $is_organizationConformity;
+    private $is_organizationConformity = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private ?string $is_AIPD;
+    private $is_AIPD = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private ?string $is_document;
+    private $is_document = false;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -167,7 +167,7 @@ class NotificationMailParameters
         return $this->is_notified;
     }
 
-    public function setIsNotified(?bool $is_notified): void
+    public function setIsNotified($is_notified): void
     {
         $this->is_notified = $is_notified;
     }
@@ -237,7 +237,7 @@ class NotificationMailParameters
         return $this->is_treatment;
     }
 
-    public function setIsTreatment(?bool $is_treatment): void
+    public function setIsTreatment($is_treatment): void
     {
         $this->is_treatment = $is_treatment;
     }
@@ -247,7 +247,7 @@ class NotificationMailParameters
         return $this->is_subcontract;
     }
 
-    public function setIsSubcontract(?bool $is_subcontract): void
+    public function setIsSubcontract($is_subcontract): void
     {
         $this->is_subcontract = $is_subcontract;
     }
@@ -257,7 +257,7 @@ class NotificationMailParameters
         return $this->is_request;
     }
 
-    public function setIsRequest(?bool $is_request): void
+    public function setIsRequest($is_request): void
     {
         $this->is_request = $is_request;
     }
@@ -267,7 +267,7 @@ class NotificationMailParameters
         return $this->is_violation;
     }
 
-    public function setIsViolation(?bool $is_violation): void
+    public function setIsViolation($is_violation): void
     {
         $this->is_violation = $is_violation;
     }
@@ -277,17 +277,17 @@ class NotificationMailParameters
         return $this->is_proof;
     }
 
-    public function setIsProof(?bool $is_proof): void
+    public function setIsProof($is_proof): void
     {
         $this->is_proof = $is_proof;
     }
 
-    public function getIsProtection(): ?bool
+    public function getIsProtectAction(): ?bool
     {
         return $this->is_protectAction;
     }
 
-    public function setIsProtection(?bool $is_protectAction): void
+    public function setIsProtectAction($is_protectAction): void
     {
         $this->is_protectAction = $is_protectAction;
     }
@@ -297,7 +297,7 @@ class NotificationMailParameters
         return $this->is_maturity;
     }
 
-    public function setIsMaturity(?bool $is_maturity): void
+    public function setIsMaturity($is_maturity): void
     {
         $this->is_maturity = $is_maturity;
     }
@@ -307,7 +307,7 @@ class NotificationMailParameters
         return $this->is_treatmenConformity;
     }
 
-    public function setIsTreatmenConformity(?bool $is_treatmenConformity): void
+    public function setIsTreatmenConformity($is_treatmenConformity): void
     {
         $this->is_treatmenConformity = $is_treatmenConformity;
     }
@@ -317,7 +317,7 @@ class NotificationMailParameters
         return $this->is_organizationConformity;
     }
 
-    public function setIsOrganizationConformity(?bool $is_organizationConformity): void
+    public function setIsOrganizationConformity($is_organizationConformity): void
     {
         $this->is_organizationConformity = $is_organizationConformity;
     }
@@ -327,7 +327,7 @@ class NotificationMailParameters
         return $this->is_AIPD;
     }
 
-    public function setIsAIPD(?bool $is_AIPD): void
+    public function setIsAIPD($is_AIPD): void
     {
         $this->is_AIPD = $is_AIPD;
     }
@@ -337,7 +337,7 @@ class NotificationMailParameters
         return $this->is_document;
     }
 
-    public function setIsDocument(?bool $is_document): void
+    public function setIsDocument($is_document): void
     {
         $this->is_document = $is_document;
     }
