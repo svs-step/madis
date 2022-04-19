@@ -40,9 +40,10 @@
                         <select name="daily_hour" id="daily_hour">
                             <option value="{{ 7 }}" selected>7</option>
                             {% for i in 8..19 %}
-                                <option value="{{ i }}">{{ i }}h</option>
+                                <option value="{{ i }}">{{ i }}</option>
                             {% endfor %}
                         </select>
+                        heure
                     </p>
                     <p>
                         <input type="radio" name="alert" value="weekly"/>
@@ -58,9 +59,10 @@
                         <select name="weekly_hour" id="weekly_hour">
                             <option value="{{ 7 }}" selected>7</option>
                             {% for i in 8..19 %}
-                                <option value="{{ i }}">{{ i }}h</option>
+                                <option value="{{ i }}">{{ i }}</option>
                             {% endfor %}
                         </select>
+                        heure
                     </p>
                     <p>
                         <input type="radio" name="alert" value="monthly"/>
@@ -85,6 +87,7 @@
                                 <option value="{{ i }}">{{ i }}h</option>
                             {% endfor %}
                         </select>
+                        heure
                     </p>
                 </div>
             </div>

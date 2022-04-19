@@ -77,6 +77,7 @@ class NotificationMailParametersController extends CRUDController
 
     public function createNotifMailParams(string $id = null)
     {
+
         $request = $this->requestStack->getMasterRequest();
         $parameters = $request->request->all();
 
@@ -96,19 +97,19 @@ class NotificationMailParametersController extends CRUDController
 
                 switch ($parameters['alert']){
                     case 'every_hours':
-                        $notifParams->setIntervalHours($parameters['alert']);
+                        $notifParams->setIntervalHours(intval($parameters['alert']));
                         break;
                     case 'daily' :
-                        $notifParams->setIntervalHours($parameters['daily_hour']);
+                        $notifParams->setStartHours(intval($parameters['daily_hour']));
                         break;
                     case 'weekly' :
-                        $notifParams->setIntervalHours($parameters['weekly_hour']);
-                        $notifParams->setIntervalHours($parameters['weekly_day']);
+                        $notifParams->setStartHours(intval($parameters['weekly_hour']));
+                        $notifParams->setStartDay($parameters['weekly_day']);
                         break;
                     case 'monthly' :
-                        $notifParams->setIntervalHours($parameters['monthly_hour']);
-                        $notifParams->setIntervalHours($parameters['monthly_day']);
-                        $notifParams->setIntervalHours($parameters['monthly_week']);
+                        $notifParams->setStartHours(intval($parameters['monthly_hour']));
+                        $notifParams->setStartDay($parameters['monthly_day']);
+                        $notifParams->setStartWeek($parameters['monthly_week']);
                         break;
                 }
 

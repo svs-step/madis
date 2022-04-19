@@ -56,36 +56,38 @@ class NotificationMailParameters
     private ?User $user;
 
     /**
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="text", nullable=true)
      *
-     * @var array|object|null
+     * @var string|null
      */
     private $frequency;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
+     *
+     * @var int|null
      */
-    private ?integer $interval_hours;
+    private ?int $interval_hours = 1;
 
     /**
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="text",  nullable=true)
      *
-     * @var array|object|null
+     * @var string|null
      */
     private $start_week;
 
     /**
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="text", nullable=true)
      *
-     * @var array|object|null
+     * @var string|null
      */
     private $start_day;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      *
      */
-    private $start_hour;
+    private ?int $start_hour;
 
     /**
      * @ORM\Column(type="boolean")
@@ -182,12 +184,12 @@ class NotificationMailParameters
         $this->user = $user;
     }
 
-    public function getFrequency(): ?object
+    public function getFrequency(): ?string
     {
-        return (object) $this->frequency;
+        return (string) $this->frequency;
     }
 
-    public function setFrequency(?object $frequency): void
+    public function setFrequency(?string $frequency): void
     {
         $this->frequency = $frequency;
     }
@@ -202,22 +204,22 @@ class NotificationMailParameters
         $this->interval_hours = $interval_hours;
     }
 
-    public function getStartWeek(): ?object
+    public function getStartWeek(): ?string
     {
-        return (object) $this->start_week;
+        return (string) $this->start_week;
     }
 
-    public function setStartWeek(?object $start_week): void
+    public function setStartWeek(?string $start_week): void
     {
         $this->start_week = $start_week;
     }
 
-    public function getStartDay(): ?object
+    public function getStartDay(): ?string
     {
-        return (object) $this->start_day;
+        return (string) $this->start_day;
     }
 
-    public function setStartDay(?object $start_day): void
+    public function setStartDay(?string $start_day): void
     {
         $this->start_day = $start_day;
     }
