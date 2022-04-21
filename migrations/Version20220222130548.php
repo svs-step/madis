@@ -28,7 +28,7 @@ final class Version20220222130548 extends AbstractMigration
         $this->addSql('ALTER TABLE registry_treatment_request ADD CONSTRAINT FK_D83DF45F427EB8A5 FOREIGN KEY (request_id) REFERENCES registry_request (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE registry_treatment_violation ADD CONSTRAINT FK_EB97D8B2471C0366 FOREIGN KEY (treatment_id) REFERENCES registry_treatment (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE registry_treatment_violation ADD CONSTRAINT FK_EB97D8B27386118A FOREIGN KEY (violation_id) REFERENCES registry_violation (id) ON DELETE CASCADE');
-            }
+    }
 
     public function down(Schema $schema): void
     {
@@ -37,5 +37,5 @@ final class Version20220222130548 extends AbstractMigration
 
         $this->addSql('DROP TABLE registry_treatment_request');
         $this->addSql('DROP TABLE registry_treatment_violation');
-            }
+    }
 }
