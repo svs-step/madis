@@ -194,7 +194,7 @@ class RequestController extends CRUDController
 
         $yes = '<span class="label label-success">' . $this->translator->trans('label.yes') . '</span>';
         $no  = '<span class="label label-danger">' . $this->translator->trans('label.no') . '</span>';
-
+        // die();
         /** @var Model\Request $demande */
         foreach ($demandes as $demande) {
             $reponse['data'][] = [
