@@ -194,9 +194,12 @@ class RequestController extends CRUDController
 
         $yes = '<span class="label label-success">' . $this->translator->trans('label.yes') . '</span>';
         $no  = '<span class="label label-danger">' . $this->translator->trans('label.no') . '</span>';
-
+        var_dump('TEST');
+        // die();
         /** @var Model\Request $demande */
         foreach ($demandes as $demande) {
+            var_dump('TEST', $demande->getDate(), \date_format($demande->getDate(), 'd/m/Y'));
+            die();
             $reponse['data'][] = [
                 'collectivite'       => $demande->getCollectivity()->getName(),
                 'personne_concernee' => $this->getLinkForPersonneConcernee($demande),

@@ -568,22 +568,22 @@
             {% include '_Utils/_show_block_requests.html.twig' with { requests: object.requests } %}
             {% include '_Utils/_show_block_violations.html.twig' with { violations: object.violations } %}
 
-        {# DPO Message  #}
-        <div class="box box-solid box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
+            {# DPO Message  #}
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
+                </div>
+                <div class="box-body">
+                    {% if object.dpoMessage is null %}
+                        <i>Aucune préconisation</i>
+                    {% else %}
+                        {{  object.dpoMessage }}
+                    {% endif %}
+                </div>
             </div>
-            <div class="box-body">
-                {% if object.dpoMessage is null %}
-                    <i>Aucune préconisation</i>
-                {% else %}
-                    {{  object.dpoMessage }}
-                {% endif %}
-            </div>
-        </div>
 
-        {# Mesurements #}
-        {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
+            {# Mesurements #}
+            {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
 
             {% if object.collectivity.hasModuleConformiteTraitement %}
                 <div class="box box-solid box-success">
@@ -692,8 +692,6 @@
                     </div>
                 {% endif %}
             {% endif %}
-
-            </div>
         </div>
     </div>
 {% endblock %}
