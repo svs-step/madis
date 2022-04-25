@@ -90,7 +90,7 @@ class ContactType extends AbstractType
                 'label'    => 'user.contact.form.phone_number',
                 'required' => $isComiteIl ? false : $required,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength' => 10,
                 ],
             ]);
     }
