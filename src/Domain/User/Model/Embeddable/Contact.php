@@ -59,7 +59,7 @@ class Contact
     /**
      * @var bool
      */
-    private $notification;
+    private $notification = false;
 
     public function getCivility(): ?string
     {
