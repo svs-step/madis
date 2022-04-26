@@ -128,14 +128,10 @@ class Contact
 
     public function getNotification(): bool
     {
-        if ($this->notification) {
-            return $this->notification;
-        }
-
-        return false;
+        return $this->notification;
     }
 
-    public function setNotification(bool $notification): void
+    public function setNotification(?bool $notification): void
     {
         $this->notification = $notification;
     }

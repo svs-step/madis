@@ -93,14 +93,12 @@ class ContactType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
-            ]);
+            ])
 
-        if (!$isComiteIl){
-            $builder->add('notification', CheckboxType::class, [
+            ->add('notification', CheckboxType::class, [
                 'label'    => 'user.contact.form.notification',
                 'required' => false,
             ]);
-        }
     }
 
     /**
