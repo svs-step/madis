@@ -224,8 +224,12 @@ class ViolationType extends AbstractType
             ->add('treatments', EntityType::class, [
                 'class'         => Treatment::class,
                 'label'         => 'registry.violation.form.treatment',
-                'query_builder' => function (EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) use ($violation){
+                    $collectivity = $violation->getCollectivity();
+
                     return $er->createQueryBuilder('s')
+                        ->where('s.collectivity = :collectivity')
+                        ->setParameter(':collectivity', $collectivity)
                         ->orderBy('s.name', 'ASC');
                 },
                 'required'      => false,
