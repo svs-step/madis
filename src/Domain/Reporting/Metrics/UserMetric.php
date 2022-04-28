@@ -322,8 +322,10 @@ class UserMetric implements MetricInterface
             }
 
             // Type
-            ++$data['request']['value']['type'][Inflector::camelize($request->getObject())];
-
+            if ($request->getObject()){
+                ++$data['request']['value']['type'][Inflector::camelize($request->getObject())];
+            }
+            
             // Status
             if ($request->isComplete() && $request->isLegitimateApplicant() && $request->isLegitimateRequest()) {
                 if (\is_null($request->getAnswer()->getDate())) {
