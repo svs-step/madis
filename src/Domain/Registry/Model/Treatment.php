@@ -355,7 +355,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
     /**
      * FR: Moyens de la collecte des données (Détails).
      *
-     * @var string|null
+     * @var array|null
      */
     private $collectingMethod;
 
@@ -892,7 +892,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->coordonneesResponsableTraitement = $coordonneesResponsableTraitement;
     }
 
-    public function getCollectingMethod()
+    public function getCollectingMethod(): ?array
     {
         return $this->collectingMethod;
     }

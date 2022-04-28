@@ -269,7 +269,9 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
                 6 => [
                     'Moyens de la collecte des données	',
-                    !\is_null($treatment->getCollectingMethod()) ? TreatmentCollectingMethodDictionary::getMethods()[$treatment->getCollectingMethod()] : '',
+                    !\is_null($treatment->getCollectingMethod()) ? join(', ', array_map(function ($cm) {
+                        return TreatmentCollectingMethodDictionary::getMethods()[$cm];
+                    }, $treatment->getCollectingMethod())) : '',
                 ],
             ];
 
