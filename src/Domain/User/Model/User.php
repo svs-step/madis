@@ -28,6 +28,8 @@ use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Application\Traits\Model\SoftDeletableTrait;
 use App\Domain\Documentation\Model\Document;
+use App\Domain\Notification\Controller\NotificationMailParametersController;
+use App\Domain\Notification\Model\NotificationMailParameters;
 use App\Domain\Reporting\Model\LoggableSubject;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -124,6 +126,11 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
      * @var array|null
      */
     private $moreInfos;
+
+    /**
+     * @var NotificationMailParameters|null
+     */
+    private $notificationMailParameters;
 
     /**
      * User constructor.
@@ -373,5 +380,15 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     public function setMoreInfos(array $moreInfos): void
     {
         $this->moreInfos = $moreInfos;
+    }
+
+    public function getNotificationMailParameters(): ?NotificationMailParameters
+    {
+        return $this->notificationMailParameters;
+    }
+
+    public function setNotificationMailParameters(?NotificationMailParameters $notificationMailParameters): void
+    {
+        $this->notificationMailParameters = $notificationMailParameters;
     }
 }

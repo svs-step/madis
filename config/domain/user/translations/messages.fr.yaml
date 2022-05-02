@@ -180,6 +180,7 @@ user:
             roles: Role
             moreInfos: Informations supplémentaires
             services: Services
+            notifications: Notifications
             respInfo: Responsable informatique
             respTreat: Responsable traitement
             refOp: Référent RGPD
