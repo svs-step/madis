@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
+use App\Domain\User\Form\DataTransformer\MoreInfoTransformer;
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\Service;
@@ -203,6 +204,14 @@ class UserType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
+            ->add('moreInfos', DictionaryType::class, [
+                'label'       => 'user.user.form.moreInfos',
+                'required'    => false,
+                'name'        => 'user_user_moreInfo',
+                'multiple'    => false,
+                'expanded'    => true,
+                'placeholder' => 'Aucune information',
+            ])
             ->add('plainPassword', RepeatedType::class, [
                 'type'          => PasswordType::class,
                 'first_options' => [
@@ -219,6 +228,11 @@ class UserType extends AbstractType
                 ],
                 'required' => false,
             ]);
+
+        $builder
+            ->get('moreInfos')
+            ->addModelTransformer(new MoreInfoTransformer())
+        ;
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($encoderFactory) {
             $user = $event->getData();

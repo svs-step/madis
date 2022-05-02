@@ -198,6 +198,7 @@ class RequestController extends CRUDController
         /** @var Model\Request $demande */
         foreach ($demandes as $demande) {
             $reponse['data'][] = [
+                'id'                 => $demande->getId(),
                 'collectivite'       => $demande->getCollectivity()->getName(),
                 'personne_concernee' => $this->getLinkForPersonneConcernee($demande),
                 'date_demande'       => null !== $demande->getDate() ? \date_format($demande->getDate(), 'd/m/Y') : '',

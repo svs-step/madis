@@ -267,50 +267,6 @@
         function setEvents() {
             var oTable = $('#table').DataTable();
 
-            $('#delete-all').on('click', function(event) {
-                event.stopPropagation(); 
-                //let data = oTable.rows({ selected: true }).ids(); // .toArray()
-                let data = oTable.rows().data().toArray().map(row => row.id);
-                $('#delete-all').attr('href', function(index, href) {
-                    let param = `ids=${data}`;
-                    if (href.charAt(href.length - 1) === '?')
-                        return href + param;
-                    else if (href.indexOf('?') > 0)
-                        return href + '&' + param;
-                    else
-                        return href + '?' + param;
-                });
-                event = event.originalEvent;
-            })
-            $('#archive-all').on('click', function(event) {
-                event.stopPropagation(); 
-                let data = oTable.rows().data().toArray().map(row => row.id);
-                $('#archive-all').attr('href', function(index, href) {
-                    let param = `ids=${data}`;
-                    if (href.charAt(href.length - 1) === '?')
-                        return href + param;
-                    else if (href.indexOf('?') > 0)
-                        return href + '&' + param;
-                    else
-                        return href + '?' + param;
-                });
-                event = event.originalEvent;
-            })
-            $('#print-all').on('click', function(event) {
-                event.stopPropagation(); 
-                let data = oTable.rows().data().toArray().map(row => row.id);
-                $('#print-all').attr('href', function(index, href) {
-                    let param = `ids=${data}`;
-                    if (href.charAt(href.length - 1) === '?')
-                        return href + param;
-                    else if (href.indexOf('?') > 0)
-                        return href + '&' + param;
-                    else
-                        return href + '?' + param;
-                });
-                event = event.originalEvent;
-            })
-
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
                 oTable.column('0').search($(this).val()).draw() ;

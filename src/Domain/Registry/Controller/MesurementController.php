@@ -360,6 +360,7 @@ class MesurementController extends CRUDController
         /** @var Model\Mesurement $action */
         foreach ($actions as $action) {
             $reponse['data'][] = [
+                'id'                 => $action->getId(),
                 'nom'                => !$isActionPlan ? $this->generateShowLink($action) : $action->getName(),
                 'collectivite'       => $action->getCollectivity()->getName(),
                 'statut'             => MesurementStatusDictionary::getStatus()[$action->getStatus()],

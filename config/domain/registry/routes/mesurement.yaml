@@ -43,6 +43,21 @@ registry_mesurement_delete_confirm:
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\MesurementController:deleteConfirmationAction'
 
+registry_mesurement_delete_all:
+    path: '/supprimer-tous/'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\MesurementController:deleteAllAction'
+
+registry_mesurement_print_all:
+    path: '/imprimer-tous'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\MesurementController:pdfAllAction'
+
+registry_mesurement_delete_all_confirm:
+    path: '/supprimer-tous/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\MesurementController:deleteConfirmationAllAction'
+
 api_registry_mesurement_collectivity:
     path: '/api/collectivite/{collectivityId}'
     methods: ['GET']
