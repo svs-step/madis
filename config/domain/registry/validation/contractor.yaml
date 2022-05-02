@@ -25,6 +25,8 @@ App\Domain\Registry\Model\Contractor:
                 groups: ['default']
         address:
             - Valid: ~
+        dpo:
+            - Valid: ~
         referent:
             - Length:
                 max: 255

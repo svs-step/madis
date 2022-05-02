@@ -194,14 +194,14 @@ class RequestController extends CRUDController
 
         $yes = '<span class="label label-success">' . $this->translator->trans('label.yes') . '</span>';
         $no  = '<span class="label label-danger">' . $this->translator->trans('label.no') . '</span>';
-
+        // die();
         /** @var Model\Request $demande */
         foreach ($demandes as $demande) {
             $reponse['data'][] = [
                 'collectivite'       => $demande->getCollectivity()->getName(),
                 'personne_concernee' => $this->getLinkForPersonneConcernee($demande),
                 'date_demande'       => null !== $demande->getDate() ? \date_format($demande->getDate(), 'd/m/Y') : '',
-                'objet_demande'      => RequestObjectDictionary::getObjects()[$demande->getObject()],
+                'objet_demande'      => $demande->getObject() ? RequestObjectDictionary::getObjects()[$demande->getObject()] : '',
                 'demande_complete'   => $demande->isComplete() ? $yes : $no,
                 'demandeur_legitime' => $demande->isLegitimateApplicant() ? $yes : $no,
                 'demande_legitime'   => $demande->isLegitimateRequest() ? $yes : $no,

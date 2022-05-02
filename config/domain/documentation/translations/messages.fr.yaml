@@ -1,7 +1,7 @@
 documentation:
     document:
         link:
-            button: Resources utiles
+            button: Ressources utiles
         action:
             back_to_list: Retour à la liste
             new: Nouveau document

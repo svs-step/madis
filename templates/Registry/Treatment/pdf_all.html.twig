@@ -4,6 +4,7 @@
 {% set menuItem = 'registry_treatment' %}
 
 {% block body %}
+{% if objects|length %}
 {% for object in objects %}
 <h1 class="text-center">{{ object.name }}</h1>
     <div class="row">
@@ -353,7 +354,7 @@
                             <td><strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong></td>
                             {# <td>{% if (object.collectingMethod is not null) %} #}
                             <td>{% if (object.collectingMethod|length) %}
-                                {{ object.collectingMethod|dictionary('registry_treatment_collecting_method') }}
+                                {{ object.collectingMethod|map(p => "#{p|dictionary('registry_treatment_collecting_method')}")|join(', ') }}
                             {% endif %}</td>
                         </tr>
                     </table>
@@ -497,5 +498,6 @@
         </div>
     </div>
 {% endfor %}
+{% endif %}
 {% endblock %}
 

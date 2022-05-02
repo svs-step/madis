@@ -307,8 +307,9 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getDelay()->getComment(),
             !\is_null($treatment->getUltimateFate()) ? TreatmentUltimateFateDictionary::getUltimateFates()[$treatment->getUltimateFate()] : null,
             $treatment->getDataOrigin(),
-            !\is_array($treatment->getCollectingMethod()) ? TreatmentCollectingMethodDictionary::getMethods()[$treatment->getCollectingMethod()] : null,
-        ];
+            !\is_null($treatment->getCollectingMethod()) ? join(', ', array_map(function ($cm) {
+                return TreatmentCollectingMethodDictionary::getMethods()[$cm];
+            }, $treatment->getCollectingMethod())) : '',        ];
     }
 
     private function treatmentSecurityHeaders()

@@ -208,7 +208,7 @@ class UserController extends CRUDController
 
             $collectivityActifBgColor = 'bg-green';
             if (!$user->getCollectivity()->isActive()) {
-                $userActifBgColor = 'bg-red';
+                $collectivityActifBgColor = 'bg-red';
             }
 
             $actif = '

@@ -354,7 +354,7 @@
                             <td><strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong></td>
                             {# <td>{% if (object.collectingMethod is not null) %} #}
                             <td>{% if (object.collectingMethod|length) %}
-                                {{ object.collectingMethod|dictionary('registry_treatment_collecting_method') }}
+                                {{ object.collectingMethod|map(p => "#{p|dictionary('registry_treatment_collecting_method')}")|join(', ') }}
                             {% endif %}</td>
                         </tr>
                     </table>

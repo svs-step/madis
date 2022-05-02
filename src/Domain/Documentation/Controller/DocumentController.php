@@ -227,10 +227,6 @@ class DocumentController extends CRUDController
         ->getRepository(Model\Category::class)
         ->findAll();
 
-        // $user_meta = array_map(function ($object) { return $object; }, $this->getListData());
-        // var_dump($user_meta);
-        // {{ object.categories|map(c => "#{c.name}") | join(', ') }}
-
         return $this->render($this->getTemplatingBasePath('list'), [
             'objects'    => $this->getListData(),
             'categories' => $categories,

@@ -181,7 +181,7 @@ class TreatmentClonerTest extends TestCase
         $referent->setSecurityOpenAccounts(true);
         $referent->setSecuritySpecificitiesDelivered(true);
         $referent->setAuthor('foo');
-        $referent->setCollectingMethod('bar');
+        $referent->setCollectingMethod(['bar']);
         $referent->setEstimatedConcernedPeople(1);
         $referent->setUltimateFate('baz');
 

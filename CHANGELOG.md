@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## [1.10] - 2022-04-15
+### Changement
+- Ajout du module Espace Documentaire
+
 ## [1.9] - 2022-03-25
 ### Changement
 - Incorporation de tout le module AIPD : Modèle d'analyse, Mesure protection et Analyse d'impact
