@@ -27,6 +27,7 @@ namespace App\Domain\User\Form\Type;
 use App\Domain\User\Form\DataTransformer\MoreInfoTransformer;
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\EmailNotificationPreference;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityRepository;
@@ -227,7 +228,10 @@ class UserType extends AbstractType
                     ],
                 ],
                 'required' => false,
-            ]);
+            ])
+            ->add('emailNotificationPreference', EmailNotificationPreferenceType::class, [
+            ])
+        ;
 
         $builder
             ->get('moreInfos')

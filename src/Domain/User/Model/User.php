@@ -125,6 +125,8 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
      */
     private $moreInfos;
 
+    private EmailNotificationPreference $emailNotificationPreference;
+
     /**
      * User constructor.
      *
@@ -373,5 +375,21 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     public function setMoreInfos(array $moreInfos): void
     {
         $this->moreInfos = $moreInfos;
+    }
+
+    /**
+     * @return EmailNotificationPreference
+     */
+    public function getEmailNotificationPreference(): EmailNotificationPreference
+    {
+        return $this->emailNotificationPreference;
+    }
+
+    /**
+     * @param EmailNotificationPreference $emailNotificationPreference
+     */
+    public function setEmailNotificationPreference(EmailNotificationPreference $emailNotificationPreference): void
+    {
+        $this->emailNotificationPreference = $emailNotificationPreference;
     }
 }

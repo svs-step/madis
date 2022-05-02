@@ -53,7 +53,40 @@
                 </div>
             </div>
         {% endif %}
+
+        <div class="box box-solid box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ 'user.user.form.notifications'|trans }}</h3>
+            </div>
+            <div class="box-body">
+                <table style="border: 0; vertical-align: top">
+                    {% for f in form.emailNotificationPreference.frequency %}
+                        <tr>
+                            <td style="border: 0; vertical-align: top">
+                                {{ form_widget(f) }}
+                            </td>
+                            <td style="border: 0; vertical-align: top">
+                                {% set ff = form.emailNotificationPreference[f.vars.value] %}
+                                {% if ff.vars.choices is defined %}
+                                <select class="form-control" id="{{ ff.vars.id }}" name="{{ ff.vars.full_name }}">
+                                    {% for op in ff.vars.choices %}
+                                        <option value="{{ op.value }}">{{ op.label }}</option>
+                                    {% endfor %}
+                                </select>
+                                    <label for="{{ ff.vars.id }}">
+                                        {{ ff.vars.label }}
+                                    </label>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
+        </div>
     </div>
+
+
 
     <div class="col-md-12">
         <div class="box box-solid">

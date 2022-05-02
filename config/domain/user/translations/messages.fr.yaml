@@ -17,6 +17,18 @@ user:
             phone_number: Téléphone
             notification: Notification
 
+    notifications:
+        form:
+            frequency:
+                label: Fréquence
+                month: Mensuelle
+                week: Hebdomadaire
+                day: Quotidien
+                hour: Toutes les
+                each: A chaque notification
+                none: Jamais
+                label_hour: heures
+
     collectivity:
         action:
             back_to_list: Retour à la liste
@@ -166,6 +178,7 @@ user:
             edit: Éditer "%name%"
             unarchive: Rétablir "%name%"
         form:
+            notifications: Notifications
             apiAuthorized: Accès aux Webservices (API)
             collectivity: Collectivité
             collectivitesReferees: Collectivités rattachées
