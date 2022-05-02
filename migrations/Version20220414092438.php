@@ -16,9 +16,9 @@ final class Version20220414092438 extends AbstractMigration
     private $question1;
     private $question2;
     private $question3;
-    private $answer1;
-    private $answer2;
-    private $answer3;
+    private $answer1 = [];
+    private $answer2 = [];
+    private $answer3 = [];
 
     private $ids;
     private $ids2;
@@ -34,11 +34,16 @@ final class Version20220414092438 extends AbstractMigration
         $this->question1 = $this->getData('SELECT id FROM conformite_traitement_question WHERE question = "Exercice des droits d\'accès et à la portabilité"');
         $this->question2 = $this->getData('SELECT id FROM conformite_traitement_question WHERE question = "Exercice des droits de rectification et d\'effacement"');
         $this->question3 = $this->getData('SELECT id FROM conformite_traitement_question WHERE question = "Exercice des droits de limitation du traitement et d\'opposition"');
-
         // FIND ANSWERS FROM THOSE QUESTIONS
-        $this->answer1 = $this->getData('SELECT * FROM conformite_traitement_reponse WHERE question_id = "' . $this->question1[0]['id'] . '"');
-        $this->answer2 = $this->getData('SELECT * FROM conformite_traitement_reponse WHERE question_id = "' . $this->question2[0]['id'] . '"');
-        $this->answer3 = $this->getData('SELECT * FROM conformite_traitement_reponse WHERE question_id = "' . $this->question3[0]['id'] . '"');
+        if ($this->question1) {
+            $this->answer1 = $this->getData('SELECT * FROM conformite_traitement_reponse WHERE question_id = "' . $this->question1[0]['id'] . '"');
+        }
+        if ($this->question2) {
+            $this->answer2 = $this->getData('SELECT * FROM conformite_traitement_reponse WHERE question_id = "' . $this->question2[0]['id'] . '"');
+        }
+        if ($this->question3) {
+            $this->answer3 = $this->getData('SELECT * FROM conformite_traitement_reponse WHERE question_id = "' . $this->question3[0]['id'] . '"');
+        }
 
         foreach ($this->answer1 as $k => $answer) {
             $this->answer1[$k]['actionProtections']        = $this->getData('SELECT * FROM conformite_traitement_reponse_action_protection WHERE reponse_id = "' . $answer['id'] . '"');
