@@ -368,14 +368,17 @@ class TreatmentType extends AbstractType
                         ->where('s.collectivity = :collectivity')
                         ->setParameter(':collectivity', $collectivity)
                         ;
-                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && empty($authenticatedUser->getServices())) {
+
+                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && ($authenticatedUser->getServices()->getValues())) {
                             $qb->leftJoin('s.users', 'users')
                                 ->andWhere('users.id = :id')
                                 ->setParameter('id', $authenticatedUser->getId())
                             ;
                         }
+
                         $qb
                         ->orderBy('s.name', 'ASC');
+                        //dd($qb);
 
                         return $qb;
                     }

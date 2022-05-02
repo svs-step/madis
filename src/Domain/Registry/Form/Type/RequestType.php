@@ -90,7 +90,7 @@ class RequestType extends AbstractType
                             ->where('s.collectivity = :collectivity')
                             ->setParameter(':collectivity', $collectivity)
                         ;
-                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && empty($authenticatedUser->getServices())) {
+                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && ($authenticatedUser->getServices()->getValues())) {
                             $qb->leftJoin('s.users', 'users')
                                 ->andWhere('users.id = :id')
                                 ->setParameter('id', $authenticatedUser->getId())
@@ -169,8 +169,12 @@ class RequestType extends AbstractType
             ->add('treatments', EntityType::class, [
                 'class'         => Treatment::class,
                 'label'         => 'registry.request.form.treatment',
-                'query_builder' => function (EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) use ($request){
+                    $collectivity = $request->getCollectivity();
+
                     return $er->createQueryBuilder('s')
+                        ->where('s.collectivity = :collectivity')
+                        ->setParameter(':collectivity', $collectivity)
                         ->orderBy('s.name', 'ASC');
                 },
                 'required'      => false,

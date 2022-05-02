@@ -201,7 +201,7 @@ class RequestController extends CRUDController
                 'collectivite'       => $demande->getCollectivity()->getName(),
                 'personne_concernee' => $this->getLinkForPersonneConcernee($demande),
                 'date_demande'       => null !== $demande->getDate() ? \date_format($demande->getDate(), 'd/m/Y') : '',
-                'objet_demande'      => RequestObjectDictionary::getObjects()[$demande->getObject()],
+                'objet_demande'      => $demande->getObject() ? RequestObjectDictionary::getObjects()[$demande->getObject()] : '',
                 'demande_complete'   => $demande->isComplete() ? $yes : $no,
                 'demandeur_legitime' => $demande->isLegitimateApplicant() ? $yes : $no,
                 'demande_legitime'   => $demande->isLegitimateRequest() ? $yes : $no,
