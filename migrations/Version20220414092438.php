@@ -172,7 +172,7 @@ final class Version20220414092438 extends AbstractMigration
                 'texte_conformite'              => 'Conforme',
                 'texte_non_conformite_majeure'  => 'Non-conformite majeure',
                 'texte_non_conformite_mineure'  => 'Non-conforme mineure',
-                'position'                      => $this->lastQuestionPosition+3,
+                'position'                      => $this->lastQuestionPosition + 3,
             ],
             [
                 'question'                      => "Exercice du droit d'effacement",
@@ -180,7 +180,7 @@ final class Version20220414092438 extends AbstractMigration
                 'texte_conformite'              => 'Conforme',
                 'texte_non_conformite_majeure'  => 'Non-conformite majeure',
                 'texte_non_conformite_mineure'  => 'Non-conforme mineure',
-                'position'                      => $this->lastQuestionPosition+6,
+                'position'                      => $this->lastQuestionPosition + 6,
             ],
             [
                 'question'                      => "Exercice du droit d'opposition",
@@ -188,7 +188,7 @@ final class Version20220414092438 extends AbstractMigration
                 'texte_conformite'              => 'Conforme',
                 'texte_non_conformite_majeure'  => 'Non-conformite majeure',
                 'texte_non_conformite_mineure'  => 'Non-conforme mineure',
-                'position'                      => $this->lastQuestionPosition+9,
+                'position'                      => $this->lastQuestionPosition + 9,
             ],
         ];
         foreach ($data as $k => $item) {
