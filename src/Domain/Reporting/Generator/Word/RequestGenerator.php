@@ -63,9 +63,9 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
             $tableData[] = [
                 $concernedPeople,
                 $request->getDate() ? $this->getDate($request->getDate(), 'd/m/Y') : '',
-                $request->getObject() ? RequestObjectDictionary::getObjects()[$request->getObject()] : '',
+                array_key_exists($request->getObject(), RequestObjectDictionary::getObjects()) ? RequestObjectDictionary::getObjects()[$request->getObject()] : $request->getObject(),
                 $request->getAnswer() ? $this->getDate($request->getAnswer()->getDate(), 'd/m/Y') :'',
-                $request->getState() ? RequestStateDictionary::getStates()[$request->getState()] : '',
+                array_key_exists($request->getState(), RequestStateDictionary::getStates()) ? RequestStateDictionary::getStates()[$request->getState()] : $request->getState(),
             ];
         }
 
