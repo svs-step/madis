@@ -270,7 +270,7 @@ class DocumentController extends CRUDController
 
             $url = $this->generateUrl('documentation_document_download', [
                 'name' => $filename,
-            ], UrlGeneratorInterface::ABSOLUTE_URL);
+            ], UrlGeneratorInterface::NETWORK_PATH);
 
             $object->setUrl($url);
         } elseif (true === $object->getIsLink()) {
