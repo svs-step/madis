@@ -400,6 +400,7 @@ registry:
                 create: Traitement "%object%" créé avec succès
                 edit: Traitement "%object%" modifié avec succès
                 delete: Traitement "%object%" supprimé avec succès
+                archive: Traitement "%object%" archivé avec succès
         list:
             access_control: Controle d'accès
             active: Statut

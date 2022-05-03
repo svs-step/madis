@@ -503,7 +503,7 @@ class TreatmentController extends CRUDController
             $treatment = $this->repository->findOneById($id);
             if ($treatment) {
                 $treatment->setActive(false);
-                $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $treatment));
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'archive', $treatment));
             }
         }
         $this->entityManager->flush();

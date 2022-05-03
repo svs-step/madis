@@ -114,13 +114,13 @@ class LogJournalSubjectDictionary extends SimpleDictionary
         return \array_keys(self::getSubjects());
     }
 
-    public static function getSubjectFromClassName(string $className): ?string
+    public static function getSubjectFromClassName(string $className): string
     {
-        return isset(self::CLASS_NAME_SUBJECT[$className]) ? self::CLASS_NAME_SUBJECT[$className] : null;
+        return array_key_exists($className, self::CLASS_NAME_SUBJECT) ? self::CLASS_NAME_SUBJECT[$className] : '';
     }
 
-    public static function getSubjectLabelFromSubjectType(string $subjectKey)
+    public static function getSubjectLabelFromSubjectType(string $subjectKey): string
     {
-        return isset(self::getSubjects()[$subjectKey]) ? self::getSubjects()[$subjectKey] : null;
+        return array_key_exists($subjectKey, self::getSubjects()) ? self::getSubjects()[$subjectKey] : '';
     }
 }
