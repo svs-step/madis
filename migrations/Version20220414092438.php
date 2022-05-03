@@ -23,6 +23,8 @@ final class Version20220414092438 extends AbstractMigration
     private $ids;
     private $ids2;
 
+    private $lastQuestionPosition = 120;
+
     public function getDescription(): string
     {
         return '';
@@ -30,11 +32,13 @@ final class Version20220414092438 extends AbstractMigration
 
     public function preUp(Schema $schema): void
     {
+        $this->connection->query('update conformite_traitement_question set position=position*10');
         // FIND IDs FROM OLD QUESTIONS
-        $this->question1 = $this->getData('SELECT id FROM conformite_traitement_question WHERE question = "Exercice des droits d\'accès et à la portabilité"');
-        $this->question2 = $this->getData('SELECT id FROM conformite_traitement_question WHERE question = "Exercice des droits de rectification et d\'effacement"');
-        $this->question3 = $this->getData('SELECT id FROM conformite_traitement_question WHERE question = "Exercice des droits de limitation du traitement et d\'opposition"');
+        $this->question1 = $this->getData('SELECT id,position FROM conformite_traitement_question WHERE question = "Exercice des droits d\'accès et à la portabilité"');
+        $this->question2 = $this->getData('SELECT id,position FROM conformite_traitement_question WHERE question = "Exercice des droits de rectification et d\'effacement"');
+        $this->question3 = $this->getData('SELECT id,position FROM conformite_traitement_question WHERE question = "Exercice des droits de limitation du traitement et d\'opposition"');
 
+        $this->lastQuestionPosition = $this->question3[0]['position'];
         // FIND ANSWERS FROM THOSE QUESTIONS
         $this->answer1 = $this->getData('SELECT * FROM conformite_traitement_reponse WHERE question_id = "' . $this->question1[0]['id'] . '"');
         $this->answer2 = $this->getData('SELECT * FROM conformite_traitement_reponse WHERE question_id = "' . $this->question2[0]['id'] . '"');
@@ -168,7 +172,7 @@ final class Version20220414092438 extends AbstractMigration
                 'texte_conformite'              => 'Conforme',
                 'texte_non_conformite_majeure'  => 'Non-conformite majeure',
                 'texte_non_conformite_mineure'  => 'Non-conforme mineure',
-                'position'                      => 13,
+                'position'                      => $this->lastQuestionPosition+3,
             ],
             [
                 'question'                      => "Exercice du droit d'effacement",
@@ -176,7 +180,7 @@ final class Version20220414092438 extends AbstractMigration
                 'texte_conformite'              => 'Conforme',
                 'texte_non_conformite_majeure'  => 'Non-conformite majeure',
                 'texte_non_conformite_mineure'  => 'Non-conforme mineure',
-                'position'                      => 14,
+                'position'                      => $this->lastQuestionPosition+6,
             ],
             [
                 'question'                      => "Exercice du droit d'opposition",
@@ -184,7 +188,7 @@ final class Version20220414092438 extends AbstractMigration
                 'texte_conformite'              => 'Conforme',
                 'texte_non_conformite_majeure'  => 'Non-conformite majeure',
                 'texte_non_conformite_mineure'  => 'Non-conforme mineure',
-                'position'                      => 15,
+                'position'                      => $this->lastQuestionPosition+9,
             ],
         ];
         foreach ($data as $k => $item) {
