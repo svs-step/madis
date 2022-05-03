@@ -201,12 +201,12 @@ class RequestController extends CRUDController
                 'collectivite'       => $demande->getCollectivity()->getName(),
                 'personne_concernee' => $this->getLinkForPersonneConcernee($demande),
                 'date_demande'       => null !== $demande->getDate() ? \date_format($demande->getDate(), 'd/m/Y') : '',
-                'objet_demande'      => $demande->getObject() ? RequestObjectDictionary::getObjects()[$demande->getObject()] : '',
+                'objet_demande'      => array_key_exists($demande->getObject(), RequestObjectDictionary::getObjects()) ? RequestObjectDictionary::getObjects()[$demande->getObject()] : $demande->getObject(),
                 'demande_complete'   => $demande->isComplete() ? $yes : $no,
                 'demandeur_legitime' => $demande->isLegitimateApplicant() ? $yes : $no,
                 'demande_legitime'   => $demande->isLegitimateRequest() ? $yes : $no,
                 'date_traitement'    => null !== $demande->getAnswer()->getDate() ? \date_format($demande->getAnswer()->getDate(), 'd/m/Y') : '',
-                'etat_demande'       => $demande->getState() ? RequestStateDictionary::getStates()[$demande->getState()] : '',
+                'etat_demande'       => array_key_exists($demande->getState(), RequestStateDictionary::getStates()) ? RequestStateDictionary::getStates()[$demande->getState()] : $demande->getState(),
                 'actions'            => $this->getActionsCellContent($demande),
             ];
         }
