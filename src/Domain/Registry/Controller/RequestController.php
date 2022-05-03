@@ -206,7 +206,7 @@ class RequestController extends CRUDController
                 'demandeur_legitime' => $demande->isLegitimateApplicant() ? $yes : $no,
                 'demande_legitime'   => $demande->isLegitimateRequest() ? $yes : $no,
                 'date_traitement'    => null !== $demande->getAnswer()->getDate() ? \date_format($demande->getAnswer()->getDate(), 'd/m/Y') : '',
-                'etat_demande'       => RequestStateDictionary::getStates()[$demande->getState()],
+                'etat_demande'       => $demande->getState() ? RequestStateDictionary::getStates()[$demande->getState()] : '',
                 'actions'            => $this->getActionsCellContent($demande),
             ];
         }
