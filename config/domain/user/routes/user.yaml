@@ -11,17 +11,17 @@ user_user_list_datatables:
 user_user_create:
     path: '/creer'
     methods: ['GET', 'POST']
-    controller: 'App\Domain\User\Controller\UserController:createAction'
+    controller: 'App\Domain\User\Controller\UserController:createUser'
 
 user_user_edit:
     path: '/editer/{id}'
     methods: ['GET', 'POST']
-    controller: 'App\Domain\User\Controller\UserController:editAction'
+    controller: 'App\Domain\User\Controller\UserController:editUser'
 
 user_user_delete:
     path: '/archiver/{id}'
     methods: ['GET']
-    controller: 'App\Domain\User\Controller\UserController:deleteAction'
+    controller: 'App\Domain\User\Controller\UserController:deleteUser'
 
 user_user_delete_confirm:
     path: '/archiver/{id}/confirmation'

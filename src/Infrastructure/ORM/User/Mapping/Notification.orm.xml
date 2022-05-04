@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                            https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\User\Model\Notification" table="user_notification">
+
+        <id name="id" column="id" type="uuid"/>
+        <one-to-one field="user" target-entity="App\Domain\User\Model\User" inversed-by="notifications"/>
+
+        <field name="is_notified" column="is_notified" type="boolean"/>
+        <field name="frequency" column="frequency" type="text" nullable="true"/>
+        <field name="interval_hours" column="interval_hours" type="integer" nullable="true"/>
+        <field name="start_week" column="start_week" type="text" nullable="true"/>
+        <field name="start_day" column="start_day" type="text" nullable="true"/>
+        <field name="start_hour" column="start_hour" nullable="true"/>
+        <field name="is_treatment" column="is_treatment" type="boolean" nullable="true"/>
+        <field name="is_subcontract" column="is_subcontract" type="boolean" nullable="true"/>
+        <field name="is_request" column="is_request" type="boolean" nullable="true"/>
+        <field name="is_violation" column="is_violation" type="boolean" nullable="true"/>
+        <field name="is_proof" column="is_proof" type="boolean" nullable="true"/>
+        <field name="is_protectAction" column="is_protectAction" type="boolean" nullable="true"/>
+        <field name="is_maturity" column="is_maturity" type="boolean" nullable="true"/>
+        <field name="is_treatmenConformity" column="is_treatmenConformity" type="boolean" nullable="true"/>
+        <field name="is_organizationConformity" column="is_organizationConformity" type="boolean" nullable="true"/>
+        <field name="is_AIPD" column="is_AIPD" type="boolean" nullable="true"/>
+        <field name="is_document" column="is_document" type="boolean" nullable="true"/>
+        <field name="last_notif_send" column="last_notif_send" type="datetime" nullable="true"/>
+
+    </entity>
+
+</doctrine-mapping>

@@ -53,17 +53,3 @@ notification:
             edit: Modifier notification
             list: Espace notification
             delete: Supprimernotification
-        form:
-            is_notified: Les actions de cet utilisateur ne génère pas de notification
-            is_treatment: Notifications pour le module traitements
-            is_subcontract: Notifications pour le module sous-traitants
-            is_request: Notifications pour le module demandes
-            is_violation: Notifications pour le module violations
-            is_proof: Notifications pour le module preuves
-            is_protectAction: Notifications pour le module actions de protection
-            is_maturity: Notifications pour le module maturité
-            is_treatmenConformity: Notifications pour le module conformité des traitements
-            is_organizationConformity: Notifications pour le module conformité de l'organisation
-            is_AIPD: Notifications pour le module AIPD
-            is_document: Notifications pour le module espace documentaire
-            frequency: Fréquence par défaut des notifications Email

@@ -22,130 +22,115 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Notification\Model;
+namespace App\Domain\User\Model;
 
-use App\Domain\User\Model\User;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\Integer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
  */
-class NotificationMailParameters
+class Notification
 {
     /**
-     * @ORM\Id()
-     * @ORM\Column(type="uuid")
-     *
      * @var UuidInterface
      */
     private $id;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var bool
      */
     private $is_notified = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
-     * @ORM\JoinColumn(onDelete="SET NULL")
+     * @var User|null
      */
-    private ?User $user;
+    private $user;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
      *
      * @var string|null
      */
     private $frequency;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     *
      * @var int|null
      */
     private ?int $interval_hours = 1;
 
     /**
-     * @ORM\Column(type="text",  nullable=true)
-     *
      * @var string|null
      */
     private $start_week;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     *
      * @var string|null
      */
     private $start_day;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     *
+     * @var int|null
      */
     private ?int $start_hour;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var bool
      */
     private $is_treatment = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var bool
      */
     private $is_subcontract = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var bool
      */
     private $is_request = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var bool
      */
     private $is_violation = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var bool
      */
     private $is_proof = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var bool
      */
     private $is_protectAction = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var bool
      */
     private $is_maturity = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var bool
      */
     private $is_treatmenConformity = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var bool
      */
     private $is_organizationConformity = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var bool
      */
     private $is_AIPD = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var bool
      */
     private $is_document = false;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @var string
      */
     private $last_notif_send;
 

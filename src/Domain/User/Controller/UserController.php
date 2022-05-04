@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Controller;
 
 use App\Application\Controller\CRUDController;
+use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
@@ -382,5 +383,202 @@ class UserController extends CRUDController
             default:
                 return 'bg-red';
         }
+    }
+
+
+    /**
+     * The creation action view
+     * Create a new data.
+     */
+    public function createUser(Request $request): Response
+    {
+        $modelClass     = $this->getModelClass();
+        /** @var CollectivityRelated $object */
+        $object         = new $modelClass();
+        $serviceEnabled = false;
+
+        if ($object instanceof CollectivityRelated) {
+            $user       = $this->userProvider->getAuthenticatedUser();
+            $object->setCollectivity($user->getCollectivity());
+            $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
+        }
+
+        $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'create']]);
+
+        $request = $this->requestStack->getMasterRequest();
+        $parameters = $request->request->all();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //dd($form->getData()->getId());
+            $this->formPrePersistData($object);
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($object);
+            $em->flush();
+
+            /* Notifications */
+            $notifParams = new Model\Notification();
+            $user = $em->getRepository(User::class)->find($form->getData()->getId());
+            $notifParams->setUser($user);
+
+            if (isset($parameters['is_notified'])){ $notifParams->setIsNotified($parameters['is_notified']);}
+            $notifParams->setFrequency($parameters['alert']);
+
+            switch ($parameters['alert']) {
+                case 'every_hours':
+                    $notifParams->setIntervalHours(intval($parameters['alert']));
+                    break;
+                case 'daily' :
+                    $notifParams->setStartHours(intval($parameters['daily_hour']));
+                    break;
+                case 'weekly' :
+                    $notifParams->setStartHours(intval($parameters['weekly_hour']));
+                    $notifParams->setStartDay($parameters['weekly_day']);
+                    break;
+                case 'monthly' :
+                    $notifParams->setStartHours(intval($parameters['monthly_hour']));
+                    $notifParams->setStartDay($parameters['monthly_day']);
+                    $notifParams->setStartWeek($parameters['monthly_week']);
+                    break;
+            }
+
+            if (isset($parameters['is_treatment'])){ $notifParams->setIsTreatment($parameters['is_treatment']);}
+            if (isset($parameters['is_subcontract'])){$notifParams->setIsSubcontract($parameters['is_subcontract']);}
+            if (isset($parameters['is_request'])){$notifParams->setIsRequest($parameters['is_request']);}
+            if (isset($parameters['is_violation'])){$notifParams->setIsViolation($parameters['is_violation']);}
+            if (isset($parameters['is_proof'])){$notifParams->setIsProof($parameters['is_proof']);}
+            if (isset($parameters['is_protectAction'])){$notifParams->setIsProtectAction($parameters['is_protectAction']);}
+            if (isset($parameters['is_maturity'])){$notifParams->setIsMaturity($parameters['is_maturity']);}
+            if (isset($parameters['is_treatmenConformity'])){$notifParams->setIsTreatmenConformity($parameters['is_treatmenConformity']);}
+            if (isset($parameters['is_organizationConformity'])){$notifParams->setIsOrganizationConformity($parameters['is_organizationConformity']);}
+            if (isset($parameters['is_AIPD'])){$notifParams->setIsAIPD($parameters['is_AIPD']);}
+            if (isset($parameters['is_document'])){$notifParams->setIsDocument($parameters['is_document']);}
+
+            //$em = $this->getDoctrine()->getManager();
+            $em->persist($notifParams);
+            $em->flush();
+
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('create'), [
+            'form'              => $form->createView(),
+            'object'            => $object,
+            'serviceEnabled'    => $serviceEnabled,
+        ]);
+    }
+
+    /**
+     * The edition action view
+     * Edit an existing data.
+     *
+     * @param string $id The ID of the data to edit
+     */
+    public function editUser(Request $request, string $id): Response
+    {
+//        /** @var CollectivityRelated $object */
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $serviceEnabled = false;
+
+        if ($object instanceof Collectivity) {
+            $serviceEnabled = $object->getIsServicesEnabled();
+        } elseif ($object instanceof CollectivityRelated) {
+            $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
+        }
+
+        $actionEnabled = true;
+        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
+        }
+
+        if (!$actionEnabled) {
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->formPrePersistData($object);
+            $this->entityManager->persist($object);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('edit'), [
+            'form'              => $form->createView(),
+            'object'            => $object,
+            'serviceEnabled'    => $serviceEnabled,
+        ]);
+    }
+
+    /**
+     * The show action view
+     * Display the object information.
+     *
+     * @param string $id The ID of the data to display
+     */
+    public function showUser(string $id): Response
+    {
+        /** @var CollectivityRelated $object */
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        if ($object instanceof Collectivity) {
+            $serviceEnabled = $object->getIsServicesEnabled();
+        } else {
+            $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
+        }
+
+        $actionEnabled = true;
+        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
+        }
+
+        return $this->render($this->getTemplatingBasePath('show'), [
+            'object'            => $object,
+            'actionEnabled'     => $actionEnabled,
+            'serviceEnabled'    => $serviceEnabled,
+        ]);
+    }
+
+    /**
+     * The delete action view
+     * Display a confirmation message to confirm data deletion.
+     */
+    public function deleteUser(string $id): Response
+    {
+        /** @var CollectivityRelated $object */
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $actionEnabled = true;
+        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
+        }
+
+        if (!$actionEnabled) {
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('delete'), [
+            'object' => $object,
+            'id'     => $id,
+        ]);
     }
 }

@@ -26,23 +26,11 @@ namespace App\Domain\Notification\Controller;
 
 use App\Application\Controller\ControllerHelper;
 use App\Application\Controller\CRUDController;
-use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Notification\Form\Type\NotificationMailParametersType;
-use App\Domain\Notification\Model;
-use App\Domain\Notification\Repository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Snappy\Pdf;
-use phpDocumentor\Reflection\Types\Boolean;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
-
-
-
 
 
 class NotificationMailParametersController extends CRUDController
@@ -76,7 +64,7 @@ class NotificationMailParametersController extends CRUDController
 
     protected function getModelClass(): string
     {
-        return Model\NotificationMailParameters::class;
+        return \App\Domain\User\Model\Notification::class;
     }
 
     protected function getFormType(): string
@@ -87,7 +75,7 @@ class NotificationMailParametersController extends CRUDController
     public function createNotifMailParams(string $id = null)
     {
         if($id){
-            $notifMailParameters = $this->getDoctrine()->getRepository(Model\NotificationMailParameters::class)->find($id);
+            $notifMailParameters = $this->getDoctrine()->getRepository(\App\Domain\User\Model\Notification::class)->find($id);
 
             if (null === $notifMailParameters) {
                 throw new NotFoundHttpException("No object found with ID '{$id}'");
@@ -108,7 +96,7 @@ class NotificationMailParametersController extends CRUDController
 
             } else {
                 $mailParams = $parameters['notification_mail_parameters'];
-                $notifParams = new Model\NotificationMailParameters();
+                $notifParams = new \App\Domain\User\Model\Notification();
             }
 
             if (isset($mailParams['is_notified'])){ $notifParams->setIsNotified($parameters['notification_mail_parameters']['is_notified']);}

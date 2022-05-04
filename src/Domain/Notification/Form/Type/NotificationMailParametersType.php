@@ -24,16 +24,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Notification\Form\Type;
 
-use App\Domain\Notification\Model\NotificationMailParameters;
-use App\Domain\User\Model\Embeddable\Address;
-use Knp\DictionaryBundle\Form\Type\DictionaryType;
-use phpDocumentor\Reflection\Types\Boolean;
-use phpDocumentor\Reflection\Types\Integer;
+use App\Domain\User\Model\Notification;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -105,7 +98,7 @@ class NotificationMailParametersType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => NotificationMailParameters::class,
+                'data_class'        => Notification::class,
                 'validation_groups' => 'default',
             ]);
     }

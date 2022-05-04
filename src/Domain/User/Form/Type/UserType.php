@@ -24,8 +24,6 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
-use App\Domain\Notification\Model\NotificationMailParameters;
-use App\Domain\Notification\Form\Type;
 use App\Domain\User\Form\DataTransformer\MoreInfoTransformer;
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Model\Collectivity;
