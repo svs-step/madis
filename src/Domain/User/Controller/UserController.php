@@ -420,7 +420,7 @@ class UserController extends CRUDController
 
             switch ($parameters['alert']) {
                 case 'every_hours':
-                    $notifParams->setIntervalHours(intval($parameters['alert']));
+                    $notifParams->setIntervalHours(intval($parameters['interval_hours']));
                     break;
                 case 'daily' :
                     $notifParams->setStartHours(intval($parameters['daily_hour']));
@@ -470,7 +470,7 @@ class UserController extends CRUDController
         ];
 
         $data['alert'] = 'none';
-        $data['every_hours'] = 4;
+        $data['interval_hours'] = 4;
         $data['daily_hour'] = 7;
         $data['weekly_hour'] = 7;
         $data['weekly_day'] = "Lundi";
@@ -544,7 +544,7 @@ class UserController extends CRUDController
 
             switch ($parameters['alert']) {
                 case 'every_hours':
-                    $notifParams->setIntervalHours(intval($parameters['alert']));
+                    $notifParams->setIntervalHours(intval($parameters['interval_hours']));
                     break;
                 case 'daily' :
                     $notifParams->setStartHours(intval($parameters['daily_hour']));
@@ -589,7 +589,7 @@ class UserController extends CRUDController
         ];
         if ($object->getNotification()){
             $data['alert'] = $object->getNotification()->getFrequency();
-            $data['every_hours'] = $object->getNotification()->getIntervalHours();
+            $data['interval_hours'] = $object->getNotification()->getIntervalHours();
             $data['daily_hour'] = $object->getNotification()->getStartHours();
             $data['weekly_hour'] = $object->getNotification()->getStartHours();
             $data['weekly_day'] = $object->getNotification()->getStartDay();
