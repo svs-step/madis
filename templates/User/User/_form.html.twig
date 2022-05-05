@@ -53,7 +53,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <input type="checkbox" name="is_notified" value="none" {{ is_notified }}/>
+                            <input type="checkbox" name="is_notified" value="false" {{ is_notified }}/>
                             Les actions de cet utilisateur ne génère pas de notification
                         </div>
                     </div>
@@ -63,18 +63,18 @@
                         </div>
                         <div class="col-sm-10">
                             <p>
-                                <input type="radio" name="alert" value="none" {{ is_notified }}/>
+                                <input type="radio" name="alert" value="none" {{ alert is same as('none') ? 'checked' : '' }}/>
                                 Aucune notification
                             </p>
                             <p>
-                                <input type="radio" name="alert" value="only_one"/>
+                                <input type="radio" name="alert" value="only_one" {{ alert is same as('only_one') ? 'checked' : '' }}/>
                                 Notifications unitaires
                             </p>
                             <p>
-                                <input type="radio" name="alert" value="every_hours"/>
+                                <input type="radio" name="alert" value="every_hours" {{ alert is same as('every_hours') ? 'checked' : '' }}/>
                                 Toutes les
-                                <select name="hours_interval" id="hours_interval">
-                                    <option value="{{ 1 }}" selected>1</option>
+                                <select name="hours_interval" id="hours_interval" >
+                                    <option value="{{ every_hours }}" selected>{{ every_hours }}</option>
                                     {% for i in 2..23 %}
                                         <option value="{{ i }}">{{ i }}</option>
                                     {% endfor %}
@@ -82,10 +82,10 @@
                                 heures
                             </p>
                             <p>
-                                <input type="radio" name="alert" value="daily"/>
+                                <input type="radio" name="alert" value="daily" {{ alert is same as('daily') ? 'checked' : '' }}/>
                                 Quotidien à
                                 <select name="daily_hour" id="daily_hour">
-                                    <option value="{{ 7 }}" selected>7</option>
+                                    <option value="{{ daily_hour }}" selected>{{ daily_hour}}</option>
                                     {% for i in 8..19 %}
                                         <option value="{{ i }}">{{ i }}</option>
                                     {% endfor %}
@@ -93,10 +93,11 @@
                                 heure
                             </p>
                             <p>
-                                <input type="radio" name="alert" value="weekly"/>
+                                <input type="radio" name="alert" value="weekly" {{ alert is same as('weekly') ? 'checked' : '' }}/>
                                 Hebdomadaire le
                                 <select name="weekly_day" id="weekly_day">
-                                    <option value="Lundi" selected>Lundi</option>
+                                    <option value="{{ weekly_day }}" selected>{{ weekly_day}}</option>
+                                    <option value="Lundi">Lundi</option>
                                     <option value="Mardi">Mardi</option>
                                     <option value="Mercredi">Mercredi</option>
                                     <option value="Jeudi">Jeudi</option>
@@ -104,7 +105,7 @@
                                 </select>
                                 à
                                 <select name="weekly_hour" id="weekly_hour">
-                                    <option value="{{ 7 }}" selected>7</option>
+                                    <option value="{{ weekly_hour }}" selected>{{ weekly_hour }}</option>
                                     {% for i in 8..19 %}
                                         <option value="{{ i }}">{{ i }}</option>
                                     {% endfor %}
@@ -112,16 +113,18 @@
                                 heure
                             </p>
                             <p>
-                                <input type="radio" name="alert" value="monthly"/>
+                                <input type="radio" name="alert" value="monthly" {{ alert is same as('monthly') ? 'checked' : '' }}/>
                                 Mensuelle le
                                 <select name="monthly_week" id="monthly_week">
+                                    <option value="{{ monthly_week }}" selected>{{ monthly_week}}</option>
                                     <option value="Premier">Premier</option>
                                     <option value="Second">Second</option>
                                     <option value="Troisième">Troisième</option>
                                     <option value="Quatrième">Quatrième</option>
                                 </select>
                                 <select name="monthly_day" id="monthly_day">
-                                    <option value="Lundi" selected>Lundi</option>
+                                    <option value="{{ monthly_day }}" selected>{{ monthly_day}}</option>
+                                    <option value="Lundi">Lundi</option>
                                     <option value="Mardi">Mardi</option>
                                     <option value="Mercredi">Mercredi</option>
                                     <option value="Jeudi">Jeudi</option>
@@ -129,7 +132,7 @@
                                 </select>
                                 à
                                 <select name="monthly_hour" id="monthly_hour">
-                                    <option value="{{ 7 }}" selected>7</option>
+                                    <option value="{{ monthly_hour }}" selected>{{ monthly_hour }}</option>
                                     {% for i in 8..19 %}
                                         <option value="{{ i }}">{{ i }}h</option>
                                     {% endfor %}
@@ -142,47 +145,47 @@
                         </div>
                         <div class="col-sm-10">
                             <div>
-                                <input type="checkbox" name="is_treatment" value="none" {{ is_treatment }} />
+                                <input type="checkbox" name="is_treatment" value="true" {{ is_treatment }} />
                                 Notifications pour le module traitements
                             </div>
                             <div>
-                                <input type="checkbox" name="is_subcontract" value="none" {{ is_subcontract }} />
+                                <input type="checkbox" name="is_subcontract" value="true" {{ is_subcontract }} />
                                 Notifications pour le module sous-traitants
                             </div>
                             <div>
-                                <input type="checkbox" name="is_request" value="none" {{ is_request }} />
+                                <input type="checkbox" name="is_request" value="true" {{ is_request }} />
                                 Notifications pour le module demandes
                             </div>
                             <div>
-                                <input type="checkbox" name="is_violation" value="none" {{ is_violation }} />
+                                <input type="checkbox" name="is_violation" value="true" {{ is_violation }} />
                                 Notifications pour le module violations
                             </div>
                             <div>
-                                <input type="checkbox" name="is_proof" value="none" {{ is_proof }} />
+                                <input type="checkbox" name="is_proof" value="true" {{ is_proof }} />
                                 Notifications pour le module preuves
                             </div>
                             <div>
-                                <input type="checkbox" name="is_protectAction" value="none" {{ is_protectAction }} />
+                                <input type="checkbox" name="is_protectAction" value="true" {{ is_protectAction }} />
                                 Notifications pour le module actions de protection
                             </div>
                             <div>
-                                <input type="checkbox" name="is_maturity" value="none" {{ is_maturity }} />
+                                <input type="checkbox" name="is_maturity" value="true" {{ is_maturity }} />
                                 Notifications pour le module maturité
                             </div>
                             <div>
-                                <input type="checkbox" name="is_treatmenConformity" value="none" {{ is_treatmenConformity }} />
+                                <input type="checkbox" name="is_treatmenConformity" value="true" {{ is_treatmenConformity }} />
                                 Notifications pour le module conformité des traitements
                             </div>
                             <div>
-                                <input type="checkbox" name="is_organizationConformity" value="none" {{ is_organizationConformity }} />
+                                <input type="checkbox" name="is_organizationConformity" value="true" {{ is_organizationConformity }} />
                                 Notifications pour le module conformité de l'organisation
                             </div>
                             <div>
-                                <input type="checkbox" id="is_AIPD" name="is_AIPD" value="none" {{ is_AIPD }} />
+                                <input type="checkbox" id="is_AIPD" name="is_AIPD" value="true" {{ is_AIPD }} />
                                 Notifications pour le module AIPD
                             </div>
                             <div>
-                                <input type="checkbox" name="is_document" value="none" {{ is_document }} />
+                                <input type="checkbox" name="is_document" value="true" {{ is_document }} />
                                 Notifications pour le module espace documentaire
                             </div>
                         </div>

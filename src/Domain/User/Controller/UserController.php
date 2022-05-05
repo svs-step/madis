@@ -463,11 +463,34 @@ class UserController extends CRUDController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
-        return $this->render($this->getTemplatingBasePath('create'), [
+        $data = [
             'form'              => $form->createView(),
             'object'            => $object,
             'serviceEnabled'    => $serviceEnabled,
-        ]);
+        ];
+
+        $data['alert'] = 'none';
+        $data['every_hours'] = 4;
+        $data['daily_hour'] = 7;
+        $data['weekly_hour'] = 7;
+        $data['weekly_day'] = "Lundi";
+        $data['monthly_hour']  = 7;
+        $data['monthly_day'] = "Lundi";
+        $data['monthly_week']  = "Premier";
+        $data['is_notified'] = 'checked';
+        $data['is_treatment'] = '';
+        $data['is_subcontract'] = '';
+        $data['is_request'] = '';
+        $data['is_violation'] = '';
+        $data['is_proof'] = '';
+        $data['is_protectAction'] = '';
+        $data['is_maturity'] = '';
+        $data['is_treatmenConformity'] = '';
+        $data['is_organizationConformity'] = '';
+        $data['is_AIPD'] = '';
+        $data['is_document'] = '';
+
+        return $this->render($this->getTemplatingBasePath('create'), $data);
     }
 
     /**
@@ -478,7 +501,7 @@ class UserController extends CRUDController
      */
     public function editUser(Request $request, string $id): Response
     {
-        /** @var CollectivityRelated $object */
+        /** @var User $object */
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
@@ -509,6 +532,51 @@ class UserController extends CRUDController
             $this->entityManager->persist($object);
             $this->entityManager->flush();
 
+            $repository = $this->entityManager->getRepository(Model\Notification::class);
+            /** @var Model\Notification $notifParams */
+            $notifParams = $repository->findOneBy(['id' => $object->getNotification()->getId()]);
+            $request = $this->requestStack->getMasterRequest();
+            $parameters = $request->request->all();
+
+
+            isset($parameters['is_notified']) ? $notifParams->setIsNotified(false) : $notifParams->setIsNotified(true);
+            $notifParams->setFrequency($parameters['alert']);
+
+            switch ($parameters['alert']) {
+                case 'every_hours':
+                    $notifParams->setIntervalHours(intval($parameters['alert']));
+                    break;
+                case 'daily' :
+                    $notifParams->setStartHours(intval($parameters['daily_hour']));
+                    break;
+                case 'weekly' :
+                    $notifParams->setStartHours(intval($parameters['weekly_hour']));
+                    $notifParams->setStartDay($parameters['weekly_day']);
+                    break;
+                case 'monthly' :
+                    $notifParams->setStartHours(intval($parameters['monthly_hour']));
+                    $notifParams->setStartDay($parameters['monthly_day']);
+                    $notifParams->setStartWeek($parameters['monthly_week']);
+                    break;
+            }
+
+            isset($parameters['is_treatment']) ? $notifParams->setIsTreatment(true) : $notifParams->setIsTreatment(false); //$notifParams->setIsTreatment($parameters['is_treatment']);}
+            isset($parameters['is_subcontract']) ? $notifParams->setIsSubcontract(true) : $notifParams->setIsSubcontract(false);
+            isset($parameters['is_request']) ? $notifParams->setIsRequest(true) : $notifParams->setIsSubcontract(false);
+            isset($parameters['is_violation']) ? $notifParams->setIsViolation(true) : $notifParams->setIsViolation(false);
+            isset($parameters['is_proof']) ? $notifParams->setIsProof(true) : $notifParams->setIsProof(false);
+            isset($parameters['is_protectAction']) ? $notifParams->setIsProtectAction(true) : $notifParams->setIsProtectAction(false);
+            isset($parameters['is_maturity']) ? $notifParams->setIsMaturity(true) : $notifParams->setIsMaturity(false);
+            isset($parameters['is_treatmenConformity']) ? $notifParams->setIsTreatmenConformity(true) : $notifParams->setIsTreatmenConformity(false);
+            isset($parameters['is_organizationConformity']) ? $notifParams->setIsOrganizationConformity(true) : $notifParams->setIsOrganizationConformity(false);
+            isset($parameters['is_AIPD']) ? $notifParams->setIsAIPD(true) : $notifParams->setIsAIPD(false);
+            isset($parameters['is_document']) ? $notifParams->setIsDocument(true) : $notifParams->setIsDocument(false);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($notifParams);
+            $em->flush();
+
+
             $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object));
 
             return $this->redirectToRoute($this->getRouteName('list'));
@@ -528,7 +596,7 @@ class UserController extends CRUDController
             $data['monthly_hour']  = $object->getNotification()->getStartHours();
             $data['monthly_day'] = $object->getNotification()->getStartDay();
             $data['monthly_week']  = $object->getNotification()->getStartWeek();
-            $data['is_notified'] = ($object->getNotification()->getIsNotified() === true) ? 'checked' : '';
+            $data['is_notified'] = ($object->getNotification()->getIsNotified() === false) ? 'checked' : '';
             $data['is_treatment'] = ($object->getNotification()->getIsTreatment() === true) ? 'checked' : '';
             $data['is_subcontract'] = $object->getNotification()->getIsSubcontract() === true ? 'checked' : '';
             $data['is_request'] = $object->getNotification()->getIsRequest()=== true ? 'checked' : '';
