@@ -9,8 +9,6 @@
     <entity name="App\Domain\User\Model\Notification" table="user_notification">
 
         <id name="id" column="id" type="uuid"/>
-        <one-to-one field="user" target-entity="App\Domain\User\Model\User" inversed-by="notifications"/>
-
         <field name="is_notified" column="is_notified" type="boolean"/>
         <field name="frequency" column="frequency" type="text" nullable="true"/>
         <field name="interval_hours" column="interval_hours" type="integer" nullable="true"/>

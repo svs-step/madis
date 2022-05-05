@@ -128,7 +128,7 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     /**
      * @var Notification|null
      */
-    private $notificationMailParameters;
+    private $notification;
 
     /**
      * User constructor.
@@ -380,13 +380,13 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
         $this->moreInfos = $moreInfos;
     }
 
-    public function getNotificationMailParameters(): ?Notification
+    public function getNotification(): ?Notification
     {
-        return $this->notificationMailParameters;
+        return $this->notification;
     }
 
-    public function setNotificationMailParameters(?Notification $notificationMailParameters): void
+    public function setNotification(?Notification $notification): void
     {
-        $this->notificationMailParameters = $notificationMailParameters;
+        $this->notification = $notification;
     }
 }

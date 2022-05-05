@@ -32,6 +32,7 @@
         <field name="lastLogin" column="last_login" type="datetime_immutable" nullable="true"/>
         <field name="apiAuthorized" column="api_authorized" type="boolean" nullable="true"/>
         <field name="documentView" column="document_view" type="boolean" nullable="true"/>
+        <one-to-one field="notification" target-entity="App\Domain\User\Model\Notification" inversed-by="users"/>
 
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity" inversed-by="users" fetch="EAGER"/>
         <many-to-many field="collectivitesReferees" target-entity="App\Domain\User\Model\Collectivity" inversed-by="userReferents">

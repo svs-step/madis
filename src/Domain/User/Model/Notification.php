@@ -44,11 +44,6 @@ class Notification
     private $is_notified = false;
 
     /**
-     * @var User|null
-     */
-    private $user;
-
-    /**
      *
      * @var string|null
      */
@@ -157,16 +152,6 @@ class Notification
     public function setIsNotified($is_notified): void
     {
         $this->is_notified = $is_notified;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): void
-    {
-        $this->user = $user;
     }
 
     public function getFrequency(): ?string
