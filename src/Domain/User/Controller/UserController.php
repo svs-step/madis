@@ -393,7 +393,7 @@ class UserController extends CRUDController
     public function createUser(Request $request): Response
     {
         $modelClass     = $this->getModelClass();
-        /** @var CollectivityRelated $object */
+        /** @var User $object */
         $object         = new $modelClass();
         $serviceEnabled = false;
 
@@ -411,17 +411,9 @@ class UserController extends CRUDController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //dd($form->getData()->getId());
-            $this->formPrePersistData($object);
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($object);
-            $em->flush();
 
             /* Notifications */
             $notifParams = new Model\Notification();
-            $user = $em->getRepository(User::class)->find($form->getData()->getId());
-            $notifParams->setUser($user);
 
             if (isset($parameters['is_notified'])){ $notifParams->setIsNotified($parameters['is_notified']);}
             $notifParams->setFrequency($parameters['alert']);
@@ -456,8 +448,14 @@ class UserController extends CRUDController
             if (isset($parameters['is_AIPD'])){$notifParams->setIsAIPD($parameters['is_AIPD']);}
             if (isset($parameters['is_document'])){$notifParams->setIsDocument($parameters['is_document']);}
 
-            //$em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($notifParams);
+            $em->flush();
+
+            /* Save User with Notification */
+            $object->setNotification($notifParams);
+            $this->formPrePersistData($object);
+            $em->persist($object);
             $em->flush();
 
             $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object));
@@ -480,7 +478,7 @@ class UserController extends CRUDController
      */
     public function editUser(Request $request, string $id): Response
     {
-//        /** @var CollectivityRelated $object */
+        /** @var CollectivityRelated $object */
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
@@ -516,43 +514,35 @@ class UserController extends CRUDController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
-        return $this->render($this->getTemplatingBasePath('edit'), [
+        $data = [
             'form'              => $form->createView(),
             'object'            => $object,
             'serviceEnabled'    => $serviceEnabled,
-        ]);
-    }
-
-    /**
-     * The show action view
-     * Display the object information.
-     *
-     * @param string $id The ID of the data to display
-     */
-    public function showUser(string $id): Response
-    {
-        /** @var CollectivityRelated $object */
-        $object = $this->repository->findOneById($id);
-        if (!$object) {
-            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        ];
+        if ($object->getNotification()){
+            $data['alert'] = $object->getNotification()->getFrequency();
+            $data['every_hours'] = $object->getNotification()->getIntervalHours();
+            $data['daily_hour'] = $object->getNotification()->getStartHours();
+            $data['weekly_hour'] = $object->getNotification()->getStartHours();
+            $data['weekly_day'] = $object->getNotification()->getStartDay();
+            $data['monthly_hour']  = $object->getNotification()->getStartHours();
+            $data['monthly_day'] = $object->getNotification()->getStartDay();
+            $data['monthly_week']  = $object->getNotification()->getStartWeek();
+            $data['is_notified'] = ($object->getNotification()->getIsNotified() === true) ? 'checked' : '';
+            $data['is_treatment'] = ($object->getNotification()->getIsTreatment() === true) ? 'checked' : '';
+            $data['is_subcontract'] = $object->getNotification()->getIsSubcontract() === true ? 'checked' : '';
+            $data['is_request'] = $object->getNotification()->getIsRequest()=== true ? 'checked' : '';
+            $data['is_violation'] = $object->getNotification()->getIsViolation()=== true ? 'checked' : '';
+            $data['is_proof'] = $object->getNotification()->getIsProof()=== true ? 'checked' : '';
+            $data['is_protectAction'] = $object->getNotification()->getIsProtectAction()=== true ? 'checked' : '';
+            $data['is_maturity'] = $object->getNotification()->getIsMaturity()=== true ? 'checked' : '';
+            $data['is_treatmenConformity'] = $object->getNotification()->getIsTreatmenConformity()=== true ? 'checked' : '';
+            $data['is_organizationConformity'] = $object->getNotification()->getIsOrganizationConformity()=== true ? 'checked' : '';
+            $data['is_AIPD'] = $object->getNotification()->getIsAIPD()=== true ? 'checked' : '';
+            $data['is_document'] = $object->getNotification()->getIsDocument()=== true ? 'checked' : '';
         }
 
-        if ($object instanceof Collectivity) {
-            $serviceEnabled = $object->getIsServicesEnabled();
-        } else {
-            $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
-        }
-
-        $actionEnabled = true;
-        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
-        }
-
-        return $this->render($this->getTemplatingBasePath('show'), [
-            'object'            => $object,
-            'actionEnabled'     => $actionEnabled,
-            'serviceEnabled'    => $serviceEnabled,
-        ]);
+        return $this->render($this->getTemplatingBasePath('edit'), $data);
     }
 
     /**

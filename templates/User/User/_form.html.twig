@@ -53,7 +53,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <input type="checkbox" name="is_notified" value="none" checked/>
+                            <input type="checkbox" name="is_notified" value="none" {{ is_notified }}/>
                             Les actions de cet utilisateur ne génère pas de notification
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                         </div>
                         <div class="col-sm-10">
                             <p>
-                                <input type="radio" name="alert" value="none" checked/>
+                                <input type="radio" name="alert" value="none" {{ is_notified }}/>
                                 Aucune notification
                             </p>
                             <p>
@@ -142,47 +142,47 @@
                         </div>
                         <div class="col-sm-10">
                             <div>
-                                <input type="checkbox" name="is_treatment" value="none"/>
+                                <input type="checkbox" name="is_treatment" value="none" {{ is_treatment }} />
                                 Notifications pour le module traitements
                             </div>
                             <div>
-                                <input type="checkbox" name="is_subcontract" value="none"/>
+                                <input type="checkbox" name="is_subcontract" value="none" {{ is_subcontract }} />
                                 Notifications pour le module sous-traitants
                             </div>
                             <div>
-                                <input type="checkbox" name="is_request" value="none"/>
+                                <input type="checkbox" name="is_request" value="none" {{ is_request }} />
                                 Notifications pour le module demandes
                             </div>
                             <div>
-                                <input type="checkbox" name="is_violation" value="none"/>
+                                <input type="checkbox" name="is_violation" value="none" {{ is_violation }} />
                                 Notifications pour le module violations
                             </div>
                             <div>
-                                <input type="checkbox" name="is_proof" value="none"/>
+                                <input type="checkbox" name="is_proof" value="none" {{ is_proof }} />
                                 Notifications pour le module preuves
                             </div>
                             <div>
-                                <input type="checkbox" name="is_protectAction" value="none"/>
+                                <input type="checkbox" name="is_protectAction" value="none" {{ is_protectAction }} />
                                 Notifications pour le module actions de protection
                             </div>
                             <div>
-                                <input type="checkbox" name="is_maturity" value="none"/>
+                                <input type="checkbox" name="is_maturity" value="none" {{ is_maturity }} />
                                 Notifications pour le module maturité
                             </div>
                             <div>
-                                <input type="checkbox" name="is_treatmenConformity" value="none"/>
+                                <input type="checkbox" name="is_treatmenConformity" value="none" {{ is_treatmenConformity }} />
                                 Notifications pour le module conformité des traitements
                             </div>
                             <div>
-                                <input type="checkbox" name="is_organizationConformity" value="none"/>
+                                <input type="checkbox" name="is_organizationConformity" value="none" {{ is_organizationConformity }} />
                                 Notifications pour le module conformité de l'organisation
                             </div>
                             <div>
-                                <input type="checkbox" name="is_AIPD" value="none"/>
+                                <input type="checkbox" id="is_AIPD" name="is_AIPD" value="none" {{ is_AIPD }} />
                                 Notifications pour le module AIPD
                             </div>
                             <div>
-                                <input type="checkbox" name="is_document" value="none"/>
+                                <input type="checkbox" name="is_document" value="none" {{ is_document }} />
                                 Notifications pour le module espace documentaire
                             </div>
                         </div>
