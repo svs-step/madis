@@ -286,13 +286,16 @@ class ProofController extends CRUDController
             }
         }
         $zip      =  new ZipArchive();
-        $filename = './uploads/registry/proof/zip/test.zip';
 
-        if (true !== $zip->open($filename, ZipArchive::OVERWRITE)) {
-            if (true !== $zip->open($filename, ZipArchive::CREATE)) {
-                exit("Impossible d'ouvrir le fichier $filename>\n");
-            }
+        $dir = $this->getParameter('kernel.project_dir') . '/public/uploads/registry/proof/zip/';
+
+        if (!is_dir($dir)) {
+            mkdir($dir, 0777, true);
         }
+
+        $filename = $dir . 'test.zip';
+
+        $zip->open($filename, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         foreach ($files as $file) {
             $zip->addFile('./uploads/registry/proof/document/' . $file, $file);
