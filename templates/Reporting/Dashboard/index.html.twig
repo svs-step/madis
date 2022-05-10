@@ -158,6 +158,22 @@
                     </div>
                 </div>
             {% endif %}
+            {# MESUREMENT : applied #}
+            <div class="col-sm-6 col-xs-12">
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>{{ data.mesurement.value.applied }}</h3>
+                        <p>Actions mises en place</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-adjust"></i>
+                    </div>
+                    <a href="{{ path('registry_mesurement_list') }}" class="small-box-footer">
+                        Plus d'informations <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
 
