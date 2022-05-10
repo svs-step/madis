@@ -211,10 +211,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             }
             $section->addTitle($treatment->getName(), 2);
 
-            if ($treatment->getService()){
-
-            }
-
             $generalInformationsData = [
                 [
                     'Publique',
