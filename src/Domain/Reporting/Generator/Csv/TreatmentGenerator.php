@@ -303,13 +303,14 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getSoftware(),
             $treatment->isPaperProcessing() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
             $treatment->getDelay()->getNumber(),
-            !\is_null($treatment->getDelay()->getPeriod()) ? DelayPeriodDictionary::getPeriods()[$treatment->getDelay()->getPeriod()] : null,
+            !\is_null($treatment->getDelay()->getPeriod()) && array_key_exists($treatment->getDelay()->getPeriod(), DelayPeriodDictionary::getPeriods()) ? DelayPeriodDictionary::getPeriods()[$treatment->getDelay()->getPeriod()] : $treatment->getDelay()->getPeriod(),
             $treatment->getDelay()->getComment(),
-            !\is_null($treatment->getUltimateFate()) ? TreatmentUltimateFateDictionary::getUltimateFates()[$treatment->getUltimateFate()] : null,
+            !\is_null($treatment->getUltimateFate()) && array_key_exists($treatment->getUltimateFate(), TreatmentUltimateFateDictionary::getUltimateFates()) ? TreatmentUltimateFateDictionary::getUltimateFates()[$treatment->getUltimateFate()] : $treatment->getUltimateFate(),
             $treatment->getDataOrigin(),
             !\is_null($treatment->getCollectingMethod()) ? join(', ', array_map(function ($cm) {
-                return TreatmentCollectingMethodDictionary::getMethods()[$cm];
-            }, $treatment->getCollectingMethod())) : '',        ];
+                return array_key_exists($cm, TreatmentCollectingMethodDictionary::getMethods()) ? TreatmentCollectingMethodDictionary::getMethods()[$cm] : $cm;
+            }, $treatment->getCollectingMethod())) : '',
+        ];
     }
 
     private function treatmentSecurityHeaders()
