@@ -118,6 +118,17 @@
                     </table>
                 </div>
             </div>
+            {# DPO Message  #}
+            {% if object.dpoMessage is not null %}
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
+                    </div>
+                    <div class="box-body">
+                        {{  object.dpoMessage }}
+                    </div>
+                </div>
+            {% endif %}
 
             {# DATA CATEGORY #}
             <div class="box box-solid box-warning">
@@ -567,20 +578,6 @@
             {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
             {% include '_Utils/_show_block_requests.html.twig' with { requests: object.requests } %}
             {% include '_Utils/_show_block_violations.html.twig' with { violations: object.violations } %}
-
-            {# DPO Message  #}
-            <div class="box box-solid box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
-                </div>
-                <div class="box-body">
-                    {% if object.dpoMessage is null %}
-                        <i>Aucune préconisation</i>
-                    {% else %}
-                        {{  object.dpoMessage }}
-                    {% endif %}
-                </div>
-            </div>
 
             {# Mesurements #}
             {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
