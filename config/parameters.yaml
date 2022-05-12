@@ -29,3 +29,7 @@ parameters:
 
     #Max file upload size
     APP_MAX_UPLOAD_SIZE: '%env(APP_MAX_UPLOAD_SIZE)%'
+
+    #Show notification icon in header
+    APP_ACTIVATE_NOTIFICATIONS: '%env(APP_ACTIVATE_NOTIFICATIONS)%'
+    env(APP_ACTIVATE_NOTIFICATIONS): false

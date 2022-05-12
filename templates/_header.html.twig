@@ -16,6 +16,7 @@
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+                {% if app_activate_notifications == 'true' %}
                 <li id="notifications" class="nav-item dropdown notifications-menu">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell"></i>
@@ -49,6 +50,7 @@
                         <li class="footer"><a href="{{ path('notification_notification_list') }}">Voir toutes les notifications</a></li>
                     </ul>
                 </li>
+                {% endif %}
                 <!-- User Account Menu -->
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button -->

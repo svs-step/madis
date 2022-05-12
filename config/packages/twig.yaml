@@ -48,5 +48,6 @@ twig:
         app_connexion_status_know: '%env(APP_CONNEXION_STATUS_KNOW)%'
         app_notification_max_shown: '%env(APP_NOTIFICATION_MAX_SHOWN)%'
         app_notification_dashboard_shown: '%env(APP_NOTIFICATION_DASHBOARD_SHOWN)%'
+        app_activate_notifications: '%env(APP_ACTIVATE_NOTIFICATIONS)%'
 
 
