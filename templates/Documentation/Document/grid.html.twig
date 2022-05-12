@@ -15,6 +15,12 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <style>
+        div.ml2{
+            margin-right: 2em;
+            display:inline-block;
+        }
+    </style>
 {% endblock %}
 
 {% block body_head %}
@@ -59,54 +65,52 @@
                         {# SWITCH GRID LIST #}
                         {% if is_granted('ROLE_USER') %}
                         <div class="col-md-12 col-xl-2">
-                            <div class="row" style="margin-bottom: 15px;">
-                                <div class="col-md-4">
-                                    <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
-                                        <i class="fas fa-list"></i>
-                                        {{ 'documentation.document.action.list'|trans }}
+                            <div class="ml2">
+                                <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
+                                    <i class="fas fa-list"></i>
+                                    {{ 'documentation.document.action.list'|trans }}
+                                </a>
+                                {# RESET FILTERS #}
+                                <button id="button-reset" class="btn btn-default">
+                                    Réinitialiser les filtres
+                                </button>
+                                {# Uniquement pour les DPO #}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                                        {{ 'documentation.category.action.list'|trans }}
                                     </a>
-                                    {# RESET FILTERS #}
-                                    <button id="button-reset" class="btn btn-default">
-                                        Réinitialiser les filtres
-                                    </button>
-                                    {# Uniquement pour les DPO #}
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                        <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
-                                            {{ 'documentation.category.action.list'|trans }}
-                                        </a>
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-1">
-                                    <input type="checkbox" class="form-check-input" id="search_favorite">
-                                    <label class="form-check-label" for="search_favorite">Favoris</label>
-                                </div>
-                                <div class=" col-md-2">
-                                    <select class="form-control" id="search_type" style="width: 100%;">
-                                        <option value="" selected>Type</option>
-                                        {% for key, subject in dictionary('documentation_document_type') %}
-                                            <option value="{{ key }}">{{ subject }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <div class=" col-md-2">
-                                    <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
-                                </div>
-                                <div class=" col-md-2">
-                                    <select class="form-control selectpicker" id="search_category" title="Catégories" style="width: 100%;" multiple>
-                                        {% for category in categories %} 
-                                            {% if category.name in activeCategories %}
-                                                <option
-                                                        value="{{ category.name }}"
-                                                        {% if app.request.get('category') and app.request.get('category') == category.id  %}
-                                                        selected="selected"
-                                                        {% endif %}
-                                                    >
-                                                        {{ category.name }}
-                                                    </option>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </select>
-                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="ml2">
+                                <input type="checkbox" class="form-check-input" id="search_favorite">
+                                <label class="form-check-label" for="search_favorite">Favoris</label>
+                            </div>
+                            <div class="ml2">
+                                <select class="form-control" id="search_type" style="width: 100%;">
+                                    <option value="" selected>Type</option>
+                                    {% for key, subject in dictionary('documentation_document_type') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="ml2">
+                                <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
+                            </div>
+                            <div class="ml2">
+                                <select class="form-control selectpicker" id="search_category" title="Catégories" style="width: 100%;" multiple>
+                                    {% for category in categories %}
+                                        {% if category.name in activeCategories %}
+                                            <option
+                                                    value="{{ category.name }}"
+                                                    {% if app.request.get('category') and app.request.get('category') == category.id  %}
+                                                    selected="selected"
+                                                    {% endif %}
+                                                >
+                                                    {{ category.name }}
+                                                </option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
                         {% endif %}
