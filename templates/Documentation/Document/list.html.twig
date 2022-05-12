@@ -273,6 +273,7 @@
                 $('.copyLink').hide();
             })
 
+
             // SET FAVORITE ICON
             $('.favorite > a').each( (fav, obj) => {
                 obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i>' : '<i data-value="0" class="far fa-star"></i>'
@@ -361,12 +362,27 @@
                 var table = $('#table').DataTable();
                 table.columns().search('').draw();
             })
+
+            $('[id^="search_"]').on('change',function() {
+                setTimeout(starShow,250);
+            })
+            $('.dataTables_paginate').on('click',function() {
+                setTimeout(starShow,250);
+            })
+            $('[id^="search_"]').on('keyup',function() {
+                setTimeout(starShow,250);
+            })
         } );
 
         $('#table').on('column-visibility.dt', function() {
             setEvents();
         } );
-        
+
+        function starShow(){
+            $('.favorite > a').each((fav, obj) => {
+                obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i>' : '<i data-value="0" class="far fa-star"></i>'
+            })
+        }
         
 
     </script>
