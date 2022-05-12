@@ -41,7 +41,7 @@
         {{ form_row(form.pinned) }}
         </div>
     </div>
-    {% if form.vars is defined and form.vars.value.name %}
+    {% if form.vars is defined %}
     <div class="box box-solid box-default">
         <div class="box-header with-border">
             <h3 class="box-title">
@@ -51,18 +51,24 @@
         <div class="box-body no-padding">
             <table class="table">
                 <tbody>
+                {% if form.vars.value.creator is defined and form.vars.value.creator and form.vars.value.creator.fullName %}
                 <tr>
                     <td><strong>{{ 'documentation.document.form.label.creator'|trans }}</strong></td>
                     <td>{{ form.vars.value.creator.fullName }}</td>
                 </tr>
+                {% endif %}
+                {% if form.vars.value.createdAt is defined and form.vars.value.createdAt %}
                 <tr>
                     <td><strong>{{ 'documentation.document.form.label.created_at'|trans }}</strong></td>
                     <td>{{ form.vars.value.createdAt.format('d/m/Y H:i:s') }}</td>
                 </tr>
+                {% endif %}
+                {% if form.vars.value.updatedAt is defined and form.vars.value.updatedAt %}
                 <tr>
                     <td><strong>{{ 'documentation.document.form.label.updated_at'|trans }}</strong></td>
                     <td>{{ form.vars.value.updatedAt.format('d/m/Y H:i:s') }}</td>
                 </tr>
+                {% endif %}
                 </tbody>
             </table>
         </div>
