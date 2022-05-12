@@ -54,6 +54,7 @@ documentation:
             create: Nouveau document
             edit: Modifier un document
             list: Espace documentaire
+            subtitle: Tous les fichiers
             favorite: Favoris
             delete: Supprimer un document
 
