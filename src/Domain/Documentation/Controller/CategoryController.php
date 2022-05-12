@@ -122,62 +122,6 @@ class CategoryController extends CRUDController
     }
 
     /**
-     * {@inheritdoc}
-     * Override method in order to hydrate survey answers.
-     */
-    public function createAction(Request $request): Response
-    {
-        /**
-         * @var Model\Category
-         */
-        $modelClass = $this->getModelClass();
-        $object     = new $modelClass();
-
-        $form = $this->createForm($this->getFormType(), $object);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $object = $form->getData();
-            $object->setSystem(false);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($object);
-            $em->flush();
-
-            $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object));
-
-            return $this->redirectToRoute($this->getRouteName('list'));
-        }
-
-        return $this->render($this->getTemplatingBasePath('create'), [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * Generate the flashbag message dynamically depending on the domain, model & object.
-     * Replace word `%object%` in translation by the related object (thanks to it `__toString` method).
-     *
-     * @param string      $type     The flashbag type
-     * @param string|null $template The related template to use
-     * @param mixed|null  $object   The object to use to generate flashbag (eg. show object name)
-     *
-     * @return string The generated flashbag
-     */
-    protected function getFlashbagMessage(string $type, string $template = null, $object = null): string
-    {
-        $params = [];
-        if (!\is_null($object)) {
-            $params['%object%'] = $object->getName();
-        }
-
-        return $this->translator->trans(
-            "{$this->getDomain()}.{$this->getModel()}.flashbag.{$type}.{$template}",
-            $params
-        );
-    }
-
-    /**
      * The delete action view
      * Display a confirmation message to confirm data deletion.
      *
