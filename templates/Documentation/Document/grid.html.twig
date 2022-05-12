@@ -211,22 +211,22 @@
                                     </a>
                                 </td>
 
-                                <td class="text-sm" style="display: flex; flex-direction: row;justify-content: space-between">
+                                <td style="display: flex; flex-direction: row;justify-content: space-between">
                                     <div>
-                                        {% if object.typeName == "Vidéos" %}
-                                            <i class="far fa-file-video"></i>
-                                        {% elseif object.typeName == "PDF" %}
-                                            <i class="far fa-file-pdf"></i>
-                                        {% elseif object.typeName == "Documents" %}
-                                            <i class="far fa-file-word"></i>
-                                        {% elseif object.typeName == "Liens" %}
-                                            <i class="fas fa-globe"></i>
-                                        {% elseif object.typeName == "Images" %}
-                                                <i class="fas fa-image"></i>
-                                        {% endif %}
-                                        {{ object.typeName }}
-                                        | {{ object.size }}
-                                        | {{ object.createdAt|date('d/m/Y') }}
+                                    {% if object.typeName == "Vidéos" %}
+                                        <i class="far fa-file-video"></i>
+                                    {% elseif object.typeName == "PDF" %}
+                                        <i class="far fa-file-pdf"></i>
+                                    {% elseif object.typeName == "Documents" %}
+                                        <i class="far fa-file-word"></i>
+                                    {% elseif object.typeName == "Liens" %}
+                                        <i class="fas fa-globe"></i>
+                                    {% elseif object.typeName == "Images" %}
+                                            <i class="fas fa-image"></i>
+                                    {% endif %}
+                                    {{ object.typeName }}
+                                    | {{ object.size }}
+                                    | {{ object.createdAt|date('d/m/Y') }}
                                     </div>
                                 </td>
                                 <td class="hidden">
@@ -241,16 +241,16 @@
                                 <td>
                                     {% if is_granted('ROLE_ADMIN') %}
                                     <div class="row" style="padding: 0 20px; position: relative; bottom: 0;">
-                                        <a class="sharelink btn btn-block text-info btn-xs col-md-12" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal" style="border-color:#31708f">
+                                        <a class="sharelink btn btn-block text-info col-md-12" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal" style="border-color:#31708f">
                                             <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
                                         </a>
                                         <div class="col-md-12" style="padding: 5px 0 0 0">
-                                            <a class="btn btn-block text-info btn-xs" href="{{ path('documentation_document_edit', { 'id': object.id }) }}" style="border-color:#31708f">
+                                            <a class="btn btn-block text-info" href="{{ path('documentation_document_edit', { 'id': object.id }) }}" style="border-color:#31708f">
                                                 <i class="fa fa-pencil-alt"></i>&nbsp;{{ 'action.edit'|trans }}
                                             </a>
                                         </div>
                                         <div class="col-md-12" style="padding: 5px 0 0 0">
-                                            <a class="btn btn-block text-info btn-xs col-md-6" href="{{ path('documentation_document_delete', { 'id': object.id }) }}" style="border-color:#31708f">
+                                            <a class="btn btn-block text-info col-md-6" href="{{ path('documentation_document_delete', { 'id': object.id }) }}" style="border-color:#31708f">
                                                 <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
                                             </a>
                                         </div>
