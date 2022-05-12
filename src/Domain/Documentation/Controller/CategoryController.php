@@ -31,6 +31,7 @@ use App\Domain\Documentation\Model;
 use App\Domain\Documentation\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Intl\Exception\MethodNotImplementedException;
@@ -121,6 +122,39 @@ class CategoryController extends CRUDController
     }
 
     /**
+     * {@inheritdoc}
+     * Override method in order to hydrate survey answers.
+     */
+    public function createAction(Request $request): Response
+    {
+        /**
+         * @var Model\Category
+         */
+        $modelClass = $this->getModelClass();
+        $object     = new $modelClass();
+
+        $form = $this->createForm($this->getFormType(), $object);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $object = $form->getData();
+            $object->setSystem(false);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($object);
+            $em->flush();
+
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('create'), [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * Generate the flashbag message dynamically depending on the domain, model & object.
      * Replace word `%object%` in translation by the related object (thanks to it `__toString` method).
      *
@@ -133,6 +167,9 @@ class CategoryController extends CRUDController
     protected function getFlashbagMessage(string $type, string $template = null, $object = null): string
     {
         $params = [];
+        if (!\is_null($object)) {
+            $params['%object%'] = $object->getName();
+        }
 
         return $this->translator->trans(
             "{$this->getDomain()}.{$this->getModel()}.flashbag.{$type}.{$template}",
