@@ -219,7 +219,7 @@ class ConformiteTraitementController extends CRUDController
         $services_user = $user->getServices();
 
         if(!($this->authorizationChecker->isGranted('ROLE_USER')&&(($services_user->isEmpty())||($services_user->contains($service))))){
-            throw new AccessDeniedHttpException('You can\'t access to a conformity treatment data');
+            return $this->redirectToRoute('registry_treatment_list');
         }
 
         // Before create form, hydrate answers array with potential question responses
@@ -269,7 +269,7 @@ class ConformiteTraitementController extends CRUDController
         $services_user = $user->getServices();
 
         if(!($this->authorizationChecker->isGranted('ROLE_USER')&&(($services_user->isEmpty())||($services_user->contains($service))))){
-            throw new AccessDeniedHttpException('You can\'t access to a conformity treatment data');
+            return $this->redirectToRoute('registry_treatment_list');
         }
 
         // Before create form, hydrate new answers array with potential question responses
