@@ -5,6 +5,7 @@ namespace App\Domain\User\Doctrine;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
+use App\Application\Interfaces\CollectivityRelated;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\Security;
@@ -36,6 +37,9 @@ final class UserBelongsToCollectivityExtension implements QueryCollectionExtensi
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $queryBuilder->andWhere(sprintf('%s.id = :user_collectivity', $rootAlias));
-        $queryBuilder->setParameter('user_collectivity', $user->getCollectivity()->getId());
+        $queryBuilder->setParameter(
+            'user_collectivity',
+            $user instanceof CollectivityRelated ? $user->getCollectivity()->getId() : null
+        );
     }
 }
