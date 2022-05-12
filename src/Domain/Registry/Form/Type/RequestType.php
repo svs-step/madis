@@ -177,9 +177,13 @@ class RequestType extends AbstractType
                         ->setParameter(':collectivity', $collectivity)
                         ->orderBy('s.name', 'ASC');
                 },
-                'required'      => false,
-                'multiple'      => true,
-                'expanded'      => true,
+                'attr' => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
+                'required' => false,
+                'multiple' => true,
+                'expanded' => false,
             ])
         ;
     }

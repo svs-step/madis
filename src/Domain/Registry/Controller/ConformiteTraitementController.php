@@ -188,12 +188,12 @@ class ConformiteTraitementController extends CRUDController
             'name' => 'Conformité des traitements',
         ]);
 
-        $user         = $this->userProvider->getAuthenticatedUser();
+        $user          = $this->userProvider->getAuthenticatedUser();
         $services_user = $user->getServices();
 
         return $this->render($this->getTemplatingBasePath('list'), [
-            'objects'   => $this->getListData(),
-            'category'  => $category,
+            'objects'       => $this->getListData(),
+            'category'      => $category,
             'services_user' => $services_user,
         ]);
     }
