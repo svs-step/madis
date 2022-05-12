@@ -279,6 +279,10 @@
 
             $('#delete-all').on('click', function(event) {
                 event.stopPropagation();
+                if ($("input[type=checkbox].select-line:checked").get().length === 0) {
+                    event.preventDefault();
+                    return;
+                }
                 //let data = oTable.rows({ selected: true }).ids(); // .toArray()
                 let data = $("input[type=checkbox].select-line:checked").get().map(el => el.value).join(',');
                 $('#delete-all').attr('href', function(index, href) {
@@ -294,6 +298,10 @@
             })
             $('#archive-all').on('click', function(event) {
                 event.stopPropagation();
+                if ($("input[type=checkbox].select-line:checked").get().length === 0) {
+                    event.preventDefault();
+                    return;
+                }
                 let data = $("input[type=checkbox].select-line:checked").get().map(el => el.value).join(',');
                 $('#archive-all').attr('href', function(index, href) {
                     let param = `ids=${data}`;
@@ -309,6 +317,10 @@
 
             $('#print-all').on('click', function(event) {
                 event.stopPropagation();
+                if ($("input[type=checkbox].select-line:checked").get().length === 0) {
+                    event.preventDefault();
+                    return;
+                }
                 let data = $("input[type=checkbox].select-line:checked").get().map(el => el.value).join(',');
                 $('#print-all').attr('href', function(index, href) {
                     let param = `ids=${data}`;
@@ -321,6 +333,7 @@
                 });
                 event = event.originalEvent;
             })
+
 
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
