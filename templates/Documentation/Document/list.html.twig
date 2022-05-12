@@ -49,6 +49,13 @@
                             </ul>
                         </div>
                     {% endif %}
+                    {# Uniquement pour les DPO #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                            <i class="fas fa-tag"></i>
+                            {{ 'documentation.category.action.list'|trans }}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
     </div>
@@ -63,14 +70,6 @@
                             <a href="{{ path('documentation_document_grid') }}" class="btn btn-default">
                                 <i class="fas fa-th"></i>
                                 {{ 'documentation.document.action.grid'|trans }}
-                            </a>
-                        {% endif %}
-
-                        {# Uniquement pour les DPO #}
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
-                                <i class="fas fa-tag"></i>
-                                {{ 'documentation.category.action.list'|trans }}
                             </a>
                         {% endif %}
                     </div>

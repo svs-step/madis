@@ -62,7 +62,7 @@ documentation:
         action:
             back_to_list: Retour à la liste
             new: Ajouter une catégorie
-            list: Afficher les catégories
+            list: Catégories documentaires
             files: Tous les fichiers
         list:
             name: Nom
