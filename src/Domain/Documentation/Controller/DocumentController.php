@@ -284,6 +284,11 @@ class DocumentController extends CRUDController
             $object->setThumbUploadedFile(null);
             $object->setThumbUrl('/uploads/documentation/vignettes/' . $filename);
         }
+
+        if ($object->getRemoveThumb()) {
+            $object->setThumbUploadedFile(null);
+            $object->setThumbUrl(null);
+        }
     }
 
     /**

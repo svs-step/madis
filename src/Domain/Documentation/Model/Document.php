@@ -89,6 +89,11 @@ class Document
     private $thumbUploadedFile;
 
     /**
+     * @var bool|null
+     */
+    private $removeThumb;
+
+    /**
      * @var string|null
      * @ORM\Column(type="text", length=255, nullable=true)
      */
@@ -393,5 +398,21 @@ class Document
     public function setCreator(?User $creator): void
     {
         $this->creator = $creator;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getRemoveThumb(): ?bool
+    {
+        return $this->removeThumb;
+    }
+
+    /**
+     * @param bool|null $removeThumb
+     */
+    public function setRemoveThumb(?bool $removeThumb): void
+    {
+        $this->removeThumb = $removeThumb;
     }
 }

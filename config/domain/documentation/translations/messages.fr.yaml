@@ -29,6 +29,7 @@ documentation:
                 creator: Créateur
                 created_at: Date de création
                 updated_at: Date de modification
+                removeThumb: Supprimer la vignette
         breadcrumb:
             create: Nouveau document
             edit: Modifier un document

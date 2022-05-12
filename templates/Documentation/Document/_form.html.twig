@@ -35,9 +35,10 @@
                     <img src="{{ object.thumbUrl }}" height="100" />
                 </div>
             </div>
-
+            {{ form_row(form.removeThumb) }}
         {% endif %}
         {{ form_row(form.thumbUploadedFile) }}
+
         {{ form_row(form.pinned) }}
         </div>
     </div>

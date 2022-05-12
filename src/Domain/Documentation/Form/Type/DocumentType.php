@@ -94,10 +94,15 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                     'accept' => 'image/*',
                 ],
             ])
+            ->add('removeThumb', CheckboxType::class, [
+                'label'    => 'documentation.document.form.label.removeThumb',
+                'required' => false,
+            ])
             ->add('pinned', CheckboxType::class, [
                 'label'    => 'documentation.document.form.label.pinned',
                 'required' => false,
             ])
+
         ;
 
         $builder->addEventSubscriber($this);
