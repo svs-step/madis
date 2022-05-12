@@ -160,15 +160,29 @@ class UserType extends AbstractType
                     ->orderBy('s.name', 'ASC');
             };
 
-            $form->add('services', EntityType::class, [
-                'class'         => Service::class,
-                'label'         => 'user.user.form.services',
-                'disabled'      => $serviceDisabled,
-                'required'      => false,
-                'multiple'      => true,
-                'expanded'      => false,
-                'query_builder' => $queryBuilder,
-            ]);
+            if ($this->authorizationChecker->isGranted('ROLE_ADMIN')){
+                $form->add('services', EntityType::class, [
+                    'class'         => Service::class,
+                    'label'         => 'user.user.form.services',
+                    'disabled'      => $serviceDisabled,
+                    'required'      => false,
+                    'multiple'      => true,
+                    'expanded'      => false,
+                    'query_builder' => $queryBuilder,
+                ]);
+            } else {
+                $form->add('services', EntityType::class, [
+                    'class'         => Service::class,
+                    'label'         => 'user.user.form.services',
+                    'disabled'      => true,
+                    'required'      => false,
+                    'multiple'      => true,
+                    'expanded'      => false,
+                    'query_builder' => $queryBuilder,
+                    'attr' => array(
+                        'readonly' => true)
+                ]);
+            }
         };
 
         if ($this->authorizationChecker->isGranted('ROLE_PREVIEW') && !$serviceDisabled) {
