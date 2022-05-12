@@ -49,5 +49,6 @@ twig:
         app_notification_max_shown: '%env(APP_NOTIFICATION_MAX_SHOWN)%'
         app_notification_dashboard_shown: '%env(APP_NOTIFICATION_DASHBOARD_SHOWN)%'
         app_activate_notifications: '%env(APP_ACTIVATE_NOTIFICATIONS)%'
+        app_max_upload_size: '%env(APP_MAX_UPLOAD_SIZE)%'
 
 

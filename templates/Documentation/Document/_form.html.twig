@@ -27,6 +27,9 @@
             </div>
                 {% endif %}
             {{ form_row(form.uploadedFile) }}
+            <div class="callout callout-default text-muted">
+                {{ 'documentation.document.form.help.file' | trans({'max_size': app_max_upload_size}) }}
+            </div>
         {% endif %}
         {% if object.thumbUrl %}
             <div class="form-group">
@@ -38,6 +41,9 @@
             {{ form_row(form.removeThumb) }}
         {% endif %}
         {{ form_row(form.thumbUploadedFile) }}
+            <div class="callout callout-default text-muted">
+                {{ 'documentation.document.form.help.thumbnail' | trans({'max_size': app_max_upload_size}) }}
+            </div>
 
         {{ form_row(form.pinned) }}
         </div>
