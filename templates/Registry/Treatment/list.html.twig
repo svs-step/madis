@@ -188,6 +188,7 @@
                             <th></th>
                         </tr>
                         <tr>
+                            <th><input type="checkbox" name="select_all" value="1" id="select-all-treatments"></th>
                             <th>{{ 'registry.treatment.list.name'|trans }}</th>
                             <th>{{ 'registry.treatment.list.collectivity'|trans }}</th>
                             <th>{{ 'registry.treatment.list.legal_basis'|trans }}</th>
@@ -233,8 +234,10 @@
         {% set actionIsVisible = false %}
     {% endif %}
 
+
     {% set dataTableOptions = {
         columns: [
+            {"data": "id", "className": "noVis"},
             {"data": "nom", "className": "noVis"},
             {"data" : "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
             {"data": "baseLegal", "visible": true},
@@ -257,9 +260,16 @@
             {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
         ],
         order:  [
-            [0, 'asc' ]
+            [1, 'asc' ]
         ],
+        'addcheckbox': true,
     } %}
+
+    <script>
+        function cbColRenderFunction (data, type, full, meta){
+            return '<input class="select-line" type="checkbox" name="id[]" value="' + $('<div/>').text(data).html() + '">'
+        }
+    </script>
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
 
@@ -268,9 +278,9 @@
             var oTable = $('#table').DataTable();
 
             $('#delete-all').on('click', function(event) {
-                event.stopPropagation(); 
+                event.stopPropagation();
                 //let data = oTable.rows({ selected: true }).ids(); // .toArray()
-                let data = oTable.rows().data().toArray().map(row => row.id);
+                let data = $("input[type=checkbox].select-line:checked").get().map(el => el.value).join(',');
                 $('#delete-all').attr('href', function(index, href) {
                     let param = `ids=${data}`;
                     if (href.charAt(href.length - 1) === '?')
@@ -283,8 +293,8 @@
                 event = event.originalEvent;
             })
             $('#archive-all').on('click', function(event) {
-                event.stopPropagation(); 
-                let data = oTable.rows().data().toArray().map(row => row.id);
+                event.stopPropagation();
+                let data = $("input[type=checkbox].select-line:checked").get().map(el => el.value).join(',');
                 $('#archive-all').attr('href', function(index, href) {
                     let param = `ids=${data}`;
                     if (href.charAt(href.length - 1) === '?')
@@ -296,9 +306,10 @@
                 });
                 event = event.originalEvent;
             })
+
             $('#print-all').on('click', function(event) {
-                event.stopPropagation(); 
-                let data = oTable.rows().data().toArray().map(row => row.id);
+                event.stopPropagation();
+                let data = $("input[type=checkbox].select-line:checked").get().map(el => el.value).join(',');
                 $('#print-all').attr('href', function(index, href) {
                     let param = `ids=${data}`;
                     if (href.charAt(href.length - 1) === '?')
@@ -397,6 +408,28 @@
             $('#search_responsable_traitement').keyup($.debounce(250, function(){
                 oTable.column('17').search($(this).val()).draw() ;
             }));
+
+            // Handle click on "Select all" control
+            $('#select-all-treatments').on('click', function(){
+                // Get all rows with search applied
+                var rows = oTable.rows({ 'search': 'applied' }).nodes();
+                // Check/uncheck checkboxes for all rows in the table
+                $('input[type="checkbox"]', rows).prop('checked', this.checked);
+            });
+
+            // Handle click on checkbox to set state of "Select all" control
+            $('#table tbody').on('change', 'input[type="checkbox"]', function(){
+                // If checkbox is not checked
+                if(!this.checked){
+                    var el = $('#select-all-treatments').get(0);
+                    // If "Select all" control is checked and has 'indeterminate' property
+                    if(el && el.checked && ('indeterminate' in el)){
+                        // Set visual state of "Select all" control
+                        // as 'indeterminate'
+                        el.indeterminate = true;
+                    }
+                }
+            });
         }
 
         $(document).ready(function() {

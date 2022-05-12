@@ -81,6 +81,16 @@
 
         var options = {{ dataTableOptions|json_encode|raw }}
 
+        if (options.addcheckbox) {
+            options.columnDefs = [{
+                targets: 0,
+                searchable: false,
+                orderable: false,
+                className: 'dt-body-center',
+                render: cbColRenderFunction,
+            }];
+        }
+
         var fullData = [];
 
         var strip = function ( str ) {
