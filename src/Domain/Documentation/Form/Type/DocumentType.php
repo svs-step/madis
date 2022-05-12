@@ -94,10 +94,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                     'accept' => 'image/*',
                 ],
             ])
-            ->add('removeThumb', CheckboxType::class, [
-                'label'    => 'documentation.document.form.label.removeThumb',
-                'required' => false,
-            ])
+
             ->add('pinned', CheckboxType::class, [
                 'label'    => 'documentation.document.form.label.pinned',
                 'required' => false,
@@ -142,6 +139,12 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
         $event->setData($data);
 
         $form = $event->getForm();
+        if ($data->getThumbUrl()) {
+            $form->add('removeThumb', CheckboxType::class, [
+                'label'    => 'documentation.document.form.label.removeThumb',
+                'required' => false,
+            ]);
+        }
         if ($isLink || (true === $data->getIsLink())) {
             $form->add('url', UrlType::class, [
                 'label'    => 'documentation.document.form.label.url',
