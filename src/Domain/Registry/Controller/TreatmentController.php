@@ -363,6 +363,10 @@ class TreatmentController extends CRUDController
             $yes = '<span class="badge bg-green">' . $this->translator->trans('label.yes') . '</span>';
             $no  = '<span class="badge bg-orange">' . $this->translator->trans('label.no') . '</span>';
 
+            if ($treatment->getConformiteTraitement()){
+                dd($treatment->getConformiteTraitement());
+            }
+
             $reponse['data'][] = [
                 'id'                     => $treatment->getId(),
                 'nom'                    => $treatmentLink,
@@ -375,6 +379,7 @@ class TreatmentController extends CRUDController
                 'controleAcces'          => $treatment->getSecurityAccessControl()->isCheck() ? $yes : $no,
                 'tracabilite'            => $treatment->getSecurityTracability()->isCheck() ? $yes : $no,
                 'saving'                 => $treatment->getSecuritySaving()->isCheck() ? $yes : $no,
+                'securityMeasureupdatedAt' => $treatment->getSecurityUpdate()->getComment(),
                 'update'                 => $treatment->getSecurityUpdate()->isCheck() ? $yes : $no,
                 'other'                  => $treatment->getSecurityOther()->isCheck() ? $yes : $no,
                 'entitledPersons'        => $treatment->isSecurityEntitledPersons() ? $yes : $no,
@@ -384,7 +389,7 @@ class TreatmentController extends CRUDController
                 'public'                 => $treatment->getPublic() ? $yes : $no,
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
                 'specific_traitement'    => $this->getSpecificTraitement($treatment),
-                'conformite_traitement'  => 'test',
+                'conformite_traitement'  => $treatment->getConformiteTraitement(),
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }

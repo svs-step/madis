@@ -424,6 +424,7 @@ registry:
             tracability: Traçabilité
             update: Date mise à jour
             specific_traitement: Traitements spécifiques
+            securityMeasureupdatedAt : Mise à jour
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce traitement ?
         show:
