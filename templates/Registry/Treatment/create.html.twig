@@ -19,4 +19,57 @@
 
 {% block body %}
     {{ include('Registry/Treatment/_form_render.html.twig') }}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var collect = $('#treatment_collectingMethod option:selected').text();
+            if (collect.includes('Autre')) {
+                $('label[for="treatment_otherCollectingMethod"]').show();
+                $('input[id="treatment_otherCollectingMethod"]').show();
+            } else {
+                $('label[for="treatment_otherCollectingMethod"]').hide();
+                $('input[id="treatment_otherCollectingMethod"]').hide();
+                $('input[id="treatment_otherCollectingMethod"]').val('');
+            }
+
+            $('#treatment_collectingMethod').on('change',function(){
+                var collection = $('#treatment_collectingMethod option:selected').text();
+                if (collection.includes('Autre')) {
+                    $('label[for="treatment_otherCollectingMethod"]').show();
+                    $('#treatment_otherCollectingMethod').show();
+                    $('#treatment_otherCollectingMethod').prop( "disabled", false );
+                } else {
+                    $('label[for="treatment_otherCollectingMethod"]').hide();
+                    $('#treatment_otherCollectingMethod').hide();
+                    $('#treatment_otherCollectingMethod').prop( "disabled", false );
+                    $('#treatment_otherCollectingMethod').val('');
+                }
+            })
+
+            var author = $('#treatment_author option:selected').text();
+            console.log('auteur',author);
+            if (author === 'Responsable de traitement'){
+                $('label[for="treatment_coordonneesResponsableTraitement"]').hide();
+                $('#treatment_coordonneesResponsableTraitement').hide();
+                $('#treatment_coordonneesResponsableTraitement').val('');
+            } else {
+                $('label[for="treatment_coordonneesResponsableTraitement"]').show();
+                $('#treatment_coordonneesResponsableTraitement').show();
+            }
+
+            $('#treatment_author').on('change',function(){
+                var author = $('#treatment_author option:selected').text();
+                console.log('auteur',author);
+                if (author === 'Responsable de traitement'){
+                    $('label[for="treatment_coordonneesResponsableTraitement"]').hide();
+                    $('#treatment_coordonneesResponsableTraitement').hide();
+                    $('#treatment_coordonneesResponsableTraitement').val('');
+                } else {
+                    $('label[for="treatment_coordonneesResponsableTraitement"]').show();
+                    $('#treatment_coordonneesResponsableTraitement').show();
+                }
+            })
+        })
+    </script>
 {% endblock %}
