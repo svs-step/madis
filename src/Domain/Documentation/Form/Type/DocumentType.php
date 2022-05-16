@@ -88,6 +88,12 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                     new File([
                         'maxSize'   => $this->maxSize,
                         'groups'    => ['default'],
+                        'mimeTypes' => [
+                            "image/png", // .png
+                            "image/jpg", // .jpg
+                            "image/jpeg", // .jpeg
+                        ],
+                        'mimeTypesMessage' => "Les formats autorisés sont .png, .jpg, .jpeg."
                     ]),
                 ],
                 'attr'     => [
@@ -164,6 +170,34 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                     new File([
                         'maxSize'   => $this->maxSize,
                         'groups'    => ['default'],
+                        'mimeTypes' => [
+                            "image/png", // .png
+                            "image/jpg", // .jpg
+                            "image/jpeg", // .jpeg
+                            "audio/mpeg", // .mp3
+                            "audio/ogg", // .ogg
+                            "audio/wav", // .wav
+                            "audio/m4a", // .m4a
+                            "video/mp4", // .mp4
+                            "video/quicktime", // .mov
+                            "video/avi", // .avi
+                            "video/mpeg", // .mpg
+                            "video/x-ms-wmv", // .wmv
+                            "video/ogg", // .ogv, .ogg
+                            "video/webm", // .webm
+                            "application/pdf", // .pdf
+                            "application/msword", // .doc
+                            "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
+                            "application/vnd.oasis.opendocument.text", // .odt
+                            "application/vnd.ms-powerpoint", // .ppt
+                            "application/vnd.openxmlformats-officedocument.presentationml.presentation", // .pptx
+                            "application/vnd.oasis.opendocument.presentation", // .odp
+                            "application/vnd.ms-excel", // .xls
+                            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xlsx
+                            "application/vnd.ms-excel.sheet.macroEnabled.12", // .xlsm
+                            "application/vnd.oasis.opendocument.spreadsheet", // .ods
+                        ],
+                        'mimeTypesMessage' => "Ce format de fichier n'est pas autorisé."
                     ]),
                 ],
             ]);

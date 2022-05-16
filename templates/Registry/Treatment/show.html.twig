@@ -82,7 +82,7 @@
                             <td><strong>{{ 'registry.treatment.show.author'|trans }}</strong></td>
                             <td>{% if object.author is not null %}{{ object.author|dictionary('registry_treatment_author') }}{% endif %}</td>
                         </tr>
-                        {% if object.author == "processing_manager" %}
+                        {% if object.author != "processing_manager" %}
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.coordonnees_responsable_traitement'|trans }}</strong></td>
                                 <td>{{ object.coordonneesResponsableTraitement|nl2br }}</td>

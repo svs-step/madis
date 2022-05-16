@@ -384,7 +384,7 @@ class TreatmentController extends CRUDController
                 'public'                 => $treatment->getPublic() ? $yes : $no,
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
                 'specific_traitement'    => $this->getSpecificTraitement($treatment),
-                'conformite_traitement'  => 'test',
+                'conformite_traitement'  => $treatment->getConformiteTraitement(),
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
