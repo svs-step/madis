@@ -41,7 +41,8 @@
         {{ form_row(form.pinned) }}
         </div>
     </div>
-    {% if form.vars is defined and form.vars.value.name %}
+
+    {% if form.vars is defined and form.vars.value.creator.fullName is defined and form.vars.value.name %}
     <div class="box box-solid box-default">
         <div class="box-header with-border">
             <h3 class="box-title">
@@ -68,6 +69,7 @@
         </div>
     </div>
     {% endif %}
+
 </div>
 <div class="col-md-6">
     <div class="box box-solid box-success">
