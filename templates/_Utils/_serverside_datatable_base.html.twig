@@ -80,12 +80,6 @@
         }) %}
 
         var options = {{ dataTableOptions|json_encode|raw }}
-        options.buttons[0].columnText= function ( dt, idx, title ) {
-            if (title === 'Sous-') {
-                return 'Sous-traitant'
-            }
-            return title;
-        }
 
         if (options.addcheckbox) {
             options.columnDefs = [{
@@ -95,6 +89,8 @@
                 className: 'dt-body-center',
                 render: cbColRenderFunction,
             }];
+
+            delete options.addcheckbox;
         }
 
         var fullData = [];
@@ -156,6 +152,8 @@
                 d.body.push.apply(d.body, exportBody);
             })
         } catch { }
+
+        console.log('datatable options', options);
 
         $('#table').DataTable(options);
 

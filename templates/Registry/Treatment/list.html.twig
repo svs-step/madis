@@ -85,6 +85,7 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th></th>
                             <th>
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
@@ -138,13 +139,6 @@
                                 </select>
                             </th>
                             <th>
-                                <select class="form-control" id="search_mise_a_jour" style="width: 100%;">
-                                    <option value="">Mise à jour</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
-                                </select>
-                            </th>
-                            <th>
                                 <select class="form-control" id="search_autres" style="width: 100%;">
                                     <option value="">Autres</option>
                                     <option value="1">Oui</option>
@@ -166,7 +160,7 @@
                                 </select>
                             </th>
                             <th>
-                                <select class="form-control" id="search_specificite" style="width: 100%;">
+                                <select class="form-control" id="search_specificites" style="width: 100%;">
                                     <option value="">Spécificités</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
@@ -176,8 +170,15 @@
                                 <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date" style="width: 100%;">
                             </th>
                             <th>
-                                <select class="form-control" id="search_public" placeholder="Publique" style="width: 100%;">
-                                    <option value="">Publique</option>
+                                <select class="form-control" id="search_public" placeholder="{{ 'registry.treatment.list.public'|trans }}" style="width: 100%;">
+                                    <option value="">{{ 'registry.treatment.list.public'|trans }}</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_update" placeholder="{{ 'registry.treatment.list.update'|trans }}" style="width: 100%;">
+                                    <option value="">{{ 'registry.treatment.list.update'|trans }}</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
@@ -203,8 +204,9 @@
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.entitled_persons'|trans }}</th>
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.open_accounts'|trans }}</th>
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.specificities_delivered'|trans }}</th>
-                            <th style="max-width: 60px;">{{ 'registry.treatment.list.update'|trans }}</th>
+                            <th style="max-width: 60px;">{{ 'registry.treatment.list.updated_at'|trans }}</th>
                             <th>{{ 'registry.treatment.list.public'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.update'|trans }}</th>
                             <th>{{ 'registry.treatment.list.responsable_traitement'|trans }}</th>
                             <th>{{ 'registry.treatment.list.specific_traitement'|trans }}</th>
                             <th>{{ 'registry.treatment.list.conformite_traitement'|trans }}</th>
@@ -254,6 +256,7 @@
             {"data": "specificitiesDelivered", "visible": false},
             {"data": "updatedAt", "visible": true},
             {"data": "public", "visible": false},
+            {"data": "update", "visible": true},
             {"data": "responsableTraitement", "visible": false},
             {"data": "specific_traitement", "render": "[, ]","visible": true},
             {"data": "conformite_traitement","visible": false},
@@ -385,10 +388,7 @@
                 oTable.column('9').search($(this).val()).draw() ;
             });
 
-            $('#search_mise_a_jour').off('change');
-            $('#search_mise_a_jour').change(function(){
-                oTable.column('10').search($(this).val()).draw() ;
-            });
+
 
             $('#search_autres').off('change');
             $('#search_autres').change(function(){
@@ -417,9 +417,13 @@
             $('#search_public').change(function(){
                 oTable.column('16').search($(this).val()).draw() ;
             });
+            $('#search_update').off('change');
+            $('#search_update').change(function(){
+                oTable.column('17').search($(this).val()).draw() ;
+            });
             $('#search_responsable_traitement').off('keyup');
             $('#search_responsable_traitement').keyup($.debounce(250, function(){
-                oTable.column('17').search($(this).val()).draw() ;
+                oTable.column('18').search($(this).val()).draw() ;
             }));
 
             // Handle click on "Select all" control

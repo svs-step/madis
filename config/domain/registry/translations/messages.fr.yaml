@@ -379,7 +379,7 @@ registry:
             name: Nom
             observation: Observations
             paper_processing: Traitement papier
-            public: Publique
+            public: Public
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
             security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
@@ -407,7 +407,7 @@ registry:
             author: En tant que
             collectivity: Collectivité
             completion: Taux de complétion
-            contractors: Sous-
+            contractors: Sous-traitants
             conformite_traitement: Conformité du traitement
             entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
             goal: Finalité
@@ -416,13 +416,14 @@ registry:
             name: Nom
             open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
             other: Autres
-            public: Publique
+            public: Public
             responsable_traitement: Responsable traitement
             saving: Sauvegarde
             specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             software: Logiciel
             tracability: Traçabilité
-            update: Date mise à jour
+            updated_at: Date mise à jour
+            update: Mise à jour
             specific_traitement: Traitements spécifiques
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce traitement ?
@@ -469,7 +470,7 @@ registry:
             observation: Observations
             paper_processing: Traitement papier
             proofs: Documents associés
-            public: Publique
+            public: Public
             public_register: Registre public
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
