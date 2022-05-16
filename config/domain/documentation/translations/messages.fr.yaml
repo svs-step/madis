@@ -75,6 +75,7 @@ documentation:
             list: Espace documentaire
             edit: Modifier une catégorie
             delete: Supprimer une catégorie
+            create: Nouvelle catégorie
         breadcrumb:
             create: Nouvelle catégorie
             edit: Modifier une catégorie
