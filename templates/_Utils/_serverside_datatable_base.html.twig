@@ -80,6 +80,12 @@
         }) %}
 
         var options = {{ dataTableOptions|json_encode|raw }}
+        options.buttons[0].columnText= function ( dt, idx, title ) {
+            if (title === 'Sous-') {
+                return 'Sous-traitant'
+            }
+            return title;
+        }
 
         if (options.addcheckbox) {
             options.columnDefs = [{
