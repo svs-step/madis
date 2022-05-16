@@ -32,7 +32,7 @@ class CriterePrincipeFondamental
     private string $texteNonApplicable;
     private ?string $justification;
     private ?string $fichier;
-    private ?UploadedFile $fichierFile = null;
+    private ?UploadedFile $fichierFile      = null;
     private bool $canBeModified             = true;
 
     /**

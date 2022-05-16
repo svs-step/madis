@@ -354,52 +354,52 @@
 
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
-                oTable.column('0').search($(this).val()).draw() ;
+                oTable.column('1').search($(this).val()).draw() ;
             }));
 
             $('#search_collectivite').off('keyup');
             $('#search_collectivite').keyup($.debounce(250, function(){
-                oTable.column('1').search($(this).val()).draw() ;
+                oTable.column('2').search($(this).val()).draw() ;
             }));
 
             $('#search_base_legal').off('change');
             $('#search_base_legal').change(function(){
-                oTable.column('2').search($(this).val()).draw() ;
+                oTable.column('3').search($(this).val()).draw() ;
             });
 
             $('#search_logiciel').off('keyup');
             $('#search_logiciel').keyup($.debounce(250, function(){
-                oTable.column('3').search($(this).val()).draw() ;
+                oTable.column('4').search($(this).val()).draw() ;
             }));
 
             $('#search_en_tant_que').off('change');
             $('#search_en_tant_que').change(function(){
-                oTable.column('4').search($(this).val()).draw() ;
+                oTable.column('5').search($(this).val()).draw() ;
             });
 
             $('#search_gestionnaire').off('keyup');
             $('#search_gestionnaire').keyup($.debounce(250, function(){
-                oTable.column('5').search($(this).val()).draw() ;
+                oTable.column('6').search($(this).val()).draw() ;
             }));
 
             $('#search_sous_traitants').off('keyup');
             $('#search_sous_traitants').keyup($.debounce(250, function(){
-                oTable.column('6').search($(this).val()).draw() ;
+                oTable.column('7').search($(this).val()).draw() ;
             }));
 
             $('#search_controle_acces').off('change');
             $('#search_controle_acces').change(function(){
-                oTable.column('7').search($(this).val()).draw() ;
+                oTable.column('8').search($(this).val()).draw() ;
             });
 
             $('#search_tracabilite').off('change');
             $('#search_tracabilite').change(function(){
-                oTable.column('8').search($(this).val()).draw() ;
+                oTable.column('9').search($(this).val()).draw() ;
             });
 
             $('#search_sauvegarde').off('change');
             $('#search_sauvegarde').change(function(){
-                oTable.column('9').search($(this).val()).draw() ;
+                oTable.column('10').search($(this).val()).draw() ;
             });
 
 

@@ -67,7 +67,5 @@ final class UserBelongsToCollectivityExtension implements QueryCollectionExtensi
                 $user instanceof CollectivityRelated ? $user->getCollectivity()->getId() : null
             );
         }
-
-
     }
 }
