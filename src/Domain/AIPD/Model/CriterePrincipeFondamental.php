@@ -33,7 +33,7 @@ class CriterePrincipeFondamental
     private ?string $justification;
     private ?string $fichier;
     private ?UploadedFile $fichierFile = null;
-    private $canBeModified             = true;
+    private bool $canBeModified             = true;
 
     /**
      * @Serializer\Exclude
