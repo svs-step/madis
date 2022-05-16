@@ -28,6 +28,8 @@ use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Documentation\Model\Category;
+use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
+use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use App\Domain\Registry\Form\Type\TreatmentConfigurationType;
@@ -384,7 +386,7 @@ class TreatmentController extends CRUDController
                 'public'                 => $treatment->getPublic() ? $yes : $no,
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
                 'specific_traitement'    => $this->getSpecificTraitement($treatment),
-                'conformite_traitement'  => $treatment->getConformiteTraitement(),
+                'conformite_traitement'  => $this->getTreatmentConformity($treatment),
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
@@ -392,6 +394,33 @@ class TreatmentController extends CRUDController
         $jsonResponse->setJson(json_encode($reponse));
 
         return $jsonResponse;
+    }
+
+    private function getTreatmentConformity(Treatment $treatment)
+    {
+        if (!$treatment->getConformiteTraitement()) {
+            return 'Non évalué';
+        }
+        $conf  = $treatment->getConformiteTraitement();
+        $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conf);
+
+        $weight = ConformiteTraitementLevelDictionary::getConformitesWeight()[$level];
+
+        switch ($weight) {
+            case 1:
+                $label = 'Conforme';
+                $class = 'label-success';
+                break;
+            case 2:
+                $label = 'Non-conforme mineure';
+                $class = 'label-warning';
+                break;
+            default:
+                $label = 'Non-conforme majeure';
+                $class = 'label-danger';
+        }
+
+        return '<span class="label ' . $class . '" style="min-width: 100%; display: inline-block;">' . $label . '</span>';
     }
 
     private function getSpecificTraitement(Treatment $treatment)
