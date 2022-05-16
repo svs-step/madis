@@ -33,7 +33,7 @@
 {% block body %}
     <div class="row">
             <div class="col-xs-12">
-                <div class="action-bar">
+                <div class="action-bar" id="action-top-buttons">
                     {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('registry_treatment_create') }}" class="btn btn-default">
                         <i class="fa fa-plus"></i>
@@ -72,9 +72,11 @@
             <div class="box box-solid">
                 <div class="box-body">
                     <div style="float:left">
+                        {% if app.request.query.get('active') != 'false' %}
                         <a id="archive-all"  href="{{ path('registry_treatment_archive_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Archives
+                            Désactiver
                         </a>
+                        {% endif %}
                         <a id="delete-all"  href="{{ path('registry_treatment_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Supprimer
                         </a>
@@ -85,7 +87,7 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th></th>
+                            <th style="width:20px"></th>
                             <th>
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
@@ -189,7 +191,7 @@
                             <th></th>
                         </tr>
                         <tr>
-                            <th><input type="checkbox" name="select_all" value="1" id="select-all-treatments"></th>
+                            <th style="width:20px"><input type="checkbox" name="select_all" value="1" id="select-all-treatments"></th>
                             <th>{{ 'registry.treatment.list.name'|trans }}</th>
                             <th>{{ 'registry.treatment.list.collectivity'|trans }}</th>
                             <th>{{ 'registry.treatment.list.legal_basis'|trans }}</th>
@@ -277,8 +279,20 @@
     {{ include('_Utils/_serverside_datatable.html.twig') }}
 
     <script>
+        $(document).ready(function () {
+            const exportButton = $('.dt-buttons .dt-button.buttons-excel.buttons-html5');
+            //
+            // exportButton.remove();
+            exportButton.html('<i class="fa fa-download"></i> Exporter')
+            exportButton.addClass('btn')
+            exportButton.addClass('btn-default')
+            exportButton.removeClass('dt-button')
+            //
+            $('#action-top-buttons').append(exportButton);
+        })
         function setEvents() {
             var oTable = $('#table').DataTable();
+
 
             $('#delete-all').on('click', function(event) {
                 event.stopPropagation();
