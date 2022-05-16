@@ -233,9 +233,9 @@ class ViolationType extends AbstractType
                         ->orderBy('s.name', 'ASC');
                 },
                 'required'      => false,
-                'expanded' => false,
-                'multiple' => true,
-                'attr'     => [
+                'expanded'      => false,
+                'multiple'      => true,
+                'attr'          => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],

@@ -400,17 +400,11 @@ class Document
         $this->creator = $creator;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getRemoveThumb(): ?bool
     {
         return $this->removeThumb;
     }
 
-    /**
-     * @param bool|null $removeThumb
-     */
     public function setRemoveThumb(?bool $removeThumb): void
     {
         $this->removeThumb = $removeThumb;

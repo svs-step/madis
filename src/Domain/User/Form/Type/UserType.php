@@ -160,7 +160,7 @@ class UserType extends AbstractType
                     ->orderBy('s.name', 'ASC');
             };
 
-            if ($this->authorizationChecker->isGranted('ROLE_ADMIN')){
+            if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
                 $form->add('services', EntityType::class, [
                     'class'         => Service::class,
                     'label'         => 'user.user.form.services',
@@ -179,8 +179,8 @@ class UserType extends AbstractType
                     'multiple'      => true,
                     'expanded'      => false,
                     'query_builder' => $queryBuilder,
-                    'attr' => array(
-                        'readonly' => true)
+                    'attr'          => [
+                        'readonly' => true, ],
                 ]);
             }
         };

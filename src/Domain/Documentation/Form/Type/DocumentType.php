@@ -75,7 +75,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                 'multiple'     => true,
                 'required'     => false,
                 'expanded'     => false,
-                'attr' => [
+                'attr'         => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],

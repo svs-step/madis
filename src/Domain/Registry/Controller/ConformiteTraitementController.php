@@ -36,14 +36,12 @@ use App\Domain\Registry\Repository;
 use App\Domain\Registry\Symfony\EventSubscriber\Event\ConformiteTraitementEvent;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Dictionary\UserRoleDictionary;
-use App\Domain\User\Model\Service;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
@@ -214,11 +212,11 @@ class ConformiteTraitementController extends CRUDController
         $traitement = $this->treatmentRepository->findOneById($request->get('idTraitement'));
         $object->setTraitement($traitement);
 
-        $service = $object->getTraitement()->getService();
-        $user   = $this->userProvider->getAuthenticatedUser();
+        $service       = $object->getTraitement()->getService();
+        $user          = $this->userProvider->getAuthenticatedUser();
         $services_user = $user->getServices();
 
-        if(!($this->authorizationChecker->isGranted('ROLE_USER')&&(($services_user->isEmpty())||($services_user->contains($service))))){
+        if (!($this->authorizationChecker->isGranted('ROLE_USER') && (($services_user->isEmpty()) || ($services_user->contains($service))))) {
             return $this->redirectToRoute('registry_treatment_list');
         }
 
@@ -264,11 +262,11 @@ class ConformiteTraitementController extends CRUDController
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
-        $service = $object->getTraitement()->getService();
-        $user   = $this->userProvider->getAuthenticatedUser();
+        $service       = $object->getTraitement()->getService();
+        $user          = $this->userProvider->getAuthenticatedUser();
         $services_user = $user->getServices();
 
-        if(!($this->authorizationChecker->isGranted('ROLE_USER')&&(($services_user->isEmpty())||($services_user->contains($service))))){
+        if (!($this->authorizationChecker->isGranted('ROLE_USER') && (($services_user->isEmpty()) || ($services_user->contains($service))))) {
             return $this->redirectToRoute('registry_treatment_list');
         }
 
