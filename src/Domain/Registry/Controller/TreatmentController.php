@@ -399,7 +399,7 @@ class TreatmentController extends CRUDController
     private function getTreatmentConformity(Treatment $treatment)
     {
         if (!$treatment->getConformiteTraitement()) {
-            return 'Non évalué';
+            return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non évalué</span>';
         }
         $conf  = $treatment->getConformiteTraitement();
         $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conf);
