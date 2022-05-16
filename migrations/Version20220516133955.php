@@ -39,23 +39,23 @@ final class Version20220516133955 extends AbstractMigration
         $data = [
             [
                 'name' => 'Traitement',
-            ],[
+            ], [
                 'name' => 'Sous-traitant',
-            ],[
+            ], [
                 'name' => 'Action de protection',
-            ],[
+            ], [
                 'name' => 'Plan d\'action',
-            ],[
+            ], [
                 'name' => 'Demande',
-            ],[
+            ], [
                 'name' => 'Preuves',
-            ],[
+            ], [
                 'name' => 'AIPD',
-            ],[
+            ], [
                 'name' => 'Bilan',
-            ],[
+            ], [
                 'name' => 'Conformité de l\'organisation',
-            ],[
+            ], [
                 'name' => 'Conformité des traitements',
             ],
         ];
