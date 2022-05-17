@@ -55,7 +55,7 @@
                             <th>{{ 'registry.conformite_traitement.form.question'|trans }}</th>
                             <th style="width: 25%">{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
                         </tr>
-                        {% for question in analyseImpact.questionConformites %}
+                        {% for question in analyseImpact.questionConformites|sort((a, b) => a.position <= b.position) %}
                             <tr>
                                 <td>{{ question.question }}</td>
                                 <td>{{ getConformiteLabel(question)|raw }}</td>

@@ -16,6 +16,13 @@
     -%}
     {%- set craue_buttons = [
         {
+            label: isLastStep ? craue_formflow_button_label_finish | default('button.finish') : craue_formflow_button_label_next | default('button.next'),
+            render: true,
+            attr: {
+                class: craue_formflow_button_class_last,
+            },
+        },
+        {
             label: craue_formflow_button_label_back | default('button.back'),
             render: renderBackButton,
             attr: {
@@ -25,13 +32,7 @@
                 formnovalidate: 'formnovalidate',
             },
         },
-        {
-            label: isLastStep ? craue_formflow_button_label_finish | default('button.finish') : craue_formflow_button_label_next | default('button.next'),
-            render: true,
-            attr: {
-                class: craue_formflow_button_class_last,
-            },
-        },
+
         {
             label: craue_formflow_button_label_reset | default('button.reset'),
             render: renderResetButton,
