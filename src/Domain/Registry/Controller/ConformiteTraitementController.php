@@ -346,7 +346,9 @@ class ConformiteTraitementController extends CRUDController
     private function setAnalyseReponsesQuestionConformite(AnalyseImpact &$analyseImpact, Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement)
     {
         foreach ($conformiteTraitement->getReponses() as $reponse) {
-            $analyseImpact->getQuestionConformitesOfPosition($reponse->getQuestion()->getPosition())->setReponseConformite($reponse);
+            $pos = $reponse->getQuestion()->getPosition();
+            $q = $analyseImpact->getQuestionConformitesOfPosition($pos);
+            $q->setReponseConformite($reponse);
         }
     }
 }

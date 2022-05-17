@@ -6,6 +6,7 @@ namespace App\Domain\AIPD\Model;
 
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\AIPD\Dictionary\StatutAnalyseImpactDictionary;
+use App\Domain\Registry\Exception\QuestionConformiteNotFoundException;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
@@ -151,7 +152,10 @@ class AnalyseImpact
         return $res;
     }
 
-    public function getQuestionConformitesOfPosition(int $position)
+    /**
+     * @throws QuestionConformiteNotFoundException
+     */
+    public function getQuestionConformitesOfPosition(int $position): AnalyseQuestionConformite
     {
         foreach ($this->questionConformites as $question) {
             if ($question->getPosition() === $position) {
@@ -159,7 +163,7 @@ class AnalyseImpact
             }
         }
 
-        return null;
+        throw new QuestionConformiteNotFoundException('Question not found at position '.$position);
     }
 
     public function setQuestionConformites($questionConformites): void
