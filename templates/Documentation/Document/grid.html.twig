@@ -112,13 +112,6 @@
                                 <button id="button-reset" class="btn btn-default">
                                     Réinitialiser les filtres
                                 </button>
-                                {# Uniquement pour les DPO #}
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
-                                        <i class="fas fa-tag"></i>
-                                        {{ 'documentation.category.action.list'|trans }}
-                                    </a>
-                                {% endif %}
                             </div>
                             <div class="ml2">
                                 <input type="checkbox" class="form-check-input" id="search_favorite">
