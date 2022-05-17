@@ -345,7 +345,7 @@ class UserMetric implements MetricInterface
                 continue;
             }
 
-            ++$data['treatment']['value']['active'];
+            $data['treatment']['value']['active']++;
 
             // Numeric treatment
             if (!\is_null($treatment->getSoftware())) {
@@ -392,10 +392,10 @@ class UserMetric implements MetricInterface
             /** @var Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement */
             foreach ($conformiteTraitements as $conformiteTraitement) {
                 $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);
-                ++$data['conformiteTraitement']['data'][$level];
+                $data['conformiteTraitement']['data'][$level]++;
 
-                if (0 === count($conformiteTraitement->getAnalyseImpacts())) {
-                    ++$data['aipd']['toDo'];
+                if ($conformiteTraitement->getTraitement()->isActive() && 0 === count($conformiteTraitement->getAnalyseImpacts())) {
+                    $data['aipd']['toDo']++;
                 }
             }
 
