@@ -171,17 +171,21 @@
 
                             <td>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
-                                    <i class="fa fa-pencil-alt"></i>&nbsp;{{ 'action.edit'|trans }}
-                                </a>
-                                <a href="{{ path('documentation_document_delete', { 'id': object.id }) }}">
-                                    <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
-                                </a>
-                                <a class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
-                                    <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
-                                </a>
+                                    <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
+                                        <i class="fa fa-pencil-alt"></i>&nbsp;{{ 'action.edit'|trans }}
+                                    </a>
+                                    <a href="{{ path('documentation_document_delete', { 'id': object.id }) }}">
+                                        <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
+                                    </a>
+                                    <a class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
+                                        <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
+                                    </a>
                                 {% endif %}
-
+                                {% if is_granted('ROLE_REFERENT') %}
+                                    <a class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
+                                        <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
+                                    </a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
@@ -268,6 +272,22 @@
     {{ include('_Utils/_datatable.html.twig') }}
     <script>
         $(document).ready(function() {
+            const isUser = {{ is_granted('ROLE_USER')|json_encode() }};
+            const isReferent = {{ is_granted('ROLE_REFERENT')|json_encode() }};
+
+            if (isUser && !isReferent){
+                var oTable = $('#table').DataTable();
+                oTable.column('7').visible(false);
+            }
+
+            $('.buttons-colvis').on('click', function(){
+                if (!isUser && !isReferent){
+                    $('button[data-cv-idx="7"]').hide();
+                    var oTable = $('#table').DataTable();
+                    oTable.column('7').visible(false);
+                }
+            })
+
             $('.sharelink').on('click', function() {
                 $('.linkDoc').val($(this).data('id'));
                 $('.copyLink').hide();
