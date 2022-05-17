@@ -163,7 +163,7 @@ class AnalyseImpact
             }
         }
 
-        throw new QuestionConformiteNotFoundException('Question not found at position '.$position);
+        throw new QuestionConformiteNotFoundException('Question not found at position ' . $position);
     }
 
     public function setQuestionConformites($questionConformites): void

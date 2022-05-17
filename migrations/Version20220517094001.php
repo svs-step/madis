@@ -36,7 +36,6 @@ final class Version20220517094001 extends AbstractMigration
         $this->connection->query('update aipd_modele_question_conformite set position=position*10 WHERE position < 100');
         $this->connection->query('update aipd_analyse_question_conformite set position=position*10 WHERE position < 100');
 
-
         // Get existing questions to be duplicated
         $this->question1 = $this->getData('SELECT * FROM aipd_analyse_question_conformite WHERE question = "Exercice des droits d\'accès et à la portabilité"');
         $this->question2 = $this->getData('SELECT * FROM aipd_analyse_question_conformite WHERE question = "Exercice des droits de rectification et d\'effacement"');
@@ -85,7 +84,7 @@ final class Version20220517094001 extends AbstractMigration
 
         foreach ($data as $k => $item) {
             // ADD to analyse
-            foreach ($this->{'question'  . ($k+1)} as $q) {
+            foreach ($this->{'question' . ($k + 1)} as $q) {
                 $this->addSql('INSERT INTO aipd_analyse_question_conformite(id, analyse_impact_id, question, is_justification_obligatoire, texte_conformite, texte_non_conformite_majeure, texte_non_conformite_mineure, position, justificatif) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                     Uuid::uuid4()->__toString(),
                     $q['analyse_impact_id'],
@@ -94,7 +93,7 @@ final class Version20220517094001 extends AbstractMigration
                     $q['texte_conformite'],
                     $q['texte_non_conformite_majeure'],
                     $q['texte_non_conformite_mineure'],
-                    $q['position']+1+$k,
+                    $q['position'] + 1 + $k,
                     $q['justificatif'],
                 ]);
             }
@@ -109,12 +108,10 @@ final class Version20220517094001 extends AbstractMigration
                     $item['texte_conformite'],
                     $item['texte_non_conformite_majeure'],
                     $item['texte_non_conformite_mineure'],
-                    $item['position']
+                    $item['position'],
                 ]);
-
             }
         }
-
     }
 
     public function down(Schema $schema): void
