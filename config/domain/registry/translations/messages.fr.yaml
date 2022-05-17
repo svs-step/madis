@@ -458,6 +458,7 @@ registry:
             data_origin: Origine des données
             delay: Délai de conservation
             deleted_user: Utilisateur supprimé
+            dpo_message: Préconisations DPO
             estimated_concerned_people: Nombre de concernées
             evaluation_or_rating: Évaluation ou notation
             goal: Finalités
