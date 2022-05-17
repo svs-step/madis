@@ -44,9 +44,10 @@ class Question extends CRUDRepository implements Repository\ConformiteTraitement
         $qb->andWhere($qb->expr()->notIn('o.id', ':questions'))
             ->setParameter(
                 'questions',
-                array_map(function (Model\ConformiteTraitement\Reponse $reponse) {
+                join(',', array_map(function (Model\ConformiteTraitement\Reponse $reponse) {
                     return $reponse->getQuestion()->getId()->toString();
                 }, \iterable_to_array($conformiteTraitement->getReponses()))
+                )
             )
         ;
 
