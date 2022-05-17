@@ -380,6 +380,7 @@ registry:
             observation: Observations
             paper_processing: Traitement papier
             public: Public
+            public_registry: Registre public
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
             security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées

@@ -21,8 +21,15 @@
                 {% if is_granted('ROLE_REFERENT') or is_granted('ROLE_ADMIN') %}
                     {{ form_row(form.dpoMessage) }}
                 {% endif %}
-                <label class="col-sm-2 text-right" style="margin-top: 5px; padding-right: 25px;">{{ 'registry.treatment.tab.public'|trans }}</label>
-                {{ form_widget(form.public) }}
+                <div class="form-group">
+                    <label for="treatment_public" class="col-sm-2 control-label" style="white-space: nowrap">
+                        {{ 'registry.treatment.tab.public'|trans }}
+                    </label>
+                    <div class="col-sm-10">
+                        {{ form_widget(form.public) }}
+                    </div>
+                </div>
+
             </div>
         </div>
 
