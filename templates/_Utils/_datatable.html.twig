@@ -17,7 +17,7 @@
 
     $(function () {
 
-        {% set paging = false %}
+        {% set paging = true %}
         {% if is_granted('ROLE_ADMIN') %}
             {% set paging = true %}
         {% endif %}
@@ -51,13 +51,16 @@
                         1: "1 ligne séléctionnée"
                     }
                 },
-                thousands: " "
+                thousands: " ",
+                buttons: {
+                    colvis: "Colonnes"
+                },
             },
             paging      : paging,
             lengthChange: false,
             searching   : true,
             ordering    : true,
-            info        : false,
+            info        : true,
             autoWidth   : false,
             pageLength: app_admin_datable_default_page_length,
             dom: 'Brtip',
