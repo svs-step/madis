@@ -181,7 +181,7 @@
                                         <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
                                     </a>
                                 {% endif %}
-                                {% if is_granted('ROLE_REFERENT') %}
+                                {% if is_granted('ROLE_REFERENT') and not is_granted('ROLE_ADMIN') %}
                                     <a class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
                                         <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
                                     </a>
@@ -222,7 +222,7 @@
                 </div>
                 <div class="box-body">
                     <blockquote>
-                        <p style="color:grey;font-size:14px;">-Seul les membres ayant un compte Madis pourront accéder au document.</p>
+                        <p style="color:grey;font-size:14px;">-Seuls les utilisateurs ayant un compte Madis pourront accéder au document.</p>
                     </blockquote>
                 </div>
                 <!-- box-footer -->
