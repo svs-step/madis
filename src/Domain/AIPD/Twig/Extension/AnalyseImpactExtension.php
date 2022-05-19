@@ -37,6 +37,9 @@ class AnalyseImpactExtension extends AbstractExtension
     {
         $reponseConformite = $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getReponseOfPosition($questionAnalyse->getPosition());
         $formattedString   = '';
+        if(!$reponseConformite) {
+            return '<a href="/conformite-traitement/editer/' . $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getId() . '">Veuillez évaluer à nouveau la conformité du traitement</a>';
+        }
         /** @var Mesurement $actionProtection */
         foreach ($reponseConformite->getActionProtections() as $actionProtection) {
             $formattedString .= $actionProtection->getName() . ' ';
@@ -48,6 +51,9 @@ class AnalyseImpactExtension extends AbstractExtension
     public function getConformiteLabel(AnalyseQuestionConformite $questionAnalyse): string
     {
         $reponseConformite = $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getReponseOfPosition($questionAnalyse->getPosition());
+        if(!$reponseConformite) {
+            return 'Inconnu';
+        }
         if ($reponseConformite->isConforme()) {
             return '<span class="label label-success" style="min-width: 100%; display: inline-block;">Conforme</span>';
         } elseif (!$reponseConformite->getActionProtections()->isEmpty()) {
