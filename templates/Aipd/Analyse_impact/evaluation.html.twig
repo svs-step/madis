@@ -153,19 +153,25 @@
         let mesuresLabels = [];
         let mesuresDatas = [];
         let risquesLabels = [];
-        let risquesDataSet1 = [];
-        let risquesDataSet2 = [];
+        let risquesCouvertDataSet = [];
+        let risquesResiduelDataSet = [];
         let dicResiduelsData = [];
         {% for scenario in analyseImpact.scenarioMenaces %}
+        // Risque résiduel = Impact Potentiel - Impact Résiduel
+        // Risque couvert = 4-Risque résiduel
+        {%  set rr = getScenarioMenaceImpactPotentiel(scenario) - getScenarioMenaceImpactResiduel(scenario) %}
             risquesLabels.push('{{ scenario.nom|truncate(20, '...') }}');
-            risquesDataSet2.push({{ getScenarioMenaceImpactPotentiel(scenario) }});
-            risquesDataSet1.push({{ getScenarioMenaceImpactResiduel(scenario) }})
+            risquesCouvertDataSet.push({{ rr }});
+            risquesResiduelDataSet.push({{ 4-rr }})
             dicResiduelsData.push({
                 label: "{{ scenario.nom }}",
                 data: [{x: {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}, y: {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}, r: 10}],
                 backgroundColor: colorBlue
             });
+
         {% endfor %}
+
+
         {% for mesure in analyseImpact.mesureProtections %}
             mesuresLabels.push('{{ mesure.nom }}');
             {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
@@ -177,9 +183,11 @@
             {% endif %}
         {% endfor %}
         mesuresDatas = [mesuresDatas];
-        risquesDataSet1 = {label: "Risque couvert", data: risquesDataSet1, backgroundColor: colorTeal};
-        risquesDataSet2 = {label: "Risque résiduel", data: risquesDataSet2, backgroundColor: colorPink};
-        let risquesDatas = [risquesDataSet1, risquesDataSet2];
+        risquesCouvert = {label: "Risque couvert", data: risquesCouvertDataSet, backgroundColor: colorTeal};
+        risquesResiduel = {label: "Risque résiduel", data: risquesResiduelDataSet, backgroundColor: colorPink};
+        let risquesDatas = [risquesCouvert, risquesResiduel];
+        console.log(risquesDatas);
+
     </script>
 
     <script src="{{ asset('build/js/evaluation.js') }}"></script>
