@@ -37,7 +37,7 @@ class AnalyseImpactExtension extends AbstractExtension
     {
         $reponseConformite = $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getReponseOfPosition($questionAnalyse->getPosition());
         $formattedString   = '';
-        if(!$reponseConformite) {
+        if (!$reponseConformite) {
             return '<a href="/conformite-traitement/editer/' . $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getId() . '">Veuillez évaluer à nouveau la conformité du traitement</a>';
         }
         /** @var Mesurement $actionProtection */
@@ -51,7 +51,7 @@ class AnalyseImpactExtension extends AbstractExtension
     public function getConformiteLabel(AnalyseQuestionConformite $questionAnalyse): string
     {
         $reponseConformite = $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getReponseOfPosition($questionAnalyse->getPosition());
-        if(!$reponseConformite) {
+        if (!$reponseConformite) {
             return 'Inconnu';
         }
         if ($reponseConformite->isConforme()) {
@@ -105,7 +105,7 @@ class AnalyseImpactExtension extends AbstractExtension
                 break;
         }
 
-        return '<span class="label label-' . $labelColor . '" style="min-width: 100%; display: inline-block;'.($labelColor == 'default' ? 'background:#605CA8; color:white;' : '').'">' . VraisemblanceGraviteDictionary::getMasculineValues()[$impact] . '</span>';
+        return '<span class="label label-' . $labelColor . '" style="min-width: 100%; display: inline-block;' . ('default' == $labelColor ? 'background:#605CA8; color:white;' : '') . '">' . VraisemblanceGraviteDictionary::getMasculineValues()[$impact] . '</span>';
     }
 
     public function getScenarioMenaceIndicateurResiduel(AnalyseScenarioMenace $scenarioMenace, string $poidsType)

@@ -43,8 +43,8 @@ class Question extends CRUDRepository implements Repository\ConformiteTraitement
         $qb = $this->createQueryBuilder();
 
         $params = array_map(function (Model\ConformiteTraitement\Reponse $reponse) {
-                return $reponse->getQuestion()->getId()->toString();
-            }, \iterable_to_array($conformiteTraitement->getReponses()))
+            return $reponse->getQuestion()->getId()->toString();
+        }, \iterable_to_array($conformiteTraitement->getReponses()))
         ;
 
         if (count($params)) {
