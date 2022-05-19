@@ -107,19 +107,41 @@
         </div>
         <div class="separator"></div>
         <div class="row">
+            <div><strong style="font-size: 1.6em; margin-left:30px;">Référent RGPD</strong></div>
+            <span style="font-size: 1.2em; margin-left:45px;">{{ object.conformiteTraitement.traitement.collectivity.referent.civility|dictionary('user_contact_civility') }} {{ object.conformiteTraitement.traitement.collectivity.referent.firstName }} {{ object.conformiteTraitement.traitement.collectivity.referent.lastName }}</span>
+        </div>
+        <div class="separator"></div>
+        <div class="row">
             <div><strong style="font-size: 1.6em; margin-left:30px;">Délégué à la Protection des Données</strong></div>
             <span style="font-size: 1.2em; margin-left:45px;">{{ object.conformiteTraitement.traitement.collectivity.dpo.civility|dictionary('user_contact_civility') }} {{ object.conformiteTraitement.traitement.collectivity.dpo.firstName }} {{ object.conformiteTraitement.traitement.collectivity.dpo.lastName }}</span>
+        </div>
+        <div class="separator"></div>
+        <div class="row">
+            <div><strong style="font-size: 1.6em; margin-left:30px;">Date de validation de l’AIPD : </strong></div>
+            <span style="font-size: 1.2em; margin-left:45px;">{{ (object.conformiteTraitement.analyseImpacts|first).dateValidation|date('d/m/Y') }} </span>
+            <div><strong style="font-size: 1.6em; margin-left:30px;">Signature du Responsable du Traitement</strong></div>
         </div>
         <div  style="page-break-before: always;">
             <h2>1. Préambule</h2>
         </div>
-        <div>Le présent document contient tous les éléments nécessaires pour le Resposable de Traitement (RT), le Référent RGPD (RR) et le Délégué à la Protection des Données (DPD) pour mener à bien une Analyse d'Impact relative à la Protection des Données (le sigle AIPD sera utilisé dans la suite de ce document) conforme aux attentes de la CNIL.</div>
-        <div>Il est possible de retrouver l'ensemble des éléments produits dans ce docoment dans le logiciel MADIS.</div>
+        <div>Le présent document contient tous les éléments nécessaires pour le Responsable de Traitement (RT), le Référent RGPD (RR) et le Délégué à la Protection des Données (DPD) pour mener à bien une Analyse d'Impact relative à la Protection des Données (le sigle AIPD sera utilisé dans la suite de ce document) conforme aux attentes de la CNIL.</div>
+        <div>Il est possible de retrouver l'ensemble des éléments produits dans ce document dans le logiciel MADIS.</div>
 
         <h3>1.1 Méthode d'une Analyse d'Impact relative à la Protection des Données</h3>
-        <div>La démarche pour réaliser une analyse d'ipact comprend quatre étapes :</div>
-        <div>Il s'agit d'un <strong>processus d'amélioration continue</strong>. Il requiert donc parfois plusieurs itérations pour parvenir à un dispositif de protection de la vie privée acceptable. Il requiert en outre une surveillance des évolutions dans le temps (du context, des mesures, des risques, etc.), par exemple tous les ans, et des mises à jur dès qu'une évolution significative a lieu.</div>
+        <div>La démarche pour réaliser une analyse d'impact comprend quatre étapes :</div>
+        <div style="margin-left:50px;">1- Délimiter et décrire le contexte du(des) traitement(s) considéré(s);</div>
+        <div style="margin-left:50px;">2- Analyser les mesures garantissant le respect des principes fondamentaux : la proportionnalité et la nécessité du traitement, et la protection des droits des personnes concernées;</div>
+        <div style="margin-left:50px;">3- Apprécier les risques sur la vie privée liés à la sécurité des données et vérifier qu’ils sont convenablement traités ;</div>
+        <div style="margin-left:50px;">4- Formaliser la validation du PIA au regard des éléments précédents ou bien décider de réviser les étapes précédentes.</div>
+
+        <div style="text-align: center"><img src='{{ asset("images/cycleAIPD.jpg") }}' height="300" alt="CycleAIPD"></div>
+
+        <div>Il s'agit d'un <strong>processus d'amélioration continue</strong>. Il requiert donc parfois plusieurs itérations pour parvenir à un dispositif de protection de la vie privée acceptable. Il requiert en outre une surveillance des évolutions dans le temps (du contexte, des mesures, des risques, etc.), par exemple tous les ans, et des mises à jour dès qu'une évolution significative a lieu.</div>
         <div>La démarche devrait être employée <strong>dès la conception d'un nouveau traitement de données à caractère personnel</strong>. En effet, une application en amont permet de déterminer les mesures nécessaires et suffisantes, et donc d'optimiser les coûts. A contrario, une application tardive, alors que le système est déjà créé et les mesures en place, peut remettre en question les choix effectués.</div>
+
+        <h3>1.2 Conformité d’une Analyse d’Impact relative à la Protection des Données</h3>
+        <div>L’objectif est d’obtenir la conformité du traitement grâce à l’AIPD</div>
+        <div style="text-align: center"><img src='{{ asset("images/ConformitéAIPD.jpg") }}' height="200" alt="ConformitéAIPD"></div>
 
         <h2>2. Étude du contexte</h2>
         <div>Ce chapitre a pour objectif de fournir une vision claire de l'organisation et du traitement de données personnelles considéré</div>
@@ -132,22 +154,10 @@
                 </tr>
             </table>
             <div class="separator"></div>
-            {% if object.criterePrincipeFondamentalByCode('portee_traitement').reponse == 'non_applicable' %}
-                <table class="table table-bordered">
-                    <tr>
-                        <td class="table-bluecell">Portée du traitement</td>
-                        <td>
-                            {{ object.criterePrincipeFondamentalByCode('portee_traitement').reponse }} <br />
-                            {{ object.criterePrincipeFondamentalByCode('portee_traitement').justification }}
-                        </td>
-                    </tr>
-                </table>
-                <div class="separator"></div>
-            {% endif %}
             {% if object.criterePrincipeFondamentalByCode('contexte_traitement').reponse != 'non_applicable' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">Contexte du traitement</td>
+                        <td class="table-bluecell">Contexte du traitement {{ object.criterePrincipeFondamentalByCode('contexte_traitement').label }}</td>
                         <td>
                             {{ object.criterePrincipeFondamentalByCode('contexte_traitement').reponse|dictionary('reponse_critere_fondamental') }}<br />
                             {{ object.criterePrincipeFondamentalByCode('contexte_traitement').justification }}
@@ -156,6 +166,19 @@
                 </table>
                 <div class="separator"></div>
             {% endif %}
+            {% if object.criterePrincipeFondamentalByCode('portee_traitement').reponse == 'non_applicable' %}
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="table-bluecell">Portée du traitement {{ object.criterePrincipeFondamentalByCode('contexte_traitement').label }}</td>
+                        <td>
+                            {{ object.criterePrincipeFondamentalByCode('portee_traitement').reponse }} <br />
+                            {{ object.criterePrincipeFondamentalByCode('portee_traitement').justification }}
+                        </td>
+                    </tr>
+                </table>
+                <div class="separator"></div>
+            {% endif %}
+
             <table class="table table-bordered">
                 <tr>
                     <td class="table-bluecell">Finalité(s) du traitement</td>
@@ -202,10 +225,36 @@
                 </tr>
             </table>
             <div class="separator"></div>
+            {% if object.criterePrincipeFondamentalByCode('description_fonctionnelle').reponse == 'non_applicable' %}
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="table-bluecell">Description fonctionnelle du traitement {{ object.criterePrincipeFondamentalByCode('description_fonctionnelle').label }}</td>
+                        <td>
+                            {{ object.criterePrincipeFondamentalByCode('description_fonctionnelle').reponse|dictionary('reponse_description_fonctionnelle') }}
+                            {{ object.criterePrincipeFondamentalByCode('description_fonctionnelle').justification }}
+                        </td>
+                    </tr>
+                </table>
+                <div class="separator"></div>
+            {% endif %}
+            <div class="separator"></div>
+            {% if object.criterePrincipeFondamentalByCode('identification_biens').reponse == 'non_applicable' %}
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="table-bluecell">Identification des biens {{ object.criterePrincipeFondamentalByCode('identification_biens').label }}</td>
+                        <td>
+                            {{ object.criterePrincipeFondamentalByCode('identification_biens').reponse|dictionary('reponse_identification_biens') }}
+                            {{ object.criterePrincipeFondamentalByCode('identification_biens').justification }}
+                        </td>
+                    </tr>
+                </table>
+                <div class="separator"></div>
+            {% endif %}
+            <div class="separator"></div>
             {% if object.criterePrincipeFondamentalByCode('conformite_code').reponse == 'non_applicable' %}
             <table class="table table-bordered">
                 <tr>
-                    <td class="table-bluecell">Conformité à un code de conduite existant</td>
+                    <td class="table-bluecell">Conformité à un code de conduite existant {{ object.criterePrincipeFondamentalByCode('conformite_code').label }}</td>
                     <td>
                         {{ object.criterePrincipeFondamentalByCode('conformite_code').reponse|dictionary('reponse_critere_fondamental') }}
                         {{ object.criterePrincipeFondamentalByCode('conformite_code').justification }}
@@ -216,6 +265,8 @@
             {% endif %}
         </div>
         <div class="reportGraph"><canvas id="grandsDomaines-chart"></canvas></div>
+
+        <h2>4. Études des des principes fondamentaux</h2>
 
         <h2>4. Études des risques liés à la sécurité des données</h2>
         <div>Ce chapitre a pour objectifs d'obtenir une bonne connaissance des mesures contribuant à la sécurité et d'apprécier les risques.</div>
