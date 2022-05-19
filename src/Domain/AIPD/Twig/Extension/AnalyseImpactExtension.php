@@ -92,7 +92,7 @@ class AnalyseImpactExtension extends AbstractExtension
                 $labelColor = 'warning';
                 break;
             case VraisemblanceGraviteDictionary::IMPORTANTE:
-                $labelColor = 'danger';
+                $labelColor = 'purple';
                 break;
             default:
                 $labelColor = 'danger';

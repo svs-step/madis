@@ -495,12 +495,84 @@
             </div>
 
             {#             PROOFS#}
-            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
-            {% include '_Utils/_show_block_requests.html.twig' with { requests: object.requests } %}
-            {% include '_Utils/_show_block_violations.html.twig' with { violations: object.violations } %}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_documents'|trans }}</h3></div>
+                <div class="box-body">
+                    {% set activeProofs = object.proofs|filter(proof => proof.deletedAt is null) -%}
+
+                    {% if activeProofs|length > 0 %}
+                        <ul>
+                            {% for proof in activeProofs %}
+                                <li>
+                                    {{ proof.name }} ({{ proof.type|dictionary('registry_proof_type') }})
+                                    {{ proof.comment }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <span><i>{{ 'label.no_linked_document'|trans }}</i></span>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            {# REQUESTS #}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_request'|trans }}</h3></div>
+                <div class="box-body">
+                    {% set activeRequests = object.requests %}
+
+                    {% if activeRequests|length > 0 %}
+                        <ul>
+                            {% for request in activeRequests %}
+                                <li>
+                                    {{ request.date|date('d/m/Y') }} | {{ request.applicant.lastName }} {{ request.applicant.firstName }} | {{  ("label.request_" ~ request.object)|trans }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <span><i>{{ 'label.no_linked_requests'|trans }}</i></span>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# VIOLATIONS #}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_violations'|trans }}</h3></div>
+                <div class="box-body">
+                    {% set activeViolations = object.violations %}
+
+                    {% if activeViolations|length > 0 %}
+                        <ul>
+                            {% for violation in activeViolations %}
+                                <li>
+                                    {{ violation.date|date('d/m/Y') }} | {{ ("label.violation_" ~ violation.violationNature)|trans  }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <span><i>{{ 'label.no_linked_violations'|trans }}</i></span>
+                    {% endif %}
+                </div>
+            </div>
 
             {# Mesurements #}
-            {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_mesurement'|trans }}</h3></div>
+                <div class="box-body">
+                    {% if object.mesurements|length > 0 %}
+                        <ul>
+                            {% for mesurement in object.mesurements %}
+                                <li>
+                                    {{ mesurement.name }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <span><i>{{ 'label.no_linked_mesurement'|trans }}</i></span>
+                    {% endif %}
+                </div>
+            </div>
 
             {% if object.collectivity.hasModuleConformiteTraitement %}
                 <div class="box box-solid box-success">
@@ -542,13 +614,6 @@
                                     <strong>Actions</strong>
                                 </td>
                                 <td>
-                                    <a href="
-                                        {% if object.conformiteTraitement is null %}
-                                            {{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}
-                                        {% else %}
-                                            {{ path('registry_conformite_traitement_edit', {'id': object.conformiteTraitement.id}) }}
-                                        {% endif %}
-                                    "><i class="fa fa-pencil-alt"></i> {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}</a>
                                 </td>
                             </tr>
                         </table>
@@ -598,10 +663,6 @@
                                         <strong>Actions</strong>
                                     </td>
                                     <td>
-                                        <a href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
-                                            <i class="fa fa-chalkboard-teacher"></i>
-                                            {{ 'aipd.analyse_impact.action.edit'|trans }}
-                                        </a>
                                     </td>
                                 </tr>
                             </table>
