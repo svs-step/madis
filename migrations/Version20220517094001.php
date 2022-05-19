@@ -93,7 +93,7 @@ final class Version20220517094001 extends AbstractMigration
                     $q['texte_conformite'],
                     $q['texte_non_conformite_majeure'],
                     $q['texte_non_conformite_mineure'],
-                    $q['position'] + 1 + $k,
+                    $item['position'],
                     $q['justificatif'],
                 ]);
             }
