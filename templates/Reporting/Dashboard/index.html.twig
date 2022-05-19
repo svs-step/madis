@@ -152,18 +152,17 @@
                     {% endif %}
                 </div>
 
-                {# Action to realize todo remplir cette case avec les bonnes datas #}
-                {{ dump(data)}}
+                {# Action to realize #}
                 <div class="col-sm-6 col-xs-12">
                     <div class="small-box bg-aqua">
                         <div class="inner">
-                            <h3>{{ data.violation.value.all }}</h3>
-                            <p>Actions à réaliser</p>
+                            <h3>{{ data.mesurement.value.planified }}</h3>
+                            <p>Actions planifiées</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-exclamation-circle"></i>
+                            <i class="fa fa-bullseye"></i>
                         </div>
-                        <a href="{{ path('registry_violation_list') }}" class="small-box-footer">
+                        <a href="{{ path('registry_mesurement_action_plan') }}" class="small-box-footer">
                             Plus d'informations <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>
