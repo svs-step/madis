@@ -98,14 +98,14 @@ class AnalyseImpactExtension extends AbstractExtension
                 $labelColor = 'warning';
                 break;
             case VraisemblanceGraviteDictionary::IMPORTANTE:
-                $labelColor = 'purple';
+                $labelColor = 'default';
                 break;
             default:
                 $labelColor = 'danger';
                 break;
         }
 
-        return '<span class="label label-' . $labelColor . '" style="min-width: 100%; display: inline-block;">' . VraisemblanceGraviteDictionary::getMasculineValues()[$impact] . '</span>';
+        return '<span class="label label-' . $labelColor . '" style="min-width: 100%; display: inline-block;'.($labelColor == 'default' ? 'background:#605CA8; color:white;' : '').'">' . VraisemblanceGraviteDictionary::getMasculineValues()[$impact] . '</span>';
     }
 
     public function getScenarioMenaceIndicateurResiduel(AnalyseScenarioMenace $scenarioMenace, string $poidsType)
