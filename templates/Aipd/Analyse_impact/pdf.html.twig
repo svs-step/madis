@@ -313,18 +313,30 @@
                     <th>Conformité</th>
                 </tr>
             </thead>
-            {{ dump(object.questionConformites[0].reponseConformite)}}
             {% for QuestionConformite in object.questionConformites %}
                 <tr>
-                    <td>{{ QuestionConformite.question }}</td>
+                    <td>{{ QuestionConformite.question }}
+                        {% if QuestionConformite.ReponseConformite.actionProtections is not same as null %}
+                            {% for action in QuestionConformite.ReponseConformite.actionProtections %}
+                            <div>
+                                <span>action.name</span>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                        {#
+                        {% if QuestionConformite.question.justificatif is not same as null %}
+                            <div><span>{{ QuestionConformite.question.justificatif }}</span></div>
+                        {% endif %} #}
+
+                    </td>
                     {% if QuestionConformite.ReponseConformite.conforme %}
                         <td><span class="label label-success" style="min-width: 100%; display: inline-block;"> Conforme</span></td>
                     {% else %}
-                        {% if QuestionConformite.%}
-                            <td><span class="label label-danger" style="min-width: 100%; display: inline-block;"> Non-conforme majeure</span></td>
+                        {% if QuestionConformite.ReponseConformite.actionProtections is same as null %}
+                            <td><span class="label label-warning" style="min-width: 100%; display: inline-block;"> Non-conforme majeure</span></td>
                         {% else%}
-                            <td><span class="label label-danger" style="min-width: 100%; display: inline-block;"> Non-conforme majeure</span></td>
-                        {% endif%}
+                            <td><span class="label label-danger" style="min-width: 100%; display: inline-block;"> Non-conforme mineure</span></td>
+                        {% endif %}
                     {% endif %}
                 </tr>
             {% endfor %}
