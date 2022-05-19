@@ -119,6 +119,7 @@
         <div class="row">
             <div><strong style="font-size: 1.6em; margin-left:30px;">Date de validation de l’AIPD : </strong></div>
             <span style="font-size: 1.2em; margin-left:45px;">{{ (object.conformiteTraitement.analyseImpacts|first).dateValidation|date('d/m/Y') }} </span>
+            <div class="separator"></div>
             <div><strong style="font-size: 1.6em; margin-left:30px;">Signature du Responsable du Traitement</strong></div>
         </div>
         <div  style="page-break-before: always;">
@@ -141,6 +142,7 @@
 
         <h3>1.2 Conformité d’une Analyse d’Impact relative à la Protection des Données</h3>
         <div>L’objectif est d’obtenir la conformité du traitement grâce à l’AIPD</div>
+        <div class="separator"></div>
         <div style="text-align: center"><img src='{{ asset("images/ConformitéAIPD.jpg") }}' height="200" alt="ConformitéAIPD"></div>
 
         <h2>2. Étude du contexte</h2>
@@ -163,18 +165,32 @@
                             {{ object.criterePrincipeFondamentalByCode('contexte_traitement').justification }}
                         </td>
                     </tr>
+                    {% if object.criterePrincipeFondamentalByCode('contexte_traitement').fichier %}
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <img src="{{asset(object.criterePrincipeFondamentalByCode('contexte_traitement').fichier)}}" height="200" alt="contextFile">
+                            </td>
+                        </tr>
+                    {% endif %}
                 </table>
                 <div class="separator"></div>
             {% endif %}
             {% if object.criterePrincipeFondamentalByCode('portee_traitement').reponse == 'non_applicable' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">Portée du traitement {{ object.criterePrincipeFondamentalByCode('contexte_traitement').label }}</td>
+                        <td class="table-bluecell">Portée du traitement {{ object.criterePrincipeFondamentalByCode('portee_traitement').label }}</td>
                         <td>
                             {{ object.criterePrincipeFondamentalByCode('portee_traitement').reponse }} <br />
                             {{ object.criterePrincipeFondamentalByCode('portee_traitement').justification }}
                         </td>
                     </tr>
+                    {% if object.criterePrincipeFondamentalByCode('portee_traitement').fichier %}
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <img src="{{asset(object.criterePrincipeFondamentalByCode('portee_traitement').fichier)}}" height="200" alt="contextFile">
+                            </td>
+                        </tr>
+                    {% endif %}
                 </table>
                 <div class="separator"></div>
             {% endif %}
@@ -234,6 +250,13 @@
                             {{ object.criterePrincipeFondamentalByCode('description_fonctionnelle').justification }}
                         </td>
                     </tr>
+                    {% if object.criterePrincipeFondamentalByCode('description_fonctionnelle').fichier %}
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <img src="{{asset(object.criterePrincipeFondamentalByCode('description_fonctionnelle').fichier)}}" height="200" alt="contextFile">
+                            </td>
+                        </tr>
+                    {% endif %}
                 </table>
                 <div class="separator"></div>
             {% endif %}
@@ -247,6 +270,13 @@
                             {{ object.criterePrincipeFondamentalByCode('identification_biens').justification }}
                         </td>
                     </tr>
+                    {% if object.criterePrincipeFondamentalByCode('identification_biens').fichier %}
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <img src="{{asset(object.criterePrincipeFondamentalByCode('identification_biens').fichier)}}" height="200" alt="contextFile">
+                            </td>
+                        </tr>
+                    {% endif %}
                 </table>
                 <div class="separator"></div>
             {% endif %}
@@ -260,13 +290,46 @@
                         {{ object.criterePrincipeFondamentalByCode('conformite_code').justification }}
                     </td>
                 </tr>
+                {% if object.criterePrincipeFondamentalByCode('conformite_code').fichier %}
+                    <tr>
+                        <td colspan="2" style="text-align: center">
+                            <img src="{{asset(object.criterePrincipeFondamentalByCode('conformite_code').fichier)}}" height="200" alt="contextFile">
+                        </td>
+                    </tr>
+                {% endif %}
             </table>
             <div class="separator"></div>
             {% endif %}
         </div>
         <div class="reportGraph"><canvas id="grandsDomaines-chart"></canvas></div>
 
-        <h2>4. Études des des principes fondamentaux</h2>
+        <h2>3. Études des des principes fondamentaux</h2>
+        <div>Ce chapitre a pour objectif de s’assurer que le dispositif relatif aux principes de protection de la vie privée est conforme.</div>
+        <div class="separator"></div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Conformité</th>
+                </tr>
+            </thead>
+            {{ dump(object.questionConformites[0].reponseConformite)}}
+            {% for QuestionConformite in object.questionConformites %}
+                <tr>
+                    <td>{{ QuestionConformite.question }}</td>
+                    {% if QuestionConformite.ReponseConformite.conforme %}
+                        <td><span class="label label-success" style="min-width: 100%; display: inline-block;"> Conforme</span></td>
+                    {% else %}
+                        {% if QuestionConformite.%}
+                            <td><span class="label label-danger" style="min-width: 100%; display: inline-block;"> Non-conforme majeure</span></td>
+                        {% else%}
+                            <td><span class="label label-danger" style="min-width: 100%; display: inline-block;"> Non-conforme majeure</span></td>
+                        {% endif%}
+                    {% endif %}
+                </tr>
+            {% endfor %}
+
+        </table>
 
         <h2>4. Études des risques liés à la sécurité des données</h2>
         <div>Ce chapitre a pour objectifs d'obtenir une bonne connaissance des mesures contribuant à la sécurité et d'apprécier les risques.</div>
