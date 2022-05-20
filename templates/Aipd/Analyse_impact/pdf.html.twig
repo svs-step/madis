@@ -117,11 +117,38 @@
         </div>
         <div class="separator"></div>
         <div class="row">
-            <div><strong style="font-size: 1.6em; margin-left:30px;">Date de validation de l’AIPD : </strong></div>
-            <span style="font-size: 1.2em; margin-left:45px;">{{ (object.conformiteTraitement.analyseImpacts|first).dateValidation|date('d/m/Y') }} </span>
-            <div class="separator"></div>
-            <div><strong style="font-size: 1.6em; margin-left:30px;">Signature du Responsable du Traitement</strong></div>
+            <div>
+                <strong style="font-size: 1.6em; margin-left:30px;">Date de validation de l’AIPD : </strong>
+                <strong style="font-size: 1.6em; margin-left:150px;">Signature du Responsable du Traitement</strong>
+            </div>
+            <span style="font-size: 1.2em; margin-left:45px;">{{ (object.conformiteTraitement.analyseImpacts|first).dateValidation|date('d/m/Y') }}</span>
         </div>
+
+        <div  style="page-break-before: always;"></div>
+        <div class="separator"></div>
+        <h1 style="text-align: center;">Sommaire</h1>
+        <div class="separator"></div>
+        <div class="separator"></div>
+        <h2>1. Préambule</h2>
+        <h3 style="margin-left: 30px">1.1 Méthode d'une Analyse d'Impact relative à la Protection des Données</h3>
+        <h3 style="margin-left: 30px">1.2 Conformité d’une Analyse d’Impact relative à la Protection des Données</h3>
+        <h2>2. Étude du contexte</h2>
+        <h3 style="margin-left: 30px">2.1 Description</h3>
+        <h2>3. Études des des principes fondamentaux</h2>
+        <h2>4. Études des risques liés à la sécurité des données</h2>
+        <h3 style="margin-left: 30px">4.1 Évaluation des risques sur les droits et les libertés des personnes concernées</h3>
+        <h3 style="margin-left: 30px">4.2 Evaluation de l'impact et matrice de décision</h3>
+        <h3 style="margin-left: 30px">4.3 Mesure(s) de réduction des risques envisagée(s)</h3>
+        <h3 style="margin-left: 30px">4.4 Risques résiduels</h3>
+        <h2>5. Validation de l'AIPD</h2>
+        <h3 style="margin-left: 30px">5.1 Préparation des éléments utiles à la validation</h3>
+        <h4 style="margin-left: 60px">5.1.1 Synthèse des quatres étapes</h4>
+        <h3 style="margin-left: 30px">5.2 Avis des personnes consultées</h3>
+        <h2>6. Annexes</h2>
+        <h3 style="margin-left: 30px">6.1 Glossaire</h3>
+        <h3 style="margin-left: 30px">6.2 Fiche de traitement</h3>
+
+
         <div  style="page-break-before: always;">
             <h2>1. Préambule</h2>
         </div>
@@ -135,7 +162,7 @@
         <div style="margin-left:50px;">3- Apprécier les risques sur la vie privée liés à la sécurité des données et vérifier qu’ils sont convenablement traités ;</div>
         <div style="margin-left:50px;">4- Formaliser la validation du PIA au regard des éléments précédents ou bien décider de réviser les étapes précédentes.</div>
 
-        <div style="text-align: center"><img src='{{ asset("images/cycleAIPD.jpg") }}' height="300" alt="CycleAIPD"></div>
+        <div style="text-align: center"><img src='{{ absolute_url(asset("images/cycleAIPD.jpg")) }}' height="300" alt="CycleAIPD"></div>
 
         <div>Il s'agit d'un <strong>processus d'amélioration continue</strong>. Il requiert donc parfois plusieurs itérations pour parvenir à un dispositif de protection de la vie privée acceptable. Il requiert en outre une surveillance des évolutions dans le temps (du contexte, des mesures, des risques, etc.), par exemple tous les ans, et des mises à jour dès qu'une évolution significative a lieu.</div>
         <div>La démarche devrait être employée <strong>dès la conception d'un nouveau traitement de données à caractère personnel</strong>. En effet, une application en amont permet de déterminer les mesures nécessaires et suffisantes, et donc d'optimiser les coûts. A contrario, une application tardive, alors que le système est déjà créé et les mesures en place, peut remettre en question les choix effectués.</div>
@@ -143,9 +170,9 @@
         <h3>1.2 Conformité d’une Analyse d’Impact relative à la Protection des Données</h3>
         <div>L’objectif est d’obtenir la conformité du traitement grâce à l’AIPD</div>
         <div class="separator"></div>
-        <div style="text-align: center"><img src='{{ asset("images/ConformitéAIPD.jpg") }}' height="200" alt="ConformitéAIPD"></div>
+        <div style="text-align: center"><img src='{{ absolute_url(asset("images/ConformitéAIPD.png")) }}' width="800" alt="ConformitéAIPD"></div>
 
-        <div  style="page-break-before: always;">
+        <div  style="page-break-before: always;"></div>
         <h2>2. Étude du contexte</h2>
         <div>Ce chapitre a pour objectif de fournir une vision claire de l'organisation et du traitement de données personnelles considéré</div>
         <h3>2.1 Description</h3>
@@ -303,7 +330,7 @@
             {% endif %}
         </div>
 
-        <div  style="page-break-before: always;">
+        <div  style="page-break-before: always;"></div>
         <h2>3. Études des des principes fondamentaux</h2>
         <div>Ce chapitre a pour objectif de s’assurer que le dispositif relatif aux principes de protection de la vie privée est conforme.</div>
         <div class="separator"></div>
@@ -344,7 +371,7 @@
         </table>
         <div class="reportGraph"><canvas id="grandsDomaines-chart"></canvas></div>
 
-        <div  style="page-break-before: always;">
+        <div  style="page-break-before: always;"></div>
         <h2>4. Études des risques liés à la sécurité des données</h2>
         <div>Ce chapitre a pour objectifs d'obtenir une bonne connaissance des mesures contribuant à la sécurité et d'apprécier les risques.</div>
         <h3>4.1 Évaluation des risques sur les droits et les libertés des personnes concernées</h3>
@@ -394,7 +421,7 @@
                 <td>Il ne semble pas possible que les sources de risques retenues puissent réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papiers stockés dans un local de l'organisme dont l'accès est contrôlé par badge et code d'accès).</td>
             </tr>
         </table>
-        <div style="text-align: center"><img src='{{ asset("images/cycleAIPD.jpg") }}' height="300" alt="CycleAIPD"></div>
+        <div style="text-align: center"><img src='{{ absolute_url(asset("images/matriceAIPD.png")) }}' height="300" alt="CycleAIPD"></div>
 
         <h3>4.2 Evaluation de l'impact et matrice de décision</h3>
         <table class="table table-bordered">
@@ -442,7 +469,6 @@
         </div>
 
         <h3>4.3 Mesure(s) de réduction des risques envisagée(s)</h3>
-        <h4>4.3.1 Évaluation</h4>
         <table class="table table-bordered">
             <tr>
                 <th>Type de mesure</th>
@@ -466,7 +492,7 @@
         <div class="reportGraph"><canvas id="risquesResiduels-chart"></canvas></div>
         <div class="reportGraph"><canvas id="dicResiduels-chart"></canvas></div>
 
-        <div  style="page-break-before: always;">
+        <div  style="page-break-before: always;"></div>
         <h2>5. Validation de l'AIPD</h2>
         <div>Ce chapitre a pour objectifs de permettre la prise de décision visant à accepter ou non l'AIPD au regard des résultats de l'étude.</div>
         <h3>5.1 Préparation des éléments utiles à la validation</h3>
@@ -520,7 +546,7 @@
             </tr>
         </table>
 
-        <h4>5.2 Avis des personnes consultées</h4>
+        <h3>5.2 Avis des personnes consultées</h3>
 
         <table class="table table-bordered">
             <tr>
@@ -560,11 +586,7 @@
 {#            //////////////////////////////////////#}
         <div style="page-break-before: always;">
             <h2>6. Annexes</h2>
-            <h3>6.1 Historique AIPD</h3>
-            <div></div>
-            <div></div>
-
-            <h3>6.2 Glossaire</h3>
+            <h3>6.1 Glossaire</h3>
             <div class="annexe-head">Donnée à caractère personnel</div>
             <div>Toute information se rapportant à une personne physique identifiée ou identifiable (ci-après dénommée "personne concernée"); est réputée pour être une "personne physique identifiable" une personne physique qui peut être identifiée, directement ou indirectement, notamment par référence à un identifiant, tel qu'un nom, un numéro d'identification, des données de localisation, un identifiant en ligne, ou à un ou plusieurs éléments spécifiques propres à son identité physique, physiologique, génétique, psychique, économique, culturelle ou sociale.</div>
             <div class="annexe-head">Événement redouté</div>
@@ -584,7 +606,7 @@
             <div class="annexe-head">Vraisemblance</div>
             <div>Estimation de la possibilité qu'un risque se réalise.</div>
 
-            <h3>6.3 Références</h3>
+            <h3>6.2 Références</h3>
             <div class="annexe-head">CNIL / CEPD</div>
             <div class="annexe-link">https://www.cnil.fr/fr/ce-quil-faut-savoir-sur-lanalyse-dimpact-relative-la-protection-des-donnees-aipd</div>
             <div class="annexe-link">https://www.cnil.fr/fr/nouveautes-sur-le-pia-guides-outil-piaf-etude-de-cas</div>
