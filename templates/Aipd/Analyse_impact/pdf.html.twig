@@ -197,7 +197,7 @@
                     {% if object.criterePrincipeFondamentalByCode('contexte_traitement').fichier %}
                         <tr>
                             <td colspan="2" style="text-align: center">
-                                <img src="{{asset(object.criterePrincipeFondamentalByCode('contexte_traitement').fichier)}}" height="200" alt="contextFile">
+                                <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('contexte_traitement').fichier))}}" height="200" alt="contextFile">
                             </td>
                         </tr>
                     {% endif %}
@@ -216,7 +216,7 @@
                     {% if object.criterePrincipeFondamentalByCode('portee_traitement').fichier %}
                         <tr>
                             <td colspan="2" style="text-align: center">
-                                <img src="{{asset(object.criterePrincipeFondamentalByCode('portee_traitement').fichier)}}" height="200" alt="contextFile">
+                                <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('portee_traitement').fichier))}}" height="200" alt="contextFile">
                             </td>
                         </tr>
                     {% endif %}
@@ -282,7 +282,7 @@
                     {% if object.criterePrincipeFondamentalByCode('description_fonctionnelle').fichier %}
                         <tr>
                             <td colspan="2" style="text-align: center">
-                                <img src="{{asset(object.criterePrincipeFondamentalByCode('description_fonctionnelle').fichier)}}" height="200" alt="contextFile">
+                                <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('description_fonctionnelle').fichier))}}" height="200" alt="contextFile">
                             </td>
                         </tr>
                     {% endif %}
@@ -302,7 +302,7 @@
                     {% if object.criterePrincipeFondamentalByCode('identification_biens').fichier %}
                         <tr>
                             <td colspan="2" style="text-align: center">
-                                <img src="{{asset(object.criterePrincipeFondamentalByCode('identification_biens').fichier)}}" height="200" alt="contextFile">
+                                <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('identification_biens').fichier))}}" height="200" alt="contextFile">
                             </td>
                         </tr>
                     {% endif %}
@@ -322,7 +322,7 @@
                 {% if object.criterePrincipeFondamentalByCode('conformite_code').fichier %}
                     <tr>
                         <td colspan="2" style="text-align: center">
-                            <img src="{{asset(object.criterePrincipeFondamentalByCode('conformite_code').fichier)}}" height="200" alt="contextFile">
+                            <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('conformite_code').fichier))}}" height="200" alt="contextFile">
                         </td>
                     </tr>
                 {% endif %}
@@ -335,6 +335,20 @@
         <h2>3. Études des des principes fondamentaux</h2>
         <div>Ce chapitre a pour objectif de s’assurer que le dispositif relatif aux principes de protection de la vie privée est conforme.</div>
         <div class="separator"></div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Conformité</th>
+                </tr>
+            </thead>
+            {% for critere in object.criterePrincipeFondamentaux %}
+                <tr>
+                    <td>{{ critere.labelLivrable }}</td>
+                    <td>{{ getCritereLabel(critere)|raw }}</td>
+                </tr>
+            {% endfor %}
+        </table>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -376,7 +390,7 @@
         <h2>4. Études des risques liés à la sécurité des données</h2>
         <div>Ce chapitre a pour objectifs d'obtenir une bonne connaissance des mesures contribuant à la sécurité et d'apprécier les risques.</div>
         <h3>4.1 Évaluation des risques sur les droits et les libertés des personnes concernées</h3>
-
+        <div style="text-align: center"><img src='{{ absolute_url(asset("images/NiveauRisque.png")) }}' height="300" alt="Niveau risque"></div>
         <table class="table table-bordered" style="margin-left: 40px; margin-right: 40px;">
             <tr class="table-indicateur-head">
                 <td>Niveaux</td>
@@ -422,8 +436,9 @@
                 <td>Il ne semble pas possible que les sources de risques retenues puissent réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papiers stockés dans un local de l'organisme dont l'accès est contrôlé par badge et code d'accès).</td>
             </tr>
         </table>
-        <div style="text-align: center"><img src='{{ absolute_url(asset("images/matriceAIPD.png")) }}' height="300" alt="CycleAIPD"></div>
+        <div style="text-align: center"><img src='{{ absolute_url(asset("images/matriceAIPD.png")) }}' height="300" alt="MatriceAIPD"></div>
 
+        <div  style="page-break-before: always;"></div>
         <h3>4.2 Evaluation de l'impact et matrice de décision</h3>
         <table class="table table-bordered">
             <tr>
@@ -448,26 +463,8 @@
             {% endfor %}
         </table>
         <div>La matrice de décision ci-dessous vous informe du comportement attendu par la CNIL selon le niveau d'impact identifié :</div>
-        <div>
-            <table class="table table-bordered">
-                <tr>
-                    <td>Impact maximal</td>
-                    <td style="color: red">Risque refusé <br />Avis CNIL</td>
-                </tr>
-                <tr>
-                    <td>Impact important</td>
-                    <td>Risque refusé</td>
-                </tr>
-                <tr>
-                    <td>Impact limité</td>
-                    <td>Risque refusé</td>
-                </tr>
-                <tr>
-                    <td>Impact négligeableté</td>
-                    <td>Risque accepté</td>
-                </tr>
-            </table>
-        </div>
+        <div>La CNIL préconise d’accepter les risques uniquement lorsque l’impact est négligeable. Dans les autres cas, il faudra apporter des mesures de protection supplémentaires pour venir corriger les anomalies identifiées. Dans le cas où le risque est maximal et que les mesures ne sont pas jugées suffisantes, il conviendra de solliciter l’avis de la CNIL.</div>
+        <div style="text-align: center"><img src='{{ absolute_url(asset("images/MatriceDecision.png")) }}' height="300" alt="MatriceDecision"></div>
 
         <h3>4.3 Mesure(s) de réduction des risques envisagée(s)</h3>
         <table class="table table-bordered">
@@ -488,6 +485,7 @@
         </table>
         <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
 
+        <div  style="page-break-before: always;"></div>
         <h3>4.4 Risques résiduels</h3>
         <div>Les risques résiduels correspondent aux risques non-traités ou pour lesquels il n'est pas prévu de mettre en oeuvre l'ensemble des mesures de sécurité.</div>
         <div class="reportGraph"><canvas id="risquesResiduels-chart"></canvas></div>
@@ -499,56 +497,102 @@
         <h3>5.1 Préparation des éléments utiles à la validation</h3>
         <h4>5.1.1 Synthèse des quatres étapes</h4>
         <div>Ci-dessous une synthèse des quatres étapes de l'AIPD.</div>
+        <div class="box box-solid box-info">
+            <div class="box-header with-border"><h3 class="box-title" style="color: white">Description et conformité</h3></div>
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Label</th>
+                        <th>Conformité</th>
+                    </tr>
+                    </thead>
+                    {% for critere in object.criterePrincipeFondamentaux %}
+                        <tr>
+                            <td>{{ critere.labelLivrable }}</td>
+                            <td>{{ getCritereLabel(critere)|raw }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <br/>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Conformité</th>
+                    </tr>
+                    </thead>
+                    {% for QuestionConformite in object.questionConformites %}
+                        <tr>
+                            <td>{{ QuestionConformite.question }}
+                                {% if QuestionConformite.ReponseConformite.actionProtections is not same as null %}
+                                    {% for action in QuestionConformite.ReponseConformite.actionProtections %}
+                                        <div style="margin-left: 20px;font-size:12px;">
+                                            <span>{{action.name}}</span>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if QuestionConformite.justificatif is not same as null %}
+                                    <div style="margin-left: 20px;font-size:12px;">
+                                        <span>{{ QuestionConformite.justificatif }}</span>
+                                    </div>
+                                {% endif %}
+                            </td>
+                            {% if QuestionConformite.ReponseConformite.conforme %}
+                                <td><span class="label label-success" style="min-width: 100%; display: inline-block;"> Conforme</span></td>
+                            {% else %}
+                                {% if QuestionConformite.ReponseConformite.actionProtections|length > 0 %}
+                                    <td><span class="label label-warning" style="min-width: 100%; display: inline-block;"> Non-conforme mineure</span></td>
+                                {% else%}
+                                    <td><span class="label label-danger" style="min-width: 100%; display: inline-block;"> Non-conforme majeure</span></td>
+                                {% endif %}
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
+                        <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
+                        <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
+                    </tr>
+                     {% for scenario in object.scenarioMenaces %}
+                        <tr>
+                            <td>{{ scenario.nom }}</td>
+                            <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
+                            <td>{{ getScenarioMenaceImpactResiduelLabel(scenario)|raw }}</td>
+                        </tr>
+                    {% endfor %}
 
-        <table class="table table-bordered">
-            <tr style="background: #ef7d22; text-align: center;">
-                <td colspan="2">Description</td>
-            </tr>
-            <tr>
-                <td style="width: 80%"></td>
-                <td></td>
-            </tr>
-            <tr style="background: #a6a6a6; text-align: center;">
-                <td colspan="2">Principes fondamentaux</td>
-            </tr>
-            {% for critere in object.criterePrincipeFondamentaux %}
-                <tr>
-                    <td>{{ critere.labelLivrable }}</td>
-                    <td>{{ critere.reponse|dictionary('reponse_critere_fondamental') }}</td>
-                </tr>
-            {% endfor %}
-            <tr style="background: #ffc100; text-align: center;">
-                <td colspan="2">Risques liés à la sécurité</td>
-            </tr>
-            {% for mesure in object.mesureProtections %}
-                <tr>
-                    <td>{{ mesure.nom }}</td>
-                    <td>{{ mesure.reponse|dictionary('reponse_mesure_protection') }}</td>
-                </tr>
-            {% endfor %}
-            <tr style="background: #6eae40; text-align: center;">
-                <td colspan="2">Validation</td>
-            </tr>
-            <tr>
-                <td>Avis du référent RGPD</td>
-                <td>{{ object.avisReferent.reponse }}</td>
-            </tr>
-            <tr>
-                <td>Avis du DPD mutualisé</td>
-                <td>{{ object.avisDpd.reponse }}</td>
-            </tr>
-            <tr>
-                <td>Avis des représentants des personnes concernées</td>
-                <td>{{ object.avisRepresentant.reponse }}</td>
-            </tr>
-            <tr>
-                <td>Validation formelle du Responsable de Traitement</td>
-                <td>{{ object.avisResponsable.reponse }}</td>
-            </tr>
-        </table>
+                </table>
+            </div>
+        </div>
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">{{ 'aipd.mesure_protection.list.nom'|trans }}</th>
+                            <th style="width: 20%;">{{ 'aipd.mesure_protection.list.reponse'|trans }}</th>
+                        </tr>
+                    </thead>
+                    {% for mesure in object.mesureProtections %}
+                        <tr>
+                            <td>{{ mesure.nom }}</td>
+                            <td>{{ mesure.reponse|dictionary('reponse_mesure_protection') }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
 
         <h3>5.2 Avis des personnes consultées</h3>
-
         <table class="table table-bordered">
             <tr>
                 <td class="table-bluecell">Avis du référent RGPD</td>
@@ -636,7 +680,7 @@
             <div class="col-md-6">
                 {#             GENERAL INFORMATIONS#}
                 <div class="box box-solid box-info">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
                     <div class="box-body no-padding">
                         <table class="table">
                             <tbody>
@@ -709,7 +753,7 @@
                 {% if traitement.dpoMessage is not null %}
                     <div class="box box-solid box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
+                            <h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
                         </div>
                         <div class="box-body">
                             {{  traitement.dpoMessage }}
@@ -719,7 +763,7 @@
 
                 {#             DATA CATEGORY#}
                 <div class="box box-solid box-warning">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
                     <div class="box-body no-padding">
                         <table class="table">
                             <tbody>
@@ -748,7 +792,7 @@
 
                 {#             RECIPIENTS#}
                 <div class="box box-solid box-primary">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
                     <div class="box-body no-padding">
                         <table class="table">
                             <tbody>
@@ -773,7 +817,7 @@
 
                 {#             SPECIFIC#}
                 <div class="box box-solid box-info">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.specific'|trans }}</h3></div>
                     <div class="box-body no-padding">
                         <table class="table">
                             <tbody>
@@ -882,7 +926,7 @@
             <div class="col-md-6">
                 {#             DETAILS#}
                 <div class="box box-solid box-primary">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
                     <div class="box-body no-padding">
                         <table class="table">
                             <tbody>
@@ -1023,7 +1067,7 @@
 
                 {#             SECURITY#}
                 <div class="box box-solid box-success">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
                     <div class="box-body no-padding">
                         <table class="table">
                             <tbody>
@@ -1120,7 +1164,7 @@
 
                 {#             PROOFS#}
                 <div class="box box-solid box-warning">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_documents'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'label.linked_documents'|trans }}</h3></div>
                     <div class="box-body">
                         {% set activeProofs = traitement.proofs|filter(proof => proof.deletedAt is null) -%}
 
@@ -1142,7 +1186,7 @@
 
                 {# REQUESTS #}
                 <div class="box box-solid box-warning">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_request'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'label.linked_request'|trans }}</h3></div>
                     <div class="box-body">
                         {% set activeRequests = traitement.requests %}
 
@@ -1162,7 +1206,7 @@
 
                 {# VIOLATIONS #}
                 <div class="box box-solid box-warning">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_violations'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'label.linked_violations'|trans }}</h3></div>
                     <div class="box-body">
                         {% set activeViolations = traitement.violations %}
 
@@ -1182,7 +1226,7 @@
 
                 {# Mesurements #}
                 <div class="box box-solid box-warning">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_mesurement'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'label.linked_mesurement'|trans }}</h3></div>
                     <div class="box-body">
                         {% if traitement.mesurements|length > 0 %}
                             <ul>
@@ -1200,7 +1244,7 @@
 
                 {% if traitement.collectivity.hasModuleConformiteTraitement %}
                     <div class="box box-solid box-success">
-                        <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.conformite'|trans }}</h3></div>
+                        <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.conformite'|trans }}</h3></div>
                         <div class="box-body">
                             <table class="table">
                                 <tr>
@@ -1245,7 +1289,7 @@
                     </div>
                     {% if traitement.conformiteTraitement is not null and traitement.conformiteTraitement.lastAnalyseImpact is not null %}
                         <div class="box box-solid box-primary">
-                            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.last_aipd'|trans }}</h3></div>
+                            <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.last_aipd'|trans }}</h3></div>
                             <div class="box-body">
                                 <table class="table">
                                     <tr>
@@ -1297,7 +1341,7 @@
 
                 {#             HISTORIC#}
                 <div class="box box-solid box-default">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.historic'|trans }}</h3></div>
                     <div class="box-body no-padding">
                         <table class="table">
                             <tbody>
