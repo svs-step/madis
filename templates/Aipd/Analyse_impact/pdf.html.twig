@@ -145,6 +145,7 @@
         <div class="separator"></div>
         <div style="text-align: center"><img src='{{ asset("images/ConformitéAIPD.jpg") }}' height="200" alt="ConformitéAIPD"></div>
 
+        <div  style="page-break-before: always;">
         <h2>2. Étude du contexte</h2>
         <div>Ce chapitre a pour objectif de fournir une vision claire de l'organisation et du traitement de données personnelles considéré</div>
         <h3>2.1 Description</h3>
@@ -301,8 +302,8 @@
             <div class="separator"></div>
             {% endif %}
         </div>
-        <div class="reportGraph"><canvas id="grandsDomaines-chart"></canvas></div>
 
+        <div  style="page-break-before: always;">
         <h2>3. Études des des principes fondamentaux</h2>
         <div>Ce chapitre a pour objectif de s’assurer que le dispositif relatif aux principes de protection de la vie privée est conforme.</div>
         <div class="separator"></div>
@@ -318,31 +319,32 @@
                     <td>{{ QuestionConformite.question }}
                         {% if QuestionConformite.ReponseConformite.actionProtections is not same as null %}
                             {% for action in QuestionConformite.ReponseConformite.actionProtections %}
-                            <div>
-                                <span>action.name</span>
+                            <div style="margin-left: 20px;font-size:12px;">
+                                <span>{{action.name}}</span>
                             </div>
                             {% endfor %}
                         {% endif %}
-                        {#
-                        {% if QuestionConformite.question.justificatif is not same as null %}
-                            <div><span>{{ QuestionConformite.question.justificatif }}</span></div>
-                        {% endif %} #}
-
+                        {% if QuestionConformite.justificatif is not same as null %}
+                            <div style="margin-left: 20px;font-size:12px;">
+                                <span>{{ QuestionConformite.justificatif }}</span>
+                            </div>
+                        {% endif %}
                     </td>
                     {% if QuestionConformite.ReponseConformite.conforme %}
                         <td><span class="label label-success" style="min-width: 100%; display: inline-block;"> Conforme</span></td>
                     {% else %}
-                        {% if QuestionConformite.ReponseConformite.actionProtections is same as null %}
-                            <td><span class="label label-warning" style="min-width: 100%; display: inline-block;"> Non-conforme majeure</span></td>
+                        {% if QuestionConformite.ReponseConformite.actionProtections|length > 0 %}
+                            <td><span class="label label-warning" style="min-width: 100%; display: inline-block;"> Non-conforme mineure</span></td>
                         {% else%}
-                            <td><span class="label label-danger" style="min-width: 100%; display: inline-block;"> Non-conforme mineure</span></td>
+                            <td><span class="label label-danger" style="min-width: 100%; display: inline-block;"> Non-conforme majeure</span></td>
                         {% endif %}
                     {% endif %}
                 </tr>
             {% endfor %}
-
         </table>
+        <div class="reportGraph"><canvas id="grandsDomaines-chart"></canvas></div>
 
+        <div  style="page-break-before: always;">
         <h2>4. Études des risques liés à la sécurité des données</h2>
         <div>Ce chapitre a pour objectifs d'obtenir une bonne connaissance des mesures contribuant à la sécurité et d'apprécier les risques.</div>
         <h3>4.1 Évaluation des risques sur les droits et les libertés des personnes concernées</h3>
@@ -392,7 +394,9 @@
                 <td>Il ne semble pas possible que les sources de risques retenues puissent réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papiers stockés dans un local de l'organisme dont l'accès est contrôlé par badge et code d'accès).</td>
             </tr>
         </table>
+        <div style="text-align: center"><img src='{{ asset("images/cycleAIPD.jpg") }}' height="300" alt="CycleAIPD"></div>
 
+        <h3>4.2 Evaluation de l'impact et matrice de décision</h3>
         <table class="table table-bordered">
             <tr>
                 <th>D</th>
@@ -411,17 +415,16 @@
                     <td>{{ scenario.nom }}</td>
                     <td>{{ scenario.vraisemblance|dictionary('vraisemblance_gravite') }}</td>
                     <td>{{ scenario.gravite|dictionary('vraisemblance_gravite') }}</td>
-                    <td>{{ getScenarioMenaceImpactPotentiel(scenario) }}</td>
+                    <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
                 </tr>
             {% endfor %}
         </table>
-        <h3>4.2 Evaluation de l'impact et matrice de décision</h3>
         <div>La matrice de décision ci-dessous vous informe du comportement attendu par la CNIL selon le niveau d'impact identifié :</div>
         <div>
             <table class="table table-bordered">
                 <tr>
                     <td>Impact maximal</td>
-                    <td>Risque refusé <br />Avis CNIL</td>
+                    <td style="color: red">Risque refusé <br />Avis CNIL</td>
                 </tr>
                 <tr>
                     <td>Impact important</td>
@@ -463,6 +466,7 @@
         <div class="reportGraph"><canvas id="risquesResiduels-chart"></canvas></div>
         <div class="reportGraph"><canvas id="dicResiduels-chart"></canvas></div>
 
+        <div  style="page-break-before: always;">
         <h2>5. Validation de l'AIPD</h2>
         <div>Ce chapitre a pour objectifs de permettre la prise de décision visant à accepter ou non l'AIPD au regard des résultats de l'étude.</div>
         <h3>5.1 Préparation des éléments utiles à la validation</h3>
