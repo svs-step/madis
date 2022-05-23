@@ -368,7 +368,7 @@ class TreatmentController extends CRUDController
             $reponse['data'][] = [
                 'id'                     => $treatment->getId(),
                 'nom'                    => $treatmentLink,
-                'collectivite'           => $treatment->getCollectivity()->getName(),
+                'collectivite'           => $this->authorizationChecker->isGranted('ROLE_REFERENT') ? $treatment->getCollectivity()->getName() : '',
                 'baseLegal'              => !empty($treatment->getLegalBasis()) && array_key_exists($treatment->getLegalBasis(), TreatmentLegalBasisDictionary::getBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : $treatment->getLegalBasis(),
                 'logiciel'               => $treatment->getSoftware(),
                 'enTantQue'              => !empty($treatment->getAuthor()) && array_key_exists($treatment->getAuthor(), TreatmentAuthorDictionary::getAuthors()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : $treatment->getAuthor(),
@@ -390,8 +390,8 @@ class TreatmentController extends CRUDController
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
-        $jsonResponse = new JsonResponse();
-        $jsonResponse->setJson(json_encode($reponse));
+
+        $jsonResponse = new JsonResponse($reponse);
 
         return $jsonResponse;
     }
@@ -579,9 +579,34 @@ class TreatmentController extends CRUDController
      */
     protected function getLabelAndKeysArray(): array
     {
+        if ($this->authorizationChecker->isGranted('ROLE_REFERENT')) {
+            return [
+                '1'  => 'name',
+                '2'  => 'collectivite',
+                '3'  => 'baseLegal',
+                '4'  => 'logiciel',
+                '5'  => 'enTantQue',
+                '6'  => 'gestionnaire',
+                '7'  => 'sousTraitant',
+                '8'  => 'controleAcces',
+                '9'  => 'tracabilite',
+                '10' => 'saving',
+                '11' => 'update',
+                '12' => 'other',
+                '13' => 'entitledPersons',
+                '14' => 'openAccounts',
+                '15' => 'specificitiesDelivered',
+                '16' => 'updatedAt',
+                '17' => 'public',
+                '18' => 'responsableTraitement',
+                '19' => 'specific_traitement',
+                '20' => 'conformite_traitement',
+                '21' => 'actions',
+            ];
+        }
+
         return [
-            '0'  => 'name',
-            '1'  => 'collectivite',
+            '1'  => 'name',
             '2'  => 'baseLegal',
             '3'  => 'logiciel',
             '4'  => 'enTantQue',

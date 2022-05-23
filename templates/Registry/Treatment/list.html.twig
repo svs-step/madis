@@ -91,9 +91,11 @@
                             <th>
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
+                            {% if is_granted('ROLE_REFERENT') %}
                             <th>
                                 <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
                             </th>
+                            {% endif %}
                             <th>
                                 <select class="form-control" id="search_base_legal" style="width: 100%;">
                                     <option value="">Base légale</option>
@@ -193,7 +195,9 @@
                         <tr>
                             <th style="width:20px"><input type="checkbox" name="select_all" value="1" id="select-all-treatments"></th>
                             <th>{{ 'registry.treatment.list.name'|trans }}</th>
+                            {% if is_granted('ROLE_REFERENT') %}
                             <th>{{ 'registry.treatment.list.collectivity'|trans }}</th>
+                            {% endif %}
                             <th>{{ 'registry.treatment.list.legal_basis'|trans }}</th>
                             <th>{{ 'registry.treatment.list.software'|trans }}</th>
                             <th>{{ 'registry.treatment.list.author'|trans }}</th>
@@ -238,9 +242,31 @@
         {% set actionIsVisible = false %}
     {% endif %}
 
-
-    {% set dataTableOptions = {
-        columns: [
+    {% set cols = [
+        {"data": "id", "className": "noVis"},
+        {"data": "nom", "className": "noVis"},
+        {"data": "baseLegal", "visible": true},
+        {"data": "logiciel", "visible": true},
+        {"data": "enTantQue", "visible": false},
+        {"data": "gestionnaire", "visible": true},
+        {"data": "sousTraitant", "visible": false, "orderable": false},
+        {"data": "controleAcces", "visible": false},
+        {"data": "tracabilite", "visible": false},
+        {"data": "saving", "visible": true},
+        {"data": "other", "visible": false},
+        {"data": "entitledPersons", "visible": false},
+        {"data": "openAccounts", "visible": false},
+        {"data": "specificitiesDelivered", "visible": false},
+        {"data": "updatedAt", "visible": true},
+        {"data": "public", "visible": false},
+        {"data": "update", "visible": true},
+        {"data": "responsableTraitement", "visible": false},
+        {"data": "specific_traitement", "render": "[, ]","visible": true},
+        {"data": "conformite_traitement","visible": false, "orderable": false},
+        {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
+    ] %}
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set cols = [
             {"data": "id", "className": "noVis"},
             {"data": "nom", "className": "noVis"},
             {"data" : "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
@@ -263,12 +289,18 @@
             {"data": "specific_traitement", "render": "[, ]","visible": true},
             {"data": "conformite_traitement","visible": false, "orderable": false},
             {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
-        ],
+        ] %}
+    {% endif %}
+
+
+    {% set dataTableOptions = {
+        columns: cols,
         order:  [
             [1, 'asc' ]
         ],
         'addcheckbox': true,
     } %}
+
 
     <script>
         function cbColRenderFunction (data, type, full, meta){
@@ -401,7 +433,6 @@
             $('#search_sauvegarde').change(function(){
                 oTable.column('10').search($(this).val()).draw() ;
             });
-
 
 
             $('#search_autres').off('change');
