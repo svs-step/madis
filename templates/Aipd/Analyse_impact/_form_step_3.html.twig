@@ -1,4 +1,4 @@
-<table class="table table-bordered" style="text-: center">
+<table class="table table-bordered" style="text-: center" id="step3-table">
     <tr>
         <th style="width: 3%">D</th>
         <th style="width: 3%">I</th>
@@ -41,7 +41,7 @@
             <td>
                 {{ scenario.vars.value.nom }}</td>
             <td>
-                {% if scenario.vars.value.vraisemblance is not null and scenario.vars.value.vraisemblance != 'vide' %}
+                {% if scenario.vars.value.canVraisemblanceBeModified %}
                     {{ scenario.vars.value.vraisemblance|dictionary('vraisemblance_gravite') }}
                     <div style="display: none">
                         {{ form_widget(scenario.vraisemblance) }}
@@ -51,7 +51,7 @@
                 {% endif %}
             </td>
             <td>
-                {% if scenario.vars.value.gravite is not null and scenario.vars.value.gravite != 'vide' %}
+                {% if scenario.vars.value.canGraviteBeModified %}
                     {{ scenario.vars.value.gravite|dictionary('vraisemblance_gravite') }}
                     <div style="display: none">
                         {{ form_widget(scenario.gravite) }}
@@ -59,12 +59,15 @@
                 {% else %}
                     {{ form_widget(scenario.gravite) }}
                 {% endif %}
-            <td>
-                {% if scenario.vars.value.gravite is not null and scenario.vars.value.gravite != 'vide' %}
-                {{ getScenarioMenaceImpactPotentielLabel(scenario.vars.value)|raw }}
+            <td class="impact-potentiel">
+                {% if scenario.vars.value.gravite is not null and scenario.vars.value.gravite != 'vide' and scenario.vars.value.vraisemblance is not null and scenario.vars.value.vraisemblance != 'vide' %}
+                    <span>
+                        {{ getScenarioMenaceImpactPotentielLabel(scenario.vars.value)|raw }}
+                    </span>
                 {% endif %}
             </td>
             <td>{{ form_widget(scenario.precisions) }}</td>
         </tr>
     {% endfor %}
 </table>
+

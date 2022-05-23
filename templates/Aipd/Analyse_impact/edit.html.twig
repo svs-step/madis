@@ -79,3 +79,20 @@
 
     {{ form_end(form) }}
 {% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            const $table=$('#step3-table');
+            function hideLabel(ev) {
+                console.log('event', ev)
+                const $t = $(ev.target);
+                const $row = $t.parents('tr')
+                const $label = $row.find('.impact-potentiel > span')
+                $label.hide();
+            }
+            $table.find('.vraisemblance-dropdown').on('change', hideLabel)
+            $table.find('.gravite-dropdown').on('change', hideLabel)
+        })
+
+    </script>
+{% endblock %}
