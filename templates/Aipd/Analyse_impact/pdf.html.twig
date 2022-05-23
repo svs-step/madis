@@ -107,6 +107,11 @@
         </div>
         <div class="separator"></div>
         <div class="row">
+            <div><strong style="font-size: 1.6em; margin-left:30px;">Référent RGPD</strong></div>
+            <span style="font-size: 1.2em; margin-left:45px;">{{ object.conformiteTraitement.traitement.collectivity.referent.civility|dictionary('user_contact_civility') }} {{ object.conformiteTraitement.traitement.collectivity.referent.firstName }} {{ object.conformiteTraitement.traitement.collectivity.referent.lastName }}</span>
+        </div>
+        <div class="separator"></div>
+        <div class="row">
             <div><strong style="font-size: 1.6em; margin-left:30px;">Délégué à la Protection des Données</strong></div>
             <span style="font-size: 1.2em; margin-left:45px;">
                 {{ object.conformiteTraitement.traitement.collectivity.dpo.civility|dictionary('user_contact_civility') }}
@@ -114,17 +119,65 @@
                 {{ object.conformiteTraitement.traitement.collectivity.dpo.lastName }}
             </span>
         </div>
+        <div class="separator"></div>
+        <div class="row">
+            <div>
+                <strong style="font-size: 1.6em; margin-left:30px;">Date de validation de l’AIPD : </strong>
+                <strong style="font-size: 1.6em; margin-left:150px;">Signature du Responsable du Traitement</strong>
+            </div>
+            <span style="font-size: 1.2em; margin-left:45px;">{{ (object.conformiteTraitement.analyseImpacts|first).dateValidation|date('d/m/Y') }}</span>
+        </div>
+
+        <div  style="page-break-before: always;"></div>
+        <div class="separator"></div>
+        <h1 style="text-align: center;">Sommaire</h1>
+        <div class="separator"></div>
+        <div class="separator"></div>
+        <h2>1. Préambule</h2>
+        <h3 style="margin-left: 30px">1.1 Méthode d'une Analyse d'Impact relative à la Protection des Données</h3>
+        <h3 style="margin-left: 30px">1.2 Conformité d’une Analyse d’Impact relative à la Protection des Données</h3>
+        <h2>2. Étude du contexte</h2>
+        <h3 style="margin-left: 30px">2.1 Description</h3>
+        <h2>3. Études des des principes fondamentaux</h2>
+        <h2>4. Études des risques liés à la sécurité des données</h2>
+        <h3 style="margin-left: 30px">4.1 Évaluation des risques sur les droits et les libertés des personnes concernées</h3>
+        <h3 style="margin-left: 30px">4.2 Evaluation de l'impact et matrice de décision</h3>
+        <h3 style="margin-left: 30px">4.3 Mesure(s) de réduction des risques envisagée(s)</h3>
+        <h3 style="margin-left: 30px">4.4 Risques résiduels</h3>
+        <h2>5. Validation de l'AIPD</h2>
+        <h3 style="margin-left: 30px">5.1 Préparation des éléments utiles à la validation</h3>
+        <h4 style="margin-left: 60px">5.1.1 Synthèse des quatres étapes</h4>
+        <h3 style="margin-left: 30px">5.2 Avis des personnes consultées</h3>
+        <h2>6. Annexes</h2>
+        <h3 style="margin-left: 30px">6.1 Glossaire</h3>
+        <h3 style="margin-left: 30px">6.2 Références</h3>
+        <h3 style="margin-left: 30px">6.3 Fiche de traitement</h3>
+
+
         <div  style="page-break-before: always;">
             <h2>1. Préambule</h2>
         </div>
-        <div>Le présent document contient tous les éléments nécessaires pour le Resposable de Traitement (RT), le Référent RGPD (RR) et le Délégué à la Protection des Données (DPD) pour mener à bien une Analyse d'Impact relative à la Protection des Données (le sigle AIPD sera utilisé dans la suite de ce document) conforme aux attentes de la CNIL.</div>
-        <div>Il est possible de retrouver l'ensemble des éléments produits dans ce docoment dans le logiciel MADIS.</div>
+        <div>Le présent document contient tous les éléments nécessaires pour le Responsable de Traitement (RT), le Référent RGPD (RR) et le Délégué à la Protection des Données (DPD) pour mener à bien une Analyse d'Impact relative à la Protection des Données (le sigle AIPD sera utilisé dans la suite de ce document) conforme aux attentes de la CNIL.</div>
+        <div>Il est possible de retrouver l'ensemble des éléments produits dans ce document dans le logiciel MADIS.</div>
 
         <h3>1.1 Méthode d'une Analyse d'Impact relative à la Protection des Données</h3>
-        <div>La démarche pour réaliser une analyse d'ipact comprend quatre étapes :</div>
-        <div>Il s'agit d'un <strong>processus d'amélioration continue</strong>. Il requiert donc parfois plusieurs itérations pour parvenir à un dispositif de protection de la vie privée acceptable. Il requiert en outre une surveillance des évolutions dans le temps (du context, des mesures, des risques, etc.), par exemple tous les ans, et des mises à jur dès qu'une évolution significative a lieu.</div>
+        <div>La démarche pour réaliser une analyse d'impact comprend quatre étapes :</div>
+        <div style="margin-left:50px;">1- Délimiter et décrire le contexte du(des) traitement(s) considéré(s);</div>
+        <div style="margin-left:50px;">2- Analyser les mesures garantissant le respect des principes fondamentaux : la proportionnalité et la nécessité du traitement, et la protection des droits des personnes concernées;</div>
+        <div style="margin-left:50px;">3- Apprécier les risques sur la vie privée liés à la sécurité des données et vérifier qu’ils sont convenablement traités ;</div>
+        <div style="margin-left:50px;">4- Formaliser la validation du PIA au regard des éléments précédents ou bien décider de réviser les étapes précédentes.</div>
+
+        <div style="text-align: center"><img src='{{ absolute_url(asset("images/cycleAIPD.jpg")) }}' height="300" alt="CycleAIPD"></div>
+
+        <div>Il s'agit d'un <strong>processus d'amélioration continue</strong>. Il requiert donc parfois plusieurs itérations pour parvenir à un dispositif de protection de la vie privée acceptable. Il requiert en outre une surveillance des évolutions dans le temps (du contexte, des mesures, des risques, etc.), par exemple tous les ans, et des mises à jour dès qu'une évolution significative a lieu.</div>
         <div>La démarche devrait être employée <strong>dès la conception d'un nouveau traitement de données à caractère personnel</strong>. En effet, une application en amont permet de déterminer les mesures nécessaires et suffisantes, et donc d'optimiser les coûts. A contrario, une application tardive, alors que le système est déjà créé et les mesures en place, peut remettre en question les choix effectués.</div>
 
+        <h3>1.2 Conformité d’une Analyse d’Impact relative à la Protection des Données</h3>
+        <div>L’objectif est d’obtenir la conformité du traitement grâce à l’AIPD</div>
+        <div class="separator"></div>
+        <div style="text-align: center"><img src='{{ absolute_url(asset("images/ConformitéAIPD.png")) }}' width="800" alt="ConformitéAIPD"></div>
+
+        <div  style="page-break-before: always;"></div>
         <h2>2. Étude du contexte</h2>
         <div>Ce chapitre a pour objectif de fournir une vision claire de l'organisation et du traitement de données personnelles considéré</div>
         <h3>2.1 Description</h3>
@@ -136,30 +189,45 @@
                 </tr>
             </table>
             <div class="separator"></div>
-            {% if object.criterePrincipeFondamentalByCode('portee_traitement').reponse == 'non_applicable' %}
-                <table class="table table-bordered">
-                    <tr>
-                        <td class="table-bluecell">Portée du traitement</td>
-                        <td>
-                            {{ object.criterePrincipeFondamentalByCode('portee_traitement').reponse }} <br />
-                            {{ object.criterePrincipeFondamentalByCode('portee_traitement').justification }}
-                        </td>
-                    </tr>
-                </table>
-                <div class="separator"></div>
-            {% endif %}
             {% if object.criterePrincipeFondamentalByCode('contexte_traitement').reponse != 'non_applicable' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">Contexte du traitement</td>
+                        <td class="table-bluecell">Contexte du traitement {{ object.criterePrincipeFondamentalByCode('contexte_traitement').label }}</td>
                         <td>
                             {{ object.criterePrincipeFondamentalByCode('contexte_traitement').reponse|dictionary('reponse_critere_fondamental') }}<br />
                             {{ object.criterePrincipeFondamentalByCode('contexte_traitement').justification }}
                         </td>
                     </tr>
+                    {% if object.criterePrincipeFondamentalByCode('contexte_traitement').fichier %}
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('contexte_traitement').fichier))}}" height="200" alt="contextFile">
+                            </td>
+                        </tr>
+                    {% endif %}
                 </table>
                 <div class="separator"></div>
             {% endif %}
+            {% if object.criterePrincipeFondamentalByCode('portee_traitement').reponse == 'non_applicable' %}
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="table-bluecell">Portée du traitement {{ object.criterePrincipeFondamentalByCode('portee_traitement').label }}</td>
+                        <td>
+                            {{ object.criterePrincipeFondamentalByCode('portee_traitement').reponse }} <br />
+                            {{ object.criterePrincipeFondamentalByCode('portee_traitement').justification }}
+                        </td>
+                    </tr>
+                    {% if object.criterePrincipeFondamentalByCode('portee_traitement').fichier %}
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('portee_traitement').fichier))}}" height="200" alt="contextFile">
+                            </td>
+                        </tr>
+                    {% endif %}
+                </table>
+                <div class="separator"></div>
+            {% endif %}
+
             <table class="table table-bordered">
                 <tr>
                     <td class="table-bluecell">Finalité(s) du traitement</td>
@@ -206,25 +274,127 @@
                 </tr>
             </table>
             <div class="separator"></div>
+            {% if object.criterePrincipeFondamentalByCode('description_fonctionnelle').reponse == 'non_applicable' %}
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="table-bluecell">Description fonctionnelle du traitement {{ object.criterePrincipeFondamentalByCode('description_fonctionnelle').label }}</td>
+                        <td>
+                            {{ object.criterePrincipeFondamentalByCode('description_fonctionnelle').reponse|dictionary('reponse_description_fonctionnelle') }}
+                            {{ object.criterePrincipeFondamentalByCode('description_fonctionnelle').justification }}
+                        </td>
+                    </tr>
+                    {% if object.criterePrincipeFondamentalByCode('description_fonctionnelle').fichier %}
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('description_fonctionnelle').fichier))}}" height="200" alt="contextFile">
+                            </td>
+                        </tr>
+                    {% endif %}
+                </table>
+                <div class="separator"></div>
+            {% endif %}
+            <div class="separator"></div>
+            {% if object.criterePrincipeFondamentalByCode('identification_biens').reponse == 'non_applicable' %}
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="table-bluecell">Identification des biens {{ object.criterePrincipeFondamentalByCode('identification_biens').label }}</td>
+                        <td>
+                            {{ object.criterePrincipeFondamentalByCode('identification_biens').reponse|dictionary('reponse_identification_biens') }}
+                            {{ object.criterePrincipeFondamentalByCode('identification_biens').justification }}
+                        </td>
+                    </tr>
+                    {% if object.criterePrincipeFondamentalByCode('identification_biens').fichier %}
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('identification_biens').fichier))}}" height="200" alt="contextFile">
+                            </td>
+                        </tr>
+                    {% endif %}
+                </table>
+                <div class="separator"></div>
+            {% endif %}
+            <div class="separator"></div>
             {% if object.criterePrincipeFondamentalByCode('conformite_code').reponse == 'non_applicable' %}
             <table class="table table-bordered">
                 <tr>
-                    <td class="table-bluecell">Conformité à un code de conduite existant</td>
+                    <td class="table-bluecell">Conformité à un code de conduite existant {{ object.criterePrincipeFondamentalByCode('conformite_code').label }}</td>
                     <td>
                         {{ object.criterePrincipeFondamentalByCode('conformite_code').reponse|dictionary('reponse_critere_fondamental') }}
                         {{ object.criterePrincipeFondamentalByCode('conformite_code').justification }}
                     </td>
                 </tr>
+                {% if object.criterePrincipeFondamentalByCode('conformite_code').fichier %}
+                    <tr>
+                        <td colspan="2" style="text-align: center">
+                            <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('conformite_code').fichier))}}" height="200" alt="contextFile">
+                        </td>
+                    </tr>
+                {% endif %}
             </table>
             <div class="separator"></div>
             {% endif %}
         </div>
+
+        <div  style="page-break-before: always;"></div>
+        <h2>3. Études des des principes fondamentaux</h2>
+        <div>Ce chapitre a pour objectif de s’assurer que le dispositif relatif aux principes de protection de la vie privée est conforme.</div>
+        <div class="separator"></div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Conformité</th>
+                </tr>
+            </thead>
+            {% for critere in object.criterePrincipeFondamentaux %}
+                <tr>
+                    <td>{{ critere.labelLivrable }}</td>
+                    <td>{{ getCritereLabel(critere)|raw }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Conformité</th>
+                </tr>
+            </thead>
+            {% for QuestionConformite in object.questionConformites %}
+                <tr>
+                    <td>{{ QuestionConformite.question }}
+                        {% if QuestionConformite.ReponseConformite.actionProtections is not same as null %}
+                            {% for action in QuestionConformite.ReponseConformite.actionProtections %}
+                            <div style="margin-left: 20px;font-size:12px;">
+                                <span>{{action.name}}</span>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                        {% if QuestionConformite.justificatif is not same as null %}
+                            <div style="margin-left: 20px;font-size:12px;">
+                                <span>{{ QuestionConformite.justificatif }}</span>
+                            </div>
+                        {% endif %}
+                    </td>
+                    {% if QuestionConformite.ReponseConformite.conforme %}
+                        <td><span class="label label-success" style="min-width: 100%; display: inline-block;"> Conforme</span></td>
+                    {% else %}
+                        {% if QuestionConformite.ReponseConformite.actionProtections|length > 0 %}
+                            <td><span class="label label-warning" style="min-width: 100%; display: inline-block;"> Non-conforme mineure</span></td>
+                        {% else%}
+                            <td><span class="label label-danger" style="min-width: 100%; display: inline-block;"> Non-conforme majeure</span></td>
+                        {% endif %}
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
         <div class="reportGraph"><canvas id="grandsDomaines-chart"></canvas></div>
 
+        <div  style="page-break-before: always;"></div>
         <h2>4. Études des risques liés à la sécurité des données</h2>
         <div>Ce chapitre a pour objectifs d'obtenir une bonne connaissance des mesures contribuant à la sécurité et d'apprécier les risques.</div>
         <h3>4.1 Évaluation des risques sur les droits et les libertés des personnes concernées</h3>
-
+        <div style="text-align: center"><img src='{{ absolute_url(asset("images/NiveauRisque.png")) }}' height="300" alt="Niveau risque"></div>
         <table class="table table-bordered" style="margin-left: 40px; margin-right: 40px;">
             <tr class="table-indicateur-head">
                 <td>Niveaux</td>
@@ -270,7 +440,10 @@
                 <td>Il ne semble pas possible que les sources de risques retenues puissent réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papiers stockés dans un local de l'organisme dont l'accès est contrôlé par badge et code d'accès).</td>
             </tr>
         </table>
+        <div style="text-align: center"><img src='{{ absolute_url(asset("images/matriceAIPD.png")) }}' height="300" alt="MatriceAIPD"></div>
 
+        <div  style="page-break-before: always;"></div>
+        <h3>4.2 Evaluation de l'impact et matrice de décision</h3>
         <table class="table table-bordered">
             <tr>
                 <th>D</th>
@@ -289,35 +462,16 @@
                     <td>{{ scenario.nom }}</td>
                     <td>{{ scenario.vraisemblance|dictionary('vraisemblance_gravite') }}</td>
                     <td>{{ scenario.gravite|dictionary('vraisemblance_gravite') }}</td>
-                    <td>{{ getScenarioMenaceImpactPotentiel(scenario) }}</td>
+                    <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
                 </tr>
             {% endfor %}
         </table>
-        <h3>4.2 Evaluation de l'impact et matrice de décision</h3>
         <div>La matrice de décision ci-dessous vous informe du comportement attendu par la CNIL selon le niveau d'impact identifié :</div>
-        <div>
-            <table class="table table-bordered">
-                <tr>
-                    <td>Impact maximal</td>
-                    <td>Risque refusé <br />Avis CNIL</td>
-                </tr>
-                <tr>
-                    <td>Impact important</td>
-                    <td>Risque refusé</td>
-                </tr>
-                <tr>
-                    <td>Impact limité</td>
-                    <td>Risque refusé</td>
-                </tr>
-                <tr>
-                    <td>Impact négligeableté</td>
-                    <td>Risque accepté</td>
-                </tr>
-            </table>
-        </div>
+        <div>La CNIL préconise d’accepter les risques uniquement lorsque l’impact est négligeable. Dans les autres cas, il faudra apporter des mesures de protection supplémentaires pour venir corriger les anomalies identifiées. Dans le cas où le risque est maximal et que les mesures ne sont pas jugées suffisantes, il conviendra de solliciter l’avis de la CNIL.</div>
+        <div style="text-align: center"><img src='{{ absolute_url(asset("images/MatriceDecision.png")) }}' height="300" alt="MatriceDecision"></div>
 
         <h3>4.3 Mesure(s) de réduction des risques envisagée(s)</h3>
-        <h4>4.3.1 Évaluation</h4>
+        <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
         <table class="table table-bordered">
             <tr>
                 <th>Type de mesure</th>
@@ -334,68 +488,134 @@
                 </tr>
             {% endfor %}
         </table>
-        <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
 
+        <div  style="page-break-before: always;"></div>
         <h3>4.4 Risques résiduels</h3>
         <div>Les risques résiduels correspondent aux risques non-traités ou pour lesquels il n'est pas prévu de mettre en oeuvre l'ensemble des mesures de sécurité.</div>
         <div class="reportGraph"><canvas id="risquesResiduels-chart"></canvas></div>
         <div class="reportGraph"><canvas id="dicResiduels-chart"></canvas></div>
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
+                        <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
+                        <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
+                    </tr>
+                    {% for scenario in object.scenarioMenaces %}
+                        <tr>
+                            <td>{{ scenario.nom }}</td>
+                            <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
+                            <td>{{ getScenarioMenaceImpactResiduelLabel(scenario)|raw }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
 
+        <div  style="page-break-before: always;"></div>
         <h2>5. Validation de l'AIPD</h2>
         <div>Ce chapitre a pour objectifs de permettre la prise de décision visant à accepter ou non l'AIPD au regard des résultats de l'étude.</div>
         <h3>5.1 Préparation des éléments utiles à la validation</h3>
         <h4>5.1.1 Synthèse des quatres étapes</h4>
         <div>Ci-dessous une synthèse des quatres étapes de l'AIPD.</div>
+        <div class="box box-solid box-info">
+            <div class="box-header with-border"><h3 class="box-title" style="color: white">Description et conformité</h3></div>
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Label</th>
+                        <th>Conformité</th>
+                    </tr>
+                    </thead>
+                    {% for critere in object.criterePrincipeFondamentaux %}
+                        <tr>
+                            <td>{{ critere.labelLivrable }}</td>
+                            <td>{{ getCritereLabel(critere)|raw }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <br/>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Conformité</th>
+                    </tr>
+                    </thead>
+                    {% for QuestionConformite in object.questionConformites %}
+                        <tr>
+                            <td>{{ QuestionConformite.question }}
+                                {% if QuestionConformite.ReponseConformite.actionProtections is not same as null %}
+                                    {% for action in QuestionConformite.ReponseConformite.actionProtections %}
+                                        <div style="margin-left: 20px;font-size:12px;">
+                                            <span>{{action.name}}</span>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if QuestionConformite.justificatif is not same as null %}
+                                    <div style="margin-left: 20px;font-size:12px;">
+                                        <span>{{ QuestionConformite.justificatif }}</span>
+                                    </div>
+                                {% endif %}
+                            </td>
+                            {% if QuestionConformite.ReponseConformite.conforme %}
+                                <td><span class="label label-success" style="min-width: 100%; display: inline-block;"> Conforme</span></td>
+                            {% else %}
+                                {% if QuestionConformite.ReponseConformite.actionProtections|length > 0 %}
+                                    <td><span class="label label-warning" style="min-width: 100%; display: inline-block;"> Non-conforme mineure</span></td>
+                                {% else%}
+                                    <td><span class="label label-danger" style="min-width: 100%; display: inline-block;"> Non-conforme majeure</span></td>
+                                {% endif %}
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
+                        <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
+                        <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
+                    </tr>
+                     {% for scenario in object.scenarioMenaces %}
+                        <tr>
+                            <td>{{ scenario.nom }}</td>
+                            <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
+                            <td>{{ getScenarioMenaceImpactResiduelLabel(scenario)|raw }}</td>
+                        </tr>
+                    {% endfor %}
 
-        <table class="table table-bordered">
-            <tr style="background: #ef7d22; text-align: center;">
-                <td colspan="2">Description</td>
-            </tr>
-            <tr>
-                <td style="width: 80%"></td>
-                <td></td>
-            </tr>
-            <tr style="background: #a6a6a6; text-align: center;">
-                <td colspan="2">Principes fondamentaux</td>
-            </tr>
-            {% for critere in object.criterePrincipeFondamentaux %}
-                <tr>
-                    <td>{{ critere.labelLivrable }}</td>
-                    <td>{{ critere.reponse|dictionary('reponse_critere_fondamental') }}</td>
-                </tr>
-            {% endfor %}
-            <tr style="background: #ffc100; text-align: center;">
-                <td colspan="2">Risques liés à la sécurité</td>
-            </tr>
-            {% for mesure in object.mesureProtections %}
-                <tr>
-                    <td>{{ mesure.nom }}</td>
-                    <td>{{ mesure.reponse|dictionary('reponse_mesure_protection') }}</td>
-                </tr>
-            {% endfor %}
-            <tr style="background: #6eae40; text-align: center;">
-                <td colspan="2">Validation</td>
-            </tr>
-            <tr>
-                <td>Avis du référent RGPD</td>
-                <td>{{ object.avisReferent.reponse }}</td>
-            </tr>
-            <tr>
-                <td>Avis du DPD mutualisé</td>
-                <td>{{ object.avisDpd.reponse }}</td>
-            </tr>
-            <tr>
-                <td>Avis des représentants des personnes concernées</td>
-                <td>{{ object.avisRepresentant.reponse }}</td>
-            </tr>
-            <tr>
-                <td>Validation formelle du Responsable de Traitement</td>
-                <td>{{ object.avisResponsable.reponse }}</td>
-            </tr>
-        </table>
+                </table>
+            </div>
+        </div>
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">{{ 'aipd.mesure_protection.list.nom'|trans }}</th>
+                            <th style="width: 20%;">{{ 'aipd.mesure_protection.list.reponse'|trans }}</th>
+                        </tr>
+                    </thead>
+                    {% for mesure in object.mesureProtections %}
+                        <tr>
+                            <td>{{ mesure.nom }}</td>
+                            <td>{{ mesure.reponse|dictionary('reponse_mesure_protection') }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
 
-        <h4>5.2 Avis des personnes consultées</h4>
-
+        <h3>5.2 Avis des personnes consultées</h3>
         <table class="table table-bordered">
             <tr>
                 <td class="table-bluecell">Avis du référent RGPD</td>
@@ -432,13 +652,9 @@
 {#            //////////////////////////////////////#}
 {#            /////////////// Annexes //////////////#}
 {#            //////////////////////////////////////#}
-        <div style="page-break-before: always;">
+            <div style="page-break-before: always;"></div>
             <h2>6. Annexes</h2>
-            <h3>6.1 Historique AIPD</h3>
-            <div></div>
-            <div></div>
-
-            <h3>6.2 Glossaire</h3>
+            <h3>6.1 Glossaire</h3>
             <div class="annexe-head">Donnée à caractère personnel</div>
             <div>Toute information se rapportant à une personne physique identifiée ou identifiable (ci-après dénommée "personne concernée"); est réputée pour être une "personne physique identifiable" une personne physique qui peut être identifiée, directement ou indirectement, notamment par référence à un identifiant, tel qu'un nom, un numéro d'identification, des données de localisation, un identifiant en ligne, ou à un ou plusieurs éléments spécifiques propres à son identité physique, physiologique, génétique, psychique, économique, culturelle ou sociale.</div>
             <div class="annexe-head">Événement redouté</div>
@@ -458,7 +674,7 @@
             <div class="annexe-head">Vraisemblance</div>
             <div>Estimation de la possibilité qu'un risque se réalise.</div>
 
-            <h3>6.3 Références</h3>
+            <h3>6.2 Références</h3>
             <div class="annexe-head">CNIL / CEPD</div>
             <div class="annexe-link">https://www.cnil.fr/fr/ce-quil-faut-savoir-sur-lanalyse-dimpact-relative-la-protection-des-donnees-aipd</div>
             <div class="annexe-link">https://www.cnil.fr/fr/nouveautes-sur-le-pia-guides-outil-piaf-etude-de-cas</div>
@@ -478,6 +694,708 @@
             <div class="annexe-head">ISO</div>
             <div class="annexe-prelink">- ISO/IEC 27701:2019 -Technique de sécurité - Extension d'ISO/IEC 27001 et ISO/IEC 27002 au management de la protection de la vie privée - Exigences et lignes directrices</div>
             <div class="annexe-link">https://www.iso.org/fr/standard/71670.html</div>
+
+        <div style="page-break-before: always;"></div>
+        <h3>6.3 Fiche de traitement</h3>
+        {% set traitement = object.conformiteTraitement.traitement %}
+        <div class="row">
+            {#         LEFT#}
+            <div class="col-md-6">
+                {#             GENERAL INFORMATIONS#}
+                <div class="box box-solid box-info">
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
+                    <div class="box-body no-padding">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.public'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.public == true %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.name'|trans }}</strong></td>
+                                <td>{{ traitement.name }}</td>
+                            </tr>
+                            {% if traitement.service %}
+                                <tr>
+                                    <td><strong>{{ 'registry.treatment.show.service'|trans }}</strong></td>
+                                    <td>{{ traitement.service }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.goal'|trans }}</strong></td>
+                                <td>{{ traitement.goal|nl2br }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.author'|trans }}</strong></td>
+                                <td>{% if traitement.author is not null %}{{ traitement.author|dictionary('registry_treatment_author') }}{% endif %}</td>
+                            </tr>
+                            {% if traitement.author != "processing_manager" %}
+                                <tr>
+                                    <td><strong>{{ 'registry.treatment.show.coordonnees_responsable_traitement'|trans }}</strong></td>
+                                    <td>{{ traitement.coordonneesResponsableTraitement|nl2br }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.manager'|trans }}</strong></td>
+                                <td>{{ traitement.manager }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.active'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.active %}
+                                        <span class="badge bg-green">{{ 'label.active'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.legal_basis'|trans }}</strong></td>
+                                <td>{{ traitement.legalBasis|dictionary('registry_treatment_legal_basis') }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.legal_basis_justification'|trans }}</strong></td>
+                                <td>{{ traitement.legalBasisJustification|nl2br }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.observation'|trans }}</strong></td>
+                                <td>{{ traitement.observation|nl2br }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {# DPO Message  #}
+                {% if traitement.dpoMessage is not null %}
+                    <div class="box box-solid box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
+                        </div>
+                        <div class="box-body">
+                            {{  traitement.dpoMessage }}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {#             DATA CATEGORY#}
+                <div class="box box-solid box-warning">
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
+                    <div class="box-body no-padding">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.data_category'|trans }}</strong></td>
+                                <td>
+                                    <ul>
+                                        {% for category in traitement.dataCategories %}
+                                            <li>
+                                                {% if category.sensible %}<strong>{% endif %}
+                                                    {{ category.name }}
+                                                    {% if category.sensible %}</strong>{% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.data_category_other'|trans }}</strong></td>
+                                <td>{{ traitement.dataCategoryOther|nl2br }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {#             RECIPIENTS#}
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
+                    <div class="box-body no-padding">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.recipient_category'|trans }}</strong></td>
+                                <td>{{ traitement.recipientCategory|nl2br }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.contractors'|trans }}</strong></td>
+                                <td>
+                                    <ul>
+                                        {% for contractor in traitement.contractors %}
+                                            <li>{{ contractor }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {#             SPECIFIC#}
+                <div class="box box-solid box-info">
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.specific'|trans }}</h3></div>
+                    <div class="box-body no-padding">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.systematic_monitoring'|trans }}</strong></td>
+                                <td>
+                                    <ul>
+                                        {% if traitement.systematicMonitoring %}
+                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.large_scale_collection'|trans }}</strong></td>
+                                <td>
+                                    <ul>
+                                        {% if traitement.largeScaleCollection %}
+                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.vulnerable_people'|trans }}</strong></td>
+                                <td>
+                                    <ul>
+                                        {% if traitement.vulnerablePeople %}
+                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.data_crossing'|trans }}</strong></td>
+                                <td>
+                                    <ul>
+                                        {% if traitement.dataCrossing %}
+                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.evaluation_or_rating'|trans }}</strong></td>
+                                <td>
+                                    <ul>
+                                        {% if traitement.evaluationOrRating %}
+                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.automated_decisions_with_legal_effect'|trans }}</strong></td>
+                                <td>
+                                    <ul>
+                                        {% if traitement.automatedDecisionsWithLegalEffect %}
+                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.automatic_exclusion_service'|trans }}</strong></td>
+                                <td>
+                                    <ul>
+                                        {% if traitement.automaticExclusionService %}
+                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.innovative_use'|trans }}</strong></td>
+                                <td>
+                                    <ul>
+                                        {% if traitement.innovativeUse %}
+                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            {#         RIGHT#}
+            <div class="col-md-6">
+                {#             DETAILS#}
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
+                    <div class="box-body no-padding">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.concerned_people'|trans }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_particular'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.concernedPeopleParticular.check %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        <p>{{ traitement.concernedPeopleParticular.comment }}</p>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_user'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.concernedPeopleUser.check %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        <p>{{ traitement.concernedPeopleUser.comment }}</p>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_agent'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.concernedPeopleAgent.check %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        <p>{{ traitement.concernedPeopleAgent.comment }}</p>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_elected'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.concernedPeopleElected.check %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        <p>{{ traitement.concernedPeopleElected.comment }}</p>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_company'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.concernedPeopleCompany.check %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        <p>{{ traitement.concernedPeopleCompany.comment }}</p>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_partner'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.concernedPeoplePartner.check %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        <p>{{ traitement.concernedPeoplePartner.comment }}</p>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_other'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.concernedPeopleOther.check %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        <p>{{ traitement.concernedPeopleOther.comment }}</p>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.estimated_concerned_people'|trans }}</strong></td>
+                                <td>{{ traitement.estimatedConcernedPeople }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.software'|trans }}</strong></td>
+                                <td>{{ traitement.software }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.paper_processing'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.paperProcessing %}
+                                        <span class="badge bg-gray">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.delay'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.delay.number and traitement.delay.period %}
+                                        {{ traitement.delay.number }} {{ traitement.delay.period|dictionary('registry_delay_period') }}
+                                    {% elseif traitement.delay.otherDelay %}
+                                        {{ traitement.delay.comment }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.ultimate_fate'|trans }}</strong></td>
+                                <td>{% if traitement.ultimateFate is not null %}{{ traitement.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong></td>
+                                <td>{{ traitement.dataOrigin }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong></td>
+                                {# <td>{% if (traitement.collectingMethod is not null) %} #}
+                                <td>
+                                    {% if (traitement.collectingMethod|length) %}
+                                        {{ traitement.collectingMethod|map(p => "#{p|dictionary('registry_treatment_collecting_method')}")|join(', ') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% if  traitement.otherCollectingMethod is not null %}
+                                <tr>
+                                    <td><strong>{{ 'registry.treatment.show.otherCollectingMethod'|trans }}</strong></td>
+                                    <td>{{ traitement.otherCollectingMethod }}</td>
+                                </tr>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+
+                {#             SECURITY#}
+                <div class="box box-solid box-success">
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
+                    <div class="box-body no-padding">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.security_access_control'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.securityAccessControl.check %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        <p>{{ traitement.securityAccessControl.comment }}</p>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.security_tracability'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.securitytracability.check %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        <p>{{ traitement.securitytracability.comment }}</p>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.security_saving'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.securitySaving.check %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        <p>{{ traitement.securitySaving.comment }}</p>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.security_update'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.securityUpdate.check %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        <p>{{ traitement.securityUpdate.comment }}</p>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.security_other'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.securityOther.check %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        <p>{{ traitement.securityOther.comment }}</p>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.security_entitled_persons'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.securityEntitledPersons %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.security_open_accounts'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.securityOpenAccounts %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.security_specificities_delivered'|trans }}</strong></td>
+                                <td>
+                                    {% if traitement.securitySpecificitiesDelivered %}
+                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {#             PROOFS#}
+                <div class="box box-solid box-warning">
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'label.linked_documents'|trans }}</h3></div>
+                    <div class="box-body">
+                        {% set activeProofs = traitement.proofs|filter(proof => proof.deletedAt is null) -%}
+
+                        {% if activeProofs|length > 0 %}
+                            <ul>
+                                {% for proof in activeProofs %}
+                                    <li>
+                                        {{ proof.name }} ({{ proof.type|dictionary('registry_proof_type') }})
+                                        {{ proof.comment }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span><i>{{ 'label.no_linked_document'|trans }}</i></span>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+                {# REQUESTS #}
+                <div class="box box-solid box-warning">
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'label.linked_request'|trans }}</h3></div>
+                    <div class="box-body">
+                        {% set activeRequests = traitement.requests %}
+
+                        {% if activeRequests|length > 0 %}
+                            <ul>
+                                {% for request in activeRequests %}
+                                    <li>
+                                        {{ request.date|date('d/m/Y') }} | {{ request.applicant.lastName }} {{ request.applicant.firstName }} | {{  ("label.request_" ~ request.object)|trans }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span><i>{{ 'label.no_linked_requests'|trans }}</i></span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {# VIOLATIONS #}
+                <div class="box box-solid box-warning">
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'label.linked_violations'|trans }}</h3></div>
+                    <div class="box-body">
+                        {% set activeViolations = traitement.violations %}
+
+                        {% if activeViolations|length > 0 %}
+                            <ul>
+                                {% for violation in activeViolations %}
+                                    <li>
+                                        {{ violation.date|date('d/m/Y') }} | {{ ("label.violation_" ~ violation.violationNature)|trans  }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span><i>{{ 'label.no_linked_violations'|trans }}</i></span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {# Mesurements #}
+                <div class="box box-solid box-warning">
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'label.linked_mesurement'|trans }}</h3></div>
+                    <div class="box-body">
+                        {% if traitement.mesurements|length > 0 %}
+                            <ul>
+                                {% for mesurement in traitement.mesurements %}
+                                    <li>
+                                        {{ mesurement.name }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span><i>{{ 'label.no_linked_mesurement'|trans }}</i></span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if traitement.collectivity.hasModuleConformiteTraitement %}
+                    <div class="box box-solid box-success">
+                        <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.conformite'|trans }}</h3></div>
+                        <div class="box-body">
+                            <table class="table">
+                                <tr>
+                                    <td style="width: 35%">
+                                        <strong>Conformité</strong>
+                                    </td>
+                                    <td>
+                                        {% if traitement.conformiteTraitement is not null %}
+                                            {{ getConformiteTraitementLabel(traitement.conformiteTraitement)|raw }}
+                                        {% else %}
+                                            <span class="badge bg-gray">Non-réalisée</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Conformité des questions</strong>
+                                    </td>
+                                    <td>
+                                        {% if traitement.conformiteTraitement is not null %}
+                                            {% set nbTotal = traitement.conformiteTraitement.nbConformes + traitement.conformiteTraitement.nbNonConformesMineures + traitement.conformiteTraitement.nbNonConformesMajeures %}
+                                            {% set widthNbConforme = ((traitement.conformiteTraitement.nbConformes * 100) / nbTotal)|round %}
+                                            {% set widthnbNonConformesMineures = ((traitement.conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round %}
+                                            {% set widthnbNonConformesMajeures = 100 - (widthNbConforme + widthnbNonConformesMineures) %}
+                                            <div class="stacked-bar-graph">
+                                                {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme tooltipchart"><span class="tooltipcharttext">Conforme : {{ traitement.conformiteTraitement.nbConformes }}</span></span>{% endif %}
+                                                {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure tooltipchart"><span class="tooltipcharttext">Non-conforme mineure : {{ traitement.conformiteTraitement.nbNonConformesMineures }}</span></span>{% endif %}
+                                                {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure tooltipchart"><span class="tooltipcharttext">Non-conforme majeure : {{ traitement.conformiteTraitement.nbNonConformesMajeures }}</span></span>{% endif %}
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Actions</strong>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    {% if traitement.conformiteTraitement is not null and traitement.conformiteTraitement.lastAnalyseImpact is not null %}
+                        <div class="box box-solid box-primary">
+                            <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.last_aipd'|trans }}</h3></div>
+                            <div class="box-body">
+                                <table class="table">
+                                    <tr>
+                                        <td style="width: 35%">
+                                            <strong>Avis</strong>
+                                        </td>
+                                        <td>
+                                            {% set analyseImpact = traitement.conformiteTraitement.lastAnalyseImpact %}
+
+                                            {% set labelAipdColor = "label-default" %}
+                                            {% if analyseImpact.statut == "defavorable" %}
+                                                {% set labelAipdColor = "label-danger" %}
+                                            {% elseif analyseImpact.statut == "favorable_avec_reserves" %}
+                                                {% set labelAipdColor = "label-warning" %}
+                                            {% elseif analyseImpact.statut == "favorable" %}
+                                                {% set labelAipdColor = "label-success" %}
+                                            {% endif %}
+                                            {% set statut = analyseImpact.statut %}
+                                            {% set labelStatut = "aipd.analyse_impact.values." ~ traitement.conformiteTraitement.lastAnalyseImpact.statut %}
+                                            <span class="label {{ labelAipdColor }}" style="min-width: 100%; display: inline-block;">
+                                        {{ labelStatut|trans}}
+                                    </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Date de validation</strong>
+                                        </td>
+                                        <td>
+                                            {% if analyseImpact.isValidated %}
+                                                {{ analyseImpact.dateValidation|date('d/m/Y') }}
+                                            {% else %}
+                                                En cours de validation
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Actions</strong>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                {#             HISTORIC#}
+                <div class="box box-solid box-default">
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.historic'|trans }}</h3></div>
+                    <div class="box-body no-padding">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.creator'|trans }}</strong></td>
+                                <td>
+                                    {{ traitement.creator }}
+                                </td>
+                            </tr>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <tr>
+                                    <td><strong>{{ 'registry.treatment.show.collectivity'|trans }}</strong></td>
+                                    <td>
+                                        {{ traitement.collectivity }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.created_at'|trans }}</strong></td>
+                                <td>{{ traitement.createdAt|date('d/m/Y H:i') }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.updated_at'|trans }}</strong></td>
+                                <td>{{ traitement.updatedAt|date('d/m/Y H:i') }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
     </section>
