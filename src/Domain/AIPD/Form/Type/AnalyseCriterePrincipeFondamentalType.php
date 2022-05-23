@@ -33,9 +33,19 @@ class AnalyseCriterePrincipeFondamentalType extends AbstractType
             ->add('fichierFile', FileType::class, [
                 'required'    => false,
                 'label'       => false,
+                'attr'        => [
+                    'accept' => 'image/*',
+                ],
                 'constraints' => [
                     new File([
                         'maxSize'   => $this->maxSize,
+                        'groups'    => ['default'],
+                        'mimeTypes' => [
+                            'image/png', // .png
+                            'image/jpg', // .jpg
+                            'image/jpeg', // .jpeg
+                        ],
+                        'mimeTypesMessage' => 'Les formats autorisés sont .png, .jpg, .jpeg.',
                     ]),
                 ],
             ])
@@ -46,7 +56,11 @@ class AnalyseCriterePrincipeFondamentalType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class' => CriterePrincipeFondamental::class,
+                'data_class'        => CriterePrincipeFondamental::class,
+                'validation_groups' => [
+                    'default',
+                    'critere',
+                ],
             ]);
     }
 }

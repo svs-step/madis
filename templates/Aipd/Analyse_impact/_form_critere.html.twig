@@ -9,5 +9,13 @@
         {% endif %}
     </td>
     <td>{{ form_widget(form.justification) }}</td>
-    <td><span>{{ form_widget(form.fichierFile) }}</span></td>
+    <td>
+        {% if form.vars.data and form.vars.data.fichier %}
+            <a href="/uploads/aipd/critere_principe_fondamentaux/fichier/{{ form.vars.data.fichier }}">Fichier existant</a>
+        {% endif %}
+        <span>
+            {{ form_widget(form.fichierFile) }}
+        </span>
+        {{ form_errors(form.fichierFile) }}
+    </td>
 </tr>
