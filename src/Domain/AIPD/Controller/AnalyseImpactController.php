@@ -362,7 +362,7 @@ class AnalyseImpactController extends CRUDController
         ];
     }
 
-    public function printAction(string $id)
+    public function printAction(Request $request, string $id)
     {
         if (null === $object = $this->repository->findOneById($id)) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
@@ -376,7 +376,10 @@ class AnalyseImpactController extends CRUDController
 
         return new PdfResponse(
             $this->pdf->getOutputFromHtml(
-                $this->renderView($this->getTemplatingBasePath('pdf'), ['object' => $object]), ['javascript-delay' => 1000]),
+                $this->renderView($this->getTemplatingBasePath('pdf'), [
+                    'object' => $object,
+                    'base_dir' => $this->getParameter('kernel.project_dir') . '/public' . $request->getBasePath()
+                ]), ['javascript-delay' => 1000]),
             $object->getConformiteTraitement()->getTraitement()->getName() . '.pdf'
         );
     }

@@ -167,7 +167,7 @@
         <div style="margin-left:50px;">3- Apprécier les risques sur la vie privée liés à la sécurité des données et vérifier qu’ils sont convenablement traités ;</div>
         <div style="margin-left:50px;">4- Formaliser la validation du PIA au regard des éléments précédents ou bien décider de réviser les étapes précédentes.</div>
 
-        <div style="text-align: center"><img src='{{ absolute_url(asset("images/cycleAIPD.jpg")) }}' height="300" alt="CycleAIPD"></div>
+        <div style="text-align: center"><img src="{{ base_dir ~ asset("images/cycleAIPD.jpg") }}" height="300" alt="CycleAIPD"></div>
 
         <div>Il s'agit d'un <strong>processus d'amélioration continue</strong>. Il requiert donc parfois plusieurs itérations pour parvenir à un dispositif de protection de la vie privée acceptable. Il requiert en outre une surveillance des évolutions dans le temps (du contexte, des mesures, des risques, etc.), par exemple tous les ans, et des mises à jour dès qu'une évolution significative a lieu.</div>
         <div>La démarche devrait être employée <strong>dès la conception d'un nouveau traitement de données à caractère personnel</strong>. En effet, une application en amont permet de déterminer les mesures nécessaires et suffisantes, et donc d'optimiser les coûts. A contrario, une application tardive, alors que le système est déjà créé et les mesures en place, peut remettre en question les choix effectués.</div>
@@ -175,13 +175,13 @@
         <h3>1.2 Conformité d’une Analyse d’Impact relative à la Protection des Données</h3>
         <div>L’objectif est d’obtenir la conformité du traitement grâce à l’AIPD</div>
         <div class="separator"></div>
-        <div style="text-align: center"><img src='{{ absolute_url(asset("images/ConformitéAIPD.png")) }}' width="800" alt="ConformitéAIPD"></div>
+        <div style="text-align: center"><img src="{{ base_dir ~ asset("images/ConformiteAIPD.png") }}" width="800" alt="ConformitéAIPD"></div>
 
         <div  style="page-break-before: always;"></div>
         <h2>2. Étude du contexte</h2>
         <div>Ce chapitre a pour objectif de fournir une vision claire de l'organisation et du traitement de données personnelles considéré</div>
         <h3>2.1 Description</h3>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <table class="table table-bordered">
                 <tr>
                     <td class="table-bluecell">Nature du traitement</td>
@@ -189,44 +189,62 @@
                 </tr>
             </table>
             <div class="separator"></div>
-            {% if object.criterePrincipeFondamentalByCode('contexte_traitement').reponse != 'non_applicable' %}
+            {% set critere = object.criterePrincipeFondamentalByCode('contexte_traitement') %}
+            {% if critere and critere.reponse != 'non_renseigne' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">Contexte du traitement {{ object.criterePrincipeFondamentalByCode('contexte_traitement').label }}</td>
+                        <td class="table-bluecell">{{ critere.label }} {{  critere.labelLivrable }}</td>
                         <td>
-                            {{ object.criterePrincipeFondamentalByCode('contexte_traitement').reponse|dictionary('reponse_critere_fondamental') }}<br />
-                            {{ object.criterePrincipeFondamentalByCode('contexte_traitement').justification }}
+                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
+                            {{ critere.justification }}<br />
+                            {% if critere.reponse == 'conforme' %}
+                                {{ critere.texteConformite }}
+                            {% elseif critere.reponse == 'non_conforme' %}
+                                {{ critere.texteNonConformite }}
+                            {% elseif critere.reponse == 'non_applicable' %}
+                                {{ critere.texteNonApplicable }}
+                            {% endif %}
                         </td>
                     </tr>
-                    {% if object.criterePrincipeFondamentalByCode('contexte_traitement').fichier %}
+                    {% if critere.fichier %}
                         <tr>
                             <td colspan="2" style="text-align: center">
-                                <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('contexte_traitement').fichier))}}" height="200" alt="contextFile">
+                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" height="200" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
                             </td>
                         </tr>
                     {% endif %}
                 </table>
                 <div class="separator"></div>
             {% endif %}
-            {% if object.criterePrincipeFondamentalByCode('portee_traitement').reponse == 'non_applicable' %}
+
+            {% set critere = object.criterePrincipeFondamentalByCode('portee_traitement') %}
+            {% if critere and critere.reponse != 'non_renseigne' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">Portée du traitement {{ object.criterePrincipeFondamentalByCode('portee_traitement').label }}</td>
+                        <td class="table-bluecell">{{ critere.label }} {{  critere.labelLivrable }}</td>
                         <td>
-                            {{ object.criterePrincipeFondamentalByCode('portee_traitement').reponse }} <br />
-                            {{ object.criterePrincipeFondamentalByCode('portee_traitement').justification }}
+                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
+                            {{ critere.justification }}<br />
+                            {% if critere.reponse == 'conforme' %}
+                                {{ critere.texteConformite }}
+                            {% elseif critere.reponse == 'non_conforme' %}
+                                {{ critere.texteNonConformite }}
+                            {% elseif critere.reponse == 'non_applicable' %}
+                                {{ critere.texteNonApplicable }}
+                            {% endif %}
                         </td>
                     </tr>
-                    {% if object.criterePrincipeFondamentalByCode('portee_traitement').fichier %}
+                    {% if critere.fichier %}
                         <tr>
                             <td colspan="2" style="text-align: center">
-                                <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('portee_traitement').fichier))}}" height="200" alt="contextFile">
+                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" height="200" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
                             </td>
                         </tr>
                     {% endif %}
                 </table>
                 <div class="separator"></div>
             {% endif %}
+
 
             <table class="table table-bordered">
                 <tr>
@@ -274,64 +292,87 @@
                 </tr>
             </table>
             <div class="separator"></div>
-            {% if object.criterePrincipeFondamentalByCode('description_fonctionnelle').reponse == 'non_applicable' %}
+            {% set critere = object.criterePrincipeFondamentalByCode('description_fonctionnelle') %}
+            {% if critere and critere.reponse != 'non_renseigne' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">Description fonctionnelle du traitement {{ object.criterePrincipeFondamentalByCode('description_fonctionnelle').label }}</td>
+                        <td class="table-bluecell">{{ critere.label }} {{  critere.labelLivrable }}</td>
                         <td>
-                            {{ object.criterePrincipeFondamentalByCode('description_fonctionnelle').reponse|dictionary('reponse_description_fonctionnelle') }}
-                            {{ object.criterePrincipeFondamentalByCode('description_fonctionnelle').justification }}
+                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
+                            {{ critere.justification }}<br />
+                            {% if critere.reponse == 'conforme' %}
+                                {{ critere.texteConformite }}
+                            {% elseif critere.reponse == 'non_conforme' %}
+                                {{ critere.texteNonConformite }}
+                            {% elseif critere.reponse == 'non_applicable' %}
+                                {{ critere.texteNonApplicable }}
+                            {% endif %}
                         </td>
                     </tr>
-                    {% if object.criterePrincipeFondamentalByCode('description_fonctionnelle').fichier %}
+                    {% if critere.fichier %}
                         <tr>
                             <td colspan="2" style="text-align: center">
-                                <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('description_fonctionnelle').fichier))}}" height="200" alt="contextFile">
+                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" height="200" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
                             </td>
                         </tr>
                     {% endif %}
                 </table>
                 <div class="separator"></div>
             {% endif %}
-            <div class="separator"></div>
-            {% if object.criterePrincipeFondamentalByCode('identification_biens').reponse == 'non_applicable' %}
+
+            {% set critere = object.criterePrincipeFondamentalByCode('description_fonctionnelle') %}
+            {% if critere and critere.reponse != 'non_renseigne' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">Identification des biens {{ object.criterePrincipeFondamentalByCode('identification_biens').label }}</td>
+                        <td class="table-bluecell">{{ critere.label }} {{  critere.labelLivrable }}</td>
                         <td>
-                            {{ object.criterePrincipeFondamentalByCode('identification_biens').reponse|dictionary('reponse_identification_biens') }}
-                            {{ object.criterePrincipeFondamentalByCode('identification_biens').justification }}
+                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
+                            {{ critere.justification }}<br />
+                            {% if critere.reponse == 'conforme' %}
+                                {{ critere.texteConformite }}
+                            {% elseif critere.reponse == 'non_conforme' %}
+                                {{ critere.texteNonConformite }}
+                            {% elseif critere.reponse == 'non_applicable' %}
+                                {{ critere.texteNonApplicable }}
+                            {% endif %}
                         </td>
                     </tr>
-                    {% if object.criterePrincipeFondamentalByCode('identification_biens').fichier %}
+                    {% if critere.fichier %}
                         <tr>
                             <td colspan="2" style="text-align: center">
-                                <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('identification_biens').fichier))}}" height="200" alt="contextFile">
+                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" height="200" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
                             </td>
                         </tr>
                     {% endif %}
                 </table>
                 <div class="separator"></div>
             {% endif %}
-            <div class="separator"></div>
-            {% if object.criterePrincipeFondamentalByCode('conformite_code').reponse == 'non_applicable' %}
-            <table class="table table-bordered">
-                <tr>
-                    <td class="table-bluecell">Conformité à un code de conduite existant {{ object.criterePrincipeFondamentalByCode('conformite_code').label }}</td>
-                    <td>
-                        {{ object.criterePrincipeFondamentalByCode('conformite_code').reponse|dictionary('reponse_critere_fondamental') }}
-                        {{ object.criterePrincipeFondamentalByCode('conformite_code').justification }}
-                    </td>
-                </tr>
-                {% if object.criterePrincipeFondamentalByCode('conformite_code').fichier %}
+            {% set critere = object.criterePrincipeFondamentalByCode('conformite_code') %}
+            {% if critere and critere.reponse != 'non_renseigne' %}
+                <table class="table table-bordered">
                     <tr>
-                        <td colspan="2" style="text-align: center">
-                            <img src="{{absolute_url(asset(object.criterePrincipeFondamentalByCode('conformite_code').fichier))}}" height="200" alt="contextFile">
+                        <td class="table-bluecell">{{ critere.label }} {{  critere.labelLivrable }}</td>
+                        <td>
+                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
+                            {{ critere.justification }}<br />
+                            {% if critere.reponse == 'conforme' %}
+                                {{ critere.texteConformite }}
+                            {% elseif critere.reponse == 'non_conforme' %}
+                                {{ critere.texteNonConformite }}
+                            {% elseif critere.reponse == 'non_applicable' %}
+                                {{ critere.texteNonApplicable }}
+                            {% endif %}
                         </td>
                     </tr>
-                {% endif %}
-            </table>
-            <div class="separator"></div>
+                    {% if critere.fichier %}
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" height="200" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
+                            </td>
+                        </tr>
+                    {% endif %}
+                </table>
+                <div class="separator"></div>
             {% endif %}
         </div>
 
@@ -394,7 +435,7 @@
         <h2>4. Études des risques liés à la sécurité des données</h2>
         <div>Ce chapitre a pour objectifs d'obtenir une bonne connaissance des mesures contribuant à la sécurité et d'apprécier les risques.</div>
         <h3>4.1 Évaluation des risques sur les droits et les libertés des personnes concernées</h3>
-        <div style="text-align: center"><img src='{{ absolute_url(asset("images/NiveauRisque.png")) }}' height="300" alt="Niveau risque"></div>
+        <div style="text-align: center"><img src="{{ base_dir ~ asset("images/NiveauRisque.png") }}" height="300" alt="Niveau risque"></div>
         <table class="table table-bordered" style="margin-left: 40px; margin-right: 40px;">
             <tr class="table-indicateur-head">
                 <td>Niveaux</td>
@@ -440,7 +481,7 @@
                 <td>Il ne semble pas possible que les sources de risques retenues puissent réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papiers stockés dans un local de l'organisme dont l'accès est contrôlé par badge et code d'accès).</td>
             </tr>
         </table>
-        <div style="text-align: center"><img src='{{ absolute_url(asset("images/matriceAIPD.png")) }}' height="300" alt="MatriceAIPD"></div>
+        <div style="text-align: center"><img src="{{ base_dir ~ asset("images/matriceAIPD.png") }}" height="300" alt="MatriceAIPD"></div>
 
         <div  style="page-break-before: always;"></div>
         <h3>4.2 Evaluation de l'impact et matrice de décision</h3>
@@ -468,7 +509,7 @@
         </table>
         <div>La matrice de décision ci-dessous vous informe du comportement attendu par la CNIL selon le niveau d'impact identifié :</div>
         <div>La CNIL préconise d’accepter les risques uniquement lorsque l’impact est négligeable. Dans les autres cas, il faudra apporter des mesures de protection supplémentaires pour venir corriger les anomalies identifiées. Dans le cas où le risque est maximal et que les mesures ne sont pas jugées suffisantes, il conviendra de solliciter l’avis de la CNIL.</div>
-        <div style="text-align: center"><img src='{{ absolute_url(asset("images/MatriceDecision.png")) }}' height="300" alt="MatriceDecision"></div>
+        <div style="text-align: center"><img src="{{ base_dir ~ asset("images/MatriceDecision.png") }}" height="300" alt="MatriceDecision"></div>
 
         <h3>4.3 Mesure(s) de réduction des risques envisagée(s)</h3>
         <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
