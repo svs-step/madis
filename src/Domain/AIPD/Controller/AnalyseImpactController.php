@@ -29,6 +29,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -374,13 +375,16 @@ class AnalyseImpactController extends CRUDController
         $this->pdf->setOption('margin-left', '20');
         $this->pdf->setOption('margin-right', '20');
 
+        $slugger  = new AsciiSlugger();
+        $filename = $slugger->slug($object->getConformiteTraitement()->getTraitement()->getName());
+
         return new PdfResponse(
             $this->pdf->getOutputFromHtml(
                 $this->renderView($this->getTemplatingBasePath('pdf'), [
-                    'object' => $object,
-                    'base_dir' => $this->getParameter('kernel.project_dir') . '/public' . $request->getBasePath()
+                    'object'   => $object,
+                    'base_dir' => $this->getParameter('kernel.project_dir') . '/public' . $request->getBasePath(),
                 ]), ['javascript-delay' => 1000]),
-            $object->getConformiteTraitement()->getTraitement()->getName() . '.pdf'
+            $filename . '.pdf'
         );
     }
 

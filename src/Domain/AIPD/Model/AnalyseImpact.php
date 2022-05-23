@@ -11,7 +11,6 @@ use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AnalyseImpact
 {
