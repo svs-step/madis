@@ -467,6 +467,7 @@
         <div style="text-align: center"><img src='{{ absolute_url(asset("images/MatriceDecision.png")) }}' height="300" alt="MatriceDecision"></div>
 
         <h3>4.3 Mesure(s) de réduction des risques envisagée(s)</h3>
+        <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
         <table class="table table-bordered">
             <tr>
                 <th>Type de mesure</th>
@@ -483,13 +484,31 @@
                 </tr>
             {% endfor %}
         </table>
-        <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
 
         <div  style="page-break-before: always;"></div>
         <h3>4.4 Risques résiduels</h3>
         <div>Les risques résiduels correspondent aux risques non-traités ou pour lesquels il n'est pas prévu de mettre en oeuvre l'ensemble des mesures de sécurité.</div>
         <div class="reportGraph"><canvas id="risquesResiduels-chart"></canvas></div>
         <div class="reportGraph"><canvas id="dicResiduels-chart"></canvas></div>
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
+                        <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
+                        <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
+                    </tr>
+                    {% for scenario in object.scenarioMenaces %}
+                        <tr>
+                            <td>{{ scenario.nom }}</td>
+                            <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
+                            <td>{{ getScenarioMenaceImpactResiduelLabel(scenario)|raw }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
 
         <div  style="page-break-before: always;"></div>
         <h2>5. Validation de l'AIPD</h2>
