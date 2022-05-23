@@ -146,7 +146,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
 
         $form = $event->getForm();
         if ($data->getThumbUrl()) {
-            $form->add('removeThumb', CheckboxType::class, [
+            $form->add('removeThumb', HiddenType::class, [
                 'label'    => 'documentation.document.form.label.removeThumb',
                 'required' => false,
             ]);

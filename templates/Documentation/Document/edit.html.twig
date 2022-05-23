@@ -20,3 +20,14 @@
 {% block body %}
     {{ include('Documentation/Document/_form.html.twig') }}
 {% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('#remove-thumb').on('click', function(e) {
+                e.preventDefault();
+                $('#document_removeThumb').val(1);
+                $('#thumbnail-group').remove()
+            })
+        })
+    </script>
+{% endblock %}

@@ -380,6 +380,7 @@ registry:
             observation: Observations
             paper_processing: Traitement papier
             public: Public
+            public_registry: Registre public
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
             security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
@@ -458,6 +459,7 @@ registry:
             data_origin: Origine des données
             delay: Délai de conservation
             deleted_user: Utilisateur supprimé
+            dpo_message: Préconisations DPO
             estimated_concerned_people: Nombre de concernées
             evaluation_or_rating: Évaluation ou notation
             goal: Finalités

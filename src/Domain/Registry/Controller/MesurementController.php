@@ -260,7 +260,7 @@ class MesurementController extends CRUDController
                 $errors[$error->getOrigin()->getName()] = $error->getMessage();
             }
 
-            return new JsonResponse(\json_encode($errors), Response::HTTP_BAD_REQUEST);
+            return new JsonResponse($errors, Response::HTTP_BAD_REQUEST);
         }
 
         /** @var Model\Mesurement $object */
@@ -275,7 +275,7 @@ class MesurementController extends CRUDController
             'name' => $object->getName(),
         ];
 
-        return new JsonResponse(\json_encode($dataToSerialize), Response::HTTP_CREATED);
+        return new JsonResponse($dataToSerialize, Response::HTTP_CREATED);
     }
 
     public function showMesurementAction(Request $request, string $id): Response

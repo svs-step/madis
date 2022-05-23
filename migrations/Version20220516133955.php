@@ -24,7 +24,7 @@ final class Version20220516133955 extends AbstractMigration
 
     public function preUp(Schema $schema): void
     {
-        $this->categories = $this->getData('SELECT id from category');
+        $this->categories = $this->getData('SELECT id from category WHERE system = 1');
     }
 
     public function up(Schema $schema): void

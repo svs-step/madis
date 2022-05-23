@@ -343,7 +343,7 @@ class MesurementControllerTest extends TestCase
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertSame(Response::HTTP_CREATED, $response->getStatusCode());
-        $decoded_response = \json_decode($response->getContent(), true);
+        $decoded_response = $response->getContent();
         $this->assertEquals($expectedResponse, $decoded_response);
     }
 }

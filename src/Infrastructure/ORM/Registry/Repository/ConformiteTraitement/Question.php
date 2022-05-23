@@ -41,18 +41,24 @@ class Question extends CRUDRepository implements Repository\ConformiteTraitement
     public function findNewQuestionsNotUseInGivenConformite(Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement)
     {
         $qb = $this->createQueryBuilder();
-        $qb->andWhere($qb->expr()->notIn('o.id', ':questions'))
-            ->setParameter(
-                'questions',
-                array_map(function (Model\ConformiteTraitement\Reponse $reponse) {
-                    return $reponse->getQuestion()->getId()->toString();
-                }, \iterable_to_array($conformiteTraitement->getReponses()))
-            )
+
+        $params = array_map(function (Model\ConformiteTraitement\Reponse $reponse) {
+            return $reponse->getQuestion()->getId()->toString();
+        }, \iterable_to_array($conformiteTraitement->getReponses()))
         ;
+
+        if (count($params)) {
+            $qb->andWhere($qb->expr()->notIn('o.id', ':questions'))
+                ->setParameter(
+                    'questions',
+                    $params
+                )
+            ;
+        }
 
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

@@ -59,7 +59,7 @@ class MesurementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var Mesurement $mesurement */
-        $mesurement = $options['data'];
+        $mesurement = $options['data'] ?? null;
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'registry.mesurement.form.name',
@@ -143,7 +143,7 @@ class MesurementType extends AbstractType
                 'expanded'      => false,
                 'query_builder' => function (EntityRepository $er) use ($mesurement) {
                     $collectivity = null;
-                    if (!\is_null($mesurement->getCollectivity())) {
+                    if (!\is_null($mesurement) && !\is_null($mesurement->getCollectivity())) {
                         $collectivity = $mesurement->getCollectivity();
                     } else {
                         /** @var User $authenticatedUser */
@@ -170,7 +170,7 @@ class MesurementType extends AbstractType
                 'expanded'      => false,
                 'query_builder' => function (EntityRepository $er) use ($mesurement) {
                     $collectivity = null;
-                    if (!\is_null($mesurement->getCollectivity())) {
+                    if (!\is_null($mesurement) && !\is_null($mesurement->getCollectivity())) {
                         $collectivity = $mesurement->getCollectivity();
                     } else {
                         /** @var User $authenticatedUser */
@@ -197,7 +197,7 @@ class MesurementType extends AbstractType
                 'expanded'      => false,
                 'query_builder' => function (EntityRepository $er) use ($mesurement) {
                     $collectivity = null;
-                    if (!\is_null($mesurement->getCollectivity())) {
+                    if (!\is_null($mesurement) && !\is_null($mesurement->getCollectivity())) {
                         $collectivity = $mesurement->getCollectivity();
                     } else {
                         /** @var User $authenticatedUser */
@@ -223,7 +223,7 @@ class MesurementType extends AbstractType
                 'expanded'      => false,
                 'query_builder' => function (EntityRepository $er) use ($mesurement) {
                     $collectivity = null;
-                    if (!\is_null($mesurement->getCollectivity())) {
+                    if (!\is_null($mesurement) && !\is_null($mesurement->getCollectivity())) {
                         $collectivity = $mesurement->getCollectivity();
                     } else {
                         /** @var User $authenticatedUser */

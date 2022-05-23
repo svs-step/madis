@@ -91,9 +91,11 @@
                             <th>
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
+                            {% if is_granted('ROLE_REFERENT') %}
                             <th>
                                 <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
                             </th>
+                            {% endif %}
                             <th>
                                 <select class="form-control" id="search_base_legal" style="width: 100%;">
                                     <option value="">Base légale</option>
@@ -193,7 +195,9 @@
                         <tr>
                             <th style="width:20px"><input type="checkbox" name="select_all" value="1" id="select-all-treatments"></th>
                             <th>{{ 'registry.treatment.list.name'|trans }}</th>
+                            {% if is_granted('ROLE_REFERENT') %}
                             <th>{{ 'registry.treatment.list.collectivity'|trans }}</th>
+                            {% endif %}
                             <th>{{ 'registry.treatment.list.legal_basis'|trans }}</th>
                             <th>{{ 'registry.treatment.list.software'|trans }}</th>
                             <th>{{ 'registry.treatment.list.author'|trans }}</th>
@@ -238,9 +242,31 @@
         {% set actionIsVisible = false %}
     {% endif %}
 
-
-    {% set dataTableOptions = {
-        columns: [
+    {% set cols = [
+        {"data": "id", "className": "noVis"},
+        {"data": "nom", "className": "noVis"},
+        {"data": "baseLegal", "visible": true},
+        {"data": "logiciel", "visible": true},
+        {"data": "enTantQue", "visible": false},
+        {"data": "gestionnaire", "visible": true},
+        {"data": "sousTraitant", "visible": false, "orderable": false},
+        {"data": "controleAcces", "visible": false},
+        {"data": "tracabilite", "visible": false},
+        {"data": "saving", "visible": true},
+        {"data": "other", "visible": false},
+        {"data": "entitledPersons", "visible": false},
+        {"data": "openAccounts", "visible": false},
+        {"data": "specificitiesDelivered", "visible": false},
+        {"data": "updatedAt", "visible": true},
+        {"data": "public", "visible": false},
+        {"data": "update", "visible": true},
+        {"data": "responsableTraitement", "visible": false},
+        {"data": "specific_traitement", "render": "[, ]","visible": true},
+        {"data": "conformite_traitement","visible": false, "orderable": false},
+        {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
+    ] %}
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set cols = [
             {"data": "id", "className": "noVis"},
             {"data": "nom", "className": "noVis"},
             {"data" : "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
@@ -261,14 +287,20 @@
             {"data": "update", "visible": true},
             {"data": "responsableTraitement", "visible": false},
             {"data": "specific_traitement", "render": "[, ]","visible": true},
-            {"data": "conformite_traitement","visible": false},
+            {"data": "conformite_traitement","visible": false, "orderable": false},
             {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
-        ],
+        ] %}
+    {% endif %}
+
+
+    {% set dataTableOptions = {
+        columns: cols,
         order:  [
             [1, 'asc' ]
         ],
         'addcheckbox': true,
     } %}
+
 
     <script>
         function cbColRenderFunction (data, type, full, meta){
@@ -354,54 +386,53 @@
 
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
-                oTable.column('0').search($(this).val()).draw() ;
+                oTable.column('1').search($(this).val()).draw() ;
             }));
 
             $('#search_collectivite').off('keyup');
             $('#search_collectivite').keyup($.debounce(250, function(){
-                oTable.column('1').search($(this).val()).draw() ;
+                oTable.column('2').search($(this).val()).draw() ;
             }));
 
             $('#search_base_legal').off('change');
             $('#search_base_legal').change(function(){
-                oTable.column('2').search($(this).val()).draw() ;
+                oTable.column('3').search($(this).val()).draw() ;
             });
 
             $('#search_logiciel').off('keyup');
             $('#search_logiciel').keyup($.debounce(250, function(){
-                oTable.column('3').search($(this).val()).draw() ;
+                oTable.column('4').search($(this).val()).draw() ;
             }));
 
             $('#search_en_tant_que').off('change');
             $('#search_en_tant_que').change(function(){
-                oTable.column('4').search($(this).val()).draw() ;
+                oTable.column('5').search($(this).val()).draw() ;
             });
 
             $('#search_gestionnaire').off('keyup');
             $('#search_gestionnaire').keyup($.debounce(250, function(){
-                oTable.column('5').search($(this).val()).draw() ;
+                oTable.column('6').search($(this).val()).draw() ;
             }));
 
             $('#search_sous_traitants').off('keyup');
             $('#search_sous_traitants').keyup($.debounce(250, function(){
-                oTable.column('6').search($(this).val()).draw() ;
+                oTable.column('7').search($(this).val()).draw() ;
             }));
 
             $('#search_controle_acces').off('change');
             $('#search_controle_acces').change(function(){
-                oTable.column('7').search($(this).val()).draw() ;
+                oTable.column('8').search($(this).val()).draw() ;
             });
 
             $('#search_tracabilite').off('change');
             $('#search_tracabilite').change(function(){
-                oTable.column('8').search($(this).val()).draw() ;
+                oTable.column('9').search($(this).val()).draw() ;
             });
 
             $('#search_sauvegarde').off('change');
             $('#search_sauvegarde').change(function(){
-                oTable.column('9').search($(this).val()).draw() ;
+                oTable.column('10').search($(this).val()).draw() ;
             });
-
 
 
             $('#search_autres').off('change');

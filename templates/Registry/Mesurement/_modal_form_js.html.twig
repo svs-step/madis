@@ -32,23 +32,23 @@
             //Désactiviation du bouton pour éviter le multi clic
             $('#mesurement-modal-form-button').attr('disabled','disabled');
 
-            let jQueryform =  $(this);
+            let jQueryform =  $(e.target);
             getAjaxCreationCall(jQueryform).then(
                 result => {
                     $('select.selectpicker').each(function() {
                         addGivenOptionAndReloadSelectpicker($(this), selectId, result);
                     });
 
-                    target = $(jQueryform.attr('data-target'));
+                    var target = $(jQueryform.attr('data-target'));
                     //La modale disparait
                     target.modal('hide');
                     //On réactive le bouton
                     $('#mesurement-modal-form-button').removeAttr("disabled");
-
                 }
             ).catch(
                 error => {
                     console.log(error);
+                    $('#mesurement-modal-form-button').removeAttr("disabled");
                 }
             )
         })
@@ -69,8 +69,7 @@
                 data: jQueryform.serialize(),
 
                 success: function(data) {
-                    let object = jQuery.parseJSON(data);
-                    resolve(object);
+                    resolve(data);
                 },
 
                 error: function (xhr) {

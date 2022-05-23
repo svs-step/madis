@@ -157,6 +157,7 @@ class TreatmentGenerator extends AbstractGenerator
             $this->translator->trans('registry.treatment.show.legal_basis_justification'),
             $this->translator->trans('registry.treatment.show.observation'),
             $this->translator->trans('registry.treatment.show.public_register'),
+            $this->translator->trans('registry.treatment.show.dpo_message'),
         ];
     }
 
@@ -179,15 +180,16 @@ class TreatmentGenerator extends AbstractGenerator
         }
 
         return [
-            !\is_null($treatment->getAuthor()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : null,
+            !\is_null($treatment->getAuthor()) && array_key_exists($treatment->getAuthor(), TreatmentAuthorDictionary::getAuthors()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : $treatment->getAuthor(),
             $treatment->getCoordonneesResponsableTraitement(),
             $goal,
             $treatment->getManager(),
             $treatment->isActive() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
-            !\is_null($treatment->getLegalBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : null,
+            !\is_null($treatment->getLegalBasis()) && array_key_exists($treatment->getLegalBasis(), TreatmentLegalBasisDictionary::getBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : $treatment->getLegalBasis(),
             $legalBasisJustification,
             $observation,
             $treatment->getPublic() ? $yes : $no,
+            $treatment->getDpoMessage(),
         ];
     }
 

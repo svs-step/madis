@@ -17,7 +17,7 @@
 
     $(function () {
 
-        {% set paging = false %}
+        {% set paging = true %}
         {% if is_granted('ROLE_ADMIN') %}
             {% set paging = true %}
         {% endif %}
@@ -51,7 +51,10 @@
                         1: "1 ligne séléctionnée"
                     }
                 },
-                thousands: " "
+                thousands: " ",
+                buttons: {
+                    colvis: "Colonnes"
+                },
             },
             paging      : paging,
             lengthChange: false,
