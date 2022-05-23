@@ -9,6 +9,8 @@ use Craue\FormFlowBundle\Form\FormFlow;
 
 class AnalyseImpactFlow extends FormFlow
 {
+    protected $allowDynamicStepNavigation = true;
+
     protected function loadStepsConfig()
     {
         return [
