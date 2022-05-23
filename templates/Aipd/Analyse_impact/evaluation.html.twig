@@ -157,12 +157,20 @@
         let risquesResiduelDataSet = [];
         let dicResiduelsData = [];
         {% for scenario in analyseImpact.scenarioMenaces %}
-        // Risque résiduel = Impact Potentiel - Impact Résiduel
-        // Risque couvert = 4-Risque résiduel
-        {%  set rr = getScenarioMenaceImpactPotentiel(scenario) - getScenarioMenaceImpactResiduel(scenario) %}
+
+        {%  set rr = getScenarioMenaceImpactResiduel(scenario) %}
+
+        // {{ scenario.nom }}
+
+        // impact résiduel {{ rr }}
+
+        {%  set rp = getScenarioMenaceImpactPotentiel(scenario) %}
+
+        // impact Potentiel {{ rp }}
+
             risquesLabels.push('{{ scenario.nom|truncate(20, '...') }}');
-            risquesCouvertDataSet.push({{ rr }});
-            risquesResiduelDataSet.push({{ 4-rr }})
+            risquesCouvertDataSet.push({{ rp-rr }});
+            risquesResiduelDataSet.push({{ rr }})
             dicResiduelsData.push({
                 label: "{{ scenario.nom }}",
                 data: [{x: {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}, y: {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}, r: 10}],
@@ -185,8 +193,7 @@
         mesuresDatas = [mesuresDatas];
         risquesCouvert = {label: "Risque couvert", data: risquesCouvertDataSet, backgroundColor: colorTeal};
         risquesResiduel = {label: "Risque résiduel", data: risquesResiduelDataSet, backgroundColor: colorPink};
-        let risquesDatas = [risquesCouvert, risquesResiduel];
-        console.log(risquesDatas);
+        let risquesDatas = [risquesResiduel, risquesCouvert];
 
     </script>
 
