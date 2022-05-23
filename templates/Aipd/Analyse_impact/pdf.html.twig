@@ -108,7 +108,11 @@
         <div class="separator"></div>
         <div class="row">
             <div><strong style="font-size: 1.6em; margin-left:30px;">Délégué à la Protection des Données</strong></div>
-            <span style="font-size: 1.2em; margin-left:45px;">{{ object.conformiteTraitement.traitement.collectivity.dpo.civility|dictionary('user_contact_civility') }} {{ object.conformiteTraitement.traitement.collectivity.dpo.firstName }} {{ object.conformiteTraitement.traitement.collectivity.dpo.lastName }}</span>
+            <span style="font-size: 1.2em; margin-left:45px;">
+                {{ object.conformiteTraitement.traitement.collectivity.dpo.civility|dictionary('user_contact_civility') }}
+                {{ object.conformiteTraitement.traitement.collectivity.dpo.firstName }}
+                {{ object.conformiteTraitement.traitement.collectivity.dpo.lastName }}
+            </span>
         </div>
         <div  style="page-break-before: always;">
             <h2>1. Préambule</h2>
@@ -531,6 +535,7 @@
     }
 
     function stackedBarChart(id, labels, data) {
+
         new Chart(document.getElementById(id), {
             type: 'bar',
             data: {
@@ -540,10 +545,24 @@
             options: {
                 scales: {
                     yAxes: [{
+                        stacked: true,
                         ticks : {
-                            beginAtZero: true,
+                            beginAtZero: false,
                             stepSize: 1,
+                            callback: function(label, index, labels) {
+                                switch (label) {
+                                    case 1:
+                                        return 'Négligeable'
+                                    case 2:
+                                        return 'Limité'
+                                    case 3:
+                                        return 'Important'
+                                    case 4:
+                                        return 'Maximal'
+                                }
+                            }
                         },
+
                     }],
                     xAxes: [{
                         stacked: true,
@@ -636,23 +655,27 @@
     var dicResiduelsData = [];
     {% for scenario in object.scenarioMenaces %}
         risquesLabels.push('{{ scenario.nom|truncate(20, '...') }}');
-        risquesDataSet2.push({{ getScenarioMenaceImpactPotentiel(scenario) }});
-        risquesDataSet1.push({{ getScenarioMenaceImpactResiduel(scenario) }})
+        {%  set rr = getScenarioMenaceImpactResiduel(scenario) %}
+        {%  set rp = getScenarioMenaceImpactPotentiel(scenario) %}
+        risquesDataSet1.push({{ rp-rr }})
+        risquesDataSet2.push({{ rr }});
+
         dicResiduelsData.push({
             label: "{{ scenario.nom }}",
             data: [{x: {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}, y: {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}, r: 10}],
             backgroundColor: colorBlue
         });
-        {% for mesure in scenario.mesuresProtections %}
-            mesuresLabels.push('{{ mesure.nom }}');
-            {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
-                mesuresDatas.push(1);
-            {% elseif mesure.reponse == 'besoin_amelioration' %}
-                mesuresDatas.push(3);
-            {% else %}
-                mesuresDatas.push(5);
-            {% endif %}
-        {% endfor %}
+
+    {% endfor %}
+    {% for mesure in object.mesureProtections %}
+        mesuresLabels.push('{{ mesure.nom }}');
+        {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
+        mesuresDatas.push(1);
+        {% elseif mesure.reponse == 'besoin_amelioration' %}
+        mesuresDatas.push(3);
+        {% else %}
+        mesuresDatas.push(5);
+        {% endif %}
     {% endfor %}
     mesuresDatas = [mesuresDatas];
     risquesDataSet1 = {label: "Risque couvert", data: risquesDataSet1, backgroundColor: colorTeal};
