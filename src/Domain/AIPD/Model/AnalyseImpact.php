@@ -127,7 +127,7 @@ class AnalyseImpact
             }
         }
 
-        throw new NotFoundHttpException('No critere with code ' . $code . ' has been found.');
+        return null;
     }
 
     public function setCriterePrincipeFondamentaux($criterePrincipeFondamentaux): void
