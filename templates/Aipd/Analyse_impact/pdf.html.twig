@@ -94,7 +94,7 @@
         <div style="text-align: center; font-size: 2em"> Instruction du dossier</div>
     </section>
 
-    <section class="content container-fluid">
+    <div class="content container-fluid">
 
         <div class="row" style="text-align: center"><h2>{{ object.conformiteTraitement.traitement.name }}</h2></div>
         <div class="row" style="text-align: center"><h2>{{ object.conformiteTraitement.traitement.collectivity.name }}</h2></div>
@@ -485,6 +485,28 @@
             {% endfor %}
         </table>
 
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border">Mesures de protection</div>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Gestion des sauvegardes</th>
+                    <th>Description</th>
+                    <th>Réponse</th>
+                    <th>Préconisations</th>
+                </tr>
+                {% for scenario in object.scenarioMenaces %}
+                    {% for mesure in scenario.mesuresProtections %}
+                        <tr>
+                            <td>{{ mesure.labelLivrable }}</td>
+                            <td>{{ mesure.detail }}</td>
+                            <td>{{ mesure.reponse }}</td>
+                            <td>{{ mesure.phrasePreconisation }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
+
         <div  style="page-break-before: always;"></div>
         <h3>4.4 Risques résiduels</h3>
         <div>Les risques résiduels correspondent aux risques non-traités ou pour lesquels il n'est pas prévu de mettre en oeuvre l'ensemble des mesures de sécurité.</div>
@@ -509,7 +531,28 @@
                 </table>
             </div>
         </div>
-
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border">Actions conseillées par le DPD à mettre en place</div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Préconisations</th>
+                    </tr>
+                    {% for scenario in object.scenarioMenaces %}
+                        {% if ((scenario.gravite is not same as('negligeable') or scenario.gravite is not same as('limitee')) or (scenario.vraisemblance is not same as ('negligeable') or scenario.vraisemblance is not same as ('limitee'))) %}
+                            {% for mesure in scenario.mesuresProtections %}
+                                {% if (mesure.poidsVraisemblance is not same as('negligeable') or mesure.poidsVraisemblance is not same as('limitee')) or (mesure.poidsGravite is not same as('negligeable') or mesure.poidsGravite is not same as('negligeable')) %}
+                                    <tr>
+                                        <td>{{ mesure.nom }}</td>
+                                        <td>{{ mesure.phrasePreconisation }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
         <div  style="page-break-before: always;"></div>
         <h2>5. Validation de l'AIPD</h2>
         <div>Ce chapitre a pour objectifs de permettre la prise de décision visant à accepter ou non l'AIPD au regard des résultats de l'étude.</div>
@@ -1534,9 +1577,9 @@
     {% endfor %}
     {% for question in object.questionConformites %}
     {% set reponse = object.conformiteTraitement.reponseOfPosition(question.position) %}
-    {% if reponse.conforme %}
+    {% if reponse and reponse.conforme %}
     domainesDatas.push(5);
-    {% elseif reponse.actionProtections is not empty %}
+    {% elseif reponse and reponse.actionProtections is not empty %}
     domainesDatas.push(3);
     {% else %}
     domainesDatas.push(1);
