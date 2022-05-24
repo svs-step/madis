@@ -46,7 +46,7 @@
 
     {% for button in craue_buttons %}
         {% if button.render %}
-            <button type="submit"{% for key, value in button.attr %} {{ key }}="{{ value }}"{% endfor %}>
+            <button type="submit"{% for key, value in button.attr %} {{ key }}="{{ value }}"{% endfor %} style='margin-left: 5px;'>
             {{- button.label | trans({}, 'CraueFormFlowBundle') -}}
             </button>
         {% endif %}
