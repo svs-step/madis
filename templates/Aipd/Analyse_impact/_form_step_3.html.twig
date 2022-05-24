@@ -42,22 +42,22 @@
                 {{ scenario.vars.value.nom }}</td>
             <td>
                 {% if scenario.vars.value.canVraisemblanceBeModified %}
+                    {{ form_widget(scenario.vraisemblance) }}
+                {% else %}
                     {{ scenario.vars.value.vraisemblance|dictionary('vraisemblance_gravite') }}
                     <div style="display: none">
                         {{ form_widget(scenario.vraisemblance) }}
                     </div>
-                {% else %}
-                    {{ form_widget(scenario.vraisemblance) }}
                 {% endif %}
             </td>
             <td>
                 {% if scenario.vars.value.canGraviteBeModified %}
+                    {{ form_widget(scenario.gravite) }}
+                {% else %}
                     {{ scenario.vars.value.gravite|dictionary('vraisemblance_gravite') }}
                     <div style="display: none">
                         {{ form_widget(scenario.gravite) }}
                     </div>
-                {% else %}
-                    {{ form_widget(scenario.gravite) }}
                 {% endif %}
             <td class="impact-potentiel">
                 {% if scenario.vars.value.gravite is not null and scenario.vars.value.gravite != 'vide' and scenario.vars.value.vraisemblance is not null and scenario.vars.value.vraisemblance != 'vide' %}

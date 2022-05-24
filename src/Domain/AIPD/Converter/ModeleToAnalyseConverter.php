@@ -86,9 +86,9 @@ class ModeleToAnalyseConverter
             $scenario->setIsIntegrite($scenarioModele->isIntegrite());
             $scenario->setIsConfidentialite($scenarioModele->isConfidentialite());
             $scenario->setVraisemblance($scenarioModele->getVraisemblance());
-            $scenario->setCanGraviteBeModified(\is_null($scenarioModele->getGravite()));
-            $scenario->setCanVraisemblanceBeModified(\is_null($scenarioModele->getVraisemblance()));
             $scenario->setGravite($scenarioModele->getGravite());
+            $scenario->setCanGraviteBeModified($scenarioModele->getGravite() === 'vide');
+            $scenario->setCanVraisemblanceBeModified($scenarioModele->getVraisemblance() === 'vide');
             $scenario->setPrecisions($scenarioModele->getPrecisions());
             $scenario->setAnalyseImpact($analyseImpact);
 
