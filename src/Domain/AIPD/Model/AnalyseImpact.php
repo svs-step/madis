@@ -33,6 +33,21 @@ class AnalyseImpact
     private string $modeleAnalyse;
 
     /**
+     * @var string
+     */
+    private string $labelAmeliorationPrevue;
+
+    /**
+     * @var string
+     */
+    private string $labelInsatisfaisant;
+
+    /**
+     * @var string
+     */
+    private string $labelSatisfaisant;
+
+    /**
      * @var array|CriterePrincipeFondamental[]
      */
     private $criterePrincipeFondamentaux;
@@ -259,5 +274,35 @@ class AnalyseImpact
     public function getMesureProtections()
     {
         return $this->mesureProtections;
+    }
+
+    public function getLabelAmeliorationPrevue(): string
+    {
+        return $this->labelAmeliorationPrevue;
+    }
+
+    public function setLabelAmeliorationPrevue(string $labelAmeliorationPrevue): void
+    {
+        $this->labelAmeliorationPrevue = $labelAmeliorationPrevue;
+    }
+
+    public function getLabelInsatisfaisant(): string
+    {
+        return $this->labelInsatisfaisant;
+    }
+
+    public function setLabelInsatisfaisant(string $labelInsatisfaisant): void
+    {
+        $this->labelInsatisfaisant = $labelInsatisfaisant;
+    }
+
+    public function getLabelSatisfaisant(): string
+    {
+        return $this->labelSatisfaisant;
+    }
+
+    public function setLabelSatisfaisant(string $labelSatisfaisant): void
+    {
+        $this->labelSatisfaisant = $labelSatisfaisant;
     }
 }
