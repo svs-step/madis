@@ -174,17 +174,23 @@
                                             <img src="{{ object.thumbUrl }}" alt="" height="150" style="object-fit : cover;width:100%" />
                                         {% else %}
                                             <div class="text-muted m-0" style="height:150px;padding: 50px;background: #f2f2f2;font-size: 60px;">
-                                            {% if object.typeName == "Vidéos" %}
-                                                <i class="far fa-file-video"></i>
-                                            {% elseif object.typeName == "PDF" %}
-                                                <i class="far fa-file-pdf"></i>
-                                            {% elseif object.typeName == "Documents" %}
-                                                <i class="far fa-file-word"></i>
-                                            {% elseif object.typeName == "Liens" %}
-                                                <i class="fas fa-globe"></i>
-                                            {% elseif object.typeName == "Images" %}
-                                                <i class="fas fa-image"></i>
-                                            {% endif %}
+                                                {% if object.typeName == "Vidéos" %}
+                                                    <i class="far fa-file-video"></i>
+                                                {% elseif object.typeName == "PDF" %}
+                                                    <i class="far fa-file-pdf"></i>
+                                                {% elseif object.typeName == "Documents" %}
+                                                    <i class="far fa-file-word"></i>
+                                                {% elseif object.typeName == "Liens" %}
+                                                    <i class="fas fa-globe"></i>
+                                                {% elseif object.typeName == "Images" %}
+                                                    <i class="fas fa-image"></i>
+                                                {% elseif object.typeName == "PowerPoint" %}
+                                                    <i class="fas fa-file-powerpoint"></i>
+                                                {% elseif object.typeName == "Excel" %}
+                                                    <i class="fas fa-file-excel"></i>
+                                                {% elseif object.typeName == "Audios" %}
+                                                    <i class="fas fa-file-audio"></i>
+                                                {% endif %}
                                             </div>
                                         {% endif %}
                                     </a>
