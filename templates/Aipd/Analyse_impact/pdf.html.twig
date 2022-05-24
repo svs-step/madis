@@ -527,7 +527,13 @@
                 <tr>
                     <td></td>
                     <td>{{ mesure.nom }}</td>
-                    <td>{{ mesure.reponse|dictionary('reponse_mesure_protection') }}</td>
+                    <td>
+                        {% if mesure.reponse in dictionary('reponse_mesure_protection')|keys %}
+                        {{ mesure.reponse|dictionary('reponse_mesure_protection') }}
+                        {% else %}
+                        {{ mesure.reponse }}
+                        {% endif %}
+                    </td>
                     <td>{{ mesure.detail }}</td>
                 </tr>
             {% endfor %}
@@ -547,7 +553,13 @@
                         <tr>
                             <td>{{ mesure.labelLivrable }}</td>
                             <td>{{ mesure.detail }}</td>
-                            <td>{{ mesure.reponse }}</td>
+                            <td>
+                                {% if mesure.reponse in dictionary('reponse_mesure_protection')|keys %}
+                                    {{ mesure.reponse|dictionary('reponse_mesure_protection') }}
+                                {% else %}
+                                    {{ mesure.reponse }}
+                                {% endif %}
+                            </td>
                             <td>{{ mesure.phrasePreconisation }}</td>
                         </tr>
                     {% endfor %}
@@ -696,7 +708,13 @@
                     {% for mesure in object.mesureProtections %}
                         <tr>
                             <td>{{ mesure.nom }}</td>
-                            <td>{{ mesure.reponse|dictionary('reponse_mesure_protection') }}</td>
+                            <td>
+                                {% if mesure.reponse in dictionary('reponse_mesure_protection')|keys %}
+                                    {{ mesure.reponse|dictionary('reponse_mesure_protection') }}
+                                {% else %}
+                                    {{ mesure.reponse }}
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                 </table>
