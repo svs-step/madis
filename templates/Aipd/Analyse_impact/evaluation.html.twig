@@ -174,7 +174,7 @@
             dicResiduelsData.push({
                 label: "{{ scenario.nom }}",
                 data: [{x: {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}, y: {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}, r: 10}],
-                backgroundColor: colorBlue
+                backgroundColor: 'hsl({{ (23*loop.index) % 360 }}, 100%, 50%)'
             });
 
         {% endfor %}
@@ -194,8 +194,9 @@
         risquesCouvert = {label: "Risque couvert", data: risquesCouvertDataSet, backgroundColor: colorTeal};
         risquesResiduel = {label: "Risque résiduel", data: risquesResiduelDataSet, backgroundColor: colorPink};
         let risquesDatas = [risquesResiduel, risquesCouvert];
-
     </script>
 
     <script src="{{ asset('build/js/evaluation.js') }}"></script>
+
+
 {% endblock %}
