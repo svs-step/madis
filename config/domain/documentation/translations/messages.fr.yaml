@@ -45,7 +45,7 @@ documentation:
                 delete: Document "%object%" supprimé avec succès
         list:
             favorite: Favoris
-            type: Type
+            type: Format
             weight: Poids
             name: Nom
             category: Catégorie

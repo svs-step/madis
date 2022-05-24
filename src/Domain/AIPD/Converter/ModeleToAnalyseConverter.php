@@ -25,6 +25,9 @@ class ModeleToAnalyseConverter
     {
         $analyseImpact = new AnalyseImpact();
         $analyseImpact->setModeleAnalyse($modeleAnalyse->getNom());
+        $analyseImpact->setLabelAmeliorationPrevue($modeleAnalyse->getLabelAmeliorationPrevue());
+        $analyseImpact->setLabelInsatisfaisant($modeleAnalyse->getLabelInsatisfaisant());
+        $analyseImpact->setLabelSatisfaisant($modeleAnalyse->getLabelSatisfaisant());
         $analyseImpact->setCriterePrincipeFondamentaux(self::convertCriteres($analyseImpact, $modeleAnalyse->getCriterePrincipeFondamentaux()));
         $analyseImpact->setQuestionConformites(self::convertQuestionsConformite($analyseImpact, $modeleAnalyse->getQuestionConformites()));
 
