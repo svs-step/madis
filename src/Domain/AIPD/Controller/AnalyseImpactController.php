@@ -313,10 +313,7 @@ class AnalyseImpactController extends CRUDController
             }
         }
 
-        $jsonResponse = new JsonResponse();
-        $jsonResponse->setJson(json_encode($reponse));
-
-        return $jsonResponse;
+        return new JsonResponse($reponse);
     }
 
     public function evaluationAction(string $id)

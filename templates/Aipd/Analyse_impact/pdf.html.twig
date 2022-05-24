@@ -401,26 +401,28 @@
                     <th>Conformité</th>
                 </tr>
             </thead>
-            {% for QuestionConformite in object.questionConformites %}
+            <tbody>
+            {% for questionConformite in object.questionConformites %}
                 <tr>
-                    <td>{{ QuestionConformite.question }}
-                        {% if QuestionConformite.ReponseConformite.actionProtections is not same as null %}
-                            {% for action in QuestionConformite.ReponseConformite.actionProtections %}
-                            <div style="margin-left: 20px;font-size:12px;">
-                                <span>{{action.name}}</span>
-                            </div>
+                    {% set reponse = object.conformiteTraitement.getReponseOfPosition(questionConformite.position) %}
+                    <td>{{ questionConformite.question }}
+                        {% if reponse and reponse.actionProtections is not null %}
+                            {% for action in reponse.actionProtections %}
+                                <div style="margin-left: 20px;font-size:12px;">
+                                    <span>{{action.name}}</span>
+                                </div>
                             {% endfor %}
                         {% endif %}
-                        {% if QuestionConformite.justificatif is not same as null %}
+                        {% if questionConformite.justificatif is not null %}
                             <div style="margin-left: 20px;font-size:12px;">
-                                <span>{{ QuestionConformite.justificatif }}</span>
+                                <span>{{ questionConformite.justificatif }}</span>
                             </div>
                         {% endif %}
                     </td>
-                    {% if QuestionConformite.ReponseConformite.conforme %}
+                    {% if reponse and reponse.conforme %}
                         <td><span class="label label-success" style="min-width: 100%; display: inline-block;"> Conforme</span></td>
                     {% else %}
-                        {% if QuestionConformite.ReponseConformite.actionProtections|length > 0 %}
+                        {% if reponse and reponse.actionProtections|length > 0 %}
                             <td><span class="label label-warning" style="min-width: 100%; display: inline-block;"> Non-conforme mineure</span></td>
                         {% else%}
                             <td><span class="label label-danger" style="min-width: 100%; display: inline-block;"> Non-conforme majeure</span></td>

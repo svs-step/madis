@@ -255,8 +255,7 @@ class ModeleAnalyseController extends CRUDController
             ];
         }
 
-        $jsonResponse = new JsonResponse();
-        $jsonResponse->setJson(json_encode($reponse));
+        $jsonResponse = new JsonResponse($reponse);
 
         return $jsonResponse;
     }
