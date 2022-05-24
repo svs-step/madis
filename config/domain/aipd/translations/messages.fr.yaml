@@ -6,10 +6,14 @@ aipd:
             back_to_list: Retour à la liste
         title:
             create: Créer un modèle
-            edit: Modifier un modèle
-            list: Liste des modèles d'analyse  
+            edit: Supprimer un modèle
+            delete: Modifier un modèle
+            list: Liste des modèles d'analyse
             rights: Modifier les droits
             import: Importer un modèle
+        delete:
+            subtitle: Modèle d'analyse %name%
+            confirmation: Souhaitez vous vraiment supprimer le modèle d'analyse %name% ?
         list:
             description: Description
             name: Nom du modèle d'analyse d'impact
