@@ -119,7 +119,7 @@
                             </div>
                             <div class="ml2">
                                 <select class="form-control" id="search_type" style="width: 100%;">
-                                    <option value="" selected>Type</option>
+                                    <option value="" selected>{{ 'documentation.document.list.type'|trans }}</option>
                                     {% for key, subject in dictionary('documentation_document_type') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
