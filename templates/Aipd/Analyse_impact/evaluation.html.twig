@@ -138,9 +138,9 @@
         {% endfor %}
         {% for question in analyseImpact.questionConformites %}
         {% set reponse = analyseImpact.conformiteTraitement.reponseOfPosition(question.position) %}
-            {% if reponse.conforme %}
+            {% if reponse and reponse.conforme %}
                 domainesDatas.push(5);
-            {% elseif reponse.actionProtections is not empty %}
+            {% elseif reponse and reponse.actionProtections is not empty %}
                 domainesDatas.push(3);
             {% else %}
                 domainesDatas.push(1);
