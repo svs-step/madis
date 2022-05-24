@@ -391,9 +391,7 @@ class TreatmentController extends CRUDController
             ];
         }
 
-        $jsonResponse = new JsonResponse($reponse);
-
-        return $jsonResponse;
+        return new JsonResponse($reponse);
     }
 
     private function getTreatmentConformity(Treatment $treatment)

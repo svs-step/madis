@@ -103,6 +103,7 @@ class AnalyseImpactController extends CRUDController
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $criteria['collectivity']  = $user->getCollectivity();
         }
+
         $analyses = $this->getResults($request, $criteria);
         $response = $this->getBaseDataTablesResponse($request, $analyses);
 
@@ -122,10 +123,7 @@ class AnalyseImpactController extends CRUDController
             ];
         }
 
-        $jsonResponse = new JsonResponse();
-        $jsonResponse->setJson(json_encode($response));
-
-        return $jsonResponse;
+        return new JsonResponse($response);
     }
 
     protected function getLabelAndKeysArray(): array

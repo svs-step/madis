@@ -27,7 +27,7 @@
                                 <input class="form-control" type="text" id="search_traitement" placeholder="Traitement" style="width: 100%;">
                             </th>
                             <th>
-                                <input class="form-control" type="text" id="search_date_de_creation" placeholder="Date création" style="width: 100%;">
+                                <input class="datepicker form-control" type="text" id="search_date_de_creation" placeholder="Date création" style="width: 100%;">
                             </th>
                             <th>
                                 <input class="datepicker form-control" type="text" id="search_date_de_validation" placeholder="Date validation" style="width: 100%;">
@@ -71,7 +71,7 @@
     {% set dataTableOptions = {
         columns: [
             {"data": "traitement", "className": "noVis"},
-            {"data" : "dateDeCreation"},
+            {"data": "dateDeCreation"},
             {"data": "dateDeValidation"},
             {"data": "modele"},
             {"data": "collectivite"},
@@ -87,5 +87,23 @@
     } %}
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        $(document).ready(function () {
+            var oTable = $('#table').DataTable();
+            $('#search_traitement').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+            $('#search_date_de_creation').off('change').change(function(){
+                oTable.column('1').search($(this).val()).draw();
+            });
+            $('#search_date_de_validation').off('change').change(function(){
+                oTable.column('2').search($(this).val()).draw();
+            });
+            $('#search_modele').off('change').change(function(){
+                oTable.column('3').search($(this).val()).draw();
+            });
+        })
+    </script>
 
 {% endblock %}
