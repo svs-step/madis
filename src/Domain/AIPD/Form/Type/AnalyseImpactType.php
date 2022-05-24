@@ -36,7 +36,10 @@ class AnalyseImpactType extends AbstractType
             case 4:
                 $builder
                     ->add('mesureProtections', CollectionType::class, [
-                        'entry_type' => AnalyseMesureProtectionType::class,
+                        'entry_type'     => AnalyseMesureProtectionType::class,
+                        'entry_options'  => [
+                            'aipd'  => $options['data'],
+                        ],
                     ]);
                 break;
         }

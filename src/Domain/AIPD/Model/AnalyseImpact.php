@@ -31,19 +31,10 @@ class AnalyseImpact
      */
     private string $modeleAnalyse;
 
-    /**
-     * @var string
-     */
     private string $labelAmeliorationPrevue;
 
-    /**
-     * @var string
-     */
     private string $labelInsatisfaisant;
 
-    /**
-     * @var string
-     */
     private string $labelSatisfaisant;
 
     /**

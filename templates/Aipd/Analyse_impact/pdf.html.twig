@@ -528,8 +528,8 @@
                     <td></td>
                     <td>{{ mesure.nom }}</td>
                     <td>
-                        {% if mesure.reponse in dictionary('reponse_mesure_protection')|keys %}
-                        {{ mesure.reponse|dictionary('reponse_mesure_protection') }}
+                        {% if mesure.reponse in reponsedictionary(object)|keys %}
+                        {{ mesure.reponse|reponsedictionary(object) }}
                         {% else %}
                         {{ mesure.reponse }}
                         {% endif %}
@@ -554,8 +554,8 @@
                             <td>{{ mesure.labelLivrable }}</td>
                             <td>{{ mesure.detail }}</td>
                             <td>
-                                {% if mesure.reponse in dictionary('reponse_mesure_protection')|keys %}
-                                    {{ mesure.reponse|dictionary('reponse_mesure_protection') }}
+                                {% if mesure.reponse in reponsedictionary(object)|keys %}
+                                    {{ mesure.reponse|reponsedictionary(object) }}
                                 {% else %}
                                     {{ mesure.reponse }}
                                 {% endif %}
@@ -709,8 +709,8 @@
                         <tr>
                             <td>{{ mesure.nom }}</td>
                             <td>
-                                {% if mesure.reponse in dictionary('reponse_mesure_protection')|keys %}
-                                    {{ mesure.reponse|dictionary('reponse_mesure_protection') }}
+                                {% if mesure.reponse in reponsedictionary(object)|keys %}
+                                    {{ mesure.reponse|reponsedictionary(object) }}
                                 {% else %}
                                     {{ mesure.reponse }}
                                 {% endif %}
