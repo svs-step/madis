@@ -30,9 +30,12 @@ class DocumentTypeDictionary extends SimpleDictionary
 {
     const TYPE_PDF         = 'PDF';
     const TYPE_MP4         = 'Vidéos';
+    const TYPE_AUDIO       = 'Audios';
     const TYPE_LINK        = 'Liens';
     const TYPE_DOCX        = 'Documents';
     const TYPE_IMG         = 'Images';
+    const TYPE_PPT         = 'PowerPoint';
+    const TYPE_EXCEL       = 'Excel';
 
     public function __construct()
     {
@@ -49,9 +52,12 @@ class DocumentTypeDictionary extends SimpleDictionary
         return [
             self::TYPE_PDF            => 'PDF',
             self::TYPE_MP4            => 'Vidéos',
+            self::TYPE_AUDIO          => 'Audios',
             self::TYPE_LINK           => 'Liens',
             self::TYPE_DOCX           => 'Documents',
             self::TYPE_IMG            => 'Images',
+            self::TYPE_PPT            => 'PowerPoint',
+            self::TYPE_EXCEL          => 'Excel',
         ];
     }
 

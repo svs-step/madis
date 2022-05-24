@@ -42,7 +42,7 @@ class AnalyseImpactExtension extends AbstractExtension
         }
         /** @var Mesurement $actionProtection */
         foreach ($reponseConformite->getActionProtections() as $actionProtection) {
-            $formattedString .= $actionProtection->getName() . ' ';
+            $formattedString .= $actionProtection->getName() . '<br/>';
         }
 
         return $formattedString;
