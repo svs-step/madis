@@ -133,7 +133,6 @@
         <h3 style="margin-left: 30px">1.1 Méthode d'une Analyse d'Impact relative à la Protection des Données</h3>
         <h3 style="margin-left: 30px">1.2 Conformité d’une Analyse d’Impact relative à la Protection des Données</h3>
         <h2>2. Étude du contexte</h2>
-        <h3 style="margin-left: 30px">2.1 Description</h3>
         <h2>3. Études des des principes fondamentaux</h2>
         <h2>4. Études des risques liés à la sécurité des données</h2>
         <h3 style="margin-left: 30px">4.1 Évaluation des risques sur les droits et les libertés des personnes concernées</h3>
@@ -176,7 +175,6 @@
         <div  style="page-break-before: always;"></div>
         <h2>2. Étude du contexte</h2>
         <div>Ce chapitre a pour objectif de fournir une vision claire de l'organisation et du traitement de données personnelles considéré</div>
-        <h3>2.1 Description</h3>
         <div class="col-md-6">
             <table class="table table-bordered">
                 <tr>
@@ -188,7 +186,7 @@
             {% if object.criterePrincipeFondamentalByCode('contexte_traitement').reponse != 'non_applicable' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">Contexte du traitement {{ object.criterePrincipeFondamentalByCode('contexte_traitement').label }}</td>
+                        <td class="table-bluecell">{{ object.criterePrincipeFondamentalByCode('contexte_traitement').label }}</td>
                         <td>
                             {{ object.criterePrincipeFondamentalByCode('contexte_traitement').reponse|dictionary('reponse_critere_fondamental') }}<br />
                             {{ object.criterePrincipeFondamentalByCode('contexte_traitement').justification }}
@@ -207,7 +205,7 @@
             {% if object.criterePrincipeFondamentalByCode('portee_traitement').reponse == 'non_applicable' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">Portée du traitement {{ object.criterePrincipeFondamentalByCode('portee_traitement').label }}</td>
+                        <td class="table-bluecell">{{ object.criterePrincipeFondamentalByCode('portee_traitement').label }}</td>
                         <td>
                             {{ object.criterePrincipeFondamentalByCode('portee_traitement').reponse }} <br />
                             {{ object.criterePrincipeFondamentalByCode('portee_traitement').justification }}
@@ -273,7 +271,7 @@
             {% if object.criterePrincipeFondamentalByCode('description_fonctionnelle').reponse == 'non_applicable' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">Description fonctionnelle du traitement {{ object.criterePrincipeFondamentalByCode('description_fonctionnelle').label }}</td>
+                        <td class="table-bluecell">{{ object.criterePrincipeFondamentalByCode('description_fonctionnelle').label }}</td>
                         <td>
                             {{ object.criterePrincipeFondamentalByCode('description_fonctionnelle').reponse|dictionary('reponse_description_fonctionnelle') }}
                             {{ object.criterePrincipeFondamentalByCode('description_fonctionnelle').justification }}
@@ -293,7 +291,7 @@
             {% if object.criterePrincipeFondamentalByCode('identification_biens').reponse == 'non_applicable' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">Identification des biens {{ object.criterePrincipeFondamentalByCode('identification_biens').label }}</td>
+                        <td class="table-bluecell">{{ object.criterePrincipeFondamentalByCode('identification_biens').label }}</td>
                         <td>
                             {{ object.criterePrincipeFondamentalByCode('identification_biens').reponse|dictionary('reponse_identification_biens') }}
                             {{ object.criterePrincipeFondamentalByCode('identification_biens').justification }}
@@ -332,7 +330,7 @@
         </div>
 
         <div  style="page-break-before: always;"></div>
-        <h2>3. Études des des principes fondamentaux</h2>
+        <h2>3. Études des principes fondamentaux</h2>
         <div>Ce chapitre a pour objectif de s’assurer que le dispositif relatif aux principes de protection de la vie privée est conforme.</div>
         <div class="separator"></div>
         <table class="table table-bordered">
@@ -356,7 +354,7 @@
                     <th>Conformité</th>
                 </tr>
             </thead>
-            {% for QuestionConformite in object.questionConformites %}
+            {% for QuestionConformite in object.questionConformites|sort((a, b) => a.position >= b.position) %}
                 <tr>
                     <td>{{ QuestionConformite.question }}
                         {% if QuestionConformite.ReponseConformite.actionProtections is not same as null %}
@@ -1575,7 +1573,7 @@
 
     domainesDatas.push(1);
     {% endfor %}
-    {% for question in object.questionConformites %}
+    {% for question in object.questionConformites|sort((a, b) => a.position >= b.position) %}
     {% set reponse = object.conformiteTraitement.reponseOfPosition(question.position) %}
     {% if reponse and reponse.conforme %}
     domainesDatas.push(5);
