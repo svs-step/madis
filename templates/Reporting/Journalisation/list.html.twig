@@ -16,6 +16,13 @@
     </h1>
 {% endblock %}
 
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'reporting.journalisation.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
 {% block body %}
     <div class="row">
         <div class="col-xs-12">

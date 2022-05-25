@@ -16,7 +16,12 @@
     </h1>
 {% endblock %}
 
-{% block breadcrumb %}{% endblock %}
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.treatment.title.configure'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
 
 
 {% block body %}

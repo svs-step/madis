@@ -84,6 +84,7 @@ aipd:
         title:
             list: Analyses d'impacts
             create: Réaliser une AIPD
+            edit: Modifier une AIPD
             delete: Supprimer une AIPD
             evaluation: Évaluer une AIPD
             validation: Valider une AIPD

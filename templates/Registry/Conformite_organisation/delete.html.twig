@@ -14,7 +14,8 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'registry.conformite_organisation.title.list'|trans }
+        { 'name': 'registry.conformite_organisation.title.list'|trans, 'link': path('registry_conformite_organisation_list') },
+        { 'name': 'registry.conformite_organisation.title.delete'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
