@@ -464,18 +464,16 @@
         <div>La CNIL préconise d’accepter les risques uniquement lorsque l’impact est négligeable. Dans les autres cas, il faudra apporter des mesures de protection supplémentaires pour venir corriger les anomalies identifiées. Dans le cas où le risque est maximal et que les mesures ne sont pas jugées suffisantes, il conviendra de solliciter l’avis de la CNIL.</div>
         <div style="text-align: center"><img src='{{ absolute_url(asset("images/MatriceDecision.png")) }}' height="300" alt="MatriceDecision"></div>
 
-        <h3>4.3 Mesure(s) de réduction des risques envisagée(s)</h3>
+        <h3>4.3 Mesure(s) de réduction des risques mise(s) en place</h3>
         <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
         <table class="table table-bordered">
             <tr>
-                <th>Type de mesure</th>
                 <th>Mesure</th>
                 <th>Évaluation</th>
                 <th>Avis sur les mesures existantes</th>
             </tr>
             {% for mesure in object.mesureProtections %}
                 <tr>
-                    <td></td>
                     <td>{{ mesure.nom }}</td>
                     <td>{{ mesure.reponse|dictionary('reponse_mesure_protection') }}</td>
                     <td>{{ mesure.detail }}</td>
@@ -487,13 +485,14 @@
             <div class="box-header with-border">Mesures de protection</div>
             <table class="table table-bordered">
                 <tr>
-                    <th>Gestion des sauvegardes</th>
+                    <th>Mesure</th>
                     <th>Description</th>
                     <th>Réponse</th>
                     <th>Préconisations</th>
                 </tr>
                 {% for scenario in object.scenarioMenaces %}
                     {% for mesure in scenario.mesuresProtections %}
+                        {{ dump(mesure)}}
                         <tr>
                             <td>{{ mesure.labelLivrable }}</td>
                             <td>{{ mesure.detail }}</td>
