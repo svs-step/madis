@@ -181,7 +181,7 @@
 
 
         {% for mesure in analyseImpact.mesureProtections %}
-            mesuresLabels.push('{{ mesure.nom }}');
+            mesuresLabels.push('{{ mesure.nom|truncate(28, '...') }}');
             {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
             mesuresDatas.push(1);
             {% elseif mesure.reponse == 'besoin_amelioration' %}
