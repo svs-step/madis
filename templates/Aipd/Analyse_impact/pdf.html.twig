@@ -490,16 +490,23 @@
                     <th>Réponse</th>
                     <th>Préconisations</th>
                 </tr>
+
+                {% set mesures = [] %}
                 {% for scenario in object.scenarioMenaces %}
                     {% for mesure in scenario.mesuresProtections %}
-                        {{ dump(mesure)}}
-                        <tr>
-                            <td>{{ mesure.labelLivrable }}</td>
-                            <td>{{ mesure.detail }}</td>
-                            <td>{{ mesure.reponse }}</td>
-                            <td>{{ mesure.phrasePreconisation }}</td>
-                        </tr>
+                        {% if mesure in mesures %}
+                            {% set mesures = mesures|merge([mesure])%}
+                        {% endif%}
+
                     {% endfor %}
+                {% endfor %}
+                {% for element in mesures %}
+                    <tr>
+                        <td>{{ element.labelLivrable }}</td>
+                        <td>{{ element.detail }}</td>
+                        <td>{{ element.reponse }}</td>
+                        <td>{{ element.phrasePreconisation }}</td>
+                    </tr>
                 {% endfor %}
             </table>
         </div>
