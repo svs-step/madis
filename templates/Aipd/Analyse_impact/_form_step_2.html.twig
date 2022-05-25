@@ -5,7 +5,7 @@
         <th>{{ 'aipd.analyse_impact.form.action_protection'|trans }}</th>
         <th>{{ 'aipd.analyse_impact.form.justificatif'|trans }}</th>
     </tr>
-    {% for question in form.questionConformites|sort((a, b) => a.vars.value.position <= b.vars.value.position) %}
+    {% for question in form.questionConformites|sort((a, b) => a.vars.value.position >= b.vars.value.position) %}
         <tr>
             <td>{{ question.vars.value.question }}</td>
             <td>
