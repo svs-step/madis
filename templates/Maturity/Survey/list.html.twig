@@ -85,5 +85,11 @@
 {% endblock %}
 
 {% block javascripts %}
+    {% set dataTableOptions = {
+        columnDefs: [
+            { orderable: false, className: "noVis", targets: 3, visible: true },
+        ],
+    } %}
+
     {{ include('_Utils/_datatable.html.twig') }}
 {% endblock %}

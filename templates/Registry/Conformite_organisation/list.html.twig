@@ -181,11 +181,17 @@
 {% block javascripts %}
     {% if is_granted('ROLE_ADMIN') %}
         {% set dataTableOptions = {
-            'order':  [[1, 'desc' ]]
+            columnDefs: [
+                { orderable: false,className: "noVis", targets: 4 },
+                { orderable: 'desc', targets: 1 }
+            ],
         } %}
     {% else %}
         {% set dataTableOptions = {
-            'order':  [[0, 'desc' ]]
+            columnDefs: [
+                { orderable: false, className: "noVis", targets: 4 },
+                { orderable: 'desc', targets: 0 }
+            ],
         } %}
     {% endif %}
     {{ include('_Utils/_datatable.html.twig') }}
