@@ -31,7 +31,7 @@ class CriterePrincipeFondamental
     private string $texteNonConformite;
     private string $texteNonApplicable;
     private ?string $justification;
-    private ?string $fichier;
+    private ?string $fichier                = null;
     private ?UploadedFile $fichierFile      = null;
     private bool $canBeModified             = true;
 
