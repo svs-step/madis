@@ -1580,10 +1580,15 @@
 
     var domainesLabels = [];
     var domainesDatas = [];
+
     {% for critere in object.criterePrincipeFondamentaux %}
     domainesLabels.push('{{ critere.label|truncate(28,'...') }}');
-
+    {% if critere.reponse == 'conforme' %}
+    domainesDatas.push(5);
+    {% else %}
     domainesDatas.push(1);
+    {% endif %}
+
     {% endfor %}
     {% for question in object.questionConformites|sort((a, b) => a.position >= b.position) %}
     {% set reponse = object.conformiteTraitement.reponseOfPosition(question.position) %}
@@ -1594,7 +1599,7 @@
     {% else %}
     domainesDatas.push(1);
     {% endif %}
-    domainesLabels.push('{{ question.question|truncate(28, '...') }}');
+    domainesLabels.push("{{ question.question|truncate(28, "...") }}");
     {% endfor %}
     /* The format of the data used by the chart is [[],[]] but here we use only 1 set of data */
     domainesDatas = [domainesDatas];
