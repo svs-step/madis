@@ -55,6 +55,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -83,6 +84,8 @@ class TreatmentController extends CRUDController
      */
     private $router;
 
+    private Security $security;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -93,13 +96,15 @@ class TreatmentController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
         Pdf $pdf,
-        RouterInterface $router
+        RouterInterface $router,
+        Security $security
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->collectivityRepository = $collectivityRepository;
         $this->requestStack           = $requestStack;
         $this->wordHandler            = $wordHandler;
         $this->router                 = $router;
+        $this->security               = $security;
     }
 
     /**
@@ -519,7 +524,7 @@ class TreatmentController extends CRUDController
         $ids     = $request->query->get('ids');
         $ids     = explode(',', $ids);
 
-        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+        if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
             // $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));
             $this->addFlash('error', 'Vous ne pouvez pas archiver ces traitements');
 
@@ -527,8 +532,19 @@ class TreatmentController extends CRUDController
         }
 
         foreach ($ids as $id) {
+            /**
+             * @var Treatment $treatment
+             */
             $treatment = $this->repository->findOneById($id);
-            if ($treatment) {
+            $user      = $this->getUser();
+            if ($treatment
+                && (
+                    $user instanceof UserModel\User
+                    && $treatment->getCollectivity() === $user->getCollectivity()
+                    && (0 === count($user->getServices()) || in_array($treatment->getService(), $user->getServices()->toArray()))
+                )
+                || $this->authorizationChecker->isGranted('ROLE_REFERENT')
+            ) {
                 $treatment->setActive(false);
                 $this->addFlash('success', $this->getFlashbagMessage('success', 'archive', $treatment));
             }
@@ -548,8 +564,8 @@ class TreatmentController extends CRUDController
         $ids     = $request->query->get('ids');
         $ids     = explode(',', $ids);
 
-        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));
+        if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');
 
             return $this->redirectToRoute($this->getRouteName('list'));
         }
@@ -565,8 +581,28 @@ class TreatmentController extends CRUDController
         $request = $this->requestStack->getMasterRequest();
         $ids     = $request->query->get('ids');
 
+        if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
         foreach ($ids as $id) {
-            $this->deleteConfirmationAction($id);
+            /**
+             * @var Treatment $treatment
+             */
+            $treatment = $this->repository->findOneById($id);
+            $user      = $this->getUser();
+            if ($treatment
+                && (
+                    $user instanceof UserModel\User
+                    && $treatment->getCollectivity() === $user->getCollectivity()
+                    && (0 === count($user->getServices()) || in_array($treatment->getService(), $user->getServices()->toArray()))
+                )
+                || $this->authorizationChecker->isGranted('ROLE_REFERENT')
+            ) {
+                $this->deleteConfirmationAction($id);
+            }
         }
 
         return $this->redirectToRoute($this->getRouteName('list'));
