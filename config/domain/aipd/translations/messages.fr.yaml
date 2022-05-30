@@ -49,6 +49,7 @@ aipd:
         list:
             detail: Détail
             nom: Nom de la mesure
+            title: Mesures de protection
             nom_court: Nom court
             poids_vraisemblance: Poids de la vraisemblance
             poids_gravite: Poids de la gravité

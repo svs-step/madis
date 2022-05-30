@@ -139,7 +139,7 @@
         <h3 style="margin-left: 30px">1.1 Méthode d'une Analyse d'Impact relative à la Protection des Données</h3>
         <h3 style="margin-left: 30px">1.2 Conformité d’une Analyse d’Impact relative à la Protection des Données</h3>
         <h2>2. Étude du contexte</h2>
-        <h2>3. Études des des principes fondamentaux</h2>
+        <h2>3. Études des principes fondamentaux</h2>
         <h2>4. Études des risques liés à la sécurité des données</h2>
         <h3 style="margin-left: 30px">4.1 Évaluation des risques sur les droits et les libertés des personnes concernées</h3>
         <h3 style="margin-left: 30px">4.2 Evaluation de l'impact et matrice de décision</h3>
@@ -648,7 +648,7 @@
                         <th>Conformité</th>
                     </tr>
                     </thead>
-                    {% for questionConformite in object.questionConformites %}
+                    {% for questionConformite in object.questionConformites|sort((a, b) => a.position >= b.position) %}
                         <tr>
                             {% set reponse = object.conformiteTraitement.getReponseOfPosition(questionConformite.position) %}
                             <td>{{ questionConformite.question }}
@@ -700,7 +700,7 @@
             </div>
         </div>
         <div class="box box-solid box-primary">
-            <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
+            <div class="box-header with-border">{{ 'aipd.mesure_protection.list.title'|trans }}</div>
             <div class="box-body">
                 <table class="table table-bordered">
                     <thead>
