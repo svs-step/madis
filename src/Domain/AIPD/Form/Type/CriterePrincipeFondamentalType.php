@@ -9,6 +9,7 @@ use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -40,6 +41,9 @@ class CriterePrincipeFondamentalType extends AbstractType
             ->add('texteNonApplicable', TextType::class)
             ->add('justification', TextType::class, [
                 'required' => false,
+            ])
+            ->add('deleteFile', HiddenType::class, [
+                'data' => 0,
             ])
             ->add('fichierFile', FileType::class, [
                 'required'    => false,

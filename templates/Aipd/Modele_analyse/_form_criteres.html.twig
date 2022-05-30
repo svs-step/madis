@@ -8,7 +8,21 @@
     <td>{{ form_widget(form.texteNonApplicable) }}</td>
     <td>{{ form_widget(form.justification) }}</td>
     <td>
-        {{ form_widget(form.fichierFile) }}
+        {% if form.vars.data and form.vars.data.fichier %}
+            {{ form_widget(form.deleteFile) }}
+            <div style="margin-bottom: 1em">
+                <a href="/uploads/aipd/critere_principe_fondamentaux/fichier/{{ form.vars.data.fichier }}">
+                    Fichier existant
+                </a>
+
+                <a class="btn btn-danger delete-file btn-sm" style="margin-left: 1em" title="Supprimer ce fichier">
+                    <i class="fa fa-trash"></i>
+                </a>
+            </div>
+        {% endif %}
+        <span>
+            {{ form_widget(form.fichierFile) }}
+        </span>
         {{ form_errors(form.fichierFile) }}
     </td>
 </tr>

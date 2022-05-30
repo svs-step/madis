@@ -18,6 +18,7 @@ use App\Domain\AIPD\Repository;
 use App\Domain\Registry\Repository\ConformiteTraitement\Question;
 use App\Domain\User\Repository\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
+use Gaufrette\Exception\FileNotFound;
 use Gaufrette\FilesystemInterface;
 use JMS\Serializer\SerializerBuilder;
 use Knp\Snappy\Pdf;
@@ -111,9 +112,29 @@ class ModeleAnalyseController extends CRUDController
         }
 
         foreach ($object->getCriterePrincipeFondamentaux() as $criterePrincipeFondamental) {
+            $deleteFile = $criterePrincipeFondamental->isDeleteFile();
+
+            if($deleteFile) {
+                //Remove existing file
+                try {
+                    $this->fichierFilesystem->delete($criterePrincipeFondamental->getFichier());
+                } catch (FileNotFound $e) {
+
+                }
+
+                $criterePrincipeFondamental->setFichier(null);
+            }
+
             $file = $criterePrincipeFondamental->getFichierFile();
 
             if ($file) {
+                if (null !== $existing = $criterePrincipeFondamental->getFichier()) {
+                    try {
+                        $this->fichierFilesystem->delete($existing);
+                    } catch (FileNotFound $e) {
+
+                    }
+                }
                 $filename = Uuid::uuid4()->toString() . '.' . $file->getClientOriginalExtension();
                 $this->fichierFilesystem->write($filename, \fopen($file->getRealPath(), 'r'));
                 $criterePrincipeFondamental->setFichier($filename);

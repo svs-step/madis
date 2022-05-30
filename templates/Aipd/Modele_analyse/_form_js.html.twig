@@ -26,5 +26,14 @@
             console.log($('.selectpicker'));
             $('.selectpicker').selectpicker('refresh');
         });
+
+        $('.delete-file').on('click', function(ev) {
+            var $t = $(ev.currentTarget)
+            var $p = $t.parent();
+            var $h = $p.parent().find('input[type=hidden]')
+            $h.val(1);
+            $p.remove();
+            console.log('$h', $h)
+        })
     });
 </script>

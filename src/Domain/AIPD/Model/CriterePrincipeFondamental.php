@@ -45,6 +45,8 @@ class CriterePrincipeFondamental
      */
     private ?AnalyseImpact $analyseImpact;
 
+    protected bool $deleteFile = false;
+
     public function __construct(string $label = null, string $code = null)
     {
         $this->id = Uuid::uuid4();
@@ -209,5 +211,21 @@ class CriterePrincipeFondamental
     public function setCanBeModified(bool $canBeModified): void
     {
         $this->canBeModified = $canBeModified;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleteFile(): bool
+    {
+        return $this->deleteFile;
+    }
+
+    /**
+     * @param bool $deleteFile
+     */
+    public function setDeleteFile(bool $deleteFile): void
+    {
+        $this->deleteFile = $deleteFile;
     }
 }
