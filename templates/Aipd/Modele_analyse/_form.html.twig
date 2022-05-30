@@ -82,6 +82,9 @@
                             } %}
                         {% endfor %}
                     </table>
+                    <div style="display: none">
+                        {{ form_row(form.criterePrincipeFondamentaux) }}
+                    </div>
                 </div>
             </div>
         {% elseif flow.getCurrentStepNumber() == 2 %}
