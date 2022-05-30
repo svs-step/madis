@@ -41,7 +41,10 @@ final class Version20220517094001 extends AbstractMigration
         $this->question2 = $this->getData('SELECT * FROM aipd_analyse_question_conformite WHERE question = "Exercice des droits de rectification et d\'effacement"');
         $this->question3 = $this->getData('SELECT * FROM aipd_analyse_question_conformite WHERE question = "Exercice des droits de limitation du traitement et d\'opposition"');
 
-        $this->lastQuestionPosition = max($this->question3[0]['position'], $this->question2[0]['position'], $this->question1[0]['position']);
+        $p1 = count($this->question1) ? $this->question1[0]['position'] : 0;
+        $p2 = count($this->question2) ? $this->question2[0]['position'] : 0;
+        $p3 = count($this->question3) ? $this->question3[0]['position'] : 0;
+        $this->lastQuestionPosition = max($p1, $p2, $p3);
 
         $this->modelesAipd = $this->getData('SELECT * FROM aipd_modele');
     }
