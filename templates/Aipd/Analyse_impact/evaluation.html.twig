@@ -136,7 +136,7 @@
                 {% endif %}
             {% endif %}
         {% endfor %}
-        {% for question in analyseImpact.questionConformites %}
+        {% for question in analyseImpact.questionConformites|sort((a, b) => a.vars.value.position > b.vars.value.position) %}
         {% set reponse = analyseImpact.conformiteTraitement.reponseOfPosition(question.position) %}
             {% if reponse and reponse.conforme %}
                 domainesDatas.push(5);
