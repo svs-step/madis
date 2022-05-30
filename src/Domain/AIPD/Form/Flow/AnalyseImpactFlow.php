@@ -29,7 +29,7 @@ class AnalyseImpactFlow extends FormFlow
                         return $critere->isVisible();
                     });
 
-                    return 1 === $estimatedCurrentStepNumber && 0 === count($visible);
+                    return 0 === count($visible);
                 },
             ],
             [

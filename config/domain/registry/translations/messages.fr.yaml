@@ -623,6 +623,7 @@ registry:
             create: Créer une évaluation
             edit: Modifier une évaluation
             list: Lister les évaluations
+            delete: Supprimer une évaluation
         list:
             collectivite: Nom de la collectivité
             draft: Brouillon

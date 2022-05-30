@@ -113,11 +113,13 @@
         <div class="separator"></div>
         <div class="row">
             <div><strong style="font-size: 1.6em; margin-left:30px;">Délégué à la Protection des Données</strong></div>
-            <span style="font-size: 1.2em; margin-left:45px;">
-                {{ object.conformiteTraitement.traitement.collectivity.dpo.civility|dictionary('user_contact_civility') }}
-                {{ object.conformiteTraitement.traitement.collectivity.dpo.firstName }}
-                {{ object.conformiteTraitement.traitement.collectivity.dpo.lastName }}
-            </span>
+            {% if object.conformiteTraitement.traitement.collectivity.differentDpo %}
+                <span style="font-size: 1.2em; margin-left:45px;">{{ object.conformiteTraitement.traitement.collectivity.dpo.civility|dictionary('user_contact_civility') }} {{ object.conformiteTraitement.traitement.collectivity.dpo.firstName }} {{ object.conformiteTraitement.traitement.collectivity.dpo.lastName }}</span>
+            {% else %}
+                <span style="font-size: 1.2em; margin-left:45px;">{{ default_dpo_civility|dictionary('user_contact_civility') }} {{ default_dpo_firstName }} {{ default_dpo_lastName }}<br/></span>
+                <span style="font-size: 1.2em; margin-left:45px;">{{ default_dpo_address_street }}<br/></span>
+                <span style="font-size: 1.2em; margin-left:45px;">{{ default_dpo_address_zip_code }} {{ default_dpo_address_city}}</span>
+            {% endif %}
         </div>
         <div class="separator"></div>
         <div class="row">
@@ -137,7 +139,6 @@
         <h3 style="margin-left: 30px">1.1 Méthode d'une Analyse d'Impact relative à la Protection des Données</h3>
         <h3 style="margin-left: 30px">1.2 Conformité d’une Analyse d’Impact relative à la Protection des Données</h3>
         <h2>2. Étude du contexte</h2>
-        <h3 style="margin-left: 30px">2.1 Description</h3>
         <h2>3. Études des des principes fondamentaux</h2>
         <h2>4. Études des risques liés à la sécurité des données</h2>
         <h3 style="margin-left: 30px">4.1 Évaluation des risques sur les droits et les libertés des personnes concernées</h3>
@@ -180,8 +181,7 @@
         <div  style="page-break-before: always;"></div>
         <h2>2. Étude du contexte</h2>
         <div>Ce chapitre a pour objectif de fournir une vision claire de l'organisation et du traitement de données personnelles considéré</div>
-        <h3>2.1 Description</h3>
-        <div class="col-md-12">
+        <div class="col-md-6">
             <table class="table table-bordered">
                 <tr>
                     <td class="table-bluecell">Nature du traitement</td>
@@ -193,7 +193,7 @@
             {% if critere and critere.reponse != 'non_renseigne' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">{{ critere.label }} {{  critere.labelLivrable }}</td>
+                        <td class="table-bluecell">{{ critere.labelLivrable }}</td>
                         <td>
                             {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
                             {{ critere.justification }}<br />
@@ -221,7 +221,7 @@
             {% if critere and critere.reponse != 'non_renseigne' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">{{ critere.label }} {{  critere.labelLivrable }}</td>
+                        <td class="table-bluecell">{{  critere.labelLivrable }}</td>
                         <td>
                             {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
                             {{ critere.justification }}<br />
@@ -296,7 +296,7 @@
             {% if critere and critere.reponse != 'non_renseigne' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">{{ critere.label }} {{  critere.labelLivrable }}</td>
+                        <td class="table-bluecell">{{  critere.labelLivrable }}</td>
                         <td>
                             {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
                             {{ critere.justification }}<br />
@@ -324,7 +324,7 @@
             {% if critere and critere.reponse != 'non_renseigne' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">{{ critere.label }} {{  critere.labelLivrable }}</td>
+                        <td class="table-bluecell">{{  critere.labelLivrable }}</td>
                         <td>
                             {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
                             {{ critere.justification }}<br />
@@ -351,7 +351,7 @@
             {% if critere and critere.reponse != 'non_renseigne' %}
                 <table class="table table-bordered">
                     <tr>
-                        <td class="table-bluecell">{{ critere.label }} {{  critere.labelLivrable }}</td>
+                        <td class="table-bluecell">{{  critere.labelLivrable }}</td>
                         <td>
                             {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
                             {{ critere.justification }}<br />
@@ -377,7 +377,7 @@
         </div>
 
         <div  style="page-break-before: always;"></div>
-        <h2>3. Études des des principes fondamentaux</h2>
+        <h2>3. Études des principes fondamentaux</h2>
         <div>Ce chapitre a pour objectif de s’assurer que le dispositif relatif aux principes de protection de la vie privée est conforme.</div>
         <div class="separator"></div>
         <table class="table table-bordered">
@@ -402,7 +402,7 @@
                 </tr>
             </thead>
             <tbody>
-            {% for questionConformite in object.questionConformites %}
+            {% for questionConformite in object.questionConformites|sort((a, b) => a.position >= b.position) %}
                 <tr>
                     {% set reponse = object.conformiteTraitement.getReponseOfPosition(questionConformite.position) %}
                     <td>{{ questionConformite.question }}
@@ -514,18 +514,16 @@
         <div>La CNIL préconise d’accepter les risques uniquement lorsque l’impact est négligeable. Dans les autres cas, il faudra apporter des mesures de protection supplémentaires pour venir corriger les anomalies identifiées. Dans le cas où le risque est maximal et que les mesures ne sont pas jugées suffisantes, il conviendra de solliciter l’avis de la CNIL.</div>
         <div style="text-align: center"><img src="{{ base_dir ~ asset("images/MatriceDecision.png") }}" height="300" alt="MatriceDecision"></div>
 
-        <h3>4.3 Mesure(s) de réduction des risques envisagée(s)</h3>
+        <h3>4.3 Mesure(s) de réduction des risques mise(s) en place</h3>
         <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
         <table class="table table-bordered">
             <tr>
-                <th>Type de mesure</th>
                 <th>Mesure</th>
                 <th>Évaluation</th>
                 <th>Avis sur les mesures existantes</th>
             </tr>
             {% for mesure in object.mesureProtections %}
                 <tr>
-                    <td></td>
                     <td>{{ mesure.nom }}</td>
                     <td>
                         {% if mesure.reponse in reponsedictionary(object)|keys %}
@@ -543,26 +541,32 @@
             <div class="box-header with-border">Mesures de protection</div>
             <table class="table table-bordered">
                 <tr>
-                    <th>Gestion des sauvegardes</th>
+                    <th>Mesure</th>
                     <th>Description</th>
                     <th>Réponse</th>
                     <th>Préconisations</th>
                 </tr>
+
+                {% set mesures = [] %}
                 {% for scenario in object.scenarioMenaces %}
                     {% for mesure in scenario.mesuresProtections %}
-                        <tr>
-                            <td>{{ mesure.labelLivrable }}</td>
-                            <td>{{ mesure.detail }}</td>
-                            <td>
-                                {% if mesure.reponse in reponsedictionary(object)|keys %}
-                                    {{ mesure.reponse|reponsedictionary(object) }}
-                                {% else %}
-                                    {{ mesure.reponse }}
-                                {% endif %}
-                            </td>
-                            <td>{{ mesure.phrasePreconisation }}</td>
-                        </tr>
+                        {% if mesure not in mesures %}
+                            {% set mesures = mesures|merge([mesure])%}
+                        {% endif%}
                     {% endfor %}
+                {% endfor %}
+                {% for element in mesures %}
+                    <tr>
+                        <td>{{ element.labelLivrable }}</td>
+                        <td>{{ element.detail }}</td>
+                        <td>{% if element.reponse in reponsedictionary(object)|keys %}
+                                {{ element.reponse|reponsedictionary(object) }}
+                            {% else %}
+                                {{ element.reponse }}
+                            {% endif %}
+                        </td>
+                        <td>{{ element.phrasePreconisation }}</td>
+                    </tr>
                 {% endfor %}
             </table>
         </div>
@@ -1652,12 +1656,17 @@
 
     var domainesLabels = [];
     var domainesDatas = [];
-    {% for critere in object.criterePrincipeFondamentaux %}
-    domainesLabels.push('{{ critere.label|truncate(28,'...') }}');
 
+    {% for critere in object.criterePrincipeFondamentaux %}
+    domainesLabels.push('{{ critere.label|truncate(28,'...')|raw }}');
+    {% if critere.reponse == 'conforme' %}
+    domainesDatas.push(5);
+    {% else %}
     domainesDatas.push(1);
+    {% endif %}
+
     {% endfor %}
-    {% for question in object.questionConformites %}
+    {% for question in object.questionConformites|sort((a, b) => a.position >= b.position) %}
     {% set reponse = object.conformiteTraitement.reponseOfPosition(question.position) %}
     {% if reponse and reponse.conforme %}
     domainesDatas.push(5);
@@ -1666,7 +1675,7 @@
     {% else %}
     domainesDatas.push(1);
     {% endif %}
-    domainesLabels.push('{{ question.question|truncate(28, '...') }}');
+    domainesLabels.push("{{ question.question|truncate(28, "...")|raw }}");
     {% endfor %}
     /* The format of the data used by the chart is [[],[]] but here we use only 1 set of data */
     domainesDatas = [domainesDatas];
@@ -1678,12 +1687,11 @@
     var risquesDataSet2 = [];
     var dicResiduelsData = [];
     {% for scenario in object.scenarioMenaces %}
-        risquesLabels.push('{{ scenario.nom|truncate(20, '...') }}');
+        risquesLabels.push('{{ scenario.nom|truncate(20, '...')|raw }}');
         {%  set rr = getScenarioMenaceImpactResiduel(scenario) %}
         {%  set rp = getScenarioMenaceImpactPotentiel(scenario) %}
         risquesDataSet1.push({{ rp-rr }})
         risquesDataSet2.push({{ rr }});
-
         dicResiduelsData.push({
             label: "{{ scenario.nom }}",
             data: [{x: {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}, y: {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}, r: 10}],
@@ -1692,7 +1700,7 @@
 
     {% endfor %}
     {% for mesure in object.mesureProtections %}
-        mesuresLabels.push('{{ mesure.nom }}');
+        mesuresLabels.push('{{ mesure.nom|raw }}');
         {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
         mesuresDatas.push(1);
         {% elseif mesure.reponse == 'besoin_amelioration' %}

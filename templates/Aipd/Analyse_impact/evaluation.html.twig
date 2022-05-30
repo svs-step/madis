@@ -128,7 +128,7 @@
         let domainesDatas = [];
         {% for critere in analyseImpact.criterePrincipeFondamentaux %}
             {% if critere.reponse != 'non_applicable' %}
-                domainesLabels.push('{{ critere.label|truncate(28,'...') }}');
+                domainesLabels.push('{{ critere.label|truncate(28,'...')|raw }}');
                 {% if critere.reponse == 'conforme' %}
                     domainesDatas.push(5);
                 {% else %}
@@ -145,7 +145,7 @@
             {% else %}
                 domainesDatas.push(1);
             {% endif %}
-            domainesLabels.push('{{ question.question|truncate(28, '...') }}');
+            domainesLabels.push("{{ question.question|truncate(28, '...')|raw }}");
         {% endfor %}
         /* The format of the data used by the chart is [[],[]] but here we use only 1 set of data */
         domainesDatas = [domainesDatas];
@@ -168,11 +168,11 @@
 
         // impact Potentiel {{ rp }}
 
-            risquesLabels.push('{{ scenario.nom|truncate(20, '...') }}');
+            risquesLabels.push('{{ scenario.nom|truncate(20, '...')|raw }}');
             risquesCouvertDataSet.push({{ rp-rr }});
             risquesResiduelDataSet.push({{ rr }})
             dicResiduelsData.push({
-                label: "{{ scenario.nom }}",
+                label: "{{ scenario.nom|raw }}",
                 data: [{x: {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}, y: {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}, r: 10}],
                 backgroundColor: 'hsl({{ (23*loop.index) % 360 }}, 100%, 50%)'
             });
@@ -181,7 +181,7 @@
 
 
         {% for mesure in analyseImpact.mesureProtections %}
-            mesuresLabels.push('{{ mesure.nom }}');
+            mesuresLabels.push('{{ mesure.nom|truncate(28, '...')|raw }}');
             {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
             mesuresDatas.push(1);
             {% elseif mesure.reponse == 'besoin_amelioration' %}

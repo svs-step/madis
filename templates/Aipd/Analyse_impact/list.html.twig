@@ -14,6 +14,13 @@
     <h1>{{ 'aipd.analyse_impact.title.list'|trans }}</h1>
 {% endblock %}
 
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'aipd.analyse_impact.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
 
 {% block body %}
     <div class="row">

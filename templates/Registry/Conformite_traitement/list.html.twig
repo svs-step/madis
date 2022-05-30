@@ -191,22 +191,24 @@
         {% set dataTableOptions = {
             'order':  [[1, 'asc' ]],
             'columnDefs': [
-                {'targets': 0, 'width': 1},
+                {'targets': 0, 'width': 1, className: "noVis"},
                 {'targets': 4, 'width': 1},
                 {'targets': 5, 'orderable': false},
                 {'targets': 6, 'width': '10%'},
-                {'targets': 7, 'orderable': false}
+                {'targets': 7, 'orderable': false},
+                {'targets': 9, 'orderable': false, className: "noVis"}
             ]
         } %}
     {% else %}
         {% set dataTableOptions = {
             'order':  [[1, 'asc' ]],
             'columnDefs': [
-                {'targets': 0, 'width': 1},
+                {'targets': 0, 'width': 1, className: "noVis"},
                 {'targets': 3, 'width': 1},
                 {'targets': 4, 'orderable': false},
                 {'targets': 5, 'width': '10%'},
-                {'targets': 6, 'orderable': false}
+                {'targets': 6, 'orderable': false},
+                {'targets': 9, 'orderable': false, className: "noVis"}
             ]
         } %}
     {% endif %}
