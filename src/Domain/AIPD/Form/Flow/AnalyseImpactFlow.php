@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App\Domain\AIPD\Form\Flow;
 
 use App\Domain\AIPD\Form\Type\AnalyseImpactType;
+use App\Domain\AIPD\Model\AnalyseImpact;
+use App\Domain\AIPD\Model\CriterePrincipeFondamental;
 use Craue\FormFlowBundle\Form\FormFlow;
+use Craue\FormFlowBundle\Form\FormFlowInterface;
 
 class AnalyseImpactFlow extends FormFlow
 {
@@ -17,6 +20,17 @@ class AnalyseImpactFlow extends FormFlow
             [
                 'label'     => 'description',
                 'form_type' => AnalyseImpactType::class,
+                'skip'      => function ($estimatedCurrentStepNumber, FormFlowInterface $flow) {
+                    /**
+                     * @var AnalyseImpact $aipd
+                     */
+                    $aipd = $flow->getFormData();
+                    $visible = array_filter($aipd->getCriterePrincipeFondamentaux()->toArray(), function (CriterePrincipeFondamental $critere) {
+                        return $critere->isVisible();
+                    });
+
+                    return 1 === $estimatedCurrentStepNumber && 0 === count($visible);
+                },
             ],
             [
                 'label'     => 'conformite',

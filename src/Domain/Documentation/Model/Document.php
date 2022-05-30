@@ -374,25 +374,25 @@ class Document
         if ('pdf' === $extension) {
             return $types[DocumentTypeDictionary::TYPE_PDF];
         }
-        if ( in_array($extension,['mp4', 'mov', 'wmv', 'avi', 'mpg', 'ogv', 'ogg', 'webm'])) {
+        if (in_array($extension, ['mp4', 'mov', 'wmv', 'avi', 'mpg', 'ogv', 'ogg', 'webm'])) {
             return $types[DocumentTypeDictionary::TYPE_MP4];
         }
         if ($this->getIsLink()) {
             return $types[DocumentTypeDictionary::TYPE_LINK];
         }
-        if (in_array($extension,['docx', 'doc', 'odt'])) {
+        if (in_array($extension, ['docx', 'doc', 'odt'])) {
             return $types[DocumentTypeDictionary::TYPE_DOCX];
         }
-        if (in_array($extension,['png', 'jpg'])) {
+        if (in_array($extension, ['png', 'jpg'])) {
             return $types[DocumentTypeDictionary::TYPE_IMG];
         }
-        if (in_array($extension,['mp3', 'm4a', 'ogg', 'wav'])) {
+        if (in_array($extension, ['mp3', 'm4a', 'ogg', 'wav'])) {
             return $types[DocumentTypeDictionary::TYPE_AUDIO];
         }
-        if (in_array($extension,['ppt', 'pptx', 'odp'])) {
+        if (in_array($extension, ['ppt', 'pptx', 'odp'])) {
             return $types[DocumentTypeDictionary::TYPE_PPT];
         }
-        if (in_array($extension,['xls', 'xlsx', 'xlsm', 'ods'])) {
+        if (in_array($extension, ['xls', 'xlsx', 'xlsm', 'ods'])) {
             return $types[DocumentTypeDictionary::TYPE_EXCEL];
         }
 

@@ -114,12 +114,11 @@ class ModeleAnalyseController extends CRUDController
         foreach ($object->getCriterePrincipeFondamentaux() as $criterePrincipeFondamental) {
             $deleteFile = $criterePrincipeFondamental->isDeleteFile();
 
-            if($deleteFile) {
+            if ($deleteFile) {
                 //Remove existing file
                 try {
                     $this->fichierFilesystem->delete($criterePrincipeFondamental->getFichier());
                 } catch (FileNotFound $e) {
-
                 }
 
                 $criterePrincipeFondamental->setFichier(null);
@@ -132,7 +131,6 @@ class ModeleAnalyseController extends CRUDController
                     try {
                         $this->fichierFilesystem->delete($existing);
                     } catch (FileNotFound $e) {
-
                     }
                 }
                 $filename = Uuid::uuid4()->toString() . '.' . $file->getClientOriginalExtension();

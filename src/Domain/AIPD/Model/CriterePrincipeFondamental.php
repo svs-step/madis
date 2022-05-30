@@ -213,17 +213,11 @@ class CriterePrincipeFondamental
         $this->canBeModified = $canBeModified;
     }
 
-    /**
-     * @return bool
-     */
     public function isDeleteFile(): bool
     {
         return $this->deleteFile;
     }
 
-    /**
-     * @param bool $deleteFile
-     */
     public function setDeleteFile(bool $deleteFile): void
     {
         $this->deleteFile = $deleteFile;

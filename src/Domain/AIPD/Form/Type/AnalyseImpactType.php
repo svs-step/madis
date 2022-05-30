@@ -25,7 +25,6 @@ class AnalyseImpactType extends AbstractType
                     /** @var CriterePrincipeFondamental $objectB */
                     $objectB = $b->vars['data'];
 
-
                     $order = \array_flip(array_keys(BaseCriterePrincipeFondamental::getBaseCritere()));
 
                     $posA = $objectA->getCode() && in_array($objectA->getCode(), $order) ? $order[$objectA->getCode()] : 0;
