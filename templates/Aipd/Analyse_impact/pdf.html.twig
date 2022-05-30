@@ -113,7 +113,13 @@
         <div class="separator"></div>
         <div class="row">
             <div><strong style="font-size: 1.6em; margin-left:30px;">Délégué à la Protection des Données</strong></div>
-            <span style="font-size: 1.2em; margin-left:45px;">{{ object.conformiteTraitement.traitement.collectivity.dpo.civility|dictionary('user_contact_civility') }} {{ object.conformiteTraitement.traitement.collectivity.dpo.firstName }} {{ object.conformiteTraitement.traitement.collectivity.dpo.lastName }}</span>
+            {% if object.conformiteTraitement.traitement.collectivity.differentDpo %}
+                <span style="font-size: 1.2em; margin-left:45px;">{{ object.conformiteTraitement.traitement.collectivity.dpo.civility|dictionary('user_contact_civility') }} {{ object.conformiteTraitement.traitement.collectivity.dpo.firstName }} {{ object.conformiteTraitement.traitement.collectivity.dpo.lastName }}</span>
+            {% else %}
+                <span style="font-size: 1.2em; margin-left:45px;">{{ default_dpo_civility|dictionary('user_contact_civility') }} {{ default_dpo_firstName }} {{ default_dpo_lastName }}<br/></span>
+                <span style="font-size: 1.2em; margin-left:45px;">{{ default_dpo_address_street }}<br/></span>
+                <span style="font-size: 1.2em; margin-left:45px;">{{ default_dpo_address_zip_code }} {{ default_dpo_address_city}}</span>
+            {% endif %}
         </div>
         <div class="separator"></div>
         <div class="row">
