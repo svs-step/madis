@@ -594,7 +594,7 @@
                         <th>Conformité</th>
                     </tr>
                     </thead>
-                    {% for QuestionConformite in object.questionConformites %}
+                    {% for QuestionConformite in object.questionConformites|sort((a, b) => a.position >= b.position) %}
                         <tr>
                             <td>{{ QuestionConformite.question }}
                                 {% if QuestionConformite.ReponseConformite.actionProtections is not same as null %}
