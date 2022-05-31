@@ -11,7 +11,8 @@
     <td>{{ form_widget(form.justification) }}</td>
     <td>
         {% if form.vars.data and form.vars.data.fichier %}
-            <a href="/uploads/aipd/critere_principe_fondamentaux/fichier/{{ form.vars.data.fichier }}">Fichier existant</a>
+            <a class="exist_file" id="file_{{ form.vars.data.fichier }}" href="/uploads/aipd/critere_principe_fondamentaux/fichier/{{ form.vars.data.fichier }}">Fichier existant</a><br/>
+            <a href="#" class="remove_file" id="{{ form.vars.data.fichier }}">Enlever le fichier joint</a>
         {% endif %}
         <span>
             {{ form_widget(form.fichierFile) }}
@@ -19,3 +20,4 @@
         {{ form_errors(form.fichierFile) }}
     </td>
 </tr>
+
