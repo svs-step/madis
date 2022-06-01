@@ -55,7 +55,7 @@
                             <th>{{ 'registry.conformite_traitement.form.question'|trans }}</th>
                             <th style="width: 25%">{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
                         </tr>
-                        {% for question in analyseImpact.questionConformites|sort((a, b) => a.position <= b.position) %}
+                        {% for question in analyseImpact.questionConformites|sort((a, b) => a.position >= b.position) %}
                             <tr>
                                 <td>{{ question.question }}</td>
                                 <td>{{ getConformiteLabel(question)|raw }}</td>
@@ -100,7 +100,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
@@ -136,7 +135,8 @@
                 {% endif %}
             {% endif %}
         {% endfor %}
-        {% for question in analyseImpact.questionConformites|sort((a, b) => a.vars.value.position > b.vars.value.position) %}
+
+        {% for question in analyseImpact.questionConformites|sort((a, b) => a.position >= b.position) %}
         {% set reponse = analyseImpact.conformiteTraitement.reponseOfPosition(question.position) %}
             {% if reponse and reponse.conforme %}
                 domainesDatas.push(5);
@@ -147,9 +147,9 @@
             {% endif %}
             domainesLabels.push("{{ question.question|truncate(28, '...')|raw }}");
         {% endfor %}
+
         /* The format of the data used by the chart is [[],[]] but here we use only 1 set of data */
         domainesDatas = [domainesDatas];
-
         let mesuresLabels = [];
         let mesuresDatas = [];
         let risquesLabels = [];
@@ -174,7 +174,7 @@
             dicResiduelsData.push({
                 label: "{{ scenario.nom|raw }}",
                 data: [{x: {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}, y: {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}, r: 10}],
-                backgroundColor: 'hsl({{ (23*loop.index) % 360 }}, 100%, 50%)'
+                backgroundColor: 'hsl({{ (23*loop.index) % 360 }}, 100%, 50%)',
             });
 
         {% endfor %}
