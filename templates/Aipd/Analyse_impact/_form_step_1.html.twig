@@ -31,7 +31,7 @@
                 success: function() {
                     var filename = file.substring(0,8);
                     console.log($('.file_'+filename));
-                    $('.file_'+filename).hide();//css('display', 'none');
+                    $('.file_'+filename).hide();
                 },
                 error : function(xhr, textStatus, errorThrown) {
                     alert('Ajax request failed.');
