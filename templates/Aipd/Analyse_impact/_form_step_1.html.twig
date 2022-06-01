@@ -29,10 +29,9 @@
                 async:      true,
 
                 success: function() {
-                    console.log($('#file_'+file));
-                    $('.remove_file').hide();
-                    $('#file_'+file).hide();
-                    $('#'+file).hide();
+                    var filename = file.substring(0,8);
+                    console.log($('.file_'+filename));
+                    $('.file_'+filename).hide();//css('display', 'none');
                 },
                 error : function(xhr, textStatus, errorThrown) {
                     alert('Ajax request failed.');
