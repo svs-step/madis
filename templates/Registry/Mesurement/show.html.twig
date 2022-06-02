@@ -149,6 +149,7 @@
                             <td><strong>{{ 'registry.mesurement.show.comment'|trans }}</strong></td>
                             <td>{{ object.comment }}</td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -156,83 +157,76 @@
             {# PROOFS #}
             {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
 
-            {# RELATIONS #}
+            {# CONTRACTORS #}
             <div class="box box-solid box-warning">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.relations'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <tbody>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_contractors'|trans }}</h3></div>
+                <div class="box-body">
+                    {% if object.contractors and object.contractors |length %}
+                        <ul>
+                            {% for contractor in object.contractors %}
+                                <li><a href="{{ path('registry_contractor_show', {id: contractor.id}) }}">
+                                        {{ contractor|default('registry.mesurement.show.none'|trans) }}
+                                    </a></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ 'label.no_linked_contractors'|trans }}
+                    {% endif %}
+                </div>
+            </div>
 
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.contractor'|trans }}</strong></td>
-                            <td>
-                                {% if object.contractors and object.contractors |length %}
-                                    <ul>
-                                        {% for contractor in object.contractors %}
-                                            <li><a href="{{ path('registry_contractor_show', {id: contractor.id}) }}">
-                                                {{ contractor|default('registry.mesurement.show.none'|trans) }}
-                                            </a></li>
-                                        {% endfor %}
-                                    </ul>
-                                {% else %}
-                                    {{ 'registry.mesurement.show.none'|trans }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.treatment'|trans }}</strong></td>
-                            <td>
-                                {% if object.treatments and object.treatments |length %}
-                                    <ul>
-                                        {% for treatment in object.treatments %}
-                                        <li><a href="{{ path('registry_treatment_show', {id: treatment.id}) }}">
-                                            {{ treatment|default('registry.mesurement.show.none'|trans) }}
-                                        </a></li>
-                                        {% endfor %}
-                                    </ul>
-                                {% else %}
-                                    {{ 'registry.mesurement.show.none'|trans }}
-                                {% endif %}
+            {# TREATMENTS #}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_treatment'|trans }}</h3></div>
+                <div class="box-body">
+                    {% if object.treatments and object.treatments |length %}
+                        <ul>
+                            {% for treatment in object.treatments %}
+                                <li><a href="{{ path('registry_treatment_show', {id: treatment.id}) }}">
+                                        {{ treatment|default('registry.mesurement.show.none'|trans) }}
+                                    </a></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ 'label.no_linked_treatment'|trans }}
+                    {% endif %}
+                </div>
+            </div>
 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.request'|trans }}</strong></td>
-                            <td>
-                                {% if object.requests and object.requests |length %}
-                                    <ul>
-                                        {% for request in object.requests %}
-                                            <li><a href="{{ path('registry_request_show', {id: request.id}) }}">
-                                                {{ request|default('registry.mesurement.show.none'|trans) }}
-                                            </a></li>
-                                        {% endfor %}
-                                    </ul>
+            {# DEMANDS #}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_request'|trans }}</h3></div>
+                <div class="box-body">
+                    {% if object.requests and object.requests |length %}
+                        <ul>
+                            {% for request in object.requests %}
+                                <li><a href="{{ path('registry_request_show', {id: request.id}) }}">
+                                        {{ request|default('registry.mesurement.show.none'|trans) }}
+                                    </a></li>
+                            {% endfor %}
+                        </ul>
 
-                                {% else %}
-                                    {{ 'registry.mesurement.show.none'|trans }}
-                                {% endif %}
+                    {% else %}
+                        {{ 'label.no_linked_requests'|trans }}
+                    {% endif %}
+                </div>
+            </div>
 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.violation'|trans }}</strong></td>
-                            <td>
-                                {% if object.violations and object.violations |length %}
-                                    <ul>
-                                        {% for violation in object.violations %}
-                                        <li><a href="{{ path('registry_violation_show', {id: violation.id}) }}">
-                                            {{ violation|default('registry.mesurement.show.none'|trans) }}
-                                        </a></li>
-                                    {% endfor %}
-                                    </ul>
-                                {% else %}
-                                    {{ 'registry.mesurement.show.none'|trans }}
-                                {% endif %}
-
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+            {# VIOLATIONS #}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_violations'|trans }}</h3></div>
+                <div class="box-body">
+                    {% if object.violations and object.violations |length %}
+                        <ul>
+                            {% for violation in object.violations %}
+                                <li><a href="{{ path('registry_violation_show', {id: violation.id}) }}">
+                                        {{ violation|default('registry.mesurement.show.none'|trans) }}
+                                    </a></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ 'label.no_linked_violations'|trans }}
+                    {% endif %}
                 </div>
             </div>
         </div>
