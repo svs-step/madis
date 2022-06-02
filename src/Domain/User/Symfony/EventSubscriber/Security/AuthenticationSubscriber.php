@@ -2,6 +2,8 @@
 
 namespace App\Domain\User\Symfony\EventSubscriber\Security;
 
+use App\Domain\User\Event\ExceededLoginAttempts;
+use App\Domain\User\Exception\ExceededLoginAttemptsException;
 use App\Domain\User\Model\LoginAttempt;
 use App\Domain\User\Repository\LoginAttempt as LoginAttemptRepository;
 use App\Domain\User\Repository\User as UserRepository;
@@ -10,6 +12,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\AuthenticationEvents;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AuthenticationSubscriber implements EventSubscriberInterface
 {
@@ -17,17 +20,20 @@ class AuthenticationSubscriber implements EventSubscriberInterface
     protected LoginAttemptRepository $loginAttemptRepository;
     protected UserRepository $userRepository;
     protected int $maxAttempts;
+    protected EventDispatcherInterface $dispatcher;
 
     public function __construct(
         RequestStack $requestStack,
         LoginAttemptRepository $loginAttemptRepository,
         UserRepository $userRepository,
-        int $maxAttempts
+        int $maxAttempts,
+        EventDispatcherInterface $dispatcher
     ) {
         $this->requestStack           = $requestStack;
         $this->loginAttemptRepository = $loginAttemptRepository;
         $this->userRepository         = $userRepository;
         $this->maxAttempts            = $maxAttempts;
+        $this->dispatcher             = $dispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -62,13 +68,16 @@ class AuthenticationSubscriber implements EventSubscriberInterface
             // Disable this user if it exists and the maximum number of login attempts was exceeded
             if ($user) {
                 $user->setEnabled(false);
+                $attempt->setAttempts(0);
+                $this->loginAttemptRepository->update($attempt);
                 $this->userRepository->update($user);
+                throw new ExceededLoginAttemptsException();
             }
         }
 
         $this->loginAttemptRepository->update($attempt);
         // Exponential wait time for wrong passwords
-        sleep($n * $n);
+        sleep($n);
     }
 
     public function onAuthSuccess(AuthenticationSuccessEvent $event)
