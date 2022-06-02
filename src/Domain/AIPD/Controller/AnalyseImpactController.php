@@ -414,11 +414,11 @@ class AnalyseImpactController extends CRUDController
         ]);
     }
 
-    public function apiDeleteFile(ManagerRegistry $doctrine,Request $request): Response
+    public function apiDeleteFile(ManagerRegistry $doctrine, Request $request): Response
     {
-        $id = $request->get('id');
+        $id                  = $request->get('id');
         $this->entityManager = $doctrine->getManager();
-        $critere = $doctrine->getRepository(CriterePrincipeFondamental::class)
+        $critere             = $doctrine->getRepository(CriterePrincipeFondamental::class)
             ->findOneBy(['fichier' => $id]);
 
         $critere->setFichier(null);
