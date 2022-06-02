@@ -13,10 +13,12 @@ use App\Domain\AIPD\Form\Type\AnalyseAvisType;
 use App\Domain\AIPD\Form\Type\AnalyseImpactType;
 use App\Domain\AIPD\Model\AnalyseAvis;
 use App\Domain\AIPD\Model\AnalyseImpact;
+use App\Domain\AIPD\Model\CriterePrincipeFondamental;
 use App\Domain\AIPD\Repository;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Persistence\ManagerRegistry;
 use Gaufrette\Filesystem;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
@@ -410,5 +412,22 @@ class AnalyseImpactController extends CRUDController
         return $this->render($this->getTemplatingBasePath('validation'), [
             'form' => $form->createView(),
         ]);
+    }
+
+    public function apiDeleteFile(ManagerRegistry $doctrine,Request $request): Response
+    {
+        $id = $request->get('id');
+        $this->entityManager = $doctrine->getManager();
+        $critere = $doctrine->getRepository(CriterePrincipeFondamental::class)
+            ->findOneBy(['fichier' => $id]);
+
+        $critere->setFichier(null);
+        $this->entityManager->persist($critere);
+        $this->entityManager->flush();
+
+        $jsonResponse = new JsonResponse();
+        $jsonResponse->setJson(json_encode($critere));
+
+        return $jsonResponse;
     }
 }

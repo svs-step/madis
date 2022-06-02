@@ -58,9 +58,11 @@
                             <th>
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
-                            <th>
-                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
-                            </th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                                </th>
+                            {% endif %}
                             <th>
                                 <select class="form-control" id="search_clauses" style="width: 100%;">
                                     <option value="">Clauses</option>
@@ -92,12 +94,16 @@
                         </tr>
                         <tr>
                             <th>{{ 'registry.contractor.list.name'|trans }}</th>
-                            <th>{{ 'registry.contractor.list.collectivity'|trans }}</th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>{{ 'registry.contractor.list.collectivity'|trans }}</th>
+                            {% endif %}
                             <th>{{ 'registry.contractor.list.contractual_clauses_verified'|trans }}</th>
                             <th>{{ 'registry.contractor.list.adopted_security_features'|trans }}</th>
                             <th>{{ 'registry.contractor.list.maintains_treatment_register'|trans }}</th>
                             <th>{{ 'registry.contractor.list.sending_data_outside_eu'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            {% if is_granted('ROLE_USER') %}
+                                <th>{{ 'label.actions'|trans }}</th>
+                            {% endif %}
                         </tr>
                         </thead>
                     </table>
@@ -121,8 +127,18 @@
         {% set actionIsVisible = false %}
     {% endif %}
 
-    {% set dataTableOptions = {
-        columns: [
+    {% set cols = [
+        {"data": "nom", "className": "noVis"},
+        {"data": "clauses_contractuelles"},
+        {"data": "element_securite"},
+        {"data": "registre_traitements"},
+        {"data": "donnees_hors_eu"},
+        {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
+    ]
+    %}
+
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set cols = [
             {"data": "nom", "className": "noVis"},
             {"data": "collectivite", "visible": collectivityIsVisible, "className": collectivityClassname},
             {"data": "clauses_contractuelles"},
@@ -130,7 +146,12 @@
             {"data": "registre_traitements"},
             {"data": "donnees_hors_eu"},
             {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
-        ],
+        ]
+        %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: cols,
         order:  [
             [0, 'asc' ]
         ],

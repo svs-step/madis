@@ -38,6 +38,7 @@ label:
     linked_mesurement: Actions de protection associées
     linked_violations: Violations associées
     linked_request: Demandes associées
+    linked_contractors: Sous-traitants associés
     no: Non
     yes: Oui
     no_linked_document: Aucun document associé
@@ -45,6 +46,7 @@ label:
     no_linked_mesurement: Aucune action de protection associée
     no_linked_violations: Aucune violation associée
     no_linked_requests: Aucune demande associée
+    no_linked_contractors: Aucun sous-traitants associé
     not_archived: Non archivés
     category: Catégories documentaires
     request_correct: Rectifier des données

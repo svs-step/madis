@@ -22,6 +22,9 @@ function radarChart(id, labels, serieLabel, data, color) {
                     min: 0,
                     max: 5,
                 }
+            },
+            legend: {
+                display: false
             }
         }
     });
@@ -123,7 +126,8 @@ $(document).ready(function() {
         domainesLabels,
         [''],
         domainesDatas,
-        [colorBlue]
+        [colorBlue],
+
     );
 
     radarChart(
