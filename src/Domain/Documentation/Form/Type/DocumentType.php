@@ -165,7 +165,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
             ]);
             $form->add('uploadedFile', FileType::class, [
                 'label'       => 'documentation.document.form.label.file',
-                'required'    => false,
+                'required'    => true,
                 'constraints' => [
                     new File([
                         'maxSize'   => $this->maxSize,
