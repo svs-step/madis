@@ -24,7 +24,7 @@ final class Version20220516133955 extends AbstractMigration
 
     public function preUp(Schema $schema): void
     {
-        $this->categories = $this->getData('SELECT id from category WHERE system = 1');
+        $this->categories = $this->getData('SELECT id from category WHERE systeme = 1');
     }
 
     public function up(Schema $schema): void
@@ -60,7 +60,7 @@ final class Version20220516133955 extends AbstractMigration
             ],
         ];
         foreach ($data as $k => $item) {
-            $this->addSql('INSERT INTO category(id, name, system, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())', [Uuid::uuid4(), $item['name'], true]);
+            $this->addSql('INSERT INTO category(id, name, systeme, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())', [Uuid::uuid4(), $item['name'], true]);
         }
     }
 

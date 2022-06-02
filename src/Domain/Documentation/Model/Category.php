@@ -57,7 +57,7 @@ class Category
      *
      * @var bool|null
      */
-    private $system;
+    private $systeme;
 
     /**
      * @ORM\ManyToMany(targetEntity="Document", mappedBy="categories")
@@ -100,14 +100,14 @@ class Category
         $this->name = $name;
     }
 
-    public function getSystem(): ?bool
+    public function getSysteme(): ?bool
     {
-        return $this->system;
+        return $this->systeme;
     }
 
-    public function setSystem(?bool $system): void
+    public function setSysteme(?bool $systeme): void
     {
-        $this->system = $system;
+        $this->systeme = $systeme;
     }
 
     public function getDocuments(): ?iterable

@@ -1,31 +1,31 @@
 App\Domain\Documentation\Model\Category:
     documentation_category_1:
         name: "Traitement"
-        system: true
+        systeme: true
     documentation_category_2:
         name: "Sous-traitant"
-        system: true
+        systeme: true
     documentation_category_3:
         name: "Action de protection"
-        system: true
+        systeme: true
     documentation_category_4:
         name: "Plan d'action"
-        system: true
+        systeme: true
     documentation_category_5:
         name: "Demande"
-        system: true
+        systeme: true
     documentation_category_6:
         name: "Preuves"
-        system: true
+        systeme: true
     documentation_category_7:
         name: "AIPD"
-        system: true
+        systeme: true
     documentation_category_8:
         name: "Bilan"
-        system: true
+        systeme: true
     documentation_category_9:
         name: "Conformité de l'organisation"
-        system: true
+        systeme: true
     documentation_category_10:
         name: "Conformité des traitements"
-        system: true
+        systeme: true

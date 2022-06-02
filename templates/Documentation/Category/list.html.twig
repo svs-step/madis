@@ -61,7 +61,7 @@
                                 <a href="{{ path('documentation_document_index') }}?category={{ object.id }}">{{ object.documents|length }}</a>
                             </td>
                             <td>
-                                {% if object.system == 0 %}
+                                {% if object.systeme == 0 %}
                                     <a href="{{ path('documentation_category_edit', { 'id': object.id }) }}">
                                         <i class="fa fa-pencil-alt"></i>
                                         {{ 'action.edit'|trans }}

@@ -55,7 +55,6 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -84,8 +83,6 @@ class TreatmentController extends CRUDController
      */
     private $router;
 
-    private Security $security;
-
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -96,15 +93,13 @@ class TreatmentController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
         Pdf $pdf,
-        RouterInterface $router,
-        Security $security
+        RouterInterface $router
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->collectivityRepository = $collectivityRepository;
         $this->requestStack           = $requestStack;
         $this->wordHandler            = $wordHandler;
         $this->router                 = $router;
-        $this->security               = $security;
     }
 
     /**
