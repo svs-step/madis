@@ -53,7 +53,7 @@ Renseignez et tenez à jour vos registres dans « **Traitements** », « **Sous-
 
 ![](images/Screenshot-2021-06-09-Madis.png)
 
-Ajoutez les justificatifs permettant de documenter la conformité (Contrat d’accompagnement à la délégation à la protection des données, attestations de présences, politique de gestion des données ...) dans « **Documents** » :
+Ajoutez les justificatifs permettant de documenter la conformité (Contrat d’accompagnement à la délégation à la protection des données, attestations de présences, politique de gestion des données...) dans « **Documents** » :
 
 ![](images/Screenshot-2021-06-09-Madis-1.png)
 
@@ -64,6 +64,10 @@ Recensez l’ensemble des actions de protection mises en place dans votre collec
 Afin de faire vivre votre conformité, élaborez votre « **Plan d'actions** », générez des « **Indice de maturité** » et « **Générer un bilan** » :
 
 ![](images/Screenshot-2021-06-09-Madis-3.png)
+
+Retrouvez toutes les ressources mises à disposition par votre DPO dans « **Espace documentaire** » : 
+
+![](images/Screenshot-2022-05-10-Menu-Espace-documentaire.png)
 
 Renseignez vos informations dans « **Collectivités** » et « **Utilisateurs** » : 
 
@@ -139,6 +143,8 @@ Lorsque vous cliquez sur traitements, la fenêtre ci-dessous s’ouvre, vous per
 Vous pouvez ajuster les colonnes affichées, trier ou filtrer les résultats à l'aide des entêtes de colonne.
 
 ![](images/Screenshot-2021-06-09-Liste-des-traitements-Madis.png)
+
+``Astuce : dans la gestion des demandes, des violations et des actions de protection, vous avez la possibilité de les lier à un traitement.``
 
 ### Création d’un nouveau traitement
 
@@ -249,9 +255,9 @@ Vous pouvez alors renseigner les éléments suivants :
 * **Demandeur légitime** : La personne concernée est la personne qui fait la demande ou est le tuteur dûment habilité à faire la demande, ou possède un mandat de la personne concernée ;
 * **Demande légitime** : La demande repose sur une base légale pertinente et proportionnée.
 
+``Astuce : vous avez la possibilité d'associer une demande à un traitement.``
+
 Lorsque la réponse est délivrée, vous devez retourner dans la demande, la modifier et enregistrer la réponse apportée, le moyens de la réponse ainsi que la date de réponse.
-
-
 
 ``Rappel : La réponse doit être délivrée dans un délai maximum de 1 mois (art. 12 RGPD).``
 
@@ -274,9 +280,10 @@ Pour enregistrer une nouvelle violation, cliquez sur « **+ Nouvelle violation**
 Par défaut, elle se mettra sur la date à laquelle vous commencez à l'enregistrer.
 
 ![](images/Screenshot-2021-06-09-Cr-er-une-violation-Madis.png)
-![](images/Screenshot-2021-06-09-Cr-er-une-violation-Madis-1.png)
 
 ``N'oubliez pas qu'en cas de risque pour les personnes concernées, une notification à la CNIL doit être faite dans les 72 heures en plus de l'enregistrement en interne et en cas de risque élevé, aux personnes concernées également (art.33 RGPD).``
+
+``Astuce : vous avez la possibilité d'associer une violation à un traitement.``
 
 # Les actions de protection
 
@@ -313,6 +320,8 @@ Vous pouvez alors renseigner les éléments suivants :
 ``Dans planification, indiquez une date prévisionnelle des actions que vous choisissez de planifier. Celles-ci apparaîtront alors dans le plan d'action``
 
 ![](images/Screenshot-2021-06-09-Cr-er-une-action-de-protection-Madis.png)
+
+``Astuce : vous avez la possibilité d'associer une action de protection à un sous-traitant, à un traitement à une demande et à une violation.``
 
 # Indice de maturité
 
@@ -370,9 +379,20 @@ Afin de prouver votre conformité, vous devez constituer un dossier documentaire
 
 Vous devez ajouter dans « **Documents** », l’ensemble des preuves.
 
-``La taille maximale d'un fichier déposé est défini dans l'administration.``
+``La taille maximale d'un fichier déposé est définie dans l'administration.``
 
 ![](images/Screenshot-2021-06-09-Liste-des-preuves-Madis.png)
+
+### Créer une nouvelle preuve
+
+![](images/Screenshot 2022-05-30 at 09-28-02 Créer une preuve - Madis.png)
+
+Lors de l'ajout d'une preuve, vous pouvez renseigner les éléments suivants :
+
+* **Nom** : Indiquez le nom de la preuve ;
+* **Type** : Le type de preuve  ;
+* **Document** : Un seul fichier peut être déposé à la fois, d'une taille maximale définie dans l'administration et tous les formats de fichiers sont autorisés ;
+* **Association (Traitements, Sous-traitants...)** : Il est possible d'associer la preuve à un ou plusieurs traitement, à des sous-traitants, à des actions de protections, à des demandes de personnes concernées ou à des violations.
 
 # Conformité des traitements
 
@@ -549,9 +569,25 @@ Un indicateur sur le tableau de bord reprend les pourcentages de conformité des
 
 ![](images/17image.png)
 
+# Espace documentaire
+
+L'espace documentaire permet aux utilisateurs d'accéder aux documents mis à disposition par leur DPO.
+
+![](images/Screenshot 2022-06-01 at 09-47-16 Espace documentaire - Madis.png)
+
+Il est possible d'afficher les documents sous forme de liste ou sous forme de grille. 
+
+L'affichage des documents peut être filtré, notamment par catégorie. Lorsque plusieurs catégories sont sélectionnées, seuls les documents appartenant à toutes ces catégories sont affichés.
+
+``Astuce : vous avez la possibilité de mettre des fichiers en favoris en cliquant sur l'étoile.``
+
+Dans chaque module, un bouton « **Ressources utiles** » permet d'accéder aux documents déposés dans l'espace documentaire lié à la catégorie de ce module. **Le bouton n'est visible que si au moins un document est déposé dans cette catégorie par votre DPO.**
+
+![](images/Screenshot 2022-06-01 at 09-31-11 Liste des sous-traitants - Madis.png)
+
 # Administration
 
-Cette partie est réservée aux personnes administratrices, c'est-à-dire, principalement les Délégués à la Protection des Données. Le profil "référent multi-collectivité" a également accès au tableau de bord administrateur mais seulement dans la limite de son périmètre d'action.
+Cette partie est réservée aux personnes administratrices, c'est-à-dire, principalement les Délégués à la Protection des Données. Le profil « référent multi-collectivité » a également accès au tableau de bord administrateur mais seulement dans la limite de son périmètre d'action.
 
 ## Tableau de bord administrateur
 
@@ -562,20 +598,73 @@ Le tableau de bord administrateur permet d'avoir des indications plus avancées 
 Plusieurs indicateurs sont disponibles :
 
 * La moyenne d'actions planifiées
-* La moyenne de preuves déposées dans l'espace "Documents".
-* Le nombre en pourcentage de collectivités ayant déposé dans Madis, dans l'espace "Documents", un document avec le type "Bilan" au cours des 12 derniers mois.
+* La moyenne de preuves déposées dans l'espace « **Documents** ».
+* Le nombre en pourcentage de collectivités ayant déposé dans Madis, dans l'espace « **Documents** », un document avec le type « Bilan » au cours des 12 derniers mois.
 * Le nombre de collectivités, en pourcentage, ayant fait un indice de maturité dans Madis au cours des 12 derniers mois.
 
-On retrouve également une cartographie des collectivités accompagnées grâce à l'indication du code INSEE dans le module "Collectivités". Il se peut qu'une commune possède plusieurs collectivités (CCAS, SIVOS, syndicats,...) et tous se retrouvent sous la même commune. De même, il se peut que la commune ne soit pas accompagnée mais qu'une autre structure basée sur ce territoire le soit. Au survol les collectivités identifiées sur ce territoire sont listées.
+On retrouve également une cartographie des collectivités accompagnées grâce à l'indication du code INSEE dans le module « **Collectivités** ». Il se peut qu'une commune possède plusieurs collectivités (CCAS, SIVOS, syndicats,...) et tous se retrouvent sous la même commune. De même, il se peut que la commune ne soit pas accompagnée mais qu'une autre structure basée sur ce territoire le soit. Au survol les collectivités identifiées sur ce territoire sont listées.
 
-Il y a également un graphe représentant la répartition des collectivités en fonction de leur type identifié dans le module "Collectivités".
+Il y a également un graphe représentant la répartition des collectivités en fonction de leur type identifié dans le module « **Collectivités** ».
 
-Enfin, plusieurs exports (en excel) sont disponibles pour pouvoir faire des recherches plus facilement et plus précisément sur des éléments dans Madis. Il y a 4 exports disponibles actuellement :
+Enfin, plusieurs exports (en Excel) sont disponibles pour pouvoir faire des recherches plus facilement et plus précisément sur des éléments dans Madis. Il y a 4 exports disponibles actuellement :
 
-* L'export des collectivités qui reprend l'ID de la collectivité + tous les éléments enregistrés dans le module "Collectivités" (exemples : actif/inactif ; nom ; SIREN ; dernier utilisateur connecté ; date de la dernière connexion ; ...) + les informations comprises dans le module "Conformité de l'organisation" (notes attribuées et nom du pilote) 
-* L'export des traitements (attention, celui-ci peut être volumineux donc l'export peut prendre un peu de temps) qui reprend toutes les informations comprises dans le module "Traitements" (exemples : fiche active/inactive ; date de dernière modification) + les informations comprises dans le module "Conformité des traitements" (module inactif ou niveau de conformité enregistré et le niveau de conformité de chaque réponse)
-* L'export des sous-traitants qui reprend toutes les informations comprises dans le module "Sous-traitants" (exemples : Nom du sous-traitant ; clauses vérifiées ; traitements associés; ...).
-* L'export des actions de protection qui reprend toutes les informations comprises dans les modules "Actions de protection" et "Plan d'actions" (exemples : Nom de l'action ; appliqué/non appliqué/non applicable ; la date de planification ; ...).
+* L'export des collectivités qui reprend l'ID de la collectivité + tous les éléments enregistrés dans le module « **Collectivités** » (exemples : actif/inactif ; nom ; SIREN ; dernier utilisateur connecté ; date de la dernière connexion ; ...) + les informations comprises dans le module « **Conformité de l'organisation** » (notes attribuées et nom du pilote) 
+* L'export des traitements (attention, celui-ci peut être volumineux donc l'export peut prendre un peu de temps) qui reprend toutes les informations comprises dans le module « **Traitements** » (exemples : fiche active/inactive ; date de dernière modification) + les informations comprises dans le module « **Conformité des traitements** » (module inactif ou niveau de conformité enregistré et le niveau de conformité de chaque réponse)
+* L'export des sous-traitants qui reprend toutes les informations comprises dans le module « **Sous-traitants** » (exemples : Nom du sous-traitant ; clauses vérifiées ; traitements associés; ...).
+* L'export des actions de protection qui reprend toutes les informations comprises dans les modules « **Actions de protection** » et « **Plan d'actions** » (exemples : Nom de l'action ; appliqué/non appliqué/non applicable ; la date de planification ; ...).
+
+## Gestion de l'espace documentaire
+
+Les DPOs sont amenés à mettre à disposition de la documentation à destination des collectivités qu’ils accompagnent dans leur mise en conformité au RGPD. Qu’il s’agisse de newsletter, exemple de clauses contractuelles, vidéo de sensibilisation, articles de la CNIL...
+
+![](images/Screenshot 2022-06-01 at 09-52-03 Espace documentaire - Madis.png)
+
+
+Dans cet espace, on retrouve la liste des fichiers et liens partagés dans Madis **pour l'ensemble des collectivités**.
+
+**Attention : il ne s'agit pas d'un espace regroupant les documents déposés comme preuves. Ce sont des modules distincts.**
+
+Il est possible de partager le lien vers un fichier. Cependant, seuls les utilisateurs ayant un compte Madis pourront accéder au document.
+
+Le DPO peut épingler un document, il se retrouve alors en tête de liste pour tous les utilisateurs.
+
+*A noter : Mettre un document en Favoris avec le compte DPO ne le met pas en Favoris pour les utilisateurs.*
+
+### Ajouter un fichiers
+
+Il est possible de rajouter des fichiers dans « **Nouveau document** » puis « **Nouveau fichier** ».
+
+``La taille maximale d'un fichier déposé est définie dans l'administration.``
+
+Les fichiers autorisés sont :
+
+- Fichiers images : .jpg, .png ;
+- Fichiers audio : .mp3, .m4a, .ogg, .wav ;
+- Fichiers vidéo : .mp4, .mov, .wmv, .avi, .mpg, .ogv, .ogg, .webm ;
+- Documents : .pdf, .doc, .docx, .odt, .ppt, .pptx, .odp, .xls, .xlsx, .xlsm, ods.
+
+``Astuce : vous pouvez épingler un fichier important si vous souhaitez le mettre en avant. Il apparaîtra alors en premier jusqu'à ce qu'il soit désépinglé.``
+
+Vous pouvez ajouter une vignette au fichier, celle-ci sera visible si l'utilisateur est en vue grille. De plus, vous pouvez lier le fichier à une ou plusieurs catégories.
+
+### Ajouter un liens
+
+Il est possible de rajouter des liens dans « **Nouveau document** » puis « **Nouveau lien** ».
+
+``Astuce : vous pouvez épingler un lien important si vous souhaitez le mettre en avant. Il apparaîtra alors en premier jusqu'à ce qu'il soit désépinglé.``
+
+Vous pouvez ajouter une vignette au lien, celle-ci sera visible si l'utilisateur est en vue grille. De plus, vous pouvez lier le lien à une ou plusieurs catégories.
+
+### Catégories
+
+Il existe deux types de catégorie :
+
+- les catégories systèmes (ex: Traitement, sous-traitant, …)
+- les catégories créés par le DPO
+
+Les  catégories systèmes ne peuvent pas être supprimées. Elles font référence aux différents modules de Madis. Quand un document ou un lien est lié à une catégorie système, un bouton apparaît dans le module en question. Celui-ci redirige dans l'espace documentaire vers les documents liés à la catégorie du module.
+
+Le DPO peut créer autant de catégorie de document que nécessaire.
 
 ## Gestion des collectivités
 
@@ -585,7 +674,7 @@ Dans ce module, on retrouve la liste des collectivités qui ont été créées d
 
 Il est possible de créer une collectivité ou simplement voir les informations la concernant, de la modifier ou de supprimer la collectivité (cette option n'est possible que pour celle n'ayant plus d'utilisateur).
 
-**Les écrans sont ensuite les mêmes que ceux des utilisateurs dans le module "Ma collectivité" avec la possibilité d'activer ou non des modules conformité ainsi que de modifier le bloc Informations Générales.**
+**Les écrans sont ensuite les mêmes que ceux des utilisateurs dans le module « Ma collectivité » avec la possibilité d'activer ou non des modules conformité ainsi que de modifier le bloc Informations Générales.**
 
 ## Gestion des utilisateurs
 
@@ -595,11 +684,11 @@ Dans ce module, on retrouve la liste des utilisateurs enregistrés dans Madis. T
 
 L'administrateur a la possibilité de créer un nouvel utilisateur, d'archiver ceux qui ne doivent plus accéder à Madis, de modifier un utilisateur ou bien de se connecter en tant que l'utilisateur sélectionné. Il aura ainsi accès à la vue de l'utilisateur sélectionné.
 
-Il est également possible de voir la liste des utilisateurs archivés en cliquant sur le bouton "Voir les utilisateurs archivés" et la seule option possible est de rétablir la personne.
+Il est également possible de voir la liste des utilisateurs archivés en cliquant sur le bouton « **Voir les utilisateurs archivés** » et la seule option possible est de rétablir la personne.
 
 **Le module de journalisation enregistre lorsqu'une personne se connecte en tant qu'un autre utilisateur.**
 
-Lorsque l'administrateur appuie sur le bouton "Nouvel utilisateur", il a la possibilité de modifier le nom, prénom, e-mail, mot de passe de l'utilisateur, comme le ferait l'utilisateur via le module "Mon compte". 
+Lorsque l'administrateur appuie sur le bouton « **Nouvel utilisateur** », il a la possibilité de modifier le nom, prénom, e-mail, mot de passe de l'utilisateur, comme le ferait l'utilisateur via le module « **Mon compte** ». 
 
 Il a également la possibilité de changer sa collectivité, le rendre inactif ce qui l'empêche d'accéder à Madis, ou de modifier son rôle dans la collectivité.
 
