@@ -385,7 +385,7 @@ Vous devez ajouter dans « **Documents** », l’ensemble des preuves.
 
 ### Créer une nouvelle preuve
 
-![](images/Screenshot 2022-05-30 at 09-28-02 Créer une preuve - Madis.png)
+![](images/Screenshot_2022-05-30_at_09-28-02_Creer_une_preuve_Madis.png)
 
 Lors de l'ajout d'une preuve, vous pouvez renseigner les éléments suivants :
 
@@ -573,7 +573,7 @@ Un indicateur sur le tableau de bord reprend les pourcentages de conformité des
 
 L'espace documentaire permet aux utilisateurs d'accéder aux documents mis à disposition par leur DPO.
 
-![](images/Screenshot 2022-06-01 at 09-47-16 Espace documentaire - Madis.png)
+![](images/Screenshot_2022-06-01_at_09-47-16_Espace_documentaire_Madis.png)
 
 Il est possible d'afficher les documents sous forme de liste ou sous forme de grille. 
 
@@ -583,7 +583,7 @@ L'affichage des documents peut être filtré, notamment par catégorie. Lorsque 
 
 Dans chaque module, un bouton « **Ressources utiles** » permet d'accéder aux documents déposés dans l'espace documentaire lié à la catégorie de ce module. **Le bouton n'est visible que si au moins un document est déposé dans cette catégorie par votre DPO.**
 
-![](images/Screenshot 2022-06-01 at 09-31-11 Liste des sous-traitants - Madis.png)
+![](images/Screenshot_2022-06-01_at_09-31-11_Liste_des_sous-traitants_Madis.png)
 
 # Administration
 
@@ -617,7 +617,7 @@ Enfin, plusieurs exports (en Excel) sont disponibles pour pouvoir faire des rech
 
 Les DPOs sont amenés à mettre à disposition de la documentation à destination des collectivités qu’ils accompagnent dans leur mise en conformité au RGPD. Qu’il s’agisse de newsletter, exemple de clauses contractuelles, vidéo de sensibilisation, articles de la CNIL...
 
-![](images/Screenshot 2022-06-01 at 09-52-03 Espace documentaire - Madis.png)
+![](images/Screenshot_2022-06-01_at_09-52-03_Espace_documentaire_Madis.png)
 
 
 Dans cet espace, on retrouve la liste des fichiers et liens partagés dans Madis **pour l'ensemble des collectivités**.
