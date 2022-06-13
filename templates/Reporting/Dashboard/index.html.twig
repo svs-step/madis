@@ -217,7 +217,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for action in actions | slice(0, limit_actions) %}
+                                {% if not actions|length %}
+                                    <tr>
+                                        <td colspan="5" style="text-align: center">
+                                            Aucune action planifiée
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                {% for action in actions %}
                                     <tr>
                                         <td>{{ action.name }}</td>
                                         <td>{{ action.planificationDate|date('d/m/Y') }}</td>

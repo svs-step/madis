@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Controller;
 
+use App\Application\Interfaces\CollectivityRelated;
 use App\Domain\Registry\Repository\Mesurement;
 use App\Domain\Reporting\Handler\ExportCsvHandler;
 use App\Domain\Reporting\Handler\MetricsHandler;
@@ -61,12 +62,16 @@ class DashboardController extends AbstractController
     {
         $metrics = $this->metricsHandler->getHandler();
 
-        $actions = $this->repository->getPlanifiedActionsDashBoard();
+        $actions = [];
+        if (!$this->isGranted('ROLE_REFERENT')) {
+            $user = $this->getUser();
+            $collectivity = $user instanceof CollectivityRelated ? $user->getCollectivity() : null;
+            $actions = $this->repository->getPlanifiedActionsDashBoard($this->getParameter('APP_USER_DASHBOARD_ACTION_PLAN_LIMIT'), $collectivity);
+        }
 
         return $this->render($metrics->getTemplateViewName(), [
             'data'          => $metrics->getData(),
             'actions'       => $actions,
-            'limit_actions' => $_ENV['APP_USER_DASHBOARD_ACTION_PLAN_LIMIT'],
         ]);
     }
 

@@ -97,5 +97,5 @@ interface Mesurement extends CRUDRepositoryInterface, DataTablesRepository
      *
      * @return array
      */
-    public function getPlanifiedActionsDashBoard();
+    public function getPlanifiedActionsDashBoard($limit, Collectivity $collectivity);
 }
