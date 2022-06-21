@@ -82,9 +82,11 @@
                             <th>
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
-                            <th>
-                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
-                            </th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                                </th>
+                            {% endif %}
                             <th>
                                 <select class="form-control" id="search_type" style="width: 100%;">
                                     <option value="">Type</option>
@@ -103,7 +105,9 @@
                         </tr>
                         <tr>
                             <th>{{ 'registry.proof.list.name'|trans }}</th>
-                            <th>{{ 'registry.proof.list.collectivity'|trans }}</th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>{{ 'registry.proof.list.collectivity'|trans }}</th>
+                            {% endif %}
                             <th>{{ 'registry.proof.list.type'|trans }}</th>
                             <th>{{ 'registry.proof.list.comment'|trans }}</th>
                             <th>{{ 'registry.proof.list.created_at'|trans }}</th>
@@ -127,15 +131,27 @@
         {% set collectivityClassname = "" %}
     {% endif %}
 
-    {% set dataTableOptions = {
-        columns: [
+    {% set cols = [
+        {"data": "nom"},
+        {"data": "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
+        {"data": "type"},
+        {"data": "commentaire"},
+        {"data": "date"},
+        {"data": "actions", "className": "noVis", "orderable": false},
+    ] %}
+
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set cols = [
             {"data": "nom"},
-            {"data": "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
             {"data": "type"},
             {"data": "commentaire"},
             {"data": "date"},
             {"data": "actions", "className": "noVis", "orderable": false},
-        ],
+        ] %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: cols,
         order:  [
             [0, 'asc' ]
         ],
