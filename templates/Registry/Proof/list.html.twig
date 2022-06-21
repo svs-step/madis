@@ -133,7 +133,6 @@
 
     {% set cols = [
         {"data": "nom"},
-        {"data": "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
         {"data": "type"},
         {"data": "commentaire"},
         {"data": "date"},
@@ -143,6 +142,7 @@
     {% if is_granted('ROLE_REFERENT') %}
         {% set cols = [
             {"data": "nom"},
+            {"data": "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
             {"data": "type"},
             {"data": "commentaire"},
             {"data": "date"},
@@ -162,6 +162,10 @@
     <script>
         function setEvents() {
             var oTable = $('#table').DataTable();
+            var col = 0;
+            {% if is_granted('ROLE_REFERENT') %}
+                col = 1;
+            {% endif %}
 
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
@@ -175,17 +179,17 @@
 
             $('#search_type').off('change');
             $('#search_type').change(function(){
-                oTable.column('2').search($(this).val()).draw() ;
+                oTable.column(col + 1).search($(this).val()).draw() ;
             });
 
             $('#search_commentaire').off('keyup');
             $('#search_commentaire').keyup($.debounce(250, function(){
-                oTable.column('3').search($(this).val()).draw() ;
+                oTable.column(col + 2).search($(this).val()).draw() ;
             }));
 
             $('#search_date').off('change');
             $('#search_date').change(function(){
-                oTable.column('4').search($(this).val()).draw() ;
+                oTable.column(col + 3).search($(this).val()).draw() ;
             });
         }
 

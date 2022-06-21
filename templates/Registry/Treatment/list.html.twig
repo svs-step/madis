@@ -383,6 +383,10 @@
                 event = event.originalEvent;
             })
 
+            var col = 0;
+            {% if is_granted('ROLE_REFERENT') %}
+                col = 1;
+            {% endif %}
 
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
@@ -396,79 +400,79 @@
 
             $('#search_base_legal').off('change');
             $('#search_base_legal').change(function(){
-                oTable.column('3').search($(this).val()).draw() ;
+                oTable.column(col + 2).search($(this).val()).draw() ;
             });
 
             $('#search_logiciel').off('keyup');
             $('#search_logiciel').keyup($.debounce(250, function(){
-                oTable.column('4').search($(this).val()).draw() ;
+                oTable.column(col + 3).search($(this).val()).draw() ;
             }));
 
             $('#search_en_tant_que').off('change');
             $('#search_en_tant_que').change(function(){
-                oTable.column('5').search($(this).val()).draw() ;
+                oTable.column(col + 4).search($(this).val()).draw() ;
             });
 
             $('#search_gestionnaire').off('keyup');
             $('#search_gestionnaire').keyup($.debounce(250, function(){
-                oTable.column('6').search($(this).val()).draw() ;
+                oTable.column(col + 5).search($(this).val()).draw() ;
             }));
 
             $('#search_sous_traitants').off('keyup');
             $('#search_sous_traitants').keyup($.debounce(250, function(){
-                oTable.column('7').search($(this).val()).draw() ;
+                oTable.column(col + 6).search($(this).val()).draw() ;
             }));
 
             $('#search_controle_acces').off('change');
             $('#search_controle_acces').change(function(){
-                oTable.column('8').search($(this).val()).draw() ;
+                oTable.column(col + 7).search($(this).val()).draw() ;
             });
 
             $('#search_tracabilite').off('change');
             $('#search_tracabilite').change(function(){
-                oTable.column('9').search($(this).val()).draw() ;
+                oTable.column(col + 8).search($(this).val()).draw() ;
             });
 
             $('#search_sauvegarde').off('change');
             $('#search_sauvegarde').change(function(){
-                oTable.column('10').search($(this).val()).draw() ;
+                oTable.column(col + 9).search($(this).val()).draw() ;
             });
 
 
             $('#search_autres').off('change');
             $('#search_autres').change(function(){
-                oTable.column('11').search($(this).val()).draw() ;
+                oTable.column(col + 10).search($(this).val()).draw() ;
             });
 
             $('#search_capacite').off('change');
             $('#search_capacite').change(function(){
-                oTable.column('12').search($(this).val()).draw() ;
+                oTable.column(col + 11).search($(this).val()).draw() ;
             });
 
             $('#search_procedure').off('change');
             $('#search_procedure').change(function(){
-                oTable.column('13').search($(this).val()).draw() ;
+                oTable.column(col + 12).search($(this).val()).draw() ;
             });
 
             $('#search_specificite').off('change');
             $('#search_specificite').change(function(){
-                oTable.column('14').search($(this).val()).draw() ;
+                oTable.column(col + 13).search($(this).val()).draw() ;
             });
             $('#search_updated_at').off('change');
             $('#search_updated_at').change(function(){
-                oTable.column('15').search($(this).val()).draw();
+                oTable.column(col + 14).search($(this).val()).draw();
             });
             $('#search_public').off('change');
             $('#search_public').change(function(){
-                oTable.column('16').search($(this).val()).draw() ;
+                oTable.column(col + 15).search($(this).val()).draw() ;
             });
             $('#search_update').off('change');
             $('#search_update').change(function(){
-                oTable.column('17').search($(this).val()).draw() ;
+                oTable.column(col + 16).search($(this).val()).draw() ;
             });
             $('#search_responsable_traitement').off('keyup');
             $('#search_responsable_traitement').keyup($.debounce(250, function(){
-                oTable.column('18').search($(this).val()).draw() ;
+                oTable.column(col + 17).search($(this).val()).draw() ;
             }));
 
             // Handle click on "Select all" control

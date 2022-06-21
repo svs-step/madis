@@ -162,6 +162,10 @@
     <script>
         function setEvents() {
             var oTable = $('#table').DataTable();
+            var col = 0;
+            {% if is_granted('ROLE_REFERENT') %}
+                col = 1;
+            {% endif %}
 
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
@@ -175,22 +179,22 @@
 
             $('#search_clauses').off('change');
             $('#search_clauses').change(function(){
-                oTable.column('2').search($(this).val()).draw() ;
+                oTable.column(col + 1).search($(this).val()).draw() ;
             });
 
             $('#search_adoption').off('change');
             $('#search_adoption').change(function(){
-                oTable.column('3').search($(this).val()).draw() ;
+                oTable.column(col + 2).search($(this).val()).draw() ;
             });
 
             $('#search_registre').off('change');
             $('#search_registre').change(function(){
-                oTable.column('4').search($(this).val()).draw() ;
+                oTable.column(col + 3).search($(this).val()).draw() ;
             });
 
             $('#search_hors_eu').off('change');
             $('#search_hors_eu').change(function(){
-                oTable.column('5').search($(this).val()).draw() ;
+                oTable.column(col + 4).search($(this).val()).draw() ;
             });
         }
 

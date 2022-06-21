@@ -76,9 +76,11 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>
-                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
-                            </th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                                </th>
+                            {% endif %}
                             <th>
                                 <input class="datepicker form-control" type="text" id="search_date" placeholder="Date de violation" style="width: 100%;">
                             </th>
@@ -109,7 +111,9 @@
                             <th></th>
                         </tr>
                         <tr>
-                            <th>{{ 'registry.violation.list.collectivity'|trans }}</th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>{{ 'registry.violation.list.collectivity'|trans }}</th>
+                            {%  endif %}
                             <th>{{ 'registry.violation.list.date'|trans }}</th>
                             <th>{{ 'registry.violation.list.violation_nature'|trans }}</th>
                             <th>{{ 'registry.violation.list.cause'|trans }}</th>
@@ -139,15 +143,27 @@
         {% set actionIsVisible = true %}
     {% endif %}
 
-    {% set dataTableOptions = {
-        columns: [
+    {% set cols = [
+        {"data": "date"},
+        {"data": "nature"},
+        {"data": "cause"},
+        {"data": "gravity"},
+        {"data": "actions", "className": "noVis", "orderable": false, "visible": actionIsVisible},
+    ] %}
+
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set cols = [
             {"data": "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
             {"data": "date"},
             {"data": "nature"},
             {"data": "cause"},
             {"data": "gravity"},
             {"data": "actions", "className": "noVis", "orderable": false, "visible": actionIsVisible},
-        ],
+        ] %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: cols
     } %}
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
@@ -155,6 +171,10 @@
     <script>
         function setEvents() {
             var oTable = $('#table').DataTable();
+            var col = 0;
+            {% if is_granted('ROLE_REFERENT') %}
+                col = 1;
+            {% endif %}
 
             $('#search_collectivite').off('keyup');
             $('#search_collectivite').keyup($.debounce(250, function(){
@@ -163,22 +183,22 @@
 
             $('#search_date').off('change');
             $('#search_date').change(function(){
-                oTable.column('1').search($(this).val()).draw() ;
+                oTable.column(col).search($(this).val()).draw() ;
             });
 
             $('#search_nature').off('change');
             $('#search_nature').change(function(){
-                oTable.column('2').search($(this).val()).draw() ;
+                oTable.column(col + 1).search($(this).val()).draw() ;
             });
 
             $('#search_cause').off('change');
             $('#search_cause').change(function(){
-                oTable.column('3').search($(this).val()).draw() ;
+                oTable.column(col +2).search($(this).val()).draw() ;
             });
 
             $('#search_gravity').off('change');
             $('#search_gravity').change(function(){
-                oTable.column('4').search($(this).val()).draw() ;
+                oTable.column(col + 3).search($(this).val()).draw() ;
             });
         }
 
