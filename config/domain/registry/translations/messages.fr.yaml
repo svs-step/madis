@@ -611,7 +611,7 @@ registry:
             action_protection: Action de protection
             conformite: Conformité
             header: Évaluation du traitement
-            question: Question
+            question: Principes fondamentaux
         flashbag:
             success:
                 edit: Conformité du traitement "%object%" modifiée avec succès

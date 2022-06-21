@@ -119,7 +119,7 @@ aipd:
                 gestion_risques: Gestion des risques
     critere_principe_fondamental:
         table:
-            label: Label
+            label: Description
             reponse: Réponse
             justification: Justification
             fichier: Joindre un fichier
