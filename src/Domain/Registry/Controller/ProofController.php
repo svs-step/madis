@@ -281,8 +281,10 @@ class ProofController extends CRUDController
         $files = [];
         foreach ($objects as $object) {
             /** @var Model\Proof|null $object */
+            //dd($object);
             if (!$object->getDeletedAt()) {
-                $files[] = $object->getDocument();
+                $fileName = str_replace(' ','_',ProofTypeDictionary::getTypes()[$object->getType()]).'-'.$object->getDocument();
+                $files[] = [$object->getDocument(),$fileName];
             }
         }
         $zip      =  new ZipArchive();
@@ -298,7 +300,7 @@ class ProofController extends CRUDController
         $zip->open($filename, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         foreach ($files as $file) {
-            $zip->addFile('./uploads/registry/proof/document/' . $file, $file);
+            $zip->addFile('./uploads/registry/proof/document/' . $file[0], $file[1]);
         }
 
         $zip->close();
