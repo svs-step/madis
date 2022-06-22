@@ -52,7 +52,9 @@
                             <th>{{ 'aipd.analyse_impact.list.date_creation'|trans }}</th>
                             <th>{{ 'aipd.analyse_impact.list.date_validation'|trans }}</th>
                             <th style="width: 15%">{{ 'aipd.analyse_impact.list.modele'|trans }}</th>
-                            <th>{{ 'aipd.analyse_impact.list.collectivite'|trans }}</th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>{{ 'aipd.analyse_impact.list.collectivite'|trans }}</th>
+                            {% endif %}
                             <th>{{ 'aipd.analyse_impact.list.avis_referent'|trans }}</th>
                             <th>{{ 'aipd.analyse_impact.list.avis_dpd'|trans }}</th>
                             <th>{{ 'aipd.analyse_impact.list.avis_representant'|trans }}</th>
@@ -75,8 +77,20 @@
         {% set collectivityIsVisible = true %}
     {% endif %}
 
-    {% set dataTableOptions = {
-        columns: [
+    {% set cols = [
+        {"data": "traitement", "className": "noVis"},
+        {"data": "dateDeCreation"},
+        {"data": "dateDeValidation"},
+        {"data": "modele"},
+        {"data": "avisReferent"},
+        {"data": "avisDpd"},
+        {"data": "avisRepresentant"},
+        {"data": "avisResponsable"},
+        {"data": "actions", "className": "noVis", "orderable": false}
+    ]%}
+
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set cols = [
             {"data": "traitement", "className": "noVis"},
             {"data": "dateDeCreation"},
             {"data": "dateDeValidation"},
@@ -86,8 +100,12 @@
             {"data": "avisDpd"},
             {"data": "avisRepresentant"},
             {"data": "avisResponsable"},
-            {"data": "actions", "className": "noVis", "orderable": false},
-        ],
+            {"data": "actions", "className": "noVis", "orderable": false}
+        ] %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: cols,
         order:  [
             [0, 'asc' ]
         ],
@@ -98,18 +116,26 @@
     <script>
         $(document).ready(function () {
             var oTable = $('#table').DataTable();
+
+            $('#search_traitement').off('keyup');
             $('#search_traitement').keyup($.debounce(250, function(){
                 oTable.column('0').search($(this).val()).draw() ;
             }));
-            $('#search_date_de_creation').off('change').change(function(){
+
+            $('#search_date_de_creation').off('keyup');
+            $('#search_date_de_creation').keyup($.debounce(250, function(){
                 oTable.column('1').search($(this).val()).draw();
-            });
-            $('#search_date_de_validation').off('change').change(function(){
+            }));
+
+            $('#search_date_de_validation').off('keyup');
+            $('#search_date_de_validation').keyup($.debounce(250, function(){
                 oTable.column('2').search($(this).val()).draw();
-            });
-            $('#search_modele').off('change').change(function(){
-                oTable.column('3').search($(this).val()).draw();
-            });
+            }));
+
+            $('#search_modele').off('keyup');
+            $('#search_modele').keyup($.debounce(250, function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            }));
         })
     </script>
 
