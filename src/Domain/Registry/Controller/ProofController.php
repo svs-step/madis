@@ -276,12 +276,27 @@ class ProofController extends CRUDController
 
     public function downloadAll()
     {
-        $objects = $this->repository->findAll();
+
+        if ($this->userProvider->getAuthenticatedUser()->getRoles()[0] === 'ROLE_ADMIN') {
+            $objects = $this->repository->findAll();
+        }
+
+        if ($this->userProvider->getAuthenticatedUser()->getRoles()[0] === 'ROLE_REFERENT'){
+            $collectivities = \iterable_to_array($this->userProvider->getAuthenticatedUser()->getCollectivitesReferees());
+            $objects = [];
+            foreach ($collectivities as $collectivity) {
+                $objects = array_merge($objects,$this->repository->findAllByCollectivity($collectivity));
+            }
+        }
+        
+        if (($this->userProvider->getAuthenticatedUser()->getRoles()[0] == 'ROLE_USER') || ($this->userProvider->getAuthenticatedUser()->getRoles()[0] == 'ROLE_PREVIEW')) {
+            $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+            $objects = $this->repository->findAllByCollectivity($collectivity);
+        }
 
         $files = [];
         foreach ($objects as $object) {
             /** @var Model\Proof|null $object */
-            //dd($object);
             if (!$object->getDeletedAt()) {
                 $fileName = str_replace(' ','_',ProofTypeDictionary::getTypes()[$object->getType()]).'-'.$object->getDocument();
                 $files[] = [$object->getDocument(),$fileName];
