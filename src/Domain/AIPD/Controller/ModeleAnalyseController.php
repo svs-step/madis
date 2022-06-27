@@ -296,10 +296,6 @@ class ModeleAnalyseController extends CRUDController
             '<a href="' . $this->router->generate('aipd_modele_analyse_edit', ['id' => $id]) . '">
                 <i class="fa fa-pencil-alt"></i>'
                 . $this->translator->trans('action.edit') .
-            '</a>
-            <a href="' . $this->router->generate('aipd_modele_analyse_duplicate', ['id' => $id]) . '">
-                <i class="fa fa-clone"></i>'
-                . $this->translator->trans('action.duplicate') .
             '</a>'
             . $htmltoReturnIfAdmin .
             '<a href="' . $this->router->generate('aipd_modele_analyse_export', ['id' => $id]) . '">
@@ -356,6 +352,7 @@ class ModeleAnalyseController extends CRUDController
             $serializer = SerializerBuilder::create()->build();
             $object     = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
             $object->deserialize();
+            $object->setNom('(import) ' . $object->getNom());
             $this->entityManager->persist($object);
             $this->entityManager->flush();
             $this->addFlash('success', $this->getFlashbagMessage('success', 'import', $object));
