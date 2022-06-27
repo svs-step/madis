@@ -6,5 +6,4 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class ExceededLoginAttemptsException extends AccessDeniedHttpException
 {
-
 }

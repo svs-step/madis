@@ -236,12 +236,13 @@ class UserType extends AbstractType
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($encoderFactory) {
             $user = $event->getData();
-            if (null === $user->getPlainPassword()) {
+            if (null === $user->getPlainPassword() || !$event->getForm()->isValid()) {
                 return;
             }
 
             $encoder = $encoderFactory->getEncoder($user);
             $user->setPassword($encoder->encodePassword($user->getPlainPassword(), '')); // No salt with bcrypt
+
             $user->eraseCredentials();
         });
     }

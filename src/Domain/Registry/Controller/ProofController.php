@@ -276,30 +276,29 @@ class ProofController extends CRUDController
 
     public function downloadAll()
     {
-
-        if ($this->userProvider->getAuthenticatedUser()->getRoles()[0] === 'ROLE_ADMIN') {
+        if ('ROLE_ADMIN' === $this->userProvider->getAuthenticatedUser()->getRoles()[0]) {
             $objects = $this->repository->findAll();
         }
 
-        if ($this->userProvider->getAuthenticatedUser()->getRoles()[0] === 'ROLE_REFERENT'){
+        if ('ROLE_REFERENT' === $this->userProvider->getAuthenticatedUser()->getRoles()[0]) {
             $collectivities = \iterable_to_array($this->userProvider->getAuthenticatedUser()->getCollectivitesReferees());
-            $objects = [];
+            $objects        = [];
             foreach ($collectivities as $collectivity) {
-                $objects = array_merge($objects,$this->repository->findAllByCollectivity($collectivity));
+                $objects = array_merge($objects, $this->repository->findAllByCollectivity($collectivity));
             }
         }
-        
-        if (($this->userProvider->getAuthenticatedUser()->getRoles()[0] == 'ROLE_USER') || ($this->userProvider->getAuthenticatedUser()->getRoles()[0] == 'ROLE_PREVIEW')) {
+
+        if (('ROLE_USER' == $this->userProvider->getAuthenticatedUser()->getRoles()[0]) || ('ROLE_PREVIEW' == $this->userProvider->getAuthenticatedUser()->getRoles()[0])) {
             $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-            $objects = $this->repository->findAllByCollectivity($collectivity);
+            $objects      = $this->repository->findAllByCollectivity($collectivity);
         }
 
         $files = [];
         foreach ($objects as $object) {
             /** @var Model\Proof|null $object */
             if (!$object->getDeletedAt()) {
-                $fileName = str_replace(' ','_',ProofTypeDictionary::getTypes()[$object->getType()]).'-'.$object->getDocument();
-                $files[] = [$object->getDocument(),$fileName];
+                $fileName = str_replace(' ', '_', ProofTypeDictionary::getTypes()[$object->getType()]) . '-' . $object->getDocument();
+                $files[]  = [$object->getDocument(), $fileName];
             }
         }
         $zip      =  new ZipArchive();

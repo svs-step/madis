@@ -48,19 +48,18 @@ class DuplicationType extends AbstractType
     private Mesurement $mesurementRepository;
     private Collectivity $collectivityRepository;
 
-
     public function __construct(
         Treatment $treatmentRepository,
         Contractor $contractorRepository,
         Mesurement $mesurementRepository,
         Collectivity $collectivityRepository
-    )
-    {
-        $this->treatmentRepository = $treatmentRepository;
-        $this->contractorRepository = $contractorRepository;
-        $this->mesurementRepository = $mesurementRepository;
+    ) {
+        $this->treatmentRepository    = $treatmentRepository;
+        $this->contractorRepository   = $contractorRepository;
+        $this->mesurementRepository   = $mesurementRepository;
         $this->collectivityRepository = $collectivityRepository;
     }
+
     /**
      * Build type form.
      */
@@ -141,17 +140,15 @@ class DuplicationType extends AbstractType
 
             $collectivity = $this->collectivityRepository->findOneById($data['sourceCollectivity']);
 
-            if ($data['type'] === 'treatment') {
+            if ('treatment' === $data['type']) {
                 $choices = $this->treatmentRepository->findAllByCollectivity($collectivity);
-            } elseif ($data['type'] === 'contractor') {
+            } elseif ('contractor' === $data['type']) {
                 $choices = $this->contractorRepository->findAllByCollectivity($collectivity);
-            } elseif ($data['type'] === 'mesurement') {
+            } elseif ('mesurement' === $data['type']) {
                 $choices = $this->mesurementRepository->findAllByCollectivity($collectivity);
             }
 
-
-
-            $choices = array_map(function($object) {
+            $choices = array_map(function ($object) {
                 return $object->getId()->__toString();
             }, $choices);
 //            dump($data['data']);

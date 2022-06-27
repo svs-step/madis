@@ -25,29 +25,17 @@ declare(strict_types=1);
 namespace App\Domain\User\Symfony\EventSubscriber\Kernel;
 
 use App\Application\Controller\ControllerHelper;
-use App\Domain\Reporting\Dictionary\LogJournalActionDictionary;
-use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
-use App\Domain\Reporting\Model\LogJournal;
-use App\Domain\User\Dictionary\UserRoleDictionary;
-use App\Domain\User\Event\ExceededLoginAttempts;
 use App\Domain\User\Exception\ExceededLoginAttemptsException;
-use App\Domain\User\Model\Collectivity;
-use App\Domain\User\Model\User;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Http\Event\SwitchUserEvent;
-use Symfony\Component\Security\Http\SecurityEvents;
 
 class ExceptionSubscriber implements EventSubscriberInterface
 {
     private ControllerHelper $helper;
 
-    public function __construct(ControllerHelper $helper) {
+    public function __construct(ControllerHelper $helper)
+    {
         $this->helper = $helper;
     }
 
@@ -57,8 +45,6 @@ class ExceptionSubscriber implements EventSubscriberInterface
             KernelEvents::EXCEPTION => 'onException',
         ];
     }
-
-
 
     public function onException(ExceptionEvent $event)
     {

@@ -2,17 +2,16 @@
 
 namespace App\Domain\User\Symfony\EventSubscriber\Security;
 
-use App\Domain\User\Event\ExceededLoginAttempts;
 use App\Domain\User\Exception\ExceededLoginAttemptsException;
 use App\Domain\User\Model\LoginAttempt;
 use App\Domain\User\Repository\LoginAttempt as LoginAttemptRepository;
 use App\Domain\User\Repository\User as UserRepository;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\AuthenticationEvents;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AuthenticationSubscriber implements EventSubscriberInterface
 {
@@ -71,6 +70,7 @@ class AuthenticationSubscriber implements EventSubscriberInterface
                 $attempt->setAttempts(0);
                 $this->loginAttemptRepository->update($attempt);
                 $this->userRepository->update($user);
+
                 throw new ExceededLoginAttemptsException();
             }
         }
