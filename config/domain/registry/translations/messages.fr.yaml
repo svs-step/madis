@@ -345,6 +345,7 @@ registry:
             edit: Modifier "%name%"
             list: Liste des traitements
             show: Visualiser "%name%"
+            archive: Désactiver
         form:
             active: Statut
             author: En tant que
@@ -497,6 +498,7 @@ registry:
             list: Liste des traitements
             show: Visualiser un traitement
             configure: Configurer les traitements
+            archive: Désactiver un traitement
         tab:
           conformite: Évaluation de la conformité du traitement
           data_category: Catégorie des données
