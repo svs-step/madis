@@ -54,8 +54,8 @@ class ConformiteType extends AbstractType
                 ],
                 'choice_attr' => function (Mesurement $choice) {
                     $name = $choice->getName();
-                    if (\mb_strlen($name) > 50) {
-                        $name =  \mb_substr($name, 0, 50) . '...';
+                    if (\mb_strlen($name) > 85) {
+                        $name =  \mb_substr($name, 0, 85) . '...';
                     }
 
                     return ['data-content' => $name];

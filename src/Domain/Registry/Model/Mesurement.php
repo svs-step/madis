@@ -154,8 +154,8 @@ class Mesurement implements LoggableSubject
             return '';
         }
 
-        if (\mb_strlen($this->getName()) > 50) {
-            return \mb_substr($this->getName(), 0, 50) . '...';
+        if (\mb_strlen($this->getName()) > 85) {
+            return \mb_substr($this->getName(), 0, 85) . '...';
         }
 
         return $this->getName();
