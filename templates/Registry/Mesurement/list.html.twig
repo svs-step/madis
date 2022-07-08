@@ -82,6 +82,9 @@
                                     {% endfor %}
                                 </select>
                             </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_responsable_action" placeholder="Responsable" style="width: 100%;">
+                            </th>
                         </tr>
                         <tr>
                             <th>{{ 'registry.mesurement.list.name'|trans }}</th>
@@ -158,6 +161,9 @@
             $('#search_priorite').change(function(){
                 oTable.column('5').search($(this).val()).draw() ;
             });
+            $('#search_responsable_action').keyup($.debounce(250, function(){
+                oTable.column('6').search($(this).val()).draw() ;
+            }));
         } );
     </script>
 {% endblock %}
