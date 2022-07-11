@@ -509,7 +509,6 @@ class TreatmentController extends CRUDController
         );
     }
 
-
     /**
      * The archive action view
      * Display a confirmation message to confirm data archivation.
@@ -531,7 +530,6 @@ class TreatmentController extends CRUDController
             'treatment_length'  => count($ids),
         ]);
     }
-
 
     /**
      * The archive action

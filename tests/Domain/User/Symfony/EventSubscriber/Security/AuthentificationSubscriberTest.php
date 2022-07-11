@@ -32,6 +32,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -71,15 +72,17 @@ class AuthentificationSubscriberTest extends TestCase
 
     public function setUp(): void
     {
-        $this->requestStack       = $this->prophesize(RequestStack::class);
-        $this->attemptRepository  = $this->prophesize(\App\Domain\User\Repository\LoginAttempt::class);
-        $this->userRepository     = $this->prophesize(\App\Domain\User\Repository\User::class);
+        $this->requestStack        = $this->prophesize(RequestStack::class);
+        $this->attemptRepository   = $this->prophesize(\App\Domain\User\Repository\LoginAttempt::class);
+        $this->userRepository      = $this->prophesize(\App\Domain\User\Repository\User::class);
+        $this->eventDispatcher     = $this->prophesize(EventDispatcherInterface::class)->reveal();
 
         $this->subscriber = new AuthenticationSubscriber(
             $this->requestStack->reveal(),
             $this->attemptRepository->reveal(),
             $this->userRepository->reveal(),
-            5
+            5,
+            $this->eventDispatcher
         );
     }
 
