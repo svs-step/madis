@@ -344,7 +344,8 @@ class MesurementController extends CRUDController
             3 => 'cout',
             4 => 'charge',
             5 => 'priorite',
-            6 => 'actions',
+            6 => 'responsable_action',
+            7 => 'actions',
         ];
     }
 
