@@ -276,13 +276,14 @@ class ProofController extends CRUDController
 
     public function downloadAll()
     {
+        $objects        = [];
         if ('ROLE_ADMIN' === $this->userProvider->getAuthenticatedUser()->getRoles()[0]) {
             $objects = $this->repository->findAll();
         }
 
         if ('ROLE_REFERENT' === $this->userProvider->getAuthenticatedUser()->getRoles()[0]) {
             $collectivities = \iterable_to_array($this->userProvider->getAuthenticatedUser()->getCollectivitesReferees());
-            $objects        = [];
+
             foreach ($collectivities as $collectivity) {
                 $objects = array_merge($objects, $this->repository->findAllByCollectivity($collectivity));
             }

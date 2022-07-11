@@ -22,7 +22,7 @@ class AnalyseImpactFlow extends FormFlow
                 'form_type' => AnalyseImpactType::class,
                 'skip'      => function ($estimatedCurrentStepNumber, FormFlowInterface $flow) {
                     /**
-                     * @var AnalyseImpact $aipd
+                     * @var AnalyseImpact
                      */
                     $aipd = $flow->getFormData();
                     $visible = array_filter($aipd->getCriterePrincipeFondamentaux()->toArray(), function (CriterePrincipeFondamental $critere) {

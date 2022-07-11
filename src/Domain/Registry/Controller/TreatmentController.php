@@ -549,7 +549,7 @@ class TreatmentController extends CRUDController
 
         foreach ($ids as $id) {
             /**
-             * @var Treatment $treatment
+             * @var Treatment
              */
             $treatment = $this->repository->findOneById($id);
             $user      = $this->getUser();
@@ -605,7 +605,7 @@ class TreatmentController extends CRUDController
 
         foreach ($ids as $id) {
             /**
-             * @var Treatment $treatment
+             * @var Treatment
              */
             $treatment = $this->repository->findOneById($id);
             $user      = $this->getUser();
