@@ -298,7 +298,7 @@ class ProofController extends CRUDController
         foreach ($objects as $object) {
             /** @var Model\Proof|null $object */
             if (!$object->getDeletedAt()) {
-                $fileName = str_replace(' ', '_', ProofTypeDictionary::getTypes()[$object->getType()]) . '-' . $object->getDocument();
+                $fileName = str_replace(' ', '_', $object->getName()) . '-' . $object->getDocument();
                 $files[]  = [$object->getDocument(), $fileName];
             }
         }
