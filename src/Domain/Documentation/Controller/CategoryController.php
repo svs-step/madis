@@ -117,7 +117,7 @@ class CategoryController extends CRUDController
      */
     public function formPrePersistData($object)
     {
-        $object->setSystem(false);
+        $object->setSysteme(false);
     }
 
     /**
@@ -157,7 +157,7 @@ class CategoryController extends CRUDController
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
-        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') || $object->getSystem()) {
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') || $object->getSysteme()) {
             $this->addFlash('success', $this->getFlashbagMessage('error', 'delete', $object));
 
             return $this->redirectToRoute('documentation_document_list');

@@ -137,8 +137,8 @@ class ModeleAnalyse
             return '';
         }
 
-        if (\mb_strlen($this->getNom()) > 50) {
-            return \mb_substr($this->getNom(), 0, 50) . '...';
+        if (\mb_strlen($this->getNom()) > 85) {
+            return \mb_substr($this->getNom(), 0, 85) . '...';
         }
 
         return $this->getNom();

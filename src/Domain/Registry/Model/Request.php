@@ -156,8 +156,8 @@ class Request implements LoggableSubject, CollectivityRelated
             return '';
         }
 
-        if (\mb_strlen($this->getApplicant()->getFullName()) > 50) {
-            return \mb_substr($this->getApplicant()->getFullName(), 0, 50) . '...';
+        if (\mb_strlen($this->getApplicant()->getFullName()) > 85) {
+            return \mb_substr($this->getApplicant()->getFullName(), 0, 85) . '...';
         }
 
         return $this->getApplicant()->getFullName();

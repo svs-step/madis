@@ -509,15 +509,38 @@ class TreatmentController extends CRUDController
         );
     }
 
+
     /**
-     * The archive action
-     * Display a confirmation message to confirm data archived.
+     * The archive action view
+     * Display a confirmation message to confirm data archivation.
      */
     public function archiveAllAction(): Response
     {
         $request = $this->requestStack->getMasterRequest();
         $ids     = $request->query->get('ids');
         $ids     = explode(',', $ids);
+
+        if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('archive_all'), [ // delete_all
+            'ids'               => $ids,
+            'treatment_length'  => count($ids),
+        ]);
+    }
+
+
+    /**
+     * The archive action
+     * Display a confirmation message to confirm data archived.
+     */
+    public function archiveConfirmationAction(): Response
+    {
+        $request = $this->requestStack->getMasterRequest();
+        $ids     = $request->query->get('ids');
 
         if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
             // $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));

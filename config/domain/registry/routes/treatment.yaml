@@ -33,6 +33,11 @@ registry_treatment_archive_all:
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\TreatmentController:archiveAllAction'
 
+registry_treatment_archive_all_confirm:
+  path: '/archiver/confirmation'
+  methods: ['GET']
+  controller: 'App\Domain\Registry\Controller\TreatmentController:archiveConfirmationAction'
+
 registry_treatment_delete:
     path: '/supprimer/{id}'
     methods: ['GET']
