@@ -39,6 +39,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,6 +51,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class RequestControllerTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var EntityManagerInterface
@@ -101,7 +103,7 @@ class RequestControllerTest extends TestCase
      */
     private $controller;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->managerProphecy               = $this->prophesize(EntityManagerInterface::class);
         $this->translatorProphecy            = $this->prophesize(TranslatorInterface::class);

@@ -390,6 +390,9 @@ class Request implements Repository\Request
             case 'date_demande':
                 $queryBuilder->addOrderBy('o.date', $orderDir);
                 break;
+            case 'date_traitement':
+                $queryBuilder->addOrderBy('o.answer.date', $orderDir);
+                break;
             case 'objet_demande':
                 $queryBuilder->addSelect('(case
                 WHEN o.object = \'' . RequestObjectDictionary::OBJECT_ACCESS . '\' THEN 1

@@ -38,11 +38,13 @@ use App\Tests\Utils\ReflectionTrait;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\PhpWord;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class WordHandlerTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var PhpWord
@@ -99,7 +101,7 @@ class WordHandlerTest extends TestCase
      */
     private $handler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->phpWordProphecy                        = $this->prophesize(PhpWord::class);
         $this->contractorGeneratorProphecy            = $this->prophesize(ContractorGenerator::class);

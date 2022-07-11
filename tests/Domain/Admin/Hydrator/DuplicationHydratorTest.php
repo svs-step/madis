@@ -12,9 +12,11 @@ use App\Domain\Registry\Repository as RegistryRepository;
 use App\Domain\User\Model as UserModel;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class DuplicationHydratorTest extends TestCase
 {
+    use ProphecyTrait;
     /**
      * @var RegistryRepository\Treatment
      */
@@ -141,12 +143,11 @@ class DuplicationHydratorTest extends TestCase
      * Test hydrate
      * We try to hydrate a bad duplication type.
      *
-     * @expectedException \RuntimeException
-     *
      * @throws \Exception
      */
     public function testHydrateUnavailableType(): void
     {
+        $this->expectException(\RuntimeException::class);
         $duplication = new Duplication(
             'ThisIsNotAnExpectedAndAvailableType',
             new UserModel\Collectivity()

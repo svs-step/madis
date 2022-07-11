@@ -9,12 +9,21 @@ use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class CriterePrincipeFondamentalType extends AbstractType
 {
+    protected string $maxSize;
+
+    public function __construct(string $maxSize)
+    {
+        $this->maxSize = $maxSize;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -33,8 +42,22 @@ class CriterePrincipeFondamentalType extends AbstractType
             ->add('justification', TextType::class, [
                 'required' => false,
             ])
+            ->add('deleteFile', HiddenType::class, [
+                'data' => 0,
+            ])
             ->add('fichierFile', FileType::class, [
-                'required' => false,
+                'required'    => false,
+                'constraints' => [
+                    new File([
+                        'maxSize'   => $this->maxSize,
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+//                        'mimeTypesMessage' => 'aipd.critere_principe_fondamental.fichier.file',
+                        'groups' => ['default'],
+                    ]),
+                ],
             ])
         ;
     }
@@ -46,7 +69,11 @@ class CriterePrincipeFondamentalType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class' => CriterePrincipeFondamental::class,
+                'data_class'        => CriterePrincipeFondamental::class,
+                'validation_groups' => [
+                    'default',
+                    'aipd',
+                ],
             ]);
     }
 }

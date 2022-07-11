@@ -160,15 +160,29 @@ class UserType extends AbstractType
                     ->orderBy('s.name', 'ASC');
             };
 
-            $form->add('services', EntityType::class, [
-                'class'         => Service::class,
-                'label'         => 'user.user.form.services',
-                'disabled'      => $serviceDisabled,
-                'required'      => false,
-                'multiple'      => true,
-                'expanded'      => false,
-                'query_builder' => $queryBuilder,
-            ]);
+            if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+                $form->add('services', EntityType::class, [
+                    'class'         => Service::class,
+                    'label'         => 'user.user.form.services',
+                    'disabled'      => $serviceDisabled,
+                    'required'      => false,
+                    'multiple'      => true,
+                    'expanded'      => false,
+                    'query_builder' => $queryBuilder,
+                ]);
+            } else {
+                $form->add('services', EntityType::class, [
+                    'class'         => Service::class,
+                    'label'         => 'user.user.form.services',
+                    'disabled'      => true,
+                    'required'      => false,
+                    'multiple'      => true,
+                    'expanded'      => false,
+                    'query_builder' => $queryBuilder,
+                    'attr'          => [
+                        'readonly' => true, ],
+                ]);
+            }
         };
 
         if ($this->authorizationChecker->isGranted('ROLE_PREVIEW') && !$serviceDisabled) {
@@ -222,12 +236,13 @@ class UserType extends AbstractType
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($encoderFactory) {
             $user = $event->getData();
-            if (null === $user->getPlainPassword()) {
+            if (null === $user->getPlainPassword() || !$event->getForm()->isValid()) {
                 return;
             }
 
             $encoder = $encoderFactory->getEncoder($user);
             $user->setPassword($encoder->encodePassword($user->getPlainPassword(), '')); // No salt with bcrypt
+
             $user->eraseCredentials();
         });
     }

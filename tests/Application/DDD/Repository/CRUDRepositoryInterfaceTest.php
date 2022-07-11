@@ -27,9 +27,12 @@ namespace App\Tests\Application\DDD\Repository;
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
 use App\Application\DDD\Repository\RepositoryInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class CRUDRepositoryInterfaceTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testInstanceOf()
     {
         $this->assertInstanceOf(

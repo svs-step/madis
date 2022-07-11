@@ -27,12 +27,15 @@ namespace App\Tests\Domain\User\Form\Type;
 use App\Domain\User\Form\Type\AddressType;
 use App\Domain\User\Model\Embeddable\Address;
 use App\Tests\Utils\FormTypeHelper;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AddressTypeTest extends FormTypeHelper
 {
+    use ProphecyTrait;
+
     public function testInstanceOf(): void
     {
         $this->assertInstanceOf(AbstractType::class, new AddressType());

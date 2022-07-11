@@ -54,7 +54,11 @@
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.request.show.object'|trans }}</strong></td>
-                            <td>{{ object.object|dictionary('registry_request_object') }}</td>
+                            <td>{% if object.object in dictionary('registry_request_object').values|keys %}
+                                    {{ object.object|dictionary('registry_request_object') }}
+                                {% else %}
+                                    {{ object.object }}
+                                {% endif %}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.request.show.other_object'|trans }}</strong></td>
@@ -123,7 +127,12 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.request.show.state'|trans }}</strong></td>
-                            <td>{{ object.state|dictionary('registry_request_state') }}</td>
+                            <td>{% if object.state in (dictionary('registry_request_state').values|keys) %}
+                                    {{ object.state|dictionary('registry_request_state') }}
+                                {% else %}
+                                    {{ object.state }}
+                                {% endif %}
+                            </td>
                         </tr>
                         {% if object.state == constant('App\\Domain\\Registry\\Dictionary\\RequestStateDictionary::STATE_DENIED') %}
                         <tr>
@@ -273,6 +282,12 @@
 
             {# PROOFS #}
             {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+
+            {# TREATMENTS #}
+            {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
+
+            {# Mesurements #}
+            {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
         </div>
 
     </div>

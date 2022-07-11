@@ -8,11 +8,14 @@ use App\Domain\Registry\Symfony\EventSubscriber\Event\ConformiteOrganisationEven
 use App\Domain\Registry\Symfony\EventSubscriber\Kernel\ConformiteOrganisationSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ConformiteOrganisationSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var ConformiteOrganisationSubscriber
      */
@@ -28,7 +31,7 @@ class ConformiteOrganisationSubscriberTest extends TestCase
      */
     private $entityManager;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->calculator    = $this->prophesize(ConformiteOrganisationConformiteCalculator::class);
         $this->entityManager = $this->prophesize(EntityManagerInterface::class);

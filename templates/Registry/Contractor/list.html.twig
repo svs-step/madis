@@ -37,6 +37,12 @@
                         {{ 'registry.contractor.action.report'|trans }}
                     </a>
                     {% endif %}
+                    {% if category and category.documents|length > 0%}
+                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                            <i class="far fa-file"></i>
+                            {{ 'documentation.document.link.button'|trans }}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
 
@@ -52,9 +58,11 @@
                             <th>
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
-                            <th>
-                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
-                            </th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                                </th>
+                            {% endif %}
                             <th>
                                 <select class="form-control" id="search_clauses" style="width: 100%;">
                                     <option value="">Clauses</option>
@@ -86,12 +94,16 @@
                         </tr>
                         <tr>
                             <th>{{ 'registry.contractor.list.name'|trans }}</th>
-                            <th>{{ 'registry.contractor.list.collectivity'|trans }}</th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>{{ 'registry.contractor.list.collectivity'|trans }}</th>
+                            {% endif %}
                             <th>{{ 'registry.contractor.list.contractual_clauses_verified'|trans }}</th>
                             <th>{{ 'registry.contractor.list.adopted_security_features'|trans }}</th>
                             <th>{{ 'registry.contractor.list.maintains_treatment_register'|trans }}</th>
                             <th>{{ 'registry.contractor.list.sending_data_outside_eu'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            {% if is_granted('ROLE_USER') %}
+                                <th>{{ 'label.actions'|trans }}</th>
+                            {% endif %}
                         </tr>
                         </thead>
                     </table>
@@ -115,8 +127,18 @@
         {% set actionIsVisible = false %}
     {% endif %}
 
-    {% set dataTableOptions = {
-        columns: [
+    {% set cols = [
+        {"data": "nom", "className": "noVis"},
+        {"data": "clauses_contractuelles"},
+        {"data": "element_securite"},
+        {"data": "registre_traitements"},
+        {"data": "donnees_hors_eu"},
+        {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
+    ]
+    %}
+
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set cols = [
             {"data": "nom", "className": "noVis"},
             {"data": "collectivite", "visible": collectivityIsVisible, "className": collectivityClassname},
             {"data": "clauses_contractuelles"},
@@ -124,7 +146,12 @@
             {"data": "registre_traitements"},
             {"data": "donnees_hors_eu"},
             {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
-        ],
+        ]
+        %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: cols,
         order:  [
             [0, 'asc' ]
         ],
@@ -135,6 +162,10 @@
     <script>
         function setEvents() {
             var oTable = $('#table').DataTable();
+            var col = 0;
+            {% if is_granted('ROLE_REFERENT') %}
+                col = 1;
+            {% endif %}
 
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
@@ -148,22 +179,22 @@
 
             $('#search_clauses').off('change');
             $('#search_clauses').change(function(){
-                oTable.column('2').search($(this).val()).draw() ;
+                oTable.column(col + 1).search($(this).val()).draw() ;
             });
 
             $('#search_adoption').off('change');
             $('#search_adoption').change(function(){
-                oTable.column('3').search($(this).val()).draw() ;
+                oTable.column(col + 2).search($(this).val()).draw() ;
             });
 
             $('#search_registre').off('change');
             $('#search_registre').change(function(){
-                oTable.column('4').search($(this).val()).draw() ;
+                oTable.column(col + 3).search($(this).val()).draw() ;
             });
 
             $('#search_hors_eu').off('change');
             $('#search_hors_eu').change(function(){
-                oTable.column('5').search($(this).val()).draw() ;
+                oTable.column(col + 4).search($(this).val()).draw() ;
             });
         }
 

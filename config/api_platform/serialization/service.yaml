@@ -1,0 +1,8 @@
+App\Domain\User\Model\Service:
+    attributes:
+        name:
+            groups: ['request_read']
+        collectivity:
+            groups: ['request_read']
+
+

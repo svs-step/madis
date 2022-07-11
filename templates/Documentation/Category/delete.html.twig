@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'documentation_category delete' %}
+{% set menuItem = 'documentation_category' %}
+
+{% block title %}{{ 'documentation.category.title.delete'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'documentation.category.title.delete'|trans }}
+        <small>{{ object.name }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'documentation.category.breadcrumb.list'|trans, 'link': path('documentation_category_list') },
+        { 'name': 'documentation.category.breadcrumb.delete'|trans({'%name%': object.name}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-header"></div>
+                <div class="box-body">
+                    Souhaitez vous vraiment supprimer la catégorie {{ object.name }} ?
+                </div>
+                <div class="box-footer">
+                    <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                        {{ 'documentation.category.action.back_to_list'|trans }}
+                    </a>
+                    <a href="{{ path('documentation_category_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'action.confirm_delete'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

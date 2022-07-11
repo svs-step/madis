@@ -1,4 +1,4 @@
 App\Domain\User\Model\Collectivity:
     attributes:
         name:
-            groups: ['collectivity_read']
+            groups: ['collectivity_read', 'request_read']

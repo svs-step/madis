@@ -37,4 +37,40 @@ class Duplication extends CRUDRepository implements Repository\Duplication
     {
         return Model\Duplication::class;
     }
+
+//    /**
+//     * Get an object by ID.
+//     *
+//     * @param string $id The ID to find
+//     *
+//     * @return object|null
+//     */
+//    public function findOneById(string $id)
+//    {
+//        $qb = $this->createQueryBuilder();
+//        $qb
+//            ->andWhere("o.id = :id")
+//            ->setParameter('id', $id)
+//            ->leftJoin("")
+//        ;
+//        dump($id);
+//        return $this->registry
+//            ->getManager()
+//            ->getRepository($this->getModelClass())
+//            ->find($id)
+//            ->
+//            ;
+//
+//
+//        $qb = $this->createQueryBuilder();
+//
+//        foreach ($criteria as $key => $value) {
+//            $this->addWhereClause($qb, $key, $value);
+//        }
+//
+//        return $qb
+//            ->getQuery()
+//            ->getResult()
+//            ;
+//    }
 }

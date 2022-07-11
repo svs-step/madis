@@ -16,7 +16,12 @@
     </h1>
 {% endblock %}
 
-{% block breadcrumb %}{% endblock %}
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.treatment.title.configure'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
 
 
 {% block body %}
@@ -181,7 +186,7 @@
         </div>
     </div>
 
-     {{ form_rest(form) }}
+    {# {{ form_rest(form) }} #}
 
     <div class="row">
         <div class="col-md-12">

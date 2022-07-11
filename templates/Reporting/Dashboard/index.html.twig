@@ -16,250 +16,303 @@
 {% endblock %}
 
 {% block body %}
-
     <div class="row">
-
-        {# DETAIL : CONTRACTOR #}
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">Sous-traitants</h3></div>
-                <div class="box-body">
-                    {% if 0 == data.contractor.all %}
-                        Aucune donnée à afficher
-                    {% else %}
-                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
-                            <canvas id="contractor-clauses" width="400" height="400"></canvas>
-                            <p>{{ 'reporting.dashboard.contractor.contractual_clauses_verified.title'|trans }}</p>
+        {# LEFT #}
+        <div class="col-md-6">
+            <div class="row">
+                {# DETAIL : CONTRACTOR #}
+                <div class="col-md-6">
+                    <div class="box box-solid">
+                        <div class="box-header with-border"><h3 class="box-title">Sous-traitants</h3></div>
+                        <div class="box-body">
+                            {% if 0 == data.contractor.all %}
+                                Aucune donnée à afficher
+                            {% else %}
+                                <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
+                                    <canvas id="contractor-clauses" width="400" height="400"></canvas>
+                                    <p>{{ 'reporting.dashboard.contractor.contractual_clauses_verified.title'|trans }}</p>
+                                </div>
+                                <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
+                                    <canvas id="contractor-adopted-security-features" width="400" height="400"></canvas>
+                                    <p>{{ 'reporting.dashboard.contractor.adopted_security_features.title'|trans }}</p>
+                                </div>
+                                <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
+                                    <canvas id="contractor-maintains-treatment-register" width="400" height="400"></canvas>
+                                    <p>{{ 'reporting.dashboard.contractor.maintains_treatment_register.title'|trans }}</p>
+                                </div>
+                                <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
+                                    <canvas id="contractor-sending-data-outside-eu" width="400" height="400"></canvas>
+                                    <p>{{ 'reporting.dashboard.contractor.sending_data_outside_eu.title'|trans }}</p>
+                                </div>
+                            {% endif %}
                         </div>
-                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
-                            <canvas id="contractor-adopted-security-features" width="400" height="400"></canvas>
-                            <p>{{ 'reporting.dashboard.contractor.adopted_security_features.title'|trans }}</p>
-                        </div>
-                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
-                            <canvas id="contractor-maintains-treatment-register" width="400" height="400"></canvas>
-                            <p>{{ 'reporting.dashboard.contractor.maintains_treatment_register.title'|trans }}</p>
-                        </div>
-                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center">
-                            <canvas id="contractor-sending-data-outside-eu" width="400" height="400"></canvas>
-                            <p>{{ 'reporting.dashboard.contractor.sending_data_outside_eu.title'|trans }}</p>
-                        </div>
-                    {% endif %}
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">Demandes</h3></div>
-                <div class="box-body">
-                    {% if 0 == data.request.value.all %}
-                    Aucune donnée à afficher
-                    {% else %}
-                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center" style="padding-left: 0; padding-right: 0;">
-                            <canvas id="request-type" width="500" height="500"></canvas>
-                            <p>{{ 'reporting.dashboard.request.type.title'|trans }}</p>
-                        </div>
-                        <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center" style="padding-left: 0; padding-right: 0;">
-                            <canvas id="request-status" width="500" height="500"></canvas>
-                            <p>{{ 'reporting.dashboard.request.status.title'|trans }}</p>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
-        {# TILES #}
-        <div class="col-md-6 col-xs-12">
-
-            {# REQUEST #}
-            <div class="col-sm-6 col-xs-12">
-                <div class="small-box bg-yellow">
-                    <div class="inner">
-                        <h3>{{ data.request.value.status.toProcess }}</h3>
-
-                        <p>Demandes à traiter</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-users"></i>
-                    </div>
-                    <a href="{{ path('registry_request_list') }}" class="small-box-footer">
-                        Plus d'informations <i class="fa fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            {# MESUREMENT : planified actions #}
-            <div class="col-sm-6 col-xs-12">
-                <div class="small-box bg-aqua">
-                    <div class="inner">
-                        <h3>{{ data.mesurement.value.planified }}</h3>
-                        <p>Actions planifiées</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-crosshairs"></i>
-                    </div>
-                    <a href="{{ path('registry_mesurement_action_plan') }}" class="small-box-footer">
-                        Plus d'informations <i class="fa fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            {# VIOLATION #}
-            <div class="col-sm-6 col-xs-12">
-                <div class="small-box bg-red">
-                    <div class="inner">
-                        <h3>{{ data.violation.value.all }}</h3>
-                        <p>Violations</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-exclamation-circle"></i>
-                    </div>
-                    <a href="{{ path('registry_violation_list') }}" class="small-box-footer">
-                        Plus d'informations <i class="fa fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            {# MESUREMENT : applied #}
-            <div class="col-sm-6 col-xs-12">
-                <div class="small-box bg-green">
-                    <div class="inner">
-                        <h3>{{ data.mesurement.value.applied }}</h3>
-                        <p>Actions mises en place</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-adjust"></i>
-                    </div>
-                    <a href="{{ path('registry_mesurement_list') }}" class="small-box-footer">
-                        Plus d'informations <i class="fa fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            {% if app.user.collectivity.hasModuleConformiteTraitement == true %}
-                {# AIPD #}
-                <div class="col-sm-6 col-xs-12">
-                    <div class="small-box bg-light-blue">
+                <div class="col-md-6">
+                    {# REQUEST #}
+                    <div class="small-box bg-yellow">
                         <div class="inner">
-                            <h3>{{ data.aipd.toDo }}</h3>
-                            <p>AIPD à réaliser</p>
+                            <h3>{{ data.request.value.status.toProcess }}</h3>
+
+                            <p>Demandes à traiter</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-clipboard-list"></i>
+                            <i class="fa fa-users"></i>
                         </div>
-                        <a href="{{ path('registry_conformite_traitement_list') }}" class="small-box-footer">
+                        <a href="{{ path('registry_request_list') }}" class="small-box-footer">
                             Plus d'informations <i class="fa fa-arrow-circle-right"></i>
                         </a>
+                    </div>
+                    <div class="box box-solid">
+                        <div class="box-header with-border"><h3 class="box-title">Demandes</h3></div>
+                        <div class="box-body">
+                            {% if 0 == data.request.value.all %}
+                                Aucune donnée à afficher
+                            {% else %}
+                                <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center" style="padding-left: 0; padding-right: 0;">
+                                    <canvas id="request-type" width="500" height="500"></canvas>
+                                    <p>{{ 'reporting.dashboard.request.type.title'|trans }}</p>
+                                </div>
+                                <div class="col-sm-6 col-sm-offset-0 col-xs-4 col-xs-offset-1 text-center" style="padding-left: 0; padding-right: 0;">
+                                    <canvas id="request-status" width="500" height="500"></canvas>
+                                    <p>{{ 'reporting.dashboard.request.status.title'|trans }}</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                {# DETAIL : MATURITY #}
+                <div class="box box-solid">
+                    <div class="box-header with-border"><h3 class="box-title">Indice de maturité</h3></div>
+                    <div class="box-body">
+                        {% if data.maturity is empty %}
+                            Aucun indice à afficher
+                        {% else %}
+                            <canvas id="maturity-radar"></canvas>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {# DETAIL : TREATMENTS #}
+                <div class="box box-solid">
+                    <div class="box-header with-border"><h3 class="box-title">Mesures de sécurité</h3></div>
+                    <div class="box-body">
+                        {% if 0 == data.treatment.value.numeric %}
+                            Aucun traitement utilisable pour ce graphe
+                        {% else %}
+                            <canvas id="treatment-bar"></canvas>
+                        {% endif %}
+                    </div>
+                </div>
+                </div>
+            </div>
+            {% if app.user.collectivity.hasModuleConformiteTraitement == true or
+                app.user.collectivity.hasModuleConformiteOrganisation == true %}
+                <div class="row">
+                    <div class="col-md-12">
+                        {# DETAIL : CONFORMITE TRAITEMENT #}
+                        {% if app.user.collectivity.hasModuleConformiteTraitement == true %}
+                            <div class="box box-solid">
+                                <div class="box-header with-border"><h3 class="box-title">Conformité des traitements</h3></div>
+                                <div class="box-body">
+                                    {% if data.conformiteTraitement.data is empty %}
+                                        Aucune donnée à afficher
+                                    {% else %}
+                                        <canvas id="conformiteTraitement-pie"></canvas>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             {% endif %}
         </div>
-    </div>
 
-    <div class="row">
-        {# DETAIL : MATURITY #}
-        <div class="col-md-6 col-xs-12">
-            <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">Indice de maturité</h3></div>
-                <div class="box-body">
-                    {% if data.maturity is empty %}
-                        Aucun indice à afficher
-                    {% else %}
-                        <canvas id="maturity-radar"></canvas>
+        {# RIGHT #}
+        <div class="col-md-6">
+            <div class="row">
+                {# AIPD #}
+                <div class="col-sm-6 col-xs-12">
+                    {% if app.user.collectivity.hasModuleConformiteTraitement == true %}
+                        <div class="small-box bg-light-blue">
+                            <div class="inner">
+                                <h3>{{ data.aipd.toDo }}</h3>
+                                <p>AIPD à réaliser</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-clipboard-list"></i>
+                            </div>
+                            <a href="{{ path('registry_conformite_traitement_list') }}" class="small-box-footer">
+                                Plus d'informations <i class="fa fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
                     {% endif %}
                 </div>
-            </div>
-        </div>
 
-        {# DETAIL : TREATMENTS #}
-        <div class="col-md-6 col-xs-12">
-            <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">Mesures de sécurité</h3></div>
-                <div class="box-body">
-                    {% if 0 == data.treatment.value.numeric %}
-                        Aucun traitement utilisable pour ce graphe
-                    {% else %}
-                        <canvas id="treatment-bar"></canvas>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {% if app.user.collectivity.hasModuleConformiteTraitement == true or
-        app.user.collectivity.hasModuleConformiteOrganisation == true %}
-    <div class="row">
-        {# DETAIL : CONFORMITE TRAITEMENT #}
-        {% if app.user.collectivity.hasModuleConformiteTraitement == true %}
-            <div class="col-md-6 col-xs-12">
-                <div class="box box-solid">
-                    <div class="box-header with-border"><h3 class="box-title">Conformité des traitements</h3></div>
-                    <div class="box-body">
-                        {% if data.conformiteTraitement.data is empty %}
-                            Aucune donnée à afficher
-                        {% else %}
-                            <canvas id="conformiteTraitement-pie"></canvas>
-                        {% endif %}
+                {# Action to realize #}
+                <div class="col-sm-6 col-xs-12">
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>{{ data.mesurement.value.planified }}</h3>
+                            <p>Actions planifiées</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-bullseye"></i>
+                        </div>
+                        <a href="{{ path('registry_mesurement_action_plan') }}" class="small-box-footer">
+                            Plus d'informations <i class="fa fa-arrow-circle-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
-        {% endif %}
+            <div class="row">
+                {# VIOLATION #}
+                <div class="col-sm-6 col-xs-12">
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                            <h3>{{ data.violation.value.all }}</h3>
+                            <p>Violations</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-exclamation-circle"></i>
+                        </div>
+                        <a href="{{ path('registry_violation_list') }}" class="small-box-footer">
+                            Plus d'informations <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
 
-        {% if app.user.collectivity.hasModuleConformiteOrganisation == true %}
-        {# DETAIL : CONFORMITE ORGANISATION #}
-            <div class="col-md-6 col-xs-12">
-                <div class="box box-solid">
-                    <div class="box-header with-border"><h3 class="box-title">Conformité de l'organisation</h3></div>
-                    {% if data.conformiteOrganisation is empty %}
+                {# MESUREMENT : applied #}
+                <div class="col-sm-6 col-xs-12">
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3>{{ data.mesurement.value.applied }}</h3>
+                            <p>Actions mises en place</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-adjust"></i>
+                        </div>
+                        <a href="{{ path('registry_mesurement_list') }}" class="small-box-footer">
+                            Plus d'informations <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-warning">
+                        <div class="box-header with-border"><h3 class="box-title">Plan d'actions <small>{{ app_user_dashboard_action_plan_limit }} prochaines</small></h3></div>
                         <div class="box-body">
-                        Aucune donnée à afficher
-                    {% else %}
-                        <div class="box-body no-padding">
-                            <table class="table table-striped">
+                            <table class="table table-striped table-bordered">
                                 <thead>
-                                    <tr>
-                                        <th>Processus</th>
-                                        <th>Progression</th>
-                                        <th style="width: 40px">Conformité</th>
-                                    </tr>
+                                <tr>
+                                    <th>{{ 'registry.mesurement.list.name'|trans }}</th>
+                                    <th>{{ 'registry.mesurement.list.planification_date'|trans }}</th>
+                                    <th>{{ 'registry.mesurement.list.manager'|trans }}</th>
+                                    <th>{{ 'registry.mesurement.list.priority'|trans }}</th>
+                                    <th>{{ 'label.action_link'|trans }}</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    {% for conformite in data.conformiteOrganisation %}
-                                        {% set score = (conformite['conformite'] / 5 * 100) %}
-                                        {% if score < 50 %}
-                                            {% set color = 'red' %}
-
-                                        {% elseif score < 70 %}
-                                            {% set color = 'yellow' %}
-                                        {% else %}
-                                            {% set color = 'green' %}
-                                        {% endif %}
-                                        <tr>
-                                            <td>{{ conformite['processus'] }}</td>
-                                            <td>
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar progress-bar-{{ color }}" style="width: {{ score }}%"></div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span style="min-width: 100%" class="badge bg-{{ color }}">{{ score }}%</span>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
+                                {% if not actions|length %}
+                                    <tr>
+                                        <td colspan="5" style="text-align: center">
+                                            Aucune action planifiée
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                {% for action in actions %}
+                                    <tr>
+                                        <td>{{ action.name }}</td>
+                                        <td>{{ action.planificationDate|date('d/m/Y') }}</td>
+                                        <td>{{ action.manager }}</td>
+                                        <td>
+                                            {% set key = action.priority %}
+                                            {% if key is not null %}
+                                                {% if key is same as ('low') %}
+                                                    <span class="badge bg-blue">{{ dictionary('registry_mesurement_priority')[key] }}</span>
+                                                {% elseif key is same as ('normal') %}
+                                                    <span class="badge bg-yellow">{{ dictionary('registry_mesurement_priority')[key] }}</span>
+                                                {% elseif key is same as ('high') %}
+                                                    <span class="badge bg-red">{{ dictionary('registry_mesurement_priority')[key] }}</span>
+                                                {% endif %}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a href="/actions-de-protection/visualiser/{{ action.id }}" ><i class="fas fa-search"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
-                    {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
-        {% endif %}
+            <div class="row">
+                {% if app.user.collectivity.hasModuleConformiteOrganisation == true %}
+                    <div class="col-md-12">
+                        {# DETAIL : CONFORMITE ORGANISATION #}
+                        <div class="box box-solid">
+                            <div class="box-header with-border"><h3 class="box-title">Conformité de l'organisation</h3></div>
+                            {% if data.conformiteOrganisation is empty %}
+                            <div class="box-body">
+                                Aucune donnée à afficher
+                                {% else %}
+                                    <div class="box-body no-padding">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Processus</th>
+                                                <th>Progression</th>
+                                                <th style="width: 40px">Conformité</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for conformite in data.conformiteOrganisation %}
+                                                {% set score = (conformite['conformite'] / 5 * 100) %}
+                                                {% if score < 50 %}
+                                                    {% set color = 'red' %}
+
+                                                {% elseif score < 70 %}
+                                                    {% set color = 'yellow' %}
+                                                {% else %}
+                                                    {% set color = 'green' %}
+                                                {% endif %}
+                                                <tr>
+                                                    <td>{{ conformite['processus'] }}</td>
+                                                    <td>
+                                                        <div class="progress progress-xs">
+                                                            <div class="progress-bar progress-bar-{{ color }}" style="width: {{ score }}%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span style="min-width: 100%" class="badge bg-{{ color }}">{{ score }}%</span>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    {% endif %}
 
     {# JOURNALISATION #}
     <div class="row">
         <div class="col-md-12">
             <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">Journalisation <small>{{ app_user_dashboard_journalisation_limit }} derniers</small></h3></div>
+                <div class="box-header with-border">
+                    <h3 class="box-title">Journalisation <small>{{ app_user_dashboard_journalisation_limit }} derniers</small></h3>
+                </div>
                 <div class="box-body no-padding">
                     <table class="table">
                         <thead>

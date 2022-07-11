@@ -27,6 +27,8 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Documentation\Model\Category;
+use App\Domain\Documentation\Model\Document;
 use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Form\Type\ProofType;
 use App\Domain\Registry\Model;
@@ -37,6 +39,7 @@ use App\Domain\User\Dictionary\UserRoleDictionary;
 use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\FilesystemInterface;
 use Knp\Snappy\Pdf;
+use PhpOffice\PhpWord\Shared\ZipArchive;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -271,13 +274,72 @@ class ProofController extends CRUDController
         return $response;
     }
 
+    public function downloadAll()
+    {
+        if ('ROLE_ADMIN' === $this->userProvider->getAuthenticatedUser()->getRoles()[0]) {
+            $objects = $this->repository->findAll();
+        }
+
+        if ('ROLE_REFERENT' === $this->userProvider->getAuthenticatedUser()->getRoles()[0]) {
+            $collectivities = \iterable_to_array($this->userProvider->getAuthenticatedUser()->getCollectivitesReferees());
+            $objects        = [];
+            foreach ($collectivities as $collectivity) {
+                $objects = array_merge($objects, $this->repository->findAllByCollectivity($collectivity));
+            }
+        }
+
+        if (('ROLE_USER' == $this->userProvider->getAuthenticatedUser()->getRoles()[0]) || ('ROLE_PREVIEW' == $this->userProvider->getAuthenticatedUser()->getRoles()[0])) {
+            $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+            $objects      = $this->repository->findAllByCollectivity($collectivity);
+        }
+
+        $files = [];
+        foreach ($objects as $object) {
+            /** @var Model\Proof|null $object */
+            if (!$object->getDeletedAt()) {
+                $fileName = str_replace(' ', '_', ProofTypeDictionary::getTypes()[$object->getType()]) . '-' . $object->getDocument();
+                $files[]  = [$object->getDocument(), $fileName];
+            }
+        }
+        $zip      =  new ZipArchive();
+
+        $dir = $this->getParameter('kernel.project_dir') . '/public/uploads/registry/proof/zip/';
+
+        if (!is_dir($dir)) {
+            mkdir($dir, 0777, true);
+        }
+
+        $filename = $dir . 'test.zip';
+
+        $zip->open($filename, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+        foreach ($files as $file) {
+            $zip->addFile('./uploads/registry/proof/document/' . $file[0], $file[1]);
+        }
+
+        $zip->close();
+
+        $date     = date('dmY');
+        $response = new Response(file_get_contents($filename));
+        $response->headers->set('Content-Type', 'application/zip');
+        $response->headers->set('Content-Disposition', 'attachment;filename="Documents' . $date . '.zip"');
+        $response->headers->set('Content-length', filesize($filename));
+
+        return $response;
+    }
+
     public function listAction(): Response
     {
         $criteria = $this->getRequestCriteria();
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Preuves',
+        ]);
+
         return $this->render($this->getTemplatingBasePath('list'), [
-            'totalItem' => $this->repository->count($criteria),
-            'route'     => $this->router->generate('registry_proof_list_datatables', ['archive' => $criteria['archive']]),
+            'totalItem'   => $this->repository->count($criteria),
+            'category'    => $category,
+            'route'       => $this->router->generate('registry_proof_list_datatables', ['archive' => $criteria['archive']]),
         ]);
     }
 

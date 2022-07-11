@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'aipd_modele_analyse delete' %}
+{% set menuItem = 'aipd_modele_analyse' %}
+
+{% block title %}{{ 'aipd.modele_analyse.title.delete'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'aipd.modele_analyse.title.delete'|trans }}
+        <small>
+            {{ 'aipd.modele_analyse.delete.subtitle'|trans({'%name%': object.nom}) }}
+        </small>
+    </h1>
+{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-header"></div>
+                <div class="box-body">
+                    {{ 'aipd.modele_analyse.delete.confirmation'|trans({'%name%': object.nom}) }}
+                </div>
+                <div class="box-footer">
+                    <a href="{{ path('aipd_modele_analyse_list') }}" class="btn btn-default">
+                        {{ 'action.back_to_list'|trans }}
+                    </a>
+                    <a href="{{ path('aipd_modele_analyse_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'action.confirm_delete'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'documentation_document form edit' %}
+{% set menuItem = 'documentation_document' %}
+
+{% block title %}{{ 'documentation.document.title.edit'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'documentation.document.title.edit'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'documentation.document.breadcrumb.list'|trans, 'link': path('documentation_document_list') },
+        { 'name': 'documentation.document.breadcrumb.edit'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('Documentation/Document/_form.html.twig') }}
+{% endblock %}

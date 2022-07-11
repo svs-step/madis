@@ -19,7 +19,7 @@ stages:
     before_script:
         - docker login --username gitlab-ci-token --password $CI_JOB_TOKEN $CI_REGISTRY
         # re-install vendors to prevent from ci cache failure
-        - docker run --rm --env-file=./.env.dist --env-file=.env.test -v ${PWD}:/var/www/gestion-rgpd $DOCKER_IMAGE_PHP composer install --prefer-dist --no-interaction --optimize-autoloader --no-scripts
+        - docker run --rm --env-file=./.env.dist --env-file=.env.test -v ${PWD}:/var/www/gestion-rgpd $DOCKER_IMAGE_PHP composer install -vv --prefer-dist --no-interaction --optimize-autoloader --no-scripts || echo "Composer install fail"
 
 .cache-pull-template: &cache-pull-defintion
     cache:
@@ -31,7 +31,7 @@ stages:
 create_cache:
     image: ${DOCKER_IMAGE_PHP}
     script:
-        - composer install --prefer-dist --no-interaction --optimize-autoloader --no-scripts
+        - composer --version && composer install -vv --prefer-dist --no-interaction --optimize-autoloader --no-scripts || echo "Composer install fail"
     cache:
         key: "$CI_PROJECT_PATH-php"
         paths:
@@ -45,10 +45,9 @@ unit_tests:
     <<: *vendor-install-defintion
     <<: *cache-pull-defintion
     script:
-        - sh docker-service unitTests
-# TODO : Fix make commnd since mykiwi/paudit does not have composer installed (in order to use simple-phpunit)
-#        - make tu-report
-    coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+#        - sh docker-service unitTests
+        - make tu-report
+    coverage: /^\s+Lines:\s+(\d+)\.\d+%/
     artifacts:
         paths:
             - var/artefacts/coverage/
@@ -56,6 +55,22 @@ unit_tests:
     stage: tests
     except:
         - master
+
+check-coverage:
+    image: alpine:latest
+    stage: quality-assurance
+    variables:
+        JOB_NAME: unit_tests
+        TARGET_BRANCH: develop
+    before_script:
+        - apk add --update --no-cache curl jq
+    rules:
+        - if: '$CI_COMMIT_BRANCH != $TARGET_BRANCH'
+    script:
+        - TARGET_PIPELINE_ID=`curl -s "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/pipelines?ref=${TARGET_BRANCH}&status=success" | jq ".[0].id"`
+        - TARGET_COVERAGE=`curl -s "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/pipelines/${TARGET_PIPELINE_ID}/jobs" | jq --arg JOB_NAME "$JOB_NAME" '.[] | select(.name==$JOB_NAME) | .coverage'`
+        - CURRENT_COVERAGE=`curl -s "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}/jobs" | jq --arg JOB_NAME "$JOB_NAME" '.[] | select(.name==$JOB_NAME) | .coverage'`
+        - if  [ "$CURRENT_COVERAGE" -lt "$TARGET_COVERAGE" ]; then echo "Coverage decreased from ${TARGET_COVERAGE} to ${CURRENT_COVERAGE}" && exit 1; fi;
 
 # TODO validate doctrine migrations and schema
 

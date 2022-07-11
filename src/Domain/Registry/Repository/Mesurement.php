@@ -91,4 +91,11 @@ interface Mesurement extends CRUDRepositoryInterface, DataTablesRepository
      * Find all by collectivity of their clonedFrom.
      */
     public function findAllByClonedFromCollectivity(Collectivity $collectivity);
+
+    /**
+     * Return all action planified for dashboard.
+     *
+     * @return array
+     */
+    public function getPlanifiedActionsDashBoard($limit, Collectivity $collectivity);
 }

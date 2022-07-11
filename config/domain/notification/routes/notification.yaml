@@ -1,0 +1,38 @@
+notification_notification_index:
+    path: '/'
+    methods: ['GET']
+    controller: 'App\Domain\Notification\Controller\NotificationController:listAction'
+    defaults:
+        keepQueryParams: true
+
+notification_notification_list:
+    path: '/liste'
+    methods: ['GET']
+    controller: 'App\Domain\Notification\Controller\NotificationController:listAction'
+
+notification_notification_edit:
+    path: '/editer/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Notification\Controller\NotificationController:editAction'
+
+notification_notification_delete:
+    path: '/supprimer/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Notification\Controller\NotificationController:deleteAction'
+
+notification_notification_delete_confirm:
+    path: '/supprimer/{id}/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Notification\Controller\NotificationController:deleteConfirmationAction'
+
+notification_notification_mark_as_read:
+    # path: '/marquer-comme-lu/{id}'
+    path: '/marquer-comme-lu'
+    methods: ['GET']
+    controller: 'App\Domain\Notification\Controller\NotificationController:markAsReadAction'
+
+notification_notification_mark_as_read_all:
+    path: '/tous-marquer-comme-lu'
+    methods: ['GET']
+    controller: 'App\Domain\Notification\Controller\NotificationController:markAsReadAllAction'
+    

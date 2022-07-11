@@ -3,6 +3,8 @@ services:
         autowire: true
         autoconfigure: true
         public: false
+        bind:
+            string $maxSize: '%APP_MAX_UPLOAD_SIZE%'
 
     App\Application\:
         resource: '../src/Application/*'
@@ -46,3 +48,4 @@ imports:
     - { resource: services/event_subscriber.yaml }
     - { resource: services/generator.yaml }
     - { resource: services/mail.yaml }
+    - { resource: services/forms.yaml }

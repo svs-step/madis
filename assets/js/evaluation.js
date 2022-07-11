@@ -22,12 +22,16 @@ function radarChart(id, labels, serieLabel, data, color) {
                     min: 0,
                     max: 5,
                 }
+            },
+            legend: {
+                display: false
             }
         }
     });
 }
 
 function stackedBarChart(id, labels, data) {
+
     new Chart($('#' + id), {
         type: 'bar',
         data: {
@@ -37,10 +41,24 @@ function stackedBarChart(id, labels, data) {
         options: {
             scales: {
                 yAxes: [{
+                    stacked: true,
                     ticks : {
-                        beginAtZero: true,
+                        beginAtZero: false,
                         stepSize: 1,
+                        callback: function(label, index, labels) {
+                            switch (label) {
+                                case 1:
+                                    return 'Négligeable'
+                                case 2:
+                                    return 'Limité'
+                                case 3:
+                                    return 'Important'
+                                case 4:
+                                    return 'Maximal'
+                            }
+                        }
                     },
+
                 }],
                 xAxes: [{
                     stacked: true,
@@ -108,7 +126,8 @@ $(document).ready(function() {
         domainesLabels,
         [''],
         domainesDatas,
-        [colorBlue]
+        [colorBlue],
+
     );
 
     radarChart(

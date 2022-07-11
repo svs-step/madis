@@ -369,4 +369,32 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ->getResult()
             ;
     }
+
+    public function getPlanifiedActionsDashBoard($limit=1000, Collectivity $collectivity = null)
+    {
+        $date         = new \DateTime();
+        $queryBuilder = $this->createQueryBuilder();
+        $queryBuilder->select('u')
+            ->from(Model\Mesurement::class, 'u')
+            ->where('u.planificationDate >= :date_start')
+            ->andWhere('u.status = :status')
+            ->setParameter('date_start', $date->format('Y-m-d'))
+            ->setParameter('status', 'not-applied')
+
+            ->orderBy('u.planificationDate', 'ASC')
+            ->setMaxResults($limit)
+        ;
+
+        if ($collectivity) {
+            $queryBuilder
+                ->andWhere('u.collectivity = :collectivity')
+                ->setParameter('collectivity', $collectivity)
+            ;
+        }
+
+        return $queryBuilder
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

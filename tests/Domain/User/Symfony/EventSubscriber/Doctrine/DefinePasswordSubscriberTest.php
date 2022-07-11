@@ -32,10 +32,12 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class DefinePasswordSubscriberTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var LifecycleEventArgs
@@ -52,7 +54,7 @@ class DefinePasswordSubscriberTest extends TestCase
      */
     private $subscriber;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->lifeCycleEventArgsProphecy = $this->prophesize(LifecycleEventArgs::class);
         $this->tokenGeneratorProphecy     = $this->prophesize(TokenGenerator::class);

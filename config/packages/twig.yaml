@@ -30,6 +30,7 @@ twig:
         app_commune_svg_reduced_path: '%env(APP_COMMUNE_SVG_REDUCED_PATH)%'
         app_user_dashboard_journalisation_limit: '%env(APP_USER_DASHBOARD_JOURNALISATION_LIMIT)%'
         app_admin_datable_default_page_length: '%env(int:APP_DATATABLE_DEFAULT_PAGE_LENGTH)%'
+        app_user_dashboard_action_plan_limit: '%env(APP_USER_DASHBOARD_ACTION_PLAN_LIMIT)%'
         default_dpo_civility: '%env(APP_DPO_CIVILITY)%'
         default_dpo_firstName: '%env(APP_DPO_FIRST_NAME)%'
         default_dpo_lastName: '%env(APP_DPO_LAST_NAME)%'
@@ -37,6 +38,9 @@ twig:
         default_dpo_job: '%env(APP_DPO_JOB)%'
         default_dpo_mail: '%env(APP_DPO_MAIL)%'
         default_dpo_phoneNumber: '%env(APP_DPO_PHONE_NUMBER)%'
+        default_dpo_address_city: '%env(APP_DPO_ADDRESS_CITY)%'
+        default_dpo_address_street: '%env(APP_DPO_ADDRESS_STREET)%'
+        default_dpo_address_zip_code: '%env(APP_DPO_ADDRESS_ZIP_CODE)%'
         timezone: 'Europe/Paris'
         tooltip_conformite_organisation_inexistante: '%env(TOOLTIP_CONFORMITE_ORGANISATION_INEXISTANTE)%'
         tooltip_conformite_organisation_tres_eloignee: '%env(TOOLTIP_CONFORMITE_ORGANISATION_TRES_ELOIGNEE)%'
@@ -44,5 +48,10 @@ twig:
         tooltip_conformite_organisation_quasi_conforme: '%env(TOOLTIP_CONFORMITE_ORGANISATION_QUASI_CONFORME)%'
         tooltip_conformite_organisation_mesurable: '%env(TOOLTIP_CONFORMITE_ORGANISATION_MESURABLE)%'
         tooltip_conformite_organisation_revisee: '%env(TOOLTIP_CONFORMITE_ORGANISATION_REVISEE)%'
+        app_connexion_status_know: '%env(APP_CONNEXION_STATUS_KNOW)%'
+        app_notification_max_shown: '%env(APP_NOTIFICATION_MAX_SHOWN)%'
+        app_notification_dashboard_shown: '%env(APP_NOTIFICATION_DASHBOARD_SHOWN)%'
+        app_activate_notifications: '%env(APP_ACTIVATE_NOTIFICATIONS)%'
+        app_max_upload_size: '%env(APP_MAX_UPLOAD_SIZE)%'
 
 

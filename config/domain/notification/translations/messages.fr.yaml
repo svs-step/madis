@@ -1,0 +1,27 @@
+notifications:
+    notification:
+        title:
+            list: Centre de notifications
+            delete: Supprimer une notification
+        breadcrumb:
+            list: Centre de notifications
+            delete: Supprimer une notification
+        list:
+            state: État
+            module: Module
+            action: Action
+            name: Nom 
+            object: Objet
+            collectivity: Collectivité
+            date: Date
+            user: Nom d'utilisateur
+            read_date: Lu le
+            read_by: Lu par
+        action:
+            back_to_list: Retour à la liste
+            mark_as_read: Marquer comme lu
+            mark_as_read_all: Tout marquer comme lu
+        flashbag:
+            success:
+                delete: Notification "%object%" supprimée avec succès
+

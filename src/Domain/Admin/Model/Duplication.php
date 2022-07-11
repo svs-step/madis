@@ -187,7 +187,9 @@ class Duplication implements LoggableSubject
             return;
         }
 
-        unset($this->duplicatedObjects[$key]);
+        if (isset($this->duplicatedObjects[$key])) {
+            unset($this->duplicatedObjects[$key]);
+        }
     }
 
     public function __toString()

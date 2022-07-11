@@ -35,6 +35,8 @@ use App\Domain\Registry\Model\Embeddable\RequestConcernedPeople;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -120,6 +122,10 @@ class Request implements LoggableSubject, CollectivityRelated
      */
     private $service;
 
+    private Collection $mesurements;
+
+    private Collection $treatments;
+
     /**
      * Request constructor.
      *
@@ -136,6 +142,7 @@ class Request implements LoggableSubject, CollectivityRelated
         $this->legitimateApplicant = false;
         $this->legitimateRequest   = false;
         $this->proofs              = [];
+        $this->treatments          = new ArrayCollection();
     }
 
     public function getId(): UuidInterface
@@ -149,8 +156,8 @@ class Request implements LoggableSubject, CollectivityRelated
             return '';
         }
 
-        if (\mb_strlen($this->getApplicant()->getFullName()) > 50) {
-            return \mb_substr($this->getApplicant()->getFullName(), 0, 50) . '...';
+        if (\mb_strlen($this->getApplicant()->getFullName()) > 85) {
+            return \mb_substr($this->getApplicant()->getFullName(), 0, 85) . '...';
         }
 
         return $this->getApplicant()->getFullName();
@@ -306,5 +313,37 @@ class Request implements LoggableSubject, CollectivityRelated
         }
 
         return $result;
+    }
+
+    public function getMesurements(): Collection
+    {
+        return $this->mesurements;
+    }
+
+    public function setMesurement(Collection $mesurements): void
+    {
+        $this->mesurements = $mesurements;
+    }
+
+    public function addTreatment(Treatment $treatment): void
+    {
+        $this->treatments[] = $treatment;
+    }
+
+    public function removeTreatment(Treatment $treatment): void
+    {
+        if ($this->treatments && $this->treatments->count() && $this->treatments->contains($treatment)) {
+            $this->treatments->removeElement($treatment);
+        }
+    }
+
+    public function getTreatments(): Collection
+    {
+        return $this->treatments;
+    }
+
+    public function setTreatments(Collection $treatments)
+    {
+        $this->treatments = $treatments;
     }
 }

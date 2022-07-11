@@ -14,3 +14,4 @@ bin/console cache:clear --env=prod --no-debug
 bin/console cache:warmup --env=prod --no-debug
 
 bin/console doctrine:migration:migrate -n
+bin/console -q lexik:jwt:generate-keypair || echo "JWT keys already exist"

@@ -27,9 +27,12 @@ namespace App\Tests\Domain\User\Repository;
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
 use App\Domain\User\Repository;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class CollectivityTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testInstanceOf()
     {
         $this->assertInstanceOf(

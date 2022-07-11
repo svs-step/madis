@@ -38,7 +38,7 @@ class ComiteIlContactTypeTest extends FormTypeHelper
      */
     private $formType;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->formType = new ComiteIlContactType();
     }
