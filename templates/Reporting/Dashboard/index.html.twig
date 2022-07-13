@@ -84,29 +84,29 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                {# DETAIL : MATURITY #}
-                <div class="box box-solid">
-                    <div class="box-header with-border"><h3 class="box-title">Indice de maturité</h3></div>
-                    <div class="box-body">
-                        {% if data.maturity is empty %}
-                            Aucun indice à afficher
-                        {% else %}
-                            <canvas id="maturity-radar"></canvas>
-                        {% endif %}
+                    {# DETAIL : MATURITY #}
+                    <div class="box box-solid">
+                        <div class="box-header with-border"><h3 class="box-title">Indice de maturité</h3></div>
+                        <div class="box-body">
+                            {% if data.maturity is empty %}
+                                Aucun indice à afficher
+                            {% else %}
+                                <canvas id="maturity-radar"></canvas>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
 
-                {# DETAIL : TREATMENTS #}
-                <div class="box box-solid">
-                    <div class="box-header with-border"><h3 class="box-title">Mesures de sécurité</h3></div>
-                    <div class="box-body">
-                        {% if 0 == data.treatment.value.numeric %}
-                            Aucun traitement utilisable pour ce graphe
-                        {% else %}
-                            <canvas id="treatment-bar"></canvas>
-                        {% endif %}
+                    {# DETAIL : TREATMENTS #}
+                    <div class="box box-solid">
+                        <div class="box-header with-border"><h3 class="box-title">Mesures de sécurité</h3></div>
+                        <div class="box-body">
+                            {% if 0 == data.treatment.value.numeric %}
+                                Aucun traitement utilisable pour ce graphe
+                            {% else %}
+                                <canvas id="treatment-bar"></canvas>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
             {% if app.user.collectivity.hasModuleConformiteTraitement == true or
@@ -259,19 +259,20 @@
                         <div class="box box-solid">
                             <div class="box-header with-border"><h3 class="box-title">Conformité de l'organisation</h3></div>
                             {% if data.conformiteOrganisation is empty %}
-                            <div class="box-body">
-                                Aucune donnée à afficher
-                                {% else %}
-                                    <div class="box-body no-padding">
-                                        <table class="table table-striped">
-                                            <thead>
+                                <div class="box-body">
+                                    Aucune donnée à afficher
+                                </div>
+                            {% else %}
+                                <div class="box-body no-padding">
+                                    <table class="table table-striped">
+                                        <thead>
                                             <tr>
                                                 <th>Processus</th>
                                                 <th>Progression</th>
                                                 <th style="width: 40px">Conformité</th>
                                             </tr>
-                                            </thead>
-                                            <tbody>
+                                        </thead>
+                                        <tbody>
                                             {% for conformite in data.conformiteOrganisation %}
                                                 {% set score = (conformite['conformite'] / 5 * 100) %}
                                                 {% if score < 50 %}
@@ -294,11 +295,10 @@
                                                     </td>
                                                 </tr>
                                             {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                {% endif %}
-                            </div>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 {% endif %}
