@@ -380,9 +380,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ->andWhere('u.status = :status')
             ->setParameter('date_start', $date->format('Y-m-d'))
             ->setParameter('status', 'not-applied')
-
             ->orderBy('u.planificationDate', 'ASC')
-            ->setMaxResults($limit)
         ;
 
         if ($collectivity) {
@@ -392,9 +390,12 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ;
         }
 
-        return $queryBuilder
+        $actions = $queryBuilder
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
+
+        $actions_limit = array_slice($actions,0,$limit);
+
+        return $actions_limit;
     }
 }
