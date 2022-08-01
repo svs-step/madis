@@ -168,6 +168,15 @@ class DocumentController extends CRUDController
         return $this->listAction();
     }
 
+    public function createAction(Request $request): Response
+    {
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return parent::createAction($request);
+        }
+
+        return $this->redirectToRoute('documentation_document_list');
+    }
+
     /**
      * Trigger document file download.
      *

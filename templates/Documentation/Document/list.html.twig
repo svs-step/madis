@@ -37,11 +37,14 @@
                 <div class="action-bar">
                     {% if is_granted('ROLE_REFERENT') %}
                         <div class="btn-group">
+{#                            Fix https://gitlab.adullact.net/soluris/madis/-/issues/535#}
+                            {% if is_granted('ROLE_ADMIN') %}
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-plus"></i>
                                 {{ 'documentation.document.action.new'|trans }}
                                 <span class="caret"></span>
                             </button>
+                            {% endif %}
                             <div class="dt-button-background" style=""></div>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
