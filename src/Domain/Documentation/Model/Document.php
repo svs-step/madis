@@ -136,7 +136,7 @@ class Document
     private $favoritedUsers;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
+     * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User", cascade={"persist"})
      * @ORM\JoinColumn(onDelete="SET NULL")
      *
      * @var User|null

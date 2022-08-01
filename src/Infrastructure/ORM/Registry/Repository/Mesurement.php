@@ -398,4 +398,15 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
 
         return $actions_limit;
     }
+
+    public function resetClonedFromCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->leftJoin('o.clonedFrom', 'c')
+            ->andWhere('c.collectivity = :collectivity')
+            ->setParameter('collectivity', $collectivity);
+
+        $qb->update(['o.clonedFrom' => null]);
+    }
 }

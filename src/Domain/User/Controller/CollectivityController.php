@@ -27,6 +27,8 @@ namespace App\Domain\User\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Repository as RegistryRepository;
 use App\Domain\User\Dictionary\CollectivityTypeDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
@@ -86,6 +88,7 @@ class CollectivityController extends CRUDController
         UserProvider $userProvider,
         AuthorizationCheckerInterface $authorizationChecker
     ) {
+
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->router                   = $router;
         $this->security                 = $security;
@@ -251,11 +254,18 @@ class CollectivityController extends CRUDController
         $deletedTreaments = $this->treatmentRepository->findBy(['collectivity' => $object]);
         foreach ($deletedTreaments as $deletedTreament) {
             $stringObjects[] = 'Traitement - ' . $deletedTreament->getName();
+            /**
+             * @var Treatment $deletedTreament
+             */
+            $aipds = $deletedTreament->getConformiteTraitement() ? $deletedTreament->getConformiteTraitement()->getAnalyseImpacts() : [];
+            foreach ($aipds as $aipd) {
+                $stringObjects[] = 'AIPD - ' . $aipd->__toString();
+            }
         }
 
         $deletedContractors = $this->contractorRepository->findBy(['collectivity' => $object]);
         foreach ($deletedContractors as $deletedContractor) {
-            $stringObjects[] = 'Sous-traitent - ' . $deletedContractor->getName();
+            $stringObjects[] = 'Sous-traitant - ' . $deletedContractor->getName();
         }
 
         $deletedProofs =  $this->proofRepository->findBy(['collectivity' => $object]);
@@ -270,6 +280,12 @@ class CollectivityController extends CRUDController
 
         $deletedMesurements = $this->mesurementRepository->findBy(['collectivity' => $object]);
         foreach ($deletedMesurements as $deletedMesurement) {
+            /**
+             * @var Mesurement $deletedMesurement
+             */
+            if ($deletedMesurement->getClonedFrom()) {
+                $stringObjects[] = 'Action de protection - ' . $deletedMesurement->getClonedFrom()->getName();
+            }
             $stringObjects[] = 'Action de protection - ' . $deletedMesurement->getName();
         }
 
@@ -304,20 +320,9 @@ class CollectivityController extends CRUDController
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
-        $clonedTreatments = $this->treatmentRepository->findAllByClonedFromCollectivity($object);
-        foreach ($clonedTreatments as $clonedTreatment) {
-            $clonedTreatment->setClonedFrom(null);
-        }
-
-        $clonedMesurements = $this->mesurementRepository->findAllByClonedFromCollectivity($object);
-        foreach ($clonedMesurements as $clonedMesurement) {
-            $clonedMesurement->setClonedFrom(null);
-        }
-
-        $clonedContractors = $this->contractorRepository->findAllByClonedFromCollectivity($object);
-        foreach ($clonedContractors as $clonedContractor) {
-            $clonedContractor->setClonedFrom(null);
-        }
+        $this->treatmentRepository->resetClonedFromCollectivity($object);
+        $this->mesurementRepository->resetClonedFromCollectivity($object);
+        $this->contractorRepository->resetClonedFromCollectivity($object);
 
         $this->entityManager->flush();
 
@@ -352,6 +357,11 @@ class CollectivityController extends CRUDController
                     $this->entityManager->remove($user);
                 }
                 break;
+            case 'proofs':
+                foreach ($this->proofRepository->findBy(['collectivity' => $object]) as $proof) {
+                    $this->entityManager->remove($proof);
+                }
+                break;
         }
         $this->entityManager->flush();
 
@@ -364,6 +374,9 @@ class CollectivityController extends CRUDController
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
+
+        $this->entityManager->remove($object);
+        $this->entityManager->flush();
 
         $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
 

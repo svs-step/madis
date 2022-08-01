@@ -53,26 +53,26 @@
         <one-to-one field="avisReferent" target-entity="App\Domain\AIPD\Model\AnalyseAvis">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
+            <join-column on-delete="CASCADE"/>
         </one-to-one>
         <one-to-one field="avisDpd" target-entity="App\Domain\AIPD\Model\AnalyseAvis">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
+            <join-column on-delete="CASCADE"/>
         </one-to-one>
         <one-to-one field="avisRepresentant" target-entity="App\Domain\AIPD\Model\AnalyseAvis">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
+            <join-column on-delete="CASCADE"/>
         </one-to-one>
         <one-to-one field="avisResponsable" target-entity="App\Domain\AIPD\Model\AnalyseAvis">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
+            <join-column on-delete="CASCADE"/>
         </one-to-one>
     </entity>
 </doctrine-mapping>

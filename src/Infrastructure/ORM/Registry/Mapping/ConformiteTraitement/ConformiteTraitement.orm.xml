@@ -22,7 +22,6 @@
         <one-to-many field="reponses" target-entity="App\Domain\Registry\Model\ConformiteTraitement\Reponse" mapped-by="conformiteTraitement">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
         </one-to-many>
         <one-to-many field="analyseImpacts" target-entity="App\Domain\AIPD\Model\AnalyseImpact" mapped-by="conformiteTraitement">

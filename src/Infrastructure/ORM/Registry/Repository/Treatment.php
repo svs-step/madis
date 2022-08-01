@@ -425,6 +425,17 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         }
     }
 
+    public function resetClonedFromCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->leftJoin('o.clonedFrom', 'c')
+            ->andWhere('c.collectivity = :collectivity')
+            ->setParameter('collectivity', $collectivity);
+
+        $qb->update(['o.clonedFrom' => null]);
+    }
+
     public function findAllByClonedFromCollectivity(Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
