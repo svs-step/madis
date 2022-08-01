@@ -84,7 +84,7 @@ function pieChart(id, labels, data, color) {
     });
 }
 
-function radarChart(id, labels, serieLabel, data, color) {
+function radarChart(id, labels, serieLabel, data, color, legend=false) {
     let dataset = [];
     data.forEach(function(item, index) {
         dataset.push(
@@ -110,7 +110,7 @@ function radarChart(id, labels, serieLabel, data, color) {
                 }
             },
             legend: {
-                display: false,
+                display: legend,
             },
         }
     });
@@ -214,7 +214,8 @@ $(document).ready(function() {
             maturityLabels,
             maturitySerieLabel,
             maturityData,
-            [colorBlueOpacity, colorRedOpacity]
+            [colorBlueOpacity, colorRedOpacity],
+            true
         );
     }
 

@@ -394,7 +394,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ->getQuery()
             ->getResult();
 
-        $actions_limit = array_slice($actions,0,$limit);
+        $actions_limit = array_slice($actions, 0, (int) $limit);
 
         return $actions_limit;
     }
