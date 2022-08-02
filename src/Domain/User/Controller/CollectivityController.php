@@ -88,7 +88,6 @@ class CollectivityController extends CRUDController
         UserProvider $userProvider,
         AuthorizationCheckerInterface $authorizationChecker
     ) {
-
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->router                   = $router;
         $this->security                 = $security;
