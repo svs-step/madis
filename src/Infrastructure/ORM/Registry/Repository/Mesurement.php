@@ -380,7 +380,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ->andWhere('u.status = :status')
             ->setParameter('date_start', $date->format('Y-m-d'))
             ->setParameter('status', 'not-applied')
-            ->orderBy('u.planificationDate', 'ASC')
+            ->orderBy('u.planificationDate', 'DESC')
         ;
 
         if ($collectivity) {
