@@ -146,9 +146,7 @@
         <h3 style="margin-left: 30px">4.3 Mesure(s) de réduction des risques envisagée(s)</h3>
         <h3 style="margin-left: 30px">4.4 Risques résiduels</h3>
         <h2>5. Validation de l'AIPD</h2>
-        <h3 style="margin-left: 30px">5.1 Préparation des éléments utiles à la validation</h3>
-        <h4 style="margin-left: 60px">5.1.1 Synthèse des quatres étapes</h4>
-        <h3 style="margin-left: 30px">5.2 Avis des personnes consultées</h3>
+        <h3 style="margin-left: 30px">Avis des personnes consultées</h3>
         <h2>6. Annexes</h2>
         <h3 style="margin-left: 30px">6.1 Glossaire</h3>
         <h3 style="margin-left: 30px">6.2 Références</h3>
@@ -599,133 +597,23 @@
             <div class="box-header with-border">Actions conseillées par le DPD à mettre en place</div>
                 <table class="table table-bordered">
                     <tr>
-                        <th>Nom</th>
+                        <th>Label livrable</th>
                         <th>Préconisations</th>
                     </tr>
-                    {% for scenario in object.scenarioMenaces %}
-                        {% if ((scenario.gravite is not same as('negligeable') or scenario.gravite is not same as('limitee')) or (scenario.vraisemblance is not same as ('negligeable') or scenario.vraisemblance is not same as ('limitee'))) %}
-                            {% for mesure in scenario.mesuresProtections %}
-                                {% if (mesure.poidsVraisemblance is not same as('negligeable') or mesure.poidsVraisemblance is not same as('limitee')) or (mesure.poidsGravite is not same as('negligeable') or mesure.poidsGravite is not same as('negligeable')) %}
-                                    <tr>
-                                        <td>{{ mesure.nom }}</td>
-                                        <td>{{ mesure.phrasePreconisation }}</td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
+                        {% for mesure in mesuresProtection %}
+                            <tr>
+                                <td>{{ mesure.labelLivrable }}</td>
+                                <td>{{ mesure.phrasePreconisation }}</td>
+                            </tr>
+                        {% endfor %}
                 </table>
             </div>
         </div>
         <div  style="page-break-before: always;"></div>
         <h2>5. Validation de l'AIPD</h2>
         <div>Ce chapitre a pour objectifs de permettre la prise de décision visant à accepter ou non l'AIPD au regard des résultats de l'étude.</div>
-        <h3>5.1 Préparation des éléments utiles à la validation</h3>
-        <h4>5.1.1 Synthèse des quatres étapes</h4>
-        <div>Ci-dessous une synthèse des quatres étapes de l'AIPD.</div>
-        <div class="box box-solid box-info">
-            <div class="box-header with-border"><h3 class="box-title" style="color: white">Description et conformité</h3></div>
-            <div class="box-body">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Label</th>
-                        <th>Conformité</th>
-                    </tr>
-                    </thead>
-                    {% for critere in object.criterePrincipeFondamentaux %}
-                        <tr>
-                            <td>{{ critere.labelLivrable }}</td>
-                            <td>{{ getCritereLabel(critere)|raw }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-                <br/>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Question</th>
-                        <th>Conformité</th>
-                    </tr>
-                    </thead>
-                    {% for questionConformite in object.questionConformites|sort((a, b) => a.position >= b.position) %}
-                        <tr>
-                            {% set reponse = object.conformiteTraitement.getReponseOfPosition(questionConformite.position) %}
-                            <td>{{ questionConformite.question }}
-                                {% if reponse and reponse.actionProtections is not null %}
-                                    {% for action in reponse.actionProtections %}
-                                        <div style="margin-left: 20px;font-size:12px;">
-                                            <span>{{action.name}}</span>
-                                        </div>
-                                    {% endfor %}
-                                {% endif %}
-                                {% if questionConformite.justificatif is not null %}
-                                    <div style="margin-left: 20px;font-size:12px;">
-                                        <span>{{ questionConformite.justificatif }}</span>
-                                    </div>
-                                {% endif %}
-                            </td>
-                            {% if reponse and reponse.conforme %}
-                                <td><span class="label label-success" style="min-width: 100%; display: inline-block;"> Conforme</span></td>
-                            {% else %}
-                                {% if reponse and reponse.actionProtections|length > 0 %}
-                                    <td><span class="label label-warning" style="min-width: 100%; display: inline-block;"> Non-conforme mineure</span></td>
-                                {% else%}
-                                    <td><span class="label label-danger" style="min-width: 100%; display: inline-block;"> Non-conforme majeure</span></td>
-                                {% endif %}
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
-        <div class="box box-solid box-primary">
-            <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
-            <div class="box-body">
-                <table class="table table-bordered">
-                    <tr>
-                        <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
-                        <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
-                        <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
-                    </tr>
-                     {% for scenario in object.scenarioMenaces %}
-                        <tr>
-                            <td>{{ scenario.nom }}</td>
-                            <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
-                            <td>{{ getScenarioMenaceImpactResiduelLabel(scenario)|raw }}</td>
-                        </tr>
-                    {% endfor %}
 
-                </table>
-            </div>
-        </div>
-        <div class="box box-solid box-primary">
-            <div class="box-header with-border">{{ 'aipd.mesure_protection.list.title'|trans }}</div>
-            <div class="box-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th style="width: 20%;">{{ 'aipd.mesure_protection.list.nom'|trans }}</th>
-                            <th style="width: 20%;">{{ 'aipd.mesure_protection.list.reponse'|trans }}</th>
-                        </tr>
-                    </thead>
-                    {% for mesure in object.mesureProtections %}
-                        <tr>
-                            <td>{{ mesure.nom }}</td>
-                            <td>
-                                {% if mesure.reponse in reponsedictionary(object)|keys %}
-                                    {{ mesure.reponse|reponsedictionary(object) }}
-                                {% else %}
-                                    {{ mesure.reponse }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
-
-        <h3>5.2 Avis des personnes consultées</h3>
+        <h3>Avis des personnes consultées</h3>
         <table class="table table-bordered">
             <tr>
                 <td class="table-bluecell">Avis du référent RGPD</td>
@@ -1703,7 +1591,7 @@
 
     {% endfor %}
     {% for mesure in object.mesureProtections %}
-        mesuresLabels.push("{{ mesure.nom|raw|escape('js') }}");
+        mesuresLabels.push("{{ mesure.nomCourt|raw|escape('js') }}");
         {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
         mesuresDatas.push(1);
         {% elseif mesure.reponse == 'besoin_amelioration' %}
@@ -1715,7 +1603,7 @@
     mesuresDatas = [mesuresDatas];
     risquesDataSet1 = {label: "Risque couvert", data: risquesDataSet1, backgroundColor: colorTeal};
     risquesDataSet2 = {label: "Risque résiduel", data: risquesDataSet2, backgroundColor: colorPink};
-    var risquesDatas = [risquesDataSet1, risquesDataSet2];
+    var risquesDatas = [risquesDataSet2, risquesDataSet1];
 
     window.onload = function() {
         radarChart("grandsDomaines-chart", domainesLabels, [''], domainesDatas, [colorBlue]);

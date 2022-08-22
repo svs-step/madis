@@ -13,6 +13,7 @@ use App\Domain\AIPD\Form\Type\AnalyseAvisType;
 use App\Domain\AIPD\Form\Type\AnalyseImpactType;
 use App\Domain\AIPD\Model\AnalyseAvis;
 use App\Domain\AIPD\Model\AnalyseImpact;
+use App\Domain\AIPD\Model\AnalyseScenarioMenace;
 use App\Domain\AIPD\Model\CriterePrincipeFondamental;
 use App\Domain\AIPD\Repository;
 use App\Domain\User\Model\Collectivity;
@@ -364,6 +365,9 @@ class AnalyseImpactController extends CRUDController
 
     public function printAction(Request $request, string $id)
     {
+        /**
+         * @var AnalyseImpact|null $object
+         */
         if (null === $object = $this->repository->findOneById($id)) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
@@ -377,10 +381,28 @@ class AnalyseImpactController extends CRUDController
         $slugger  = new AsciiSlugger();
         $filename = $slugger->slug($object->getConformiteTraitement()->getTraitement()->getName());
 
+        $mesures = [];
+        $scenarios = $object->getScenarioMenaces();
+
+        foreach ($scenarios as $scenario) {
+            /**
+             * @var AnalyseScenarioMenace $scenario
+             */
+            if ($scenario->getGravite() !== 'negligeable' || $scenario->getGravite() !== 'vide' || $scenario->getVraisemblance() !== 'negligeable' || $scenario->getVraisemblance() !== 'vide') {
+                foreach ($scenario->getMesuresProtections() as $mesure) {
+                    if (!array_key_exists($mesure->getNom(), $mesures) && ($mesure->getPoidsGravite() <= 1 || $mesure->getPoidsVraisemblance() <= 1)) {
+                        $mesures[$mesure->getNom()] = $mesure;
+                    }
+                }
+            }
+        }
+
+
         return new PdfResponse(
             $this->pdf->getOutputFromHtml(
                 $this->renderView($this->getTemplatingBasePath('pdf'), [
                     'object'   => $object,
+                    'mesuresProtection' => $mesures,
                     'base_dir' => $this->getParameter('kernel.project_dir') . '/public' . $request->getBasePath(),
                 ]), ['javascript-delay' => 1000]),
             $filename . '.pdf'
