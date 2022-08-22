@@ -29,6 +29,7 @@
     {% set submitValue = submitValue|default('action.submit'|trans) %}
 
     {{ form_start(form) }}
+    {{ form_widget(form._token) }}
 
     <div class="row">
         <div
