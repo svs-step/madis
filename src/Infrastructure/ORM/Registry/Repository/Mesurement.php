@@ -372,13 +372,15 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
 
     public function getPlanifiedActionsDashBoard($limit=1000, Collectivity $collectivity = null)
     {
-        $date         = new \DateTime();
+        // Add old actions again.
+        // Fixes https://gitlab.adullact.net/soluris/madis/-/issues/529
+        //$date         = new \DateTime();
         $queryBuilder = $this->createQueryBuilder();
         $queryBuilder->select('u')
             ->from(Model\Mesurement::class, 'u')
-            ->where('u.planificationDate >= :date_start')
+            //->where('u.planificationDate >= :date_start')
             ->andWhere('u.status = :status')
-            ->setParameter('date_start', $date->format('Y-m-d'))
+            //->setParameter('date_start', $date->format('Y-m-d'))
             ->setParameter('status', 'not-applied')
             ->orderBy('u.planificationDate', 'DESC')
         ;
