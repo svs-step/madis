@@ -365,9 +365,6 @@ class AnalyseImpactController extends CRUDController
 
     public function printAction(Request $request, string $id)
     {
-        /**
-         * @var AnalyseImpact|null $object
-         */
         if (null === $object = $this->repository->findOneById($id)) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
