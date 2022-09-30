@@ -375,7 +375,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         // Add old actions again.
         // Fixes https://gitlab.adullact.net/soluris/madis/-/issues/529
         //$date         = new \DateTime();
-        $queryBuilder = $this->createQueryBuilder();
+        $queryBuilder   = $this->createQueryBuilder();
         $expr           = $queryBuilder->expr();
         $queryBuilder->select('u')
             ->from(Model\Mesurement::class, 'u')
