@@ -376,7 +376,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         // Fixes https://gitlab.adullact.net/soluris/madis/-/issues/529
         //$date         = new \DateTime();
         $queryBuilder = $this->createQueryBuilder();
-        $expr = $queryBuilder->expr();
+        $expr           = $queryBuilder->expr();
         $queryBuilder->select('u')
             ->from(Model\Mesurement::class, 'u')
             ->where($expr->neq('u.status', $expr->literal('not-applicable')))
