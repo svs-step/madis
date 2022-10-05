@@ -381,7 +381,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ->from(Model\Mesurement::class, 'u')
             ->where($expr->neq('u.status', $expr->literal('not-applicable')))
             ->orderBy('u.planificationDate', 'DESC')
-            //->setMaxResults($limit)
+            ->setMaxResults(500)
         ;
 
         if ($collectivity) {
