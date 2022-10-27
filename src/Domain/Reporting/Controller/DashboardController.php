@@ -66,7 +66,7 @@ class DashboardController extends AbstractController
         if (!$this->isGranted('ROLE_REFERENT')) {
             $user         = $this->getUser();
             $collectivity = $user instanceof CollectivityRelated ? $user->getCollectivity() : null;
-            //$actions      = $this->repository->getPlanifiedActionsDashBoard($this->getParameter('APP_USER_DASHBOARD_ACTION_PLAN_LIMIT'), $collectivity);
+            $actions      = $this->repository->getPlanifiedActionsDashBoard($this->getParameter('APP_USER_DASHBOARD_ACTION_PLAN_LIMIT'), $collectivity);
         }
 
         return $this->render($metrics->getTemplateViewName(), [

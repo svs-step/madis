@@ -381,7 +381,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ->from(Model\Mesurement::class, 'u')
             ->where($expr->neq('u.status', $expr->literal('not-applicable')))
             ->orderBy('u.planificationDate', 'DESC')
-            ->setMaxResults(500)
+
         ;
 
         if ($collectivity) {
@@ -391,13 +391,14 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ;
         }
 
-        $actions = $queryBuilder
-            ->getQuery()
-            ->getResult();
+        $query = $queryBuilder
+            ->groupBy('u.id')
+            ->setMaxResults((int) $limit)
+            ->getQuery();
 
-        $actions_limit = array_slice($actions, 0, (int) $limit);
+        $actions = $query->getResult();
 
-        return $actions_limit;
+        return $actions;
     }
 
     public function resetClonedFromCollectivity(Collectivity $collectivity)
