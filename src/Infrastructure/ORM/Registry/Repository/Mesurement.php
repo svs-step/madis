@@ -394,7 +394,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ->groupBy('u.id')
             ->setMaxResults((int) $limit)
             ->getQuery();
-        
+
         return $query->getResult();
     }
 

@@ -254,7 +254,7 @@ class CollectivityController extends CRUDController
         foreach ($deletedTreaments as $deletedTreament) {
             $stringObjects[] = 'Traitement - ' . $deletedTreament->getName();
             /**
-             * @var Treatment $deletedTreament
+             * @var Treatment
              */
             $aipds = $deletedTreament->getConformiteTraitement() ? $deletedTreament->getConformiteTraitement()->getAnalyseImpacts() : [];
             foreach ($aipds as $aipd) {
@@ -280,7 +280,7 @@ class CollectivityController extends CRUDController
         $deletedMesurements = $this->mesurementRepository->findBy(['collectivity' => $object]);
         foreach ($deletedMesurements as $deletedMesurement) {
             /**
-             * @var Mesurement $deletedMesurement
+             * @var Mesurement
              */
             if ($deletedMesurement->getClonedFrom()) {
                 $stringObjects[] = 'Action de protection - ' . $deletedMesurement->getClonedFrom()->getName();
