@@ -54,6 +54,7 @@
         "symfony/validator": "4.4.*",
         "symfony/webpack-encore-bundle": "^1.7",
         "twig/extensions": "^1.5",
+        "twig/twig": "^v2.14",
         "wmde/iterable-functions": "^0.2.0"
     },
     "require-dev": {

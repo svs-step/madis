@@ -382,7 +382,7 @@ class AnalyseImpactController extends CRUDController
         $scenarios = $object->getScenarioMenaces();
 
         foreach ($scenarios as $scenario) {
-            /**
+            /*
              * @var AnalyseScenarioMenace
              */
             if ('negligeable' !== $scenario->getGravite() || 'vide' !== $scenario->getGravite() || 'negligeable' !== $scenario->getVraisemblance() || 'vide' !== $scenario->getVraisemblance()) {

@@ -279,7 +279,7 @@ class CollectivityController extends CRUDController
 
         $deletedMesurements = $this->mesurementRepository->findBy(['collectivity' => $object]);
         foreach ($deletedMesurements as $deletedMesurement) {
-            /**
+            /*
              * @var Mesurement
              */
             if ($deletedMesurement->getClonedFrom()) {
