@@ -375,15 +375,12 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         // Add old actions again.
         // Fixes https://gitlab.adullact.net/soluris/madis/-/issues/529
         //$date         = new \DateTime();
-        $queryBuilder = $this->createQueryBuilder();
+        $queryBuilder   = $this->createQueryBuilder();
+        $expr           = $queryBuilder->expr();
         $queryBuilder->select('u')
             ->from(Model\Mesurement::class, 'u')
-            //->where('u.planificationDate >= :date_start')
-            ->andWhere('u.status = :status')
-            //->setParameter('date_start', $date->format('Y-m-d'))
-            ->setParameter('status', 'not-applied')
+            ->where($expr->neq('u.status', $expr->literal('not-applicable')))
             ->orderBy('u.planificationDate', 'DESC')
-            ->setMaxResults($limit)
         ;
 
         if ($collectivity) {
@@ -393,13 +390,12 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ;
         }
 
-        $actions = $queryBuilder
-            ->getQuery()
-            ->getResult();
-
-        $actions_limit = array_slice($actions, 0, (int) $limit);
-
-        return $actions_limit;
+        $query = $queryBuilder
+            ->groupBy('u.id')
+            ->setMaxResults((int) $limit)
+            ->getQuery();
+        
+        return $query->getResult();
     }
 
     public function resetClonedFromCollectivity(Collectivity $collectivity)
