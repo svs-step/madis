@@ -383,6 +383,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             //->setParameter('date_start', $date->format('Y-m-d'))
             ->setParameter('status', 'not-applied')
             ->orderBy('u.planificationDate', 'DESC')
+            ->setMaxResults($limit)
         ;
 
         if ($collectivity) {
