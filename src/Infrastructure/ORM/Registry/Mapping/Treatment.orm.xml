@@ -14,6 +14,9 @@
         <field name="public" column="public" type="boolean">
             <options><option name="default">0</option></options>
         </field>
+        <field name="exempt_AIPD" column="exempt_AIPD" type="boolean">
+            <options><option name="default">0</option></options>
+        </field>
         <field name="goal" column="goal" type="text" nullable="true"/>
         <field name="manager" column="manager" nullable="true"/>
         <field name="software" column="software" nullable="true"/>

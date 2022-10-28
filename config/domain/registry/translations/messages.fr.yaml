@@ -463,6 +463,7 @@ registry:
             dpo_message: Préconisations DPO
             estimated_concerned_people: Nombre de concernées
             evaluation_or_rating: Évaluation ou notation
+            exempt_AIPD: Est exempté d'AIPD
             goal: Finalités
             innovative_use: Usage innovant
             large_scale_collection: Collecte à large échelle
@@ -508,6 +509,7 @@ registry:
           last_aipd: Dernière analyse d'impact réalisée
           proofs: Documents associés
           public: Registre public
+          exempt_AIPD: Est exempté d'AIPD
           recipients: Destination
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique

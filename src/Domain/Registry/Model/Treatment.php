@@ -61,6 +61,11 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $public = false;
 
     /**
+     * @var bool
+     */
+    private $exempt_AIPD = false;
+
+    /**
      * FR: Finalités (Objectif).
      *
      * @var string|null
@@ -481,6 +486,16 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function setPublic(?bool $public): void
     {
         $this->public = $public;
+    }
+
+    public function getExemptAIPD(): ?bool
+    {
+        return $this->exempt_AIPD;
+    }
+
+    public function setExemptAIPD(?bool $exempt_AIPD): void
+    {
+        $this->public = $exempt_AIPD;
     }
 
     public function getGoal(): ?string

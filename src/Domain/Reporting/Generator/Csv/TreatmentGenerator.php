@@ -157,6 +157,7 @@ class TreatmentGenerator extends AbstractGenerator
             $this->translator->trans('registry.treatment.show.legal_basis_justification'),
             $this->translator->trans('registry.treatment.show.observation'),
             $this->translator->trans('registry.treatment.show.public_register'),
+            $this->translator->trans('registry.treatment.show.exempt_AIPD'),
             $this->translator->trans('registry.treatment.show.dpo_message'),
         ];
     }
