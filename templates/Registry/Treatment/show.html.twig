@@ -65,6 +65,16 @@
                             </td>
                         </tr>
                         <tr>
+                            <td><strong>{{ 'registry.treatment.show.exempt_AIPD'|trans }}</strong></td>
+                            <td>
+                                {% if object.ExemptAIPD == true %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'registry.treatment.show.name'|trans }}</strong></td>
                             <td>{{ object.name }}</td>
                         </tr>

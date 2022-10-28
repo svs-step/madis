@@ -388,6 +388,7 @@ class TreatmentController extends CRUDController
                 'specific_traitement'    => $this->getSpecificTraitement($treatment),
                 'conformite_traitement'  => $this->getTreatmentConformity($treatment),
                 'actions'                => $this->generateActionCellContent($treatment),
+                'exempt_AIPD'            => $treatment->getExemptAIPD() ? $yes : $no,
             ];
         }
 
