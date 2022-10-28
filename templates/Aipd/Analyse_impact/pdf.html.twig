@@ -381,7 +381,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Label</th>
+                    <th>Description</th>
                     <th>Conformité</th>
                 </tr>
             </thead>
@@ -395,7 +395,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Question</th>
+                    <th>Principes fondamentaux</th>
                     <th>Conformité</th>
                 </tr>
             </thead>
@@ -404,17 +404,23 @@
                 <tr>
                     {% set reponse = object.conformiteTraitement.getReponseOfPosition(questionConformite.position) %}
                     <td>{{ questionConformite.question }}
-                        {% if reponse and reponse.actionProtections is not null %}
-                            {% for action in reponse.actionProtections %}
-                                <div style="margin-left: 20px;font-size:12px;">
-                                    <span>{{action.name}}</span>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
                         {% if questionConformite.justificatif is not null %}
                             <div style="margin-left: 20px;font-size:12px;">
-                                <span>{{ questionConformite.justificatif }}</span>
+                                <span>Justification : {{ questionConformite.justificatif }}</span>
                             </div>
+                        {% endif %}
+
+                        {% if reponse and (reponse.actionProtections is not null) and (reponse.actionProtections|length > 0) %}
+                            <div style="margin-left: 20px;font-size:12px;">
+                                <span>Actions associées : </span>
+                            </div>
+                            <ul>
+                                {% for action in reponse.actionProtections %}
+                                    <div style="margin-left: 20px;font-size:12px;">
+                                        <li>{{action.name}}</li>
+                                    </div>
+                                {% endfor %}
+                            </ul>
                         {% endif %}
                     </td>
                     {% if reponse and reponse.conforme %}
@@ -431,6 +437,7 @@
             </tbody>
         </table>
         <div class="reportGraph"><canvas id="grandsDomaines-chart"></canvas></div>
+        <div>Le graphique indique les points d’amélioration nécessaires au respect des principes fondamentaux du règlement.</div>
 
         <div  style="page-break-before: always;"></div>
         <h2>4. Études des risques liés à la sécurité des données</h2>
@@ -486,6 +493,7 @@
 
         <div  style="page-break-before: always;"></div>
         <h3>4.2 Evaluation de l'impact et matrice de décision</h3>
+        <div>Le tableau ci-dessous identifie des scénarios de menaces pour lesquels une évaluation est réalisée sur la vraisemblance (risques d’occurrence) et la gravité (conséquences en cas d’évènement).</div>
         <table class="table table-bordered">
             <tr>
                 <th>D</th>
@@ -508,11 +516,13 @@
                 </tr>
             {% endfor %}
         </table>
-        <div>La matrice de décision ci-dessous vous informe du comportement attendu par la CNIL selon le niveau d'impact identifié :</div>
         <div>La CNIL préconise d’accepter les risques uniquement lorsque l’impact est négligeable. Dans les autres cas, il faudra apporter des mesures de protection supplémentaires pour venir corriger les anomalies identifiées. Dans le cas où le risque est maximal et que les mesures ne sont pas jugées suffisantes, il conviendra de solliciter l’avis de la CNIL.</div>
+        <div>La matrice de décision ci-dessous vous informe du comportement attendu par la CNIL selon le niveau d'impact identifié :</div>
         <div style="text-align: center"><img src="{{ base_dir ~ asset("images/MatriceDecision.png") }}" height="300" alt="MatriceDecision"></div>
+        <br/>
 
         <h3>4.3 Mesure(s) de réduction des risques mise(s) en place</h3>
+        <div>Le radar ci-dessous présente les mesures déjà mises en place dans la collectivité pour réduire l’ensemble des risques identifiés.</div>
         <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
         <table class="table table-bordered">
             <tr>
@@ -571,7 +581,7 @@
 
         <div  style="page-break-before: always;"></div>
         <h3>4.4 Risques résiduels</h3>
-        <div>Les risques résiduels correspondent aux risques non-traités ou pour lesquels il n'est pas prévu de mettre en oeuvre l'ensemble des mesures de sécurité.</div>
+        <div>Les risques résiduels correspondent aux risques non traités à ce jour ou pour lesquels des préconisations ont été formulées (voir actions conseillées par le DPD).</div>
         <div class="reportGraph"><canvas id="risquesResiduels-chart"></canvas></div>
         <div class="reportGraph"><canvas id="dicResiduels-chart"></canvas></div>
         <div class="box box-solid box-primary">
@@ -593,8 +603,10 @@
                 </table>
             </div>
         </div>
+        <div>Le plan d’action ci-après présente les mesures de sécurité liées aux seuls scénarios de menaces dont l’impact est refusé.</div>
         <div class="box box-solid box-primary">
             <div class="box-header with-border">Actions conseillées par le DPD à mettre en place</div>
+            <div class="box-body">
                 <table class="table table-bordered">
                     <tr>
                         <th>Label livrable</th>
@@ -621,6 +633,7 @@
             </tr>
             <tr><td colspan="2">{{ object.avisReferent.date|date('d/m/Y') }}</td></tr>
             <tr><td colspan="2">{% if object.avisReferent.detail is not null %}{{ object.avisReferent.detail }}{% else %}{% endif %}</td></tr>
+            <tr style="height: 80px"><td colspan="2">Signature : </td></tr>
         </table>
         <table class="table table-bordered">
             <tr>
@@ -629,6 +642,7 @@
             </tr>
             <tr><td colspan="2">{{ object.avisDpd.date|date('d/m/Y') }}</td></tr>
             <tr><td colspan="2">{% if object.avisDpd.detail is not null %}{{ object.avisDpd.detail }}{% else %}{% endif %}</td></tr>
+            <tr style="height: 80px"><td colspan="2">Signature : </td></tr>
         </table>
         <table class="table table-bordered">
             <tr>
@@ -637,6 +651,7 @@
             </tr>
             <tr><td colspan="2">{{ object.avisRepresentant.date|date('d/m/Y') }}</td></tr>
             <tr><td colspan="2">{% if object.avisRepresentant.detail is not null %}{{ object.avisRepresentant.detail }}{% else %}{% endif %}</td></tr>
+            <tr style="height: 80px"><td colspan="2">Signature : </td></tr>
         </table>
         <table class="table table-bordered">
             <tr>
@@ -645,6 +660,7 @@
             </tr>
             <tr><td colspan="2">{{ object.avisResponsable.date|date('d/m/Y') }}</td></tr>
             <tr><td colspan="2">{% if object.avisResponsable.detail is not null %}{{ object.avisResponsable.detail }}{% else %}{% endif %}</td></tr>
+            <tr style="height: 80px"><td colspan="2">Signature : </td></tr>
         </table>
 
 {#            //////////////////////////////////////#}
@@ -1395,8 +1411,7 @@
 
             </div>
         </div>
-
-    </section>
+    </div>
 </div>
 
 <script type="text/javascript">
