@@ -193,14 +193,17 @@
                     <tr>
                         <td class="table-bluecell">{{ critere.labelLivrable }}</td>
                         <td>
-                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
-                            {{ critere.justification }}<br />
+                            La conformité :
                             {% if critere.reponse == 'conforme' %}
-                                {{ critere.texteConformite }}
+                                <span class="label label-success" style="min-width: 50px; display: inline-block;">{{ critere.texteConformite }}</span>
                             {% elseif critere.reponse == 'non_conforme' %}
-                                {{ critere.texteNonConformite }}
+                                <span class="label label-danger" style="min-width: 50px; display: inline-block;">{{ critere.texteNonConformite }}</span>
                             {% elseif critere.reponse == 'non_applicable' %}
-                                {{ critere.texteNonApplicable }}
+                                <span class="label label-warning" style="min-width: 50px; display: inline-block;">{{ critere.texteNonApplicable }}</span>
+                            {% endif %}
+                            <br/>
+                            {% if critere.justification is not null %}
+                                <i>Justification : </i>{{ critere.justification }}<br />
                             {% endif %}
                         </td>
                     </tr>
@@ -221,14 +224,17 @@
                     <tr>
                         <td class="table-bluecell">{{  critere.labelLivrable }}</td>
                         <td>
-                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
-                            {{ critere.justification }}<br />
+                            La conformité :
                             {% if critere.reponse == 'conforme' %}
-                                {{ critere.texteConformite }}
+                                <span class="label label-success" style="min-width: 50px; display: inline-block;">{{ critere.texteConformite }}</span>
                             {% elseif critere.reponse == 'non_conforme' %}
-                                {{ critere.texteNonConformite }}
+                                <span class="label label-danger" style="min-width: 50px; display: inline-block;">{{ critere.texteNonConformite }}</span>
                             {% elseif critere.reponse == 'non_applicable' %}
-                                {{ critere.texteNonApplicable }}
+                                <span class="label label-warning" style="min-width: 50px; display: inline-block;">{{ critere.texteNonApplicable }}</span>
+                            {% endif %}
+                            <br/>
+                            {% if critere.justification is not null %}
+                                <i>Justification : </i>{{ critere.justification }}<br />
                             {% endif %}
                         </td>
                     </tr>
@@ -290,20 +296,23 @@
                 </tr>
             </table>
             <div class="separator"></div>
-            {% set critere = object.criterePrincipeFondamentalByCode('description_fonctionnelle') %}
+            {% set critere = object.criterePrincipeFondamentalByCode('identification_biens') %}
             {% if critere and critere.reponse != 'non_renseigne' %}
                 <table class="table table-bordered">
                     <tr>
                         <td class="table-bluecell">{{  critere.labelLivrable }}</td>
                         <td>
-                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
-                            {{ critere.justification }}<br />
+                            La conformité :
                             {% if critere.reponse == 'conforme' %}
-                                {{ critere.texteConformite }}
+                                <span class="label label-success" style="min-width: 50px; display: inline-block;">{{ critere.texteConformite }}</span>
                             {% elseif critere.reponse == 'non_conforme' %}
-                                {{ critere.texteNonConformite }}
+                                <span class="label label-danger" style="min-width: 50px; display: inline-block;">{{ critere.texteNonConformite }}</span>
                             {% elseif critere.reponse == 'non_applicable' %}
-                                {{ critere.texteNonApplicable }}
+                                <span class="label label-warning" style="min-width: 50px; display: inline-block;">{{ critere.texteNonApplicable }}</span>
+                            {% endif %}
+                            <br/>
+                            {% if critere.justification is not null %}
+                                <i>Justification : </i>{{ critere.justification }}<br />
                             {% endif %}
                         </td>
                     </tr>
@@ -324,14 +333,17 @@
                     <tr>
                         <td class="table-bluecell">{{  critere.labelLivrable }}</td>
                         <td>
-                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
-                            {{ critere.justification }}<br />
+                            La conformité :
                             {% if critere.reponse == 'conforme' %}
-                                {{ critere.texteConformite }}
+                                <span class="label label-success" style="min-width: 50px; display: inline-block;">{{ critere.texteConformite }}</span>
                             {% elseif critere.reponse == 'non_conforme' %}
-                                {{ critere.texteNonConformite }}
+                                <span class="label label-danger" style="min-width: 50px; display: inline-block;">{{ critere.texteNonConformite }}</span>
                             {% elseif critere.reponse == 'non_applicable' %}
-                                {{ critere.texteNonApplicable }}
+                                <span class="label label-warning" style="min-width: 50px; display: inline-block;">{{ critere.texteNonApplicable }}</span>
+                            {% endif %}
+                            <br/>
+                            {% if critere.justification is not null %}
+                                <i>Justification : </i>{{ critere.justification }}<br />
                             {% endif %}
                         </td>
                     </tr>
@@ -351,14 +363,17 @@
                     <tr>
                         <td class="table-bluecell">{{  critere.labelLivrable }}</td>
                         <td>
-                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
-                            {{ critere.justification }}<br />
+                            La conformité :
                             {% if critere.reponse == 'conforme' %}
-                                {{ critere.texteConformite }}
+                                <span class="label label-success" style="min-width: 50px; display: inline-block;">{{ critere.texteConformite }}</span>
                             {% elseif critere.reponse == 'non_conforme' %}
-                                {{ critere.texteNonConformite }}
+                                <span class="label label-danger" style="min-width: 50px; display: inline-block;">{{ critere.texteNonConformite }}</span>
                             {% elseif critere.reponse == 'non_applicable' %}
-                                {{ critere.texteNonApplicable }}
+                                <span class="label label-warning" style="min-width: 50px; display: inline-block;">{{ critere.texteNonApplicable }}</span>
+                            {% endif %}
+                            <br/>
+                            {% if critere.justification is not null %}
+                                <i>Justification : </i>{{ critere.justification }}<br />
                             {% endif %}
                         </td>
                     </tr>
@@ -416,9 +431,7 @@
                             </div>
                             <ul>
                                 {% for action in reponse.actionProtections %}
-                                    <div style="margin-left: 20px;font-size:12px;">
-                                        <li>{{action.name}}</li>
-                                    </div>
+                                    <li style="margin-left: 20px;font-size:12px;">{{action.name}}</li>
                                 {% endfor %}
                             </ul>
                         {% endif %}
