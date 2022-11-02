@@ -586,7 +586,11 @@
                                 {{ element.reponse }}
                             {% endif %}
                         </td>
-                        <td>{{ element.phrasePreconisation }}</td>
+                        {% if element.reponse is same as "satisfaisant" %}
+                            <td></td>
+                        {% else %}
+                            <td>{{ element.phrasePreconisation }}</td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </table>
@@ -625,7 +629,9 @@
                         <th>Label livrable</th>
                         <th>Préconisations</th>
                     </tr>
+
                         {% for mesure in mesuresProtection %}
+                            {{  dump(mesure) }}
                             <tr>
                                 <td>{{ mesure.labelLivrable }}</td>
                                 <td>{{ mesure.phrasePreconisation }}</td>
