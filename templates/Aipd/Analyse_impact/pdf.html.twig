@@ -517,7 +517,7 @@
                 <th>Gravité</th>
                 <th>Impact potentiel</th>
             </tr>
-            {% for scenario in object.scenarioMenaces %}
+            {% for scenario in object.scenarioMenaces|sort((a,b) => a.nom <=> b.nom) %}
                 <tr>
                     <td>{% if scenario.isDisponibilite %}X{% endif %}</td>
                     <td>{% if scenario.isIntegrite %}X{% endif %}</td>
