@@ -92,6 +92,11 @@
                                             </div>
                                         </div>
                                     {% endif %}
+                                    {% if conformiteTraitement and conformiteTraitement.traitement and not conformiteTraitement.traitement.ExemptAIPD and analyseImpact is null %}
+                                        <div>
+                                            <i class="fa fa-exclamation-triangle" title="Une AIPD doit être réalisée sur ce traitement." style="color:orange;"></i>
+                                        </div>
+                                    {% endif %}
                                 </td>
                                 <td>{{ object.name }}</td>
                                 {% if is_granted('ROLE_REFERENT') %}
@@ -167,10 +172,12 @@
                                                     {{ 'aipd.analyse_impact.action.edit'|trans }}
                                                 </a>
                                             {% else %}
-                                                <a href="{{ path('registry_conformite_traitement_start_aipd', {'id': conformiteTraitement.id}) }}">
-                                                    <i class="fa fa-chalkboard-teacher"></i>
-                                                    {{ 'aipd.analyse_impact.action.create'|trans }}
-                                                </a>
+                                                {% if not conformiteTraitement.traitement.ExemptAIPD  %}
+                                                    <a href="{{ path('registry_conformite_traitement_start_aipd', {'id': conformiteTraitement.id}) }}">
+                                                        <i class="fa fa-chalkboard-teacher"></i>
+                                                        {{ 'aipd.analyse_impact.action.create'|trans }}
+                                                    </a>
+                                                {% endif %}
                                             {% endif %}
                                         {% endif %}
                                     </td>

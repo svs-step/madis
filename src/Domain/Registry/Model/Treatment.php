@@ -498,6 +498,11 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->exempt_AIPD = $exempt_AIPD;
     }
 
+    public function isExemptAIPD(): bool
+    {
+        return $this->exempt_AIPD;
+    }
+
     public function getGoal(): ?string
     {
         return $this->goal;
