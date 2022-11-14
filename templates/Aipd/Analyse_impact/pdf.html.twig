@@ -534,6 +534,8 @@
         <div style="text-align: center"><img src="{{ base_dir ~ asset("images/MatriceDecision.png") }}" height="300" alt="MatriceDecision"></div>
         <br/>
 
+        <div class="reportGraph"><canvas id="dic-chart"></canvas></div>
+
         <h3>4.3 Mesure(s) de réduction des risques mise(s) en place</h3>
         <div>Le radar ci-dessous présente les mesures déjà mises en place dans la collectivité pour réduire l’ensemble des risques identifiés.</div>
         <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
@@ -1609,7 +1611,37 @@
     var risquesDataSet1 = [];
     var risquesDataSet2 = [];
     var dicResiduelsData = [];
-    {% for scenario in object.scenarioMenaces %}
+    {% set disponibilite = {vraisemblance: 0, gravite: 0} %}
+    {% set integrite = {vraisemblance: 0, gravite: 0} %}
+    {% set confidentialite = {vraisemblance: 0, gravite: 0} %}
+
+    {% for scenario in analyseImpact.scenarioMenaces %}
+
+    {% if scenario.isIntegrite() %}
+    {% if getScenarioMenaceGravite(scenario) > integrite.gravite %}
+    {% set integrite = integrite|merge({'gravite': getScenarioMenaceGravite(scenario)}) %}
+    {% endif %}
+    {% if getScenarioMenaceVraisemblance(scenario) > integrite.vraisemblance %}
+    {% set integrite = integrite|merge({'vraisemblance': getScenarioMenaceVraisemblance(scenario)}) %}
+    {% endif %}
+    {% endif %}
+    {% if scenario.isDisponibilite() %}
+    {% if getScenarioMenaceGravite(scenario) > disponibilite.gravite %}
+    {% set disponibilite = disponibilite|merge({'gravite': getScenarioMenaceGravite(scenario)}) %}
+    {% endif %}
+    {% if getScenarioMenaceVraisemblance(scenario) > disponibilite.vraisemblance %}
+    {% set disponibilite = disponibilite|merge({'vraisemblance': getScenarioMenaceVraisemblance(scenario)}) %}
+    {% endif %}
+    {% endif %}
+    {% if scenario.isConfidentialite() %}
+    {% if getScenarioMenaceGravite(scenario) > confidentialite.gravite %}
+    {% set confidentialite = confidentialite|merge({'gravite': getScenarioMenaceGravite(scenario)}) %}
+    {% endif %}
+    {% if getScenarioMenaceVraisemblance(scenario) > confidentialite.vraisemblance %}
+    {% set confidentialite = confidentialite|merge({'vraisemblance': getScenarioMenaceVraisemblance(scenario)}) %}
+    {% endif %}
+    {% endif %}
+
         risquesLabels.push("{{ scenario.nom|truncate(20, '...')|raw|escape('js') }}");
         {%  set rr = getScenarioMenaceImpactResiduel(scenario) %}
         {%  set rp = getScenarioMenaceImpactPotentiel(scenario) %}
@@ -1622,6 +1654,32 @@
         });
 
     {% endfor %}
+
+    var dicData = [
+            {
+                label: 'Disponibilité',
+                backgroundColor: 'hsl(30, 100%, 50%)',
+                data: [{
+                    x: {{ disponibilite.vraisemblance }}, y: {{ disponibilite.gravite }}, r:10
+                }],
+            },
+            {
+                label: 'Intégrité',
+                backgroundColor: 'hsl(120, 100%, 50%)',
+                data: [{
+                    x: {{ integrite.vraisemblance }}, y: {{ integrite.gravite }}, r:12
+                }],
+            },
+            {
+                label: 'Confidentialité',
+                backgroundColor: 'hsl(210, 100%, 50%)',
+                data: [{
+                    x: {{ confidentialite.vraisemblance }}, y:{{ confidentialite.gravite }}, r:14
+                }],
+            }
+
+        ]
+    ;
     {% for mesure in object.mesureProtections %}
         mesuresLabels.push("{{ mesure.nomCourt|raw|escape('js') }}");
         {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
@@ -1642,6 +1700,11 @@
         radarChart('mesuresSecurite-chart', mesuresLabels, [''], mesuresDatas, [colorPurple]);
         stackedBarChart("risquesResiduels-chart", risquesLabels, risquesDatas);
         bubbleChart('dicResiduels-chart', risquesLabels, dicResiduelsData);
+        bubbleChart(
+            'dic-chart',
+            ['Disponibilité', 'Intégrité', 'Confidentialité'],
+            dicData
+        );
     };
 
 </script>
