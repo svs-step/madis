@@ -34,6 +34,12 @@
                     <canvas id="risquesResiduels-chart"></canvas>
                 </div>
             </div>
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.dic'|trans }}</div>
+                <div class="box-body">
+                    <canvas id="dic-chart"></canvas>
+                </div>
+            </div>
             <div class="box box-solid box-info">
                 <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.description_conformite'|trans }}</div>
                 <div class="box-body">
@@ -156,7 +162,38 @@
         let risquesCouvertDataSet = [];
         let risquesResiduelDataSet = [];
         let dicResiduelsData = [];
+        {% set disponibilite = {vraisemblance: 0, gravite: 0} %}
+        {% set integrite = {vraisemblance: 0, gravite: 0} %}
+        {% set confidentialite = {vraisemblance: 0, gravite: 0} %}
+
         {% for scenario in analyseImpact.scenarioMenaces %}
+
+        {% if scenario.isIntegrite() %}
+            {% if getScenarioMenaceGravite(scenario) > integrite.gravite %}
+                {% set integrite = integrite|merge({'gravite': getScenarioMenaceGravite(scenario)}) %}
+            {% endif %}
+            {% if getScenarioMenaceVraisemblance(scenario) > integrite.vraisemblance %}
+                {% set integrite = integrite|merge({'vraisemblance': getScenarioMenaceVraisemblance(scenario)}) %}
+            {% endif %}
+        {% endif %}
+        {% if scenario.isDisponibilite() %}
+            {% if getScenarioMenaceGravite(scenario) > disponibilite.gravite %}
+                {% set disponibilite = disponibilite|merge({'gravite': getScenarioMenaceGravite(scenario)}) %}
+            {% endif %}
+            {% if getScenarioMenaceVraisemblance(scenario) > disponibilite.vraisemblance %}
+                {% set disponibilite = disponibilite|merge({'vraisemblance': getScenarioMenaceVraisemblance(scenario)}) %}
+            {% endif %}
+        {% endif %}
+        {% if scenario.isConfidentialite() %}
+            {% if getScenarioMenaceGravite(scenario) > confidentialite.gravite %}
+                {% set confidentialite = confidentialite|merge({'gravite': getScenarioMenaceGravite(scenario)}) %}
+            {% endif %}
+            {% if getScenarioMenaceVraisemblance(scenario) > confidentialite.vraisemblance %}
+                {% set confidentialite = confidentialite|merge({'vraisemblance': getScenarioMenaceVraisemblance(scenario)}) %}
+            {% endif %}
+        {% endif %}
+
+
 
         {%  set rr = getScenarioMenaceImpactResiduel(scenario) %}
 
@@ -178,6 +215,31 @@
             });
 
         {% endfor %}
+        let dicData = [
+            {
+                label: 'Disponibilité',
+                backgroundColor: 'hsl(30, 100%, 50%)',
+                data: [{
+                x: {{ disponibilite.vraisemblance }}, y: {{ disponibilite.gravite }}, r:10
+            }],
+        },
+            {
+                label: 'Intégrité',
+                backgroundColor: 'hsl(120, 100%, 50%)',
+                data: [{
+                x: {{ integrite.vraisemblance }}, y: {{ integrite.gravite }}, r:10
+            }],
+            },
+            {
+                label: 'Confidentialité',
+                backgroundColor: 'hsl(210, 100%, 50%)',
+                data: [{
+                    x: {{ confidentialite.vraisemblance }}, y:{{ confidentialite.gravite }}, r:10
+                }],
+            }
+
+            ]
+        ;
 
 
         {% for mesure in analyseImpact.mesureProtections %}

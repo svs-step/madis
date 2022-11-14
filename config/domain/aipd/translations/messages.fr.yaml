@@ -114,6 +114,7 @@ aipd:
                 grands_domaines: Évaluation des principes fondamentaux
                 mesures_securites: Évaluation des mesures de sécurité
                 risques_residuels: Risques résiduels
+                dic: Disponibilité, intégrité, confidentialité
                 moyenne_dic_residuel: Cartographie des risques résiduels
                 description_conformite: Description et conformité
                 gestion_risques: Gestion des risques

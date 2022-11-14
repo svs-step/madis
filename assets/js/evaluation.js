@@ -149,4 +149,9 @@ $(document).ready(function() {
         risquesLabels,
         dicResiduelsData,
     );
+    bubbleChart(
+        'dic-chart',
+        ['Disponibilité', 'Intégrité', 'Confidentialité'],
+        dicData,
+    );
 });
