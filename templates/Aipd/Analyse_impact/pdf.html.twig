@@ -629,9 +629,7 @@
                         <th>Label livrable</th>
                         <th>Préconisations</th>
                     </tr>
-
                         {% for mesure in mesuresProtection %}
-                            {{  dump(mesure) }}
                             <tr>
                                 <td>{{ mesure.labelLivrable }}</td>
                                 <td>{{ mesure.phrasePreconisation }}</td>
