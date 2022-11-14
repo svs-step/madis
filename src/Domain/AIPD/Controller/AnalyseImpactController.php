@@ -381,14 +381,14 @@ class AnalyseImpactController extends CRUDController
         $slugger  = new AsciiSlugger();
         $filename = $slugger->slug($object->getConformiteTraitement()->getTraitement()->getName());
 
-        $mesures = [];
+        $mesures   = [];
         $scenarios = $object->getScenarioMenaces();
 
         foreach ($scenarios as $scenario) {
             /**
              * @var AnalyseScenarioMenace $scenario
              */
-            if ($scenario->getGravite() !== 'negligeable' || $scenario->getGravite() !== 'vide' || $scenario->getVraisemblance() !== 'negligeable' || $scenario->getVraisemblance() !== 'vide') {
+            if ('negligeable' !== $scenario->getGravite() || 'vide' !== $scenario->getGravite() || 'negligeable' !== $scenario->getVraisemblance() || 'vide' !== $scenario->getVraisemblance()) {
                 foreach ($scenario->getMesuresProtections() as $mesure) {
                     if (!array_key_exists($mesure->getNom(), $mesures) && ($mesure->getPoidsGravite() <= 1 || $mesure->getPoidsVraisemblance() <= 1)) {
                         $mesures[$mesure->getNom()] = $mesure;
@@ -397,13 +397,12 @@ class AnalyseImpactController extends CRUDController
             }
         }
 
-
         return new PdfResponse(
             $this->pdf->getOutputFromHtml(
                 $this->renderView($this->getTemplatingBasePath('pdf'), [
-                    'object'   => $object,
+                    'object'            => $object,
                     'mesuresProtection' => $mesures,
-                    'base_dir' => $this->getParameter('kernel.project_dir') . '/public' . $request->getBasePath(),
+                    'base_dir'          => $this->getParameter('kernel.project_dir') . '/public' . $request->getBasePath(),
                 ]), ['javascript-delay' => 1000]),
             $filename . '.pdf'
         );

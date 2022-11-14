@@ -100,8 +100,8 @@ interface Mesurement extends CRUDRepositoryInterface, DataTablesRepository
     public function getPlanifiedActionsDashBoard($limit, Collectivity $collectivity);
 
     /**
-     * Set clonedFrom to null by collectivity
-     * @param Collectivity $collectivity
+     * Set clonedFrom to null by collectivity.
+     *
      * @return mixed
      */
     public function resetClonedFromCollectivity(Collectivity $collectivity);

@@ -54,7 +54,7 @@ class ModeleAnalyse
      * @var array|ModeleScenarioMenace[]
      * @Serializer\Type("array<App\Domain\AIPD\Model\ModeleScenarioMenace>")
      */
-    private $scenarioMenaces;
+    private iterable $scenarioMenaces;
 
     /**
      * @see DuplicationTargetOptionDictionary
