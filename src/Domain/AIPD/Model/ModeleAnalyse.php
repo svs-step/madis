@@ -108,13 +108,18 @@ class ModeleAnalyse
         $this->id = Uuid::uuid4();
 
         foreach ($this->scenarioMenaces as $scenario) {
+            // Create a new scenario
             $scenario->deserialize();
             $scenario->setModeleAnalyse($this);
+            $mesures = [];
             foreach ($scenario->getMesuresProtections() as $mesure) {
+                $mesure->deserialize();
                 $mesure->addScenarioMenace($scenario);
+
+                $mesures[] = $mesure;
             }
 
-            $scenario->setMesuresProtections([]);
+            $scenario->setMesuresProtections($mesures);
         }
         foreach ($this->questionConformites as $question) {
             $question->deserialize();

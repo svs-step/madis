@@ -28,6 +28,11 @@ class AbstractMesureProtection
         $this->id = Uuid::uuid4();
     }
 
+    public function deserialize()
+    {
+        $this->id = Uuid::uuid4();
+    }
+
     public function getId()
     {
         return $this->id;
