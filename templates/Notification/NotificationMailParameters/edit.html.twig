@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'notification_mail_parameters form edit' %}
+{% set menuItem = 'notification_mail_parameters' %}
+
+{% block title %}{{ 'notification.notificationMailParameters.title'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'notification.notificationMailParameters.title'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'notification.notificationMailParameters.breadcrumb.list'|trans, 'link': path('documentation_document_list') },
+        { 'name': 'notification.notificationMailParameters.breadcrumb.edit'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('Notification/NotificationMailParameters/_form.html.twig') }}
+{% endblock %}

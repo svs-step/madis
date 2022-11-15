@@ -27,14 +27,58 @@ namespace App\Infrastructure\ORM\Notification\Repository;
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Domain\Notification\Model;
 use App\Domain\Notification\Repository;
+use App\Domain\User\Dictionary\UserRoleDictionary;
+use App\Domain\User\Model\User;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 class Notification extends CRUDRepository implements Repository\Notification
 {
+    protected Security $security;
+
+    public function __construct(ManagerRegistry $registry, Security $security)
+    {
+        parent::__construct($registry);
+        $this->security   = $security;
+    }
+
     /**
      * {@inheritdoc}
      */
     protected function getModelClass(): string
     {
         return Model\Notification::class;
+    }
+
+    public function findAll(array $order = ['createdAt' => 'desc']): array
+    {
+        // TODO only get notifications for the current user.
+        $orderBy = [];
+        foreach ($order as $key => $value) {
+            $orderBy[$key] = $value;
+        }
+        /**
+         * @var User $user
+         */
+        $user = $this->security->getUser();
+
+        $allowedRoles = [UserRoleDictionary::ROLE_REFERENT, UserRoleDictionary::ROLE_ADMIN];
+        if (in_array($user->getRoles()[0], $allowedRoles)) {
+            // Find notifications with null user if current user is dpo
+            $user = null;
+        }
+
+        return $this->registry
+            ->getManager()
+            ->getRepository($this->getModelClass())
+            ->findBy([
+                'user' => $user,
+            ], $orderBy)
+            ;
+    }
+
+    public function persist($object): void
+    {
+        $this->getManager()->persist($object);
     }
 }

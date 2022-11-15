@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Model;
 
 use App\Application\Interfaces\CollectivityRelated;
+use App\Application\Traits\Model\HistoryTrait;
 use App\Application\Traits\Model\SoftDeletableTrait;
 use App\Domain\Documentation\Model\Document;
 use App\Domain\Reporting\Model\LoggableSubject;
@@ -37,6 +38,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements LoggableSubject, UserInterface, CollectivityRelated
 {
     use SoftDeletableTrait;
+    use HistoryTrait;
 
     /**
      * @var UuidInterface
@@ -119,6 +121,13 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     private $documentView;
 
     /**
+     * @var array|null
+     */
+    private $moreInfos;
+
+    private EmailNotificationPreference $emailNotificationPreference;
+
+    /**
      * User constructor.
      *
      * @throws \Exception
@@ -129,6 +138,7 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
         $this->roles                 = [];
         $this->enabled               = true;
         $this->collectivitesReferees = [];
+        $this->moreInfos             = [];
     }
 
     public function getId(): UuidInterface
@@ -355,5 +365,31 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     public function setDocumentView(bool $documentView): void
     {
         $this->documentView = $documentView;
+    }
+
+    public function getMoreInfos(): ?array
+    {
+        return $this->moreInfos;
+    }
+
+    public function setMoreInfos(array $moreInfos): void
+    {
+        $this->moreInfos = $moreInfos;
+    }
+
+    /**
+     * @return EmailNotificationPreference
+     */
+    public function getEmailNotificationPreference(): EmailNotificationPreference
+    {
+        return $this->emailNotificationPreference;
+    }
+
+    /**
+     * @param EmailNotificationPreference $emailNotificationPreference
+     */
+    public function setEmailNotificationPreference(EmailNotificationPreference $emailNotificationPreference): void
+    {
+        $this->emailNotificationPreference = $emailNotificationPreference;
     }
 }

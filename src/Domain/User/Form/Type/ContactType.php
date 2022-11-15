@@ -27,18 +27,30 @@ namespace App\Domain\User\Form\Type;
 use App\Domain\User\Model\Embeddable\Contact;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContactType extends AbstractType
 {
+    private $requestStack;
+
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
     /**
      * Build type form.
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $request = $this->requestStack->getCurrentRequest();
+        $collectivity_page = substr($request->attributes->get('_route'),5,12);
+
         $intersectIsEmpty = empty(\array_intersect(
             [
                 'collectivity_legal_manager',
@@ -93,6 +105,13 @@ class ContactType extends AbstractType
                     'maxlength' => 10,
                 ],
             ]);
+
+        if ($collectivity_page ===  'collectivity'){
+            $builder->add('notification', CheckboxType::class, [
+                'label'    => 'user.contact.form.notification',
+                'required' => false,
+            ]);
+        }
     }
 
     /**

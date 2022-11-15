@@ -42,3 +42,8 @@ registry_violation_pdf:
     path: '/pdf/{id}'
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\ViolationController:pdfAction'
+
+registry_violation_print_all:
+    path: '/imprimer-tous'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ViolationController:pdfAllAction'

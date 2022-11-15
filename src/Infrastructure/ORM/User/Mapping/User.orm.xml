@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <doctrine-mapping
         xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                             https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
@@ -18,9 +19,16 @@
         <field name="email" column="email"/>
         <field name="password" column="password"/>
         <field name="roles" column="roles" type="json_array"/>
+        <field name="moreInfos" column="moreInfos" type="json_array" nullable="true"/>
         <field name="enabled" column="enabled" type="boolean"/>
         <field name="forgetPasswordToken" column="forget_password_token" nullable="true"/>
         <field name="deletedAt" column="deleted_at" type="datetime_immutable" nullable="true"/>
+        <field name="createdAt" column="created_at" type="datetime_immutable" nullable="true">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" column="updated_at" type="datetime_immutable" nullable="true">
+            <gedmo:timestampable on="update"/>
+        </field>
         <field name="lastLogin" column="last_login" type="datetime_immutable" nullable="true"/>
         <field name="apiAuthorized" column="api_authorized" type="boolean" nullable="true"/>
         <field name="documentView" column="document_view" type="boolean" nullable="true"/>
@@ -49,6 +57,7 @@
                 <inverse-join-columns><join-column on-delete="CASCADE"/></inverse-join-columns>
             </join-table>
         </many-to-many>
+        <one-to-one field="emailNotificationPreference" target-entity="App\Domain\User\Model\EmailNotificationPreference" inversed-by="user" />
     </entity>
 
 </doctrine-mapping>

@@ -54,4 +54,6 @@ twig:
         app_activate_notifications: '%env(APP_ACTIVATE_NOTIFICATIONS)%'
         app_max_upload_size: '%env(APP_MAX_UPLOAD_SIZE)%'
 
+        notifications: '@App\Domain\Notification\Repository\Notification'
+
 

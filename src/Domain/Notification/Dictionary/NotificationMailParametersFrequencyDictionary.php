@@ -4,7 +4,7 @@
  * This file is part of the MADIS - RGPD Management application.
  *
  * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
- * @author <chayrouse@datakode.fr>
+ * @author Donovan Bourlard <donovan@awkan.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -26,42 +26,44 @@ namespace App\Domain\Notification\Dictionary;
 
 use App\Application\Dictionary\SimpleDictionary;
 
-class NotificationActionDictionary extends SimpleDictionary
+class NotificationMailParametersFrequencyDictionary extends SimpleDictionary
 {
-    const CREATE       = 'create';
-    const ADD          = 'add';
-    const EDIT         = 'edit';
-    const DELETE       = 'delete';
-    const LATE         = 'late';
+    const NONE  = 'NONE';
+    const ONLY_ONE     = 'ONLY_ONE';
+    const HOURLY    = 'HOURLY';
+    const DAYLY     = 'DAYLY';
+    const WEEKLY    = 'WEEKLY';
+    const MONTHLY    = 'MONTHLY';
 
     public function __construct()
     {
-        parent::__construct('notifications_notification_action', self::getActions());
+        parent::__construct('notificationMailParametersFrequency', self::getFrequencies());
     }
 
     /**
-     * Get an array of Objects.
+     * Get an array of Roles.
      *
      * @return array
      */
-    public static function getActions()
+    public static function getFrequencies()
     {
         return [
-            self::CREATE      => 'Création',
-            self::ADD         => 'Ajout',
-            self::EDIT        => 'Modification',
-            self::DELETE      => 'Suppression',
-            self::LATE        => 'Retard (automatique)',
+            self::NONE  => 'Aucune notification',
+            self::ONLY_ONE     => 'Notification unitaire',
+            self::HOURLY    => 'Toutes les heures',
+            self::DAYLY => 'Quotidien',
+            self::WEEKLY => 'Hebdomadaire',
+            self::MONTHLY => 'Mensuelle',
         ];
     }
 
     /**
-     * Get keys of the Objects array.
+     * Get keys of the Roles array.
      *
      * @return array
      */
-    public static function getActionsKeys()
+    public static function getFrequenciesKeys()
     {
-        return \array_keys(self::getActions());
+        return \array_keys(self::getFrequencies());
     }
 }

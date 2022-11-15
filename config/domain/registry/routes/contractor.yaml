@@ -47,3 +47,18 @@ registry_contractor_pdf:
     path: '/pdf/{id}'
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\ContractorController:pdfAction'
+
+registry_contractor_delete_all:
+    path: '/supprimer-tous/'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ContractorController:deleteAllAction'
+
+registry_contractor_print_all:
+    path: '/imprimer-tous'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ContractorController:pdfAllAction'
+
+registry_contractor_delete_all_confirm:
+    path: '/supprimer-tous/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ContractorController:deleteConfirmationAllAction'

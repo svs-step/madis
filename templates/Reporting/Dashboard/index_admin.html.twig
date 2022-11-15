@@ -101,36 +101,8 @@
         {% if app_activate_notifications == 'true' and app_notification_dashboard_shown == 'true' %}
             {# {{app_notification_max_shown}} #}
             <div id="notifications" class="col-sm-12">
-                <div class="box box-solid">
-                    <div class="box-header with-border">
-                        <span class="h4">Notifications (7 non lues)</span>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notifications.notification.action.mark_as_read_all'|trans }}</a>
-                        {% endif %}
-                    </div>
-                    <div class="box-body">
-                        <div class="notification">
-                            <li class="box-header with-border" style="padding: 0.8em;">
-                                <div class="row">
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                        <div class="col-md-9" href="#">
-                                    {% else %}
-                                        <div class="col-md-12" href="#">
-                                    {% endif %}
-                                        <b>[Preuves]</b> Ajout de <a href="#"><b>Lien vers le doc</b></a> par <b>Commune</b>
-                                        </div>
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                    {# <div class="col-md-3 text-center"><a href="{{ path('notification_notification_mark_as_read', { 'id': object.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;"> #}
-                                    <div class="col-md-3 text-center"><a href="{{ path('notification_notification_mark_as_read') }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
-                                        <i class="fas fa-clipboard-check"></i> {{ 'notifications.notification.action.mark_as_read'|trans }}
-                                    </a></div>
-                                    {% endif %}
-                                    <div class="col-md-12 text-muted">Ajouté, il y a 3 jours par Agnès DESROSIERS</div>
-                                </div>
-                            </li>
-                        </div>
-                    </div>
-                    <div class="text-center box-header"><a href="{{ path('notification_notification_list') }}">Voir toutes les notifications (2 autres non lues)</a></div>
+                <div class="box box-solid p-2">
+                    {{ block("body", "Notification/Notification/box.html.twig") }}
                 </div>
             </div>
         {% endif %}

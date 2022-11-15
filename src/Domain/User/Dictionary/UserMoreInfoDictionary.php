@@ -4,7 +4,7 @@
  * This file is part of the MADIS - RGPD Management application.
  *
  * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
- * @author <chayrouse@datakode.fr>
+ * @author Donovan Bourlard <donovan@awkan.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,40 +22,45 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Notification\Dictionary;
+namespace App\Domain\User\Dictionary;
 
 use App\Application\Dictionary\SimpleDictionary;
 
-class NotificationStateDictionary extends SimpleDictionary
+class UserMoreInfoDictionary extends SimpleDictionary
 {
-    const READ         = 'Lu';
-    const NOT_READ     = 'Non lu';
+    const MOREINFO_TREATMENT       = 'MOREINFO_TREATMENT';
+    const MOREINFO_INFORMATIC      = 'MOREINFO_INFORMATIC';
+    const MOREINFO_OPERATIONNAL    = 'MOREINFO_OPERATIONNAL';
+    const MOREINFO_DPD             = 'MOREINFO_DPD';
 
     public function __construct()
     {
-        parent::__construct('notifications_notification_state', self::getStates());
+        parent::__construct('user_user_moreInfo', self::getMoreInfos());
     }
 
     /**
-     * Get an array of Objects.
+     * Get an array of MoreInfos.
      *
      * @return array
      */
-    public static function getStates()
+    public static function getMoreInfos()
     {
         return [
-            self::READ            => 'Lu',
-            self::NOT_READ        => 'Non lu',
+            self::MOREINFO_TREATMENT       => 'Responsable de traitement',
+            self::MOREINFO_INFORMATIC      => 'Référent RGPD',
+            self::MOREINFO_OPERATIONNAL    => 'Responsable informatique',
+            self::MOREINFO_DPD             => 'DPO',
         ];
     }
 
     /**
-     * Get keys of the Objects array.
+     * Get keys of the MoreInfos array.
      *
      * @return array
      */
-    public static function getStateKeys()
+    public static function getMoreInfosKeys()
     {
-        return \array_keys(self::getStates());
+        return \array_keys(self::getMoreInfos());
     }
 }
+
