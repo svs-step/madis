@@ -5,14 +5,16 @@
 {% set notifs = notifications.findAll() %}
 {% set unreadNotifs = notifs|filter(n => n.readAt is null) %}
 {% set notifsObject = notifs|map(n => ({id : n.id, read_at: n.readAt})) %}
-    <li class="header" style="list-style: none;">
-        <span class="h4">Vous avez {{ unreadNotifs|length }} notifications non lues</span>
+    <div class="box-header with-border" style="list-style: none;">
+        <h3 class="box-title">Vous avez {{ unreadNotifs|length }} notifications non lues</h3>
         {% if unreadNotifs|length > 0 %}
             <a id="read-all" href="{{ path('notification_notification_mark_as_read_all') }}" style="float:right;">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
         {% endif %}
-    </li>
+    </div>
 
-
+    <div class="box-body">
+    {% if unreadNotifs|length > 0 %}
+        <ul>
     {% for notif in unreadNotifs %}
         {% if loop.index0 < app_notification_max_shown %}
             <li class="box-header with-border single-notification" style="padding: 0.8em;">
@@ -35,6 +37,8 @@
             </li>
         {% endif %}
     {% endfor %}
+        </ul>
+    {% endif %}
 
     {% if unreadNotifs|length == 0 %}
     <div class="text-center p-2">Il n'y a aucune notification non lue</div>
@@ -43,9 +47,10 @@
     {% set notifsLeft = unreadNotifs|length - app_notification_max_shown > 0 ? unreadNotifs|length - app_notification_max_shown : 0 %}
     <div class="text-center box-header">
         <a href="{{ path('notification_notification_list') }}">
-            Voir toutes les notifications 
+            Voir toutes les notifications
             {% if unreadNotifs|length > app_notification_max_shown %} ({{ notifsLeft }} autres non lues) {% endif %}
         </a>
+    </div>
     </div>
 {% endblock %}
 
