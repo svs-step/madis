@@ -376,23 +376,22 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         // Fixes https://gitlab.adullact.net/soluris/madis/-/issues/529
         //$date         = new \DateTime();
         $queryBuilder   = $this->createQueryBuilder();
-        $queryBuilder->select('u')
-            ->from(Model\Mesurement::class, 'u')
-            ->where("u.status = :status")
+        $queryBuilder
+            ->where("o.status = :status")
             ->setParameter('status', MesurementStatusDictionary::STATUS_NOT_APPLIED)
 
-            ->orderBy('u.planificationDate', 'DESC')
+            ->orderBy('o.planificationDate', 'DESC')
         ;
 
         if ($collectivity) {
             $queryBuilder
-                ->andWhere('u.collectivity = :collectivity')
+                ->andWhere('o.collectivity = :collectivity')
                 ->setParameter('collectivity', $collectivity)
             ;
         }
 
         $query = $queryBuilder
-            ->groupBy('u.id')
+            ->groupBy('o.id')
             ->setMaxResults((int) $limit)
             ->getQuery();
 
