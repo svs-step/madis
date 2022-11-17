@@ -198,7 +198,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             $historyData = [
                 [
                     'Créateur',
-                    $mesurement->getCreator(),
+                    strval($mesurement->getCreator()),
                 ],
                 [
                     'Date de création',
