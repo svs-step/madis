@@ -24,32 +24,14 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
-use App\Domain\User\Form\DataTransformer\MoreInfoTransformer;
-use App\Domain\User\Form\DataTransformer\RoleTransformer;
-use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\EmailNotificationPreference;
-use App\Domain\User\Model\Service;
-use App\Domain\User\Model\User;
-use Doctrine\ORM\EntityRepository;
-use Knp\DictionaryBundle\Form\Type\DictionaryType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Security;
 
-class HourlyNotificationType extends AbstractType
+class WeeklyNotificationType extends AbstractType
 {
     /**
      * Build type form.
@@ -57,18 +39,36 @@ class HourlyNotificationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $hours = [];
-        for ($i = 0; $i < 24; $i++) {
-            $hours[(string)$i] = $i;
+        for ($i = 0; $i < 24; ++$i) {
+            $hours[(string) $i] = $i;
         }
+
         $builder
-        ->add('hours', ChoiceType::class, [
-            'label'    => false,
-            'required' => true,
-            'choices' => $hours,
-            'expanded' => false,
-            'multiple' => false,
-            'block_prefix' => 'wrapped_choice',
-        ])
+            ->add('day', ChoiceType::class, [
+                'label'        => 'à',
+                'required'     => true,
+                'choices'      => [
+                    'Lundi' => 1,
+                    'Mardi' => 2,
+                    'Mercredi' => 3,
+                    'Jeudi' => 4,
+                    'Vendredi' => 5,
+                    'Samedi' => 6,
+                    'Dimanche' => 7,
+                ],
+                'expanded'     => false,
+                'multiple'     => false,
+                'block_prefix' => 'wrapped_choice',
+            ])
+            ->add('hour', ChoiceType::class, [
+                'label'        => 'h',
+                'required'     => true,
+                'choices'      => $hours,
+                'expanded'     => false,
+                'multiple'     => false,
+                'block_prefix' => 'wrapped_choice',
+            ])
+
 
             ;
     }
@@ -80,7 +80,6 @@ class HourlyNotificationType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => EmailNotificationPreference::class,
                 'validation_groups' => [
                     'default',
                     'user',
