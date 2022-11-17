@@ -89,15 +89,18 @@
                     </div>
                 {% endif %}
             {% endfor %}
+
+            {% include('@templates_path/User/Profile/notifications.html.twig') %}
         </div>
-        {{ form_row(form._token) }}
-        <div class="col-md-12">
-            <div class="box box-solid">
-                <div class="box-body text-center">
-                    <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
-                </div>
+    </div>
+    {{ form_row(form._token) }}
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>
         </div>
+    </div>
 
     </div>
 {% endblock %}

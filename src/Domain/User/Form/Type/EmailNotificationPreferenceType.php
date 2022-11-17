@@ -25,7 +25,9 @@ declare(strict_types=1);
 namespace App\Domain\User\Form\Type;
 
 use App\Domain\User\Model\EmailNotificationPreference;
+use App\Domain\User\Model\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -52,6 +54,14 @@ class EmailNotificationPreferenceType extends AbstractType
                 'user.notifications.form.frequency.weekly'  => 'week',
                 'user.notifications.form.frequency.monthly' => 'month',
             ],
+            'choice_attr' => [
+                'user.notifications.form.frequency.none'  => ['class' => 'select-frequency'],
+                'user.notifications.form.frequency.each'  => ['class' => 'select-frequency'],
+                'user.notifications.form.frequency.hourly'  => ['class' => 'select-frequency'],
+                'user.notifications.form.frequency.dayly'   => ['class' => 'select-frequency'],
+                'user.notifications.form.frequency.weekly'  => ['class' => 'select-frequency'],
+                'user.notifications.form.frequency.monthly' => ['class' => 'select-frequency'],
+            ],
             'expanded' => true,
             'multiple' => false,
         ])
@@ -76,13 +86,38 @@ class EmailNotificationPreferenceType extends AbstractType
                 'multiple'     => false,
                 'block_prefix' => 'wrapped_choice',
             ])
-            ->add('day', DailyNotificationType::class, ['mapped' => false])
-            ->add('week', WeeklyNotificationType::class, ['mapped' => false])
+            ->add('day', ChoiceType::class, [
+                'label'        => 'à',
+                'required'     => true,
+                'choices'      => [
+                    'Lundi' => 1,
+                    'Mardi' => 2,
+                    'Mercredi' => 3,
+                    'Jeudi' => 4,
+                    'Vendredi' => 5,
+                    'Samedi' => 6,
+                    'Dimanche' => 7,
+                ],
+                'expanded'     => false,
+                'multiple'     => false,
+                'block_prefix' => 'wrapped_choice',
+            ])
+            ->add('week', ChoiceType::class, [
+                'label'        => '',
+                'required'     => true,
+                'choices'      => [
+                    'Premier' => 1,
+                    'Second' => 2,
+                    'Troisième' => 3,
+                    'Quatrième' => 4,
+                ],
+                'expanded'     => false,
+                'multiple'     => false,
+                'block_prefix' => 'wrapped_choice',
+            ])
 
-            ->add('month', MonthlyNotificationType::class, ['mapped' => false])
-
-            ->add('modules',ChoiceType::class, [
-                'mapped' => false,
+            ->add('notificationMask',ChoiceType::class, [
+                'mapped' => true,
                 'label'        => false,
                 'required'     => false,
                 'choices'      => $modules,
@@ -90,69 +125,32 @@ class EmailNotificationPreferenceType extends AbstractType
                 'multiple'     => true,
                 'block_prefix' => 'wrapped_choice',
             ])
-            ->addEventListener(
-                FormEvents::PRE_SUBMIT,
-                [$this, 'onPreSubmit']
-            )
-            ->addEventListener(
-                FormEvents::POST_SUBMIT,
-                [$this, 'onPostSubmit']
-            )
             ;
+
+
+        $builder->get('notificationMask')->addModelTransformer(new CallbackTransformer(
+            function ($mask) {
+                // transform the bitmask to an array
+                $modules = EmailNotificationPreference::MODULES;
+
+                $ret = [];
+                foreach ($modules as $k=>$module) {
+                    if ($module & $mask) {
+                        $ret[$k] = $module;
+                    }
+                }
+                return $ret;
+            },
+            function ($modules) {
+                // transform the array to a bitmask
+                return array_reduce($modules, function($car, $el) {
+                    return $car | (int)$el;
+                }, 0);
+            }
+        ));
     }
 
-    public function onPostSubmit(FormEvent $event): void
-    {
-        /**
-         * @var EmailNotificationPreference $data
-         */
-        $data = $event->getData();
-        $form = $event->getForm();
-        $mod = $form->get('modules');
-        if (isset($mod)) {
-            $notificationMask = array_reduce($mod->getNormData(), function($car, $el) {
-                return $car | (int)$el;
-            }, 0);
 
-            $data->setNotificationMask($notificationMask);
-        }
-
-        $event->setData($data);
-    }
-    public function onPreSubmit(FormEvent $event): void
-    {
-        $data = $event->getData();
-
-        if ($data['frequency'] === 'month') {
-            $data['hour'] = $data['month']['hour'];
-            $data['day'] = $data['month']['day'];
-            $data['week'] = $data['month']['week'];
-            unset($data['month']);
-        } else if ($data['frequency'] === 'week') {
-            $data['hour'] = $data['week']['hour'];
-            $data['day'] = $data['week']['day'];
-            unset($data['week']);
-            unset($data['month']);
-        }else if ($data['frequency'] === 'day') {
-            $data['hour'] = (int)$data['day']['hour'];
-            unset($data['week']);
-            unset($data['month']);
-            unset($data['day']);
-        }else if ($data['frequency'] === 'hour') {
-            unset($data['week']);
-            unset($data['month']);
-            unset($data['day']);
-        } else {
-            unset($data['week']);
-            unset($data['month']);
-            unset($data['day']);
-            unset($data['hour']);
-        }
-
-
-
-        $event->setData($data);
-    }
 
     /**
      * Provide type options.

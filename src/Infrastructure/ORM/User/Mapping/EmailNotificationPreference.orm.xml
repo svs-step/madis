@@ -9,7 +9,7 @@
     <entity name="App\Domain\User\Model\EmailNotificationPreference" table="user_notification_preference">
 
         <id name="id" column="id" type="uuid"/>
-        <one-to-one field="user" target-entity="App\Domain\User\Model\User" mapped-by="user" />
+        <one-to-one field="user" target-entity="App\Domain\User\Model\User" mapped-by="emailNotificationPreference" />
 
 
         <field name="frequency" column="frequency" type="string"/>
