@@ -232,6 +232,7 @@ class TreatmentController extends CRUDController
             [
                 'collectivity'  => $collectivity,
                 'public'        => 1,
+                'active'            => 1,
             ],
             [
                 'name' => 'ASC',
