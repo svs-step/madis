@@ -9,6 +9,7 @@ use App\Domain\Registry\Controller\ConformiteTraitementController;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -17,6 +18,8 @@ use Symfony\Component\Security\Core\Security;
 
 class AccessModuleConformiteSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var Security
      */

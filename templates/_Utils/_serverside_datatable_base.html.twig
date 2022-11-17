@@ -5,6 +5,10 @@
 <script src="//cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
 <script src="//cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+
+
 <script>
     // Define our used dates formats
     $.fn.dataTable.moment('DD/MM/YYYY');
@@ -72,8 +76,86 @@
             recordsFiltered:  totalItem,
             recordsTotal:  totalItem,
             dom: "Bfrtip",
+            stateSave: true,
         }) %}
-        $('#table').DataTable({{ dataTableOptions|json_encode|raw }});
+
+        var options = {{ dataTableOptions|json_encode|raw }}
+
+        if (options.addcheckbox) {
+            options.columnDefs = [{
+                targets: 0,
+                searchable: false,
+                orderable: false,
+                className: 'dt-body-center',
+                render: cbColRenderFunction,
+            }];
+
+            delete options.addcheckbox;
+        }
+
+        var fullData = [];
+
+        var strip = function ( str ) {
+            if ( typeof str !== 'string' ) {
+                return str;
+            }
+
+            // Always remove script tags
+            str = str.replace( /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '' );
+
+            // Always remove comments
+            str = str.replace( /<!\-\-.*?\-\->/g, '' );
+
+            str = str.replace( /<[^>]*>/g, '' );
+
+            str = str.replace( /^\s+|\s+$/g, '' );
+
+            str = str.replace( /\n/g, ' ' );
+
+
+            return str;
+        };
+
+        function getFullData(params) {
+            console.log('params', params)
+            params.start = 0;
+            params.length = 1000000;
+            var jsonResult = $.ajax({
+                method:'post',
+                url: '{{ route }}',
+                data: params,
+                success: function (result) {},
+                async: false
+            });
+            var exportBody = jsonResult.responseJSON.data;
+            var colNames = params.columns.map(function(c) { return c. data }).filter(i => i !== 'actions')
+            console.log('colNames', colNames)
+            return exportBody.map(function (el) {
+                return colNames.map(function (key) {
+                    return strip(el[key])
+                });
+            });
+        }
+        
+        try {
+            (options.buttons[1].exportOptions.customizeData = function(d) {
+                var api = $('#table').DataTable();
+
+                var visible = api.columns().visible();
+                console.log('api.ajax', api.ajax.params())
+                var params = api.ajax.params();
+                params.columns = params.columns.filter(function(c, i) { return visible[i] })
+                var exportBody = getFullData(params);
+
+                console.log('full data', exportBody)
+                d.body.length = 0;
+                d.body.push.apply(d.body, exportBody);
+            })
+        } catch { }
+
+        console.log('datatable options', options);
+
+        $('#table').DataTable(options);
 
         $('.dt-buttons').append('<button id="button-reset" class="dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="table" type="button" aria-haspopup="true" aria-expanded="false"><span>Réinitialiser les filtres</span></button>');
 

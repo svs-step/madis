@@ -7,9 +7,13 @@ aipd:
         title:
             create: Créer un modèle
             edit: Modifier un modèle
-            list: Liste des modèles d'analyse  
+            delete: Supprimer un modèle
+            list: Liste des modèles d'analyse
             rights: Modifier les droits
             import: Importer un modèle
+        delete:
+            subtitle: Modèle d'analyse %name%
+            confirmation: Souhaitez vous vraiment supprimer le modèle d'analyse %name% ?
         list:
             description: Description
             name: Nom du modèle d'analyse d'impact
@@ -45,6 +49,7 @@ aipd:
         list:
             detail: Détail
             nom: Nom de la mesure
+            title: Mesures de protection
             nom_court: Nom court
             poids_vraisemblance: Poids de la vraisemblance
             poids_gravite: Poids de la gravité
@@ -84,6 +89,7 @@ aipd:
         title:
             list: Analyses d'impacts
             create: Réaliser une AIPD
+            edit: Modifier une AIPD
             delete: Supprimer une AIPD
             evaluation: Évaluer une AIPD
             validation: Valider une AIPD
@@ -103,6 +109,7 @@ aipd:
             defavorable: Défavorable
             favorable_avec_reserves: Favorable avec réserves
             favorable: Favorable
+            non_favorable: Défavorable
             evaluation:
                 grands_domaines: Évaluation des principes fondamentaux
                 mesures_securites: Évaluation des mesures de sécurité
@@ -112,9 +119,8 @@ aipd:
                 gestion_risques: Gestion des risques
     critere_principe_fondamental:
         table:
-            label: Label
+            label: Description
             reponse: Réponse
             justification: Justification
             fichier: Joindre un fichier
             conformite: Conformité
-

@@ -58,7 +58,12 @@
                             {{ 'registry.request.action.archived'|trans }}
                         </a>
                     {% endif %}
-
+                    {% if category and category.documents|length > 0 %}
+                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                            <i class="far fa-file"></i>
+                            {{ 'documentation.document.link.button'|trans }}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
 
@@ -71,9 +76,11 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>
-                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
-                            </th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                                </th>
+                            {% endif %}
                             <th>
                                 <input class="form-control" type="text" id="search_personne_concernee" placeholder="Personne" style="width: 100%;">
                             </th>
@@ -122,7 +129,9 @@
                             </th>
                         </tr>
                         <tr>
-                            <th>{{ 'registry.request.list.collectivity'|trans }}</th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>{{ 'registry.request.list.collectivity'|trans }}</th>
+                            {% endif %}
                             <th>{{ 'registry.request.list.concerned_people'|trans }}</th>
                             <th>{{ 'registry.request.list.date'|trans }}</th>
                             <th>{{ 'registry.request.list.object'|trans }}</th>
@@ -153,8 +162,20 @@
         {% set collectiviteClassname = "" %}
     {% endif %}
 
-    {% set dataTableOptions = {
-        columns: [
+    {% set cols = [
+        {"data": "personne_concernee"},
+        {"data": "date_demande"},
+        {"data": "objet_demande"},
+        {"data": "demande_complete"},
+        {"data": "demandeur_legitime"},
+        {"data": "demande_legitime"},
+        {"data": "date_traitement", "orderable": true, 'type': 'date'},
+        {"data": "etat_demande"},
+        {"data": "actions", "visible": actionsIsVisible, "className": "noVis", "orderable": false},
+    ] %}
+
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set cols = [
             {"data": "collectivite", "visible": collectiviteIsVisible, "className": collectiviteClassname},
             {"data": "personne_concernee"},
             {"data": "date_demande"},
@@ -162,10 +183,14 @@
             {"data": "demande_complete"},
             {"data": "demandeur_legitime"},
             {"data": "demande_legitime"},
-            {"data": "date_traitement"},
+            {"data": "date_traitement", "orderable": true, 'type': 'date'},
             {"data": "etat_demande"},
             {"data": "actions", "visible": actionsIsVisible, "className": "noVis", "orderable": false},
-        ]
+        ] %}
+    {%  endif %}
+
+    {% set dataTableOptions = {
+        columns: cols
     } %}
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
@@ -174,6 +199,10 @@
     <script>
         function setEvents() {
             var oTable = $('#table').DataTable();
+            var col = 0;
+            {% if is_granted('ROLE_REFERENT') %}
+                col = 1;
+            {% endif %}
 
             $('#search_collectivite').off('keyup');
             $('#search_collectivite').keyup($.debounce(250, function(){
@@ -182,42 +211,42 @@
 
             $('#search_personne_concernee').off('keyup');
             $('#search_personne_concernee').keyup($.debounce(250, function(){
-                oTable.column('1').search($(this).val()).draw();
+                oTable.column(col).search($(this).val()).draw();
             }));
 
             $('#search_date_demande').off('change');
             $('#search_date_demande').change(function(){
-                oTable.column('2').search($(this).val()).draw();
+                oTable.column(col + 1).search($(this).val()).draw();
             });
 
             $('#search_objet').off('change');
             $('#search_objet').change(function(){
-                oTable.column('3').search($(this).val()).draw();
+                oTable.column(col + 2).search($(this).val()).draw();
             });
 
             $('#search_complete').off('change');
             $('#search_complete').change(function(){
-                oTable.column('4').search($(this).val()).draw();
+                oTable.column(col + 3).search($(this).val()).draw();
             });
 
             $('#search_demandeur').off('change');
             $('#search_demandeur').change(function(){
-                oTable.column('5').search($(this).val()).draw();
+                oTable.column(col + 4).search($(this).val()).draw();
             });
 
             $('#search_legitime').off('change');
             $('#search_legitime').change(function(){
-                oTable.column('6').search($(this).val()).draw();
+                oTable.column(col + 5).search($(this).val()).draw();
             });
 
             $('#search_date_traitement').off('change');
             $('#search_date_traitement').change(function(){
-                oTable.column('7').search($(this).val()).draw();
+                oTable.column(col + 6).search($(this).val()).draw();
             });
 
             $('#search_etat').off('change');
             $('#search_etat').change(function(){
-                oTable.column('8').search($(this).val()).draw();
+                oTable.column(col + 7).search($(this).val()).draw();
             });
         }
 

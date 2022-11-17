@@ -27,6 +27,9 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Documentation\Model\Category;
+use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
+use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use App\Domain\Registry\Form\Type\TreatmentConfigurationType;
@@ -42,6 +45,7 @@ use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -145,8 +149,13 @@ class TreatmentController extends CRUDController
             $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
         }
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Traitement',
+        ]);
+
         return $this->render('Registry/Treatment/list.html.twig', [
             'totalItem' => $this->repository->count($criteria),
+            'category'  => $category,
             'route'     => $this->router->generate('registry_treatment_list_datatables', ['active' => $criteria['active']]),
         ]);
     }
@@ -357,11 +366,12 @@ class TreatmentController extends CRUDController
             $no  = '<span class="badge bg-orange">' . $this->translator->trans('label.no') . '</span>';
 
             $reponse['data'][] = [
+                'id'                     => $treatment->getId(),
                 'nom'                    => $treatmentLink,
-                'collectivite'           => $treatment->getCollectivity()->getName(),
-                'baseLegal'              => !empty($treatment->getLegalBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : null,
+                'collectivite'           => $this->authorizationChecker->isGranted('ROLE_REFERENT') ? $treatment->getCollectivity()->getName() : '',
+                'baseLegal'              => !empty($treatment->getLegalBasis()) && array_key_exists($treatment->getLegalBasis(), TreatmentLegalBasisDictionary::getBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : $treatment->getLegalBasis(),
                 'logiciel'               => $treatment->getSoftware(),
-                'enTantQue'              => !empty($treatment->getAuthor()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : null,
+                'enTantQue'              => !empty($treatment->getAuthor()) && array_key_exists($treatment->getAuthor(), TreatmentAuthorDictionary::getAuthors()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : $treatment->getAuthor(),
                 'gestionnaire'           => $treatment->getManager(),
                 'sousTraitant'           => $contractors,
                 'controleAcces'          => $treatment->getSecurityAccessControl()->isCheck() ? $yes : $no,
@@ -375,14 +385,72 @@ class TreatmentController extends CRUDController
                 'updatedAt'              => date_format($treatment->getUpdatedAt(), 'd-m-Y H:i:s'),
                 'public'                 => $treatment->getPublic() ? $yes : $no,
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
+                'specific_traitement'    => $this->getSpecificTraitement($treatment),
+                'conformite_traitement'  => $this->getTreatmentConformity($treatment),
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
 
-        $jsonResponse = new JsonResponse();
-        $jsonResponse->setJson(json_encode($reponse));
+        return new JsonResponse($reponse);
+    }
 
-        return $jsonResponse;
+    private function getTreatmentConformity(Treatment $treatment)
+    {
+        if (!$treatment->getConformiteTraitement()) {
+            return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non évalué</span>';
+        }
+        $conf  = $treatment->getConformiteTraitement();
+        $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conf);
+
+        $weight = ConformiteTraitementLevelDictionary::getConformitesWeight()[$level];
+
+        switch ($weight) {
+            case 1:
+                $label = 'Conforme';
+                $class = 'label-success';
+                break;
+            case 2:
+                $label = 'Non-conforme mineure';
+                $class = 'label-warning';
+                break;
+            default:
+                $label = 'Non-conforme majeure';
+                $class = 'label-danger';
+        }
+
+        return '<span class="label ' . $class . '" style="min-width: 100%; display: inline-block;">' . $label . '</span>';
+    }
+
+    private function getSpecificTraitement(Treatment $treatment)
+    {
+        $user   = $this->userProvider->getAuthenticatedUser();
+        $values = [];
+        if ($treatment->isSystematicMonitoring()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.systematic_monitoring'));
+        }
+        if ($treatment->isLargeScaleCollection()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.large_scale_collection'));
+        }
+        if ($treatment->isVulnerablePeople()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.vulnerable_people'));
+        }
+        if ($treatment->isDataCrossing()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.data_crossing'));
+        }
+        if ($treatment->isEvaluationOrRating()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.evaluation_or_rating'));
+        }
+        if ($treatment->isAutomatedDecisionsWithLegalEffect()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.automated_decisions_with_legal_effect'));
+        }
+        if ($treatment->isAutomaticExclusionService()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.automatic_exclusion_service'));
+        }
+        if ($treatment->isInnovativeUse()) {
+            array_push($values, $this->translator->trans('registry.treatment.show.innovative_use'));
+        }
+
+        return $values;
     }
 
     private function isTreatmentInUserServices(Model\Treatment $treatment): bool
@@ -420,14 +488,175 @@ class TreatmentController extends CRUDController
         return null;
     }
 
+    public function pdfAllAction()
+    {
+        $request = $this->requestStack->getMasterRequest();
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
+
+        $objects = [];
+
+        foreach ($ids as $id) {
+            $treatment = $this->repository->findOneById($id);
+            array_push($objects, $treatment);
+        }
+
+        return new PdfResponse(
+            $this->pdf->getOutputFromHtml(
+                $this->renderView($this->getTemplatingBasePath('pdf_all'), ['objects' => $objects])
+            ),
+            $this->getPdfName((string) 'print') . '.pdf'
+        );
+    }
+
+    /**
+     * The archive action view
+     * Display a confirmation message to confirm data archivation.
+     */
+    public function archiveAllAction(): Response
+    {
+        $request = $this->requestStack->getMasterRequest();
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
+
+        if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('archive_all'), [ // delete_all
+            'ids'               => $ids,
+            'treatment_length'  => count($ids),
+        ]);
+    }
+
+    /**
+     * The archive action
+     * Display a confirmation message to confirm data archived.
+     */
+    public function archiveConfirmationAction(): Response
+    {
+        $request = $this->requestStack->getMasterRequest();
+        $ids     = $request->query->get('ids');
+
+        if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
+            // $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));
+            $this->addFlash('error', 'Vous ne pouvez pas archiver ces traitements');
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        foreach ($ids as $id) {
+            /**
+             * @var Treatment
+             */
+            $treatment = $this->repository->findOneById($id);
+            $user      = $this->getUser();
+            if ($treatment
+                && (
+                    $user instanceof UserModel\User
+                    && $treatment->getCollectivity() === $user->getCollectivity()
+                    && (0 === count($user->getServices()) || in_array($treatment->getService(), $user->getServices()->toArray()))
+                )
+                || $this->authorizationChecker->isGranted('ROLE_REFERENT')
+            ) {
+                $treatment->setActive(false);
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'archive', $treatment));
+            }
+        }
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
+    /**
+     * The delete action view
+     * Display a confirmation message to confirm data deletion.
+     */
+    public function deleteAllAction(): Response
+    {
+        $request = $this->requestStack->getMasterRequest();
+        $ids     = $request->query->get('ids');
+        $ids     = explode(',', $ids);
+
+        if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('delete_all'), [ // delete_all
+            'ids'               => $ids,
+            'treatment_length'  => count($ids),
+        ]);
+    }
+
+    public function deleteConfirmationAllAction(): Response
+    {
+        $request = $this->requestStack->getMasterRequest();
+        $ids     = $request->query->get('ids');
+
+        if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        foreach ($ids as $id) {
+            /**
+             * @var Treatment
+             */
+            $treatment = $this->repository->findOneById($id);
+            $user      = $this->getUser();
+            if ($treatment
+                && (
+                    $user instanceof UserModel\User
+                    && $treatment->getCollectivity() === $user->getCollectivity()
+                    && (0 === count($user->getServices()) || in_array($treatment->getService(), $user->getServices()->toArray()))
+                )
+                || $this->authorizationChecker->isGranted('ROLE_REFERENT')
+            ) {
+                $this->deleteConfirmationAction($id);
+            }
+        }
+
+        return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
     /**
      * {@inheritdoc}
      */
     protected function getLabelAndKeysArray(): array
     {
+        if ($this->authorizationChecker->isGranted('ROLE_REFERENT')) {
+            return [
+                '1'  => 'name',
+                '2'  => 'collectivite',
+                '3'  => 'baseLegal',
+                '4'  => 'logiciel',
+                '5'  => 'enTantQue',
+                '6'  => 'gestionnaire',
+                '7'  => 'sousTraitant',
+                '8'  => 'controleAcces',
+                '9'  => 'tracabilite',
+                '10' => 'saving',
+                '11' => 'other',
+                '12' => 'entitledPersons',
+                '13' => 'openAccounts',
+                '14' => 'specificitiesDelivered',
+                '15' => 'updatedAt',
+                '16' => 'public',
+                '17' => 'update',
+                '18' => 'responsableTraitement',
+                '19' => 'specific_traitement',
+                '20' => 'conformite_traitement',
+                '21' => 'actions',
+            ];
+        }
+
         return [
-            '0'  => 'name',
-            '1'  => 'collectivite',
+            '1'  => 'name',
             '2'  => 'baseLegal',
             '3'  => 'logiciel',
             '4'  => 'enTantQue',
@@ -436,15 +665,17 @@ class TreatmentController extends CRUDController
             '7'  => 'controleAcces',
             '8'  => 'tracabilite',
             '9'  => 'saving',
-            '10' => 'update',
-            '11' => 'other',
-            '12' => 'entitledPersons',
-            '13' => 'openAccounts',
-            '14' => 'specificitiesDelivered',
-            '15' => 'updatedAt',
-            '16' => 'public',
+            '10' => 'other',
+            '11' => 'entitledPersons',
+            '12' => 'openAccounts',
+            '13' => 'specificitiesDelivered',
+            '14' => 'updatedAt',
+            '15' => 'public',
+            '16' => 'update',
             '17' => 'responsableTraitement',
-            '18' => 'actions',
+            '18' => 'specific_traitement',
+            '19' => 'conformite_traitement',
+            '20' => 'actions',
         ];
     }
 }

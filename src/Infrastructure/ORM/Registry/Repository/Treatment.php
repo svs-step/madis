@@ -342,6 +342,9 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             case 'specificitiesDelivered':
                 $queryBuilder->addOrderBy('o.securitySpecificitiesDelivered', $orderDir);
                 break;
+            case 'responsableTraitement':
+                $queryBuilder->addOrderBy('o.coordonneesResponsableTraitement', $orderDir);
+                break;
             case 'updatedAt':
                 $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
                 break;
@@ -360,7 +363,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                         ->setParameter('nom', '%' . $search . '%');
                     break;
                 case 'baseLegal':
-                    $this->addWhereClause($queryBuilder, 'legalBasis', $search);
+                    $this->addWhereClause($queryBuilder, 'legalBasis', json_encode($search));
                     break;
                 case 'logiciel':
                     $this->addWhereClause($queryBuilder, 'software', '%' . $search . '%', 'LIKE');
@@ -420,6 +423,17 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     break;
             }
         }
+    }
+
+    public function resetClonedFromCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->leftJoin('o.clonedFrom', 'c')
+            ->andWhere('c.collectivity = :collectivity')
+            ->setParameter('collectivity', $collectivity);
+
+        $qb->update(['o.clonedFrom' => null]);
     }
 
     public function findAllByClonedFromCollectivity(Collectivity $collectivity)

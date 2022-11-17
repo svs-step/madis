@@ -29,11 +29,14 @@ use App\Domain\Reporting\Model\LogJournal;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Routing\RouterInterface;
 
 class LogJournalLinkGeneratorTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var RouterInterface
      */
@@ -49,7 +52,7 @@ class LogJournalLinkGeneratorTest extends TestCase
      */
     private $entityManager;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->router           = $this->prophesize(RouterInterface::class);
         $this->entityManager    = $this->prophesize(EntityManagerInterface::class);

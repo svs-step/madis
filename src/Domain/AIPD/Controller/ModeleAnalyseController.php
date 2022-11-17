@@ -18,6 +18,7 @@ use App\Domain\AIPD\Repository;
 use App\Domain\Registry\Repository\ConformiteTraitement\Question;
 use App\Domain\User\Repository\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
+use Gaufrette\Exception\FileNotFound;
 use Gaufrette\FilesystemInterface;
 use JMS\Serializer\SerializerBuilder;
 use Knp\Snappy\Pdf;
@@ -111,9 +112,27 @@ class ModeleAnalyseController extends CRUDController
         }
 
         foreach ($object->getCriterePrincipeFondamentaux() as $criterePrincipeFondamental) {
+            $deleteFile = $criterePrincipeFondamental->isDeleteFile();
+
+            if ($deleteFile) {
+                //Remove existing file
+                try {
+                    $this->fichierFilesystem->delete($criterePrincipeFondamental->getFichier());
+                } catch (FileNotFound $e) {
+                }
+
+                $criterePrincipeFondamental->setFichier(null);
+            }
+
             $file = $criterePrincipeFondamental->getFichierFile();
 
             if ($file) {
+                if (null !== $existing = $criterePrincipeFondamental->getFichier()) {
+                    try {
+                        $this->fichierFilesystem->delete($existing);
+                    } catch (FileNotFound $e) {
+                    }
+                }
                 $filename = Uuid::uuid4()->toString() . '.' . $file->getClientOriginalExtension();
                 $this->fichierFilesystem->write($filename, \fopen($file->getRealPath(), 'r'));
                 $criterePrincipeFondamental->setFichier($filename);
@@ -255,8 +274,10 @@ class ModeleAnalyseController extends CRUDController
             ];
         }
 
-        $jsonResponse = new JsonResponse();
-        $jsonResponse->setJson(json_encode($reponse));
+        $reponse['recordsTotal']    = count($reponse['data']);
+        $reponse['recordsFiltered'] = count($reponse['data']);
+
+        $jsonResponse = new JsonResponse($reponse);
 
         return $jsonResponse;
     }
@@ -278,10 +299,6 @@ class ModeleAnalyseController extends CRUDController
             '<a href="' . $this->router->generate('aipd_modele_analyse_edit', ['id' => $id]) . '">
                 <i class="fa fa-pencil-alt"></i>'
                 . $this->translator->trans('action.edit') .
-            '</a>
-            <a href="' . $this->router->generate('aipd_modele_analyse_duplicate', ['id' => $id]) . '">
-                <i class="fa fa-clone"></i>'
-                . $this->translator->trans('action.duplicate') .
             '</a>'
             . $htmltoReturnIfAdmin .
             '<a href="' . $this->router->generate('aipd_modele_analyse_export', ['id' => $id]) . '">
@@ -338,6 +355,7 @@ class ModeleAnalyseController extends CRUDController
             $serializer = SerializerBuilder::create()->build();
             $object     = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
             $object->deserialize();
+            $object->setNom('(import) ' . $object->getNom());
             $this->entityManager->persist($object);
             $this->entityManager->flush();
             $this->addFlash('success', $this->getFlashbagMessage('success', 'import', $object));

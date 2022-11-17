@@ -7,6 +7,8 @@
                             https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
     <entity name="App\Domain\AIPD\Model\AnalyseScenarioMenace" table="aipd_analyse_scenario_menace">
         <field name="canDicBeModified" column="can_be_modified" type="boolean" />
+        <field name="canVraisemblanceBeModified" column="can_vraisemblance_be_modified" type="boolean" />
+        <field name="canGraviteBeModified" column="can_gravite_be_modified" type="boolean" />
 
         <many-to-one field="analyseImpact" target-entity="App\Domain\AIPD\Model\AnalyseImpact" inversed-by="scenarioMenaces"/>
 

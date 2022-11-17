@@ -6,11 +6,11 @@ namespace App\Domain\AIPD\Model;
 
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\AIPD\Dictionary\StatutAnalyseImpactDictionary;
+use App\Domain\Registry\Exception\QuestionConformiteNotFoundException;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AnalyseImpact
 {
@@ -30,6 +30,12 @@ class AnalyseImpact
      * we store only the name of the ModeleAnalyse for information purposes.
      */
     private string $modeleAnalyse;
+
+    private string $labelAmeliorationPrevue;
+
+    private string $labelInsatisfaisant;
+
+    private string $labelSatisfaisant;
 
     /**
      * @var array|CriterePrincipeFondamental[]
@@ -126,7 +132,7 @@ class AnalyseImpact
             }
         }
 
-        throw new NotFoundHttpException('No critere with code ' . $code . ' has been found.');
+        return null;
     }
 
     public function setCriterePrincipeFondamentaux($criterePrincipeFondamentaux): void
@@ -151,7 +157,10 @@ class AnalyseImpact
         return $res;
     }
 
-    public function getQuestionConformitesOfPosition(int $position)
+    /**
+     * @throws QuestionConformiteNotFoundException
+     */
+    public function getQuestionConformitesOfPosition(int $position): AnalyseQuestionConformite
     {
         foreach ($this->questionConformites as $question) {
             if ($question->getPosition() === $position) {
@@ -159,7 +168,7 @@ class AnalyseImpact
             }
         }
 
-        return null;
+        throw new QuestionConformiteNotFoundException('Question not found at position ' . $position);
     }
 
     public function setQuestionConformites($questionConformites): void
@@ -255,5 +264,35 @@ class AnalyseImpact
     public function getMesureProtections()
     {
         return $this->mesureProtections;
+    }
+
+    public function getLabelAmeliorationPrevue(): string
+    {
+        return $this->labelAmeliorationPrevue;
+    }
+
+    public function setLabelAmeliorationPrevue(string $labelAmeliorationPrevue): void
+    {
+        $this->labelAmeliorationPrevue = $labelAmeliorationPrevue;
+    }
+
+    public function getLabelInsatisfaisant(): string
+    {
+        return $this->labelInsatisfaisant;
+    }
+
+    public function setLabelInsatisfaisant(string $labelInsatisfaisant): void
+    {
+        $this->labelInsatisfaisant = $labelInsatisfaisant;
+    }
+
+    public function getLabelSatisfaisant(): string
+    {
+        return $this->labelSatisfaisant;
+    }
+
+    public function setLabelSatisfaisant(string $labelSatisfaisant): void
+    {
+        $this->labelSatisfaisant = $labelSatisfaisant;
     }
 }

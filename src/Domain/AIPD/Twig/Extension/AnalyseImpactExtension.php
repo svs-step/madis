@@ -37,9 +37,12 @@ class AnalyseImpactExtension extends AbstractExtension
     {
         $reponseConformite = $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getReponseOfPosition($questionAnalyse->getPosition());
         $formattedString   = '';
+        if (!$reponseConformite) {
+            return '<a href="/conformite-traitement/editer/' . $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getId()->toString() . '">Veuillez évaluer à nouveau la conformité du traitement</a>';
+        }
         /** @var Mesurement $actionProtection */
         foreach ($reponseConformite->getActionProtections() as $actionProtection) {
-            $formattedString .= $actionProtection->getName() . ' ';
+            $formattedString .= $actionProtection->getName() . '<br/>';
         }
 
         return $formattedString;
@@ -48,6 +51,9 @@ class AnalyseImpactExtension extends AbstractExtension
     public function getConformiteLabel(AnalyseQuestionConformite $questionAnalyse): string
     {
         $reponseConformite = $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getReponseOfPosition($questionAnalyse->getPosition());
+        if (!$reponseConformite) {
+            return 'Inconnu';
+        }
         if ($reponseConformite->isConforme()) {
             return '<span class="label label-success" style="min-width: 100%; display: inline-block;">Conforme</span>';
         } elseif (!$reponseConformite->getActionProtections()->isEmpty()) {
@@ -92,14 +98,14 @@ class AnalyseImpactExtension extends AbstractExtension
                 $labelColor = 'warning';
                 break;
             case VraisemblanceGraviteDictionary::IMPORTANTE:
-                $labelColor = 'danger';
+                $labelColor = 'default';
                 break;
             default:
                 $labelColor = 'danger';
                 break;
         }
 
-        return '<span class="label label-' . $labelColor . '" style="min-width: 100%; display: inline-block;">' . VraisemblanceGraviteDictionary::getMasculineValues()[$impact] . '</span>';
+        return '<span class="label label-' . $labelColor . '" style="min-width: 100%; display: inline-block;' . ('default' == $labelColor ? 'background:#605CA8; color:white;' : '') . '">' . VraisemblanceGraviteDictionary::getMasculineValues()[$impact] . '</span>';
     }
 
     public function getScenarioMenaceIndicateurResiduel(AnalyseScenarioMenace $scenarioMenace, string $poidsType)

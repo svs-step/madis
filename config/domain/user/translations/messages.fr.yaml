@@ -149,7 +149,10 @@ user:
             forget_password: Mot de passe oublié
             forget_password_confirm: Mot de passe oublié
             login: Connexion
+            locked: Compte bloqué
             reset_password: Réinitialisation de mot de passe
+        locked:
+            message: Votre compte a été bloqué suite à de trop nombreuses tentatives de connexion. Veuillez contacter votre administrateur.
 
     user:
         action:

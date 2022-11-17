@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'documentation_category form create' %}
+{% set menuItem = 'documentation_category' %}
+
+{% block title %}{{ 'documentation.category.title.create'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'documentation.category.title.create'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'documentation.category.breadcrumb.list'|trans, 'link': path('documentation_category_list') },
+        { 'name': 'documentation.category.breadcrumb.create'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('Documentation/Category/_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,4 @@
+_notification:
+    resource: 'notification.yaml'
+    prefix:   '/notifications'
+

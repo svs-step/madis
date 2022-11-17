@@ -369,4 +369,43 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             ->getResult()
             ;
     }
+
+    public function getPlanifiedActionsDashBoard($limit=1000, Collectivity $collectivity = null)
+    {
+        // Add old actions again.
+        // Fixes https://gitlab.adullact.net/soluris/madis/-/issues/529
+        //$date         = new \DateTime();
+        $queryBuilder   = $this->createQueryBuilder();
+        $expr           = $queryBuilder->expr();
+        $queryBuilder->select('u')
+            ->from(Model\Mesurement::class, 'u')
+            ->where($expr->neq('u.status', $expr->literal('not-applicable')))
+            ->orderBy('u.planificationDate', 'DESC')
+        ;
+
+        if ($collectivity) {
+            $queryBuilder
+                ->andWhere('u.collectivity = :collectivity')
+                ->setParameter('collectivity', $collectivity)
+            ;
+        }
+
+        $query = $queryBuilder
+            ->groupBy('u.id')
+            ->setMaxResults((int) $limit)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    public function resetClonedFromCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->leftJoin('o.clonedFrom', 'c')
+            ->andWhere('c.collectivity = :collectivity')
+            ->setParameter('collectivity', $collectivity);
+
+        $qb->update(['o.clonedFrom' => null]);
+    }
 }

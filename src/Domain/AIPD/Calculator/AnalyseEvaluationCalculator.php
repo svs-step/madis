@@ -29,11 +29,11 @@ class AnalyseEvaluationCalculator
     private static function getImpactFromGraviteAndVraisemblance($gravite, $vraisemblance)
     {
         $value = 1;
-        if ($gravite >= 2 && $vraisemblance >= 2) {
+        if ($gravite > 2 && $vraisemblance > 2) {
             $value = 4;
-        } elseif ($gravite >= 2 && $vraisemblance < 2) {
+        } elseif ($gravite > 2 && $vraisemblance <= 2) {
             $value = 3;
-        } elseif ($gravite < 2 && $vraisemblance >= 2) {
+        } elseif ($gravite <= 2 && $vraisemblance > 2) {
             $value = 2;
         }
 
@@ -57,12 +57,12 @@ class AnalyseEvaluationCalculator
             return $value->getPoidsVraisemblance();
         }, $scenarioMenace->getMesuresProtections()->toArray());
         $sommePoids         = array_sum($s);
-        $sommePoidsPonderes = array_sum(array_map(function ($value) use ($poidsType) {
+        $sommePoidsPonderes = array_sum(array_map(function ($value) use ($poidsType, $scenarioMenace) {
             if ('gravite' === $poidsType) {
-                return $value->getPoidsGravite() * ReponseMesureProtectionDictionary::getPoidsIndexFromReponse($value->getReponse());
+                return $value->getPoidsGravite() * ReponseMesureProtectionDictionary::getPoidsIndexFromReponse($value->getReponse(), $scenarioMenace->getAnalyseImpact());
             }
 
-            return $value->getPoidsVraisemblance() * ReponseMesureProtectionDictionary::getPoidsIndexFromReponse($value->getReponse());
+            return $value->getPoidsVraisemblance() * ReponseMesureProtectionDictionary::getPoidsIndexFromReponse($value->getReponse(), $scenarioMenace->getAnalyseImpact());
         }, $scenarioMenace->getMesuresProtections()->toArray()));
 
         $indicateurResiduel = max($indicateurPotentiel - ($indicateurPotentiel * ($sommePoidsPonderes / $sommePoids)), 0.25);

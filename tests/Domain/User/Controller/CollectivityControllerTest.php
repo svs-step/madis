@@ -36,6 +36,7 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Routing\RouterInterface;
@@ -47,6 +48,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class CollectivityControllerTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var Security|ObjectProphecy
@@ -63,7 +65,7 @@ class CollectivityControllerTest extends TestCase
      */
     private $controller;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->security   = $this->prophesize(Security::class);
         $this->repository = $this->prophesize(Repository\Collectivity::class);

@@ -4,6 +4,7 @@ namespace App\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Form\Type\ConformiteOrganisation\EvaluationPiloteType;
 use App\Domain\Registry\Form\Type\ConformiteOrganisation\EvaluationType;
 use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
@@ -154,8 +155,13 @@ class ConformiteOrganisationController extends CRUDController
             $evaluations  = $this->repository->findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate($collectivities);
         }
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => "Conformité de l'organisation",
+        ]);
+
         return $this->render($this->getTemplatingBasePath('list'), [
             'evaluations' => $evaluations,
+            'category'    => $category,
             'form'        => $form,
         ]);
     }

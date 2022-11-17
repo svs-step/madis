@@ -39,6 +39,7 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -48,6 +49,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ConformiteTraitementControllerTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var EntityManagerInterface
@@ -119,7 +121,7 @@ class ConformiteTraitementControllerTest extends TestCase
      */
     private $router;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
         $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);

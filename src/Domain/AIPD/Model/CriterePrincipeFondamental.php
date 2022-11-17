@@ -31,9 +31,9 @@ class CriterePrincipeFondamental
     private string $texteNonConformite;
     private string $texteNonApplicable;
     private ?string $justification;
-    private ?string $fichier;
-    private ?UploadedFile $fichierFile = null;
-    private $canBeModified             = true;
+    private ?string $fichier                = null;
+    private ?UploadedFile $fichierFile      = null;
+    private bool $canBeModified             = true;
 
     /**
      * @Serializer\Exclude
@@ -44,6 +44,8 @@ class CriterePrincipeFondamental
      * @Serializer\Exclude
      */
     private ?AnalyseImpact $analyseImpact;
+
+    protected bool $deleteFile = false;
 
     public function __construct(string $label = null, string $code = null)
     {
@@ -209,5 +211,15 @@ class CriterePrincipeFondamental
     public function setCanBeModified(bool $canBeModified): void
     {
         $this->canBeModified = $canBeModified;
+    }
+
+    public function isDeleteFile(): bool
+    {
+        return $this->deleteFile;
+    }
+
+    public function setDeleteFile(bool $deleteFile): void
+    {
+        $this->deleteFile = $deleteFile;
     }
 }

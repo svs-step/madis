@@ -7,7 +7,7 @@ tu: ## Run unit tests
 	$(QA) vendor/bin/phpunit
 
 tu-report: ## Run unit tests
-	$(QA) phpdbg -d memory_limit=-1 -qrr ./vendor/bin/phpunit --coverage-text --coverage-html var/artefacts/coverage/
+	$(QA) phpdbg -d memory_limit=-1 -qrr ./vendor/bin/phpunit --coverage-text --colors=never --coverage-html $(ARTEFACTS)/coverage/
 
 .PHONY: tu tu-report
 
@@ -15,8 +15,7 @@ tu-report: ## Run unit tests
 ## Quality assurance
 ## -----------------
 ##
-
-QA        = docker run --rm -v `pwd`:/project mykiwi/phaudit:7.4
+QA        = docker run --rm --workdir=`pwd` -v `pwd`:`pwd` mykiwi/phaudit:7.4
 ARTEFACTS = var/artefacts
 
 lint: ## Lints twig and yaml files
@@ -60,10 +59,10 @@ phpmetrics: ## PhpMetrics (http://www.phpmetrics.org)
 	$(QA) phpmetrics --report-html=$(ARTEFACTS)/phpmetrics --exclude=migrations .
 
 php-cs-fixer: ## php-cs-fixer (http://cs.sensiolabs.org)
-	$(QA) php-cs-fixer fix --config=.php_cs.dist --dry-run --using-cache=no --verbose --diff
+	$(QA) php-cs-fixer fix --config=.php_cs.dist --dry-run --using-cache=no --verbose --diff --stop-on-violation
 
 apply-php-cs-fixer: ## apply php-cs-fixer fixes
-	$(QA) php-cs-fixer fix --using-cache=no --verbose --diff
+	$(QA) php-cs-fixer fix --config=.php_cs.dist --using-cache=no --verbose --diff
 
 phpstan: ## PHP Static Analysis Tool (https://github.com/phpstan/phpstan)
 	$(QA) phpstan analyse -c phpstan.neon -l2 src

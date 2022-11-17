@@ -64,3 +64,11 @@ App\Domain\Registry\Model\Treatment:
             - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
                   name: 'registry_treatment_ultimate_fate'
                   groups: ['default']
+        dpoMessage:
+            - Length:
+                  max: 255
+                  groups: [ 'default' ]
+        otherCollectingMethod:
+            - Length:
+                  max: 255
+                  groups: [ 'default' ]

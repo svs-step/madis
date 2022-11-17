@@ -34,7 +34,7 @@ class FooCsvGeneratorTest extends TestCase
      */
     private $generator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->generator = new FooCsvGenerator();
     }

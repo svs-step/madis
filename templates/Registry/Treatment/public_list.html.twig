@@ -1,4 +1,4 @@
-{% extends 'base_public.html.twig' %}
+{% extends 'base_publique.html.twig' %}
 
 {% set bodyClass = 'registry_treatment list' %}
 {% set menuItem = 'registry_treatment' %}
@@ -12,7 +12,7 @@
 
  {% block body_head %}
     <h1>
-        {{ 'registry.treatment.title.list'|trans }}
+        {{ 'registry.treatment.title.list'|trans }} - {{ collectivity }}
         <small>
             {% if app.request.query.get('active') == 'false' %}
                 {{ 'label.inactive'|trans }}
@@ -24,7 +24,7 @@
 {% endblock %}
 
 {% block body %}
- 
+
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
@@ -50,6 +50,9 @@
                                     </td>
                                 </tr>
                             {% endfor %}
+                            {% if objects is empty %}
+                            <tr> Aucun traitement public</tr>
+                            {% endif %}
                         </tbody>
                     </table>
                 </div>

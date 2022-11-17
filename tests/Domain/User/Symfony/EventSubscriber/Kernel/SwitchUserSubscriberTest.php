@@ -34,6 +34,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,6 +45,7 @@ use Symfony\Component\Security\Http\SecurityEvents;
 class SwitchUserSubscriberTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var Security|ObjectProphecy
@@ -65,7 +67,7 @@ class SwitchUserSubscriberTest extends TestCase
      */
     private $subscriber;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->security       = $this->prophesize(Security::class);
         $this->entityManager  = $this->prophesize(EntityManagerInterface::class);

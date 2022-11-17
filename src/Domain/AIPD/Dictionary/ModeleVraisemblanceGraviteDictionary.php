@@ -15,9 +15,9 @@ class ModeleVraisemblanceGraviteDictionary extends VraisemblanceGraviteDictionar
 
     public static function getVraisemblanceGravite(): array
     {
-        $array             = parent::getVraisemblanceGravite();
         $array[self::VIDE] = 'Pas de réponse';
+        $result            = array_merge($array, parent::getVraisemblanceGravite());
 
-        return $array;
+        return $result;
     }
 }

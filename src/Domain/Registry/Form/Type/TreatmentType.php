@@ -52,11 +52,7 @@ class TreatmentType extends AbstractType
      * @var Security
      */
     private $security;
-
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    private $authorizationChecker;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
     public function __construct(Security $security, AuthorizationCheckerInterface $authorizationChecker)
     {
@@ -344,7 +340,18 @@ class TreatmentType extends AbstractType
                 'required'    => false,
                 'placeholder' => 'placeholder.precision',
             ])
+            ->add('otherCollectingMethod', TextType::class, [
+                'label'       => 'registry.treatment.form.otherCollectingMethod',
+                'required'    => false,
+            ])
         ;
+
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')) {
+            $builder->add('dpoMessage', TextAreaType::class, [
+                'label'    => 'registry.treatment.form.dpoMessage',
+                'required' => false,
+            ]);
+        }
 
         // Check if services are enabled for the collectivity's treatment
         if ($options['data']->getCollectivity()->getIsServicesEnabled()) {
@@ -361,14 +368,17 @@ class TreatmentType extends AbstractType
                         ->where('s.collectivity = :collectivity')
                         ->setParameter(':collectivity', $collectivity)
                         ;
-                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && empty($authenticatedUser->getServices())) {
+
+                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && ($authenticatedUser->getServices()->getValues())) {
                             $qb->leftJoin('s.users', 'users')
                                 ->andWhere('users.id = :id')
                                 ->setParameter('id', $authenticatedUser->getId())
                             ;
                         }
+
                         $qb
                         ->orderBy('s.name', 'ASC');
+                        //dd($qb);
 
                         return $qb;
                     }

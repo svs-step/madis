@@ -18,6 +18,9 @@ class ModeleAnalyse
 {
     use HistoryTrait;
 
+    /**
+     * @Serializer\Exclude
+     */
     private ?UuidInterface $id;
 
     private string $nom;
@@ -103,9 +106,15 @@ class ModeleAnalyse
     public function deserialize(): void
     {
         $this->id = Uuid::uuid4();
+
         foreach ($this->scenarioMenaces as $scenario) {
             $scenario->deserialize();
             $scenario->setModeleAnalyse($this);
+            foreach ($scenario->getMesuresProtections() as $mesure) {
+                $mesure->addScenarioMenace($scenario);
+            }
+
+            $scenario->setMesuresProtections([]);
         }
         foreach ($this->questionConformites as $question) {
             $question->deserialize();
@@ -128,8 +137,8 @@ class ModeleAnalyse
             return '';
         }
 
-        if (\mb_strlen($this->getNom()) > 50) {
-            return \mb_substr($this->getNom(), 0, 50) . '...';
+        if (\mb_strlen($this->getNom()) > 85) {
+            return \mb_substr($this->getNom(), 0, 85) . '...';
         }
 
         return $this->getNom();

@@ -13,18 +13,24 @@
         <field name="conforme" type="boolean"/>
 
         <many-to-one field="question" target-entity="App\Domain\Registry\Model\ConformiteTraitement\Question"/>
-        <many-to-one field="conformiteTraitement" target-entity="App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement" inversed-by="reponses" fetch="EAGER"/>
-        <one-to-many field="analyseQuestionsConformites" target-entity="App\Domain\AIPD\Model\AnalyseQuestionConformite" mapped-by="reponseConformite"/>
+        <many-to-one field="conformiteTraitement" target-entity="App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement" inversed-by="reponses" fetch="EAGER">
+            <join-column on-delete="CASCADE" />
+        </many-to-one>
+        <one-to-many field="analyseQuestionsConformites" target-entity="App\Domain\AIPD\Model\AnalyseQuestionConformite" mapped-by="reponseConformite">
+            <cascade>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
         <many-to-many field="actionProtections" target-entity="App\Domain\Registry\Model\Mesurement" inversed-by="conformiteTraitementReponses">
             <join-table name="conformite_traitement_reponse_action_protection">
-                <join-columns><join-column/></join-columns>
-                <inverse-join-columns><join-column/></inverse-join-columns>
+                <join-columns><join-column on-delete="CASCADE"/></join-columns>
+                <inverse-join-columns><join-column on-delete="CASCADE"/></inverse-join-columns>
             </join-table>
         </many-to-many>
         <many-to-many field="actionProtectionsPlanifiedNotSeens" target-entity="App\Domain\Registry\Model\Mesurement">
             <join-table name="conformite_traitement_reponse_action_protection_not_seen">
-                <join-columns><join-column/></join-columns>
-                <inverse-join-columns><join-column/></inverse-join-columns>
+                <join-columns><join-column on-delete="CASCADE"/></join-columns>
+                <inverse-join-columns><join-column on-delete="CASCADE"/></inverse-join-columns>
             </join-table>
         </many-to-many>
     </entity>

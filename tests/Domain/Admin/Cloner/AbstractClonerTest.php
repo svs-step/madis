@@ -34,12 +34,15 @@ use App\Domain\User\Model as UserModel;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Class AbstractClonerTest.
  */
 class AbstractClonerTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var EntityManagerInterface
      */

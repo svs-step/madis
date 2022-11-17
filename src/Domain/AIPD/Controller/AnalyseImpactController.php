@@ -13,10 +13,13 @@ use App\Domain\AIPD\Form\Type\AnalyseAvisType;
 use App\Domain\AIPD\Form\Type\AnalyseImpactType;
 use App\Domain\AIPD\Model\AnalyseAvis;
 use App\Domain\AIPD\Model\AnalyseImpact;
+use App\Domain\AIPD\Model\AnalyseScenarioMenace;
+use App\Domain\AIPD\Model\CriterePrincipeFondamental;
 use App\Domain\AIPD\Repository;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Persistence\ManagerRegistry;
 use Gaufrette\Filesystem;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
@@ -29,6 +32,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -102,6 +106,7 @@ class AnalyseImpactController extends CRUDController
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $criteria['collectivity']  = $user->getCollectivity();
         }
+
         $analyses = $this->getResults($request, $criteria);
         $response = $this->getBaseDataTablesResponse($request, $analyses);
 
@@ -121,10 +126,7 @@ class AnalyseImpactController extends CRUDController
             ];
         }
 
-        $jsonResponse = new JsonResponse();
-        $jsonResponse->setJson(json_encode($response));
-
-        return $jsonResponse;
+        return new JsonResponse($response);
     }
 
     protected function getLabelAndKeysArray(): array
@@ -162,7 +164,7 @@ class AnalyseImpactController extends CRUDController
             }
         }
         $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
-        <i class="fa fa-pencil-alt"></i>' .
+        <i class="fa fa-trash"></i>' .
             $this->translator->trans('action.delete') . '
         </a>';
 
@@ -311,11 +313,10 @@ class AnalyseImpactController extends CRUDController
                 ];
             }
         }
+        $reponse['recordsTotal']    = count($reponse['data']);
+        $reponse['recordsFiltered'] = count($reponse['data']);
 
-        $jsonResponse = new JsonResponse();
-        $jsonResponse->setJson(json_encode($reponse));
-
-        return $jsonResponse;
+        return new JsonResponse($reponse);
     }
 
     public function evaluationAction(string $id)
@@ -362,7 +363,7 @@ class AnalyseImpactController extends CRUDController
         ];
     }
 
-    public function printAction(string $id)
+    public function printAction(Request $request, string $id)
     {
         if (null === $object = $this->repository->findOneById($id)) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
@@ -374,10 +375,33 @@ class AnalyseImpactController extends CRUDController
         $this->pdf->setOption('margin-left', '20');
         $this->pdf->setOption('margin-right', '20');
 
+        $slugger  = new AsciiSlugger();
+        $filename = $slugger->slug($object->getConformiteTraitement()->getTraitement()->getName());
+
+        $mesures   = [];
+        $scenarios = $object->getScenarioMenaces();
+
+        foreach ($scenarios as $scenario) {
+            /*
+             * @var AnalyseScenarioMenace
+             */
+            if ('negligeable' !== $scenario->getGravite() || 'vide' !== $scenario->getGravite() || 'negligeable' !== $scenario->getVraisemblance() || 'vide' !== $scenario->getVraisemblance()) {
+                foreach ($scenario->getMesuresProtections() as $mesure) {
+                    if (!array_key_exists($mesure->getNom(), $mesures) && ($mesure->getPoidsGravite() <= 1 || $mesure->getPoidsVraisemblance() <= 1)) {
+                        $mesures[$mesure->getNom()] = $mesure;
+                    }
+                }
+            }
+        }
+
         return new PdfResponse(
             $this->pdf->getOutputFromHtml(
-                $this->renderView($this->getTemplatingBasePath('pdf'), ['object' => $object]), ['javascript-delay' => 1000]),
-            $object->getConformiteTraitement()->getTraitement()->getName() . '.pdf'
+                $this->renderView($this->getTemplatingBasePath('pdf'), [
+                    'object'            => $object,
+                    'mesuresProtection' => $mesures,
+                    'base_dir'          => $this->getParameter('kernel.project_dir') . '/public' . $request->getBasePath(),
+                ]), ['javascript-delay' => 1000]),
+            $filename . '.pdf'
         );
     }
 
@@ -408,5 +432,22 @@ class AnalyseImpactController extends CRUDController
         return $this->render($this->getTemplatingBasePath('validation'), [
             'form' => $form->createView(),
         ]);
+    }
+
+    public function apiDeleteFile(ManagerRegistry $doctrine, Request $request): Response
+    {
+        $id                  = $request->get('id');
+        $this->entityManager = $doctrine->getManager();
+        $critere             = $doctrine->getRepository(CriterePrincipeFondamental::class)
+            ->findOneBy(['fichier' => $id]);
+
+        $critere->setFichier(null);
+        $this->entityManager->persist($critere);
+        $this->entityManager->flush();
+
+        $jsonResponse = new JsonResponse();
+        $jsonResponse->setJson(json_encode($critere));
+
+        return $jsonResponse;
     }
 }

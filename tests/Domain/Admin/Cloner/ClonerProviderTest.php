@@ -27,9 +27,12 @@ namespace App\Tests\Domain\Admin\Cloner;
 use App\Domain\Admin\Cloner;
 use App\Domain\Admin\Dictionary\DuplicationTypeDictionary;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class ClonerProviderTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var Cloner\ClonerInterface
      */
@@ -88,11 +91,10 @@ class ClonerProviderTest extends TestCase
     /**
      * Test getCloner
      * Check default case.
-     *
-     * @expectedException \RuntimeException
      */
     public function testGetClonerDefaultCase(): void
     {
+        $this->expectException(\RuntimeException::class);
         $type = 'ThisIsNotAnExpectedTypeThenItReachDefaultSwitchOption';
 
         $this->sut->getCloner($type);

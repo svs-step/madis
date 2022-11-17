@@ -32,11 +32,13 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class CRUDRepositoryTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var RegistryInterface
@@ -58,7 +60,7 @@ class CRUDRepositoryTest extends TestCase
      */
     private $repository;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registryProphecy         = $this->prophesize(RegistryInterface::class);
         $this->managerProphecy          = $this->prophesize(EntityManagerInterface::class);

@@ -11,9 +11,17 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class AnalyseCriterePrincipeFondamentalType extends AbstractType
 {
+    protected string $maxSize;
+
+    public function __construct(string $maxSize)
+    {
+        $this->maxSize = $maxSize;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('reponse', DictionaryType::class, [
@@ -23,8 +31,23 @@ class AnalyseCriterePrincipeFondamentalType extends AbstractType
                 'required' => false,
             ])
             ->add('fichierFile', FileType::class, [
-                'required' => false,
-                'label'    => false,
+                'required'    => false,
+                'label'       => false,
+                'attr'        => [
+                    'accept' => 'image/*',
+                ],
+                'constraints' => [
+                    new File([
+                        'maxSize'   => $this->maxSize,
+                        'groups'    => ['default'],
+                        'mimeTypes' => [
+                            'image/png', // .png
+                            'image/jpg', // .jpg
+                            'image/jpeg', // .jpeg
+                        ],
+                        'mimeTypesMessage' => 'Les formats autorisés sont .png, .jpg, .jpeg.',
+                    ]),
+                ],
             ])
         ;
     }
@@ -33,7 +56,11 @@ class AnalyseCriterePrincipeFondamentalType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class' => CriterePrincipeFondamental::class,
+                'data_class'        => CriterePrincipeFondamental::class,
+                'validation_groups' => [
+                    'default',
+                    'critere',
+                ],
             ]);
     }
 }

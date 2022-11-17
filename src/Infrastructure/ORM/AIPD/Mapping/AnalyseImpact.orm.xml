@@ -10,6 +10,9 @@
 
         <field name="statut" column="statut"/>
         <field name="modeleAnalyse" column="modele_analyse"/>
+        <field name="labelAmeliorationPrevue" column="label_amelioration_prevue"/>
+        <field name="labelInsatisfaisant" column="label_insatisfait"/>
+        <field name="labelSatisfaisant" column="label_satisfaisant"/>
         <field name="dateValidation" column="date_validation" type="date" nullable="true"/>
         <field name="isReadyForValidation" column="ready_validation" type="boolean"/>
         <field name="isValidated" column="is_validated" type="boolean"/>
@@ -50,26 +53,26 @@
         <one-to-one field="avisReferent" target-entity="App\Domain\AIPD\Model\AnalyseAvis">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
+            <join-column on-delete="CASCADE"/>
         </one-to-one>
         <one-to-one field="avisDpd" target-entity="App\Domain\AIPD\Model\AnalyseAvis">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
+            <join-column on-delete="CASCADE"/>
         </one-to-one>
         <one-to-one field="avisRepresentant" target-entity="App\Domain\AIPD\Model\AnalyseAvis">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
+            <join-column on-delete="CASCADE"/>
         </one-to-one>
         <one-to-one field="avisResponsable" target-entity="App\Domain\AIPD\Model\AnalyseAvis">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
+            <join-column on-delete="CASCADE"/>
         </one-to-one>
     </entity>
 </doctrine-mapping>

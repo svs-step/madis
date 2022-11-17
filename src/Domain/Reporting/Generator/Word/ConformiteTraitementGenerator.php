@@ -165,7 +165,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
             $questionsData = [
                 [
                     'data' => [
-                        'Questions',
+                        'Principes fondamentaux',
                         [['text' => 'Conformité', 'style' => $this->textHeadStyle]],
                         [['text' => 'Actions de protections', 'style' => $this->textHeadStyle]],
                     ],

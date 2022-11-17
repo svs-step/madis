@@ -25,8 +25,12 @@ class ModeleToAnalyseConverter
     {
         $analyseImpact = new AnalyseImpact();
         $analyseImpact->setModeleAnalyse($modeleAnalyse->getNom());
+        $analyseImpact->setLabelAmeliorationPrevue($modeleAnalyse->getLabelAmeliorationPrevue());
+        $analyseImpact->setLabelInsatisfaisant($modeleAnalyse->getLabelInsatisfaisant());
+        $analyseImpact->setLabelSatisfaisant($modeleAnalyse->getLabelSatisfaisant());
         $analyseImpact->setCriterePrincipeFondamentaux(self::convertCriteres($analyseImpact, $modeleAnalyse->getCriterePrincipeFondamentaux()));
         $analyseImpact->setQuestionConformites(self::convertQuestionsConformite($analyseImpact, $modeleAnalyse->getQuestionConformites()));
+
         $mesuresProtections = self::convertDistinctMesureProtections($modeleAnalyse, $analyseImpact);
         $analyseImpact->setMesureProtections($mesuresProtections);
         $analyseImpact->setScenarioMenaces(self::convertScenariosMenace($analyseImpact, $modeleAnalyse->getScenarioMenaces(), $mesuresProtections));
@@ -42,6 +46,7 @@ class ModeleToAnalyseConverter
             $clone = clone $criterePrincipeFondamental;
             $clone->setAnalyseImpact($analyseImpact);
             $clone->setModeleAnalyse(null);
+
             $clone->setCanBeModified(true);
             if (ReponseCritereFondamentalDictionary::REPONSE_NON_RENSEIGNE !== $clone->getReponse()) {
                 $clone->setCanBeModified(false);
@@ -82,8 +87,11 @@ class ModeleToAnalyseConverter
             $scenario->setIsConfidentialite($scenarioModele->isConfidentialite());
             $scenario->setVraisemblance($scenarioModele->getVraisemblance());
             $scenario->setGravite($scenarioModele->getGravite());
+            $scenario->setCanGraviteBeModified('vide' === $scenarioModele->getGravite());
+            $scenario->setCanVraisemblanceBeModified('vide' === $scenarioModele->getVraisemblance());
             $scenario->setPrecisions($scenarioModele->getPrecisions());
             $scenario->setAnalyseImpact($analyseImpact);
+
             foreach ($scenarioModele->getMesuresProtections() as $scenarioMesures) {
                 /** @var AnalyseMesureProtection $mesuresProtection */
                 foreach ($mesuresProtections as $mesuresProtection) {
@@ -118,9 +126,11 @@ class ModeleToAnalyseConverter
             $analyseMesure->setDetail($mesureProtection->getDetail());
             $analyseMesure->setPoidsVraisemblance($mesureProtection->getPoidsVraisemblance());
             $analyseMesure->setPoidsGravite($mesureProtection->getPoidsGravite());
+
 //            $analyseMesure->setScenarioMenace($analyseScenarioMenace);
             $analyseMesure->setOriginId($mesureProtection->getId()->toString());
             $analyseMesure->setAnalyseImpact($analyseImpact);
+
             $res[] = $analyseMesure;
         }
 

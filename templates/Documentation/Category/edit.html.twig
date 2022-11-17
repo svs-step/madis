@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'documentation_category form edit' %}
+{% set menuItem = 'documentation_category' %}
+
+{% block title %}{{ 'documentation.category.title.edit'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'documentation.category.title.edit'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'documentation.category.breadcrumb.list'|trans, 'link': path('documentation_category_list') },
+        { 'name': 'documentation.category.breadcrumb.edit'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('Documentation/Category/_form.html.twig') }}
+{% endblock %}
+
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var l = $('#document_isLink');
+            var f = $('#document_file');
+            var u = $('#document_url')
+            if (l.is(':checked')) {
+                u.attr('required', true);
+                f.attr('required', false);
+                f.parents('.form-group').hide()
+            } else {
+                u.parents('.form-group').hide()
+            }
+
+            l.on('change', function(ev) {
+                if (ev.target.checked){
+                    u.attr('required', true);
+                    f.attr('required', false);
+                    f.parents('.form-group').hide()
+                    u.parents('.form-group').show()
+                } else {
+                    u.attr('required', false);
+                    f.attr('required', true);
+                    f.parents('.form-group').show()
+                    u.parents('.form-group').hide()
+                }
+            })
+        })
+    </script>
+{% endblock %}

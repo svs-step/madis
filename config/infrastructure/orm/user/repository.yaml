@@ -9,3 +9,4 @@ services:
 
     App\Domain\User\Repository\Collectivity: '@App\Infrastructure\ORM\User\Repository\Collectivity'
     App\Domain\User\Repository\User: '@App\Infrastructure\ORM\User\Repository\User'
+    App\Domain\User\Repository\LoginAttempt: '@App\Infrastructure\ORM\User\Repository\LoginAttempt'

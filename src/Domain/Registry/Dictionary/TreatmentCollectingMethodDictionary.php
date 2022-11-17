@@ -33,6 +33,8 @@ class TreatmentCollectingMethodDictionary extends SimpleDictionary
     const METHOD_CONTRACT          = 'contract';
     const METHOD_RECEIVED_LIST     = 'received_list';
     const METHOD_INTERNAL_DOCUMENT = 'internal_document';
+    const METHOD_ORAL_INTERVIEW    = 'oral_interview';
+    const METHOD_OTHER             = 'other';
 
     public function __construct()
     {
@@ -52,6 +54,8 @@ class TreatmentCollectingMethodDictionary extends SimpleDictionary
             self::METHOD_CONTRACT          => 'Contrat',
             self::METHOD_RECEIVED_LIST     => 'Liste reçue',
             self::METHOD_INTERNAL_DOCUMENT => 'Document interne',
+            self::METHOD_ORAL_INTERVIEW    => 'Entretien oral',
+            self::METHOD_OTHER             => 'Autre',
         ];
     }
 

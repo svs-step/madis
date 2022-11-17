@@ -22,7 +22,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Infrastructure\ORM\User\Repository;
+namespace App\Tests\Infrastructure\ORM\Registry\Repository;
 
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository as DomainRepo;
@@ -30,11 +30,13 @@ use App\Infrastructure\ORM\Registry\Repository as InfraRepo;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class RequestTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var RegistryInterface
@@ -51,7 +53,7 @@ class RequestTest extends TestCase
      */
     private $infraRepo;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registryProphecy      = $this->prophesize(RegistryInterface::class);
         $this->entityManagerProphecy = $this->prophesize(EntityManagerInterface::class);

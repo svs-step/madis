@@ -85,7 +85,9 @@ App\Domain\Registry\Model\Treatment:
         coordonneesResponsableTraitement:
             groups: ['treatment_read']  
         collectingMethod:
-            groups: ['treatment_read']  
+            groups: ['treatment_read']
+        collectivity:
+            groups: [ 'treatment_read' ]
         estimatedConcernedPeople:
             groups: ['treatment_read']  
         ultimateFate:

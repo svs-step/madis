@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Dictionary\RequestObjectDictionary;
 use App\Domain\Registry\Dictionary\RequestStateDictionary;
 use App\Domain\Registry\Form\Type\RequestType;
@@ -173,8 +174,13 @@ class RequestController extends CRUDController
     {
         $criteria = $this->getRequestCriteria();
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Demande',
+        ]);
+
         return $this->render($this->getTemplatingBasePath('list'), [
             'totalItem' => $this->repository->count($criteria),
+            'category'  => $category,
             'route'     => $this->router->generate('registry_request_list_datatables', ['archive' => $criteria['archive']]),
         ]);
     }
@@ -188,19 +194,19 @@ class RequestController extends CRUDController
 
         $yes = '<span class="label label-success">' . $this->translator->trans('label.yes') . '</span>';
         $no  = '<span class="label label-danger">' . $this->translator->trans('label.no') . '</span>';
-
+        // die();
         /** @var Model\Request $demande */
         foreach ($demandes as $demande) {
             $reponse['data'][] = [
                 'collectivite'       => $demande->getCollectivity()->getName(),
                 'personne_concernee' => $this->getLinkForPersonneConcernee($demande),
                 'date_demande'       => null !== $demande->getDate() ? \date_format($demande->getDate(), 'd/m/Y') : '',
-                'objet_demande'      => RequestObjectDictionary::getObjects()[$demande->getObject()],
+                'objet_demande'      => array_key_exists($demande->getObject(), RequestObjectDictionary::getObjects()) ? RequestObjectDictionary::getObjects()[$demande->getObject()] : $demande->getObject(),
                 'demande_complete'   => $demande->isComplete() ? $yes : $no,
                 'demandeur_legitime' => $demande->isLegitimateApplicant() ? $yes : $no,
                 'demande_legitime'   => $demande->isLegitimateRequest() ? $yes : $no,
                 'date_traitement'    => null !== $demande->getAnswer()->getDate() ? \date_format($demande->getAnswer()->getDate(), 'd/m/Y') : '',
-                'etat_demande'       => RequestStateDictionary::getStates()[$demande->getState()],
+                'etat_demande'       => array_key_exists($demande->getState(), RequestStateDictionary::getStates()) ? RequestStateDictionary::getStates()[$demande->getState()] : $demande->getState(),
                 'actions'            => $this->getActionsCellContent($demande),
             ];
         }

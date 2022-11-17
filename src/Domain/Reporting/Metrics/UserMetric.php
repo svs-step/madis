@@ -322,7 +322,9 @@ class UserMetric implements MetricInterface
             }
 
             // Type
-            ++$data['request']['value']['type'][Inflector::camelize($request->getObject())];
+            if ($request->getObject()) {
+                ++$data['request']['value']['type'][Inflector::camelize($request->getObject())];
+            }
 
             // Status
             if ($request->isComplete() && $request->isLegitimateApplicant() && $request->isLegitimateRequest()) {
@@ -392,7 +394,7 @@ class UserMetric implements MetricInterface
                 $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);
                 ++$data['conformiteTraitement']['data'][$level];
 
-                if (0 === count($conformiteTraitement->getAnalyseImpacts())) {
+                if ($conformiteTraitement->getTraitement()->isActive() && 0 === count($conformiteTraitement->getAnalyseImpacts())) {
                     ++$data['aipd']['toDo'];
                 }
             }

@@ -55,6 +55,18 @@
                             {{ 'registry.proof.action.archived'|trans }}
                         </a>
                     {% endif %}
+                    {% if category and category.documents|length > 0 %}
+                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                            <i class="far fa-file"></i>
+                            {{ 'documentation.document.link.button'|trans }}
+                        </a>
+                    {% endif %}
+                    {% if app.request.query.get('archive') != 'true' %}
+                        <a href="{{ path('registry_proof_download_all') }}" class="btn btn-default">
+                            <i class="fa fa-download"></i>
+                            {{ 'registry.proof.action.download'|trans }}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
 
@@ -70,9 +82,11 @@
                             <th>
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
-                            <th>
-                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
-                            </th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                                </th>
+                            {% endif %}
                             <th>
                                 <select class="form-control" id="search_type" style="width: 100%;">
                                     <option value="">Type</option>
@@ -91,7 +105,9 @@
                         </tr>
                         <tr>
                             <th>{{ 'registry.proof.list.name'|trans }}</th>
-                            <th>{{ 'registry.proof.list.collectivity'|trans }}</th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>{{ 'registry.proof.list.collectivity'|trans }}</th>
+                            {% endif %}
                             <th>{{ 'registry.proof.list.type'|trans }}</th>
                             <th>{{ 'registry.proof.list.comment'|trans }}</th>
                             <th>{{ 'registry.proof.list.created_at'|trans }}</th>
@@ -115,15 +131,27 @@
         {% set collectivityClassname = "" %}
     {% endif %}
 
-    {% set dataTableOptions = {
-        columns: [
+    {% set cols = [
+        {"data": "nom"},
+        {"data": "type"},
+        {"data": "commentaire"},
+        {"data": "date"},
+        {"data": "actions", "className": "noVis", "orderable": false},
+    ] %}
+
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set cols = [
             {"data": "nom"},
             {"data": "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
             {"data": "type"},
             {"data": "commentaire"},
             {"data": "date"},
             {"data": "actions", "className": "noVis", "orderable": false},
-        ],
+        ] %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: cols,
         order:  [
             [0, 'asc' ]
         ],
@@ -134,6 +162,10 @@
     <script>
         function setEvents() {
             var oTable = $('#table').DataTable();
+            var col = 0;
+            {% if is_granted('ROLE_REFERENT') %}
+                col = 1;
+            {% endif %}
 
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
@@ -147,17 +179,17 @@
 
             $('#search_type').off('change');
             $('#search_type').change(function(){
-                oTable.column('2').search($(this).val()).draw() ;
+                oTable.column(col + 1).search($(this).val()).draw() ;
             });
 
             $('#search_commentaire').off('keyup');
             $('#search_commentaire').keyup($.debounce(250, function(){
-                oTable.column('3').search($(this).val()).draw() ;
+                oTable.column(col + 2).search($(this).val()).draw() ;
             }));
 
             $('#search_date').off('change');
             $('#search_date').change(function(){
-                oTable.column('4').search($(this).val()).draw() ;
+                oTable.column(col + 3).search($(this).val()).draw() ;
             });
         }
 

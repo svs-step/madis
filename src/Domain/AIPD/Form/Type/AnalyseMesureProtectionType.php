@@ -3,7 +3,6 @@
 namespace App\Domain\AIPD\Form\Type;
 
 use App\Domain\AIPD\Model\AbstractMesureProtection;
-use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,8 +13,8 @@ class AnalyseMesureProtectionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('reponse', DictionaryType::class, [
-                'name'        => 'reponse_mesure_protection',
+            ->add('reponse', ReponseDictionaryType::class, [
+                'aipd'        => $options['aipd'],
                 'expanded'    => false,
                 'placeholder' => 'Pas de réponse',
             ])
@@ -27,6 +26,8 @@ class AnalyseMesureProtectionType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setRequired('aipd');
+
         $resolver->setDefaults([
             'data_class' => AbstractMesureProtection::class,
         ]);

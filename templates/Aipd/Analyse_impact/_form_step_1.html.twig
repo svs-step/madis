@@ -1,13 +1,41 @@
-<table class="table table-bordered">
+<table class="table table-bordered criteres-table">
+    <thead>
     <tr>
         <th>{{ 'aipd.critere_principe_fondamental.table.label'|trans }}</th>
         <th>{{ 'aipd.critere_principe_fondamental.table.reponse'|trans }}</th>
         <th>{{ 'aipd.critere_principe_fondamental.table.justification'|trans }}</th>
         <th>{{ 'aipd.critere_principe_fondamental.table.fichier'|trans }}</th>
     </tr>
+    </thead>
+    <tbody>
     {% for critere in form.criterePrincipeFondamentaux %}
         {% include '@templates_path/Aipd/Analyse_impact/_form_critere.html.twig' with {
             form: critere
         } %}
     {% endfor %}
+    </tbody>
 </table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".remove_file").on("click", function(event){
+            var file = this.id;
+            $.ajax({
+                url:        '{{ path('aipd_analyse_impact_file_delete') }}',
+                data: {id : file},
+                type:       'GET',
+                dataType:   'json',
+                async:      true,
+
+                success: function() {
+                    var filename = file.substring(0,8);
+                    $('.file_'+filename).hide();
+                },
+                error : function(xhr, textStatus, errorThrown) {
+                    alert('Ajax request failed.');
+                }
+            });
+        });
+    });
+</script>

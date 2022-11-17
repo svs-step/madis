@@ -1,0 +1,35 @@
+App\Domain\Registry\Model\Request:
+    attributes:
+        object:
+            groups: ['request_read']
+        otherObject:
+            groups: ['request_read']
+        date:
+            groups: ['request_read']
+        reason:
+            groups: ['request_read']
+        applicant:
+            groups: ['request_read']
+        concernedPeople:
+            groups: ['request_read']
+        complete:
+            groups: ['request_read']
+        legitimateApplicant:
+            groups: ['request_read']
+        legitimateRequest:
+            groups: ['request_read']
+        answer:
+            groups: ['request_read']
+        proofs:
+            groups: ['request_read']
+        state:
+            groups: ['request_read']
+        service:
+            groups: [ 'request_read' ]
+        stateRejectionReason:
+            groups: ['request_read']
+        mesurements:
+            groups: ['request_read']
+        treatments:
+            groups: ['request_read']
+

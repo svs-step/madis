@@ -30,10 +30,13 @@ use App\Domain\Registry\Symfony\EventSubscriber\Event\ConformiteTraitementEvent;
 use App\Domain\Registry\Symfony\EventSubscriber\Kernel\ConformiteTraitementSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ConformiteTraitementSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var EntityManagerInterface
      */
@@ -44,7 +47,7 @@ class ConformiteTraitementSubscriberTest extends TestCase
      */
     private $subscriber;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->entityManager = $this->prophesize(EntityManagerInterface::class);
 

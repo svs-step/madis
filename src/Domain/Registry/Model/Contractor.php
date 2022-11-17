@@ -33,6 +33,7 @@ use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Embeddable\Contact;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -130,6 +131,8 @@ class Contractor implements LoggableSubject, CollectivityRelated
      */
     private $service;
 
+    private Collection $mesurements;
+
     /**
      * Contractor constructor.
      *
@@ -158,8 +161,8 @@ class Contractor implements LoggableSubject, CollectivityRelated
             return '';
         }
 
-        if (\mb_strlen($this->getName()) > 50) {
-            return \mb_substr($this->getName(), 0, 50) . '...';
+        if (\mb_strlen($this->getName()) > 85) {
+            return \mb_substr($this->getName(), 0, 85) . '...';
         }
 
         return $this->getName();
@@ -336,5 +339,15 @@ class Contractor implements LoggableSubject, CollectivityRelated
         }
 
         return $result;
+    }
+
+    public function getMesurements(): Collection
+    {
+        return $this->mesurements;
+    }
+
+    public function setMesurement(Collection $mesurements): void
+    {
+        $this->mesurements = $mesurements;
     }
 }

@@ -19,7 +19,7 @@ cat ~/.ssh/id_rsa.pub
 cd /var/www
 git clone git@gitlab.adullact.net:soluris/madis.git madis
 
-# Placez vous sur la version à utiliser
+# Placez vous sur la version à utiliser (prendre la dernière disponible)
 cd madis
-git checkout v1.0.0
+git checkout v1.10.3
 ```

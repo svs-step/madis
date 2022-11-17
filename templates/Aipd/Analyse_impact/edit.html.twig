@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
 {% endblock %}
 
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'aipd.analyse_impact.title.list'|trans, 'link': path('aipd_analyse_impact_list') },
+        { 'name': 'aipd.analyse_impact.title.edit'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
 
 {% block body_head %}
     <h1>
@@ -78,4 +85,21 @@
     </div>
 
     {{ form_end(form) }}
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            const $table=$('#step3-table');
+            function hideLabel(ev) {
+                console.log('event', ev)
+                const $t = $(ev.target);
+                const $row = $t.parents('tr')
+                const $label = $row.find('.impact-potentiel > span')
+                $label.hide();
+            }
+            $table.find('.vraisemblance-dropdown').on('change', hideLabel)
+            $table.find('.gravite-dropdown').on('change', hideLabel)
+        })
+
+    </script>
 {% endblock %}

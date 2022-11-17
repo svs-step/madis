@@ -29,12 +29,14 @@ use App\Domain\User\Model;
 use App\Tests\Utils\ReflectionTrait;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class MailerTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var \Swift_Mailer
@@ -66,7 +68,7 @@ class MailerTest extends TestCase
      */
     private $mailer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mailerProphecy     = $this->prophesize(\Swift_Mailer::class);
         $this->translatorProphecy = $this->prophesize(TranslatorInterface::class);
