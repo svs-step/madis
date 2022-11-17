@@ -57,7 +57,12 @@
                 <inverse-join-columns><join-column on-delete="CASCADE"/></inverse-join-columns>
             </join-table>
         </many-to-many>
-        <one-to-one field="emailNotificationPreference" target-entity="App\Domain\User\Model\EmailNotificationPreference" inversed-by="user" />
+        <one-to-one field="emailNotificationPreference" target-entity="App\Domain\User\Model\EmailNotificationPreference" inversed-by="user">
+            <cascade>
+                <cascade-persist>
+                </cascade-persist>
+            </cascade>
+        </one-to-one>
     </entity>
 
 </doctrine-mapping>

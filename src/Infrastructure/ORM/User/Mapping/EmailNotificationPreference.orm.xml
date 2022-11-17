@@ -13,11 +13,10 @@
 
 
         <field name="frequency" column="frequency" type="string"/>
-        <field name="interval_hours"  type="integer" nullable="true"/>
         <field name="enabled" column="enabled" type="boolean"/>
-        <field name="start_hour" column="start_hour" type="integer" nullable="true"/>
-        <field name="start_day" column="start_day" type="integer" nullable="true"/>
-        <field name="start_week" column="start_week" type="integer" nullable="true"/>
+        <field name="hour" column="start_hour" type="integer" nullable="true"/>
+        <field name="day" column="start_day" type="integer" nullable="true"/>
+        <field name="week" column="start_week" type="integer" nullable="true"/>
         <field name="notificationMask" column="notification_mask" type="integer"/>
 
         <field name="createdAt" column="created_at" type="datetime_immutable" nullable="true">

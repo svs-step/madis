@@ -377,17 +377,11 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
         $this->moreInfos = $moreInfos;
     }
 
-    /**
-     * @return EmailNotificationPreference
-     */
     public function getEmailNotificationPreference(): EmailNotificationPreference
     {
         return $this->emailNotificationPreference;
     }
 
-    /**
-     * @param EmailNotificationPreference $emailNotificationPreference
-     */
     public function setEmailNotificationPreference(EmailNotificationPreference $emailNotificationPreference): void
     {
         $this->emailNotificationPreference = $emailNotificationPreference;

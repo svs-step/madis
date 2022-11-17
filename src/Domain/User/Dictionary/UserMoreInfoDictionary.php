@@ -63,4 +63,3 @@ class UserMoreInfoDictionary extends SimpleDictionary
         return \array_keys(self::getMoreInfos());
     }
 }
-

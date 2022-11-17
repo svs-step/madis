@@ -24,31 +24,14 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
-use App\Domain\User\Form\DataTransformer\MoreInfoTransformer;
-use App\Domain\User\Form\DataTransformer\RoleTransformer;
-use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\EmailNotificationPreference;
-use App\Domain\User\Model\Service;
-use App\Domain\User\Model\User;
-use Doctrine\ORM\EntityRepository;
-use Knp\DictionaryBundle\Form\Type\DictionaryType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Security;
 
 class EmailNotificationPreferenceType extends AbstractType
 {
@@ -61,39 +44,114 @@ class EmailNotificationPreferenceType extends AbstractType
         ->add('frequency', ChoiceType::class, [
             'label'    => 'user.notifications.form.frequency.label',
             'required' => true,
-            'choices' => [
-                'user.notifications.form.frequency.none' => 'none',
-                'user.notifications.form.frequency.each' => 'each',
-                'user.notifications.form.frequency.hour' => 'hour',
-                'user.notifications.form.frequency.day' => 'day',
-                'user.notifications.form.frequency.week' => 'week',
-                'user.notifications.form.frequency.month' => 'month',
+            'choices'  => [
+                'user.notifications.form.frequency.none'  => 'none',
+                'user.notifications.form.frequency.each'  => 'each',
+                'user.notifications.form.frequency.hourly'  => 'hour',
+                'user.notifications.form.frequency.dayly'   => 'day',
+                'user.notifications.form.frequency.weekly'  => 'week',
+                'user.notifications.form.frequency.monthly' => 'month',
             ],
             'expanded' => true,
             'multiple' => false,
         ])
-            ->add('each', HiddenType::class)
-            ->add('none', HiddenType::class)
+
         ;
-            $hours = [];
-        for ($i = 0; $i < 24; $i++) {
-            $hours[(string)$i] = $i;
+        $hours = [];
+        for ($i = 0; $i < 24; ++$i) {
+            $hours[(string) $i] = $i;
         }
+
+        $modules = [];
+        foreach (EmailNotificationPreference::MODULES as $k => $module) {
+            $modules['user.notifications.form.modules.'.$k] = $module;
+        }
+
         $builder
             ->add('hour', ChoiceType::class, [
-                'label'    => 'heures',
-                'required' => true,
-                'choices' => $hours,
-                'expanded' => false,
-                'multiple' => false,
+                'label'        => 'heures',
+                'required'     => true,
+                'choices'      => $hours,
+                'expanded'     => false,
+                'multiple'     => false,
                 'block_prefix' => 'wrapped_choice',
             ])
+            ->add('day', DailyNotificationType::class, ['mapped' => false])
+            ->add('week', WeeklyNotificationType::class, ['mapped' => false])
 
-            ->add('day', HiddenType::class)
-            ->add('week', HiddenType::class)
-            ->add('month', HiddenType::class)
+            ->add('month', MonthlyNotificationType::class, ['mapped' => false])
 
+            ->add('modules',ChoiceType::class, [
+                'mapped' => false,
+                'label'        => false,
+                'required'     => false,
+                'choices'      => $modules,
+                'expanded'     => true,
+                'multiple'     => true,
+                'block_prefix' => 'wrapped_choice',
+            ])
+            ->addEventListener(
+                FormEvents::PRE_SUBMIT,
+                [$this, 'onPreSubmit']
+            )
+            ->addEventListener(
+                FormEvents::POST_SUBMIT,
+                [$this, 'onPostSubmit']
+            )
             ;
+    }
+
+    public function onPostSubmit(FormEvent $event): void
+    {
+        /**
+         * @var EmailNotificationPreference $data
+         */
+        $data = $event->getData();
+        $form = $event->getForm();
+        $mod = $form->get('modules');
+        if (isset($mod)) {
+            $notificationMask = array_reduce($mod->getNormData(), function($car, $el) {
+                return $car | (int)$el;
+            }, 0);
+
+            $data->setNotificationMask($notificationMask);
+        }
+
+        $event->setData($data);
+    }
+    public function onPreSubmit(FormEvent $event): void
+    {
+        $data = $event->getData();
+
+        if ($data['frequency'] === 'month') {
+            $data['hour'] = $data['month']['hour'];
+            $data['day'] = $data['month']['day'];
+            $data['week'] = $data['month']['week'];
+            unset($data['month']);
+        } else if ($data['frequency'] === 'week') {
+            $data['hour'] = $data['week']['hour'];
+            $data['day'] = $data['week']['day'];
+            unset($data['week']);
+            unset($data['month']);
+        }else if ($data['frequency'] === 'day') {
+            $data['hour'] = (int)$data['day']['hour'];
+            unset($data['week']);
+            unset($data['month']);
+            unset($data['day']);
+        }else if ($data['frequency'] === 'hour') {
+            unset($data['week']);
+            unset($data['month']);
+            unset($data['day']);
+        } else {
+            unset($data['week']);
+            unset($data['month']);
+            unset($data['day']);
+            unset($data['hour']);
+        }
+
+
+
+        $event->setData($data);
     }
 
     /**

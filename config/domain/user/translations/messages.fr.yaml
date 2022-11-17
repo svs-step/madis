@@ -28,6 +28,22 @@ user:
                 each: A chaque notification
                 none: Jamais
                 label_hour: heures
+                monthly: Mensuelle le
+                weekly: Hebdomadaire le
+                dayly: Quotidien à
+                hourly: Toutes les
+            modules:
+                treatment: Traitements
+                subcontractor: Sous-traitants
+                request: Demandes
+                violation: Violations
+                proof: Preuves
+                protect_action: Actions de protection
+                maturity: Maturité
+                treatment_conformity: Conformité des traitements
+                organization_conformity: Conformité de l'organisation
+                aipd: AIPD
+                document: Documents
 
     collectivity:
         action:

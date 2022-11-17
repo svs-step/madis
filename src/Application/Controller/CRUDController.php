@@ -36,7 +36,6 @@ use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Intl\Exception\MethodNotImplementedException;
@@ -252,6 +251,8 @@ abstract class CRUDController extends AbstractController
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
+
+
         $serviceEnabled = false;
 
         if ($object instanceof Collectivity) {
@@ -272,7 +273,11 @@ abstract class CRUDController extends AbstractController
         $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
 
         $form->handleRequest($request);
+        if ($form->isSubmitted() && !$form->isValid()) {
+            dd($form->getErrors(true));
+        }
         if ($form->isSubmitted() && $form->isValid()) {
+
             $this->formPrePersistData($object);
             $this->entityManager->persist($object);
             $this->entityManager->flush();
@@ -425,26 +430,26 @@ abstract class CRUDController extends AbstractController
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));
+
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
         return $this->render($this->getTemplatingBasePath('delete_all'), [ // delete_all
             'ids'               => $ids,
-            'objects_length'  => count($ids),
+            'objects_length'    => count($ids),
         ]);
     }
 
     public function deleteConfirmationAllAction(Request $request): Response
     {
-        var_dump($id);
-        die();
         $ids     = $request->query->get('ids');
 
         foreach ($ids as $id) {
             var_dump($id);
-        die();
+            die();
             $this->deleteConfirmationAction($id);
         }
+
         return $this->redirectToRoute($this->getRouteName('list'));
     }
 
@@ -468,6 +473,7 @@ abstract class CRUDController extends AbstractController
             $this->getPdfName((string) 'print') . '.pdf'
         );
     }
+
     /**
      * The archive action
      * Display a confirmation message to confirm data archived.
@@ -479,6 +485,7 @@ abstract class CRUDController extends AbstractController
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $this->addFlash('error', 'Vous ne pouvez pas archiver ces traitements');
+
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
@@ -486,10 +493,11 @@ abstract class CRUDController extends AbstractController
             $object = $this->repository->findOneById($id);
             if ($object) {
                 $object->setActive(false);
-                $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $treatment));
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
             }
         }
         $this->entityManager->flush();
+
         return $this->redirectToRoute($this->getRouteName('list'));
     }
 }

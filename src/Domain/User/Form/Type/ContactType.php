@@ -48,8 +48,8 @@ class ContactType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $request = $this->requestStack->getCurrentRequest();
-        $collectivity_page = substr($request->attributes->get('_route'),5,12);
+        $request           = $this->requestStack->getCurrentRequest();
+        $collectivity_page = substr($request->attributes->get('_route'), 5, 12);
 
         $intersectIsEmpty = empty(\array_intersect(
             [
@@ -106,7 +106,7 @@ class ContactType extends AbstractType
                 ],
             ]);
 
-        if ($collectivity_page ===  'collectivity'){
+        if ('collectivity' === $collectivity_page) {
             $builder->add('notification', CheckboxType::class, [
                 'label'    => 'user.contact.form.notification',
                 'required' => false,

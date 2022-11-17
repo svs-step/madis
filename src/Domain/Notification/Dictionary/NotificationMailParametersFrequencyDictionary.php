@@ -28,12 +28,12 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class NotificationMailParametersFrequencyDictionary extends SimpleDictionary
 {
-    const NONE  = 'NONE';
+    const NONE         = 'NONE';
     const ONLY_ONE     = 'ONLY_ONE';
-    const HOURLY    = 'HOURLY';
-    const DAYLY     = 'DAYLY';
-    const WEEKLY    = 'WEEKLY';
-    const MONTHLY    = 'MONTHLY';
+    const HOURLY       = 'HOURLY';
+    const DAYLY        = 'DAYLY';
+    const WEEKLY       = 'WEEKLY';
+    const MONTHLY      = 'MONTHLY';
 
     public function __construct()
     {
@@ -48,12 +48,12 @@ class NotificationMailParametersFrequencyDictionary extends SimpleDictionary
     public static function getFrequencies()
     {
         return [
-            self::NONE  => 'Aucune notification',
+            self::NONE         => 'Aucune notification',
             self::ONLY_ONE     => 'Notification unitaire',
-            self::HOURLY    => 'Toutes les heures',
-            self::DAYLY => 'Quotidien',
-            self::WEEKLY => 'Hebdomadaire',
-            self::MONTHLY => 'Mensuelle',
+            self::HOURLY       => 'Toutes les heures',
+            self::DAYLY        => 'Quotidien',
+            self::WEEKLY       => 'Hebdomadaire',
+            self::MONTHLY      => 'Mensuelle',
         ];
     }
 

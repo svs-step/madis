@@ -25,24 +25,12 @@ declare(strict_types=1);
 namespace App\Domain\Notification\Controller;
 
 use App\Application\Controller\CRUDController;
-use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Notification\Model;
-use App\Domain\Notification\Repository;
-use Doctrine\ORM\EntityManagerInterface;
-use Knp\Snappy\Pdf;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
-
 
 class NotificationUserController extends CRUDController
 {
-
-
-    public function __construct() {
+    public function __construct()
+    {
         // tt
     }
 
@@ -69,18 +57,18 @@ class NotificationUserController extends CRUDController
     public function unsubscribe($id, $notif_id)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $notifUser = $this->getDoctrine()->getRepository(Model\NotificationUser::class)->find($id);
+        $notifUser     = $this->getDoctrine()->getRepository(Model\NotificationUser::class)->find($id);
 
-        if ($notifUser && $notifUser->getNotifId() === $notif_id ){
+        if ($notifUser && $notifUser->getNotifId() === $notif_id) {
             $notifUser->setActive(false);
             $entityManager->flush();
 
             $user = $notifUser->getUserId();
             // on desactive les notifs pour un utilisateur
-            if ($user){
+            if ($user) {
                 $notifsForUser = $this->getDoctrine()->getRepository(Model\NotificationUser::class)->findBy(['user_id' => $user]);
-                if ($notifsForUser){
-                    foreach ($notifsForUser as $notifForUser){
+                if ($notifsForUser) {
+                    foreach ($notifsForUser as $notifForUser) {
                         $notifForUser->setActive(false);
                         $entityManager->flush();
                     }
@@ -89,16 +77,17 @@ class NotificationUserController extends CRUDController
 
             //on desactive les notifs si une adresse mail à plusieurs notifs
             $mail = $notifUser->getMail();
-            if ($mail){
+            if ($mail) {
                 $notifsForMail = $this->getDoctrine()->getRepository(Model\NotificationUser::class)->findBy(['mail' => $mail]);
-                if ($notifsForMail){
-                    foreach ($notifsForMail as $notifForMail){
+                if ($notifsForMail) {
+                    foreach ($notifsForMail as $notifForMail) {
                         $notifForMail->setActive(false);
                         $entityManager->flush();
                     }
                 }
             }
         }
+
         return $this->redirectToRoute('login');
     }
 }

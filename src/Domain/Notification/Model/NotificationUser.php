@@ -25,10 +25,8 @@ declare(strict_types=1);
 namespace App\Domain\Notification\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\Integer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
@@ -133,4 +131,3 @@ class NotificationUser
         $this->active = $active;
     }
 }
-

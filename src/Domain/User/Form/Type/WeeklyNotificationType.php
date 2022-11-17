@@ -31,62 +31,44 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EmailNotificationPreferenceType extends AbstractType
+class WeeklyNotificationType extends AbstractType
 {
     /**
      * Build type form.
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-        ->add('frequency', ChoiceType::class, [
-            'label'    => 'user.notifications.form.frequency.label',
-            'required' => true,
-            'choices'  => [
-                'user.notifications.form.frequency.none'  => 'none',
-                'user.notifications.form.frequency.each'  => 'each',
-                'user.notifications.form.frequency.hourly'  => 'hour',
-                'user.notifications.form.frequency.dayly'   => 'day',
-                'user.notifications.form.frequency.weekly'  => 'week',
-                'user.notifications.form.frequency.monthly' => 'month',
-            ],
-            'expanded' => true,
-            'multiple' => false,
-        ])
-            ->add('each', HiddenType::class)
-            ->add('none', HiddenType::class)
-        ;
         $hours = [];
         for ($i = 0; $i < 24; ++$i) {
             $hours[(string) $i] = $i;
         }
+
         $builder
-            ->add('hour', ChoiceType::class, [
-                'label'        => 'heures',
-                'required'     => true,
-                'choices'      => $hours,
-                'expanded'     => false,
-                'multiple'     => false,
-                'block_prefix' => 'wrapped_choice',
-            ])
             ->add('day', ChoiceType::class, [
-                'label'        => 'h',
+                'label'        => 'à',
                 'required'     => true,
-                'choices'      => $hours,
+                'choices'      => [
+                    'Lundi' => 1,
+                    'Mardi' => 2,
+                    'Mercredi' => 3,
+                    'Jeudi' => 4,
+                    'Vendredi' => 5,
+                    'Samedi' => 6,
+                    'Dimanche' => 7,
+                ],
                 'expanded'     => false,
                 'multiple'     => false,
                 'block_prefix' => 'wrapped_choice',
             ])
-            ->add('week', ChoiceType::class, [
+            ->add('hour', ChoiceType::class, [
                 'label'        => 'h',
                 'required'     => true,
-                'choices'      => ['Lundi' => 1, 'Mardi' => 2],
+                'choices'      => $hours,
                 'expanded'     => false,
                 'multiple'     => false,
                 'block_prefix' => 'wrapped_choice',
             ])
 
-            ->add('month', HiddenType::class)
 
             ;
     }
@@ -98,7 +80,6 @@ class EmailNotificationPreferenceType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => EmailNotificationPreference::class,
                 'validation_groups' => [
                     'default',
                     'user',

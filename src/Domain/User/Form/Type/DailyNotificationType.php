@@ -31,7 +31,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class WeeklyNotificationType extends AbstractType
+class DailyNotificationType extends AbstractType
 {
     /**
      * Build type form.
@@ -44,22 +44,6 @@ class WeeklyNotificationType extends AbstractType
         }
 
         $builder
-            ->add('day', ChoiceType::class, [
-                'label'        => 'à',
-                'required'     => true,
-                'choices'      => [
-                    'Lundi' => 1,
-                    'Mardi' => 2,
-                    'Mercredi' => 3,
-                    'Jeudi' => 4,
-                    'Vendredi' => 5,
-                    'Samedi' => 6,
-                    'Dimanche' => 7,
-                ],
-                'expanded'     => false,
-                'multiple'     => false,
-                'block_prefix' => 'wrapped_choice',
-            ])
             ->add('hour', ChoiceType::class, [
                 'label'        => 'h',
                 'required'     => true,
