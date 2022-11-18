@@ -260,7 +260,7 @@
                                             <a class="sharelink btn btn-block text-info col-md-12" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal" style="border-color:#31708f">
                                                 <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
                                             </a>
-                                        <div>
+                                        </div>
                                     {% endif %}
                                 </td>
                                 <td style="display:none">{{ object.pinned }}</td>
@@ -410,7 +410,7 @@
 
         $(document).ready(function() {
             $('.sharelink').on('click', function() {
-                $('.linkDoc').val($(this).data('id'));
+                setTimeout(() => { $('.linkDoc').val($(this).data('id')); }, 200);
                 $('.copyLink').hide();
             })
 
