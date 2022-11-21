@@ -33,6 +33,7 @@
         <field name="apiAuthorized" column="api_authorized" type="boolean" nullable="true"/>
         <field name="documentView" column="document_view" type="boolean" nullable="true"/>
 
+        <one-to-many field="notifications" target-entity="App\Domain\Notification\Model\NotificationUser" mapped-by="users" />
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity" inversed-by="users" fetch="EAGER"/>
         <many-to-many field="collectivitesReferees" target-entity="App\Domain\User\Model\Collectivity" inversed-by="userReferents">
             <join-table name="user_collectivite_referent">

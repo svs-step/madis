@@ -27,6 +27,7 @@ namespace App\Domain\Notification\Model;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
@@ -47,14 +48,16 @@ class NotificationUser
     private ?string $mail;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Domain\Notification\Model\Notification")
+     * @ORM\JoinColumn(name="notification_id", referencedColumnName="id")
      */
-    private $notif_id;
+    private Notification $notification;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $user_id;
+    private UserInterface $user;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -91,26 +94,6 @@ class NotificationUser
         $this->mail = $mail;
     }
 
-    public function getNotifId(): ?string
-    {
-        return $this->notif_id;
-    }
-
-    public function setNotifId(?string $notif_id): void
-    {
-        $this->notif_id = $notif_id;
-    }
-
-    public function getUserId(): ?string
-    {
-        return $this->user_id;
-    }
-
-    public function setUserId(?string $user_id): void
-    {
-        $this->user_id = $user_id;
-    }
-
     public function getToken(): ?string
     {
         return $this->token;
@@ -129,5 +112,37 @@ class NotificationUser
     public function setActive(?bool $active): void
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return Notification
+     */
+    public function getNotification(): Notification
+    {
+        return $this->notification;
+    }
+
+    /**
+     * @param Notification $notification
+     */
+    public function setNotification(Notification $notification): void
+    {
+        $this->notification = $notification;
+    }
+
+    /**
+     * @return UserInterface
+     */
+    public function getUser(): UserInterface
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param UserInterface $user
+     */
+    public function setUser(UserInterface $user): void
+    {
+        $this->user = $user;
     }
 }

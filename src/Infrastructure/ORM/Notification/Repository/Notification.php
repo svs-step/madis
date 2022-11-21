@@ -81,4 +81,18 @@ class Notification extends CRUDRepository implements Repository\Notification
     {
         $this->getManager()->persist($object);
     }
+
+    public function saveUsers(Model\Notification $notification, $users) {
+        $nus = [];
+        foreach($users as $user) {
+            $nu = new Model\NotificationUser();
+            $nu->setUser($user);
+            $nu->setNotification($notification);
+            $this->getManager()->persist($nu);
+
+            $nus[] = $nu;
+        }
+
+        return $nus;
+    }
 }

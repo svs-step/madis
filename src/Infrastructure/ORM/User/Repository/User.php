@@ -29,6 +29,7 @@ use App\Application\Traits\RepositoryUtils;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -253,7 +254,7 @@ class User extends CRUDRepository implements Repository\User
     /**
      * {@inheritdoc}
      */
-    public function findAllNoLogin(): array
+    public function findAllNoLogin()
     {
         $now       = new \DateTime();
         $monthsAgo = $now->sub(\DateInterval::createFromDateString('6 month'));
@@ -270,12 +271,25 @@ class User extends CRUDRepository implements Repository\User
             ;
     }
 
-    public function findNonDpoUsers(): array
+    public function findNonDpoUsers()
     {
         $qb = $this->createQueryBuilder();
         $qb->andWhere('JSON_CONTAINS(o.roles, :role) = 0')
             // TODO add andwhere with "is_dpo"
             ->setParameter('role', sprintf('"%s"', 'ROLE_ADMIN'));
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findNonDpoUsersForCollectivity(Model\Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->andWhere('JSON_CONTAINS(o.roles, :role) = 0')
+            // TODO add andwhere with "is_dpo"
+            ->setParameter('role', sprintf('"%s"', 'ROLE_ADMIN'))
+        ->andWhere('o.collectivity = :collectivity')
+            ->setParameter('collectivity', $collectivity)
+        ;
 
         return $qb->getQuery()->getResult();
     }

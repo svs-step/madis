@@ -35,6 +35,7 @@ use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -113,10 +114,10 @@ class Notification
     private ?UserInterface $createdBy;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
-     * @ORM\JoinColumn(onDelete="SET NULL")
+     * @ORM\OneToMany(targetEntity="App\Domain\Notification\Model\NotificationUser", mappedBy="notifications")
      */
-    private ?UserInterface $user;
+    private $notificationUsers;
+
 
     /**
      * Category constructor.
@@ -186,7 +187,7 @@ class Notification
         $this->collectivity = $collectivity;
     }
 
-    public function getReadBy(): ?User
+    public function getReadBy(): ?UserInterface
     {
         return $this->readBy;
     }
@@ -226,13 +227,19 @@ class Notification
         $this->action = $action;
     }
 
-    public function getUser(): ?UserInterface
+    /**
+     * @return Collection|array|null
+     */
+    public function getNotificationUsers()
     {
-        return $this->user;
+        return $this->notificationUsers;
     }
 
-    public function setUser(?UserInterface $user): void
+    /**
+     * @param Collection|array|null $notificationUsers
+     */
+    public function setNotificationUsers($notificationUsers): void
     {
-        $this->user = $user;
+        $this->notificationUsers = $notificationUsers;
     }
 }

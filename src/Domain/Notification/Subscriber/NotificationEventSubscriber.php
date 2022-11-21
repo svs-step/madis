@@ -63,17 +63,19 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setObject((object) $norm);
         $this->notificationRepository->insert($notification);
 
-        $users = $this->userRepository->findNonDpoUsers();
-        foreach ($users as $user) {
-            $notification = new Notification();
-            $notification->setModule('notification.modules.maturity');
-            $notification->setCollectivity($survey->getCollectivity());
-            $notification->setAction('notifications.actions.late_survey');
-            $notification->setName($survey->__toString());
-            $notification->setUser($user);
-            $notification->setObject((object) $norm);
-            $this->notificationRepository->insert($notification);
-        }
+        $users = $this->userRepository->findNonDpoUsersForCollectivity($survey->getCollectivity());
+
+        $notification = new Notification();
+        $notification->setModule('notification.modules.maturity');
+        $notification->setCollectivity($survey->getCollectivity());
+        $notification->setAction('notifications.actions.late_survey');
+        $notification->setName($survey->__toString());
+        $notification->setObject((object) $norm);
+        $this->notificationRepository->insert($notification);
+        $nus = $this->notificationRepository->saveUsers($notification, $users);
+
+        $notification->setNotificationUsers($nus);
+        $this->notificationRepository->update($notification);
 
         // TODO Send email to référent opérationnel
     }
@@ -100,17 +102,19 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setObject((object) $norm);
         $this->notificationRepository->insert($notification);
 
-        $users = $this->userRepository->findNonDpoUsers();
-        foreach ($users as $user) {
-            $notification = new Notification();
-            $notification->setModule('notification.modules.action');
-            $notification->setCollectivity($action->getCollectivity());
-            $notification->setAction('notifications.actions.late_action');
-            $notification->setName($action->getName());
-            $notification->setObject((object) $norm);
-            $notification->setUser($user);
-            $this->notificationRepository->insert($notification);
-        }
+        $users = $this->userRepository->findNonDpoUsersForCollectivity($action->getCollectivity());
+        $notification = new Notification();
+        $notification->setModule('notification.modules.action');
+        $notification->setCollectivity($action->getCollectivity());
+        $notification->setAction('notifications.actions.late_action');
+        $notification->setName($action->getName());
+        $notification->setObject((object) $norm);
+        $this->notificationRepository->insert($notification);
+
+        $nus = $this->notificationRepository->saveUsers($notification, $users);
+
+        $notification->setNotificationUsers($nus);
+        $this->notificationRepository->update($notification);
 
         // TODO Send email to référent opérationnel
     }
@@ -138,18 +142,23 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setObject((object) $norm);
         $this->notificationRepository->insert($notification);
 
-        $users = $this->userRepository->findNonDpoUsers();
-        foreach ($users as $user) {
-            $notification = new Notification();
-            $notification->setModule('notification.modules.request');
-            $notification->setCollectivity($request->getCollectivity());
-            $notification->setAction('notifications.actions.late_request');
-            $notification->setName($request->__toString());
-            $notification->setObject((object) $norm);
-            $notification->setUser($user);
-            $this->notificationRepository->insert($notification);
-        }
+        $users = $this->userRepository->findNonDpoUsersForCollectivity($request->getCollectivity());
 
+
+
+        $notification = new Notification();
+        $notification->setModule('notification.modules.request');
+        $notification->setCollectivity($request->getCollectivity());
+        $notification->setAction('notifications.actions.late_request');
+        $notification->setName($request->__toString());
+        $notification->setObject((object) $norm);
+
+        $this->notificationRepository->insert($notification);
+
+        $nus = $this->notificationRepository->saveUsers($notification, $users);
+
+        $notification->setNotificationUsers($nus);
+        $this->notificationRepository->update($notification);
         // TODO Send email to référent opérationnel and responsable de traitement
     }
 

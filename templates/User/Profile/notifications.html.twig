@@ -15,7 +15,6 @@
                         <div>
                             {% if f.vars.value == 'hour' or f.vars.value == 'day' %}
                                 {% set h = form.emailNotificationPreference.hour %}
-                                {#                                            {{ dump(h) }}#}
                                 {% if h.vars.choices is defined %}
                                     <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
                                         {% for op in h.vars.choices %}
@@ -30,7 +29,6 @@
                             {% endif %}
                             {% if f.vars.value == 'week' %}
                                 {% set h = form.emailNotificationPreference.day %}
-                                {#                                            {{ dump(h) }}#}
                                 {% if h.vars.choices is defined %}
                                     <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
                                         {% for op in h.vars.choices %}
@@ -43,7 +41,6 @@
 
                                 {% endif %}
                                 {% set h = form.emailNotificationPreference.hour %}
-                                {#                                            {{ dump(h) }}#}
                                 {% if h.vars.choices is defined %}
                                     <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
                                         {% for op in h.vars.choices %}
@@ -60,7 +57,6 @@
 
                             {% if f.vars.value == 'month' %}
                                 {% set h = form.emailNotificationPreference.week %}
-                                {#                                            {{ dump(h) }}#}
                                 {% if h.vars.choices is defined %}
                                     <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
                                         {% for op in h.vars.choices %}
@@ -73,7 +69,6 @@
 
                                 {% endif %}
                                 {% set h = form.emailNotificationPreference.day %}
-                                {#                                            {{ dump(h) }}#}
                                 {% if h.vars.choices is defined %}
                                     <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
                                         {% for op in h.vars.choices %}
@@ -86,7 +81,6 @@
 
                                 {% endif %}
                                 {% set h = form.emailNotificationPreference.hour %}
-                                {#                                            {{ dump(h) }}#}
                                 {% if h.vars.choices is defined %}
                                     <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
                                         {% for op in h.vars.choices %}
