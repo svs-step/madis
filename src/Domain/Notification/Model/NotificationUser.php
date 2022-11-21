@@ -114,33 +114,21 @@ class NotificationUser
         $this->active = $active;
     }
 
-    /**
-     * @return Notification
-     */
     public function getNotification(): Notification
     {
         return $this->notification;
     }
 
-    /**
-     * @param Notification $notification
-     */
     public function setNotification(Notification $notification): void
     {
         $this->notification = $notification;
     }
 
-    /**
-     * @return UserInterface
-     */
     public function getUser(): UserInterface
     {
         return $this->user;
     }
 
-    /**
-     * @param UserInterface $user
-     */
     public function setUser(UserInterface $user): void
     {
         $this->user = $user;

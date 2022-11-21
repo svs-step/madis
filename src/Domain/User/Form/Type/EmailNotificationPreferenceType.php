@@ -25,14 +25,10 @@ declare(strict_types=1);
 namespace App\Domain\User\Form\Type;
 
 use App\Domain\User\Model\EmailNotificationPreference;
-use App\Domain\User\Model\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EmailNotificationPreferenceType extends AbstractType
@@ -47,16 +43,16 @@ class EmailNotificationPreferenceType extends AbstractType
             'label'    => 'user.notifications.form.frequency.label',
             'required' => true,
             'choices'  => [
-                'user.notifications.form.frequency.none'  => 'none',
-                'user.notifications.form.frequency.each'  => 'each',
+                'user.notifications.form.frequency.none'    => 'none',
+                'user.notifications.form.frequency.each'    => 'each',
                 'user.notifications.form.frequency.hourly'  => 'hour',
                 'user.notifications.form.frequency.dayly'   => 'day',
                 'user.notifications.form.frequency.weekly'  => 'week',
                 'user.notifications.form.frequency.monthly' => 'month',
             ],
             'choice_attr' => [
-                'user.notifications.form.frequency.none'  => ['class' => 'select-frequency'],
-                'user.notifications.form.frequency.each'  => ['class' => 'select-frequency'],
+                'user.notifications.form.frequency.none'    => ['class' => 'select-frequency'],
+                'user.notifications.form.frequency.each'    => ['class' => 'select-frequency'],
                 'user.notifications.form.frequency.hourly'  => ['class' => 'select-frequency'],
                 'user.notifications.form.frequency.dayly'   => ['class' => 'select-frequency'],
                 'user.notifications.form.frequency.weekly'  => ['class' => 'select-frequency'],
@@ -74,7 +70,7 @@ class EmailNotificationPreferenceType extends AbstractType
 
         $modules = [];
         foreach (EmailNotificationPreference::MODULES as $k => $module) {
-            $modules['user.notifications.form.modules.'.$k] = $module;
+            $modules['user.notifications.form.modules.' . $k] = $module;
         }
 
         $builder
@@ -90,12 +86,12 @@ class EmailNotificationPreferenceType extends AbstractType
                 'label'        => 'à',
                 'required'     => true,
                 'choices'      => [
-                    'Lundi' => 1,
-                    'Mardi' => 2,
+                    'Lundi'    => 1,
+                    'Mardi'    => 2,
                     'Mercredi' => 3,
-                    'Jeudi' => 4,
+                    'Jeudi'    => 4,
                     'Vendredi' => 5,
-                    'Samedi' => 6,
+                    'Samedi'   => 6,
                     'Dimanche' => 7,
                 ],
                 'expanded'     => false,
@@ -106,8 +102,8 @@ class EmailNotificationPreferenceType extends AbstractType
                 'label'        => '',
                 'required'     => true,
                 'choices'      => [
-                    'Premier' => 1,
-                    'Second' => 2,
+                    'Premier'   => 1,
+                    'Second'    => 2,
                     'Troisième' => 3,
                     'Quatrième' => 4,
                 ],
@@ -116,8 +112,8 @@ class EmailNotificationPreferenceType extends AbstractType
                 'block_prefix' => 'wrapped_choice',
             ])
 
-            ->add('notificationMask',ChoiceType::class, [
-                'mapped' => true,
+            ->add('notificationMask', ChoiceType::class, [
+                'mapped'       => true,
                 'label'        => false,
                 'required'     => false,
                 'choices'      => $modules,
@@ -126,7 +122,6 @@ class EmailNotificationPreferenceType extends AbstractType
                 'block_prefix' => 'wrapped_choice',
             ])
             ;
-
 
         $builder->get('notificationMask')->addModelTransformer(new CallbackTransformer(
             function ($mask) {
@@ -139,18 +134,17 @@ class EmailNotificationPreferenceType extends AbstractType
                         $ret[$k] = $module;
                     }
                 }
+
                 return $ret;
             },
             function ($modules) {
                 // transform the array to a bitmask
-                return array_reduce($modules, function($car, $el) {
-                    return $car | (int)$el;
+                return array_reduce($modules, function ($car, $el) {
+                    return $car | (int) $el;
                 }, 0);
             }
         ));
     }
-
-
 
     /**
      * Provide type options.

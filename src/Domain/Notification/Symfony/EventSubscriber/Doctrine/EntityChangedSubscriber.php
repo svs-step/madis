@@ -161,7 +161,7 @@ class EntityChangedSubscriber implements EventSubscriber
         }
 
         if ($recipients & Notification::NOTIFICATION_DPO) {
-            $notification    = $this->createNotificationForUser($object, $action, $normalized);
+            $notification    = $this->createNotificationForUsers($object, $action, $normalized);
             $notifications[] = $notification;
         }
 
@@ -169,7 +169,7 @@ class EntityChangedSubscriber implements EventSubscriber
             // get all non-DPO users
             $users = $this->userRepository->findNonDpoUsers();
             foreach ($users as $user) {
-                $notification    = $this->createNotificationForUser($object, $action, $normalized, $user);
+                $notification    = $this->createNotificationForUsers($object, $action, $normalized, $users);
                 $notifications[] = $notification;
             }
         }
@@ -177,7 +177,7 @@ class EntityChangedSubscriber implements EventSubscriber
         return $notifications;
     }
 
-    private function createNotificationForUser($object, $action, $normalized, ?User $user = null): Notification
+    private function createNotificationForUsers($object, $action, $normalized, $users = null): Notification
     {
         $notification = new Notification();
         $mod          = Notification::MODULES[get_class($object)];
@@ -186,8 +186,15 @@ class EntityChangedSubscriber implements EventSubscriber
         $notification->setName(method_exists($object, 'getName') ? $object->getName() : $object->__toString());
         $notification->setAction('notification.actions.' . $action);
         $notification->setCreatedBy($this->security->getUser());
-        $notification->setUser($user);
         $notification->setObject((object) $normalized);
+        $this->notificationRepository->insert($notification);
+
+        if ($users) {
+            $nus = $this->notificationRepository->saveUsers($notification, $users);
+
+            $notification->setNotificationUsers($nus);
+            $this->notificationRepository->update($notification);
+        }
 
         return $notification;
     }

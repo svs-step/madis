@@ -102,7 +102,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setObject((object) $norm);
         $this->notificationRepository->insert($notification);
 
-        $users = $this->userRepository->findNonDpoUsersForCollectivity($action->getCollectivity());
+        $users        = $this->userRepository->findNonDpoUsersForCollectivity($action->getCollectivity());
         $notification = new Notification();
         $notification->setModule('notification.modules.action');
         $notification->setCollectivity($action->getCollectivity());
@@ -143,8 +143,6 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $this->notificationRepository->insert($notification);
 
         $users = $this->userRepository->findNonDpoUsersForCollectivity($request->getCollectivity());
-
-
 
         $notification = new Notification();
         $notification->setModule('notification.modules.request');

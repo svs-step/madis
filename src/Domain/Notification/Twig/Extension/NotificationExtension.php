@@ -82,6 +82,7 @@ class NotificationExtension extends AbstractExtension
             case 'notification.modules.maturity':
                 return 'maturity_survey_edit';
         }
+
         return '';
     }
 }

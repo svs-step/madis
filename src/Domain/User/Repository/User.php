@@ -27,7 +27,6 @@ namespace App\Domain\User\Repository;
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
 use App\Application\Doctrine\Repository\DataTablesRepository;
 use App\Domain\User\Model;
-use Knp\DictionaryBundle\Dictionary\Collection;
 
 interface User extends CRUDRepositoryInterface, DataTablesRepository
 {
@@ -65,5 +64,6 @@ interface User extends CRUDRepositoryInterface, DataTablesRepository
      * get the users that have have specified roles.
      */
     public function findNonDpoUsers();
+
     public function findNonDpoUsersForCollectivity(Model\Collectivity $collectivity);
 }

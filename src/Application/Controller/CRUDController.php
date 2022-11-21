@@ -251,8 +251,6 @@ abstract class CRUDController extends AbstractController
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
-
-
         $serviceEnabled = false;
 
         if ($object instanceof Collectivity) {
@@ -277,7 +275,6 @@ abstract class CRUDController extends AbstractController
             dd($form->getErrors(true));
         }
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->formPrePersistData($object);
             $this->entityManager->persist($object);
             $this->entityManager->flush();

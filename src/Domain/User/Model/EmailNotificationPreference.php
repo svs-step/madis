@@ -23,17 +23,17 @@ class EmailNotificationPreference
     const NOTIF_DOCUMENT                = 1024;
 
     const MODULES = [
-        'treatment' => self::NOTIF_TREATMENT,
-        'subcontractor' => self::NOTIF_SUBCONTRACTOR,
-        'request' => self::NOTIF_REQUEST,
-        'violation' => self::NOTIF_VIOLATION,
-        'proof' => self::NOTIF_PROOF,
-        'protect_action' => self::NOTIF_PROTECT_ACTION,
-        'maturity' => self::NOTIF_MATURITY,
-        'treatment_conformity' => self::NOTIF_TREATMENT_CONFORMITY,
+        'treatment'               => self::NOTIF_TREATMENT,
+        'subcontractor'           => self::NOTIF_SUBCONTRACTOR,
+        'request'                 => self::NOTIF_REQUEST,
+        'violation'               => self::NOTIF_VIOLATION,
+        'proof'                   => self::NOTIF_PROOF,
+        'protect_action'          => self::NOTIF_PROTECT_ACTION,
+        'maturity'                => self::NOTIF_MATURITY,
+        'treatment_conformity'    => self::NOTIF_TREATMENT_CONFORMITY,
         'organization_conformity' => self::NOTIF_ORGANIZATION_CONFORMITY,
-        'aipd' => self::NOTIF_AIPD,
-        'document' => self::NOTIF_DOCUMENT,
+        'aipd'                    => self::NOTIF_AIPD,
+        'document'                => self::NOTIF_DOCUMENT,
     ];
 
     /**
@@ -62,7 +62,7 @@ class EmailNotificationPreference
         $this->id               = Uuid::uuid4();
         $this->notificationMask = 0;
         $this->enabled          = 1;
-        $this->frequency   = 'none';
+        $this->frequency        = 'none';
     }
 
     public function getId(): UuidInterface
@@ -90,54 +90,35 @@ class EmailNotificationPreference
         $this->frequency = $frequency;
     }
 
-    /**
-     * @return int|null
-     */
     public function getHour(): ?int
     {
         return $this->hour;
     }
 
-    /**
-     * @param int|null $hour
-     */
     public function setHour(?int $hour): void
     {
         $this->hour = $hour;
     }
 
-    /**
-     * @return int|null
-     */
     public function getWeek(): ?int
     {
         return $this->week;
     }
 
-    /**
-     * @param int|null $week
-     */
     public function setWeek(?int $week): void
     {
         $this->week = $week;
     }
 
-    /**
-     * @return int|null
-     */
     public function getDay(): ?int
     {
         return $this->day;
     }
 
-    /**
-     * @param int|null $day
-     */
     public function setDay(?int $day): void
     {
         $this->day = $day;
     }
-
 
     /**
      * @return mixed

@@ -118,7 +118,6 @@ class Notification
      */
     private $notificationUsers;
 
-
     /**
      * Category constructor.
      *

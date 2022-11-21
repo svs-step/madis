@@ -29,7 +29,6 @@ use App\Application\Traits\RepositoryUtils;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
