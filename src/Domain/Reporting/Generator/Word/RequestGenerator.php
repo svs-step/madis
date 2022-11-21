@@ -259,7 +259,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
             $historyData = [
                 [
                     'Créateur',
-                    $request->getCreator(),
+                    strval($request->getCreator()),
                 ],
                 [
                     'Date de création',

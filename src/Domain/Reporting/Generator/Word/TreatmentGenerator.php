@@ -441,7 +441,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             $historyData = [
                 [
                     'Créateur',
-                    $treatment->getCreator(),
+                    strval($treatment->getCreator()),
                 ],
                 [
                     'Date de création',

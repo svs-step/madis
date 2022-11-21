@@ -232,7 +232,7 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
             $historyData = [
                 [
                     'Créateur',
-                    $contractor->getCreator(),
+                    strval($contractor->getCreator()),
                 ],
                 [
                     'Date de création',

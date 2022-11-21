@@ -203,7 +203,7 @@ class MesurementGenerator extends AbstractGenerator
     private function initializeMesurementHistoric(\App\Domain\Registry\Model\Mesurement $mesurement): array
     {
         return [
-            $mesurement->getCreator(),
+            strval($mesurement->getCreator()),
             $this->getDate($mesurement->getCreatedAt()),
             $this->getDate($mesurement->getUpdatedAt()),
         ];

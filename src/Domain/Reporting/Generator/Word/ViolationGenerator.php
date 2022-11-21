@@ -214,7 +214,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
             $historyData = [
                 [
                     'Créateur',
-                    $violation->getCreator(),
+                    strval($violation->getCreator()),
                 ],
                 [
                     'Date de création',
