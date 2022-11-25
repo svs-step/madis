@@ -379,7 +379,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         $queryBuilder
             ->where('o.status = :status')
             ->setParameter('status', MesurementStatusDictionary::STATUS_NOT_APPLIED)
-
+            ->andWhere('o.planificationDate is not null')
             ->orderBy('o.planificationDate', 'DESC')
         ;
 
