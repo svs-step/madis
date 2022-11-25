@@ -230,8 +230,8 @@ class TreatmentController extends CRUDController
         ->getRepository(Treatment::class)
         ->findBy(
             [
-                'collectivity'  => $collectivity,
-                'public'        => 1,
+                'collectivity'      => $collectivity,
+                'public'            => 1,
                 'active'            => 1,
             ],
             [
