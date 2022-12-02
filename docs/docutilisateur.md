@@ -1,6 +1,6 @@
 ![Madis](images/Madis-Logo.png)
 
-# Madis
+# Généralités
 
 Madis est une application web OpenSource conçue par [Soluris](https://www.soluris.fr/) pour accompagner les structures à la mise en œuvre de leur conformité au RGPD.
 
@@ -10,11 +10,11 @@ Cette notice pourra évoluer en fonction des évolutions réglementaires, du log
 
 Madis est accessible depuis les navigateurs récents connectés à internet et sur la plupart des systèmes d'exploitation. L'interface est responsive et peut être consultée depuis tout client mobile tactile (préférer une tablette pour un confort d'affichage).
 
-Pour vous connecter, vous devez avoir un compte (le login est votre adresse email). Si vous n'en avez pas, demandez sa création à votre Délégué à la Protection des Données (DPD).
+Pour se connecter, il est nécessaire d'avoir un compte (l'identifiant est l'adresse email).
 
 ![Page de connexion](images/Madis-Connexion.png)
 
-Si vous ne disposez pas ou ne connaissez pas votre mot de passe, il est possible de le régénérer en passant par « **Mot de passe oublié ?** ».
+Si le mot de passe a été oublié, il est possible de le régénérer en passant par « **Mot de passe oublié ?** ».
 
 Par défaut, les règles de sécurité du mot de passe sont les suivantes :
 * 14 caractères ;
@@ -25,17 +25,17 @@ La case à cocher « **Se souvenir de moi** » permet de mémoriser la session d
 
 ## Tableau de bord
 
-Le tableau de bord permet de visualiser en un coup d’œil l’état d’avancement de votre mise en conformité.
+Le tableau de bord permet de visualiser en un coup d’œil l’état d’avancement de la mise en conformité.
 
 ![Tableau de bord](images/Madis-Tableau-De-Bord-Utilisateur.png)
 
-Vous retrouvez les éléments suivants :
+Il est possible de visualiser différents indicateurs :
 * Les sous-traitants conformes et non conformes ;
 * Les demandes à traiter et celles traitées ;
-* Des statistiques et accès rapide des 4 modules de registres figurants également dans le menu ;
-* Les deux derniers indices de maturité sous forme de radar. Vous pouvez visualiser qu'un seul radar en cliquant sur la date de l'indice de maturité à masquer ;
+* Des statistiques et accès rapide de modules figurants également dans le menu ;
+* Les deux derniers indices de maturité sous forme de radar. Il est possible de visualiser qu'un seul radar en cliquant sur la date de l'indice de maturité à masquer ;
 * Le graphique synthétisant les mesures de sécurité conformes et non conformes sur les traitements informatisés ;
-* La liste des prochaines actions planifiées dans le plan d'action
+* La liste des prochaines actions planifiées dans le plan d'action ;
 * D'autres indicateurs peuvent être affichés si les modules sont activés (Conformité des traitements, AIPD à réaliser...).
 
 Les légendes et le détail des contenus sont affichés au survol de la souris.
@@ -43,15 +43,15 @@ Les légendes et le détail des contenus sont affichés au survol de la souris.
 ## Navigation générale
 
 Il est possible de naviguer dans les différentes pages :
-* Le menu « **Tableau de bord** » permet de piloter votre niveau de conformité ;
-* Le menu « **Traitements** » permet de consulter la liste des traitements et d'en ajouter ;
-* Le menu « **Sous-traitants** » permet de consulter la liste des sous-traitants et d'en ajouter ;
-* Le menu « **Demandes** » permet de consulter la liste des demandes et d'en ajouter ;
-* Le menu « **Violations** » permet de consulter la liste des violations et d'en ajouter ;
-* Le menu « **Documents** » permet de consulter la liste des preuves (Contrat d’accompagnement, attestations de présences, politique de gestion des données...) et d'en ajouter ;
-* Le menu « **Actions de protection** » permet de recenser l’ensemble des actions de protection mises en place dans la structure et d'en ajouter ;
-* Le menu « **Plan d'actions** » permet de recenser l’ensemble des mesures planifiées ;
-* Le menu « **Indice de maturité** » permet de consulter l’évolution de la mise en conformité ;
+* Le menu « **Tableau de bord** » permet de piloter le niveau de conformité ;
+* Le menu « **Traitements** » permet d'accéder à la gestion des traitements ;
+* Le menu « **Sous-traitants** » permet d'accéder à la gestion des sous-traitants ;
+* Le menu « **Demandes** » permet d'accéder à la gestion des demandes ;
+* Le menu « **Violations** » permet d'accéder à la gestion des violations ;
+* Le menu « **Documents** » permet d'accéder à la gestion des preuves (Contrat d’accompagnement, attestations de présences, politique de gestion des données...) ;
+* Le menu « **Actions de protection** » permet d'accéder à la gestion de l’ensemble des actions de protection mises en place dans la structure ;
+* Le menu « **Plan d'actions** » permet consulter la liste de l’ensemble des actions de protection planifiées ;
+* Le menu « **Indice de maturité** » permet d'accéder à la gestion de l’évolution de la mise en conformité et de l'évaluer ;
 * Le menu « **Générer un bilan** » permet de générer le bilan synthétisant l'ensemble des éléments renseignés dans Madis au format Word ;
 * Le menu « **Espace documentaire** » permet de consulter toutes les ressources mises à disposition par le DPD ;
 * Le menu « **Ma collectivité** » permet de modifier les informations de la structure ;
@@ -63,11 +63,15 @@ Dans le bandeau d'en-tête, le bouton « **☰** » permet d'agrandir ou de réd
 
 ![Menu réduit](images/Madis-Navigation-Menu.png)
 
-Dans le bandeau d'en-tête, le nom d'utilisateur et le rôle permettent de se déconnecter.
+Dans le bandeau d'en-tête, le nom d'utilisateur et le rôle sont affichés et permettent de se déconnecter.
 
 ![Accès à la déconnexion](images/Madis-Navigation-Profil-Deconnexion.png)
 
-Lorsqu'un élément est archivé ou inactif, il n'est plus visible dans la liste principale. Un bouton permet d'afficher les éléments archivés ou inactifs, un autre permet de revenir sur la liste des éléments actifs ou non archivés. Voici un exemple avec les traitements : 
+Dans les différents registres et pages de Madis, il est possible de visualiser les informations d'un élément en cliquant sur son nom. Lors de la consultation de celui-ci, il est possible de consulter la liste des éléments associés. Un bouton d'action « Imprimer » permet d'imprimer les informations au format PDF.
+
+![Visualiser un traitement](images/Madis-Visualiser-Un-Traitement.png)
+
+Dans certaines pages, lorsqu'un élément est archivé ou inactif, il n'est plus visible dans la liste principale. Un bouton permet d'afficher les éléments archivés ou inactifs, un autre permet de revenir sur la liste des éléments actifs ou non archivés. Voici un exemple avec les traitements :
 
 ![Bouton pour voir les traitements actifs](images/Madis-Navigation-Traitements-Actifs.png) ![Bouton pour voir les traitements inactifs](images/Madis-Navigation-Traitements-Inactifs.png)
 
@@ -95,14 +99,16 @@ Dans les formulaires, les champs précédés d’un astérisque « * » sont obl
 
 ## Paramétrage : Ma collectivité
 
-Le menu « **Ma collectivité** » permet de modifier les informations de la structure. Cependant, il n'est pas possible de modifier les informations générales et l’adresse. En cas de rectification souhaitée, merci d'en faire la demande auprès de votre Délégué à la Protection des Données (DPD).
+Le menu « **Ma collectivité** » permet de modifier les informations de la structure.
+
+(Seul un administrateur peut modifier les informations générales et l’adresse.)
 
 ![Visualiser une structure](images/Madis-Visualiser-Une-Structure.png)
 
-Il est possible de modifier les différents acteurs pour la mise en conformité (référent opérationnel, responsable de traitement, responsable informatique). Ces informations seront reprises dans le bilan.
+Il est possible de modifier les différents acteurs intervenants dans la mise en conformité (référent opérationnel, responsable de traitement, responsable informatique). Ces informations seront reprises dans le bilan.
 
-* **Référent opérationnel** : personne qui tient à jour les registres.
-* **Référent informatique** : personne qui garantit l'organisation, le suivi ainsi que la gestion du système informatique.
+* **Référent opérationnel** (ou Référent RGPD) : personne qui tient à jour les registres et anime la conformité RGPD en collaboration avec le DPD au sein de sa structure.
+* **Référent informatique** : personne qui garantit l'organisation, le suivi ainsi que la gestion du système d'information.
 * **Responsable de traitement** : personne responsable de la structure qui détermine les moyens et finalités d’un traitement.
 
 Par défaut, les coordonnées du DPD sont celles du DPD mutualisé. Dans le cas où un DPD est désigné en interne, il faut cocher la case « **Différent du DPD moral** » et compléter ses coordonnées.
@@ -112,7 +118,7 @@ Par défaut, les coordonnées du DPD sont celles du DPD mutualisé. Dans le cas 
 Les éléments « **Bilan paragraphe "Engagement de la direction"** » et « **Bilan paragraphe "Principe d'amélioration continue"** » permettent de personnaliser les paragraphes générés dans le bilan. Si ces champs sont laissés vides, des informations standards seront automatiquement renseignées dans le bilan.
 
 L'élément « **Composition du comité Informatique et Libertés** » permet d'ajouter des membres qui seront repris dans le bilan.
-Par défaut, seuls le responsable de traitement et le référent opérationnel sont dans ce comité. Si un Responsable Informatique ou un DPD ont été définis, ils seront automatiquement ajoutés dans le bilan.
+Par défaut, le responsable de traitement et le référent opérationnel sont dans ce comité. Si un Responsable Informatique ou un DPD moral ont été définis, ils seront automatiquement ajoutés au comité.
 
 L'élément « **Liste des utilisateurs** » permet de prendre connaissance des comptes utilisateurs de la structure. Il est important d'identifier et d'alerter son DPD si des comptes sont à désactiver.
 
@@ -126,7 +132,7 @@ Le menu « **Mon compte** » permet de modifier les informations du compte (pré
 
 ## Le registre des traitements
 
-Le menu « **Traitements** » permet de consulter la liste des traitements et d'en ajouter. Le registre des traitements recense l’ensemble des traitements de données à caractère personnel de la structure.
+Le menu « **Traitements** » permet de gérer les traitements. Le registre des traitements recense l’ensemble des traitements de données à caractère personnel de la structure.
 
 ![Liste des traitements](images/Madis-Liste-Des-Traitements.png)
 
@@ -155,7 +161,7 @@ Des cases à cocher permettent de réaliser des actions en masse sur les éléme
 
 ![Ajouter un traitement](images/Madis-Ajouter-Un-Traitement.png)
 
-``Astuce : Dans la gestion des demandes, des violations et des actions de protection, il est possible de les lier à un traitement.``
+``Astuce : Dans la gestion des demandes, des violations, des preuves et des actions de protection, il est possible de les lier à un traitement.``
 
 #### Informations générales
 
@@ -163,7 +169,7 @@ Dans les informations générales, il est possible de renseigner les éléments 
 
 * **Nom** : Intitulé du traitement ;
 * **Finalités** : Précise l'objectif du traitement et ses fonctions. Par exemple, pour une activité de formation des personnels, il peut être renseigné : « Suivi des demandes et des périodes de formations effectuées, organisation des sessions et évaluation des connaissances » ;
-* **En tant que** : Précise si le traitement est effectué en tant que **responsable de traitement**, en tant que **sous-traitant** ou lorsque la **responsabilité est conjointe**. Selon le choix, il est possible de renseigner ses coordonnées ;
+* **En tant que** : Précise si le traitement est effectué en tant que **[responsable de traitement](#Responsable-de-traitement)**, en tant que **[sous-traitant](#Sous-traitant)** ou lorsque la **[responsabilité est conjointe](#Responsables-conjoints)**. Selon le choix, il est possible de renseigner ses coordonnées ;
 * **Gestionnaire** : Personne(s) ou service qui gère le traitement. Peut-être différent du responsable de traitement ou du référent opérationnel ;
 * **Statut** : Le statut actif est coché par défaut. Un traitement inactif n'apparaît pas dans le registre des traitements ni dans le bilan ;
 * **Base légale** : Liste des bases légales énumérées dans le RGPD. Il est possible de positionner la base légale sur « **À déterminer** » si la base légale n'est pas connue au moment de la création du traitement ;
@@ -174,7 +180,7 @@ Dans les informations générales, il est possible de renseigner les éléments 
 
 Ci-après un exemple d’informations générales pré-rempli :
 
-![Visualiser les informations générales d'un traitement](images/Madis-Visualiser-Un-Traitement.png)
+![Visualiser les informations générales d'un traitement](images/Madis-Visualiser-Un-Traitement-Informations-Generales.png)
 
 #### Catégories de données
 
@@ -193,10 +199,10 @@ Dans les catégories de données, il est possible de renseigner les éléments s
 
 Dans la destination, il est possible de renseigner les éléments suivants :
 
-* **Catégorie de destinataires** : Précise les destinataires des données à caractère personnel (service, organisation extérieure, partenaires, ...) ;
+* **Catégorie de destinataires** : Précise les destinataires des données à caractère personnel (service interne, organisation extérieure, partenaires, ...) ;
 * **Sous-traitants** : Liste des sous-traitants identifiés dans le registre des sous-traitants.
 
-```Astuce : Recenser un sous-traitant avant un traitement permet de le rattacher directement au moment de la création du traitement.```
+``Astuce : Recenser un sous-traitant avant un traitement permet de le rattacher directement au moment de la création du traitement.``
 
 #### Traitement spécifique
 
@@ -214,15 +220,16 @@ Un ou plusieurs traitements spécifiques vont peut-être conditionner une analys
 
 Dans les détails, il est possible de renseigner les éléments suivants :
 
-* **Personnes concernées** : Type de personnes concernées par le traitement. Il est possible de cocher la case correspondante et de préciser les informations par le champ de texte précédant ;
+* **Personnes concernées** : Type de personnes concernées par le traitement. Il est possible de cocher la case correspondante et de préciser les informations par le champ de texte adjacent ;
 * **Nombre de concernés** : Nombre approximatif de personnes concernées par le traitement. Cette information est utile en cas de violations de données personnelles ;
 * **Logiciel** : Si le traitement est informatisé, précise le nom du logiciel utilisé (Word, Excel, ...). Si le traitement est exclusivement papier, laisser ce champ vide ;
+* **Traitement papier** : Si le traitement est papier ;
 * **Délai de conservation** : Le délai de conservation indiqué est le délai réel mis en œuvre par la structure. Si le délai est calculé, préciser les critères utilisés pour déterminer le délai de conservation (Exemple : 3 ans à compter de la fin de la relation contractuelle) ;
 * **Sort final** : Sort final appliqué à l'issue du traitement ;
 * **Origine des données** : Données provenant d'un tiers (CAF, Société, ...) ou de la personne concernée directement ;
 * **Moyens de la collecte** : Moyen utilisé pour collecter les données à caractère personnel.
 
-#### Mesures de sécurité et confidentialités
+#### Mesures de sécurité et confidentialité
 
 Les mesures de sécurité sont propres à chaque traitement concerné, il est possible de renseigner les éléments suivants :
 
@@ -272,7 +279,7 @@ Dans les informations générales, il est possible de renseigner les éléments 
 * **Nom** : Intitulé du sous-traitant ;
 * **Agent référent** : Personne en charge de gérer les relations avec ce sous-traitant ;
 * **Clauses contractuelles vérifiées** : Les clauses contractuelles de ce contrat ont été vérifiées et sont conformes au RGPD ;
-* **A adopté les éléments de sécurité nécessaires** : Suite à une demande ou à une vérification, le sous-traitant a adopté les mesures de sécurité jugés suffisantes ;
+* **A adopté les éléments de sécurité nécessaires** : Suite à une demande ou à une vérification, le sous-traitant a adopté les mesures de sécurité jugées suffisantes ;
 * **Tient à jour un registre des traitements** : Le registre de traitement du sous-traitant a été communiqué et est tenu à jour ;
 * **Envoi des données hors UE** : Les données sont envoyées en dehors de l'Union Européenne.
 
@@ -295,9 +302,7 @@ Dans les coordonnées, il est possible de renseigner les éléments suivants :
 
 ## Le registre des demandes
 
-Le menu « **Demandes** » permet de consulter la liste des demandes et d'en ajouter. Chaque nouvelle demande d'exercice de droit de personne concernée basé sur le RGPD (droit d’accès, d’opposition, ...) doivent être enregistré dans ce registre.
-
-``Rappel : La gestion des demandes des personnes concernées est un traitement de données personnelles qui doit être mentionné dans le registre de traitements.``
+Le menu « **Demandes** » permet de consulter la liste des demandes et d'en ajouter. Chaque nouvelle demande d'exercice de droit de personne concernée basé sur le RGPD (droit d’accès, d’opposition, ...) doit être enregistrée dans ce registre.
 
 ![Liste des demandes](images/Madis-Liste-Des-Demandes.png)
 
@@ -362,9 +367,9 @@ Dans le cas où le demandeur serait différent de la personne concernée, il fau
 
 #### Traitements associés
 
-Il est possibilité d'associer une demande à un ou plusieurs traitements.
+Il est possible d'associer une demande à un ou plusieurs traitements.
 
-## Les registres de violations
+## Le registre de violations
 
 Le menu « **Violations** » permet de consulter la liste des violations et d'en ajouter. Le registre des violations recense l’ensemble des violations de la structure.
 
@@ -418,7 +423,7 @@ Dans les conséquences de la violation, il est possible de renseigner les élém
 * **Précisions sur les notifications** ;
 * **Commentaire** : Toute précision complémentaire sur les conséquences de la violation.
 
-**Rappel : En cas de risque pour les personnes concernées, une notification à la CNIL doit être faite dans les 72 heures en plus de l'enregistrement en interne. De plus, en cas de risque élevé, les personnes concernées devront également être notifiées ([Art. 33 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre4#Article33)).**
+**Rappel : En cas de risque pour les personnes concernées, une notification à la CNIL doit être faite dans les 72 heures en plus de l'enregistrement en interne. De plus, en cas de risque élevé, les personnes concernées devront également être notifiées ([Art. 33 et 34 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre4#Article33)).**
 
 #### Traitements associés
 
@@ -460,7 +465,12 @@ Dans les informations générales, il est possible de renseigner les éléments 
 
 ### Document
 
-Un seul fichier peut être déposé à la fois, d'une taille maximale définie dans l'administration et tous les formats de fichiers sont autorisés.
+Un seul fichier peut être déposé à la fois et d'une taille maximale définie dans l'administration.
+
+Les fichiers autorisés sont :
+
+- Images : .jpg, .jpeg, .png ;
+- Documents : .pdf, .doc, .docx, .odt, .ppt, .pptx, .xls, .xlsx, .xlsm, ods.
 
 ### Association
 
@@ -497,7 +507,7 @@ Il est possible d'effectuer plusieurs actions :
 Dans les informations générales, il est possible de renseigner les éléments suivants :
 
 * **Nom** : Intitulé de l'action de protection ;
-* **Description** : Description brève permettant de comprendre l'action. *Penser que cette liste d'actions servira également pour les prédécesseurs* ;
+* **Description** : Description brève permettant de comprendre l'action ;
 * **Responsable d'action** : Personne(s) ou service chargé de faire en sorte que l'action soit mise en place ;
 * **Priorité** : Possibilité de prioriser certaines actions avec trois niveaux de priorité (Basse, Normale et Haute) ;
 * **Coût** : Montant estimé pour réaliser l'action. Peut être nul, ou peut demander un arbitrage ou une planification plus longue ;
@@ -507,13 +517,13 @@ Dans les informations générales, il est possible de renseigner les éléments 
 
 Dans l'application, il est possible de renseigner les éléments suivants :
 
-* **Statut** : Statut de l'action de protection. Une fois l'action entièrement réalisée, il faudra passer le statut de « **Non appliquée** » à « **Appliquée** » ;
+* **Statut** : Statut de l'action de protection. Une fois l'action entièrement réalisée, il faudra passer le statut de « **Non appliquée** » à « **Appliquée** ». Une action non réalisable doit avoir le statut « **Non applicable** » ;
 * **Planification** : Date prévisionnelle de l'action pour la planifier. Si le statut de l'action de protection est « **Non appliquée** » et qu'elle est planifiée, elle apparaîtra alors dans le [plan d'actions](#Plan-d’actions) ;
 * **Observations** : Toute précision complémentaire sur la planification de l'action.
 
 ### Éléments liés
 
-Il est possibilité d'associer une action de protection à un ou plusieurs éléments du registre des traitements, des sous-traitants, des demandes ou des violations.
+Il est possible d'associer une action de protection à un ou plusieurs éléments du registre des traitements, des sous-traitants, des demandes ou des violations.
 
 # Plan d’actions
 
@@ -530,13 +540,13 @@ Il est possible d'effectuer plusieurs actions :
 
 ``Astuce : Il est possible de trier les actions par date/coût/charge...``
 
-Pour ajouter une action au plan d'actions, il faut aller dans la [liste des actions de protection](#Les-actions-de-protection) et passer le statut de l'action en question en « **Non appliquée** » et renseigner une date prévisionnelle.
+Pour ajouter une action au plan d'actions, il faut aller dans la [liste des actions de protection](#Les-actions-de-protection) et passer le **statut de l'action** en question en « **Non appliquée** » et renseigner une **date prévisionnelle**.
 
 # Indice de maturité
 
 Le menu « **Indice de maturité** » permet de consulter la liste des indices de maturité et d'en ajouter. Cette liste recense la progression du niveau de maturité de la structure.
 
-L’indice de maturité est une suite de 42 questions, classées par thématiques permettant de suivre l’évolution de la mise en conformité de la structure. Outil d’aide à la décision, il permet ainsi de mettre en exergue les thèmes prioritaires à développer. Il est le repère indispensable pour aiguiller dans l’élaboration du [plan d'actions](#Plan-d’actions).
+L’indice de maturité est une suite de questions, classées par thématiques permettant de suivre l’évolution de la mise en conformité de la structure. Outil d’aide à la décision, il permet ainsi de mettre en exergue les thèmes prioritaires à développer. Il est le repère indispensable pour aiguiller dans l’élaboration du [plan d'actions](#Plan-d’actions).
 
 ![Liste des indices de maturité](images/Madis-Liste-Des-Indices-De-Maturite.png)
 
@@ -551,7 +561,7 @@ Il est possible d'effectuer plusieurs actions :
 
 « **+ Nouvel indice de maturité** » permet d'ajouter un nouvel indice de maturité. 
 
-À chaque nouvel indice, l‘ensemble des 42 questions doit être répondu.
+À chaque nouvel indice, l‘ensemble des questions doit être répondu.
 
 Il est possible de répondre par l'une des réponses suivantes :
 
@@ -559,7 +569,6 @@ Il est possible de répondre par l'une des réponses suivantes :
 - « **En partie** » ;
 - « **Oui / Complètement** ».
 
-*Critères de l'indice de maturité : Technique ; Vie privée ; Violation de données ; Organisation ; Juridique ; Sensibilisation Formation.*
 ![Ajouter un indice de maturité](images/Madis-Ajouter-Un-Indice-De-Maturite.png)
 
 Lorsqu'un nouvel indice de maturité est réalisé, il est possible de consulter le résultat sur le tableau de bord ainsi que dans le bilan. Celui-ci comprend le résultat du nouvel indice ainsi que l’indice précédent.
@@ -570,13 +579,11 @@ Lorsqu'un nouvel indice de maturité est réalisé, il est possible de consulter
 
 Le menu « **Générer un bilan** » permet de générer le bilan de la structure au format Word.
 
-Le bilan doit être généré au minimum une fois par an. Ce dernier synthétise l’ensemble des éléments renseignés dans Madis, du recensement des traitements, aux actions de protection en place et à planifier...
+Ce dernier synthétise l’ensemble des éléments renseignés dans Madis, du recensement des traitements, aux actions de protection en place et à planifier...
 
-**Le bilan généré doit être déposé dans les [preuves](#Gestion-de-la-preuve).**
+**Le bilan généré peut être déposé dans les [preuves](#Gestion-de-la-preuve).**
 
 ![Générer un bilan](images/Madis-Generer-Un-Bilan.png)
-
-Le fichier du bilan est généré sous Word afin que vous puissiez ajouter vos logos et le personnaliser.
 
 ``Astuce : Le bilan étant généré au format Word, il est possible de le personnaliser et d'y ajouter le logo de la structure.``
 
@@ -591,7 +598,7 @@ Il est possible d'effectuer plusieurs actions :
 - « **Afficher en liste** » ou « **Afficher en grille** » permettent d'afficher les documents sous forme de liste ou sous forme de grille ;
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel. Cette action n'est disponible que lorsque l'affichage est sous forme de liste.
 
-Il est possible de filtrer les documents affichés, notamment par catégorie. Lorsque plusieurs catégories sont sélectionnées, seuls les documents appartenant à toutes ces catégories sont affichés.
+Il est possible de filtrer les documents affichés, notamment par catégorie. **Lorsque plusieurs catégories sont sélectionnées, seuls les documents appartenant à toutes ces catégories sont affichés.**
 
 ``Astuce : Il est possible de mettre des fichiers en favoris en cliquant sur l'étoile.``
 
@@ -601,7 +608,7 @@ Dans chaque module, un bouton « **Ressources utiles** » permet d'accéder aux 
 
 # Module conformité des traitements
 
-Ce module permet, par itération successive, de faire tendre les traitements vers leur conformité complète. L'évaluation d'un traitement doit être réalisée régulièrement, tout au long de l'année, pour gérer l'avancé de la mise en conformité des traitements au RGPD.
+Ce module permet, par itération successive, de faire tendre les traitements vers leur conformité complète. L'évaluation d'un traitement doit être réalisée régulièrement, tout au long de l'année, pour gérer l'avancée de la mise en conformité des traitements au RGPD.
 
 Le module conformité des traitements est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module conformité des traitements](#Activation-du-module-conformité-des-traitements) pour plus d'information.
 
@@ -629,9 +636,9 @@ Il est possible d'effectuer plusieurs actions :
 
 Un traitement évalué peut être :
 
-* **Conforme** : Tous les critères sont marqués comme conforme. Le traitement répond donc à l'obligation réglementaire ;
-* **Non-conforme mineure** : Un ou plusieurs critères sont marqués comme non conforme, mais au moins une action de protection planifiée a été affectée ;
-* **Non-conforme majeure** : Un ou plusieurs critères sont marqués comme non conforme et aucune action de protection planifiée n'a été affectée.
+* **Conforme** : Tous les critères sont conformes. Le traitement répond donc à l’obligation réglementaire ;
+* **Non-conforme mineure** : Un ou deux critères sont non-conformes mineures (Critère non-conforme, mais une action de protection planifiée a été affectée), et les autres sont conformes ;
+* **Non-conforme majeure** : Un ou plusieurs critères sont non-conformes majeures (Critère non-conforme et aucune action de protection planifiée n’a été affectée) ou plus de deux critères sont non-conformes mineures.
 
 Une barre de progression affiche l'étendue de la conformité des critères.
 
@@ -667,11 +674,9 @@ Dans l'évaluation du traitement, il est possible d'évaluer la conformité du t
 
 Pour chacun de ces critères, il est possible de dire si le traitement est conforme ou non-conforme. C’est-à-dire si l’obligation réglementaire est respectée ou non.
 
-``Rappel : Pour le cas particulier du recueil du consentement, si la base légale n'est pas le consentement, il faut considérer que l'obligation est respectée.``
-
 À chaque critère non conforme, il est proposé d'affecter une ou plusieurs actions de protection. Celles-ci peuvent être choisies dans la liste ou ajoutées avec le bouton « **+** ».
 
-``À noter : Il est préférable que les actions choisies soient planifiées. Un critère ayant une action non planifiée sera considéré comme non-conforme majeure.``
+``À noter : Il est important que les actions choisies soient planifiées. Un critère ayant une action non planifiée sera considéré comme non-conforme majeure.``
 
 Une fois les actions de protection planifiées et affectées aux différents points non-conformes, le [plan d'actions](#Plan-d’actions) permet de les mettre en œuvre et de suivre leur réalisation.
 
@@ -681,7 +686,7 @@ Afin de pouvoir vérifier la conformité des critères, le contenu du traitement
 
 ### Gestion des évaluations
 
-Lorsqu'une plusieurs actions de protection sont réalisées, dans la liste de conformité des traitements, un icône bleu d'exclamation « **!** » est positionné devant le traitement. Il informe que des actions de protections ont été appliquées (liste au survol de la souris).
+Lorsqu'une ou plusieurs actions de protection sont réalisées, dans la liste de conformité des traitements, un icône bleu d'exclamation « **!** » est positionné devant le traitement. Il informe que des actions de protections ont été appliquées (liste au survol de la souris).
 
 ![Affichage des actions appliquées](images/Madis-Liste-De-Conformite-Des-Traitements-Action-Realisee.png)
 
@@ -697,11 +702,13 @@ Il convient donc à présent de reconsidérer le niveau de conformité du ou des
 * « **Conforme** » si la réalisation de l'action de protection permet à présent de considérer le critère comme conforme.
 * « **Non conforme** » si la réalisation de l'action ne permet pas de considérer le critère comme conforme. Affecter alors une nouvelle action de protection.
 
-Ce module permet donc, par itération successive, de faire tendre les traitements vers leur conformité complète.
+Ce module permet donc, par itérations successives, de faire tendre chacun des traitements vers leur conformité complète.
 
 # Module conformité de l'organisation
 
-Ce module permet, par itération successive, de faire tendre l'ensemble de la structure vers la mise en conformité complète. L'évaluation de l'organisation doit être réalisée régulièrement, idéalement une fois par an. Chaque pilote a la responsabilité de faire augmenter le score de son processus.
+Ce module permet, par itération successive, de faire tendre l'ensemble de la structure vers la mise en conformité complète. L'évaluation de l'organisation doit être réalisée régulièrement, idéalement une fois par an. 
+
+Les obligations décrites dans le RGPD et ses lignes directrices sont réparties en **Processus**, dont le **Pilote** a la responsabilité de faire augmenter le score de conformité.
 
 Le module conformité de l'organisation est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module conformité de l'organisation](#Activation-du-module-conformité-de-l’organisation) pour plus d'information.
 
@@ -722,7 +729,7 @@ Il est possible d'effectuer plusieurs actions :
 - « **Générer une impression** » permet de générer le diagnostic de la dernière évaluation de la conformité de l'organisation au format Word ;
 - « **Enregistrer** » permet d'enregistrer les informations saisies ou modifiées pour les pilotes ;
 - « **Nouvelle évaluation de l'organisation** » permet de procéder à l'évaluation de l'organisation ;
-- « **Imprimer** » permet de générer un diagnostic de l'évaluation au format Word ;
+- « **Imprimer** » permet de générer le diagnostic de l'évaluation au format Word ;
 - « **Modifier** » permet de modifier les informations d'une évaluation. Cette action est possible tant que l'évaluation est en brouillon ;
 - « **Supprimer** » permet de supprimer définitivement l'évaluation. **Cette action est irréversible**.
 
@@ -748,7 +755,7 @@ Il est nécessaire de définir les éléments de contexte :
 * Date de l'évaluation ;
 * Les personnes présentes et leur fonction.
 
-Il est nécessaire que le plus haut niveau hiérarchique de la structure soit associé à cette démarche. Une évaluation réalisée en présence du DGS, du Maire, du RSSI aura beaucoup plus de valeur.
+Il est nécessaire que le plus haut niveau hiérarchique de la structure soit associé à cette démarche. Une évaluation réalisée en présence du DGS, du Maire, du RSSI aura beaucoup plus de valeur qu'une évaluation réalisée seul.
 
 ``Astuce : « Ajouter un participant » permet d'ajouter un participant. Il est possible d'ajouter autant de participant que souhaité.``
 
@@ -756,11 +763,11 @@ Il est nécessaire que le plus haut niveau hiérarchique de la structure soit as
 
 #### Évaluation de l'organisation
 
-Dans l'évaluation de l'organisation, il est possible d'évaluer la conformité de chaque processus en répondant à un ensemble de questions appelées pratiques. Un processus est donc composé de plusieurs pratiques. Suivant la réponse aux pratiques, un score par processus sera calculé.
+Dans l'évaluation de l'organisation, il est possible d'évaluer la conformité de chaque processus en répondant à un ensemble de questions appelées « pratiques ». Un processus est donc composé de plusieurs pratiques. Suivant la réponse aux pratiques, un score par processus sera calculé.
 
 Pour chaque pratique, il est possible de répondre par l'une des réponses suivantes :
 
-* **Non concerné** : La ou les pratiques ne concernent pas la structure. Il est nécessaire de justifier ce choix. La pratique n'est alors pas prise en compte dans le calcul de la note du processus ;
+* **Non concerné** : La ou les pratiques ne concernent pas la structure. **Il est nécessaire de justifier ce choix.** La pratique n'est alors pas prise en compte dans le calcul de la note du processus ;
 * **Inexistante** : Rien n'est réalisé ;
 * **Très éloignée** : La ou les pratiques sont très éloignées de la définition (<20 %) ;
 * **Partielle** : La ou les pratiques sont partielles (20 % < pratique < 80 %) au regard de la définition. Elles ne sont pas documentées ;
@@ -805,24 +812,14 @@ Il est possible d'effectuer plusieurs actions :
 Un traitement doit faire l’objet d’une AIPD si :
 
 - Une AIPD a été réalisée, mais n’est plus valable par l'une des causes suivantes :
-	- Elle date de plus de x ans ;
-	- Le traitement a été modifié sur un des points suivants : 
-		- Finalités ;
-		- Données collectées ;
-		- Destinataires ;
-		- Durée de conservation ;
-- Le traitement est sur la liste des AIPD obligatoires ;
-- Le traitement n’est pas sur la liste des traitements dérogatoire ;
-- Il y a au moins 2 critères parmi les 8 traitements spécifiques et les données sensibles :
-	- Révélant l’origine prétendument raciale ou ethnique ;
-	- Portant sur les opinions politiques, philosophiques ou religieuses ;
-	- Relatives à l’appartenance syndicale ;
-	- Concernant la santé ou l’orientation sexuelle ;
-	- Génétiques ou biométriques.
+	- Elle est ancienne ;
+	- Le traitement a été modifié sur un point fondamental (finalité, texte de loi...) ou technique (logiciel...) ;
+- Le traitement est sur la [liste des AIPD obligatoires (PDF - 228 Ko)](https://www.cnil.fr/sites/default/files/atoms/files/liste-traitements-aipd-requise.pdf) ;
+- Le traitement n’est pas sur la [liste des traitements dérogatoire (PDF - 215 Ko)](https://www.cnil.fr/sites/default/files/atoms/files/liste-traitements-aipd-non-requise.pdf) et au moins 2 critères parmi les 8 traitements spécifiques et les données sensibles (origine prétendument raciale ou ethnique ; opinions politiques, philosophiques ou religieuses ; appartenance syndicale ; santé ou orientation sexuelle ; génétiques ou biométriques).
 
 ### Instruction d’un dossier d’AIPD
 
-L’instruction d’une nouvelle AIPD démarre depuis la liste de conformité des traitements consultable par le menu « **Conformité des traitements** ».
+L’instruction d’une nouvelle AIPD démarre depuis la liste de conformité des traitements consultables par le menu « **Conformité des traitements** ».
 
 **Il est nécessaire d’avoir réalisé l’évaluation de la conformité du traitement pour pouvoir réaliser une AIPD sur celui-ci.**
 
@@ -834,16 +831,16 @@ L’instruction d’une nouvelle AIPD démarre depuis la liste de conformité de
 
 #### Choix du modèle
 
-L’instruction d’une AIPD commence par le choix du modèle.
+L’instruction d’une AIPD commence par le choix du modèle. **Selon le modèle choisi, lors des étapes suivantes, certains champs pourront être pré remplis ou en lecture seule.**
 
-![Choix du modèle](images/Madis-Liste-Des-Modeles-D-Analyse.png)
+![Choix du modèle](images/Madis-Realiser-Une-AIPD-Choix-Du-Modele.png)
 
 Il est possible d'effectuer plusieurs actions :
 
 - « **Retourner à la liste** » permet de quitter l'AIPD en ne prenant pas en compte les informations saisies ;
 - « **Choisir ce modèle** » permet de choisir le modèle sélectionné et de passer à l'étape suivante. Une fois le modèle choisi, il n’est plus possible de revenir en arrière.
 
-``Astuce : En cas d’erreur lors du choix du modèle, il est possible de supprimer l'AIPD dans la liste des AIPD et d'en recréer une.``
+``Astuce : En cas d’erreur lors du choix du modèle, il est nécessaire de supprimer l'AIPD dans la liste des AIPD et d'en recréer une.``
 
 #### Étape 1 : Description
 
@@ -872,7 +869,7 @@ Cette étape permet de prendre connaissance des informations renseignées par l'
 
 ![Étape 2 : Conformité](images/Madis-Realiser-Une-AIPD-Etape-2.png)
 
-Pour chacun des critères listés, justifier le contexte de chaque critère pour lequel le champ « **Justificatif** » est présent.
+Pour chaque critère, justifier le contexte pour lequel le champ « **Justificatif** » est présent.
 
 Il est possible d'effectuer plusieurs actions :
 
@@ -882,11 +879,11 @@ Il est possible d'effectuer plusieurs actions :
 
 #### Étape 3 : Gestion des risques
 
-Cette étape permet de prendre connaissance des informations renseignées par l'évaluation de conformité du traitement (niveau de conformité et actions de protection associées).
+Cette étape permet d'évaluer le niveau d'impact des différents scénarios de menace.
 
 ![Étape 3 : Gestion des risques](images/Madis-Realiser-Une-AIPD-Etape-3.png)
 
-Pour chacun des scénarios de menace définis par le modèle choisi, indiquer la vraisemblance et/ou la gravité des menaces ainsi que le DIC (Disponibilité ; Intégrité ; Confidentialité). Il est possible d'apporter une précision pour justifier les différents choix.
+Pour chaque scénario de menace, indiquer le DIC (Disponibilité ; Intégrité ; Confidentialité) ainsi que la vraisemblance et/ou la gravité des menaces. Il est possible d'apporter une précision pour justifier les différents choix.
 
 Il est possible d'effectuer plusieurs actions :
 
@@ -941,11 +938,11 @@ Dans l'avis des acteurs, il est obligatoire de renseigner les éléments suivant
 
 * **Date** : Date de l'avis de l'acteur ;
 * **Réponse** : Précise l'avis de l'acteur selon les choix suivants :
-	* **Pas de réponse** : Ne se prononce pas, ou l’avis de cet acteur n’a pas été sollicité.
-    * **Favorable** : Le traitement peut être mis en œuvre sans exigences conservatoires.
-    * **Favorable avec réserve(s)** : Le traitement peut être mis en œuvre si les exigences conservatoires listées sont respectées.
+	* **Pas de réponse** : Ne se prononce pas, ou l’avis de cet acteur n’a pas été sollicité ;
+    * **Favorable** : Le traitement peut être mis en œuvre sans exigences conservatoires ;
+    * **Favorable avec réserve(s)** : Le traitement peut être mis en œuvre si les exigences conservatoires listées sont respectées ;
     * **Défavorable** : Le traitement ne peut pas être mis en œuvre ;
-* **Détail** : Justification du choix de la réponse  ;
+* **Détail** : Justification du choix de la réponse.
 
 Il est possible d'effectuer plusieurs actions :
 
@@ -999,11 +996,120 @@ Il est possible d'effectuer plusieurs actions :
 - « **+ Importer un modèle** » permet d'importer un modèle d'AIPD. Seul un fichier au format XML peut être importé ;
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
 - « **Modifier** » permet de modifier les informations d'un modèle. La modification de celui-ci n’entraîne pas la modification du modèle utilisé dans un AIPD en cours de réalisation ou réalisée ;
-- « **Droits** » permet de choisir la ou les structures pouvant utiliser le modèle. Par défaut, un modèle n’a aucun droit, il est donc nécessaire après la création d'un modèle, d’aller choisir les structures autorisées à l’utiliser ;
+- « **Droits** » permet de choisir la ou les structures pouvant utiliser le modèle. **Par défaut, un modèle n’a aucun droit, il est donc nécessaire après la création d'un modèle, d’aller choisir les structures autorisées à l’utiliser** ;
 - « **Exporter** » permet d'exporter le modèle au format XML ;
 - « **Supprimer** » permet de supprimer définitivement le modèle. La suppression d’un modèle n’entraîne pas la suppression des AIPD réalisées à partir de celui-ci. **Cette action est irréversible**.
 
 ``Rappel : Lorsqu'un modèle est utilisé pour la réalisation d'une AIPD, celui-ci sera complètement dissocié. Le modèle principal pourra donc être modifié ou supprimé sans impacter l'instruction d'une AIPD en cours de réalisation ou réalisé.``
+
+#### Nouveau modèle
+
+« **+ Nouveau modèle** » permet d'ajouter un nouveau modèle.
+
+**Pour rappel, dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
+
+##### Étape 1 : Généralités
+
+![Étape 1 : Généralités](images/Madis-Ajouter-Un-Modele-AIPD-Etape-1.png)
+
+Il est possible d'effectuer plusieurs actions :
+
+- « **Retourner à la liste** » permet de quitter le modèle en ne prenant pas en compte les informations saisies ou modifiées ;
+- « **Suivant** » permet de passer à l'étape suivante.
+
+###### Informations générales
+
+Dans les informations générales, il est possible de renseigner les éléments suivants :
+
+* **Nom** : Intitulé du modèle ;
+* **Description** : La description du modèle.
+
+Le nom et la description sont visibles lors du choix du modèle à l’instruction d'une AIPD. Ils permettent d'aider à la sélection du modèle.
+
+###### Personnalisation des labels pour les mesures
+
+Dans la personnalisation des labels pour les mesures, il est possible de renseigner les éléments suivants :
+
+* **Label amélioration prévue** : Texte affiché comme réponse lors de l'instruction si la mesure a une amélioration prévue ;
+* **Label insatisfaisant** : Texte affiché comme réponse lors de l'instruction si la mesure est insatisfaisante ;
+* **Label satisfaisant** : Texte affiché comme réponse lors de l'instruction si la mesure est satisfaisante.
+
+###### Principes fondamentaux
+
+Dans les principes fondamentaux, il est possible de renseigner les éléments suivants :
+
+* **Label** : Par défaut, le label est celui utilisé par la CNIL. Il est cependant possible de le changer ;
+* **Label pour livrable** : Label affiché dans le livrable. Il peut être identique au label de la CNIL ;
+* **Réponses** :
+	* **Non renseigné** : Réponse à compléter lors de l’instruction ;
+	* **Non conforme** : Réponse prédéfini et non modifiable lors de l’instruction ;
+	* **Conforme** : Réponse prédéfini et non modifiable lors de l’instruction ;
+	* **Non applicable** : Réponse prédéfini et non modifiable lors de l’instruction. Le critère n’est pas pris en compte dans le calcul de la conformité ;
+* **Visible** :
+	* « **Visible** » : Si coché, le critère est visible et modifiable lors de l’instruction ;
+	* « **Invisible** » : Si décoché, le critère est invisible lors de l’instruction. Toutefois, la réponse sera bien prise en compte dans le calcul de la conformité et le critère sera bien apparent dans le livrable. **Si décoché, la réponse ne doit pas être « Non renseigné »** ;
+* **Texte en cas de conformité** : Texte affiché dans le livrable si le critère est conforme ;
+* **Texte en cas de non-conformité** : Texte affiché dans le livrable si le critère est non-conforme ;
+* **Texte en cas de non-applicabilité** : Texte affiché dans le livrable si le critère est non-applicable ;
+* **Justificatif** : Pré-rempli la justification pour l'utilisateur. Ce champ est modifiable lors de l’AIPD ;
+* **Joindre un fichier** : Permet de joindre un fichier. Un seul fichier peut être déposé par critère, d'une taille maximale définie dans l'administration et seuls les formats images sont autorisés (.jpg ; .jpeg ; .png). Le fichier joint est modifiable lors de l’AIPD.
+
+##### Étape 2 : Conformité
+
+Cette étape reprend les 15 principes fondamentaux du RGPD du module conformité des traitements. Lors de l’instruction de l’AIPD, les données (Conforme, non conforme et les actions de protections associées) seront directement héritées du module conformité des traitements.
+
+![Étape 2 : Conformité](images/Madis-Ajouter-Un-Modele-AIPD-Etape-2.png)
+
+Dans cette étape, il est possible de renseigner les éléments suivants :
+
+* **Justification obligatoire** : Si coché, un champ apparaît lors de l’AIPD et oblige la justification du niveau de conformité (Conforme, Non-conforme mineure ou Non-conforme majeure) ;
+* **Texte en cas de conformité** : Texte affiché dans le livrable si le critère est conforme ;
+* **Texte en cas de non-conformité mineure** : Texte affiché dans le livrable si le critère est non-conforme mineure ;
+* **Texte en cas de non-conformité majeure** : Texte affiché dans le livrable si le critère est non-conforme majeure.
+
+Il est possible d'effectuer plusieurs actions :
+
+- « **Retourner à la liste** » permet de quitter le modèle en ne prenant pas en compte les informations saisies ou modifiées ;
+- « **Précédent** » permet de passer à l'étape précédente ;
+- « **Suivant** » permet de passer à l'étape suivante.
+
+##### Étape 3 : Gestion des risques
+
+![Étape 3 : Gestion des risques](images/Madis-Ajouter-Un-Modele-AIPD-Etape-3.png)
+
+Dans cette étape, après avoir ajouté un ou plusieurs scénarios, il est possible de renseigner les éléments suivants :
+
+* **Scénarios de menace** : Intitulé du scénario ;
+* **Associer des mesures** : Affecte une ou plusieurs mesures de protection au scénario ;
+* **Visible** :
+	* « **Visible** » : Si coché, la menace est visible et modifiable lors de l’instruction ;
+	* « **Invisible** » : Si décoché, la mesure est invisible lors de l’instruction. Toutefois, la mesure sera bien prise en compte dans le calcul de la conformité et elle sera bien apparente dans le livrable ;
+* **D**, **I** et **C** : Impact sur la Disponibilité, l’Intégrité et/ou la Confidentialité. Si au moins une case est cochée, les 3 champs DIC ne seront pas modifiables lors de l'instruction. Cependant, ils seront modifiables dans l'AIPD si les 3 cases sont décochées ;
+* **Vraisemblance** :
+	* **Pas de réponse** : Réponse à compléter lors de l’instruction ;
+	* **Négligeable** : Réponse prédéfini et non modifiable lors de l’instruction ;
+	* **Limité** : Réponse prédéfini et non modifiable lors de l’instruction ;
+	* **Importante** : Réponse prédéfini et non modifiable lors de l’instruction ;
+	* **Maximale** : Réponse prédéfini et non modifiable lors de l’instruction ;
+* **Gravité** :
+	* **Pas de réponse** : Réponse à compléter lors de l’instruction ;
+	* **Négligeable** : Réponse prédéfini et non modifiable lors de l’instruction ;
+	* **Limité** : Réponse prédéfini et non modifiable lors de l’instruction ;
+	* **Importante** : Réponse prédéfini et non modifiable lors de l’instruction ;
+	* **Maximale** : Réponse prédéfini et non modifiable lors de l’instruction ;
+* **Précision** : Pré-rempli la justification de la vraisemblance et/ou de la gravité pour l'utilisateur. Ce champ est modifiable lors de l’AIPD.
+
+``Astuce : Ajouter des mesures de protection avant un modèle permet de les rattacher directement au moment de la création du modèle.``
+
+Il est possible d'effectuer plusieurs actions :
+
+- « **Ajouter un scénario de menace** » permet d'ajouter un scénario ;
+- « **Supprimer** » permet de supprimer définitivement le scénario. **Cette action est irréversible** ;
+- « **Retourner à la liste** » permet de quitter le modèle en ne prenant pas en compte les informations saisies ou modifiées ;
+- « **Précédent** » permet de passer à l'étape précédente ;
+- « **Terminer** » permet de terminer le modèle.
+
+``À noter : Par défaut, un modèle créé n’a aucun droit, il est donc nécessaire d’aller gérer les droits pour pouvoir l'utiliser.``
 
 ### Mesures de protection
 
@@ -1017,6 +1123,33 @@ Il est possible d'effectuer plusieurs actions :
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
 - « **Modifier** » permet de modifier les informations d'une mesure de protection ;
 - « **Supprimer** » permet de supprimer définitivement la mesure de protection. **Cette action est irréversible**.
+
+#### Nouvelle mesure
+
+« **+ Nouvelle mesure** » permet d'ajouter une nouvelle mesure.
+
+**Pour rappel, dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
+
+![Ajouter une mesure de protection](images/Madis-Ajouter-Une-Mesure-De-Protection.png)
+
+``Astuce : Ajouter des mesures de protection avant un modèle permet de les rattacher directement au moment de la création du modèle.``
+
+##### Informations générales
+
+Dans les informations générales, il est possible de renseigner les éléments suivants :
+
+* **Nom** : Intitulé de la mesure ;
+* **Nom court** : Intitulé court de la mesure ;
+* **Détail** : Détail de la mesure pour l'utilisateur. Ce champ est modifiable lors de l’AIPD ;
+* **Poids vraisemblance** : Valeur de 1 à 10 permettant de moduler l’impact de la vraisemblance de la mesure ;
+* **Poids gravité** : Valeur de 1 à 10 permettant de moduler l’impact de la gravité de la mesure.
+
+##### Informations pour livrable
+
+Dans les informations pour livrable, il est possible de renseigner les éléments suivants :
+
+* **Label livrable** : Intitulé de la mesure affiché dans le livrable. Il peut être identique au nom de la mesure ;
+* **Phrase préconisation** : Texte de préconisation affiché dans le livrable si la mesure n’est pas appliquée.
 
 ## Registre Public
 
@@ -1032,7 +1165,7 @@ Le numéro de la structure est constitué d'une suite de chiffres et de lettres 
 
 ![URL du numéro de la structure](images/Madis-Structure-ID.png)
 
-Le menu « **Configuration des traitements** » permet de configurer les champs des traitements consultables par le grand public. Les informations des éléments cochés seront rendus publics pour les traitements publics. Cette configuration est globale pour toutes les structures.
+Le menu « **Configuration des traitements** » permet de configurer les champs des traitements consultables par le grand public. Les informations des éléments cochés seront rendues publiques pour les traitements publics. **Cette configuration est globale pour toutes les structures.**
 
 ![ Configurer les traitements ](images/Madis-Configurer-Les-Traitements.png)
 
@@ -1092,7 +1225,7 @@ Les fichiers autorisés sont :
 
 #### Catégories
 
-Il est possible de lier le fichier à une ou plusieurs catégories. Les catégories listées peuvent être gérées dans les [catégories documentaires](#Catégories-documentaires). Si un document est lié à une catégorie système, un bouton apparaît dans le module en question permettant de rediriger vers les documents liés à la catégorie du module.
+Il est possible de lier le fichier à une ou plusieurs catégories. Les catégories listées peuvent être gérées dans les [catégories documentaires](#Catégories-documentaires). Si un document est lié à une catégorie *système*, un bouton apparaît dans le module en question permettant de rediriger vers les documents liés à la catégorie du module.
 
 ### Ajouter un lien
 
@@ -1113,7 +1246,7 @@ Dans lien, il est possible de renseigner les éléments suivants :
 
 #### Catégories
 
-Il est possible de lier le lien à une ou plusieurs catégories. Les catégories listées peuvent être gérées dans les [catégories documentaires](#Catégories-documentaires). Si un document est lié à une catégorie système, un bouton apparaît dans le module en question permettant de rediriger vers les documents liés à la catégorie du module.
+Il est possible de lier le lien à une ou plusieurs catégories. Les catégories listées peuvent être gérées dans les [catégories documentaires](#Catégories-documentaires). Si un document est lié à une catégorie *système*, un bouton apparaît dans le module en question permettant de rediriger vers les documents liés à la catégorie du module.
 
 ### Catégories documentaires
 
@@ -1126,7 +1259,7 @@ Il existe deux types de catégorie :
 - Les catégories systèmes (Exemple : Traitement, Sous-traitant, …) ;
 - Les catégories créées par le DPD.
 
-Les  catégories systèmes ne peuvent pas être supprimées. Elles font référence aux différents modules de Madis. Quand un document ou un lien est lié à une catégorie système, un bouton apparaît dans le module en question. Celui-ci redirige dans l'espace documentaire vers les documents liés à la catégorie du module.
+Les  catégories systèmes ne peuvent pas être supprimées ni modifiées. Elles font référence aux différents modules de Madis. Quand un document ou un lien est lié à une catégorie système, un bouton ("Ressources Utiles") apparaît dans le module en question. Celui-ci redirige dans l'espace documentaire vers les documents liés à la catégorie du module.
 
 Le DPD peut créer autant de catégories de document que nécessaire.
 
@@ -1229,7 +1362,8 @@ Il est possible d'effectuer plusieurs actions :
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
 - « **Se connecter** » permet de se connecter en tant que l'utilisateur sélectionné. Il aura ainsi accès à la vue de l'utilisateur ;
 - « **Modifier** » permet de modifier les informations d'un utilisateur ;
-- « **Supprimer** » permet de supprimer définitivement le traitement. **Cette action est irréversible**.
+- « **Archiver** » permet d'archiver un utilisateur. Un utilisateur archivé ne pourra plus se connecter à Madis ;
+- « **Supprimer** » permet d'archiver un utilisateur. Un utilisateur archivé ne pourra plus se connecter à Madis.
 
 ``À noter : Le module de journalisation enregistre les actions qu'un utilisateur réalise lorsqu'il est connecté en tant que.``
 
@@ -1262,7 +1396,7 @@ Il est possible de choisir l'un des rôles suivant :
 
 #### Informations facultatives
 
-Il est possible de renseigner un mot de passe pour l'utilisateur.
+Il est possible de renseigner un mot de passe pour l'utilisateur. En l'absence de mot de passe défini, l'utilisateur devra réinitialiser son mot de passe via la procédure de mot de passe oublié.
 
 Par défaut, les règles de sécurité du mot de passe sont les suivantes :
 * 14 caractères ;
@@ -1399,60 +1533,22 @@ Les fonctionnalités suivantes sont disponibles via API :
 
 Pour en savoir plus, [accéder aux API Madis](https://madis-test.soluris.fr/api/docs).
 
-# Annexes
+# Annexe
 
-## Conformité de l'organisation
+## Glossaire
 
-### Définitions des 12 processus
+### Responsable de traitement
 
-#### 1. Responsabilités
+« La personne physique ou morale, l'autorité publique, le service ou un autre organisme qui, seul ou conjointement avec d'autres, détermine les finalités et les moyens du traitement; lorsque les finalités et les moyens de ce traitement sont déterminés par le droit de l'Union ou le droit d'un État membre, le responsable du traitement peut être désigné ou les critères spécifiques applicables à sa désignation peuvent être prévus par le droit de l'Union ou par le droit d'un État membre. » ([Art. 4 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre1#Article4)).
 
-Définir et communiquer aux personnes concernées la politique générale de protection des données de l'entreprise. Définir, mettre en œuvre et réexaminer la politique de gestion des données (processus, ressources, mesures). S’assurer que la politique de gestion des données est communiquée, comprise et appliquée au sein de l’entreprise.
+### Responsables conjoints
 
-#### 2. Traitements et transferts de données
+« Lorsque deux responsables de traitement ou plus déterminent conjointement les finalités et les moyens du traitement, ils sont les responsables conjoints du traitement. » ([Art. 26 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre4#Article26)).
 
-Disposer d’un registre des activités de traitement à jour. S'assurer que les mesures de conformité des traitements de données à caractère personnel sont effectivement prises en compte en cas de traitements nouveaux ou modifiés. Gérer les transferts de données.
+### Sous-traitant
 
-#### 3. Droits de la personne concernée
-
-S'assurer que l'information est concise pour l'exercice des droits par la personne concernée. Disposer de procédures internes fiables pour répondre aux demandes des personnes concernées.
-
-#### 4. Sous-traitants
-
-En tant que responsable du traitement, s'assurer de la conformité des contrats de sous-traitance. Si l'entreprise agit en tant que sous-traitant, s'assurer que le responsable du traitement a pris en compte ses obligations.
-
-#### 5. Protection des données dès la conception
-
-Garantir que la gestion des droits de la personne concernée et la sécurité des données sont prises en compte dès la phase de conception du projet et durant son cycle de vie. Maîtriser la conformité du produit ou du service aux exigences du RGPD au travers de vérifications, de validations et de revues de conception planifiée.
-
-#### 6. Gestion des mesures de sécurité
-
-S'assurer de la mettre en œuvre des mesures de protection sélectionnées afin de répondre aux objectifs de disponibilité, d’intégrité et de confidentialité des données à caractère personnel. Détecter les incidents de sécurité pouvant avoir pour conséquence une violation de données.
-
-#### 7. Analyse d'impacts sur la protection des données
-
-Réaliser une analyse d'impact sur la protection des données lorsque le traitement est susceptible d’engendrer un risque élevé pour les droits et libertés ou lorsqu'une partie intéressée demande une preuve de conformité.
-
-#### 8. Sensibiliser, former et communiquer
-
-S'assurer que le personnel à qui ont été affectées les responsabilités définies dans le système de management des données à caractère personnel, a les compétences nécessaires pour exécuter les tâches requises. S'assurer que tout le personnel approprié a conscience de la pertinence et de l'importance de ses activités liées aux traitements des données à caractère personnel.
-
-#### 9. Exigences, sollicitations, violations, poursuites
-
-Connaître la réglementation applicable et ses évolutions. Être en capacité de répondre à des sollicitations ou à des poursuites. Réagir en cas de violations de données.
-
-#### 10. Évaluer et auditer
-
-À intervalles réguliers, vérifier que le système de management des données à caractère personnel est conforme à la politique définie. Apporter la preuve que les traitements effectués par le responsable du traitement et les sous-traitants sont conformes au règlement.
-
-#### 11. Gérer de la documentation et des preuves
-
-Gérer le patrimoine documentaire attaché à la protection des données. Établir et conserver des enregistrements pour apporter la preuve des mesures techniques et organisationnelles.
-
-#### 12. Piloter le Système de Management des Données à Caractère Personnel (SMDCP)
-
-Disposer d'indicateurs pour piloter l'efficacité des processus du SMDCP. Produire le bilan (rapport) annuel.
+« La personne physique ou morale, l'autorité publique, le service ou un autre organisme qui traite des données à caractère personnel pour le compte du responsable du traitement. » ([Art. 4 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre1#Article4)).
 
 ----
 
-**[Soluris](https://www.soluris.fr/)** 2 rue des Rochers, 17100 Saintes. Tel. 05 46 92 73 51 dpd@soluris.fr
+**[Soluris](https://www.soluris.fr/)** 2 rue des Rochers, 17100 Saintes. Tel. 05 46 92 39 05 contact@soluris.fr
