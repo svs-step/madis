@@ -27,7 +27,7 @@ namespace App\Domain\User\Symfony\EventSubscriber\Doctrine;
 use App\Domain\User\Component\TokenGenerator;
 use App\Domain\User\Model\User;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class DefinePasswordSubscriber implements EventSubscriber
 {

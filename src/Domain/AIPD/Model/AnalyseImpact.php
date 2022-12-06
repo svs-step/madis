@@ -29,13 +29,13 @@ class AnalyseImpact
      * Since any changes on the ModeleAnalyse should not be repercuted on the AnalyseImpact,
      * we store only the name of the ModeleAnalyse for information purposes.
      */
-    private string $modeleAnalyse;
+    private string $modeleAnalyse = "";
 
-    private string $labelAmeliorationPrevue;
+    private string $labelAmeliorationPrevue = "";
 
-    private string $labelInsatisfaisant;
+    private string $labelInsatisfaisant = "";
 
-    private string $labelSatisfaisant;
+    private string $labelSatisfaisant = "";
 
     /**
      * @var array|CriterePrincipeFondamental[]

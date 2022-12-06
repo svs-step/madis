@@ -40,7 +40,7 @@ use App\Domain\User\Model\ComiteIlContact;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Symfony\Component\Cache\Adapter\AdapterInterface;

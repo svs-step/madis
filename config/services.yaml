@@ -41,6 +41,10 @@ services:
     aipd.form.flow.analyse_impact:
         class: App\Domain\AIPD\Form\Flow\AnalyseImpactFlow
 
+    aipd.model.analyse_impact:
+        class: App\Domain\AIPD\Model\AnalyseImpact
+
+    App\Domain\AIPD\Model\AnalyseImpact: '@aipd.model.analyse_impact'
 imports:
     - { resource: services/cloner.yaml }
     - { resource: services/controller.yaml }

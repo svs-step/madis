@@ -7,7 +7,7 @@ namespace App\Domain\Registry\Symfony\EventSubscriber\Doctrine;
 use App\Domain\Registry\Calculator\ConformiteOrganisationConformiteCalculator;
 use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class ConformiteOrganisationSubscriber implements EventSubscriber
 {

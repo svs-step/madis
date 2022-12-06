@@ -34,7 +34,8 @@ use App\Domain\Registry\Service\ConformiteOrganisationService;
 use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
 use App\Domain\Reporting\Repository\LogJournal;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
-use Doctrine\Common\Inflector\Inflector;
+use Doctrine\Inflector\InflectorFactory;
+use Doctrine\Inflector\Language;
 use Doctrine\ORM\EntityManagerInterface;
 
 class UserMetric implements MetricInterface
@@ -323,7 +324,8 @@ class UserMetric implements MetricInterface
 
             // Type
             if ($request->getObject()) {
-                ++$data['request']['value']['type'][Inflector::camelize($request->getObject())];
+                $inflector = InflectorFactory::createForLanguage(Language::FRENCH)->build();
+                ++$data['request']['value']['type'][$inflector->camelize($request->getObject())];
             }
 
             // Status

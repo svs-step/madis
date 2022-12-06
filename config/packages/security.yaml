@@ -1,5 +1,5 @@
 security:
-    encoders:
+    password_hashers:
         App\Domain\User\Model\User:
             algorithm: auto
     providers:

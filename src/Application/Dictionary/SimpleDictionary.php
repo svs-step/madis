@@ -72,7 +72,7 @@ class SimpleDictionary implements DictionaryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset): bool
     {
         return \array_key_exists($offset, $this->values);
     }
@@ -82,7 +82,7 @@ class SimpleDictionary implements DictionaryInterface
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->values[$offset];
     }
@@ -90,7 +90,7 @@ class SimpleDictionary implements DictionaryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value)
     {
         $this->values[$offset] = $value;
     }
@@ -106,8 +106,13 @@ class SimpleDictionary implements DictionaryInterface
     /**
      * {@inheritdoc}
      */
-    public function getIterator()
+    public function getIterator(): \Traversable|array|ArrayIterator
     {
         return new ArrayIterator($this->values);
+    }
+
+    public function count(): int
+    {
+        return count($this->values);
     }
 }
