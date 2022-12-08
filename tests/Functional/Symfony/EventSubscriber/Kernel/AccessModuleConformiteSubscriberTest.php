@@ -66,7 +66,7 @@ class AccessModuleConformiteSubscriberTest extends WebTestCase
         // get or create the user somehow (e.g. creating some users only
         // for tests while loading the test fixtures)
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->findOneOrNullByEmail('user_user_admin');
+        $testUser = $userRepository->findOneOrNullByEmail('admin@awkan.fr');
 
         $client->loginUser($testUser);
         $url = $client->getContainer()->get('router')->generate('registry_conformite_traitement_list', [], UrlGeneratorInterface::RELATIVE_PATH);

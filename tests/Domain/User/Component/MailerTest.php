@@ -99,13 +99,11 @@ class MailerTest extends TestCase
     {
         $this->mailerProphecy->send(Argument::type(Email::class))->shouldBeCalled();
 
-        $this->expectNotToPerformAssertions();
         $this->invokeMethod(
             $this->mailer,
             'send',
             ['to@gmail.com', 'subject', 'body']
         );
-
     }
 
     /**
