@@ -31,6 +31,7 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Tools\ChainManipulator;
 use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
@@ -38,7 +39,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Intl\Exception\MethodNotImplementedException;
+use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -259,8 +260,13 @@ abstract class CRUDController extends AbstractController
             $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
         }
 
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+
         $actionEnabled = true;
-        if ($object instanceof CollectivityRelated && (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$this->getUser()->getServices()->isEmpty())) {
+        if ($object instanceof CollectivityRelated && (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$user->getServices()->isEmpty())) {
             $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
         }
 
@@ -309,7 +315,11 @@ abstract class CRUDController extends AbstractController
         }
 
         $actionEnabled = true;
-        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$this->getUser()->getServices()->isEmpty()) {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$user->getServices()->isEmpty()) {
             $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
         }
 
@@ -333,7 +343,11 @@ abstract class CRUDController extends AbstractController
         }
 
         $actionEnabled = true;
-        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$this->getUser()->getServices()->isEmpty()) {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$user->getServices()->isEmpty()) {
             $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
         }
 

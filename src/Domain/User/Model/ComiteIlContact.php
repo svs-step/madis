@@ -75,7 +75,7 @@ class ComiteIlContact implements LoggableSubject, \JsonSerializable
         $this->collectivity = $collectivity;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $contact = $this->getContact();
 

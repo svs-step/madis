@@ -67,7 +67,7 @@ class Document
     /**
      * @ORM\Column(type="integer", nullable=true)
      *
-     * @var string|null
+     * @var int|null
      */
     private $size;
 
@@ -332,7 +332,7 @@ class Document
             return 'Vide';
         }
         $units = ['o', 'Ko', 'Mo', 'Go', 'To', 'Po', 'Eo', 'Zo', 'Yo'];
-        $pow   = $this->size > 0 ? floor(log((float) $this->size, 1024)) : 0;
+        $pow   = floor(log((float) $this->size, 1024));
         $size  = number_format($this->size / pow(1024, $pow), 2, ',', ' ') . ' ' . $units[$pow];
 
         return $size;

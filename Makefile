@@ -1,3 +1,6 @@
+QA        = docker run --rm --workdir=/project -v `pwd`:/project jakzal/phpqa:php8.1-alpine
+ARTEFACTS = var/artefacts
+
 ##
 ## Tests
 ## -----
@@ -15,8 +18,7 @@ tu-report: ## Run unit tests
 ## Quality assurance
 ## -----------------
 ##
-QA        = docker run --rm --workdir=`pwd` -v `pwd`:`pwd` mykiwi/phaudit:7.4
-ARTEFACTS = var/artefacts
+
 
 lint: ## Lints twig and yaml files
 lint: lint-twig lint-yaml
@@ -30,13 +32,12 @@ lint-yaml: ## Lint twig templates
 	$(QA) bin/console lint:yaml fixtures
 
 security: ## Check security of your dependencies (https://security.sensiolabs.org/)
-	$(QA) php-security-checker
+	$(QA) local-php-security-checker
 
 phploc: ## PHPLoc (https://github.com/sebastianbergmann/phploc)
 	$(QA) phploc src/
 
 pdepend: ## PHP_Depend (https://pdepend.org)
-pdepend: artefacts
 	$(QA) pdepend \
 		--summary-xml=$(ARTEFACTS)/pdepend_summary.xml \
 		--jdepend-chart=$(ARTEFACTS)/pdepend_jdepend.svg \

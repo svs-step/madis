@@ -34,7 +34,6 @@ class TreatmentConcernedPeopleValidator extends ConstraintValidator
     /**
      * {@inheritdoc}
      *
-     * @var Treatment
      */
     public function validate($value, Constraint $constraint)
     {

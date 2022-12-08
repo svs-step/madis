@@ -70,7 +70,7 @@ jwtKeys() {
 
 
 install() {
-    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php 'until nc -z db 3306; do sleep 1; echo "Waiting for DB to come up..."; done'
+    #docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php 'until nc -z db 3306; do sleep 1; echo "Waiting for DB to come up..."; done'
     docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "composer install --prefer-dist --no-interaction --optimize-autoloader &&
                                                                                                                           bin/console doctrine:database:create --if-not-exists &&
                                                                                                                           bin/console doctrine:migration:migrate -n &&

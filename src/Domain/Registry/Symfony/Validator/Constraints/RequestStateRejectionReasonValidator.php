@@ -35,7 +35,6 @@ class RequestStateRejectionReasonValidator extends ConstraintValidator
     /**
      * {@inheritdoc}
      *
-     * @var Request
      */
     public function validate($value, Constraint $constraint)
     {
