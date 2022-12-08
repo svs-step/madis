@@ -62,7 +62,7 @@ class Survey extends CRUDRepository implements Repository\Survey
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -140,6 +140,6 @@ class Survey extends CRUDRepository implements Repository\Survey
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

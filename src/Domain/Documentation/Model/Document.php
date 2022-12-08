@@ -95,6 +95,7 @@ class Document
 
     /**
      * @var string|null
+     *
      * @ORM\Column(type="text", length=255, nullable=true)
      */
     private $thumbUrl;

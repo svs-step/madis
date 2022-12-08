@@ -174,8 +174,8 @@ class SwitchUserSubscriberTest extends TestCase
 
     public function testItSupportsReturnFalseOnNullUser()
     {
-        $event      = $this->prophesize(SwitchUserEvent::class);
-        $request    = new Request(['_switch_user' => 'foo']);
+        $event   = $this->prophesize(SwitchUserEvent::class);
+        $request = new Request(['_switch_user' => 'foo']);
         $event->getRequest()->shouldBeCalled()->willReturn($request);
 
         $this->security->isGranted(UserRoleDictionary::ROLE_ADMIN)->shouldBeCalled()->willReturn(false);
@@ -186,9 +186,9 @@ class SwitchUserSubscriberTest extends TestCase
 
     public function testItSupportsReturnFalseOnNonAuthorizedRoles()
     {
-        $event      = $this->prophesize(SwitchUserEvent::class);
-        $request    = new Request(['_switch_user' => 'foo']);
-        $user       = new User();
+        $event   = $this->prophesize(SwitchUserEvent::class);
+        $request = new Request(['_switch_user' => 'foo']);
+        $user    = new User();
         $user->setRoles([UserRoleDictionary::ROLE_REFERENT]);
         $event->getRequest()->shouldBeCalled()->willReturn($request);
 
@@ -201,9 +201,9 @@ class SwitchUserSubscriberTest extends TestCase
 
     public function testItSupportsReturnFalseOnEmptyReferedCollectivities()
     {
-        $event      = $this->prophesize(SwitchUserEvent::class);
-        $request    = new Request(['_switch_user' => 'foo']);
-        $user       = new User();
+        $event   = $this->prophesize(SwitchUserEvent::class);
+        $request = new Request(['_switch_user' => 'foo']);
+        $user    = new User();
         $user->setRoles([UserRoleDictionary::ROLE_USER]);
         $connectedUser = new User();
         $collectivity1 = new Collectivity();
@@ -222,9 +222,9 @@ class SwitchUserSubscriberTest extends TestCase
 
     public function testItSupportsReturnTryeOnAuthorizedReferedCollectivities()
     {
-        $event      = $this->prophesize(SwitchUserEvent::class);
-        $request    = new Request(['_switch_user' => 'foo']);
-        $user       = new User();
+        $event   = $this->prophesize(SwitchUserEvent::class);
+        $request = new Request(['_switch_user' => 'foo']);
+        $user    = new User();
         $user->setRoles([UserRoleDictionary::ROLE_USER]);
         $connectedUser = new User();
         $collectivity1 = new Collectivity();

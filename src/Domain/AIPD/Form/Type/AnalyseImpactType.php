@@ -49,7 +49,7 @@ class AnalyseImpactType extends AbstractType
                         'entry_type' => AnalyseCriterePrincipeFondamentalType::class,
                         'required'   => true,
                     ]);
-                    break;
+                break;
             case 2:
                 $builder
                     ->add('questionConformites', CollectionType::class, [
@@ -66,9 +66,9 @@ class AnalyseImpactType extends AbstractType
             case 4:
                 $builder
                     ->add('mesureProtections', CollectionType::class, [
-                        'entry_type'     => AnalyseMesureProtectionType::class,
-                        'entry_options'  => [
-                            'aipd'  => $options['data'],
+                        'entry_type'    => AnalyseMesureProtectionType::class,
+                        'entry_options' => [
+                            'aipd' => $options['data'],
                         ],
                     ]);
                 break;

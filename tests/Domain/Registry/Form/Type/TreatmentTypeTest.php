@@ -80,8 +80,8 @@ class TreatmentTypeTest extends FormTypeHelper
 
     public function testBuildForm()
     {
-        $treatment      = new Treatment();
-        $collectivity   = new Collectivity();
+        $treatment    = new Treatment();
+        $collectivity = new Collectivity();
         $collectivity->setIsServicesEnabled(true);
         $treatment->setCollectivity($collectivity);
 

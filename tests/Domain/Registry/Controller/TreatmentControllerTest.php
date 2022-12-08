@@ -176,10 +176,10 @@ class TreatmentControllerTest extends TestCase
      */
     public function testReportAction()
     {
-        $orderKey    = 'name';
-        $orderDir    = 'asc';
-        $treatments  = [];
-        $response    = $this->prophesize(BinaryFileResponse::class)->reveal();
+        $orderKey   = 'name';
+        $orderDir   = 'asc';
+        $treatments = [];
+        $response   = $this->prophesize(BinaryFileResponse::class)->reveal();
 
         $collectivity = $this->prophesize(UserModel\Collectivity::class)->reveal();
         $userProphecy = $this->prophesize(UserModel\User::class);

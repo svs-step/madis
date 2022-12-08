@@ -31,11 +31,11 @@ use App\Domain\Registry\Model\Treatment;
 
 class DuplicationTypeDictionary extends SimpleDictionary
 {
-    const NAME = 'admin_duplication_type';
+    public const NAME = 'admin_duplication_type';
 
-    const KEY_TREATMENT  = 'treatment';
-    const KEY_CONTRACTOR = 'contractor';
-    const KEY_MESUREMENT = 'mesurement';
+    public const KEY_TREATMENT  = 'treatment';
+    public const KEY_CONTRACTOR = 'contractor';
+    public const KEY_MESUREMENT = 'mesurement';
 
     public function __construct()
     {
@@ -74,10 +74,10 @@ class DuplicationTypeDictionary extends SimpleDictionary
                 $className = Treatment::class;
                 break;
             case self::KEY_CONTRACTOR:
-                $className =  Contractor::class;
+                $className = Contractor::class;
                 break;
             case self::KEY_MESUREMENT:
-                $className =  Mesurement::class;
+                $className = Mesurement::class;
                 break;
             default:
                 break;

@@ -90,7 +90,7 @@ class DuplicationTypeTest extends FormTypeHelper
         );
 
         // Generate all prophesized fields & add data transformer call
-        $builderProphecy                    = $this->prophesizeBuilder($builder, false);
+        $builderProphecy = $this->prophesizeBuilder($builder, false);
 
         $builderProphecy
             ->addEventListener(FormEvents::PRE_SUBMIT, Argument::any())

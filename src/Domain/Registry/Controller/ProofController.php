@@ -276,7 +276,7 @@ class ProofController extends CRUDController
 
     public function downloadAll()
     {
-        $objects        = [];
+        $objects = [];
         if ('ROLE_ADMIN' === $this->userProvider->getAuthenticatedUser()->getRoles()[0]) {
             $objects = $this->repository->findAll();
         }
@@ -302,7 +302,7 @@ class ProofController extends CRUDController
                 $files[]  = [$object->getDocument(), $fileName];
             }
         }
-        $zip      =  new ZipArchive();
+        $zip = new ZipArchive();
 
         $dir = $this->getParameter('kernel.project_dir') . '/public/uploads/registry/proof/zip/';
 
@@ -338,17 +338,17 @@ class ProofController extends CRUDController
         ]);
 
         return $this->render($this->getTemplatingBasePath('list'), [
-            'totalItem'   => $this->repository->count($criteria),
-            'category'    => $category,
-            'route'       => $this->router->generate('registry_proof_list_datatables', ['archive' => $criteria['archive']]),
+            'totalItem' => $this->repository->count($criteria),
+            'category'  => $category,
+            'route'     => $this->router->generate('registry_proof_list_datatables', ['archive' => $criteria['archive']]),
         ]);
     }
 
     public function listDataTables(Request $request): JsonResponse
     {
-        $criteria    = $this->getRequestCriteria();
-        $users       = $this->getResults($request, $criteria);
-        $reponse     = $this->getBaseDataTablesResponse($request, $users, $criteria);
+        $criteria = $this->getRequestCriteria();
+        $users    = $this->getResults($request, $criteria);
+        $reponse  = $this->getBaseDataTablesResponse($request, $users, $criteria);
 
         /** @var Model\Proof $proof */
         foreach ($users as $proof) {

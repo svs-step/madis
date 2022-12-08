@@ -8,11 +8,11 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class StatutAnalyseImpactDictionary extends SimpleDictionary
 {
-    const NON_REALISEE            = 'non_realisee';
-    const FAVORABLE               = 'favorable';
-    const FAVORABLE_AVEC_RESERVES = 'favorable_avec_reserves';
-    const NON_FAVORABLE           = 'defavorable';
-    const EN_COURS                = 'en_cours';
+    public const NON_REALISEE            = 'non_realisee';
+    public const FAVORABLE               = 'favorable';
+    public const FAVORABLE_AVEC_RESERVES = 'favorable_avec_reserves';
+    public const NON_FAVORABLE           = 'defavorable';
+    public const EN_COURS                = 'en_cours';
 
     public function __construct()
     {

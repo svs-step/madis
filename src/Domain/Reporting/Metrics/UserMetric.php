@@ -146,8 +146,8 @@ class UserMetric implements MetricInterface
             ],
             'request' => [
                 'value' => [
-                    'all'       => 0,
-                    'type'      => [
+                    'all'  => 0,
+                    'type' => [
                         'correct'         => 0,
                         'delete'          => 0,
                         'withdrawConsent' => 0,
@@ -379,7 +379,7 @@ class UserMetric implements MetricInterface
         // VIOLATION
         $data['violation']['value']['all'] = \count($violations);
 
-        //CONFORMITE TRAITEMENT
+        // CONFORMITE TRAITEMENT
         if ($collectivity->isHasModuleConformiteTraitement()) {
             foreach (ConformiteTraitementLevelDictionary::getConformites() as $key => $label) {
                 $data['conformiteTraitement']['data'][$key] = 0;
@@ -401,7 +401,7 @@ class UserMetric implements MetricInterface
                 }
             }
 
-            //reset data if all values equal zéro. Need to hide the chart.
+            // reset data if all values equal zéro. Need to hide the chart.
             if (empty(array_filter($data['conformiteTraitement']['data']))) {
                 $data['conformiteTraitement']['data'] = [];
             } else {
@@ -409,7 +409,7 @@ class UserMetric implements MetricInterface
             }
         }
 
-        //CONFORMITE ORGANISATION
+        // CONFORMITE ORGANISATION
         if ($collectivity->isHasModuleConformiteOrganisation() && null !== $conformiteOrganisationEvaluation) {
             $conformites = ConformiteOrganisationService::getOrderedConformites($conformiteOrganisationEvaluation);
 

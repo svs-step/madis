@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 namespace App\Application\Dictionary;
 
-use ArrayIterator;
 use Knp\DictionaryBundle\Dictionary as DictionaryInterface;
 
 class SimpleDictionary implements DictionaryInterface
@@ -79,8 +78,6 @@ class SimpleDictionary implements DictionaryInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return mixed
      */
     public function offsetGet($offset): mixed
     {
@@ -108,7 +105,7 @@ class SimpleDictionary implements DictionaryInterface
      */
     public function getIterator(): \Traversable
     {
-        return new ArrayIterator($this->values);
+        return new \ArrayIterator($this->values);
     }
 
     public function count(): int

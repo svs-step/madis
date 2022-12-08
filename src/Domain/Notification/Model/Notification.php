@@ -70,6 +70,7 @@ class Notification
 
     /**
      * @var Collectivity|null
+     *
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\Collectivity")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
@@ -77,6 +78,7 @@ class Notification
 
     /**
      * @var User|null
+     *
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
@@ -84,12 +86,14 @@ class Notification
 
     /**
      * @var \DateTimeImmutable|null
+     *
      * @ORM\Column(type="datetime", name="read_at")
      */
     private $readAt;
 
     /**
      * @var User|null
+     *
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */

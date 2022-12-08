@@ -28,9 +28,9 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class DelayPeriodDictionary extends SimpleDictionary
 {
-    const PERIOD_DAY   = 'day';
-    const PERIOD_MONTH = 'month';
-    const PERIOD_YEAR  = 'year';
+    public const PERIOD_DAY   = 'day';
+    public const PERIOD_MONTH = 'month';
+    public const PERIOD_YEAR  = 'year';
 
     public function __construct()
     {

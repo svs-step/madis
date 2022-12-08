@@ -35,7 +35,6 @@ use App\Domain\Admin\Repository as AdminRepository;
 use App\Domain\Admin\Transformer\DuplicationFormDTOTransformer;
 use App\Domain\User\Repository as UserRepository;
 // utilisés dynamiquements pour revert duplication, ne pas supprimer
-use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -184,7 +183,7 @@ class DuplicationController extends AbstractController
 
             try {
                 $typeToDelete = DuplicationTypeDictionary::getClassName($duplication->getType());
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->addFlash('error', 'Impossible d\'annuler la dernière duplication');
 
                 return $this->redirectToRoute('admin_duplication_new');

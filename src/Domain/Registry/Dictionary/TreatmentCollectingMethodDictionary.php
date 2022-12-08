@@ -28,13 +28,13 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class TreatmentCollectingMethodDictionary extends SimpleDictionary
 {
-    const METHOD_WEB_FORM          = 'web_form';
-    const METHOD_PAPER_FORM        = 'paper_form';
-    const METHOD_CONTRACT          = 'contract';
-    const METHOD_RECEIVED_LIST     = 'received_list';
-    const METHOD_INTERNAL_DOCUMENT = 'internal_document';
-    const METHOD_ORAL_INTERVIEW    = 'oral_interview';
-    const METHOD_OTHER             = 'other';
+    public const METHOD_WEB_FORM          = 'web_form';
+    public const METHOD_PAPER_FORM        = 'paper_form';
+    public const METHOD_CONTRACT          = 'contract';
+    public const METHOD_RECEIVED_LIST     = 'received_list';
+    public const METHOD_INTERNAL_DOCUMENT = 'internal_document';
+    public const METHOD_ORAL_INTERVIEW    = 'oral_interview';
+    public const METHOD_OTHER             = 'other';
 
     public function __construct()
     {

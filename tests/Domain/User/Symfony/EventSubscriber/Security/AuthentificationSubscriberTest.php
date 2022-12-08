@@ -72,10 +72,10 @@ class AuthentificationSubscriberTest extends TestCase
 
     public function setUp(): void
     {
-        $this->requestStack        = $this->prophesize(RequestStack::class);
-        $this->attemptRepository   = $this->prophesize(\App\Domain\User\Repository\LoginAttempt::class);
-        $this->userRepository      = $this->prophesize(\App\Domain\User\Repository\User::class);
-        $this->eventDispatcher     = $this->prophesize(EventDispatcherInterface::class)->reveal();
+        $this->requestStack      = $this->prophesize(RequestStack::class);
+        $this->attemptRepository = $this->prophesize(\App\Domain\User\Repository\LoginAttempt::class);
+        $this->userRepository    = $this->prophesize(\App\Domain\User\Repository\User::class);
+        $this->eventDispatcher   = $this->prophesize(EventDispatcherInterface::class)->reveal();
 
         $this->subscriber = new AuthenticationSubscriber(
             $this->requestStack->reveal(),
@@ -110,8 +110,8 @@ class AuthentificationSubscriberTest extends TestCase
 
     public function testItAddLogJournalWhenSwitchUserOn()
     {
-        $event        = $this->prophesize(AuthenticationSuccessEvent::class);
-        $request      = new Request(['_username' => 'bal@dsf.fg'], [], [], [], [], [
+        $event   = $this->prophesize(AuthenticationSuccessEvent::class);
+        $request = new Request(['_username' => 'bal@dsf.fg'], [], [], [], [], [
             'REMOTE_ADDR' => '192.168.1.1',
         ]);
 

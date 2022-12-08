@@ -186,7 +186,7 @@ class ContractorController extends CRUDController
             throw new NotFoundHttpException('Can\'t find collectivity for id ' . $collectivityId);
         }
 
-        $contractors   = $this->repository->findAllByCollectivity(
+        $contractors = $this->repository->findAllByCollectivity(
             $collectivity,
             [
                 'name' => 'ASC',
@@ -229,7 +229,7 @@ class ContractorController extends CRUDController
                 'donnees_hors_eu'        => $contractor->isSendingDataOutsideEu() ?
                     '<span class="label label-danger">' . $this->translator->trans('label.yes') . '</span>' :
                     '<span class="label label-success">' . $this->translator->trans('label.no') . '</span>',
-                'actions'                => $this->getActionCellsContent($contractor),
+                'actions' => $this->getActionCellsContent($contractor),
             ];
         }
 
@@ -241,7 +241,7 @@ class ContractorController extends CRUDController
 
     private function isContractorInUserServices(Model\Contractor $contractor): bool
     {
-        $user   = $this->userProvider->getAuthenticatedUser();
+        $user = $this->userProvider->getAuthenticatedUser();
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             return true;
@@ -283,8 +283,7 @@ class ContractorController extends CRUDController
     {
         $user = $this->userProvider->getAuthenticatedUser();
         if ($user->getServices()->isEmpty() || $this->isContractorInUserServices($sousTraitant)) {
-            $cellContent =
-                '<a href="' . $this->router->generate('registry_contractor_edit', ['id' => $sousTraitant->getId()]) . '">
+            $cellContent = '<a href="' . $this->router->generate('registry_contractor_edit', ['id' => $sousTraitant->getId()]) . '">
                     <i class="fa fa-pencil-alt"></i>' .
                     $this->translator->trans('action.edit') .
                 '</a>';

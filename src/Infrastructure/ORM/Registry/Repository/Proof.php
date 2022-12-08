@@ -82,7 +82,7 @@ class Proof implements Repository\Proof
             ->createQueryBuilder()
             ->select('o')
             ->from($this->getModelClass(), 'o')
-            ;
+        ;
     }
 
     /**
@@ -153,7 +153,7 @@ class Proof implements Repository\Proof
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -169,7 +169,7 @@ class Proof implements Repository\Proof
             ->getManager()
             ->getRepository($this->getModelClass())
             ->find($id)
-            ;
+        ;
     }
 
     /**
@@ -258,7 +258,7 @@ class Proof implements Repository\Proof
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -277,7 +277,7 @@ class Proof implements Repository\Proof
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -396,7 +396,7 @@ class Proof implements Repository\Proof
         return $qb
             ->getQuery()
             ->getSingleScalarResult()
-            ;
+        ;
     }
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])

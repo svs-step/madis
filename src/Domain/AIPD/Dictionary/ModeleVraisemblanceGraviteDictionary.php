@@ -6,7 +6,7 @@ namespace App\Domain\AIPD\Dictionary;
 
 class ModeleVraisemblanceGraviteDictionary extends VraisemblanceGraviteDictionary
 {
-    const VIDE        = 'vide';
+    public const VIDE = 'vide';
 
     public function __construct()
     {

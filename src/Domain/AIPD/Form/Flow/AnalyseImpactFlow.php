@@ -24,7 +24,7 @@ class AnalyseImpactFlow extends FormFlow
                     /**
                      * @var AnalyseImpact
                      */
-                    $aipd = $flow->getFormData();
+                    $aipd    = $flow->getFormData();
                     $visible = array_filter($aipd->getCriterePrincipeFondamentaux()->toArray(), function (CriterePrincipeFondamental $critere) {
                         return $critere->isVisible();
                     });

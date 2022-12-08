@@ -71,7 +71,7 @@ class LoginAttempt implements Repository\LoginAttempt
             ->createQueryBuilder()
             ->select('o')
             ->from($this->getModelClass(), 'o')
-            ;
+        ;
     }
 
     /**

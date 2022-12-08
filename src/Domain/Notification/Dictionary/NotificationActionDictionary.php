@@ -28,11 +28,11 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class NotificationActionDictionary extends SimpleDictionary
 {
-    const CREATE       = 'create';
-    const ADD          = 'add';
-    const EDIT         = 'edit';
-    const DELETE       = 'delete';
-    const LATE         = 'late';
+    public const CREATE = 'create';
+    public const ADD    = 'add';
+    public const EDIT   = 'edit';
+    public const DELETE = 'delete';
+    public const LATE   = 'late';
 
     public function __construct()
     {
@@ -47,11 +47,11 @@ class NotificationActionDictionary extends SimpleDictionary
     public static function getActions()
     {
         return [
-            self::CREATE      => 'Création',
-            self::ADD         => 'Ajout',
-            self::EDIT        => 'Modification',
-            self::DELETE      => 'Suppression',
-            self::LATE        => 'Retard (automatique)',
+            self::CREATE => 'Création',
+            self::ADD    => 'Ajout',
+            self::EDIT   => 'Modification',
+            self::DELETE => 'Suppression',
+            self::LATE   => 'Retard (automatique)',
         ];
     }
 

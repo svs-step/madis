@@ -67,10 +67,10 @@ class ContractorGenerator extends AbstractGenerator
         Contractor $contractorRepository,
         Security $security
     ) {
-        $this->translator              = $translatorInterface;
-        $this->collectivityRepository  = $collectivityRepository;
-        $this->contractorRepository    = $contractorRepository;
-        $this->security                = $security;
+        $this->translator             = $translatorInterface;
+        $this->collectivityRepository = $collectivityRepository;
+        $this->contractorRepository   = $contractorRepository;
+        $this->security               = $security;
     }
 
     /**

@@ -219,7 +219,7 @@ class LogJournalDoctrineSubscriberTest extends TestCase
         $user = $this->prophesize(User::class);
         $user->getCollectivity()->shouldBeCalled()->willReturn(new Collectivity());
         $this->security->getUser()->shouldBeCalled()->willReturn($user->reveal());
-        $this->assertInstanceOf(Collectivity::class, $this->invokeMethod($this->subscriber, 'getCollectivity', [new \StdClass()]));
+        $this->assertInstanceOf(Collectivity::class, $this->invokeMethod($this->subscriber, 'getCollectivity', [new \stdClass()]));
     }
 
     public function testItReturnNullOnLoginUser()

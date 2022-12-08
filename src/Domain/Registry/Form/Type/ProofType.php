@@ -89,7 +89,7 @@ class ProofType extends AbstractType
                 'required'    => false,
                 'constraints' => [
                     new File([
-                        'maxSize'   => $this->maxSize,
+                        'maxSize' => $this->maxSize,
 //                        'mimeTypesMessage' => 'registry_proof.document_file.file',
                         'mimeTypes' => [
                             // JPG / PNG
@@ -116,7 +116,7 @@ class ProofType extends AbstractType
                             'application/vnd.ms-powerpoint',
                             'application/vnd.openxmlformats-officedocument.presentationml.presentation',
                         ],
-                        'groups'    => ['default'],
+                        'groups' => ['default'],
                     ]),
                 ],
             ])
@@ -162,7 +162,7 @@ class ProofType extends AbstractType
                         ->andWhere('c.collectivity = :collectivity')
                         ->orderBy('c.name', Criteria::ASC)
                         ->setParameter('collectivity', $collectivity)
-                        ;
+                    ;
                 },
                 'attr' => [
                     'class' => 'selectpicker',
@@ -180,7 +180,7 @@ class ProofType extends AbstractType
                         ->andWhere('m.collectivity = :collectivity')
                         ->orderBy('m.name', Criteria::ASC)
                         ->setParameter('collectivity', $collectivity)
-                        ;
+                    ;
                 },
                 'attr' => [
                     'class' => 'selectpicker',

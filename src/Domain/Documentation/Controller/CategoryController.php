@@ -140,7 +140,7 @@ class CategoryController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('delete'), [
-            'object'            => $object,
+            'object' => $object,
         ]);
     }
 

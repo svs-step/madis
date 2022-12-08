@@ -28,10 +28,10 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class NotificationModuleDictionary extends SimpleDictionary
 {
-    const DOCUMENT          = 'document';
-    const VIOLATION         = 'violation';
-    const TREATMENT         = 'treatment';
-    const ACTION            = 'actions';
+    public const DOCUMENT  = 'document';
+    public const VIOLATION = 'violation';
+    public const TREATMENT = 'treatment';
+    public const ACTION    = 'actions';
 
     public function __construct()
     {
@@ -46,10 +46,10 @@ class NotificationModuleDictionary extends SimpleDictionary
     public static function getModules()
     {
         return [
-            self::DOCUMENT          => 'Documents',
-            self::VIOLATION         => 'Violations',
-            self::TREATMENT         => 'Traitements',
-            self::ACTION            => 'Actions de protection',
+            self::DOCUMENT  => 'Documents',
+            self::VIOLATION => 'Violations',
+            self::TREATMENT => 'Traitements',
+            self::ACTION    => 'Actions de protection',
         ];
     }
 

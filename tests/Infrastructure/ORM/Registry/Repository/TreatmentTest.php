@@ -94,8 +94,8 @@ class TreatmentTest extends TestCase
      */
     public function testFindAllActive()
     {
-        $active       = true;
-        $results      = ['dummyResult'];
+        $active  = true;
+        $results = ['dummyResult'];
 
         // Query
         $queryProphecy = $this->prophesize(AbstractQuery::class);

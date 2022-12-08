@@ -216,7 +216,7 @@ class ConformiteTraitementController extends CRUDController
         $user          = $this->userProvider->getAuthenticatedUser();
         $services_user = $user->getServices();
 
-        if (!($this->authorizationChecker->isGranted('ROLE_USER') && (($services_user->isEmpty()) || ($services_user->contains($service))))) {
+        if (!($this->authorizationChecker->isGranted('ROLE_USER') && ($services_user->isEmpty() || $services_user->contains($service)))) {
             return $this->redirectToRoute('registry_treatment_list');
         }
 
@@ -266,7 +266,7 @@ class ConformiteTraitementController extends CRUDController
         $user          = $this->userProvider->getAuthenticatedUser();
         $services_user = $user->getServices();
 
-        if (!($this->authorizationChecker->isGranted('ROLE_USER') && (($services_user->isEmpty()) || ($services_user->contains($service))))) {
+        if (!($this->authorizationChecker->isGranted('ROLE_USER') && ($services_user->isEmpty() || $services_user->contains($service)))) {
             return $this->redirectToRoute('registry_treatment_list');
         }
 

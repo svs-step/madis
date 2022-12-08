@@ -91,9 +91,9 @@ class LoginAttemptTest extends TestCase
      */
     public function testFindOneOrNullByIpAndEmail()
     {
-        $attempt  = $this->prophesize(Model\LoginAttempt::class)->reveal();
-        $email    = 'foo@email.com';
-        $ip       = '192.168.1.1';
+        $attempt = $this->prophesize(Model\LoginAttempt::class)->reveal();
+        $email   = 'foo@email.com';
+        $ip      = '192.168.1.1';
 
         // Query
         $queryProphecy = $this->prophesize(AbstractQuery::class);

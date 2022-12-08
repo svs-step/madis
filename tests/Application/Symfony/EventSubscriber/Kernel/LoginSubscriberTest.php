@@ -52,7 +52,7 @@ class LoginSubscriberTest extends TestCase
 
         $this->security->isGranted('ROLE_ADMIN')->willReturn(true);
 
-        $this->sut           = new LoginSubscriber(
+        $this->sut = new LoginSubscriber(
             $this->entityManager->reveal(),
             $this->logRepository->reveal(),
             $this->security->reveal(),

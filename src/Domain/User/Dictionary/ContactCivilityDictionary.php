@@ -28,9 +28,9 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ContactCivilityDictionary extends SimpleDictionary
 {
-    const CIVILITY_MISS   = 'mme';
-    const CIVILITY_MISTER = 'm';
-    const CIVILITY_NONE   = '';
+    public const CIVILITY_MISS   = 'mme';
+    public const CIVILITY_MISTER = 'm';
+    public const CIVILITY_NONE   = '';
 
     public function __construct()
     {

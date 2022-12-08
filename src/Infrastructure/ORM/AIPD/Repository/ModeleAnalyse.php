@@ -71,7 +71,7 @@ class ModeleAnalyse extends CRUDRepository implements Repository\ModeleAnalyse
                 case 'description':
                     $this->addWhereClause($queryBuilder, 'description', '%' . $search . '%', 'LIKE');
                     break;
-                 case 'updatedAt':
+                case 'updatedAt':
                     $queryBuilder->andWhere('o.updatedAt LIKE :date')
                         ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
                     break;
@@ -82,7 +82,7 @@ class ModeleAnalyse extends CRUDRepository implements Repository\ModeleAnalyse
     public function findAllByCollectivity(Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
-        //TODO Gestion des droits
+        // TODO Gestion des droits
 
         $qb = $qb->getQuery();
         $qb->setFirstResult(0);

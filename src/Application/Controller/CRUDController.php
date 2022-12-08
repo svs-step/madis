@@ -85,12 +85,12 @@ abstract class CRUDController extends AbstractController
         UserProvider $userProvider,
         AuthorizationCheckerInterface $authorizationChecker
     ) {
-        $this->entityManager            = $entityManager;
-        $this->translator               = $translator;
-        $this->repository               = $repository;
-        $this->pdf                      = $pdf;
-        $this->userProvider             = $userProvider;
-        $this->authorizationChecker     = $authorizationChecker;
+        $this->entityManager        = $entityManager;
+        $this->translator           = $translator;
+        $this->repository           = $repository;
+        $this->pdf                  = $pdf;
+        $this->userProvider         = $userProvider;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -204,13 +204,13 @@ abstract class CRUDController extends AbstractController
      */
     public function createAction(Request $request): Response
     {
-        $modelClass     = $this->getModelClass();
+        $modelClass = $this->getModelClass();
         /** @var CollectivityRelated $object */
         $object         = new $modelClass();
         $serviceEnabled = false;
 
         if ($object instanceof CollectivityRelated) {
-            $user       = $this->userProvider->getAuthenticatedUser();
+            $user = $this->userProvider->getAuthenticatedUser();
             $object->setCollectivity($user->getCollectivity());
             $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
         }
@@ -231,9 +231,9 @@ abstract class CRUDController extends AbstractController
         }
 
         return $this->render($this->getTemplatingBasePath('create'), [
-            'form'              => $form->createView(),
-            'object'            => $object,
-            'serviceEnabled'    => $serviceEnabled,
+            'form'           => $form->createView(),
+            'object'         => $object,
+            'serviceEnabled' => $serviceEnabled,
         ]);
     }
 
@@ -282,9 +282,9 @@ abstract class CRUDController extends AbstractController
         }
 
         return $this->render($this->getTemplatingBasePath('edit'), [
-            'form'              => $form->createView(),
-            'object'            => $object,
-            'serviceEnabled'    => $serviceEnabled,
+            'form'           => $form->createView(),
+            'object'         => $object,
+            'serviceEnabled' => $serviceEnabled,
         ]);
     }
 
@@ -314,9 +314,9 @@ abstract class CRUDController extends AbstractController
         }
 
         return $this->render($this->getTemplatingBasePath('show'), [
-            'object'            => $object,
-            'actionEnabled'     => $actionEnabled,
-            'serviceEnabled'    => $serviceEnabled,
+            'object'         => $object,
+            'actionEnabled'  => $actionEnabled,
+            'serviceEnabled' => $serviceEnabled,
         ]);
     }
 

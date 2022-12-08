@@ -93,11 +93,11 @@ class DocumentController extends CRUDController
         RequestStack $requestStack
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->authorizationChecker           = $authorizationChecker;
-        $this->documentFilesystem             = $documentFilesystem;
-        $this->thumbFilesystem                = $thumbFilesystem;
-        $this->requestStack                   = $requestStack;
-        $this->categoryRepository             = $categoryRepository;
+        $this->authorizationChecker = $authorizationChecker;
+        $this->documentFilesystem   = $documentFilesystem;
+        $this->thumbFilesystem      = $thumbFilesystem;
+        $this->requestStack         = $requestStack;
+        $this->categoryRepository   = $categoryRepository;
     }
 
     /**
