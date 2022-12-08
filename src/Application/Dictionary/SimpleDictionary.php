@@ -90,7 +90,7 @@ class SimpleDictionary implements DictionaryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetSet(mixed $offset, mixed $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->values[$offset] = $value;
     }
@@ -98,7 +98,7 @@ class SimpleDictionary implements DictionaryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->values[$offset]);
     }
@@ -106,7 +106,7 @@ class SimpleDictionary implements DictionaryInterface
     /**
      * {@inheritdoc}
      */
-    public function getIterator(): \Traversable|array|ArrayIterator
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->values);
     }

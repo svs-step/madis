@@ -18,6 +18,10 @@
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0" />
     </php>
 
+<!--    <extensions>-->
+<!--        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>-->
+<!--    </extensions>-->
+
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
