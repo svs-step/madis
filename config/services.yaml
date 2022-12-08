@@ -17,6 +17,9 @@ services:
     PhpOffice\PhpWord\PhpWord: ~
     RandomLib\Factory: ~
 
+    Knp\DictionaryBundle\Faker\Provider\Dictionary:
+        tags: [ { name: hautelook_alice.faker.provider } ]
+
     App\Domain\Reporting\Metrics\UserMetric:
         arguments:
             $userLogJounalViewLimit: '%env(APP_USER_DASHBOARD_JOURNALISATION_LIMIT)%'

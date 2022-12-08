@@ -40,6 +40,15 @@ App\Domain\User\Model\User:
         enabled: false
         roles: ['ROLE_PREVIEW']
 
+    user_user_reader:
+        collectivity: '@user_collectivity_awkan'
+        email: reader-awkan@awkan.fr
+        firstName: <firstName()>
+        lastName: <lastName()>
+        plainPassword: 111111
+        enabled: false
+        roles: [ 'ROLE_PREVIEW' ]
+
     user_user_referent:
         collectivity: '@user_collectivity_awkan'
         email: referent@awkan.fr

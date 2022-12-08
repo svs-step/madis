@@ -30,8 +30,13 @@ use App\Tests\Utils\ReflectionTrait;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class MailerTest extends TestCase
 {
@@ -39,7 +44,7 @@ class MailerTest extends TestCase
     use ProphecyTrait;
 
     /**
-     * @var \Swift_Mailer
+     * @var MailerInterface
      */
     private $mailerProphecy;
 
@@ -70,7 +75,7 @@ class MailerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->mailerProphecy     = $this->prophesize(\Swift_Mailer::class);
+        $this->mailerProphecy     = $this->prophesize(MailerInterface::class);
         $this->translatorProphecy = $this->prophesize(TranslatorInterface::class);
         $this->twigProphecy       = $this->prophesize(Environment::class);
         $this->senderEmail        = 'foo@bar.baz';
@@ -92,24 +97,23 @@ class MailerTest extends TestCase
      */
     public function testSend()
     {
-        $this->mailerProphecy->send(Argument::type(\Swift_Message::class))->shouldBeCalled()->willReturn(1);
+        $this->mailerProphecy->send(Argument::type(Email::class))->shouldBeCalled();
 
-        $this->assertEquals(
-            1,
-            $this->invokeMethod(
-                $this->mailer,
-                'send',
-                ['to@gmail.com', 'subject', 'body']
-            )
+        $this->expectNotToPerformAssertions();
+        $this->invokeMethod(
+            $this->mailer,
+            'send',
+            ['to@gmail.com', 'subject', 'body']
         );
+
     }
 
     /**
      * Test sendForgetPassword.
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function testSendForgetPassword()
     {
@@ -135,7 +139,7 @@ class MailerTest extends TestCase
             ->willReturn('dummy twig template')
         ;
 
-        $this->mailerProphecy->send(Argument::type(\Swift_Message::class))->shouldBeCalled()->willReturn(1);
+        $this->mailerProphecy->send(Argument::type(Email::class))->shouldBeCalled();
 
         $this->mailer->sendForgetPassword($userProphecy->reveal());
     }
