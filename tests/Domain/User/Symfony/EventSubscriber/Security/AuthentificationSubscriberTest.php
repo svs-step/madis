@@ -24,21 +24,16 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\User\Symfony\EventSubscriber\Security;
 
-use App\Domain\User\Model\User;
 use App\Domain\User\Symfony\EventSubscriber\Security\AuthenticationSubscriber;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\AuthenticationEvents;
-use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
 
 class AuthentificationSubscriberTest extends TestCase
 {
@@ -69,6 +64,8 @@ class AuthentificationSubscriberTest extends TestCase
      * @var AuthenticationSubscriber
      */
     private $subscriber;
+
+    private EventDispatcherInterface $eventDispatcher;
 
     public function setUp(): void
     {
@@ -106,32 +103,5 @@ class AuthentificationSubscriberTest extends TestCase
             ],
             $this->subscriber::getSubscribedEvents()
         );
-    }
-
-    public function testItAddLogJournalWhenSwitchUserOn()
-    {
-        $event   = $this->prophesize(AuthenticationSuccessEvent::class);
-        $request = new Request(['_username' => 'bal@dsf.fg'], [], [], [], [], [
-            'REMOTE_ADDR' => '192.168.1.1',
-        ]);
-
-        $dispatcher = new EventDispatcher();
-
-        $dispatcher->addSubscriber($this->subscriber);
-
-        $dispatcher->dispatch($event->reveal());
-        $user = new User();
-        $user->setEmail('a@example.org');
-
-        $token = $this->prophesize(TokenInterface::class);
-        $token->setUser($user);
-
-        $event->getAuthenticationToken()->shouldBeCalled()->willReturn($token);
-        $token->getUser()->shouldBeCalled()->willReturn($user);
-        $token->getUsername()->shouldBeCalled()->willReturn($user->getEmail());
-
-        $this->requestStack->getCurrentRequest()->shouldBeCalled()->willReturn($request);
-
-        $this->subscriber->onAuthSuccess($event->reveal());
     }
 }

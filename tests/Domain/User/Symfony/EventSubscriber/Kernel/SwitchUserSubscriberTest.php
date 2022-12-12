@@ -38,6 +38,7 @@ use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
@@ -103,7 +104,6 @@ class SwitchUserSubscriberTest extends TestCase
 
     public function testItAddLogJournalWhenSwitchUserOn()
     {
-        $event        = $this->prophesize(SwitchUserEvent::class);
         $repository   = $this->prophesize(ObjectRepository::class);
         $request      = new Request(['_switch_user' => 'fooEmailUser']);
         $user         = new User();
@@ -118,19 +118,18 @@ class SwitchUserSubscriberTest extends TestCase
         $userReferent->setEmail('fooEmail');
         $user->setLastName('zer');
         $user->setLastName('rez');
-        $event->getRequest()->shouldBeCalled()->willReturn($request);
-        $event->getTargetUser()->shouldBeCalled()->willReturn($user);
+
+        $event = new SwitchUserEvent($request, $user, $this->prophesize(TokenInterface::class)->reveal());
         $this->security->getUser()->shouldBeCalled()->willReturn($userReferent);
 
         $this->entityManager->persist(Argument::type(LogJournal::class))->shouldBeCalled();
         $this->entityManager->flush()->shouldBeCalled();
 
-        $this->subscriber->onSwitchUser($event->reveal());
+        $this->subscriber->onSwitchUser($event);
     }
 
     public function testItAddLogJournalWhenSwitchUserOff()
     {
-        $event        = $this->prophesize(SwitchUserEvent::class);
         $request      = new Request(['_switch_user' => '_exit']);
         $user         = new User();
         $userReferent = new User();
@@ -142,66 +141,71 @@ class SwitchUserSubscriberTest extends TestCase
         $userReferent->setEmail('fooEmail');
         $user->setLastName('zer');
         $user->setLastName('rez');
-        $event->getRequest()->shouldBeCalled()->willReturn($request);
-        $event->getTargetUser()->shouldBeCalledTimes(2)->willReturn($userReferent);
+
+        $event = new SwitchUserEvent($request, $userReferent, $this->prophesize(TokenInterface::class)->reveal());
+
+        $this->assertEquals($userReferent, $event->getTargetUser());
         $this->security->getUser()->shouldBeCalledTimes(1)->willReturn($user);
 
         $this->entityManager->persist(Argument::type(LogJournal::class))->shouldBeCalled();
         $this->entityManager->flush()->shouldBeCalled();
 
-        $this->subscriber->onSwitchUser($event->reveal());
+        $this->subscriber->onSwitchUser($event);
     }
 
     public function testItSupportsReturnTrueOnExitRequest()
     {
-        $event   = $this->prophesize(SwitchUserEvent::class);
         $request = new Request(['_switch_user' => '_exit']);
-        $event->getRequest()->shouldBeCalled()->willReturn($request);
+
+        $event = new SwitchUserEvent($request, new User(), $this->prophesize(TokenInterface::class)->reveal());
         $this->entityManager->getRepository(User::class)->shouldNotBeCalled();
-        $this->assertTrue($this->invokeMethod($this->subscriber, 'supports', [$event->reveal()]));
+        $this->assertTrue($this->invokeMethod($this->subscriber, 'supports', [$event]));
     }
 
     public function testItSupportsReturnTrueOnAdminUser()
     {
-        $event   = $this->prophesize(SwitchUserEvent::class);
         $request = new Request(['_switch_user' => 'foo']);
 
         $this->security->isGranted(UserRoleDictionary::ROLE_ADMIN)->shouldBeCalled()->willReturn(true);
-        $event->getRequest()->shouldBeCalled()->willReturn($request);
+        $event = new SwitchUserEvent($request, new User(), $this->prophesize(TokenInterface::class)->reveal());
+
         $this->userRepository->findOneOrNullByEmail(Argument::any())->shouldNotBeCalled();
-        $this->assertTrue($this->invokeMethod($this->subscriber, 'supports', [$event->reveal()]));
+        $this->assertTrue($this->invokeMethod($this->subscriber, 'supports', [$event]));
     }
 
     public function testItSupportsReturnFalseOnNullUser()
     {
-        $event   = $this->prophesize(SwitchUserEvent::class);
         $request = new Request(['_switch_user' => 'foo']);
-        $event->getRequest()->shouldBeCalled()->willReturn($request);
+        $event   = new SwitchUserEvent($request, new User(), $this->prophesize(TokenInterface::class)->reveal());
 
         $this->security->isGranted(UserRoleDictionary::ROLE_ADMIN)->shouldBeCalled()->willReturn(false);
         $this->userRepository->findOneOrNullByEmail('foo')->shouldBeCalled()->willReturn(null);
         $this->security->getUser()->shouldNotBeCalled();
-        $this->assertFalse($this->invokeMethod($this->subscriber, 'supports', [$event->reveal()]));
+        $this->assertFalse($this->invokeMethod($this->subscriber, 'supports', [$event]));
     }
 
     public function testItSupportsReturnFalseOnNonAuthorizedRoles()
     {
-        $event   = $this->prophesize(SwitchUserEvent::class);
+        // $event   = $this->prophesize(SwitchUserEvent::class);
         $request = new Request(['_switch_user' => 'foo']);
         $user    = new User();
+
         $user->setRoles([UserRoleDictionary::ROLE_REFERENT]);
-        $event->getRequest()->shouldBeCalled()->willReturn($request);
+
+        $event = new SwitchUserEvent($request, $user, $this->prophesize(TokenInterface::class)->reveal());
+
+        // $event->getRequest()->shouldBeCalled()->willReturn($request);
 
         $this->security->isGranted(UserRoleDictionary::ROLE_ADMIN)->shouldBeCalled()->willReturn(false);
         $this->userRepository->findOneOrNullByEmail('foo')->shouldBeCalled()->willReturn($user);
 
         $this->security->getUser()->shouldNotBeCalled();
-        $this->assertFalse($this->invokeMethod($this->subscriber, 'supports', [$event->reveal()]));
+        $this->assertFalse($this->invokeMethod($this->subscriber, 'supports', [$event]));
     }
 
     public function testItSupportsReturnFalseOnEmptyReferedCollectivities()
     {
-        $event   = $this->prophesize(SwitchUserEvent::class);
+        // $event   = $this->prophesize(SwitchUserEvent::class);
         $request = new Request(['_switch_user' => 'foo']);
         $user    = new User();
         $user->setRoles([UserRoleDictionary::ROLE_USER]);
@@ -211,18 +215,18 @@ class SwitchUserSubscriberTest extends TestCase
         $connectedUser->setCollectivity($collectivity1);
         $connectedUser->setCollectivitesReferees([$collectivity1]);
         $user->setCollectivity($collectivity2);
-        $event->getRequest()->shouldBeCalled()->willReturn($request);
+
+        $event = new SwitchUserEvent($request, $user, $this->prophesize(TokenInterface::class)->reveal());
 
         $this->security->isGranted(UserRoleDictionary::ROLE_ADMIN)->shouldBeCalled()->willReturn(false);
         $this->userRepository->findOneOrNullByEmail('foo')->shouldBeCalled()->willReturn($user);
 
         $this->security->getUser()->shouldBeCalled()->willReturn($connectedUser);
-        $this->assertFalse($this->invokeMethod($this->subscriber, 'supports', [$event->reveal()]));
+        $this->assertFalse($this->invokeMethod($this->subscriber, 'supports', [$event]));
     }
 
     public function testItSupportsReturnTryeOnAuthorizedReferedCollectivities()
     {
-        $event   = $this->prophesize(SwitchUserEvent::class);
         $request = new Request(['_switch_user' => 'foo']);
         $user    = new User();
         $user->setRoles([UserRoleDictionary::ROLE_USER]);
@@ -232,12 +236,12 @@ class SwitchUserSubscriberTest extends TestCase
         $connectedUser->setCollectivity($collectivity1);
         $connectedUser->setCollectivitesReferees([$collectivity1, $collectivity2]);
         $user->setCollectivity($collectivity2);
-        $event->getRequest()->shouldBeCalled()->willReturn($request);
+        $event = new SwitchUserEvent($request, $user, $this->prophesize(TokenInterface::class)->reveal());
 
         $this->security->isGranted(UserRoleDictionary::ROLE_ADMIN)->shouldBeCalled()->willReturn(false);
         $this->userRepository->findOneOrNullByEmail('foo')->shouldBeCalled()->willReturn($user);
 
         $this->security->getUser()->shouldBeCalled()->willReturn($connectedUser);
-        $this->assertTrue($this->invokeMethod($this->subscriber, 'supports', [$event->reveal()]));
+        $this->assertTrue($this->invokeMethod($this->subscriber, 'supports', [$event]));
     }
 }
