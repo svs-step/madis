@@ -39,7 +39,9 @@ unit_tests:
     <<: *vendor-install-defintion
     <<: *cache-pull-defintion
     script:
-        - phpdbg -d memory_limit=-1 -qrr ./vendor/bin/phpunit --coverage-text --colors=never --coverage-html var/artefacts/coverage/
+        - pecl install xdebug
+        - echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini
+        - php -d xdebug.mode=coverage -d memory_limit=-1 -qrr ./vendor/bin/phpunit --coverage-text --colors=never --coverage-html var/artefacts/coverage/
     coverage: /^\s+Lines:\s+(\d+)\.\d+%/
     artifacts:
         paths:
