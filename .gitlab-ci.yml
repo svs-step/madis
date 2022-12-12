@@ -74,7 +74,7 @@ check-security:
     <<: *vendor-install-defintion
     <<: *cache-pull-defintion
     script:
-        - php-security-checker
+        - local-php-security-checker
     stage: quality-assurance
     except:
         - master
