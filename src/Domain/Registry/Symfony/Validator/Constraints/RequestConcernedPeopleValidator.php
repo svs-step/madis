@@ -33,7 +33,6 @@ class RequestConcernedPeopleValidator extends ConstraintValidator
 {
     /**
      * {@inheritdoc}
-     *
      */
     public function validate($value, Constraint $constraint)
     {

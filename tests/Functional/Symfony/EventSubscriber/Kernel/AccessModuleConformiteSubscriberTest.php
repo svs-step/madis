@@ -10,7 +10,6 @@ use Hautelook\AliceBundle\PhpUnit\RecreateDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-
 class AccessModuleConformiteSubscriberTest extends WebTestCase
 {
     use RecreateDatabaseTrait;

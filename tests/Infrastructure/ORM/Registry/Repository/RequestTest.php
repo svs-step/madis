@@ -29,9 +29,9 @@ use App\Domain\Registry\Repository as DomainRepo;
 use App\Infrastructure\ORM\Registry\Repository as InfraRepo;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class RequestTest extends TestCase
 {
@@ -39,7 +39,7 @@ class RequestTest extends TestCase
     use ProphecyTrait;
 
     /**
-     * @var RegistryInterface
+     * @var ManagerRegistry
      */
     private $registryProphecy;
 
@@ -55,7 +55,7 @@ class RequestTest extends TestCase
 
     public function setUp(): void
     {
-        $this->registryProphecy      = $this->prophesize(RegistryInterface::class);
+        $this->registryProphecy      = $this->prophesize(ManagerRegistry::class);
         $this->entityManagerProphecy = $this->prophesize(EntityManagerInterface::class);
 
         $this->infraRepo = new InfraRepo\Request($this->registryProphecy->reveal());

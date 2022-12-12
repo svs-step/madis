@@ -5,18 +5,19 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Symfony\EventSubscriber\Kernel;
 
 use App\Domain\Reporting\Model\LogJournal;
+use App\Domain\Reporting\Repository\LogJournal as LogJournalRepository;
 use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
 use Hautelook\AliceBundle\PhpUnit\RecreateDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use App\Domain\Reporting\Repository\LogJournal as LogJournalRepository;
 
 class LoginSubscriberTest extends WebTestCase
 {
     use RecreateDatabaseTrait;
 
-    public function testLoginWithNoExistingUserRedirects() {
+    public function testLoginWithNoExistingUserRedirects()
+    {
         $client = static::createClient();
         self::populateDatabase();
 
@@ -29,7 +30,7 @@ class LoginSubscriberTest extends WebTestCase
         // get or create the user somehow (e.g. creating some users only
         // for tests while loading the test fixtures)
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $email       = "test@example.org";
+        $email          = 'test@example.org';
 
         $url = $client->getContainer()->get('router')->generate('login', [], UrlGeneratorInterface::RELATIVE_PATH);
         // user is now logged in, so you can test protected resources
@@ -42,7 +43,8 @@ class LoginSubscriberTest extends WebTestCase
         $this->assertEquals(0, count($logs));
     }
 
-    public function testLoginWithWrongPasswordRedirects() {
+    public function testLoginWithWrongPasswordRedirects()
+    {
         $client = static::createClient();
         self::populateDatabase();
 
@@ -56,7 +58,7 @@ class LoginSubscriberTest extends WebTestCase
         // for tests while loading the test fixtures)
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser       = $userRepository->findOneOrNullByEmail('lecteur@awkan.fr');
-        $email       = $testUser->getEmail();
+        $email          = $testUser->getEmail();
 
         $url = $client->getContainer()->get('router')->generate('login', [], UrlGeneratorInterface::RELATIVE_PATH);
         // user is now logged in, so you can test protected resources
@@ -69,11 +71,12 @@ class LoginSubscriberTest extends WebTestCase
         $this->assertEquals(0, count($logs));
     }
 
-    public function testLoginWithExistingUserSuccess() {
+    public function testLoginWithExistingUserSuccess()
+    {
         $client = static::createClient();
         self::populateDatabase();
 
-        $ljr = static::getContainer()->get(LogJournalRepository::class);
+        $ljr            = static::getContainer()->get(LogJournalRepository::class);
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser       = $userRepository->findOneOrNullByEmail('lecteur@awkan.fr');
 
@@ -84,7 +87,7 @@ class LoginSubscriberTest extends WebTestCase
         // get or create the user somehow (e.g. creating some users only
         // for tests while loading the test fixtures)
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $email       = $testUser->getEmail();
+        $email          = $testUser->getEmail();
 
         $url = $client->getContainer()->get('router')->generate('login', [], UrlGeneratorInterface::RELATIVE_PATH);
         // user is now logged in, so you can test protected resources
@@ -93,7 +96,6 @@ class LoginSubscriberTest extends WebTestCase
         $this->assertResponseRedirects($client->getContainer()->get('router')->generate('reporting_dashboard_index', [], UrlGeneratorInterface::ABSOLUTE_URL));
 
         $logs = $ljr->findAll();
-
 
         $this->assertEquals(1, count($logs));
         /**

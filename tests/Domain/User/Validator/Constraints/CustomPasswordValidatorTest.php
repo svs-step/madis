@@ -55,7 +55,7 @@ class CustomPasswordValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('InvalidValue', $constraint);
         $this
             ->buildViolation($constraint->tooShortMessage)
-            ->setParameter('{{length}}', 15)
+            ->setParameter('{{length}}', '15')
             ->buildNextViolation($constraint->missingNumbersMessage)
             ->buildNextViolation($constraint->missingSpecialCharacterMessage)
             ->assertRaised();

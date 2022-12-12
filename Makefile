@@ -60,10 +60,10 @@ phpmetrics: ## PhpMetrics (http://www.phpmetrics.org)
 	$(QA) phpmetrics --report-html=$(ARTEFACTS)/phpmetrics --exclude=migrations .
 
 php-cs-fixer: ## php-cs-fixer (http://cs.sensiolabs.org)
-	$(QA) php-cs-fixer fix --config=.php_cs.dist --dry-run --using-cache=no --verbose --diff --stop-on-violation
+	$(QA) php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --using-cache=no --verbose --diff --stop-on-violation
 
 apply-php-cs-fixer: ## apply php-cs-fixer fixes
-	$(QA) php-cs-fixer fix --config=.php_cs.dist --using-cache=no --verbose --diff
+	$(QA) php-cs-fixer fix --config=.php-cs-fixer.dist.php --using-cache=no --verbose --diff
 
 phpstan: ## PHP Static Analysis Tool (https://github.com/phpstan/phpstan)
 	$(QA) phpstan analyse -c phpstan.neon -l2 src
