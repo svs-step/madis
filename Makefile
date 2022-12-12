@@ -1,4 +1,4 @@
-QA        = docker run --rm --workdir=/project -v `pwd`:/project jakzal/phpqa:php8.1-alpine
+QA        = docker run --rm --workdir=/project -v `pwd`:/project jakzal/phpqa:php8.1
 ARTEFACTS = var/artefacts
 
 # This file allow one to run tests on docker like they do on gitlab.
@@ -12,8 +12,8 @@ tu: ## Run unit tests
 	$(QA) vendor/bin/phpunit
 
 tu-report: ## Run unit tests
-	$(QA) phpdbg -v
-	$(QA) phpdbg -d memory_limit=-1 -qrr ./vendor/bin/phpunit --coverage-text --colors=never --coverage-html $(ARTEFACTS)/coverage/
+	# use xdebug instead of phpdbg to generate coverage because phpdbg crashes
+	$(QA) sh -c 'pecl install xdebug && echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20210902/xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini && php -d xdebug.mode=coverage -d memory_limit=-1 ./vendor/bin/phpunit --coverage-text --coverage-html $(ARTEFACTS)/coverage/'
 
 .PHONY: tu tu-report
 
