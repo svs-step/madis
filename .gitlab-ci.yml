@@ -6,7 +6,7 @@ stages:
     - quality-assurance-report
 
 .job-base-template: &job-base-defintion
-    image: jakzal/phpqa:php8.1-alpine
+    image: jakzal/phpqa:php8.1
 
 .vendor-install-template: &vendor-install-defintion
     before_script:
