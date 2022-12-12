@@ -1,6 +1,8 @@
 QA        = docker run --rm --workdir=/project -v `pwd`:/project jakzal/phpqa:php8.1-alpine
 ARTEFACTS = var/artefacts
 
+# This file allow one to run tests on docker like they do on gitlab.
+
 ##
 ## Tests
 ## -----
@@ -10,6 +12,7 @@ tu: ## Run unit tests
 	$(QA) vendor/bin/phpunit
 
 tu-report: ## Run unit tests
+	$(QA) phpdbg -v
 	$(QA) phpdbg -d memory_limit=-1 -qrr ./vendor/bin/phpunit --coverage-text --colors=never --coverage-html $(ARTEFACTS)/coverage/
 
 .PHONY: tu tu-report
