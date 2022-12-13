@@ -10,6 +10,7 @@ services:
     build:
       context: ./docker/nginx
       dockerfile: Dockerfile
+    image: ${DOCKER_IMAGE_NGINX}
     container_name: nginx
     ports:
       - ${HTTPD_PORT}:80
@@ -23,6 +24,7 @@ services:
     build:
       context: ./docker/php
       dockerfile: Dockerfile
+    image: ${DOCKER_IMAGE_PHP}
     container_name: php
     volumes:
       - .:/var/www/gestion-rgpd/:delegated
