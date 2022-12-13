@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+## [2.0] - 2022-12-13
+### Changement
+- Mise à jour vers Symfony 5.4 et PHP 8.1
+- Mise à jour vers nodejs 18
+
 ## [1.10] - 2022-04-15
 ### Changement
 - Ajout du module Espace Documentaire

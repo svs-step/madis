@@ -1,107 +1,59 @@
-FROM debian:buster
+FROM php:8.1-fpm
 
 ENV DEBIAN_FRONTEND noninteractive
-
-
-# BASIC INSTALL
-# =============
-
-RUN apt-get update && apt-get -y upgrade && apt-get install -y \
-    apt-transport-https \
-    apt-utils \
-    ca-certificates \
-    curl \
-    git \
-    gnupg2 \
-    lsb-release \
-    netcat \
-    nodejs \
-    wget \
-    zip
-
-RUN usermod -s /bin/bash www-data
 
 
 # PHP INSTALL
 # ===========
 
-# Add PHP repository
-RUN wget https://packages.sury.org/php/apt.gpg
-RUN apt-key add apt.gpg
-RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php7.list
-
-# Install PHP-FPM
-RUN apt update && apt install -y \
-    php7.4 \
-    php7.4-common \
-    php7.4-curl \
-    php7.4-fpm \
-    php7.4-intl \
-    php7.4-json \
-    php7.4-mbstring \
-    php7.4-mysql \
-    php7.4-opcache \
-# Uncomment in order to enable xdebug
-#    php7.4-xdebug \
-    php7.4-xml \
-    php7.4-zip
 
 # Configure PHP
-COPY fpm-pool.conf /etc/php/7.4/fpm/pool.d/www.conf
-COPY php.ini /etc/php/7.4/fpm/php.ini
-RUN touch /var/log/php7.4-fpm.log && chown www-data:www-data /var/log/php7.4-fpm.log
-RUN mkdir -p /run/php/ /var/www/.composer/
-RUN chown www-data:www-data -R /run/php/ /var/www
 
-# Configure XDebug
-# Uncomment in order to enable xdebug
-#RUN echo "xdebug.remote_enable=1" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.idekey=PHPSTORM" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.default_enable=0" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.remote_connect_back=0" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.remote_autostart=0" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.remote_enable=1" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.remote_host=docker.for.mac.host.internal" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.profiler_enable=0" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.profiler_enable_trigger=1" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini && \
-#    echo "xdebug.profiler_output_dir=/var/www/html/var/log" >> /etc/php/7.4/fpm/conf.d/20-xdebug.ini
+COPY fpm-pool.conf "$PHP_INI_DIR/pool.d/www.conf"
+
+COPY php.ini "$PHP_INI_DIR/php.ini"
 
 # Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN chmod +x /usr/local/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && chmod +x /usr/local/bin/composer
 
+RUN apt-get update && apt-get install -y \
+		libfreetype6-dev \
+		libjpeg62-turbo-dev \
+		libpng-dev \
+    libzip-dev zlib1g-dev \
+	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
+	&& docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install pdo_mysql  \
+    && docker-php-ext-install zip
 
-# YARN INSTALL (used for webpack-encore)
+# NPM INSTALL (used for webpack-encore)
 # ======================================
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install -y nodejs
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN apt-get update && apt-get install -y yarn
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt-get update && apt-get install -y nodejs
 
 
 # SECURITY CHECKER
 # ======================================
-RUN curl -L https://github.com/fabpot/local-php-security-checker/releases/download/v1.0.0/local-php-security-checker_1.0.0_linux_386 --output /bin/php-security-checker
-RUN chmod 755 /bin/php-security-checker
+RUN curl -L https://github.com/fabpot/local-php-security-checker/releases/download/v2.0.6/local-php-security-checker_2.0.6_linux_amd64 --output /bin/php-security-checker && chmod 755 /bin/php-security-checker
+
 
 # INSTALL WKHTMLTOPDF
 # ===================
-RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb
-RUN apt-get install -y fontconfig libfreetype6 libjpeg62-turbo libpng16-16 libxrender1 xfonts-75dpi xfonts-base
-RUN dpkg -i wkhtmltox_0.12.5-1.buster_amd64.deb
+RUN apt-get install -y fontconfig libfreetype6 libjpeg62-turbo libpng16-16 libxrender1 xfonts-75dpi xfonts-base libxext6 netcat
+RUN dpkgArch="$(dpkg --print-architecture)"; \
+    curl -L https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_${dpkgArch}.deb --output wkhtmltox_0.12.6-1.buster_${dpkgArch}.deb && \
+    dpkg -i wkhtmltox_0.12.6-1.buster_${dpkgArch}.deb
+
 
 
 # FINISH CONFIGURATION
 # ====================
 
 # Clean APT
-RUN rm -rf /var/lib/apt/lists/*
+RUN rm -rf /var/lib/apt/lists/* && chown -R www-data:www-data "/var/www/" && mkdir -p "/var/www/.npm" && chown -R www-data:www-data "/var/www/.npm"
 
 # Define Projet configuration
+
 USER www-data
 WORKDIR /var/www/gestion-rgpd
 
-# Launch PHP-FPM
-CMD ["/usr/sbin/php-fpm7.4", "-F"]
