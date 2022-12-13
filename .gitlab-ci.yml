@@ -12,7 +12,6 @@ stages:
     before_script:
         - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
         - ln -f -s .env.test .env
-        - docker login --username gitlab-ci-token --password $CI_JOB_TOKEN $CI_REGISTRY
         # re-install vendors to prevent from ci cache failure
         - composer --version && composer install -vv --prefer-dist --no-interaction --optimize-autoloader --no-scripts || echo "Composer install fail"
 
