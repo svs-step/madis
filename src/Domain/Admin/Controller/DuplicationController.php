@@ -174,7 +174,12 @@ class DuplicationController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
-        $duplicationId = $entityManager->getRepository(Duplication::class)->findBy([], ['createdAt' => 'DESC'], 1)[0];
+        $d = $entityManager->getRepository(Duplication::class)->findBy([], ['createdAt' => 'DESC'], 1);
+        if (count($d) === 0) {
+            $this->addFlash('error', 'Il n\'y a aucune duplication à annuler');
+            return $this->redirectToRoute('admin_duplication_new');
+        }
+        $duplicationId = $d[0];
 
         if ($duplicationId) {
             $duplication = $entityManager->getRepository(Duplication::class)->find($duplicationId);
@@ -192,15 +197,17 @@ class DuplicationController extends AbstractController
             // Aller chercher puis supprimer tous les objets liés à la duplication
             if ($objectIdsToDelete) {
                 foreach ($objectIdsToDelete as $objectId) {
-                    $objectDuplicated = $entityManager
+                    $duplicatedObjects = $entityManager
                     ->getRepository(DuplicatedObject::class)
-                    ->findOneBy(['duplication' => $duplication, 'originObjectId' => $objectId]);
-
-                    if ($objectDuplicated) {
-                        $objectToDelete = $entityManager->getRepository($typeToDelete)->find($objectDuplicated->getDuplicatId());
+                    ->findBy(['duplication' => $duplication, 'originObjectId' => $objectId]);
+                    
+                    foreach ($duplicatedObjects as $duplicatedObject) {
+                        $objectToDelete = $entityManager->getRepository($typeToDelete)->find($duplicatedObject->getDuplicatId());
 
                         $entityManager->remove($objectToDelete);
                     }
+
+
                 }
                 $entityManager->remove($duplication);
 
