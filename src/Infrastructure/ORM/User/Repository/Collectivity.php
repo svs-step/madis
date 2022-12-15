@@ -99,7 +99,7 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     public function count(array $criteria = [])
@@ -123,7 +123,7 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
         return $qb
             ->getQuery()
             ->getSingleScalarResult()
-            ;
+        ;
     }
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])

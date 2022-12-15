@@ -33,8 +33,8 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class NotBlankDependingOnOtherFieldValueValidatorTest extends ConstraintValidatorTestCase
 {
-    const EXPECTED_OTHER_FIELD_VALUE   = 'expected_other_field_value';
-    const UNEXPECTED_OTHER_FIELD_VALUE = 'unexpected_other_field_value';
+    public const EXPECTED_OTHER_FIELD_VALUE   = 'expected_other_field_value';
+    public const UNEXPECTED_OTHER_FIELD_VALUE = 'unexpected_other_field_value';
 
     /**
      * @var PropertyAccessorInterface

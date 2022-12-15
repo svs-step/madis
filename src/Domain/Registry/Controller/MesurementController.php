@@ -46,10 +46,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
 
 /**
  * @property Repository\Mesurement $repository
@@ -168,9 +168,9 @@ class MesurementController extends CRUDController
         ]);
 
         return $this->render($this->getTemplatingBasePath('list'), [
-            'totalItem'   => $this->repository->count($this->getRequestCriteria($request)),
-            'category'    => $category,
-            'route'       => $this->router->generate('registry_mesurement_list_datatables'),
+            'totalItem' => $this->repository->count($this->getRequestCriteria($request)),
+            'category'  => $category,
+            'route'     => $this->router->generate('registry_mesurement_list_datatables'),
         ]);
     }
 
@@ -204,9 +204,9 @@ class MesurementController extends CRUDController
         ]);
 
         return $this->render('Registry/Mesurement/action_plan.html.twig', [
-            'totalItem'   => $this->repository->count($this->getRequestCriteria($request)),
-            'category'    => $category,
-            'route'       => $this->router->generate('registry_mesurement_list_datatables', ['action_plan' => true]),
+            'totalItem' => $this->repository->count($this->getRequestCriteria($request)),
+            'category'  => $category,
+            'route'     => $this->router->generate('registry_mesurement_list_datatables', ['action_plan' => true]),
         ]);
     }
 
@@ -225,7 +225,7 @@ class MesurementController extends CRUDController
             throw new NotFoundHttpException('Can\'t find collectivity for id ' . $collectivityId);
         }
 
-        $mesurements   = $this->repository->findAllByCollectivity(
+        $mesurements = $this->repository->findAllByCollectivity(
             $collectivity,
             [
                 'name' => 'ASC',

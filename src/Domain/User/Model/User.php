@@ -33,9 +33,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User implements LoggableSubject, UserInterface, CollectivityRelated
+class User implements LoggableSubject, UserInterface, CollectivityRelated, PasswordAuthenticatedUserInterface
 {
     use SoftDeletableTrait;
     use HistoryTrait;

@@ -7,6 +7,18 @@ Lancer la Stack de développement
 ## Installation
 Copier le fichier `.env.dist` vers `.env` et éditez le avec les valeurs vous correspondant.
 
+Si vous utilisez un processeur ARM (raspberry pi, mac M1 / M2) vous pouvez notamment changer les images docker pour des images ARM en remplaçant
+
+```
+DOCKER_IMAGE_PHP=gitlab.adullact.net:4567/soluris/madis/php:1.2
+DOCKER_IMAGE_NGINX=gitlab.adullact.net:4567/soluris/madis/nginx:1.2
+```
+par 
+```
+DOCKER_IMAGE_PHP=gitlab.adullact.net:4567/soluris/madis/php:1.2-arm64
+DOCKER_IMAGE_NGINX=gitlab.adullact.net:4567/soluris/madis/nginx:1.2-arm64
+```
+
 Ensuite, connectez votre docker à Gitlab avec vos identifiants.
 Cela vous permettra d'accéder aux images Docker du projet.
 ```bash

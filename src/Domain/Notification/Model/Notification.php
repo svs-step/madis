@@ -26,20 +26,11 @@ namespace App\Domain\Notification\Model;
 
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
-use App\Domain\Documentation\Model\Document;
-use App\Domain\Registry\Model\Contractor;
-use App\Domain\Registry\Model\Mesurement;
-use App\Domain\Registry\Model\Proof;
-use App\Domain\Registry\Model\Request;
-use App\Domain\Registry\Model\Treatment;
-use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
@@ -48,17 +39,6 @@ class Notification
 {
     use HistoryTrait;
     use CreatorTrait;
-    const NOTIFICATION_DPO          = 1;
-    const NOTIFICATION_COLLECTIVITY = 2;
-    const MODULES                   = [
-        Treatment::class  => 'treatment',
-        Mesurement::class => 'action',
-        Violation::class  => 'violation',
-        Proof::class      => 'proof',
-        Contractor::class => 'contractor',
-        Document::class   => 'documentation',
-        Request::class    => 'request',
-    ];
     /**
      * @ORM\Id()
      * @ORM\Column(type="uuid")
@@ -69,54 +49,55 @@ class Notification
 
     /**
      * @ORM\Column(type="string")
+     *
+     * @var string|null
      */
-    private ?string $name;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private ?string $action;
+    private $name;
 
     /**
      * @ORM\Column(type="string")
+     *
+     * @var string|null
      */
-    private ?string $module;
+    private $module;
 
     /**
      * @ORM\Column(type="json_array")
      *
-     * @var array|object|null
+     * @var array|null
      */
     private $object;
 
     /**
+     * @var Collectivity|null
+     *
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\Collectivity")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private ?Collectivity $collectivity;
+    private $collectivity;
 
     /**
+     * @var User|null
+     *
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private ?UserInterface $readBy;
+    private $readBy;
 
     /**
-     * @var \DateTime|null
-     * @ORM\Column(type="datetime", name="read_at", nullable=true)
+     * @var \DateTimeImmutable|null
+     *
+     * @ORM\Column(type="datetime", name="read_at")
      */
     private $readAt;
 
     /**
+     * @var User|null
+     *
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private ?UserInterface $createdBy;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Domain\Notification\Model\NotificationUser", mappedBy="notifications")
-     */
-    private $notificationUsers;
+    private $createdBy;
 
     /**
      * Category constructor.
@@ -166,12 +147,12 @@ class Notification
         $this->module = $module;
     }
 
-    public function getObject(): ?object
+    public function getObject(): ?array
     {
-        return (object) $this->object;
+        return $this->object;
     }
 
-    public function setObject(?object $object): void
+    public function setObject(?array $object): void
     {
         $this->object = $object;
     }
@@ -186,7 +167,7 @@ class Notification
         $this->collectivity = $collectivity;
     }
 
-    public function getReadBy(): ?UserInterface
+    public function getReadBy(): ?User
     {
         return $this->readBy;
     }
@@ -206,39 +187,13 @@ class Notification
         $this->readAt = $readAt;
     }
 
-    public function getCreatedBy(): ?UserInterface
+    public function getCreatedBy(): ?User
     {
         return $this->createdBy;
     }
 
-    public function setCreatedBy(?UserInterface $createdBy): void
+    public function setCreatedBy(?User $createdBy): void
     {
         $this->createdBy = $createdBy;
-    }
-
-    public function getAction(): ?string
-    {
-        return $this->action;
-    }
-
-    public function setAction(?string $action): void
-    {
-        $this->action = $action;
-    }
-
-    /**
-     * @return Collection|array|null
-     */
-    public function getNotificationUsers()
-    {
-        return $this->notificationUsers;
-    }
-
-    /**
-     * @param Collection|array|null $notificationUsers
-     */
-    public function setNotificationUsers($notificationUsers): void
-    {
-        $this->notificationUsers = $notificationUsers;
     }
 }

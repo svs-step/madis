@@ -158,7 +158,7 @@ class ModeleToAnalyseConverter
             }
         }
 
-        //Set d'abord le tableau de mesure protection, puis set les scenario avec leur mesure et les faire pointer sur celles du tableau
+        // Set d'abord le tableau de mesure protection, puis set les scenario avec leur mesure et les faire pointer sur celles du tableau
 
         return array_values($res);
     }

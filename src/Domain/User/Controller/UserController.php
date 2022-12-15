@@ -42,12 +42,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
 
 /**
  * @property Repository\User $repository
@@ -93,12 +93,12 @@ class UserController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->requestStack             = $requestStack;
-        $this->encoderFactory           = $encoderFactory;
-        $this->router                   = $router;
-        $this->security                 = $security;
-        $this->userProvider             = $userProvider;
-        $this->authorizationChecker     = $authorizationChecker;
+        $this->requestStack         = $requestStack;
+        $this->encoderFactory       = $encoderFactory;
+        $this->router               = $router;
+        $this->security             = $security;
+        $this->userProvider         = $userProvider;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -190,9 +190,9 @@ class UserController extends CRUDController
 
     public function listDataTables(Request $request): JsonResponse
     {
-        $criteria    = $this->getRequestCriteria();
-        $users       = $this->getResults($request, $criteria);
-        $reponse     = $this->getBaseDataTablesResponse($request, $users, $criteria);
+        $criteria = $this->getRequestCriteria();
+        $users    = $this->getResults($request, $criteria);
+        $reponse  = $this->getBaseDataTablesResponse($request, $users, $criteria);
 
         /** @var Model\User $user */
         foreach ($users as $user) {
@@ -361,9 +361,9 @@ class UserController extends CRUDController
 
         foreach ($services as $service) {
             $responseData[] = [
-                'value'     => $service->getId()->toString(),
-                'text'      => $service->__toString(),
-                'selected'  => in_array($service->getId(), $serviceIdsSelected),
+                'value'    => $service->getId()->toString(),
+                'text'     => $service->__toString(),
+                'selected' => in_array($service->getId(), $serviceIdsSelected),
             ];
         }
 

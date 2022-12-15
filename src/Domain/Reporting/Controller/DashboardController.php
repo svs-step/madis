@@ -70,8 +70,8 @@ class DashboardController extends AbstractController
         }
 
         return $this->render($metrics->getTemplateViewName(), [
-            'data'          => $metrics->getData(),
-            'actions'       => $actions,
+            'data'    => $metrics->getData(),
+            'actions' => $actions,
         ]);
     }
 

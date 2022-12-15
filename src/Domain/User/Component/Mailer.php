@@ -25,13 +25,16 @@ declare(strict_types=1);
 namespace App\Domain\User\Component;
 
 use App\Domain\User\Model;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class Mailer
 {
     /**
-     * @var \Swift_Mailer
+     * @var \Symfony\Component\Mailer\Mailer
      */
     private $mailer;
 
@@ -56,7 +59,7 @@ class Mailer
     private $senderName;
 
     public function __construct(
-        \Swift_Mailer $mailer,
+        \Symfony\Component\Mailer\MailerInterface $mailer,
         TranslatorInterface $translator,
         Environment $twig,
         string $senderEmail,
@@ -75,22 +78,19 @@ class Mailer
      * @param string $to      The receiver of the email
      * @param string $subject The subject of the email
      * @param string $body    The content of the email
+     *
+     * @throws TransportExceptionInterface
      */
-    private function send(string $to, string $subject, string $body): int
+    private function send(string $to, string $subject, string $body): void
     {
-        $message = (new \Swift_Message())
-            ->setFrom(
-                [
-                    $this->senderEmail => $this->senderName,
-                ]
-            )
-            ->setTo($to)
-            ->setSubject($subject)
-            ->setBody($body)
-            ->setContentType('text/html')
+        $message = (new Email())
+            ->from(new Address($this->senderEmail, $this->senderName))
+            ->to($to)
+            ->subject($subject)
+            ->html($body)
         ;
 
-        return $this->mailer->send($message);
+        $this->mailer->send($message);
     }
 
     /**

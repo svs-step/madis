@@ -81,12 +81,12 @@ class CategoryControllerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
-        $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);
-        $this->repositoryProphecy             = $this->prophesize(Repository\Category::class);
-        $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
-        $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
-        $this->pdf                            = $this->prophesize(Pdf::class);
+        $this->managerProphecy               = $this->prophesize(EntityManagerInterface::class);
+        $this->translatorProphecy            = $this->prophesize(TranslatorInterface::class);
+        $this->repositoryProphecy            = $this->prophesize(Repository\Category::class);
+        $this->authenticationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
+        $this->userProviderProphecy          = $this->prophesize(UserProvider::class);
+        $this->pdf                           = $this->prophesize(Pdf::class);
 
         $this->controller = new CategoryController(
             $this->managerProphecy->reveal(),

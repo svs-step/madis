@@ -243,7 +243,7 @@ class TreatmentGenerator extends AbstractGenerator
     private function initializeTreatmentHistoric(\App\Domain\Registry\Model\Treatment $treatment): array
     {
         return [
-            $treatment->getCreator(),
+            strval($treatment->getCreator()),
             $this->getDate($treatment->getCreatedAt()),
             $this->getDate($treatment->getUpdatedAt()),
         ];

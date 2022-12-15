@@ -33,14 +33,12 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Symfony\Bundle\FrameworkBundle\Controller\ControllerTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProfileControllerTest extends TestCase
 {
     use ReflectionTrait;
-    use ControllerTrait;
     use ProphecyTrait;
 
     /**

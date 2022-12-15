@@ -28,10 +28,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Intl\Exception\NotImplementedException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Polyfill\Intl\Icu\Exception\NotImplementedException;
 
 /**
  * @property Repository\ModeleAnalyse $repository
@@ -64,11 +64,11 @@ class ModeleAnalyseController extends CRUDController
         FilesystemInterface $fichierFilesystem
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->collectivityRepository   = $collectivityRepository;
-        $this->modeleFlow               = $modeleFlow;
-        $this->questionRepository       = $questionRepository;
-        $this->router                   = $router;
-        $this->fichierFilesystem        = $fichierFilesystem;
+        $this->collectivityRepository = $collectivityRepository;
+        $this->modeleFlow             = $modeleFlow;
+        $this->questionRepository     = $questionRepository;
+        $this->router                 = $router;
+        $this->fichierFilesystem      = $fichierFilesystem;
     }
 
     protected function getDomain(): string
@@ -115,7 +115,7 @@ class ModeleAnalyseController extends CRUDController
             $deleteFile = $criterePrincipeFondamental->isDeleteFile();
 
             if ($deleteFile) {
-                //Remove existing file
+                // Remove existing file
                 try {
                     $this->fichierFilesystem->delete($criterePrincipeFondamental->getFichier());
                 } catch (FileNotFound $e) {
@@ -240,7 +240,7 @@ class ModeleAnalyseController extends CRUDController
         }
 
         return $this->render('Aipd/Modele_analyse/rights.html.twig', [
-            'form'  => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -251,10 +251,10 @@ class ModeleAnalyseController extends CRUDController
 
         foreach ($modeles as $modele) {
             if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-                $userCollectivity               = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-                $userCollectivityType           = $userCollectivity->getType();
-                $authorizedCollectivities       = $modele->getAuthorizedCollectivities();
-                $authorizedCollectivityTypes    = $modele->getAuthorizedCollectivityTypes();
+                $userCollectivity            = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+                $userCollectivityType        = $userCollectivity->getType();
+                $authorizedCollectivities    = $modele->getAuthorizedCollectivities();
+                $authorizedCollectivityTypes = $modele->getAuthorizedCollectivityTypes();
 
                 if (!\is_null($authorizedCollectivityTypes)
                 && in_array($userCollectivityType, $authorizedCollectivityTypes)) {
@@ -284,12 +284,11 @@ class ModeleAnalyseController extends CRUDController
 
     private function generateActioNCellContent(ModeleAnalyse $modele)
     {
-        $id                     = $modele->getId();
-        $htmltoReturnIfAdmin    = '';
+        $id                  = $modele->getId();
+        $htmltoReturnIfAdmin = '';
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $htmltoReturnIfAdmin =
-            '<a href="' . $this->router->generate('aipd_modele_analyse_rights', ['id' => $id]) . '">
+            $htmltoReturnIfAdmin = '<a href="' . $this->router->generate('aipd_modele_analyse_rights', ['id' => $id]) . '">
                 <i class="fa fa-user-shield"></i>'
                 . $this->translator->trans('action.rights') .
             '</a>';
@@ -371,11 +370,11 @@ class ModeleAnalyseController extends CRUDController
     private static function formatToFileCompliant(string $string)
     {
         $unwanted_array = [
-            'Š'=> 'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
-            'Ê'=> 'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
-            'Ú'=> 'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
-            'è'=> 'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
-            'ö'=> 'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y',
+            'Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
+            'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
+            'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
+            'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
+            'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y',
         ];
 
         return strtr($string, $unwanted_array);

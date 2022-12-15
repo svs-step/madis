@@ -162,17 +162,17 @@ class ViolationController extends CRUDController
         ]);
 
         return $this->render($this->getTemplatingBasePath('list'), [
-            'totalItem'   => $this->repository->count($criteria),
-            'category'    => $category,
-            'route'       => $this->router->generate('registry_violation_list_datatables', ['archive' => $criteria['archive']]),
+            'totalItem' => $this->repository->count($criteria),
+            'category'  => $category,
+            'route'     => $this->router->generate('registry_violation_list_datatables', ['archive' => $criteria['archive']]),
         ]);
     }
 
     public function listDataTables(Request $request): JsonResponse
     {
-        $criteria    = $this->getRequestCriteria();
-        $users       = $this->getResults($request, $criteria);
-        $reponse     = $this->getBaseDataTablesResponse($request, $users, $criteria);
+        $criteria = $this->getRequestCriteria();
+        $users    = $this->getResults($request, $criteria);
+        $reponse  = $this->getBaseDataTablesResponse($request, $users, $criteria);
 
         /** @var Model\Violation $violation */
         foreach ($users as $violation) {
@@ -199,7 +199,7 @@ class ViolationController extends CRUDController
 
     private function isRequestInUserServices(Model\Violation $violation): bool
     {
-        $user   = $this->userProvider->getAuthenticatedUser();
+        $user = $this->userProvider->getAuthenticatedUser();
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             return true;

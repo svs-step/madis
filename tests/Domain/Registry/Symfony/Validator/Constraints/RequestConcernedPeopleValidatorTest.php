@@ -74,6 +74,6 @@ class RequestConcernedPeopleValidatorTest extends ConstraintValidatorTestCase
             ->buildNextViolation($constraint->message)
             ->atPath('property.path.lastName')
             ->assertRaised()
-            ;
+        ;
     }
 }

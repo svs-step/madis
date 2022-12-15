@@ -49,7 +49,7 @@ class JournalisationController extends AbstractController
     public function listDataTables(Request $request): JsonResponse
     {
         /** @var Paginator $logs */
-        $logs  = $this->getResults($request);
+        $logs = $this->getResults($request);
 
         $reponse = $this->getBaseDataTablesResponse($request, $logs);
 

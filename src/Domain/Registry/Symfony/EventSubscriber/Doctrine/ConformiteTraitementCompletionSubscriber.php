@@ -29,7 +29,7 @@ use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
 use App\Domain\Registry\Model\Mesurement;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class ConformiteTraitementCompletionSubscriber implements EventSubscriber
 {

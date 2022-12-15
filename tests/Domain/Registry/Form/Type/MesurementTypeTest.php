@@ -46,7 +46,7 @@ class MesurementTypeTest extends FormTypeHelper
 
     protected function setUp(): void
     {
-        $this->security  = $this->prophesize(Security::class);
+        $this->security = $this->prophesize(Security::class);
 
         $this->formType = new MesurementType(
             $this->security->reveal(),
@@ -60,25 +60,25 @@ class MesurementTypeTest extends FormTypeHelper
 
     public function testBuildForm()
     {
-        $mesurement      = new Mesurement();
-        $collectivity    = new Collectivity();
+        $mesurement   = new Mesurement();
+        $collectivity = new Collectivity();
         $collectivity->setIsServicesEnabled(true);
         $mesurement->setCollectivity($collectivity);
 
         $builder = [
-            'name'                => TextType::class,
-            'description'         => TextareaType::class,
-            'cost'                => TextType::class,
-            'charge'              => TextType::class,
-            'status'              => DictionaryType::class,
-            'planificationDate'   => DateType::class,
-            'comment'             => TextType::class,
-            'priority'            => DictionaryType::class,
-            'manager'             => TextType::class,
-            'contractors'         => EntityType::class,
-            'treatments'          => EntityType::class,
-            'violations'          => EntityType::class,
-            'requests'            => EntityType::class,
+            'name'              => TextType::class,
+            'description'       => TextareaType::class,
+            'cost'              => TextType::class,
+            'charge'            => TextType::class,
+            'status'            => DictionaryType::class,
+            'planificationDate' => DateType::class,
+            'comment'           => TextType::class,
+            'priority'          => DictionaryType::class,
+            'manager'           => TextType::class,
+            'contractors'       => EntityType::class,
+            'treatments'        => EntityType::class,
+            'violations'        => EntityType::class,
+            'requests'          => EntityType::class,
         ];
 
         $this->formType->buildForm($this->prophesizeBuilder($builder), ['data' => $mesurement]);

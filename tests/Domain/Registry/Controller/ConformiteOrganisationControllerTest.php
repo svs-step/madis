@@ -99,7 +99,7 @@ class ConformiteOrganisationControllerTest extends TestCase
         $this->wordHandler          = $this->prophesize(WordHandler::class);
         $this->pdf                  = $this->prophesize(Pdf::class);
 
-        $this->controller           = new ConformiteOrganisationController(
+        $this->controller = new ConformiteOrganisationController(
             $this->entityManager->reveal(),
             $this->translator->reveal(),
             $this->evaluationRepository->reveal(),

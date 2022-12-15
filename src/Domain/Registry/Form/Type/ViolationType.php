@@ -85,13 +85,13 @@ class ViolationType extends AbstractType
                 'query_builder' => function (EntityRepository $er) use ($violation) {
                     /** @var User $authenticatedUser */
                     $authenticatedUser = $this->security->getUser();
-                    $collectivity = $violation->getCollectivity();
+                    $collectivity      = $violation->getCollectivity();
 
                     $qb = $er->createQueryBuilder('s')
                         ->where('s.collectivity = :collectivity')
                         ->setParameter(':collectivity', $collectivity)
                     ;
-                    if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && ($authenticatedUser->getServices()->getValues())) {
+                    if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && $authenticatedUser->getServices()->getValues()) {
                         $qb->leftJoin('s.users', 'users')
                             ->andWhere('users.id = :id')
                             ->setParameter('id', $authenticatedUser->getId())
@@ -102,7 +102,7 @@ class ViolationType extends AbstractType
 
                     return $qb;
                 },
-                'required'      => false,
+                'required' => false,
             ]);
         }
         $builder
@@ -232,10 +232,10 @@ class ViolationType extends AbstractType
                         ->setParameter(':collectivity', $collectivity)
                         ->orderBy('s.name', 'ASC');
                 },
-                'required'      => false,
-                'expanded'      => false,
-                'multiple'      => true,
-                'attr'          => [
+                'required' => false,
+                'expanded' => false,
+                'multiple' => true,
+                'attr'     => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],

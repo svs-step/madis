@@ -23,7 +23,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
     public function addDetailedView(Section $section, array $data): void
     {
         /** @var Evaluation $evaluation */
-        $evaluation  = $data[0];
+        $evaluation = $data[0];
 
         /* ////////////////////////////////////////////////////////////// */
         $section->addTitle('Contexte', 1);
@@ -100,11 +100,11 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         }
 
         $style = [
-            'width'              => Converter::cmToEmu(15),
-            'height'             => Converter::cmToEmu(11),
-            'showAxisLabels'     => true,
-            'showGridY'          => true,
-            'dataLabelOptions'   => [
+            'width'            => Converter::cmToEmu(15),
+            'height'           => Converter::cmToEmu(11),
+            'showAxisLabels'   => true,
+            'showGridY'        => true,
+            'dataLabelOptions' => [
                 'showVal'     => false,
                 'showCatName' => false,
             ],

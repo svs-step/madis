@@ -28,13 +28,13 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class RequestObjectDictionary extends SimpleDictionary
 {
-    const OBJECT_CORRECT          = 'correct';
-    const OBJECT_DELETE           = 'delete';
-    const OBJECT_WITHDRAW_CONSENT = 'withdraw_consent';
-    const OBJECT_ACCESS           = 'access';
-    const OBJECT_DATA_PORTABILITY = 'data_portability';
-    const OBJECT_LIMIT_TREATMENT  = 'limit_treatment';
-    const OBJECT_OTHER            = 'other';
+    public const OBJECT_CORRECT          = 'correct';
+    public const OBJECT_DELETE           = 'delete';
+    public const OBJECT_WITHDRAW_CONSENT = 'withdraw_consent';
+    public const OBJECT_ACCESS           = 'access';
+    public const OBJECT_DATA_PORTABILITY = 'data_portability';
+    public const OBJECT_LIMIT_TREATMENT  = 'limit_treatment';
+    public const OBJECT_OTHER            = 'other';
 
     public function __construct()
     {

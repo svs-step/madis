@@ -27,7 +27,7 @@ namespace App\Domain\Registry\Symfony\EventSubscriber\Doctrine;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model\Mesurement;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class MesurementSubscriber implements EventSubscriber
 {

@@ -40,8 +40,8 @@ use App\Domain\User\Model\ComiteIlContact;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
@@ -111,18 +111,18 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
         $action = LogJournalActionDictionary::CREATE;
 
         switch (\get_class($args->getObject())) {
-            //l'ajout d'un participant ou d'une conformité entraine la modification de l'évaluation
+            // l'ajout d'un participant ou d'une conformité entraine la modification de l'évaluation
             case Conformite::class:
             case Participant::class:
                 $object = $object->getEvaluation();
                 $action = LogJournalActionDictionary::UPDATE;
                 break;
-            //l'ajout d'un contact IL ou d'un service entraine la modification de la collectivité
+                // l'ajout d'un contact IL ou d'un service entraine la modification de la collectivité
             case ComiteIlContact::class:
                 $object = $object->getCollectivity();
                 $action = LogJournalActionDictionary::UPDATE;
                 break;
-            //l'ajout d'une réponse entraine la modification de la conformité du traitement
+                // l'ajout d'une réponse entraine la modification de la conformité du traitement
             case Reponse::class:
                 $object = $object->getConformiteTraitement();
                 $action = LogJournalActionDictionary::UPDATE;
@@ -139,7 +139,7 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
             return;
         }
 
-        //specific case for user. Need to know which data is update
+        // specific case for user. Need to know which data is update
         switch (\get_class($args->getObject())) {
             case User::class:
                 $this->registerLogForUser($object);
@@ -163,7 +163,7 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
                 $request    = $this->requestStack->getCurrentRequest();
                 $conformite = $object->getConformiteTraitement();
                 $id         = $request->get('id');
-                //Cas spéciale lors de l'édition du traitement lors de la modification d'une conformité d'un traitement
+                // Cas spéciale lors de l'édition du traitement lors de la modification d'une conformité d'un traitement
                 if (\is_null($item->get()) || $id === $item->get()->toString() && $conformite->getId()->toString() === $id) {
                     $this->registerLog($conformite, LogJournalActionDictionary::UPDATE);
                 }
@@ -185,9 +185,9 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
     private function registerLog(LoggableSubject $object, string $action)
     {
         /** @var User $user */
-        $user    = $this->security->getUser();
-        $item    = $this->cacheAdapter->getItem('already_register_item-' . $user->getId()->toString());
-        //si la clef de l'objet existe déja alors on ajoute pas de log.
+        $user = $this->security->getUser();
+        $item = $this->cacheAdapter->getItem('already_register_item-' . $user->getId()->toString());
+        // si la clef de l'objet existe déja alors on ajoute pas de log.
         if (!$item->isHit()) {
             $item->expiresAfter(2);
             $item->set($object->getId());
@@ -263,7 +263,7 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
         $user    = $this->security->getUser();
         $changes = $this->entityManager->getUnitOfWork()->getEntityChangeSet($object);
 
-        //don't need to add log on lastLogin because already register in LoginSubscriber
+        // don't need to add log on lastLogin because already register in LoginSubscriber
         if (\array_key_exists('lastlogin', $changes)) {
             return;
         }
@@ -290,19 +290,19 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
 
         $subjectTypes = [];
         if (\array_key_exists('firstName', $changes)) {
-            $subjectTypes[] =  LogJournalSubjectDictionary::USER_FIRSTNAME;
+            $subjectTypes[] = LogJournalSubjectDictionary::USER_FIRSTNAME;
         }
 
         if (\array_key_exists('lastName', $changes)) {
-            $subjectTypes[] =  LogJournalSubjectDictionary::USER_LASTNAME;
+            $subjectTypes[] = LogJournalSubjectDictionary::USER_LASTNAME;
         }
 
         if (\array_key_exists('email', $changes)) {
-            $subjectTypes[] =  LogJournalSubjectDictionary::USER_EMAIL;
+            $subjectTypes[] = LogJournalSubjectDictionary::USER_EMAIL;
         }
 
         if (\array_key_exists('password', $changes)) {
-            $subjectTypes[] =  LogJournalSubjectDictionary::USER_PASSWORD;
+            $subjectTypes[] = LogJournalSubjectDictionary::USER_PASSWORD;
         }
 
         foreach ($subjectTypes as $subjectType) {
@@ -326,7 +326,7 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
         $changes      = $this->entityManager->getUnitOfWork()->getEntityChangeSet($object);
         $collectivity = $this->getCollectivity($object);
 
-        //if is not a softdelete request, just register a log update
+        // if is not a softdelete request, just register a log update
         $action = LogJournalActionDictionary::UPDATE;
         if (\array_key_exists('deletedAt', $changes)) {
             $action = LogJournalActionDictionary::SOFT_DELETE;

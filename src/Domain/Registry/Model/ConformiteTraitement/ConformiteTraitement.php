@@ -74,11 +74,11 @@ class ConformiteTraitement implements LoggableSubject
 
     public function __construct()
     {
-        $this->id                       = Uuid::uuid4();
-        $this->reponses                 = [];
-        $this->nbConformes              = 0;
-        $this->nbNonConformesMineures   = 0;
-        $this->nbNonConformesMajeures   = 0;
+        $this->id                     = Uuid::uuid4();
+        $this->reponses               = [];
+        $this->nbConformes            = 0;
+        $this->nbNonConformesMineures = 0;
+        $this->nbNonConformesMajeures = 0;
     }
 
     public function getId(): UuidInterface

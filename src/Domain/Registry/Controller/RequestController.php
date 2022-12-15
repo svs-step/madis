@@ -133,8 +133,8 @@ class RequestController extends CRUDController
      */
     protected function getListData()
     {
-        $request   = $this->requestStack->getMasterRequest();
-        $archived  = 'true' === $request->query->get('archive') ? true : false;
+        $request  = $this->requestStack->getMasterRequest();
+        $archived = 'true' === $request->query->get('archive') ? true : false;
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             return $this->repository->findAllArchived($archived);
@@ -220,7 +220,7 @@ class RequestController extends CRUDController
 
     private function isRequestInUserServices(Model\Request $request): bool
     {
-        $user   = $this->userProvider->getAuthenticatedUser();
+        $user = $this->userProvider->getAuthenticatedUser();
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             return true;
@@ -271,7 +271,7 @@ class RequestController extends CRUDController
                     <i class="fa fa-pencil-alt"></i>' .
                     $this->translator->trans('action.edit') . '
                 </a>
-                <a href="' . $this->router->generate('registry_request_delete', ['id'=> $demande->getId()]) . '">
+                <a href="' . $this->router->generate('registry_request_delete', ['id' => $demande->getId()]) . '">
                     <i class="fa fa-trash"></i>' .
                     $this->translator->trans('action.archive') .
                 '</a>';
@@ -282,7 +282,7 @@ class RequestController extends CRUDController
 
     private function getLinkForPersonneConcernee(Model\Request $demande)
     {
-        $link = '<a href="' . $this->router->generate('registry_request_show', ['id'=> $demande->getId()]) . '">';
+        $link = '<a href="' . $this->router->generate('registry_request_show', ['id' => $demande->getId()]) . '">';
         if ($demande->getApplicant()->isConcernedPeople() ||
             ' ' === $demande->getConcernedPeople()->getFullName()) {
             $link .= $demande->getApplicant()->getFullName();

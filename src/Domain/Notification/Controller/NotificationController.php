@@ -67,9 +67,9 @@ class NotificationController extends CRUDController
         Pdf $pdf
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->requestStack           = $requestStack;
-        $this->authorizationChecker   = $authorizationChecker;
-        $this->userProvider           = $userProvider;
+        $this->requestStack         = $requestStack;
+        $this->authorizationChecker = $authorizationChecker;
+        $this->userProvider         = $userProvider;
     }
 
     /**

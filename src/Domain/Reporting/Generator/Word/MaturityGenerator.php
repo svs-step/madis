@@ -30,9 +30,9 @@ use PhpOffice\PhpWord\SimpleType\TblWidth;
 
 class MaturityGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
-    const RESPONSE_0 = 'Rien (ou presque) n\'est fait';
-    const RESPONSE_1 = 'La pratique est partiellement mise en place';
-    const RESPONSE_2 = 'La pratique est conforme';
+    public const RESPONSE_0 = 'Rien (ou presque) n\'est fait';
+    public const RESPONSE_1 = 'La pratique est partiellement mise en place';
+    public const RESPONSE_2 = 'La pratique est conforme';
 
     /**
      * Global overview : Information to display for maturity in overview report.
@@ -198,7 +198,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
         $section->addTextBreak(2);
 
-        $chart      = $section->addChart(
+        $chart = $section->addChart(
             'radar',
             $domainsName,
             $serie1,

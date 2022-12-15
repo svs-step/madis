@@ -6,7 +6,7 @@ namespace App\Infrastructure\ORM\AIPD\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Traits\RepositoryUtils;
-use App\Domain\AIPD\Model as Model;
+use App\Domain\AIPD\Model;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -110,7 +110,7 @@ class AnalyseImpact extends CRUDRepository implements \App\Domain\AIPD\Repositor
             ->setParameter('id', $id)
             ->getQuery()
             ->getOneOrNullResult()
-            ;
+        ;
     }
 
     private function addTableSearches(QueryBuilder $queryBuilder, $searches)

@@ -66,7 +66,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                 'empty_data' => '0',
             ])
             ->add('name', TextType::class, [
-                'label'   => 'documentation.document.form.label.name',
+                'label' => 'documentation.document.form.label.name',
             ])
             ->add('categories', EntityType::class, [
                 'label'        => 'documentation.document.form.label.categories',
@@ -96,7 +96,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                         'mimeTypesMessage' => 'Les formats autorisés sont .png, .jpg, .jpeg.',
                     ]),
                 ],
-                'attr'     => [
+                'attr' => [
                     'accept' => 'image/*',
                 ],
             ])
@@ -141,7 +141,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
         if (!$data->getId()) {
             $data->setIsLink($isLink);
         }
-        //$data->setIsLink($isLink);
+        // $data->setIsLink($isLink);
         $event->setData($data);
 
         $form = $event->getForm();

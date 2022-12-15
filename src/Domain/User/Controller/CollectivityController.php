@@ -89,15 +89,15 @@ class CollectivityController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->router                   = $router;
-        $this->security                 = $security;
-        $this->treatmentRepository      = $treatmentRepository;
-        $this->contractorRepository     = $contractorRepository;
-        $this->proofRepository          = $proofRepository;
-        $this->userRepository           = $userRepository;
-        $this->mesurementRepository     = $mesurementRepository;
-        $this->userProvider             = $userProvider;
-        $this->authorizationChecker     = $authorizationChecker;
+        $this->router               = $router;
+        $this->security             = $security;
+        $this->treatmentRepository  = $treatmentRepository;
+        $this->contractorRepository = $contractorRepository;
+        $this->proofRepository      = $proofRepository;
+        $this->userRepository       = $userRepository;
+        $this->mesurementRepository = $mesurementRepository;
+        $this->userProvider         = $userProvider;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -153,7 +153,7 @@ class CollectivityController extends CRUDController
         /** @var Model\Collectivity $collectivity */
         foreach ($collectivities as $collectivity) {
             $reponse['data'][] = [
-                'nom'                          => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' .
+                'nom' => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' .
                     $collectivity->getName() .
                     '</a>',
                 'nom_court'                    => $collectivity->getShortName(),
@@ -177,12 +177,12 @@ class CollectivityController extends CRUDController
             return;
         }
 
-        $cellContent = '<a href="' . $this->router->generate('user_collectivity_edit', ['id'=> $collectivity->getId()]) . '">
+        $cellContent = '<a href="' . $this->router->generate('user_collectivity_edit', ['id' => $collectivity->getId()]) . '">
             <i class="fa fa-pencil-alt"></i> ' .
             $this->translator->trans('action.edit') .
         '</a>';
 
-        $cellContent .= '<a href="' . $this->router->generate('user_collectivity_delete', ['id'=> $collectivity->getId()]) . '">
+        $cellContent .= '<a href="' . $this->router->generate('user_collectivity_delete', ['id' => $collectivity->getId()]) . '">
             <i class="fa fa-trash"></i> ' .
             $this->translator->trans('action.delete') .
         '</a>';
@@ -204,7 +204,7 @@ class CollectivityController extends CRUDController
 
     private function getRequestCriteria()
     {
-        $criteria            = [];
+        $criteria = [];
 
         if (!$this->security->isGranted('ROLE_ADMIN')) {
             /** @var Model\User $user */
@@ -267,12 +267,12 @@ class CollectivityController extends CRUDController
             $stringObjects[] = 'Sous-traitant - ' . $deletedContractor->getName();
         }
 
-        $deletedProofs =  $this->proofRepository->findBy(['collectivity' => $object]);
+        $deletedProofs = $this->proofRepository->findBy(['collectivity' => $object]);
         foreach ($deletedProofs as $deletedProof) {
             $stringObjects[] = 'Preuve - ' . $deletedProof->getName();
         }
 
-        $deletedUsers =  $this->userRepository->findBy(['collectivity' => $object]);
+        $deletedUsers = $this->userRepository->findBy(['collectivity' => $object]);
         foreach ($deletedUsers as $deletedUser) {
             $stringObjects[] = 'Utilisateur - ' . $deletedUser->getFirstname() . ' ' . $deletedUser->getLastname();
         }
@@ -304,7 +304,7 @@ class CollectivityController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('delete_processing'), [
-            'object'            => $object,
+            'object' => $object,
         ]);
 
         $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));

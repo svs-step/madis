@@ -30,13 +30,13 @@ use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Repository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\ControllerTrait;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProfileController
+class ProfileController extends AbstractController
 {
-    use ControllerTrait;
+    // use ControllerTrait;
 
     /**
      * @var EntityManagerInterface
@@ -109,9 +109,9 @@ class ProfileController
      */
     public function collectivityEditAction(): Response
     {
-        $request      = $this->requestStack->getMasterRequest();
-        $object       = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-        $form         = $this->helper->createForm(
+        $request = $this->requestStack->getMasterRequest();
+        $object  = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+        $form    = $this->helper->createForm(
             CollectivityType::class,
             $object,
             [

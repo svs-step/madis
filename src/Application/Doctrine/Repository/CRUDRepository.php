@@ -151,7 +151,7 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
             ->getManager()
             ->getRepository($this->getModelClass())
             ->findBy([], $orderBy)
-            ;
+        ;
     }
 
     /**
@@ -176,6 +176,6 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
             ->getManager()
             ->getRepository($this->getModelClass())
             ->findBy($criterias)
-            ;
+        ;
     }
 }

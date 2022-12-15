@@ -47,6 +47,14 @@ initialize() {
     jwtKeys
 }
 
+localinit() {
+    build
+    start
+    install
+    populate
+    jwtKeys
+}
+
 build() {
     docker build docker/nginx -t nginx
     docker build docker/php -t php
@@ -71,13 +79,13 @@ jwtKeys() {
 
 install() {
     docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php 'until nc -z db 3306; do sleep 1; echo "Waiting for DB to come up..."; done'
-    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "composer install --prefer-dist --no-interaction --optimize-autoloader &&
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "php -d memory_limit=-1 /usr/local/bin/composer install --prefer-dist --no-interaction --optimize-autoloader &&
                                                                                                                           bin/console doctrine:database:create --if-not-exists &&
                                                                                                                           bin/console doctrine:migration:migrate -n &&
-                                                                                                                          bin/console cache:clear --env=prod --no-debug &&
-                                                                                                                          bin/console cache:warmup --env=prod --no-debug"
+                                                                                                                          php -d memory_limit=-1 bin/console cache:clear --env=prod --no-debug &&
+                                                                                                                          php -d memory_limit=-1 bin/console cache:warmup --env=prod --no-debug"
     # Load CSS & JS compilation
-    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "yarn && yarn run encore production"
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "npm install && npm run build"
 }
 
 installDb() {
@@ -92,9 +100,9 @@ populate() {
 
 serve() {
     if [ "$#" -ge 1 ]; then
-        docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "yarn && yarn run encore dev --$1"
+        docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "npm && npm run dev --$1"
     fi
-    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "yarn && yarn run encore dev"
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "npm && npm run dev"
 }
 
 stop() {
@@ -134,12 +142,12 @@ tests() {
 
 unitTests() {
     echo -e "\n\n\nUnit Tests"
-    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ $DOCKER_IMAGE_PHP bash -c "APP_ENV=test vendor/bin/simple-phpunit"
+    make tu
 }
 
 security() {
     echo -e "\n\n\nSecurity check"
-    docker run --rm --user www-data --env-file=.env.test -v ${PWD}/:/var/www/gestion-rgpd/ -w /var/www/gestion-rgpd/ $DOCKER_IMAGE_PHP bash -c "php-security-checker"
+    make security
 }
 
 qualityTests() {
@@ -195,6 +203,7 @@ debug(){
 
 # Images management
 pushImages() {
+    docker login --username gitlab-ci-token --password $CI_JOB_TOKEN $CI_REGISTRY
     pushImagePhp
     pushImageNginx
 }
@@ -225,6 +234,7 @@ Options:
 
 Commands:
   initialize                  Start the project no matter what state it is in
+  localinit                   Build the containers and start
   build                       Build docker containers
   start                       Start docker containers
   install                     Run app installation scripts
@@ -259,6 +269,9 @@ fi
 case "$1" in
  initialize)
         initialize
+        ;;
+localinit)
+        localinit
         ;;
  build)
         build

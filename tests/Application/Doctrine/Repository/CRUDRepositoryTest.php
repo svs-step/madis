@@ -28,12 +28,12 @@ use App\Application\DDD\Repository\CRUDRepositoryInterface;
 use App\Application\DDD\Repository\RepositoryInterface;
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Tests\Utils\ReflectionTrait;
-use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectRepository;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class CRUDRepositoryTest extends TestCase
 {
@@ -41,7 +41,7 @@ class CRUDRepositoryTest extends TestCase
     use ProphecyTrait;
 
     /**
-     * @var RegistryInterface
+     * @var ManagerRegistry
      */
     private $registryProphecy;
 
@@ -62,7 +62,7 @@ class CRUDRepositoryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->registryProphecy         = $this->prophesize(RegistryInterface::class);
+        $this->registryProphecy         = $this->prophesize(ManagerRegistry::class);
         $this->managerProphecy          = $this->prophesize(EntityManagerInterface::class);
         $this->objectRepositoryProphecy = $this->prophesize(ObjectRepository::class);
 
@@ -116,7 +116,7 @@ class CRUDRepositoryTest extends TestCase
 
     public function testInsert()
     {
-        $object = new \StdClass();
+        $object = new \stdClass();
 
         $this->managerProphecy->persist($object)->shouldBeCalled();
         $this->managerProphecy->flush()->shouldBeCalled();
@@ -128,7 +128,7 @@ class CRUDRepositoryTest extends TestCase
 
     public function testUpdate()
     {
-        $object = new \StdClass();
+        $object = new \stdClass();
 
         $this->managerProphecy->flush()->shouldBeCalled();
 
@@ -146,7 +146,7 @@ class CRUDRepositoryTest extends TestCase
 
     public function testRemove()
     {
-        $object = new \StdClass();
+        $object = new \stdClass();
 
         $this->managerProphecy->remove($object)->shouldBeCalled();
         $this->managerProphecy->flush()->shouldBeCalled();
@@ -159,8 +159,8 @@ class CRUDRepositoryTest extends TestCase
     public function testFindAll()
     {
         $data = [
-            new \StdClass(),
-            new \StdClass(),
+            new \stdClass(),
+            new \stdClass(),
         ];
         $order = [
             'foo' => 'bar',

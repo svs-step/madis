@@ -281,8 +281,8 @@ abstract class AbstractGenerator implements GeneratorInterface
         $section = $document->addSection();
 
         // add page header
-        $header  = $section->addHeader();
-        $table   = $header->addTable([
+        $header = $section->addHeader();
+        $table  = $header->addTable([
             'borderColor' => '000000',
             'borderSize'  => 3,
             'cellMargin'  => 100,

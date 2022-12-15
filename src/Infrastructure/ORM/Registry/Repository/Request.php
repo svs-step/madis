@@ -83,7 +83,7 @@ class Request implements Repository\Request
             ->createQueryBuilder()
             ->select('o')
             ->from($this->getModelClass(), 'o')
-            ;
+        ;
     }
 
     /**
@@ -152,7 +152,7 @@ class Request implements Repository\Request
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -164,7 +164,7 @@ class Request implements Repository\Request
             ->getManager()
             ->getRepository($this->getModelClass())
             ->find($id)
-            ;
+        ;
     }
 
     protected function getModelClass(): string
@@ -194,7 +194,7 @@ class Request implements Repository\Request
         return $qb
             ->andWhere('o.collectivity = :collectivity')
             ->setParameter('collectivity', $collectivity)
-            ;
+        ;
     }
 
     /**
@@ -231,7 +231,7 @@ class Request implements Repository\Request
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -250,7 +250,7 @@ class Request implements Repository\Request
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -268,7 +268,7 @@ class Request implements Repository\Request
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -287,7 +287,7 @@ class Request implements Repository\Request
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -341,7 +341,7 @@ class Request implements Repository\Request
         return $qb
             ->getQuery()
             ->getSingleScalarResult()
-            ;
+        ;
     }
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])

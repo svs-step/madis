@@ -17,7 +17,7 @@ class ReponseTypeTest extends FormTypeHelper
 
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, (new ReponseType()));
+        $this->assertInstanceOf(AbstractType::class, new ReponseType());
     }
 
     public function testBuildForm()

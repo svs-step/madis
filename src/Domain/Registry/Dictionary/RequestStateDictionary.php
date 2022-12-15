@@ -28,12 +28,12 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class RequestStateDictionary extends SimpleDictionary
 {
-    const STATE_TO_TREAT              = 'to_treat';
-    const STATE_AWAITING_CONFIRMATION = 'awaiting_confirmation';
-    const STATE_ON_REQUEST            = 'on_request';
-    const STATE_AWAITING_SERVICE      = 'awaiting_service';
-    const STATE_COMPLETED_CLOSED      = 'completed_closed';
-    const STATE_DENIED                = 'denied';
+    public const STATE_TO_TREAT              = 'to_treat';
+    public const STATE_AWAITING_CONFIRMATION = 'awaiting_confirmation';
+    public const STATE_ON_REQUEST            = 'on_request';
+    public const STATE_AWAITING_SERVICE      = 'awaiting_service';
+    public const STATE_COMPLETED_CLOSED      = 'completed_closed';
+    public const STATE_DENIED                = 'denied';
 
     public function __construct()
     {
@@ -48,12 +48,12 @@ class RequestStateDictionary extends SimpleDictionary
     public static function getStates()
     {
         return [
-            self::STATE_TO_TREAT                   => 'À traiter',
-            self::STATE_AWAITING_CONFIRMATION      => 'En attente confirmation identité de la personne',
-            self::STATE_ON_REQUEST                 => 'En demande de précision sur la demande',
-            self::STATE_AWAITING_SERVICE           => 'En attente de réponse d\'un service',
-            self::STATE_COMPLETED_CLOSED           => 'Demande traitée et clôturée',
-            self::STATE_DENIED                     => 'Demande refusée',
+            self::STATE_TO_TREAT              => 'À traiter',
+            self::STATE_AWAITING_CONFIRMATION => 'En attente confirmation identité de la personne',
+            self::STATE_ON_REQUEST            => 'En demande de précision sur la demande',
+            self::STATE_AWAITING_SERVICE      => 'En attente de réponse d\'un service',
+            self::STATE_COMPLETED_CLOSED      => 'Demande traitée et clôturée',
+            self::STATE_DENIED                => 'Demande refusée',
         ];
     }
 

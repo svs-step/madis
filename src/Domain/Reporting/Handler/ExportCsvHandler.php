@@ -31,10 +31,10 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ExportCsvHandler
 {
-    const COLLECTIVITY_TYPE = 'collectivity';
-    const CONTRACTOR_TYPE   = 'contractor';
-    const TREATMENT_TYPE    = 'treatment';
-    const MESUREMENT_TYPE   = 'mesurement';
+    public const COLLECTIVITY_TYPE = 'collectivity';
+    public const CONTRACTOR_TYPE   = 'contractor';
+    public const TREATMENT_TYPE    = 'treatment';
+    public const MESUREMENT_TYPE   = 'mesurement';
 
     /**
      * @var CollectivityGenerator

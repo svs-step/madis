@@ -68,10 +68,10 @@ class MesurementGenerator extends AbstractGenerator
         Mesurement $mesurementRepository,
         Security $security
     ) {
-        $this->translator              = $translatorInterface;
-        $this->collectivityRepository  = $collectivityRepository;
-        $this->mesurementRepository    = $mesurementRepository;
-        $this->security                = $security;
+        $this->translator             = $translatorInterface;
+        $this->collectivityRepository = $collectivityRepository;
+        $this->mesurementRepository   = $mesurementRepository;
+        $this->security               = $security;
     }
 
     /**
@@ -203,7 +203,7 @@ class MesurementGenerator extends AbstractGenerator
     private function initializeMesurementHistoric(\App\Domain\Registry\Model\Mesurement $mesurement): array
     {
         return [
-            $mesurement->getCreator(),
+            strval($mesurement->getCreator()),
             $this->getDate($mesurement->getCreatedAt()),
             $this->getDate($mesurement->getUpdatedAt()),
         ];

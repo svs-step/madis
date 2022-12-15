@@ -17,6 +17,9 @@ services:
     PhpOffice\PhpWord\PhpWord: ~
     RandomLib\Factory: ~
 
+    Knp\DictionaryBundle\Faker\Provider\Dictionary:
+        tags: [ { name: hautelook_alice.faker.provider } ]
+
     App\Domain\Reporting\Metrics\UserMetric:
         arguments:
             $userLogJounalViewLimit: '%env(APP_USER_DASHBOARD_JOURNALISATION_LIMIT)%'
@@ -41,6 +44,10 @@ services:
     aipd.form.flow.analyse_impact:
         class: App\Domain\AIPD\Form\Flow\AnalyseImpactFlow
 
+    aipd.model.analyse_impact:
+        class: App\Domain\AIPD\Model\AnalyseImpact
+
+    App\Domain\AIPD\Model\AnalyseImpact: '@aipd.model.analyse_impact'
 imports:
     - { resource: services/cloner.yaml }
     - { resource: services/controller.yaml }

@@ -28,12 +28,12 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class CollectivityTypeDictionary extends SimpleDictionary
 {
-    const TYPE_COMMUNE            = 'commune';
-    const TYPE_CCAS               = 'ccas';
-    const TYPE_EPCI               = 'epci';
-    const TYPE_CIAS               = 'cias';
-    const TYPE_DEPARTMENTAL_UNION = 'departmental_union';
-    const TYPE_OTHER              = 'other';
+    public const TYPE_COMMUNE            = 'commune';
+    public const TYPE_CCAS               = 'ccas';
+    public const TYPE_EPCI               = 'epci';
+    public const TYPE_CIAS               = 'cias';
+    public const TYPE_DEPARTMENTAL_UNION = 'departmental_union';
+    public const TYPE_OTHER              = 'other';
 
     public function __construct()
     {

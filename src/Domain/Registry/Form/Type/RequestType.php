@@ -84,13 +84,13 @@ class RequestType extends AbstractType
                     'query_builder' => function (EntityRepository $er) use ($request) {
                         /** @var User $authenticatedUser */
                         $authenticatedUser = $this->security->getUser();
-                        $collectivity = $request->getCollectivity();
+                        $collectivity      = $request->getCollectivity();
 
                         $qb = $er->createQueryBuilder('s')
                             ->where('s.collectivity = :collectivity')
                             ->setParameter(':collectivity', $collectivity)
                         ;
-                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && ($authenticatedUser->getServices()->getValues())) {
+                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && $authenticatedUser->getServices()->getValues()) {
                             $qb->leftJoin('s.users', 'users')
                                 ->andWhere('users.id = :id')
                                 ->setParameter('id', $authenticatedUser->getId())

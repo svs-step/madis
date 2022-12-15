@@ -54,8 +54,8 @@ class LogJournalLinkGeneratorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->router           = $this->prophesize(RouterInterface::class);
-        $this->entityManager    = $this->prophesize(EntityManagerInterface::class);
+        $this->router        = $this->prophesize(RouterInterface::class);
+        $this->entityManager = $this->prophesize(EntityManagerInterface::class);
 
         $this->generator = new LogJournalLinkGenerator($this->router->reveal(), $this->entityManager->reveal());
     }

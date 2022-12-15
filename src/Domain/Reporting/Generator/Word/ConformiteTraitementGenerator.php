@@ -199,7 +199,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
             $historyData = [
                 [
                     'Créateur',
-                    $conformiteTraitement->getCreator(),
+                    strval($conformiteTraitement->getCreator()),
                 ],
                 [
                     'Date de création',

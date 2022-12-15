@@ -127,7 +127,7 @@
         let domainesDatas = [];
         {% for critere in analyseImpact.criterePrincipeFondamentaux %}
             {% if critere.reponse != 'non_applicable' %}
-                domainesLabels.push("{{ critere.label|truncate(28,'...')|raw|escape('js') }}");
+                domainesLabels.push("{{ critere.label|u.truncate(28,'...')|raw|escape('js') }}");
                 {% if critere.reponse == 'conforme' %}
                     domainesDatas.push(5);
                 {% else %}
@@ -145,7 +145,7 @@
             {% else %}
                 domainesDatas.push(1);
             {% endif %}
-            domainesLabels.push("{{ question.question|truncate(28, '...')|raw|escape('js') }}");
+            domainesLabels.push("{{ question.question|u.truncate(28, '...')|raw|escape('js') }}");
         {% endfor %}
 
         /* The format of the data used by the chart is [[],[]] but here we use only 1 set of data */
@@ -168,7 +168,7 @@
 
         // impact Potentiel {{ rp }}
 
-            risquesLabels.push("{{ scenario.nom|truncate(20, '...')|raw|escape('js') }}");
+            risquesLabels.push("{{ scenario.nom|u.truncate(20, '...')|raw|escape('js') }}");
             risquesCouvertDataSet.push({{ rp-rr }});
             risquesResiduelDataSet.push({{ rr }})
             dicResiduelsData.push({
@@ -181,7 +181,7 @@
 
 
         {% for mesure in analyseImpact.mesureProtections %}
-            mesuresLabels.push("{{ mesure.nom|truncate(28, '...')|raw|escape('js') }}");
+            mesuresLabels.push("{{ mesure.nom|u.truncate(28, '...')|raw|escape('js') }}");
             {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
             mesuresDatas.push(1);
             {% elseif mesure.reponse == 'besoin_amelioration' %}

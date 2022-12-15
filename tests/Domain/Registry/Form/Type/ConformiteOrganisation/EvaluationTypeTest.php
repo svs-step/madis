@@ -15,7 +15,7 @@ class EvaluationTypeTest extends FormTypeHelper
 {
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, (new EvaluationType()));
+        $this->assertInstanceOf(AbstractType::class, new EvaluationType());
     }
 
     public function testBuildForm(): void

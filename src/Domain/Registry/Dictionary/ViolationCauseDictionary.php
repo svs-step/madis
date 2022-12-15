@@ -28,11 +28,11 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ViolationCauseDictionary extends SimpleDictionary
 {
-    const CAUSE_INTERNAL_MALICIOUS  = 'internal_malicious';
-    const CAUSE_INTERNAL_ACCIDENTAL = 'internal_accidental';
-    const CAUSE_EXTERNAL_MALICIOUS  = 'external_malicious';
-    const CAUSE_EXTERNAL_ACCIDENTAL = 'external_accidental';
-    const CAUSE_UNKNOWN             = 'unknown';
+    public const CAUSE_INTERNAL_MALICIOUS  = 'internal_malicious';
+    public const CAUSE_INTERNAL_ACCIDENTAL = 'internal_accidental';
+    public const CAUSE_EXTERNAL_MALICIOUS  = 'external_malicious';
+    public const CAUSE_EXTERNAL_ACCIDENTAL = 'external_accidental';
+    public const CAUSE_UNKNOWN             = 'unknown';
 
     public function __construct()
     {

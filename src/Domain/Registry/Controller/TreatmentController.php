@@ -209,8 +209,8 @@ class TreatmentController extends CRUDController
         }
 
         return $this->render('Registry/Treatment/configuration.html.twig', [
-            'route'     => $this->router->generate('registry_treatment_configuration', ['active' => $criteria['active']]),
-            'form'      => $form->createView(),
+            'route' => $this->router->generate('registry_treatment_configuration', ['active' => $criteria['active']]),
+            'form'  => $form->createView(),
         ]);
     }
 
@@ -230,8 +230,9 @@ class TreatmentController extends CRUDController
         ->getRepository(Treatment::class)
         ->findBy(
             [
-                'collectivity'  => $collectivity,
-                'public'        => 1,
+                'collectivity' => $collectivity,
+                'public'       => 1,
+                'active'       => 1,
             ],
             [
                 'name' => 'ASC',
@@ -325,12 +326,12 @@ class TreatmentController extends CRUDController
      */
     public function listDataTables(Request $request): JsonResponse
     {
-        $request                   = $this->requestStack->getMasterRequest();
-        $criteria['active']        = $request->query->getBoolean('active');
-        $user                      = $this->userProvider->getAuthenticatedUser();
+        $request            = $this->requestStack->getMasterRequest();
+        $criteria['active'] = $request->query->getBoolean('active');
+        $user               = $this->userProvider->getAuthenticatedUser();
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity']  = $user->getCollectivity();
+            $criteria['collectivity'] = $user->getCollectivity();
         }
 
         if ($user) {
@@ -340,7 +341,7 @@ class TreatmentController extends CRUDController
         }
 
         /** @var Paginator $treatments */
-        $treatments  = $this->getResults($request, $criteria);
+        $treatments = $this->getResults($request, $criteria);
 
         $reponse = $this->getBaseDataTablesResponse($request, $treatments, $criteria);
 
@@ -455,7 +456,7 @@ class TreatmentController extends CRUDController
 
     private function isTreatmentInUserServices(Model\Treatment $treatment): bool
     {
-        $user   = $this->userProvider->getAuthenticatedUser();
+        $user = $this->userProvider->getAuthenticatedUser();
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             return true;
         }
@@ -481,7 +482,7 @@ class TreatmentController extends CRUDController
                  <i class="fa fa-trash"></i>
                  ' . $this->translator->trans('action.delete') . '
              </a>'
-                    ;
+                ;
             }
         }
 
@@ -524,8 +525,8 @@ class TreatmentController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('archive_all'), [ // delete_all
-            'ids'               => $ids,
-            'treatment_length'  => count($ids),
+            'ids'              => $ids,
+            'treatment_length' => count($ids),
         ]);
     }
 
@@ -584,8 +585,8 @@ class TreatmentController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('delete_all'), [ // delete_all
-            'ids'               => $ids,
-            'treatment_length'  => count($ids),
+            'ids'              => $ids,
+            'treatment_length' => count($ids),
         ]);
     }
 

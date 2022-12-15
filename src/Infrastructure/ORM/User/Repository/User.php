@@ -97,7 +97,7 @@ class User extends CRUDRepository implements Repository\User
             ->setParameter('forgetPasswordToken', $token)
             ->getQuery()
             ->getOneOrNullResult()
-            ;
+        ;
     }
 
     /**
@@ -143,7 +143,7 @@ class User extends CRUDRepository implements Repository\User
         return $qb
             ->getQuery()
             ->getSingleScalarResult()
-            ;
+        ;
     }
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])

@@ -34,7 +34,7 @@ class AnalyseSingleAvisType extends AbstractType
             ->add('detail', TextType::class, [
                 'required' => true,
             ])
-            ;
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

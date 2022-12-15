@@ -10,9 +10,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ReponseMesureProtectionDictionary extends SimpleDictionary
 {
-    const INSATISFAISANT      = 'insatisfaisant';
-    const BESOIN_AMELIORATION = 'besoin_amelioration';
-    const SATISFAISANT        = 'satisfaisant';
+    public const INSATISFAISANT      = 'insatisfaisant';
+    public const BESOIN_AMELIORATION = 'besoin_amelioration';
+    public const SATISFAISANT        = 'satisfaisant';
 
     protected AnalyseImpact $aipd;
 

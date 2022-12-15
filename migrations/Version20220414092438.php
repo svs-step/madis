@@ -57,7 +57,7 @@ final class Version20220414092438 extends AbstractMigration
             $this->answer3[$k]['actionProtectionsNotSeen'] = $this->getData('SELECT * FROM conformite_traitement_reponse_action_protection_not_seen WHERE reponse_id = "' . $answer['id'] . '"');
         }
 
-        //Generate ids for new questions
+        // Generate ids for new questions
         $this->ids = [
             Uuid::uuid4()->__toString(),
             Uuid::uuid4()->__toString(),
@@ -82,7 +82,7 @@ final class Version20220414092438 extends AbstractMigration
 
     public function postUp(Schema $schema): void
     {
-        //Insert responses to new questions
+        // Insert responses to new questions
 
         foreach ($this->answer1 as $answer) {
             $answerId = Uuid::uuid4()->__toString();
@@ -167,28 +167,28 @@ final class Version20220414092438 extends AbstractMigration
 
         $data = [
             [
-                'question'                      => 'Exercice du droit à la portabilité',
-                'is_justification_obligatoire'  => 0,
-                'texte_conformite'              => 'Conforme',
-                'texte_non_conformite_majeure'  => 'Non-conformite majeure',
-                'texte_non_conformite_mineure'  => 'Non-conforme mineure',
-                'position'                      => $this->lastQuestionPosition + 3,
+                'question'                     => 'Exercice du droit à la portabilité',
+                'is_justification_obligatoire' => 0,
+                'texte_conformite'             => 'Conforme',
+                'texte_non_conformite_majeure' => 'Non-conformite majeure',
+                'texte_non_conformite_mineure' => 'Non-conforme mineure',
+                'position'                     => $this->lastQuestionPosition + 3,
             ],
             [
-                'question'                      => "Exercice du droit d'effacement",
-                'is_justification_obligatoire'  => 0,
-                'texte_conformite'              => 'Conforme',
-                'texte_non_conformite_majeure'  => 'Non-conformite majeure',
-                'texte_non_conformite_mineure'  => 'Non-conforme mineure',
-                'position'                      => $this->lastQuestionPosition + 6,
+                'question'                     => "Exercice du droit d'effacement",
+                'is_justification_obligatoire' => 0,
+                'texte_conformite'             => 'Conforme',
+                'texte_non_conformite_majeure' => 'Non-conformite majeure',
+                'texte_non_conformite_mineure' => 'Non-conforme mineure',
+                'position'                     => $this->lastQuestionPosition + 6,
             ],
             [
-                'question'                      => "Exercice du droit d'opposition",
-                'is_justification_obligatoire'  => 0,
-                'texte_conformite'              => 'Conforme',
-                'texte_non_conformite_majeure'  => 'Non-conformite majeure',
-                'texte_non_conformite_mineure'  => 'Non-conforme mineure',
-                'position'                      => $this->lastQuestionPosition + 9,
+                'question'                     => "Exercice du droit d'opposition",
+                'is_justification_obligatoire' => 0,
+                'texte_conformite'             => 'Conforme',
+                'texte_non_conformite_majeure' => 'Non-conformite majeure',
+                'texte_non_conformite_mineure' => 'Non-conforme mineure',
+                'position'                     => $this->lastQuestionPosition + 9,
             ],
         ];
         foreach ($data as $k => $item) {
