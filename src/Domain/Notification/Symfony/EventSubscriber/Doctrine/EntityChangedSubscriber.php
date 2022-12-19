@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Notification\Symfony\EventSubscriber\Doctrine;
 
 use App\Domain\Documentation\Model\Document;
+use App\Domain\Notification\Dictionary\NotificationModuleDictionary;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
@@ -52,20 +53,30 @@ class EntityChangedSubscriber implements EventSubscriber
     protected Security $security;
     protected NormalizerInterface $normalizer;
 
+    protected string $env;
+
     public function __construct(
         NotificationRepository $notificationRepository,
         NormalizerInterface $normalizer,
         UserRepository $userRepository,
-        Security $security
-    ) {
+        Security $security,
+        string $env
+    )
+    {
         $this->notificationRepository = $notificationRepository;
-        $this->normalizer             = $normalizer;
-        $this->userRepository         = $userRepository;
-        $this->security               = $security;
+        $this->normalizer = $normalizer;
+        $this->userRepository = $userRepository;
+        $this->security = $security;
+        $this->env = $env;
+
     }
 
     public function getSubscribedEvents(): array
     {
+        if ($this->env == 'test') {
+            // disable for tests
+            return [];
+        }
         return [
             Events::onFlush,
         ];
@@ -78,6 +89,7 @@ class EntityChangedSubscriber implements EventSubscriber
 
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
             $class = get_class($entity);
+
             if (!in_array($class, $this->classes) || Request::class === $class) {
                 continue;
             }
@@ -85,7 +97,7 @@ class EntityChangedSubscriber implements EventSubscriber
             $notifications = $this->createNotifications($entity, 'create');
             $meta          = $eventArgs->getEntityManager()->getClassMetadata(Notification::class);
             foreach ($notifications as $notif) {
-                $this->notificationRepository->persist($notif);
+//                $this->notificationRepository->persist($notif);
 
                 $uow->computeChangeSet($meta, $notif);
             }
@@ -109,7 +121,7 @@ class EntityChangedSubscriber implements EventSubscriber
             $meta          = $eventArgs->getEntityManager()->getClassMetadata(Notification::class);
 
             foreach ($notifications as $notif) {
-                $this->notificationRepository->persist($notif);
+//                $this->notificationRepository->persist($notif);
 
                 $uow->computeChangeSet($meta, $notif);
             }
@@ -168,10 +180,8 @@ class EntityChangedSubscriber implements EventSubscriber
         if ($recipients & Notification::NOTIFICATION_COLLECTIVITY) {
             // get all non-DPO users
             $users = $this->userRepository->findNonDpoUsers();
-            foreach ($users as $user) {
-                $notification    = $this->createNotificationForUsers($object, $action, $normalized, $users);
-                $notifications[] = $notification;
-            }
+            $notification    = $this->createNotificationForUsers($object, $action, $normalized, $users);
+            $notifications[] = $notification;
         }
 
         return $notifications;
@@ -187,13 +197,13 @@ class EntityChangedSubscriber implements EventSubscriber
         $notification->setAction('notification.actions.' . $action);
         $notification->setCreatedBy($this->security->getUser());
         $notification->setObject((object) $normalized);
-        $this->notificationRepository->insert($notification);
+        $this->notificationRepository->persist($notification);
 
         if ($users) {
             $nus = $this->notificationRepository->saveUsers($notification, $users);
 
-            $notification->setNotificationUsers($nus);
-            $this->notificationRepository->update($notification);
+            //$notification->setNotificationUsers($nus);
+            //$this->notificationRepository->update($notification);
         }
 
         return $notification;

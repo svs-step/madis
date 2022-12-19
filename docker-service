@@ -95,7 +95,7 @@ installDb() {
 }
 
 populate() {
-    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "bin/console hautelook:fixtures:load -n"
+    docker-compose -f docker-compose"$env".yml run -T --rm --user=www-data --no-deps --entrypoint="/bin/bash -c" php "php -d memory_limit=-1 bin/console  hautelook:fixtures:load -n"
 }
 
 serve() {

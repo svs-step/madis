@@ -7,6 +7,9 @@ use App\Domain\Notification\Event\LateRequestEvent;
 use App\Domain\Notification\Event\LateSurveyEvent;
 use App\Domain\Notification\Event\NoLoginEvent;
 use App\Domain\Notification\Model\Notification;
+use App\Domain\Notification\Model\NotificationUser;
+use App\Domain\User\Dictionary\UserMoreInfoDictionary;
+use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -134,14 +137,6 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
         $norm = $this->normalizer->normalize($request, null, $this->normalizerOptions());
 
-        $notification = new Notification();
-        $notification->setModule('notification.modules.request');
-        $notification->setCollectivity($request->getCollectivity());
-        $notification->setAction('notifications.actions.late_request');
-        $notification->setName($request->__toString());
-        $notification->setObject((object) $norm);
-        $this->notificationRepository->insert($notification);
-
         $users = $this->userRepository->findNonDpoUsersForCollectivity($request->getCollectivity());
 
         $notification = new Notification();
@@ -158,10 +153,37 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setNotificationUsers($nus);
         $this->notificationRepository->update($notification);
         // TODO Send email to référent opérationnel and responsable de traitement
+
+        // Get referent operationnels for this collectivity
+        $refs = $request->getCollectivity()->getUsers()->filter(function(User $u) {
+            $mi = $u->getMoreInfos();
+            return $mi && $mi[UserMoreInfoDictionary::MOREINFO_OPERATIONNAL];
+        });
+        if ($refs->count() === 0) {
+            // No ref OP, get from collectivity
+            $refs = [$request->getCollectivity()->getReferent()->getMail()];
+        }
+        // Add notification with email address for the référents
+        foreach ($refs as $ref) {
+            $nu = new NotificationUser();
+            if (get_class($ref) === User::class) {
+                $nu->setMail($ref->getEmail());
+                $nu->setUser($ref);
+            } else {
+                $nu->setMail($ref);
+            }
+
+            $nu->setNotification($notification);
+            $nu->setActive(true);
+            $nu->setSent(false);
+            $this->notificationRepository->persist($nu);
+        }
     }
 
     public function onNoLogin(NoLoginEvent $event)
     {
+        // Send email to référent opérationnel
+        // Add notification for DPO
         $user         = $event->getUser();
         $existing     = $this->notificationRepository->findBy([
             'module'       => 'notification.modules.user',
@@ -178,8 +200,36 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setCollectivity($user->getCollectivity());
         $notification->setAction('notifications.actions.no_login');
         $notification->setName($user->getFullName());
+        $notification->setCreatedBy($user);
         $notification->setObject((object) $this->normalizer->normalize($user, null, $this->normalizerOptions()));
         $this->notificationRepository->insert($notification);
+
+        // Get referent operationnels for this collectivity
+        $refs = $user->getCollectivity()->getUsers()->filter(function(User $u) {
+            $mi = $u->getMoreInfos();
+            return $mi && $mi[UserMoreInfoDictionary::MOREINFO_OPERATIONNAL];
+        });
+        if ($refs->count() === 0) {
+            // No ref OP, get from collectivity
+            $refs = [$user->getCollectivity()->getReferent()->getMail()];
+        }
+        // Add notification with email address for the référents
+        foreach ($refs as $ref) {
+            $nu = new NotificationUser();
+            if (get_class($ref) === User::class) {
+                $nu->setMail($ref->getEmail());
+                $nu->setUser($ref);
+            } else {
+                $nu->setMail($ref);
+            }
+
+            $nu->setNotification($notification);
+            $nu->setActive(true);
+            $nu->setSent(false);
+            $this->notificationRepository->persist($nu);
+        }
+        // If no NotificationUser, this means the notification is for all DPOs
+        // The emails will be sent with notifications:send command to all users that have a unsent NotificationUser with an email address
     }
 
     private function getObjectSimpleValue($object)

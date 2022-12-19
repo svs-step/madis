@@ -63,10 +63,39 @@ class Notification extends CRUDRepository implements Repository\Notification
         $user = $this->security->getUser();
 
         $allowedRoles = [UserRoleDictionary::ROLE_REFERENT, UserRoleDictionary::ROLE_ADMIN];
-        if (in_array($user->getRoles()[0], $allowedRoles)) {
+        if ($user && count($user->getRoles()) && in_array($user->getRoles()[0], $allowedRoles)) {
             // Find notifications with null user if current user is dpo
             $user = null;
         }
+
+        $qb = $this->registry
+            ->getManager()
+            ->createQueryBuilder();
+
+        $qb->select('n')
+            ->from($this->getModelClass(), 'n');
+
+        if ($user) {
+            $qb->leftJoin('n.notificationUsers', 'u')
+                ->where('u.user = :user')
+                ->setParameter('user', $user)
+            ;
+        } else {
+            $qb->leftJoin('n.notificationUsers', 'u')
+                ->having("count(u.id) = 0")
+                ->groupBy('n.id')
+                ;
+        }
+
+
+//        if (count($order)) {
+//            $qb->addOrderBy(array_keys($order)[0] . ' ' . $order[0]);
+//        }
+
+//        dd($qb->getQuery()->getSQL());
+
+//        dd($qb->getQuery()->getResult());
+       return $qb->getQuery()->getResult();
 
         return $this->registry
             ->getManager()

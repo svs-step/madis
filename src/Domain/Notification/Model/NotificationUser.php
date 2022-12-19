@@ -69,6 +69,13 @@ class NotificationUser
      */
     private ?bool $active;
 
+
+    /**
+     * Has the email been sent for this notification and this user
+     * @ORM\Column(type="boolean")
+     */
+    private ?bool $sent;
+
     /**
      * Category constructor.
      *
@@ -133,4 +140,21 @@ class NotificationUser
     {
         $this->user = $user;
     }
+
+    /**
+     * @return bool|null
+     */
+    public function getSent(): ?bool
+    {
+        return $this->sent;
+    }
+
+    /**
+     * @param bool|null $sent
+     */
+    public function setSent(?bool $sent): void
+    {
+        $this->sent = $sent;
+    }
+
 }

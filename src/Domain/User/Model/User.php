@@ -129,7 +129,7 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
     private EmailNotificationPreference $emailNotificationPreference;
 
     /**
-     * @var Collection|null
+     * @var Collection|array|null
      */
     private $notifications;
 

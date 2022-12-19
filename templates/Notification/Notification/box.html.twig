@@ -1,9 +1,9 @@
-{% set notifs = notifications.findAll() %}
-{% set unreadNotifs = notifs|filter(n => n.readAt is null) %}
+{% set notifs = notifications.findAll()  %}
+{% set unreadNotifs = notifs|filter(n => n.readAt is not defined or n.readAt is null) %}
 {% set notifsObject = notifs|map(n => ({id : n.id, read_at: n.readAt})) %}
 {% block body %}
-{% set notifs = notifications.findAll() %}
-{% set unreadNotifs = notifs|filter(n => n.readAt is null) %}
+{% set notifs = notifications.findAll()  %}
+{% set unreadNotifs = notifs|filter(n => n.readAt is not defined or n.readAt is null) %}
 {% set notifsObject = notifs|map(n => ({id : n.id, read_at: n.readAt})) %}
     <div class="box-header with-border" style="list-style: none;">
         <h3 class="box-title">Vous avez {{ unreadNotifs|length }} notifications non lues</h3>

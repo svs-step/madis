@@ -32,6 +32,7 @@ class NotificationModuleDictionary extends SimpleDictionary
     public const VIOLATION = 'violation';
     public const TREATMENT = 'treatment';
     public const ACTION    = 'actions';
+
     public function __construct()
     {
         parent::__construct('notificationModule', self::getModules());

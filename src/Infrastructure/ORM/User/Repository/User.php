@@ -235,8 +235,8 @@ class User extends CRUDRepository implements Repository\User
                         ->setParameter('collectivite_name', '%' . $search . '%');
                     break;
                 case 'roles':
-                    $queryBuilder->andWhere('JSON_CONTAINS(o.roles, :role) = 1')
-                        ->setParameter('role', sprintf('"%s"', $search));
+                    $queryBuilder->andWhere('o.roles LIKE :role')
+                        ->setParameter('role', sprintf('"%s"', '%' . $search . '%'));
                     break;
                 case 'connexion':
                     $queryBuilder->andWhere('o.lastLogin LIKE :date')
@@ -273,9 +273,9 @@ class User extends CRUDRepository implements Repository\User
     public function findNonDpoUsers()
     {
         $qb = $this->createQueryBuilder();
-        $qb->andWhere('JSON_CONTAINS(o.roles, :role) = 0')
+        $qb->andWhere('o.roles LIKE :role')
             // TODO add andwhere with "is_dpo"
-            ->setParameter('role', sprintf('"%s"', 'ROLE_ADMIN'));
+            ->setParameter('role', sprintf('"%s"', '%ROLE_ADMIN%'));
 
         return $qb->getQuery()->getResult();
     }
@@ -283,9 +283,9 @@ class User extends CRUDRepository implements Repository\User
     public function findNonDpoUsersForCollectivity(Model\Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
-        $qb->andWhere('JSON_CONTAINS(o.roles, :role) = 0')
+        $qb->andWhere('o.roles LIKE :role')
             // TODO add andwhere with "is_dpo"
-            ->setParameter('role', sprintf('"%s"', 'ROLE_ADMIN'))
+            ->setParameter('role', sprintf('"%s"', '%ROLE_ADMIN%'))
         ->andWhere('o.collectivity = :collectivity')
             ->setParameter('collectivity', $collectivity)
         ;
