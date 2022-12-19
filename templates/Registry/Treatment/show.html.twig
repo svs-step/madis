@@ -473,6 +473,32 @@
                                 <td>{{ object.otherCollectingMethod }}</td>
                             </tr>
                         {% endif %}
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.legalMentions'|trans }}</strong></td>
+                            <td>
+                                {% if object.legalMentions %}
+                                    <span class="badge bg-gray">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.consentRequest'|trans }}</strong></td>
+                            <td>
+                                {% if object.legalMentions %}
+                                    <span class="badge bg-gray">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% if  object.consentRequestFormat is not null %}
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.consentRequestFormat'|trans }}</strong></td>
+                                <td>{{ object.consentRequestFormat }}</td>
+                            </tr>
+                        {% endif %}
                     </table>
                 </div>
             </div>

@@ -344,6 +344,18 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.otherCollectingMethod',
                 'required' => false,
             ])
+            ->add('legalMentions', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.legalMentions',
+                'required' => false,
+            ])
+            ->add('consentRequest', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.consentRequest',
+                'required' => false,
+            ])
+            ->add('consentRequestFormat', TextType::class, [
+                'label'    => 'registry.treatment.form.consentRequestFormat',
+                'required' => false,
+            ])
         ;
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')) {
