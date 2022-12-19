@@ -52,21 +52,21 @@ class Notification
     use HistoryTrait;
     use CreatorTrait;
 
-    const NOTIFICATION_DPO = 1;
-    const NOTIFICATION_COLLECTIVITY = 2;
+    public const NOTIFICATION_DPO          = 1;
+    public const NOTIFICATION_COLLECTIVITY = 2;
 
-    const MODULES = [
-        Treatment::class => 'treatment',
-        Contractor::class => 'subcontractor',
-        Request::class => 'request',
-        Violation::class => 'violation',
-        Proof::class => 'proof',
-        Mesurement::class => 'protect_action',
-        Maturity::class => 'maturity',
+    public const MODULES = [
+        Treatment::class            => 'treatment',
+        Contractor::class           => 'subcontractor',
+        Request::class              => 'request',
+        Violation::class            => 'violation',
+        Proof::class                => 'proof',
+        Mesurement::class           => 'protect_action',
+        Maturity::class             => 'maturity',
         ConformiteTraitement::class => 'treatment_conformity',
-        Conformite::class => 'organization_conformity',
-        AnalyseImpact::class => 'aipd',
-        Document::class => 'document',
+        Conformite::class           => 'organization_conformity',
+        AnalyseImpact::class        => 'aipd',
+        Document::class             => 'document',
     ];
 
     /**
@@ -114,23 +114,17 @@ class Notification
     private $collectivity;
 
     /**
-     * @var User|null
-     *
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private ?User $readBy;
 
     /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(type="datetime", name="read_at")
+     * @ORM\Column(type="datetime", name="read_at", nullable="true")
      */
-    private ?\DateTime $readAt;
+    private ?\DateTime $readAt = null;
 
     /**
-     * @var User|null
-     *
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
@@ -239,28 +233,20 @@ class Notification
         $this->createdBy = $createdBy;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAction(): ?string
     {
         return $this->action;
     }
 
-    /**
-     * @param string|null $action
-     */
     public function setAction(?string $action): void
     {
         $this->action = $action;
     }
 
-
     public function getNotificationUsers(): array|Collection
     {
         return $this->notificationUsers;
     }
-
 
     public function setNotificationUsers(array|Collection $notificationUsers): void
     {

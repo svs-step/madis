@@ -75,7 +75,7 @@ class NotificationUserController extends CRUDController
                 }
             }
 
-            //on desactive les notifs si une adresse mail à plusieurs notifs
+            // on desactive les notifs si une adresse mail à plusieurs notifs
             $mail = $notifUser->getMail();
             if ($mail) {
                 $notifsForMail = $this->getDoctrine()->getRepository(Model\NotificationUser::class)->findBy(['mail' => $mail]);

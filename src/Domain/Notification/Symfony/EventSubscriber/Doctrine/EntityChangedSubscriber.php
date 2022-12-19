@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Domain\Notification\Symfony\EventSubscriber\Doctrine;
 
 use App\Domain\Documentation\Model\Document;
-use App\Domain\Notification\Dictionary\NotificationModuleDictionary;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
@@ -61,22 +60,20 @@ class EntityChangedSubscriber implements EventSubscriber
         UserRepository $userRepository,
         Security $security,
         string $env
-    )
-    {
+    ) {
         $this->notificationRepository = $notificationRepository;
-        $this->normalizer = $normalizer;
-        $this->userRepository = $userRepository;
-        $this->security = $security;
-        $this->env = $env;
-
+        $this->normalizer             = $normalizer;
+        $this->userRepository         = $userRepository;
+        $this->security               = $security;
+        $this->env                    = $env;
     }
 
     public function getSubscribedEvents(): array
     {
-        if ($this->env == 'test') {
-            // disable for tests
-            return [];
-        }
+//        if ($this->env == 'test') {
+//            // disable for tests
+//            return [];
+//        }
         return [
             Events::onFlush,
         ];
@@ -151,9 +148,9 @@ class EntityChangedSubscriber implements EventSubscriber
                 AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {
                     return $this->getObjectSimpleValue($o);
                 },
-                AbstractObjectNormalizer::ENABLE_MAX_DEPTH           => true,
-                AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT   => 1,
-                AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {
+                AbstractObjectNormalizer::ENABLE_MAX_DEPTH         => true,
+                AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT => 1,
+                AbstractObjectNormalizer::MAX_DEPTH_HANDLER        => function ($o) {
                     if (is_iterable($o)) {
                         $d = [];
                         foreach ($o as $item) {
@@ -169,7 +166,7 @@ class EntityChangedSubscriber implements EventSubscriber
         );
 
         if (Treatment::class === get_class($object)) {
-            //dd(get_class($this->normalizer));
+            // dd(get_class($this->normalizer));
         }
 
         if ($recipients & Notification::NOTIFICATION_DPO) {
@@ -179,7 +176,7 @@ class EntityChangedSubscriber implements EventSubscriber
 
         if ($recipients & Notification::NOTIFICATION_COLLECTIVITY) {
             // get all non-DPO users
-            $users = $this->userRepository->findNonDpoUsers();
+            $users           = $this->userRepository->findNonDpoUsers();
             $notification    = $this->createNotificationForUsers($object, $action, $normalized, $users);
             $notifications[] = $notification;
         }
@@ -202,8 +199,8 @@ class EntityChangedSubscriber implements EventSubscriber
         if ($users) {
             $nus = $this->notificationRepository->saveUsers($notification, $users);
 
-            //$notification->setNotificationUsers($nus);
-            //$this->notificationRepository->update($notification);
+            // $notification->setNotificationUsers($nus);
+            // $this->notificationRepository->update($notification);
         }
 
         return $notification;

@@ -104,12 +104,14 @@ class Request implements LoggableSubject, CollectivityRelated
 
     /**
      * @var RequestAnswer|null
+     *
      * @MaxDepth(1)
      */
     private $answer;
 
     /**
      * @var iterable
+     *
      * @MaxDepth(1)
      */
     private $proofs;
@@ -126,6 +128,7 @@ class Request implements LoggableSubject, CollectivityRelated
 
     /**
      * @var Service|null
+     *
      * @MaxDepth(1)
      */
     private $service;

@@ -120,16 +120,16 @@ class NotificationController extends CRUDController
     {
         $user = $this->getUser();
 
-        $isAdminView   = $this->authorizationChecker->isGranted('ROLE_ADMIN');
+        $isAdminView = $this->authorizationChecker->isGranted('ROLE_ADMIN');
 
         if ($isAdminView) {
             return $this->render($this->getTemplatingBasePath('list_admin'), [
-                'objects'    => $this->getListData(),
+                'objects' => $this->getListData(),
             ]);
         }
 
         return $this->render($this->getTemplatingBasePath('list_user'), [
-                'objects'    => $this->getListData(),
+                'objects' => $this->getListData(),
             ]);
     }
 

@@ -372,8 +372,6 @@ abstract class CRUDController extends AbstractController
      */
     public function deleteConfirmationAction(string $id): Response
     {
-        var_dump($id);
-        die();
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
@@ -436,8 +434,8 @@ abstract class CRUDController extends AbstractController
      */
     public function deleteAllAction(Request $request): Response
     {
-        $ids     = $request->query->get('ids');
-        $ids     = explode(',', $ids);
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));
@@ -446,18 +444,16 @@ abstract class CRUDController extends AbstractController
         }
 
         return $this->render($this->getTemplatingBasePath('delete_all'), [ // delete_all
-            'ids'               => $ids,
-            'objects_length'    => count($ids),
+            'ids'            => $ids,
+            'objects_length' => count($ids),
         ]);
     }
 
     public function deleteConfirmationAllAction(Request $request): Response
     {
-        $ids     = $request->query->get('ids');
+        $ids = $request->query->get('ids');
 
         foreach ($ids as $id) {
-            var_dump($id);
-            die();
             $this->deleteConfirmationAction($id);
         }
 
@@ -467,8 +463,8 @@ abstract class CRUDController extends AbstractController
     // RETURN A PDF WITH ALL IDS FILTERED
     public function pdfAllAction(Request $request)
     {
-        $ids     = $request->query->get('ids');
-        $ids     = explode(',', $ids);
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
 
         $objects = [];
 
@@ -491,8 +487,8 @@ abstract class CRUDController extends AbstractController
      */
     public function archiveAllAction(Request $request): Response
     {
-        $ids     = $request->query->get('ids');
-        $ids     = explode(',', $ids);
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $this->addFlash('error', 'Vous ne pouvez pas archiver ces traitements');

@@ -47,8 +47,8 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
     public function onLateSurvey(LateSurveyEvent $event)
     {
-        $survey       = $event->getSurvey();
-        $existing     = $this->notificationRepository->findBy([
+        $survey   = $event->getSurvey();
+        $existing = $this->notificationRepository->findBy([
             'module'       => 'notification.modules.maturity',
             'collectivity' => $survey->getCollectivity(),
             'action'       => 'notifications.actions.late_survey',
@@ -85,8 +85,8 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
     public function onLateAction(LateActionEvent $event)
     {
-        $action       = $event->getMesurement();
-        $existing     = $this->notificationRepository->findBy([
+        $action   = $event->getMesurement();
+        $existing = $this->notificationRepository->findBy([
             'module'       => 'notification.modules.action',
             'collectivity' => $action->getCollectivity(),
             'action'       => 'notifications.actions.late_action',
@@ -124,8 +124,8 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
     public function onLateRequest(LateRequestEvent $event)
     {
-        $request      = $event->getRequest();
-        $existing     = $this->notificationRepository->findBy([
+        $request  = $event->getRequest();
+        $existing = $this->notificationRepository->findBy([
             'module'       => 'notification.modules.request',
             'collectivity' => $request->getCollectivity(),
             'action'       => 'notifications.actions.late_request',
@@ -155,18 +155,19 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         // TODO Send email to référent opérationnel and responsable de traitement
 
         // Get referent operationnels for this collectivity
-        $refs = $request->getCollectivity()->getUsers()->filter(function(User $u) {
+        $refs = $request->getCollectivity()->getUsers()->filter(function (User $u) {
             $mi = $u->getMoreInfos();
+
             return $mi && $mi[UserMoreInfoDictionary::MOREINFO_OPERATIONNAL];
         });
-        if ($refs->count() === 0) {
+        if (0 === $refs->count()) {
             // No ref OP, get from collectivity
             $refs = [$request->getCollectivity()->getReferent()->getMail()];
         }
         // Add notification with email address for the référents
         foreach ($refs as $ref) {
             $nu = new NotificationUser();
-            if (get_class($ref) === User::class) {
+            if (User::class === get_class($ref)) {
                 $nu->setMail($ref->getEmail());
                 $nu->setUser($ref);
             } else {
@@ -184,8 +185,8 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     {
         // Send email to référent opérationnel
         // Add notification for DPO
-        $user         = $event->getUser();
-        $existing     = $this->notificationRepository->findBy([
+        $user     = $event->getUser();
+        $existing = $this->notificationRepository->findBy([
             'module'       => 'notification.modules.user',
             'collectivity' => $user->getCollectivity(),
             'action'       => 'notifications.actions.no_login',
@@ -205,18 +206,19 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $this->notificationRepository->insert($notification);
 
         // Get referent operationnels for this collectivity
-        $refs = $user->getCollectivity()->getUsers()->filter(function(User $u) {
+        $refs = $user->getCollectivity()->getUsers()->filter(function (User $u) {
             $mi = $u->getMoreInfos();
+
             return $mi && $mi[UserMoreInfoDictionary::MOREINFO_OPERATIONNAL];
         });
-        if ($refs->count() === 0) {
+        if (0 === $refs->count()) {
             // No ref OP, get from collectivity
             $refs = [$user->getCollectivity()->getReferent()->getMail()];
         }
         // Add notification with email address for the référents
         foreach ($refs as $ref) {
             $nu = new NotificationUser();
-            if (get_class($ref) === User::class) {
+            if (User::class === get_class($ref)) {
                 $nu->setMail($ref->getEmail());
                 $nu->setUser($ref);
             } else {
@@ -252,12 +254,12 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     private function normalizerOptions()
     {
         return [
-            AbstractObjectNormalizer::ENABLE_MAX_DEPTH                                 => true,
-            AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT                         => 1,
-            AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER                       => function ($o) {
+            AbstractObjectNormalizer::ENABLE_MAX_DEPTH           => true,
+            AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT   => 1,
+            AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {
                 return $this->getObjectSimpleValue($o);
             },
-            AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {
+            AbstractObjectNormalizer::MAX_DEPTH_HANDLER => function ($o) {
                 if (is_iterable($o)) {
                     $d = [];
                     foreach ($o as $item) {

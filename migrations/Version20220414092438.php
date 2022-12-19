@@ -52,8 +52,6 @@ final class Version20220414092438 extends AbstractMigration
             $this->answer3 = [];
         }
 
-
-
         foreach ($this->answer1 as $k => $answer) {
             $this->answer1[$k]['actionProtections']        = $this->getData('SELECT * FROM conformite_traitement_reponse_action_protection WHERE reponse_id = "' . $answer['id'] . '"');
             $this->answer1[$k]['actionProtectionsNotSeen'] = $this->getData('SELECT * FROM conformite_traitement_reponse_action_protection_not_seen WHERE reponse_id = "' . $answer['id'] . '"');

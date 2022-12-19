@@ -35,11 +35,11 @@ class NotificationsGenerateCommand extends Command
         UserRepository $userRepository,
         SurveyRepository $surveyRepository
     ) {
-        $this->dispatcher             = $dispatcher;
-        $this->mesurementRepository   = $mesurementRepository;
-        $this->requestRepository      = $requestRepository;
-        $this->userRepository         = $userRepository;
-        $this->surveyRepository       = $surveyRepository;
+        $this->dispatcher           = $dispatcher;
+        $this->mesurementRepository = $mesurementRepository;
+        $this->requestRepository    = $requestRepository;
+        $this->userRepository       = $userRepository;
+        $this->surveyRepository     = $surveyRepository;
 
         parent::__construct();
     }
@@ -101,7 +101,7 @@ class NotificationsGenerateCommand extends Command
 
     protected function generateLateSurveyNotification(): int
     {
-        $cnt      = 0;
+        $cnt = 0;
         // Find all late surveys
         $surveys = $this->surveyRepository->findAllLate();
 

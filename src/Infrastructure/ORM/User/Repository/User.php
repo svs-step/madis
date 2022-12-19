@@ -267,7 +267,7 @@ class User extends CRUDRepository implements Repository\User
             ->getQuery();
 
         return $query->getResult()
-            ;
+        ;
     }
 
     public function findNonDpoUsers()

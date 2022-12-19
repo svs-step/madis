@@ -10,19 +10,19 @@ class EmailNotificationPreference
 {
     use HistoryTrait;
 
-    const NOTIF_TREATMENT               = 1;
-    const NOTIF_SUBCONTRACTOR           = 2;
-    const NOTIF_REQUEST                 = 4;
-    const NOTIF_VIOLATION               = 8;
-    const NOTIF_PROOF                   = 16;
-    const NOTIF_PROTECT_ACTION          = 32;
-    const NOTIF_MATURITY                = 64;
-    const NOTIF_TREATMENT_CONFORMITY    = 128;
-    const NOTIF_ORGANIZATION_CONFORMITY = 256;
-    const NOTIF_AIPD                    = 512;
-    const NOTIF_DOCUMENT                = 1024;
+    public const NOTIF_TREATMENT               = 1;
+    public const NOTIF_SUBCONTRACTOR           = 2;
+    public const NOTIF_REQUEST                 = 4;
+    public const NOTIF_VIOLATION               = 8;
+    public const NOTIF_PROOF                   = 16;
+    public const NOTIF_PROTECT_ACTION          = 32;
+    public const NOTIF_MATURITY                = 64;
+    public const NOTIF_TREATMENT_CONFORMITY    = 128;
+    public const NOTIF_ORGANIZATION_CONFORMITY = 256;
+    public const NOTIF_AIPD                    = 512;
+    public const NOTIF_DOCUMENT                = 1024;
 
-    const MODULES = [
+    public const MODULES = [
         'treatment'               => self::NOTIF_TREATMENT,
         'subcontractor'           => self::NOTIF_SUBCONTRACTOR,
         'request'                 => self::NOTIF_REQUEST,

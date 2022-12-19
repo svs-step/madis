@@ -83,9 +83,9 @@ class EmailNotificationPreferenceType extends AbstractType
                 'block_prefix' => 'wrapped_choice',
             ])
             ->add('day', ChoiceType::class, [
-                'label'        => 'à',
-                'required'     => true,
-                'choices'      => [
+                'label'    => 'à',
+                'required' => true,
+                'choices'  => [
                     'Lundi'    => 1,
                     'Mardi'    => 2,
                     'Mercredi' => 3,
@@ -99,9 +99,9 @@ class EmailNotificationPreferenceType extends AbstractType
                 'block_prefix' => 'wrapped_choice',
             ])
             ->add('week', ChoiceType::class, [
-                'label'        => '',
-                'required'     => true,
-                'choices'      => [
+                'label'    => '',
+                'required' => true,
+                'choices'  => [
                     'Premier'   => 1,
                     'Second'    => 2,
                     'Troisième' => 3,
@@ -121,7 +121,7 @@ class EmailNotificationPreferenceType extends AbstractType
                 'multiple'     => true,
                 'block_prefix' => 'wrapped_choice',
             ])
-            ;
+        ;
 
         $builder->get('notificationMask')->addModelTransformer(new CallbackTransformer(
             function ($mask) {
@@ -129,7 +129,7 @@ class EmailNotificationPreferenceType extends AbstractType
                 $modules = EmailNotificationPreference::MODULES;
 
                 $ret = [];
-                foreach ($modules as $k=>$module) {
+                foreach ($modules as $k => $module) {
                     if ($module & $mask) {
                         $ret[$k] = $module;
                     }

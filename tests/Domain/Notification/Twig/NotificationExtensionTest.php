@@ -52,9 +52,9 @@ class NotificationExtensionTest
 
     public function setUp(): void
     {
-        $this->registryProphecy        = $this->prophesize(ManagerRegistry::class);
-        $this->securityProphecy        = $this->prophesize(Security::class);
-        $this->translatorProphecy      = $this->prophesize(TranslatorInterface::class);
+        $this->registryProphecy   = $this->prophesize(ManagerRegistry::class);
+        $this->securityProphecy   = $this->prophesize(Security::class);
+        $this->translatorProphecy = $this->prophesize(TranslatorInterface::class);
 
         $this->translatorProphecy->trans('notification.modules.treatment')->willReturn('Traitements');
         $this->translatorProphecy->trans('notification.modules.violation')->willReturn('Violations');

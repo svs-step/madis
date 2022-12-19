@@ -202,7 +202,7 @@ class UserController extends CRUDController
                 $roles .= $span;
             }
 
-            $infos ='';
+            $infos = '';
             foreach ($user->getMoreInfos() as $info) {
                 $span = '<span class="badge">' . UserMoreInfoDictionary::getMoreInfos()[$info] . '</span>';
                 $infos .= $span;

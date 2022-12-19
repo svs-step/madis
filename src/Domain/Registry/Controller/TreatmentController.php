@@ -491,8 +491,8 @@ class TreatmentController extends CRUDController
 
     public function pdfAllAction(Request $request)
     {
-        $ids     = $request->query->get('ids');
-        $ids     = explode(',', $ids);
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
 
         $objects = [];
 
@@ -515,8 +515,8 @@ class TreatmentController extends CRUDController
      */
     public function archiveAllAction(Request $request): Response
     {
-        $ids     = $request->query->get('ids');
-        $ids     = explode(',', $ids);
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
 
         if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
             $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');
@@ -575,8 +575,8 @@ class TreatmentController extends CRUDController
      */
     public function deleteAllAction(Request $request): Response
     {
-        $ids     = $request->query->get('ids');
-        $ids     = explode(',', $ids);
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
 
         if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
             $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');
@@ -592,7 +592,7 @@ class TreatmentController extends CRUDController
 
     public function deleteConfirmationAllAction(Request $request): Response
     {
-        $ids     = $request->query->get('ids');
+        $ids = $request->query->get('ids');
 
         if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
             $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');

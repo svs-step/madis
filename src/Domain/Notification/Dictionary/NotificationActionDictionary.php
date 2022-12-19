@@ -33,6 +33,7 @@ class NotificationActionDictionary extends SimpleDictionary
     public const EDIT   = 'edit';
     public const DELETE = 'delete';
     public const LATE   = 'late';
+
     public function __construct()
     {
         parent::__construct('notificationAction', self::getActions());

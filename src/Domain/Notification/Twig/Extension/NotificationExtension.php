@@ -36,7 +36,7 @@ class NotificationExtension extends AbstractExtension
 
     public function getSentence(Notification $notification): string
     {
-        $sentence =  '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong> ' .
+        $sentence = '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong> ' .
             $this->translator->trans($notification->getAction()) . ' ';
 
         $sentence .= $this->translator->trans('label.de') . ' ' .
@@ -57,7 +57,11 @@ class NotificationExtension extends AbstractExtension
 
     public function getObjectLink(Notification $notification): string
     {
-        return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id]);
+        try {
+            return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id]);
+        } catch (\Exception $e) {
+            return '';
+        }
     }
 
     private function getRouteForModule($module): string

@@ -39,7 +39,7 @@ class Notification extends CRUDRepository implements Repository\Notification
     public function __construct(ManagerRegistry $registry, Security $security)
     {
         parent::__construct($registry);
-        $this->security   = $security;
+        $this->security = $security;
     }
 
     /**
@@ -82,11 +82,10 @@ class Notification extends CRUDRepository implements Repository\Notification
             ;
         } else {
             $qb->leftJoin('n.notificationUsers', 'u')
-                ->having("count(u.id) = 0")
+                ->having('count(u.id) = 0')
                 ->groupBy('n.id')
-                ;
+            ;
         }
-
 
 //        if (count($order)) {
 //            $qb->addOrderBy(array_keys($order)[0] . ' ' . $order[0]);
@@ -95,7 +94,7 @@ class Notification extends CRUDRepository implements Repository\Notification
 //        dd($qb->getQuery()->getSQL());
 
 //        dd($qb->getQuery()->getResult());
-       return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getResult();
 
         return $this->registry
             ->getManager()
@@ -103,7 +102,7 @@ class Notification extends CRUDRepository implements Repository\Notification
             ->findBy([
                 'user' => $user,
             ], $orderBy)
-            ;
+        ;
     }
 
     public function persist($object): void

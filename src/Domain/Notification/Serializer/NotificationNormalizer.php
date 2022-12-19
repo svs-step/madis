@@ -120,7 +120,7 @@ class NotificationNormalizer extends ObjectNormalizer
         }
 
         if ($this->nameConverter) {
-            $attribute = $this->nameConverter->normalize($attribute/*, $class, $format, $context*/);
+            $attribute = $this->nameConverter->normalize($attribute/* , $class, $format, $context */);
         }
 
         $data[$attribute] = $attributeValue;
@@ -175,6 +175,6 @@ class NotificationNormalizer extends ObjectNormalizer
             $data instanceof Proof ||
             $data instanceof Request ||
             $data instanceof Violation
-            ;
+        ;
     }
 }
