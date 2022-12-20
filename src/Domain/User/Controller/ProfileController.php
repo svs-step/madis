@@ -177,9 +177,24 @@ class ProfileController extends AbstractController
         }
 
         return $this->helper->render('User/Profile/user_edit.html.twig', [
-            'form'     => $form->createView(),
-            'roles'    => $object->getRoles(),
-            'services' => $services,
+            'form'           => $form->createView(),
+            'roles'          => $object->getRoles(),
+            'services'       => $services,
+            'sso_type'       => $this->getParameter('SSO_TYPE'),
+            'sso_associated' => null !== $object->getSsoKey(),
         ]);
+    }
+
+    public function userSsoUnlinkAction(): Response
+    {
+        $object = $this->userProvider->getAuthenticatedUser();
+        $object->setSsoKey(null);
+        $this->entityManager->persist($object);
+        $this->entityManager->flush();
+        $this->helper->addFlash('success',
+            $this->helper->trans('user.profile.flashbag.success.sso_unlink')
+        );
+
+        return $this->helper->redirectToRoute('user_profile_user_edit');
     }
 }

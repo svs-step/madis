@@ -120,6 +120,11 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
     private $documentView;
 
     /**
+     * @var string|null
+     */
+    private $ssoKey;
+
+    /**
      * User constructor.
      *
      * @throws \Exception
@@ -356,5 +361,15 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
     public function setDocumentView(bool $documentView): void
     {
         $this->documentView = $documentView;
+    }
+
+    public function getSsoKey(): ?string
+    {
+        return $this->ssoKey;
+    }
+
+    public function setSsoKey(?string $ssoKey): void
+    {
+        $this->ssoKey = $ssoKey;
     }
 }

@@ -54,4 +54,13 @@ interface User extends CRUDRepositoryInterface, DataTablesRepository
      * @return Model\User|null The related user or null if not exists
      */
     public function findOneOrNullLastLoginUserByCollectivity(Model\Collectivity $collectivity): ?Model\User;
+
+    /**
+     * Get a user by it ssoKey.
+     *
+     * @param string $ssoKey The ssokey to search
+     *
+     * @return Model\User|null The related user or null if not exists
+     */
+    public function findOneOrNullBySsoKey(string $ssoKey): ?Model\User;
 }

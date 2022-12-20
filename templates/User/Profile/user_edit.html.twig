@@ -77,6 +77,28 @@
                 </div>
             </div>
 
+            {# SSO #}
+            {% if sso_title %}
+                <div class="box box-solid box-primary">
+                    <div class="box-header">{{ 'user.profile.form_user.tab.login_delegation'|trans }}</div>
+                    <div class="box-body">
+                        <label class="col-sm-2">Fournisseur d'identité</label>
+
+                        {% if sso_associated %}
+                            <span class="col-sm-7 sso-title">
+                        <img  src={{ asset(sso_icon) }} alt="">
+                        {{ sso_title }}
+                        <small><em>(Associé <span class="fa fa-check text-success"></span>)</em></small>
+                    </span>
+                            <a href="{{ path('user_profile_user_sso_unlink') }}" class="col-sm-3 btn btn-default"><span class="fa fa-unlink"></span> Dissocier le compte</a>
+                        {% else %}
+                            <span class="col-sm-7 sso-title"><img  src={{ asset(sso_icon) }} alt="">{{ sso_title }}</span>
+                            <a href="{{ path('oauth_connect', {'service':sso_type}) }}" class="col-sm-3 btn btn-primary"><span class="fa fa-link"></span> Associer le compte</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
             {% for role in roles %}
                 {% if role == "ROLE_USER" and form.vars.value.collectivity.isServicesEnabled %}
                     <div class="box box-solid box-success">

@@ -25,11 +25,18 @@ declare(strict_types=1);
 namespace App\Domain\User\Controller;
 
 use App\Application\Controller\ControllerHelper;
+use App\Application\Symfony\Security\UserProvider;
 use App\Domain\User\Component\Mailer;
 use App\Domain\User\Component\TokenGenerator;
 use App\Domain\User\Form\Type\ResetPasswordType;
+use App\Domain\User\Model\User;
 use App\Domain\User\Repository;
+use Doctrine\ORM\EntityManagerInterface;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -61,18 +68,26 @@ class SecurityController extends AbstractController
      */
     private $mailer;
 
+    private UserProvider $userProvider;
+
+    private EntityManagerInterface $entityManager;
+
     public function __construct(
         ControllerHelper $helper,
         AuthenticationUtils $authenticationUtils,
         TokenGenerator $tokenGenerator,
         Repository\User $userRepository,
-        Mailer $mailer
+        Mailer $mailer,
+        UserProvider $userProvider,
+        EntityManagerInterface $entityManager,
     ) {
         $this->helper              = $helper;
         $this->authenticationUtils = $authenticationUtils;
         $this->tokenGenerator      = $tokenGenerator;
         $this->userRepository      = $userRepository;
         $this->mailer              = $mailer;
+        $this->userProvider        = $userProvider;
+        $this->entityManager       = $entityManager;
     }
 
     /**
@@ -90,7 +105,74 @@ class SecurityController extends AbstractController
         return $this->helper->render('User/Security/login.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
+            'sso_type'      => $this->getParameter('SSO_TYPE'),
         ]);
+    }
+
+    public function oauthConnectAction(Request $request, ClientRegistry $clientRegistry): RedirectResponse
+    {
+        $currentUser = $this->userProvider->getAuthenticatedUser();
+        if ($currentUser && null !== $currentUser->getSsoKey()) {
+            return $this->_handleUserLoggedAlreadyAssociated();
+        }
+
+        $oauthServiceName = $request->get('service');
+        try {
+            $client = $clientRegistry->getClient($oauthServiceName);
+        } catch (\Exception) {
+            return $this->_handleSsoClientError();
+        }
+
+        return $client->redirect([], []);
+    }
+
+    public function oauthCheckAction(Request $request, ClientRegistry $clientRegistry)
+    {
+        $oauthServiceName = $request->get('service');
+
+        /** @var OAuth2Client $client */
+        $client = $clientRegistry->getClient($oauthServiceName);
+        try {
+            $accessToken   = $client->getAccessToken();
+            $userOAuthData = $client->fetchUserFromToken($accessToken)->toArray();
+        } catch (IdentityProviderException) {
+            return $this->_handleSsoClientError();
+        }
+
+        $sso_key_field = $this->getParameter('SSO_KEY_FIELD');
+        try {
+            $sso_value = $userOAuthData[$sso_key_field];
+        } catch (\Exception) {
+            // sso_key_field not found
+            return $this->_handleSsoClientError();
+        }
+
+        $currentUser = $this->userProvider->getAuthenticatedUser();
+        if ($currentUser) {
+            $alreadyExists = $this->userRepository->findOneOrNullBySsoKey($sso_value);
+            if ($alreadyExists) {
+                return $this->_handleDuplicateUserWithSsoKey($alreadyExists);
+            }
+
+            // associate user with sso key
+            $currentUser->setSsoKey($sso_value);
+            $this->entityManager->persist($currentUser);
+            $this->entityManager->flush();
+            $this->helper->addFlash('success',
+                $this->helper->trans('user.profile.flashbag.success.sso_associated')
+            );
+
+            return $this->helper->redirectToRoute('user_profile_user_edit');
+        }
+
+        // log user
+        $user = $this->userRepository->findOneOrNullBySsoKey($sso_value);
+        if (!$user) {
+            return $this->_handleUserNotFound();
+        }
+
+        // TODO
+        dd('TODO log user with ID: ' . $user->getId()->toString());
     }
 
     /**
@@ -112,9 +194,9 @@ class SecurityController extends AbstractController
      * - Send forget password email
      * - Display forget password confirmation page.
      *
-     * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
+     * @throws \Twig\Error\LoaderError
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
@@ -153,12 +235,7 @@ class SecurityController extends AbstractController
 
         // If user doesn't exists, add flashbag error & return to login page
         if (!$user) {
-            $this->helper->addFlash(
-                'danger',
-                $this->helper->trans('user.security.reset_password.flashbag.error')
-            );
-
-            return $this->helper->redirectToRoute('login');
+            return $this->_handleUserNotFound();
         }
 
         // User exist, display reset password form
@@ -178,5 +255,42 @@ class SecurityController extends AbstractController
         return $this->helper->render('User/Security/reset_password.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    private function _handleUserLoggedAlreadyAssociated(): RedirectResponse
+    {
+        $this->helper->addFlash('warning',
+            $this->helper->trans('user.profile.flashbag.error.sso_already_associated')
+        );
+
+        return $this->helper->redirectToRoute('user_profile_user_edit');
+    }
+
+    private function _handleSsoClientError(): RedirectResponse
+    {
+        $this->helper->addFlash('danger',
+            $this->helper->trans('user.security.sso_login.flashbag.sso_client_error')
+        );
+
+        return $this->helper->redirectToRoute('login');
+    }
+
+    private function _handleUserNotFound(): RedirectResponse
+    {
+        $this->helper->addFlash(
+            'danger',
+            $this->helper->trans('user.security.reset_password.flashbag.error')
+        );
+
+        return $this->helper->redirectToRoute('login');
+    }
+
+    private function _handleDuplicateUserWithSsoKey(User $alreadyExists): RedirectResponse
+    {
+        $this->helper->addFlash('danger',
+            $this->helper->trans('user.profile.flashbag.error.sso_key_duplicate', ['email' => $alreadyExists->getEmail()])
+        );
+
+        return $this->helper->redirectToRoute('user_profile_user_edit');
     }
 }

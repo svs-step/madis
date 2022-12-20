@@ -1,6 +1,6 @@
 twig:
     exception_controller: null
-    paths: 
+    paths:
         '%kernel.project_dir%/templates': templates_path
         '%kernel.project_dir%/public': public_path
 
@@ -53,5 +53,6 @@ twig:
         app_notification_dashboard_shown: '%env(APP_NOTIFICATION_DASHBOARD_SHOWN)%'
         app_activate_notifications: '%env(APP_ACTIVATE_NOTIFICATIONS)%'
         app_max_upload_size: '%env(APP_MAX_UPLOAD_SIZE)%'
-
+        sso_icon: '%env(SSO_ICON)%'
+        sso_title: '%env(SSO_TITLE)%'
 
