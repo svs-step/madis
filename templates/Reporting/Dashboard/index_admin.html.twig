@@ -218,18 +218,20 @@
         // COLLECTIVITY BY TYPE
         let collectivityByTypeLabel = [
             'Commune',
-            'CCAS',
-            'EPCI',
-            'CIAS',
-            'Synd dep',
+            'Établissement social',
+            'Établissement Public de Coopération Intercommunale (EPCI)',
+            'Syndicat départemental',
+            'Établissement médico-social',
+            'Établissement sanitaire',
             'Autre',
         ];
         let collectivityByTypeData = [
             {{ data.collectivityByType.value.type.commune }},
-            {{ data.collectivityByType.value.type.ccas }},
+            {{ data.collectivityByType.value.type.social_institution }},
             {{ data.collectivityByType.value.type.epci }},
-            {{ data.collectivityByType.value.type.cias }},
             {{ data.collectivityByType.value.type.departmental_union }},
+            {{ data.collectivityByType.value.type.medical_institution }},
+            {{ data.collectivityByType.value.type.sanitary_institution }},
             {{ data.collectivityByType.value.type.other }},
         ];
     </script>

@@ -47,10 +47,11 @@ class CollectivityTypeDictionaryTest extends TestCase
     {
         $data = [
             CollectivityTypeDictionary::TYPE_COMMUNE            => 'Commune',
-            CollectivityTypeDictionary::TYPE_CCAS               => 'CCAS',
-            CollectivityTypeDictionary::TYPE_EPCI               => 'EPCI',
-            CollectivityTypeDictionary::TYPE_CIAS               => 'CIAS',
+            CollectivityTypeDictionary::TYPE_SOCIAL_INSTITUTION => 'Établissement social',
+            CollectivityTypeDictionary::TYPE_EPCI               => 'Établissement Public de Coopération Intercommunale (EPCI)',
             CollectivityTypeDictionary::TYPE_DEPARTMENTAL_UNION => 'Syndicat départemental',
+            CollectivityTypeDictionary::TYPE_MEDICAL_INSTITUTION     => 'Établissement médico-social',
+            CollectivityTypeDictionary::TYPE_SANITARY_INSTITUTION     => 'Établissement sanitaire',
             CollectivityTypeDictionary::TYPE_OTHER              => 'Autre',
         ];
 
@@ -61,10 +62,11 @@ class CollectivityTypeDictionaryTest extends TestCase
     {
         $data = [
             CollectivityTypeDictionary::TYPE_COMMUNE,
-            CollectivityTypeDictionary::TYPE_CCAS,
+            CollectivityTypeDictionary::TYPE_SOCIAL_INSTITUTION,
             CollectivityTypeDictionary::TYPE_EPCI,
-            CollectivityTypeDictionary::TYPE_CIAS,
             CollectivityTypeDictionary::TYPE_DEPARTMENTAL_UNION,
+            CollectivityTypeDictionary::TYPE_MEDICAL_INSTITUTION,
+            CollectivityTypeDictionary::TYPE_SANITARY_INSTITUTION,
             CollectivityTypeDictionary::TYPE_OTHER,
         ];
 

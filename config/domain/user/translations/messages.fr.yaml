@@ -83,6 +83,7 @@ user:
             services: Services
             siren: SIREN
             type: Type
+            other_type: Autre (Descriptif)
             updated_at: Date de dernière modification
             website: Site internet
         tab:
