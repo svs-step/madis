@@ -20,12 +20,12 @@ user:
         action:
             back_to_list: Retour à la liste
             back_to_show: Retour à la visualisation
-            new: Nouvelle collectivité
+            new: Nouvel organisme
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
             edit: Éditer "%name%"
-            list: Liste des collectivités
+            list: Liste des organismes
             show: Visualiser "%name%"
         form:
             active: Statut
@@ -102,7 +102,7 @@ user:
             delete: Supprimer une collectivité
             edit: Éditer une collectivité
             label: Collectivité
-            list: Liste des collectivités
+            list: Liste des organismes
             show: Visualiser une collectivité
 
     profile:

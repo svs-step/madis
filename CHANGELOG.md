@@ -103,7 +103,7 @@ CHANGELOG
 
 ## [1.7.8] - 2020-09-30
 ### Changement
-- Correction sur le dashboard utilisateur et correction des placeholders sur la liste des collectivités. 
+- Correction sur le dashboard utilisateur et correction des placeholders sur la Liste des organismes. 
 
 ## [1.7.7] - 2020-09-21
 ### Ajout
@@ -272,7 +272,7 @@ CHANGELOG
 - [GLOBAL] Fix de typo, #92 #84 #80 #46
 - [TABLEAU DE BORD] Ajout de la couleur pour le donuts des statuts des demandes (le statut "Incomplet" n'avait pas de couleur)
 - [TABLEAU DE BORD] Les traitements inactifs ne sont plus comptabilisés dans les stats "Mesures de sécurité", #82
-- [GLOBAL] Fil d'ariane - Les URLs qui poitaient vers la liste des collectivités n'en sont plus, #62
+- [GLOBAL] Fil d'ariane - Les URLs qui poitaient vers la Liste des organismes n'en sont plus, #62
 
 ## [1.0.0] - 2018-08-29
 ### Ajout
