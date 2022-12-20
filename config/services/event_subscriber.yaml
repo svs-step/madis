@@ -63,3 +63,5 @@ services:
             $cacheAdapter: '@Symfony\Component\Cache\Adapter\ArrayAdapter'
         tags:
             - { name: 'doctrine.event_subscriber' }
+
+    App\EventSubscriber\LogoutSubscriber: ~
