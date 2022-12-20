@@ -6,14 +6,14 @@ registry:
             line_one: Adresse
             line_two: Compl. adresse
             mail: Email
-            phone_number: N° de tel
+            phone_number: Téléphone
             zip_code: Code postal
         show:
             city: Ville
             line_one: Adresse
             line_two: Complément d'adresse
             mail: Email
-            phone_number: N° de tel
+            phone_number: Téléphone
             zip_code: Code postal
 
     contractor:
@@ -126,7 +126,7 @@ registry:
             cost: Coût
             manager: Responsable d'action
             name: Nom
-            planification_date: Date de planification
+            planification_date: Echéance
             priority: Priorité
             status: Statut
             type:
@@ -270,7 +270,7 @@ registry:
             applicant_first_name: Prénom
             applicant_last_name: Nom
             applicant_mail: Email
-            applicant_phone_number: N° de téléphone
+            applicant_phone_number: Téléphone
             collectivity: Collectivité
             complete: Demande complète
             concerned_people_address: Adresse
@@ -279,7 +279,7 @@ registry:
             concerned_people_last_name: Nom
             concerned_people_link_with_applicant: Lien avec le demandeur
             concerned_people_mail: Email
-            concerned_people_phone_number: N° de téléphone
+            concerned_people_phone_number: Téléphone
             created_at: Date de création
             creator: Créateur
             date: Date
@@ -319,7 +319,7 @@ registry:
             last_name: Nom
             address: Adresse
             mail: Email
-            phone_number: N° de téléphone
+            phone_number: Téléphone
             concerned_people: Est la personne concernée
 
     request_concerned_people:
@@ -329,7 +329,7 @@ registry:
             last_name: Nom
             address: Adresse
             mail: Email
-            phone_number: N° de téléphone
+            phone_number: Téléphone
             link_with_applicant: Lien avec le demandeur
 
     treatment:
@@ -427,7 +427,7 @@ registry:
             specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             software: Logiciel
             tracability: Traçabilité
-            updated_at: Date mise à jour
+            updated_at: Modifié le
             update: Mise à jour
             specific_traitement: Traitements spécifiques
         modal:

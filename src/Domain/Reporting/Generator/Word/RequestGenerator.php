@@ -188,7 +188,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                     $applicant->getMail(),
                 ],
                 [
-                    'N° de téléphone',
+                    'Téléphone',
                     $applicant->getPhoneNumber(),
                 ],
                 [
@@ -220,7 +220,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                     $concernedPeople->getMail(),
                 ],
                 [
-                    'N° de téléphone',
+                    'Téléphone',
                     $concernedPeople->getPhoneNumber(),
                 ],
                 [

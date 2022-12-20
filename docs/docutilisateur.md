@@ -298,7 +298,7 @@ Dans les coordonnées, il est possible de renseigner les éléments suivants :
 * **Code postal** ;
 * **Ville** ;
 * **Email** ;
-* **N° de tel**.
+* **Téléphone**.
 
 ## Le registre des demandes
 
@@ -357,7 +357,7 @@ Dans le demandeur, il est possible de renseigner les éléments suivants :
 * **Nom** ;
 * **Adresse** ;
 * **Email** ;
-* **N° de téléphone** ;
+* **Téléphone** ;
 
 Par défaut, la case « **Est la personne concernée** » est cochée, cependant, dans le cas où le demandeur est différent de la personne concernée, il faut la décocher et compléter les coordonnées de l'élément « [**Personne concernée**](#Personne-concernée) ».
 
@@ -976,7 +976,7 @@ Il est possible d'exporter certaines informations au format Excel :
 * « **Exporter les collectivités** » : Export comprenant toutes les informations enregistrées dans la [gestion des structures](#Gestion-des-structures) (Statut actif/inactif ; Nom ; SIREN ; Dernier utilisateur connecté ; Date de la dernière connexion ; ...) ainsi que les informations comprises dans le [module conformité de l'organisation](#Module-conformité-de-l’organisation) ;
 * « **Exporter les traitements** » : Export comprenant toutes les informations enregistrées dans le [registre des traitements](#Le-registre-des-traitements) (Statut actif/inactif ; Date de dernière modification...) ainsi que les informations comprises dans le [module conformité des traitements](#Module-conformité-des-traitements) ;
 * « **Exporter les sous-traitants** » : Export comprenant toutes les informations enregistrées dans le [registre des sous-traitants](#Le-registre-des-sous-traitants) (Nom du sous-traitant ; Clauses vérifiées ; Traitements associés ; ...) ;
-* « **Exporter les actions de protection** » : Export comprenant toutes les informations enregistrées dans les [actions de protection](#Les-actions-de-protection) et dans le [plan d'actions](#Plan-d’actions) (Nom de l'action ; Statut ; Date de planification ; ...).
+* « **Exporter les actions de protection** » : Export comprenant toutes les informations enregistrées dans les [actions de protection](#Les-actions-de-protection) et dans le [plan d'actions](#Plan-d’actions) (Nom de l'action ; Statut ; Echéance ; ...).
 
 ``Attention : Les exports, notamment pour le registre des traitements, peuvent être volumineux. L'export peut alors prendre un peu de temps.``
 
