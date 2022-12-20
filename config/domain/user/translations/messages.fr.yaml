@@ -54,6 +54,7 @@ user:
             short_name: Nom court
             siren: SIREN
             type: Type
+            otherType: Autre (Description)
             informations_complementaires: Informations complémentaires
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cette Structure ?
@@ -98,12 +99,12 @@ user:
             continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
           services: Services
         title:
-            create: Créer une Structure
-            delete: Supprimer une Structure
-            edit: Éditer une Structure
-            label: Structure
+            create: Créer un organisme
+            delete: Supprimer un organisme
+            edit: Éditer un organisme
+            label: Organisme
             list: Liste des organismes
-            show: Visualiser une Structure
+            show: Visualiser un organisme
 
     profile:
         breadcrumb:

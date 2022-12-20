@@ -172,6 +172,11 @@ class Collectivity implements LoggableSubject
     private $informationsComplementaires;
 
     /**
+     * @var string|null
+     */
+    private $otherType;
+
+    /**
      * Collectivity constructor.
      *
      * @throws \Exception
@@ -499,5 +504,15 @@ class Collectivity implements LoggableSubject
     public function setInformationsComplementaires(?string $informationsComplementaires): void
     {
         $this->informationsComplementaires = $informationsComplementaires;
+    }
+
+    public function getOtherType(): ?string
+    {
+        return $this->otherType;
+    }
+
+    public function setOtherType(?string $otherType): void
+    {
+        $this->otherType = $otherType;
     }
 }
