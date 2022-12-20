@@ -744,7 +744,7 @@ Il est possible d'effectuer plusieurs actions :
 Il est possible d'effectuer plusieurs actions :
 
 - « **Retourner à la liste** » permet de quitter l'évaluation en ne prenant pas en compte les informations saisies ou modifiées ;
-- « **Soumettre** » permet de terminer l'évaluation et d'actualiser les notes de conformité du tableau avec les pilotes. Il n'est pas possible de modifier une évaluation terminée ;
+- « **Enregistrer** » permet de terminer l'évaluation et d'actualiser les notes de conformité du tableau avec les pilotes. Il n'est pas possible de modifier une évaluation terminée ;
 - « **Enregistrer un brouillon** » permet de quitter l'évaluation en prenant en compte les informations saisies ou modifiées. Les informations d'une évaluation en brouillon ne sont pas prises en compte dans le calcul de la conformité ;
 - « **Ajouter un participant** » permet d'ajouter un participant. Les informations du ou des participants sont repris dans l'impression de l'évaluation ;
 
