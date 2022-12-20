@@ -2,6 +2,7 @@
 
 namespace App\Domain\Notification\Serializer;
 
+use App\Domain\Documentation\Model\Document;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Model\Proof;
@@ -87,11 +88,11 @@ class NotificationNormalizer extends ObjectNormalizer
         }
 
         foreach ($stack as $attribute => $attributeValue) {
-            if (!$this->serializer instanceof NormalizerInterface) {
-                throw new LogicException(sprintf('Cannot normalize attribute "%s" because the injected serializer is not a normalizer.', $attribute));
-            }
+//            if (!$this->serializer instanceof NormalizerInterface) {
+//                throw new LogicException(sprintf('Cannot normalize attribute "%s" because the injected serializer is not a normalizer.', $attribute));
+//            }
 
-            $data = $this->updateData($data, $attribute, $this->serializer->normalize($attributeValue, $format, $this->createChildContext($context, $attribute, $format)), $class, $format, $context);
+            $data = $this->updateData($data, $attribute, $this->getObjectSimpleValue($attributeValue), $class, $format, $context);
         }
 
         if (isset($context[self::PRESERVE_EMPTY_OBJECTS]) && !\count($data)) {
@@ -130,20 +131,7 @@ class NotificationNormalizer extends ObjectNormalizer
 
     private function isMaxDepthReached(array $attributesMetadata, string $class, string $attribute, array &$context): bool
     {
-        $key = 'maxDepth';
-        if (!isset($context[$key])) {
-            $context[$key] = 1;
-
-            return false;
-        }
-
-        if (1 === $context[$key]) {
-            return true;
-        }
-
-        ++$context[$key];
-
-        return false;
+        return true;
     }
 
     private function getCacheKey(?string $format, array $context): bool|string
@@ -174,7 +162,29 @@ class NotificationNormalizer extends ObjectNormalizer
             $data instanceof Mesurement ||
             $data instanceof Proof ||
             $data instanceof Request ||
+            $data instanceof Document ||
             $data instanceof Violation
         ;
+    }
+
+    private function getObjectSimpleValue($object)
+    {
+        if (is_object($object)) {
+            if (method_exists($object, 'getId')) {
+                return $object->getId();
+            } elseif (method_exists($object, '__toString')) {
+                return $object->__toString();
+            } elseif (method_exists($object, 'format')) {
+                return $object->format(DATE_ATOM);
+            }
+
+            return '';
+        }
+
+        if (is_array($object)) {
+            return join(', ', $object);
+        }
+
+        return $object;
     }
 }

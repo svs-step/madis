@@ -91,7 +91,7 @@ class Notification extends CRUDRepository implements Repository\Notification
         return $qb->getQuery()->getResult();
     }
 
-    public function persist($object): void
+    public function persist($object)
     {
         $this->getManager()->persist($object);
     }

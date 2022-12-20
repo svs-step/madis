@@ -123,6 +123,7 @@ class CollectivityController extends CRUDController
     {
         return Model\Collectivity::class;
     }
+
     /**
      * {@inheritdoc}
      */

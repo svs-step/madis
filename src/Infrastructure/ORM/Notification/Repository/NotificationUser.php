@@ -45,8 +45,9 @@ class NotificationUser extends CRUDRepository implements Repository\Notification
             $nu = $this->create();
             $nu->setUser($user);
             $nu->setNotification($notification);
-            $this->insert($nu);
-
+            $nu->setToken(sha1($user->getId() . microtime() . mt_rand()));
+            $nu->setActive(true);
+            $nu->setSent(false);
             $nus[] = $nu;
         }
 

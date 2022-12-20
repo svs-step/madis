@@ -43,18 +43,18 @@ class NotificationUser
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private ?string $mail;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Notification\Model\Notification")
+     * @ORM\ManyToOne(targetEntity="App\Domain\Notification\Model\Notification", inversedBy="notificationUsers")
      * @ORM\JoinColumn(name="notification_id", referencedColumnName="id")
      */
     private Notification $notification;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
+     * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User", inversedBy="notifications")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private User $user;

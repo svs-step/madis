@@ -7,13 +7,14 @@ namespace App\Domain\Notification\Symfony\EventSubscriber\Doctrine;
 use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\Documentation\Model\Document;
 use App\Domain\Notification\Model\Notification;
+use App\Domain\Notification\Model\NotificationUser;
+use App\Domain\Notification\Serializer\NotificationNormalizer;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Model\Proof;
 use App\Domain\Registry\Model\Request;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
-use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
 use App\Infrastructure\ORM\Notification\Repository\NotificationUser as NotificationUserRepository;
@@ -60,7 +61,7 @@ class EntityChangedSubscriber implements EventSubscriber
 
     public function __construct(
         NotificationRepository $notificationRepository,
-        NormalizerInterface $normalizer,
+        NotificationNormalizer $normalizer,
         UserRepository $userRepository,
         NotificationUserRepository $notificationUserRepository,
         Security $security,
@@ -87,7 +88,7 @@ class EntityChangedSubscriber implements EventSubscriber
 
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
-        $em  = $eventArgs->getEntityManager();
+        $em  = $eventArgs->getObjectManager();
         $uow = $em->getUnitOfWork();
 
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
@@ -97,13 +98,7 @@ class EntityChangedSubscriber implements EventSubscriber
                 continue;
             }
 
-            $notifications = $this->createNotifications($entity, 'create');
-            $meta          = $eventArgs->getEntityManager()->getClassMetadata(Notification::class);
-            foreach ($notifications as $notif) {
-//                $this->notificationRepository->persist($notif);
-
-                $uow->computeChangeSet($meta, $notif);
-            }
+            $notifications = $this->createNotifications($entity, 'create', $em);
         }
 
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
@@ -120,14 +115,7 @@ class EntityChangedSubscriber implements EventSubscriber
             if (Request::class === $class) {
                 $action = 'state_change';
             }
-            $notifications = $this->createNotifications($entity, $action);
-            $meta          = $eventArgs->getEntityManager()->getClassMetadata(Notification::class);
-
-            foreach ($notifications as $notif) {
-//                $this->notificationRepository->persist($notif);
-
-                $uow->computeChangeSet($meta, $notif);
-            }
+            $this->createNotifications($entity, $action, $em);
         }
 
         foreach ($uow->getScheduledEntityDeletions() as $entity) {
@@ -135,25 +123,22 @@ class EntityChangedSubscriber implements EventSubscriber
             if (!in_array($class, $this->classes) || Request::class == $class || Document::class === $class) {
                 continue;
             }
-
-            $this->createNotifications($entity, 'delete');
+            $this->createNotifications($entity, 'delete', $em);
         }
     }
 
-    private function createNotifications($object, $action): array
+    private function createNotifications($object, $action, $em): array
     {
-        // for each user
-        // Check if this notification applies to them
-        // create a notification for them if they are not DPO
-        // Otherwise create a notification with user_id null
         $notifications = [];
         $recipients    = $this->recipients[get_class($object)];
+        $uow           = $em->getUnitOfWork();
 
         $normalized = $this->normalizer->normalize($object, null,
             [
                 AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {
                     return $this->getObjectSimpleValue($o);
                 },
+                'maxDepth'                                         => 1,
                 AbstractObjectNormalizer::ENABLE_MAX_DEPTH         => true,
                 AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT => 1,
                 AbstractObjectNormalizer::MAX_DEPTH_HANDLER        => function ($o) {
@@ -192,6 +177,25 @@ class EntityChangedSubscriber implements EventSubscriber
             $notifications[] = $notification;
         }
 
+        // Insert notifications and notification_users
+        $meta  = $em->getClassMetadata(Notification::class);
+        $meta2 = $em->getClassMetadata(NotificationUser::class);
+        foreach ($notifications as $notif) {
+            $em->persist($notif);
+            /**
+             * @var Notification $notif
+             */
+            if ($notif->getNotificationUsers()) {
+                foreach ($notif->getNotificationUsers() as $u) {
+                    $em->persist($u);
+                    $uow->computeChangeSet($meta2, $u);
+                }
+            }
+
+            // dump($notifications);
+            $uow->computeChangeSet($meta, $notif);
+        }
+
         return $notifications;
     }
 
@@ -205,15 +209,15 @@ class EntityChangedSubscriber implements EventSubscriber
         $notification->setAction('notification.actions.' . $action);
         $notification->setCreatedBy($this->security->getUser());
         $notification->setObject((object) $normalized);
-        $this->notificationRepository->persist($notification);
 
         if ($users) {
             // TODO FIX THIS !!!
             $nus = $this->notificationUserRepository->saveUsers($notification, $users);
-
             // $notification->setNotificationUsers($nus);
             // $this->notificationRepository->update($notification);
+            $notification->setNotificationUsers($nus);
         }
+        // $this->notificationRepository->persist($notification);
 
         return $notification;
     }
@@ -230,6 +234,10 @@ class EntityChangedSubscriber implements EventSubscriber
             }
 
             return '';
+        }
+
+        if (is_array($object)) {
+            return join(', ', $object);
         }
 
         return $object;

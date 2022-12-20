@@ -131,9 +131,9 @@ class Notification
     private ?User $createdBy;
 
     /**
-     * @ORM\OneToMany(mappedBy="notification", targetEntity="App\Domain\Notification\Model\NotificationUser")
+     * @ORM\OneToMany(mappedBy="notification", targetEntity="App\Domain\Notification\Model\NotificationUser", cascade={"persist"})
      */
-    private Collection|array $notificationUsers;
+    private Collection|array $notificationUsers = [];
 
     /**
      * Category constructor.

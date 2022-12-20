@@ -8,6 +8,7 @@ use App\Domain\Notification\Event\LateSurveyEvent;
 use App\Domain\Notification\Event\NoLoginEvent;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Model\NotificationUser;
+use App\Domain\Notification\Serializer\NotificationNormalizer;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
@@ -15,7 +16,6 @@ use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationR
 use App\Infrastructure\ORM\Notification\Repository\NotificationUser as NotificationUserRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * This event subscriber creates notification for things that are trigerred by a cron job.
@@ -24,13 +24,13 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 {
     protected NotificationRepository $notificationRepository;
     protected NotificationUserRepository $notificationUserRepository;
-    protected NormalizerInterface $normalizer;
+    protected NotificationNormalizer $normalizer;
     protected UserRepository $userRepository;
 
     public function __construct(
         NotificationRepository $notificationRepository,
         NotificationUserRepository $notificationUserRepository,
-        NormalizerInterface $normalizer,
+        NotificationNormalizer $normalizer,
         UserRepository $userRepository
     ) {
         $this->notificationRepository     = $notificationRepository;
@@ -181,6 +181,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             $nu->setNotification($notification);
             $nu->setActive(true);
             $nu->setSent(false);
+            $nu->setToken(sha1($ref->getId() . microtime() . mt_rand()));
             $this->notificationRepository->persist($nu);
         }
     }

@@ -50,7 +50,7 @@ services:
     App\Domain\Notification\Symfony\EventSubscriber\Doctrine\EntityChangedSubscriber:
         arguments:
             $notificationRepository: '@App\Infrastructure\ORM\Notification\Repository\Notification'
-            $normalizer: '@Symfony\Component\Serializer\Normalizer\NormalizerInterface'
+            $normalizer: '@App\Domain\Notification\Serializer\NotificationNormalizer'
             $userRepository: '@App\Domain\User\Repository\User'
             $security: '@Symfony\Component\Security\Core\Security'
             $env: '%kernel.environment%'
