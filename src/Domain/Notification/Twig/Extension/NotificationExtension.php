@@ -69,6 +69,7 @@ class NotificationExtension extends AbstractExtension
         switch ($module) {
             case 'notification.modules.treatment':
                 return 'registry_treatment_show';
+            case 'notification.modules.subcontractor':
             case 'notification.modules.contractor':
                 return 'registry_contractor_show';
             case 'notification.modules.violation':
@@ -76,12 +77,14 @@ class NotificationExtension extends AbstractExtension
             case 'notification.modules.proof':
                 return 'registry_proof_edit';
             case 'notification.modules.action':
+            case 'notification.modules.protect_action':
                 return 'registry_mesurement_show';
             case 'notification.modules.request':
                 return 'registry_request_show';
             case 'notification.modules.user':
                 return 'user_user_edit';
             case 'notification.modules.documentation':
+            case 'notification.modules.document':
                 return 'documentation_document_edit';
             case 'notification.modules.maturity':
                 return 'maturity_survey_edit';

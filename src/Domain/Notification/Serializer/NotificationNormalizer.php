@@ -157,8 +157,9 @@ class NotificationNormalizer extends ObjectNormalizer
 
         try {
             return md5($format . serialize([
-                    'context' => $context,
-                    'ignored' => $context[self::IGNORED_ATTRIBUTES] ?? $this->defaultContext[self::IGNORED_ATTRIBUTES],
+                    'context'    => $context,
+                    'ignored'    => $context[self::IGNORED_ATTRIBUTES] ?? $this->defaultContext[self::IGNORED_ATTRIBUTES],
+                    'attributes' => $context[self::ATTRIBUTES] ?? $this->defaultContext[self::ATTRIBUTES],
                 ]));
         } catch (\Exception $exception) {
             // The context cannot be serialized, skip the cache

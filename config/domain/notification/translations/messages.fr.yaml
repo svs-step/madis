@@ -3,9 +3,12 @@ notification:
     modules:
         treatment: Traitements
         contractor: Sous-traitants
+        subcontractor: Sous-traitants
         violation: Violations
         proof: Preuves
+        document: Document
         action: Actions de protection
+        protect_action: Actions de protection
         request: Demandes
         user: Utilisateurs
         documentation: Documentation
@@ -34,7 +37,7 @@ notification:
             state: État
             module: Module
             action: Action
-            name: Nom 
+            name: Nom
             object: Objet
             collectivity: Collectivité
             date: Date
