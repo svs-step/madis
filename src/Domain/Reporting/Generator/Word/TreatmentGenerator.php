@@ -281,6 +281,18 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                         return TreatmentCollectingMethodDictionary::getMethods()[$cm];
                     }, $treatment->getCollectingMethod())) : '',
                 ],
+                7 => [
+                    'Mentions légales apposées',
+                    $treatment->getLegalMentions() ? 'Oui' : 'Non',
+                ],
+                8 => [
+                    'Consentement demandé',
+                    $treatment->getConsentRequest() ? 'Oui' : 'Non',
+                ],
+                9 => [
+                    'Format de la demande du consentement',
+                    $treatment->getConsentRequestFormat(),
+                ],
             ];
 
             // "Délai de conservation"
