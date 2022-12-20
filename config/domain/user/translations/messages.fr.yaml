@@ -70,7 +70,7 @@ user:
             contact_last_name: Nom
             contact_job: Fonction
             contact_mail: Email
-            contact_phone_number: N° tél.
+            contact_phone_number: Téléphone
             created_at: Date de création
             different_dpo: Différent du DPD moral
             different_it_manager: Différent du Référent Opérationnel

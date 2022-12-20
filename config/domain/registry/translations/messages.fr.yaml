@@ -60,7 +60,7 @@ registry:
             contact_last_name: Nom
             contact_job: Fonction
             contact_mail: Email
-            contact_phone_number: N° tél.
+            contact_phone_number: Téléphone
             created_at: Date de création
             creator: Créateur
             deleted_user: Utilisateur supprimé
