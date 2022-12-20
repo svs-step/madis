@@ -183,12 +183,12 @@ class Notification
         $this->module = $module;
     }
 
-    public function getObject(): object|array|null
+    public function getObject(): ?object
     {
         return $this->object;
     }
 
-    public function setObject(object|array|null $object): void
+    public function setObject(?object $object): void
     {
         $this->object = $object;
     }

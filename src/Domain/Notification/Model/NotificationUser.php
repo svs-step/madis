@@ -24,10 +24,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Notification\Model;
 
+use App\Domain\User\Model\User;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
@@ -57,7 +57,7 @@ class NotificationUser
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private UserInterface $user;
+    private User $user;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -131,12 +131,12 @@ class NotificationUser
         $this->notification = $notification;
     }
 
-    public function getUser(): UserInterface
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(UserInterface $user): void
+    public function setUser(User $user): void
     {
         $this->user = $user;
     }

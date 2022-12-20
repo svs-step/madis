@@ -68,9 +68,7 @@ class Notification extends CRUDRepository implements Repository\Notification
             $user = null;
         }
 
-        $qb = $this->registry
-            ->getManager()
-            ->createQueryBuilder();
+        $qb = $this->createQueryBuilder();
 
         $qb->select('n')
             ->from($this->getModelClass(), 'n');
@@ -90,38 +88,11 @@ class Notification extends CRUDRepository implements Repository\Notification
 //        if (count($order)) {
 //            $qb->addOrderBy(array_keys($order)[0] . ' ' . $order[0]);
 //        }
-
-//        dd($qb->getQuery()->getSQL());
-
-//        dd($qb->getQuery()->getResult());
         return $qb->getQuery()->getResult();
-
-        return $this->registry
-            ->getManager()
-            ->getRepository($this->getModelClass())
-            ->findBy([
-                'user' => $user,
-            ], $orderBy)
-        ;
     }
 
     public function persist($object): void
     {
         $this->getManager()->persist($object);
-    }
-
-    public function saveUsers(Model\Notification $notification, $users)
-    {
-        $nus = [];
-        foreach ($users as $user) {
-            $nu = new Model\NotificationUser();
-            $nu->setUser($user);
-            $nu->setNotification($notification);
-            $this->getManager()->persist($nu);
-
-            $nus[] = $nu;
-        }
-
-        return $nus;
     }
 }

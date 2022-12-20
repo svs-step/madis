@@ -12,6 +12,7 @@ use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
+use App\Infrastructure\ORM\Notification\Repository\NotificationUser as NotificationUserRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -22,17 +23,20 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class NotificationEventSubscriber implements EventSubscriberInterface
 {
     protected NotificationRepository $notificationRepository;
+    protected NotificationUserRepository $notificationUserRepository;
     protected NormalizerInterface $normalizer;
     protected UserRepository $userRepository;
 
     public function __construct(
         NotificationRepository $notificationRepository,
+        NotificationUserRepository $notificationUserRepository,
         NormalizerInterface $normalizer,
         UserRepository $userRepository
     ) {
-        $this->notificationRepository = $notificationRepository;
-        $this->normalizer             = $normalizer;
-        $this->userRepository         = $userRepository;
+        $this->notificationRepository     = $notificationRepository;
+        $this->notificationUserRepository = $notificationUserRepository;
+        $this->normalizer                 = $normalizer;
+        $this->userRepository             = $userRepository;
     }
 
     public static function getSubscribedEvents()
@@ -75,7 +79,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setName($survey->__toString());
         $notification->setObject((object) $norm);
         $this->notificationRepository->insert($notification);
-        $nus = $this->notificationRepository->saveUsers($notification, $users);
+        $nus = $this->notificationUserRepository->saveUsers($notification, $users);
 
         $notification->setNotificationUsers($nus);
         $this->notificationRepository->update($notification);
@@ -114,7 +118,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setObject((object) $norm);
         $this->notificationRepository->insert($notification);
 
-        $nus = $this->notificationRepository->saveUsers($notification, $users);
+        $nus = $this->notificationUserRepository->saveUsers($notification, $users);
 
         $notification->setNotificationUsers($nus);
         $this->notificationRepository->update($notification);
@@ -148,7 +152,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
         $this->notificationRepository->insert($notification);
 
-        $nus = $this->notificationRepository->saveUsers($notification, $users);
+        $nus = $this->notificationUserRepository->saveUsers($notification, $users);
 
         $notification->setNotificationUsers($nus);
         $this->notificationRepository->update($notification);

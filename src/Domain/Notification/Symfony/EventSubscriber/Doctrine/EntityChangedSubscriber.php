@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Notification\Symfony\EventSubscriber\Doctrine;
 
+use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\Documentation\Model\Document;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Registry\Model\Contractor;
@@ -15,6 +16,7 @@ use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
+use App\Infrastructure\ORM\Notification\Repository\NotificationUser as NotificationUserRepository;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
@@ -38,16 +40,18 @@ class EntityChangedSubscriber implements EventSubscriber
     ];
 
     protected array $recipients = [
-        Treatment::class  => Notification::NOTIFICATION_DPO,
-        Mesurement::class => Notification::NOTIFICATION_DPO,
-        Violation::class  => Notification::NOTIFICATION_DPO,
-        Proof::class      => Notification::NOTIFICATION_DPO,
-        Contractor::class => Notification::NOTIFICATION_DPO,
-        Request::class    => Notification::NOTIFICATION_DPO,
-        Document::class   => Notification::NOTIFICATION_COLLECTIVITY,
+        AnalyseImpact::class => Notification::NOTIFICATION_COLLECTIVITY | Notification::NOTIFICATION_DPO,
+        Treatment::class     => Notification::NOTIFICATION_DPO,
+        Mesurement::class    => Notification::NOTIFICATION_DPO,
+        Violation::class     => Notification::NOTIFICATION_DPO,
+        Proof::class         => Notification::NOTIFICATION_DPO,
+        Contractor::class    => Notification::NOTIFICATION_DPO,
+        Request::class       => Notification::NOTIFICATION_DPO,
+        Document::class      => Notification::NOTIFICATION_COLLECTIVITY,
     ];
 
     protected NotificationRepository $notificationRepository;
+    protected NotificationUserRepository $notificationUserRepository;
     protected UserRepository $userRepository;
     protected Security $security;
     protected NormalizerInterface $normalizer;
@@ -58,14 +62,16 @@ class EntityChangedSubscriber implements EventSubscriber
         NotificationRepository $notificationRepository,
         NormalizerInterface $normalizer,
         UserRepository $userRepository,
+        NotificationUserRepository $notificationUserRepository,
         Security $security,
         string $env
     ) {
-        $this->notificationRepository = $notificationRepository;
-        $this->normalizer             = $normalizer;
-        $this->userRepository         = $userRepository;
-        $this->security               = $security;
-        $this->env                    = $env;
+        $this->notificationRepository     = $notificationRepository;
+        $this->normalizer                 = $normalizer;
+        $this->userRepository             = $userRepository;
+        $this->notificationUserRepository = $notificationUserRepository;
+        $this->security                   = $security;
+        $this->env                        = $env;
     }
 
     public function getSubscribedEvents(): array
@@ -176,7 +182,12 @@ class EntityChangedSubscriber implements EventSubscriber
 
         if ($recipients & Notification::NOTIFICATION_COLLECTIVITY) {
             // get all non-DPO users
-            $users           = $this->userRepository->findNonDpoUsers();
+            if (method_exists($object, 'getCollectivity')) {
+                $users = $this->userRepository->findNonDpoUsersForCollectivity($object->getCollectivity());
+            } else {
+                $users = $this->userRepository->findNonDpoUsers();
+            }
+
             $notification    = $this->createNotificationForUsers($object, $action, $normalized, $users);
             $notifications[] = $notification;
         }
@@ -197,7 +208,8 @@ class EntityChangedSubscriber implements EventSubscriber
         $this->notificationRepository->persist($notification);
 
         if ($users) {
-            $nus = $this->notificationRepository->saveUsers($notification, $users);
+            // TODO FIX THIS !!!
+            $nus = $this->notificationUserRepository->saveUsers($notification, $users);
 
             // $notification->setNotificationUsers($nus);
             // $this->notificationRepository->update($notification);

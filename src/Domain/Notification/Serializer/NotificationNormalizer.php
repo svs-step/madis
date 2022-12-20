@@ -146,7 +146,7 @@ class NotificationNormalizer extends ObjectNormalizer
         return false;
     }
 
-    private function getCacheKey(?string $format, array $context)
+    private function getCacheKey(?string $format, array $context): bool|string
     {
         foreach ($context[self::EXCLUDE_FROM_CACHE_KEY] ?? $this->defaultContext[self::EXCLUDE_FROM_CACHE_KEY] as $key) {
             unset($context[$key]);
@@ -157,9 +157,8 @@ class NotificationNormalizer extends ObjectNormalizer
 
         try {
             return md5($format . serialize([
-                    'context'   => $context,
-                    'ignored'   => $this->ignoredAttributes,
-                    'camelized' => $this->camelizedAttributes,
+                    'context' => $context,
+                    'ignored' => $context[self::IGNORED_ATTRIBUTES] ?? $this->defaultContext[self::IGNORED_ATTRIBUTES],
                 ]));
         } catch (\Exception $exception) {
             // The context cannot be serialized, skip the cache

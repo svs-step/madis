@@ -273,7 +273,7 @@ class User extends CRUDRepository implements Repository\User
     public function findNonDpoUsers()
     {
         $qb = $this->createQueryBuilder();
-        $qb->andWhere('o.roles LIKE :role')
+        $qb->andWhere('o.roles NOT LIKE :role')
             // TODO add andwhere with "is_dpo"
             ->setParameter('role', sprintf('"%s"', '%ROLE_ADMIN%'));
 
@@ -283,7 +283,7 @@ class User extends CRUDRepository implements Repository\User
     public function findNonDpoUsersForCollectivity(Model\Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
-        $qb->andWhere('o.roles LIKE :role')
+        $qb->andWhere('o.roles NOT LIKE :role')
             // TODO add andwhere with "is_dpo"
             ->setParameter('role', sprintf('"%s"', '%ROLE_ADMIN%'))
         ->andWhere('o.collectivity = :collectivity')
