@@ -51,7 +51,7 @@ class UserRoleDictionary extends SimpleDictionary
             self::ROLE_PREVIEW  => 'Lecteur',
             self::ROLE_USER     => 'Gestionnaire',
             self::ROLE_ADMIN    => 'Administrateur',
-            self::ROLE_REFERENT => 'Référent multi-collectivité',
+            self::ROLE_REFERENT => 'Référent multi-structures',
             // Ne pas ajouter le ROLE_API
         ];
     }
@@ -67,7 +67,7 @@ class UserRoleDictionary extends SimpleDictionary
             self::ROLE_PREVIEW  => 'Lecteur',
             self::ROLE_USER     => 'Gestionnaire',
             self::ROLE_ADMIN    => 'Administrateur',
-            self::ROLE_REFERENT => 'Référent multi-collectivité',
+            self::ROLE_REFERENT => 'Référent multi-structures',
             self::ROLE_API      => 'API',
         ];
     }

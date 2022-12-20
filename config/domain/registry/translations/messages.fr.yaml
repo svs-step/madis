@@ -44,7 +44,7 @@ registry:
                 delete: Sous-traitant "%object%" supprimé avec succès
         list:
             adopted_security_features: Adopte les éléments de sécurité
-            collectivity: Collectivité
+            collectivity: Structure
             contractual_clauses_verified: Clauses contractuelles vérifiées
             maintains_treatment_register: Registre des traitements
             name: Nom
@@ -53,7 +53,7 @@ registry:
             confirm_deletion: Voulez-vous vraiment supprimer ce sous-traitant ?
         show:
             adopted_security_features: A adopté les éléments de sécurité nécessaires
-            collectivity: Collectivité
+            collectivity: Structure
             contractual_clauses_verified: Clauses contractuelles vérifiées
             contact_civility: Civilité
             contact_first_name: Prénom
@@ -122,7 +122,7 @@ registry:
                 delete: Action de protection "%object%" supprimé avec succès
         list:
             charge: Charge
-            collectivity: Collectivité
+            collectivity: Structure
             cost: Coût
             manager: Responsable d'action
             name: Nom
@@ -136,7 +136,7 @@ registry:
             responsable: Responsable d'action
         show:
             charge: Charge
-            collectivity: Collectivité
+            collectivity: Structure
             comment: Observations
             created_at: Date de création
             creator: Créateur
@@ -202,7 +202,7 @@ registry:
                 edit: Preuve "%object%" modifiée avec succès
                 delete: Preuve "%object%" supprimée avec succès
         list:
-            collectivity: Collectivité
+            collectivity: Structure
             comment: Commentaire
             created_at: Date de création
             name: Nom
@@ -252,7 +252,7 @@ registry:
             treatment: Traitements associés
         list:
             answer_date: Date de traitement
-            collectivity: Collectivité
+            collectivity: Structure
             complete: Demande complète
             concerned_people: Personne concernée
             date: Date de la demande
@@ -271,7 +271,7 @@ registry:
             applicant_last_name: Nom
             applicant_mail: Email
             applicant_phone_number: Téléphone
-            collectivity: Collectivité
+            collectivity: Structure
             complete: Demande complète
             concerned_people_address: Adresse
             concerned_people_civility: Civilité
@@ -355,8 +355,8 @@ registry:
             collecting_method: Moyens de la collecte
             otherCollectingMethod: Autre moyen de collecte
             concerned_people: Personnes concernées
-            concerned_people_agent: Agents
-            concerned_people_company: Entreprises
+            concerned_people_agent: Salariés
+            concerned_people_company: Professionnels
             concerned_people_elected: Élus
             concerned_people_particular: Particuliers
             concerned_people_partner: Partenaires
@@ -410,7 +410,7 @@ registry:
             access_control: Controle d'accès
             active: Statut
             author: En tant que
-            collectivity: Collectivité
+            collectivity: Structure
             completion: Taux de complétion
             contractors: Sous-traitants
             conformite_traitement: Conformité du traitement
@@ -440,8 +440,8 @@ registry:
             automatic_exclusion_service: Exclusion automatique d'un service
             collecting_method: Moyens de la collecte
             concerned_people: Personnes concernées
-            concerned_people_agent: Agents
-            concerned_people_company: Entreprises
+            concerned_people_agent: Salariés
+            concerned_people_company: Professionnels
             concerned_people_elected: Élus
             concerned_people_particular: Particuliers
             concerned_people_partner: Partenaires
@@ -450,7 +450,7 @@ registry:
             conformite_traitement: Conformité du traitement
             conformite_traitement_created_at: Conformité du traitement - Date création
             conformite_traitement_updated_at: Conformité du traitement - Date modification
-            collectivity: Collectivité
+            collectivity: Structure
             otherCollectingMethod: Autre moyen de collecte
             contractors: Sous-traitants
             coordonnees_responsable_traitement: Coordonnées responsable
@@ -559,14 +559,14 @@ registry:
             treatment: Traitements associés
         list:
             cause: Cause
-            collectivity: Collectivité
+            collectivity: Structure
             date: Date de violation
             gravity: Niveau de gravité
             violation_nature: Nature
         show:
             applied_measures_after_violation: Mesures techniques et organisationnelles appliquées suite à la violation
             cause: Cause de la violation
-            collectivity: Collectivité
+            collectivity: Structure
             comment: Commentaire
             communication: Communications aux personnes concernées
             communication_precision: Précisions sur les communications
@@ -599,7 +599,7 @@ registry:
             show: Visualiser une violation
     conformite_traitement:
         list:
-            collectivity: Collectivité
+            collectivity: Structure
             conformite: Conformité
             conformite_reponse: Conformité des questions
             date_conformite: Date de l'évaluation
@@ -633,7 +633,7 @@ registry:
             list: Lister les évaluations
             delete: Supprimer une évaluation
         list:
-            collectivite: Nom de la collectivité
+            collectivite: Nom de la Structure
             draft: Brouillon
             pilote: Pilote
             processus: Processus

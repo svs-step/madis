@@ -1392,7 +1392,7 @@ Il est possible de choisir l'un des rôles suivant :
 - **Lecteur** : L'utilisateur peut consulter les informations comprises dans Madis. Il peut générer des bilans et faire des impressions, mais ne peut modifier les informations ;
 - **Gestionnaire** : L'utilisateur peut consulter et modifier tout ce qui se trouve dans Madis pour sa structure ;
 - **Administrateur** : L'utilisateur peut consulter et modifier tout ce qui se trouve dans Madis pour toutes les structures ;
-- **Référent multi-collectivité** : L'utilisateur peut voir et modifier tout ce qui se trouve dans Madis pour les structures pour lesquels il est référent. Cependant, il ne peut pas créer ou modifier de nouvelles structures ni d'utilisateurs ou modifier son propre profil utilisateur (en ajoutant des structures dans son champ d'action).
+- **Référent multi-structures** : L'utilisateur peut voir et modifier tout ce qui se trouve dans Madis pour les structures pour lesquels il est référent. Cependant, il ne peut pas créer ou modifier de nouvelles structures ni d'utilisateurs ou modifier son propre profil utilisateur (en ajoutant des structures dans son champ d'action).
 
 #### Informations facultatives
 

@@ -45,9 +45,9 @@ user:
             informations_complementaires: Informations complémentaires
         flashbag:
             success:
-                create: Collectivité "%object%" créée avec succès
-                edit: Collectivité "%object%" éditée avec succès
-                delete: Collectivité "%object%" supprimée avec succès
+                create: Structure "%object%" créée avec succès
+                edit: Structure "%object%" éditée avec succès
+                delete: Structure "%object%" supprimée avec succès
         list:
             active: Statut
             name: Nom
@@ -56,7 +56,7 @@ user:
             type: Type
             informations_complementaires: Informations complémentaires
         modal:
-            confirm_deletion: Voulez-vous vraiment supprimer cette collectivité ?
+            confirm_deletion: Voulez-vous vraiment supprimer cette Structure ?
         show:
             active: Statut
             address_line_one: Adresse
@@ -98,21 +98,21 @@ user:
             continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
           services: Services
         title:
-            create: Créer une collectivité
-            delete: Supprimer une collectivité
-            edit: Éditer une collectivité
-            label: Collectivité
+            create: Créer une Structure
+            delete: Supprimer une Structure
+            edit: Éditer une Structure
+            label: Structure
             list: Liste des organismes
-            show: Visualiser une collectivité
+            show: Visualiser une Structure
 
     profile:
         breadcrumb:
             collectivity_edit: Éditer
-            collectivity_show: Ma collectivité
+            collectivity_show: Ma Structure
             user_edit: Éditer mon profil
         flashbag:
             success:
-                collectivity_edit: Votre collectivité vient d'être mise à jour
+                collectivity_edit: Votre Structure vient d'être mise à jour
                 user_edit: Votre compte vient d'être mis à jour
         form_user:
             tab:
@@ -121,7 +121,7 @@ user:
             help:
                 password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe
         title:
-            collectivity_edit: Éditer ma collectivité
+            collectivity_edit: Éditer ma Structure
 
     security:
         forget_password:
@@ -168,8 +168,8 @@ user:
             unarchive: Rétablir "%name%"
         form:
             apiAuthorized: Accès aux Webservices (API)
-            collectivity: Collectivité
-            collectivitesReferees: Collectivités rattachées
+            collectivity: Structure
+            collectivitesReferees: Structures rattachées
             email: E-mail
             enabled: Actif
             first_name: Prénom
@@ -187,7 +187,7 @@ user:
                 delete: Utilisateur "%object%" supprimée avec succès
                 unarchive: Utilisateur "%object%" rétabli avec succès
         list:
-            collectivity: Collectivité
+            collectivity: Structure
             email: E-mail
             enabled: Actif
             first_name: Prénom
