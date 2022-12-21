@@ -171,7 +171,7 @@ class SecurityController extends AbstractController
             return $this->_handleUserNotFound();
         }
 
-        // TODO
+        // TODO login
         dd('TODO log user with ID: ' . $user->getId()->toString());
     }
 
