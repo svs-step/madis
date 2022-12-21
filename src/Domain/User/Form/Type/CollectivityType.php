@@ -83,6 +83,13 @@ class CollectivityType extends AbstractType
                     'multiple' => false,
                     'expanded' => true,
                 ])
+                ->add('otherType', TextType::class, [
+                    'label'    => 'user.collectivity.form.otherType',
+                    'required' => false,
+                    'attr'     => [
+                        'maxlength' => 255,
+                    ],
+                ])
                 ->add('siren', NumberType::class, [
                     'label'    => 'user.collectivity.form.siren',
                     'required' => true,

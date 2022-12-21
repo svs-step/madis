@@ -41,6 +41,7 @@ user:
             short_name: Nom court
             siren: SIREN
             type: Type
+            otherType: Autre type (descriptif)
             website: Site internet
             informations_complementaires: Informations complémentaires
         flashbag:
@@ -54,7 +55,6 @@ user:
             short_name: Nom court
             siren: SIREN
             type: Type
-            otherType: Autre (Description)
             informations_complementaires: Informations complémentaires
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cette Structure ?
@@ -83,7 +83,7 @@ user:
             services: Services
             siren: SIREN
             type: Type
-            other_type: Autre (Descriptif)
+            otherType: Autre type (descriptif)
             updated_at: Date de dernière modification
             website: Site internet
         tab:

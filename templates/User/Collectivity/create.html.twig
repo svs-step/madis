@@ -23,6 +23,22 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('label[for="collectivity_otherType"]').hide();
+            $('input[name="collectivity[otherType]"]').hide();
+            $("#collectivity_type").change(function(){
+                if ($('input[name="collectivity[type]"]:checked').val() === 'other'){
+                    $('label[for="collectivity_otherType"]').show();
+                    $('input[name="collectivity[otherType]"]').show();
+                }else {
+                    $('label[for="collectivity_otherType"]').hide();
+                    $('input[name="collectivity[otherType]"]').hide();
+                    $('input[name="collectivity[otherType]"]').val('');
+                }
+            });
+        });
+    </script>
 
     <script src="{{ asset('build/js/collectionManager.js') }}"></script>
 {% endblock %}
