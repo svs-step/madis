@@ -137,12 +137,17 @@ class UserType extends AbstractType
                         'data-width'       => '450px',
                     ],
                 ])
-            ;
+                ->add('ssoKey', TextType::class, [
+                    'label'    => 'user.user.form.sso_key',
+                    'required' => false,
+                    'attr'     => [
+                        'maxlength' => 255,
+                    ],
+                ]);
 
             $builder
                 ->get('roles')
-                ->addModelTransformer(new RoleTransformer())
-            ;
+                ->addModelTransformer(new RoleTransformer());
         }
 
         $formModifier = function (FormInterface $form, Collectivity $collectivity) use ($serviceDisabled, $authenticatedUser) {

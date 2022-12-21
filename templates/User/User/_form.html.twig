@@ -14,11 +14,15 @@
                 {{ form_row(form.lastName) }}
                 {{ form_row(form.email) }}
                 {{ form_row(form.collectivity) }}
-                {% for role in form.roles %}
-                    {% if role.vars.value != "ROLE_API" %}
-                        {{ form_row(form.roles) }}
-                    {% endif %}
-                {% endfor %}
+
+                {#                FIXME #}
+                {#                {% for role in form.roles %} #}
+                {#                    {% if role.vars.value != "ROLE_API" %} #}
+                {#                        {{ form_row(form.roles) }} #}
+                {#                    {% endif %} #}
+                {#                {% endfor %} #}
+                {{ form_row(form.roles) }}
+
                 {{ form_row(form.apiAuthorized) }}
                 <div id="user_collectivitesReferees_div">
                     {{ form_row(form.collectivitesReferees) }}
@@ -41,6 +45,28 @@
                 {{ form_row(form.plainPassword) }}
             </div>
         </div>
+
+        {# SSO #}
+        {% if sso_title %}
+            <div class="box box-solid box-primary">
+                <div class="box-header">{{ 'user.profile.form_user.tab.login_delegation'|trans }}</div>
+                <div class="box-body">
+                    <div class="form-group {% if form.ssoKey.vars.valid==false %}has-error{% endif %}">
+                        <label class="col-sm-2">{{ 'user.user.form.sso_key'|trans }}</label>
+                        <span class="col-sm-2"><img src="{{ asset(sso_icon) }}" alt="">{{ sso_title }}</span>
+                        <div class="col-sm-8">
+                            <div class="input-group col-sm-8">
+                                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                {{ form_widget(form.ssoKey) }}
+
+                            </div>
+                            {{ form_errors(form.ssoKey) }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        {% endif %}
 
         {% if serviceEnabled %}
             <div class="box box-solid box-success">

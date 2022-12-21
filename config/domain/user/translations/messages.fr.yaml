@@ -127,6 +127,11 @@ user:
                 login_delegation: Délégation de l'authentification
             help:
                 password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe
+            sso:
+                linked: Associé
+                link: Associer le compte
+                unlink: Dissocier le compte
+
         title:
             collectivity_edit: Éditer ma collectivité
 
@@ -191,6 +196,7 @@ user:
             password_repeat: Répéter le mot de passe
             roles: Role
             services: Services
+            sso_key: Fournisseur d'identité
         flashbag:
             success:
                 create: Utilisateur "%object%" créée avec succès
