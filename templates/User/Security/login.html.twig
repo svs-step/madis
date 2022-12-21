@@ -44,10 +44,12 @@
         </div>
 
         {% if sso_type %}
-{#            TODO style #}
-            <div class="text-center sso-login">
-                <a class="btn  btn-default btn-block btn-flat" href="{{ path('oauth_connect', {'service':sso_type}) }}">{{  'user.security.sso_login.link'|trans({'%service%': sso_title}) }}</a>
-                <br>
+            <div class="text-center" id="sso_login">
+                <span>OU</span>
+                <a class="btn  btn-default btn-block btn-flat" href="{{ path('oauth_connect', {'service':sso_type}) }}">
+                    <img src="{{ asset(sso_icon) }}" alt="">
+                    {{  'user.security.sso_login.link'|trans({'%service%': sso_title}) }}
+                </a>
             </div>
         {% endif %}
     </div>
