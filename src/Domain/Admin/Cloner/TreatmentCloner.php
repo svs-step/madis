@@ -66,6 +66,9 @@ class TreatmentCloner extends AbstractCloner
         if (null !== $referent->getConcernedPeoplePartner()) {
             $treatment->setConcernedPeoplePartner($referent->getConcernedPeoplePartner());
         }
+        if (null !== $referent->getConcernedPeopleCommuter()) {
+            $treatment->setConcernedPeopleCommuter($referent->getConcernedPeopleCommuter());
+        }
         if (null !== $referent->getConcernedPeopleOther()) {
             $treatment->setConcernedPeopleOther($referent->getConcernedPeopleOther());
         }

@@ -360,6 +360,7 @@ registry:
             concerned_people_elected: Élus
             concerned_people_particular: Particuliers
             concerned_people_partner: Partenaires
+            concerned_people_commuter: Usagers
             concerned_people_other: Autres
             concerned_people_user: Internautes
             contractors: Sous-traitants
@@ -445,6 +446,7 @@ registry:
             concerned_people_elected: Élus
             concerned_people_particular: Particuliers
             concerned_people_partner: Partenaires
+            concerned_people_commuter: Usagers
             concerned_people_other: Autres
             concerned_people_user: Internautes
             conformite_traitement: Conformité du traitement

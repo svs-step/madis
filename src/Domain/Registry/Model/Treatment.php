@@ -334,6 +334,13 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $concernedPeoplePartner;
 
     /**
+     * FR: Usagers
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleCommuter;
+
+    /**
      * FR: Autres (Personnes concernées).
      *
      * @var ComplexChoice
@@ -405,7 +412,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
     /**
      *  Mentions légales apposées
      *
-     * @var bool
+     * @var bool|null
      */
     private $legalMentions;
 
@@ -1127,5 +1134,15 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function setConsentRequestFormat(?string $consentRequestFormat): void
     {
         $this->consentRequestFormat = $consentRequestFormat;
+    }
+
+    public function getConcernedPeopleCommuter(): ComplexChoice
+    {
+        return $this->concernedPeopleCommuter;
+    }
+
+    public function setConcernedPeopleCommuter(ComplexChoice $concernedPeopleCommuter): void
+    {
+        $this->concernedPeopleCommuter = $concernedPeopleCommuter;
     }
 }

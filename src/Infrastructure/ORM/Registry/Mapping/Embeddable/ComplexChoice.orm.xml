@@ -8,7 +8,7 @@
     <embeddable name="App\Domain\Registry\Model\Embeddable\ComplexChoice">
 
         <field name="check" column="check" type="boolean"/>
-        <field name="comment" column="comment" nullable="true"/>
+        <field name="comment" column="comment"/>
 
     </embeddable>
 
