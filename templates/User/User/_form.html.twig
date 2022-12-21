@@ -15,7 +15,7 @@
                 {{ form_row(form.email) }}
                 {{ form_row(form.collectivity) }}
 
-                {#                FIXME #}
+                {#                FIXME fail when form_row(form.roles) is called twice #}
                 {#                {% for role in form.roles %} #}
                 {#                    {% if role.vars.value != "ROLE_API" %} #}
                 {#                        {{ form_row(form.roles) }} #}

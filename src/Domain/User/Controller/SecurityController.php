@@ -39,6 +39,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -126,7 +128,7 @@ class SecurityController extends AbstractController
         return $client->redirect([], []);
     }
 
-    public function oauthCheckAction(Request $request, ClientRegistry $clientRegistry)
+    public function oauthCheckAction(Request $request, ClientRegistry $clientRegistry, TokenStorageInterface $tokenStorage)
     {
         $oauthServiceName = $request->get('service');
 
@@ -165,14 +167,16 @@ class SecurityController extends AbstractController
             return $this->helper->redirectToRoute('user_profile_user_edit');
         }
 
-        // log user
         $user = $this->userRepository->findOneOrNullBySsoKey($sso_value);
         if (!$user) {
             return $this->_handleUserNotFound();
         }
 
-        // TODO login
-        dd('TODO log user with ID: ' . $user->getId()->toString());
+        // Login Programmatically
+        $token = new UsernamePasswordToken($user, $user->getPassword(), 'public', $user->getRoles());
+        $tokenStorage->setToken($token);
+
+        return $this->helper->redirectToRoute('reporting_dashboard_index');
     }
 
     /**
