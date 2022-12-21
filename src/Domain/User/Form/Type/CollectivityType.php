@@ -130,6 +130,13 @@ class CollectivityType extends AbstractType
                     'label'    => 'user.collectivity.form.informations_complementaires',
                     'required' => false,
                 ])
+                ->add('finessGeo', TextType::class, [
+                    'label'    => 'user.collectivity.form.finess_geo',
+                    'required' => false,
+                    'attr'     => [
+                        'maxlength' => 255,
+                    ],
+                ])
                 ->add('services', CollectionType::class, [
                     'label'        => false,
                     'entry_type'   => ServiceType::class,

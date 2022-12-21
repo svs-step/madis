@@ -177,6 +177,11 @@ class Collectivity implements LoggableSubject
     private $otherType;
 
     /**
+     * @var string|null
+     */
+    private $finessGeo;
+
+    /**
      * Collectivity constructor.
      *
      * @throws \Exception
@@ -514,5 +519,15 @@ class Collectivity implements LoggableSubject
     public function setOtherType(?string $otherType): void
     {
         $this->otherType = $otherType;
+    }
+
+    public function getFinessGeo(): ?string
+    {
+        return $this->finessGeo;
+    }
+
+    public function setFinessGeo(?string $finessGeo): void
+    {
+        $this->finessGeo = $finessGeo;
     }
 }

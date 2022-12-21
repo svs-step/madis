@@ -44,6 +44,7 @@ user:
             otherType: Autre type (descriptif)
             website: Site internet
             informations_complementaires: Informations complémentaires
+            finess_geo: FINESS Géo.
         flashbag:
             success:
                 create: Structure "%object%" créée avec succès
@@ -86,6 +87,7 @@ user:
             otherType: Autre type (descriptif)
             updated_at: Date de dernière modification
             website: Site internet
+            finess_geo: FINESS Géo.
         tab:
           address: Adresse
           comite_il: Composition du comité Informatique et Libertés

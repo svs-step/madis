@@ -32,6 +32,7 @@
             </options>
         </field>
         <field name="informationsComplementaires" type="text" nullable="true"/>
+        <field name="finessGeo" type="text" nullable="true"/>
 
         <embedded name="address" class="App\Domain\User\Model\Embeddable\Address" column-prefix="address_"/>
         <embedded name="legalManager" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="legal_manager_"/>
