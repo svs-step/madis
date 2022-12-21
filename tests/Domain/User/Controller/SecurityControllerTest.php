@@ -25,16 +25,19 @@ declare(strict_types=1);
 namespace App\Tests\Domain\User\Controller;
 
 use App\Application\Controller\ControllerHelper;
+use App\Application\Symfony\Security\UserProvider;
 use App\Domain\User\Component\Mailer;
 use App\Domain\User\Component\TokenGenerator;
 use App\Domain\User\Controller\SecurityController;
 use App\Domain\User\Form\Type\ResetPasswordType;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -83,13 +86,19 @@ class SecurityControllerTest extends TestCase
         $this->tokenGeneratorProphecy      = $this->prophesize(TokenGenerator::class);
         $this->userRepositoryProphecy      = $this->prophesize(Repository\User::class);
         $this->mailerProphecy              = $this->prophesize(Mailer::class);
+        $this->userProviderProphecy        = $this->prophesize(UserProvider::class);
+        $this->entityManagerProphecy       = $this->prophesize(EntityManagerInterface::class);
 
         $this->controller = new SecurityController(
             $this->helperProphecy->reveal(),
             $this->authenticationUtilsProphecy->reveal(),
             $this->tokenGeneratorProphecy->reveal(),
             $this->userRepositoryProphecy->reveal(),
-            $this->mailerProphecy->reveal()
+            $this->mailerProphecy->reveal(),
+            $this->userProviderProphecy->reveal(),
+            $this->entityManagerProphecy->reveal(),
+            null,
+            null
         );
     }
 
@@ -115,6 +124,7 @@ class SecurityControllerTest extends TestCase
                 [
                     'last_username' => $lastUsername,
                     'error'         => $error,
+                    'sso_type'      => null
                 ]
             )
             ->shouldBeCalled()

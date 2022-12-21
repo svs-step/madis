@@ -74,6 +74,9 @@ class SecurityController extends AbstractController
 
     private EntityManagerInterface $entityManager;
 
+    private ?string $sso_type;
+    private ?string $sso_key_field;
+
     public function __construct(
         ControllerHelper $helper,
         AuthenticationUtils $authenticationUtils,
@@ -82,6 +85,8 @@ class SecurityController extends AbstractController
         Mailer $mailer,
         UserProvider $userProvider,
         EntityManagerInterface $entityManager,
+        ?string $sso_type,
+        ?string $sso_key_field
     ) {
         $this->helper              = $helper;
         $this->authenticationUtils = $authenticationUtils;
@@ -90,6 +95,8 @@ class SecurityController extends AbstractController
         $this->mailer              = $mailer;
         $this->userProvider        = $userProvider;
         $this->entityManager       = $entityManager;
+        $this->sso_type            = $sso_type;
+        $this->sso_key_field       = $sso_key_field;
     }
 
     /**
@@ -107,7 +114,7 @@ class SecurityController extends AbstractController
         return $this->helper->render('User/Security/login.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
-            'sso_type'      => $this->getParameter('SSO_TYPE'),
+            'sso_type'      => $this->sso_type,
         ]);
     }
 
@@ -141,7 +148,7 @@ class SecurityController extends AbstractController
             return $this->_handleSsoClientError();
         }
 
-        $sso_key_field = $this->getParameter('SSO_KEY_FIELD');
+        $sso_key_field = $this->sso_key_field;
         try {
             $sso_value = $userOAuthData[$sso_key_field];
         } catch (\Exception) {

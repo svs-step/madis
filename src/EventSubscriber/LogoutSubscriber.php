@@ -2,7 +2,6 @@
 
 namespace App\EventSubscriber;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -11,14 +10,14 @@ use Symfony\Component\Security\Http\Event\LogoutEvent;
 class LogoutSubscriber implements EventSubscriberInterface
 {
     private UrlGeneratorInterface $router;
-    private ContainerInterface $container;
+    private ?string $logoutUrl;
 
     public function __construct(
-        ContainerInterface $container,
-        UrlGeneratorInterface $router
+        UrlGeneratorInterface $router,
+        ?string $logoutUrl,
     ) {
-        $this->container = $container;
         $this->router    = $router;
+        $this->logoutUrl = $logoutUrl;
     }
 
     public static function getSubscribedEvents(): array
@@ -29,12 +28,10 @@ class LogoutSubscriber implements EventSubscriberInterface
     public function onLogout(LogoutEvent $event): void
     {
         // Logout from sso service
-        $logoutUrl = $this->container->getParameter('SSO_LOGOUT_URL');
-
-        if ($logoutUrl) {
+        if ($this->logoutUrl) {
             $redirectUrl = $this->router->generate('login', [], UrlGeneratorInterface::ABSOLUTE_URL);
-            $logoutUrl .= '?redirect_uri=' . $redirectUrl;
-            $response = new RedirectResponse($logoutUrl);
+            $url         = $this->logoutUrl . '?redirect_uri=' . $redirectUrl;
+            $response    = new RedirectResponse($url);
             $event->setResponse($response);
         }
     }

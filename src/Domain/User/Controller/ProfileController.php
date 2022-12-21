@@ -67,6 +67,7 @@ class ProfileController extends AbstractController
      * @var Repository\User
      */
     private $userRepository;
+    private ?string $sso_type;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -74,7 +75,8 @@ class ProfileController extends AbstractController
         RequestStack $requestStack,
         UserProvider $userProvider,
         Repository\Collectivity $collectivityRepository,
-        Repository\User $userRepository
+        Repository\User $userRepository,
+        ?string $sso_type
     ) {
         $this->entityManager          = $entityManager;
         $this->helper                 = $helper;
@@ -82,6 +84,7 @@ class ProfileController extends AbstractController
         $this->userProvider           = $userProvider;
         $this->collectivityRepository = $collectivityRepository;
         $this->userRepository         = $userRepository;
+        $this->sso_type               = $sso_type;
     }
 
     /**
@@ -180,7 +183,7 @@ class ProfileController extends AbstractController
             'form'           => $form->createView(),
             'roles'          => $object->getRoles(),
             'services'       => $services,
-            'sso_type'       => $this->getParameter('SSO_TYPE'),
+            'sso_type'       => $this->sso_type,
             'sso_associated' => null !== $object->getSsoKey(),
         ]);
     }

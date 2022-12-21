@@ -91,7 +91,8 @@ class ProfileControllerTest extends TestCase
             $this->requestStackProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
             $this->collectivityRepositoryProphecy->reveal(),
-            $this->userRepositoryProphecy->reveal()
+            $this->userRepositoryProphecy->reveal(),
+            null
         );
     }
 
