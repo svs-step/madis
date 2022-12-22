@@ -45,6 +45,9 @@ user:
             website: Site internet
             informations_complementaires: Informations complémentaires
             finess_geo: FINESS Géo.
+            population: Population
+            nbr_agents: Nombre d'agents
+            nbr_cnil: Numéro de désignation CNIL
         flashbag:
             success:
                 create: Structure "%object%" créée avec succès
@@ -88,6 +91,9 @@ user:
             updated_at: Date de dernière modification
             website: Site internet
             finess_geo: FINESS Géo.
+            population: Population
+            nbr_agents: Nombre d'agents
+            nbr_cnil: Numéro de désignation CNIL
         tab:
           address: Adresse
           comite_il: Composition du comité Informatique et Libertés

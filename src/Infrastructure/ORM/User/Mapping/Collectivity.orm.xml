@@ -33,6 +33,9 @@
         </field>
         <field name="informationsComplementaires" type="text" nullable="true"/>
         <field name="finessGeo" type="text" nullable="true"/>
+        <field name="population" column="population" nullable="true" type="integer"/>
+        <field name="nbrAgents" column="nbr_agents" nullable="true" type="integer"/>
+        <field name="nbrCnil" column="nbr_cnil" nullable="true" type="integer"/>
 
         <embedded name="address" class="App\Domain\User\Model\Embeddable\Address" column-prefix="address_"/>
         <embedded name="legalManager" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="legal_manager_"/>

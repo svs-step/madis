@@ -27,6 +27,8 @@ namespace App\Domain\User\Form\Type;
 use App\Domain\User\Model\Collectivity;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use phpDocumentor\Reflection\Types\Integer;
+use PHPStan\Type\IntegerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -136,6 +138,18 @@ class CollectivityType extends AbstractType
                     'attr'     => [
                         'maxlength' => 255,
                     ],
+                ])
+                ->add('population', NumberType::class, [
+                    'label'    => 'user.collectivity.form.population',
+                    'required' => false,
+                ])
+                ->add('nbrAgents', NumberType::class, [
+                    'label'    => 'user.collectivity.form.nbr_agents',
+                    'required' => false,
+                ])
+                ->add('nbrCnil', NumberType::class, [
+                    'label'    => 'user.collectivity.form.nbr_cnil',
+                    'required' => false,
                 ])
                 ->add('services', CollectionType::class, [
                     'label'        => false,

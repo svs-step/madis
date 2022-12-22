@@ -31,6 +31,7 @@ use App\Domain\User\Model\Embeddable\Address;
 use App\Domain\User\Model\Embeddable\Contact;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use phpDocumentor\Reflection\Types\Integer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -180,6 +181,19 @@ class Collectivity implements LoggableSubject
      * @var string|null
      */
     private $finessGeo;
+
+    /**
+     * @var int|null
+     */
+    private $population;
+    /**
+     * @var int|null
+     */
+    private $nbrAgents;
+    /**
+     * @var int|null
+     */
+    private $nbrCnil;
 
     /**
      * Collectivity constructor.
@@ -529,5 +543,35 @@ class Collectivity implements LoggableSubject
     public function setFinessGeo(?string $finessGeo): void
     {
         $this->finessGeo = $finessGeo;
+    }
+
+    public function getNbrAgents(): ?int
+    {
+        return $this->nbrAgents;
+    }
+
+    public function setNbrAgents(?int $nbrAgents): void
+    {
+        $this->nbrAgents = $nbrAgents;
+    }
+
+    public function getNbrCnil(): ?int
+    {
+        return $this->nbrCnil;
+    }
+
+    public function setNbrCnil(?int $nbrCnil): void
+    {
+        $this->nbrCnil = $nbrCnil;
+    }
+
+    public function getPopulation(): ?int
+    {
+        return $this->population;
+    }
+
+    public function setPopulation(?int $population): void
+    {
+        $this->population = $population;
     }
 }
