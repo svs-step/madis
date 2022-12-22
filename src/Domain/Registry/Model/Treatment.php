@@ -1136,7 +1136,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->consentRequestFormat = $consentRequestFormat;
     }
 
-    public function getConcernedPeopleCommuter(): ComplexChoice
+    public function getConcernedPeopleCommuter(): ComplexChoice|null
     {
         return $this->concernedPeopleCommuter;
     }
