@@ -4,14 +4,26 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Domain\Notification;
 
+use ApiPlatform\Core\Bridge\RamseyUuid\Identifier\Normalizer\UuidNormalizer;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Documentation\Repository\Document;
 use App\Infrastructure\ORM\Notification\Repository\Notification;
 use App\Infrastructure\ORM\Registry\Repository\Treatment;
+
+use Doctrine\Common\Annotations\AnnotationReader;
 use Hautelook\AliceBundle\PhpUnit\RecreateDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\YamlFileLoader;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\UidNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Validator\Mapping\Loader\AnnotationLoader;
 
 class NotificationGenerationTest extends WebTestCase
 {
@@ -132,10 +144,77 @@ class NotificationGenerationTest extends WebTestCase
             'action' => 'notification.actions.create',
         ]);
 
+        $this->assertNotNull($notif);
         // Check that the notification was created and is not linked to any users (only for DPO)
         $this->assertEquals($t->getCollectivity(), $notif->getCollectivity());
         $this->assertEquals('nouveau traitement', $notif->getName());
         $this->assertCount(0, $notif->getNotificationUsers());
-        
+
+    }
+
+
+    public function testGenerateNotificationForUpdatedTreatment()
+    {
+        $client = static::createClient();
+        self::populateDatabase();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser       = $userRepository->findOneOrNullByEmail('admin@awkan.fr');
+        $client->loginUser($testUser);
+        $treatmentRepository = static::getContainer()->get(Treatment::class);
+        $t = $treatmentRepository->findOneOrNullLastUpdateByCollectivity($testUser->getCollectivity());
+
+        $url = $client->getContainer()->get('router')->generate('registry_treatment_edit', ['id' => $t->getId()->__toString()], UrlGeneratorInterface::RELATIVE_PATH);
+
+        $csrfToken = $client->getContainer()->get('security.csrf.token_manager')->getToken('treatment');
+
+
+        $classMetadataFactory = new ClassMetadataFactory(new YamlFileLoader(self::$kernel->getProjectDir().'/config/api_platform/serialization/treatment.yaml'));
+        $normalizer = new ObjectNormalizer($classMetadataFactory);
+        $normalizer2 = new GetSetMethodNormalizer($classMetadataFactory);
+        $serializer = new Serializer([$normalizer2, $normalizer], ['json' => new JsonEncoder()]);
+
+
+        $at = $serializer->normalize($t, null, ['groups' => 'treatment_read']);
+
+        $at['name'] = 'updated treatment';
+        $at['concernedPeoplePartner'] = [
+            'check' => '1',
+            'comment' => 'ttt',
+        ];
+        $at['_token'] = $csrfToken;
+        $at['author'] = 'processing_manager';
+        $at['active'] = $at['active'] ? '1' : '0';
+        unset($at['completion']);
+        unset($at['collectivity']);
+        unset($at['template']);
+        unset($at['templateIdentifier']);
+        unset($at['clonedFrom']);
+        unset($at['conformiteTraitement']);
+        unset($at['collectingMethod']);
+        unset($at['contractors']);
+        unset($at['dataCategories']);
+
+        $client->request('POST', $url, [
+            'treatment' => $at
+        ]);
+
+        $this->assertResponseRedirects('/traitements/liste');
+
+        $t = $treatmentRepository->findOneById($t->getId()->__toString());
+        $this->assertEquals('updated treatment', $t->getName());
+
+        $notifRepository = static::getContainer()->get(Notification::class);
+        $notif = $notifRepository->findOneBy([
+            'name' => 'updated treatment',
+            'module' => 'notification.modules.treatment',
+            'action' => 'notification.actions.update',
+        ]);
+
+        $this->assertNotNull($notif);
+        // Check that the notification was created and is not linked to any users (only for DPO)
+        $this->assertEquals($t->getCollectivity(), $notif->getCollectivity());
+        $this->assertEquals('updated treatment', $notif->getName());
+        $this->assertCount(0, $notif->getNotificationUsers());
+
     }
 }
