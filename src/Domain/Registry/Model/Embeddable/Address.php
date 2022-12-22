@@ -56,6 +56,11 @@ class Address
      */
     private $phoneNumber;
 
+    /**
+     * @return string|null
+     */
+    private $country;
+
     public function getLineOne(): ?string
     {
         return $this->lineOne;
@@ -114,5 +119,15 @@ class Address
     public function setPhoneNumber(?string $phoneNumber): void
     {
         $this->phoneNumber = $phoneNumber;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): void
+    {
+        $this->country = $country;
     }
 }

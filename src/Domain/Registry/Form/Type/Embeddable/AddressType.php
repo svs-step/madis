@@ -79,7 +79,14 @@ class AddressType extends AbstractType
             ->add('phoneNumber', TextType::class, [
                 'label'    => 'registry.address.form.phone_number',
                 'required' => $required,
-            ]);
+            ])
+            ->add('country', TextType::class, [
+            'label'    => 'registry.address.form.country',
+            'required' => $required,
+            'attr'     => [
+                'maxlength' => 255,
+            ]
+        ]);
     }
 
     /**
