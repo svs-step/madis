@@ -34,6 +34,7 @@ class RequestObjectDictionary extends SimpleDictionary
     public const OBJECT_ACCESS           = 'access';
     public const OBJECT_DATA_PORTABILITY = 'data_portability';
     public const OBJECT_LIMIT_TREATMENT  = 'limit_treatment';
+    public const OBJECT_OPPOSITE_TREATMENT  = 'opposite_treatment';
     public const OBJECT_OTHER            = 'other';
 
     public function __construct()
@@ -55,6 +56,7 @@ class RequestObjectDictionary extends SimpleDictionary
             self::OBJECT_ACCESS           => 'Accéder à des données',
             self::OBJECT_DATA_PORTABILITY => 'Portabilité des données',
             self::OBJECT_LIMIT_TREATMENT  => 'Limiter le traitement',
+            self::OBJECT_OPPOSITE_TREATMENT  => "S'opposer au traitement",
             self::OBJECT_OTHER            => 'Autre',
         ];
     }

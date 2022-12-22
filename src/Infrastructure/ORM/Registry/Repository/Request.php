@@ -402,7 +402,8 @@ class Request implements Repository\Request
                 WHEN o.object = \'' . RequestObjectDictionary::OBJECT_CORRECT . '\' THEN 5
                 WHEN o.object = \'' . RequestObjectDictionary::OBJECT_WITHDRAW_CONSENT . '\' THEN 6
                 WHEN o.object = \'' . RequestObjectDictionary::OBJECT_DELETE . '\' THEN 7
-                ELSE 8 END) AS HIDDEN hidden_object')
+                WHEN o.object = \'' . RequestObjectDictionary::OBJECT_OPPOSITE_TREATMENT . '\' THEN 8
+                ELSE 9 END) AS HIDDEN hidden_object')
                     ->addOrderBy('hidden_object', $orderDir);
                 break;
             case 'demande_complete':
