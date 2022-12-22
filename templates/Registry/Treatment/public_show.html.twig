@@ -559,6 +559,21 @@
                                     </td>
                                 </tr>
                             {% endif %}
+                            {% if (object.concernedPeopleCommuter and config.concernedPeopleCommuter == true) %}
+                                <tr>
+                                    <td class="concerned-people-type">
+                                        <strong>{{ 'registry.treatment.show.concerned_people_commuter'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.concernedPeopleCommuter.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.concernedPeopleCommuter.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
                             {% if (object.concernedPeopleOther and config.concernedPeopleOther == true) %}
                                 <tr>
                                     <td class="concerned-people-type">
