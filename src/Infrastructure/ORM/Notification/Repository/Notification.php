@@ -95,4 +95,15 @@ class Notification extends CRUDRepository implements Repository\Notification
     {
         $this->getManager()->persist($object);
     }
+
+    public function findOneBy(array $criteria) {
+        $notifs = $this->registry
+            ->getManager()
+            ->getRepository($this->getModelClass())
+            ->findBy($criteria)
+        ;
+        if (count($notifs) > 0) {
+            return $notifs[0];
+        }
+    }
 }

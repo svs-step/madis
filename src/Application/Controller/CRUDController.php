@@ -219,6 +219,7 @@ abstract class CRUDController extends AbstractController
         $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'create']]);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->formPrePersistData($object);
             $em = $this->getDoctrine()->getManager();
@@ -230,6 +231,8 @@ abstract class CRUDController extends AbstractController
 
             return $this->redirectToRoute($this->getRouteName('list'));
         }
+
+
 
         return $this->render($this->getTemplatingBasePath('create'), [
             'form'           => $form->createView(),

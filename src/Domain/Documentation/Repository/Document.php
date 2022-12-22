@@ -29,4 +29,5 @@ use App\Application\DDD\Repository\CRUDRepositoryInterface;
 interface Document extends CRUDRepositoryInterface
 {
     public function findOneByName(string $name);
+    public function findOneBy(array $criteria);
 }
