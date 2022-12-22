@@ -16,6 +16,7 @@ registry:
             mail: Email
             phone_number: Téléphone
             zip_code: Code postal
+            country: Pays
 
     contractor:
         action:
