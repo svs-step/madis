@@ -7,6 +7,7 @@ namespace App\Tests\Functional\Domain\Notification;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Documentation\Repository\Document;
 use App\Infrastructure\ORM\Notification\Repository\Notification;
+use App\Infrastructure\ORM\Registry\Repository\Treatment;
 use Hautelook\AliceBundle\PhpUnit\RecreateDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -82,7 +83,59 @@ class NotificationGenerationTest extends WebTestCase
         $this->assertEquals('Document', $notif->getName());
 
         $nonDpoUsers = $userRepository->findNonDpoUsers();
-        
+
         $this->assertEquals(count($nonDpoUsers), count($notif->getNotificationUsers()));
+
+        //TODO test that an email gets sent to the "référent opérationnel"
+
+    }
+
+    public function testGenerateNotificationForNewTreatment()
+    {
+        $client = static::createClient();
+        self::populateDatabase();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser       = $userRepository->findOneOrNullByEmail('admin@awkan.fr');
+        $client->loginUser($testUser);
+        $url = $client->getContainer()->get('router')->generate('registry_treatment_create', [], UrlGeneratorInterface::RELATIVE_PATH);
+
+        $csrfToken = $client->getContainer()->get('security.csrf.token_manager')->getToken('treatment');
+        $client->request('POST', $url, [
+            'treatment' => [
+                'name' => 'nouveau traitement',
+                'author' => 'processing_manager',
+                'active' => '1',
+                'legalBasis' => 'consent',
+                'concernedPeopleParticular' => [
+                    'check' => '1',
+                    'comment' => 'comment',
+                ],
+                'delay' => [
+                    'period' => 'day',
+                    'number' => '1',
+                ],
+                '_token' => $csrfToken,
+                //'uploadedFile' => $uploadedFile,
+            ]
+        ]);
+
+        $this->assertResponseRedirects('/traitements/liste');
+
+        $treatmentRepository = static::getContainer()->get(Treatment::class);
+        $t = $treatmentRepository->findOneOrNullLastUpdateByCollectivity($testUser->getCollectivity());
+
+        $this->assertEquals('nouveau traitement', $t->getName());
+        $notifRepository = static::getContainer()->get(Notification::class);
+        $notif = $notifRepository->findOneBy([
+            'name' => 'nouveau traitement',
+            'module' => 'notification.modules.treatment',
+            'action' => 'notification.actions.create',
+        ]);
+
+        // Check that the notification was created and is not linked to any users (only for DPO)
+        $this->assertEquals($t->getCollectivity(), $notif->getCollectivity());
+        $this->assertEquals('nouveau traitement', $notif->getName());
+        $this->assertCount(0, $notif->getNotificationUsers());
+        
     }
 }

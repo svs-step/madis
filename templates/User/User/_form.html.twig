@@ -1,5 +1,9 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
-
+<style>
+    .radio {
+        padding-left: 2em;
+    }
+</style>
 <div class="row">
     {{ form_start(form) }}
     {{ form_row(form._token) }}
@@ -15,11 +19,8 @@
                 {{ form_row(form.lastName) }}
                 {{ form_row(form.email) }}
                 {{ form_row(form.collectivity) }}
-                {% for role in form.roles %}
-                    {% if role.vars.value != "ROLE_API" %}
-                        {{ form_row(form.roles) }}
-                    {% endif %}
-                {% endfor %}
+                {{ form_row(form.roles) }}
+
                 {{ form_row(form.apiAuthorized) }}
                 <div id="user_collectivitesReferees_div">
                     {{ form_row(form.collectivitesReferees) }}
