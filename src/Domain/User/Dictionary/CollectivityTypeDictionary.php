@@ -34,6 +34,10 @@ class CollectivityTypeDictionary extends SimpleDictionary
     public const TYPE_DEPARTMENTAL_UNION = 'departmental_union';
     public const TYPE_MEDICAL_INSTITUTION = 'medical_institution';
     public const TYPE_SANITARY_INSTITUTION = 'sanitary_institution';
+
+    public const TYPE_MODEL = 'model';
+
+    public const TYPE_ENTERPRISE = 'enterprise';
     public const TYPE_OTHER              = 'other';
 
     public function __construct()
@@ -55,6 +59,8 @@ class CollectivityTypeDictionary extends SimpleDictionary
             self::TYPE_DEPARTMENTAL_UNION => 'Syndicat départemental',
             self::TYPE_MEDICAL_INSTITUTION     => 'Établissement médico-social',
             self::TYPE_SANITARY_INSTITUTION    => 'Établissement sanitaire',
+            self::TYPE_ENTERPRISE         => 'Entreprise',
+            self::TYPE_MODEL              => 'Modèle ou exemple',
             self::TYPE_OTHER              => 'Autre',
         ];
     }

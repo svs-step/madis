@@ -169,7 +169,9 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
                 WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_EPCI . '\' THEN 5
                 WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_DEPARTMENTAL_UNION . '\' THEN 6
                 WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_SANITARY_INSTITUTION . '\' THEN 7
-                ELSE 8 END) AS HIDDEN hidden_type')
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_ENTERPRISE . '\' THEN 8
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_MODEL . '\' THEN 9
+                ELSE 10 END) AS HIDDEN hidden_type')
                     ->addOrderBy('hidden_type', $orderDir);
                 break;
             case 'siren':
