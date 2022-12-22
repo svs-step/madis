@@ -721,7 +721,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
     {
         return $this->active;
     }
-    
+
     public function setActive(bool $active): void
     {
         $this->active = $active;

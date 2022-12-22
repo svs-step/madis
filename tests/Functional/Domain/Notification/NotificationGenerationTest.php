@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Domain\Notification;
 
-use ApiPlatform\Core\Bridge\RamseyUuid\Identifier\Normalizer\UuidNormalizer;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Documentation\Repository\Document;
 use App\Infrastructure\ORM\Notification\Repository\Notification;
 use App\Infrastructure\ORM\Registry\Repository\Treatment;
-
-use Doctrine\Common\Annotations\AnnotationReader;
 use Hautelook\AliceBundle\PhpUnit\RecreateDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -19,11 +16,8 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\YamlFileLoader;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Normalizer\UidNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Validator\Mapping\Loader\AnnotationLoader;
 
 class NotificationGenerationTest extends WebTestCase
 {
@@ -46,7 +40,6 @@ class NotificationGenerationTest extends WebTestCase
 
     public function testGenerateNotificationForNewDocument()
     {
-
         $client = static::createClient();
         self::populateDatabase();
         $userRepository = static::getContainer()->get(UserRepository::class);
@@ -55,29 +48,28 @@ class NotificationGenerationTest extends WebTestCase
         $url = $client->getContainer()->get('router')->generate('documentation_document_create', [], UrlGeneratorInterface::RELATIVE_PATH);
 
         $uploadedFile = new UploadedFile(
-            __DIR__.'/doc.pdf',
+            __DIR__ . '/doc.pdf',
             'doc.pdf'
         );
 
         $csrfToken = $client->getContainer()->get('security.csrf.token_manager')->getToken('document');
         $client->request('POST', $url, [
             'document' => [
-                'name' => 'Document',
+                'name'   => 'Document',
                 'isLink' => '0',
                 '_token' => $csrfToken,
-                //'uploadedFile' => $uploadedFile,
-
-            ]
+                // 'uploadedFile' => $uploadedFile,
+            ],
         ], [
             'document' => [
                 'uploadedFile' => $uploadedFile,
-            ]
+            ],
         ]);
 
         $this->assertResponseRedirects('/espace-documentaire/');
 
         $docRepository = static::getContainer()->get(Document::class);
-        $doc = $docRepository->findOneBy(['name' => 'Document']);
+        $doc           = $docRepository->findOneBy(['name' => 'Document']);
 
         $this->assertNotNull($doc);
 
@@ -85,8 +77,8 @@ class NotificationGenerationTest extends WebTestCase
 
         // Check that a notification has been created for collectivity users
         $notifRepository = static::getContainer()->get(Notification::class);
-        $notif = $notifRepository->findOneBy([
-            'name' => 'Document',
+        $notif           = $notifRepository->findOneBy([
+            'name'   => 'Document',
             'module' => 'notification.modules.document',
             'action' => 'notification.actions.create',
         ]);
@@ -98,8 +90,7 @@ class NotificationGenerationTest extends WebTestCase
 
         $this->assertEquals(count($nonDpoUsers), count($notif->getNotificationUsers()));
 
-        //TODO test that an email gets sent to the "référent opérationnel"
-
+        // TODO test that an email gets sent to the "référent opérationnel"
     }
 
     public function testGenerateNotificationForNewTreatment()
@@ -114,32 +105,32 @@ class NotificationGenerationTest extends WebTestCase
         $csrfToken = $client->getContainer()->get('security.csrf.token_manager')->getToken('treatment');
         $client->request('POST', $url, [
             'treatment' => [
-                'name' => 'nouveau traitement',
-                'author' => 'processing_manager',
-                'active' => '1',
-                'legalBasis' => 'consent',
+                'name'                      => 'nouveau traitement',
+                'author'                    => 'processing_manager',
+                'active'                    => '1',
+                'legalBasis'                => 'consent',
                 'concernedPeopleParticular' => [
-                    'check' => '1',
+                    'check'   => '1',
                     'comment' => 'comment',
                 ],
-                'delay' => [
+                'delay'                     => [
                     'period' => 'day',
                     'number' => '1',
                 ],
-                '_token' => $csrfToken,
-                //'uploadedFile' => $uploadedFile,
-            ]
+                '_token'                    => $csrfToken,
+                // 'uploadedFile' => $uploadedFile,
+            ],
         ]);
 
         $this->assertResponseRedirects('/traitements/liste');
 
         $treatmentRepository = static::getContainer()->get(Treatment::class);
-        $t = $treatmentRepository->findOneOrNullLastUpdateByCollectivity($testUser->getCollectivity());
+        $t                   = $treatmentRepository->findOneOrNullLastUpdateByCollectivity($testUser->getCollectivity());
 
         $this->assertEquals('nouveau traitement', $t->getName());
         $notifRepository = static::getContainer()->get(Notification::class);
-        $notif = $notifRepository->findOneBy([
-            'name' => 'nouveau traitement',
+        $notif           = $notifRepository->findOneBy([
+            'name'   => 'nouveau traitement',
             'module' => 'notification.modules.treatment',
             'action' => 'notification.actions.create',
         ]);
@@ -149,9 +140,7 @@ class NotificationGenerationTest extends WebTestCase
         $this->assertEquals($t->getCollectivity(), $notif->getCollectivity());
         $this->assertEquals('nouveau traitement', $notif->getName());
         $this->assertCount(0, $notif->getNotificationUsers());
-
     }
-
 
     public function testGenerateNotificationForUpdatedTreatment()
     {
@@ -161,24 +150,22 @@ class NotificationGenerationTest extends WebTestCase
         $testUser       = $userRepository->findOneOrNullByEmail('admin@awkan.fr');
         $client->loginUser($testUser);
         $treatmentRepository = static::getContainer()->get(Treatment::class);
-        $t = $treatmentRepository->findOneOrNullLastUpdateByCollectivity($testUser->getCollectivity());
+        $t                   = $treatmentRepository->findOneOrNullLastUpdateByCollectivity($testUser->getCollectivity());
 
         $url = $client->getContainer()->get('router')->generate('registry_treatment_edit', ['id' => $t->getId()->__toString()], UrlGeneratorInterface::RELATIVE_PATH);
 
         $csrfToken = $client->getContainer()->get('security.csrf.token_manager')->getToken('treatment');
 
-
-        $classMetadataFactory = new ClassMetadataFactory(new YamlFileLoader(self::$kernel->getProjectDir().'/config/api_platform/serialization/treatment.yaml'));
-        $normalizer = new ObjectNormalizer($classMetadataFactory);
-        $normalizer2 = new GetSetMethodNormalizer($classMetadataFactory);
-        $serializer = new Serializer([$normalizer2, $normalizer], ['json' => new JsonEncoder()]);
-
+        $classMetadataFactory = new ClassMetadataFactory(new YamlFileLoader(self::$kernel->getProjectDir() . '/config/api_platform/serialization/treatment.yaml'));
+        $normalizer           = new ObjectNormalizer($classMetadataFactory);
+        $normalizer2          = new GetSetMethodNormalizer($classMetadataFactory);
+        $serializer           = new Serializer([$normalizer2, $normalizer], ['json' => new JsonEncoder()]);
 
         $at = $serializer->normalize($t, null, ['groups' => 'treatment_read']);
 
-        $at['name'] = 'updated treatment';
+        $at['name']                   = 'updated treatment';
         $at['concernedPeoplePartner'] = [
-            'check' => '1',
+            'check'   => '1',
             'comment' => 'ttt',
         ];
         $at['_token'] = $csrfToken;
@@ -195,7 +182,7 @@ class NotificationGenerationTest extends WebTestCase
         unset($at['dataCategories']);
 
         $client->request('POST', $url, [
-            'treatment' => $at
+            'treatment' => $at,
         ]);
 
         $this->assertResponseRedirects('/traitements/liste');
@@ -204,8 +191,8 @@ class NotificationGenerationTest extends WebTestCase
         $this->assertEquals('updated treatment', $t->getName());
 
         $notifRepository = static::getContainer()->get(Notification::class);
-        $notif = $notifRepository->findOneBy([
-            'name' => 'updated treatment',
+        $notif           = $notifRepository->findOneBy([
+            'name'   => 'updated treatment',
             'module' => 'notification.modules.treatment',
             'action' => 'notification.actions.update',
         ]);
@@ -215,6 +202,5 @@ class NotificationGenerationTest extends WebTestCase
         $this->assertEquals($t->getCollectivity(), $notif->getCollectivity());
         $this->assertEquals('updated treatment', $notif->getName());
         $this->assertCount(0, $notif->getNotificationUsers());
-
     }
 }

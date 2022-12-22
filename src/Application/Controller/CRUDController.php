@@ -232,8 +232,6 @@ abstract class CRUDController extends AbstractController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
-
-
         return $this->render($this->getTemplatingBasePath('create'), [
             'form'           => $form->createView(),
             'object'         => $object,
