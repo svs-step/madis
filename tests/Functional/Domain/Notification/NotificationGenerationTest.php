@@ -203,4 +203,40 @@ class NotificationGenerationTest extends WebTestCase
         $this->assertEquals('updated treatment', $notif->getName());
         $this->assertCount(0, $notif->getNotificationUsers());
     }
+
+    public function testGenerateNotificationForDeletedTreatment()
+    {
+        $client = static::createClient();
+        self::populateDatabase();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser       = $userRepository->findOneOrNullByEmail('admin@awkan.fr');
+        $client->loginUser($testUser);
+        $treatmentRepository = static::getContainer()->get(Treatment::class);
+        $t                   = $treatmentRepository->findOneOrNullLastUpdateByCollectivity($testUser->getCollectivity());
+
+        $url = $client->getContainer()->get('router')->generate('registry_treatment_delete_confirm', ['id' => $t->getId()->__toString()], UrlGeneratorInterface::RELATIVE_PATH);
+
+        $client->request('GET', $url);
+
+        $this->assertResponseRedirects('/traitements/liste');
+
+        $treatmentName         = $t->getName();
+        $treatmentCollectivity = $t->getcollectivity();
+
+        $t = $treatmentRepository->findOneById($t->getId()->__toString());
+
+        $this->assertNull($t);
+
+        $notifRepository = static::getContainer()->get(Notification::class);
+        $notif           = $notifRepository->findOneBy([
+            'module' => 'notification.modules.treatment',
+            'action' => 'notification.actions.delete',
+        ]);
+
+        $this->assertNotNull($notif);
+        // Check that the notification was created and is not linked to any users (only for DPO)
+        $this->assertEquals($treatmentCollectivity, $notif->getCollectivity());
+        $this->assertEquals($treatmentName, $notif->getName());
+        $this->assertCount(0, $notif->getNotificationUsers());
+    }
 }
