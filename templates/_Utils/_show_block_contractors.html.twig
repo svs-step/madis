@@ -8,7 +8,7 @@
                 {% for contractor in activeContractors %}
                     <li>
                         <a href="{{ path('registry_contractor_show', { id: contractor.id }) }}">
-                            {{ contractor.name }} ({{ contractor.legalBasis|dictionary('registry_contractor_legal_basis') }})
+                            {{ contractor.name }}
                         </a>
                     </li>
                 {% endfor %}

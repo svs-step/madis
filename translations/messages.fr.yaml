@@ -38,7 +38,7 @@ label:
     linked_mesurement: Actions de protection associées
     linked_violations: Violations associées
     linked_request: Demandes associées
-    linked_contractors: Sous-traitants associés
+    linked_contractor: Sous-traitants associés
     no: Non
     yes: Oui
     no_linked_document: Aucun document associé
