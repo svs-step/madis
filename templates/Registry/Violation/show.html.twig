@@ -221,6 +221,9 @@
             {# TREATMENTS #}
             {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
 
+            {# CONTRACTORS #}
+            {% include '_Utils/_show_block_contractors.html.twig' with { contractors: object.contractors } %}
+
             {# Mesurements #}
             {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
         </div>

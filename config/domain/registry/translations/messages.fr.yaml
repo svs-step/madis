@@ -559,6 +559,7 @@ registry:
             service: Service
             violation_nature: Nature de la violation
             treatment: Traitements associés
+            contractor: Sous traitants associés
         list:
             cause: Cause
             collectivity: Structure
@@ -593,6 +594,7 @@ registry:
             historic: Historique
             information: Informations sur la violation
             treatment: Traitements associés
+            contractor: Sous traitants associés
         title:
             create: Créer une violation
             delete: Archiver une violation

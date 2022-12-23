@@ -42,6 +42,7 @@ label:
     no: Non
     yes: Oui
     no_linked_document: Aucun document associé
+    no_linked_contractor: Aucun sous traitant associé
     no_linked_treatment: Aucun traitement associé
     no_linked_mesurement: Aucune action de protection associée
     no_linked_violations: Aucune violation associée

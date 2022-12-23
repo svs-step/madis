@@ -146,6 +146,7 @@ class Violation implements LoggableSubject, CollectivityRelated
 
     private Collection $mesurements;
     private Collection $treatments;
+    private Collection $contractors;
 
     /**
      * Violation constructor.
@@ -163,6 +164,7 @@ class Violation implements LoggableSubject, CollectivityRelated
         $this->potentialImpactsNature    = [];
         $this->proofs                    = [];
         $this->treatments                = new ArrayCollection();
+        $this->contractors               = new ArrayCollection();
     }
 
     public function getId(): UuidInterface
@@ -406,5 +408,22 @@ class Violation implements LoggableSubject, CollectivityRelated
     public function getTreatments(): iterable
     {
         return $this->treatments;
+    }
+
+    public function addContractor(Contractor $contractor): void
+    {
+        $this->contractors[] = $contractor;
+    }
+
+    public function removeContractor(Contractor $contractor): void
+    {
+        if ($this->contractors && $this->contractors->count() && $this->contractors->contains($contractor)) {
+            $this->contractors->removeElement($contractor);
+        }
+    }
+
+    public function getContractors(): Collection
+    {
+        return $this->contractors;
     }
 }

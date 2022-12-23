@@ -40,6 +40,8 @@
 
         <many-to-many field="mesurements" target-entity="App\Domain\Registry\Model\Mesurement" mapped-by="violations"/>
 
+        <many-to-many field="contractors" target-entity="App\Domain\Registry\Model\Contractor" mapped-by="violations"/>
+
         <many-to-many field="treatments" target-entity="App\Domain\Registry\Model\Treatment" inversed-by="violations">
             <join-table name="treatment_violation">
                 <join-columns>
