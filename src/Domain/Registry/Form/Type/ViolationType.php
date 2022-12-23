@@ -111,11 +111,11 @@ class ViolationType extends AbstractType
                 'label'    => 'registry.violation.form.in_progress',
                 'required' => false,
             ])
-            ->add('violationNature', DictionaryType::class, [
+            ->add('violationNatures', DictionaryType::class, [
                 'label'    => 'registry.violation.form.violation_nature',
                 'name'     => 'registry_violation_nature',
-                'expanded' => true,
-                'multiple' => false,
+                'expanded' => false,
+                'multiple' => true,
             ])
             ->add('origins', DictionaryType::class, [
                 'label'    => 'registry.violation.form.origins',

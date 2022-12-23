@@ -12,7 +12,7 @@
 
         <field name="date" column="date" type="date"/>
         <field name="inProgress" column="in_progress" type="boolean"/>
-        <field name="violationNature" column="violation_nature"/>
+        <field name="violationNature" column="violation_nature" type="json_array"/>
         <field name="origins" column="origins" type="json_array"/>
         <field name="cause" column="cause"/>
         <field name="concernedDataNature" column="concerned_data_nature" type="json_array"/>

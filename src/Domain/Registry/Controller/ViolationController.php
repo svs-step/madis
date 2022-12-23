@@ -183,7 +183,7 @@ class ViolationController extends CRUDController
             $reponse['data'][] = [
                 'collectivite' => $violation->getCollectivity()->getName(),
                 'date'         => $violationLink,
-                'nature'       => !\is_null($violation->getViolationNature()) ? ViolationNatureDictionary::getNatures()[$violation->getViolationNature()] : null,
+                'nature'       => !\is_null($violation->getViolationNatures()) ? ViolationNatureDictionary::getNatures()[$violation->getViolationNature()] : null,
                 'cause'        => !\is_null($violation->getCause()) ? ViolationCauseDictionary::getNatures()[$violation->getCause()] : null,
                 'gravity'      => !\is_null($violation->getGravity()) ? ViolationGravityDictionary::getGravities()[$violation->getGravity()] : null,
                 'actions'      => $this->getActionCellsContent($violation),

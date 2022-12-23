@@ -60,9 +60,9 @@ class Violation implements LoggableSubject, CollectivityRelated
     private $inProgress;
 
     /**
-     * @var string|null
+     * @var iterable
      */
-    private $violationNature;
+    private $violationNatures;
 
     /**
      * @var iterable
@@ -158,6 +158,7 @@ class Violation implements LoggableSubject, CollectivityRelated
         $this->id                        = Uuid::uuid4();
         $this->date                      = new \DateTime();
         $this->inProgress                = false;
+        $this->violationNatures          = [];
         $this->origins                   = [];
         $this->concernedDataNature       = [];
         $this->concernedPeopleCategories = [];
@@ -201,14 +202,14 @@ class Violation implements LoggableSubject, CollectivityRelated
         $this->inProgress = $inProgress;
     }
 
-    public function getViolationNature(): ?string
+    public function getViolationNatures(): iterable
     {
-        return $this->violationNature;
+        return $this->violationNatures;
     }
 
-    public function setViolationNature(?string $violationNature): void
+    public function setViolationNatures(iterable $violationNatures): void
     {
-        $this->violationNature = $violationNature;
+        $this->violationNatures = $violationNatures;
     }
 
     public function getOrigins(): iterable
