@@ -60,6 +60,11 @@ user:
             siren: SIREN
             type: Type
             informations_complementaires: Informations complémentaires
+            date_maj: Date Mise à jour
+            nbr_agents: Nombre d'agents
+            nbr_cnil: Numéro CNIL
+            population: Population
+            tel_referent_rgpd: Tel Référent RGPD
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cette Structure ?
         show:

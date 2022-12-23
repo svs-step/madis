@@ -161,6 +161,11 @@ class CollectivityController extends CRUDController
                 'informations_complementaires' => !\is_null($collectivity->getInformationsComplementaires()) ? nl2br($collectivity->getInformationsComplementaires()) : null,
                 'siren'                        => $collectivity->getSiren(),
                 'statut'                       => $collectivity->isActive() ? $active : $inactive,
+                'date_maj'                     => date_format($collectivity->getUpdatedAt(), 'd-m-Y H:i:s'),
+                'population'                   => $collectivity->getPopulation(),
+                'nbr_agents'                   => $collectivity->getNbrAgents(),
+                'nbr_cnil'                     => $collectivity->getNbrCnil(),
+                'tel_referent_rgpd'            => !\is_null($collectivity->getDpo()) ? ($collectivity->getDpo())->getPhoneNumber() : null,
                 'actions'                      => $this->getActionCellsContent($collectivity),
             ];
         }
