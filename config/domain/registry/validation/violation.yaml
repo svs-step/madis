@@ -8,9 +8,10 @@ App\Domain\Registry\Model\Violation:
             - NotBlank:
                 message: 'registry_violation.violation_natures.not_blank'
                 groups: ['default']
-            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
-                name: 'registry_violation_nature'
-                groups: ['default']
+            - All:
+                - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
+                    name: 'registry_violation_nature'
+                    groups: ['default']
         origins:
             - NotBlank:
                 message: 'registry_violation.origins.not_blank'

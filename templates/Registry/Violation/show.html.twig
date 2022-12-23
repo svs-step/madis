@@ -68,7 +68,13 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.violation.show.violation_nature'|trans }}</strong></td>
-                            <td>{{ object.violationNature|dictionary('registry_violation_nature') }}</td>
+                            <td>
+                                <ul>
+                                    {% for violationNature in object.violationNatures %}
+                                        <li>{{ violationNature|dictionary('registry_violation_nature') }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.violation.show.origins'|trans }}</strong></td>
