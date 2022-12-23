@@ -4,9 +4,9 @@ App\Domain\Registry\Model\Violation:
             - NotNull:
                 message: 'registry_violation.date.not_null'
                 groups: ['default']
-        violationNature:
+        violationNatures:
             - NotBlank:
-                message: 'registry_violation.violation_nature.not_blank'
+                message: 'registry_violation.violation_natures.not_blank'
                 groups: ['default']
             - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
                 name: 'registry_violation_nature'

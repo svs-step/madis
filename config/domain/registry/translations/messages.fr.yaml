@@ -557,7 +557,7 @@ registry:
             origins: Origine de la perte de données
             potential_impacts_nature: Nature des impacts potentiels pour les personnes
             service: Service
-            violation_nature: Nature de la violation
+            violation_natures: Nature de la violation
             treatment: Traitements associés
             contractor: Sous traitants associés
         list:

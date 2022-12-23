@@ -112,10 +112,14 @@ class ViolationType extends AbstractType
                 'required' => false,
             ])
             ->add('violationNatures', DictionaryType::class, [
-                'label'    => 'registry.violation.form.violation_nature',
+                'label'    => 'registry.violation.form.violation_natures',
                 'name'     => 'registry_violation_nature',
                 'expanded' => false,
                 'multiple' => true,
+                'attr'     => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
             ])
             ->add('origins', DictionaryType::class, [
                 'label'    => 'registry.violation.form.origins',
