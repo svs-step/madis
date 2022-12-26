@@ -37,6 +37,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class NotificationEventSubscriber implements EventSubscriber
 {
     protected array $classes = [
+        AnalyseImpact::class,
         Treatment::class,
         Mesurement::class,
         Violation::class,
@@ -79,10 +80,6 @@ class NotificationEventSubscriber implements EventSubscriber
 
     public function getSubscribedEvents(): array
     {
-//        if ($this->env == 'test') {
-//            // disable for tests
-//            return [];
-//        }
         return [
             Events::onFlush,
         ];
@@ -95,7 +92,6 @@ class NotificationEventSubscriber implements EventSubscriber
 
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
             $class = get_class($entity);
-
             if (!in_array($class, $this->classes) || Request::class === $class) {
                 continue;
             }
@@ -108,11 +104,14 @@ class NotificationEventSubscriber implements EventSubscriber
             if (!in_array($class, $this->classes) || Document::class === $class) {
                 continue;
             }
-//            $ch = $uow->getEntityChangeSet($entity);
-//            if (Request::class === $class && !isset($ch['state'])) {
-//                // Exit if the request has no state change
-//                continue;
-//            }
+
+            if (Request::class === $class) {
+                $ch = $uow->getEntityChangeSet($entity);
+                // Exit if the request has no state change
+                if (!isset($ch['state'])) {
+                    continue;
+                }
+            }
             $action = 'update';
             if (Request::class === $class) {
                 $action = 'state_change';
@@ -165,8 +164,13 @@ class NotificationEventSubscriber implements EventSubscriber
 
         if ($recipients & Notification::NOTIFICATION_COLLECTIVITY) {
             // get all non-DPO users
-            if (method_exists($object, 'getCollectivity')) {
-                $users = $this->userRepository->findNonDpoUsersForCollectivity($object->getCollectivity());
+            $collectivity = method_exists($object, 'getCollectivity') ? $object->getCollectivity() : null;
+
+            if (get_class($object) === AnalyseImpact::class && $object->getConformiteTraitement() && $object->getConformiteTraitement()->getTraitement() && $object->getConformiteTraitement()->getTraitement()->getCollectivity()) {
+                $collectivity = $object->getConformiteTraitement()->getTraitement()->getCollectivity();
+            }
+            if ($collectivity) {
+                $users = $this->userRepository->findNonDpoUsersForCollectivity($collectivity);
             } else {
                 $users = $this->userRepository->findNonDpoUsers();
             }
@@ -179,6 +183,11 @@ class NotificationEventSubscriber implements EventSubscriber
 
         $meta  = $em->getClassMetadata(Notification::class);
         $meta2 = $em->getClassMetadata(NotificationUser::class);
+
+        if (get_class($object) === AnalyseImpact::class) {
+            //dd($notifications);
+        }
+
         foreach ($notifications as $notif) {
             $em->persist($notif);
             /**
@@ -203,20 +212,22 @@ class NotificationEventSubscriber implements EventSubscriber
         $notification = new Notification();
         $mod          = Notification::MODULES[get_class($object)];
         $notification->setModule('notification.modules.' . $mod);
-        $notification->setCollectivity(method_exists($object, 'getCollectivity') ? $object->getCollectivity() : null);
+        $collectivity = method_exists($object, 'getCollectivity') ? $object->getCollectivity() : null;
+        if (get_class($object) === AnalyseImpact::class && $object->getConformiteTraitement() && $object->getConformiteTraitement()->getTraitement() && $object->getConformiteTraitement()->getTraitement()->getCollectivity()) {
+            $collectivity = $object->getConformiteTraitement()->getTraitement()->getCollectivity();
+        }
+        $notification->setCollectivity($collectivity);
         $notification->setName(method_exists($object, 'getName') ? $object->getName() : $object->__toString());
         $notification->setAction('notification.actions.' . $action);
         $notification->setCreatedBy($this->security->getUser());
         $notification->setObject((object) $normalized);
 
+
         if ($users) {
-            // TODO FIX THIS !!!
             $nus = $this->notificationUserRepository->saveUsers($notification, $users);
-            // $notification->setNotificationUsers($nus);
-            // $this->notificationRepository->update($notification);
+
             $notification->setNotificationUsers($nus);
         }
-        // $this->notificationRepository->persist($notification);
 
         return $notification;
     }

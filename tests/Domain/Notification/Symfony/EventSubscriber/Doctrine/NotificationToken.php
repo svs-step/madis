@@ -20,16 +20,16 @@ class NotificationToken implements TokenInterface
         $this->value = $value;
     }
 
-    public function scoreArgument($argument)
+    public function scoreArgument($argument): bool|int
     {
-        if (!is_object($argument) || !get_class($argument) === Notification::class) {
+        if (!is_object($argument) || !(get_class($argument) === Notification::class)) {
             return false;
         }
-        
+
         if ($this->value->getAction() == $argument->getAction()
             && $this->value->getModule()== $argument->getModule()
             && $this->value->getName()== $argument->getName()
-            && $this->value->getCollectivity()== $argument->getCollectivity()
+            && json_encode($this->value->getCollectivity()) == json_encode($argument->getCollectivity())
             && $this->value->getCreator()== $argument->getCreator()
             && json_encode($this->value->getObject()) == json_encode($argument->getObject())
         ) {
@@ -39,7 +39,7 @@ class NotificationToken implements TokenInterface
         return 0;
     }
 
-    public function isLast()
+    public function isLast(): bool
     {
         return false;
     }
