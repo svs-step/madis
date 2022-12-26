@@ -61,7 +61,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         if (count($existing)) {
             return;
         }
-        $norm         = $this->normalizer->normalize($survey, null, $this->normalizerOptions());
+        $norm         = $this->normalizer->normalize($survey, null, self::normalizerOptions());
         $notification = new Notification();
         $notification->setModule('notification.modules.maturity');
         $notification->setCollectivity($survey->getCollectivity());
@@ -100,7 +100,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $norm         = $this->normalizer->normalize($action, null, $this->normalizerOptions());
+        $norm         = $this->normalizer->normalize($action, null, self::normalizerOptions());
         $notification = new Notification();
         $notification->setModule('notification.modules.action');
         $notification->setCollectivity($action->getCollectivity());
@@ -139,7 +139,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $norm = $this->normalizer->normalize($request, null, $this->normalizerOptions());
+        $norm = $this->normalizer->normalize($request, null, self::normalizerOptions());
 
         $users = $this->userRepository->findNonDpoUsersForCollectivity($request->getCollectivity());
 
@@ -207,7 +207,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setAction('notifications.actions.no_login');
         $notification->setName($user->getFullName());
         $notification->setCreatedBy($user);
-        $notification->setObject((object) $this->normalizer->normalize($user, null, $this->normalizerOptions()));
+        $notification->setObject((object) $this->normalizer->normalize($user, null, self::normalizerOptions()));
         $this->notificationRepository->insert($notification);
 
         // Get referent operationnels for this collectivity
@@ -256,7 +256,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         return $object;
     }
 
-    private function normalizerOptions()
+    public static function normalizerOptions(): array
     {
         return [
             AbstractObjectNormalizer::ENABLE_MAX_DEPTH           => true,
