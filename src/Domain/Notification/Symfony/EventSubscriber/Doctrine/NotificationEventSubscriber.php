@@ -18,15 +18,9 @@ use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
 use App\Infrastructure\ORM\Notification\Repository\NotificationUser as NotificationUserRepository;
-use Doctrine\Bundle\DoctrineBundle\Mapping\MappingDriver;
-use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
-use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Mapping\ClassMetadataFactory;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -166,7 +160,7 @@ class NotificationEventSubscriber implements EventSubscriber
             // get all non-DPO users
             $collectivity = method_exists($object, 'getCollectivity') ? $object->getCollectivity() : null;
 
-            if (get_class($object) === AnalyseImpact::class && $object->getConformiteTraitement() && $object->getConformiteTraitement()->getTraitement() && $object->getConformiteTraitement()->getTraitement()->getCollectivity()) {
+            if (AnalyseImpact::class === get_class($object) && $object->getConformiteTraitement() && $object->getConformiteTraitement()->getTraitement() && $object->getConformiteTraitement()->getTraitement()->getCollectivity()) {
                 $collectivity = $object->getConformiteTraitement()->getTraitement()->getCollectivity();
             }
             if ($collectivity) {
@@ -184,8 +178,8 @@ class NotificationEventSubscriber implements EventSubscriber
         $meta  = $em->getClassMetadata(Notification::class);
         $meta2 = $em->getClassMetadata(NotificationUser::class);
 
-        if (get_class($object) === AnalyseImpact::class) {
-            //dd($notifications);
+        if (AnalyseImpact::class === get_class($object)) {
+            // dd($notifications);
         }
 
         foreach ($notifications as $notif) {
@@ -213,7 +207,7 @@ class NotificationEventSubscriber implements EventSubscriber
         $mod          = Notification::MODULES[get_class($object)];
         $notification->setModule('notification.modules.' . $mod);
         $collectivity = method_exists($object, 'getCollectivity') ? $object->getCollectivity() : null;
-        if (get_class($object) === AnalyseImpact::class && $object->getConformiteTraitement() && $object->getConformiteTraitement()->getTraitement() && $object->getConformiteTraitement()->getTraitement()->getCollectivity()) {
+        if (AnalyseImpact::class === get_class($object) && $object->getConformiteTraitement() && $object->getConformiteTraitement()->getTraitement() && $object->getConformiteTraitement()->getTraitement()->getCollectivity()) {
             $collectivity = $object->getConformiteTraitement()->getTraitement()->getCollectivity();
         }
         $notification->setCollectivity($collectivity);
@@ -221,7 +215,6 @@ class NotificationEventSubscriber implements EventSubscriber
         $notification->setAction('notification.actions.' . $action);
         $notification->setCreatedBy($this->security->getUser());
         $notification->setObject((object) $normalized);
-
 
         if ($users) {
             $nus = $this->notificationUserRepository->saveUsers($notification, $users);

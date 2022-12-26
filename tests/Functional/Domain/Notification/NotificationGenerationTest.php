@@ -7,17 +7,10 @@ namespace App\Tests\Functional\Domain\Notification;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Documentation\Repository\Document;
 use App\Infrastructure\ORM\Notification\Repository\Notification;
-use App\Infrastructure\ORM\Registry\Repository\Treatment;
 use Hautelook\AliceBundle\PhpUnit\RecreateDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
-use Symfony\Component\Serializer\Mapping\Loader\YamlFileLoader;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class NotificationGenerationTest extends WebTestCase
 {
