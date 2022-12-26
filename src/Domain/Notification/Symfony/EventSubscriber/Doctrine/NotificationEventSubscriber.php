@@ -108,11 +108,11 @@ class NotificationEventSubscriber implements EventSubscriber
             if (!in_array($class, $this->classes) || Document::class === $class) {
                 continue;
             }
-            $ch = $uow->getEntityChangeSet($entity);
-            if (Request::class === $class && !isset($ch['state'])) {
-                // Exit if the request has no state change
-                continue;
-            }
+//            $ch = $uow->getEntityChangeSet($entity);
+//            if (Request::class === $class && !isset($ch['state'])) {
+//                // Exit if the request has no state change
+//                continue;
+//            }
             $action = 'update';
             if (Request::class === $class) {
                 $action = 'state_change';
@@ -157,10 +157,6 @@ class NotificationEventSubscriber implements EventSubscriber
                 },
             ],
         );
-
-        if (Treatment::class === get_class($object)) {
-            // dd(get_class($this->normalizer));
-        }
 
         if ($recipients & Notification::NOTIFICATION_DPO) {
             $notification    = $this->createNotificationForUsers($object, $action, $normalized);
