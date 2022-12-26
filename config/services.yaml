@@ -47,13 +47,12 @@ services:
     aipd.model.analyse_impact:
         class: App\Domain\AIPD\Model\AnalyseImpact
 
-    App\Domain\Notification\Symfony\EventSubscriber\Doctrine\EntityChangedSubscriber:
+    App\Domain\Notification\Symfony\EventSubscriber\Doctrine\NotificationEventSubscriber:
         arguments:
             $notificationRepository: '@App\Infrastructure\ORM\Notification\Repository\Notification'
             $normalizer: '@App\Domain\Notification\Serializer\NotificationNormalizer'
             $userRepository: '@App\Domain\User\Repository\User'
             $security: '@Symfony\Component\Security\Core\Security'
-            $env: '%kernel.environment%'
         tags: [ { name: doctrine.event_subscriber } ]
 
 
