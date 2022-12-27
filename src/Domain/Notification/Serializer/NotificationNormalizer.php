@@ -167,7 +167,7 @@ class NotificationNormalizer extends ObjectNormalizer
         ;
     }
 
-    private function getObjectSimpleValue($object)
+    public static function getObjectSimpleValue($object)
     {
         if (is_object($object)) {
             if (method_exists($object, 'getId')) {

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Notification\Subscriber;
 
+use App\Application\Interfaces\CollectivityRelated;
 use App\Domain\Notification\Event\LateActionEvent;
 use App\Domain\Notification\Event\LateRequestEvent;
 use App\Domain\Notification\Event\LateSurveyEvent;
@@ -49,6 +50,11 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Indice de maturité non réalisé depuis plus de...
+     *
+     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     */
     public function onLateSurvey(LateSurveyEvent $event)
     {
         $survey   = $event->getSurvey();
@@ -83,10 +89,13 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
         $notification->setNotificationUsers($nus);
         $this->notificationRepository->update($notification);
-
-        // TODO Send email to référent opérationnel
     }
 
+    /**
+     * Action planifiée en retard.
+     *
+     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     */
     public function onLateAction(LateActionEvent $event)
     {
         $action   = $event->getMesurement();
@@ -123,7 +132,8 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setNotificationUsers($nus);
         $this->notificationRepository->update($notification);
 
-        // TODO Send email to référent opérationnel
+        // Send email to référent opérationnel
+        $this->saveEmailNotificationForRefOp($notification, $action);
     }
 
     public function onLateRequest(LateRequestEvent $event)
@@ -156,34 +166,8 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
         $notification->setNotificationUsers($nus);
         $this->notificationRepository->update($notification);
-        // TODO Send email to référent opérationnel and responsable de traitement
-
-        // Get referent operationnels for this collectivity
-        $refs = $request->getCollectivity()->getUsers()->filter(function (User $u) {
-            $mi = $u->getMoreInfos();
-
-            return $mi && $mi[UserMoreInfoDictionary::MOREINFO_OPERATIONNAL];
-        });
-        if (0 === $refs->count()) {
-            // No ref OP, get from collectivity
-            $refs = [$request->getCollectivity()->getReferent()->getMail()];
-        }
-        // Add notification with email address for the référents
-        foreach ($refs as $ref) {
-            $nu = new NotificationUser();
-            if (User::class === get_class($ref)) {
-                $nu->setMail($ref->getEmail());
-                $nu->setUser($ref);
-            } else {
-                $nu->setMail($ref);
-            }
-
-            $nu->setNotification($notification);
-            $nu->setActive(true);
-            $nu->setSent(false);
-            $nu->setToken(sha1($ref->getId() . microtime() . mt_rand()));
-            $this->notificationRepository->persist($nu);
-        }
+        // Send email to référent opérationnel and responsable de traitement
+        $this->saveEmailNotificationForRefOp($notification, $request);
     }
 
     public function onNoLogin(NoLoginEvent $event)
@@ -210,15 +194,22 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setObject((object) $this->normalizer->normalize($user, null, self::normalizerOptions()));
         $this->notificationRepository->insert($notification);
 
+        $this->saveEmailNotificationForRefOp($notification, $user);
+        // If no NotificationUser, this means the notification is for all DPOs
+        // The emails will be sent with notifications:send command to all users that have a unsent NotificationUser with an email address
+    }
+
+    private function saveEmailNotificationForRefOp(Notification $notification, CollectivityRelated $object)
+    {
         // Get referent operationnels for this collectivity
-        $refs = $user->getCollectivity()->getUsers()->filter(function (User $u) {
+        $refs = $object->getCollectivity()->getUsers()->filter(function (User $u) {
             $mi = $u->getMoreInfos();
 
             return $mi && $mi[UserMoreInfoDictionary::MOREINFO_OPERATIONNAL];
         });
         if (0 === $refs->count()) {
             // No ref OP, get from collectivity
-            $refs = [$user->getCollectivity()->getReferent()->getMail()];
+            $refs = [$object->getCollectivity()->getReferent()->getMail()];
         }
         // Add notification with email address for the référents
         foreach ($refs as $ref) {
@@ -233,27 +224,8 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             $nu->setNotification($notification);
             $nu->setActive(true);
             $nu->setSent(false);
-            $this->notificationRepository->persist($nu);
+            $this->notificationUserRepository->persist($nu);
         }
-        // If no NotificationUser, this means the notification is for all DPOs
-        // The emails will be sent with notifications:send command to all users that have a unsent NotificationUser with an email address
-    }
-
-    private function getObjectSimpleValue($object)
-    {
-        if (is_object($object)) {
-            if (method_exists($object, 'getId')) {
-                return $object->getId();
-            } elseif (method_exists($object, '__toString')) {
-                return $object->__toString();
-            } elseif (method_exists($object, 'format')) {
-                return $object->format(DATE_ATOM);
-            }
-
-            return '';
-        }
-
-        return $object;
     }
 
     public static function normalizerOptions(): array
@@ -262,19 +234,19 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             AbstractObjectNormalizer::ENABLE_MAX_DEPTH           => true,
             AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT   => 1,
             AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {
-                return $this->getObjectSimpleValue($o);
+                return NotificationNormalizer::getObjectSimpleValue($o);
             },
             AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {
                 if (is_iterable($o)) {
                     $d = [];
                     foreach ($o as $item) {
-                        $d[] = $this->getObjectSimpleValue($item);
+                        $d[] = NotificationNormalizer::getObjectSimpleValue($item);
                     }
 
                     return $d;
                 }
 
-                return $this->getObjectSimpleValue($o);
+                return NotificationNormalizer::getObjectSimpleValue($o);
             },
         ];
     }

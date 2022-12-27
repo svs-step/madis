@@ -13,21 +13,15 @@ use App\Domain\Notification\Serializer\NotificationNormalizer;
 use App\Domain\Notification\Subscriber\NotificationEventSubscriber;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
+use App\Domain\User\Repository\User as UserRepository;
+use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
+use App\Infrastructure\ORM\Notification\Repository\NotificationUser as NotificationUserRepository;
 use App\Tests\Domain\Notification\Symfony\EventSubscriber\Doctrine\NotificationToken;
-use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Event\OnFlushEventArgs;
-use Doctrine\ORM\Events;
-use Doctrine\ORM\UnitOfWork;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Security\Core\Security;
-use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
-use App\Infrastructure\ORM\Notification\Repository\NotificationUser as NotificationUserRepository;
-use App\Domain\User\Repository\User as UserRepository;
 
 class NotificationEventSubscriberTest extends TestCase
 {
@@ -88,10 +82,10 @@ class NotificationEventSubscriberTest extends TestCase
         $notification->setCollectivity($survey->getCollectivity());
         $notification->setAction('notifications.actions.late_survey');
         $notification->setName($survey->__toString());
-        $notification->setObject((object)[
+        $notification->setObject((object) [
             'collectivity' => [
-                'name' => 'coll'
-            ]
+                'name' => 'coll',
+            ],
         ]);
 
         $notification2 = new Notification();
@@ -101,8 +95,8 @@ class NotificationEventSubscriberTest extends TestCase
         $notification2->setName($survey->__toString());
         $notification2->setObject((object) [
             'collectivity' => [
-                'name' => 'coll'
-            ]
+                'name' => 'coll',
+            ],
         ]);
         $this->notificationRepository->insert(new NotificationToken($notification))->shouldBeCalled();
 
@@ -122,16 +116,15 @@ class NotificationEventSubscriberTest extends TestCase
 
         $this->notificationNormalizer->normalize(Argument::exact($survey), null, Argument::any())
             ->shouldBeCalled()
-            ->willReturn(((object)[
+            ->willReturn((object) [
                 'collectivity' => [
-                    'name' => 'coll'
-                ]
-            ]))
+                    'name' => 'coll',
+                ],
+            ])
         ;
 
         $event = new LateSurveyEvent($survey);
 
         $this->subscriber->onLateSurvey($event);
-
     }
 }

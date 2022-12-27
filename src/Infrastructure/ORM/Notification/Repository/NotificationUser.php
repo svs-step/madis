@@ -53,4 +53,9 @@ class NotificationUser extends CRUDRepository implements Repository\Notification
 
         return $nus;
     }
+
+    public function persist(Model\NotificationUser $object): void
+    {
+        $this->getManager()->persist($object);
+    }
 }

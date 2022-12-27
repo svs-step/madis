@@ -390,7 +390,6 @@ class NotificationGenerationSubscriberTest extends TestCase
         $this->userRepository->findNonDpoUsersForCollectivity($collectivity)->shouldNotBeCalled();
         $this->lifeCycleEventArgs->getObjectManager()->shouldBeCalled()->willReturn($om);
 
-
         $this->notificationUserRepository->saveUsers(Argument::type(\App\Domain\Notification\Model\Notification::class), Argument::cetera())
             ->shouldNotBeCalled()
         ;
