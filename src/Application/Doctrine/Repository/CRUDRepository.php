@@ -76,7 +76,7 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    protected function createQueryBuilder()
+    protected function createQueryBuilder(): \Doctrine\ORM\QueryBuilder
     {
         return $this->getManager()
             ->createQueryBuilder()

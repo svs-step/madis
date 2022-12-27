@@ -7,6 +7,7 @@ use App\Domain\Notification\Event\LateActionEvent;
 use App\Domain\Notification\Event\LateRequestEvent;
 use App\Domain\Notification\Event\LateSurveyEvent;
 use App\Domain\Notification\Event\NoLoginEvent;
+use App\Domain\Notification\Event\SendEmailNotificationEvent;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Model\NotificationUser;
 use App\Domain\Notification\Serializer\NotificationNormalizer;
@@ -15,7 +16,11 @@ use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
 use App\Infrastructure\ORM\Notification\Repository\NotificationUser as NotificationUserRepository;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
 /**
@@ -27,17 +32,23 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     protected NotificationUserRepository $notificationUserRepository;
     protected NotificationNormalizer $normalizer;
     protected UserRepository $userRepository;
+    protected EventDispatcherInterface $dispatcher;
+    protected MailerInterface $mailer;
 
     public function __construct(
         NotificationRepository $notificationRepository,
         NotificationUserRepository $notificationUserRepository,
         NotificationNormalizer $normalizer,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        EventDispatcherInterface $dispatcher,
+        MailerInterface $mailer,
     ) {
         $this->notificationRepository     = $notificationRepository;
         $this->notificationUserRepository = $notificationUserRepository;
         $this->normalizer                 = $normalizer;
         $this->userRepository             = $userRepository;
+        $this->dispatcher             = $dispatcher;
+        $this->mailer             = $mailer;
     }
 
     public static function getSubscribedEvents()
@@ -47,7 +58,16 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             LateRequestEvent::class => 'onLateRequest',
             NoLoginEvent::class     => 'onNoLogin',
             LateSurveyEvent::class  => 'onLateSurvey',
+            SendEmailNotificationEvent::class  => 'onSendEmailNotification',
         ];
+    }
+
+    public function onSendEmailNotification(SendEmailNotificationEvent $event) {
+        $email = $event->getEmail();
+
+        $this->dispatcher->addListener(KernelEvents::TERMINATE, function () use ($email) {
+            $this->mailer->send($email);
+        });
     }
 
     /**
@@ -64,7 +84,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             'action'       => 'notifications.actions.late_survey',
             'name'         => $survey->__toString(),
         ]);
-        if (count($existing)) {
+        if ($existing && count($existing)) {
             return;
         }
         $norm         = $this->normalizer->normalize($survey, null, self::normalizerOptions());
@@ -105,7 +125,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             'action'       => 'notifications.actions.late_action',
             'name'         => $action->getName(),
         ]);
-        if (count($existing)) {
+        if ($existing && count($existing)) {
             return;
         }
 
@@ -145,13 +165,24 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             'action'       => 'notifications.actions.late_request',
             'name'         => $request->__toString(),
         ]);
-        if (count($existing)) {
+        if ($existing && count($existing)) {
             return;
         }
 
         $norm = $this->normalizer->normalize($request, null, self::normalizerOptions());
 
         $users = $this->userRepository->findNonDpoUsersForCollectivity($request->getCollectivity());
+
+        // One without users for DPO,
+        // One with users for non DPO users
+        $notification = new Notification();
+        $notification->setModule('notification.modules.request');
+        $notification->setCollectivity($request->getCollectivity());
+        $notification->setAction('notifications.actions.late_request');
+        $notification->setName($request->__toString());
+        $notification->setObject((object) $norm);
+
+        $this->notificationRepository->insert($notification);
 
         $notification = new Notification();
         $notification->setModule('notification.modules.request');
@@ -168,6 +199,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $this->notificationRepository->update($notification);
         // Send email to référent opérationnel and responsable de traitement
         $this->saveEmailNotificationForRefOp($notification, $request);
+        $this->saveEmailNotificationForRespTrait($notification, $request);
     }
 
     public function onNoLogin(NoLoginEvent $event)
@@ -209,8 +241,34 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         });
         if (0 === $refs->count()) {
             // No ref OP, get from collectivity
-            $refs = [$object->getCollectivity()->getReferent()->getMail()];
+            if ($object->getCollectivity() && $object->getCollectivity()->getReferent()) {
+                $refs = [$object->getCollectivity()->getReferent()->getMail()];
+            }
         }
+        // Add notification with email address for the référents
+        $this->saveEmailNotifications($notification, $refs);
+    }
+
+    private function saveEmailNotificationForRespTrait(Notification $notification, CollectivityRelated $object)
+    {
+        // Get referent operationnels for this collectivity
+        $refs = $object->getCollectivity()->getUsers()->filter(function (User $u) {
+            $mi = $u->getMoreInfos();
+
+            return $mi && $mi[UserMoreInfoDictionary::MOREINFO_TREATMENT];
+        });
+        if (0 === $refs->count()) {
+            // No ref OP, get from collectivity
+            if ($object->getCollectivity() && $object->getCollectivity()->getLegalManager()) {
+                $refs = [$object->getCollectivity()->getLegalManager()->getMail()];
+            }
+        }
+
+        $this->saveEmailNotifications($notification, $refs);
+    }
+
+    private function saveEmailNotifications(Notification $notification, $refs)
+    {
         // Add notification with email address for the référents
         foreach ($refs as $ref) {
             $nu = new NotificationUser();
@@ -221,6 +279,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
                 $nu->setMail($ref);
             }
 
+            $nu->setToken(sha1($notification->getName() . microtime() . $nu->getMail()));
             $nu->setNotification($notification);
             $nu->setActive(true);
             $nu->setSent(false);

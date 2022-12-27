@@ -15,9 +15,12 @@ use App\Domain\Registry\Model\Proof;
 use App\Domain\Registry\Model\Request;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
+use App\Domain\User\Dictionary\UserMoreInfoDictionary;
+use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
 use App\Infrastructure\ORM\Notification\Repository\NotificationUser as NotificationUserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
@@ -213,7 +216,38 @@ class NotificationEventSubscriber implements EventSubscriber
             $notification->setNotificationUsers($nus);
         }
 
+        if (Document::class == get_class($object)) {
+            $this->saveEmailNotificationForRefOp($notification, $object);
+        }
+
         return $notification;
+    }
+
+    private function saveEmailNotificationForRefOp(Notification $notification, Document $document)
+    {
+        // Get referent operationnels for this collectivity
+        $refs = (new ArrayCollection($this->userRepository->findAll()))->filter(function (User $u) {
+            $mi = $u->getMoreInfos();
+
+            return $mi && $mi[UserMoreInfoDictionary::MOREINFO_OPERATIONNAL];
+        });
+
+        // Add notification with email address for the référents
+        foreach ($refs as $ref) {
+            $nu = new NotificationUser();
+            if (User::class === get_class($ref)) {
+                $nu->setMail($ref->getEmail());
+                $nu->setUser($ref);
+            } else {
+                $nu->setMail($ref);
+            }
+
+            $nu->setNotification($notification);
+            $nu->setActive(true);
+            $nu->setToken(sha1($notification->getName() . microtime() . $nu->getMail()));
+            $nu->setSent(false);
+            $this->notificationUserRepository->persist($nu);
+        }
     }
 
     private function getObjectSimpleValue($object)

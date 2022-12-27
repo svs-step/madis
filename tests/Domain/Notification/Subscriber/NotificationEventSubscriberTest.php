@@ -11,6 +11,8 @@ use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Model\NotificationUser;
 use App\Domain\Notification\Serializer\NotificationNormalizer;
 use App\Domain\Notification\Subscriber\NotificationEventSubscriber;
+use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Registry\Model\Request;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
@@ -126,5 +128,121 @@ class NotificationEventSubscriberTest extends TestCase
         $event = new LateSurveyEvent($survey);
 
         $this->subscriber->onLateSurvey($event);
+    }
+
+    public function testLateRequestEvent()
+    {
+        $collectivity = new Collectivity();
+        $collectivity->setName('coll');
+        $request = new Request();
+        $request->setCollectivity($collectivity);
+        $request->setCreatedAt(new \DateTimeImmutable());
+
+        $this->notificationRepository->findBy([
+            'module'       => 'notification.modules.request',
+            'collectivity' => $request->getCollectivity(),
+            'action'       => 'notifications.actions.late_request',
+            'name'         => $request->__toString(),
+        ])->shouldBeCalled()->willReturn([]);
+
+        $user = new User();
+
+        $notification = new Notification();
+
+        $notification->setModule('notification.modules.request');
+        $notification->setCollectivity($request->getCollectivity());
+        $notification->setAction('notifications.actions.late_request');
+        $notification->setName($request->__toString());
+        $notification->setObject((object) [
+            'collectivity' => [
+                'name' => 'coll',
+            ],
+        ]);
+
+        $this->notificationRepository->insert(new NotificationToken($notification))->shouldBeCalledTimes(2);
+
+        $nu = new NotificationUser();
+        $nu->setUser($user);
+        $nu->setNotification($notification);
+
+        $notification->setNotificationUsers([$user]);
+
+        $this->notificationRepository->update(new NotificationToken($notification))->shouldBeCalled();
+
+        $this->userRepository->findNonDpoUsersForCollectivity($collectivity)->shouldBeCalled()->willReturn([$user]);
+
+        $this->notificationUserRepository->saveUsers(new NotificationToken($notification), [$user])->shouldBeCalled()->willReturn([$nu]);
+
+        $this->notificationNormalizer->normalize(Argument::exact($request), null, Argument::any())
+            ->shouldBeCalled()
+            ->willReturn((object) [
+                'collectivity' => [
+                    'name' => 'coll',
+                ],
+            ])
+        ;
+
+        // TODO add check that emails are sent to both ref OP and resp trait.
+
+        $event = new LateRequestEvent($request);
+
+        $this->subscriber->onLateRequest($event);
+    }
+
+    public function testLateActionEvent()
+    {
+        $collectivity = new Collectivity();
+        $collectivity->setName('coll');
+        $action = new Mesurement();
+        $action->setCollectivity($collectivity);
+        $action->setCreatedAt(new \DateTimeImmutable());
+
+        $this->notificationRepository->findBy([
+            'module'       => 'notification.modules.action',
+            'collectivity' => $action->getCollectivity(),
+            'action'       => 'notifications.actions.late_action',
+            'name'         => $action->__toString(),
+        ])->shouldBeCalled()->willReturn([]);
+
+        $user = new User();
+
+        $notification = new Notification();
+
+        $notification->setModule('notification.modules.action');
+        $notification->setCollectivity($action->getCollectivity());
+        $notification->setAction('notifications.actions.late_action');
+        $notification->setName($action->__toString());
+        $notification->setObject((object) [
+            'collectivity' => [
+                'name' => 'coll',
+            ],
+        ]);
+
+        $this->notificationRepository->insert(new NotificationToken($notification))->shouldBeCalledTimes(2);
+
+        $nu = new NotificationUser();
+        $nu->setUser($user);
+        $nu->setNotification($notification);
+
+        $notification->setNotificationUsers([$user]);
+
+        $this->notificationRepository->update(new NotificationToken($notification))->shouldBeCalled();
+
+        $this->userRepository->findNonDpoUsersForCollectivity($collectivity)->shouldBeCalled()->willReturn([$user]);
+
+        $this->notificationUserRepository->saveUsers(new NotificationToken($notification), [$user])->shouldBeCalled()->willReturn([$nu]);
+
+        $this->notificationNormalizer->normalize(Argument::exact($action), null, Argument::any())
+            ->shouldBeCalled()
+            ->willReturn((object) [
+                'collectivity' => [
+                    'name' => 'coll',
+                ],
+            ])
+        ;
+
+        $event = new LateActionEvent($action);
+
+        $this->subscriber->onLateAction($event);
     }
 }

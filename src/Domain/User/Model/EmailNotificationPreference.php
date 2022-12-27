@@ -22,6 +22,13 @@ class EmailNotificationPreference
     public const NOTIF_AIPD                    = 512;
     public const NOTIF_DOCUMENT                = 1024;
 
+    public const FREQUENCY_NONE = 'none';
+    public const FREQUENCY_EACH = 'each';
+    public const FREQUENCY_HOUR = 'hour';
+    public const FREQUENCY_DAY = 'day';
+    public const FREQUENCY_WEEK = 'week';
+    public const FREQUENCY_MONTH = 'month';
+
     public const MODULES = [
         'treatment'               => self::NOTIF_TREATMENT,
         'subcontractor'           => self::NOTIF_SUBCONTRACTOR,
@@ -55,7 +62,7 @@ class EmailNotificationPreference
 
     private int $notificationMask;
 
-    private $last_sent;
+    private \DateTime $lastSent;
 
     public function __construct()
     {
@@ -121,19 +128,20 @@ class EmailNotificationPreference
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
-    public function getLastSent()
+    public function getLastSent(): \DateTime
     {
-        return $this->last_sent;
+        return $this->lastSent;
     }
 
     /**
-     * @param mixed $last_sent
+     * @param \DateTime $last_sent
      */
-    public function setLastSent($last_sent): void
+    public function setLastSent(\DateTime $lastSent
+    ): void
     {
-        $this->last_sent = $last_sent;
+        $this->lastSent = $lastSent;
     }
 
     public function getNotificationMask(): int

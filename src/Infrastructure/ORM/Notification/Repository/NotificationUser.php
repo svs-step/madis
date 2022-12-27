@@ -27,6 +27,7 @@ namespace App\Infrastructure\ORM\Notification\Repository;
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Domain\Notification\Model;
 use App\Domain\Notification\Repository;
+use Doctrine\ORM\QueryBuilder;
 
 class NotificationUser extends CRUDRepository implements Repository\NotificationUser
 {
@@ -52,6 +53,11 @@ class NotificationUser extends CRUDRepository implements Repository\Notification
         }
 
         return $nus;
+    }
+
+    public function getQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder();
     }
 
     public function persist(Model\NotificationUser $object): void

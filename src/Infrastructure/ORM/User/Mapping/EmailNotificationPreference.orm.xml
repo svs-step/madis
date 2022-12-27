@@ -18,6 +18,7 @@
         <field name="day" column="start_day" type="integer" nullable="true"/>
         <field name="week" column="start_week" type="integer" nullable="true"/>
         <field name="notificationMask" column="notification_mask" type="integer"/>
+        <field name="lastSent" column="last_sent" type="datetime"/>
 
         <field name="createdAt" column="created_at" type="datetime_immutable" nullable="true">
             <gedmo:timestampable on="create"/>

@@ -43,12 +43,12 @@ class EmailNotificationPreferenceType extends AbstractType
             'label'       => 'user.notifications.form.frequency.label',
             'required'    => true,
             'choices'     => [
-                'user.notifications.form.frequency.none'    => 'none',
-                'user.notifications.form.frequency.each'    => 'each',
-                'user.notifications.form.frequency.hourly'  => 'hour',
-                'user.notifications.form.frequency.dayly'   => 'day',
-                'user.notifications.form.frequency.weekly'  => 'week',
-                'user.notifications.form.frequency.monthly' => 'month',
+                'user.notifications.form.frequency.none'    => EmailNotificationPreference::FREQUENCY_NONE,
+                'user.notifications.form.frequency.each'    => EmailNotificationPreference::FREQUENCY_EACH,
+                'user.notifications.form.frequency.hourly'  => EmailNotificationPreference::FREQUENCY_HOUR,
+                'user.notifications.form.frequency.dayly'   => EmailNotificationPreference::FREQUENCY_DAY,
+                'user.notifications.form.frequency.weekly'  => EmailNotificationPreference::FREQUENCY_WEEK,
+                'user.notifications.form.frequency.monthly' => EmailNotificationPreference::FREQUENCY_MONTH,
             ],
             'choice_attr' => [
                 'user.notifications.form.frequency.none'    => ['class' => 'select-frequency'],

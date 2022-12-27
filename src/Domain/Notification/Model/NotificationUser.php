@@ -24,16 +24,20 @@ declare(strict_types=1);
 
 namespace App\Domain\Notification\Model;
 
+use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\User\Model\User;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
  */
 class NotificationUser
 {
+    use HistoryTrait;
+
     /**
      * @ORM\Id()
      * @ORM\Column(type="uuid")
@@ -55,9 +59,9 @@ class NotificationUser
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User", inversedBy="notifications")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      */
-    private User $user;
+    private ?User $user;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -84,6 +88,7 @@ class NotificationUser
     public function __construct()
     {
         $this->id = Uuid::uuid4();
+        $this->user = null;
     }
 
     public function getId(): UuidInterface

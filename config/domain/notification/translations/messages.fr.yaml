@@ -22,6 +22,9 @@ notification:
         late_request: En retard
         late_survey: En retard
         no_login: Inactif
+    email:
+        subject: Nouvelles notification Madis
+        madis: Accéder à madis
     notification:
         flashbag:
             success:
