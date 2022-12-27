@@ -31,7 +31,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class NotificationEventSubscriber implements EventSubscriber
 {
     protected array $classes = [
-        AnalyseImpact::class,
+//        AnalyseImpact::class,
         Treatment::class,
         Mesurement::class,
         Violation::class,
@@ -160,9 +160,6 @@ class NotificationEventSubscriber implements EventSubscriber
             // get all non-DPO users
             $collectivity = method_exists($object, 'getCollectivity') ? $object->getCollectivity() : null;
 
-            if (AnalyseImpact::class === get_class($object) && $object->getConformiteTraitement() && $object->getConformiteTraitement()->getTraitement() && $object->getConformiteTraitement()->getTraitement()->getCollectivity()) {
-                $collectivity = $object->getConformiteTraitement()->getTraitement()->getCollectivity();
-            }
             if ($collectivity) {
                 $users = $this->userRepository->findNonDpoUsersForCollectivity($collectivity);
             } else {
@@ -177,10 +174,6 @@ class NotificationEventSubscriber implements EventSubscriber
 
         $meta  = $em->getClassMetadata(Notification::class);
         $meta2 = $em->getClassMetadata(NotificationUser::class);
-
-        if (AnalyseImpact::class === get_class($object)) {
-            // dd($notifications);
-        }
 
         foreach ($notifications as $notif) {
             $em->persist($notif);
@@ -207,9 +200,7 @@ class NotificationEventSubscriber implements EventSubscriber
         $mod          = Notification::MODULES[get_class($object)];
         $notification->setModule('notification.modules.' . $mod);
         $collectivity = method_exists($object, 'getCollectivity') ? $object->getCollectivity() : null;
-        if (AnalyseImpact::class === get_class($object) && $object->getConformiteTraitement() && $object->getConformiteTraitement()->getTraitement() && $object->getConformiteTraitement()->getTraitement()->getCollectivity()) {
-            $collectivity = $object->getConformiteTraitement()->getTraitement()->getCollectivity();
-        }
+
         $notification->setCollectivity($collectivity);
         $notification->setName(method_exists($object, 'getName') ? $object->getName() : $object->__toString());
         $notification->setAction('notification.actions.' . $action);

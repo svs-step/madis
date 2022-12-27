@@ -326,47 +326,32 @@ class NotificationGenerationSubscriberTest extends TestCase
         $uow->getScheduledEntityDeletions()->shouldBeCalled()->willReturn([]);
 
         $om->getUnitOfWork()->shouldBeCalled()->willReturn($uow);
-        $this->security->getUser()->shouldBeCalled()->willReturn(new \App\Domain\User\Model\User());
+        $this->security->getUser()->shouldNotBeCalled();
 
-        $om->getClassMetadata(\App\Domain\Notification\Model\Notification::class)->shouldBeCalled()->willReturn($this->notificationMetadata);
-        $om->getClassMetadata(\App\Domain\Notification\Model\NotificationUser::class)->shouldBeCalled()->willReturn($this->notificationUserMetadata);
+        $om->getClassMetadata(\App\Domain\Notification\Model\Notification::class)->shouldNotBeCalled();
+        $om->getClassMetadata(\App\Domain\Notification\Model\NotificationUser::class)->shouldNotBeCalled();
 
-        $this->notificationNormalizer->normalize($object, null, Argument::type('array'))->shouldBeCalled();
+        $this->notificationNormalizer->normalize($object, null, Argument::type('array'))->shouldNotBeCalled();
 
         $nonDpoUser = new \App\Domain\User\Model\User();
         $nonDpoUser->setCollectivity($collectivity);
         $nonDpoUser->setFirstName('jon');
 
         $this->userRepository->findNonDpoUsers()->shouldNotBeCalled();
-        $this->userRepository->findNonDpoUsersForCollectivity($collectivity)->shouldBeCalled()->willReturn([$nonDpoUser]);
+        $this->userRepository->findNonDpoUsersForCollectivity($collectivity)->shouldNotBeCalled();
         $this->lifeCycleEventArgs->getObjectManager()->shouldBeCalled()->willReturn($om);
 
-        $notification = new \App\Domain\Notification\Model\Notification();
-        $notification->setModule('notification.modules.aipd');
-        $notification->setCollectivity($collectivity);
-        $notification->setName($object->__toString());
-        $notification->setAction('notification.actions.update');
-        $notification->setCreatedBy(null);
-        $notification->setObject((object) []);
-
-        $nu = new \App\Domain\Notification\Model\NotificationUser();
-        $nu->setUser($nonDpoUser);
-        $nu->setNotification($notification);
-
-        $notification->setNotificationUsers([$nu]);
-
-        $this->notificationUserRepository->saveUsers(new NotificationToken($notification), Argument::exact([$nonDpoUser]))
-            ->shouldBeCalled()
-            ->willReturn([$nu])
+        $this->notificationUserRepository->saveUsers(Argument::type(\App\Domain\Notification\Model\NotificationUser::class), Argument::exact([$nonDpoUser]))
+            ->shouldNotBeCalled()
         ;
 
         // $uow->computeChangeSet($meta, $notif);
         $this->subscriber->onFlush($this->lifeCycleEventArgs->reveal());
 
-        $om->persist(new NotificationToken($notification))->shouldHaveBeenCalled();
-        $om->persist(Argument::type(\App\Domain\Notification\Model\NotificationUser::class))->shouldHaveBeenCalled();
-        $uow->computeChangeSet($this->notificationMetadata, new NotificationToken($notification))->shouldHaveBeenCalled();
-        $uow->computeChangeSet($this->notificationUserMetadata, Argument::type(\App\Domain\Notification\Model\NotificationUser::class))->shouldHaveBeenCalled();
+        $om->persist(Argument::type(\App\Domain\Notification\Model\Notification::class))->shouldNotHaveBeenCalled();
+        $om->persist(Argument::type(\App\Domain\Notification\Model\NotificationUser::class))->shouldNotHaveBeenCalled();
+        $uow->computeChangeSet($this->notificationMetadata, Argument::type(\App\Domain\Notification\Model\Notification::class))->shouldNotHaveBeenCalled();
+        $uow->computeChangeSet($this->notificationUserMetadata, Argument::type(\App\Domain\Notification\Model\NotificationUser::class))->shouldNotHaveBeenCalled();
     }
 
     public function testDeleteAnalyseImpactNotification()
@@ -390,47 +375,31 @@ class NotificationGenerationSubscriberTest extends TestCase
         $uow->getScheduledEntityDeletions()->shouldBeCalled()->willReturn([$object]);
 
         $om->getUnitOfWork()->shouldBeCalled()->willReturn($uow);
-        $this->security->getUser()->shouldBeCalled()->willReturn(new \App\Domain\User\Model\User());
+        $this->security->getUser()->shouldNotBeCalled();
 
-        $om->getClassMetadata(\App\Domain\Notification\Model\Notification::class)->shouldBeCalled()->willReturn($this->notificationMetadata);
-        $om->getClassMetadata(\App\Domain\Notification\Model\NotificationUser::class)->shouldBeCalled()->willReturn($this->notificationUserMetadata);
+        $om->getClassMetadata(\App\Domain\Notification\Model\Notification::class)->shouldNotBeCalled();
+        $om->getClassMetadata(\App\Domain\Notification\Model\NotificationUser::class)->shouldNotBeCalled();
 
-        $this->notificationNormalizer->normalize($object, null, Argument::type('array'))->shouldBeCalled();
+        $this->notificationNormalizer->normalize($object, null, Argument::type('array'))->shouldNotBeCalled();
 
         $nonDpoUser = new \App\Domain\User\Model\User();
         $nonDpoUser->setCollectivity($collectivity);
         $nonDpoUser->setFirstName('jon');
 
         $this->userRepository->findNonDpoUsers()->shouldNotBeCalled();
-        $this->userRepository->findNonDpoUsersForCollectivity($collectivity)->shouldBeCalled()->willReturn([$nonDpoUser]);
+        $this->userRepository->findNonDpoUsersForCollectivity($collectivity)->shouldNotBeCalled();
         $this->lifeCycleEventArgs->getObjectManager()->shouldBeCalled()->willReturn($om);
 
-        $notification = new \App\Domain\Notification\Model\Notification();
-        $notification->setModule('notification.modules.aipd');
-        $notification->setCollectivity($collectivity);
-        $notification->setName($object->__toString());
-        $notification->setAction('notification.actions.create');
-        $notification->setCreatedBy(null);
-        $notification->setObject((object) []);
-
-        $nu = new \App\Domain\Notification\Model\NotificationUser();
-        $nu->setUser($nonDpoUser);
-        $nu->setNotification($notification);
-
-        $nt = new NotificationToken($notification);
-
-        $notification->setNotificationUsers([$nu]);
 
         $this->notificationUserRepository->saveUsers(Argument::type(\App\Domain\Notification\Model\Notification::class), Argument::cetera())
-            ->shouldBeCalled()
-            ->willReturn([$nu])
+            ->shouldNotBeCalled()
         ;
 
         $this->subscriber->onFlush($this->lifeCycleEventArgs->reveal());
 
-        $om->persist(Argument::type(\App\Domain\Notification\Model\Notification::class))->shouldHaveBeenCalled();
-        $om->persist(Argument::type(\App\Domain\Notification\Model\NotificationUser::class))->shouldHaveBeenCalled();
-        $uow->computeChangeSet($this->notificationMetadata, Argument::type(\App\Domain\Notification\Model\Notification::class))->shouldHaveBeenCalled();
-        $uow->computeChangeSet($this->notificationUserMetadata, Argument::type(\App\Domain\Notification\Model\NotificationUser::class))->shouldHaveBeenCalled();
+        $om->persist(Argument::type(\App\Domain\Notification\Model\Notification::class))->shouldNotHaveBeenCalled();
+        $om->persist(Argument::type(\App\Domain\Notification\Model\NotificationUser::class))->shouldNotHaveBeenCalled();
+        $uow->computeChangeSet($this->notificationMetadata, Argument::type(\App\Domain\Notification\Model\Notification::class))->shouldNotHaveBeenCalled();
+        $uow->computeChangeSet($this->notificationUserMetadata, Argument::type(\App\Domain\Notification\Model\NotificationUser::class))->shouldNotHaveBeenCalled();
     }
 }
