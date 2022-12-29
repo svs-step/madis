@@ -90,7 +90,7 @@ class NotificationEventSubscriber implements EventSubscriber
 
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
             $class = get_class($entity);
-            if (!in_array($class, $this->classes) || Request::class === $class) {
+            if (!in_array($class, $this->classes) || Request::class === $class || AnalyseImpact::class === $class) {
                 continue;
             }
 
@@ -126,7 +126,7 @@ class NotificationEventSubscriber implements EventSubscriber
 
         foreach ($uow->getScheduledEntityDeletions() as $entity) {
             $class = get_class($entity);
-            if (!in_array($class, $this->classes) || Request::class == $class || Document::class === $class) {
+            if (!in_array($class, $this->classes) || Request::class == $class || Document::class === $class || AnalyseImpact::class === $class) {
                 continue;
             }
             $this->createNotifications($entity, 'delete', $em);
@@ -223,7 +223,7 @@ class NotificationEventSubscriber implements EventSubscriber
         $notification->setCollectivity($collectivity);
         $notification->setName(method_exists($object, 'getName') ? $object->getName() : $object->__toString());
         $notification->setAction('notification.actions.' . $action);
-        if ($user && get_class($user) === User::class) {
+        if ($user && User::class === get_class($user)) {
             $notification->setCreatedBy($user);
         }
 

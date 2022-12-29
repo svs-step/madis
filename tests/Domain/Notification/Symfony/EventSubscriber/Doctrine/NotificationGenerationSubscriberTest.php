@@ -305,55 +305,6 @@ class NotificationGenerationSubscriberTest extends TestCase
         $uow->computeChangeSet($this->notificationMetadata, Argument::type(\App\Domain\Notification\Model\Notification::class))->shouldHaveBeenCalled();
     }
 
-    public function testUpdateAnalyseImpactNotification()
-    {
-        $collectivity = new Collectivity();
-        $collectivity->setName('coll');
-        $treatment = new Treatment();
-        $treatment->setName('traitement 1');
-        $treatment->setCollectivity($collectivity);
-        $conform = new ConformiteTraitement();
-        $conform->setTraitement($treatment);
-        $object = new AnalyseImpact();
-        $object->setConformiteTraitement($conform);
-        $object->setCreatedAt(new \DateTimeImmutable());
-
-        $om  = $this->prophesize(EntityManagerInterface::class);
-        $uow = $this->prophesize(UnitOfWork::class);
-
-        $uow->getScheduledEntityInsertions()->shouldBeCalled()->willReturn([]);
-        $uow->getScheduledEntityUpdates()->shouldBeCalled()->willReturn([$object]);
-        $uow->getScheduledEntityDeletions()->shouldBeCalled()->willReturn([]);
-
-        $om->getUnitOfWork()->shouldBeCalled()->willReturn($uow);
-        $this->security->getUser()->shouldNotBeCalled();
-
-        $om->getClassMetadata(\App\Domain\Notification\Model\Notification::class)->shouldNotBeCalled();
-        $om->getClassMetadata(\App\Domain\Notification\Model\NotificationUser::class)->shouldNotBeCalled();
-
-        $this->notificationNormalizer->normalize($object, null, Argument::type('array'))->shouldNotBeCalled();
-
-        $nonDpoUser = new \App\Domain\User\Model\User();
-        $nonDpoUser->setCollectivity($collectivity);
-        $nonDpoUser->setFirstName('jon');
-
-        $this->userRepository->findNonDpoUsers()->shouldNotBeCalled();
-        $this->userRepository->findNonDpoUsersForCollectivity($collectivity)->shouldNotBeCalled();
-        $this->lifeCycleEventArgs->getObjectManager()->shouldBeCalled()->willReturn($om);
-
-        $this->notificationUserRepository->saveUsers(Argument::type(\App\Domain\Notification\Model\NotificationUser::class), Argument::exact([$nonDpoUser]))
-            ->shouldNotBeCalled()
-        ;
-
-        // $uow->computeChangeSet($meta, $notif);
-        $this->subscriber->onFlush($this->lifeCycleEventArgs->reveal());
-
-        $om->persist(Argument::type(\App\Domain\Notification\Model\Notification::class))->shouldNotHaveBeenCalled();
-        $om->persist(Argument::type(\App\Domain\Notification\Model\NotificationUser::class))->shouldNotHaveBeenCalled();
-        $uow->computeChangeSet($this->notificationMetadata, Argument::type(\App\Domain\Notification\Model\Notification::class))->shouldNotHaveBeenCalled();
-        $uow->computeChangeSet($this->notificationUserMetadata, Argument::type(\App\Domain\Notification\Model\NotificationUser::class))->shouldNotHaveBeenCalled();
-    }
-
     public function testDeleteAnalyseImpactNotification()
     {
         $collectivity = new Collectivity();
