@@ -55,6 +55,11 @@ class ReferentielAnswer
      */
     private $referentielQuestion;
 
+    /**
+     * @var int|null
+     */
+    private $answerNumber;
+
     public function __construct()
     {
         $this->id = Uuid::uuid4();
@@ -105,5 +110,15 @@ class ReferentielAnswer
     public function setReferentielQuestion(?ReferentielQuestion $referentielQuestion): void
     {
         $this->referentielQuestion = $referentielQuestion;
+    }
+
+    public function getAnswerNumber(): ?int
+    {
+        return $this->answerNumber;
+    }
+
+    public function setAnswerNumber(?int $answerNumber): void
+    {
+        $this->answerNumber = $answerNumber;
     }
 }

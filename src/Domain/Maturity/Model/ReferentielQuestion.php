@@ -46,6 +46,11 @@ class ReferentielQuestion
     private $weight;
 
     /**
+     * @var int|null
+     */
+    private $questionNumber;
+
+    /**
      * @var iterable
      */
     private $referentielAnswers;
@@ -76,12 +81,12 @@ class ReferentielQuestion
         $this->name = $name;
     }
 
-    public function getWeight(): ?string
+    public function getWeight(): ?int
     {
         return $this->weight;
     }
 
-    public function setWeight(?string $weight): void
+    public function setWeight(?int $weight): void
     {
         $this->weight = $weight;
     }
@@ -105,6 +110,17 @@ class ReferentielQuestion
     {
         $this->referentielSection = $referentielSection;
     }
+
+    public function getQuestionNumber(): ?int
+    {
+        return $this->questionNumber;
+    }
+
+    public function setQuestionNumber(?int $questionNumber): void
+    {
+        $this->questionNumber = $questionNumber;
+    }
+
 
 
 }

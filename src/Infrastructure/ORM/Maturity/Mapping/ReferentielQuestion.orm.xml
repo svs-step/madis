@@ -10,6 +10,7 @@
         <id name="id" column="id" type="uuid"/>
         <field name="name" column="name"/>
         <field name="weight" column="weight" type="integer"/>
+        <field name="questionNumber" column="question_number" type="integer"/>
 
         <many-to-one field="referentielSection" target-entity="App\Domain\Maturity\Model\ReferentielSection" inversed-by="referentielQuestions">
             <join-column on-delete="CASCADE" />
