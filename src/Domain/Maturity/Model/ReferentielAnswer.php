@@ -22,14 +22,13 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Survey\Model;
+namespace App\Domain\Maturity\Model;
 
+use App\Domain\Maturity\Model\Answer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use App\Domain\Survey\Model\Section;
 
-class Survey
+class ReferentielAnswer
 {
     /**
      * @var UuidInterface
@@ -44,17 +43,21 @@ class Survey
     /**
      * @var string|null
      */
-    private $description;
+    private $recommendation;
 
     /**
-     * @var iterable
+     * @var bool|null
      */
-    private $sections;
+    private $optionNotConcerned;
+
+    /**
+     * @var ReferentielQuestion|null
+     */
+    private $referentielQuestion;
 
     public function __construct()
     {
         $this->id = Uuid::uuid4();
-        $this->sections = new ArrayCollection();
     }
 
     public function getId(): UuidInterface
@@ -72,19 +75,35 @@ class Survey
         $this->name = $name;
     }
 
-    public function getDescription(): ?string
+    public function getRecommendation(): ?string
     {
-        return $this->description;
+        return $this->recommendation;
     }
 
-    public function setDescription(?string $description): void
+    public function setRecommendation(?string $recommendation): void
     {
-        $this->description = $description;
+        $this->recommendation = $recommendation;
     }
 
-    public function getSections(): iterable
+    public function getOptionNotConcerned(): ?bool
     {
-        return $this->sections;
+        return $this->optionNotConcerned;
     }
 
+    public function setNotconcerned(?bool $optionNotConcerned): Answer
+    {
+        $this->optionNotConcerned = $optionNotConcerned;
+
+        return $this;
+    }
+
+    public function getReferentielQuestion(): ?ReferentielQuestion
+    {
+        return $this->referentielQuestion;
+    }
+
+    public function setReferentielQuestion(?ReferentielQuestion $referentielQuestion): void
+    {
+        $this->referentielQuestion = $referentielQuestion;
+    }
 }

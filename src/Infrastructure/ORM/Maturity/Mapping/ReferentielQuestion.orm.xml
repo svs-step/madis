@@ -5,16 +5,16 @@
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                             https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="App\Domain\Survey\Model\Answer" table="survey_answer">
+    <entity name="App\Domain\Maturity\Model\ReferentielQuestion" table="referentiel_question">
 
         <id name="id" column="id" type="uuid"/>
         <field name="name" column="name"/>
-        <field name="recommendation" column="recommendation"/>
-        <field name="optionNotConcerned" column="option_not_concerned" type="boolean"/>
+        <field name="weight" column="weight" type="integer"/>
 
-        <many-to-one field="question" target-entity="App\Domain\Maturity\Model\Question" inversed-by="answers">
+        <many-to-one field="referentielSection" target-entity="App\Domain\Maturity\Model\ReferentielSection" inversed-by="referentielQuestions">
             <join-column on-delete="CASCADE" />
         </many-to-one>
+
     </entity>
 
 </doctrine-mapping>

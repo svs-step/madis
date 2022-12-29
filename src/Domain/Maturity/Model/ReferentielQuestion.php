@@ -22,14 +22,13 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Survey\Model;
+namespace App\Domain\Maturity\Model;
 
-use App\Domain\Survey\Model\Answer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Question
+class ReferentielQuestion
 {
     /**
      * @var UuidInterface
@@ -49,13 +48,17 @@ class Question
     /**
      * @var iterable
      */
-    private $answers;
+    private $referentielAnswers;
 
+    /**
+     * @var ReferentielSection|null
+     */
+    private $referentielSection;
 
     public function __construct()
     {
         $this->id = Uuid::uuid4();
-        $this->answers = new ArrayCollection();
+        $this->referentielAnswers = new ArrayCollection();
     }
 
     public function getId(): UuidInterface
@@ -83,9 +86,25 @@ class Question
         $this->weight = $weight;
     }
 
-    public function getAnswers(): iterable
+    public function getReferentielAnswers(): iterable
     {
-        return $this->answers;
+        return $this->referentielAnswers;
     }
+
+    public function setReferentielAnswers(?iterable $referentielAnswers): void
+    {
+        $this->referentielAnswers = $referentielAnswers;
+    }
+
+    public function getReferentielSection(): ?ReferentielSection
+    {
+        return $this->referentielSection;
+    }
+
+    public function setReferentielSection(?ReferentielSection $referentielSection): void
+    {
+        $this->referentielSection = $referentielSection;
+    }
+
 
 }

@@ -22,12 +22,14 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Survey\Model;
+namespace App\Domain\Maturity\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Answer
+class Referentiel
 {
     /**
      * @var UuidInterface
@@ -42,16 +44,31 @@ class Answer
     /**
      * @var string|null
      */
-    private $recommendation;
+    private $description;
 
     /**
-     * @var bool|null
+     * @var \DateTimeImmutable|null
+     *
+     * @Serializer\Type("DateTimeImmutable")
      */
-    private $optionNotConcerned;
+    private $createdAt;
+
+    /**
+     * @var \DateTimeImmutable|null
+     *
+     * @Serializer\Type("DateTimeImmutable")
+     */
+    private $updatedAt;
+
+    /**
+     * @var iterable
+     */
+    private $referentielSections;
 
     public function __construct()
     {
         $this->id = Uuid::uuid4();
+        $this->referentielSections = new ArrayCollection();
     }
 
     public function getId(): UuidInterface
@@ -69,26 +86,19 @@ class Answer
         $this->name = $name;
     }
 
-    public function getRecommendation(): ?string
+    public function getDescription(): ?string
     {
-        return $this->recommendation;
+        return $this->description;
     }
 
-    public function setRecommendation(?string $recommendation): void
+    public function setDescription(?string $description): void
     {
-        $this->recommendation = $recommendation;
+        $this->description = $description;
     }
 
-    public function getOptionNotConcerned(): ?bool
+    public function getReferentielSections(): iterable
     {
-        return $this->optionNotConcerned;
-    }
-
-    public function setNotconcerned(?bool $optionNotConcerned): Answer
-    {
-        $this->optionNotConcerned = $optionNotConcerned;
-
-        return $this;
+        return $this->referentielSections;
     }
 
 }
