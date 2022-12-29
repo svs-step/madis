@@ -7,7 +7,6 @@ use App\Domain\Notification\Event\LateActionEvent;
 use App\Domain\Notification\Event\LateRequestEvent;
 use App\Domain\Notification\Event\LateSurveyEvent;
 use App\Domain\Notification\Event\NoLoginEvent;
-use App\Domain\Notification\Event\SendEmailNotificationEvent;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Model\NotificationUser;
 use App\Domain\Notification\Serializer\NotificationNormalizer;
@@ -16,10 +15,8 @@ use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
 use App\Infrastructure\ORM\Notification\Repository\NotificationUser as NotificationUserRepository;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
@@ -40,15 +37,11 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         NotificationUserRepository $notificationUserRepository,
         NotificationNormalizer $normalizer,
         UserRepository $userRepository,
-        EventDispatcherInterface $dispatcher,
-        MailerInterface $mailer,
     ) {
         $this->notificationRepository     = $notificationRepository;
         $this->notificationUserRepository = $notificationUserRepository;
         $this->normalizer                 = $normalizer;
         $this->userRepository             = $userRepository;
-        $this->dispatcher             = $dispatcher;
-        $this->mailer             = $mailer;
     }
 
     public static function getSubscribedEvents()
@@ -58,16 +51,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             LateRequestEvent::class => 'onLateRequest',
             NoLoginEvent::class     => 'onNoLogin',
             LateSurveyEvent::class  => 'onLateSurvey',
-            SendEmailNotificationEvent::class  => 'onSendEmailNotification',
         ];
-    }
-
-    public function onSendEmailNotification(SendEmailNotificationEvent $event) {
-        $email = $event->getEmail();
-
-        $this->dispatcher->addListener(KernelEvents::TERMINATE, function () use ($email) {
-            $this->mailer->send($email);
-        });
     }
 
     /**
@@ -281,7 +265,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
             $nu->setToken(sha1($notification->getName() . microtime() . $nu->getMail()));
             $nu->setNotification($notification);
-            $nu->setActive(true);
+            $nu->setActive(false);
             $nu->setSent(false);
             $this->notificationUserRepository->persist($nu);
         }

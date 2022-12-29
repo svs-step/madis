@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Notification\Symfony\EventSubscriber\Doctrine;
 
+use App\Application\Interfaces\CollectivityRelated;
 use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\Documentation\Model\Document;
 use App\Domain\Notification\Model\Notification;
@@ -101,18 +102,16 @@ class NotificationEventSubscriber implements EventSubscriber
             if (!in_array($class, $this->classes) || Document::class === $class) {
                 continue;
             }
-
+            $action = 'update';
             if (Request::class === $class) {
                 $ch = $uow->getEntityChangeSet($entity);
                 // Exit if the request has no state change
                 if (!isset($ch['state'])) {
                     continue;
                 }
-            }
-            $action = 'update';
-            if (Request::class === $class) {
                 $action = 'state_change';
             }
+
             $this->createNotifications($entity, $action, $em);
         }
 
@@ -216,8 +215,11 @@ class NotificationEventSubscriber implements EventSubscriber
             $notification->setNotificationUsers($nus);
         }
 
-        if (Document::class == get_class($object)) {
+        if (Document::class === get_class($object)) {
             $this->saveEmailNotificationForRefOp($notification, $object);
+        }
+        if (Violation::class === get_class($object)) {
+            $this->saveEmailNotificationForRespTrait($notification, $object);
         }
 
         return $notification;
@@ -243,8 +245,40 @@ class NotificationEventSubscriber implements EventSubscriber
             }
 
             $nu->setNotification($notification);
-            $nu->setActive(true);
+            $nu->setActive(false);
             $nu->setToken(sha1($notification->getName() . microtime() . $nu->getMail()));
+            $nu->setSent(false);
+            $this->notificationUserRepository->persist($nu);
+        }
+    }
+
+    private function saveEmailNotificationForRespTrait(Notification $notification, CollectivityRelated $object)
+    {
+        // Get referent operationnels for this collectivity
+        $refs = $object->getCollectivity()->getUsers()->filter(function (User $u) {
+            $mi = $u->getMoreInfos();
+
+            return $mi && $mi[UserMoreInfoDictionary::MOREINFO_TREATMENT];
+        });
+        if (0 === $refs->count()) {
+            // No ref OP, get from collectivity
+            if ($object->getCollectivity() && $object->getCollectivity()->getLegalManager()) {
+                $refs = [$object->getCollectivity()->getLegalManager()->getMail()];
+            }
+        }
+
+        foreach ($refs as $ref) {
+            $nu = new NotificationUser();
+            if (User::class === get_class($ref)) {
+                $nu->setMail($ref->getEmail());
+                $nu->setUser($ref);
+            } else {
+                $nu->setMail($ref);
+            }
+
+            $nu->setToken(sha1($notification->getName() . microtime() . $nu->getMail()));
+            $nu->setNotification($notification);
+            $nu->setActive(false);
             $nu->setSent(false);
             $this->notificationUserRepository->persist($nu);
         }

@@ -29,7 +29,6 @@ use App\Domain\User\Model\User;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
@@ -87,7 +86,7 @@ class NotificationUser
      */
     public function __construct()
     {
-        $this->id = Uuid::uuid4();
+        $this->id   = Uuid::uuid4();
         $this->user = null;
     }
 

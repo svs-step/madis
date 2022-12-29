@@ -22,11 +22,11 @@ class EmailNotificationPreference
     public const NOTIF_AIPD                    = 512;
     public const NOTIF_DOCUMENT                = 1024;
 
-    public const FREQUENCY_NONE = 'none';
-    public const FREQUENCY_EACH = 'each';
-    public const FREQUENCY_HOUR = 'hour';
-    public const FREQUENCY_DAY = 'day';
-    public const FREQUENCY_WEEK = 'week';
+    public const FREQUENCY_NONE  = 'none';
+    public const FREQUENCY_EACH  = 'each';
+    public const FREQUENCY_HOUR  = 'hour';
+    public const FREQUENCY_DAY   = 'day';
+    public const FREQUENCY_WEEK  = 'week';
     public const FREQUENCY_MONTH = 'month';
 
     public const MODULES = [
@@ -127,20 +127,13 @@ class EmailNotificationPreference
         $this->day = $day;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getLastSent(): \DateTime
     {
         return $this->lastSent;
     }
 
-    /**
-     * @param \DateTime $last_sent
-     */
     public function setLastSent(\DateTime $lastSent
-    ): void
-    {
+    ): void {
         $this->lastSent = $lastSent;
     }
 

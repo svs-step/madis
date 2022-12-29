@@ -6,15 +6,14 @@ use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Model\NotificationUser;
 use App\Domain\User\Model\EmailNotificationPreference;
 use App\Domain\User\Model\User;
+use App\Domain\User\Repository\User as UserRepository;
+use App\Infrastructure\ORM\Notification\Repository\NotificationUser as NotificationUserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use App\Domain\User\Repository\User as UserRepository;
-use App\Infrastructure\ORM\Notification\Repository\NotificationUser as NotificationUserRepository;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
@@ -37,13 +36,12 @@ class NotificationsSendCommand extends Command
         MailerInterface $mailer,
         TranslatorInterface $translator,
         string $name = null
-    )
-    {
+    ) {
         parent::__construct($name);
-        $this->userRepository = $userRepository;
-        $this->mailer = $mailer;
+        $this->userRepository             = $userRepository;
+        $this->mailer                     = $mailer;
         $this->notificationUserRepository = $notificationUserRepository;
-        $this->translator = $translator;
+        $this->translator                 = $translator;
     }
 
     protected function configure(): void
@@ -105,10 +103,10 @@ class NotificationsSendCommand extends Command
             if (
                 !$prefs ||
                 !$prefs->getEnabled() ||
-                $prefs->getFrequency() == EmailNotificationPreference::FREQUENCY_NONE ||
-                $prefs->getNotificationMask() === 0
+                EmailNotificationPreference::FREQUENCY_NONE == $prefs->getFrequency() ||
+                0 === $prefs->getNotificationMask()
             ) {
-                //Exit if user has email notifications disabled
+                // Exit if user has email notifications disabled
                 continue;
             }
 
@@ -121,10 +119,9 @@ class NotificationsSendCommand extends Command
 
             $lastSent = $prefs->getLastSent();
             foreach ($notifUsers as $nu) {
-                /**
+                /*
                  * @var NotificationUser $notifUser
                  */
-
 
                 if ($nu->getCreatedAt() > $lastSent) {
                     /**
@@ -133,7 +130,7 @@ class NotificationsSendCommand extends Command
                     $notif = $nu->getNotification();
                     // Check if the notification module is is the user preferences mask
 
-                    //Get the raw name of the module
+                    // Get the raw name of the module
                     $mod = str_replace('notification.modules.', '', $notif->getModule());
 
                     $availableModules = array_keys(EmailNotificationPreference::MODULES);
@@ -144,7 +141,7 @@ class NotificationsSendCommand extends Command
                 }
             }
 
-            if (count($notifications) === 0) {
+            if (0 === count($notifications)) {
                 $output->writeln('No notifications to send to ' . $mail);
                 continue;
             }
@@ -155,23 +152,23 @@ class NotificationsSendCommand extends Command
             $email->htmlTemplate('Notification/Mail/notifications.html.twig');
             $email->context([
                 'notifications' => $notifications,
-                'user' => $user,
+                'user'          => $user,
             ]);
             try {
                 $this->mailer->send($email);
 
                 if ($user) {
-                    //$prefs->setLastSent((new \DateTime()));
-                    //$user->setEmailNotificationPreference($prefs);
+                    // $prefs->setLastSent((new \DateTime()));
+                    // $user->setEmailNotificationPreference($prefs);
                     $this->userRepository->update($user);
                 }
 
                 foreach ($notifUsers as $nu) {
-                    /**
+                    /*
                      * @var NotificationUser $notifUser
                      */
                     if ($nu->getCreatedAt() > $lastSent) {
-                        //$nu->setSent(true);
+                        // $nu->setSent(true);
                         $this->notificationUserRepository->update($nu);
                     }
                 }
@@ -182,7 +179,6 @@ class NotificationsSendCommand extends Command
                 $output->writeln('Could not send email to ' . $mail);
             }
         }
-
 
         // check the date of the last email they were sent
         // Get all notifications generated after that date
@@ -198,7 +194,8 @@ class NotificationsSendCommand extends Command
                 return new \DateTime();
             case EmailNotificationPreference::FREQUENCY_HOUR:
                 $lastSent = $prefs->getLastSent();
-                return $lastSent->add(new \DateInterval('PT'.$prefs->getHour().'H'));
+
+                return $lastSent->add(new \DateInterval('PT' . $prefs->getHour() . 'H'));
             case EmailNotificationPreference::FREQUENCY_DAY:
                 // set cutoff date to today at the specified time
                 return (new \DateTime())->setTime($prefs->getHour(), 0);
@@ -210,18 +207,20 @@ class NotificationsSendCommand extends Command
                 // set cutoff date to this months selected day and week
                 return (new \DateTime())->modify($this->getEnglishNumber($prefs->getWeek()) . ' ' . $this->getEnglishDayFromNumber($prefs->getDay()) . ' of this month')->setTime($prefs->getHour(), 0);
         }
+
+        return new \DateTime();
     }
 
     private function getEnglishDayFromNumber(int $day): string
     {
         return match ($day) {
             default => 'monday',
-            2 => 'tuesday',
-            3 => 'wednesday',
-            4 => 'thursday',
-            5 => 'friday',
-            6 => 'saturday',
-            7 => 'sunday',
+            2       => 'tuesday',
+            3       => 'wednesday',
+            4       => 'thursday',
+            5       => 'friday',
+            6       => 'saturday',
+            7       => 'sunday',
         };
     }
 
@@ -229,9 +228,9 @@ class NotificationsSendCommand extends Command
     {
         return match ($num) {
             default => 'first',
-            2 => 'second',
-            3 => 'third',
-            4 => 'fourth',
+            2       => 'second',
+            3       => 'third',
+            4       => 'fourth',
         };
     }
 }

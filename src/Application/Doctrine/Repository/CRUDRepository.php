@@ -73,8 +73,6 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
      * Create the base of QueryBuilder to use for repository calls.
      *
      * @throws \Exception
-     *
-     * @return \Doctrine\ORM\QueryBuilder
      */
     protected function createQueryBuilder(): \Doctrine\ORM\QueryBuilder
     {
