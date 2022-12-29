@@ -1,0 +1,19 @@
+App\Domain\AIPD\Model\CriterePrincipeFondamental:
+    analyse_impact_critere_1:
+        label: <word()>
+        labelLivrable: <word()>
+        code: <word()>
+        reponse: <dictionary('reponse_critere_fondamental')>
+        isVisible: true
+        texteConformite: <word()>
+        texteNonConformite: <word()>
+        texteNonApplicable: <word()>
+        justification: <word()>
+
+App\Domain\AIPD\Model\AnalyseImpact:
+    analyse_impact_1:
+        statut: 'non_realisee'
+        dateValidation: <(new \DateTime('-15 days'))>
+        conformiteTraitement: '@conformite_traitement_1'
+        modeleAnalyse: '@modele_analyse_1'
+        criterePrincipeFondamentaux: ['@analyse_impact_critere_1']

@@ -35,7 +35,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class NotificationEventSubscriber implements EventSubscriber
 {
     protected array $classes = [
-//        AnalyseImpact::class,
+        AnalyseImpact::class,
         Treatment::class,
         Mesurement::class,
         Violation::class,
@@ -112,6 +112,15 @@ class NotificationEventSubscriber implements EventSubscriber
                 $action = 'state_change';
             }
 
+            if (AnalyseImpact::class === $class) {
+                $ch = $uow->getEntityChangeSet($entity);
+                // Exit if the request has no state change
+                if (!isset($ch['statut'])) {
+                    continue;
+                }
+                $action = 'state_change';
+            }
+
             $this->createNotifications($entity, $action, $em);
         }
 
@@ -128,7 +137,14 @@ class NotificationEventSubscriber implements EventSubscriber
     {
         $notifications = [];
         $recipients    = $this->recipients[get_class($object)];
-        $uow           = $em->getUnitOfWork();
+
+        if (AnalyseImpact::class === get_class($object) && 'state_change' === $action) {
+            // DO not send status change of AIPD to collectivity
+
+            $recipients = Notification::NOTIFICATION_DPO;
+        }
+
+        $uow = $em->getUnitOfWork();
 
         $normalized = $this->normalizer->normalize($object, null,
             [
@@ -189,7 +205,6 @@ class NotificationEventSubscriber implements EventSubscriber
                 }
             }
 
-            // dump($notifications);
             $uow->computeChangeSet($meta, $notif);
         }
 
@@ -203,10 +218,15 @@ class NotificationEventSubscriber implements EventSubscriber
         $notification->setModule('notification.modules.' . $mod);
         $collectivity = method_exists($object, 'getCollectivity') ? $object->getCollectivity() : null;
 
+        $user = $this->security->getUser();
+
         $notification->setCollectivity($collectivity);
         $notification->setName(method_exists($object, 'getName') ? $object->getName() : $object->__toString());
         $notification->setAction('notification.actions.' . $action);
-        $notification->setCreatedBy($this->security->getUser());
+        if ($user && get_class($user) === User::class) {
+            $notification->setCreatedBy($user);
+        }
+
         $notification->setObject((object) $normalized);
 
         if ($users) {
@@ -220,6 +240,10 @@ class NotificationEventSubscriber implements EventSubscriber
         }
         if (Violation::class === get_class($object)) {
             $this->saveEmailNotificationForRespTrait($notification, $object);
+        }
+        if (AnalyseImpact::class === get_class($object)) {
+            $nus = $this->saveEmailNotificationForDPO($notification);
+            $notification->setNotificationUsers($nus);
         }
 
         return $notification;
@@ -250,6 +274,38 @@ class NotificationEventSubscriber implements EventSubscriber
             $nu->setSent(false);
             $this->notificationUserRepository->persist($nu);
         }
+    }
+
+    private function saveEmailNotificationForDPO(Notification $notification): array
+    {
+        // Get DPOS
+        $refs = (new ArrayCollection($this->userRepository->findAll()))->filter(function (User $u) {
+            $mi = $u->getMoreInfos();
+
+            return in_array('ROLE_ADMIN', $u->getRoles())
+                || in_array('ROLE_REFERENT', $u->getRoles())
+                || ($mi && $mi[UserMoreInfoDictionary::MOREINFO_DPD]);
+        });
+
+        $nus = [];
+        // Add notification with email address for the référents
+        foreach ($refs as $ref) {
+            $nu = new NotificationUser();
+            if (User::class === get_class($ref)) {
+                $nu->setMail($ref->getEmail());
+                $nu->setUser($ref);
+            } else {
+                $nu->setMail($ref);
+            }
+
+            $nu->setNotification($notification);
+            $nu->setActive(false);
+            $nu->setToken(sha1($notification->getName() . microtime() . $nu->getMail()));
+            $nu->setSent(false);
+            $nus[] = $nu;
+        }
+
+        return $nus;
     }
 
     private function saveEmailNotificationForRespTrait(Notification $notification, CollectivityRelated $object)

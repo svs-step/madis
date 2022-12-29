@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Domain\Notification;
 
+use App\Domain\AIPD\Dictionary\ReponseAvisDictionary;
+use App\Domain\AIPD\Dictionary\StatutAnalyseImpactDictionary;
+use App\Domain\AIPD\Model\AnalyseImpact;
+use App\Domain\Notification\Model\NotificationUser;
 use App\Domain\Registry\Dictionary\RequestStateDictionary;
 use App\Domain\Registry\Model\Request;
 use App\Domain\User\Repository\User as UserRepository;
+use App\Infrastructure\ORM\AIPD\Repository\AnalyseImpact as AnalyseImpactRepository;
 use App\Infrastructure\ORM\Documentation\Repository\Document;
 use App\Infrastructure\ORM\Notification\Repository\Notification;
 use App\Infrastructure\ORM\Registry\Repository\Request as RequestRepository;
@@ -143,5 +148,88 @@ class NotificationGenerationTest extends WebTestCase
         $this->assertEquals($request->__toString(), $notif->getName());
 
         $this->assertEquals(0, count($notif->getNotificationUsers()));
+    }
+
+    public function testGenerateNotificationForAIPDStatusChange()
+    {
+        $client = static::createClient();
+        self::populateDatabase();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser       = $userRepository->findOneOrNullByEmail('admin@awkan.fr');
+        $client->loginUser($testUser);
+
+        /**
+         * @var AnalyseImpactRepository $aipdRepository
+         */
+        $aipdRepository = $client->getContainer()->get(AnalyseImpactRepository::class);
+        $aipds          = $aipdRepository->findAll();
+        $this->assertNotEmpty($aipds);
+        /**
+         * @var AnalyseImpact $aipd
+         */
+        $aipd = $aipds[0];
+
+        $url = $client->getContainer()->get('router')->generate('aipd_analyse_impact_validation', ['id' => $aipd->getId()], UrlGeneratorInterface::RELATIVE_PATH);
+
+        $csrfToken = $client->getContainer()->get('security.csrf.token_manager')->getToken('analyse_avis');
+
+        $client->request('POST', $url, [
+            'analyse_avis' => [
+                'avisReferent'     => [
+                    'date'    => date('d/m/Y'),
+                    'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
+                    'detail'  => 'ok',
+                ],
+                'avisDpd'          => [
+                    'date'    => date('d/m/Y'),
+                    'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
+                    'detail'  => 'ok',
+                ],
+                'avisRepresentant' => [
+                    'date'    => date('d/m/Y'),
+                    'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
+                    'detail'  => 'ok',
+                ],
+                'avisResponsable'  => [
+                    'date'    => date('d/m/Y'),
+                    'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
+                    'detail'  => 'ok',
+                ],
+                '_token'           => $csrfToken,
+                // 'uploadedFile' => $uploadedFile,
+            ],
+        ]);
+
+        $this->assertResponseRedirects('/analyse-impact/liste');
+
+        $aipd = $aipdRepository->findOneById($aipd->getId()->__toString());
+
+        $this->assertNotNull($aipd);
+
+        $this->assertEquals(StatutAnalyseImpactDictionary::FAVORABLE, $aipd->getStatut());
+
+        // Check that a notification has been created for collectivity users
+        $notifRepository = static::getContainer()->get(Notification::class);
+        $notif           = $notifRepository->findOneBy([
+            'name'   => $aipd->__toString(),
+            'module' => 'notification.modules.aipd',
+            'action' => 'notification.actions.state_change',
+        ]);
+
+        $this->assertNotNull($notif);
+
+        $this->assertEquals($aipd->__toString(), $notif->getName());
+
+        $this->assertEquals(2, count($notif->getNotificationUsers()));
+
+        foreach ($notif->getNotificationUsers() as $nu) {
+            /*
+             * @var NotificationUser $nu
+             */
+            $this->assertEquals(false, $nu->getActive());
+            $this->assertEquals(false, $nu->getSent());
+            $this->assertEquals($nu->getMail(), $nu->getUser()->getEmail());
+            $this->assertTrue(in_array('ROLE_ADMIN', $nu->getUser()->getRoles()) || in_array('ROLE_REFERENT', $nu->getUser()->getRoles()));
+        }
     }
 }
