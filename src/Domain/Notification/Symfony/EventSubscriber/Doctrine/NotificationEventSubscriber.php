@@ -115,10 +115,14 @@ class NotificationEventSubscriber implements EventSubscriber
             if (AnalyseImpact::class === $class) {
                 $ch = $uow->getEntityChangeSet($entity);
                 // Exit if the request has no state change
-                if (!isset($ch['statut'])) {
+                if (!isset($ch['statut']) && !isset($ch['isReadyForValidation'])) {
                     continue;
                 }
-                $action = 'state_change';
+                if (isset($ch['statut'])) {
+                    $action = 'state_change';
+                } elseif (isset($ch['isReadyForValidation'])) {
+                    $action = 'validation';
+                }
             }
 
             $this->createNotifications($entity, $action, $em);
@@ -140,7 +144,6 @@ class NotificationEventSubscriber implements EventSubscriber
 
         if (AnalyseImpact::class === get_class($object) && 'state_change' === $action) {
             // DO not send status change of AIPD to collectivity
-
             $recipients = Notification::NOTIFICATION_DPO;
         }
 
@@ -177,6 +180,10 @@ class NotificationEventSubscriber implements EventSubscriber
         if ($recipients & Notification::NOTIFICATION_COLLECTIVITY) {
             // get all non-DPO users
             $collectivity = method_exists($object, 'getCollectivity') ? $object->getCollectivity() : null;
+
+            if (AnalyseImpact::class === get_class($object) && $object->getConformiteTraitement() && $object->getConformiteTraitement()->getTraitement()) {
+                $collectivity = $object->getConformiteTraitement()->getTraitement()->getCollectivity();
+            }
 
             if ($collectivity) {
                 $users = $this->userRepository->findNonDpoUsersForCollectivity($collectivity);
@@ -218,6 +225,10 @@ class NotificationEventSubscriber implements EventSubscriber
         $notification->setModule('notification.modules.' . $mod);
         $collectivity = method_exists($object, 'getCollectivity') ? $object->getCollectivity() : null;
 
+        if (AnalyseImpact::class === get_class($object) && $object->getConformiteTraitement() && $object->getConformiteTraitement()->getTraitement()) {
+            $collectivity = $object->getConformiteTraitement()->getTraitement()->getCollectivity();
+        }
+
         $user = $this->security->getUser();
 
         $notification->setCollectivity($collectivity);
@@ -233,6 +244,11 @@ class NotificationEventSubscriber implements EventSubscriber
             $nus = $this->notificationUserRepository->saveUsers($notification, $users);
 
             $notification->setNotificationUsers($nus);
+        } else {
+            if (AnalyseImpact::class === get_class($object)) {
+                $nus = $this->saveEmailNotificationForDPO($notification);
+                $notification->setNotificationUsers($nus);
+            }
         }
 
         if (Document::class === get_class($object)) {
@@ -240,10 +256,6 @@ class NotificationEventSubscriber implements EventSubscriber
         }
         if (Violation::class === get_class($object)) {
             $this->saveEmailNotificationForRespTrait($notification, $object);
-        }
-        if (AnalyseImpact::class === get_class($object)) {
-            $nus = $this->saveEmailNotificationForDPO($notification);
-            $notification->setNotificationUsers($nus);
         }
 
         return $notification;

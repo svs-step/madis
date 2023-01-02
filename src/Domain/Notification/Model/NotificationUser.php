@@ -88,6 +88,7 @@ class NotificationUser
     {
         $this->id   = Uuid::uuid4();
         $this->user = null;
+        $this->mail = null;
     }
 
     public function getId(): UuidInterface

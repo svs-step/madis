@@ -3,6 +3,7 @@
 namespace App\Tests\Domain\Notification\Subscriber;
 
 use App\Domain\Maturity\Model\Survey;
+use App\Domain\Notification\Event\ConformiteTraitementNeedsAIPDEvent;
 use App\Domain\Notification\Event\LateActionEvent;
 use App\Domain\Notification\Event\LateRequestEvent;
 use App\Domain\Notification\Event\LateSurveyEvent;
@@ -54,10 +55,11 @@ class NotificationEventSubscriberTest extends TestCase
     public function testSubscribedEvents()
     {
         $this->assertEquals([
-            LateActionEvent::class  => 'onLateAction',
-            LateRequestEvent::class => 'onLateRequest',
-            NoLoginEvent::class     => 'onNoLogin',
-            LateSurveyEvent::class  => 'onLateSurvey',
+            LateActionEvent::class                    => 'onLateAction',
+            LateRequestEvent::class                   => 'onLateRequest',
+            NoLoginEvent::class                       => 'onNoLogin',
+            LateSurveyEvent::class                    => 'onLateSurvey',
+            ConformiteTraitementNeedsAIPDEvent::class => 'onNeedsAIPD',
         ], NotificationEventSubscriber::getSubscribedEvents());
     }
 

@@ -3,6 +3,7 @@
 namespace App\Domain\Notification\Subscriber;
 
 use App\Application\Interfaces\CollectivityRelated;
+use App\Domain\Notification\Event\ConformiteTraitementNeedsAIPDEvent;
 use App\Domain\Notification\Event\LateActionEvent;
 use App\Domain\Notification\Event\LateRequestEvent;
 use App\Domain\Notification\Event\LateSurveyEvent;
@@ -47,11 +48,53 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            LateActionEvent::class  => 'onLateAction',
-            LateRequestEvent::class => 'onLateRequest',
-            NoLoginEvent::class     => 'onNoLogin',
-            LateSurveyEvent::class  => 'onLateSurvey',
+            LateActionEvent::class                    => 'onLateAction',
+            LateRequestEvent::class                   => 'onLateRequest',
+            NoLoginEvent::class                       => 'onNoLogin',
+            LateSurveyEvent::class                    => 'onLateSurvey',
+            ConformiteTraitementNeedsAIPDEvent::class => 'onNeedsAIPD',
         ];
+    }
+
+    public function onNeedsAIPD(ConformiteTraitementNeedsAIPDEvent $event)
+    {
+        $conformite = $event->getConformiteTraitement();
+
+        $collectivity = $conformite->getTraitement()->getCollectivity();
+        $existing     = $this->notificationRepository->findBy([
+            'module'       => 'notification.modules.aipd',
+            'collectivity' => $collectivity,
+            'action'       => 'notifications.actions.treatment_needs_aipd',
+            'name'         => $conformite->__toString(),
+        ]);
+
+        if ($existing && count($existing)) {
+            return;
+        }
+
+        $norm         = $this->normalizer->normalize($conformite, null, self::normalizerOptions());
+        $notification = new Notification();
+        $notification->setModule('notification.modules.aipd');
+        $notification->setCollectivity($collectivity);
+        $notification->setAction('notifications.actions.treatment_needs_aipd');
+        $notification->setName($conformite->__toString());
+        $notification->setObject((object) $norm);
+        $this->notificationRepository->insert($notification);
+
+        $users = $this->userRepository->findNonDpoUsersForCollectivity($collectivity);
+
+        $notification = new Notification();
+        $notification->setModule('notification.modules.aipd');
+        $notification->setCollectivity($collectivity);
+        $notification->setAction('notifications.actions.treatment_needs_aipd');
+        $notification->setName($conformite->__toString());
+        $notification->setObject((object) $norm);
+        $this->notificationRepository->insert($notification);
+
+        $nus = $this->notificationUserRepository->saveUsers($notification, $users);
+
+        $notification->setNotificationUsers($nus);
+        $this->notificationRepository->update($notification);
     }
 
     /**

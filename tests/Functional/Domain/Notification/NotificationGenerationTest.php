@@ -232,4 +232,82 @@ class NotificationGenerationTest extends WebTestCase
             $this->assertTrue(in_array('ROLE_ADMIN', $nu->getUser()->getRoles()) || in_array('ROLE_REFERENT', $nu->getUser()->getRoles()));
         }
     }
+
+    public function testGenerateNotificationForAIPDValidation()
+    {
+        $client = static::createClient();
+        self::populateDatabase();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser       = $userRepository->findOneOrNullByEmail('admin@awkan.fr');
+        $client->loginUser($testUser);
+
+        /**
+         * @var AnalyseImpactRepository $aipdRepository
+         */
+        $aipdRepository = $client->getContainer()->get(AnalyseImpactRepository::class);
+        $aipds          = $aipdRepository->findAll();
+        $this->assertNotEmpty($aipds);
+        /**
+         * @var AnalyseImpact $aipd
+         */
+        $aipd = $aipds[0];
+
+        $url = $client->getContainer()->get('router')->generate('aipd_analyse_impact_validation', ['id' => $aipd->getId()], UrlGeneratorInterface::RELATIVE_PATH);
+
+        $client->request('GET', $url);
+
+        $this->assertResponseIsSuccessful();
+
+        /**
+         * @var AnalyseImpact $aipd
+         */
+        $aipd = $aipdRepository->findOneById($aipd->getId()->__toString());
+
+        $this->assertNotNull($aipd);
+
+        $this->assertEquals(true, $aipd->isReadyForValidation());
+
+        // Check that a notification has been created for collectivity users
+        $notifRepository = static::getContainer()->get(Notification::class);
+        $notifs          = $notifRepository->findBy([
+            'name'   => $aipd->__toString(),
+            'module' => 'notification.modules.aipd',
+            'action' => 'notification.actions.validation',
+        ]);
+
+        $this->assertNotNull($notifs);
+
+        $this->assertCount(2, $notifs);
+
+        $notif = $notifs[0];
+
+        $this->assertEquals($aipd->__toString(), $notif->getName());
+
+        $this->assertEquals(2, count($notif->getNotificationUsers()));
+
+        foreach ($notif->getNotificationUsers() as $nu) {
+            /*
+             * @var NotificationUser $nu
+             */
+            $this->assertEquals(false, $nu->getActive());
+            $this->assertEquals(false, $nu->getSent());
+            $this->assertEquals($nu->getMail(), $nu->getUser()->getEmail());
+            $this->assertTrue(in_array('ROLE_ADMIN', $nu->getUser()->getRoles()) || in_array('ROLE_REFERENT', $nu->getUser()->getRoles()));
+        }
+
+        $notif = $notifs[1];
+
+        $this->assertEquals($aipd->__toString(), $notif->getName());
+
+        $this->assertEquals(4, count($notif->getNotificationUsers()));
+
+        foreach ($notif->getNotificationUsers() as $nu) {
+            /*
+             * @var NotificationUser $nu
+             */
+            $this->assertEquals(true, $nu->getActive());
+            $this->assertEquals(false, $nu->getSent());
+            $this->assertNull($nu->getMail());
+        }
+    }
 }

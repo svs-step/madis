@@ -3,12 +3,15 @@
 namespace App\Domain\Notification\Command;
 
 use App\Domain\Maturity\Repository\Survey as SurveyRepository;
+use App\Domain\Notification\Event\ConformiteTraitementNeedsAIPDEvent;
 use App\Domain\Notification\Event\LateActionEvent;
 use App\Domain\Notification\Event\LateRequestEvent;
 use App\Domain\Notification\Event\LateSurveyEvent;
 use App\Domain\Notification\Event\NoLoginEvent;
+use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\User\Repository\User as UserRepository;
+use App\Infrastructure\ORM\Registry\Repository\ConformiteTraitement\ConformiteTraitement as ConformiteTraitementRepository;
 use App\Infrastructure\ORM\Registry\Repository\Mesurement as MesurementRepository;
 use App\Infrastructure\ORM\Registry\Repository\Request as RequestRepository;
 use Symfony\Component\Console\Command\Command;
@@ -27,19 +30,22 @@ class NotificationsGenerateCommand extends Command
     private RequestRepository $requestRepository;
     private UserRepository $userRepository;
     private SurveyRepository $surveyRepository;
+    private ConformiteTraitementRepository $conformiteTraitementRepository;
 
     public function __construct(
         EventDispatcherInterface $dispatcher,
         MesurementRepository $mesurementRepository,
         RequestRepository $requestRepository,
         UserRepository $userRepository,
-        SurveyRepository $surveyRepository
+        SurveyRepository $surveyRepository,
+        ConformiteTraitementRepository $conformiteTraitementRepository
     ) {
-        $this->dispatcher           = $dispatcher;
-        $this->mesurementRepository = $mesurementRepository;
-        $this->requestRepository    = $requestRepository;
-        $this->userRepository       = $userRepository;
-        $this->surveyRepository     = $surveyRepository;
+        $this->dispatcher                     = $dispatcher;
+        $this->mesurementRepository           = $mesurementRepository;
+        $this->requestRepository              = $requestRepository;
+        $this->userRepository                 = $userRepository;
+        $this->surveyRepository               = $surveyRepository;
+        $this->conformiteTraitementRepository = $conformiteTraitementRepository;
 
         parent::__construct();
     }
@@ -124,5 +130,36 @@ class NotificationsGenerateCommand extends Command
         }
 
         return $cnt;
+    }
+
+    protected function generateTreatmentNeedsAIPDNotification(): int
+    {
+        // Get users that have last login null and created_at more than 6 months ago
+        $cfs = $this->conformiteTraitementRepository->findAll();
+        $cnt = 0;
+        foreach ($cfs as $conformite) {
+            /*
+             * @var ConformiteTraitement $conformite
+             */
+            ++$cnt;
+            $this->dispatcher->dispatch(new ConformiteTraitementNeedsAIPDEvent($conformite));
+        }
+
+        return $cnt;
+    }
+
+    private function getPlanifiedMesurements(ConformiteTraitement $conformiteTraitement): array
+    {
+        $planifiedMesurementsToBeNotified = [];
+        foreach ($conformiteTraitement->getReponses() as $reponse) {
+            $mesurements = \iterable_to_array($reponse->getActionProtectionsPlanifiedNotSeens());
+            foreach ($mesurements as $mesurement) {
+                if (!\in_array($mesurement, $planifiedMesurementsToBeNotified)) {
+                    \array_push($planifiedMesurementsToBeNotified, $mesurement);
+                }
+            }
+        }
+
+        return $planifiedMesurementsToBeNotified;
     }
 }
