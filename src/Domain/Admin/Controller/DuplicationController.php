@@ -175,8 +175,9 @@ class DuplicationController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $d = $entityManager->getRepository(Duplication::class)->findBy([], ['createdAt' => 'DESC'], 1);
-        if (count($d) === 0) {
+        if (0 === count($d)) {
             $this->addFlash('error', 'Il n\'y a aucune duplication à annuler');
+
             return $this->redirectToRoute('admin_duplication_new');
         }
         $duplicationId = $d[0];
@@ -200,14 +201,12 @@ class DuplicationController extends AbstractController
                     $duplicatedObjects = $entityManager
                     ->getRepository(DuplicatedObject::class)
                     ->findBy(['duplication' => $duplication, 'originObjectId' => $objectId]);
-                    
+
                     foreach ($duplicatedObjects as $duplicatedObject) {
                         $objectToDelete = $entityManager->getRepository($typeToDelete)->find($duplicatedObject->getDuplicatId());
 
                         $entityManager->remove($objectToDelete);
                     }
-
-
                 }
                 $entityManager->remove($duplication);
 

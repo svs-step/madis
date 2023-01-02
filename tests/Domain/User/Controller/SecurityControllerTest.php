@@ -37,7 +37,6 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -124,7 +123,7 @@ class SecurityControllerTest extends TestCase
                 [
                     'last_username' => $lastUsername,
                     'error'         => $error,
-                    'sso_type'      => null
+                    'sso_type'      => null,
                 ]
             )
             ->shouldBeCalled()
