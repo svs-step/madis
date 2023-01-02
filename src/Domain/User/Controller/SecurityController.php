@@ -158,20 +158,7 @@ class SecurityController extends AbstractController
 
         $currentUser = $this->userProvider->getAuthenticatedUser();
         if ($currentUser) {
-            $alreadyExists = $this->userRepository->findOneOrNullBySsoKey($sso_value);
-            if ($alreadyExists) {
-                return $this->_handleDuplicateUserWithSsoKey($alreadyExists);
-            }
-
-            // associate user with sso key
-            $currentUser->setSsoKey($sso_value);
-            $this->entityManager->persist($currentUser);
-            $this->entityManager->flush();
-            $this->helper->addFlash('success',
-                $this->helper->trans('user.profile.flashbag.success.sso_associated')
-            );
-
-            return $this->helper->redirectToRoute('user_profile_user_edit');
+            return $this->_associateUserWithSsoKey($sso_value, $currentUser);
         }
 
         $user = $this->userRepository->findOneOrNullBySsoKey($sso_value);
@@ -300,6 +287,24 @@ class SecurityController extends AbstractController
     {
         $this->helper->addFlash('danger',
             $this->helper->trans('user.profile.flashbag.error.sso_key_duplicate', ['email' => $alreadyExists->getEmail()])
+        );
+
+        return $this->helper->redirectToRoute('user_profile_user_edit');
+    }
+
+    private function _associateUserWithSsoKey(mixed $sso_value, User $currentUser): RedirectResponse
+    {
+        $alreadyExists = $this->userRepository->findOneOrNullBySsoKey($sso_value);
+        if ($alreadyExists) {
+            return $this->_handleDuplicateUserWithSsoKey($alreadyExists);
+        }
+
+        // associate user with sso key
+        $currentUser->setSsoKey($sso_value);
+        $this->entityManager->persist($currentUser);
+        $this->entityManager->flush();
+        $this->helper->addFlash('success',
+            $this->helper->trans('user.profile.flashbag.success.sso_associated')
         );
 
         return $this->helper->redirectToRoute('user_profile_user_edit');
