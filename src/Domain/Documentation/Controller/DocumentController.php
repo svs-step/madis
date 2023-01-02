@@ -278,6 +278,7 @@ class DocumentController extends CRUDController
     {
         if (false === $object->getIsLink() && null !== $file = $object->getUploadedFile()) {
             $filename = Uuid::uuid4()->toString() . '.' . $file->getClientOriginalExtension();
+
             $this->documentFilesystem->write($filename, \fopen($file->getRealPath(), 'r'));
             $size = $this->documentFilesystem->size($filename);
 

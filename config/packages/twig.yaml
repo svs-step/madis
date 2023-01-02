@@ -56,3 +56,6 @@ twig:
         sso_icon: '%env(SSO_ICON)%'
         sso_title: '%env(SSO_TITLE)%'
 
+        notifications: '@App\Domain\Notification\Repository\Notification'
+
+

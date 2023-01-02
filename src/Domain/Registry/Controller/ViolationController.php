@@ -181,6 +181,7 @@ class ViolationController extends CRUDController
             </a>';
 
             $reponse['data'][] = [
+                'id'           => $violation->getId(),
                 'collectivite' => $violation->getCollectivity()->getName(),
                 'date'         => $violationLink,
                 'nature'       => !\is_null($violation->getViolationNature()) ? ViolationNatureDictionary::getNatures()[$violation->getViolationNature()] : null,

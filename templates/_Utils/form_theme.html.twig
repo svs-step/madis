@@ -10,6 +10,16 @@
     {%- endif -%}
 {%- endblock form_widget_simple -%}
 
+{#{% block wrapped_choice_widget %}#}
+{#    {{ dump(form) }}#}
+
+{#    <select class="form-control" id="{{ form.vars.id }}" name="{{ form.vars.full_name }}">#}
+{#        {% for op in form.vars.choices %}#}
+{#            <option value="{{ op.value }}">{{ op.label }}</option>#}
+{#        {% endfor %}#}
+{#    </select>#}
+{#{% endblock wrapped_choice_widget %}#}
+
 {% block form_group_class -%}
     col-sm-10
 {%- endblock form_group_class %}

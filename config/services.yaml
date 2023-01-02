@@ -60,6 +60,15 @@ services:
     aipd.model.analyse_impact:
         class: App\Domain\AIPD\Model\AnalyseImpact
 
+    App\Domain\Notification\Symfony\EventSubscriber\Doctrine\NotificationEventSubscriber:
+        arguments:
+            $notificationRepository: '@App\Infrastructure\ORM\Notification\Repository\Notification'
+            $normalizer: '@App\Domain\Notification\Serializer\NotificationNormalizer'
+            $userRepository: '@App\Domain\User\Repository\User'
+            $security: '@Symfony\Component\Security\Core\Security'
+        tags: [ { name: doctrine.event_subscriber } ]
+
+
     App\Domain\AIPD\Model\AnalyseImpact: '@aipd.model.analyse_impact'
 imports:
     - { resource: services/cloner.yaml }

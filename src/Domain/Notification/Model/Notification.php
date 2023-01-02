@@ -26,8 +26,20 @@ namespace App\Domain\Notification\Model;
 
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\AIPD\Model\AnalyseImpact;
+use App\Domain\Documentation\Model\Document;
+use App\Domain\Maturity\Model\Maturity;
+use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
+use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
+use App\Domain\Registry\Model\Contractor;
+use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Registry\Model\Proof;
+use App\Domain\Registry\Model\Request;
+use App\Domain\Registry\Model\Treatment;
+use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -39,6 +51,24 @@ class Notification
 {
     use HistoryTrait;
     use CreatorTrait;
+
+    public const NOTIFICATION_DPO          = 1;
+    public const NOTIFICATION_COLLECTIVITY = 2;
+
+    public const MODULES = [
+        Treatment::class            => 'treatment',
+        Contractor::class           => 'subcontractor',
+        Request::class              => 'request',
+        Violation::class            => 'violation',
+        Proof::class                => 'proof',
+        Mesurement::class           => 'protect_action',
+        Maturity::class             => 'maturity',
+        ConformiteTraitement::class => 'treatment_conformity',
+        Conformite::class           => 'organization_conformity',
+        AnalyseImpact::class        => 'aipd',
+        Document::class             => 'document',
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\Column(type="uuid")
@@ -62,9 +92,16 @@ class Notification
     private $module;
 
     /**
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="string")
      *
-     * @var array|null
+     * @var string|null
+     */
+    private $action;
+
+    /**
+     * @ORM\Column(type="object")
+     *
+     * @var object|null
      */
     private $object;
 
@@ -77,27 +114,26 @@ class Notification
     private $collectivity;
 
     /**
-     * @var User|null
-     *
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private $readBy;
+    private ?User $readBy;
 
     /**
-     * @var \DateTimeImmutable|null
-     *
-     * @ORM\Column(type="datetime", name="read_at")
+     * @ORM\Column(type="datetime", name="read_at", nullable="true")
      */
-    private $readAt;
+    private ?\DateTime $readAt = null;
 
     /**
-     * @var User|null
-     *
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private $createdBy;
+    private ?User $createdBy;
+
+    /**
+     * @ORM\OneToMany(mappedBy="notification", targetEntity="App\Domain\Notification\Model\NotificationUser", cascade={"persist"})
+     */
+    private Collection|array $notificationUsers = [];
 
     /**
      * Category constructor.
@@ -147,12 +183,12 @@ class Notification
         $this->module = $module;
     }
 
-    public function getObject(): ?array
+    public function getObject(): ?object
     {
         return $this->object;
     }
 
-    public function setObject(?array $object): void
+    public function setObject(?object $object): void
     {
         $this->object = $object;
     }
@@ -195,5 +231,25 @@ class Notification
     public function setCreatedBy(?User $createdBy): void
     {
         $this->createdBy = $createdBy;
+    }
+
+    public function getAction(): ?string
+    {
+        return $this->action;
+    }
+
+    public function setAction(?string $action): void
+    {
+        $this->action = $action;
+    }
+
+    public function getNotificationUsers(): array|Collection
+    {
+        return $this->notificationUsers;
+    }
+
+    public function setNotificationUsers(array|Collection $notificationUsers): void
+    {
+        $this->notificationUsers = $notificationUsers;
     }
 }

@@ -27,14 +27,83 @@ namespace App\Infrastructure\ORM\Notification\Repository;
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Domain\Notification\Model;
 use App\Domain\Notification\Repository;
+use App\Domain\User\Dictionary\UserRoleDictionary;
+use App\Domain\User\Model\User;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 class Notification extends CRUDRepository implements Repository\Notification
 {
+    protected Security $security;
+
+    public function __construct(ManagerRegistry $registry, Security $security)
+    {
+        parent::__construct($registry);
+        $this->security = $security;
+    }
+
     /**
      * {@inheritdoc}
      */
     protected function getModelClass(): string
     {
         return Model\Notification::class;
+    }
+
+    public function findAll(array $order = ['createdAt' => 'desc']): array
+    {
+        // TODO only get notifications for the current user.
+        $orderBy = [];
+        foreach ($order as $key => $value) {
+            $orderBy[$key] = $value;
+        }
+        /**
+         * @var User $user
+         */
+        $user = $this->security->getUser();
+
+        $allowedRoles = [UserRoleDictionary::ROLE_REFERENT, UserRoleDictionary::ROLE_ADMIN];
+        if ($user && count($user->getRoles()) && in_array($user->getRoles()[0], $allowedRoles)) {
+            // Find notifications with null user if current user is dpo
+            $user = null;
+        }
+
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('n')
+            ->from($this->getModelClass(), 'n');
+
+        if ($user) {
+            $qb->leftJoin('n.notificationUsers', 'u')
+                ->where('u.active = 1')
+                ->where('u.user = :user')
+                ->setParameter('user', $user)
+            ;
+        } else {
+            $qb->leftJoin('n.notificationUsers', 'u')
+                ->having('count(u.id) = 0')
+                ->andHaving('n.readAt IS NULL')
+                ->groupBy('n.id')
+            ;
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function persist($object)
+    {
+        $this->getManager()->persist($object);
+    }
+
+    public function findOneBy(array $criteria)
+    {
+        $notifs = $this->registry
+            ->getManager()
+            ->getRepository($this->getModelClass())
+            ->findBy($criteria)
+        ;
+        if (count($notifs) > 0) {
+            return $notifs[0];
+        }
     }
 }

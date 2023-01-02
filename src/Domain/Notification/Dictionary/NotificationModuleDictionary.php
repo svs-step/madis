@@ -4,7 +4,7 @@
  * This file is part of the MADIS - RGPD Management application.
  *
  * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
- * @author <chayrouse@datakode.fr>
+ * @author Donovan Bourlard <donovan@awkan.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -35,11 +35,11 @@ class NotificationModuleDictionary extends SimpleDictionary
 
     public function __construct()
     {
-        parent::__construct('notifications_notification_module', self::getModules());
+        parent::__construct('notificationModule', self::getModules());
     }
 
     /**
-     * Get an array of Objects.
+     * Get an array of Roles.
      *
      * @return array
      */
@@ -54,11 +54,11 @@ class NotificationModuleDictionary extends SimpleDictionary
     }
 
     /**
-     * Get keys of the Objects array.
+     * Get keys of the Roles array.
      *
      * @return array
      */
-    public static function getModuleKeys()
+    public static function getModulesKeys()
     {
         return \array_keys(self::getModules());
     }

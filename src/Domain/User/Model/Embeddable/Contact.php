@@ -56,6 +56,11 @@ class Contact
      */
     private $phoneNumber;
 
+    /**
+     * @var bool
+     */
+    private $notification = false;
+
     public function getCivility(): ?string
     {
         return $this->civility;
@@ -119,5 +124,15 @@ class Contact
     public function setPhoneNumber(?string $phoneNumber): void
     {
         $this->phoneNumber = $phoneNumber;
+    }
+
+    public function getNotification(): bool
+    {
+        return $this->notification;
+    }
+
+    public function setNotification(?bool $notification): void
+    {
+        $this->notification = $notification;
     }
 }

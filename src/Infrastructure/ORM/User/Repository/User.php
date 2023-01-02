@@ -235,8 +235,8 @@ class User extends CRUDRepository implements Repository\User
                         ->setParameter('collectivite_name', '%' . $search . '%');
                     break;
                 case 'roles':
-                    $queryBuilder->andWhere('JSON_CONTAINS(o.roles, :role) = 1')
-                        ->setParameter('role', sprintf('"%s"', $search));
+                    $queryBuilder->andWhere('o.roles LIKE :role')
+                        ->setParameter('role', sprintf('"%s"', '%' . $search . '%'));
                     break;
                 case 'connexion':
                     $queryBuilder->andWhere('o.lastLogin LIKE :date')
@@ -261,5 +261,48 @@ class User extends CRUDRepository implements Repository\User
             ->setParameter('ssoKey', $ssoKey)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllNoLogin()
+    {
+        $now       = new \DateTime();
+        $monthsAgo = $now->sub(\DateInterval::createFromDateString('6 month'));
+        $qb        = $this->createQueryBuilder();
+        $query     = $qb->where($qb->expr()->isNull('o.lastLogin'))
+            ->andWhere($qb->expr()->orX(
+                $qb->expr()->isNull('o.createdAt'),
+                'o.createdAt < :monthsAgo'
+            ))
+            ->setParameter('monthsAgo', $monthsAgo->format('Y-m-d H:i:s'))
+            ->getQuery();
+
+        return $query->getResult()
+        ;
+    }
+
+    public function findNonDpoUsers()
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->andWhere('o.roles NOT LIKE :role')
+            // TODO add andwhere with "is_dpo"
+            ->setParameter('role', sprintf('"%s"', '%ROLE_ADMIN%'));
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findNonDpoUsersForCollectivity(Model\Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->andWhere('o.roles NOT LIKE :role')
+            // TODO add andwhere with "is_dpo"
+            ->setParameter('role', sprintf('"%s"', '%ROLE_ADMIN%'))
+        ->andWhere('o.collectivity = :collectivity')
+            ->setParameter('collectivity', $collectivity)
+        ;
+
+        return $qb->getQuery()->getResult();
     }
 }

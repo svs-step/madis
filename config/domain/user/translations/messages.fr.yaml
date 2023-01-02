@@ -15,6 +15,35 @@ user:
             job: Fonction
             mail: Email
             phone_number: Téléphone
+            notification: Notification
+
+    notifications:
+        form:
+            frequency:
+                label: Fréquence
+                month: Mensuelle
+                week: Hebdomadaire
+                day: Quotidien
+                hour: Toutes les
+                each: A chaque notification
+                none: Jamais
+                label_hour: heures
+                monthly: Mensuelle le
+                weekly: Hebdomadaire le
+                dayly: Quotidien à
+                hourly: Toutes les
+            modules:
+                treatment: Traitements
+                subcontractor: Sous-traitants
+                request: Demandes
+                violation: Violations
+                proof: Preuves
+                protect_action: Actions de protection
+                maturity: Maturité
+                treatment_conformity: Conformité des traitements
+                organization_conformity: Conformité de l'organisation
+                aipd: AIPD
+                document: Documents
 
     collectivity:
         action:
@@ -31,7 +60,7 @@ user:
             active: Statut
             address: Adresse
             different_dpo: Différent du DPD moral
-            different_it_manager: Différent du Référent Opérationnel
+            different_it_manager: Différent du Référent RGPD
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de l'organisation
             is_services_enabled: Activation des services
@@ -73,7 +102,7 @@ user:
             contact_phone_number: N° tél.
             created_at: Date de création
             different_dpo: Différent du DPD moral
-            different_it_manager: Différent du Référent Opérationnel
+            different_it_manager: Différent du Référent RGPD
             informations_complementaires: Informations complémentaires
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de l'organisation
@@ -92,7 +121,7 @@ user:
           historic: Historique
           it_manager: Responsable informatique
           legal_manager: Responsable de traitement
-          referent: Référent Opérationnel
+          referent: Référent RGPD
           reporting_block:
             management_commitment: Bilan paragraphe "Engagement de la direction"
             continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
@@ -123,6 +152,7 @@ user:
         form_user:
             tab:
                 general: Vos informations
+                moreInfo: Informations supplémentaires
                 optional: Informations facultatives
                 login_delegation: Délégation de l'authentification
             help:
@@ -183,6 +213,7 @@ user:
             edit: Éditer "%name%"
             unarchive: Rétablir "%name%"
         form:
+            notifications: Notifications
             apiAuthorized: Accès aux Webservices (API)
             collectivity: Collectivité
             collectivitesReferees: Collectivités rattachées
@@ -195,8 +226,13 @@ user:
             password: Mot de passe
             password_repeat: Répéter le mot de passe
             roles: Role
+            moreInfos: Informations supplémentaires
             services: Services
             sso_key: Fournisseur d'identité
+            respInfo: Responsable informatique
+            respTreat: Responsable traitement
+            refOp: Référent RGPD
+            dpo: DPO
         flashbag:
             success:
                 create: Utilisateur "%object%" créée avec succès
@@ -211,6 +247,7 @@ user:
             last_login: Dernière connexion
             last_name: Nom
             roles: Role
+            moreInfos: Informations supplémentaires
             services: Service
             services_list: Liste des services
             service_number_users: Nombre d'utilisateurs dans ce service
