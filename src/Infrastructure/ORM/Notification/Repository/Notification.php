@@ -82,7 +82,6 @@ class Notification extends CRUDRepository implements Repository\Notification
         } else {
             $qb->leftJoin('n.notificationUsers', 'u')
                 ->having('count(u.id) = 0')
-                ->andHaving('n.readAt IS NULL')
                 ->groupBy('n.id')
             ;
         }
