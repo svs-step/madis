@@ -278,9 +278,7 @@ abstract class CRUDController extends AbstractController
         $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && !$form->isValid()) {
-            dd($form->getErrors(true));
-        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->formPrePersistData($object);
             $this->entityManager->persist($object);
