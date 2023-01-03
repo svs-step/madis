@@ -81,7 +81,7 @@ class LogJournalLinkGenerator
 
                 return $this->router->generate('user_collectivity_show', ['id' => $service->getCollectivity()->getId()]);
             default:
-                return $this->router->generate($log->getSubjectType() . '_show', ['id' => $id]);
+                return $log->getSubjectType() ? $this->router->generate($log->getSubjectType() . '_show', ['id' => $id]) : '';
         }
     }
 }
