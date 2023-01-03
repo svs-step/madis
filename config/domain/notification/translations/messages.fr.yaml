@@ -1,3 +1,27 @@
+notifications:
+    module: Notifications
+    modules:
+        treatment: Traitements
+        contractor: Sous-traitants
+        subcontractor: Sous-traitants
+        violation: Violations
+        proof: Preuves
+        document: Document
+        action: Actions de protection
+        protect_action: Actions de protection
+        request: Demandes
+        user: Utilisateurs
+        documentation: Documentation
+        maturity: Indices de maturité
+    actions:
+        delete: Suppression
+        create: Création
+        update: Modification
+        state_change: Changement d'état
+        late_action: En retard
+        late_request: En retard
+        late_survey: En retard
+        no_login: Inactif
 notification:
     module: Notifications
     modules:
