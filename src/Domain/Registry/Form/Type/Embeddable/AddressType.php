@@ -85,7 +85,7 @@ class AddressType extends AbstractType
             'required' => $required,
             'attr'     => [
                 'maxlength' => 255,
-            ]
+            ],
         ]);
     }
 

@@ -31,7 +31,6 @@ use App\Domain\User\Model\Embeddable\Address;
 use App\Domain\User\Model\Embeddable\Contact;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use phpDocumentor\Reflection\Types\Integer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 

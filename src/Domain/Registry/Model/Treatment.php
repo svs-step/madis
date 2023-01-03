@@ -403,21 +403,21 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private Collection $violations;
 
     /**
-     *  Mentions légales apposées
+     *  Mentions légales apposées.
      *
      * @var bool
      */
     private $legalMentions;
 
     /**
-     * Consentement demandé
+     * Consentement demandé.
      *
      * @var bool
      */
     private $consentRequest;
 
     /**
-     * Format de la demande du consentement
+     * Format de la demande du consentement.
      *
      * @var string|null
      */
