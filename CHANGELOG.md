@@ -5,6 +5,8 @@ CHANGELOG
 ### Changement
 - Mise à jour vers Symfony 5.4 et PHP 8.1
 - Mise à jour vers nodejs 18
+- Ajout du système de notifications
+- Ajout de la connexion SSO
 
 ## [1.10] - 2022-04-15
 ### Changement
