@@ -251,6 +251,19 @@ class User extends CRUDRepository implements Repository\User
     }
 
     /**
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Exception
+     */
+    public function findOneOrNullBySsoKey(string $ssoKey): ?Model\User
+    {
+        return $this->createQueryBuilder()
+            ->andWhere('o.ssoKey = :ssoKey')
+            ->setParameter('ssoKey', $ssoKey)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function findAllNoLogin()

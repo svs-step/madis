@@ -134,6 +134,11 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
     private $notifications;
 
     /**
+     * @var string|null
+     */
+    private $ssoKey;
+
+    /**
      * User constructor.
      *
      * @throws \Exception
@@ -401,5 +406,15 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
     public function setNotifications(?Collection $notifications): void
     {
         $this->notifications = $notifications;
+    }
+
+    public function getSsoKey(): ?string
+    {
+        return $this->ssoKey;
+    }
+
+    public function setSsoKey(?string $ssoKey): void
+    {
+        $this->ssoKey = $ssoKey;
     }
 }

@@ -6,6 +6,16 @@ login:
 logout:
     path: '/deconnexion'
 
+oauth_connect:
+    path: '/oauth/connect/{service}'
+    methods: [ 'GET' ]
+    controller: 'App\Domain\User\Controller\SecurityController:oauthConnectAction'
+
+oauth_check:
+    path: '/oauth/check/{service}'
+    methods: [ 'GET' ]
+    controller: 'App\Domain\User\Controller\SecurityController:oauthCheckAction'
+
 forget_password:
     path: '/mot-de-passe-oublie'
     methods: ['GET']

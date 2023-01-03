@@ -143,13 +143,25 @@ user:
             success:
                 collectivity_edit: Votre collectivité vient d'être mise à jour
                 user_edit: Votre compte vient d'être mis à jour
+                sso_associated: Le compte a été associé
+                sso_unlink: Le compte a été dissocié
+            error:
+                sso_already_associated: La délégation d'authentification est déjà paramétrée
+                sso_key_duplicate: 'Identifiant SSO déjà utilisé pour le compte: email'
+            #                ...
         form_user:
             tab:
                 general: Vos informations
                 moreInfo: Informations supplémentaires
                 optional: Informations facultatives
+                login_delegation: Délégation de l'authentification
             help:
                 password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe
+            sso:
+                linked: Associé
+                link: Associer le compte
+                unlink: Dissocier le compte
+
         title:
             collectivity_edit: Éditer ma collectivité
 
@@ -175,6 +187,10 @@ user:
               error: Aucun compte associé à cette clé d'authentification
               success: Votre mot de passe vient d'être réinitialisé
           verbatim: Réinitialisation de votre mot de passe
+        sso_login:
+            link: Se connecter avec %service%
+            flashbag:
+                sso_client_error: Erreur service SSO
         title:
             forget_password: Mot de passe oublié
             forget_password_confirm: Mot de passe oublié
@@ -212,6 +228,7 @@ user:
             roles: Role
             moreInfos: Informations supplémentaires
             services: Services
+            sso_key: Fournisseur d'identité
             respInfo: Responsable informatique
             respTreat: Responsable traitement
             refOp: Référent RGPD

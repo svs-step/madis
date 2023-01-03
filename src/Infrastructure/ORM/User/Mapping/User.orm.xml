@@ -32,6 +32,7 @@
         <field name="lastLogin" column="last_login" type="datetime_immutable" nullable="true"/>
         <field name="apiAuthorized" column="api_authorized" type="boolean" nullable="true"/>
         <field name="documentView" column="document_view" type="boolean" nullable="true"/>
+        <field name="ssoKey" column="sso_key" nullable="true" unique="true"/>
 
         <one-to-many field="notifications" target-entity="App\Domain\Notification\Model\NotificationUser" mapped-by="user" />
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity" inversed-by="users" fetch="EAGER"/>

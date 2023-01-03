@@ -115,6 +115,7 @@ class UserTypeTest extends FormTypeHelper
             'collectivitesReferees'       => EntityType::class,
             'emailNotificationPreference' => EmailNotificationPreferenceType::class,
             'apiAuthorized'               => CheckboxType::class,
+            'ssoKey'                      => TextType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
