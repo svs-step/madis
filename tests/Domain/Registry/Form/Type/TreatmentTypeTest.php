@@ -132,6 +132,9 @@ class TreatmentTypeTest extends FormTypeHelper
             'securitySpecificitiesDelivered'    => CheckboxType::class,
             'ultimateFate'                      => DictionaryType::class,
             'otherCollectingMethod'             => TextType::class,
+            'legalMentions'                     => CheckboxType::class,
+            'consentRequest'                    => CheckboxType::class,
+            'consentRequestFormat'              => TextType::class,
         ];
 
         $this->formType->buildForm($this->prophesizeBuilder($builder), ['data' => $treatment]);
