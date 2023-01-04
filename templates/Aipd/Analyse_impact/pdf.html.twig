@@ -511,37 +511,16 @@
         <div>La matrice de décision ci-dessous vous informe du comportement attendu par la CNIL selon le niveau d'impact identifié :</div>
         <div>La CNIL préconise d’accepter les risques uniquement lorsque l’impact est négligeable. Dans les autres cas, il faudra apporter des mesures de protection supplémentaires pour venir corriger les anomalies identifiées. Dans le cas où le risque est maximal et que les mesures ne sont pas jugées suffisantes, il conviendra de solliciter l’avis de la CNIL.</div>
         <div style="text-align: center"><img src="{{ base_dir ~ asset("images/MatriceDecision.png") }}" height="300" alt="MatriceDecision"></div>
-
+        <br/>
         <h3>4.3 Mesure(s) de réduction des risques mise(s) en place</h3>
         <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
-        <table class="table table-bordered">
-            <tr>
-                <th>Mesure</th>
-                <th>Évaluation</th>
-                <th>Avis sur les mesures existantes</th>
-            </tr>
-            {% for mesure in object.mesureProtections %}
-                <tr>
-                    <td>{{ mesure.nom }}</td>
-                    <td>
-                        {% if mesure.reponse in reponsedictionary(object)|keys %}
-                        {{ mesure.reponse|reponsedictionary(object) }}
-                        {% else %}
-                        {{ mesure.reponse }}
-                        {% endif %}
-                    </td>
-                    <td>{{ mesure.detail }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-
         <div class="box box-solid box-primary">
             <div class="box-header with-border">Mesures de protection</div>
             <table class="table table-bordered">
                 <tr>
                     <th>Mesure</th>
-                    <th>Description</th>
-                    <th>Réponse</th>
+                    <th>Avis sur les mesures existantes</th>
+                    <th>Évaluation</th>
                     <th>Préconisations</th>
                 </tr>
 
@@ -573,7 +552,7 @@
         <h3>4.4 Risques résiduels</h3>
         <div>Les risques résiduels correspondent aux risques non-traités ou pour lesquels il n'est pas prévu de mettre en oeuvre l'ensemble des mesures de sécurité.</div>
         <div class="reportGraph"><canvas id="risquesResiduels-chart"></canvas></div>
-        <div class="reportGraph"><canvas id="dicResiduels-chart"></canvas></div>
+        <br/>
         <div class="box box-solid box-primary">
             <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
             <div class="box-body">
@@ -583,7 +562,7 @@
                         <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
                         <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
                     </tr>
-                    {% for scenario in object.scenarioMenaces %}
+                    {% for scenario in object.scenarioMenaces|sort((a, b) => a.nom >= b.nom) %}
                         <tr>
                             <td>{{ scenario.nom }}</td>
                             <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
@@ -593,6 +572,8 @@
                 </table>
             </div>
         </div>
+        <p>Le graphique ci dessous représente les risques résiduels sur la disponibilité, l'intégrité et la confidentialité des données à caractère personnel</p>
+        <div class="reportGraph"><canvas id="dicResiduels-chart"></canvas></div>
         <div class="box box-solid box-primary">
             <div class="box-header with-border">Actions conseillées par le DPD à mettre en place</div>
                 <table class="table table-bordered">
