@@ -13,3 +13,5 @@ knpu_oauth2_client:
             redirect_route: oauth_check
             redirect_params:
                 service: keycloak
+
+#    add other oauth2 client here @see https://github.com/knpuniversity/oauth2-client-bundle
