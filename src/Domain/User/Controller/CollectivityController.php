@@ -153,7 +153,7 @@ class CollectivityController extends CRUDController
         /** @var Model\Collectivity $collectivity */
         foreach ($collectivities as $collectivity) {
             $reponse['data'][] = [
-                'nom' => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' .
+                'nom'                          => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' .
                     $collectivity->getName() .
                     '</a>',
                 'nom_court'                    => $collectivity->getShortName(),
