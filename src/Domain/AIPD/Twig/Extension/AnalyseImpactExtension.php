@@ -30,7 +30,7 @@ class AnalyseImpactExtension extends AbstractExtension
             new TwigFunction('getScenarioMenaceImpactResiduelLabel', [$this, 'getScenarioMenaceImpactResiduelLabel']),
             new TwigFunction('getScenarioMenaceImpactResiduel', [$this, 'getScenarioMenaceImpactResiduel']),
             new TwigFunction('getScenarioMenaceIndicateurResiduel', [$this, 'getScenarioMenaceIndicateurResiduel']),
-            new TwigFunction('getMeasureImpactResiduel', [$this, 'getMeasureImpactResiduel'])
+            new TwigFunction('getMeasureImpactResiduel', [$this, 'getMeasureImpactResiduel']),
         ];
     }
 
