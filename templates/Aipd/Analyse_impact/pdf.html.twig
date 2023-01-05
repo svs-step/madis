@@ -582,10 +582,12 @@
                         <th>Préconisations</th>
                     </tr>
                         {% for mesure in mesuresProtection %}
-                            <tr>
-                                <td>{{ mesure.labelLivrable }}</td>
-                                <td>{{ mesure.phrasePreconisation }}</td>
-                            </tr>
+                            {% if (getMeasureImpactResiduel(mesure.poidsGravite,mesure.poidsVraisemblance) is not same as 1) %}
+                                <tr>
+                                    <td>{{ mesure.labelLivrable }}</td>
+                                    <td>{{ mesure.phrasePreconisation }}</td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                 </table>
             </div>
