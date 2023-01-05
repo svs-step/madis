@@ -65,6 +65,16 @@
                             </td>
                         </tr>
                         <tr>
+                            <td><strong>{{ 'registry.treatment.show.exempt_AIPD'|trans }}</strong></td>
+                            <td>
+                                {% if object.ExemptAIPD == true %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'registry.treatment.show.name'|trans }}</strong></td>
                             <td>{{ object.name }}</td>
                         </tr>
@@ -608,7 +618,7 @@
             {# Mesurements #}
             {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
 
-            {% if object.collectivity.hasModuleConformiteTraitement %}
+            {% if object.collectivity.hasModuleConformiteTraitement and object.ExemptAIPD == false %}
                 <div class="box box-solid box-success">
                     <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.conformite'|trans }}</h3></div>
                     <div class="box-body">

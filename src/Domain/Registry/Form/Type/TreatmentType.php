@@ -72,6 +72,10 @@ class TreatmentType extends AbstractType
                 'label'    => ' ',
                 'required' => false,
             ])
+            ->add('exempt_AIPD', CheckboxType::class, [
+                'label'    => ' ',
+                'required' => false,
+            ])
             ->add('name', TextType::class, [
                 'label'    => 'registry.treatment.form.name',
                 'required' => true,
