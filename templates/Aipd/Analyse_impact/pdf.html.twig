@@ -530,6 +530,7 @@
             {% endfor %}
         </table>
         <div>La matrice de décision ci-dessous vous informe du comportement attendu par la CNIL selon le niveau d'impact identifié :</div>
+        <div>La CNIL préconise d’accepter les risques uniquement lorsque l’impact est négligeable. Dans les autres cas, il faudra apporter des mesures de protection supplémentaires pour venir corriger les anomalies identifiées. Dans le cas où le risque est maximal et que les mesures ne sont pas jugées suffisantes, il conviendra de solliciter l’avis de la CNIL.</div>
         <div style="text-align: center"><img src="{{ base_dir ~ asset("images/MatriceDecision.png") }}" height="300" alt="MatriceDecision"></div>
         <br/>
         <h3>4.3 Mesure(s) de réduction des risques mise(s) en place</h3>
@@ -553,7 +554,7 @@
                         {% endif%}
                     {% endfor %}
                 {% endfor %}
-                {% for element in mesures %}
+                {% for element in mesures|sort((a, b) => a.labelLivrable >= b.labelLivrable) %}
                     <tr>
                         <td>{{ element.labelLivrable }}</td>
                         <td>{{ element.detail }}</td>
@@ -608,7 +609,7 @@
                         <th>Label livrable</th>
                         <th>Préconisations</th>
                     </tr>
-                    {% for mesure in object.mesureProtections %}
+                    {% for mesure in object.mesureProtections|sort((a, b) => a.labelLivrable >= b.labelLivrable) %}
                         {% if (getMeasureImpactResiduel(mesure.poidsGravite,mesure.poidsVraisemblance) is not same as 1) %}
                             <tr>
                                 <td>{{ mesure.labelLivrable }}</td>
