@@ -45,18 +45,23 @@
             <div class="box box-solid">
                 <div class="box-body">
                     {% if flow.getCurrentStepNumber() == 1 %}
+                        <p>Pour chacun des points suivants, précisez le niveau de conformité, justifiez votre réponse et éventuellement ajoutez une image pour préciser.</p>
                         {% include '@templates_path/Aipd/Analyse_impact/_form_step_1.html.twig' with {
                             form: form
                         } %}
                     {% elseif flow.getCurrentStepNumber() == 2 %}
+                        <p>L'évaluation des principes fondamentaux a été réalisée lors de l'évaluation de la conformité des traitements, il peut être nécessaire ici de justifier.</p>
                         {% include '@templates_path/Aipd/Analyse_impact/_form_step_2.html.twig' with {
                             form: form
                         } %}
                     {% elseif flow.getCurrentStepNumber() == 3 %}
+                        <p>Pour chacun des risques suivants, précisez si nécessaire l'impact sur la Disponibilité, l'Intégrité ou la Confidentialité (DIC), la vraisemblance que le risque ce produise, la gravité s'il se produit.
+                            Apportez toute précision en complétant le dernier champ à cet effet.</p>
                         {% include '@templates_path/Aipd/Analyse_impact/_form_step_3.html.twig' with {
                             form: form
                         } %}
                     {% elseif flow.getCurrentStepNumber() == 4 %}
+                        <p>Pour chacune des mesures ou questions suivantes, précisez son niveau de mise en œuvre, et dans le dernier champ décrivez ce qui est mis en œuvre.</p>
                         {% include '@templates_path/Aipd/Analyse_impact/_form_step_4.html.twig' with {
                             form: form
                         } %}
