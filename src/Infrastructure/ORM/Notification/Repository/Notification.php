@@ -70,22 +70,21 @@ class Notification extends CRUDRepository implements Repository\Notification
 
         $qb = $this->createQueryBuilder();
 
-        $qb->select('n')
-            ->from($this->getModelClass(), 'n');
+//        $qb->from($this->getModelClass(), 'n');
 
         if ($user) {
-            $qb->leftJoin('n.notificationUsers', 'u')
+            $qb->leftJoin('o.notificationUsers', 'u')
                 ->where('u.active = 1')
                 ->where('u.user = :user')
                 ->setParameter('user', $user)
             ;
         } else {
-            $qb->leftJoin('n.notificationUsers', 'u')
+            $qb->leftJoin('o.notificationUsers', 'u')
                 ->having('count(u.id) = 0')
-                ->groupBy('n.id')
+                ->groupBy('o.id')
             ;
         }
-
+        
         return $qb->getQuery()->getResult();
     }
 
