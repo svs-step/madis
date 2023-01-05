@@ -163,7 +163,7 @@ class AnalyseImpactExtension extends AbstractExtension
         return $lastAnalyse;
     }
 
-    private static function getMeasureImpactResiduel($gravite, $vraisemblance)
+    public static function getMeasureImpactResiduel($gravite, $vraisemblance)
     {
         return AnalyseEvaluationCalculator::getImpactFromGraviteAndVraisemblance($gravite, $vraisemblance);
     }

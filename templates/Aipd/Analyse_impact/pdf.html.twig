@@ -608,14 +608,14 @@
                         <th>Label livrable</th>
                         <th>Préconisations</th>
                     </tr>
-                        {% for mesure in mesuresProtection %}
-                            {% if (getMeasureImpactResiduel(mesure.poidsGravite,mesure.poidsVraisemblance) is not same as 1) %}
-                                <tr>
-                                    <td>{{ mesure.labelLivrable }}</td>
-                                    <td>{{ mesure.phrasePreconisation }}</td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
+                    {% for mesure in object.mesureProtections %}
+                        {% if (getMeasureImpactResiduel(mesure.poidsGravite,mesure.poidsVraisemblance) is not same as 1) %}
+                            <tr>
+                                <td>{{ mesure.labelLivrable }}</td>
+                                <td>{{ mesure.phrasePreconisation }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
                 </table>
             </div>
         </div>
