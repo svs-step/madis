@@ -1410,8 +1410,7 @@
 
             </div>
         </div>
-
-    </section>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -1586,25 +1585,56 @@
     /* The format of the data used by the chart is [[],[]] but here we use only 1 set of data */
     domainesDatas = [domainesDatas];
 
-    var mesuresLabels = [];
+    var mesuresLabels = ['Disponibilité','Intégrité', 'Confidentialité'];
     var mesuresDatas = [];
     var risquesLabels = [];
     var risquesDataSet1 = [];
     var risquesDataSet2 = [];
     var dicResiduelsData = [];
+
+    var dispoGravity = 0;
+    var dispoVraisemblance = 0;
+    var integrityGravity = 0;
+    var integrityVraisemblance = 0;
+    var confidentialityGravity = 0;
+    var confidentialityVraisemblance = 0;
+    var vraisemblance = 0;
+    var gravite = 0;
+
     {% for scenario in object.scenarioMenaces %}
-        risquesLabels.push("{{ scenario.nom|u.truncate(20, '...')|raw|escape('js') }}");
+        vraisemblance = {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}
+        gravite = {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}
+        {% if (scenario.isDisponibilite) %}
+            dispoGravity = gravite > dispoGravity ? gravite : dispoGravity;
+            dispoVraisemblance = vraisemblance > dispoVraisemblance ? vraisemblance : dispoVraisemblance;
+        {% endif %}
+        {% if (scenario.isIntegrite) %}
+            integrityGravity = gravite > integrityGravity ? gravite : integrityGravity;
+            integrityVraisemblance = vraisemblance > integrityVraisemblance ? vraisemblance : integrityVraisemblance;
+        {% endif %}
+        {% if (scenario.isConfidentialite) %}
+            confidentialityGravity = gravite > confidentialityGravity ? gravite : confidentialityGravity;
+            confidentialityVraisemblance = vraisemblance > confidentialityVraisemblance ? vraisemblance : confidentialityVraisemblance;
+        {% endif %}
+
         {%  set rr = getScenarioMenaceImpactResiduel(scenario) %}
         {%  set rp = getScenarioMenaceImpactPotentiel(scenario) %}
         risquesDataSet1.push({{ rp-rr }})
         risquesDataSet2.push({{ rr }});
-        dicResiduelsData.push({
-            label: "{{ scenario.nom }}",
-            data: [{x: {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}, y: {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}, r: 10}],
-            backgroundColor: 'hsl({{ (23*loop.index) % 360 }}, 100%, 50%)'
-        });
-
     {% endfor %}
+    dicResiduelsData.push({
+        label: "Disponibilité",
+        data: [{x: dispoVraisemblance, y: dispoGravity, r: 10}],
+        backgroundColor: 'hsl({{ 23 % 360 }}, 100%, 50%)'
+    },{
+        label: "Intégrité",
+        data: [{x: integrityVraisemblance, y: integrityGravity, r: 10}],
+        backgroundColor: 'hsl({{ 46 % 360 }}, 100%, 50%)'
+    },{
+        label: "Confidentialité",
+        data: [{x: confidentialityVraisemblance, y: confidentialityGravity, r: 10}],
+        backgroundColor: 'hsl({{ 69 % 360 }}, 100%, 50%)'
+    });
     {% for mesure in object.mesureProtections %}
         mesuresLabels.push("{{ mesure.nomCourt|raw|escape('js') }}");
         {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
