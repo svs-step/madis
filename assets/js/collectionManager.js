@@ -1,5 +1,7 @@
 (function ($) {
+    console.log('BLA')
     $(document).ready(function() {
+        console.log('ready', $)
         var $wrapper = $('.js-collection-wrapper');
 
         $wrapper.on('click', '.js-remove-item', function(e) {
@@ -10,6 +12,7 @@
         });
 
         $wrapper.on('click', '.js-collection-add', function(e) {
+            console.log('adding')
             e.preventDefault();
             // Get the data-prototype explained earlier
             var prototype = $(this).parent().data('prototype');

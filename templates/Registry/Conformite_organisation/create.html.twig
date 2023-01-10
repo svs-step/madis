@@ -26,10 +26,11 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ encore_entry_script_tags('collectionManager') }}
     {{ include('Registry/Mesurement/_modal_form_js.html.twig') }}
     {{ include('Registry/Conformite_organisation/_form_js.html.twig') }}
 
-    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+
 {% endblock %}
 
 {% block style %}

@@ -27,5 +27,5 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+    {{ encore_entry_script_tags('js/collectionManager') }}
 {% endblock %}

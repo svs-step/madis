@@ -66,7 +66,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+    {{ encore_entry_script_tags('js/collectionManager') }}
     {{ include('Aipd/Modele_analyse/_form_js.html.twig') }}
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
