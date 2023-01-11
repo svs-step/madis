@@ -172,7 +172,19 @@
                                                     {{ 'aipd.analyse_impact.action.edit'|trans }}
                                                 </a>
                                             {% else %}
-                                                {% if not conformiteTraitement.traitement.ExemptAIPD  and analyseImpact is null %}
+                                                {{ dump(conformiteTraitement.traitement.dataCategories) }}
+                                                {% set counter = 0 %}
+                                                {% if conformiteTraitement.traitement.systematicMonitoring %}{% set counter = counter + 1 %}{% endif %}
+                                                {% if conformiteTraitement.traitement.largeScaleCollection %}{% set counter = counter + 1 %}{% endif %}
+                                                {% if conformiteTraitement.traitement.vulnerablePeople %}{% set counter = counter + 1 %}{% endif %}
+                                                {% if conformiteTraitement.traitement.dataCrossing %}{% set counter = counter + 1 %}{% endif %}
+                                                {% if conformiteTraitement.traitement.evaluationOrRating %}{% set counter = counter + 1 %}{% endif %}
+                                                {% if conformiteTraitement.traitement.automatedDecisionsWithLegalEffect %}{% set counter = counter + 1 %}{% endif %}
+                                                {% if conformiteTraitement.traitement.automaticExclusionService %}{% set counter = counter + 1 %}{% endif %}
+                                                {% if conformiteTraitement.traitement.innovativeUse %}{% set counter = counter + 1 %}{% endif %}
+
+                                                {{ dump(counter) }}
+                                                {% if not conformiteTraitement.traitement.ExemptAIPD  and analyseImpact is null and (counter > 1 or (counter === 1 and )%}
                                                     <a href="{{ path('registry_conformite_traitement_start_aipd', {'id': conformiteTraitement.id}) }}">
                                                         <i class="fa fa-chalkboard-teacher"></i>
                                                         {{ 'aipd.analyse_impact.action.create'|trans }}
