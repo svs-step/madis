@@ -25,4 +25,33 @@
     {{ parent() }}
 
     <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $("#collectivity_dpo_civility").prop("required", false);
+            $("#collectivity_dpo_firstName").prop("required", false);
+            $("#collectivity_dpo_lastName").prop("required", false);
+            $("#collectivity_dpo_job").prop("required", false);
+            $("#collectivity_dpo_mail").prop("required", false);
+            $("#collectivity_dpo_phoneNumber").prop("required", false);
+
+            $('#collectivity_differentDpo').on('change', function(){
+                if ($('#collectivity_differentDpo').is(':checked')){
+                    $("#collectivity_dpo_civility").prop("required", "true");
+                    $("#collectivity_dpo_firstName").prop("required", "true");
+                    $("#collectivity_dpo_lastName").prop("required", "true");
+                    $("#collectivity_dpo_job").prop("required", "true");
+                    $("#collectivity_dpo_mail").prop("required", "true");
+                    $("#collectivity_dpo_phoneNumber").prop("required", "true");
+                }
+                else {
+                    $("#collectivity_dpo_civility").prop("required", false);
+                    $("#collectivity_dpo_firstName").prop("required", false);
+                    $("#collectivity_dpo_lastName").prop("required", false);
+                    $("#collectivity_dpo_job").prop("required", false);
+                    $("#collectivity_dpo_mail").prop("required", false);
+                    $("#collectivity_dpo_phoneNumber").prop("required", false);
+                }
+            })
+        })
+    </script>
 {% endblock %}
