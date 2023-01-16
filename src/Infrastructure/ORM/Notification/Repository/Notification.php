@@ -79,12 +79,10 @@ class Notification extends CRUDRepository implements Repository\Notification
                 ->setParameter('user', $user)
             ;
         } else {
-            $qb->leftJoin('o.notificationUsers', 'u')
-                ->having('count(u.id) = 0')
-                ->groupBy('o.id')
+            $qb->where('o.dpo = 1')
             ;
         }
-        
+
         return $qb->getQuery()->getResult();
     }
 

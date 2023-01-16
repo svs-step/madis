@@ -72,15 +72,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $norm         = $this->normalizer->normalize($conformite, null, self::normalizerOptions());
-        $notification = new Notification();
-        $notification->setModule('notification.modules.aipd');
-        $notification->setCollectivity($collectivity);
-        $notification->setAction('notifications.actions.treatment_needs_aipd');
-        $notification->setName($conformite->__toString());
-        $notification->setObject((object) $norm);
-        $this->notificationRepository->insert($notification);
-
+        $norm  = $this->normalizer->normalize($conformite, null, self::normalizerOptions());
         $users = $this->userRepository->findNonDpoUsersForCollectivity($collectivity);
 
         $notification = new Notification();
@@ -89,6 +81,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setAction('notifications.actions.treatment_needs_aipd');
         $notification->setName($conformite->__toString());
         $notification->setObject((object) $norm);
+        $notification->setDpo(true);
         $this->notificationRepository->insert($notification);
 
         $nus = $this->notificationUserRepository->saveUsers($notification, $users);
@@ -114,14 +107,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         if ($existing && count($existing)) {
             return;
         }
-        $norm         = $this->normalizer->normalize($survey, null, self::normalizerOptions());
-        $notification = new Notification();
-        $notification->setModule('notification.modules.maturity');
-        $notification->setCollectivity($survey->getCollectivity());
-        $notification->setAction('notifications.actions.late_survey');
-        $notification->setName($survey->__toString());
-        $notification->setObject((object) $norm);
-        $this->notificationRepository->insert($notification);
+        $norm = $this->normalizer->normalize($survey, null, self::normalizerOptions());
 
         $users = $this->userRepository->findNonDpoUsersForCollectivity($survey->getCollectivity());
 
@@ -131,6 +117,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setAction('notifications.actions.late_survey');
         $notification->setName($survey->__toString());
         $notification->setObject((object) $norm);
+        $notification->setDpo(true);
         $this->notificationRepository->insert($notification);
         $nus = $this->notificationUserRepository->saveUsers($notification, $users);
 
@@ -156,14 +143,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $norm         = $this->normalizer->normalize($action, null, self::normalizerOptions());
-        $notification = new Notification();
-        $notification->setModule('notification.modules.action');
-        $notification->setCollectivity($action->getCollectivity());
-        $notification->setAction('notifications.actions.late_action');
-        $notification->setName($action->getName());
-        $notification->setObject((object) $norm);
-        $this->notificationRepository->insert($notification);
+        $norm = $this->normalizer->normalize($action, null, self::normalizerOptions());
 
         $users        = $this->userRepository->findNonDpoUsersForCollectivity($action->getCollectivity());
         $notification = new Notification();
@@ -172,6 +152,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setAction('notifications.actions.late_action');
         $notification->setName($action->getName());
         $notification->setObject((object) $norm);
+        $notification->setDpo(true);
         $this->notificationRepository->insert($notification);
 
         $nus = $this->notificationUserRepository->saveUsers($notification, $users);
@@ -200,24 +181,13 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
         $users = $this->userRepository->findNonDpoUsersForCollectivity($request->getCollectivity());
 
-        // One without users for DPO,
-        // One with users for non DPO users
         $notification = new Notification();
         $notification->setModule('notification.modules.request');
         $notification->setCollectivity($request->getCollectivity());
         $notification->setAction('notifications.actions.late_request');
         $notification->setName($request->__toString());
         $notification->setObject((object) $norm);
-
-        $this->notificationRepository->insert($notification);
-
-        $notification = new Notification();
-        $notification->setModule('notification.modules.request');
-        $notification->setCollectivity($request->getCollectivity());
-        $notification->setAction('notifications.actions.late_request');
-        $notification->setName($request->__toString());
-        $notification->setObject((object) $norm);
-
+        $notification->setDpo(true);
         $this->notificationRepository->insert($notification);
 
         $nus = $this->notificationUserRepository->saveUsers($notification, $users);
@@ -251,6 +221,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setName($user->getFullName());
         $notification->setCreatedBy($user);
         $notification->setObject((object) $this->normalizer->normalize($user, null, self::normalizerOptions()));
+        $notification->setDpo(true);
         $this->notificationRepository->insert($notification);
 
         $this->saveEmailNotificationForRefOp($notification, $user);

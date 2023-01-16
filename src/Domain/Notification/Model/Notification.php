@@ -85,6 +85,11 @@ class Notification
     private $name;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private ?bool $dpo;
+
+    /**
      * @ORM\Column(type="string")
      *
      * @var string|null
@@ -142,7 +147,8 @@ class Notification
      */
     public function __construct()
     {
-        $this->id = Uuid::uuid4();
+        $this->id  = Uuid::uuid4();
+        $this->dpo = false;
     }
 
     public function __toString(): string
@@ -251,5 +257,15 @@ class Notification
     public function setNotificationUsers(array|Collection $notificationUsers): void
     {
         $this->notificationUsers = $notificationUsers;
+    }
+
+    public function getDpo(): ?bool
+    {
+        return $this->dpo;
+    }
+
+    public function setDpo(?bool $dpo): void
+    {
+        $this->dpo = $dpo;
     }
 }

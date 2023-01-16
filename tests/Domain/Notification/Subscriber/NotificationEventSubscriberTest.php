@@ -86,37 +86,26 @@ class NotificationEventSubscriberTest extends TestCase
         $notification->setCollectivity($survey->getCollectivity());
         $notification->setAction('notifications.actions.late_survey');
         $notification->setName($survey->__toString());
+        $notification->setDpo(true);
         $notification->setObject((object) [
             'collectivity' => [
                 'name' => 'coll',
             ],
         ]);
 
-        $notification2 = new Notification();
-        $notification2->setModule('notification.modules.maturity');
-        $notification2->setCollectivity($survey->getCollectivity());
-        $notification2->setAction('notifications.actions.late_survey');
-        $notification2->setName($survey->__toString());
-        $notification2->setObject((object) [
-            'collectivity' => [
-                'name' => 'coll',
-            ],
-        ]);
         $this->notificationRepository->insert(new NotificationToken($notification))->shouldBeCalled();
-
-        $this->notificationRepository->insert(new NotificationToken($notification2))->shouldBeCalled();
 
         $nu = new NotificationUser();
         $nu->setUser($user);
-        $nu->setNotification($notification2);
+        $nu->setNotification($notification);
 
-        $notification2->setNotificationUsers([$user]);
+        $notification->setNotificationUsers([$user]);
 
-        $this->notificationRepository->update(new NotificationToken($notification2))->shouldBeCalled();
+        $this->notificationRepository->update(new NotificationToken($notification))->shouldBeCalled();
 
         $this->userRepository->findNonDpoUsersForCollectivity($collectivity)->shouldBeCalled()->willReturn([$user]);
 
-        $this->notificationUserRepository->saveUsers(new NotificationToken($notification2), [$user])->shouldBeCalled()->willReturn([$nu]);
+        $this->notificationUserRepository->saveUsers(new NotificationToken($notification), [$user])->shouldBeCalled()->willReturn([$nu]);
 
         $this->notificationNormalizer->normalize(Argument::exact($survey), null, Argument::any())
             ->shouldBeCalled()
@@ -155,13 +144,14 @@ class NotificationEventSubscriberTest extends TestCase
         $notification->setCollectivity($request->getCollectivity());
         $notification->setAction('notifications.actions.late_request');
         $notification->setName($request->__toString());
+        $notification->setDpo(true);
         $notification->setObject((object) [
             'collectivity' => [
                 'name' => 'coll',
             ],
         ]);
 
-        $this->notificationRepository->insert(new NotificationToken($notification))->shouldBeCalledTimes(2);
+        $this->notificationRepository->insert(new NotificationToken($notification))->shouldBeCalled();
 
         $nu = new NotificationUser();
         $nu->setUser($user);
@@ -214,13 +204,14 @@ class NotificationEventSubscriberTest extends TestCase
         $notification->setCollectivity($action->getCollectivity());
         $notification->setAction('notifications.actions.late_action');
         $notification->setName($action->__toString());
+        $notification->setDpo(true);
         $notification->setObject((object) [
             'collectivity' => [
                 'name' => 'coll',
             ],
         ]);
 
-        $this->notificationRepository->insert(new NotificationToken($notification))->shouldBeCalledTimes(2);
+        $this->notificationRepository->insert(new NotificationToken($notification))->shouldBeCalled();
 
         $nu = new NotificationUser();
         $nu->setUser($user);

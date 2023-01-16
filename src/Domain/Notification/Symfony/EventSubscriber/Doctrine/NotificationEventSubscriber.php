@@ -222,6 +222,7 @@ class NotificationEventSubscriber implements EventSubscriber
     {
         $notification = new Notification();
         $mod          = Notification::MODULES[get_class($object)];
+        $recipients   = $this->recipients[get_class($object)];
         $notification->setModule('notification.modules.' . $mod);
         $collectivity = method_exists($object, 'getCollectivity') ? $object->getCollectivity() : null;
 
@@ -230,6 +231,10 @@ class NotificationEventSubscriber implements EventSubscriber
         }
 
         $user = $this->security->getUser();
+
+        if ($recipients & Notification::NOTIFICATION_DPO) {
+            $notification->setDpo(true);
+        }
 
         $notification->setCollectivity($collectivity);
         $notification->setName(method_exists($object, 'getName') ? $object->getName() : $object->__toString());
@@ -254,7 +259,7 @@ class NotificationEventSubscriber implements EventSubscriber
         }
 
         if (Document::class === get_class($object)) {
-            $newnus = array_merge($this->saveEmailNotificationForRefOp($notification, $object), $nus);
+            $newnus = array_merge($this->saveEmailNotificationForRefOp($notification), $nus);
             $notification->setNotificationUsers($newnus);
         }
         if (Violation::class === get_class($object)) {
