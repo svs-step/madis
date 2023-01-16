@@ -234,11 +234,13 @@ class NotificationEventSubscriber implements EventSubscriber
         $notification->setCollectivity($collectivity);
         $notification->setName(method_exists($object, 'getName') ? $object->getName() : $object->__toString());
         $notification->setAction('notification.actions.' . $action);
-        if ($user && User::class === get_class($user)) {
+        if ($user && is_object($user) && User::class === get_class($user)) {
             $notification->setCreatedBy($user);
         }
 
         $notification->setObject((object) $normalized);
+
+        $nus = [];
 
         if ($users) {
             $nus = $this->notificationUserRepository->saveUsers($notification, $users);
@@ -252,17 +254,20 @@ class NotificationEventSubscriber implements EventSubscriber
         }
 
         if (Document::class === get_class($object)) {
-            $this->saveEmailNotificationForRefOp($notification, $object);
+            $newnus = array_merge($this->saveEmailNotificationForRefOp($notification, $object), $nus);
+            $notification->setNotificationUsers($newnus);
         }
         if (Violation::class === get_class($object)) {
-            $this->saveEmailNotificationForRespTrait($notification, $object);
+            $newnus = array_merge($this->saveEmailNotificationForRespTrait($notification, $object), $nus);
+            $notification->setNotificationUsers($newnus);
         }
 
         return $notification;
     }
 
-    private function saveEmailNotificationForRefOp(Notification $notification, Document $document)
+    private function saveEmailNotificationForRefOp(Notification $notification): array
     {
+        $nus = [];
         // Get referent operationnels for this collectivity
         $refs = (new ArrayCollection($this->userRepository->findAll()))->filter(function (User $u) {
             $mi = $u->getMoreInfos();
@@ -284,8 +289,10 @@ class NotificationEventSubscriber implements EventSubscriber
             $nu->setActive(false);
             $nu->setToken(sha1($notification->getName() . microtime() . $nu->getMail()));
             $nu->setSent(false);
-            $this->notificationUserRepository->persist($nu);
+            $nus[] = $nu;
         }
+
+        return $nus;
     }
 
     private function saveEmailNotificationForDPO(Notification $notification): array
@@ -320,8 +327,9 @@ class NotificationEventSubscriber implements EventSubscriber
         return $nus;
     }
 
-    private function saveEmailNotificationForRespTrait(Notification $notification, CollectivityRelated $object)
+    private function saveEmailNotificationForRespTrait(Notification $notification, CollectivityRelated $object): array
     {
+        $nus = [];
         // Get referent operationnels for this collectivity
         $refs = $object->getCollectivity()->getUsers()->filter(function (User $u) {
             $mi = $u->getMoreInfos();
@@ -348,8 +356,11 @@ class NotificationEventSubscriber implements EventSubscriber
             $nu->setNotification($notification);
             $nu->setActive(false);
             $nu->setSent(false);
-            $this->notificationUserRepository->persist($nu);
+            $nus[] = $nu;
+//            $this->notificationUserRepository->persist($nu);
         }
+
+        return $nus;
     }
 
     private function getObjectSimpleValue($object)
