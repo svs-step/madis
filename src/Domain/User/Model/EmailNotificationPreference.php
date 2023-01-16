@@ -62,7 +62,7 @@ class EmailNotificationPreference
 
     private int $notificationMask;
 
-    private \DateTime $lastSent;
+    private ?\DateTime $lastSent;
 
     public function __construct()
     {
@@ -127,12 +127,12 @@ class EmailNotificationPreference
         $this->day = $day;
     }
 
-    public function getLastSent(): \DateTime
+    public function getLastSent(): ?\DateTime
     {
         return $this->lastSent;
     }
 
-    public function setLastSent(\DateTime $lastSent
+    public function setLastSent(?\DateTime $lastSent
     ): void {
         $this->lastSent = $lastSent;
     }

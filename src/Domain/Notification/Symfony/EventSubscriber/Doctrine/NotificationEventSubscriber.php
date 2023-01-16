@@ -337,7 +337,7 @@ class NotificationEventSubscriber implements EventSubscriber
 
         foreach ($refs as $ref) {
             $nu = new NotificationUser();
-            if (User::class === get_class($ref)) {
+            if (is_object($ref) && User::class === get_class($ref)) {
                 $nu->setMail($ref->getEmail());
                 $nu->setUser($ref);
             } else {
