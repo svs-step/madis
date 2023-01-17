@@ -37,9 +37,9 @@ maturity:
                 edit: Référentiel "%object%" modifié avec succès
                 delete: Référentiel "%object%" supprimé avec succès
         list:
-            collectivity: Collectivité
+            name: Nom
             created_at: Date de création
-            score: Score
+            description: Description
         title:
             create: Nouveau référentiel
             edit: Modifier un référentiel

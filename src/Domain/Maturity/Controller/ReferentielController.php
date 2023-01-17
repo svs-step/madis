@@ -67,14 +67,14 @@ class ReferentielController extends CRUDController
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
-        //Repository\Referentiel $repository,
+        Repository\Referentiel $repository,
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
         MaturityHandler $maturityHandler,
         Pdf $pdf
     ) {
-        parent::__construct($entityManager, $translator, $pdf, $userProvider, $authorizationChecker);
+        parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;

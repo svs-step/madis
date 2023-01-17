@@ -44,34 +44,20 @@
                         <thead>
                         <tr>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th>{{ 'maturity.referentiel.list.collectivity'|trans }}</th>
+                                <th>{{ 'maturity.referentiel.list.name'|trans }}</th>
                             {% endif %}
+                            <th>{{ 'maturity.referentiel.list.description'|trans }}</th>
                             <th>{{ 'maturity.referentiel.list.created_at'|trans }}</th>
-                            <th>{{ 'maturity.referentiel.list.score'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for object in objects %}
-                        <tr>
-                            {% if is_granted('ROLE_REFERENT') %}
-                                <td>{{ object.collectivity }}</td>
-                            {% endif %}
-                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
-                            <td>{{ object.score / 10 }}</td>
-                            <td>
-                                {% if is_granted('ROLE_USER') %}
-                                <a href="{{ path('maturity_referentiel_edit', { 'id': object.id }) }}">
-                                    <i class="fa fa-pencil-alt"></i>
-                                    {{ 'action.edit'|trans }}
-                                </a>
-                                <a href="{{ path('maturity_referentiel_delete', { 'id': object.id }) }}">
-                                    <i class="fa fa-trash"></i>
-                                    {{ 'action.delete'|trans }}
-                                </a>
-                                {% endif %}
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>{{ object.name }}</td>
+                                <td>{{ object.description }}</td>
+
+                            </tr>
                         {% endfor %}
                         </tbody>
                     </table>
