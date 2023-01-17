@@ -36,6 +36,7 @@ use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Dictionary\UserRoleDictionary;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -180,10 +181,22 @@ class ViolationController extends CRUDController
                 ' . \date_format($violation->getDate(), 'd/m/Y') . '
             </a>';
 
+            $allNatures = ViolationNatureDictionary::getNatures();
+            $natures = '';
+            $naturesArray = new ArrayCollection($violation->getViolationNatures());
+
+            if (count($naturesArray) > 0)  {
+                $natures = $naturesArray->map(function($name) use ($allNatures) {
+                    return $allNatures[$name] ?? null;
+                })->filter(function($r) {return $r !== null;});
+
+                $natures = join(', ', $natures->toArray());
+            }
+
             $reponse['data'][] = [
                 'collectivite' => $violation->getCollectivity()->getName(),
                 'date'         => $violationLink,
-                'nature'       => !\is_null($violation->getViolationNatures()) ? ViolationNatureDictionary::getNatures() : null,
+                'nature'       => $natures,
                 'cause'        => !\is_null($violation->getCause()) ? ViolationCauseDictionary::getNatures()[$violation->getCause()] : null,
                 'gravity'      => !\is_null($violation->getGravity()) ? ViolationGravityDictionary::getGravities()[$violation->getGravity()] : null,
                 'actions'      => $this->getActionCellsContent($violation),
