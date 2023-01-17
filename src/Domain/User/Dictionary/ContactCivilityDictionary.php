@@ -45,9 +45,9 @@ class ContactCivilityDictionary extends SimpleDictionary
     public static function getCivilities()
     {
         return [
+            self::CIVILITY_NONE   => '',
             self::CIVILITY_MISS   => 'Madame',
             self::CIVILITY_MISTER => 'Monsieur',
-            self::CIVILITY_NONE   => '',
         ];
     }
 

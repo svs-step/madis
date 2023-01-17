@@ -310,7 +310,7 @@
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
                             <td>
-                                {% if object.dpo.firstname is not null %}
+                                {% if object.differentDpo %}
                                     {{ object.dpo.civility|dictionary('user_contact_civility') }}
                                 {% else %}
                                     {{ default_dpo_civility }}
@@ -319,23 +319,43 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
-                            <td>{{ object.dpo.firstName|default(default_dpo_firstName) }}</td>
+                            {% if object.differentDpo %}
+                                <td>{{ object.dpo.firstName }}</td>
+                            {% else %}
+                                <td>{{ default_dpo_firstName }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
-                            <td>{{ object.dpo.lastName|default(default_dpo_lastName) }}</td>
+                            {% if object.differentDpo %}
+                                <td>{{ object.dpo.lastName }}</td>
+                            {% else %}
+                                <td>{{ default_dpo_lastName }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
-                            <td>{{ object.dpo.job|default(default_dpo_job) }}</td>
+                            {% if object.differentDpo %}
+                                <td>{{ object.dpo.job }}</td>
+                            {% else %}
+                                <td>{{ default_dpo_job }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
-                            <td>{{ object.dpo.mail|default(default_dpo_mail) }}</td>
+                            {% if object.differentDpo %}
+                                <td>{{ object.dpo.mail }}</td>
+                            {% else %}
+                                <td>{{ default_dpo_mail }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
-                            <td>{{ object.dpo.phoneNumber|default(default_dpo_phoneNumber) }}</td>
+                            {% if object.differentDpo %}
+                                <td>{{ object.dpo.phoneNumber }}</td>
+                            {% else %}
+                                <td>{{ default_dpo_phoneNumber }}</td>
+                            {% endif %}
                         </tr>
                         </tbody>
                     </table>

@@ -46,6 +46,7 @@ class RequestCivilityDictionaryTest extends TestCase
     public function testGetRoles()
     {
         $data = [
+            RequestCivilityDictionary::CIVILITY_NONE   => '',
             RequestCivilityDictionary::CIVILITY_MISS   => 'Madame',
             RequestCivilityDictionary::CIVILITY_MISTER => 'Monsieur',
         ];
@@ -56,6 +57,7 @@ class RequestCivilityDictionaryTest extends TestCase
     public function testGetRolesKeys()
     {
         $data = [
+            RequestCivilityDictionary::CIVILITY_NONE,
             RequestCivilityDictionary::CIVILITY_MISS,
             RequestCivilityDictionary::CIVILITY_MISTER,
         ];

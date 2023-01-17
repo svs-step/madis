@@ -485,6 +485,7 @@
 
             // Handle click on checkbox to set state of "Select all" control
             $('#table tbody').on('change', 'input[type="checkbox"]', function(){
+                console.log('change');
                 // If checkbox is not checked
                 if(!this.checked){
                     var el = $('#select-all-treatments').get(0);
@@ -495,6 +496,14 @@
                         el.indeterminate = true;
                     }
                 }
+            });
+
+            $("[id*='search_']").on('change', function(){
+                $('#select-all-treatments').prop('checked', false);
+            });
+
+            $("#table").on('page.dt', function(){
+                $('#select-all-treatments').prop('checked', false);
             });
         }
 
