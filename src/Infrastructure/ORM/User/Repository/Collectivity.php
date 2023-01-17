@@ -175,8 +175,23 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
             case 'siren':
                 $queryBuilder->addOrderBy('o.siren', $orderDir);
                 break;
+            case 'info':
+                $queryBuilder->addOrderBy('o.informationsComplementaires', $orderDir);
+                break;
             case 'statut':
                 $queryBuilder->addOrderBy('o.active', $orderDir);
+                break;
+            case 'date_maj':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
+            case 'nbr_agents':
+                $queryBuilder->addOrderBy('o.nbrAgents', $orderDir);
+                break;
+            case 'population':
+                $queryBuilder->addOrderBy('o.population', $orderDir);
+                break;
+            case 'nbr_cnil':
+                $queryBuilder->addOrderBy('o.nbrCnil', $orderDir);
                 break;
         }
     }

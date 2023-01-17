@@ -181,14 +181,14 @@ class ViolationController extends CRUDController
                 ' . \date_format($violation->getDate(), 'd/m/Y') . '
             </a>';
 
-            $allNatures = ViolationNatureDictionary::getNatures();
-            $natures = '';
+            $allNatures   = ViolationNatureDictionary::getNatures();
+            $natures      = '';
             $naturesArray = new ArrayCollection($violation->getViolationNatures());
 
-            if (count($naturesArray) > 0)  {
-                $natures = $naturesArray->map(function($name) use ($allNatures) {
+            if (count($naturesArray) > 0) {
+                $natures = $naturesArray->map(function ($name) use ($allNatures) {
                     return $allNatures[$name] ?? null;
-                })->filter(function($r) {return $r !== null;});
+                })->filter(function ($r) {return null !== $r; });
 
                 $natures = join(', ', $natures->toArray());
             }
