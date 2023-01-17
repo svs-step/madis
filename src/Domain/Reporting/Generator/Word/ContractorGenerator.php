@@ -197,7 +197,7 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
                     $contractor->getAddress()->getMail(),
                 ],
                 [
-                    'N° de téléphone',
+                    'Téléphone',
                     $contractor->getAddress()->getPhoneNumber(),
                 ],
             ];
@@ -224,7 +224,7 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
                     $contractor->getDpo()->getMail(),
                 ],
                 [
-                    'N° tél.',
+                    'Téléphone',
                     $contractor->getDpo()->getPhoneNumber(),
                 ],
             ];

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230104075008 extends AbstractMigration
+final class Version20221222142413 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -22,7 +22,7 @@ final class Version20230104075008 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE registry_treatment ADD legal_mentions TINYINT(1) NOT NULL, ADD consent_request TINYINT(1) NOT NULL, ADD consent_request_format LONGTEXT DEFAULT NULL');
+        $this->addSql('ALTER TABLE user_collectivity ADD population INT DEFAULT NULL, ADD nbr_agents INT DEFAULT NULL, ADD nbr_cnil INT DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
@@ -30,6 +30,6 @@ final class Version20230104075008 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE registry_treatment DROP legal_mentions, DROP consent_request, DROP consent_request_format');
+        $this->addSql('ALTER TABLE user_collectivity DROP population, DROP nbr_agents, DROP nbr_cnil');
     }
 }

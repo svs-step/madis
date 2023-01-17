@@ -83,6 +83,13 @@ class CollectivityType extends AbstractType
                     'multiple' => false,
                     'expanded' => true,
                 ])
+                ->add('otherType', TextType::class, [
+                    'label'    => 'user.collectivity.form.otherType',
+                    'required' => false,
+                    'attr'     => [
+                        'maxlength' => 255,
+                    ],
+                ])
                 ->add('siren', NumberType::class, [
                     'label'    => 'user.collectivity.form.siren',
                     'required' => true,
@@ -121,6 +128,25 @@ class CollectivityType extends AbstractType
                 ])
                 ->add('informationsComplementaires', TextareaType::class, [
                     'label'    => 'user.collectivity.form.informations_complementaires',
+                    'required' => false,
+                ])
+                ->add('finessGeo', TextType::class, [
+                    'label'    => 'user.collectivity.form.finess_geo',
+                    'required' => false,
+                    'attr'     => [
+                        'maxlength' => 255,
+                    ],
+                ])
+                ->add('population', NumberType::class, [
+                    'label'    => 'user.collectivity.form.population',
+                    'required' => false,
+                ])
+                ->add('nbrAgents', NumberType::class, [
+                    'label'    => 'user.collectivity.form.nbr_agents',
+                    'required' => false,
+                ])
+                ->add('nbrCnil', NumberType::class, [
+                    'label'    => 'user.collectivity.form.nbr_cnil',
                     'required' => false,
                 ])
                 ->add('services', CollectionType::class, [

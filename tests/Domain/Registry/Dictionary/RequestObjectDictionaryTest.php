@@ -46,13 +46,14 @@ class RequestObjectDictionaryTest extends TestCase
     public function testGetRoles()
     {
         $data = [
-            RequestObjectDictionary::OBJECT_CORRECT          => 'Rectifier des données',
-            RequestObjectDictionary::OBJECT_DELETE           => 'Supprimer des données',
-            RequestObjectDictionary::OBJECT_WITHDRAW_CONSENT => 'Retirer le consentement',
-            RequestObjectDictionary::OBJECT_ACCESS           => 'Accéder à des données',
-            RequestObjectDictionary::OBJECT_DATA_PORTABILITY => 'Portabilité des données',
-            RequestObjectDictionary::OBJECT_LIMIT_TREATMENT  => 'Limiter le traitement',
-            RequestObjectDictionary::OBJECT_OTHER            => 'Autre',
+            RequestObjectDictionary::OBJECT_CORRECT            => 'Rectifier des données',
+            RequestObjectDictionary::OBJECT_DELETE             => 'Supprimer des données',
+            RequestObjectDictionary::OBJECT_WITHDRAW_CONSENT   => 'Retirer le consentement',
+            RequestObjectDictionary::OBJECT_ACCESS             => 'Accéder à des données',
+            RequestObjectDictionary::OBJECT_DATA_PORTABILITY   => 'Portabilité des données',
+            RequestObjectDictionary::OBJECT_LIMIT_TREATMENT    => 'Limiter le traitement',
+            RequestObjectDictionary::OBJECT_OPPOSITE_TREATMENT => "S'opposer au traitement",
+            RequestObjectDictionary::OBJECT_OTHER              => 'Autre',
         ];
 
         $this->assertEquals($data, RequestObjectDictionary::getObjects());
@@ -67,6 +68,7 @@ class RequestObjectDictionaryTest extends TestCase
             RequestObjectDictionary::OBJECT_ACCESS,
             RequestObjectDictionary::OBJECT_DATA_PORTABILITY,
             RequestObjectDictionary::OBJECT_LIMIT_TREATMENT,
+            RequestObjectDictionary::OBJECT_OPPOSITE_TREATMENT,
             RequestObjectDictionary::OBJECT_OTHER,
         ];
 

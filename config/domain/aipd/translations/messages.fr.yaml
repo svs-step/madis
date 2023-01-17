@@ -98,7 +98,7 @@ aipd:
             avis_referent: Avis du référent RGPD
             avis_representant: Avis des représentants des personnes concernées
             avis_responsable: Validation du responsable de traitement
-            collectivite: Collectivité
+            collectivite: Structure
             traitement: Traitement
             date_creation: Date de création
             date_validation: Date de validation

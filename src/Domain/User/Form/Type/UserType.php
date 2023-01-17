@@ -248,7 +248,6 @@ class UserType extends AbstractType
                 'required'       => false,
             ])
             ->add('emailNotificationPreference', EmailNotificationPreferenceType::class)
-
         ;
 
         $builder

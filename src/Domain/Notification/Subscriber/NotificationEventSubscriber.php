@@ -270,7 +270,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         // Add notification with email address for the référents
         foreach ($refs as $ref) {
             $nu = new NotificationUser();
-            if (User::class === get_class($ref)) {
+            if (is_object($ref) && User::class === get_class($ref)) {
                 $nu->setMail($ref->getEmail());
                 $nu->setUser($ref);
             } else {

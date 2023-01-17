@@ -91,7 +91,7 @@ class Mesurement implements LoggableSubject, CollectivityRelated
     private $status;
 
     /**
-     * FR: Date de planification.
+     * FR: Echéance.
      *
      * @var \DateTime|null
      */

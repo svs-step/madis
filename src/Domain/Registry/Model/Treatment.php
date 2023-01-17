@@ -311,7 +311,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $concernedPeopleUser;
 
     /**
-     * FR: Agents (Personnes concernées).
+     * FR: Salariés (Personnes concernées).
      *
      * @var ComplexChoice
      */
@@ -325,7 +325,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $concernedPeopleElected;
 
     /**
-     * FR: Entreprises (Personnes concernées).
+     * FR: Professionnels (Personnes concernées).
      *
      * @var ComplexChoice
      */

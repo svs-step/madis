@@ -1,0 +1,358 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'notification_notification list' %}
+{% set menuItem = 'notification_notification' %}
+
+{% block title %}{{ 'notifications.notification.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'notifications.notification.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'notifications.notification.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="dt-button-background" style=""></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <div class="dt-buttons">
+                        <button class="btn dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="example" type="button" aria-haspopup="true" aria-expanded="false">
+                            <span>Colonnes</span>
+                            <span class="dt-down-arrow"></span>
+                        </button>
+
+                        <div class="dt-button-collection" style="top: 34px; left: 0px;">
+                            <div role="menu">
+                                {# SHOW/HIDE COLUMNS #}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="0">
+                                    <span>{{ 'notifications.notification.list.state'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="1">
+                                    <span>{{ 'notifications.notification.list.module'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="2">
+                                    <span>{{ 'notifications.notification.list.action'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="3">
+                                    <span>{{ 'notifications.notification.list.name'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="4">
+                                    <span>{{ 'notifications.notification.list.object'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="5">
+                                    <span>{{ 'notifications.notification.list.collectivity'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="6">
+                                    <span>{{ 'notifications.notification.list.date'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="7">
+                                    <span>{{ 'notifications.notification.list.user'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="8">
+                                    <span>{{ 'notifications.notification.list.read_date'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="9">
+                                    <span>{{ 'notifications.notification.list.read_by'|trans }}</span>
+                                </button>
+                                {% else %}
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="0">
+                                    <span>{{ 'notifications.notification.list.module'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="1">
+                                    <span>{{ 'notifications.notification.list.action'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="2">
+                                    <span>{{ 'notifications.notification.list.name'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="3">
+                                    <span>{{ 'notifications.notification.list.object'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="4">
+                                    <span>{{ 'notifications.notification.list.date'|trans }}</span>
+                                </button>
+                                <button class="btn dt-button buttons-columnVisibility toggle-vis btn-block" type="button" data-column="5">
+                                    <span>{{ 'notifications.notification.list.user'|trans }}</span>
+                                </button>
+                                {% endif %}
+                                {# END SHOW/HIDE COLUMNS #}
+                            </div>
+                        </div>
+                        <button id="button-reset" class="btn btn-default dt-button buttons-collection" tabindex="0" aria-controls="table" type="button" aria-haspopup="true" aria-expanded="false">
+                            <span>Réinitialiser les filtres</span>
+                        </button>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notifications.notification.action.mark_as_read_all'|trans }}</a>
+                        {% endif %}
+                    </div>
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <th>
+                                    <select class="form-control" id="search_state" style="width: 100%;">
+                                        <option value="" selected>{{ 'notifications.notification.list.state'|trans }}</option>
+                                        {% for key, subject in dictionary('notifications_notification_state') %}
+                                            <option value="{{ key }}">{{ subject }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                {% endif %}
+                                <th>
+                                    <select class="form-control" id="search_module" style="width: 100%;">
+                                        <option value="" selected>{{ 'notifications.notification.list.module'|trans }}</option>
+                                        {% for key, subject in dictionary('notifications_notification_module') %}
+                                            <option value="{{ key }}">{{ subject }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                <th>
+                                    <select class="form-control" id="search_action" style="width: 100%;">
+                                        <option value="" selected>{{ 'notifications.notification.list.action'|trans }}</option>
+                                        {% for key, subject in dictionary('notifications_notification_action') %}
+                                            <option value="{{ key }}">{{ subject }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <select class="form-control" id="search_object" style="width: 100%;">
+                                        <option value="" selected>{{ 'notifications.notification.list.object'|trans }}</option>
+                                        {# {% for key, subject in dictionary('documentation_document_type') %}
+                                            <option value="{{ key }}">{{ subject }}</option>
+                                        {% endfor %} #}
+                                    </select>
+                                </th>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <th>
+                                    <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
+                                </th>
+                                {% endif %}
+                                <th><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_user_name" placeholder="Nom" style="width: 100%;">
+                                </th>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <th><input class="datepicker form-control" type="text" id="search_read_at" placeholder="Date" style="width: 100%;"></th>
+                                <th>
+                                    <input class="form-control" type="text" id="search_read_by" placeholder="Nom" style="width: 100%;">
+                                </th>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <th>{{ 'notifications.notification.list.state'|trans }}</th>
+                                {% endif %}
+                                <th>{{ 'notifications.notification.list.module'|trans }}</th>
+                                <th>{{ 'notifications.notification.list.action'|trans }}</th>
+                                <th>{{ 'notifications.notification.list.name'|trans }}</th>
+                                <th>{{ 'notifications.notification.list.object'|trans }}</th>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <th>{{ 'notifications.notification.list.collectivity'|trans }}</th>
+                                {% endif %}
+                                <th>{{ 'notifications.notification.list.date'|trans }}</th>
+                                <th>{{ 'notifications.notification.list.user'|trans }}</th>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <th>{{ 'notifications.notification.list.read_date'|trans }}</th>
+                                <th>{{ 'notifications.notification.list.read_by'|trans }}</th>
+                                <th>{{ 'label.actions'|trans }}</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+                            <tr>
+                                {# STATE #}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <td>
+                                    {% if object.readAt %}
+                                    <i class="fas fa-check-circle" style="color:green;"></i> Lu
+                                    {% else %}
+                                    Non lu
+                                    {% endif %} 
+                                </td>
+                                {% endif %}
+
+                                <td>{{object.module}}</td>
+                                <td>object.action</td>
+                                <td>{{object.name}}</td>
+                                <td>object.object</td>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <td>{{object.collectivity}}</td>
+                                {% endif %}
+                                <td>{{ object.createdAt|date('d/m/Y') }}</td>
+                                <td>{{object.createdBy}}</td>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <td>{{object.readAt|date('d/m/Y') }}</td>
+                                <td>{{object.readBy}}</td>
+                                <td>
+                                    {% if object.readAt == null %}
+                                        <a href="{{ path('notification_notification_mark_as_read', { 'id': object.id }) }}">
+                                            <i class="fas fa-clipboard-check"></i>&nbsp;{{ 'notifications.notification.action.mark_as_read'|trans }}
+                                        </a>
+                                    {% endif %}
+
+                                    <a href="{{ path('notification_notification_delete', { 'id': object.id }) }}">
+                                        <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
+                                    </a>
+                                </td>
+                                {% endif %}
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+{{ include('_Utils/_datatable.html.twig') }}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+<script>
+    const isAdmin = {{ is_granted('ROLE_ADMIN')|json_encode() }}
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "state"},
+            {"data": "module"},
+            {"data": "action"},
+            {"data": "name"},
+            {"data": "object"},
+            {"data": "collectivity"},
+            {"data": "date"},
+            {"data": "user"},
+            {"data": "read_date"},
+            {"data": "read_by"},
+            {"data": "actions", "orderable": false},
+        ],
+
+        language: {
+            buttons: {
+                colvis: "Colonnes"
+            },
+        },
+        dom: 'Bfrtip',
+        columnDefs: [
+            {
+                targets: 4,
+                className: 'noVis'
+            }
+        ],
+        buttons: [
+            {
+                extend: 'colvis',
+                columns: ':not(.noVis)'
+            }
+        ]
+    } %}
+
+    function resetFilters() {
+            $('[id^=search_]').each(function() {
+                $(this).val('');
+            });
+            var table = $('#table').DataTable();
+            table.columns().search('');
+        }
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+
+            // NON LU SEULEMENT
+            $('#search_state').off('change');
+            $('#search_state').change(function(){
+                oTable.column('0').search($(this).val()).draw();
+            });
+
+            $('#search_module').off('change');
+            $('#search_module').change(function(){
+                isAdmin ? oTable.column('1').search($(this).val()).draw() : oTable.column('0').search($(this).val()).draw() ;
+            });
+
+            $('#search_name').off('keyup');
+            $('#search_name').keyup($.debounce(250, function(){
+                isAdmin ? oTable.column('3').search($(this).val()).draw() : oTable.column('2').search($(this).val()).draw() ;
+            }));
+
+            $('#search_collectivity').off('keyup');
+            $('#search_collectivity').keyup($.debounce(250, function(){
+                oTable.column('5').search($(this).val()).draw();
+            }));
+
+            $('#search_date').off('change');
+            $('#search_date').change(function(){
+                isAdmin ? oTable.column('6').search($(this).val()).draw() : oTable.column('4').search($(this).val()).draw() ;
+            });
+
+            $('#search_user_name').off('keyup');
+            $('#search_user_name').keyup($.debounce(250, function(){
+                isAdmin && oTable.column('7').search($(this).val()).draw();
+            }));
+
+            $('#search_read_at').off('change');
+            $('#search_read_at').change(function(){
+                isAdmin && oTable.column('8').search($(this).val()).draw()
+            });
+
+            $('#search_read_by').off('keyup');
+            $('#search_read_by').keyup($.debounce(250, function(){
+                isAdmin && oTable.column('9').search($(this).val()).draw();
+            }));
+            
+            
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            $('.dt-button-background').hide();
+            $('.dt-button-collection').hide();
+            setEvents();
+
+            // Affichage/Masquage d'une colonne
+            $('.toggle-vis').on( 'click', function (e) {
+                e.preventDefault();
+                var table = $('#table').DataTable();
+                // Get the column API object
+                var column = table.column( $(this).attr('data-column') );
+
+                // Toggle the visibility
+                column.visible( ! column.visible() );
+            });
+
+            $('.dt-button-background').on('click',function(){
+                $('.dt-button-background').hide();
+                $('.dt-button-collection').hide();
+            });
+
+            $('.buttons-colvis').on('click',function(){
+                $('.dt-button-background').show();
+                $('.dt-button-collection').show();
+            });
+        } );
+
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+        $('#button-reset').on('click', function() {
+            resetFilters();
+            var table = $('#table').DataTable();
+            table.columns().search('').draw();
+        })
+
+    </script>
+{% endblock %}

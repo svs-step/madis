@@ -65,36 +65,36 @@
 
     <div class="row">
     {% if app_commune_svg_reduced_path is not empty %}
-        <div class="col-sm-6 col-xs-12">
-            <div class="box box-solid">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Carte des communes</h3>
+      <div class="col-sm-6 col-xs-12">
+        <div class="box box-solid">
+          <div class="box-header with-border">
+            <h3 class="box-title">Carte du territoire</h3>
+          </div>
+          <div class="box-body no-padding map-wrapper">
+            <div class="row">
+              <div class="col-md-8 col-sm-8">
+                <div class="pad"> <div id="svg-map">
+                  {{source('@public_path'~asset(app_commune_svg_reduced_path))}}
+                </div></div>
+              </div>
+            <div class="col-md-4 col-sm-4 bg-green">
+              <div class="pad">
+                <br />
+                <div class="report text-center">
+                  <span class="info-box-text "> <i class="far fa-chart-bar"></i></span>
+                  <span class="info-box-number">{{data.collectivityByAddressInsee.value.all}}</span>
+                  <span class="info-box-text">Nombre de collectivités</span>
+                  <br />
+                  <span class="info-box-text "> <i class="far fa-chart-bar"></i></span>
+                  <span class="info-box-number">{{data.collectivityByAddressInsee.value.dpoPercent}}</span>
+                  <span class="info-box-text">% DPO</span>
                 </div>
-                <div class="box-body no-padding map-wrapper">
-                    <div class="row">
-                        <div class="col-md-8 col-sm-8">
-                            <div class="pad"> <div id="svg-map">
-                                    {{source('@public_path'~asset(app_commune_svg_reduced_path))}}
-                                </div></div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 bg-green">
-                            <div class="pad">
-                                <br />
-                                <div class="report text-center">
-                                    <span class="info-box-text "> <i class="far fa-chart-bar"></i></span>
-                                    <span class="info-box-number">{{data.collectivityByAddressInsee.value.all}}</span>
-                                    <span class="info-box-text">Nombre de collectivités</span>
-                                    <br />
-                                    <span class="info-box-text "> <i class="far fa-chart-bar"></i></span>
-                                    <span class="info-box-number">{{data.collectivityByAddressInsee.value.dpoPercent}}</span>
-                                    <span class="info-box-text">% DPO</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- end box body-->
+              </div>
             </div>
+            </div>
+          </div> <!-- end box body-->
         </div>
+      </div>
     {% endif %}
         <div class="col-sm-6 col-xs-12">
             {% if app_activate_notifications == 'true' and app_notification_dashboard_shown == 'true' %}
@@ -184,18 +184,20 @@
         // COLLECTIVITY BY TYPE
         let collectivityByTypeLabel = [
             'Commune',
-            'CCAS',
-            'EPCI',
-            'CIAS',
-            'Synd dep',
+            'Établissement social',
+            'Établissement Public de Coopération Intercommunale (EPCI)',
+            'Syndicat départemental',
+            'Établissement médico-social',
+            'Établissement sanitaire',
             'Autre',
         ];
         let collectivityByTypeData = [
             {{ data.collectivityByType.value.type.commune }},
-            {{ data.collectivityByType.value.type.ccas }},
+            {{ data.collectivityByType.value.type.social_institution }},
             {{ data.collectivityByType.value.type.epci }},
-            {{ data.collectivityByType.value.type.cias }},
             {{ data.collectivityByType.value.type.departmental_union }},
+            {{ data.collectivityByType.value.type.medical_institution }},
+            {{ data.collectivityByType.value.type.sanitary_institution }},
             {{ data.collectivityByType.value.type.other }},
         ];
     </script>

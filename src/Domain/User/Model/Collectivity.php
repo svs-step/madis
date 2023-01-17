@@ -172,6 +172,29 @@ class Collectivity implements LoggableSubject
     private $informationsComplementaires;
 
     /**
+     * @var string|null
+     */
+    private $otherType;
+
+    /**
+     * @var string|null
+     */
+    private $finessGeo;
+
+    /**
+     * @var int|null
+     */
+    private $population;
+    /**
+     * @var int|null
+     */
+    private $nbrAgents;
+    /**
+     * @var int|null
+     */
+    private $nbrCnil;
+
+    /**
      * Collectivity constructor.
      *
      * @throws \Exception
@@ -499,5 +522,55 @@ class Collectivity implements LoggableSubject
     public function setInformationsComplementaires(?string $informationsComplementaires): void
     {
         $this->informationsComplementaires = $informationsComplementaires;
+    }
+
+    public function getOtherType(): ?string
+    {
+        return $this->otherType;
+    }
+
+    public function setOtherType(?string $otherType): void
+    {
+        $this->otherType = $otherType;
+    }
+
+    public function getFinessGeo(): ?string
+    {
+        return $this->finessGeo;
+    }
+
+    public function setFinessGeo(?string $finessGeo): void
+    {
+        $this->finessGeo = $finessGeo;
+    }
+
+    public function getNbrAgents(): ?int
+    {
+        return $this->nbrAgents;
+    }
+
+    public function setNbrAgents(?int $nbrAgents): void
+    {
+        $this->nbrAgents = $nbrAgents;
+    }
+
+    public function getNbrCnil(): ?int
+    {
+        return $this->nbrCnil;
+    }
+
+    public function setNbrCnil(?int $nbrCnil): void
+    {
+        $this->nbrCnil = $nbrCnil;
+    }
+
+    public function getPopulation(): ?int
+    {
+        return $this->population;
+    }
+
+    public function setPopulation(?int $population): void
+    {
+        $this->population = $population;
     }
 }

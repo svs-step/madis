@@ -163,19 +163,35 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
             case 'type':
                 $queryBuilder->addSelect('(case
                 WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_OTHER . '\' THEN 1
-                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_CCAS . '\' THEN 2
-                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_CIAS . '\' THEN 3
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_SOCIAL_INSTITUTION . '\' THEN 2
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_MEDICAL_INSTITUTION . '\' THEN 3
                 WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_COMMUNE . '\' THEN 4
                 WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_EPCI . '\' THEN 5
                 WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_DEPARTMENTAL_UNION . '\' THEN 6
-                ELSE 7 END) AS HIDDEN hidden_type')
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_SANITARY_INSTITUTION . '\' THEN 7
+                ELSE 8 END) AS HIDDEN hidden_type')
                     ->addOrderBy('hidden_type', $orderDir);
                 break;
             case 'siren':
                 $queryBuilder->addOrderBy('o.siren', $orderDir);
                 break;
+            case 'info':
+                $queryBuilder->addOrderBy('o.informationsComplementaires', $orderDir);
+                break;
             case 'statut':
                 $queryBuilder->addOrderBy('o.active', $orderDir);
+                break;
+            case 'date_maj':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
+            case 'nbr_agents':
+                $queryBuilder->addOrderBy('o.nbrAgents', $orderDir);
+                break;
+            case 'population':
+                $queryBuilder->addOrderBy('o.population', $orderDir);
+                break;
+            case 'nbr_cnil':
+                $queryBuilder->addOrderBy('o.nbrCnil', $orderDir);
                 break;
         }
     }

@@ -68,7 +68,13 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.violation.show.violation_nature'|trans }}</strong></td>
-                            <td>{{ object.violationNature|dictionary('registry_violation_nature') }}</td>
+                            <td>
+                                <ul>
+                                    {% for violationNature in object.violationNatures %}
+                                        <li>{{ violationNature|dictionary('registry_violation_nature') }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.violation.show.origins'|trans }}</strong></td>
@@ -220,6 +226,9 @@
 
             {# TREATMENTS #}
             {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
+
+            {# CONTRACTORS #}
+            {% include '_Utils/_show_block_contractors.html.twig' with { contractors: object.contractors } %}
 
             {# Mesurements #}
             {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}

@@ -350,7 +350,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     $treatment->getConcernedPeopleUser()->getComment(),
                 ],
                 [
-                    'Agents',
+                    'Salariés',
                     $treatment->getConcernedPeopleAgent()->isCheck() ? 'Oui' : 'Non',
                     $treatment->getConcernedPeopleAgent()->getComment(),
                 ],
@@ -360,7 +360,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     $treatment->getConcernedPeopleElected()->getComment(),
                 ],
                 [
-                    'Entreprises',
+                    'Professionnels',
                     $treatment->getConcernedPeopleCompany()->isCheck() ? 'Oui' : 'Non',
                     $treatment->getConcernedPeopleCompany()->getComment(),
                 ],

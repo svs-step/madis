@@ -28,13 +28,14 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class RequestObjectDictionary extends SimpleDictionary
 {
-    public const OBJECT_CORRECT          = 'correct';
-    public const OBJECT_DELETE           = 'delete';
-    public const OBJECT_WITHDRAW_CONSENT = 'withdraw_consent';
-    public const OBJECT_ACCESS           = 'access';
-    public const OBJECT_DATA_PORTABILITY = 'data_portability';
-    public const OBJECT_LIMIT_TREATMENT  = 'limit_treatment';
-    public const OBJECT_OTHER            = 'other';
+    public const OBJECT_CORRECT            = 'correct';
+    public const OBJECT_DELETE             = 'delete';
+    public const OBJECT_WITHDRAW_CONSENT   = 'withdraw_consent';
+    public const OBJECT_ACCESS             = 'access';
+    public const OBJECT_DATA_PORTABILITY   = 'data_portability';
+    public const OBJECT_LIMIT_TREATMENT    = 'limit_treatment';
+    public const OBJECT_OPPOSITE_TREATMENT = 'opposite_treatment';
+    public const OBJECT_OTHER              = 'other';
 
     public function __construct()
     {
@@ -49,13 +50,14 @@ class RequestObjectDictionary extends SimpleDictionary
     public static function getObjects()
     {
         return [
-            self::OBJECT_CORRECT          => 'Rectifier des données',
-            self::OBJECT_DELETE           => 'Supprimer des données',
-            self::OBJECT_WITHDRAW_CONSENT => 'Retirer le consentement',
-            self::OBJECT_ACCESS           => 'Accéder à des données',
-            self::OBJECT_DATA_PORTABILITY => 'Portabilité des données',
-            self::OBJECT_LIMIT_TREATMENT  => 'Limiter le traitement',
-            self::OBJECT_OTHER            => 'Autre',
+            self::OBJECT_CORRECT            => 'Rectifier des données',
+            self::OBJECT_DELETE             => 'Supprimer des données',
+            self::OBJECT_WITHDRAW_CONSENT   => 'Retirer le consentement',
+            self::OBJECT_ACCESS             => 'Accéder à des données',
+            self::OBJECT_DATA_PORTABILITY   => 'Portabilité des données',
+            self::OBJECT_LIMIT_TREATMENT    => 'Limiter le traitement',
+            self::OBJECT_OPPOSITE_TREATMENT => "S'opposer au traitement",
+            self::OBJECT_OTHER              => 'Autre',
         ];
     }
 

@@ -59,6 +59,12 @@
                             <td><strong>{{ 'user.collectivity.show.type'|trans }}</strong></td>
                             <td>{% if object.type is not null %}{{ object.type|dictionary('user_collectivity_type') }}{% endif %}</td>
                         </tr>
+                        {% if object.type|dictionary('user_collectivity_type') == 'Autre' %}
+                            <tr>
+                                <td><strong>{{ 'user.collectivity.show.otherType'|trans }}</strong></td>
+                                <td>{{ object.otherType }}</td>
+                            </tr>
+                        {% endif %}
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.siren'|trans }}</strong></td>
                             <td>{{ object.siren|number_format(0, '.', ' ') }}</td>
@@ -104,6 +110,22 @@
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.informations_complementaires'|trans }}</strong></td>
                             <td>{{ object.informationsComplementaires|nl2br }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.finess_geo'|trans }}</strong></td>
+                            <td>{{ object.finessGeo }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.population'|trans }}</strong></td>
+                            <td>{{ object.population }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.nbr_agents'|trans }}</strong></td>
+                            <td>{{ object.nbrAgents }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.nbr_cnil'|trans }}</strong></td>
+                            <td>{{ object.nbrCnil }}</td>
                         </tr>
                         </tbody>
                     </table>

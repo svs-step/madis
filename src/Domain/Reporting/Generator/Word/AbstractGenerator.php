@@ -237,6 +237,14 @@ abstract class AbstractGenerator implements GeneratorInterface
             ['size' => 12]
         );
 
+        if ($collectivity->getNbrCnil()) {
+            $section->addText(
+                'Numéro de désignation CNIL : ' . $collectivity->getNbrCnil(),
+                ['italic'    => false],
+                ['alignment' => Jc::CENTER, 'spaceBefore' => 500]
+            );
+        }
+
         $section->addText(
             "{$this->getDate(new \DateTimeImmutable(), 'd/m/Y')}",
             ['italic'    => true],
