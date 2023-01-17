@@ -29,6 +29,14 @@
                         {{ form_widget(form.public) }}
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="treatment_exempt" class="col-sm-2 control-label" style="white-space: nowrap">
+                        {{ 'registry.treatment.tab.exempt_AIPD'|trans }}
+                    </label>
+                    <div class="col-sm-10">
+                        {{ form_widget(form.exempt_AIPD) }}
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -122,6 +130,9 @@
                 {{ form_row(form.dataOrigin) }}
                 {{ form_row(form.collectingMethod) }}
                 {{ form_row(form.otherCollectingMethod) }}
+                {{ form_row(form.legalMentions) }}
+                {{ form_row(form.consentRequest) }}
+                {{ form_row(form.consentRequestFormat) }}
             </div>
         </div>
 

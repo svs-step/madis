@@ -28,6 +28,7 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class RequestCivilityDictionary extends SimpleDictionary
 {
+    public const CIVILITY_NONE   = '';
     public const CIVILITY_MISS   = 'mme';
     public const CIVILITY_MISTER = 'm';
 
@@ -44,6 +45,7 @@ class RequestCivilityDictionary extends SimpleDictionary
     public static function getCivilities()
     {
         return [
+            self::CIVILITY_NONE   => '',
             self::CIVILITY_MISS   => 'Madame',
             self::CIVILITY_MISTER => 'Monsieur',
         ];

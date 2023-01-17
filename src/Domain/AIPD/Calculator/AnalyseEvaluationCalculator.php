@@ -26,7 +26,7 @@ class AnalyseEvaluationCalculator
         return self::getImpactFromGraviteAndVraisemblance($graviteResiduel, $vraisemblanceResiduel);
     }
 
-    private static function getImpactFromGraviteAndVraisemblance($gravite, $vraisemblance)
+    public static function getImpactFromGraviteAndVraisemblance($gravite, $vraisemblance)
     {
         $value = 1;
         if ($gravite > 2 && $vraisemblance > 2) {

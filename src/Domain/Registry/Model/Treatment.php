@@ -61,6 +61,11 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $public = false;
 
     /**
+     * @var bool
+     */
+    private $exempt_AIPD = false;
+
+    /**
      * FR: Finalités (Objectif).
      *
      * @var string|null
@@ -403,6 +408,27 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private Collection $violations;
 
     /**
+     *  Mentions légales apposées.
+     *
+     * @var bool
+     */
+    private $legalMentions;
+
+    /**
+     * Consentement demandé.
+     *
+     * @var bool
+     */
+    private $consentRequest;
+
+    /**
+     * Format de la demande du consentement.
+     *
+     * @var string|null
+     */
+    private $consentRequestFormat;
+
+    /**
      * Treatment constructor.
      *
      * @throws \Exception
@@ -481,6 +507,21 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function setPublic(?bool $public): void
     {
         $this->public = $public;
+    }
+
+    public function getExemptAIPD(): ?bool
+    {
+        return $this->exempt_AIPD;
+    }
+
+    public function setExemptAIPD(?bool $exempt_AIPD): void
+    {
+        $this->exempt_AIPD = $exempt_AIPD;
+    }
+
+    public function isExemptAIPD(): bool
+    {
+        return $this->exempt_AIPD;
     }
 
     public function getGoal(): ?string
@@ -1076,5 +1117,35 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function getViolations()
     {
         return $this->violations;
+    }
+
+    public function getLegalMentions(): ?bool
+    {
+        return $this->legalMentions;
+    }
+
+    public function setLegalMentions(?bool $legalMentions): void
+    {
+        $this->legalMentions = $legalMentions;
+    }
+
+    public function getConsentRequest(): ?bool
+    {
+        return $this->consentRequest;
+    }
+
+    public function setConsentRequest(?bool $consentRequest): void
+    {
+        $this->consentRequest = $consentRequest;
+    }
+
+    public function getConsentRequestFormat(): ?string
+    {
+        return $this->consentRequestFormat;
+    }
+
+    public function setConsentRequestFormat(?string $consentRequestFormat): void
+    {
+        $this->consentRequestFormat = $consentRequestFormat;
     }
 }

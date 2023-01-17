@@ -397,6 +397,9 @@ registry:
             ultimate_fate: Sort final
             vulnerable_people: Personnes vulnérables
             dpoMessage: Préconisations DPO
+            legalMentions: Mentions légales apposées
+            consentRequest: Consentement demandé
+            consentRequestFormat: Format de la demande du consentement
         flashbag:
             success:
                 create: Traitement "%object%" créé avec succès
@@ -463,6 +466,7 @@ registry:
             dpo_message: Préconisations DPO
             estimated_concerned_people: Nombre de concernées
             evaluation_or_rating: Évaluation ou notation
+            exempt_AIPD: Est exempté d'AIPD
             goal: Finalités
             innovative_use: Usage innovant
             large_scale_collection: Collecte à large échelle
@@ -491,6 +495,9 @@ registry:
             updated_at: Dernière mise à jour
             vulnerable_people: Personnes vulnérables
             delete_related_objects_error: Une erreur est survenue lors de la suppression des %relateds% de la collectivité "%object%"
+            legalMentions: Mentions légales apposées
+            consentRequest: Consentement demandé
+            consentRequestFormat: Format de la demande du consentement
         title:
             create: Créer un traitement
             delete: Supprimer un traitement
@@ -508,6 +515,7 @@ registry:
           last_aipd: Dernière analyse d'impact réalisée
           proofs: Documents associés
           public: Registre public
+          exempt_AIPD: Est exempté d'AIPD
           recipients: Destination
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique

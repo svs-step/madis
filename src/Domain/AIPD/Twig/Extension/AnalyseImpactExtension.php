@@ -30,6 +30,7 @@ class AnalyseImpactExtension extends AbstractExtension
             new TwigFunction('getScenarioMenaceImpactResiduelLabel', [$this, 'getScenarioMenaceImpactResiduelLabel']),
             new TwigFunction('getScenarioMenaceImpactResiduel', [$this, 'getScenarioMenaceImpactResiduel']),
             new TwigFunction('getScenarioMenaceIndicateurResiduel', [$this, 'getScenarioMenaceIndicateurResiduel']),
+            new TwigFunction('getMeasureImpactResiduel', [$this, 'getMeasureImpactResiduel']),
         ];
     }
 
@@ -160,5 +161,10 @@ class AnalyseImpactExtension extends AbstractExtension
         }
 
         return $lastAnalyse;
+    }
+
+    public static function getMeasureImpactResiduel($gravite, $vraisemblance)
+    {
+        return AnalyseEvaluationCalculator::getImpactFromGraviteAndVraisemblance($gravite, $vraisemblance);
     }
 }
