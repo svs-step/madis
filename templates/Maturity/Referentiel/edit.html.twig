@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'maturity_referentiel form edit' %}
+{% set menuItem = 'maturity_referentiel' %}
+
+{% block title %}{{ 'maturity.referentiel.title.edit'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'maturity.referentiel.title.edit'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'maturity.referentiel.breadcrumb.list'|trans, 'link': path('maturity_referentiel_list') },
+        { 'name': 'maturity.referentiel.breadcrumb.edit'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('Maturity/Referentiel/_form.html.twig') }}
+{% endblock %}

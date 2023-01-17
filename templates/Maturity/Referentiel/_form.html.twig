@@ -1,0 +1,18 @@
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+
+{{ form_start(form) }}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <a href="{{ path('maturity_survey_list') }}" class="btn btn-default">
+                    {{ 'maturity.referentiel.action.back_to_list'|trans }}
+                </a>
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ form_end(form) }}

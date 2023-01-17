@@ -1,0 +1,24 @@
+maturity_referentiel_list:
+    path: '/liste'
+    methods: ['GET']
+    controller: 'App\Domain\Maturity\Controller\ReferentielController:listAction'
+
+maturity_referentiel_create:
+    path: '/creer'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Maturity\Controller\ReferentielController:createAction'
+
+maturity_referentiel_edit:
+    path: '/editer/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Maturity\Controller\ReferentielController:editAction'
+
+maturity_referentiel_delete:
+    path: '/supprimer/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Maturity\Controller\ReferentielController:deleteAction'
+
+maturity_referentiel_delete_confirm:
+    path: '/supprimer/{id}/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Maturity\Controller\ReferentielController:deleteConfirmationAction'

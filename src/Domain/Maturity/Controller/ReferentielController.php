@@ -67,14 +67,14 @@ class ReferentielController extends CRUDController
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
-        Repository\Referentiel $repository,
+        //Repository\Referentiel $repository,
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
         MaturityHandler $maturityHandler,
         Pdf $pdf
     ) {
-        parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
+        parent::__construct($entityManager, $translator, $pdf, $userProvider, $authorizationChecker);
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
@@ -111,33 +111,6 @@ class ReferentielController extends CRUDController
     protected function getFormType(): string
     {
         return ReferentielType::class;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getListData()
-    {
-        $order = [
-            'createdAt' => 'DESC',
-        ];
-
-        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return $this->repository->findAll($order);
-        }
-
-        if ($this->authorizationChecker->isGranted('ROLE_REFERENT')) {
-            $collectivities = \iterable_to_array($this->userProvider->getAuthenticatedUser()->getCollectivitesReferees());
-
-            return $this->repository->findAllByCollectivities($collectivities, $order);
-        }
-
-        $data = $this->repository->findAllByCollectivity(
-            $this->userProvider->getAuthenticatedUser()->getCollectivity(),
-            $order
-        );
-
-        return $data;
     }
 
     /**

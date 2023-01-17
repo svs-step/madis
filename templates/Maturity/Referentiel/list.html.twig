@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'maturity_referentiel list' %}
+{% set menuItem = 'maturity_referentiel' %}
+
+{% block title %}{{ 'maturity.referentiel.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'maturity.survey.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'maturity.survey.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+            <div class="col-xs-12">
+                <div class="action-bar">
+                    {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('maturity_referentiel_create') }}" class="btn btn-default">
+                        <i class="fa fa-plus"></i>
+                        {{ 'maturity.referentiel.action.new'|trans }}
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <table id="table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>{{ 'maturity.referentiel.list.collectivity'|trans }}</th>
+                            {% endif %}
+                            <th>{{ 'maturity.referentiel.list.created_at'|trans }}</th>
+                            <th>{{ 'maturity.referentiel.list.score'|trans }}</th>
+                            <th>{{ 'label.actions'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+                        <tr>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <td>{{ object.collectivity }}</td>
+                            {% endif %}
+                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                            <td>{{ object.score / 10 }}</td>
+                            <td>
+                                {% if is_granted('ROLE_USER') %}
+                                <a href="{{ path('maturity_referentiel_edit', { 'id': object.id }) }}">
+                                    <i class="fa fa-pencil-alt"></i>
+                                    {{ 'action.edit'|trans }}
+                                </a>
+                                <a href="{{ path('maturity_referentiel_delete', { 'id': object.id }) }}">
+                                    <i class="fa fa-trash"></i>
+                                    {{ 'action.delete'|trans }}
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% set dataTableOptions = {
+        columnDefs: [
+            { orderable: false, className: "noVis", targets: 3, visible: true },
+        ],
+    } %}
+
+    {{ include('_Utils/_datatable.html.twig') }}
+{% endblock %}

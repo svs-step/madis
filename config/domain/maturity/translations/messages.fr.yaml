@@ -22,3 +22,26 @@ maturity:
             edit: Modifier un indice de maturité
             list: Liste des indices de maturité
             delete: Supprimer un indice de maturité
+    referentiel:
+        action:
+            back_to_list: Retour à la liste
+            new: Nouveau référentiel
+        breadcrumb:
+            create: Nouveau référentiel
+            edit: Modifier le référentiel
+            list: Liste des référentiels
+            delete: Supprimer un référentiel
+        flashbag:
+            success:
+                create: Référentiel "%object%" créé avec succès
+                edit: Référentiel "%object%" modifié avec succès
+                delete: Référentiel "%object%" supprimé avec succès
+        list:
+            collectivity: Collectivité
+            created_at: Date de création
+            score: Score
+        title:
+            create: Nouveau référentiel
+            edit: Modifier un référentiel
+            list: Liste des référentiels
+            delete: Supprimer un référentiel

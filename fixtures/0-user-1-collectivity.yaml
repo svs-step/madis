@@ -11,6 +11,7 @@ App\Domain\User\Model\Collectivity:
         dpo: '@user_contact_collectivity_awkan_dpo'
         differentItManager: true
         itManager: '@user_contact_collectivity_awkan_manager_it'
+        finessGeo: 'test geo1'
         hasModuleConformiteTraitement: true
         hasModuleConformiteOrganisation: true
         reportingBlockManagementCommitment: |
@@ -43,6 +44,7 @@ App\Domain\User\Model\Collectivity:
         hasModuleConformiteTraitement: false
         differentItManager: true
         itManager: '@user_contact_collectivity_soluris_manager_it'
+        finessGeo: 'test geo2'
         reportingBlockManagementCommitment: |
             \<p\>Engagement de la direction :\</p\>
 
@@ -68,3 +70,4 @@ App\Domain\User\Model\Collectivity:
         type: '<(App\Domain\User\Dictionary\CollectivityTypeDictionary::TYPE_COMMUNE)>'
         siren: <randomNumber(9)>
         address: '@user_address_collectivity_foobar'
+        finessGeo: 'test geo3'

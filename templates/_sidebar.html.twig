@@ -94,6 +94,12 @@
                 <span>{{ 'sidebar_menu.maturity_survey'|trans }}</span>
             </a>
         </li>
+        <li {% if menuItem == 'maturity_referentiel' %}class="active"{% endif %}>
+            <a href="{{ path('maturity_referentiel_list') }}">
+                <i class="fa fa-chart-bar"></i>
+                <span>{{ 'sidebar_menu.maturity_referentiel'|trans }}</span>
+            </a>
+        </li>
         <li {% if menuItem == 'reporting_review' %}class="active"{% endif %}>
             <a href="{{ path('reporting_review_index', {'id': app.user.collectivity.id}) }}">
                 <i class="fa fa-clipboard-list"></i>
