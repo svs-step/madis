@@ -533,12 +533,12 @@
         <div>La CNIL préconise d’accepter les risques uniquement lorsque l’impact est négligeable. Dans les autres cas, il faudra apporter des mesures de protection supplémentaires pour venir corriger les anomalies identifiées. Dans le cas où le risque est maximal et que les mesures ne sont pas jugées suffisantes, il conviendra de solliciter l’avis de la CNIL.</div>
         <div style="text-align: center"><img src="{{ base_dir ~ asset("images/MatriceDecision.png") }}" height="300" alt="MatriceDecision"></div>
         <br/>
-        <h3>4.3 Mesure(s) de réduction des risques mise(s) en place</h3>
+        <h3 style="page-break-before: always">4.3 Mesure(s) de réduction des risques mise(s) en place</h3>
         <div>Le radar ci-dessous présente les mesures déjà mises en place dans la collectivité pour réduire l’ensemble des risques identifiés.</div>
         <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
         <div class="box box-solid box-primary">
             <div class="box-header with-border">Mesures de protection</div>
-            <table class="table table-bordered">
+            <table class="table table-bordered" style="page-break-inside: avoid">
                 <tr>
                     <th>Mesure</th>
                     <th>Avis sur les mesures existantes</th>
@@ -582,7 +582,7 @@
         <div class="box box-solid box-primary">
             <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
             <div class="box-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered" style="page-break-inside: avoid">
                     <tr>
                         <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
                         <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
@@ -604,7 +604,7 @@
         <div class="box box-solid box-primary">
             <div class="box-header with-border">Actions conseillées par le DPD à mettre en place</div>
             <div class="box-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered" style="page-break-inside: avoid">
                     <tr>
                         <th>Label livrable</th>
                         <th>Préconisations</th>
@@ -625,7 +625,7 @@
         <div>Ce chapitre a pour objectifs de permettre la prise de décision visant à accepter ou non l'AIPD au regard des résultats de l'étude.</div>
 
         <h3>Avis des personnes consultées</h3>
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="page-break-inside: avoid">
             <tr>
                 <td class="table-bluecell">Avis du référent RGPD</td>
                 <td>{{ object.avisReferent.reponse|dictionary('reponse_avis') }}</td>
