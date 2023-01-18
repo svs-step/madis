@@ -8,14 +8,17 @@
 {% block body_head %}
     <h1>
         {{ 'maturity.referentiel.title.delete'|trans }}
+        {#
         <small>{{ object }}</small>
+        #}
+
     </h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'maturity.referentiel.breadcrumb.list'|trans, 'link': path('maturity_referentiel_list') },
-        { 'name': 'maturity.referentiel.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'maturity.referentiel.breadcrumb.delete'|trans({'%name%': object.name}) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -26,7 +29,7 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer l'indice de maturité du {{ object.createdAt|date('d/m/Y') }} ?
+                    Souhaitez vous vraiment supprimer le referentiel {{ object.name }} du {{ object.createdAt|date('d/m/Y') }} ?
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('maturity_referentiel_list') }}" class="btn btn-default">

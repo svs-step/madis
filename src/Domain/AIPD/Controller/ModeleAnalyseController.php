@@ -286,7 +286,7 @@ class ModeleAnalyseController extends CRUDController
     {
         $id                  = $modele->getId();
         $htmltoReturnIfAdmin = '';
-
+        dd($id);
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $htmltoReturnIfAdmin = '<a href="' . $this->router->generate('aipd_modele_analyse_rights', ['id' => $id]) . '">
                 <i class="fa fa-user-shield"></i>'

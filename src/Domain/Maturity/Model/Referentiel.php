@@ -76,6 +76,19 @@ class Referentiel
         $this->referentielSections = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        if (\is_null($this->getName())) {
+            return '';
+        }
+
+        if (\mb_strlen($this->getName()) > 85) {
+            return \mb_substr($this->getName(), 0, 85) . '...';
+        }
+
+        return $this->getName();
+    }
+
     public function getId(): UuidInterface
     {
         return $this->id;
