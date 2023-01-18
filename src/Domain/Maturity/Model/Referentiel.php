@@ -24,6 +24,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Model;
 
+use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\User\Model\Collectivity;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
@@ -31,20 +33,15 @@ use Ramsey\Uuid\UuidInterface;
 
 class Referentiel
 {
-    /**
-     * @var UuidInterface
-     */
-    private $id;
+    use HistoryTrait;
 
     /**
-     * @var string|null
+     * @Serializer\Exclude
      */
-    private $name;
+    private ?UuidInterface $id;
 
-    /**
-     * @var string|null
-     */
-    private $description;
+    private string $name;
+    private string $description;
 
     /**
      * @var \DateTimeImmutable|null
@@ -64,6 +61,14 @@ class Referentiel
      * @var iterable
      */
     private $referentielSections;
+
+    /**
+     * @see CollectivityTypeDictionary
+     *
+     * @Serializer\Exclude
+     */
+    private ?iterable $authorizedCollectivityTypes;
+
 
     public function __construct()
     {
@@ -100,5 +105,4 @@ class Referentiel
     {
         return $this->referentielSections;
     }
-
 }

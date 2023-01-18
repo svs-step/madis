@@ -28,26 +28,35 @@ use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Maturity\Calculator\MaturityHandler;
 use App\Domain\Maturity\Form\Type\ReferentielType;
-use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Repository\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use App\Application\Traits\ServersideDatatablesTrait;
 
 /**
  * @property Repository\Referentiel $repository
  */
 class ReferentielController extends CRUDController
 {
+    use ServersideDatatablesTrait;
     /**
      * @var WordHandler
      */
     private $wordHandler;
+
+    /**
+     * @var Collectivity
+     */
+    protected $collectivityRepository;
 
     /**
      * @var AuthorizationCheckerInterface
@@ -72,13 +81,17 @@ class ReferentielController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
         MaturityHandler $maturityHandler,
-        Pdf $pdf
+        RouterInterface $router,
+        Pdf $pdf,
+        Collectivity $collectivityRepository,
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->wordHandler          = $wordHandler;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
         $this->maturityHandler      = $maturityHandler;
+        $this->router                 = $router;
+        $this->collectivityRepository = $collectivityRepository;
     }
 
     /**
@@ -154,4 +167,73 @@ class ReferentielController extends CRUDController
         ]);
     }
 
+    /**
+     * The list action view
+     * Get data & display them.
+     */
+    public function listAction(): Response
+    {
+        return $this->render('Maturity/Referentiel/list.html.twig', [
+            'totalItem' => $this->repository->count(),
+            'route'     => $this->router->generate('maturity_referentiel_list_datatables'),
+        ]);
+    }
+
+    public function listDataTables(Request $request): JsonResponse
+    {
+        $referentiels = $this->getResults($request);
+        $reponse = $this->getBaseDataTablesResponse($request, $referentiels);
+
+        foreach ($referentiels as $referentiel) {
+            $reponse['data'][] = [
+                'name'         => $referentiel->getName(),
+                'description' => $referentiel->getDescription(),
+                'updatedAt'   => date_format($referentiel->getUpdatedAt(), 'd-m-Y'),
+                'actions'     => $this->generateActioNCellContent($referentiel),
+            ];
+        }
+
+        $reponse['recordsTotal']    = count($reponse['data']);
+        $reponse['recordsFiltered'] = count($reponse['data']);
+
+        return new JsonResponse($reponse);
+    }
+
+    private function generateActioNCellContent(Model\Referentiel $referentiel)
+    {
+        $id                  = $referentiel->getId();
+        $htmltoReturnIfAdmin = '';
+
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $htmltoReturnIfAdmin = '<a href="' . $this->router->generate('maturity_referentiel_edit', ['id' => $id]) . '">
+                <i class="fa fa-user-shield"></i>'
+                . $this->translator->trans('action.rights') .
+                '</a>';
+        }
+
+        return
+            '<a href="' . $this->router->generate('maturity_referentiel_edit', ['id' => $id]) . '">
+                <i class="fa fa-pencil-alt"></i>'
+            . $this->translator->trans('action.edit') .
+            '</a>'
+            . $htmltoReturnIfAdmin .
+            '<a href="' . $this->router->generate('maturity_referentiel_edit', ['id' => $id]) . '">
+                <i class="fa fa-file-code"></i>' .
+            $this->translator->trans('action.export') .
+            '</a>' .
+            '<a href="' . $this->router->generate('maturity_referentiel_delete', ['id' => $id]) . '">
+                <i class="fa fa-trash"></i>' .
+            $this->translator->trans('action.delete') .
+            '</a>';
+    }
+
+    protected function getLabelAndKeysArray(): array
+    {
+        return [
+            '0' => 'name',
+            '1' => 'description',
+            '2' => 'updatedAt',
+            '3' => 'actions',
+        ];
+    }
 }

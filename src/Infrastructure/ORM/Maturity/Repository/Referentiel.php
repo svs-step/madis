@@ -25,12 +25,16 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\Maturity\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Application\Traits\RepositoryUtils;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
-use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Repository\Collectivity;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class Referentiel extends CRUDRepository implements Repository\Referentiel
 {
+    use RepositoryUtils;
     /**
      * {@inheritdoc}
      */
@@ -39,29 +43,70 @@ class Referentiel extends CRUDRepository implements Repository\Referentiel
         return Model\Referentiel::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null): iterable
+    public function findAllByCollectivity(Collectivity $collectivity)
     {
-        $qb = $this->createQueryBuilder()
-            ->andWhere('o.collectivity = :collectivity')
-            ->setParameter('collectivity', $collectivity)
-        ;
+        $qb = $this->createQueryBuilder();
+        // TODO Gestion des droits
 
-        foreach ($order as $key => $dir) {
-            $qb->addOrderBy("o.{$key}", $dir);
+        $qb = $qb->getQuery();
+        $qb->setFirstResult(0);
+        $qb->setMaxResults(100);
+
+        return new Paginator($qb);
+    }
+    public function count(array $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        $this->addTableSearches($qb, $searches);
+        $this->addTableOrder($qb, $orderColumn, $orderDir);
+
+        $qb = $qb->getQuery();
+        $qb->setFirstResult($firstResult);
+        $qb->setMaxResults($maxResults);
+
+        return new Paginator($qb);
+    }
+
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'name':
+                $queryBuilder->addOrderBy('o.name', $orderDir);
+                break;
+            case 'description':
+                $queryBuilder->addOrderBy('o.description', $orderDir);
+                break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
         }
+    }
 
-        if (!\is_null($limit)) {
-            $qb
-                ->setFirstResult(0)
-                ->setMaxResults($limit);
+    private function addTableSearches(QueryBuilder $queryBuilder, $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'name':
+                    $this->addWhereClause($queryBuilder, 'name', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'description':
+                    $this->addWhereClause($queryBuilder, 'description', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+            }
         }
-
-        return $qb
-            ->getQuery()
-            ->getResult()
-        ;
     }
 }
