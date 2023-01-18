@@ -129,17 +129,6 @@ class ReferentielController extends CRUDController
 
     /**
      * {@inheritdoc}
-     * Here, we wanna compute maturity score.
-     *
-     * @param Model\Survey $object
-     */
-    public function formPrePersistData($object)
-    {
-        $this->maturityHandler->handle($object);
-    }
-
-    /**
-     * {@inheritdoc}
      * Override method in order to hydrate survey answers.
      */
     public function createAction(Request $request): Response
