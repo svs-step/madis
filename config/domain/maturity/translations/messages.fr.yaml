@@ -45,3 +45,7 @@ maturity:
             edit: Modifier un référentiel
             list: Liste des référentiels
             delete: Supprimer un référentiel
+        form:
+            name: Nom
+            description: Description
+            informations_generales: Informations générales

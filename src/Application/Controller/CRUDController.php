@@ -341,7 +341,7 @@ abstract class CRUDController extends AbstractController
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
-
+        
         $actionEnabled = true;
         /**
          * @var User $user

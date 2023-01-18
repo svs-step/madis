@@ -37,6 +37,7 @@ use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -144,7 +145,7 @@ class ReferentielController extends CRUDController
     public function createAction(Request $request): Response
     {
         /**
-         * @var Model\Survey
+         * @var Model\Referentiel
          */
         $modelClass = $this->getModelClass();
         $object     = new $modelClass();
@@ -157,7 +158,7 @@ class ReferentielController extends CRUDController
             $em->persist($object);
             $em->flush();
 
-            $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object));
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object->getName()));
 
             return $this->redirectToRoute($this->getRouteName('list'));
         }

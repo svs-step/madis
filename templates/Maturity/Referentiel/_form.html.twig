@@ -1,18 +1,41 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
 
-{{ form_start(form) }}
-
 <div class="row">
+    {{ form_start(form) }}
     <div class="col-md-12">
-        <div class="box box-solid">
-            <div class="box-body text-center">
-                <a href="{{ path('maturity_survey_list') }}" class="btn btn-default">
-                    {{ 'maturity.referentiel.action.back_to_list'|trans }}
-                </a>
-                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+        <div class="row">
+            <div class="box box-solid box-info">
+                <div class="box-header with-border">{{ 'maturity.referentiel.form.informations_generales'|trans }}</div>
+                <div class="box-body col-md-6">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.description) }}
+                </div>
+            </div>
+            {#
+            <div class="col-md-6">
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border">{{ 'aipd.mesure_protection.form.information_livrable'|trans }}</div>
+                    <div class="box-body">
+                        {{ form_row(form.labelLivrable) }}
+                        {{ form_row(form.phrasePreconisation) }}
+                    </div>
+                </div>
+            </div>
+            #}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class="box-body text-center">
+                    <a href="{{ path('maturity_referentiel_list') }}" class="btn btn-default">
+                        {{ 'maturity.referentiel.action.back_to_list'|trans }}
+                    </a>
+                    <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                </div>
             </div>
         </div>
     </div>
+    {{ form_end(form) }}
 </div>
-
-{{ form_end(form) }}
