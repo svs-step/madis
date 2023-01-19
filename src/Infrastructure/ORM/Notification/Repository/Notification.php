@@ -31,6 +31,7 @@ use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Security;
 
@@ -75,10 +76,18 @@ class Notification extends CRUDRepository implements Repository\Notification
         $qb = $this->createQueryBuilder();
 
         if ($allNotifs) {
-
             $qb->where('o.dpo = 1');
-            if ($user->getRoles()[0] === UserRoleDictionary::ROLE_REFERENT) {
-                $collectivityIds = $user->getCollectivitesReferees()->map(function (Collectivity $c) {return $c->getId()->__toString();})->toArray();
+            if (UserRoleDictionary::ROLE_ADMIN !== $user->getRoles()[0]) {
+                if (UserRoleDictionary::ROLE_REFERENT === $user->getRoles()[0]) {
+                    $cf = $user->getCollectivitesReferees();
+                    $cf = new ArrayCollection([...$cf]);
+//                    if (!is_object($cf) || ArrayCollection::class !== get_class($cf)) {
+//                        $cf = new ArrayCollection([...$cf]);
+//                    }
+                    $collectivityIds = $cf->map(function (Collectivity $c) {return $c->getId()->__toString(); })->toArray();
+                } else {
+                    $collectivityIds = [$user->getCollectivity()->getId()->__toString()];
+                }
                 $qb->innerJoin('o.collectivity', 'c');
                 $qb->andWhere(
                     $qb->expr()->in('c.id', ':ids')
