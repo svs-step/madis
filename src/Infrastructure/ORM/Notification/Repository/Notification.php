@@ -27,6 +27,7 @@ namespace App\Infrastructure\ORM\Notification\Repository;
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Domain\Notification\Model;
 use App\Domain\Notification\Repository;
+use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model\User;
 use Doctrine\Persistence\ManagerRegistry;
@@ -63,7 +64,7 @@ class Notification extends CRUDRepository implements Repository\Notification
         $user = $this->security->getUser();
 
         $allowedRoles = [UserRoleDictionary::ROLE_REFERENT, UserRoleDictionary::ROLE_ADMIN];
-        if ($user && count($user->getRoles()) && in_array($user->getRoles()[0], $allowedRoles)) {
+        if ($user && (count($user->getRoles()) && in_array($user->getRoles()[0], $allowedRoles)) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
             // Find notifications with null user if current user is dpo
             $user = null;
         }
