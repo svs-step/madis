@@ -235,7 +235,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $refs = $object->getCollectivity()->getUsers()->filter(function (User $u) {
             $mi = $u->getMoreInfos();
 
-            return $mi && $mi[UserMoreInfoDictionary::MOREINFO_OPERATIONNAL];
+            return $mi && isset($mi[UserMoreInfoDictionary::MOREINFO_OPERATIONNAL]) && $mi[UserMoreInfoDictionary::MOREINFO_OPERATIONNAL];
         });
         if (0 === $refs->count()) {
             // No ref OP, get from collectivity
@@ -253,7 +253,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $refs = $object->getCollectivity()->getUsers()->filter(function (User $u) {
             $mi = $u->getMoreInfos();
 
-            return $mi && $mi[UserMoreInfoDictionary::MOREINFO_TREATMENT];
+            return $mi && isset($mi[UserMoreInfoDictionary::MOREINFO_TREATMENT]) && $mi[UserMoreInfoDictionary::MOREINFO_TREATMENT];
         });
         if (0 === $refs->count()) {
             // No ref OP, get from collectivity

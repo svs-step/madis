@@ -277,7 +277,7 @@ class NotificationEventSubscriber implements EventSubscriber
         $refs = (new ArrayCollection($this->userRepository->findAll()))->filter(function (User $u) {
             $mi = $u->getMoreInfos();
 
-            return $mi && $mi[UserMoreInfoDictionary::MOREINFO_OPERATIONNAL];
+            return $mi && isset($mi[UserMoreInfoDictionary::MOREINFO_OPERATIONNAL]) && $mi[UserMoreInfoDictionary::MOREINFO_OPERATIONNAL];
         });
 
         // Add notification with email address for the référents
@@ -308,14 +308,14 @@ class NotificationEventSubscriber implements EventSubscriber
 
             return in_array('ROLE_ADMIN', $u->getRoles())
                 || in_array('ROLE_REFERENT', $u->getRoles())
-                || ($mi && $mi[UserMoreInfoDictionary::MOREINFO_DPD]);
+                || ($mi && isset($mi[UserMoreInfoDictionary::MOREINFO_DPD]) && $mi[UserMoreInfoDictionary::MOREINFO_DPD]);
         });
 
         $nus = [];
         // Add notification with email address for the référents
         foreach ($refs as $ref) {
             $nu = new NotificationUser();
-            if (User::class === get_class($ref)) {
+            if (is_object($ref) && $ref instanceof User) {
                 $nu->setMail($ref->getEmail());
                 $nu->setUser($ref);
             } else {
@@ -339,7 +339,7 @@ class NotificationEventSubscriber implements EventSubscriber
         $refs = $object->getCollectivity()->getUsers()->filter(function (User $u) {
             $mi = $u->getMoreInfos();
 
-            return $mi && $mi[UserMoreInfoDictionary::MOREINFO_TREATMENT];
+            return $mi && isset($mi[UserMoreInfoDictionary::MOREINFO_TREATMENT]) && $mi[UserMoreInfoDictionary::MOREINFO_TREATMENT];
         });
         if (0 === $refs->count()) {
             // No ref OP, get from collectivity
