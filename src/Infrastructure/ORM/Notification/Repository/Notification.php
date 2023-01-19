@@ -29,6 +29,7 @@ use App\Domain\Notification\Model;
 use App\Domain\Notification\Repository;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
+use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Security;
@@ -63,24 +64,32 @@ class Notification extends CRUDRepository implements Repository\Notification
          */
         $user = $this->security->getUser();
 
+        $allNotifs = false;
+
         $allowedRoles = [UserRoleDictionary::ROLE_REFERENT, UserRoleDictionary::ROLE_ADMIN];
         if ($user && (count($user->getRoles()) && in_array($user->getRoles()[0], $allowedRoles)) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
             // Find notifications with null user if current user is dpo
-            $user = null;
+            $allNotifs = true;
         }
 
         $qb = $this->createQueryBuilder();
 
-//        $qb->from($this->getModelClass(), 'n');
+        if ($allNotifs) {
 
-        if ($user) {
+            $qb->where('o.dpo = 1');
+            if ($user->getRoles()[0] === UserRoleDictionary::ROLE_REFERENT) {
+                $collectivityIds = $user->getCollectivitesReferees()->map(function (Collectivity $c) {return $c->getId()->__toString();})->toArray();
+                $qb->innerJoin('o.collectivity', 'c');
+                $qb->andWhere(
+                    $qb->expr()->in('c.id', ':ids')
+                );
+                $qb->setParameter('ids', $collectivityIds);
+            }
+        } else {
             $qb->leftJoin('o.notificationUsers', 'u')
                 ->where('u.active = 1')
                 ->where('u.user = :user')
                 ->setParameter('user', $user)
-            ;
-        } else {
-            $qb->where('o.dpo = 1')
             ;
         }
 
