@@ -4,7 +4,7 @@
  * This file is part of the MADIS - RGPD Management application.
  *
  * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
- * @author Donovan Bourlard <donovan@awkan.fr>
+ * @author ANODE <contact@agence-anode.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -24,38 +24,46 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Form\Type;
 
-use App\Domain\Maturity\Model;
+use App\Domain\Maturity\Model\Question;
+use App\Domain\Maturity\Model\ReferentielAnswer;
+use App\Domain\Maturity\Model\ReferentielQuestion;
+use App\Domain\Maturity\Model\ReferentielSection;
+use App\Domain\Registry\Form\Type\ConformiteTraitement\ReponseType;
+use App\Domain\Registry\Form\Type\TreatmentType;
+use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
+use Doctrine\DBAL\Types\IntegerType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ReferentielType extends AbstractType
+class ReferentielQuestionType extends AbstractType
 {
     /**
      * Build type form.
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var ReferentielQuestion $referentielQuestion */
         $builder
             ->add('name', TextType::class, [
-                'label'    => 'maturity.referentiel.form.name',
-                'required' => true,
+                'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('description', TextareaType::class, [
-                'label'    => 'maturity.referentiel.form.description',
-                'required' => false,
-                'attr'     => [
-                    'rows' => 3,
-                ],
+            ->add('data', ChoiceType::class, [
+                'label'    => 'admin.duplication.form.data',
+                'required' => true,
+                'multiple' => false,
+                'expanded' => false,
+                'choices'  => [0,1,2,3,4,5],
             ])
-            ->add('referentielSections', CollectionType::class, [
-                    'entry_type' => ReferentielSectionType::class,
+            ->add('answers', CollectionType::class, [
+                    'label' => 'maturity.referentiel.form.answer',
+                    'entry_type' => ReferentielAnswer::class,
                 ]
             )
         ;
@@ -68,12 +76,10 @@ class ReferentielType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => Model\Referentiel::class,
+                'data_class'        => ReferentielQuestion::class,
                 'validation_groups' => [
                     'default',
-                    'referentiel',
                 ],
-            ])
-        ;
+            ]);
     }
 }

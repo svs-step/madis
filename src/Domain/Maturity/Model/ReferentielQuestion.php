@@ -51,7 +51,7 @@ class ReferentielQuestion
     private $questionNumber;
 
     /**
-     * @var iterable
+     * @var iterable|ReferentielAnswer[]
      */
     private $referentielAnswers;
 

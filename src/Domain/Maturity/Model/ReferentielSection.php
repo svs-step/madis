@@ -46,7 +46,7 @@ class ReferentielSection
     private $description;
 
     /**
-     * @var iterable
+     * @var iterable|ReferentielQuestion[]
      */
     private $referentielQuestions;
 

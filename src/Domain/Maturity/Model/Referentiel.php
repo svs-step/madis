@@ -58,7 +58,7 @@ class Referentiel
     private $updatedAt;
 
     /**
-     * @var iterable
+     * @var iterable|ReferentielSection[]
      */
     private $referentielSections;
 
