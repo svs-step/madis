@@ -118,4 +118,20 @@ class Referentiel
     {
         return $this->referentielSections;
     }
+
+    public function addReferentielSection(ReferentielSection $referentielSection): void
+    {
+        $this->referentielSections[] = $referentielSection;
+    }
+
+    public function removeReferentielSection(ReferentielSection $referentielSection): void
+    {
+        $key = \array_search($referentielSection, $this->referentielSections, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->referentielSections[$key]);
+    }
 }

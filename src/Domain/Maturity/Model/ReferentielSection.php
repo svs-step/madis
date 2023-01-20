@@ -38,12 +38,12 @@ class ReferentielSection
     /**
      * @var string|null
      */
-    private $name;
+    public $name;
 
     /**
      * @var string|null
      */
-    private $description;
+    public $description;
 
     /**
      * @var iterable|ReferentielQuestion[]

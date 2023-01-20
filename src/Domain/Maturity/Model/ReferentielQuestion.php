@@ -55,11 +55,6 @@ class ReferentielQuestion
      */
     private $referentielAnswers;
 
-    /**
-     * @var ReferentielSection|null
-     */
-    private $referentielSection;
-
     public function __construct()
     {
         $this->id = Uuid::uuid4();
@@ -99,16 +94,6 @@ class ReferentielQuestion
     public function setReferentielAnswers(?iterable $referentielAnswers): void
     {
         $this->referentielAnswers = $referentielAnswers;
-    }
-
-    public function getReferentielSection(): ?ReferentielSection
-    {
-        return $this->referentielSection;
-    }
-
-    public function setReferentielSection(?ReferentielSection $referentielSection): void
-    {
-        $this->referentielSection = $referentielSection;
     }
 
     public function getQuestionNumber(): ?int

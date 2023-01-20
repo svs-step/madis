@@ -43,8 +43,8 @@ class ReferentielSectionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var ReferentielSection $referentielSection */
-        $referentielSection = $options['data'];
+        //** @var ReferentielSection $referentielSection */
+        //$referentielSection = $options['data'];
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'maturity.referentiel.form.name',
@@ -60,10 +60,10 @@ class ReferentielSectionType extends AbstractType
                     'rows' => 3,
                 ],
             ])
-            ->add('questions', CollectionType::class, [
+            /*->add('questions', CollectionType::class, [
                     'entry_type' => ReferentielQuestionType::class,
                 ]
-            )
+            )*/
         ;
     }
 

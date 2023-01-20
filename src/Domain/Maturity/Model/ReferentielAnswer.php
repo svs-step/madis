@@ -102,16 +102,6 @@ class ReferentielAnswer
         return $this;
     }
 
-    public function getReferentielQuestion(): ?ReferentielQuestion
-    {
-        return $this->referentielQuestion;
-    }
-
-    public function setReferentielQuestion(?ReferentielQuestion $referentielQuestion): void
-    {
-        $this->referentielQuestion = $referentielQuestion;
-    }
-
     public function getAnswerNumber(): ?int
     {
         return $this->answerNumber;

@@ -26,6 +26,7 @@ namespace App\Domain\Maturity\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Maturity\Calculator\MaturityHandler;
 use App\Domain\Maturity\Form\Type\ReferentielType;
 use App\Domain\Maturity\Model;
@@ -154,6 +155,39 @@ class ReferentielController extends CRUDController
 
         return $this->render($this->getTemplatingBasePath('create'), [
             'form' => $form->createView(),
+        ]);
+    }
+
+    public function editAction(Request $request, string $id): Response
+    {
+        /** @var Model\Referentiel $object */
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $sections =  $this->entityManager->getRepository(Model\ReferentielSection::class)->findBy(['referentiel' => $object]);
+
+        // Before create form, hydrate new answers array with potential question responses
+        foreach ($sections as $section) {
+            $object->addReferentielSection($section);
+        }
+
+        $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->formPrePersistData($object);
+            $this->entityManager->persist($object);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('edit'), [
+            'form'           => $form->createView(),
         ]);
     }
 

@@ -11,11 +11,7 @@
                     {{ form_row(form.description) }}
                 </div>
             </div>
-            <div class="box box-solid box-primary">
-                <div class="box-header with-border">{{ 'maturity.referentiel.form.referentiel'|trans }}</div>
-                <div class="box-body">
-                </div>
-            </div>
+            {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': form.referentielSections} %}
         </div>
     </div>
 
