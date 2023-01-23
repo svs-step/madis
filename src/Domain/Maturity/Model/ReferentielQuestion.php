@@ -51,6 +51,11 @@ class ReferentielQuestion
     private $questionNumber;
 
     /**
+     * @var ReferentielSection|null
+     */
+    private $referentielSection;
+
+    /**
      * @var iterable|ReferentielAnswer[]
      */
     private $referentielAnswers;
@@ -104,6 +109,16 @@ class ReferentielQuestion
     public function setQuestionNumber(?int $questionNumber): void
     {
         $this->questionNumber = $questionNumber;
+    }
+
+    public function getReferentielSection(): ?ReferentielSection
+    {
+        return $this->referentielSection;
+    }
+
+    public function setReferentielSection(?ReferentielSection $referentielSection): void
+    {
+        $this->referentielSection = $referentielSection;
     }
 
 

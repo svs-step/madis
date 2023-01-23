@@ -1,18 +1,8 @@
 <div class="row">
-    {{ form_start(form) }}
-    {{ dump() }}
-    {#  for reponse in object.referentielSections %}
-        <div class="box box-solid box-primary">
-            <div class="box-header with-border">{{ 'maturity.referentiel.form.section'|trans }}</div>
-            <div class="box-body">
-                <div class="box-body col-md-6">
-                    {{ form_row(form.name) }}
-                    {{ form_row(form.description) }}
-                </div>
-            </div>
-        </div>
-    {% endfor #}
-    {# include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': form.referentielQuestions} #}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
 
-    {{ form_end(form) }}
+    {% for reponse in form.referentielSections.referentielQuestions %}
+        {% include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': reponse} %}
+    {% endfor %}
 </div>

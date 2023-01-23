@@ -11,8 +11,24 @@
                     {{ form_row(form.description) }}
                 </div>
             </div>
-            {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': form.referentielSections} %}
         </div>
+        <div class="row">
+            <div>
+                Référentiel
+            </div>
+        </div>
+        {% for reponse in form.referentielSections %}
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="box box-solid box-info">
+                        <div class="box-header with-border"> {{ loop.index }}.Section  </div>
+                        <div class="box-body col-md-6">
+                            {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': reponse} %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 
     <div class="row">

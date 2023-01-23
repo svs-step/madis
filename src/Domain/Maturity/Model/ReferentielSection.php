@@ -96,6 +96,22 @@ class ReferentielSection
         $this->referentielQuestions = $referentielQuestions;
     }
 
+    public function addReferentielQuestion(ReferentielQuestion $referentielQuestion): void
+    {
+        $this->referentielQuestions[] = $referentielQuestion;
+    }
+
+    public function removeReferentielQuestion(ReferentielQuestion $referentielQuestion): void
+    {
+        $key = \array_search($referentielQuestion, $this->referentielQuestions, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->referentielQuestions[$key]);
+    }
+
     public function getReferentiel(): ?Referentiel
     {
         return $this->referentiel;
@@ -105,5 +121,6 @@ class ReferentielSection
     {
         $this->referentiel = $referentiel;
     }
+
 
 }

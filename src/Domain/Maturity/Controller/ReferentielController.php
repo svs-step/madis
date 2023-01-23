@@ -170,8 +170,14 @@ class ReferentielController extends CRUDController
 
         // Before create form, hydrate new answers array with potential question responses
         foreach ($sections as $section) {
+            $questions =  $this->entityManager->getRepository(Model\ReferentielQuestion::class)->findBy(['referentielSection' => $section]);
+            foreach ($questions as $question){
+                $section->addReferentielQuestion($question);
+            }
             $object->addReferentielSection($section);
         }
+
+        dd($object);
 
         $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
 
