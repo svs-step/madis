@@ -91,6 +91,27 @@ registry:
         form:
             other_delay: Autre délai
 
+    tool:
+        title:
+            list: Logiciels et supports
+
+        action:
+            new: Nouveau logiciel ou support
+            edit: Editer
+            delete: Supprimer
+        list:
+            name: Nom
+            access_control: Contrôle d'accès
+            update: Mise à jour
+            backup: Sauvegarde
+            deletion: Suppression
+            has_comment: Zone de commentaire libre
+            other: Autre
+            type: Type
+            editor: Editeur
+            archival: Archivage
+            encrypted: Chiffrement
+
     mesurement:
         action:
             back_to_list: Retour à la liste

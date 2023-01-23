@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_tool form create' %}
+{% set menuItem = 'registry_tool' %}
+
+{% block title %}{{ 'registry.tool.title.create'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'registry.tool.title.create'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.tool.breadcrumb.list'|trans, 'link': path('registry_tool_list') },
+        { 'name': 'registry.tool.breadcrumb.create'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {{ include('Registry/Tool/_form.html.twig') }}
+{% endblock %}

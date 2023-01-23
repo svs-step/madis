@@ -1,0 +1,13 @@
+App\Domain\Registry\Model\Tool:
+    tool_{1..20}:
+        name: <fr_FR:company()>
+        type: <dictionary('registry_tool_type')>
+        editor: <boolean()>
+        archival: <boolean()>
+        encrypted: <boolean()>
+        access_control: <boolean()>
+        update: <boolean()>
+        backup: <boolean()>
+        deletion: <boolean()>
+        has_comment: <boolean()>
+        other: <boolean()>

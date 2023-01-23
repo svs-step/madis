@@ -1,0 +1,70 @@
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+
+{{ form_start(form) }}
+
+{% macro complex_choice(field) %}
+<div class="col-sm-12 complex-choice-group">
+    <div class="col-sm-1 check">{{ form_row(field.check) }}</div>
+    <div class="col-sm-3">{{ form_label(field) }}</div>
+    <div class="col-sm-8 comment">{{ form_widget(field.comment) }}</div>
+</div>
+{% endmacro %}
+{% import _self as macro %}
+
+<div class="row">
+
+    <div class="col-md-6">
+        {# GENERAL INFORMATIONS #}
+        <div class="box box-solid box-info">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.general'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.name) }}
+                {{ form_row(form.description) }}
+                {#{{ form_row(form.type) }}#}
+                {{ form_row(form.manager) }}
+                {{ form_row(form.priority) }}
+                {{ form_row(form.cost) }}
+                {{ form_row(form.charge) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        {# DETAILS #}
+        <div class="box box-solid box-success">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.application'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.status) }}
+                {{ form_row(form.planificationDate) }}
+                {{ form_row(form.comment) }}
+            </div>
+        </div>
+        {# RELATIONS #}
+        <div class="box box-solid box-warning">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.relations'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.contractors) }}
+                {{ form_row(form.treatments) }}
+                {{ form_row(form.requests) }}
+                {{ form_row(form.violations) }}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <a href="{{ path('registry_mesurement_list') }}" class="btn btn-default">
+                    {{ 'registry.mesurement.action.back_to_list'|trans }}
+                </a>
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ form_end(form) }}
+

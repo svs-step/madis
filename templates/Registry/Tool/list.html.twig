@@ -1,0 +1,233 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_tool list' %}
+{% set menuItem = 'registry_tool' %}
+
+{% block title %}{{ 'registry.tool.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'registry.tool.title.list'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.tool.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="action-bar">
+                {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('registry_tool_create') }}" class="btn btn-default">
+                    <i class="fa fa-plus"></i>
+                    {{ 'registry.tool.action.new'|trans }}
+                </a>
+                {% endif %}
+
+                {% if category is defined and category and category.documents|length > 0 %}
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <i class="far fa-file"></i>
+                        {{ 'documentation.document.link.button'|trans }}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <div style="float:left">
+                        <a id="delete-all"  href="{{ path('registry_tool_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            Supprimer
+                        </a>
+                    </div>
+                    <table id="table" class="table table-bordered table-hover" style="clear: both">
+                        <thead>
+                        <tr>
+                            <th>
+                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_type" style="width: 100%;">
+                                    <option value="">Type</option>
+                                    {% for key, subject in dictionary('registry_tool_type') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_editor" style="width: 100%;">
+                                    <option value="">Editeur</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_archival" style="width: 100%;">
+                                    <option value="">Archivage</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_encrypted" style="width: 100%;">
+                                    <option value="">Chiffrement</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_access_control" style="width: 100%;">
+                                    <option value="">Contrôle d'accès</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_update" style="width: 100%;">
+                                    <option value="">Mise à jour</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_backup" style="width: 100%;">
+                                    <option value="">Sauvegarde</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_deletion" style="width: 100%;">
+                                    <option value="">Suppression</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_has_comment" style="width: 100%;">
+                                    <option value="">Zone de commentaire libre</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_other" style="width: 100%;">
+                                    <option value="">Autre</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th>{{ 'registry.tool.list.name'|trans }}</th>
+                            <th>{{ 'registry.tool.list.type'|trans }}</th>
+                            <th>{{ 'registry.tool.list.editor'|trans }}</th>
+                            <th>{{ 'registry.tool.list.archival'|trans }}</th>
+                            <th>{{ 'registry.tool.list.encrypted'|trans }}</th>
+                            <th>{{ 'registry.tool.list.access_control'|trans }}</th>
+                            <th>{{ 'registry.tool.list.update'|trans }}</th>
+                            <th>{{ 'registry.tool.list.backup'|trans }}</th>
+                            <th>{{ 'registry.tool.list.deletion'|trans }}</th>
+                            <th>{{ 'registry.tool.list.has_comment'|trans }}</th>
+                            <th>{{ 'registry.tool.list.other'|trans }}</th>
+                            {% if is_granted('ROLE_USER') %}
+                                <th>{{ 'label.actions'|trans }}</th>
+                            {% endif %}
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+    {% set collectivityIsVisible = false %}
+    {% set collectivityClassname = "noVis" %}
+    {% set actionIsVisible = false %}
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set collectivityIsVisible = true %}
+        {% set collectivityClassname = "" %}
+    {% endif %}
+
+    {% if is_granted('ROLE_USER') %}
+        {% set actionIsVisible = true %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "name", "className": "noVis"},
+            {"data": "type", "className": collectivityClassname, "visible": collectivityIsVisible},
+            {"data": "editor"},
+            {"data": "archival"},
+            {"data": "encrypted"},
+            {"data": "access_control"},
+            {"data": "update"},
+            {"data": "backup"},
+            {"data": "deletion"},
+            {"data": "has_comment"},
+            {"data": "other"},
+            {"data": "actions", "orderable": false, "className": "noVis action", "visible": actionIsVisible},
+        ],
+        order:  [
+            [0, 'desc' ]
+        ],
+    } %}
+
+    {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            var oTable = $('#table').DataTable();
+            $('#search_nom').keyup($.debounce(250, function(){
+                oTable.column('0').search($(this).val()).draw() ;
+            }));
+            $('#search_type').change(function(){
+                oTable.column('1').search($(this).val()).draw() ;
+            });
+            $('#search_editor').change(function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            });
+            $('#search_archival').change(function(){
+                oTable.column('3').search($(this).val()).draw() ;
+            });
+            $('#search_encrypted').change(function(){
+                oTable.column('4').search($(this).val()).draw() ;
+            });
+            $('#search_access_control').change(function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            });
+            $('#search_update').change(function(){
+                oTable.column('6').search($(this).val()).draw() ;
+            });
+            $('#search_backup').change(function(){
+                oTable.column('7').search($(this).val()).draw() ;
+            });
+            $('#search_deletion').change(function(){
+                oTable.column('8').search($(this).val()).draw() ;
+            });
+            $('#search_has_comment').change(function(){
+                oTable.column('9').search($(this).val()).draw() ;
+            });
+            $('#search_other').change(function(){
+                oTable.column('10').search($(this).val()).draw() ;
+            });
+        } );
+    </script>
+{% endblock %}

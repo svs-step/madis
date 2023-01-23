@@ -1,0 +1,81 @@
+<script>
+    function unbindSubmit(jQueryForm) {
+        jQueryForm.unbind('submit');
+    }
+
+    function addGivenOptionAndReloadSelectpicker(select, selectId, result) {
+        var textTruncate = result.name;
+        if (textTruncate.length > 50) {
+            textTruncate = textTruncate.substr(0, 50) + '...';
+        }
+        let option = $('<option>', {
+            value: result.id,
+            text: textTruncate
+        });
+        select.append(option);
+        if (select.attr('id') == selectId) {
+            let selectedVal = [];
+            $.each(select.val(), function( index, value ){
+                selectedVal.push(value)
+            });
+            selectedVal.push(result.id);
+            select.selectpicker('val', selectedVal);
+        }
+        select.selectpicker('refresh');
+    }
+
+    $('#mesurement-modal').on('show.bs.modal', function(e) {
+        //On récupère l'id du select dans lequel on doit sélectionner la nouvelle action de protection
+        var selectId = $(e.relatedTarget).data('select-id');
+        $('#mesurement-modal-form').on('submit', function (e) {
+            e.preventDefault();
+            //Désactiviation du bouton pour éviter le multi clic
+            $('#mesurement-modal-form-button').attr('disabled','disabled');
+
+            let jQueryform =  $(e.target);
+            getAjaxCreationCall(jQueryform).then(
+                result => {
+                    $('select.selectpicker').each(function() {
+                        addGivenOptionAndReloadSelectpicker($(this), selectId, result);
+                    });
+
+                    var target = $(jQueryform.attr('data-target'));
+                    //La modale disparait
+                    target.modal('hide');
+                    //On réactive le bouton
+                    $('#mesurement-modal-form-button').removeAttr("disabled");
+                }
+            ).catch(
+                error => {
+                    console.log(error);
+                    $('#mesurement-modal-form-button').removeAttr("disabled");
+                }
+            )
+        })
+    });
+
+    $('#mesurement-modal').on('hide.bs.modal', function(e){
+        let jQueryForm = $('#mesurement-modal-form');
+        unbindSubmit(jQueryForm);
+        jQueryForm[0].reset();
+    });
+
+    // jQuery object
+    const getAjaxCreationCall = (jQueryform) => {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: jQueryform.attr('method'),
+                url: jQueryform.attr('action'),
+                data: jQueryform.serialize(),
+
+                success: function(data) {
+                    resolve(data);
+                },
+
+                error: function (xhr) {
+                    reject(xhr.responseText);
+                }
+            });
+        });
+    };
+</script>

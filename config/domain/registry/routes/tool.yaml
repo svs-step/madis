@@ -1,0 +1,49 @@
+registry_tool_list:
+    path: '/liste'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ToolController:listAction'
+
+registry_tool_list_datatables:
+    path: '/datatables'
+    methods: ['POST']
+    controller: 'App\Domain\Registry\Controller\ToolController:listDataTables'
+
+registry_tool_action_plan:
+    path: '/plan-d-actions'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ToolController:actionPlanAction'
+
+registry_tool_create:
+    path: '/creer'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Registry\Controller\ToolController:createAction'
+
+registry_tool_edit:
+    path: '/editer/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Registry\Controller\ToolController:editAction'
+
+registry_tool_show:
+    path: '/visualiser/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ToolController:showAction'
+
+registry_tool_delete:
+    path: '/supprimer/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ToolController:deleteAction'
+
+registry_tool_delete_confirm:
+    path: '/supprimer/{id}/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ToolController:deleteConfirmationAction'
+
+registry_tool_delete_all:
+    path: '/supprimer-tous/'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ToolController:deleteAllAction'
+
+registry_tool_delete_all_confirm:
+    path: '/supprimer-tous/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ToolController:deleteConfirmationAllAction'
