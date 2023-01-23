@@ -91,16 +91,6 @@ class ReferentielQuestion
         $this->weight = $weight;
     }
 
-    public function getReferentielAnswers(): iterable
-    {
-        return $this->referentielAnswers;
-    }
-
-    public function setReferentielAnswers(?iterable $referentielAnswers): void
-    {
-        $this->referentielAnswers = $referentielAnswers;
-    }
-
     public function getQuestionNumber(): ?int
     {
         return $this->questionNumber;
@@ -119,6 +109,32 @@ class ReferentielQuestion
     public function setReferentielSection(?ReferentielSection $referentielSection): void
     {
         $this->referentielSection = $referentielSection;
+    }
+
+    public function getReferentielAnswers(): iterable
+    {
+        return $this->referentielAnswers;
+    }
+
+    public function setReferentielAnswers(?iterable $referentielAnswers): void
+    {
+        $this->referentielAnswers = $referentielAnswers;
+    }
+
+    public function addReferentielAnswer(ReferentielAnswer $referentielAnswer): void
+    {
+        $this->referentielAnswers[] = $referentielAnswer;
+    }
+
+    public function removeReferentielAnswer(ReferentielAnswer $referentielAnswer): void
+    {
+        $key = \array_search($referentielAnswer, $this->referentielAnswers, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->referentielAnswers[$key]);
     }
 
 

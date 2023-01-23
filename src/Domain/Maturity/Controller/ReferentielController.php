@@ -172,11 +172,14 @@ class ReferentielController extends CRUDController
         foreach ($sections as $section) {
             $questions =  $this->entityManager->getRepository(Model\ReferentielQuestion::class)->findBy(['referentielSection' => $section]);
             foreach ($questions as $question){
+                $answers = $this->entityManager->getRepository(Model\ReferentielAnswer::class)->findBy(['referentielQuestion' => $question]);
+                foreach($answers as $answer){
+                    $question->addReferentielAnswer($answer);
+                }
                 $section->addReferentielQuestion($question);
             }
             $object->addReferentielSection($section);
         }
-
         dd($object);
 
         $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);

@@ -1,8 +1,10 @@
 <div class="row">
     {{ form_row(form.name) }}
     {{ form_row(form.description) }}
-
-    {% for reponse in form.referentielSections.referentielQuestions %}
-        {% include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': reponse} %}
+    {{ dump(form) }}
+    {#
+    {% for question in section.referentielQuestions %}
+        {% include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': question} %}
     {% endfor %}
+    #}
 </div>

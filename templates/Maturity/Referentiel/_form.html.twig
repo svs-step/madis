@@ -17,13 +17,14 @@
                 Référentiel
             </div>
         </div>
-        {% for reponse in form.referentielSections %}
+        {{ dump(form) }}
+        {% for section in form.referentielSections %}
             <div class="col-md-12">
                 <div class="row">
                     <div class="box box-solid box-info">
                         <div class="box-header with-border"> {{ loop.index }}.Section  </div>
                         <div class="box-body col-md-6">
-                            {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': reponse} %}
+                            {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': section} %}
                         </div>
                     </div>
                 </div>
