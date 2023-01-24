@@ -28,16 +28,13 @@ use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Documentation\Model\Category;
-use App\Domain\Registry\Dictionary\MesurementPriorityDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Dictionary\ToolTypeDictionary;
-use App\Domain\Registry\Form\Type\MesurementType;
 use App\Domain\Registry\Form\Type\ToolType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Dictionary\UserRoleDictionary;
-use App\Domain\User\Model as UserModel;
 use App\Domain\User\Repository as UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
@@ -46,7 +43,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -163,7 +159,7 @@ class ToolController extends CRUDController
 
     public function listAction(): Response
     {
-        $request = $this->requestStack->getCurrentRequest();
+        $request  = $this->requestStack->getCurrentRequest();
         $category = $this->entityManager->getRepository(Category::class)->findOneBy([
             'name' => 'Logiciels',
         ]);
@@ -174,7 +170,6 @@ class ToolController extends CRUDController
             'route'     => $this->router->generate('registry_tool_list_datatables'),
         ]);
     }
-
 
     private function getRequestCriteria(Request $request)
     {
@@ -219,29 +214,28 @@ class ToolController extends CRUDController
     public function listDataTables(Request $request): JsonResponse
     {
         $criteria = $this->getRequestCriteria($request);
-        $tools  = $this->getResults($request, $criteria);
+        $tools    = $this->getResults($request, $criteria);
         $reponse  = $this->getBaseDataTablesResponse($request, $tools, $criteria);
 
         $yes = '<span class="badge bg-green">' . $this->translator->trans('label.yes') . '</span>';
         $no  = '<span class="badge bg-orange">' . $this->translator->trans('label.no') . '</span>';
 
-
         /** @var Model\Tool $tool */
         foreach ($tools as $tool) {
             $reponse['data'][] = [
-                'id'                 => $tool->getId(),
-                'name'                => $this->generateShowLink($tool),
-                'type'                => ToolTypeDictionary::getTypes()[$tool->getType()],
-                'editor'                => $tool->getEditor() ? $yes : $no,
-                'archival'                => $tool->getArchival() ? $yes : $no,
-                'encrypted'                => $tool->getEncrypted() ? $yes : $no,
-                'access_control'                => $tool->getAccessControl() ? $yes : $no,
-                'update'                => $tool->getUpdate() ? $yes : $no,
-                'backup'                => $tool->getBackup() ? $yes : $no,
-                'deletion'                => $tool->getDeletion() ? $yes : $no,
-                'has_comment'                => $tool->getHasComment() ? $yes : $no,
-                'other'                => $tool->getOther() ? $yes : $no,
-                'actions'            => $this->generateActionCell($tool),
+                'id'             => $tool->getId(),
+                'name'           => $this->generateShowLink($tool),
+                'type'           => ToolTypeDictionary::getTypes()[$tool->getType()],
+                'editor'         => $tool->getEditor() ? $yes : $no,
+                'archival'       => $tool->getArchival() ? $yes : $no,
+                'encrypted'      => $tool->getEncrypted() ? $yes : $no,
+                'access_control' => $tool->getAccessControl() ? $yes : $no,
+                'update'         => $tool->getUpdate() ? $yes : $no,
+                'backup'         => $tool->getBackup() ? $yes : $no,
+                'deletion'       => $tool->getDeletion() ? $yes : $no,
+                'has_comment'    => $tool->getHasComment() ? $yes : $no,
+                'other'          => $tool->getOther() ? $yes : $no,
+                'actions'        => $this->generateActionCell($tool),
             ];
         }
 

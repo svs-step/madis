@@ -28,8 +28,8 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ToolTypeDictionary extends SimpleDictionary
 {
-    public const SOFTWARE       = 'software';
-    public const SUPPORT           = 'support';
+    public const SOFTWARE = 'software';
+    public const SUPPORT  = 'support';
 
     public function __construct()
     {
@@ -44,8 +44,8 @@ class ToolTypeDictionary extends SimpleDictionary
     public static function getTypes()
     {
         return [
-            self::SOFTWARE       => 'Logiciel',
-            self::SUPPORT           => 'Support/Stockage',
+            self::SOFTWARE => 'Logiciel',
+            self::SUPPORT  => 'Support/Stockage',
         ];
     }
 

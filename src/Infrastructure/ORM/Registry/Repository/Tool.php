@@ -26,13 +26,9 @@ namespace App\Infrastructure\ORM\Registry\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Traits\RepositoryUtils;
-use App\Domain\Registry\Dictionary\MesurementPriorityDictionary;
-use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
-use App\Domain\User\Model\User;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -97,7 +93,7 @@ class Tool extends CRUDRepository implements Repository\Tool
         return $qb
             ->getQuery()
             ->getSingleScalarResult()
-            ;
+        ;
     }
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
@@ -115,7 +111,6 @@ class Tool extends CRUDRepository implements Repository\Tool
 
         return new Paginator($query);
     }
-
 
     private function addTableWhere(QueryBuilder $queryBuilder, array $searches)
     {
@@ -136,7 +131,7 @@ class Tool extends CRUDRepository implements Repository\Tool
     {
         switch ($orderColumn) {
             default:
-                $queryBuilder->addOrderBy('o.'.$orderColumn, $orderDir);
+                $queryBuilder->addOrderBy('o.' . $orderColumn, $orderDir);
                 break;
         }
     }

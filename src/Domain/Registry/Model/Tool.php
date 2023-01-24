@@ -28,7 +28,6 @@ use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
-use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\User;
 use Ramsey\Uuid\Uuid;
@@ -37,9 +36,8 @@ use Ramsey\Uuid\UuidInterface;
 /**
  * Action de protection / Plan d'action.
  */
-class Tool implements LoggableSubject, CollectivityRelated
+class Tool implements LoggableSubject
 {
-    use CollectivityTrait;
     use CreatorTrait;
     use HistoryTrait;
 
@@ -91,35 +89,35 @@ class Tool implements LoggableSubject, CollectivityRelated
     private $access_control;
 
     /**
-     * FR: Mise à jour
+     * FR: Mise à jour.
      *
      * @var bool|null
      */
     private $update;
 
     /**
-     * FR: Sauvegarde
+     * FR: Sauvegarde.
      *
      * @var bool|null
      */
     private $backup;
 
     /**
-     * FR: Suppression
+     * FR: Suppression.
      *
      * @var bool|null
      */
     private $deletion;
 
     /**
-     * FR: Zone de commentaire libre
+     * FR: Zone de commentaire libre.
      *
      * @var bool|null
      */
     private $has_comment;
 
     /**
-     * FR: Autres
+     * FR: Autres.
      *
      * @var bool|null
      */
@@ -137,11 +135,11 @@ class Tool implements LoggableSubject, CollectivityRelated
      */
     public function __construct()
     {
-        $this->id                           = Uuid::uuid4();
-        $this->proofs                       = [];
+        $this->id          = Uuid::uuid4();
+        $this->proofs      = [];
         $this->contractors = [];
-        $this->mesurements       = [];
-        $this->treatments       = [];
+        $this->mesurements = [];
+        $this->treatments  = [];
     }
 
     public function __toString(): string
@@ -162,246 +160,155 @@ class Tool implements LoggableSubject, CollectivityRelated
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getType(): ?string
     {
         return $this->type;
     }
 
-    /**
-     * @param string|null $type
-     */
     public function setType(?string $type): void
     {
         $this->type = $type;
     }
 
-    /**
-     * @return string|null
-     */
     public function getEditor(): ?string
     {
         return $this->editor;
     }
 
-    /**
-     * @param string|null $editor
-     */
     public function setEditor(?string $editor): void
     {
         $this->editor = $editor;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getArchival(): ?bool
     {
         return $this->archival;
     }
 
-    /**
-     * @param bool|null $archival
-     */
     public function setArchival(?bool $archival): void
     {
         $this->archival = $archival;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getEncrypted(): ?bool
     {
         return $this->encrypted;
     }
 
-    /**
-     * @param bool|null $encrypted
-     */
     public function setEncrypted(?bool $encrypted): void
     {
         $this->encrypted = $encrypted;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getAccessControl(): ?bool
     {
         return $this->access_control;
     }
 
-    /**
-     * @param bool|null $access_control
-     */
     public function setAccessControl(?bool $access_control): void
     {
         $this->access_control = $access_control;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getUpdate(): ?bool
     {
         return $this->update;
     }
 
-    /**
-     * @param bool|null $update
-     */
     public function setUpdate(?bool $update): void
     {
         $this->update = $update;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getBackup(): ?bool
     {
         return $this->backup;
     }
 
-    /**
-     * @param bool|null $backup
-     */
     public function setBackup(?bool $backup): void
     {
         $this->backup = $backup;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getDeletion(): ?bool
     {
         return $this->deletion;
     }
 
-    /**
-     * @param bool|null $deletion
-     */
     public function setDeletion(?bool $deletion): void
     {
         $this->deletion = $deletion;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getHasComment(): ?bool
     {
         return $this->has_comment;
     }
 
-    /**
-     * @param bool|null $has_comment
-     */
     public function setHasComment(?bool $has_comment): void
     {
         $this->has_comment = $has_comment;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getOther(): ?bool
     {
         return $this->other;
     }
 
-    /**
-     * @param bool|null $other
-     */
     public function setOther(?bool $other): void
     {
         $this->other = $other;
     }
 
-    /**
-     * @return iterable|null
-     */
     public function getTreatments(): iterable|null
     {
         return $this->treatments;
     }
 
-    /**
-     * @param iterable|null $treatments
-     */
     public function setTreatments(iterable|null $treatments): void
     {
         $this->treatments = $treatments;
     }
 
-    /**
-     * @return iterable|null
-     */
     public function getContractors(): iterable|null
     {
         return $this->contractors;
     }
 
-    /**
-     * @param iterable|null $contractors
-     */
     public function setContractors(iterable|null $contractors): void
     {
         $this->contractors = $contractors;
     }
 
-    /**
-     * @return iterable|null
-     */
     public function getProofs(): iterable|null
     {
         return $this->proofs;
     }
 
-    /**
-     * @param iterable|null $proofs
-     */
     public function setProofs(iterable|null $proofs): void
     {
         $this->proofs = $proofs;
     }
 
-    /**
-     * @return iterable|null
-     */
     public function getMesurements(): iterable|null
     {
         return $this->mesurements;
     }
 
-    /**
-     * @param iterable|null $mesurements
-     */
     public function setMesurements(iterable|null $mesurements): void
     {
         $this->mesurements = $mesurements;
     }
-
 
     public function isInUserServices(User $user): bool
     {
