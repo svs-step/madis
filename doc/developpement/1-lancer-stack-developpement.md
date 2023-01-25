@@ -25,20 +25,6 @@ Cela vous permettra d'accéder aux images Docker du projet.
 docker login gitlab.adullact.net:4567
 ```
 
-#### SSL
-
-Afin d'obtenir des certificats autosignés vous avez besoin d'installer [mkcert](https://github.com/FiloSottile/mkcert) sur votre machine.1  
-Créez le certificat et la clef pour votre environnement de développement
-
-```bash
-mkcert -key-file key.pem -cert-file cert.pem 127.0.0.1 madis.local
-```
-Puis copiez les fichiers créés dans le dossier `docker/nginx/certificats/default`.
-```bash
-cp *.pem ./docker/nginx/certificats/default/
-```
-
-
 Finissez par initialiser le projet.  
 Pour cela le fichier `docker-service` fourni un raccourci pour lancer toute la Stack.
 ```bash
@@ -49,7 +35,7 @@ Pour aller plus loin, vous pouvez étudier le fichier `docker-service` pour voir
 
 ## Utilisation basique
 
-* Project URL : http://127.0.0.1:8888 ou https://127.0.0.1 
+* Project URL : http://127.0.0.1:8888
 
 ## Quelques identifiants clés
 
