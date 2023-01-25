@@ -61,11 +61,11 @@ class ReferentielQuestionType extends AbstractType
                 'expanded' => false,
                 'choices'  => [0,1,2,3,4,5],
             ])
-            /*->add('answers', CollectionType::class, [
+            ->add('referentielAnswers', CollectionType::class, [
                     'label' => 'maturity.referentiel.form.answer',
-                    'entry_type' => ReferentielAnswer::class,
+                    'entry_type' => ReferentielAnswerType::class,
                 ]
-            )*/
+            )
         ;
     }
 

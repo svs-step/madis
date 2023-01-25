@@ -111,4 +111,14 @@ class ReferentielAnswer
     {
         $this->answerNumber = $answerNumber;
     }
+
+    public function getReferentielQuestion(): ?ReferentielQuestion
+    {
+        return $this->referentielQuestion;
+    }
+
+    public function setReferentielQuestion(?ReferentielQuestion $referentielQuestion): void
+    {
+        $this->referentielQuestion = $referentielQuestion;
+    }
 }

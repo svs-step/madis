@@ -3,7 +3,6 @@
     {{ form_row(form.description) }}
 
     {% for question in section.referentielQuestions %}
-        {{ dump(question) }}
         {%  include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': question} %}
     {% endfor %}
 

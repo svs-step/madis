@@ -10,5 +10,7 @@
         </div>
     </div>
 
-    {# include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': form.referentielAnswers} #}
+    {% for answer in question.referentielAnswers %}
+        {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': answer} %}
+    {% endfor %}
 </div>

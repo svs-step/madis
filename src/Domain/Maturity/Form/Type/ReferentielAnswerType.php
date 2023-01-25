@@ -46,7 +46,7 @@ class ReferentielAnswerType extends AbstractType
                 'maxlength' => 255,
                 ],
             ])
-            ->add('recommandation', TextType::class, [
+            ->add('recommendation', TextType::class, [
                 'required' => false,
                 'attr'     => [
                 'maxlength' => 255,
@@ -62,7 +62,7 @@ class ReferentielAnswerType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => ReferentielSection::class,
+                'data_class'        => ReferentielAnswer::class,
                 'validation_groups' => [
                     'default',
                 ],
