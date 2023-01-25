@@ -70,10 +70,10 @@ class ModeleAnalyseRightsType extends AbstractType
                     return $er->createQueryBuilder('c')
                         ->orderBy('c.name', 'ASC');
                 },
-                'required'   => false,
-                'multiple'   => true,
-                'expanded'   => false,
-                'attr'       => [
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
+                'attr'          => [
                     'size' => 18,
                 ],
             ]);

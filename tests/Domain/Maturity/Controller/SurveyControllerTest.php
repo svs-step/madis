@@ -39,6 +39,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -47,6 +48,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SurveyControllerTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var EntityManagerInterface
@@ -98,17 +100,17 @@ class SurveyControllerTest extends TestCase
      */
     private $controller;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
-        $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);
-        $this->repositoryProphecy             = $this->prophesize(Repository\Survey::class);
-        $this->questionRepositoryProphecy     = $this->prophesize(Repository\Question::class);
-        $this->wordHandlerProphecy            = $this->prophesize(WordHandler::class);
-        $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
-        $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
-        $this->maturityHandlerProphecy        = $this->prophesize(MaturityHandler::class);
-        $this->pdf                            = $this->prophesize(Pdf::class);
+        $this->managerProphecy               = $this->prophesize(EntityManagerInterface::class);
+        $this->translatorProphecy            = $this->prophesize(TranslatorInterface::class);
+        $this->repositoryProphecy            = $this->prophesize(Repository\Survey::class);
+        $this->questionRepositoryProphecy    = $this->prophesize(Repository\Question::class);
+        $this->wordHandlerProphecy           = $this->prophesize(WordHandler::class);
+        $this->authenticationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
+        $this->userProviderProphecy          = $this->prophesize(UserProvider::class);
+        $this->maturityHandlerProphecy       = $this->prophesize(MaturityHandler::class);
+        $this->pdf                           = $this->prophesize(Pdf::class);
 
         $this->controller = new SurveyController(
             $this->managerProphecy->reveal(),

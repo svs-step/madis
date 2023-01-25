@@ -24,22 +24,42 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Registry\Model\Request;
+use App\Domain\Registry\Model\Treatment;
+use App\Domain\Registry\Model\Violation;
+use App\Domain\User\Model\User;
+use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class MesurementType extends AbstractType
 {
+    /**
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * Build type form.
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var Mesurement $mesurement */
+        $mesurement = $options['data'] ?? null;
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'registry.mesurement.form.name',
@@ -113,6 +133,112 @@ class MesurementType extends AbstractType
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
+                ],
+            ])
+            ->add('contractors', EntityType::class, [
+                'label'         => 'registry.mesurement.form.contractor',
+                'class'         => Contractor::class,
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
+                'query_builder' => function (EntityRepository $er) use ($mesurement) {
+                    $collectivity = null;
+                    if (!\is_null($mesurement) && !\is_null($mesurement->getCollectivity())) {
+                        $collectivity = $mesurement->getCollectivity();
+                    } else {
+                        /** @var User $authenticatedUser */
+                        $authenticatedUser = $this->security->getUser();
+                        $collectivity      = $authenticatedUser->getCollectivity();
+                    }
+
+                    return $er->createQueryBuilder('c')
+                        ->where('c.collectivity = :collectivity')
+                        ->addOrderBy('c.name', 'asc')
+                        ->setParameter('collectivity', $collectivity)
+                    ;
+                },
+                'attr'          => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
+            ])
+            ->add('treatments', EntityType::class, [
+                'label'         => 'registry.mesurement.form.treatment',
+                'class'         => Treatment::class,
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
+                'query_builder' => function (EntityRepository $er) use ($mesurement) {
+                    $collectivity = null;
+                    if (!\is_null($mesurement) && !\is_null($mesurement->getCollectivity())) {
+                        $collectivity = $mesurement->getCollectivity();
+                    } else {
+                        /** @var User $authenticatedUser */
+                        $authenticatedUser = $this->security->getUser();
+                        $collectivity      = $authenticatedUser->getCollectivity();
+                    }
+
+                    return $er->createQueryBuilder('c')
+                        ->where('c.collectivity = :collectivity')
+                        ->addOrderBy('c.name', 'asc')
+                        ->setParameter('collectivity', $collectivity)
+                    ;
+                },
+                'attr'          => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
+            ])
+            ->add('violations', EntityType::class, [
+                'label'         => 'registry.mesurement.form.violation',
+                'class'         => Violation::class,
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
+                'query_builder' => function (EntityRepository $er) use ($mesurement) {
+                    $collectivity = null;
+                    if (!\is_null($mesurement) && !\is_null($mesurement->getCollectivity())) {
+                        $collectivity = $mesurement->getCollectivity();
+                    } else {
+                        /** @var User $authenticatedUser */
+                        $authenticatedUser = $this->security->getUser();
+                        $collectivity      = $authenticatedUser->getCollectivity();
+                    }
+
+                    return $er->createQueryBuilder('c')
+                        ->where('c.collectivity = :collectivity')
+                        ->setParameter('collectivity', $collectivity)
+                    ;
+                },
+                'attr'          => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
+            ])
+            ->add('requests', EntityType::class, [
+                'label'         => 'registry.mesurement.form.request',
+                'class'         => Request::class,
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
+                'query_builder' => function (EntityRepository $er) use ($mesurement) {
+                    $collectivity = null;
+                    if (!\is_null($mesurement) && !\is_null($mesurement->getCollectivity())) {
+                        $collectivity = $mesurement->getCollectivity();
+                    } else {
+                        /** @var User $authenticatedUser */
+                        $authenticatedUser = $this->security->getUser();
+                        $collectivity      = $authenticatedUser->getCollectivity();
+                    }
+
+                    return $er->createQueryBuilder('c')
+                        ->where('c.collectivity = :collectivity')
+                        ->setParameter('collectivity', $collectivity)
+                    ;
+                },
+                'attr'          => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
                 ],
             ])
         ;

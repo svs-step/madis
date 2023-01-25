@@ -24,15 +24,24 @@ declare(strict_types=1);
 
 namespace App\Application\Traits\Model;
 
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 trait HistoryTrait
 {
     /**
      * @var \DateTimeImmutable|null
+     *
+     * @ORM\Column(type="datetime_immutable", name="created_at")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @var \DateTimeImmutable|null
+     *
+     * @ORM\Column(type="datetime_immutable", name="updated_at")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 

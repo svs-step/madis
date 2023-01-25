@@ -12,6 +12,14 @@
     </h1>
 {% endblock %}
 
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.conformite_organisation.title.list'|trans, 'link': path('registry_conformite_organisation_list') },
+        { 'name': 'registry.conformite_organisation.title.edit'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
 {% block body %}
     {{ include('Registry/Conformite_organisation/_form.html.twig') }}
     {{ include('Registry/Mesurement/_modal_form.html.twig') }}

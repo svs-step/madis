@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Dictionary\ViolationCauseDictionary;
 use App\Domain\Registry\Dictionary\ViolationGravityDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
@@ -156,17 +157,22 @@ class ViolationController extends CRUDController
     {
         $criteria = $this->getRequestCriteria();
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Violation',
+        ]);
+
         return $this->render($this->getTemplatingBasePath('list'), [
             'totalItem' => $this->repository->count($criteria),
+            'category'  => $category,
             'route'     => $this->router->generate('registry_violation_list_datatables', ['archive' => $criteria['archive']]),
         ]);
     }
 
     public function listDataTables(Request $request): JsonResponse
     {
-        $criteria    = $this->getRequestCriteria();
-        $users       = $this->getResults($request, $criteria);
-        $reponse     = $this->getBaseDataTablesResponse($request, $users, $criteria);
+        $criteria = $this->getRequestCriteria();
+        $users    = $this->getResults($request, $criteria);
+        $reponse  = $this->getBaseDataTablesResponse($request, $users, $criteria);
 
         /** @var Model\Violation $violation */
         foreach ($users as $violation) {
@@ -175,6 +181,7 @@ class ViolationController extends CRUDController
             </a>';
 
             $reponse['data'][] = [
+                'id'           => $violation->getId(),
                 'collectivite' => $violation->getCollectivity()->getName(),
                 'date'         => $violationLink,
                 'nature'       => !\is_null($violation->getViolationNature()) ? ViolationNatureDictionary::getNatures()[$violation->getViolationNature()] : null,
@@ -192,7 +199,7 @@ class ViolationController extends CRUDController
 
     private function isRequestInUserServices(Model\Violation $violation): bool
     {
-        $user   = $this->userProvider->getAuthenticatedUser();
+        $user = $this->userProvider->getAuthenticatedUser();
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             return true;
@@ -216,9 +223,10 @@ class ViolationController extends CRUDController
     private function getActionCellsContent(Model\Violation $violation)
     {
         $cellContent = '';
+        $user        = $this->userProvider->getAuthenticatedUser();
         if ($this->authorizationChecker->isGranted('ROLE_USER')
         && \is_null($violation->getDeletedAt())
-        && $this->isRequestInUserServices($violation)) {
+        && ($user->getServices()->isEmpty() || $this->isRequestInUserServices($violation))) {
             $cellContent .= '<a href="' . $this->router->generate('registry_violation_edit', ['id' => $violation->getId()]) . '">
                     <i class="fa fa-pencil-alt"></i> ' .
                     $this->translator->trans('action.edit') . '

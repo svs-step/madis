@@ -33,12 +33,15 @@ use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Model as UserModel;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ReviewControllerTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var WordHandler
      */
@@ -94,18 +97,18 @@ class ReviewControllerTest extends TestCase
      */
     private $controller;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->wordHandlerProphecy                    = $this->prophesize(WordHandler::class);
-        $this->userProviderProphecy                   = $this->prophesize(UserProvider::class);
-        $this->authorizationCheckerProphecy           = $this->prophesize(AuthorizationCheckerInterface::class);
-        $this->treatmentRepositoryProphecy            = $this->prophesize(RegistryRepository\Treatment::class);
-        $this->contractorRepositoryProphecy           = $this->prophesize(RegistryRepository\Contractor::class);
-        $this->mesurementRepositoryProphecy           = $this->prophesize(RegistryRepository\Mesurement::class);
-        $this->surveyRepositoryProphecy               = $this->prophesize(MaturityRepository\Survey::class);
-        $this->requestRepositoryProphecy              = $this->prophesize(RegistryRepository\Request::class);
-        $this->violationRepositoryProphecy            = $this->prophesize(RegistryRepository\Violation::class);
-        $this->evaluationRepository                   = $this->prophesize(Evaluation::class);
+        $this->wordHandlerProphecy          = $this->prophesize(WordHandler::class);
+        $this->userProviderProphecy         = $this->prophesize(UserProvider::class);
+        $this->authorizationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
+        $this->treatmentRepositoryProphecy  = $this->prophesize(RegistryRepository\Treatment::class);
+        $this->contractorRepositoryProphecy = $this->prophesize(RegistryRepository\Contractor::class);
+        $this->mesurementRepositoryProphecy = $this->prophesize(RegistryRepository\Mesurement::class);
+        $this->surveyRepositoryProphecy     = $this->prophesize(MaturityRepository\Survey::class);
+        $this->requestRepositoryProphecy    = $this->prophesize(RegistryRepository\Request::class);
+        $this->violationRepositoryProphecy  = $this->prophesize(RegistryRepository\Violation::class);
+        $this->evaluationRepository         = $this->prophesize(Evaluation::class);
 
         $this->controller = new ReviewController(
             $this->wordHandlerProphecy->reveal(),

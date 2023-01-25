@@ -164,8 +164,8 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
             $questionsData = [
                 [
-                    'data' => [
-                        'Questions',
+                    'data'  => [
+                        'Principes fondamentaux',
                         [['text' => 'Conformité', 'style' => $this->textHeadStyle]],
                         [['text' => 'Actions de protections', 'style' => $this->textHeadStyle]],
                     ],
@@ -199,7 +199,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
             $historyData = [
                 [
                     'Créateur',
-                    $conformiteTraitement->getCreator(),
+                    strval($conformiteTraitement->getCreator()),
                 ],
                 [
                     'Date de création',

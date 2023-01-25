@@ -16,7 +16,12 @@
     </h1>
 {% endblock %}
 
-{% block breadcrumb %}{% endblock %}
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.treatment.title.configure'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
 
 
 {% block body %}
@@ -24,6 +29,7 @@
     {% set submitValue = submitValue|default('action.submit'|trans) %}
 
     {{ form_start(form) }}
+    {{ form_widget(form._token) }}
 
     <div class="row">
         <div
@@ -45,6 +51,7 @@
                     {{ form_row(form.legalBasis) }}
                     {{ form_row(form.legalBasisJustification) }}
                     {{ form_row(form.observation) }}
+                    {{ form_row(form.service) }}
                 </div>
             </div>
 
@@ -180,7 +187,7 @@
         </div>
     </div>
 
-     {{ form_rest(form) }}
+    {# {{ form_rest(form) }} #}
 
     <div class="row">
         <div class="col-md-12">

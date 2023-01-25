@@ -1,0 +1,525 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'documentation_document list' %}
+{% set menuItem = 'documentation_document' %}
+
+{% set activeCategories = [] %}
+
+{% for object in objects %}
+    {% for cat in object.categories %}
+        {% set activeCategories = activeCategories|merge([cat.name]) %}
+    {% endfor %}
+{% endfor %}
+
+{% block title %}{{ 'documentation.document.title.list'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <style>
+        div.ml2{
+            margin-right: 2em;
+            display:inline-block;
+            margin-bottom: 1em;
+        }
+        #documentation-grid .grid-item {
+            margin: 1em;
+            position:relative;
+            width:calc(25% - 2em);
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        }
+
+        @media screen and (min-width: 1920px) {
+            #documentation-grid .grid-item {
+                width:calc(16% - 2em);
+            }
+        }
+
+        @media screen and (max-width: 1024px) {
+            #documentation-grid .grid-item {
+                width:calc(33% - 2em);
+            }
+        }
+        @media screen and (max-width: 768px) {
+            #documentation-grid .grid-item {
+                width:calc(50% - 2em);
+            }
+        }
+        @media screen and (max-width: 500px) {
+            #documentation-grid .grid-item {
+                width:calc(100% - 2em);
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'documentation.document.title.list'|trans }}
+    <small><i class="fas fa-file"></i> {{ 'documentation.document.title.subtitle'|trans }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'documentation.document.title.list'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+            <div class="col-xs-12">
+                <div class="action-bar">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-plus"></i>
+                                {{ 'documentation.document.action.new'|trans }}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
+                                <li><a href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                    {# Uniquement pour les DPO #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                            <i class="fas fa-tag"></i>
+                            {{ 'documentation.category.action.list'|trans }}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+
+                    <div class="row">
+
+                        {# SWITCH GRID LIST #}
+                        {% if is_granted('ROLE_USER') %}
+                        <div class="col-md-12 col-xl-2">
+                            <div class="ml2">
+                                <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
+                                    <i class="fas fa-list"></i>
+                                    {{ 'documentation.document.action.list'|trans }}
+                                </a>
+                                {# RESET FILTERS #}
+                                <button id="button-reset" class="btn btn-default">
+                                    Réinitialiser les filtres
+                                </button>
+                            </div>
+                            <div class="ml2">
+                                <input type="checkbox" class="form-check-input" id="search_favorite">
+                                <label class="form-check-label" for="search_favorite">Favoris</label>
+                            </div>
+                            <div class="ml2">
+                                <select class="form-control" id="search_type" style="width: 100%;">
+                                    <option value="" selected>{{ 'documentation.document.list.type'|trans }}</option>
+                                    {% for key, subject in dictionary('documentation_document_type') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="ml2">
+                                <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
+                            </div>
+                            <div class="ml2">
+                                <select class="form-control selectpicker" id="search_category" title="Catégories" style="width: 100%;" multiple>
+                                    {% for category in categories %}
+                                        {% if category.name in activeCategories %}
+                                            <option
+                                                    value="{{ category.name }}"
+                                                    {% if app.request.get('category') and app.request.get('category') == category.id  %}
+                                                    selected="selected"
+                                                    {% endif %}
+                                                >
+                                                    {{ category.name }}
+                                                </option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    </div>
+
+                    <table id="documentation-grid" class="table cards">
+                        <thead>
+                            <tr>
+
+                                <th></th>
+                                <th>{{ 'documentation.document.list.favorite'|trans }}</th>
+                                <th>{{ 'documentation.document.list.name'|trans }}</th>
+                                <th>{{ 'documentation.document.list.type'|trans }}</th>
+                                <th>{{ 'documentation.document.list.weight'|trans }}</th>
+                                <th>{{ 'documentation.document.list.created_at'|trans }}</th>
+                                <th>{{ 'documentation.document.list.category'|trans }}</th>
+                                <th>{{ 'label.actions'|trans }}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody style="display: flex;flex-wrap: wrap;">
+                        {% for object in objects %}
+                            <tr class="grid-item">
+
+                                <td class="text-center p-0">
+                                    <a href="{{ object.url }}" target="_blank" >
+                                        {% if (object.thumbUrl) %}
+                                            <img src="{{ object.thumbUrl }}" alt="" height="150" style="object-fit : cover;width:100%" />
+                                        {% else %}
+                                            <div class="text-muted m-0" style="height:150px;padding: 50px;background: #f2f2f2;font-size: 60px;">
+                                                {% if object.typeName == "Vidéos" %}
+                                                    <i class="far fa-file-video"></i>
+                                                {% elseif object.typeName == "PDF" %}
+                                                    <i class="far fa-file-pdf"></i>
+                                                {% elseif object.typeName == "Documents" %}
+                                                    <i class="far fa-file-word"></i>
+                                                {% elseif object.typeName == "Liens" %}
+                                                    <i class="fas fa-globe"></i>
+                                                {% elseif object.typeName == "Images" %}
+                                                    <i class="fas fa-image"></i>
+                                                {% elseif object.typeName == "PowerPoint" %}
+                                                    <i class="fas fa-file-powerpoint"></i>
+                                                {% elseif object.typeName == "Excel" %}
+                                                    <i class="fas fa-file-excel"></i>
+                                                {% elseif object.typeName == "Audios" %}
+                                                    <i class="fas fa-file-audio"></i>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td class="text-center favorite"  style="position:absolute; background:white; padding: 5px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15); top:0; left:0;">
+                                    <a href="{{ path('documentation_document_favorite', { 'id': object.id, 'back': app.request.uri }) }}" style="color:#f39c12;">
+                                        {% if object.favoritedUsers |filter(f => f.id == app.user.id)|length > 0 %}
+                                            1
+                                        {% else %}
+                                            0
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td style="line-height: 1.2em;overflow: hidden;height: 25px;">
+                                    <a href="{{ object.url }}" target="_blank" style="word-break: break-word;">
+                                        <strong>{{ object.name }}</strong>
+                                    </a>
+                                </td>
+
+                                <td style="display: flex; flex-direction: row;justify-content: space-between">
+                                    <div>
+                                    {% if object.typeName == "Vidéos" %}
+                                        <i class="far fa-file-video"></i>
+                                    {% elseif object.typeName == "PDF" %}
+                                        <i class="far fa-file-pdf"></i>
+                                    {% elseif object.typeName == "Documents" %}
+                                        <i class="far fa-file-word"></i>
+                                    {% elseif object.typeName == "Liens" %}
+                                        <i class="fas fa-globe"></i>
+                                    {% elseif object.typeName == "Images" %}
+                                            <i class="fas fa-image"></i>
+                                    {% endif %}
+                                    {{ object.typeName }}
+                                    | {{ object.size }}
+                                    | {{ object.createdAt|date('d/m/Y') }}
+                                    </div>
+                                </td>
+                                <td class="hidden">
+                                    {{ object.size }}
+                                </td>
+                                <td class="hidden">
+                                    {{ object.createdAt|date('d/m/Y') }}
+                                </td>
+                                <td style="line-height: 1.2em;overflow: hidden;height: 25px;">
+                                    {{ object.categories|map(c => "#{c.name}") | join(', ') }}
+                                </td>
+                                <td>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                    <div class="row" style="padding: 0 20px; position: relative; bottom: 0;">
+                                        <a class="sharelink btn btn-block text-info col-md-12" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal" style="border-color:#31708f">
+                                            <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
+                                        </a>
+                                        <div class="col-md-12" style="padding: 5px 0 0 0">
+                                            <a class="btn btn-block text-info" href="{{ path('documentation_document_edit', { 'id': object.id }) }}" style="border-color:#31708f">
+                                                <i class="fa fa-pencil-alt"></i>&nbsp;{{ 'action.edit'|trans }}
+                                            </a>
+                                        </div>
+                                        <div class="col-md-12" style="padding: 5px 0 0 0">
+                                            <a class="btn btn-block text-info col-md-6" href="{{ path('documentation_document_delete', { 'id': object.id }) }}" style="border-color:#31708f">
+                                                <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_REFERENT') and not is_granted('ROLE_ADMIN') %}
+                                        <div class="row" style="padding: 0 20px; position: relative; bottom: 0;">
+                                            <a class="sharelink btn btn-block text-info col-md-12" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal" style="border-color:#31708f">
+                                                <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </td>
+                                <td style="display:none">{{ object.pinned }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="shareModal" class="modal fade" >
+        <div class="modal-dialog">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Partager le lien du document</h3>
+                    <div class="box-tools pull-right">
+                        <!-- Collapse Button -->
+                        <button type="button" class="btn btn-box-tool" data-dismiss="modal">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body text-center copyLink" style="display: none">
+                    <i class="fa fa-check fa-3x" style="color:green"></i>
+                    <h4><b>Lien copié</b></h4>
+                </div>
+                <div class="box-body text-center">
+                    <div class="input-group">
+                        <input type="text" class="form-control linkDoc">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary btn-flat" data-dashlane-label="true" onclick="copyToClipBoard()" data-form-type="other">Copier</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <blockquote>
+                        <p style="color:grey;font-size:14px;">-Seuls les utilisateurs ayant un compte Madis pourront accéder au document.</p>
+                    </blockquote>
+                </div>
+                <!-- box-footer -->
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
+
+    {% set dataTableOptions = {
+        columns: [
+            {"data": "thumbnail", "orderable": false},
+            {"data": "favorite"},
+            {"data": "name"},
+            {"data": "type"},
+            {"data": "weight"},
+            {"data": "created_at"},
+            {"data": "category"},
+            {"data": "actions", "orderable": false},
+            {"data": "pinned"},
+        ],
+        order: [[8,'desc'],[5,'desc']],
+        language: {
+            buttons: {
+                colvis: "Colonnes"
+            },
+        },
+        dom: 'Brtip',
+        columnDefs: [
+            {
+                targets: 4,
+                className: 'noVis'
+            }
+        ],
+        buttons: [
+            {
+                extend: "colvis",
+                columns: ":not(.noVis)"
+            }
+        ],
+    } %}
+
+    {# {{ include('_Utils/_serverside_datatable.html.twig') }} #}
+    {{ include('_Utils/_datatable.html.twig') }}
+    <script>
+        {% set dataTableOptions = dataTableOptions|default({}) %}
+        {% set dataTableOptions = dataTableOptions|merge({
+            columns: [
+                {"data": "thumbnail", "orderable": false},
+                {"data": "favorite"},
+                {"data": "name"},
+                {"data": "type"},
+                {"data": "weight"},
+                {"data": "created_at"},
+                {"data": "category"},
+                {"data": "actions", "orderable": false},
+                {"data": "pinned"},
+            ],
+            "pageLength": app_admin_datable_default_page_length,
+            order: [[8,'desc'],[5,'desc']],
+            language: {
+                sProcessing:     "Traitement en cours...",
+                sSearch:         "Rechercher&nbsp;:",
+                sLengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
+                sInfo:           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                sInfoEmpty:      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                sInfoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                sInfoPostFix:    "",
+                sLoadingRecords: "Chargement en cours...",
+                sZeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                sEmptyTable:     "Aucune donn&eacute;e disponible dans le tableau",
+                oPaginate: {
+                    sFirst:      "Premier",
+                    sPrevious:   "Pr&eacute;c&eacute;dent",
+                    sNext:       "Suivant",
+                    sLast:       "Dernier"
+                },
+                oAria: {
+                    sSortAscending:  ": activer pour trier la colonne par ordre croissant",
+                    sSortDescending: ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                select: {
+                    rows: {
+                        _: "%d lignes séléctionnées",
+                        0: "Aucune ligne séléctionnée",
+                        1: "1 ligne séléctionnée"
+                    }
+                },
+                thousands: " ",
+                buttons: {
+                    colvis: "Colonnes"
+                },
+            },
+
+            buttons: [
+                {
+                    extend: "colvis",
+                    columns: ":not(.noVis)"
+                }
+            ],
+        })%}
+
+        $('#documentation-grid').DataTable({{ dataTableOptions|json_encode|raw }});
+
+        $(document).ready(function() {
+            $('.sharelink').on('click', function() {
+                setTimeout(() => { $('.linkDoc').val($(this).data('id')); }, 200);
+                $('.copyLink').hide();
+            })
+
+            // SET FAVORITE ICON
+            $('.favorite > a').each( (fav, obj) => {
+                obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i><span style="position: absolute;left:-9999px">1</span>' : '<i data-value="0" class="far fa-star"></i><span style="position: absolute;left:-9999px">0</span>'
+            })
+
+        })
+
+        function copyToClipBoard() {
+            var text = $('.linkDoc').val();
+
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            $('.copyLink').show();
+        }
+
+        $(function () {
+            $('.selectpicker').selectpicker();
+            setTimeout(function() {
+                document.getElementById('search_category').dispatchEvent(new Event('change', { 'bubbles': true }));
+            },200);
+        });
+
+        function resetFilters() {
+            $('[id^=search_]').each(function() {
+                $(this).val('');
+            });
+            $('#search_favorite').prop('checked', false);
+            var table = $('#documentation-grid').DataTable();
+            table.columns().search('');
+        }
+        function setEvents() {
+            var oTable = $('#documentation-grid').DataTable();
+
+            // SET SEARCH
+            $('#search_favorite').off('change');
+            $('#search_favorite').change(function(){
+                oTable.column('1').search($(this).prop('checked') ? "1" : "").draw();
+            });
+
+            $('#search_type').off('change');
+            $('#search_type').change(function(){
+                console.log($(this).val())
+                oTable.column('3').search($(this).val()).draw() ;
+            });
+
+            $('#search_name').off('keyup');
+            $('#search_name').keyup($.debounce(250, function(){
+                oTable.column('2').search($(this).val()).draw() ;
+            }));
+
+            $('#search_category').off('change');
+            $('#search_category').change(function() {
+                if ($(this).val() && $(this).val().length) {
+                    oTable.column('6').search($(this).val().join(' ')).draw()
+                    $('button[data-id="search_category"] .filter-option-inner-inner').html($(this).val().join(', '))
+                } else {
+                    oTable.column('6').search('').draw();
+                    $('button[data-id="search_category"] .filter-option-inner-inner').html("Catégories")
+                }
+            });
+
+            $('#search_date').off('change');
+            $('#search_date').change(function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            $('#documentation-grid_filter').hide();
+            $('.dt-buttons').hide();
+            setEvents();
+
+            $('[id^="search_"]').on('change',function() {
+                setTimeout(starShow,250);
+            })
+
+            $('[id^="search_"]').on('keyup',function() {
+                setTimeout(starShow,250);
+            })
+
+            $('.dataTables_paginate').on('click',function() {
+                setTimeout(starShow,250);
+            })
+        } );
+
+        $('#documentation-grid').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+        $('#button-reset').on('click', function() {
+            resetFilters();
+            var table = $('#documentation-grid').DataTable();
+            table.columns().search('').draw();
+            $('button[data-id="search_category"] .filter-option-inner-inner').html("Catégories")
+        })
+
+        function starShow(){
+            $('.favorite > a').each((fav, obj) => {
+                obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i>' : '<i data-value="0" class="far fa-star"></i>'
+            })
+        }
+    </script>
+
+{% endblock %}

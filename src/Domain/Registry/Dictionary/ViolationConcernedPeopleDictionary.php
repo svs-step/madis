@@ -28,17 +28,17 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ViolationConcernedPeopleDictionary extends SimpleDictionary
 {
-    const PEOPLE_EMPLOYEE       = 'employee';
-    const PEOPLE_USER           = 'user';
-    const PEOPLE_MEMBER         = 'member';
-    const PEOPLE_STUDENT        = 'student';
-    const PEOPLE_MILITARY       = 'military';
-    const PEOPLE_CUSTOMER       = 'customer';
-    const PEOPLE_PATIENT        = 'patient';
-    const PEOPLE_MINOR          = 'minor';
-    const PEOPLE_VULNERABLE     = 'vulnerable';
-    const PEOPLE_NOT_DETERMINED = 'not_determined';
-    const PEOPLE_OTHER          = 'other';
+    public const PEOPLE_EMPLOYEE       = 'employee';
+    public const PEOPLE_USER           = 'user';
+    public const PEOPLE_MEMBER         = 'member';
+    public const PEOPLE_STUDENT        = 'student';
+    public const PEOPLE_MILITARY       = 'military';
+    public const PEOPLE_CUSTOMER       = 'customer';
+    public const PEOPLE_PATIENT        = 'patient';
+    public const PEOPLE_MINOR          = 'minor';
+    public const PEOPLE_VULNERABLE     = 'vulnerable';
+    public const PEOPLE_NOT_DETERMINED = 'not_determined';
+    public const PEOPLE_OTHER          = 'other';
 
     public function __construct()
     {

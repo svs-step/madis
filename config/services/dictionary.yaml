@@ -7,3 +7,8 @@ services:
     App\Domain\:
         resource: '../../src/Domain/*/Dictionary'
         tags: ['knp_dictionary.dictionary']
+
+    App\Domain\AIPD\Dictionary\ReponseMesureProtectionDictionary:
+        arguments: ['@aipd.model.analyse_impact']
+
+

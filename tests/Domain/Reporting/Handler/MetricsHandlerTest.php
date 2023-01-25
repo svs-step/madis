@@ -29,10 +29,13 @@ use App\Domain\Reporting\Metrics\UserMetric;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model\User;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Security\Core\Security;
 
 class MetricsHandlerTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var Security
      */
@@ -53,7 +56,7 @@ class MetricsHandlerTest extends TestCase
      */
     private $handler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->security    = $this->prophesize(Security::class);
         $this->userMetric  = $this->prophesize(UserMetric::class);

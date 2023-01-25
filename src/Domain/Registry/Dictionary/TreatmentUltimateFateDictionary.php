@@ -28,10 +28,10 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class TreatmentUltimateFateDictionary extends SimpleDictionary
 {
-    const FATE_DESTRUCTION  = 'destruction';
-    const FATE_CONSERVATION = 'conservation';
-    const FATE_DEPOSIT      = 'deposit';
-    const FATE_SORT         = 'sort';
+    public const FATE_DESTRUCTION  = 'destruction';
+    public const FATE_CONSERVATION = 'conservation';
+    public const FATE_DEPOSIT      = 'deposit';
+    public const FATE_SORT         = 'sort';
 
     public function __construct()
     {

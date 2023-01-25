@@ -28,9 +28,9 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class RequestAnswerTypeDictionary extends SimpleDictionary
 {
-    const TYPE_MAIL   = 'mail';
-    const TYPE_POSTAL = 'postal';
-    const TYPE_DIRECT = 'direct';
+    public const TYPE_MAIL   = 'mail';
+    public const TYPE_POSTAL = 'postal';
+    public const TYPE_DIRECT = 'direct';
 
     public function __construct()
     {

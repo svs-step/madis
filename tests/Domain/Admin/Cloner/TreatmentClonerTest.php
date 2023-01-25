@@ -31,10 +31,12 @@ use App\Domain\User\Model as UserModel;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class TreatmentClonerTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var EntityManagerInterface
@@ -179,7 +181,7 @@ class TreatmentClonerTest extends TestCase
         $referent->setSecurityOpenAccounts(true);
         $referent->setSecuritySpecificitiesDelivered(true);
         $referent->setAuthor('foo');
-        $referent->setCollectingMethod('bar');
+        $referent->setCollectingMethod(['bar']);
         $referent->setEstimatedConcernedPeople(1);
         $referent->setUltimateFate('baz');
 

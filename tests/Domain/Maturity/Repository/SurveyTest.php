@@ -27,9 +27,12 @@ namespace App\Tests\Domain\Maturity\Repository;
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
 use App\Domain\Maturity\Repository;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class SurveyTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testInstanceOf()
     {
         $this->assertInstanceOf(

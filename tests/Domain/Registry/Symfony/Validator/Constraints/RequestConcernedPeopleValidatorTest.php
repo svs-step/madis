@@ -27,12 +27,15 @@ namespace App\Tests\Domain\Registry\Symfony\Validator\Constraints;
 use App\Domain\Registry\Model\Request;
 use App\Domain\Registry\Symfony\Validator\Constraints\RequestConcernedPeople;
 use App\Domain\Registry\Symfony\Validator\Constraints\RequestConcernedPeopleValidator;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class RequestConcernedPeopleValidatorTest extends ConstraintValidatorTestCase
 {
+    use ProphecyTrait;
+
     protected function createValidator(): ConstraintValidator
     {
         return new RequestConcernedPeopleValidator();
@@ -71,6 +74,6 @@ class RequestConcernedPeopleValidatorTest extends ConstraintValidatorTestCase
             ->buildNextViolation($constraint->message)
             ->atPath('property.path.lastName')
             ->assertRaised()
-            ;
+        ;
     }
 }

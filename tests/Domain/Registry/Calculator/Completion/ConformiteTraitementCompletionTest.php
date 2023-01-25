@@ -27,15 +27,18 @@ namespace App\Tests\Domain\Registry\Calculator\Completion;
 use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
 use App\Domain\Registry\Model;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class ConformiteTraitementCompletionTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var ConformiteTraitementCompletion
      */
     private $calculator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->calculator = new ConformiteTraitementCompletion();
     }

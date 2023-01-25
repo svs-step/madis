@@ -8,12 +8,15 @@ use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
 use App\Domain\Registry\Model\ConformiteOrganisation\Evaluation;
 use App\Domain\Registry\Model\ConformiteOrganisation\Reponse;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class ConformiteOrganisationConformiteCalculatorTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $calculator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->calculator = new ConformiteOrganisationConformiteCalculator();
     }

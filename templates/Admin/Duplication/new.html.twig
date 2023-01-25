@@ -65,7 +65,21 @@
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class="box-body text-center">
-                    <input type="submit" class="btn btn-primary" value="{{ 'action.duplicate'|trans }}">
+                    <a class="btn btn-primary" data-toggle="modal" data-target="#validate_modal"> Dupliquer</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="validate_modal" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        Attention, vous allez dupliquer des éléments sur un ensemble de collectivités
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <input type="submit" class="btn btn-primary" value="{{ 'action.duplicate'|trans }}">
+                    </div>
                 </div>
             </div>
         </div>

@@ -21,6 +21,7 @@ use Doctrine\ORM\Events;
 use Doctrine\ORM\UnitOfWork;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -31,6 +32,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 class LogJournalDoctrineSubscriberTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var Security
@@ -67,7 +69,7 @@ class LogJournalDoctrineSubscriberTest extends TestCase
      */
     private $subscriber;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->security                   = $this->prophesize(Security::class);
         $this->eventDispatcher            = $this->prophesize(EventDispatcherInterface::class);
@@ -217,7 +219,7 @@ class LogJournalDoctrineSubscriberTest extends TestCase
         $user = $this->prophesize(User::class);
         $user->getCollectivity()->shouldBeCalled()->willReturn(new Collectivity());
         $this->security->getUser()->shouldBeCalled()->willReturn($user->reveal());
-        $this->assertInstanceOf(Collectivity::class, $this->invokeMethod($this->subscriber, 'getCollectivity', [new \StdClass()]));
+        $this->assertInstanceOf(Collectivity::class, $this->invokeMethod($this->subscriber, 'getCollectivity', [new \stdClass()]));
     }
 
     public function testItReturnNullOnLoginUser()

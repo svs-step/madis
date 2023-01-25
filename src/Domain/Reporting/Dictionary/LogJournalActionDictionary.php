@@ -28,14 +28,14 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class LogJournalActionDictionary extends SimpleDictionary
 {
-    const CREATE             = 'create';
-    const DELETE             = 'delete';
-    const LOGIN              = 'login';
-    const SOFT_DELETE        = 'soft_delete';
-    const SOFT_DELETE_REVOKE = 'soft_delete_revoke';
-    const UPDATE             = 'update';
-    const SWITCH_USER_ON     = 'switch_user_on';
-    const SWITCH_USER_OFF    = 'switch_user_off';
+    public const CREATE             = 'create';
+    public const DELETE             = 'delete';
+    public const LOGIN              = 'login';
+    public const SOFT_DELETE        = 'soft_delete';
+    public const SOFT_DELETE_REVOKE = 'soft_delete_revoke';
+    public const UPDATE             = 'update';
+    public const SWITCH_USER_ON     = 'switch_user_on';
+    public const SWITCH_USER_OFF    = 'switch_user_off';
 
     public function __construct()
     {

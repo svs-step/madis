@@ -32,14 +32,14 @@ use App\Domain\User\Repository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bundle\FrameworkBundle\Controller\ControllerTrait;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProfileControllerTest extends TestCase
 {
     use ReflectionTrait;
-    use ControllerTrait;
+    use ProphecyTrait;
 
     /**
      * @var EntityManagerInterface
@@ -76,7 +76,7 @@ class ProfileControllerTest extends TestCase
      */
     private $controller;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->entityManager                  = $this->prophesize(EntityManagerInterface::class);
         $this->controllerHelperProphecy       = $this->prophesize(ControllerHelper::class);
@@ -91,7 +91,8 @@ class ProfileControllerTest extends TestCase
             $this->requestStackProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
             $this->collectivityRepositoryProphecy->reveal(),
-            $this->userRepositoryProphecy->reveal()
+            $this->userRepositoryProphecy->reveal(),
+            null
         );
     }
 

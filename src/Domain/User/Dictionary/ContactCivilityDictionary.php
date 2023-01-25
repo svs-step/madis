@@ -28,8 +28,9 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ContactCivilityDictionary extends SimpleDictionary
 {
-    const CIVILITY_MISS   = 'mme';
-    const CIVILITY_MISTER = 'm';
+    public const CIVILITY_MISS   = 'mme';
+    public const CIVILITY_MISTER = 'm';
+    public const CIVILITY_NONE   = '';
 
     public function __construct()
     {
@@ -46,6 +47,7 @@ class ContactCivilityDictionary extends SimpleDictionary
         return [
             self::CIVILITY_MISS   => 'Madame',
             self::CIVILITY_MISTER => 'Monsieur',
+            self::CIVILITY_NONE   => '',
         ];
     }
 

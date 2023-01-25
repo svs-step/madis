@@ -34,10 +34,10 @@ class CustomPasswordValidator extends PasswordRequirementsValidator
     public function validate($value, Constraint $constraint)
     {
         $constraint->minLength               = $this->minLength;
-        $constraint->requireCaseDiff         = $this->requireCaseDiff;
-        $constraint->requireLetters          = $this->requireLetters;
-        $constraint->requireNumbers          = $this->requireNumbers;
-        $constraint->requireSpecialCharacter = $this->requireSpecialCharacter;
+        $constraint->requireCaseDiff         = filter_var($this->requireCaseDiff, FILTER_VALIDATE_BOOLEAN);
+        $constraint->requireLetters          = filter_var($this->requireLetters, FILTER_VALIDATE_BOOLEAN);
+        $constraint->requireNumbers          = filter_var($this->requireNumbers, FILTER_VALIDATE_BOOLEAN);
+        $constraint->requireSpecialCharacter = filter_var($this->requireSpecialCharacter, FILTER_VALIDATE_BOOLEAN);
 
         parent::validate($value, $constraint);
     }

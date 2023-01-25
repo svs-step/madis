@@ -157,6 +157,7 @@ class TreatmentGenerator extends AbstractGenerator
             $this->translator->trans('registry.treatment.show.legal_basis_justification'),
             $this->translator->trans('registry.treatment.show.observation'),
             $this->translator->trans('registry.treatment.show.public_register'),
+            $this->translator->trans('registry.treatment.show.dpo_message'),
         ];
     }
 
@@ -179,15 +180,16 @@ class TreatmentGenerator extends AbstractGenerator
         }
 
         return [
-            !\is_null($treatment->getAuthor()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : null,
+            !\is_null($treatment->getAuthor()) && array_key_exists($treatment->getAuthor(), TreatmentAuthorDictionary::getAuthors()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : $treatment->getAuthor(),
             $treatment->getCoordonneesResponsableTraitement(),
             $goal,
             $treatment->getManager(),
             $treatment->isActive() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
-            !\is_null($treatment->getLegalBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : null,
+            !\is_null($treatment->getLegalBasis()) && array_key_exists($treatment->getLegalBasis(), TreatmentLegalBasisDictionary::getBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : $treatment->getLegalBasis(),
             $legalBasisJustification,
             $observation,
             $treatment->getPublic() ? $yes : $no,
+            $treatment->getDpoMessage(),
         ];
     }
 
@@ -241,7 +243,7 @@ class TreatmentGenerator extends AbstractGenerator
     private function initializeTreatmentHistoric(\App\Domain\Registry\Model\Treatment $treatment): array
     {
         return [
-            $treatment->getCreator(),
+            strval($treatment->getCreator()),
             $this->getDate($treatment->getCreatedAt()),
             $this->getDate($treatment->getUpdatedAt()),
         ];
@@ -303,11 +305,13 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getSoftware(),
             $treatment->isPaperProcessing() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
             $treatment->getDelay()->getNumber(),
-            !\is_null($treatment->getDelay()->getPeriod()) ? DelayPeriodDictionary::getPeriods()[$treatment->getDelay()->getPeriod()] : null,
+            !\is_null($treatment->getDelay()->getPeriod()) && array_key_exists($treatment->getDelay()->getPeriod(), DelayPeriodDictionary::getPeriods()) ? DelayPeriodDictionary::getPeriods()[$treatment->getDelay()->getPeriod()] : $treatment->getDelay()->getPeriod(),
             $treatment->getDelay()->getComment(),
-            !\is_null($treatment->getUltimateFate()) ? TreatmentUltimateFateDictionary::getUltimateFates()[$treatment->getUltimateFate()] : null,
+            !\is_null($treatment->getUltimateFate()) && array_key_exists($treatment->getUltimateFate(), TreatmentUltimateFateDictionary::getUltimateFates()) ? TreatmentUltimateFateDictionary::getUltimateFates()[$treatment->getUltimateFate()] : $treatment->getUltimateFate(),
             $treatment->getDataOrigin(),
-            !\is_array($treatment->getCollectingMethod()) ? TreatmentCollectingMethodDictionary::getMethods()[$treatment->getCollectingMethod()] : null,
+            !\is_null($treatment->getCollectingMethod()) ? join(', ', array_map(function ($cm) {
+                return array_key_exists($cm, TreatmentCollectingMethodDictionary::getMethods()) ? TreatmentCollectingMethodDictionary::getMethods()[$cm] : $cm;
+            }, $treatment->getCollectingMethod())) : '',
         ];
     }
 

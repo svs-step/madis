@@ -28,6 +28,12 @@
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.conformite_traitement.action.report'|trans }}
                     </a>
+                    {% if category and category.documents|length > 0 %}
+                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                            <i class="far fa-file"></i>
+                            {{ 'documentation.document.link.button'|trans }}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
     </div>
@@ -63,8 +69,8 @@
                             {% if conformiteTraitement is not null %}
                                 {% set planifiedMesurementToBeNotified = getPlanifiedMesurements(conformiteTraitement) %}
                                 {% set nbTotal = conformiteTraitement.nbConformes + conformiteTraitement.nbNonConformesMineures + conformiteTraitement.nbNonConformesMajeures %}
-                                {% set widthNbConforme = ((conformiteTraitement.nbConformes * 100) / nbTotal)|round %}
-                                {% set widthnbNonConformesMineures = ((conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round %}
+                                {% set widthNbConforme = nbTotal > 0 ? ((conformiteTraitement.nbConformes * 100) / nbTotal)|round : 0 %}
+                                {% set widthnbNonConformesMineures = nbTotal > 0 ? ((conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round : 0 %}
                                 {% set widthnbNonConformesMajeures = 100 - (widthNbConforme + widthnbNonConformesMineures) %}
                                 {% set conformiteBackgroundColor = getConformiteLevelWeight(conformiteTraitement) %}
                                 {% if conformiteTraitement.analyseImpacts is not empty %}
@@ -127,7 +133,8 @@
                                     {% set statut = "non_realisee" %}
                                     {% set labelAipdColor = "label-default" %}
                                     {% if conformiteTraitement is not null and analyseImpact is not null %}
-                                        {% if analyseImpact.statut == "non_favorable" %}
+                                        {% if analyseImpact.statut == "defavorable" %}
+
                                             {% set labelAipdColor = "label-danger" %}
                                         {% elseif analyseImpact.statut == "favorable_avec_reserves" %}
                                             {% set labelAipdColor = "label-warning" %}
@@ -147,7 +154,7 @@
                                         {{ (conformiteTraitement.analyseImpacts|first).dateValidation|date('d/m/Y') }}
                                     {% endif %}
                                 </td>
-                                {% if is_granted('ROLE_USER') %}
+                                {% if is_granted('ROLE_USER') and ((services_user is empty) or ((object.service is defined) and (object.service in services_user)))%}
                                     <td>
                                         <a href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
                                             <i class="fa fa-pencil-alt"></i>
@@ -184,22 +191,24 @@
         {% set dataTableOptions = {
             'order':  [[1, 'asc' ]],
             'columnDefs': [
-                {'targets': 0, 'width': 1},
+                {'targets': 0, 'width': 1, className: "noVis"},
                 {'targets': 4, 'width': 1},
                 {'targets': 5, 'orderable': false},
                 {'targets': 6, 'width': '10%'},
-                {'targets': 7, 'orderable': false}
+                {'targets': 7, 'orderable': false},
+                {'targets': 9, 'orderable': false, className: "noVis"}
             ]
         } %}
     {% else %}
         {% set dataTableOptions = {
             'order':  [[1, 'asc' ]],
             'columnDefs': [
-                {'targets': 0, 'width': 1},
+                {'targets': 0, 'width': 1, className: "noVis"},
                 {'targets': 3, 'width': 1},
                 {'targets': 4, 'orderable': false},
                 {'targets': 5, 'width': '10%'},
-                {'targets': 6, 'orderable': false}
+                {'targets': 6, 'orderable': false},
+                {'targets': 9, 'orderable': false, className: "noVis"}
             ]
         } %}
     {% endif %}

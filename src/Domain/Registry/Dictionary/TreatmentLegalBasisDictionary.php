@@ -28,13 +28,13 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class TreatmentLegalBasisDictionary extends SimpleDictionary
 {
-    const BASE_NONE                    = 'to-be-decided';
-    const BASE_CONSENT                 = 'consent';
-    const BASE_LEGAL_OBLIGATION        = 'legal-obligation';
-    const BASE_CONTRACT_EXECUTION      = 'contract-execution';
-    const BASE_PUBLIC_INTEREST_MISSION = 'public-interest-mission';
-    const BASE_LEGITIMATE_INTEREST     = 'legitimate-interest';
-    const BASE_VITAL_INTEREST          = 'vital-interest';
+    public const BASE_NONE                    = 'to-be-decided';
+    public const BASE_CONSENT                 = 'consent';
+    public const BASE_LEGAL_OBLIGATION        = 'legal-obligation';
+    public const BASE_CONTRACT_EXECUTION      = 'contract-execution';
+    public const BASE_PUBLIC_INTEREST_MISSION = 'public-interest-mission';
+    public const BASE_LEGITIMATE_INTEREST     = 'legitimate-interest';
+    public const BASE_VITAL_INTEREST          = 'vital-interest';
 
     public function __construct()
     {

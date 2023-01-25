@@ -38,11 +38,13 @@ use App\Tests\Utils\ReflectionTrait;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\PhpWord;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class WordHandlerTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var PhpWord
@@ -99,18 +101,18 @@ class WordHandlerTest extends TestCase
      */
     private $handler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->phpWordProphecy                        = $this->prophesize(PhpWord::class);
-        $this->contractorGeneratorProphecy            = $this->prophesize(ContractorGenerator::class);
-        $this->maturityGeneratorProphecy              = $this->prophesize(MaturityGenerator::class);
-        $this->mesurementGeneratorProphecy            = $this->prophesize(MesurementGenerator::class);
-        $this->overviewGeneratorProphecy              = $this->prophesize(OverviewGenerator::class);
-        $this->requestGeneratorProphecy               = $this->prophesize(RequestGenerator::class);
-        $this->treatmentGeneratorProphecy             = $this->prophesize(TreatmentGenerator::class);
-        $this->violationGeneratorProphecy             = $this->prophesize(ViolationGenerator::class);
-        $this->conformiteTraitementGeneratorProphecy  = $this->prophesize(ConformiteTraitementGenerator::class);
-        $this->conformiteOrganisationGenerator        = $this->prophesize(ConformiteOrganisationGenerator::class);
+        $this->phpWordProphecy                       = $this->prophesize(PhpWord::class);
+        $this->contractorGeneratorProphecy           = $this->prophesize(ContractorGenerator::class);
+        $this->maturityGeneratorProphecy             = $this->prophesize(MaturityGenerator::class);
+        $this->mesurementGeneratorProphecy           = $this->prophesize(MesurementGenerator::class);
+        $this->overviewGeneratorProphecy             = $this->prophesize(OverviewGenerator::class);
+        $this->requestGeneratorProphecy              = $this->prophesize(RequestGenerator::class);
+        $this->treatmentGeneratorProphecy            = $this->prophesize(TreatmentGenerator::class);
+        $this->violationGeneratorProphecy            = $this->prophesize(ViolationGenerator::class);
+        $this->conformiteTraitementGeneratorProphecy = $this->prophesize(ConformiteTraitementGenerator::class);
+        $this->conformiteOrganisationGenerator       = $this->prophesize(ConformiteOrganisationGenerator::class);
 
         $this->handler = new WordHandler(
             $this->phpWordProphecy->reveal(),

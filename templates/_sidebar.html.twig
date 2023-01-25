@@ -44,6 +44,15 @@
             </a>
         </li>
 
+        {# Notification #}
+        <li class="header">{{ 'sidebar_menu.notifications'|trans }}</li>
+        <li {% if menuItem == 'notification_notification' %}class="active"{% endif %}>
+            <a href="{{ path('notification_notification_list') }}">
+                <i class="fa fa-bell"></i>
+                <span>{{ 'sidebar_menu.notifications'|trans }}</span>
+            </a>
+        </li>
+
         {# ACTIONS #}
         <li class="header">Actions</li>
         <li {% if menuItem == 'registry_mesurement' %}class="active"{% endif %}>
@@ -134,6 +143,15 @@
                 </li>
             {% endif %}
         {% endif %}
+
+        {# DOCUMENTATION #}
+        <li class="header">Centre d'aide</li>
+        <li {% if menuItem == 'documentation' %}class="active"{% endif %}>
+            <a href="{{ path('documentation_document_index') }}">
+                <i class="fa fa-file"></i>
+                <span>{{ 'sidebar_menu.documentation'|trans }}</span>
+            </a>
+        </li>
 
        {# ADMINISTRATION #}
         <li class="header">Espace d'administration</li>

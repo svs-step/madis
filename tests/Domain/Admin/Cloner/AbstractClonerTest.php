@@ -34,12 +34,15 @@ use App\Domain\User\Model as UserModel;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Class AbstractClonerTest.
  */
 class AbstractClonerTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var EntityManagerInterface
      */
@@ -77,10 +80,10 @@ class AbstractClonerTest extends TestCase
      */
     public function dataProviderDuplicationModel(): array
     {
-        $treatment            = new Model\Treatment();
-        $type                 = DuplicationTypeDictionary::KEY_TREATMENT;
-        $sourceCollectivity   = new UserModel\Collectivity();
-        $duplicatedObjects    = [
+        $treatment          = new Model\Treatment();
+        $type               = DuplicationTypeDictionary::KEY_TREATMENT;
+        $sourceCollectivity = new UserModel\Collectivity();
+        $duplicatedObjects  = [
             new DuplicatedObject(
                 new Duplication(
                     DuplicationTypeDictionary::KEY_TREATMENT,

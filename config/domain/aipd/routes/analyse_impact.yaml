@@ -47,3 +47,8 @@ aipd_analyse_impact_validation:
     path: '/validation/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:validationAction'
+
+aipd_analyse_impact_file_delete:
+    path: '/file_delete'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:apiDeleteFile'

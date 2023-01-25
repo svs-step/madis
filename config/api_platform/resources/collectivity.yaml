@@ -8,6 +8,7 @@ App\Domain\User\Model\Collectivity:
     collectionOperations:
         get: ~
     itemOperations:
-        get: ~
+        get:
+            security: 'is_granted("ROLE_ADMIN") or object == user.getCollectivity()'
             
        

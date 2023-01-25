@@ -25,11 +25,6 @@ final class Version20210629083621 extends AbstractMigration
         $this->addSql('CREATE TABLE admin_duplicated_object (id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', collectivity_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', duplication_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', duplicat_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', origin_object_id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', INDEX IDX_423F279CBD56F776 (collectivity_id), INDEX IDX_423F279CA78FD7B3 (duplication_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE admin_duplicated_object ADD CONSTRAINT FK_423F279CBD56F776 FOREIGN KEY (collectivity_id) REFERENCES user_collectivity (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE admin_duplicated_object ADD CONSTRAINT FK_423F279CA78FD7B3 FOREIGN KEY (duplication_id) REFERENCES admin_duplication (id) ON DELETE CASCADE');
-
-        $rowsToReInsert = $this->connection->query('SELECT duplication_id, collectivity_id FROM admin_duplication_collectivity')->fetchAll();
-        foreach ($rowsToReInsert as $item) {
-            $this->addSql("INSERT INTO admin_duplicated_object (collectivity_id, duplication_id) VALUES ('" . $item['collectivity_id'] . "', '" . $item['duplication_id'] . "')");
-        }
         $this->addSql('DROP TABLE admin_duplication_collectivity');
     }
 

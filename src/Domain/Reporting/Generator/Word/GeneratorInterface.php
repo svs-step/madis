@@ -29,12 +29,12 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 interface GeneratorInterface
 {
-    const DATE_FORMAT      = 'd/m/Y';
-    const DATE_TIME_FORMAT = 'd/m/Y à H:i';
-    const DATE_TIME_ZONE   = 'Europe/Paris';
+    public const DATE_FORMAT      = 'd/m/Y';
+    public const DATE_TIME_FORMAT = 'd/m/Y à H:i';
+    public const DATE_TIME_ZONE   = 'Europe/Paris';
 
-    const TABLE_ORIENTATION_HORIZONTAL = 'horizontal';
-    const TABLE_ORIENTATION_VERTICAL   = 'vertical';
+    public const TABLE_ORIENTATION_HORIZONTAL = 'horizontal';
+    public const TABLE_ORIENTATION_VERTICAL   = 'vertical';
 
     /**
      * Initialize the Document

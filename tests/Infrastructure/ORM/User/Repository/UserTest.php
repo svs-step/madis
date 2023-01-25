@@ -32,15 +32,17 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class UserTest extends TestCase
 {
+    use ProphecyTrait;
     use ReflectionTrait;
 
     /**
-     * @var RegistryInterface
+     * @var ManagerRegistry
      */
     private $registryProphecy;
 
@@ -54,9 +56,9 @@ class UserTest extends TestCase
      */
     private $infraRepo;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->registryProphecy      = $this->prophesize(RegistryInterface::class);
+        $this->registryProphecy      = $this->prophesize(ManagerRegistry::class);
         $this->entityManagerProphecy = $this->prophesize(EntityManagerInterface::class);
 
         $this->infraRepo = new InfraRepo\User($this->registryProphecy->reveal());

@@ -18,6 +18,9 @@ class ModeleAnalyse
 {
     use HistoryTrait;
 
+    /**
+     * @Serializer\Exclude
+     */
     private ?UuidInterface $id;
 
     private string $nom;
@@ -31,48 +34,56 @@ class ModeleAnalyse
 
     /**
      * @var Collection|Collectivity[]
+     *
      * @Serializer\Exclude
      */
     private $authorizedCollectivities;
 
     /**
      * @var array|CriterePrincipeFondamental[]
+     *
      * @Serializer\Type("array<App\Domain\AIPD\Model\CriterePrincipeFondamental>")
      */
     private iterable $criterePrincipeFondamentaux;
 
     /**
      * @var array|ModeleQuestionConformite[]
+     *
      * @Serializer\Type("array<App\Domain\AIPD\Model\ModeleQuestionConformite>")
      */
     private $questionConformites;
 
     /**
      * @var array|ModeleScenarioMenace[]
+     *
      * @Serializer\Type("array<App\Domain\AIPD\Model\ModeleScenarioMenace>")
      */
     private $scenarioMenaces;
 
     /**
      * @see DuplicationTargetOptionDictionary
+     *
      * @Serializer\Exclude
      */
     private ?string $optionRightSelection = null;
 
     /**
      * @see CollectivityTypeDictionary
+     *
      * @Serializer\Exclude
      */
     private ?iterable $authorizedCollectivityTypes;
 
     /**
      * @var \DateTimeImmutable|null
+     *
      * @Serializer\Type("DateTimeImmutable")
      */
     private $createdAt;
 
     /**
      * @var \DateTimeImmutable|null
+     *
      * @Serializer\Type("DateTimeImmutable")
      */
     private $updatedAt;
@@ -87,10 +98,6 @@ class ModeleAnalyse
         $this->id                       = null;
         $this->authorizedCollectivities = null;
 
-        /* JetBrains complains for below error, but it's a false positive
-        See https://youtrack.jetbrains.com/issue/WI-56951 */
-//        $criteres = clone $this->criterePrincipeFondamentaux;
-//        $this->criterePrincipeFondamentaux = $criteres->toArray();
         $questions = [];
         foreach ($this->questionConformites as $questionConformite) {
             $questions[] = clone $questionConformite;
@@ -107,9 +114,15 @@ class ModeleAnalyse
     public function deserialize(): void
     {
         $this->id = Uuid::uuid4();
+
         foreach ($this->scenarioMenaces as $scenario) {
             $scenario->deserialize();
             $scenario->setModeleAnalyse($this);
+            foreach ($scenario->getMesuresProtections() as $mesure) {
+                $mesure->addScenarioMenace($scenario);
+            }
+
+            $scenario->setMesuresProtections([]);
         }
         foreach ($this->questionConformites as $question) {
             $question->deserialize();
@@ -132,8 +145,8 @@ class ModeleAnalyse
             return '';
         }
 
-        if (\mb_strlen($this->getNom()) > 50) {
-            return \mb_substr($this->getNom(), 0, 50) . '...';
+        if (\mb_strlen($this->getNom()) > 85) {
+            return \mb_substr($this->getNom(), 0, 85) . '...';
         }
 
         return $this->getNom();

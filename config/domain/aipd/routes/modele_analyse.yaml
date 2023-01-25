@@ -18,6 +18,11 @@ aipd_modele_analyse_delete:
     methods: ['GET']
     controller: 'App\Domain\AIPD\Controller\ModeleAnalyseController:deleteAction'
 
+aipd_modele_analyse_delete_confirm:
+    path: '/supprimer/{id}/confirmer'
+    methods: ['GET']
+    controller: 'App\Domain\AIPD\Controller\ModeleAnalyseController:deleteConfirmationAction'
+
 aipd_modele_analyse_duplicate:
     path: '/dupliquer/{id}'
     methods: ['GET']

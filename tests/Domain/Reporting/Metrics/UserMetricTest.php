@@ -41,10 +41,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 
 class UserMetricTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var EntityManagerInterface
      */
@@ -85,15 +88,15 @@ class UserMetricTest extends TestCase
      */
     private $logJournalRepository;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->entityManager                    = $this->prophesize(EntityManagerInterface::class);
-        $this->conformiteTraitementRepository   = $this->prophesize(ConformiteTraitement::class);
-        $this->requestRepository                = $this->prophesize(Request::class);
-        $this->treatmentRepository              = $this->prophesize(\App\Domain\Registry\Repository\Treatment::class);
-        $this->userProvider                     = $this->prophesize(UserProvider::class);
-        $this->evaluationRepository             = $this->prophesize(Evaluation::class);
-        $this->logJournalRepository             = $this->prophesize(LogJournal::class);
+        $this->entityManager                  = $this->prophesize(EntityManagerInterface::class);
+        $this->conformiteTraitementRepository = $this->prophesize(ConformiteTraitement::class);
+        $this->requestRepository              = $this->prophesize(Request::class);
+        $this->treatmentRepository            = $this->prophesize(\App\Domain\Registry\Repository\Treatment::class);
+        $this->userProvider                   = $this->prophesize(UserProvider::class);
+        $this->evaluationRepository           = $this->prophesize(Evaluation::class);
+        $this->logJournalRepository           = $this->prophesize(LogJournal::class);
 
         $this->userMetric = new UserMetric(
             $this->entityManager->reveal(),

@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
+use App\Domain\User\Form\DataTransformer\MoreInfoTransformer;
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\Service;
@@ -40,6 +41,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
@@ -85,7 +87,8 @@ class UserType extends AbstractType
             $options['data']->setRoles(array_diff($options['data']->getRoles(), ['ROLE_API']));
         }
 
-        $serviceDisabled = true;
+        $collectivity    = $options['data']->getCollectivity();
+        $serviceDisabled = !$collectivity->getIsServicesEnabled();
         /** @var User $authenticatedUser */
         $authenticatedUser = $this->security->getUser();
 
@@ -93,7 +96,6 @@ class UserType extends AbstractType
 
         // Add collectivity general information only for admins
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $serviceDisabled = false;
             $builder
                 ->add('collectivity', EntityType::class, [
                     'class'         => Collectivity::class,
@@ -102,7 +104,7 @@ class UserType extends AbstractType
                         return $er->createQueryBuilder('c')
                             ->orderBy('c.name', 'ASC');
                     },
-                    'required' => true,
+                    'required'      => true,
                 ])
                 ->add('roles', DictionaryType::class, [
                     'label'    => 'user.user.form.roles',
@@ -126,47 +128,76 @@ class UserType extends AbstractType
                         return $er->createQueryBuilder('c')
                             ->orderBy('c.name', 'ASC');
                     },
-                    'required' => false,
-                    'multiple' => true,
-                    'expanded' => false,
-                    'attr'     => [
+                    'required'      => false,
+                    'multiple'      => true,
+                    'expanded'      => false,
+                    'attr'          => [
                         'class'            => 'selectpicker',
                         'title'            => 'placeholder.multiple_select',
                         'data-live-search' => true,
                         'data-width'       => '450px',
                     ],
                 ])
-            ;
+                ->add('ssoKey', TextType::class, [
+                    'label'    => 'user.user.form.sso_key',
+                    'required' => false,
+                    'attr'     => [
+                        'maxlength' => 255,
+                    ],
+                ]);
 
             $builder
                 ->get('roles')
-                ->addModelTransformer(new RoleTransformer())
-            ;
+                ->addModelTransformer(new RoleTransformer());
         }
 
-        if ($this->authorizationChecker->isGranted('ROLE_PREVIEW')) {
-            $builder->add('services', EntityType::class, [
-                'class'         => Service::class,
-                'label'         => 'user.user.form.services',
-                'disabled'      => $serviceDisabled,
-                'required'      => false,
-                'multiple'      => true,
-                'expanded'      => false,
-                'attr'          => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
-                ],
-                'query_builder' => function (EntityRepository $er) use ($serviceDisabled, $authenticatedUser) {
-                    if ($serviceDisabled) {
-                        return $er->createQueryBuilder('s')
+        $formModifier = function (FormInterface $form, Collectivity $collectivity) use ($serviceDisabled, $authenticatedUser) {
+            $queryBuilder = function (EntityRepository $er) use ($serviceDisabled, $authenticatedUser, $collectivity) {
+                if ($serviceDisabled) {
+                    return $er->createQueryBuilder('s')
                         ->where(':user MEMBER OF s.users')
                         ->setParameter(':user', $authenticatedUser)
                         ->orderBy('s.name', 'ASC');
-                    }
+                }
 
-                    return $er->createQueryBuilder('s');
-                },
-            ]);
+                return $er->createQueryBuilder('s')
+                    ->where('s.collectivity = :collectivity')
+                    ->setParameter(':collectivity', $collectivity)
+                    ->orderBy('s.name', 'ASC');
+            };
+
+            if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+                $form->add('services', EntityType::class, [
+                    'class'         => Service::class,
+                    'label'         => 'user.user.form.services',
+                    'disabled'      => $serviceDisabled,
+                    'required'      => false,
+                    'multiple'      => true,
+                    'expanded'      => false,
+                    'query_builder' => $queryBuilder,
+                ]);
+            } else {
+                $form->add('services', EntityType::class, [
+                    'class'         => Service::class,
+                    'label'         => 'user.user.form.services',
+                    'disabled'      => true,
+                    'required'      => false,
+                    'multiple'      => true,
+                    'expanded'      => false,
+                    'query_builder' => $queryBuilder,
+                    'attr'          => [
+                        'readonly' => true, ],
+                ]);
+            }
+        };
+
+        if ($this->authorizationChecker->isGranted('ROLE_PREVIEW') && !$serviceDisabled) {
+            $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($formModifier) {
+                $formModifier($event->getForm(), $event->getData()->getCollectivity());
+            });
+            $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($formModifier) {
+                $formModifier($event->getForm(), $event->getData()->getCollectivity());
+            });
         }
 
         // Now add standard information
@@ -192,9 +223,17 @@ class UserType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
+            ->add('moreInfos', DictionaryType::class, [
+                'label'       => 'user.user.form.moreInfos',
+                'required'    => false,
+                'name'        => 'user_user_moreInfo',
+                'multiple'    => false,
+                'expanded'    => true,
+                'placeholder' => 'Aucune information',
+            ])
             ->add('plainPassword', RepeatedType::class, [
-                'type'          => PasswordType::class,
-                'first_options' => [
+                'type'           => PasswordType::class,
+                'first_options'  => [
                     'label' => 'user.user.form.password',
                     'attr'  => [
                         'maxlength' => 255,
@@ -206,17 +245,26 @@ class UserType extends AbstractType
                         'maxlength' => 255,
                     ],
                 ],
-                'required' => false,
-            ]);
+                'required'       => false,
+            ])
+            ->add('emailNotificationPreference', EmailNotificationPreferenceType::class)
+
+        ;
+
+        $builder
+            ->get('moreInfos')
+            ->addModelTransformer(new MoreInfoTransformer())
+        ;
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($encoderFactory) {
             $user = $event->getData();
-            if (null === $user->getPlainPassword()) {
+            if (null === $user->getPlainPassword() || !$event->getForm()->isValid()) {
                 return;
             }
 
             $encoder = $encoderFactory->getEncoder($user);
             $user->setPassword($encoder->encodePassword($user->getPlainPassword(), '')); // No salt with bcrypt
+
             $user->eraseCredentials();
         });
     }

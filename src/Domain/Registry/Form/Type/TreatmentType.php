@@ -43,6 +43,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Security;
 
 class TreatmentType extends AbstractType
@@ -51,10 +52,12 @@ class TreatmentType extends AbstractType
      * @var Security
      */
     private $security;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, AuthorizationCheckerInterface $authorizationChecker)
     {
-        $this->security = $security;
+        $this->security             = $security;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -157,7 +160,7 @@ class TreatmentType extends AbstractType
                     return $er->createQueryBuilder('dc')
                         ->orderBy('dc.position', Criteria::ASC);
                 },
-                'choice_attr' => function (TreatmentDataCategory $model) {
+                'choice_attr'   => function (TreatmentDataCategory $model) {
                     if ($model->isSensible()) {
                         return [
                             'style' => 'font-weight: bold;',
@@ -166,7 +169,7 @@ class TreatmentType extends AbstractType
 
                     return [];
                 },
-                'attr' => [
+                'attr'          => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
@@ -214,7 +217,7 @@ class TreatmentType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr' => [
+                'attr'          => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
@@ -298,13 +301,13 @@ class TreatmentType extends AbstractType
                 ],
             ])
             ->add('collectingMethod', DictionaryType::class, [
-                'label'         => 'registry.treatment.form.collecting_method',
-                'name'          => 'registry_treatment_collecting_method',
-                'required'      => false,
-                'expanded'      => false,
-                'multiple'      => true,
-                'placeholder'   => 'placeholder.precision',
-                'attr'          => [
+                'label'       => 'registry.treatment.form.collecting_method',
+                'name'        => 'registry_treatment_collecting_method',
+                'required'    => false,
+                'expanded'    => false,
+                'multiple'    => true,
+                'placeholder' => 'placeholder.precision',
+                'attr'        => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
@@ -337,7 +340,18 @@ class TreatmentType extends AbstractType
                 'required'    => false,
                 'placeholder' => 'placeholder.precision',
             ])
+            ->add('otherCollectingMethod', TextType::class, [
+                'label'    => 'registry.treatment.form.otherCollectingMethod',
+                'required' => false,
+            ])
         ;
+
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')) {
+            $builder->add('dpoMessage', TextAreaType::class, [
+                'label'    => 'registry.treatment.form.dpoMessage',
+                'required' => false,
+            ]);
+        }
 
         // Check if services are enabled for the collectivity's treatment
         if ($options['data']->getCollectivity()->getIsServicesEnabled()) {
@@ -346,12 +360,27 @@ class TreatmentType extends AbstractType
                 'label'         => 'registry.treatment.form.service',
                 'query_builder' => function (EntityRepository $er) use ($treatment) {
                     if ($treatment->getCollectivity()) {
-                        $collectivity = $treatment->getCollectivity();
+                        /** @var User $authenticatedUser */
+                        $authenticatedUser = $this->security->getUser();
+                        $collectivity      = $treatment->getCollectivity();
 
-                        return $er->createQueryBuilder('s')
+                        $qb = $er->createQueryBuilder('s')
                         ->where('s.collectivity = :collectivity')
                         ->setParameter(':collectivity', $collectivity)
+                        ;
+
+                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && $authenticatedUser->getServices()->getValues()) {
+                            $qb->leftJoin('s.users', 'users')
+                                ->andWhere('users.id = :id')
+                                ->setParameter('id', $authenticatedUser->getId())
+                            ;
+                        }
+
+                        $qb
                         ->orderBy('s.name', 'ASC');
+                        // dd($qb);
+
+                        return $qb;
                     }
 
                     return $er->createQueryBuilder('s')

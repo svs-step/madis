@@ -33,7 +33,7 @@
 {% block body %}
     <div class="row">
             <div class="col-xs-12">
-                <div class="action-bar">
+                <div class="action-bar" id="action-top-buttons">
                     {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('registry_treatment_create') }}" class="btn btn-default">
                         <i class="fa fa-plus"></i>
@@ -57,6 +57,12 @@
                             {{ 'registry.treatment.action.inactive'|trans }}
                         </a>
                     {% endif %}
+                    {% if category and category.documents|length > 0 %}
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <i class="far fa-file"></i>
+                        {{ 'documentation.document.link.button'|trans }}
+                    </a>
+                    {% endif %}
                 </div>
             </div>
     </div>
@@ -65,15 +71,31 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
+                    <div style="float:left">
+                        {% if app.request.query.get('active') != 'false' %}
+                        <a id="archive-all"  href="{{ path('registry_treatment_archive_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            Désactiver
+                        </a>
+                        {% endif %}
+                        <a id="delete-all"  href="{{ path('registry_treatment_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            Supprimer
+                        </a>
+                        <a id="print-all"  href="{{ path('registry_treatment_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            Imprimer
+                        </a>
+                    </div>
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th style="width:20px"></th>
                             <th>
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
+                            {% if is_granted('ROLE_REFERENT') %}
                             <th>
                                 <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
                             </th>
+                            {% endif %}
                             <th>
                                 <select class="form-control" id="search_base_legal" style="width: 100%;">
                                     <option value="">Base légale</option>
@@ -121,13 +143,6 @@
                                 </select>
                             </th>
                             <th>
-                                <select class="form-control" id="search_mise_a_jour" style="width: 100%;">
-                                    <option value="">Mise à jour</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
-                                </select>
-                            </th>
-                            <th>
                                 <select class="form-control" id="search_autres" style="width: 100%;">
                                     <option value="">Autres</option>
                                     <option value="1">Oui</option>
@@ -149,7 +164,7 @@
                                 </select>
                             </th>
                             <th>
-                                <select class="form-control" id="search_specificite" style="width: 100%;">
+                                <select class="form-control" id="search_specificites" style="width: 100%;">
                                     <option value="">Spécificités</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
@@ -159,8 +174,15 @@
                                 <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date" style="width: 100%;">
                             </th>
                             <th>
-                                <select class="form-control" id="search_public" placeholder="Publique" style="width: 100%;">
-                                    <option value="">Publique</option>
+                                <select class="form-control" id="search_public" placeholder="{{ 'registry.treatment.list.public'|trans }}" style="width: 100%;">
+                                    <option value="">{{ 'registry.treatment.list.public'|trans }}</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_update" placeholder="{{ 'registry.treatment.list.update'|trans }}" style="width: 100%;">
+                                    <option value="">{{ 'registry.treatment.list.update'|trans }}</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
@@ -171,8 +193,11 @@
                             <th></th>
                         </tr>
                         <tr>
+                            <th style="width:20px"><input type="checkbox" name="select_all" value="1" id="select-all-treatments"></th>
                             <th>{{ 'registry.treatment.list.name'|trans }}</th>
+                            {% if is_granted('ROLE_REFERENT') %}
                             <th>{{ 'registry.treatment.list.collectivity'|trans }}</th>
+                            {% endif %}
                             <th>{{ 'registry.treatment.list.legal_basis'|trans }}</th>
                             <th>{{ 'registry.treatment.list.software'|trans }}</th>
                             <th>{{ 'registry.treatment.list.author'|trans }}</th>
@@ -181,14 +206,16 @@
                             <th>{{ 'registry.treatment.list.access_control'|trans }}</th>
                             <th>{{ 'registry.treatment.list.tracability'|trans }}</th>
                             <th>{{ 'registry.treatment.list.saving'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.update'|trans }}</th>
                             <th>{{ 'registry.treatment.list.other'|trans }}</th>
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.entitled_persons'|trans }}</th>
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.open_accounts'|trans }}</th>
                             <th style="max-width: 60px;">{{ 'registry.treatment.list.specificities_delivered'|trans }}</th>
-                            <th style="max-width: 60px;">{{ 'registry.treatment.list.update'|trans }}</th>
+                            <th style="max-width: 60px;">{{ 'registry.treatment.list.updated_at'|trans }}</th>
                             <th>{{ 'registry.treatment.list.public'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.update'|trans }}</th>
                             <th>{{ 'registry.treatment.list.responsable_traitement'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.specific_traitement'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.conformite_traitement'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -215,125 +242,260 @@
         {% set actionIsVisible = false %}
     {% endif %}
 
-    {% set dataTableOptions = {
-        columns: [
+    {% set cols = [
+        {"data": "id", "className": "noVis"},
+        {"data": "nom", "className": "noVis"},
+        {"data": "baseLegal", "visible": true},
+        {"data": "logiciel", "visible": true},
+        {"data": "enTantQue", "visible": false},
+        {"data": "gestionnaire", "visible": true},
+        {"data": "sousTraitant", "visible": false, "orderable": false},
+        {"data": "controleAcces", "visible": false},
+        {"data": "tracabilite", "visible": false},
+        {"data": "saving", "visible": true},
+        {"data": "other", "visible": false},
+        {"data": "entitledPersons", "visible": false},
+        {"data": "openAccounts", "visible": false},
+        {"data": "specificitiesDelivered", "visible": false},
+        {"data": "updatedAt", "visible": true},
+        {"data": "public", "visible": false, "orderable": false},
+        {"data": "update", "visible": true},
+        {"data": "responsableTraitement", "visible": false},
+        {"data": "specific_traitement", "render": "[, ]","visible": true, "orderable": false},
+        {"data": "conformite_traitement","visible": false, "orderable": false},
+        {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
+    ] %}
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set cols = [
+            {"data": "id", "className": "noVis"},
             {"data": "nom", "className": "noVis"},
             {"data" : "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
-            {"data": "baseLegal", "visible": false},
-            {"data": "logiciel", "visible": false},
+            {"data": "baseLegal", "visible": true},
+            {"data": "logiciel", "visible": true},
             {"data": "enTantQue", "visible": false},
-            {"data": "gestionnaire", "visible": false},
+            {"data": "gestionnaire", "visible": true},
             {"data": "sousTraitant", "visible": false, "orderable": false},
             {"data": "controleAcces", "visible": false},
             {"data": "tracabilite", "visible": false},
-            {"data": "saving", "visible": false},
-            {"data": "update", "visible": false},
+            {"data": "saving", "visible": true},
             {"data": "other", "visible": false},
             {"data": "entitledPersons", "visible": false},
             {"data": "openAccounts", "visible": false},
             {"data": "specificitiesDelivered", "visible": false},
-            {"data": "updatedAt", "visible": false},
-            {"data": "public", "visible": false},
+            {"data": "updatedAt", "visible": true},
+            {"data": "public", "visible": false, "orderable": false},
+            {"data": "update", "visible": true},
             {"data": "responsableTraitement", "visible": false},
+            {"data": "specific_traitement", "render": "[, ]","visible": true, "orderable": false},
+            {"data": "conformite_traitement","visible": false, "orderable": false},
             {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
-        ],
+        ] %}
+    {% endif %}
+
+
+    {% set dataTableOptions = {
+        columns: cols,
         order:  [
-            [0, 'asc' ]
+            [1, 'asc' ]
         ],
+        'addcheckbox': true,
     } %}
+
+
+    <script>
+        function cbColRenderFunction (data, type, full, meta){
+            return '<input class="select-line" type="checkbox" name="id[]" value="' + $('<div/>').text(data).html() + '">'
+        }
+    </script>
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
 
     <script>
+        $(document).ready(function () {
+            const exportButton = $('.dt-buttons .dt-button.buttons-excel.buttons-html5');
+            //
+            // exportButton.remove();
+            exportButton.html('<i class="fa fa-download"></i> Exporter')
+            exportButton.addClass('btn')
+            exportButton.addClass('btn-default')
+            exportButton.removeClass('dt-button')
+            //
+            $('#action-top-buttons').append(exportButton);
+        })
         function setEvents() {
             var oTable = $('#table').DataTable();
 
+
+            $('#delete-all').on('click', function(event) {
+                event.stopPropagation();
+                if ($("input[type=checkbox].select-line:checked").get().length === 0) {
+                    event.preventDefault();
+                    return;
+                }
+                //let data = oTable.rows({ selected: true }).ids(); // .toArray()
+                let data = $("input[type=checkbox].select-line:checked").get().map(el => el.value).join(',');
+                $('#delete-all').attr('href', function(index, href) {
+                    let param = `ids=${data}`;
+                    if (href.charAt(href.length - 1) === '?')
+                        return href + param;
+                    else if (href.indexOf('?') > 0)
+                        return href + '&' + param;
+                    else
+                        return href + '?' + param;
+                });
+                event = event.originalEvent;
+            })
+            $('#archive-all').on('click', function(event) {
+                event.stopPropagation();
+                if ($("input[type=checkbox].select-line:checked").get().length === 0) {
+                    event.preventDefault();
+                    return;
+                }
+                let data = $("input[type=checkbox].select-line:checked").get().map(el => el.value).join(',');
+                $('#archive-all').attr('href', function(index, href) {
+                    let param = `ids=${data}`;
+                    if (href.charAt(href.length - 1) === '?')
+                        return href + param;
+                    else if (href.indexOf('?') > 0)
+                        return href + '&' + param;
+                    else
+                        return href + '?' + param;
+                });
+                event = event.originalEvent;
+            })
+
+            $('#print-all').on('click', function(event) {
+                event.stopPropagation();
+                if ($("input[type=checkbox].select-line:checked").get().length === 0) {
+                    event.preventDefault();
+                    return;
+                }
+                let data = $("input[type=checkbox].select-line:checked").get().map(el => el.value).join(',');
+                $('#print-all').attr('href', function(index, href) {
+                    let param = `ids=${data}`;
+                    if (href.charAt(href.length - 1) === '?')
+                        return href + param;
+                    else if (href.indexOf('?') > 0)
+                        return href + '&' + param;
+                    else
+                        return href + '?' + param;
+                });
+                event = event.originalEvent;
+            })
+
+            var col = 0;
+            {% if is_granted('ROLE_REFERENT') %}
+                col = 1;
+            {% endif %}
+
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
-                oTable.column('0').search($(this).val()).draw() ;
+                oTable.column('1').search($(this).val()).draw() ;
             }));
 
             $('#search_collectivite').off('keyup');
             $('#search_collectivite').keyup($.debounce(250, function(){
-                oTable.column('1').search($(this).val()).draw() ;
+                oTable.column('2').search($(this).val()).draw() ;
             }));
 
             $('#search_base_legal').off('change');
             $('#search_base_legal').change(function(){
-                oTable.column('2').search($(this).val()).draw() ;
+                oTable.column(col + 2).search($(this).val()).draw() ;
             });
 
             $('#search_logiciel').off('keyup');
             $('#search_logiciel').keyup($.debounce(250, function(){
-                oTable.column('3').search($(this).val()).draw() ;
+                oTable.column(col + 3).search($(this).val()).draw() ;
             }));
 
             $('#search_en_tant_que').off('change');
             $('#search_en_tant_que').change(function(){
-                oTable.column('4').search($(this).val()).draw() ;
+                oTable.column(col + 4).search($(this).val()).draw() ;
             });
 
             $('#search_gestionnaire').off('keyup');
             $('#search_gestionnaire').keyup($.debounce(250, function(){
-                oTable.column('5').search($(this).val()).draw() ;
+                oTable.column(col + 5).search($(this).val()).draw() ;
             }));
 
             $('#search_sous_traitants').off('keyup');
             $('#search_sous_traitants').keyup($.debounce(250, function(){
-                oTable.column('6').search($(this).val()).draw() ;
+                oTable.column(col + 6).search($(this).val()).draw() ;
             }));
 
             $('#search_controle_acces').off('change');
             $('#search_controle_acces').change(function(){
-                oTable.column('7').search($(this).val()).draw() ;
+                oTable.column(col + 7).search($(this).val()).draw() ;
             });
 
             $('#search_tracabilite').off('change');
             $('#search_tracabilite').change(function(){
-                oTable.column('8').search($(this).val()).draw() ;
+                oTable.column(col + 8).search($(this).val()).draw() ;
             });
 
             $('#search_sauvegarde').off('change');
             $('#search_sauvegarde').change(function(){
-                oTable.column('9').search($(this).val()).draw() ;
+                oTable.column(col + 9).search($(this).val()).draw() ;
             });
 
-            $('#search_mise_a_jour').off('change');
-            $('#search_mise_a_jour').change(function(){
-                oTable.column('10').search($(this).val()).draw() ;
-            });
 
             $('#search_autres').off('change');
             $('#search_autres').change(function(){
-                oTable.column('11').search($(this).val()).draw() ;
+                oTable.column(col + 10).search($(this).val()).draw() ;
             });
 
             $('#search_capacite').off('change');
             $('#search_capacite').change(function(){
-                oTable.column('12').search($(this).val()).draw() ;
+                oTable.column(col + 11).search($(this).val()).draw() ;
             });
 
             $('#search_procedure').off('change');
             $('#search_procedure').change(function(){
-                oTable.column('13').search($(this).val()).draw() ;
+                oTable.column(col + 12).search($(this).val()).draw() ;
             });
 
             $('#search_specificite').off('change');
             $('#search_specificite').change(function(){
-                oTable.column('14').search($(this).val()).draw() ;
+                oTable.column(col + 13).search($(this).val()).draw() ;
             });
             $('#search_updated_at').off('change');
             $('#search_updated_at').change(function(){
-                oTable.column('15').search($(this).val()).draw();
+                oTable.column(col + 14).search($(this).val()).draw();
             });
             $('#search_public').off('change');
             $('#search_public').change(function(){
-                oTable.column('16').search($(this).val()).draw() ;
+                oTable.column(col + 15).search($(this).val()).draw() ;
+            });
+            $('#search_update').off('change');
+            $('#search_update').change(function(){
+                oTable.column(col + 16).search($(this).val()).draw() ;
             });
             $('#search_responsable_traitement').off('keyup');
             $('#search_responsable_traitement').keyup($.debounce(250, function(){
-                oTable.column('17').search($(this).val()).draw() ;
+                oTable.column(col + 17).search($(this).val()).draw() ;
             }));
+
+            // Handle click on "Select all" control
+            $('#select-all-treatments').on('click', function(){
+                // Get all rows with search applied
+                var rows = oTable.rows({ 'search': 'applied' }).nodes();
+                // Check/uncheck checkboxes for all rows in the table
+                $('input[type="checkbox"]', rows).prop('checked', this.checked);
+            });
+
+            // Handle click on checkbox to set state of "Select all" control
+            $('#table tbody').on('change', 'input[type="checkbox"]', function(){
+                // If checkbox is not checked
+                if(!this.checked){
+                    var el = $('#select-all-treatments').get(0);
+                    // If "Select all" control is checked and has 'indeterminate' property
+                    if(el && el.checked && ('indeterminate' in el)){
+                        // Set visual state of "Select all" control
+                        // as 'indeterminate'
+                        el.indeterminate = true;
+                    }
+                }
+            });
         }
 
         $(document).ready(function() {

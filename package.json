@@ -1,8 +1,8 @@
 {
     "devDependencies": {
-        "@symfony/webpack-encore": "^0.28.3",
-        "node-sass": "^4.12.0",
-        "sass-loader": "^7.0.3"
+        "@symfony/webpack-encore": "^4.0",
+        "sass": "^1.0",
+        "sass-loader": "^13.0"
     },
     "license": "UNLICENSED",
     "private": true,
@@ -13,7 +13,8 @@
         "build": "encore production"
     },
     "dependencies": {
-        "ckeditor": "^4.0.0",
-        "jquery": "^3.3.1"
+        "ckeditor4": "^4.0.0",
+        "file-loader": "^6.2.0",
+        "jquery": "^3.6"
     }
 }

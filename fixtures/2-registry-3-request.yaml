@@ -1,0 +1,23 @@
+App\Domain\Registry\Model\Embeddable\RequestApplicant:
+    request_applicant_{1..20}:
+        civility: <dictionary('registry_request_civility')>
+        firstName: <fr_FR:firstName()>
+        lastName: <fr_FR:lastName()>
+        mail: <fr_FR:email()>
+
+App\Domain\Registry\Model\Embeddable\RequestConcernedPeople:
+    request_concerned_people_{1..20}:
+        civility: <dictionary('registry_request_civility')>
+        firstName: <fr_FR:firstName()>
+        lastName: <fr_FR:lastName()>
+        mail: <fr_FR:email()>
+
+App\Domain\Registry\Model\Request:
+    registry_request_awkan_{1..20}:
+        object: <dictionary('registry_request_object')>
+        otherObject: <dictionary('registry_request_object')>
+        reason: <dictionary('registry_request_civility')>
+        applicant: '@request_applicant_<current()>'
+        concernedPeople: '@request_concerned_people_<current()>'
+        state: <dictionary('registry_request_state')>
+        collectivity: '@user_collectivity_awkan'

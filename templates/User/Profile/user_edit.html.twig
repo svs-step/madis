@@ -77,8 +77,34 @@
                 </div>
             </div>
 
+            {# SSO #}
+            {% if sso_title %}
+                <div class="box box-solid box-primary">
+                    <div class="box-header">{{ 'user.profile.form_user.tab.login_delegation'|trans }}</div>
+                    <div class="box-body">
+                        <label class="col-sm-2">{{ 'user.user.form.sso_key'|trans }}</label>
+
+                        {% if sso_associated %}
+                            <span class="col-sm-7 sso-title">
+                        <img  src="{{ asset(sso_icon) }}" alt="">
+                        {{ sso_title }}
+                        <small><em>({{ 'user.profile.form_user.sso.linked'|trans }} <span class="fa fa-check text-success"></span>)</em></small>
+                    </span>
+                            <a href="{{ path('user_profile_user_sso_unlink') }}" class="col-sm-3 btn btn-default">
+                                <span class="fa fa-unlink"></span> {{ 'user.profile.form_user.sso.unlink'|trans }}
+                            </a>
+                        {% else %}
+                            <span class="col-sm-7 sso-title"><img  src="{{ asset(sso_icon) }}" alt="">{{ sso_title }}</span>
+                            <a href="{{ path('oauth_connect', {'service':sso_type}) }}" class="col-sm-3 btn btn-primary">
+                                <span class="fa fa-link"></span> {{ 'user.profile.form_user.sso.link'|trans }}
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
             {% for role in roles %}
-                {% if role == "ROLE_USER" %}
+                {% if role == "ROLE_USER" and form.vars.value.collectivity.isServicesEnabled %}
                     <div class="box box-solid box-success">
                         <div class="box-header with-border">
                             <h3 class="box-title">{{ 'user.user.tab.services'|trans }}</h3>
@@ -89,15 +115,18 @@
                     </div>
                 {% endif %}
             {% endfor %}
-        </div>
 
-        <div class="col-md-12">
-            <div class="box box-solid">
-                <div class="box-body text-center">
-                    <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
-                </div>
+            {% include('@templates_path/User/Profile/notifications.html.twig') %}
+        </div>
+    </div>
+    {{ form_row(form._token) }}
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>
         </div>
+    </div>
 
     </div>
 {% endblock %}

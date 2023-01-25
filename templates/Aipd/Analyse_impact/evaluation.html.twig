@@ -55,7 +55,7 @@
                             <th>{{ 'registry.conformite_traitement.form.question'|trans }}</th>
                             <th style="width: 25%">{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
                         </tr>
-                        {% for question in analyseImpact.questionConformites %}
+                        {% for question in analyseImpact.questionConformites|sort((a, b) => a.position >= b.position) %}
                             <tr>
                                 <td>{{ question.question }}</td>
                                 <td>{{ getConformiteLabel(question)|raw }}</td>
@@ -77,43 +77,6 @@
                 <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.moyenne_dic_residuel'|trans }}</div>
                 <div class="box-body">
                     <canvas id="dicResiduels-chart"></canvas>
-{#                    <table class="table dic-table" style="height: 450px; width:80%">#}
-{#                        <tr class="dic-darkpink">#}
-{#                            <td class="dic-nocolor">Maximale</td>#}
-{#                            <td></td>#}
-{#                            <td></td>#}
-{#                            <td></td>#}
-{#                            <td></td>#}
-{#                        </tr>#}
-{#                        <tr>#}
-{#                            <td class="dic-nocolor">Importante</td>#}
-{#                            <td class="dic-lightpink"></td>#}
-{#                            <td class="dic-lightpink"></td>#}
-{#                            <td class="dic-lightpink"></td>#}
-{#                            <td class="dic-darkpink"></td>#}
-{#                        </tr>#}
-{#                        <tr>#}
-{#                            <td class="dic-nocolor">Limitée</td>#}
-{#                            <td class="dic-lightgreen"></td>#}
-{#                            <td class="dic-lightgreen"></td>#}
-{#                            <td class="dic-lightpink"></td>#}
-{#                            <td class="dic-darkpink"></td>#}
-{#                        </tr>#}
-{#                        <tr>#}
-{#                            <td class="dic-nocolor">Négligeable</td>#}
-{#                            <td class="dic-darkgreen"></td>#}
-{#                            <td class="dic-lightgreen"></td>#}
-{#                            <td class="dic-lightpink"></td>#}
-{#                            <td class="dic-darkpink"></td>#}
-{#                        </tr>#}
-{#                        <tr>#}
-{#                            <td class="dic-nocolor"></td>#}
-{#                            <td>Négligeable</td>#}
-{#                            <td>Limitée</td>#}
-{#                            <td>Importante</td>#}
-{#                            <td>Maximale</td>#}
-{#                        </tr>#}
-{#                    </table>#}
                 </div>
             </div>
             <div class="box box-solid box-primary">
@@ -137,7 +100,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
@@ -164,55 +126,77 @@
         let domainesLabels = [];
         let domainesDatas = [];
         {% for critere in analyseImpact.criterePrincipeFondamentaux %}
-            domainesLabels.push('{{ critere.label|truncate(28,'...') }}');
-
-            domainesDatas.push(1);
+            {% if critere.reponse != 'non_applicable' %}
+                domainesLabels.push("{{ critere.label|u.truncate(28,'...')|raw|escape('js') }}");
+                {% if critere.reponse == 'conforme' %}
+                    domainesDatas.push(5);
+                {% else %}
+                    domainesDatas.push(1);
+                {% endif %}
+            {% endif %}
         {% endfor %}
-        {% for question in analyseImpact.questionConformites %}
+
+        {% for question in analyseImpact.questionConformites|sort((a, b) => a.position >= b.position) %}
         {% set reponse = analyseImpact.conformiteTraitement.reponseOfPosition(question.position) %}
-            {% if reponse.conforme %}
+            {% if reponse and reponse.conforme %}
                 domainesDatas.push(5);
-            {% elseif reponse.actionProtections is not empty %}
+            {% elseif reponse and reponse.actionProtections is not empty %}
                 domainesDatas.push(3);
             {% else %}
                 domainesDatas.push(1);
             {% endif %}
-            domainesLabels.push('{{ question.question|truncate(28, '...') }}');
+            domainesLabels.push("{{ question.question|u.truncate(28, '...')|raw|escape('js') }}");
         {% endfor %}
+
         /* The format of the data used by the chart is [[],[]] but here we use only 1 set of data */
         domainesDatas = [domainesDatas];
-
         let mesuresLabels = [];
         let mesuresDatas = [];
         let risquesLabels = [];
-        let risquesDataSet1 = [];
-        let risquesDataSet2 = [];
+        let risquesCouvertDataSet = [];
+        let risquesResiduelDataSet = [];
         let dicResiduelsData = [];
         {% for scenario in analyseImpact.scenarioMenaces %}
-            risquesLabels.push('{{ scenario.nom|truncate(20, '...') }}');
-            risquesDataSet2.push({{ getScenarioMenaceImpactPotentiel(scenario) }});
-            risquesDataSet1.push({{ getScenarioMenaceImpactResiduel(scenario) }})
+
+        {%  set rr = getScenarioMenaceImpactResiduel(scenario) %}
+
+        // {{ scenario.nom }}
+
+        // impact résiduel {{ rr }}
+
+        {%  set rp = getScenarioMenaceImpactPotentiel(scenario) %}
+
+        // impact Potentiel {{ rp }}
+
+            risquesLabels.push("{{ scenario.nom|u.truncate(20, '...')|raw|escape('js') }}");
+            risquesCouvertDataSet.push({{ rp-rr }});
+            risquesResiduelDataSet.push({{ rr }})
             dicResiduelsData.push({
-                label: "{{ scenario.nom }}",
+                label: "{{ scenario.nom|raw|escape('js') }}",
                 data: [{x: {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}, y: {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}, r: 10}],
-                backgroundColor: colorBlue
+                backgroundColor: 'hsl({{ (23*loop.index) % 360 }}, 100%, 50%)',
             });
-            {% for mesure in scenario.mesuresProtections %}
-                mesuresLabels.push('{{ mesure.nom }}');
-                {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
-                    mesuresDatas.push(1);
-                {% elseif mesure.reponse == 'besoin_amelioration' %}
-                    mesuresDatas.push(3);
-                {% else %}
-                    mesuresDatas.push(5);
-                {% endif %}
-            {% endfor %}
+
+        {% endfor %}
+
+
+        {% for mesure in analyseImpact.mesureProtections %}
+            mesuresLabels.push("{{ mesure.nom|u.truncate(28, '...')|raw|escape('js') }}");
+            {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
+            mesuresDatas.push(1);
+            {% elseif mesure.reponse == 'besoin_amelioration' %}
+            mesuresDatas.push(3);
+            {% else %}
+            mesuresDatas.push(5);
+            {% endif %}
         {% endfor %}
         mesuresDatas = [mesuresDatas];
-        risquesDataSet1 = {label: "Risque couvert", data: risquesDataSet1, backgroundColor: colorTeal};
-        risquesDataSet2 = {label: "Risque résiduel", data: risquesDataSet2, backgroundColor: colorPink};
-        let risquesDatas = [risquesDataSet1, risquesDataSet2];
+        risquesCouvert = {label: "Risque couvert", data: risquesCouvertDataSet, backgroundColor: colorTeal};
+        risquesResiduel = {label: "Risque résiduel", data: risquesResiduelDataSet, backgroundColor: colorPink};
+        let risquesDatas = [risquesResiduel, risquesCouvert];
     </script>
 
     <script src="{{ asset('build/js/evaluation.js') }}"></script>
+
+
 {% endblock %}

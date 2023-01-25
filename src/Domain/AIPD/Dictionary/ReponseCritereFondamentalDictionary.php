@@ -9,10 +9,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ReponseCritereFondamentalDictionary extends SimpleDictionary
 {
-    const REPONSE_NON_RENSEIGNE  = 'non_renseigne';
-    const REPONSE_NON_CONFORME   = 'non_conforme';
-    const REPONSE_CONFORME       = 'conforme';
-    const REPONSE_NON_APPLICABLE = 'non_applicable';
+    public const REPONSE_NON_RENSEIGNE  = 'non_renseigne';
+    public const REPONSE_NON_CONFORME   = 'non_conforme';
+    public const REPONSE_CONFORME       = 'conforme';
+    public const REPONSE_NON_APPLICABLE = 'non_applicable';
 
     public function __construct()
     {

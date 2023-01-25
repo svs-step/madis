@@ -1,4 +1,11 @@
 $(document).ready(function() {
+    // Handle complex form on user page
+    $('input.select-frequency:not(:checked)').parents('tr').find('select').attr('disabled', 'disabled')
+    $('input.select-frequency').on('change', function(ev){
+        console.log('radio changed', ev)
+        $('input.select-frequency').parents('table').find('select').attr('disabled', 'disabled')
+        $(ev.currentTarget).parents('tr').find('select').removeAttr('disabled')
+    })
     /* Simple fields */
     $('input[type=password]').each(function() {
         let input = $(this);
@@ -50,13 +57,6 @@ $(document).ready(function() {
             period.prop('disabled', check.is(':checked'));
             comment.prop('disabled', !check.is(':checked'));
         })
-    });
-
-    var textArea = $('#treatment_coordonneesResponsableTraitement');
-    textArea.prop('disabled', !($('#treatment_author').val() === 'processing_manager'));
-    $('#treatment_author').on('change', function() {
-        var textArea = $('#treatment_coordonneesResponsableTraitement');
-        textArea.prop('disabled', !($(this).val() === 'processing_manager'));
     });
 
     // Check Collectivity dpo | onLoad & onChange
@@ -171,10 +171,10 @@ function checkDifferentItManager(id, boxId)
 function checkDifferentServices(id, boxId)
 {
     boxId.find('input').each(function() {
-        $(this).prop('disabled', !id.is(':checked'));
+        $(this).prop('readonly', !id.is(':checked'));
     });
     boxId.find('select').each(function() {
-        $(this).prop('disabled', !id.is(':checked'));
+        $(this).prop('readonly', !id.is(':checked'));
     });
     boxId.find('#add-services').each(function() {
         if ($('#collectivity_isServicesEnabled').prop('checked')) {

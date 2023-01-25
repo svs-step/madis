@@ -22,7 +22,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Domain\Event\Symfony\EventSubscriber\Doctrine;
+namespace App\Tests\Application\Symfony\EventSubscriber\Doctrine;
 
 use App\Application\Symfony\EventSubscriber\Doctrine\HistorySubscriber;
 use App\Application\Traits\Model\HistoryTrait;
@@ -30,10 +30,12 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class HistorySubscriberTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var LifecycleEventArgs
@@ -45,7 +47,7 @@ class HistorySubscriberTest extends TestCase
      */
     private $subscriber;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->lifeCycleEventArgsProphecy = $this->prophesize(LifecycleEventArgs::class);
 
@@ -101,7 +103,7 @@ class HistorySubscriberTest extends TestCase
      */
     public function testPreUpdate()
     {
-        $dateTime = new \DateTimeImmutable('-5 days');
+        $dateTime = (new \DateTimeImmutable())->modify('-5 days');
         $object   = new class() {
             use HistoryTrait;
         };
@@ -110,8 +112,9 @@ class HistorySubscriberTest extends TestCase
 
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
 
-        $this->assertEquals($object->getCreatedAt(), $object->getUpdatedAt());
-        $this->subscriber->prePersist($this->lifeCycleEventArgsProphecy->reveal());
-        $this->assertNotEquals($object->getCreatedAt(), $object->getUpdatedAt());
+        $this->assertEquals($object->getCreatedAt()->format('Y-m-d H:i:s'), $object->getUpdatedAt()->format('Y-m-d H:i:s'));
+        $this->subscriber->preUpdate($this->lifeCycleEventArgsProphecy->reveal());
+
+        $this->assertNotEquals($object->getCreatedAt()->format('Y-m-d H:i:s'), $object->getUpdatedAt()->format('Y-m-d H:i:s'));
     }
 }

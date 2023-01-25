@@ -1,0 +1,86 @@
+documentation_document_index:
+    path: '/'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:indexAction'
+    defaults:
+        keepQueryParams: true
+
+documentation_document_list:
+    path: '/liste'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:listAction'
+
+documentation_document_grid:
+    path: '/grille'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:gridAction'
+
+documentation_document_create:
+    path: '/creer'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:createAction'
+
+documentation_document_edit:
+    path: '/editer/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:editAction'
+
+documentation_document_delete:
+    path: '/supprimer/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:deleteAction'
+
+documentation_document_delete_confirm:
+    path: '/supprimer/{id}/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:deleteConfirmationAction'
+
+documentation_document_download:
+    path: '/telecharger/{name}'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:downloadAction'
+
+documentation_document_share:
+    path: '/partager/{id}'
+    methods: [ 'GET' ]
+    controller: 'App\Domain\Documentation\Controller\DocumentController:shareAction'
+
+documentation_document_favorite:
+    path: '/favori/{id}'
+    methods: [ 'GET' ]
+    controller: 'App\Domain\Documentation\Controller\DocumentController:favoriteAction'
+
+documentation_category_list:
+    path: '/categorie'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\CategoryController:listAction'
+
+documentation_category_create:
+    path: '/categorie/creer'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Documentation\Controller\CategoryController:createAction'
+
+documentation_category_edit:
+    path: '/categorie/editer/{id}'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Documentation\Controller\CategoryController:editAction'
+
+documentation_category_delete:
+    path: '/categorie/supprimer/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\CategoryController:deleteAction'
+
+documentation_category_delete_confirm:
+    path: '/categorie/supprimer/{id}/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\CategoryController:deleteConfirmationAction'
+
+documentation_document_delete_all:
+    path: '/supprimer-tous/'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:deleteAllAction'
+
+documentation_document_delete_all_confirm:
+    path: '/supprimer-tous/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Documentation\Controller\DocumentController:deleteConfirmationAllAction'

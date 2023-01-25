@@ -65,92 +65,99 @@
 
     <div class="row">
     {% if app_commune_svg_reduced_path is not empty %}
-      <div class="col-sm-6 col-xs-12">
-        <div class="box box-solid">
-          <div class="box-header with-border">
-            <h3 class="box-title">Carte des communes</h3>
-          </div>
-          <div class="box-body no-padding map-wrapper">
-            <div class="row">
-              <div class="col-md-8 col-sm-8">
-                <div class="pad"> <div id="svg-map">
-                  {{source('@public_path'~asset(app_commune_svg_reduced_path))}}
-                </div></div>
-              </div>
-            <div class="col-md-4 col-sm-4 bg-green">
-              <div class="pad"> 
-                <br />
-                <div class="report text-center">
-                  <span class="info-box-text "> <i class="far fa-chart-bar"></i></span>
-                  <span class="info-box-number">{{data.collectivityByAddressInsee.value.all}}</span>
-                  <span class="info-box-text">Nombre de collectivités</span>
-                  <br />
-                  <span class="info-box-text "> <i class="far fa-chart-bar"></i></span>
-                  <span class="info-box-number">{{data.collectivityByAddressInsee.value.dpoPercent}}</span>
-                  <span class="info-box-text">% DPO</span>
-                </div>  
-              </div>
-            </div>
-            </div>
-          </div> <!-- end box body-->   
-        </div>
-      </div>
-    {% endif %}
-      <div class="col-sm-3 col-xs-12">
-        <div class="box box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">Collectivités</h3>
-            </div>
-            <div class="box-body">
-                {% if 0 == data.collectivityByType.value.all %}
-                    Aucune donnée à afficher
-                {% else %}
-                    <div>
-                        <canvas id="collectivity-type" width="400" height="200"></canvas>
+        <div class="col-sm-6 col-xs-12">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Carte des communes</h3>
+                </div>
+                <div class="box-body no-padding map-wrapper">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8">
+                            <div class="pad"> <div id="svg-map">
+                                    {{source('@public_path'~asset(app_commune_svg_reduced_path))}}
+                                </div></div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 bg-green">
+                            <div class="pad">
+                                <br />
+                                <div class="report text-center">
+                                    <span class="info-box-text "> <i class="far fa-chart-bar"></i></span>
+                                    <span class="info-box-number">{{data.collectivityByAddressInsee.value.all}}</span>
+                                    <span class="info-box-text">Nombre de collectivités</span>
+                                    <br />
+                                    <span class="info-box-text "> <i class="far fa-chart-bar"></i></span>
+                                    <span class="info-box-number">{{data.collectivityByAddressInsee.value.dpoPercent}}</span>
+                                    <span class="info-box-text">% DPO</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                {% endif %}
+                </div> <!-- end box body-->
             </div>
         </div>
-      </div>
-      {# EXPORT CSV #}
-      <div class="col-sm-3 col-xs-12">
-          <div class="small-box bg-yellow">
-              <div class="inner">
-                  <p>Exporter les collectivités</p>
-              </div>
-              <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::COLLECTIVITY_TYPE')}) }}" class="small-box-footer">
-                  Exporter <i class="fa fa-arrow-circle-right"></i>
-              </a>
-          </div>
-          <div class="small-box bg-yellow">
-            <div class="inner">
-                <p>Exporter les traitements</p>
+    {% endif %}
+        <div class="col-sm-6 col-xs-12">
+            {% if app_activate_notifications == 'true' and app_notification_dashboard_shown == 'true' %}
+                {# {{app_notification_max_shown}} #}
+                <div id="notifications" class="box box-solid">
+                    {{ block("body", "Notification/Notification/box.html.twig") }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Collectivités</h3>
+                </div>
+                <div class="box-body">
+                    {% if 0 == data.collectivityByType.value.all %}
+                        Aucune donnée à afficher
+                    {% else %}
+                        <div>
+                            <canvas id="collectivity-type" width="400" height="200"></canvas>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-            <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::TREATMENT_TYPE')}) }}" class="small-box-footer">
-                Exporter <i class="fa fa-arrow-circle-right"></i>
-            </a>
-          </div>
-          <div class="small-box bg-yellow">
-              <div class="inner">
-                  <p>Exporter les sous-traitants</p>
-              </div>
-              <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::CONTRACTOR_TYPE')}) }}" class="small-box-footer">
-                  Exporter <i class="fa fa-arrow-circle-right"></i>
-              </a>
-          </div>
-          <div class="small-box bg-yellow">
-              <div class="inner">
-                  <p>Exporter les actions de protection</p>
-              </div>
-              <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::MESUREMENT_TYPE')}) }}" class="small-box-footer">
-                  Exporter <i class="fa fa-arrow-circle-right"></i>
-              </a>
-          </div>
-      </div>
-
+        </div>
+        {# EXPORT CSV #}
+        <div class="col-sm-6 col-xs-12">
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <p>Exporter les collectivités</p>
+                </div>
+                <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::COLLECTIVITY_TYPE')}) }}" class="small-box-footer">
+                    Exporter <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <p>Exporter les traitements</p>
+                </div>
+                <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::TREATMENT_TYPE')}) }}" class="small-box-footer">
+                    Exporter <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <p>Exporter les sous-traitants</p>
+                </div>
+                <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::CONTRACTOR_TYPE')}) }}" class="small-box-footer">
+                    Exporter <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <p>Exporter les actions de protection</p>
+                </div>
+                <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::MESUREMENT_TYPE')}) }}" class="small-box-footer">
+                    Exporter <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
     </div>{# end row #}
 
-     <div id="tooltip" class="tooltip-box text-left" title="commune"></div>
+    <div id="tooltip" class="tooltip-box text-left" title="commune"></div>
 {% endblock %}
 
 {% set inseeObjectFlatten = data.collectivityByAddressInsee.value.addressInsee %}
@@ -193,69 +200,69 @@
         ];
     </script>
 
-<script>
+    <script>
 
-(function mapModule (){
-  
-  function appendSpan (jqueryElement, text){
-    jqueryElement.append("<span>"+text+"</span><br/>")
-  }
+        (function mapModule (){
 
-  function appendCollectivityName (jqueryElement, text){
-    jqueryElement.append("<span class=\"collectivity-name\">"+text+"</span><br/>")
-  }
+            function appendSpan (jqueryElement, text){
+                jqueryElement.append("<span>"+text+"</span><br/>")
+            }
 
-    function isAvailableInsee (insee, inseeList) {
-    let result = false;
-    if(insee && inseeList && Object.entries(inseeList).length > 0){
-        result = !!inseeList[insee]
-    }
-    return result;
-  }
+            function appendCollectivityName (jqueryElement, text){
+                jqueryElement.append("<span class=\"collectivity-name\">"+text+"</span><br/>")
+            }
 
-  $( document ).ready(function() {
-    const tooltip = $('#tooltip')
-    const availableInsees = {{ inseeObjectFlatten|json_encode()|raw }};
+            function isAvailableInsee (insee, inseeList) {
+                let result = false;
+                if(insee && inseeList && Object.entries(inseeList).length > 0){
+                    result = !!inseeList[insee]
+                }
+                return result;
+            }
+
+            $( document ).ready(function() {
+                const tooltip = $('#tooltip')
+                const availableInsees = {{ inseeObjectFlatten|json_encode()|raw }};
 
 
-    let paths = $('path');
-    paths.attr("fill","#FFFFFF")
-    paths.attr('stroke-opacity',"0.2")
-    paths.attr('stroke-width','200')
-    paths.attr('cursor','pointer')
-    paths.each(function () {
-      let item = $(this);
-      let insee = item.attr('fme:insee_com');
-      const isAvailable = isAvailableInsee(insee, availableInsees)
-      if(isAvailable){
-        item.attr('fill', '#01C0EF');
-        item.on('mouseover', e => {
-          item.attr('fill', '#F49C12')
-          const x= e.clientX;
-          const y= e.clientY; 
-          tooltip.css('top', (y + 20) + 'px').css('left', x + 'px');
-          $.each(availableInsees[insee], function (key, value) {
-            const nomCommune = value.name
-            const nbTraitementActifs = value.nbTraitementActifs
-            const nbActionsProtection = value.nbActionsProtection
-            appendCollectivityName(tooltip,nomCommune)
-            appendSpan(tooltip,'Nb traitements actifs: ' + nbTraitementActifs)
-            appendSpan(tooltip,'Nb actions de protection: ' + nbActionsProtection)
-          })
-          tooltip.show();
-        });
-        item.on('mouseout', () => {
+                let paths = $('path');
+                paths.attr("fill","#FFFFFF")
+                paths.attr('stroke-opacity',"0.2")
+                paths.attr('stroke-width','200')
+                paths.attr('cursor','pointer')
+                paths.each(function () {
+                    let item = $(this);
+                    let insee = item.attr('fme:insee_com');
+                    const isAvailable = isAvailableInsee(insee, availableInsees)
+                    if(isAvailable){
+                        item.attr('fill', '#01C0EF');
+                        item.on('mouseover', e => {
+                            item.attr('fill', '#F49C12')
+                            const x= e.clientX;
+                            const y= e.clientY;
+                            tooltip.css('top', (y + 20) + 'px').css('left', x + 'px');
+                            $.each(availableInsees[insee], function (key, value) {
+                                const nomCommune = value.name
+                                const nbTraitementActifs = value.nbTraitementActifs
+                                const nbActionsProtection = value.nbActionsProtection
+                                appendCollectivityName(tooltip,nomCommune)
+                                appendSpan(tooltip,'Nb traitements actifs: ' + nbTraitementActifs)
+                                appendSpan(tooltip,'Nb actions de protection: ' + nbActionsProtection)
+                            })
+                            tooltip.show();
+                        });
+                        item.on('mouseout', () => {
 
-          item.attr('fill', '#01C0EF')
-          tooltip.hide();
-          tooltip.empty();
-          tooltip.removeAttr('style');
-        });
-      }
-    });
-  });
-})();
-</script>
+                            item.attr('fill', '#01C0EF')
+                            tooltip.hide();
+                            tooltip.empty();
+                            tooltip.removeAttr('style');
+                        });
+                    }
+                });
+            });
+        })();
+    </script>
 
     {# USE DATA & DEFINE GRAPH #}
     <script src="{{ asset('build/js/dashboard_admin.js') }}"></script>

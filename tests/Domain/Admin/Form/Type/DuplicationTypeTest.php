@@ -26,22 +26,46 @@ namespace App\Tests\Domain\Admin\Form\Type;
 
 use App\Domain\Admin\DTO\DuplicationFormDTO;
 use App\Domain\Admin\Form\Type\DuplicationType;
+use App\Domain\Registry\Repository\Contractor;
+use App\Domain\Registry\Repository\Mesurement;
+use App\Domain\Registry\Repository\Treatment;
+use App\Domain\User\Repository\Collectivity;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use Prophecy\Argument;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormConfigBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DuplicationTypeTest extends FormTypeHelper
 {
+    private Treatment $treatmentRepository;
+    private Contractor $contractorRepository;
+    private Mesurement $mesurementRepository;
+    private Collectivity $collectivityRepository;
+
+    public function setUp(): void
+    {
+        $this->treatmentRepository    = $this->prophesize(Treatment::class)->reveal();
+        $this->contractorRepository   = $this->prophesize(Contractor::class)->reveal();
+        $this->mesurementRepository   = $this->prophesize(Mesurement::class)->reveal();
+        $this->collectivityRepository = $this->prophesize(Collectivity::class)->reveal();
+        parent::setUp();
+    }
+
     /**
      * Test inheritance.
      */
     public function testInstanceof(): void
     {
-        $this->assertInstanceOf(AbstractType::class, new DuplicationType());
+        $this->assertInstanceOf(AbstractType::class, new DuplicationType(
+            $this->treatmentRepository,
+            $this->contractorRepository,
+            $this->mesurementRepository,
+            $this->collectivityRepository
+        ));
     }
 
     /**
@@ -58,13 +82,20 @@ class DuplicationTypeTest extends FormTypeHelper
             'targetCollectivities'    => EntityType::class,
         ];
 
-        $formType = new DuplicationType();
+        $formType = new DuplicationType(
+            $this->treatmentRepository,
+            $this->contractorRepository,
+            $this->mesurementRepository,
+            $this->collectivityRepository
+        );
 
         // Generate all prophesized fields & add data transformer call
-        $builderProphecy                    = $this->prophesizeBuilder($builder, false);
-        $dataFieldFormConfigBuilderProphecy = $this->prophesize(FormConfigBuilderInterface::class);
-        $dataFieldFormConfigBuilderProphecy->resetViewTransformers()->shouldBeCalled();
-        $builderProphecy->get('data')->shouldBeCalled()->willReturn($dataFieldFormConfigBuilderProphecy);
+        $builderProphecy = $this->prophesizeBuilder($builder, false);
+
+        $builderProphecy
+            ->addEventListener(FormEvents::PRE_SUBMIT, Argument::any())
+            ->shouldBeCalled()
+        ;
 
         $formType->buildForm(
             $builderProphecy->reveal(),
@@ -87,6 +118,12 @@ class DuplicationTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new DuplicationType())->configureOptions($resolverProphecy->reveal());
+        $dt = new DuplicationType(
+            $this->treatmentRepository,
+            $this->contractorRepository,
+            $this->mesurementRepository,
+            $this->collectivityRepository
+        );
+        $dt->configureOptions($resolverProphecy->reveal());
     }
 }

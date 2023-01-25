@@ -46,7 +46,7 @@ Puis, installer les prérequis de wkhtmltopdf pour fonctionner :
 apt-get install fontconfig libfreetype6 libjpeg62-turbo libpng16-16 libxrender1 xfonts-75dpi xfonts-base
 ```
 
-Enfin, décompiler le binaire:
+Enfin, installer le binaire:
 ```bash
 dpkg -i wkhtmltox_0.12.5-1.buster_amd64.deb
 ```

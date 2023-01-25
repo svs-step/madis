@@ -27,9 +27,12 @@ namespace App\Tests\Domain\Maturity\Calculator;
 use App\Domain\Maturity\Calculator;
 use App\Domain\Maturity\Model;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class MaturityTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var Calculator\Maturity
      */

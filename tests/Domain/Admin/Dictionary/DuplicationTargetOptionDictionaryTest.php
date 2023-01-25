@@ -22,7 +22,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Domain\Registry\Dictionary;
+namespace App\Tests\Domain\Admin\Dictionary;
 
 use App\Application\Dictionary\SimpleDictionary;
 use App\Domain\Admin\Dictionary\DuplicationTargetOptionDictionary;

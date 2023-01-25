@@ -4,6 +4,12 @@ _domain_admin:
 _domain_maturity:
     resource: ../domain/maturity/routes/_index.yaml
 
+_domain_documentation:
+    resource: ../domain/documentation/routes/_index.yaml
+
+_domain_notification:
+    resource: ../domain/notification/routes/_index.yaml
+
 _domain_page:
     resource: ../domain/page/routes/_index.yaml
 
@@ -20,4 +26,4 @@ _domain_aipd:
     resource: ../domain/aipd/routes/_index.yaml
 
 _domain_public:
-    resource: ../domain/publique/routes/_index.yaml
+    resource: ../domain/public/routes/_index.yaml

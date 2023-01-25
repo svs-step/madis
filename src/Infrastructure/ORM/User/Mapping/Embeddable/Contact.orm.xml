@@ -13,6 +13,7 @@
         <field name="job" column="job" nullable="true"/>
         <field name="mail" column="mail" nullable="true"/>
         <field name="phoneNumber" column="phone_number" length="10" nullable="true"/>
+        <field name="notification" column="notification" type="boolean" nullable="true"/>
 
     </embeddable>
 

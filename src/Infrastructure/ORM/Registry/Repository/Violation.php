@@ -152,7 +152,7 @@ class Violation implements Repository\Violation
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -168,7 +168,7 @@ class Violation implements Repository\Violation
             ->getManager()
             ->getRepository($this->getModelClass())
             ->find($id)
-            ;
+        ;
     }
 
     /**
@@ -189,7 +189,7 @@ class Violation implements Repository\Violation
         return $qb
             ->andWhere("o.{$key} = :{$key}_value")
             ->setParameter("{$key}_value", $value)
-            ;
+        ;
     }
 
     /**
@@ -214,7 +214,7 @@ class Violation implements Repository\Violation
         return $qb
             ->andWhere('o.collectivity = :collectivity')
             ->setParameter('collectivity', $collectivity)
-            ;
+        ;
     }
 
     /**
@@ -251,7 +251,7 @@ class Violation implements Repository\Violation
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -270,7 +270,7 @@ class Violation implements Repository\Violation
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -289,7 +289,7 @@ class Violation implements Repository\Violation
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -324,7 +324,7 @@ class Violation implements Repository\Violation
         $qb = $this
                 ->createQueryBuilder()
                 ->select('count(o.id)')
-            ;
+        ;
 
         if (\array_key_exists('archive', $criteria)) {
             $this->addArchivedClause($qb, $criteria['archive']);
@@ -344,7 +344,7 @@ class Violation implements Repository\Violation
         return $qb
                 ->getQuery()
                 ->getSingleScalarResult()
-                ;
+        ;
     }
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])

@@ -28,9 +28,9 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ViolationNatureDictionary extends SimpleDictionary
 {
-    const NATURE_CONFIDENTIALITY = 'confidentiality';
-    const NATURE_INTEGRITY       = 'integrity';
-    const NATURE_AVAILABILITY    = 'availability';
+    public const NATURE_CONFIDENTIALITY = 'confidentiality';
+    public const NATURE_INTEGRITY       = 'integrity';
+    public const NATURE_AVAILABILITY    = 'availability';
 
     public function __construct()
     {

@@ -28,15 +28,15 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ConformiteTraitementLevelDictionary extends SimpleDictionary
 {
-    const CONFORME                = 'conforme';
-    const NON_CONFORMITE_MINEURE  = 'non_conformite_mineure';
-    const NON_CONFORMITE_MAJEURE  = 'non_conformite_majeure';
-    const NON_EVALUE              = 'non_evalue';
+    public const CONFORME               = 'conforme';
+    public const NON_CONFORMITE_MINEURE = 'non_conformite_mineure';
+    public const NON_CONFORMITE_MAJEURE = 'non_conformite_majeure';
+    public const NON_EVALUE             = 'non_evalue';
 
-    const HEX_COLOR_CONFORME               = '93D14E';
-    const HEX_COLOR_NON_CONFORMITE_MINEURE = 'FEC100';
-    const HEX_COLOR_NON_CONFORMITE_MAJEURE = 'C04F4D';
-    const HEX_COLOR_NON_EVALUE             = 'DDDDDD';
+    public const HEX_COLOR_CONFORME               = '93D14E';
+    public const HEX_COLOR_NON_CONFORMITE_MINEURE = 'FEC100';
+    public const HEX_COLOR_NON_CONFORMITE_MAJEURE = 'C04F4D';
+    public const HEX_COLOR_NON_EVALUE             = 'DDDDDD';
 
     public function __construct()
     {

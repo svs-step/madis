@@ -1,6 +1,6 @@
 api_platform:
     mapping:
-        paths: 
+        paths:
           - '%kernel.project_dir%/src/Domain/Registry/Model'
           - '%kernel.project_dir%/src/Domain/User/Model'
           - '%kernel.project_dir%/config/api_platform/resources'
@@ -11,4 +11,5 @@ api_platform:
         api_keys:
             - { name: 'Authorization', type: 'header' }
     path_segment_name_generator: 'api_platform.path_segment_name_generator.dash'
+    metadata_backward_compatibility_layer: false
     title: 'Madis API'

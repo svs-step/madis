@@ -36,17 +36,21 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Validator\Constraints\File;
 
 class ProofType extends AbstractType
 {
+    protected string $maxSize;
+
     /**
      * @var Security
      */
     private $security;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, string $maxSize)
     {
         $this->security = $security;
+        $this->maxSize  = $maxSize;
     }
 
     /**
@@ -81,8 +85,40 @@ class ProofType extends AbstractType
                 'required' => true,
             ])
             ->add('documentFile', FileType::class, [
-                'label'    => false,
-                'required' => false,
+                'label'       => false,
+                'required'    => false,
+                'constraints' => [
+                    new File([
+                        'maxSize'   => $this->maxSize,
+//                        'mimeTypesMessage' => 'registry_proof.document_file.file',
+                        'mimeTypes' => [
+                            // JPG / PNG
+                            'image/jpeg',
+                            'image/png',
+                            // PDF
+                            'application/pdf',
+                            // DOC
+                            'application/msword',
+                            // DOCX
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                            // Lors de la génération d'un fichier (Bilan) word son mimetype est doublé.
+                            // On conserve le mimetype suivant car il y avait des bugs avec iOS (ipad et iphone) lors du téléchargement
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.documentapplication/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                            // ODT
+                            'application/vnd.oasis.opendocument.text',
+                            // XLS
+                            'application/vnd.ms-excel',
+                            // XLSX
+                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                            // ODS
+                            'application/vnd.oasis.opendocument.spreadsheet',
+                            // PPT / PPTX
+                            'application/vnd.ms-powerpoint',
+                            'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                        ],
+                        'groups'    => ['default'],
+                    ]),
+                ],
             ])
             ->add('comment', TextType::class, [
                 'label'    => 'registry.proof.form.comment',
@@ -107,16 +143,16 @@ class ProofType extends AbstractType
 
                     return $qb;
                 },
-                'choice_label' => function (Model\Treatment $object) {
+                'choice_label'  => function (Model\Treatment $object) {
                     return $this->formatInactiveObjectLabel($object);
                 },
-                'attr' => [
+                'attr'          => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
-                'required' => false,
-                'multiple' => true,
-                'expanded' => false,
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
             ])
             ->add('contractors', EntityType::class, [
                 'label'         => 'registry.proof.form.contractors',
@@ -126,15 +162,15 @@ class ProofType extends AbstractType
                         ->andWhere('c.collectivity = :collectivity')
                         ->orderBy('c.name', Criteria::ASC)
                         ->setParameter('collectivity', $collectivity)
-                        ;
+                    ;
                 },
-                'attr' => [
+                'attr'          => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
-                'required' => false,
-                'multiple' => true,
-                'expanded' => false,
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
             ])
             ->add('mesurements', EntityType::class, [
                 'label'         => 'registry.proof.form.mesurements',
@@ -144,15 +180,15 @@ class ProofType extends AbstractType
                         ->andWhere('m.collectivity = :collectivity')
                         ->orderBy('m.name', Criteria::ASC)
                         ->setParameter('collectivity', $collectivity)
-                        ;
+                    ;
                 },
-                'attr' => [
+                'attr'          => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
-                'required' => false,
-                'multiple' => true,
-                'expanded' => false,
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
             ])
             ->add('requests', EntityType::class, [
                 'label'         => 'registry.proof.form.requests',
@@ -172,16 +208,16 @@ class ProofType extends AbstractType
 
                     return $qb;
                 },
-                'choice_label' => function (Model\Request $object) {
+                'choice_label'  => function (Model\Request $object) {
                     return $this->formatArchivedObjectLabel($object);
                 },
-                'attr' => [
+                'attr'          => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
-                'required' => false,
-                'multiple' => true,
-                'expanded' => false,
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
             ])
             ->add('violations', EntityType::class, [
                 'label'         => 'registry.proof.form.violations',
@@ -200,16 +236,16 @@ class ProofType extends AbstractType
 
                     return $qb;
                 },
-                'choice_label' => function (Model\Violation $object) {
+                'choice_label'  => function (Model\Violation $object) {
                     return $this->formatArchivedObjectLabel($object);
                 },
-                'attr' => [
+                'attr'          => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
-                'required' => false,
-                'multiple' => true,
-                'expanded' => false,
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
             ])
         ;
     }
@@ -258,10 +294,7 @@ class ProofType extends AbstractType
         $resolver
             ->setDefaults([
                 'data_class'        => Model\Proof::class,
-                'validation_groups' => [
-                    'default',
-                    'proof',
-                ],
+                'validation_groups' => ['default', 'proof'],
             ]);
     }
 }

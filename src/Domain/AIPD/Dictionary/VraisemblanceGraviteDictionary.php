@@ -9,17 +9,20 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class VraisemblanceGraviteDictionary extends SimpleDictionary
 {
-    const NEGLIGEABLE = 'negligeable';
-    const LIMITEE     = 'limitee';
-    const IMPORTANTE  = 'importante';
-    const MAXIMALE    = 'maximale';
+    public const NEGLIGEABLE = 'negligeable';
+    public const LIMITEE     = 'limitee';
+    public const IMPORTANTE  = 'importante';
+    public const MAXIMALE    = 'maximale';
 
-    public function __construct()
+    public function __construct(string $name = 'vraisemblance_gravite', array $values = [])
     {
-        parent::__construct('vraisemblance_gravite', self::getVraisemblanceGravite());
+        if (empty($values)) {
+            $values = self::getVraisemblanceGravite();
+        }
+        parent::__construct($name, $values);
     }
 
-    public static function getVraisemblanceGravite()
+    public static function getVraisemblanceGravite(): array
     {
         return [
             self::NEGLIGEABLE => 'Négligeable',

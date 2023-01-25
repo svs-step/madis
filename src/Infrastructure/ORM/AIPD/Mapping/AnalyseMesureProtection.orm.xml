@@ -8,6 +8,6 @@
     <entity name="App\Domain\AIPD\Model\AnalyseMesureProtection" table="aipd_analyse_mesure_protection">
         <field name="reponse" column="reponse" nullable="true"/>
         <many-to-one field="analyseImpact" target-entity="App\Domain\AIPD\Model\AnalyseImpact" inversed-by="mesureProtections"/>
-        <many-to-one field="scenarioMenace" target-entity="App\Domain\AIPD\Model\AnalyseScenarioMenace" inversed-by="mesuresProtections"/>
+        <many-to-many field="scenariosMenaces" target-entity="App\Domain\AIPD\Model\AnalyseScenarioMenace" mapped-by="mesuresProtections"/>
     </entity>
 </doctrine-mapping>

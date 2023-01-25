@@ -29,15 +29,17 @@ use App\Domain\Admin\Model;
 use App\Domain\Admin\Repository as DomainRepo;
 use App\Infrastructure\ORM\Admin\Repository as InfraRepo;
 use App\Tests\Utils\ReflectionTrait;
+use Doctrine\Persistence\ManagerRegistry;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class DuplicationTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
-     * @var RegistryInterface
+     * @var ManagerRegistry
      */
     private $registryProphecy;
 
@@ -46,9 +48,9 @@ class DuplicationTest extends TestCase
      */
     private $infraRepo;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->registryProphecy = $this->prophesize(RegistryInterface::class);
+        $this->registryProphecy = $this->prophesize(ManagerRegistry::class);
 
         $this->infraRepo = new InfraRepo\Duplication($this->registryProphecy->reveal());
     }

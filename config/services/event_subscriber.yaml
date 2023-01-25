@@ -19,6 +19,7 @@ services:
     App\Domain\Registry\Symfony\EventSubscriber\Kernel\ConformiteOrganisationSubscriber: ~
     App\Domain\Reporting\Symfony\EventSubscriber\Kernel\LogJournalSubscriber: ~
     App\Domain\User\Symfony\EventSubscriber\Kernel\SwitchUserSubscriber: ~
+    App\Domain\User\Symfony\EventSubscriber\Kernel\ExceptionSubscriber: ~
 
     # ========
     # DOCTRINE
@@ -48,6 +49,13 @@ services:
         arguments:
             $logJournalDuration: '%env(APP_LOG_JOURNAL_DURATION)%'
 
+    App\Domain\User\Symfony\EventSubscriber\Security\AuthenticationSubscriber:
+        arguments:
+            $requestStack: '@request_stack'
+            $loginAttemptRepository: '@App\Domain\User\Repository\LoginAttempt'
+            $userRepository: '@App\Domain\User\Repository\User'
+            $maxAttempts: '%env(int:APP_MAX_LOGIN_ATTEMPTS)%'
+
     Symfony\Component\Cache\Adapter\ArrayAdapter: ~
 
     App\Domain\Reporting\Symfony\EventSubscriber\Doctrine\LogJournalDoctrineSubscriber:
@@ -55,3 +63,5 @@ services:
             $cacheAdapter: '@Symfony\Component\Cache\Adapter\ArrayAdapter'
         tags:
             - { name: 'doctrine.event_subscriber' }
+
+    App\EventSubscriber\LogoutSubscriber: ~

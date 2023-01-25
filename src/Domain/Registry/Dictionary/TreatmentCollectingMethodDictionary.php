@@ -28,11 +28,13 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class TreatmentCollectingMethodDictionary extends SimpleDictionary
 {
-    const METHOD_WEB_FORM          = 'web_form';
-    const METHOD_PAPER_FORM        = 'paper_form';
-    const METHOD_CONTRACT          = 'contract';
-    const METHOD_RECEIVED_LIST     = 'received_list';
-    const METHOD_INTERNAL_DOCUMENT = 'internal_document';
+    public const METHOD_WEB_FORM          = 'web_form';
+    public const METHOD_PAPER_FORM        = 'paper_form';
+    public const METHOD_CONTRACT          = 'contract';
+    public const METHOD_RECEIVED_LIST     = 'received_list';
+    public const METHOD_INTERNAL_DOCUMENT = 'internal_document';
+    public const METHOD_ORAL_INTERVIEW    = 'oral_interview';
+    public const METHOD_OTHER             = 'other';
 
     public function __construct()
     {
@@ -52,6 +54,8 @@ class TreatmentCollectingMethodDictionary extends SimpleDictionary
             self::METHOD_CONTRACT          => 'Contrat',
             self::METHOD_RECEIVED_LIST     => 'Liste reçue',
             self::METHOD_INTERNAL_DOCUMENT => 'Document interne',
+            self::METHOD_ORAL_INTERVIEW    => 'Entretien oral',
+            self::METHOD_OTHER             => 'Autre',
         ];
     }
 

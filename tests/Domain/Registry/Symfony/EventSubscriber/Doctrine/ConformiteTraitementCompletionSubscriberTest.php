@@ -33,9 +33,12 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Persistence\ObjectManager;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class ConformiteTraitementCompletionSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var LifecycleEventArgs
      */
@@ -51,7 +54,7 @@ class ConformiteTraitementCompletionSubscriberTest extends TestCase
      */
     private $subscriber;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->lifeCycleEventArgs             = $this->prophesize(LifecycleEventArgs::class);
         $this->conformiteTraitementCompletion = $this->prophesize(ConformiteTraitementCompletion::class);

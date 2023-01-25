@@ -199,7 +199,7 @@ class Contractor extends CRUDRepository implements Repository\Contractor
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -216,7 +216,7 @@ class Contractor extends CRUDRepository implements Repository\Contractor
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     public function findAllByClonedFromCollectivity(Collectivity $collectivity)
@@ -230,6 +230,17 @@ class Contractor extends CRUDRepository implements Repository\Contractor
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
+    }
+
+    public function resetClonedFromCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->leftJoin('o.clonedFrom', 'c')
+            ->andWhere('c.collectivity = :collectivity')
+            ->setParameter('collectivity', $collectivity);
+
+        $qb->update(['o.clonedFrom' => null]);
     }
 }

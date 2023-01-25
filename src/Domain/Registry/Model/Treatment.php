@@ -34,6 +34,8 @@ use App\Domain\Registry\Model\Embeddable\Delay;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -353,7 +355,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
     /**
      * FR: Moyens de la collecte des données (Détails).
      *
-     * @var string|null
+     * @var array|null
      */
     private $collectingMethod;
 
@@ -380,6 +382,25 @@ class Treatment implements LoggableSubject, CollectivityRelated
      * @var Service|null
      */
     private $service;
+
+    /**
+     * FR: Préconisation DPO.
+     *
+     * @var string|null
+     */
+    private $dpoMessage;
+
+    /**
+     * FR: Autre moyen de collecte.
+     *
+     * @var string|null
+     */
+    private $otherCollectingMethod;
+
+    private Collection $mesurements;
+    private Collection $requests;
+
+    private Collection $violations;
 
     /**
      * Treatment constructor.
@@ -420,6 +441,8 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->concernedPeopleCompany            = new ComplexChoice();
         $this->concernedPeoplePartner            = new ComplexChoice();
         $this->concernedPeopleOther              = new ComplexChoice();
+        $this->requests                          = new ArrayCollection();
+        $this->violations                        = new ArrayCollection();
     }
 
     public function getId(): UuidInterface
@@ -433,8 +456,8 @@ class Treatment implements LoggableSubject, CollectivityRelated
             return '';
         }
 
-        if (\mb_strlen($this->getName()) > 50) {
-            return \mb_substr($this->getName(), 0, 50) . '...';
+        if (\mb_strlen($this->getName()) > 85) {
+            return \mb_substr($this->getName(), 0, 85) . '...';
         }
 
         return $this->getName();
@@ -869,7 +892,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->coordonneesResponsableTraitement = $coordonneesResponsableTraitement;
     }
 
-    public function getCollectingMethod()
+    public function getCollectingMethod(): ?array
     {
         return $this->collectingMethod;
     }
@@ -974,5 +997,84 @@ class Treatment implements LoggableSubject, CollectivityRelated
         }
 
         return $result;
+    }
+
+    public function getDpoMessage(): ?string
+    {
+        return $this->dpoMessage;
+    }
+
+    public function setDpoMessage(?string $dpoMessage): void
+    {
+        $this->dpoMessage = $dpoMessage;
+    }
+
+    public function getOtherCollectingMethod(): ?string
+    {
+        return $this->otherCollectingMethod;
+    }
+
+    public function setOtherCollectingMethod(?string $otherCollectingMethod): void
+    {
+        $this->otherCollectingMethod = $otherCollectingMethod;
+    }
+
+    public function getMesurements(): Collection
+    {
+        return $this->mesurements;
+    }
+
+    public function setMesurement(Collection $mesurements): void
+    {
+        $this->mesurements = $mesurements;
+    }
+
+    public function addRequest(Request $request): void
+    {
+        $request->addTreatment($this);
+        $this->requests[] = $request;
+    }
+
+    public function removeRequest(Request $request): void
+    {
+        $request->removeTreatment($this);
+
+        if ($this->requests && $this->requests->count() && $this->requests->contains($request)) {
+            $this->requests->removeElement($request);
+        }
+    }
+
+    public function getRequests(): Collection
+    {
+        return $this->requests;
+    }
+
+    public function setRequests(Collection $requests)
+    {
+        $this->requests = $requests;
+    }
+
+    public function addViolation(Violation $violation): void
+    {
+        $violation->addTreatment($this);
+        $this->violations[] = $violation;
+    }
+
+    public function removeViolation(Violation $violation): void
+    {
+        $violation->removeTreatment($this);
+
+        $key = \array_search($violation, $this->violations, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->violations[$key]);
+    }
+
+    public function getViolations()
+    {
+        return $this->violations;
     }
 }

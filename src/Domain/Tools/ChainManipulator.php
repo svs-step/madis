@@ -12,8 +12,8 @@ class ChainManipulator
         for ($i = 0, $filenameLength = mb_strlen($chain, $encoding); $i < $filenameLength; ++$i) {
             $char = mb_substr($chain, $i, 1, $encoding);
 
-            //remove all character is not alphanumeric base on ascii table
-            //ascii table https://www.cs.cmu.edu/~pattis/15-1XX/common/handouts/ascii.html
+            // remove all character is not alphanumeric base on ascii table
+            // ascii table https://www.cs.cmu.edu/~pattis/15-1XX/common/handouts/ascii.html
             if ((\ord($char) < 48 || \ord($char) > 57)
                 && (\ord($char) < 65 || \ord($char) > 90)
                 && (\ord($char) < 97 || \ord($char) > 123)

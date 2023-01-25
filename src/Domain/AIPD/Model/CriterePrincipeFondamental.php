@@ -21,6 +21,7 @@ class CriterePrincipeFondamental
 
     protected string $label;
     protected string $labelLivrable;
+    protected string $code;
     /**
      * @see ReponseCritereFondamentalDictionary
      */
@@ -30,8 +31,9 @@ class CriterePrincipeFondamental
     private string $texteNonConformite;
     private string $texteNonApplicable;
     private ?string $justification;
-    private ?string $fichier;
+    private ?string $fichier           = null;
     private ?UploadedFile $fichierFile = null;
+    private bool $canBeModified        = true;
 
     /**
      * @Serializer\Exclude
@@ -43,11 +45,16 @@ class CriterePrincipeFondamental
      */
     private ?AnalyseImpact $analyseImpact;
 
-    public function __construct(string $label = null)
+    protected bool $deleteFile = false;
+
+    public function __construct(string $label = null, string $code = null)
     {
         $this->id = Uuid::uuid4();
         if (!\is_null($label)) {
             $this->label = $label;
+        }
+        if (!\is_null($code)) {
+            $this->code = $code;
         }
     }
 
@@ -84,6 +91,16 @@ class CriterePrincipeFondamental
     public function setLabelLivrable(string $labelLivrable): void
     {
         $this->labelLivrable = $labelLivrable;
+    }
+
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): void
+    {
+        $this->code = $code;
     }
 
     public function getReponse()
@@ -184,5 +201,25 @@ class CriterePrincipeFondamental
     public function setAnalyseImpact(?AnalyseImpact $analyseImpact): void
     {
         $this->analyseImpact = $analyseImpact;
+    }
+
+    public function isCanBeModified(): bool
+    {
+        return $this->canBeModified;
+    }
+
+    public function setCanBeModified(bool $canBeModified): void
+    {
+        $this->canBeModified = $canBeModified;
+    }
+
+    public function isDeleteFile(): bool
+    {
+        return $this->deleteFile;
+    }
+
+    public function setDeleteFile(bool $deleteFile): void
+    {
+        $this->deleteFile = $deleteFile;
     }
 }

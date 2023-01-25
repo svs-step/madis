@@ -10,9 +10,15 @@ class AnalyseQuestionConformite extends AbstractQuestionConformite
 {
     protected AnalyseImpact $analyseImpact;
 
-    protected string $justificatif;
+    protected ?string $justificatif;
 
     protected Reponse $reponseConformite;
+
+    public function __construct(string $question, int $position)
+    {
+        parent::__construct($question, $position);
+        $this->reponseConformite = new Reponse();
+    }
 
     public function getAnalyseImpact(): AnalyseImpact
     {
@@ -24,12 +30,12 @@ class AnalyseQuestionConformite extends AbstractQuestionConformite
         $this->analyseImpact = $analyseImpact;
     }
 
-    public function getJustificatif(): string
+    public function getJustificatif(): ?string
     {
         return $this->justificatif;
     }
 
-    public function setJustificatif(string $justificatif): void
+    public function setJustificatif(?string $justificatif): void
     {
         $this->justificatif = $justificatif;
     }

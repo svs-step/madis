@@ -5,7 +5,7 @@
     <tr class="js-table-collection-item">
         {{ form_errors(scenarioMenace) }}
         <td>{{ form_widget(scenarioMenace.nom) }}</td>
-        <td>{{ form_row(scenarioMenace.mesuresProtections) }}</td>
+        <td style="max-width: 300px" class="mesure-protection">{{ form_widget(scenarioMenace.mesuresProtections) }}</td>
         <td style="max-width: 40px">{{ form_widget(scenarioMenace.isVisible) }}</td>
         <td style="max-width: 30px">{{ form_row(scenarioMenace.isDisponibilite) }}</td>
         <td style="max-width: 30px">{{ form_row(scenarioMenace.isIntegrite) }}</td>
@@ -23,6 +23,17 @@
 {% endmacro %}
 
 <link type="text/css" rel="stylesheet" href="{{ asset('bundles/craueformflow/css/buttons.css') }}" />
+<style>
+    td.mesure-protection .dropdown .dropdown-menu.open {
+        min-width: 100px !important;
+    }
+    td.mesure-protection .dropdown .dropdown-menu.open .dropdown-menu.inner li a span.text {
+        max-width: 400px !important;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+</style>
 
 {{ form_start(form) }}
 <div class="row">
@@ -71,6 +82,9 @@
                             } %}
                         {% endfor %}
                     </table>
+                    <div style="display: none">
+                        {{ form_row(form.criterePrincipeFondamentaux) }}
+                    </div>
                 </div>
             </div>
         {% elseif flow.getCurrentStepNumber() == 2 %}

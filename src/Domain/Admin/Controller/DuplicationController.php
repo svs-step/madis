@@ -35,7 +35,6 @@ use App\Domain\Admin\Repository as AdminRepository;
 use App\Domain\Admin\Transformer\DuplicationFormDTOTransformer;
 use App\Domain\User\Repository as UserRepository;
 // utilisés dynamiquements pour revert duplication, ne pas supprimer
-use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -175,7 +174,13 @@ class DuplicationController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
-        $duplicationId = $entityManager->getRepository(Duplication::class)->findBy([], ['createdAt' => 'DESC'], 1)[0];
+        $d = $entityManager->getRepository(Duplication::class)->findBy([], ['createdAt' => 'DESC'], 1);
+        if (0 === count($d)) {
+            $this->addFlash('error', 'Il n\'y a aucune duplication à annuler');
+
+            return $this->redirectToRoute('admin_duplication_new');
+        }
+        $duplicationId = $d[0];
 
         if ($duplicationId) {
             $duplication = $entityManager->getRepository(Duplication::class)->find($duplicationId);
@@ -184,7 +189,7 @@ class DuplicationController extends AbstractController
 
             try {
                 $typeToDelete = DuplicationTypeDictionary::getClassName($duplication->getType());
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->addFlash('error', 'Impossible d\'annuler la dernière duplication');
 
                 return $this->redirectToRoute('admin_duplication_new');
@@ -193,12 +198,12 @@ class DuplicationController extends AbstractController
             // Aller chercher puis supprimer tous les objets liés à la duplication
             if ($objectIdsToDelete) {
                 foreach ($objectIdsToDelete as $objectId) {
-                    $objectDuplicated = $entityManager
+                    $duplicatedObjects = $entityManager
                     ->getRepository(DuplicatedObject::class)
-                    ->findOneBy(['duplication' => $duplication, 'originObjectId' => $objectId]);
+                    ->findBy(['duplication' => $duplication, 'originObjectId' => $objectId]);
 
-                    if ($objectDuplicated) {
-                        $objectToDelete = $entityManager->getRepository($typeToDelete)->find($objectDuplicated->getDuplicatId());
+                    foreach ($duplicatedObjects as $duplicatedObject) {
+                        $objectToDelete = $entityManager->getRepository($typeToDelete)->find($duplicatedObject->getDuplicatId());
 
                         $entityManager->remove($objectToDelete);
                     }

@@ -11,10 +11,12 @@ use App\Domain\Reporting\Symfony\EventSubscriber\Kernel\LogJournalSubscriber;
 use App\Infrastructure\ORM\Reporting\Repository\LogJournal;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class LogJournalSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
     /**
      * @var EntityManagerInterface
      */

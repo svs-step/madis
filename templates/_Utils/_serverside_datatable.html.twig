@@ -1,4 +1,5 @@
 <script>
+
     {% set dataTableOptions = dataTableOptions|merge({
         language: {
             buttons: {
@@ -9,7 +10,15 @@
             {
                 extend: "colvis",
                 columns: ":not(.noVis)"
-            }
+            },
+            {
+                extend: "excelHtml5",
+                text: 'Exporter',
+                exportOptions: {
+                    autoFilter: true,
+                    columns:  [':visible :not(:last-child)'],
+                }
+            },
         ],
     }) %}
 </script>

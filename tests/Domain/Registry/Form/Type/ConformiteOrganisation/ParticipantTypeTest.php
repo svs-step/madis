@@ -6,15 +6,18 @@ use App\Domain\Registry\Form\Type\ConformiteOrganisation\ParticipantType;
 use App\Domain\Registry\Model\ConformiteOrganisation\Participant;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ParticipantTypeTest extends FormTypeHelper
 {
+    use ProphecyTrait;
+
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, (new ParticipantType()));
+        $this->assertInstanceOf(AbstractType::class, new ParticipantType());
     }
 
     public function testBuildForm()

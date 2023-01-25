@@ -28,8 +28,10 @@ use App\Application\DDD\Repository\RepositoryInterface;
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Notification\Model\Notification;
 use App\Domain\Tools\ChainManipulator;
 use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
@@ -37,9 +39,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
 
 abstract class CRUDController extends AbstractController
 {
@@ -84,12 +86,12 @@ abstract class CRUDController extends AbstractController
         UserProvider $userProvider,
         AuthorizationCheckerInterface $authorizationChecker
     ) {
-        $this->entityManager            = $entityManager;
-        $this->translator               = $translator;
-        $this->repository               = $repository;
-        $this->pdf                      = $pdf;
-        $this->userProvider             = $userProvider;
-        $this->authorizationChecker     = $authorizationChecker;
+        $this->entityManager        = $entityManager;
+        $this->translator           = $translator;
+        $this->repository           = $repository;
+        $this->pdf                  = $pdf;
+        $this->userProvider         = $userProvider;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -203,13 +205,13 @@ abstract class CRUDController extends AbstractController
      */
     public function createAction(Request $request): Response
     {
-        $modelClass     = $this->getModelClass();
+        $modelClass = $this->getModelClass();
         /** @var CollectivityRelated $object */
         $object         = new $modelClass();
         $serviceEnabled = false;
 
         if ($object instanceof CollectivityRelated) {
-            $user       = $this->userProvider->getAuthenticatedUser();
+            $user = $this->userProvider->getAuthenticatedUser();
             $object->setCollectivity($user->getCollectivity());
             $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
         }
@@ -217,6 +219,7 @@ abstract class CRUDController extends AbstractController
         $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'create']]);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->formPrePersistData($object);
             $em = $this->getDoctrine()->getManager();
@@ -230,8 +233,9 @@ abstract class CRUDController extends AbstractController
         }
 
         return $this->render($this->getTemplatingBasePath('create'), [
-            'form'              => $form->createView(),
-            'serviceEnabled'    => $serviceEnabled,
+            'form'           => $form->createView(),
+            'object'         => $object,
+            'serviceEnabled' => $serviceEnabled,
         ]);
     }
 
@@ -257,8 +261,13 @@ abstract class CRUDController extends AbstractController
             $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
         }
 
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+
         $actionEnabled = true;
-        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+        if ($object instanceof CollectivityRelated && (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$user->getServices()->isEmpty())) {
             $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
         }
 
@@ -269,6 +278,7 @@ abstract class CRUDController extends AbstractController
         $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->formPrePersistData($object);
             $this->entityManager->persist($object);
@@ -280,8 +290,9 @@ abstract class CRUDController extends AbstractController
         }
 
         return $this->render($this->getTemplatingBasePath('edit'), [
-            'form'              => $form->createView(),
-            'serviceEnabled'    => $serviceEnabled,
+            'form'           => $form->createView(),
+            'object'         => $object,
+            'serviceEnabled' => $serviceEnabled,
         ]);
     }
 
@@ -306,14 +317,18 @@ abstract class CRUDController extends AbstractController
         }
 
         $actionEnabled = true;
-        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$user->getServices()->isEmpty()) {
             $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
         }
 
         return $this->render($this->getTemplatingBasePath('show'), [
-            'object'            => $object,
-            'actionEnabled'     => $actionEnabled,
-            'serviceEnabled'    => $serviceEnabled,
+            'object'         => $object,
+            'actionEnabled'  => $actionEnabled,
+            'serviceEnabled' => $serviceEnabled,
         ]);
     }
 
@@ -330,7 +345,11 @@ abstract class CRUDController extends AbstractController
         }
 
         $actionEnabled = true;
-        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$user->getServices()->isEmpty()) {
             $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
         }
 
@@ -388,11 +407,11 @@ abstract class CRUDController extends AbstractController
         );
     }
 
-    private function getPdfName(string $name): string
+    public function getPdfName(string $name): string
     {
         $name = ChainManipulator::removeAllNonAlphaNumericChar(ChainManipulator::removeAccents($name));
 
-        return  $name . '-' . date('mdY');
+        return $name . '-' . date('mdY');
     }
 
     /**
@@ -401,5 +420,90 @@ abstract class CRUDController extends AbstractController
     protected function isSoftDelete(): bool
     {
         return false;
+    }
+
+    public function getNotifications(): array
+    {
+        return $this->entityManager->getRepository(Notification::class)->findAll();
+    }
+
+    /**
+     * The delete action list
+     * Display a confirmation message to confirm data deletion.
+     */
+    public function deleteAllAction(Request $request): Response
+    {
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('delete_all'), [ // delete_all
+            'ids'            => $ids,
+            'objects_length' => count($ids),
+        ]);
+    }
+
+    public function deleteConfirmationAllAction(Request $request): Response
+    {
+        $ids = $request->query->get('ids');
+
+        foreach ($ids as $id) {
+            $this->deleteConfirmationAction($id);
+        }
+
+        return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
+    // RETURN A PDF WITH ALL IDS FILTERED
+    public function pdfAllAction(Request $request)
+    {
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
+
+        $objects = [];
+
+        foreach ($ids as $id) {
+            $object = $this->repository->findOneById($id);
+            array_push($objects, $object);
+        }
+
+        return new PdfResponse(
+            $this->pdf->getOutputFromHtml(
+                $this->renderView($this->getTemplatingBasePath('pdf_all'), ['objects' => $objects])
+            ),
+            $this->getPdfName((string) 'print') . '.pdf'
+        );
+    }
+
+    /**
+     * The archive action
+     * Display a confirmation message to confirm data archived.
+     */
+    public function archiveAllAction(Request $request): Response
+    {
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
+
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', 'Vous ne pouvez pas archiver ces traitements');
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        foreach ($ids as $id) {
+            $object = $this->repository->findOneById($id);
+            if ($object) {
+                $object->setActive(false);
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
+            }
+        }
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute($this->getRouteName('list'));
     }
 }

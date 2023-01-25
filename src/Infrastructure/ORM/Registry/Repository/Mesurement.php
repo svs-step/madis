@@ -114,7 +114,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -134,7 +134,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -353,7 +353,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     public function findAllByClonedFromCollectivity(Collectivity $collectivity)
@@ -367,6 +367,45 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         return $qb
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    public function getPlanifiedActionsDashBoard($limit = 1000, Collectivity $collectivity = null)
+    {
+        // Add old actions again.
+        // Fixes https://gitlab.adullact.net/soluris/madis/-/issues/529
+        // $date         = new \DateTime();
+        $queryBuilder = $this->createQueryBuilder();
+        $queryBuilder
+            ->where('o.status = :status')
+            ->setParameter('status', MesurementStatusDictionary::STATUS_NOT_APPLIED)
+            ->andWhere('o.planificationDate is not null')
+            ->orderBy('o.planificationDate', 'DESC')
+        ;
+
+        if ($collectivity) {
+            $queryBuilder
+                ->andWhere('o.collectivity = :collectivity')
+                ->setParameter('collectivity', $collectivity)
             ;
+        }
+
+        $query = $queryBuilder
+            ->groupBy('o.id')
+            ->setMaxResults((int) $limit)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    public function resetClonedFromCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->leftJoin('o.clonedFrom', 'c')
+            ->andWhere('c.collectivity = :collectivity')
+            ->setParameter('collectivity', $collectivity);
+
+        $qb->update(['o.clonedFrom' => null]);
     }
 }

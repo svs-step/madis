@@ -56,6 +56,6 @@ class ConformiteTraitement extends CRUDRepository implements Repository\Conformi
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

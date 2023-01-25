@@ -11,7 +11,7 @@
 
 {% block body_head %}
     <h1>
-        {{ 'registry.treatment.title.show'|trans }}
+        {{ 'registry.treatment.title.show'|trans }} - {{ object.collectivity }}
         {% if (object.name and config.name == true) %}
             <small>{{ object.name }}</small>
         {% endif %}
@@ -20,25 +20,25 @@
 
 
 {% block body %}
-<div class="row">
-    <div class="col-xs-12">
-        <div class="action-bar">
-            <a href="{{ path('registry_public_treatment_list', {id: object.collectivity.id}) }}" class="btn btn-default">
-                <i class="fa fa-arrow-left"></i>
-                {{ 'registry.treatment.action.back_to_list'|trans }}
-            </a>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="action-bar">
+                <a href="{{ path('registry_public_treatment_list', {id: object.collectivity.id}) }}" class="btn btn-default">
+                    <i class="fa fa-arrow-left"></i>
+                    {{ 'registry.treatment.action.back_to_list'|trans }}
+                </a>
+            </div>
         </div>
     </div>
-</div>
 
-<div
-    class="row">
+<div class="row">
     {# LEFT #}
     <div
         class="col-md-6">
         {# GENERAL INFORMATIONS #}
         {% if (
             (object.name and config.name == true)
+            or (object.service and config.service == true)
             or (object.goal and config.goal == true)
             or (object.author and config.author == true)
             or (object.author == "processing_manager" and object.coordonneesResponsableTraitement and config.coordonneesResponsableTraitement == true)
@@ -63,6 +63,15 @@
                                     <td>{{ object.name }}</td>
                                 </tr>
                             {% endif %}
+                            {% if (object.service and config.service == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.service'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.service }}</td>
+                                </tr>
+                            {% endif %}
+
                             {% if (object.goal and config.goal == true) %}
                                 <tr>
                                     <td>
@@ -411,9 +420,13 @@
                                         <strong>{{ 'registry.treatment.show.collectivity'|trans }}</strong>
                                     </td>
                                     <td>
+                                        {% if app.user %}
                                         <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
                                             {{ object.collectivity }}
                                         </a>
+                                        {% else %}
+                                            {{ object.collectivity }}
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endif %}
@@ -426,7 +439,7 @@
 
     {# RIGHT #}
     <div
-        class="col-md-6">
+        class="col-md-6"> 
         {# DETAILS #}
         {% if (
             (object.concernedPeopleParticular and config.concernedPeopleParticular == true) 
@@ -746,39 +759,43 @@
                                     </td>
                                 </tr>
                             {% endif %}
+                            {% if (config.securityOpenAccounts == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.security_open_accounts'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.securityOpenAccounts %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.securitySpecificitiesDelivered == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.security_specificities_delivered'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.securitySpecificitiesDelivered %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
                         </tbody>
-                    </td>
-                </tr>
-                <tr>
-                    {% if (config.securityOpenAccounts == true) %}
-                        <td>
-                            <strong>{{ 'registry.treatment.show.security_open_accounts'|trans }}</strong>
-                        </td>
-                        <td>
-                            {% if object.securityOpenAccounts %}
-                                <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                            {% else %}
-                                <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endif %}
-                {% if (config.securitySpecificitiesDelivered == true) %}
-                    <tr>
-                        <td>
-                            <strong>{{ 'registry.treatment.show.security_specificities_delivered'|trans }}</strong>
-                        </td>
-                        <td>
-                            {% if object.securitySpecificitiesDelivered %}
-                                <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                            {% else %}
-                                <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endif %}
-            </tbody>
+                    </table>
+                </div>
+            </div>
         {% endif %}
-    </table>
-</div></div>{# PROOFS #}{% if (object.proofs and config.proofs == true) %}
-{% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}</div></div></div>{% endif %}{% endblock %}
+        {# PROOFS #}
+        {% if (object.proofs and config.proofs == true) %}
+            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

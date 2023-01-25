@@ -25,16 +25,21 @@ declare(strict_types=1);
 namespace App\Domain\User\Model;
 
 use App\Application\Interfaces\CollectivityRelated;
+use App\Application\Traits\Model\HistoryTrait;
 use App\Application\Traits\Model\SoftDeletableTrait;
+use App\Domain\Documentation\Model\Document;
 use App\Domain\Reporting\Model\LoggableSubject;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User implements LoggableSubject, UserInterface, CollectivityRelated
+class User implements LoggableSubject, UserInterface, CollectivityRelated, PasswordAuthenticatedUserInterface
 {
     use SoftDeletableTrait;
+    use HistoryTrait;
 
     /**
      * @var UuidInterface
@@ -107,6 +112,33 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
     private $apiAuthorized;
 
     /**
+     * @var Collection|null
+     */
+    private $favoriteDocuments;
+
+    /**
+     * @var bool
+     */
+    private $documentView;
+
+    /**
+     * @var array|null
+     */
+    private $moreInfos;
+
+    private EmailNotificationPreference $emailNotificationPreference;
+
+    /**
+     * @var Collection|array|null
+     */
+    private $notifications;
+
+    /**
+     * @var string|null
+     */
+    private $ssoKey;
+
+    /**
      * User constructor.
      *
      * @throws \Exception
@@ -117,6 +149,7 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
         $this->roles                 = [];
         $this->enabled               = true;
         $this->collectivitesReferees = [];
+        $this->moreInfos             = [];
     }
 
     public function getId(): UuidInterface
@@ -202,7 +235,7 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
         $this->plainPassword = null;
     }
 
-    public function getForgetPasswordToken(): string
+    public function getForgetPasswordToken(): ?string
     {
         return $this->forgetPasswordToken;
     }
@@ -300,5 +333,88 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated
         }
 
         return $result;
+    }
+
+    public function getFavoriteDocuments(): ?Collection
+    {
+        return $this->favoriteDocuments;
+    }
+
+    public function setFavoriteDocuments(?Collection $favoriteDocuments): User
+    {
+        $this->favoriteDocuments = $favoriteDocuments;
+
+        return $this;
+    }
+
+    public function addFavoriteDocument(Document $doc): User
+    {
+        if (null === $this->favoriteDocuments) {
+            $this->favoriteDocuments = new ArrayCollection();
+        }
+        if (!$this->favoriteDocuments->contains($doc)) {
+            $this->favoriteDocuments->add($doc);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteDocument(Document $doc): User
+    {
+        if (null !== $this->favoriteDocuments && !$this->favoriteDocuments->contains($doc)) {
+            $this->favoriteDocuments->removeElement($doc);
+        }
+
+        return $this;
+    }
+
+    public function isDocumentView(): ?bool
+    {
+        return $this->documentView;
+    }
+
+    public function setDocumentView(bool $documentView): void
+    {
+        $this->documentView = $documentView;
+    }
+
+    public function getMoreInfos(): ?array
+    {
+        return $this->moreInfos;
+    }
+
+    public function setMoreInfos(array $moreInfos): void
+    {
+        $this->moreInfos = $moreInfos;
+    }
+
+    public function getEmailNotificationPreference(): EmailNotificationPreference
+    {
+        return $this->emailNotificationPreference;
+    }
+
+    public function setEmailNotificationPreference(EmailNotificationPreference $emailNotificationPreference): void
+    {
+        $this->emailNotificationPreference = $emailNotificationPreference;
+    }
+
+    public function getNotifications(): ?Collection
+    {
+        return $this->notifications;
+    }
+
+    public function setNotifications(?Collection $notifications): void
+    {
+        $this->notifications = $notifications;
+    }
+
+    public function getSsoKey(): ?string
+    {
+        return $this->ssoKey;
+    }
+
+    public function setSsoKey(?string $ssoKey): void
+    {
+        $this->ssoKey = $ssoKey;
     }
 }

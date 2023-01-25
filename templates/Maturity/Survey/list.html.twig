@@ -7,6 +7,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
 {% endblock %}
 
 {% block body_head %}
@@ -85,5 +86,11 @@
 {% endblock %}
 
 {% block javascripts %}
+    {% set dataTableOptions = {
+        columnDefs: [
+            { orderable: false, className: "noVis", targets: 3, visible: true },
+        ],
+    } %}
+
     {{ include('_Utils/_datatable.html.twig') }}
 {% endblock %}

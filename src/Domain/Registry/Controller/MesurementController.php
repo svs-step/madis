@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Dictionary\MesurementPriorityDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Form\Type\MesurementType;
@@ -45,10 +46,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
 
 /**
  * @property Repository\Mesurement $repository
@@ -162,8 +163,13 @@ class MesurementController extends CRUDController
     {
         $request = $this->requestStack->getCurrentRequest();
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Action de protection',
+        ]);
+
         return $this->render($this->getTemplatingBasePath('list'), [
             'totalItem' => $this->repository->count($this->getRequestCriteria($request)),
+            'category'  => $category,
             'route'     => $this->router->generate('registry_mesurement_list_datatables'),
         ]);
     }
@@ -193,8 +199,13 @@ class MesurementController extends CRUDController
     {
         $request = $this->requestStack->getCurrentRequest();
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => "Plan d'action",
+        ]);
+
         return $this->render('Registry/Mesurement/action_plan.html.twig', [
             'totalItem' => $this->repository->count($this->getRequestCriteria($request)),
+            'category'  => $category,
             'route'     => $this->router->generate('registry_mesurement_list_datatables', ['action_plan' => true]),
         ]);
     }
@@ -214,7 +225,7 @@ class MesurementController extends CRUDController
             throw new NotFoundHttpException('Can\'t find collectivity for id ' . $collectivityId);
         }
 
-        $mesurements   = $this->repository->findAllByCollectivity(
+        $mesurements = $this->repository->findAllByCollectivity(
             $collectivity,
             [
                 'name' => 'ASC',
@@ -249,7 +260,7 @@ class MesurementController extends CRUDController
                 $errors[$error->getOrigin()->getName()] = $error->getMessage();
             }
 
-            return new JsonResponse(\json_encode($errors), Response::HTTP_BAD_REQUEST);
+            return new JsonResponse($errors, Response::HTTP_BAD_REQUEST);
         }
 
         /** @var Model\Mesurement $object */
@@ -264,7 +275,7 @@ class MesurementController extends CRUDController
             'name' => $object->getName(),
         ];
 
-        return new JsonResponse(\json_encode($dataToSerialize), Response::HTTP_CREATED);
+        return new JsonResponse($dataToSerialize, Response::HTTP_CREATED);
     }
 
     public function showMesurementAction(Request $request, string $id): Response
@@ -314,7 +325,7 @@ class MesurementController extends CRUDController
         $isActionPlan = $request->query->getBoolean('action_plan');
 
         if ($isActionPlan) {
-            return  [
+            return [
                 0 => 'nom',
                 1 => 'collectivite',
                 2 => 'date_planification',
@@ -333,7 +344,8 @@ class MesurementController extends CRUDController
             3 => 'cout',
             4 => 'charge',
             5 => 'priorite',
-            6 => 'actions',
+            6 => 'responsable_action',
+            7 => 'actions',
         ];
     }
 
@@ -349,6 +361,7 @@ class MesurementController extends CRUDController
         /** @var Model\Mesurement $action */
         foreach ($actions as $action) {
             $reponse['data'][] = [
+                'id'                 => $action->getId(),
                 'nom'                => !$isActionPlan ? $this->generateShowLink($action) : $action->getName(),
                 'collectivite'       => $action->getCollectivity()->getName(),
                 'statut'             => MesurementStatusDictionary::getStatus()[$action->getStatus()],
@@ -371,7 +384,7 @@ class MesurementController extends CRUDController
     {
         return '<a href="' .
             $this->router->generate('registry_mesurement_show', ['id' => $mesurement->getId()]) .
-            '">' . $mesurement->getName() . '</a>';
+            '">' . \htmlspecialchars($mesurement->getName()) . '</a>';
     }
 
     private function generateActionCell(Model\Mesurement $mesurement, bool $isActionPlan = false)

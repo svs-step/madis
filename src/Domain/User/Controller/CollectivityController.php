@@ -27,6 +27,8 @@ namespace App\Domain\User\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Repository as RegistryRepository;
 use App\Domain\User\Dictionary\CollectivityTypeDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
@@ -87,15 +89,15 @@ class CollectivityController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->router                   = $router;
-        $this->security                 = $security;
-        $this->treatmentRepository      = $treatmentRepository;
-        $this->contractorRepository     = $contractorRepository;
-        $this->proofRepository          = $proofRepository;
-        $this->userRepository           = $userRepository;
-        $this->mesurementRepository     = $mesurementRepository;
-        $this->userProvider             = $userProvider;
-        $this->authorizationChecker     = $authorizationChecker;
+        $this->router               = $router;
+        $this->security             = $security;
+        $this->treatmentRepository  = $treatmentRepository;
+        $this->contractorRepository = $contractorRepository;
+        $this->proofRepository      = $proofRepository;
+        $this->userRepository       = $userRepository;
+        $this->mesurementRepository = $mesurementRepository;
+        $this->userProvider         = $userProvider;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -151,9 +153,7 @@ class CollectivityController extends CRUDController
         /** @var Model\Collectivity $collectivity */
         foreach ($collectivities as $collectivity) {
             $reponse['data'][] = [
-                'nom'                          => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' .
-                    $collectivity->getName() .
-                    '</a>',
+                'nom'                          => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' . $collectivity->getName() . '</a>',
                 'nom_court'                    => $collectivity->getShortName(),
                 'type'                         => !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] : null,
                 'informations_complementaires' => !\is_null($collectivity->getInformationsComplementaires()) ? nl2br($collectivity->getInformationsComplementaires()) : null,
@@ -175,12 +175,12 @@ class CollectivityController extends CRUDController
             return;
         }
 
-        $cellContent = '<a href="' . $this->router->generate('user_collectivity_edit', ['id'=> $collectivity->getId()]) . '">
+        $cellContent = '<a href="' . $this->router->generate('user_collectivity_edit', ['id' => $collectivity->getId()]) . '">
             <i class="fa fa-pencil-alt"></i> ' .
             $this->translator->trans('action.edit') .
         '</a>';
 
-        $cellContent .= '<a href="' . $this->router->generate('user_collectivity_delete', ['id'=> $collectivity->getId()]) . '">
+        $cellContent .= '<a href="' . $this->router->generate('user_collectivity_delete', ['id' => $collectivity->getId()]) . '">
             <i class="fa fa-trash"></i> ' .
             $this->translator->trans('action.delete') .
         '</a>';
@@ -202,7 +202,7 @@ class CollectivityController extends CRUDController
 
     private function getRequestCriteria()
     {
-        $criteria            = [];
+        $criteria = [];
 
         if (!$this->security->isGranted('ROLE_ADMIN')) {
             /** @var Model\User $user */
@@ -251,31 +251,46 @@ class CollectivityController extends CRUDController
         $deletedTreaments = $this->treatmentRepository->findBy(['collectivity' => $object]);
         foreach ($deletedTreaments as $deletedTreament) {
             $stringObjects[] = 'Traitement - ' . $deletedTreament->getName();
+            /**
+             * @var Treatment
+             */
+            $aipds = $deletedTreament->getConformiteTraitement() ? $deletedTreament->getConformiteTraitement()->getAnalyseImpacts() : [];
+            foreach ($aipds as $aipd) {
+                $stringObjects[] = 'AIPD - ' . $aipd->__toString();
+            }
         }
 
         $deletedContractors = $this->contractorRepository->findBy(['collectivity' => $object]);
         foreach ($deletedContractors as $deletedContractor) {
-            $stringObjects[] = 'Sous-traitent - ' . $deletedContractor->getName();
+            $stringObjects[] = 'Sous-traitant - ' . $deletedContractor->getName();
         }
 
-        $deletedProofs =  $this->proofRepository->findBy(['collectivity' => $object]);
+        $deletedProofs = $this->proofRepository->findBy(['collectivity' => $object]);
         foreach ($deletedProofs as $deletedProof) {
             $stringObjects[] = 'Preuve - ' . $deletedProof->getName();
         }
 
-        $deletedUsers =  $this->userRepository->findBy(['collectivity' => $object]);
+        $deletedUsers = $this->userRepository->findBy(['collectivity' => $object]);
         foreach ($deletedUsers as $deletedUser) {
             $stringObjects[] = 'Utilisateur - ' . $deletedUser->getFirstname() . ' ' . $deletedUser->getLastname();
         }
 
         $deletedMesurements = $this->mesurementRepository->findBy(['collectivity' => $object]);
         foreach ($deletedMesurements as $deletedMesurement) {
+            /*
+             * @var Mesurement
+             */
+            if ($deletedMesurement->getClonedFrom()) {
+                $stringObjects[] = 'Action de protection - ' . $deletedMesurement->getClonedFrom()->getName();
+            }
             $stringObjects[] = 'Action de protection - ' . $deletedMesurement->getName();
         }
 
         return $this->render($this->getTemplatingBasePath('delete'), [
-            'object'            => $object,
-            'deletedObjects'    => $stringObjects,
+            'object'             => $object,
+            'deletedObjects'     => $stringObjects,
+            'deletedTreatments'  => $deletedTreaments,
+            'deletedContractors' => $deletedContractors,
         ]);
     }
 
@@ -285,17 +300,76 @@ class CollectivityController extends CRUDController
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
-        $clonedTreatments = $this->treatmentRepository->findAllByClonedFromCollectivity($object);
-        foreach ($clonedTreatments as $clonedTreatment) {
-            $clonedTreatment->setClonedFrom(null);
+
+        return $this->render($this->getTemplatingBasePath('delete_processing'), [
+            'object' => $object,
+        ]);
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
+
+        return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
+    public function clonedFromOnNullAction(string $id)
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
-        $clonedMesurements = $this->mesurementRepository->findAllByClonedFromCollectivity($object);
-        foreach ($clonedMesurements as $clonedMesurement) {
-            $clonedMesurement->setClonedFrom(null);
+
+        $this->treatmentRepository->resetClonedFromCollectivity($object);
+        $this->mesurementRepository->resetClonedFromCollectivity($object);
+        $this->contractorRepository->resetClonedFromCollectivity($object);
+
+        $this->entityManager->flush();
+
+        return new JsonResponse();
+    }
+
+    public function deleteRelatedObjectsAction($id, string $objectType)
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
-        $clonedContractors = $this->contractorRepository->findAllByClonedFromCollectivity($object);
-        foreach ($clonedContractors as $clonedContractor) {
-            $clonedContractor->setClonedFrom(null);
+
+        switch ($objectType) {
+            case 'treatments':
+                foreach ($this->treatmentRepository->findAllByCollectivity($object) as $treatment) {
+                    $this->entityManager->remove($treatment);
+                }
+                break;
+            case 'mesurements':
+                foreach ($this->mesurementRepository->findAllByCollectivity($object) as $mesurement) {
+                    $this->entityManager->remove($mesurement);
+                }
+                break;
+            case 'contractors':
+                foreach ($this->contractorRepository->findAllByCollectivity($object) as $mesurement) {
+                    $this->entityManager->remove($mesurement);
+                }
+                break;
+            case 'users':
+                foreach ($this->userRepository->findBy(['collectivity' => $object]) as $user) {
+                    $this->entityManager->remove($user);
+                }
+                break;
+            case 'proofs':
+                foreach ($this->proofRepository->findBy(['collectivity' => $object]) as $proof) {
+                    $this->entityManager->remove($proof);
+                }
+                break;
+        }
+        $this->entityManager->flush();
+
+        return new JsonResponse();
+    }
+
+    public function deleteCollectivityAction(string $id)
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
         $this->entityManager->remove($object);

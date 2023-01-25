@@ -28,9 +28,9 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class MesurementStatusDictionary extends SimpleDictionary
 {
-    const STATUS_APPLIED        = 'applied';
-    const STATUS_NOT_APPLIED    = 'not-applied';
-    const STATUS_NOT_APPLICABLE = 'not-applicable';
+    public const STATUS_APPLIED        = 'applied';
+    public const STATUS_NOT_APPLIED    = 'not-applied';
+    public const STATUS_NOT_APPLICABLE = 'not-applicable';
 
     public function __construct()
     {

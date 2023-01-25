@@ -24,8 +24,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Model\Service;
+use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -37,14 +39,33 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class ViolationType extends AbstractType
 {
+    /**
+     * @var Security
+     */
+    private $security;
+
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authorizationChecker;
+
+    public function __construct(Security $security, AuthorizationCheckerInterface $authorizationChecker)
+    {
+        $this->security             = $security;
+        $this->authorizationChecker = $authorizationChecker;
+    }
+
     /**
      * Build type form.
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $violation = $options['data'];
         $builder
             ->add('date', DateType::class, [
                 'label'    => 'registry.violation.form.date',
@@ -56,15 +77,35 @@ class ViolationType extends AbstractType
                     'class' => 'datepicker',
                 ],
             ])
-            ->add('service', EntityType::class, [
+        ;
+        if ($violation->getCollectivity()->getIsServicesEnabled()) {
+            $builder->add('service', EntityType::class, [
                 'class'         => Service::class,
                 'label'         => 'registry.treatment.form.service',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('s')
+                'query_builder' => function (EntityRepository $er) use ($violation) {
+                    /** @var User $authenticatedUser */
+                    $authenticatedUser = $this->security->getUser();
+                    $collectivity      = $violation->getCollectivity();
+
+                    $qb = $er->createQueryBuilder('s')
+                        ->where('s.collectivity = :collectivity')
+                        ->setParameter(':collectivity', $collectivity)
+                    ;
+                    if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && $authenticatedUser->getServices()->getValues()) {
+                        $qb->leftJoin('s.users', 'users')
+                            ->andWhere('users.id = :id')
+                            ->setParameter('id', $authenticatedUser->getId())
+                        ;
+                    }
+                    $qb
                         ->orderBy('s.name', 'ASC');
+
+                    return $qb;
                 },
                 'required'      => false,
-            ])
+            ]);
+        }
+        $builder
             ->add('inProgress', CheckboxType::class, [
                 'label'    => 'registry.violation.form.in_progress',
                 'required' => false,
@@ -178,6 +219,25 @@ class ViolationType extends AbstractType
                 'required' => false,
                 'attr'     => [
                     'rows' => 5,
+                ],
+            ])
+            ->add('treatments', EntityType::class, [
+                'class'         => Treatment::class,
+                'label'         => 'registry.violation.form.treatment',
+                'query_builder' => function (EntityRepository $er) use ($violation) {
+                    $collectivity = $violation->getCollectivity();
+
+                    return $er->createQueryBuilder('s')
+                        ->where('s.collectivity = :collectivity')
+                        ->setParameter(':collectivity', $collectivity)
+                        ->orderBy('s.name', 'ASC');
+                },
+                'required'      => false,
+                'expanded'      => false,
+                'multiple'      => true,
+                'attr'          => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
                 ],
             ])
         ;

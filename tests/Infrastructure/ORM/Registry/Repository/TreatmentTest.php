@@ -34,16 +34,18 @@ use App\Tests\Utils\RepositoryTrait;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class TreatmentTest extends TestCase
 {
     use ReflectionTrait;
     use RepositoryTrait;
+    use ProphecyTrait;
 
     /**
-     * @var RegistryInterface
+     * @var ManagerRegistry
      */
     private $registryProphecy;
 
@@ -57,9 +59,9 @@ class TreatmentTest extends TestCase
      */
     private $infraRepo;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->registryProphecy      = $this->prophesize(RegistryInterface::class);
+        $this->registryProphecy      = $this->prophesize(ManagerRegistry::class);
         $this->entityManagerProphecy = $this->prophesize(EntityManagerInterface::class);
 
         $this->infraRepo = new InfraRepo\Treatment($this->registryProphecy->reveal());
@@ -92,8 +94,8 @@ class TreatmentTest extends TestCase
      */
     public function testFindAllActive()
     {
-        $active       = true;
-        $results      = ['dummyResult'];
+        $active  = true;
+        $results = ['dummyResult'];
 
         // Query
         $queryProphecy = $this->prophesize(AbstractQuery::class);

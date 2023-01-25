@@ -28,9 +28,9 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class TreatmentAuthorDictionary extends SimpleDictionary
 {
-    const AUTHOR_PROCESSING_MANAGER = 'processing_manager';
-    const AUTHOR_CONTRACTOR         = 'contractor';
-    const AUTHOR_JOINT_LIABILITY    = 'joint_liability';
+    public const AUTHOR_PROCESSING_MANAGER = 'processing_manager';
+    public const AUTHOR_CONTRACTOR         = 'contractor';
+    public const AUTHOR_JOINT_LIABILITY    = 'joint_liability';
 
     public function __construct()
     {

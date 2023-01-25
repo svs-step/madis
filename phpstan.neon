@@ -1,5 +1,5 @@
 parameters:
   inferPrivatePropertyTypeFromConstructor: true
-  excludes_analyse:
+  excludePaths:
     - migrations
     - tests

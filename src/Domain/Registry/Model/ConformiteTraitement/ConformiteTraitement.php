@@ -74,11 +74,11 @@ class ConformiteTraitement implements LoggableSubject
 
     public function __construct()
     {
-        $this->id                       = Uuid::uuid4();
-        $this->reponses                 = [];
-        $this->nbConformes              = 0;
-        $this->nbNonConformesMineures   = 0;
-        $this->nbNonConformesMajeures   = 0;
+        $this->id                     = Uuid::uuid4();
+        $this->reponses               = [];
+        $this->nbConformes            = 0;
+        $this->nbNonConformesMineures = 0;
+        $this->nbNonConformesMajeures = 0;
     }
 
     public function getId(): UuidInterface
@@ -165,6 +165,19 @@ class ConformiteTraitement implements LoggableSubject
     public function getAnalyseImpacts()
     {
         return $this->analyseImpacts;
+    }
+
+    public function getLastAnalyseImpact(): ?AnalyseImpact
+    {
+        /** @var AnalyseImpact|null $return */
+        $return = null;
+        foreach ($this->analyseImpacts as $analyseImpact) {
+            if (null === $return || $return->getDateValidation() < $analyseImpact->getDateValidation()) {
+                $return = $analyseImpact;
+            }
+        }
+
+        return $return;
     }
 
     public function setAnalyseImpacts($analyseImpacts): void

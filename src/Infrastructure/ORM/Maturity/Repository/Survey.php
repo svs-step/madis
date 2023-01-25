@@ -62,7 +62,7 @@ class Survey extends CRUDRepository implements Repository\Survey
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -140,6 +140,21 @@ class Survey extends CRUDRepository implements Repository\Survey
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllLate(): array
+    {
+        $now       = new \DateTime();
+        $monthsAgo = $now->sub(\DateInterval::createFromDateString('1 month'));
+
+        return $this->createQueryBuilder()
+            ->andWhere('o.updatedAt < :lastmonth')
+            ->setParameter('lastmonth', $monthsAgo->format('Y-m-d'))
+            ->getQuery()
+            ->getResult();
     }
 }

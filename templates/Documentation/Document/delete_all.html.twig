@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'documentation_document delete' %}
+{% set menuItem = 'documentation_document' %}
+
+{% block title %}{{ 'documentation.document.title.delete'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'documentation.document.title.delete'|trans }}
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'documentation.document.breadcrumb.list'|trans, 'link': path('documentation_document_list') },
+        { 'name': 'documentation.document.breadcrumb.delete'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-header"></div>
+                <div class="box-body">
+                    Souhaitez vous vraiment supprimer {{ objects_length }} documents{{objects_length > 1 ? 's' : '' }} ?
+                </div>
+                <div class="box-footer">
+                    <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
+                        {{ 'registry.contractor.action.back_to_list'|trans }}
+                    </a>
+                    <a href="{{ path('documentation_document_delete_all_confirm', { 'ids': ids }) }}" class="btn btn-primary">
+                        {{ 'action.confirm_delete'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

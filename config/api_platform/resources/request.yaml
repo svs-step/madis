@@ -1,4 +1,7 @@
 App\Domain\Registry\Model\Request:
+    attributes:
+        normalization_context:
+            groups: [ 'request_read' ]
     collectionOperations: ~
     itemOperations:
         get: ~ 

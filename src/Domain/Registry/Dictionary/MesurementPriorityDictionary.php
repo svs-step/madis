@@ -28,9 +28,9 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class MesurementPriorityDictionary extends SimpleDictionary
 {
-    const PRIORITY_LOW    = 'low';
-    const PRIORITY_NORMAL = 'normal';
-    const PRIORITY_HIGH   = 'high';
+    public const PRIORITY_LOW    = 'low';
+    public const PRIORITY_NORMAL = 'normal';
+    public const PRIORITY_HIGH   = 'high';
 
     public function __construct()
     {

@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Dictionary\RequestObjectDictionary;
 use App\Domain\Registry\Dictionary\RequestStateDictionary;
 use App\Domain\Registry\Form\Type\RequestType;
@@ -132,8 +133,8 @@ class RequestController extends CRUDController
      */
     protected function getListData()
     {
-        $request   = $this->requestStack->getMasterRequest();
-        $archived  = 'true' === $request->query->get('archive') ? true : false;
+        $request  = $this->requestStack->getMasterRequest();
+        $archived = 'true' === $request->query->get('archive') ? true : false;
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             return $this->repository->findAllArchived($archived);
@@ -173,8 +174,13 @@ class RequestController extends CRUDController
     {
         $criteria = $this->getRequestCriteria();
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Demande',
+        ]);
+
         return $this->render($this->getTemplatingBasePath('list'), [
             'totalItem' => $this->repository->count($criteria),
+            'category'  => $category,
             'route'     => $this->router->generate('registry_request_list_datatables', ['archive' => $criteria['archive']]),
         ]);
     }
@@ -188,19 +194,20 @@ class RequestController extends CRUDController
 
         $yes = '<span class="label label-success">' . $this->translator->trans('label.yes') . '</span>';
         $no  = '<span class="label label-danger">' . $this->translator->trans('label.no') . '</span>';
-
+        // die();
         /** @var Model\Request $demande */
         foreach ($demandes as $demande) {
             $reponse['data'][] = [
+                'id'                 => $demande->getId(),
                 'collectivite'       => $demande->getCollectivity()->getName(),
                 'personne_concernee' => $this->getLinkForPersonneConcernee($demande),
                 'date_demande'       => null !== $demande->getDate() ? \date_format($demande->getDate(), 'd/m/Y') : '',
-                'objet_demande'      => RequestObjectDictionary::getObjects()[$demande->getObject()],
+                'objet_demande'      => array_key_exists($demande->getObject(), RequestObjectDictionary::getObjects()) ? RequestObjectDictionary::getObjects()[$demande->getObject()] : $demande->getObject(),
                 'demande_complete'   => $demande->isComplete() ? $yes : $no,
                 'demandeur_legitime' => $demande->isLegitimateApplicant() ? $yes : $no,
                 'demande_legitime'   => $demande->isLegitimateRequest() ? $yes : $no,
                 'date_traitement'    => null !== $demande->getAnswer()->getDate() ? \date_format($demande->getAnswer()->getDate(), 'd/m/Y') : '',
-                'etat_demande'       => RequestStateDictionary::getStates()[$demande->getState()],
+                'etat_demande'       => array_key_exists($demande->getState(), RequestStateDictionary::getStates()) ? RequestStateDictionary::getStates()[$demande->getState()] : $demande->getState(),
                 'actions'            => $this->getActionsCellContent($demande),
             ];
         }
@@ -213,7 +220,7 @@ class RequestController extends CRUDController
 
     private function isRequestInUserServices(Model\Request $request): bool
     {
-        $user   = $this->userProvider->getAuthenticatedUser();
+        $user = $this->userProvider->getAuthenticatedUser();
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             return true;
@@ -257,13 +264,14 @@ class RequestController extends CRUDController
 
     private function getActionsCellContent(Model\Request $demande)
     {
-        if ($this->isRequestInUserServices($demande)) {
+        $user = $this->userProvider->getAuthenticatedUser();
+        if ($user->getServices()->isEmpty() || $this->isRequestInUserServices($demande)) {
             return
                 '<a href="' . $this->router->generate('registry_request_edit', ['id' => $demande->getId()]) . '">
                     <i class="fa fa-pencil-alt"></i>' .
                     $this->translator->trans('action.edit') . '
                 </a>
-                <a href="' . $this->router->generate('registry_request_delete', ['id'=> $demande->getId()]) . '">
+                <a href="' . $this->router->generate('registry_request_delete', ['id' => $demande->getId()]) . '">
                     <i class="fa fa-trash"></i>' .
                     $this->translator->trans('action.archive') .
                 '</a>';
@@ -274,7 +282,7 @@ class RequestController extends CRUDController
 
     private function getLinkForPersonneConcernee(Model\Request $demande)
     {
-        $link = '<a href="' . $this->router->generate('registry_request_show', ['id'=> $demande->getId()]) . '">';
+        $link = '<a href="' . $this->router->generate('registry_request_show', ['id' => $demande->getId()]) . '">';
         if ($demande->getApplicant()->isConcernedPeople() ||
             ' ' === $demande->getConcernedPeople()->getFullName()) {
             $link .= $demande->getApplicant()->getFullName();

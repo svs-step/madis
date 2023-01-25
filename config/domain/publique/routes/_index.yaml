@@ -1,3 +1,0 @@
-_registry_public:
-    resource: 'treatment.yaml'
-    prefix:   '/publique/traitements'

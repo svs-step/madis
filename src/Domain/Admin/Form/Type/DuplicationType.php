@@ -26,17 +26,40 @@ namespace App\Domain\Admin\Form\Type;
 
 use App\Domain\Admin\Dictionary\DuplicationTargetOptionDictionary;
 use App\Domain\Admin\DTO\DuplicationFormDTO;
+use App\Domain\Registry\Repository\Contractor;
+use App\Domain\Registry\Repository\Mesurement;
+use App\Domain\Registry\Repository\Treatment;
 use App\Domain\User\Model as UserModel;
+use App\Domain\User\Repository\Collectivity;
 use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DuplicationType extends AbstractType
 {
+    private Treatment $treatmentRepository;
+    private Contractor $contractorRepository;
+    private Mesurement $mesurementRepository;
+    private Collectivity $collectivityRepository;
+
+    public function __construct(
+        Treatment $treatmentRepository,
+        Contractor $contractorRepository,
+        Mesurement $mesurementRepository,
+        Collectivity $collectivityRepository
+    ) {
+        $this->treatmentRepository    = $treatmentRepository;
+        $this->contractorRepository   = $contractorRepository;
+        $this->mesurementRepository   = $mesurementRepository;
+        $this->collectivityRepository = $collectivityRepository;
+    }
+
     /**
      * Build type form.
      */
@@ -57,9 +80,9 @@ class DuplicationType extends AbstractType
                     return $er->createQueryBuilder('c')
                         ->orderBy('c.name', 'ASC');
                 },
-                'required' => true,
-                'multiple' => false,
-                'expanded' => false,
+                'required'      => true,
+                'multiple'      => false,
+                'expanded'      => false,
             ])
             ->add('data', ChoiceType::class, [
                 'label'    => 'admin.duplication.form.data',
@@ -95,10 +118,10 @@ class DuplicationType extends AbstractType
                     return $er->createQueryBuilder('c')
                         ->orderBy('c.name', 'ASC');
                 },
-                'required'   => false,
-                'multiple'   => true,
-                'expanded'   => false,
-                'attr'       => [
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
+                'attr'          => [
                     'size' => 18,
                 ],
             ])
@@ -107,7 +130,39 @@ class DuplicationType extends AbstractType
         // Reset view transformer to disable mapping between choices values & given values
         // Since we send "random" values which are not defined in Form, no need to validate sended values with transformer
         // This data initial view transformer is \Symfony\Component\Form\Extension\Core\DataTransformer\ChoicesToValuesTransformer
-        $builder->get('data')->resetViewTransformers();
+        // $builder->get('data')->resetViewTransformers();
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            $data = $event->getData();
+            $form = $event->getForm();
+
+            $choices = [];
+
+            $collectivity = $this->collectivityRepository->findOneById($data['sourceCollectivity']);
+
+            if ('treatment' === $data['type']) {
+                $choices = $this->treatmentRepository->findAllByCollectivity($collectivity);
+            } elseif ('contractor' === $data['type']) {
+                $choices = $this->contractorRepository->findAllByCollectivity($collectivity);
+            } elseif ('mesurement' === $data['type']) {
+                $choices = $this->mesurementRepository->findAllByCollectivity($collectivity);
+            }
+
+            $choices = array_map(function ($object) {
+                return $object->getId()->__toString();
+            }, $choices);
+
+            $form->add('data', ChoiceType::class, [
+                'label'    => 'admin.duplication.form.data',
+                'required' => true,
+                'multiple' => true,
+                'expanded' => false,
+                'choices'  => $choices,
+                'attr'     => [
+                    'size' => 15,
+                ],
+            ]);
+        });
     }
 
     /**

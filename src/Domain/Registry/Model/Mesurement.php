@@ -24,18 +24,20 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Model;
 
+use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
 use App\Domain\Reporting\Model\LoggableSubject;
+use App\Domain\User\Model\User;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 /**
  * Action de protection / Plan d'action.
  */
-class Mesurement implements LoggableSubject
+class Mesurement implements LoggableSubject, CollectivityRelated
 {
     use CollectivityTrait;
     use CreatorTrait;
@@ -130,6 +132,11 @@ class Mesurement implements LoggableSubject
      */
     private $conformiteTraitementReponses;
 
+    private ?iterable $treatments;
+    private ?iterable $contractors;
+    private ?iterable $requests;
+    private ?iterable $violations;
+
     /**
      * Mesurement constructor.
      *
@@ -149,8 +156,8 @@ class Mesurement implements LoggableSubject
             return '';
         }
 
-        if (\mb_strlen($this->getName()) > 50) {
-            return \mb_substr($this->getName(), 0, 50) . '...';
+        if (\mb_strlen($this->getName()) > 85) {
+            return \mb_substr($this->getName(), 0, 85) . '...';
         }
 
         return $this->getName();
@@ -287,5 +294,50 @@ class Mesurement implements LoggableSubject
     public function getConformiteTraitementReponses()
     {
         return $this->conformiteTraitementReponses;
+    }
+
+    public function getTreatments(): ?iterable
+    {
+        return $this->treatments;
+    }
+
+    public function setTreatments(?iterable $treatments): void
+    {
+        $this->treatments = $treatments;
+    }
+
+    public function getContractors(): ?iterable
+    {
+        return $this->contractors;
+    }
+
+    public function setContractors(?iterable $contractors): void
+    {
+        $this->contractors = $contractors;
+    }
+
+    public function getRequests(): ?iterable
+    {
+        return $this->requests;
+    }
+
+    public function setRequests(?iterable $requests): void
+    {
+        $this->requests = $requests;
+    }
+
+    public function getViolations(): ?iterable
+    {
+        return $this->violations;
+    }
+
+    public function setViolations(?iterable $violations): void
+    {
+        $this->violations = $violations;
+    }
+
+    public function isInUserServices(User $user): bool
+    {
+        return true;
     }
 }

@@ -20,8 +20,6 @@ Si des lignes SQL s’affichent, vous communiquez bien avec la BDD (cette comman
 
 ### Créer le premier utilisateur pour l’application
 
-Exécutez le fichier v1.0.0.sql dans votre base de données.
-
 Vous devriez pouvoir vous connecter avec l’utilisateur [admin@soluris.fr](mailto:admin@soluris.fr)
 et le mot de passe M4d1Ss0rur1s. Si ce n’est pas le cas, vérifiez que vous ayez un utilisateur dans
 la base de données madis.user_user. Si vous avez réussi à vous connecter, changez les informations

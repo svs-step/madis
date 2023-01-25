@@ -6,13 +6,13 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ReponseDictionary extends SimpleDictionary
 {
-    const NON_CONCERNE   = -1;
-    const INEXISTANTE    = 0;
-    const TRES_ELOIGNEE  = 1;
-    const PARTIELLE      = 2;
-    const QUASI_CONFORME = 3;
-    const MESURABLE      = 4;
-    const REVISEE        = 5;
+    public const NON_CONCERNE   = -1;
+    public const INEXISTANTE    = 0;
+    public const TRES_ELOIGNEE  = 1;
+    public const PARTIELLE      = 2;
+    public const QUASI_CONFORME = 3;
+    public const MESURABLE      = 4;
+    public const REVISEE        = 5;
 
     public function __construct()
     {

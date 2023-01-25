@@ -7,7 +7,7 @@
         <th>Texte en cas de non-conformité majeure</th>
     </tr>
 
-    {% for question in form.questionConformites %}
+    {% for question in form.questionConformites|sort((a, b) => a.vars.value.position > b.vars.value.position) %}
         <tr>
             <td>{{ question.vars.value.question }}</td>
             <td>{{ form_widget(question.isJustificationObligatoire) }}</td>

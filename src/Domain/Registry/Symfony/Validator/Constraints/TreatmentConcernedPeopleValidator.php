@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Symfony\Validator\Constraints;
 
-use App\Domain\Registry\Model\Treatment;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -33,8 +32,6 @@ class TreatmentConcernedPeopleValidator extends ConstraintValidator
 {
     /**
      * {@inheritdoc}
-     *
-     * @var Treatment
      */
     public function validate($value, Constraint $constraint)
     {

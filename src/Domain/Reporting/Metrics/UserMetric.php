@@ -34,7 +34,8 @@ use App\Domain\Registry\Service\ConformiteOrganisationService;
 use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
 use App\Domain\Reporting\Repository\LogJournal;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
-use Doctrine\Common\Inflector\Inflector;
+use Doctrine\Inflector\InflectorFactory;
+use Doctrine\Inflector\Language;
 use Doctrine\ORM\EntityManagerInterface;
 
 class UserMetric implements MetricInterface
@@ -104,18 +105,18 @@ class UserMetric implements MetricInterface
         $data = [
             'conformiteOrganisation' => [
             ],
-            'conformiteTraitement' => [
+            'conformiteTraitement'   => [
                 'data'   => [],
                 'labels' => [],
                 'colors' => [],
             ],
-            'contractor' => [
-                'all'     => 0,
-                'clauses' => [
+            'contractor'             => [
+                'all'                        => 0,
+                'clauses'                    => [
                     'yes' => 0,
                     'no'  => 0,
                 ],
-                'adoptedSecurityFeatures' => [
+                'adoptedSecurityFeatures'    => [
                     'yes' => 0,
                     'no'  => 0,
                 ],
@@ -123,14 +124,14 @@ class UserMetric implements MetricInterface
                     'yes' => 0,
                     'no'  => 0,
                 ],
-                'sendingDataOutsideEu' => [
+                'sendingDataOutsideEu'       => [
                     'yes' => 0,
                     'no'  => 0,
                 ],
             ],
-            'maturity'   => [],
-            'mesurement' => [
-                'value' => [
+            'maturity'               => [],
+            'mesurement'             => [
+                'value'   => [
                     'applied'       => 0,
                     'notApplied'    => 0,
                     'notApplicable' => 0,
@@ -143,10 +144,10 @@ class UserMetric implements MetricInterface
                     'planified'     => 0,
                 ],
             ],
-            'request' => [
+            'request'                => [
                 'value' => [
-                    'all'       => 0,
-                    'type'      => [
+                    'all'    => 0,
+                    'type'   => [
                         'correct'         => 0,
                         'delete'          => 0,
                         'withdrawConsent' => 0,
@@ -162,7 +163,7 @@ class UserMetric implements MetricInterface
                     ],
                 ],
             ],
-            'treatment' => [
+            'treatment'              => [
                 'value' => [
                     'active'  => 0,
                     'numeric' => 0,
@@ -171,27 +172,27 @@ class UserMetric implements MetricInterface
                             'yes' => 0,
                             'no'  => 0,
                         ],
-                        'securityTracability' => [
+                        'securityTracability'   => [
                             'yes' => 0,
                             'no'  => 0,
                         ],
-                        'securitySaving' => [
+                        'securitySaving'        => [
                             'yes' => 0,
                             'no'  => 0,
                         ],
-                        'securityUpdate' => [
+                        'securityUpdate'        => [
                             'yes' => 0,
                             'no'  => 0,
                         ],
                     ],
                 ],
             ],
-            'violation' => [
+            'violation'              => [
                 'value' => [
                     'all' => 0,
                 ],
             ],
-            'aipd' => [
+            'aipd'                   => [
                 'toDo' => 0,
             ],
         ];
@@ -322,7 +323,10 @@ class UserMetric implements MetricInterface
             }
 
             // Type
-            ++$data['request']['value']['type'][Inflector::camelize($request->getObject())];
+            if ($request->getObject()) {
+                $inflector = InflectorFactory::createForLanguage(Language::FRENCH)->build();
+                ++$data['request']['value']['type'][$inflector->camelize($request->getObject())];
+            }
 
             // Status
             if ($request->isComplete() && $request->isLegitimateApplicant() && $request->isLegitimateRequest()) {
@@ -375,7 +379,7 @@ class UserMetric implements MetricInterface
         // VIOLATION
         $data['violation']['value']['all'] = \count($violations);
 
-        //CONFORMITE TRAITEMENT
+        // CONFORMITE TRAITEMENT
         if ($collectivity->isHasModuleConformiteTraitement()) {
             foreach (ConformiteTraitementLevelDictionary::getConformites() as $key => $label) {
                 $data['conformiteTraitement']['data'][$key] = 0;
@@ -392,12 +396,12 @@ class UserMetric implements MetricInterface
                 $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);
                 ++$data['conformiteTraitement']['data'][$level];
 
-                if (0 === count($conformiteTraitement->getAnalyseImpacts())) {
+                if ($conformiteTraitement->getTraitement()->isActive() && 0 === count($conformiteTraitement->getAnalyseImpacts())) {
                     ++$data['aipd']['toDo'];
                 }
             }
 
-            //reset data if all values equal zéro. Need to hide the chart.
+            // reset data if all values equal zéro. Need to hide the chart.
             if (empty(array_filter($data['conformiteTraitement']['data']))) {
                 $data['conformiteTraitement']['data'] = [];
             } else {
@@ -405,7 +409,7 @@ class UserMetric implements MetricInterface
             }
         }
 
-        //CONFORMITE ORGANISATION
+        // CONFORMITE ORGANISATION
         if ($collectivity->isHasModuleConformiteOrganisation() && null !== $conformiteOrganisationEvaluation) {
             $conformites = ConformiteOrganisationService::getOrderedConformites($conformiteOrganisationEvaluation);
 

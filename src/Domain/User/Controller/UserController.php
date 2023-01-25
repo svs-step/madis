@@ -27,6 +27,7 @@ namespace App\Domain\User\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Model;
@@ -41,12 +42,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
 
 /**
  * @property Repository\User $repository
@@ -92,12 +93,12 @@ class UserController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->requestStack             = $requestStack;
-        $this->encoderFactory           = $encoderFactory;
-        $this->router                   = $router;
-        $this->security                 = $security;
-        $this->userProvider             = $userProvider;
-        $this->authorizationChecker     = $authorizationChecker;
+        $this->requestStack         = $requestStack;
+        $this->encoderFactory       = $encoderFactory;
+        $this->router               = $router;
+        $this->security             = $security;
+        $this->userProvider         = $userProvider;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -189,9 +190,9 @@ class UserController extends CRUDController
 
     public function listDataTables(Request $request): JsonResponse
     {
-        $criteria    = $this->getRequestCriteria();
-        $users       = $this->getResults($request, $criteria);
-        $reponse     = $this->getBaseDataTablesResponse($request, $users, $criteria);
+        $criteria = $this->getRequestCriteria();
+        $users    = $this->getResults($request, $criteria);
+        $reponse  = $this->getBaseDataTablesResponse($request, $users, $criteria);
 
         /** @var Model\User $user */
         foreach ($users as $user) {
@@ -201,6 +202,12 @@ class UserController extends CRUDController
                 $roles .= $span;
             }
 
+            $infos = '';
+            foreach ($user->getMoreInfos() as $info) {
+                $span = '<span class="badge">' . UserMoreInfoDictionary::getMoreInfos()[$info] . '</span>';
+                $infos .= $span;
+            }
+
             $userActifBgColor = 'bg-green';
             if (!$user->isEnabled()) {
                 $userActifBgColor = 'bg-red';
@@ -208,7 +215,7 @@ class UserController extends CRUDController
 
             $collectivityActifBgColor = 'bg-green';
             if (!$user->getCollectivity()->isActive()) {
-                $userActifBgColor = 'bg-red';
+                $collectivityActifBgColor = 'bg-red';
             }
 
             $actif = '
@@ -229,6 +236,7 @@ class UserController extends CRUDController
                 'email'        => $user->getEmail(),
                 'collectivite' => $user->getCollectivity()->getName(),
                 'roles'        => $roles,
+                'moreInfos'    => $infos,
                 'actif'        => $actif,
                 'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('Y-m-d H:i:s') : null,
                 'services'     => $services,
@@ -254,6 +262,7 @@ class UserController extends CRUDController
             6 => 'connexion',
             7 => 'services',
             8 => 'actions',
+            9 => 'moreInfos',
         ];
     }
 
@@ -352,9 +361,9 @@ class UserController extends CRUDController
 
         foreach ($services as $service) {
             $responseData[] = [
-                'value'     => $service->getId()->toString(),
-                'text'      => $service->__toString(),
-                'selected'  => in_array($service->getId(), $serviceIdsSelected),
+                'value'    => $service->getId()->toString(),
+                'text'     => $service->__toString(),
+                'selected' => in_array($service->getId(), $serviceIdsSelected),
             ];
         }
 

@@ -42,3 +42,18 @@ registry_request_pdf:
     path: '/pdf/{id}'
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\RequestController:pdfAction'
+
+registry_request_print_all:
+    path: '/imprimer-tous'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\RequestController:pdfAllAction'
+
+registry_request_delete_all:
+    path: '/archiver/'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\RequestController:deleteAllAction'
+
+registry_request_delete_all_confirm:
+    path: '/archiver/confirmation'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\RequestController:deleteConfirmationAllAction'

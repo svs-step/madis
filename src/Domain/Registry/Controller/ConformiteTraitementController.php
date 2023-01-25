@@ -27,7 +27,9 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\AIPD\Converter\ModeleToAnalyseConverter;
+use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\AIPD\Repository as AipdRepository;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Form\Type\ConformiteTraitement\ConformiteTraitementType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
@@ -179,6 +181,25 @@ class ConformiteTraitementController extends CRUDController
 
     /**
      * {@inheritdoc}
+     */
+    public function listAction(): Response
+    {
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Conformité des traitements',
+        ]);
+
+        $user          = $this->userProvider->getAuthenticatedUser();
+        $services_user = $user->getServices();
+
+        return $this->render($this->getTemplatingBasePath('list'), [
+            'objects'       => $this->getListData(),
+            'category'      => $category,
+            'services_user' => $services_user,
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
      * Override method in order to hydrate questions.
      */
     public function createAction(Request $request): Response
@@ -190,6 +211,14 @@ class ConformiteTraitementController extends CRUDController
 
         $traitement = $this->treatmentRepository->findOneById($request->get('idTraitement'));
         $object->setTraitement($traitement);
+
+        $service       = $object->getTraitement()->getService();
+        $user          = $this->userProvider->getAuthenticatedUser();
+        $services_user = $user->getServices();
+
+        if (!($this->authorizationChecker->isGranted('ROLE_USER') && ($services_user->isEmpty() || $services_user->contains($service)))) {
+            return $this->redirectToRoute('registry_treatment_list');
+        }
 
         // Before create form, hydrate answers array with potential question responses
         foreach ($this->questionRepository->findAll(['position' => 'ASC']) as $question) {
@@ -211,8 +240,11 @@ class ConformiteTraitementController extends CRUDController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
+        $serviceEnabled = $object->getTraitement()->getCollectivity()->getIsServicesEnabled();
+
         return $this->render($this->getTemplatingBasePath('create'), [
-            'form' => $form->createView(),
+            'form'           => $form->createView(),
+            'serviceEnabled' => $serviceEnabled,
         ]);
     }
 
@@ -224,9 +256,18 @@ class ConformiteTraitementController extends CRUDController
      */
     public function editAction(Request $request, string $id): Response
     {
+        /** @var Model\ConformiteTraitement\ConformiteTraitement $object */
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $service       = $object->getTraitement()->getService();
+        $user          = $this->userProvider->getAuthenticatedUser();
+        $services_user = $user->getServices();
+
+        if (!($this->authorizationChecker->isGranted('ROLE_USER') && ($services_user->isEmpty() || $services_user->contains($service)))) {
+            return $this->redirectToRoute('registry_treatment_list');
         }
 
         // Before create form, hydrate new answers array with potential question responses
@@ -251,13 +292,17 @@ class ConformiteTraitementController extends CRUDController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
+        $serviceEnabled = $object->getTraitement()->getCollectivity()->getIsServicesEnabled();
+
         return $this->render($this->getTemplatingBasePath('edit'), [
-            'form' => $form->createView(),
+            'form'           => $form->createView(),
+            'serviceEnabled' => $serviceEnabled,
         ]);
     }
 
     public function startAipdAction(Request $request, string $id)
     {
+        /** @var Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement */
         $conformiteTraitement = $this->repository->findOneById($id);
         if (!$conformiteTraitement) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
@@ -266,7 +311,7 @@ class ConformiteTraitementController extends CRUDController
         if ($request->isMethod('GET')) {
             return $this->render($this->getTemplatingBasePath('start'), [
                 'totalItem'            => $this->modeleRepository->count(),
-                'route'                => $this->router->generate('aipd_analyse_impact_modele_datatables'),
+                'route'                => $this->router->generate('aipd_analyse_impact_modele_datatables', ['collectivity' => $conformiteTraitement->getTraitement()->getCollectivity()->getId()->toString()]),
                 'conformiteTraitement' => $conformiteTraitement,
             ]);
         }
@@ -281,11 +326,29 @@ class ConformiteTraitementController extends CRUDController
 
         $analyseImpact = ModeleToAnalyseConverter::createFromModeleAnalyse($modele);
         $analyseImpact->setConformiteTraitement($conformiteTraitement);
+        $this->setAnalyseReponsesQuestionConformite($analyseImpact, $conformiteTraitement);
         $this->entityManager->persist($analyseImpact);
+
+        foreach ($analyseImpact->getScenarioMenaces() as $scenarioMenace) {
+            if (null !== $scenarioMenace->getMesuresProtections()) {
+                foreach ($scenarioMenace->getMesuresProtections() as $mesureProtection) {
+                    $this->entityManager->persist($mesureProtection);
+                }
+            }
+        }
         $this->entityManager->flush();
 
         return $this->redirectToRoute('aipd_analyse_impact_create', [
             'id' => $analyseImpact->getId(),
         ]);
+    }
+
+    private function setAnalyseReponsesQuestionConformite(AnalyseImpact &$analyseImpact, Model\ConformiteTraitement\ConformiteTraitement $conformiteTraitement)
+    {
+        foreach ($conformiteTraitement->getReponses() as $reponse) {
+            $pos = $reponse->getQuestion()->getPosition();
+            $q   = $analyseImpact->getQuestionConformitesOfPosition($pos);
+            $q->setReponseConformite($reponse);
+        }
     }
 }

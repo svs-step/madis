@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Model;
 
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class AbstractMesureProtection
 {
+    /**
+     * @Serializer\Accessor(getter="getIdString",setter="setIdFromString")
+     * @Serializer\Type("string")
+     */
     private UuidInterface $id;
     private string $nom;
     private string $nomCourt;
@@ -25,7 +30,17 @@ class AbstractMesureProtection
 
     public function getId()
     {
-        return $this->getId();
+        return $this->id;
+    }
+
+    public function getIdString()
+    {
+        return $this->id->toString();
+    }
+
+    public function setIdFromString(string $str)
+    {
+        $this->id = Uuid::fromString($str);
     }
 
     public function __toString(): string

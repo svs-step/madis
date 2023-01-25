@@ -213,6 +213,14 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
             $generalInformationsData = [
                 [
+                    'Publique',
+                    $treatment->getPublic() ? 'Oui' : 'Non',
+                ],
+                [
+                    'Service',
+                    $treatment->getService() ? $treatment->getService()->getName() : '',
+                ],
+                [
                     'Finalités',
                     $treatment->getGoal() ? \preg_split('/\R/', $treatment->getGoal()) : null,
                 ],
@@ -269,7 +277,9 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
                 6 => [
                     'Moyens de la collecte des données	',
-                    !\is_null($treatment->getCollectingMethod()) ? TreatmentCollectingMethodDictionary::getMethods()[$treatment->getCollectingMethod()] : '',
+                    !\is_null($treatment->getCollectingMethod()) ? join(', ', array_map(function ($cm) {
+                        return TreatmentCollectingMethodDictionary::getMethods()[$cm];
+                    }, $treatment->getCollectingMethod())) : '',
                 ],
             ];
 
@@ -431,7 +441,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             $historyData = [
                 [
                     'Créateur',
-                    $treatment->getCreator(),
+                    strval($treatment->getCreator()),
                 ],
                 [
                     'Date de création',

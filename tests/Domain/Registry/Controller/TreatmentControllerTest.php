@@ -37,6 +37,7 @@ use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -47,6 +48,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class TreatmentControllerTest extends TestCase
 {
     use ReflectionTrait;
+    use ProphecyTrait;
 
     /**
      * @var EntityManagerInterface
@@ -103,7 +105,7 @@ class TreatmentControllerTest extends TestCase
      */
     private $controller;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
         $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);
@@ -174,10 +176,10 @@ class TreatmentControllerTest extends TestCase
      */
     public function testReportAction()
     {
-        $orderKey    = 'name';
-        $orderDir    = 'asc';
-        $treatments  = [];
-        $response    = $this->prophesize(BinaryFileResponse::class)->reveal();
+        $orderKey   = 'name';
+        $orderDir   = 'asc';
+        $treatments = [];
+        $response   = $this->prophesize(BinaryFileResponse::class)->reveal();
 
         $collectivity = $this->prophesize(UserModel\Collectivity::class)->reveal();
         $userProphecy = $this->prophesize(UserModel\User::class);

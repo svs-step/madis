@@ -1,0 +1,4 @@
+_documentation:
+    resource: 'documentation.yaml'
+    prefix:   '/espace-documentaire'
+

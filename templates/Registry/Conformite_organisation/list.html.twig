@@ -8,6 +8,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
 {% endblock %}
 
 {% block body_head %}
@@ -22,7 +23,6 @@
 {% endblock %}
 
 {% block body %}
-
     {% if form is not null  %}
         {% set userRole = app.user.roles[0] %}
         {% if userRole == 'ROLE_USER' %}
@@ -106,6 +106,13 @@
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.conformite_organisation.action.create'|trans }}
                     </a>
+
+                    {% if category and category.documents|length > 0 %}
+                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                            <i class="far fa-file"></i>
+                            {{ 'documentation.document.link.button'|trans }}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -175,11 +182,17 @@
 {% block javascripts %}
     {% if is_granted('ROLE_ADMIN') %}
         {% set dataTableOptions = {
-            'order':  [[1, 'desc' ]]
+            columnDefs: [
+                { orderable: false,className: "noVis", targets: 4 },
+                { orderable: 'desc', targets: 1 }
+            ],
         } %}
     {% else %}
         {% set dataTableOptions = {
-            'order':  [[0, 'desc' ]]
+            columnDefs: [
+                { orderable: false, className: "noVis", targets: 4 },
+                { orderable: 'desc', targets: 0 }
+            ],
         } %}
     {% endif %}
     {{ include('_Utils/_datatable.html.twig') }}

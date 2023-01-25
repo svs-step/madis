@@ -28,8 +28,8 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class RequestCivilityDictionary extends SimpleDictionary
 {
-    const CIVILITY_MISS   = 'mme';
-    const CIVILITY_MISTER = 'm';
+    public const CIVILITY_MISS   = 'mme';
+    public const CIVILITY_MISTER = 'm';
 
     public function __construct()
     {

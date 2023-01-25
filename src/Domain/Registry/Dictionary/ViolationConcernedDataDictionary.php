@@ -28,24 +28,24 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ViolationConcernedDataDictionary extends SimpleDictionary
 {
-    const DATA_CIVIL_STATUS                  = 'civil_status';
-    const DATA_SOCIAL_NUMBER                 = 'social_number';
-    const DATA_CONTACT                       = 'contact';
-    const DATA_IDENTIFICATION_ACCESS         = 'indentification_access';
-    const DATA_FINANCIAL                     = 'financial';
-    const DATA_OFFICIAL_DOCUMENT             = 'official_document';
-    const DATA_LOCATION                      = 'location';
-    const DATA_OFFENSES_CONVICTIONS_SECURITY = 'offenses_convictions_security';
-    const DATA_UNKNOWN                       = 'unknown';
-    const DATA_RACIAL_ETHNIC                 = 'racial_ethnic';
-    const DATA_POLITICAL                     = 'political';
-    const DATA_PHILOSOPHICAL_RELIGIOUS       = 'philosophical_religious';
-    const DATA_TRADE_UNION_MEMBERSHIP        = 'trade_union_membership';
-    const DATA_SEXUAL_ORIENTATION            = 'sexual_orientation';
-    const DATA_HEALTH                        = 'health';
-    const DATA_BIOMETRIC                     = 'biometric';
-    const DATA_GENETIC                       = 'genetic';
-    const DATA_OTHER                         = 'other';
+    public const DATA_CIVIL_STATUS                  = 'civil_status';
+    public const DATA_SOCIAL_NUMBER                 = 'social_number';
+    public const DATA_CONTACT                       = 'contact';
+    public const DATA_IDENTIFICATION_ACCESS         = 'indentification_access';
+    public const DATA_FINANCIAL                     = 'financial';
+    public const DATA_OFFICIAL_DOCUMENT             = 'official_document';
+    public const DATA_LOCATION                      = 'location';
+    public const DATA_OFFENSES_CONVICTIONS_SECURITY = 'offenses_convictions_security';
+    public const DATA_UNKNOWN                       = 'unknown';
+    public const DATA_RACIAL_ETHNIC                 = 'racial_ethnic';
+    public const DATA_POLITICAL                     = 'political';
+    public const DATA_PHILOSOPHICAL_RELIGIOUS       = 'philosophical_religious';
+    public const DATA_TRADE_UNION_MEMBERSHIP        = 'trade_union_membership';
+    public const DATA_SEXUAL_ORIENTATION            = 'sexual_orientation';
+    public const DATA_HEALTH                        = 'health';
+    public const DATA_BIOMETRIC                     = 'biometric';
+    public const DATA_GENETIC                       = 'genetic';
+    public const DATA_OTHER                         = 'other';
 
     public function __construct()
     {

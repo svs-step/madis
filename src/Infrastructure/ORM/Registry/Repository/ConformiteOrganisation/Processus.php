@@ -24,7 +24,7 @@ class Processus extends CRUDRepository implements Repository\Processus
             ->leftJoin('p.questions', 'q')
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     public function findOneByPosition(int $position)
@@ -37,7 +37,7 @@ class Processus extends CRUDRepository implements Repository\Processus
             ->setParameter('position', $position)
             ->getQuery()
             ->getOneOrNullResult()
-            ;
+        ;
     }
 
     public function findNewNotUsedInGivenConformite(Model\Evaluation $evaluation)
@@ -55,6 +55,6 @@ class Processus extends CRUDRepository implements Repository\Processus
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

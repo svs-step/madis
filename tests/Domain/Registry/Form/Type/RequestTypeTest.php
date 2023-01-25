@@ -28,7 +28,9 @@ use App\Domain\Registry\Form\Type\Embeddable\RequestAnswerType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestApplicantType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestConcernedPeopleType;
 use App\Domain\Registry\Form\Type\RequestType;
+use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Request;
+use App\Domain\User\Model\Collectivity;
 use App\Tests\Utils\FormTypeHelper;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -38,16 +40,23 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class RequestTypeTest extends FormTypeHelper
 {
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, new RequestType());
+        $this->assertInstanceOf(AbstractType::class, new RequestType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()));
     }
 
     public function testBuildForm()
     {
+        $contractor   = new Contractor();
+        $collectivity = new Collectivity();
+        $collectivity->setIsServicesEnabled(true);
+        $contractor->setCollectivity($collectivity);
+
         $builder = [
             'object'               => DictionaryType::class,
             'service'              => EntityType::class,
@@ -62,9 +71,10 @@ class RequestTypeTest extends FormTypeHelper
             'answer'               => RequestAnswerType::class,
             'state'                => DictionaryType::class,
             'stateRejectionReason' => TextareaType::class,
+            'treatments'           => EntityType::class,
         ];
 
-        (new RequestType())->buildForm($this->prophesizeBuilder($builder), []);
+        (new RequestType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()))->buildForm($this->prophesizeBuilder($builder), ['data' => $contractor]);
     }
 
     public function testConfigureOptions(): void
@@ -80,6 +90,6 @@ class RequestTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new RequestType())->configureOptions($resolverProphecy->reveal());
+        (new RequestType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()))->configureOptions($resolverProphecy->reveal());
     }
 }

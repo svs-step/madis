@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Form\Type\ContractorType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Model\Contractor;
@@ -42,10 +43,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
 
 /**
  * @property Repository\Contractor $repository
@@ -132,8 +133,13 @@ class ContractorController extends CRUDController
 
     public function listAction(): Response
     {
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Sous-traitant',
+        ]);
+
         return $this->render($this->getTemplatingBasePath('list'), [
             'totalItem' => $this->repository->count($this->getRequestCriteria()),
+            'category'  => $category,
             'route'     => $this->router->generate('registry_contractor_list_datatables'),
         ]);
     }
@@ -180,7 +186,7 @@ class ContractorController extends CRUDController
             throw new NotFoundHttpException('Can\'t find collectivity for id ' . $collectivityId);
         }
 
-        $contractors   = $this->repository->findAllByCollectivity(
+        $contractors = $this->repository->findAllByCollectivity(
             $collectivity,
             [
                 'name' => 'ASC',
@@ -211,10 +217,11 @@ class ContractorController extends CRUDController
         /** @var Model\Contractor $contractor */
         foreach ($contractors as $contractor) {
             $contractorLink = '<a href="' . $this->router->generate('registry_contractor_show', ['id' => $contractor->getId()->toString()]) . '">
-                ' . $contractor->getName() . '
+                ' . \htmlspecialchars($contractor->getName()) . '
             </a>';
 
             $reponse['data'][] = [
+                'id'                     => $contractor->getId(),
                 'nom'                    => $contractorLink,
                 'collectivite'           => $contractor->getCollectivity()->getName(),
                 'clauses_contractuelles' => $contractor->isContractualClausesVerified() ? $yes : $no,
@@ -235,7 +242,7 @@ class ContractorController extends CRUDController
 
     private function isContractorInUserServices(Model\Contractor $contractor): bool
     {
-        $user   = $this->userProvider->getAuthenticatedUser();
+        $user = $this->userProvider->getAuthenticatedUser();
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             return true;
@@ -275,9 +282,9 @@ class ContractorController extends CRUDController
 
     private function getActionCellsContent(Contractor $sousTraitant)
     {
-        if ($this->isContractorInUserServices($sousTraitant)) {
-            $cellContent =
-                '<a href="' . $this->router->generate('registry_contractor_edit', ['id' => $sousTraitant->getId()]) . '">
+        $user = $this->userProvider->getAuthenticatedUser();
+        if ($user->getServices()->isEmpty() || $this->isContractorInUserServices($sousTraitant)) {
+            $cellContent = '<a href="' . $this->router->generate('registry_contractor_edit', ['id' => $sousTraitant->getId()]) . '">
                     <i class="fa fa-pencil-alt"></i>' .
                     $this->translator->trans('action.edit') .
                 '</a>';

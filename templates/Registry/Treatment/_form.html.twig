@@ -18,8 +18,18 @@
                 {{ form_row(form.legalBasis) }}
                 {{ form_row(form.legalBasisJustification) }}
                 {{ form_row(form.observation) }}
-                <label class="col-sm-2">{{ 'registry.treatment.tab.public'|trans }}</label>
-                {{ form_widget(form.public) }}
+                {% if is_granted('ROLE_REFERENT') or is_granted('ROLE_ADMIN') %}
+                    {{ form_row(form.dpoMessage) }}
+                {% endif %}
+                <div class="form-group">
+                    <label for="treatment_public" class="col-sm-2 control-label" style="white-space: nowrap">
+                        {{ 'registry.treatment.tab.public'|trans }}
+                    </label>
+                    <div class="col-sm-10">
+                        {{ form_widget(form.public) }}
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -111,6 +121,7 @@
                 {{ form_row(form.ultimateFate) }}
                 {{ form_row(form.dataOrigin) }}
                 {{ form_row(form.collectingMethod) }}
+                {{ form_row(form.otherCollectingMethod) }}
             </div>
         </div>
 
@@ -128,7 +139,7 @@
                 {{ form_row(form.securitySpecificitiesDelivered) }}
             </div>
         </div>
-
     </div>
 
 </div>
+

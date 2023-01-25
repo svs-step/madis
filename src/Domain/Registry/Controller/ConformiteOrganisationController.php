@@ -4,6 +4,7 @@ namespace App\Domain\Registry\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Form\Type\ConformiteOrganisation\EvaluationPiloteType;
 use App\Domain\Registry\Form\Type\ConformiteOrganisation\EvaluationType;
 use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
@@ -68,11 +69,11 @@ class ConformiteOrganisationController extends CRUDController
         Pdf $pdf
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->questionRepository     = $questionRepository;
-        $this->processusRepository    = $processusRepository;
-        $this->conformiteRepository   = $conformiteRepository;
-        $this->dispatcher             = $dispatcher;
-        $this->wordHandler            = $wordHandler;
+        $this->questionRepository   = $questionRepository;
+        $this->processusRepository  = $processusRepository;
+        $this->conformiteRepository = $conformiteRepository;
+        $this->dispatcher           = $dispatcher;
+        $this->wordHandler          = $wordHandler;
     }
 
     public function createAction(Request $request): Response
@@ -120,7 +121,7 @@ class ConformiteOrganisationController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('create'), [
-            'form'      => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -151,11 +152,16 @@ class ConformiteOrganisationController extends CRUDController
             if (\in_array(UserRoleDictionary::ROLE_REFERENT, $connectedUser->getRoles())) {
                 $collectivities = \iterable_to_array($connectedUser->getCollectivitesReferees());
             }
-            $evaluations  = $this->repository->findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate($collectivities);
+            $evaluations = $this->repository->findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate($collectivities);
         }
+
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => "Conformité de l'organisation",
+        ]);
 
         return $this->render($this->getTemplatingBasePath('list'), [
             'evaluations' => $evaluations,
+            'category'    => $category,
             'form'        => $form,
         ]);
     }

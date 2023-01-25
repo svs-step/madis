@@ -1,0 +1,12 @@
+_notification:
+    resource: 'notification.yaml'
+    prefix:   '/notifications'
+
+_notificationUser:
+    resource: 'notificationUser.yaml'
+    prefix: '/notificationsUser'
+
+_notificationMailParameters:
+    resource: 'notificationMailParameters.yaml'
+    prefix: '/notificationsMailParameters'
+
