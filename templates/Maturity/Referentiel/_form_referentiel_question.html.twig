@@ -1,17 +1,14 @@
 <div class="row">
-    {{ form_start(form) }}
     <div class="col-md-12">
         <div class="row">
             <div class="box box-solid box-info">
                 <div class="box-body col-md-6">
                     {{ form_row(form.name) }}
-                    {{ form_row(form.recommandation) }}
+                    {{ form_row(form.weight) }}
                 </div>
             </div>
         </div>
     </div>
 
-    {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': form.referentielAnswers} %}
-
-    {{ form_end(form) }}
+    {# include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': form.referentielAnswers} #}
 </div>

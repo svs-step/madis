@@ -60,10 +60,11 @@ class ReferentielSectionType extends AbstractType
                     'rows' => 3,
                 ],
             ])
-            /*->add('questions', CollectionType::class, [
+
+            ->add('referentielQuestions', CollectionType::class, [
                     'entry_type' => ReferentielQuestionType::class,
                 ]
-            )*/
+            )
         ;
     }
 

@@ -54,18 +54,18 @@ class ReferentielQuestionType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
-            ->add('data', ChoiceType::class, [
-                'label'    => 'admin.duplication.form.data',
+            ->add('weight', ChoiceType::class, [
+                'label'    => 'maturity.referentiel.form.weight',
                 'required' => true,
                 'multiple' => false,
                 'expanded' => false,
                 'choices'  => [0,1,2,3,4,5],
             ])
-            ->add('answers', CollectionType::class, [
+            /*->add('answers', CollectionType::class, [
                     'label' => 'maturity.referentiel.form.answer',
                     'entry_type' => ReferentielAnswer::class,
                 ]
-            )
+            )*/
         ;
     }
 

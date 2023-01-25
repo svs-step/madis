@@ -180,7 +180,6 @@ class ReferentielController extends CRUDController
             }
             $object->addReferentielSection($section);
         }
-        dd($object);
 
         $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
 
