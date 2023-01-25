@@ -1,16 +1,30 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="row">
-            <div class="box box-solid box-info">
-                <div class="box-body col-md-6">
-                    {{ form_row(form.name) }}
-                    {{ form_row(form.weight) }}
-                </div>
+<div class="box box-solid box-info">
+    <div class="box-header">
+        <div class="col-md-5">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-md-5">
+            {{ form_row(form.weight) }}
+        </div>
+        <div class="col-md-2">
+            <a href="#question_" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
+        </div>
+    </div>
+    <div class="collapse" id="question_">
+        <div class="box-body">
+            <div class="col-md-12">
+                <div>Réponses :</div>
+                {% for answer in question.referentielAnswers %}
+                    {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': answer} %}
+                {% endfor %}
             </div>
         </div>
     </div>
-
-    {% for answer in question.referentielAnswers %}
-        {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': answer} %}
-    {% endfor %}
 </div>
+
+
+
+
+
+
+

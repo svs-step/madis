@@ -1,47 +1,57 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
 
 <div class="row">
-    {{ form_start(form) }}
     <div class="col-md-12">
-        <div class="row">
-            <div class="box box-solid box-info">
-                <div class="box-header with-border">{{ 'maturity.referentiel.form.informations_generales'|trans }}</div>
-                <div class="box-body col-md-6">
-                    {{ form_row(form.name) }}
-                    {{ form_row(form.description) }}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div>
-                Référentiel
-            </div>
-        </div>
-        {% for section in form.referentielSections %}
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="box box-solid box-info">
-                        <div class="box-header with-border"> {{ loop.index }}.Section  </div>
-                        <div class="box-body col-md-6">
-                            {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': section} %}
-                        </div>
+        {{ form_start(form) }}
+        <div class="col-md-12">
+            <div class="row" style="background: white">
+                <div class="box box-solid" >
+                    <div class="box-header with-border">{{ 'maturity.referentiel.form.informations_generales'|trans }}</div>
+                    <div class="box-body col-md-6">
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.description) }}
                     </div>
                 </div>
             </div>
-        {% endfor %}
-    </div>
+        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    Référentiel
+                </div>
+            </div>
+            {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
+            {% for section in form.referentielSections %}
+                {% set colorSection = (loop.index - 1) % 4 %}
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="box box-solid {{ colors[colorSection] }}">
+                            <div class="box-header with-border">
+                                {{ loop.index }}.Section
+                                <a href="#section_{{ loop.index }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
+                            </div>
+                            <div class="collapse" id="section_{{ loop.index }}">
+                                <div class="box-body">
+                                    {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': section} %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-solid">
-                <div class="box-body text-center">
-                    <a href="{{ path('maturity_referentiel_list') }}" class="btn btn-default">
-                        {{ 'maturity.referentiel.action.back_to_list'|trans }}
-                    </a>
-                    <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-solid">
+                    <div class="box-body text-center">
+                        <a href="{{ path('maturity_referentiel_list') }}" class="btn btn-default">
+                            {{ 'maturity.referentiel.action.back_to_list'|trans }}
+                        </a>
+                        <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                    </div>
                 </div>
             </div>
         </div>
+        {{ form_end(form) }}
     </div>
-    {{ form_end(form) }}
 </div>

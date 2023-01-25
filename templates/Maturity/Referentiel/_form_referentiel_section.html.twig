@@ -1,9 +1,14 @@
 <div class="row">
-    {{ form_row(form.name) }}
-    {{ form_row(form.description) }}
+    <div class="box-body">
+        <div class="col-md-6">
+            {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
+        </div>
 
-    {% for question in section.referentielQuestions %}
-        {%  include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': question} %}
-    {% endfor %}
-
+        <div class="col-md-12">
+            {% for question in section.referentielQuestions %}
+                {%  include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': question} %}
+            {% endfor %}
+        </div>
+    </div>
 </div>

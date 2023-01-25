@@ -46,10 +46,11 @@ maturity:
             list: Liste des référentiels
             delete: Supprimer un référentiel
         form:
-            name: Nom
+            name: Nom de la section
             description: Description
             informations_generales: Informations générales
             referentiel: Référentiel
             section: Section
             weight: Pondération
             answer: Réponses
+            question_name: Nom de la question

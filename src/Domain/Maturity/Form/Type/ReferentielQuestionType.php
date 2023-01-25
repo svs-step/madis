@@ -49,6 +49,7 @@ class ReferentielQuestionType extends AbstractType
         /** @var ReferentielQuestion $referentielQuestion */
         $builder
             ->add('name', TextType::class, [
+                'label'    => 'maturity.referentiel.form.question_name',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
