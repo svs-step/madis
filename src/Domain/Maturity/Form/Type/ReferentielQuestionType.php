@@ -24,20 +24,14 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Form\Type;
 
-use App\Domain\Maturity\Model\Question;
-use App\Domain\Maturity\Model\ReferentielAnswer;
 use App\Domain\Maturity\Model\ReferentielQuestion;
-use App\Domain\Maturity\Model\ReferentielSection;
-use App\Domain\Registry\Form\Type\ConformiteTraitement\ReponseType;
-use App\Domain\Registry\Form\Type\TreatmentType;
-use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
-use Doctrine\DBAL\Types\IntegerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class ReferentielQuestionType extends AbstractType
 {
@@ -62,9 +56,16 @@ class ReferentielQuestionType extends AbstractType
                 'expanded' => false,
                 'choices'  => [0,1,2,3,4,5],
             ])
+            ->add('questionNumber', IntegerType::class, [
+                'required' => false,
+                'attr'     => [
+                    'min' => 0,
+                ],
+            ])
             ->add('referentielAnswers', CollectionType::class, [
                     'label' => 'maturity.referentiel.form.answer',
                     'entry_type' => ReferentielAnswerType::class,
+                    'required' => false,
                 ]
             )
         ;

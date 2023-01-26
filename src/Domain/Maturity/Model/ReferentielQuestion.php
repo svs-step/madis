@@ -48,7 +48,7 @@ class ReferentielQuestion
     /**
      * @var int|null
      */
-    private $questionNumber;
+    public $questionNumber;
 
     /**
      * @var ReferentielSection|null
@@ -111,7 +111,7 @@ class ReferentielQuestion
         $this->referentielSection = $referentielSection;
     }
 
-    public function getReferentielAnswers(): iterable
+    public function getReferentielAnswers(): ?iterable
     {
         return $this->referentielAnswers;
     }

@@ -7,16 +7,18 @@
             {{ form_row(form.weight) }}
         </div>
         <div class="col-md-2">
-            <a href="#question_" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
+            <a href="#question_{{ question.questionNumber.vars['value'] }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
         </div>
     </div>
-    <div class="collapse" id="question_">
+    <div class="collapse" id="question_{{ question.questionNumber.vars['value'] }}">
         <div class="box-body">
             <div class="col-md-12">
                 <div>Réponses :</div>
-                {% for answer in question.referentielAnswers %}
-                    {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': answer} %}
-                {% endfor %}
+                <div class="col-md-12">
+                    {% for answer in question.referentielAnswers %}
+                        {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': answer} %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
