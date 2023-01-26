@@ -51,6 +51,11 @@ class ReferentielSection
     private $referentielQuestions;
 
     /**
+     * @var int|null
+     */
+    public $orderNumber;
+
+    /**
      * @var Referentiel|null
      */
     private $referentiel;
@@ -120,6 +125,16 @@ class ReferentielSection
     public function setReferentiel(?Referentiel $referentiel): void
     {
         $this->referentiel = $referentiel;
+    }
+
+    public function getOrderNumber(): ?int
+    {
+        return $this->orderNumber;
+    }
+
+    public function setOrderNumber(?int $orderNumber): void
+    {
+        $this->orderNumber = $orderNumber;
     }
 
 

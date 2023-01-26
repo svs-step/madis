@@ -60,6 +60,16 @@ class ReferentielQuestion
      */
     private $referentielAnswers;
 
+    /**
+     * @var bool
+     */
+    private $option;
+
+    /**
+     * @var string|null
+     */
+    private $optionReason;
+
     public function __construct()
     {
         $this->id = Uuid::uuid4();
@@ -137,6 +147,23 @@ class ReferentielQuestion
         unset($this->referentielAnswers[$key]);
     }
 
+    public function getOption(): ?bool
+    {
+        return $this->option;
+    }
 
+    public function setOption(?bool $option): void
+    {
+        $this->option = $option;
+    }
 
+    public function getOptionReason(): ?string
+    {
+        return $this->optionReason;
+    }
+
+    public function setOptionReason(?string $optionReason): void
+    {
+        $this->optionReason = $optionReason;
+    }
 }
