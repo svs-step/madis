@@ -11,6 +11,8 @@
         <field name="name" column="name"/>
         <field name="weight" column="weight" type="integer"/>
         <field name="questionNumber" column="question_number" type="integer"/>
+        <field name="option" column="option" type="boolean"/>
+        <field name="optionReason" column="option_reason"/>
 
         <many-to-one field="referentielSection" target-entity="App\Domain\Maturity\Model\ReferentielSection" inversed-by="referentielQuestions">
             <join-column on-delete="CASCADE" />

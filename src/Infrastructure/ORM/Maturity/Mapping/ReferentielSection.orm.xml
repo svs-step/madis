@@ -10,6 +10,7 @@
         <id name="id" column="id" type="uuid"/>
         <field name="name" column="name"/>
         <field name="description" column="description"/>
+        <field name="orderNumber" column="order_number" type="integer"/>
 
         <many-to-one field="referentiel" target-entity="App\Domain\Maturity\Model\Referentiel" inversed-by="referentielSections">
             <join-column on-delete="CASCADE" />
