@@ -7,9 +7,16 @@
         </div>
 
         <div class="col-md-12">
-            {% for question in section.referentielQuestions %}
-                {%  include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': question} %}
-            {% endfor %}
+            {% if section.referentielQuestions is not empty %}
+                {% for question in section.referentielQuestions|sort((a, b) => a.vars['value'].questionNumber <=> b.vars['value'].questionNumber) %}
+                    {%  include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': question} %}
+                {% endfor %}
+            {% endif %}
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-primary add_question"><i class="fa fa-plus"></i> Ajouter une question</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

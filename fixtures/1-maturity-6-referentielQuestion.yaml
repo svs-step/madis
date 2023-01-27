@@ -19,7 +19,7 @@ App\Domain\Maturity\Model\ReferentielQuestion:
     maturity_referentiel_question_3:
         question_number: 3
         referentiel_section: '@maturity_referentiel_section_1'
-        name: Question 2
+        name: Question 3
         weight: 3
         option: false
         option_reason: test

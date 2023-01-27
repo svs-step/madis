@@ -19,27 +19,32 @@
                     Référentiel
                 </div>
             </div>
-            {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
-            {% for section in form.referentielSections %}
-                {% set colorSection = (loop.index - 1) % 4 %}
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="box box-solid {{ colors[colorSection] }}">
-                            <div class="box-header with-border">
-                                {{ loop.index }}.Section
-                                <a href="#section_{{ loop.index }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
-                            </div>
-                            <div class="collapse" id="section_{{ loop.index }}">
-                                <div class="box-body">
-                                    {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': section} %}
+            {% if form.referentielSections is not empty %}
+                {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
+                {% for section in form.referentielSections|sort((a, b) => a.vars['value'].orderNumber <=> b.vars['value'].orderNumber) %}
+                    {% set colorSection = (loop.index - 1) % 4 %}
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="box box-solid {{ colors[colorSection] }}">
+                                <div class="box-header with-border">
+                                    {{ loop.index }}.Section
+                                    <a href="#section_{{ loop.index }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
+                                </div>
+                                <div class="collapse" id="section_{{ loop.index }}">
+                                    <div class="box-body">
+                                        {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': section} %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                {% endfor %}
+            {% endif %}
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter une section</button>
                 </div>
-            {% endfor %}
-
-
+            </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-solid">
