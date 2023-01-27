@@ -60,39 +60,39 @@
                             Imprimer
                         </a>
                     </div>
-                    <table id="table" class="table table-bordered table-hover">
+                    <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
                                 </th>
                             {% endif %}
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_clauses" style="width: 100%;">
                                     <option value="">Clauses</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_adoption" style="width: 100%;">
                                     <option value="">Sécurité</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_registre" style="width: 100%;">
                                     <option value="">Registre</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_hors_eu" style="width: 100%;">
                                     <option value="">Hors UE</option>
                                     <option value="1">Oui</option>
@@ -101,16 +101,16 @@
                             </th>
                         </tr>
                         <tr>
-                            <th>{{ 'registry.contractor.list.name'|trans }}</th>
+                            <th scope="col">{{ 'registry.contractor.list.name'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th>{{ 'registry.contractor.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'registry.contractor.list.collectivity'|trans }}</th>
                             {% endif %}
-                            <th>{{ 'registry.contractor.list.contractual_clauses_verified'|trans }}</th>
-                            <th>{{ 'registry.contractor.list.adopted_security_features'|trans }}</th>
-                            <th>{{ 'registry.contractor.list.maintains_treatment_register'|trans }}</th>
-                            <th>{{ 'registry.contractor.list.sending_data_outside_eu'|trans }}</th>
+                            <th scope="col">{{ 'registry.contractor.list.contractual_clauses_verified'|trans }}</th>
+                            <th scope="col">{{ 'registry.contractor.list.adopted_security_features'|trans }}</th>
+                            <th scope="col">{{ 'registry.contractor.list.maintains_treatment_register'|trans }}</th>
+                            <th scope="col">{{ 'registry.contractor.list.sending_data_outside_eu'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
-                                <th>{{ 'label.actions'|trans }}</th>
+                                <th scope="col">{{ 'label.actions'|trans }}</th>
                             {% endif %}
                         </tr>
                         </thead>

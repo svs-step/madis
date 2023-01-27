@@ -59,47 +59,47 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
-                    <table id="table" class="table table-bordered table-hover">
+                    <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_prenom" placeholder="Prénom" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_email" placeholder="Email" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
                             </th>
-                            <th> <select class="form-control" id="search_role" style="width: 100%;">
+                            <th scope="col"> <select class="form-control" id="search_role" style="width: 100%;">
                                     <option value="">Rôle</option>
                                     {% for key, subject in dictionary('user_user_role') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
                                 </select></th>
-                            <th></th>
-                            <th>
+                            <th scope="col"></th>
+                            <th scope="col">
                                 <input class="datepicker form-control" type="text" id="search_last_login" placeholder="Date" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_services" placeholder="Service" style="width: 100%;">
                             </th>
-                            <th></th>
+                            <th scope="col"></th>
                         </tr>
                         <tr>
-                            <th>{{ 'user.user.list.first_name'|trans }}</th>
-                            <th>{{ 'user.user.list.last_name'|trans }}</th>
-                            <th>{{ 'user.user.list.email'|trans }}</th>
-                            <th>{{ 'user.user.list.collectivity'|trans }}</th>
-                            <th>{{ 'user.user.list.roles'|trans }}</th>
-                            <th>{{ 'user.user.list.moreInfos'|trans }}</th>
-                            <th>{{ 'user.user.list.enabled'|trans }}</th>
-                            <th>{{ 'user.user.list.last_login'|trans }}</th>
-                            <th>{{ 'user.user.list.services'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'user.user.list.first_name'|trans }}</th>
+                            <th scope="col">{{ 'user.user.list.last_name'|trans }}</th>
+                            <th scope="col">{{ 'user.user.list.email'|trans }}</th>
+                            <th scope="col">{{ 'user.user.list.collectivity'|trans }}</th>
+                            <th scope="col">{{ 'user.user.list.roles'|trans }}</th>
+                            <th scope="col">{{ 'user.user.list.moreInfos'|trans }}</th>
+                            <th scope="col">{{ 'user.user.list.enabled'|trans }}</th>
+                            <th scope="col">{{ 'user.user.list.last_login'|trans }}</th>
+                            <th scope="col">{{ 'user.user.list.services'|trans }}</th>
+                            <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

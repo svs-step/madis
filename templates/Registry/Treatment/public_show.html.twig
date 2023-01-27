@@ -53,7 +53,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                             {% if (object.name and config.name == true) %}
                                 <tr>
@@ -162,7 +162,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                             <tr>
                                 {% if (object.dataCategories and config.dataCategories == true) %}
@@ -209,7 +209,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                             {% if (object.recipientCategory and config.recipientCategory == true) %}
                                 <tr>
@@ -256,7 +256,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                             {% if (config.systematicMonitoring == true) %}
                                 <tr>
@@ -402,7 +402,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                             {% if (object.creator and config.creator == true) %}
                                 <tr>
@@ -462,7 +462,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                             <tr>
                                 <td>
@@ -668,7 +668,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                             {% if (config.securityAccessControl == true) %}
                                 <tr>

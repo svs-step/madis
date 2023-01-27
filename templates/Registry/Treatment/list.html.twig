@@ -84,19 +84,19 @@
                             Imprimer
                         </a>
                     </div>
-                    <table id="table" class="table table-bordered table-hover">
+                    <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th style="width:20px"></th>
-                            <th>
+                            <th style="width:20px" scope="col"></th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
                             </th>
                             {% endif %}
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_base_legal" style="width: 100%;">
                                     <option value="">Base légale</option>
                                     {% for key, subject in dictionary('registry_treatment_legal_basis') %}
@@ -104,10 +104,10 @@
                                     {% endfor %}
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_logiciel" placeholder="Logiciel" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_en_tant_que" style="width: 100%;">
                                     <option value="">En tant que</option>
                                     {% for key, subject in dictionary('registry_treatment_author') %}
@@ -115,108 +115,108 @@
                                     {% endfor %}
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_gestionnaire" placeholder="Gestionnaire" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_sous_traitants" placeholder="Sous-traitants" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_controle_acces" style="width: 100%;">
                                     <option value="">Contrôle d'accès</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_tracabilite" style="width: 100%;">
                                     <option value="">Traçabilité</option>
                                     <option value="foo">Oui</option>
                                     <option value="bar">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_sauvegarde" style="width: 100%;">
                                     <option value="">Sauvegarde</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_autres" style="width: 100%;">
                                     <option value="">Autres</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_capacite" style="width: 100%;">
                                     <option value="">Ressortir les personnes habilitées</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_procedure" style="width: 100%;">
                                     <option value="">Procédure</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_specificites" style="width: 100%;">
                                     <option value="">Spécificités</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_public" placeholder="{{ 'registry.treatment.list.public'|trans }}" style="width: 100%;">
                                     <option value="">{{ 'registry.treatment.list.public'|trans }}</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_update" placeholder="{{ 'registry.treatment.list.update'|trans }}" style="width: 100%;">
                                     <option value="">{{ 'registry.treatment.list.update'|trans }}</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_responsable_traitement" placeholder="Responsable traitement" style="width: 100%;">
                             </th>
-                            <th></th>
+                            <th scope="col"></th>
                         </tr>
                         <tr>
-                            <th style="width:20px"><input type="checkbox" name="select_all" value="1" id="select-all-treatments"></th>
-                            <th>{{ 'registry.treatment.list.name'|trans }}</th>
+                            <th scope="col" style="width:20px"><input type="checkbox" name="select_all" value="1" id="select-all-treatments"></th>
+                            <th scope="col">{{ 'registry.treatment.list.name'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                            <th>{{ 'registry.treatment.list.collectivity'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.collectivity'|trans }}</th>
                             {% endif %}
-                            <th>{{ 'registry.treatment.list.legal_basis'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.software'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.author'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.manager'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.contractors'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.access_control'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.tracability'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.saving'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.other'|trans }}</th>
-                            <th style="max-width: 60px;">{{ 'registry.treatment.list.entitled_persons'|trans }}</th>
-                            <th style="max-width: 60px;">{{ 'registry.treatment.list.open_accounts'|trans }}</th>
-                            <th style="max-width: 60px;">{{ 'registry.treatment.list.specificities_delivered'|trans }}</th>
-                            <th style="max-width: 60px;">{{ 'registry.treatment.list.updated_at'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.public'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.update'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.responsable_traitement'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.specific_traitement'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.conformite_traitement'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.legal_basis'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.software'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.author'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.manager'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.contractors'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.access_control'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.tracability'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.saving'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.other'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.entitled_persons'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.open_accounts'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.specificities_delivered'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.public'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.update'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.responsable_traitement'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.specific_traitement'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.conformite_traitement'|trans }}</th>
+                            <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>
