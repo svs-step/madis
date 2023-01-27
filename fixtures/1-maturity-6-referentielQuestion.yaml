@@ -9,7 +9,7 @@ App\Domain\Maturity\Model\ReferentielQuestion:
         option_reason: test option
 
     maturity_referentiel_question_2:
-        question_number: 1
+        question_number: 2
         referentiel_section: '@maturity_referentiel_section_1'
         name: Question 2
         weight: 2
@@ -17,7 +17,7 @@ App\Domain\Maturity\Model\ReferentielQuestion:
         option_reason: test
 
     maturity_referentiel_question_3:
-        question_number: 1
+        question_number: 3
         referentiel_section: '@maturity_referentiel_section_1'
         name: Question 2
         weight: 3

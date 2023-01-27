@@ -91,22 +91,22 @@ class ReferentielSection
         $this->description = $description;
     }
 
-    public function getReferentielQuestions(): iterable
+    public function getReferentielQuestions(): ?iterable
     {
         return $this->referentielQuestions;
     }
 
-    public function setReferentielQuestions(?iterable $referentielQuestions): void
+    public function setReferentielQuestions(?ReferentielQuestion $referentielQuestions): void
     {
         $this->referentielQuestions = $referentielQuestions;
     }
 
-    public function addReferentielQuestion(ReferentielQuestion $referentielQuestion): void
+    public function addReferentielQuestion(?ReferentielQuestion $referentielQuestion): void
     {
         $this->referentielQuestions[] = $referentielQuestion;
     }
 
-    public function removeReferentielQuestion(ReferentielQuestion $referentielQuestion): void
+    public function removeReferentielQuestion(?ReferentielQuestion $referentielQuestion): void
     {
         $key = \array_search($referentielQuestion, $this->referentielQuestions, true);
 

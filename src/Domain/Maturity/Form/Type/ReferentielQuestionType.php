@@ -29,6 +29,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -57,19 +58,18 @@ class ReferentielQuestionType extends AbstractType
                 'expanded' => false,
                 'choices'  => [0,1,2,3,4,5],
             ])
-            ->add('questionNumber', IntegerType::class, [
+            ->add('questionNumber', HiddenType::class, [
                 'required' => false,
-                'attr'     => [
-                    'min' => 0,
-                ],
             ])
             ->add('option', CheckboxType::class, [
-                'label'    => false,
+                'label'    => "Activer l'option : Non concerné",
                 'required' => false,
             ])
             ->add('optionReason', TextType::class, [
+                'label'    => false,
                 'required' => false,
                 'attr'     => [
+                    'placeholder' => 'Précisez',
                     'maxlength' => 255,
                 ],
             ])

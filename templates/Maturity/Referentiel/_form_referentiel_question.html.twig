@@ -14,10 +14,19 @@
         <div class="box-body">
             <div class="col-md-12">
                 <div>Réponses :</div>
-                <div class="col-md-12">
-                    {% for answer in question.referentielAnswers %}
-                        {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': answer} %}
-                    {% endfor %}
+                {{ form_row(form.questionNumber) }}
+                <div class="col-md-2">
+                    {{ form_row(form.option) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.optionReason) }}
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {% for answer in question.referentielAnswers %}
+                            {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': answer} %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
