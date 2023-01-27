@@ -43,7 +43,7 @@
     <div class="banner-impersonate bg-danger text-red">
         <div>
             Vous êtes actuellement connecté en tant que "{{ app.user }}" ({{ app.user.collectivity }} - {{ app.user.roles[0]|dictionary('user_user_role') }})
-            <a href="{{ path('user_user_list', {'_switch_user': '_exit'}) }}" class="text-red">
+            <a aria-label="Déconnexion" href="{{ path('user_user_list', {'_switch_user': '_exit'}) }}" class="text-red">
                 Quitter ce mode
             </a>
         </div>

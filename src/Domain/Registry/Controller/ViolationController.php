@@ -176,7 +176,7 @@ class ViolationController extends CRUDController
 
         /** @var Model\Violation $violation */
         foreach ($users as $violation) {
-            $violationLink = '<a href="' . $this->router->generate('registry_violation_show', ['id' => $violation->getId()->toString()]) . '">
+            $violationLink = '<a aria-label="' . \date_format($violation->getDate(), 'd/m/Y') . '" href="' . $this->router->generate('registry_violation_show', ['id' => $violation->getId()->toString()]) . '">
                 ' . \date_format($violation->getDate(), 'd/m/Y') . '
             </a>';
 
@@ -227,11 +227,11 @@ class ViolationController extends CRUDController
         if ($this->authorizationChecker->isGranted('ROLE_USER')
         && \is_null($violation->getDeletedAt())
         && ($user->getServices()->isEmpty() || $this->isRequestInUserServices($violation))) {
-            $cellContent .= '<a href="' . $this->router->generate('registry_violation_edit', ['id' => $violation->getId()]) . '">
+            $cellContent .= '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('registry_violation_edit', ['id' => $violation->getId()]) . '">
                     <i class="fa fa-pencil-alt"></i> ' .
                     $this->translator->trans('action.edit') . '
                 </a>
-                <a href="' . $this->router->generate('registry_violation_delete', ['id' => $violation->getId()]) . '">
+                <a aria-label="' . $this->translator->trans('action.archive') . '" href="' . $this->router->generate('registry_violation_delete', ['id' => $violation->getId()]) . '">
                     <i class="fa fa-archive"></i> ' .
                     $this->translator->trans('action.archive') . '
                 </a>';

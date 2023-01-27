@@ -26,7 +26,7 @@
         <div class="col-xs-12">
             <div class="action-bar">
                 {% if category and category.documents|length > 0 %}
-                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                    <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
                         <i class="far fa-file"></i>
                         {{ 'documentation.document.link.button'|trans }}
                     </a>
@@ -41,25 +41,25 @@
                     <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="datepicker form-control" type="text" id="search_date_planification" placeholder="Date" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_cout" placeholder="Coût" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_charge" placeholder="Charge" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_responsable_action" placeholder="Responsable" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_priorite" style="width: 100%;">
                                     <option value="">Priorité</option>
                                     {% for key, subject in dictionary('registry_mesurement_priority') %}
@@ -69,14 +69,14 @@
                             </th>
                         </tr>
                         <tr>
-                            <th>{{ 'registry.mesurement.list.name'|trans }}</th>
-                            <th>{{ 'registry.mesurement.list.collectivity'|trans }}</th>
-                            <th>{{ 'registry.mesurement.list.planification_date'|trans }}</th>
-                            <th>{{ 'registry.mesurement.list.cost'|trans }}</th>
-                            <th>{{ 'registry.mesurement.list.charge'|trans }}</th>
-                            <th>{{ 'registry.mesurement.list.manager'|trans }}</th>
-                            <th>{{ 'registry.mesurement.list.priority'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.list.name'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.list.collectivity'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.list.planification_date'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.list.cost'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.list.charge'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.list.manager'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.list.priority'|trans }}</th>
+                            <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

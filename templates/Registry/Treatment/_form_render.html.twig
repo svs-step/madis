@@ -8,7 +8,7 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'registry.treatment.action.back_to_list'|trans }}" href="{{ path('registry_treatment_list') }}" class="btn btn-default">
                     {{ 'registry.treatment.action.back_to_list'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">

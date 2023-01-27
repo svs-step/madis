@@ -39,10 +39,10 @@
                     <table role="presentation" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Avis des acteurs</th>
-                                <th>Date</th>
-                                <th>Réponse</th>
-                                <th>Détail</th>
+                                <th scope="col">Avis des acteurs</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Réponse</th>
+                                <th scope="col">Détail</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,7 +61,7 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body text-center">
-                    <a href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
+                    <a aria-label="{{ 'action.back_to_list'|trans }}" href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
                     <input type="submit" class="btn btn-primary" value="Valider l'AIPD">
                     {{ form_widget(form.saveDraft) }}
                 </div>

@@ -95,7 +95,7 @@
                             <tr>
                                 <td><strong>{{ 'registry.violation.show.collectivity'|trans }}</strong></td>
                                 <td>
-                                    <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                    <a aria-label="{{ object.collectivity }}" href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
                                         {{ object.collectivity }}
                                     </a>
                                 </td>

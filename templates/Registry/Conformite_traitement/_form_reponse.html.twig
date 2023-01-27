@@ -6,7 +6,7 @@
                     <h3 class="box-title">{{ 'registry.conformite_traitement.form.header'|trans }}</h3>
                 </span>
                 <span style="padding-left: 30px;">
-                    <a href="{{ path('registry_conformite_traitement_list') }}" class="btn btn-default">
+                    <a aria-label="{{ 'registry.conformite_traitement.action.back_to_list'|trans }}" href="{{ path('registry_conformite_traitement_list') }}" class="btn btn-default">
                         {{ 'registry.conformite_traitement.action.back_to_list'|trans }}
                     </a>
                     <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
@@ -16,11 +16,11 @@
                 <table role="presentation" id="table" class="table">
                     <thead>
                         <tr>
-                            <th style="width: 3%;"></th>
-                            <th class="col-md-6">{{ 'registry.conformite_traitement.form.question'|trans }}</th>
-                            <th class="col-md-2">{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
-                            <th class="col-md-4">{{ 'registry.conformite_traitement.form.action_protection'|trans }}</th>
-                            <th></th>
+                            <th scope="col" style="width: 3%;"></th>
+                            <th scope="col" class="col-md-6">{{ 'registry.conformite_traitement.form.question'|trans }}</th>
+                            <th scope="col" class="col-md-2">{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
+                            <th scope="col" class="col-md-4">{{ 'registry.conformite_traitement.form.action_protection'|trans }}</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>

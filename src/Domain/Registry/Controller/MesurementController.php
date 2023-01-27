@@ -382,7 +382,7 @@ class MesurementController extends CRUDController
 
     private function generateShowLink(Model\Mesurement $mesurement)
     {
-        return '<a href="' .
+        return '<a aria-label="' . \htmlspecialchars($mesurement->getName()) . '" href="' .
             $this->router->generate('registry_mesurement_show', ['id' => $mesurement->getId()]) .
             '">' . \htmlspecialchars($mesurement->getName()) . '</a>';
     }
@@ -390,20 +390,20 @@ class MesurementController extends CRUDController
     private function generateActionCell(Model\Mesurement $mesurement, bool $isActionPlan = false)
     {
         if ($isActionPlan) {
-            return '<a href="' .
+            return '<a aria-label="' . $this->translator->trans('registry.mesurement.action.show_mesurement') . '" href="' .
                 $this->router->generate('registry_mesurement_show', ['id' => $mesurement->getId()]) . '">
                 <i class="fa fa-pencil-alt"></i> ' .
                 $this->translator->trans('registry.mesurement.action.show_mesurement')
                 . '</a>';
         }
 
-        return '<a href="' .
+        return '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' .
             $this->router->generate('registry_mesurement_edit', ['id' => $mesurement->getId()]) . '">
             <i class="fa fa-pencil-alt"></i>' .
             $this->translator->trans('action.edit')
             . '</a>
             
-            <a href="' .
+            <a aria-label="' . $this->translator->trans('action.delete') . '" href="' .
             $this->router->generate('registry_mesurement_delete', ['id' => $mesurement->getId()]) .
             '"><i class="fa fa-trash"></i>' .
             $this->translator->trans('action.delete')

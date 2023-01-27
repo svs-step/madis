@@ -25,7 +25,7 @@
                 </div>
             {% endfor %}
             <div class="action-bar">
-                <a href="{{ path('admin_duplication_revert') }}" class="btn btn-default">
+                <a aria-label="{{ 'admin.duplication.revert'|trans }}" href="{{ path('admin_duplication_revert') }}" class="btn btn-default">
                     <i class="fa fa-times-circle"></i>
                     {{ 'admin.duplication.revert'|trans }}
                 </a>

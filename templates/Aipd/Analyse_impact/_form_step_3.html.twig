@@ -1,13 +1,13 @@
 <table role="presentation" class="table table-bordered" style="text-: center" id="step3-table">
     <tr>
-        <th style="width: 3%">D</th>
-        <th style="width: 3%">I</th>
-        <th style="width: 3%">C</th>
-        <th style="width: 35%">{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
-        <th style="width: 12%">{{ 'aipd.scenario_menace.list.vraisemblance'|trans }}</th>
-        <th style="width: 12%">{{ 'aipd.scenario_menace.list.gravite'|trans }}</th>
-        <th style="width: 10%">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
-        <th>{{ 'aipd.scenario_menace.list.precision'|trans }}</th>
+        <th scope="col" style="width: 3%">D</th>
+        <th scope="col" style="width: 3%">I</th>
+        <th scope="col" style="width: 3%">C</th>
+        <th scope="col" style="width: 35%">{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
+        <th scope="col" style="width: 12%">{{ 'aipd.scenario_menace.list.vraisemblance'|trans }}</th>
+        <th scope="col" style="width: 12%">{{ 'aipd.scenario_menace.list.gravite'|trans }}</th>
+        <th scope="col" style="width: 10%">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
+        <th scope="col">{{ 'aipd.scenario_menace.list.precision'|trans }}</th>
     </tr>
     {% for scenario in form.scenarioMenaces %}
         <tr>

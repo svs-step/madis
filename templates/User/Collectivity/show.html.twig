@@ -25,12 +25,12 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-                <a href="{{ path('user_collectivity_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'user.collectivity.action.back_to_list'|trans }}" href="{{ path('user_collectivity_list') }}" class="btn btn-default">
                     <i class="fa fa-arrow-left"></i>
                     {{ 'user.collectivity.action.back_to_list'|trans }}
                 </a>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('user_collectivity_edit', {'id': object.id}) }}" class="btn btn-default">
+                    <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('user_collectivity_edit', {'id': object.id}) }}" class="btn btn-default">
                         <i class="fa fa-pencil-alt"></i>
                         {{ 'action.edit'|trans }}
                     </a>
@@ -362,12 +362,12 @@
                     <table role="presentation" class="table">
                         <thead>
                         <tr>
-                            <th><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></th>
-                            <th><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></th>
-                            <th><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></th>
-                            <th><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></th>
-                            <th><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></th>
-                            <th><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></th>
+                            <th scope="col"><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></th>
+                            <th scope="col"><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></th>
+                            <th scope="col"><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></th>
+                            <th scope="col"><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></th>
+                            <th scope="col"><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></th>
+                            <th scope="col"><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -413,10 +413,10 @@
                     <table role="presentation" class="table">
                         <thead>
                             <tr>
-                                <th><strong>{{ 'user.user.list.first_name'|trans }}</strong></th>
-                                <th><strong>{{ 'user.user.list.last_name'|trans }}</strong></th>
-                                <th><strong>{{ 'user.user.list.email'|trans }}</strong></th>
-                                <th><strong>{{ 'user.user.list.enabled'|trans }}</strong></th>
+                                <th scope="col"><strong>{{ 'user.user.list.first_name'|trans }}</strong></th>
+                                <th scope="col"><strong>{{ 'user.user.list.last_name'|trans }}</strong></th>
+                                <th scope="col"><strong>{{ 'user.user.list.email'|trans }}</strong></th>
+                                <th scope="col"><strong>{{ 'user.user.list.enabled'|trans }}</strong></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -447,7 +447,7 @@
                     <table role="presentation" class="table">
                         <thead>
                         <tr>
-                            <th><strong>{{ 'user.collectivity.show.name'|trans }}</strong></th>
+                            <th scope="col"><strong>{{ 'user.collectivity.show.name'|trans }}</strong></th>
                         </tr>
                         </thead>
                         <tbody>

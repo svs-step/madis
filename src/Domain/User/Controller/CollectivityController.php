@@ -153,7 +153,7 @@ class CollectivityController extends CRUDController
         /** @var Model\Collectivity $collectivity */
         foreach ($collectivities as $collectivity) {
             $reponse['data'][] = [
-                'nom'                          => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' . $collectivity->getName() . '</a>',
+                'nom'                          => '<a aria-label="' . $collectivity->getName() . '" href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' . $collectivity->getName() . '</a>',
                 'nom_court'                    => $collectivity->getShortName(),
                 'type'                         => !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] : null,
                 'informations_complementaires' => !\is_null($collectivity->getInformationsComplementaires()) ? nl2br($collectivity->getInformationsComplementaires()) : null,
@@ -175,12 +175,12 @@ class CollectivityController extends CRUDController
             return;
         }
 
-        $cellContent = '<a href="' . $this->router->generate('user_collectivity_edit', ['id' => $collectivity->getId()]) . '">
+        $cellContent = '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('user_collectivity_edit', ['id' => $collectivity->getId()]) . '">
             <i class="fa fa-pencil-alt"></i> ' .
             $this->translator->trans('action.edit') .
         '</a>';
 
-        $cellContent .= '<a href="' . $this->router->generate('user_collectivity_delete', ['id' => $collectivity->getId()]) . '">
+        $cellContent .= '<a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('user_collectivity_delete', ['id' => $collectivity->getId()]) . '">
             <i class="fa fa-trash"></i> ' .
             $this->translator->trans('action.delete') .
         '</a>';

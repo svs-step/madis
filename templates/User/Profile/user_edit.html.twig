@@ -90,12 +90,12 @@
                         {{ sso_title }}
                         <small><em>({{ 'user.profile.form_user.sso.linked'|trans }} <span class="fa fa-check text-success"></span>)</em></small>
                     </span>
-                            <a href="{{ path('user_profile_user_sso_unlink') }}" class="col-sm-3 btn btn-default">
+                            <a aria-label="{{ 'user.profile.form_user.sso.unlink'|trans }}" href="{{ path('user_profile_user_sso_unlink') }}" class="col-sm-3 btn btn-default">
                                 <span class="fa fa-unlink"></span> {{ 'user.profile.form_user.sso.unlink'|trans }}
                             </a>
                         {% else %}
                             <span class="col-sm-7 sso-title"><img  src="{{ asset(sso_icon) }}" alt="">{{ sso_title }}</span>
-                            <a href="{{ path('oauth_connect', {'service':sso_type}) }}" class="col-sm-3 btn btn-primary">
+                            <a aria-label="{{ 'user.profile.form_user.sso.link'|trans }}" href="{{ path('oauth_connect', {'service':sso_type}) }}" class="col-sm-3 btn btn-primary">
                                 <span class="fa fa-link"></span> {{ 'user.profile.form_user.sso.link'|trans }}
                             </a>
                         {% endif %}

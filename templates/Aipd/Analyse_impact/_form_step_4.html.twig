@@ -1,8 +1,8 @@
 <table role="presentation" class="table table-bordered">
     <tr>
-        <th style="width: 40%">{{ 'aipd.mesure_protection.list.nom'|trans }}</th>
-        <th>{{ 'aipd.mesure_protection.list.reponse'|trans }}</th>
-        <th style="width:  40%">{{ 'aipd.mesure_protection.list.detail'|trans }}</th>
+        <th scope="col" style="width: 40%">{{ 'aipd.mesure_protection.list.nom'|trans }}</th>
+        <th scope="col">{{ 'aipd.mesure_protection.list.reponse'|trans }}</th>
+        <th scope="col" style="width:  40%">{{ 'aipd.mesure_protection.list.detail'|trans }}</th>
     </tr>
     {% for mesureProtection in form.mesureProtections %}
         <tr>

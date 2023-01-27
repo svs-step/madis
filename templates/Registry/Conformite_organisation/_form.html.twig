@@ -6,7 +6,7 @@
     <div class="js-collection-item col-md-6 nopadding">
         <div class="box box-default">
             <div class="box-tools pull-right">
-                <a href="#" class="btn btn-box-tool js-remove-item" data-toggle="tooltip" title="Remove">
+                <a aria-label="Supprimer" href="#" class="btn btn-box-tool js-remove-item" data-toggle="tooltip" title="Remove">
                     <i class="fa fa-times"></i>
                 </a>
             </div>
@@ -43,7 +43,7 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a href="{{ path('registry_conformite_organisation_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'registry.conformite_organisation.action.back_to_list'|trans }}" href="{{ path('registry_conformite_organisation_list') }}" class="btn btn-default">
                     {{ 'registry.conformite_organisation.action.back_to_list'|trans }}
                 </a>
                 {# Prevent those fields from being automatically rendered #}
@@ -74,7 +74,7 @@
                     {% for participant in form.participants %}
                         {{ formMacros.printParticipant(participant) }}
                     {% endfor %}
-                    <a href="#" class="js-collection-add btn btn-default">
+                    <a aria-label="{{ 'registry.conformite_organisation.participant.form.add'|trans }}" href="#" class="js-collection-add btn btn-default">
                         <span class="fa fa-pencil-alt"></span>
                         {{ 'registry.conformite_organisation.participant.form.add'|trans }}
                     </a>

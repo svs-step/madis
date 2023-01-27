@@ -22,7 +22,7 @@
             <div class="form-group">
                 <div class="col-sm-2 text-right"><label>Existant</label></div>
                 <div class="col-sm-10">
-                    <a href="{{ object.url }}" target="_blank">{{ object.name }}</a>
+                    <a aria-label="{{ object.name }}" href="{{ object.url }}" target="_blank">{{ object.name }}</a>
                 </div>
             </div>
                 {% endif %}
@@ -108,7 +108,7 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'documentation.document.action.back_to_list'|trans }}" href="{{ path('documentation_document_list') }}" class="btn btn-default">
                     {{ 'documentation.document.action.back_to_list'|trans }}
                 </a>
                 <input id="create-document" type="submit" class="btn btn-primary" value="{{ submitValue }}">

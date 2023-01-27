@@ -26,7 +26,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-                <a href="{{ path('user_collectivity_create') }}" class="btn btn-default">
+                <a aria-label="{{ 'user.collectivity.action.new'|trans }}" href="{{ path('user_collectivity_create') }}" class="btn btn-default">
                     <i class="fa fa-plus"></i>
                     {{ 'user.collectivity.action.new'|trans }}
                 </a>
@@ -42,13 +42,13 @@
                     <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_nom_court" placeholder="Nom court" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_type" style="width: 100%;">
                                     <option value="">Type</option>
                                     {% for key, subject in dictionary('user_collectivity_type') %}
@@ -56,13 +56,13 @@
                                     {% endfor %}
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_informations_complementaires" placeholder="Infos complémentaires" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_siren" placeholder="Siren" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_actif" style="width: 100%;">
                                     <option value="">Statut</option>
                                     <option value="1">{{ 'label.active'|trans }}</option>
@@ -71,13 +71,13 @@
                             </th>
                         </tr>
                         <tr>
-                            <th>{{ 'user.collectivity.list.name'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.short_name'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.type'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.informations_complementaires'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.siren'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.active'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.name'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.short_name'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.type'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.informations_complementaires'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.siren'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.active'|trans }}</th>
+                            <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

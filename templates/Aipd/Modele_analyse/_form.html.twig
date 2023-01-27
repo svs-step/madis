@@ -14,7 +14,7 @@
         <td>{{ form_widget(scenarioMenace.gravite) }}</td>
         <td>{{ form_widget(scenarioMenace.precisions) }}</td>
         <td>
-            <a href="#" class="js-table-remove-item">
+            <a aria-label="{{ 'action.delete'|trans }}" href="#" class="js-table-remove-item">
                 <i class="fa fa-trash"></i>
                 {{ 'action.delete'|trans }}
             </a>
@@ -66,15 +66,15 @@
                 <div class="box-body">
                     <table role="presentation" class="table">
                         <tr>
-                            <th>Label</th>
-                            <th>Label pour livrable</th>
-                            <th>Réponses</th>
-                            <th>Visible</th>
-                            <th>Texte en cas de conformité</th>
-                            <th>Texte en cas de non-conformité</th>
-                            <th>Texte en cas de non-applicabilité</th>
-                            <th>Justificatif</th>
-                            <th>Joindre un fichier</th>
+                            <th scope="col">Label</th>
+                            <th scope="col">Label pour livrable</th>
+                            <th scope="col">Réponses</th>
+                            <th scope="col">Visible</th>
+                            <th scope="col">Texte en cas de conformité</th>
+                            <th scope="col">Texte en cas de non-conformité</th>
+                            <th scope="col">Texte en cas de non-applicabilité</th>
+                            <th scope="col">Justificatif</th>
+                            <th scope="col">Joindre un fichier</th>
                         </tr>
                         {% for critere in form.criterePrincipeFondamentaux %}
                             {% include '@templates_path/Aipd/Modele_analyse/_form_criteres.html.twig' with {
@@ -99,21 +99,21 @@
                     data-prototype="{{ formMacros.printScenariosMenaces(form.scenarioMenaces.vars.prototype)|e('html_attr') }}"
                     data-index="{{ form.scenarioMenaces|length }}"
                 >
-                    <a href="#" class="js-table-collection-add btn btn-default">
+                    <a aria-label="{{ 'aipd.modele_analyse.form.scenario_menace.add'|trans }}" href="#" class="js-table-collection-add btn btn-default">
                         {{ 'aipd.modele_analyse.form.scenario_menace.add'|trans }}
                     </a>
                     <table role="presentation" id="js-table-collection" class="table table-bordered">
                         <tr>
-                            <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
-                            <th>{{ 'aipd.scenario_menace.list.mesures'|trans }}</th>
-                            <th style="max-width: 40px">{{ 'aipd.scenario_menace.list.visible'|trans }}</th>
-                            <th style="max-width: 30px">D</th>
-                            <th style="max-width: 30px">I</th>
-                            <th style="max-width: 30px">C</th>
-                            <th>{{ 'aipd.scenario_menace.list.vraisemblance'|trans }}</th>
-                            <th>{{ 'aipd.scenario_menace.list.gravite'|trans }}</th>
-                            <th>{{ 'aipd.scenario_menace.list.precision'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
+                            <th scope="col">{{ 'aipd.scenario_menace.list.mesures'|trans }}</th>
+                            <th scope="col" style="max-width: 40px">{{ 'aipd.scenario_menace.list.visible'|trans }}</th>
+                            <th scope="col" style="max-width: 30px">D</th>
+                            <th scope="col" style="max-width: 30px">I</th>
+                            <th scope="col" style="max-width: 30px">C</th>
+                            <th scope="col">{{ 'aipd.scenario_menace.list.vraisemblance'|trans }}</th>
+                            <th scope="col">{{ 'aipd.scenario_menace.list.gravite'|trans }}</th>
+                            <th scope="col">{{ 'aipd.scenario_menace.list.precision'|trans }}</th>
+                            <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         {% for scenarioMenace in form.scenarioMenaces %}
                             {{ formMacros.printScenariosMenaces(scenarioMenace) }}

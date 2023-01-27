@@ -8,7 +8,7 @@
     <div class="box-header with-border" style="list-style: none;">
         <h3 class="box-title">Vous avez {{ unreadNotifs|length }} notifications non lues</h3>
         {% if unreadNotifs|length > 0 %}
-            <a id="read-all" href="{{ path('notification_notification_mark_as_read_all') }}" style="float:right;">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
+            <a aria-label="{{ 'notification.notification.action.mark_as_read_all'|trans }}" id="read-all" href="{{ path('notification_notification_mark_as_read_all') }}" style="float:right;">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
         {% endif %}
     </div>
 
@@ -28,7 +28,7 @@
                     </div>
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="col-md-4 text-center">
-                            <a  href="{{ path('notification_notification_mark_as_read', { 'id': notif.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
+                            <a aria-label="{{ 'notification.notification.action.mark_as_read'|trans }}" href="{{ path('notification_notification_mark_as_read', { 'id': notif.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
                                 <i class="fas fa-clipboard-check"></i> {{ 'notification.notification.action.mark_as_read'|trans }}
                             </a>
                         </div>
@@ -46,7 +46,7 @@
 
     {% set notifsLeft = unreadNotifs|length - app_notification_max_shown > 0 ? unreadNotifs|length - app_notification_max_shown : 0 %}
     <div class="text-center box-header">
-        <a href="{{ path('notification_notification_list') }}">
+        <a aria-label="Notifications" href="{{ path('notification_notification_list') }}">
             Voir toutes les notifications
             {% if unreadNotifs|length > app_notification_max_shown %} ({{ notifsLeft }} autres non lues) {% endif %}
         </a>

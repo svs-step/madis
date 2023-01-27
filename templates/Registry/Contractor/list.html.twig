@@ -26,19 +26,19 @@
             <div class="col-xs-12">
                 <div class="action-bar">
                     {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('registry_contractor_create') }}" class="btn btn-default">
+                    <a aria-label="{{ 'registry.contractor.action.new'|trans }}" href="{{ path('registry_contractor_create') }}" class="btn btn-default">
                         <i class="fa fa-plus"></i>
                         {{ 'registry.contractor.action.new'|trans }}
                     </a>
                     {% endif %}
                     {% if app.user.roles[0] != 'ROLE_REFERENT' %}
-                    <a href="{{ path('registry_contractor_report') }}" class="btn btn-default">
+                    <a aria-label="{{ 'registry.contractor.action.report'|trans }}" href="{{ path('registry_contractor_report') }}" class="btn btn-default">
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.contractor.action.report'|trans }}
                     </a>
                     {% endif %}
                     {% if category and category.documents|length > 0%}
-                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
                             <i class="far fa-file"></i>
                             {{ 'documentation.document.link.button'|trans }}
                         </a>
@@ -53,10 +53,10 @@
             <div class="box box-solid">
                 <div class="box-body">
                     <div style="float:left">
-                        <a id="delete-all"  href="{{ path('registry_contractor_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                        <a aria-label="Supprimer" id="delete-all"  href="{{ path('registry_contractor_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Supprimer
                         </a>
-                        <a id="print-all"  href="{{ path('registry_contractor_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                        <a aria-label="Imprimer" id="print-all"  href="{{ path('registry_contractor_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Imprimer
                         </a>
                     </div>

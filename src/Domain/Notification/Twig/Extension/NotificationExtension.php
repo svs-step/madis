@@ -40,7 +40,7 @@ class NotificationExtension extends AbstractExtension
             $this->translator->trans($notification->getAction()) . ' ';
 
         $sentence .= $this->translator->trans('label.de') . ' ' .
-            '<a href="' . $this->getObjectLink($notification) . '">' . $notification->getName() . '</a> '
+            '<a aria-label="' . $notification->getName() . '" href="' . $this->getObjectLink($notification) . '">' . $notification->getName() . '</a> '
         ;
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Violation::class]) {
             $sentence .= '<strong>(' . ViolationNatureDictionary::getNatures()[$notification->getObject()->violationNature] . ')</strong> ';

@@ -120,11 +120,11 @@ class MesureProtectionController extends CRUDController
             $editPath   = $this->router->generate('aipd_mesure_protection_edit', ['id' => $id]);
             $deletePath = $this->router->generate('aipd_mesure_protection_delete', ['id' => $id]);
 
-            return '<a href="' . $editPath . '">
+            return '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $editPath . '">
                     <i class="fa fa-pencil-alt"></i>
                         ' . $this->translator->trans('action.edit') . '
                     </a>
-                    <a href="' . $deletePath . '">
+                    <a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $deletePath . '">
                         <i class="fa fa-trash"></i>
                         ' . $this->translator->trans('action.delete') . '
                     </a>'

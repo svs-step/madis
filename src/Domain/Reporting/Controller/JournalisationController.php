@@ -86,7 +86,7 @@ class JournalisationController extends AbstractController
             return $content;
         }
 
-        return '<a href="' . $content . '">Voir</a>';
+        return '<a aria-label="Voir" href="' . $content . '">Voir</a>';
     }
 
     /**

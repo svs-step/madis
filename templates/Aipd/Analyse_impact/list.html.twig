@@ -30,36 +30,36 @@
                     <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_traitement" placeholder="Traitement" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="datepicker form-control" type="text" id="search_date_de_creation" placeholder="Date création" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="datepicker form-control" type="text" id="search_date_de_validation" placeholder="Date validation" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_modele" placeholder="Modèle utilisé" style="width: 100%;">
                             </th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                         <tr>
-                            <th>{{ 'aipd.analyse_impact.list.traitement'|trans }}</th>
-                            <th>{{ 'aipd.analyse_impact.list.date_creation'|trans }}</th>
-                            <th>{{ 'aipd.analyse_impact.list.date_validation'|trans }}</th>
-                            <th style="width: 15%">{{ 'aipd.analyse_impact.list.modele'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.list.traitement'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.list.date_creation'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.list.date_validation'|trans }}</th>
+                            <th scope="col" style="width: 15%">{{ 'aipd.analyse_impact.list.modele'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th>{{ 'aipd.analyse_impact.list.collectivite'|trans }}</th>
                             {% endif %}
-                            <th>{{ 'aipd.analyse_impact.list.avis_referent'|trans }}</th>
-                            <th>{{ 'aipd.analyse_impact.list.avis_dpd'|trans }}</th>
-                            <th>{{ 'aipd.analyse_impact.list.avis_representant'|trans }}</th>
-                            <th>{{ 'aipd.analyse_impact.list.avis_responsable'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_referent'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_dpd'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_representant'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_responsable'|trans }}</th>
+                            <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

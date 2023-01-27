@@ -348,11 +348,11 @@ class TreatmentController extends CRUDController
         /** @var Model\Treatment $treatment */
         foreach ($treatments as $treatment) {
             if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
-                $treatmentLink = '<a href="' . $this->router->generate('registry_public_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
+                $treatmentLink = '<a aria-label="' . \htmlspecialchars($treatment->getName()) . '" href="' . $this->router->generate('registry_public_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
                 ' . \htmlspecialchars($treatment->getName()) . '
                 </a>';
             } else {
-                $treatmentLink = '<a href="' . $this->router->generate('registry_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
+                $treatmentLink = '<a aria-label="' . \htmlspecialchars($treatment->getName()) . '" href="' . $this->router->generate('registry_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
                 ' . \htmlspecialchars($treatment->getName()) . '
                 </a>';
             }
@@ -474,11 +474,11 @@ class TreatmentController extends CRUDController
             $deletePath = $this->router->generate('registry_treatment_delete', ['id' => $id]);
 
             if ($this->authorizationChecker->isGranted('ROLE_USER')) {
-                return '<a href="' . $editPath . '">
+                return '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $editPath . '">
              <i class="fa fa-pencil-alt"></i>
                  ' . $this->translator->trans('action.edit') . '
              </a>
-             <a href="' . $deletePath . '">
+             <a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $deletePath . '">
                  <i class="fa fa-trash"></i>
                  ' . $this->translator->trans('action.delete') . '
              </a>'

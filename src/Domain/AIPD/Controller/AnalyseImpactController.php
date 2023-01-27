@@ -113,7 +113,7 @@ class AnalyseImpactController extends CRUDController
         /** @var AnalyseImpact $analyse */
         foreach ($analyses as $analyse) {
             $response['data'][] = [
-                'traitement'       => '<a href="' . $this->router->generate('registry_treatment_show', ['id' => $analyse->getConformiteTraitement()->getTraitement()->getId()]) . '">' . $analyse->getConformiteTraitement()->getTraitement()->getName() . '</a>',
+                'traitement'       => '<a aria-label="' . $analyse->getConformiteTraitement()->getTraitement()->getName() . '" href="' . $this->router->generate('registry_treatment_show', ['id' => $analyse->getConformiteTraitement()->getTraitement()->getId()]) . '">' . $analyse->getConformiteTraitement()->getTraitement()->getName() . '</a>',
                 'dateDeCreation'   => $analyse->getCreatedAt()->format('d/m/Y'),
                 'dateDeValidation' => null === $analyse->getDateValidation() ? '' : $analyse->getDateValidation()->format('d/m/Y'),
                 'modele'           => $analyse->getModeleAnalyse(),
@@ -147,23 +147,23 @@ class AnalyseImpactController extends CRUDController
 
     private function generateActionCell(AnalyseImpact $analyseImpact): string
     {
-        $cell = '<a href="' . $this->router->generate('aipd_analyse_impact_print', ['id' => $analyseImpact->getId()]) . '">
+        $cell = '<a aria-label="' . $this->translator->trans('action.print') . '" href="' . $this->router->generate('aipd_analyse_impact_print', ['id' => $analyseImpact->getId()]) . '">
         <i class="fa fa-print"></i>' .
             $this->translator->trans('action.print') . '
         </a>';
         if (!$analyseImpact->isValidated()) {
-            $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
+            $cell .= '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
                 <i class="fa fa-pencil-alt"></i>' .
                         $this->translator->trans('action.edit') . '
                 </a>';
             if ($analyseImpact->isReadyForValidation()) {
-                $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_validation', ['id' => $analyseImpact->getId()]) . '">
+                $cell .= '<a aria-label="' . $this->translator->trans('action.validate') . '" href="' . $this->router->generate('aipd_analyse_impact_validation', ['id' => $analyseImpact->getId()]) . '">
                 <i class="fa fa-check-square"></i>' .
                     $this->translator->trans('action.validate') . '
                 </a>';
             }
         }
-        $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
+        $cell .= '<a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
         <i class="fa fa-trash"></i>' .
             $this->translator->trans('action.delete') . '
         </a>';

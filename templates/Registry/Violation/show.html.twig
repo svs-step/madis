@@ -25,17 +25,17 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-                <a href="{{ path('registry_violation_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'registry.violation.action.back_to_list'|trans }}" href="{{ path('registry_violation_list') }}" class="btn btn-default">
                     <i class="fa fa-arrow-left"></i>
                     {{ 'registry.violation.action.back_to_list'|trans }}
                 </a>
                 {% if is_granted('ROLE_USER') and object.deletedAt is null and (actionEnabled) %}
-                    <a href="{{ path('registry_violation_edit', {'id': object.id}) }}" class="btn btn-default">
+                    <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('registry_violation_edit', {'id': object.id}) }}" class="btn btn-default">
                         <i class="fa fa-pencil-alt"></i>
                         {{ 'action.edit'|trans }}
                     </a>
                 {% endif %}
-                <a href="{{ path('registry_violation_pdf', {'id': object.id}) }}" class="btn btn-default">
+                <a aria-label="{{ 'action.print'|trans }}" href="{{ path('registry_violation_pdf', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-print"></i>
                     {{ 'action.print'|trans }}
                 </a>
@@ -139,7 +139,7 @@
                             <tr>
                                 <td><strong>{{ 'registry.violation.show.collectivity'|trans }}</strong></td>
                                 <td>
-                                    <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                    <a aria-label="{{ object.collectivity }}" href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
                                         {{ object.collectivity }}
                                     </a>
                                 </td>

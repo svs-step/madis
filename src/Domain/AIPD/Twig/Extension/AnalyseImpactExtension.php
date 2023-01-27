@@ -38,7 +38,7 @@ class AnalyseImpactExtension extends AbstractExtension
         $reponseConformite = $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getReponseOfPosition($questionAnalyse->getPosition());
         $formattedString   = '';
         if (!$reponseConformite) {
-            return '<a href="/conformite-traitement/editer/' . $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getId()->toString() . '">Veuillez évaluer à nouveau la conformité du traitement</a>';
+            return '<a aria-label="Vérifier la conformité" href="/conformite-traitement/editer/' . $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getId()->toString() . '">Veuillez évaluer à nouveau la conformité du traitement</a>';
         }
         /** @var Mesurement $actionProtection */
         foreach ($reponseConformite->getActionProtections() as $actionProtection) {

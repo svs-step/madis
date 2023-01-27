@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-                <a href="{{ path('registry_public_treatment_list', {id: object.collectivity.id}) }}" class="btn btn-default">
+                <a aria-label="{{ 'registry.treatment.action.back_to_list'|trans }}" href="{{ path('registry_public_treatment_list', {id: object.collectivity.id}) }}" class="btn btn-default">
                     <i class="fa fa-arrow-left"></i>
                     {{ 'registry.treatment.action.back_to_list'|trans }}
                 </a>
@@ -228,7 +228,7 @@
                                         <ul>
                                             {% for contractor in object.contractors %}
                                                 <li>
-                                                    <a href="{{ path('registry_contractor_show', {'id': contractor.id}) }}">{{ contractor }}</a>
+                                                    <a aria-label="{{ contractor }}" href="{{ path('registry_contractor_show', {'id': contractor.id}) }}">{{ contractor }}</a>
                                                 </li>
                                             {% endfor %}
                                         </ul>
@@ -421,7 +421,7 @@
                                     </td>
                                     <td>
                                         {% if app.user %}
-                                        <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                        <a aria-label="{{ object.collectivity }}" href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
                                             {{ object.collectivity }}
                                         </a>
                                         {% else %}

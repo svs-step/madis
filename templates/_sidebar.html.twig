@@ -2,7 +2,7 @@
     <ul class="sidebar-menu" data-widget="tree">
 
         <li {% if menuItem == 'reporting_dashboard' %}class="active"{% endif %}>
-            <a href="{{ path('reporting_dashboard_index') }}">
+            <a aria-label="{{ 'sidebar_menu.dashboard'|trans }}" href="{{ path('reporting_dashboard_index') }}">
                 <i class="fa fa-tachometer-alt"></i>
                 <span>{{ 'sidebar_menu.dashboard'|trans }}</span>
             </a>
@@ -11,25 +11,25 @@
         {# REGISTRIES #}
         <li class="header">Registres</li>
         <li {% if menuItem == 'registry_treatment' %}class="active"{% endif %}>
-            <a href="{{ path('registry_treatment_list') }}">
+            <a aria-label="{{ 'sidebar_menu.registry_treatments'|trans }}" href="{{ path('registry_treatment_list') }}">
                 <i class="fa fa-list"></i>
                 <span>{{ 'sidebar_menu.registry_treatments'|trans }}</span>
             </a>
         </li>
         <li {% if menuItem == 'registry_contractor' %}class="active"{% endif %}>
-            <a href="{{ path('registry_contractor_list') }}">
+            <a aria-label="{{ 'sidebar_menu.registry_contractors'|trans }}" href="{{ path('registry_contractor_list') }}">
                 <i class="fa fa-address-card"></i>
                 <span>{{ 'sidebar_menu.registry_contractors'|trans }}</span>
             </a>
         </li>
         <li {% if menuItem == 'registry_request' %}class="active"{% endif %}>
-            <a href="{{ path('registry_request_list') }}">
+            <a aria-label="{{ 'sidebar_menu.registry_requests'|trans }}" href="{{ path('registry_request_list') }}">
                 <i class="fa fa-users"></i>
                 <span>{{ 'sidebar_menu.registry_requests'|trans }}</span>
             </a>
         </li>
         <li {% if menuItem == 'registry_violation' %}class="active"{% endif %}>
-            <a href="{{ path('registry_violation_list') }}">
+            <a aria-label="{{ 'sidebar_menu.registry_violations'|trans }}" href="{{ path('registry_violation_list') }}">
                 <i class="fa fa-exclamation-circle"></i>
                 <span>{{ 'sidebar_menu.registry_violations'|trans }}</span>
             </a>
@@ -38,7 +38,7 @@
         {# PROOF #}
         <li class="header">Preuves</li>
         <li {% if menuItem == 'registry_proof' %}class="active"{% endif %}>
-            <a href="{{ path('registry_proof_list') }}">
+            <a aria-label="{{ 'sidebar_menu.registry_proofs'|trans }}" href="{{ path('registry_proof_list') }}">
                 <i class="fa fa-file"></i>
                 <span>{{ 'sidebar_menu.registry_proofs'|trans }}</span>
             </a>
@@ -47,7 +47,7 @@
         {# Notification #}
         <li class="header">{{ 'sidebar_menu.notifications'|trans }}</li>
         <li {% if menuItem == 'notification_notification' %}class="active"{% endif %}>
-            <a href="{{ path('notification_notification_list') }}">
+            <a aria-label="{{ 'sidebar_menu.notifications'|trans }}" href="{{ path('notification_notification_list') }}">
                 <i class="fa fa-bell"></i>
                 <span>{{ 'sidebar_menu.notifications'|trans }}</span>
             </a>
@@ -56,13 +56,13 @@
         {# ACTIONS #}
         <li class="header">Actions</li>
         <li {% if menuItem == 'registry_mesurement' %}class="active"{% endif %}>
-            <a href="{{ path('registry_mesurement_list') }}">
+            <a aria-label="{{ 'sidebar_menu.registry_mesurements'|trans }}" href="{{ path('registry_mesurement_list') }}">
                 <i class="fa fa-adjust"></i>
                 <span>{{ 'sidebar_menu.registry_mesurements'|trans }}</span>
             </a>
         </li>
         <li {% if menuItem == 'registry_mesurement_action_plan' %}class="active"{% endif %}>
-            <a href="{{ path('registry_mesurement_action_plan') }}">
+            <a aria-label="{{ 'sidebar_menu.registry_action_plan'|trans }}" href="{{ path('registry_mesurement_action_plan') }}">
                 <i class="fa fa-crosshairs"></i>
                 <span>{{ 'sidebar_menu.registry_action_plan'|trans }}</span>
             </a>
@@ -74,13 +74,13 @@
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
             <li {% if menuItem == 'aipd_modele_analyse' %}class="active"{% endif %}>
-                <a href="{{ path('aipd_modele_analyse_list') }}">
+                <a aria-label="{{ 'sidebar_menu.aipd_modele'|trans }}" href="{{ path('aipd_modele_analyse_list') }}">
                     <i class="fa fa-chart-bar"></i>
                     <span>{{ 'sidebar_menu.aipd_modele'|trans }}</span>
                 </a>
             </li>
             <li {% if menuItem == 'aipd_mesure_protection' %}class="active"{% endif %}>
-                <a href="{{ path('aipd_mesure_protection_list') }}">
+                <a aria-label="{{ 'sidebar_menu.aipd_mesure_protection'|trans }}" href="{{ path('aipd_mesure_protection_list') }}">
                     <i class="fa fa-chart-bar"></i>
                     <span>{{ 'sidebar_menu.aipd_mesure_protection'|trans }}</span>
                 </a>
@@ -88,7 +88,7 @@
         {% endif %}
         {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement == true %}
             <li {% if menuItem == 'aipd_analyse_impact' %}class="active"{% endif %}>
-                <a href="{{ path('aipd_analyse_impact_list') }}">
+                <a aria-label="{{ 'sidebar_menu.aipd_analyse_impact'|trans }}" href="{{ path('aipd_analyse_impact_list') }}">
                     <i class="fa fa-chart-bar"></i>
                     <span>{{ 'sidebar_menu.aipd_analyse_impact'|trans }}</span>
                 </a>
@@ -98,13 +98,13 @@
         {# REPORTING #}
         <li class="header">Rapports</li>
         <li {% if menuItem == 'maturity_survey' %}class="active"{% endif %}>
-            <a href="{{ path('maturity_survey_list') }}">
+            <a aria-label="{{ 'sidebar_menu.maturity_survey'|trans }}" href="{{ path('maturity_survey_list') }}">
                 <i class="fa fa-chart-bar"></i>
                 <span>{{ 'sidebar_menu.maturity_survey'|trans }}</span>
             </a>
         </li>
         <li {% if menuItem == 'reporting_review' %}class="active"{% endif %}>
-            <a href="{{ path('reporting_review_index', {'id': app.user.collectivity.id}) }}">
+            <a aria-label="{{ 'sidebar_menu.reporting_review'|trans }}" href="{{ path('reporting_review_index', {'id': app.user.collectivity.id}) }}">
                 <i class="fa fa-clipboard-list"></i>
                 <span>{{ 'sidebar_menu.reporting_review'|trans }}</span>
             </a>
@@ -115,7 +115,7 @@
             <li class="header">Conformité</li>
             {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement %}
                 <li {% if menuItem == 'registry_conformite_traitement' %}class="active"{% endif %}>
-                    <a href="{{ path('registry_conformite_traitement_list') }}">
+                    <a aria-label="{{ 'sidebar_menu.conformite_traitements'|trans }}" href="{{ path('registry_conformite_traitement_list') }}">
                         <i class="fa fa-clipboard-list"></i>
                         <span>{{ 'sidebar_menu.conformite_traitements'|trans }}</span>
                     </a>
@@ -123,7 +123,7 @@
             {% endif %}
             {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteOrganisation %}
                 <li  {% if menuItem == 'registry_conformite_organisation' %}class="active"{% endif %}>
-                    <a href="{{ path('registry_conformite_organisation_list') }}">
+                    <a aria-label="Conformité" href="{{ path('registry_conformite_organisation_list') }}">
                         <i class="fa fa-clipboard-list"></i>
                         <span>Conformité de l'organisation</span>
                     </a>
@@ -136,7 +136,7 @@
             <li class="header">Configuration</li>
             {% if is_granted('ROLE_ADMIN') %}
                 <li {% if menuItem == 'registry_treatment_configuration' %}class="active"{% endif %}>
-                    <a href="{{ path('registry_treatment_configuration') }}">
+                    <a aria-label="{{ 'sidebar_menu.configuration_treatments'|trans }}" href="{{ path('registry_treatment_configuration') }}">
                         <i class="fa fa-clipboard-list"></i>
                         <span>{{ 'sidebar_menu.configuration_treatments'|trans }}</span>
                     </a>
@@ -147,7 +147,7 @@
         {# DOCUMENTATION #}
         <li class="header">Centre d'aide</li>
         <li {% if menuItem == 'documentation' %}class="active"{% endif %}>
-            <a href="{{ path('documentation_document_index') }}">
+            <a aria-label="{{ 'sidebar_menu.documentation'|trans }}" href="{{ path('documentation_document_index') }}">
                 <i class="fa fa-file"></i>
                 <span>{{ 'sidebar_menu.documentation'|trans }}</span>
             </a>
@@ -159,20 +159,20 @@
             {# Referent is not allowed to duplicate#}
             {% if is_granted('ROLE_ADMIN') %}
                 <li {% if menuItem == 'admin_duplication' %}class="active"{% endif %}>
-                    <a href="{{ path('admin_duplication_new') }}">
+                    <a aria-label="{{ 'sidebar_menu.admin_duplication'|trans }}" href="{{ path('admin_duplication_new') }}">
                         <i class="fa fa-clone"></i>
                         <span>{{ 'sidebar_menu.admin_duplication'|trans }}</span>
                     </a>
                 </li>
             {% endif %}
             <li {% if menuItem == 'user_collectivity' %}class="active"{% endif %}>
-                <a href="{{ path('user_collectivity_list') }}">
+                <a aria-label="{{ 'sidebar_menu.user_collectivities'|trans }}" href="{{ path('user_collectivity_list') }}">
                     <i class="fa fa-home"></i>
                     <span>{{ 'sidebar_menu.user_collectivities'|trans }}</span>
                 </a>
             </li>
             <li {% if menuItem == 'user_user' %}class="active"{% endif %}>
-                <a href="{{ path('user_user_list') }}">
+                <a aria-label="{{ 'sidebar_menu.user_users'|trans }}" href="{{ path('user_user_list') }}">
                     <i class="fa fa-users"></i>
                     <span>{{ 'sidebar_menu.user_users'|trans }}</span>
                 </a>
@@ -180,7 +180,7 @@
             {# Referent is not allowed to journalisation #}
             {% if is_granted('ROLE_ADMIN') %}
                 <li {% if menuItem == 'reporting_journalisation' %}class="active"{% endif %}>
-                    <a href="{{ path('reporting_journalisation_index') }}">
+                    <a aria-label="{{ 'sidebar_menu.reporting_journalisation'|trans }}" href="{{ path('reporting_journalisation_index') }}">
                         <i class="fa fa-list"></i>
                         <span>{{ 'sidebar_menu.reporting_journalisation'|trans }}</span>
                     </a>
@@ -190,7 +190,7 @@
         {# If not an admin nor a referent & is write granted, let user edit informations #}
         {% else %}
             <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
-                <a href="{{ path('user_profile_collectivity_show') }}">
+                <a aria-label="{{ 'sidebar_menu.user_profile_collectivity'|trans }}" href="{{ path('user_profile_collectivity_show') }}">
                     <i class="fa fa-home"></i>
                     <span>{{ 'sidebar_menu.user_profile_collectivity'|trans }}</span>
                 </a>
@@ -198,7 +198,7 @@
         {% endif %}
         {% if not is_granted('ROLE_ADMIN') %}
             <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
-                <a href="{{ path('user_profile_user_edit') }}">
+                <a aria-label="{{ 'sidebar_menu.user_profile_user'|trans }}" href="{{ path('user_profile_user_edit') }}">
                     <i class="fa fa-user"></i>
                     <span>{{ 'sidebar_menu.user_profile_user'|trans }}</span>
                 </a>
@@ -206,7 +206,7 @@
         {% endif %}
 
         <li class="sidebar-logo">
-            <a href="{{ app_image_sidebar_bottom_target_url }}" target="_blank" rel="nofollow noreferrer noopener">
+            <a aria-label="logo" href="{{ app_image_sidebar_bottom_target_url }}" target="_blank" rel="nofollow noreferrer noopener">
                 <img src="{{ asset(app_image_sidebar_bottom_path) }}" alt="Logo du provider Madis" />
             </a>
         </li>

@@ -7,7 +7,7 @@
             <ul>
                 {% for violation in activeViolations %}
                     <li>
-                        <a href="{{ path('registry_treatment_violation_show', { id: violation.id }) }}">
+                        <a aria-label="Violation" href="{{ path('registry_treatment_violation_show', { id: violation.id }) }}">
                             {{ violation.date|date('d/m/Y') }} | {{ ("label.violation_" ~ violation.violationNature)|trans  }}
                         </a>
                     </li>

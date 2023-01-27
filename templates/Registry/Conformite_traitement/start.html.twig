@@ -37,12 +37,12 @@
                         <table role="presentation" id="table" class="table table-bordered">
                             <thead>
                             <tr>
-                                <th><input class="form-control" type="text" id="search_nom" style="width: 100%;" placeholder="Nom"></th>
-                                <th><input class="form-control" type="text" id="search_description" style="width: 100%;" placeholder="Description"></th>
+                                <th scope="col"><input class="form-control" type="text" id="search_nom" style="width: 100%;" placeholder="Nom"></th>
+                                <th scope="col"><input class="form-control" type="text" id="search_description" style="width: 100%;" placeholder="Description"></th>
                             </tr>
                             <tr>
-                                <th>Nom du modèle d'analyse d'impact</th>
-                                <th>Description</th>
+                                <th scope="col">Nom du modèle d'analyse d'impact</th>
+                                <th scope="col">Description</th>
                             </tr>
                             </thead>
                         </table>
@@ -55,7 +55,7 @@
             <div class="col-md-12">
                 <div class="box box-solid">
                     <div class="box-body text-center">
-                        <a href="{{ path('registry_conformite_traitement_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
+                        <a aria-label="{{ 'action.back_to_list'|trans }}" href="{{ path('registry_conformite_traitement_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
                         <input id="create-aipd-button" type="submit" class="btn btn-primary" value="{{  'aipd.analyse_impact.action.modele'|trans }}">
                     </div>
                 </div>

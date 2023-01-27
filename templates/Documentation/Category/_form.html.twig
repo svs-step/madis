@@ -8,7 +8,7 @@
             {{ form_row(form.name) }}
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'documentation.category.action.back_to_list'|trans }}" href="{{ path('documentation_category_list') }}" class="btn btn-default">
                     {{ 'documentation.category.action.back_to_list'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">

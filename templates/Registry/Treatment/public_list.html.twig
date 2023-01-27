@@ -32,14 +32,14 @@
                     <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>{{ 'registry.treatment.list.name'|trans }}</th>
-                            <th>{{ 'registry.treatment.list.goal'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.name'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.list.goal'|trans }}</th>
                         </tr>
                         </thead>
                         <tbody>
                             {% for object in objects %}
                                 <tr>
-                                    <td><a href="{{ path('registry_public_treatment_show', {id: object.id}) }}">
+                                    <td><a aria-label="{{ object.name }}" href="{{ path('registry_public_treatment_show', {id: object.id}) }}">
                                         {{ object.name }}
                                     </a></td>
                                     <td>

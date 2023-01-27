@@ -60,7 +60,7 @@
                             <div class="icon">
                                 <i class="fa fa-users"></i>
                             </div>
-                            <a href="{{ path('registry_request_list') }}" class="small-box-footer">
+                            <a aria-label="Plus d'informations" href="{{ path('registry_request_list') }}" class="small-box-footer">
                                 Plus d'informations <i class="fa fa-arrow-circle-right"></i>
                             </a>
                         </div>
@@ -146,7 +146,7 @@
                                 <div class="icon">
                                     <i class="fa fa-clipboard-list"></i>
                                 </div>
-                                <a href="{{ path('registry_conformite_traitement_list') }}" class="small-box-footer">
+                                <a aria-label="Plus d'informations" href="{{ path('registry_conformite_traitement_list') }}" class="small-box-footer">
                                     Plus d'informations <i class="fa fa-arrow-circle-right"></i>
                                 </a>
                             </div>
@@ -163,7 +163,7 @@
                             <div class="icon">
                                 <i class="fa fa-bullseye"></i>
                             </div>
-                            <a href="{{ path('registry_mesurement_action_plan') }}" class="small-box-footer">
+                            <a aria-label="Plus d'informations" href="{{ path('registry_mesurement_action_plan') }}" class="small-box-footer">
                                 Plus d'informations <i class="fa fa-arrow-circle-right"></i>
                             </a>
                         </div>
@@ -180,7 +180,7 @@
                             <div class="icon">
                                 <i class="fa fa-exclamation-circle"></i>
                             </div>
-                            <a href="{{ path('registry_violation_list') }}" class="small-box-footer">
+                            <a aria-label="Plus d'informations" href="{{ path('registry_violation_list') }}" class="small-box-footer">
                                 Plus d'informations <i class="fa fa-arrow-circle-right"></i>
                             </a>
                         </div>
@@ -196,7 +196,7 @@
                             <div class="icon">
                                 <i class="fa fa-adjust"></i>
                             </div>
-                            <a href="{{ path('registry_mesurement_list') }}" class="small-box-footer">
+                            <a aria-label="Plus d'informations" href="{{ path('registry_mesurement_list') }}" class="small-box-footer">
                                 Plus d'informations <i class="fa fa-arrow-circle-right"></i>
                             </a>
                         </div>
@@ -243,7 +243,7 @@
                                                 {% endif %}
                                             </td>
                                             <td>
-                                                <a href="/actions-de-protection/visualiser/{{ action.id }}" ><i class="fas fa-search"></i></a>
+                                                <a aria-label="Chercher" href="/actions-de-protection/visualiser/{{ action.id }}" ><i class="fas fa-search"></i></a>
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -341,7 +341,7 @@
                                         {% if logJournal.isDeleted %}
                                             {{ logJournalLink }}
                                         {% elseif logJournalLink is not null %}
-                                            <a href="{{ logJournalLink }}">Lien</a>
+                                            <a aria-label="Lien" href="{{ logJournalLink }}">Lien</a>
                                         {% endif %}
                                     </td>
                                 </tr>

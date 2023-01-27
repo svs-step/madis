@@ -80,7 +80,7 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a href="{{ path('registry_request_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'registry.request.action.back_to_list'|trans }}" href="{{ path('registry_request_list') }}" class="btn btn-default">
                     {{ 'registry.request.action.back_to_list'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">

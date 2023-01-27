@@ -2,7 +2,7 @@
 
     <li {% if not breadcrumb|length > 0 %}class="active"{% endif %}>
         {% if breadcrumb|length > 0 %}
-        <a href="{{ path('reporting_dashboard_index') }}">
+        <a aria-label="{{ 'reporting.dashboard.breadcrumb.index'|trans }}" href="{{ path('reporting_dashboard_index') }}">
         {% endif %}
             <i class="fa fa-tachometer-alt"></i>
             {{ 'reporting.dashboard.breadcrumb.index'|trans }}
@@ -14,7 +14,7 @@
     {% for item in breadcrumb %}
         <li {% if loop.last %}class="active"{% endif %}>
             {% if item.link is defined %}
-            <a href="{{ item.link }}">
+            <a aria-label="{{ item.name }}" href="{{ item.link }}">
             {% endif %}
 
                 {{ item.name }}

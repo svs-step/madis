@@ -40,7 +40,7 @@
         </form>
 
         <div class="text-center">
-            <a href="{{ path('forget_password') }}">{{ 'user.security.login.forget_password'|trans }}</a><br>
+            <a aria-label="{{ 'user.security.login.forget_password'|trans }}" href="{{ path('forget_password') }}">{{ 'user.security.login.forget_password'|trans }}</a><br>
         </div>
 
         {% if sso_type %}

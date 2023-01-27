@@ -26,17 +26,17 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-                <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'registry.treatment.action.back_to_list'|trans }}" href="{{ path('registry_treatment_list') }}" class="btn btn-default">
                     <i class="fa fa-arrow-left"></i>
                     {{ 'registry.treatment.action.back_to_list'|trans }}
                 </a>
                 {% if (actionEnabled) %}
-                    <a href="{{ path('registry_treatment_edit', {'id': object.id}) }}" class="btn btn-default">
+                    <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('registry_treatment_edit', {'id': object.id}) }}" class="btn btn-default">
                         <i class="fa fa-pencil-alt"></i>
                         {{ 'action.edit'|trans }}
                     </a>
                 {% endif %}
-                <a href="{{ path('registry_treatment_pdf', {'id': object.id}) }}" class="btn btn-default">
+                <a aria-label="{{ 'action.print'|trans }}" href="{{ path('registry_treatment_pdf', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-print"></i>
                     {{ 'action.print'|trans }}
                 </a>
@@ -174,7 +174,7 @@
                             <td>
                                 <ul>
                                     {% for contractor in object.contractors %}
-                                        <li><a href="{{ path('registry_contractor_show', {'id': contractor.id}) }}" >{{ contractor }}</a></li>
+                                        <li><a aria-label="{{ contractor }}" href="{{ path('registry_contractor_show', {'id': contractor.id}) }}" >{{ contractor }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </td>
@@ -312,7 +312,7 @@
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.collectivity'|trans }}</strong></td>
                                 <td>
-                                    <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                    <a aria-label="{{ object.collectivity }}" href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
                                         {{ object.collectivity }}
                                     </a>
                                 </td>
@@ -622,7 +622,7 @@
                                     <strong>Actions</strong>
                                 </td>
                                 <td>
-                                    <a href="
+                                    <a aria-label="{{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}" href="
                                         {% if object.conformiteTraitement is null %}
                                             {{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}
                                         {% else %}
@@ -678,7 +678,7 @@
                                         <strong>Actions</strong>
                                     </td>
                                     <td>
-                                        <a href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
+                                        <a aria-label="{{ 'aipd.analyse_impact.action.edit'|trans }}" href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
                                             <i class="fa fa-chalkboard-teacher"></i>
                                             {{ 'aipd.analyse_impact.action.edit'|trans }}
                                         </a>

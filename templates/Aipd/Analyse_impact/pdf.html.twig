@@ -381,8 +381,8 @@
         <table role="presentation" class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Label</th>
-                    <th>Conformité</th>
+                    <th scope="col">Label</th>
+                    <th scope="col">Conformité</th>
                 </tr>
             </thead>
             {% for critere in object.criterePrincipeFondamentaux %}
@@ -395,8 +395,8 @@
         <table role="presentation" class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Question</th>
-                    <th>Conformité</th>
+                    <th scope="col">Question</th>
+                    <th scope="col">Conformité</th>
                 </tr>
             </thead>
             <tbody>
@@ -488,13 +488,13 @@
         <h3>4.2 Evaluation de l'impact et matrice de décision</h3>
         <table role="presentation" class="table table-bordered">
             <tr>
-                <th>D</th>
-                <th>I</th>
-                <th>C</th>
-                <th>Scénario de menace</th>
-                <th>Vraisemblance</th>
-                <th>Gravité</th>
-                <th>Impact potentiel</th>
+                <th scope="col">D</th>
+                <th scope="col">I</th>
+                <th scope="col">C</th>
+                <th scope="col">Scénario de menace</th>
+                <th scope="col">Vraisemblance</th>
+                <th scope="col">Gravité</th>
+                <th scope="col">Impact potentiel</th>
             </tr>
             {% for scenario in object.scenarioMenaces %}
                 <tr>
@@ -516,9 +516,9 @@
         <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
         <table role="presentation" class="table table-bordered">
             <tr>
-                <th>Mesure</th>
-                <th>Évaluation</th>
-                <th>Avis sur les mesures existantes</th>
+                <th scope="col">Mesure</th>
+                <th scope="col">Évaluation</th>
+                <th scope="col">Avis sur les mesures existantes</th>
             </tr>
             {% for mesure in object.mesureProtections %}
                 <tr>
@@ -539,10 +539,10 @@
             <div class="box-header with-border">Mesures de protection</div>
             <table role="presentation" class="table table-bordered">
                 <tr>
-                    <th>Mesure</th>
-                    <th>Description</th>
-                    <th>Réponse</th>
-                    <th>Préconisations</th>
+                    <th scope="col">Mesure</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Réponse</th>
+                    <th scope="col">Préconisations</th>
                 </tr>
 
                 {% set mesures = [] %}
@@ -579,9 +579,9 @@
             <div class="box-body">
                 <table role="presentation" class="table table-bordered">
                     <tr>
-                        <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
-                        <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
-                        <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
+                        <th scope="col">{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
+                        <th scope="col" style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
+                        <th scope="col" style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
                     </tr>
                     {% for scenario in object.scenarioMenaces %}
                         <tr>
@@ -597,8 +597,8 @@
             <div class="box-header with-border">Actions conseillées par le DPD à mettre en place</div>
                 <table role="presentation" class="table table-bordered">
                     <tr>
-                        <th>Label livrable</th>
-                        <th>Préconisations</th>
+                        <th scope="col">Label livrable</th>
+                        <th scope="col">Préconisations</th>
                     </tr>
                         {% for mesure in mesuresProtection %}
                             <tr>
