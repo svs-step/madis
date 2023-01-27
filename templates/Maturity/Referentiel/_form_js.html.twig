@@ -1,0 +1,39 @@
+<script>
+    $(document).ready(function() {
+        var $wrapper = $('.js-table-collection-wrapper');
+
+        $wrapper.on('click', '.js-table-remove-item', function(e) {
+            e.preventDefault();
+            $(this).closest('.js-table-collection-item')
+                .fadeOut()
+                .remove();
+        });
+
+        $wrapper.on('click', '.js-table-collection-add', function(e) {
+            console.log("Here");
+            e.preventDefault();
+            // Get the data-prototype explained earlier
+            var prototype = $(this).parent().data('prototype');
+            // get the new index
+            var index = $(this).parent().data('index');
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+            // increase the index with one for the next item
+            $(this).parent().data('index', index + 1);
+            // Display the form in the page before the "new" link
+            $('#js-table-collection tr:last').after(newForm);
+            console.log($('.selectpicker'));
+            $('.selectpicker').selectpicker('refresh');
+        });
+
+        $('.delete-file').on('click', function(ev) {
+            var $t = $(ev.currentTarget)
+            var $p = $t.parent();
+            var $h = $p.parent().find('input[type=hidden]')
+            $h.val(1);
+            $p.remove();
+            console.log('$h', $h)
+        })
+    });
+</script>

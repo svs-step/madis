@@ -220,6 +220,7 @@ class ReferentielController extends CRUDController
             $reponse['data'][] = [
                 'name'         => $referentiel->getName(),
                 'description' => $referentiel->getDescription(),
+                'createdAt'   => date_format($referentiel->getCreatedAt(), 'd-m-Y'),
                 'updatedAt'   => date_format($referentiel->getUpdatedAt(), 'd-m-Y'),
                 'actions'     => $this->generateActioNCellContent($referentiel),
             ];
@@ -250,6 +251,10 @@ class ReferentielController extends CRUDController
             '</a>'
             . $htmltoReturnIfAdmin .
             '<a href="' . $this->router->generate('maturity_referentiel_edit', ['id' => $id]) . '">
+                <i class="fa fa-clone"></i>' .
+            $this->translator->trans('action.duplicate') .
+            '</a>' .
+            '<a href="' . $this->router->generate('maturity_referentiel_edit', ['id' => $id]) . '">
                 <i class="fa fa-file-code"></i>' .
             $this->translator->trans('action.export') .
             '</a>' .
@@ -264,8 +269,34 @@ class ReferentielController extends CRUDController
         return [
             '0' => 'name',
             '1' => 'description',
-            '2' => 'updatedAt',
-            '3' => 'actions',
+            '2' => 'createdAt',
+            '3' => 'updatedAt',
+            '4' => 'actions',
         ];
+    }
+
+    public function rightsAction(Request $request, string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+        $form = $this->createForm(ModeleAnalyseRightsType::class, $object);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->formPrePersistData($object);
+            $this->entityManager->persist($object);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'rights', $object));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render('Aipd/Modele_analyse/rights.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

@@ -46,16 +46,20 @@
                                     <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                                 </th>
                                 <th>
-                                    <input class="form-control" type="text" id="search_descripyion" placeholder="Description" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_description" placeholder="Description" style="width: 100%;">
                                 </th>
                                 <th>
-                                    <input class="form-control" type="date" id="search_date" placeholder="Date" style="width: 100%;">
+                                    <input class="datepicker form-control" type="text" id="search_created_at" placeholder="Date" style="width: 100%;">
+                                </th>
+                                <th>
+                                    <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date" style="width: 100%;">
                                 </th>
                             </tr>
                             <tr>
                                 <th>{{ 'maturity.referentiel.list.name'|trans }}</th>
                                 <th>{{ 'maturity.referentiel.list.description'|trans }}</th>
                                 <th>{{ 'maturity.referentiel.list.created_at'|trans }}</th>
+                                <th>{{ 'maturity.referentiel.list.updated_at'|trans }}</th>
                                 <th>{{ 'label.actions'|trans }}</th>
                             </tr>
                         </thead>
@@ -73,6 +77,7 @@
         columns: [
             {"data": "name", "className": "noVis"},
             {"data": "description"},
+            {"data": "createdAt"},
             {"data": "updatedAt"},
             {"data": "actions", "className": "noVis", "orderable": false},
         ],
@@ -97,9 +102,15 @@
                 oTable.column('1').search($(this).val()).draw() ;
             }));
 
+            $('#search_created_at').off('change');
+            $('#search_created_at').change(function(){
+                console.log(oTable.column('2'));
+                oTable.column('2').search($(this).val()).draw();
+            });
+
             $('#search_updated_at').off('change');
             $('#search_updated_at').change(function(){
-                oTable.column('2').search($(this).val()).draw();
+                oTable.column('3').search($(this).val()).draw();
             });
         }
 

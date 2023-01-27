@@ -39,12 +39,14 @@ maturity:
         list:
             name: Nom
             created_at: Date de création
+            updated_at: Date de modification
             description: Description
         title:
             create: Nouveau référentiel
             edit: Modifier un référentiel
             list: Liste des référentiels
             delete: Supprimer un référentiel
+            rights: Modifier les droits
         form:
             name: Nom de la section
             description: Description

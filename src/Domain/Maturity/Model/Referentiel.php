@@ -27,6 +27,7 @@ namespace App\Domain\Maturity\Model;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -63,11 +64,25 @@ class Referentiel
     private $referentielSections;
 
     /**
+     * @var Collection|Collectivity[]
+     *
+     * @Serializer\Exclude
+     */
+    private $authorizedCollectivities;
+
+    /**
      * @see CollectivityTypeDictionary
      *
      * @Serializer\Exclude
      */
     private ?iterable $authorizedCollectivityTypes;
+
+    /**
+     * @see DuplicationTargetOptionDictionary
+     *
+     * @Serializer\Exclude
+     */
+    private ?string $optionRightSelection = null;
 
 
     public function __construct()
@@ -133,5 +148,45 @@ class Referentiel
         }
 
         unset($this->referentielSections[$key]);
+    }
+
+    public function getAuthorizedCollectivities()
+    {
+        return $this->authorizedCollectivities;
+    }
+
+    public function setAuthorizedCollectivities($authorizedCollectivities): void
+    {
+        $this->authorizedCollectivities = $authorizedCollectivities;
+    }
+
+    public function addAuthorizedCollectivity(Collectivity $collectivity)
+    {
+        if ($this->authorizedCollectivities->contains($collectivity)) {
+            return;
+        }
+
+        $this->authorizedCollectivities[] = $collectivity;
+        $collectivity->addModeleAnalyse($this);
+    }
+
+    public function getOptionRightSelection()
+    {
+        return $this->optionRightSelection;
+    }
+
+    public function setOptionRightSelection($optionRightSelection)
+    {
+        $this->optionRightSelection = $optionRightSelection;
+    }
+
+    public function getAuthorizedCollectivityTypes()
+    {
+        return $this->authorizedCollectivityTypes;
+    }
+
+    public function setAuthorizedCollectivityTypes(iterable $authorizedCollectivityTypes)
+    {
+        $this->authorizedCollectivityTypes = $authorizedCollectivityTypes;
     }
 }
