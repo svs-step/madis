@@ -1,0 +1,19 @@
+App\Domain\Maturity\Model\ReferentielSection:
+
+    maturity_referentiel_section_1:
+        name: Section 1
+        description: Description section 1
+        referentiel: '@maturity_referentiel_1'
+        order_number: 1
+
+    maturity_referentiel_section_2:
+        name: Section 2
+        description: Description section 2
+        referentiel: '@maturity_referentiel_1'
+        order_number: 2
+
+    maturity_referentiel_section_3:
+        name: Section 3
+        description: Description section 3
+        referentiel: '@maturity_referentiel_1'
+        order_number: 3

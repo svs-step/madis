@@ -46,11 +46,6 @@ class ReferentielAnswer
     private $recommendation;
 
     /**
-     * @var bool|null
-     */
-    private $optionNotConcerned;
-
-    /**
      * @var ReferentielQuestion|null
      */
     private $referentielQuestion;
@@ -88,18 +83,6 @@ class ReferentielAnswer
     public function setRecommendation(?string $recommendation): void
     {
         $this->recommendation = $recommendation;
-    }
-
-    public function getOptionNotConcerned(): ?bool
-    {
-        return $this->optionNotConcerned;
-    }
-
-    public function setNotconcerned(?bool $optionNotConcerned): Answer
-    {
-        $this->optionNotConcerned = $optionNotConcerned;
-
-        return $this;
     }
 
     public function getAnswerNumber(): ?int

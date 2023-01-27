@@ -26,6 +26,7 @@ namespace App\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Model\ReferentielQuestion;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -60,6 +61,16 @@ class ReferentielQuestionType extends AbstractType
                 'required' => false,
                 'attr'     => [
                     'min' => 0,
+                ],
+            ])
+            ->add('option', CheckboxType::class, [
+                'label'    => false,
+                'required' => false,
+            ])
+            ->add('optionReason', TextType::class, [
+                'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
                 ],
             ])
             ->add('referentielAnswers', CollectionType::class, [

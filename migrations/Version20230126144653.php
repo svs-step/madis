@@ -22,8 +22,9 @@ final class Version20230126144653 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE referentiel_question ADD `option` TINYINT(1) NOT NULL, ADD option_reason VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE referentiel_question ADD `option` TINYINT(1) NOT NULL, ADD option_reason VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE referentiel_section ADD order_number INT NOT NULL');
+        $this->addSql('ALTER TABLE referentiel_answer DROP option_not_concerned');
     }
 
     public function down(Schema $schema) : void
