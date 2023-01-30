@@ -167,7 +167,7 @@ class Referentiel
         }
 
         $this->authorizedCollectivities[] = $collectivity;
-        $collectivity->addModeleAnalyse($this);
+        $collectivity->addReferentiel($this);
     }
 
     public function getOptionRightSelection()

@@ -28,6 +28,7 @@ use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Documentation\Model\Category;
 use App\Domain\Maturity\Calculator\MaturityHandler;
+use App\Domain\Maturity\Form\Type\ModeleReferentielRightsType;
 use App\Domain\Maturity\Form\Type\ReferentielType;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
@@ -281,7 +282,7 @@ class ReferentielController extends CRUDController
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
-        $form = $this->createForm(ModeleAnalyseRightsType::class, $object);
+        $form = $this->createForm(ModeleReferentielRightsType::class, $object);
 
         $form->handleRequest($request);
 
@@ -295,7 +296,7 @@ class ReferentielController extends CRUDController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
-        return $this->render('Aipd/Modele_analyse/rights.html.twig', [
+        return $this->render('Maturity/Referentiel/rights.html.twig', [
             'form' => $form->createView(),
         ]);
     }

@@ -547,7 +547,7 @@ class Collectivity implements LoggableSubject
         $this->referentiels = $referentiels;
     }
 
-    public function addReferentiel(ModeleAnalyse $referentiel)
+    public function addReferentiel(Referentiel $referentiel)
     {
         if ($this->referentiels->contains($referentiel)) {
             return;
