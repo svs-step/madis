@@ -1,6 +1,6 @@
 {% set notifs = notifications.findAll() %}
 
-<header class="main-header">
+<header class="main-header" role="banner">
     <!-- Logo -->
     <a aria-label="logo" href="{{ path('reporting_dashboard_index') }}" class="logo">
         <span class="logo-mini"><img src="{{ asset(app_image_sidebar_reduced_path) }}" alt="Madis"/></span>
@@ -9,7 +9,7 @@
     </a>
 
     <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top" role="navigation">
+    <nav class="navbar navbar-static-top" role="navigation" aria-label="En-tête principal">
         <!-- Sidebar toggle button-->
         <a aria-label="Sidebar" href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
             <i class="fa fa-bars"></i>
