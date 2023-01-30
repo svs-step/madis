@@ -238,7 +238,7 @@ class ReferentielController extends CRUDController
         $htmltoReturnIfAdmin = '';
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $htmltoReturnIfAdmin = '<a href="' . $this->router->generate('maturity_referentiel_edit', ['id' => $id]) . '">
+            $htmltoReturnIfAdmin = '<a href="' . $this->router->generate('maturity_referentiel_rights', ['id' => $id]) . '">
                 <i class="fa fa-user-shield"></i>'
                 . $this->translator->trans('action.rights') .
                 '</a>';

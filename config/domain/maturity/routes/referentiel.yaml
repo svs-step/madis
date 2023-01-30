@@ -27,3 +27,8 @@ maturity_referentiel_list_datatables:
     path: '/datatables'
     methods: [ 'POST' ]
     controller: 'App\Domain\Maturity\Controller\ReferentielController:listDataTables'
+
+maturity_referentiel_rights:
+    path: '/droits/{id}'
+    methods: [ 'GET', 'POST' ]
+    controller: 'App\Domain\AIPD\Controller\ReferentielController:rightsAction'
