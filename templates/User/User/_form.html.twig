@@ -15,10 +15,10 @@
                 <h3 class="box-title">{{ 'user.user.tab.general'|trans }}</h3>
             </div>
             <div class="box-body">
-                {{ form_row(form.firstName) }}
-                {{ form_row(form.lastName) }}
-                {{ form_row(form.email) }}
-                {{ form_row(form.collectivity) }}
+                {{ form_row(form.firstName, {'attr': {'autocomplete': 'given-name'}}) }}
+                {{ form_row(form.lastName, {'attr': {'autocomplete': 'family-name'}}) }}
+                {{ form_row(form.email, {'attr': {'autocomplete': 'email'}}) }}
+                {{ form_row(form.collectivity, {'attr': {'autocomplete': 'organization'}}) }}
                 {{ form_row(form.roles) }}
 
                 {{ form_row(form.apiAuthorized) }}

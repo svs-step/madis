@@ -16,19 +16,19 @@
                     <tbody>
                         <tr>
                             <td class="text-bold">{{ 'registry.conformite_organisation.participant.form.civilite'|trans }}</td>
-                            <td>{{ form_widget(participant.civilite) }}</td>
+                            <td>{{ form_widget(participant.civilite, {'attr': {'autocomplete': 'honorific-prefix'}}) }}</td>
                         </tr>
                         <tr>
                             <td class="text-bold">{{ 'registry.conformite_organisation.participant.form.prenom'|trans }}</td>
-                            <td>{{ form_widget(participant.prenom) }}</td>
+                            <td>{{ form_widget(participant.prenom, {'attr': {'autocomplete': 'given-name'}}) }}</td>
                         </tr>
                         <tr>
                             <td class="text-bold">{{ 'registry.conformite_organisation.participant.form.nom_famille'|trans }}</td>
-                            <td>{{ form_widget(participant.nomDeFamille) }}</td>
+                            <td>{{ form_widget(participant.nomDeFamille, {'attr': {'autocomplete': 'family-name'}}) }}</td>
                         </tr>
                         <tr>
                             <td class="text-bold">{{ 'registry.conformite_organisation.participant.form.fonction'|trans }}</td>
-                            <td>{{ form_widget(participant.fonction) }}</td>
+                            <td>{{ form_widget(participant.fonction, {'attr': {'autocomplete': 'organization-title'}}) }}</td>
                         </tr>
                     </tbody>
                 </table>

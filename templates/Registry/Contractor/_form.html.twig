@@ -40,14 +40,14 @@
                 {% do form.legalManager.job.setRendered() %}
                 {% do form.legalManager.mail.setRendered() %}
                 {% do form.legalManager.phoneNumber.setRendered() %}
-                {{ form_row(form.legalManager.firstName) }}
-                {{ form_row(form.legalManager.lastName) }}
-                {{ form_row(form.address.lineOne) }}
-                {{ form_row(form.address.lineTwo) }}
-                {{ form_row(form.address.zipCode) }}
-                {{ form_row(form.address.city) }}
-                {{ form_row(form.address.mail) }}
-                {{ form_row(form.address.phoneNumber) }}
+                {{ form_row(form.legalManager.firstName, {'attr': {'autocomplete': 'given-name'}}) }}
+                {{ form_row(form.legalManager.lastName, {'attr': {'autocomplete': 'family-name'}}) }}
+                {{ form_row(form.address.lineOne, {'attr': {'autocomplete': 'address-line1'}}) }}
+                {{ form_row(form.address.lineTwo, {'attr': {'autocomplete': 'address-line2'}}) }}
+                {{ form_row(form.address.zipCode, {'attr': {'autocomplete': 'postal-code'}}) }}
+                {{ form_row(form.address.city, {'attr': {'autocomplete': 'address-level2'}}) }}
+                {{ form_row(form.address.mail, {'attr': {'autocomplete': 'email'}}) }}
+                {{ form_row(form.address.phoneNumber, {'attr': {'autocomplete': 'tel-national'}}) }}
             </div>
         </div>
     </div>
