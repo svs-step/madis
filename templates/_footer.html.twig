@@ -3,7 +3,7 @@
     <strong>&copy; 2018 <a aria-label="fournisseur" href="{{ app_footer_provider_url }}" target="_blank" rel="nofollow noreferrer noopener">{{ app_footer_provider_name }}</a></strong> 
     {% if app.user %}: {{ app.user.collectivity }}{% endif %}
 
-    <div class="pull-right hidden-xs">
+    <div class="pull-right">
         {% if app.user %}
             <a aria-label="credit" href="{{ path('page_credit') }}">Crédit</a>
             &nbsp;|&nbsp;
