@@ -77,6 +77,8 @@ class ReferentielQuestionType extends AbstractType
                     'label' => 'maturity.referentiel.form.answer',
                     'entry_type' => ReferentielAnswerType::class,
                     'required' => false,
+                    'allow_add' => true,
+                    'allow_delete' => true,
                 ]
             )
         ;

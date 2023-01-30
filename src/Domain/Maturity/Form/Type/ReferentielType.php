@@ -41,7 +41,7 @@ class ReferentielType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label'    => 'maturity.referentiel.form.name',
+                'label'    => 'maturity.referentiel.form.referentiel_name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -55,9 +55,12 @@ class ReferentielType extends AbstractType
                 ],
             ])
             ->add('referentielSections', CollectionType::class, [
-                    'entry_type' => ReferentielSectionType::class,
-                ]
-            )
+                'entry_type' => ReferentielSectionType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ])
+
+
         ;
     }
 

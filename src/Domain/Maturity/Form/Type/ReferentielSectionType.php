@@ -65,9 +65,11 @@ class ReferentielSectionType extends AbstractType
             ])
 
             ->add('referentielQuestions', CollectionType::class, [
-                    'entry_type' => ReferentielQuestionType::class,
-                ]
-            )
+                'entry_type' => ReferentielQuestionType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ])
+
 
             ->add('orderNumber', HiddenType::class,[
                 'required' => false,

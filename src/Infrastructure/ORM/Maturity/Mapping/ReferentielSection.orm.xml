@@ -16,6 +16,12 @@
             <join-column on-delete="CASCADE" />
         </many-to-one>
 
+        <one-to-many field="referentielQuestions" target-entity="App\Domain\Maturity\Model\ReferentielQuestion" mapped-by="referentielSection">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+
     </entity>
 
 </doctrine-mapping>

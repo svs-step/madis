@@ -18,6 +18,12 @@
             <join-column on-delete="CASCADE" />
         </many-to-one>
 
+        <one-to-many field="referentielAnswers" target-entity="App\Domain\Maturity\Model\ReferentielAnswer" mapped-by="referentielQuestion">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+
     </entity>
 
 </doctrine-mapping>

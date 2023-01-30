@@ -48,6 +48,7 @@ maturity:
             delete: Supprimer un référentiel
             rights: Modifier les droits
         form:
+            referentiel_name: Nom du référentiel
             name: Nom de la section
             description: Description
             informations_generales: Informations générales

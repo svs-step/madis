@@ -12,11 +12,18 @@
                     {%  include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': question} %}
                 {% endfor %}
             {% endif %}
+            {{ dump(section) }}
             <div class="row">
                 <div class="col-md-12">
-                    <button class="btn btn-primary add_question"><i class="fa fa-plus"></i> Ajouter une question</button>
+                    <ul class="referentielQuestions{{ section.vars.value.id }}"
+                        data-index="{{ form.referentielQuestions|length > 0 ? form.referentielQuestions|last.vars.name + 1 : 0 }}"
+                        data-prototype="{{ form_widget(form.referentielQuestions.vars.prototype)|e('html_attr') }}"
+                    ></ul>
+                    <button type="button" class="add_question btn btn-primary" data-collection-holder-class="referentielQuestions{{ section.vars.value.id }}"><i class="fa fa-plus"></i> Ajouter une question</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
