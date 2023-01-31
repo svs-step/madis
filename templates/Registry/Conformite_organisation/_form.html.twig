@@ -48,6 +48,7 @@
                 </a>
                 {# Prevent those fields from being automatically rendered #}
                 {% do form.save.setRendered() %}
+                {% do form.participants.setRendered() %}
                 {% do form.saveDraft.setRendered() %}
                 <input name="{{ form.children.save.vars.full_name }}" type="submit" class="btn btn-primary" value="{{ submitValue }}">
                 <input name="{{ form.children.saveDraft.vars.full_name }}" type="submit" class="btn btn-info" value="{{ draftValue }}">
@@ -79,7 +80,6 @@
                         {{ 'registry.conformite_organisation.participant.form.add'|trans }}
                     </a>
                         </div>
-{#                    {{ form_widget(form.participants) }}#}
                 </div>
             </div>
         </div>

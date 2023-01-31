@@ -11,6 +11,7 @@
         <th style="width: 10%">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
         <th>{{ 'aipd.scenario_menace.list.precision'|trans }}</th>
     </tr>
+    {% do form.scenarioMenaces.setRendered() %}
     {% for scenario in form.scenarioMenaces %}
         <tr>
             <td>
