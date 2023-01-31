@@ -69,15 +69,18 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('.add_section').on('click', addFormToCollection)
-        $('.add_question').on('click', addFormToCollection)
-        $('.add_answer').on('click', addFormToCollection)
+        $('.add_section').on('click', addFormToCollection);
+        $('.add_question').on('click', addFormToCollection);
+        $('.add_answer').on('click', addFormToCollection);
 
         function addFormToCollection(e){
+            console.log('e', e.currentTarget.classList[0]);
+            let type = e.currentTarget.classList[0];
             const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
             const item = document.createElement('li');
             const id = collectionHolder.dataset.index;
+            console.log('index', id);
 
             item.innerHTML = collectionHolder
                 .dataset
@@ -88,8 +91,20 @@
                 );
 
             collectionHolder.appendChild(item);
-            $('#referentiel_referentielSections_'+id+'_orderNumber').val(id);
-            console.log('tt',$('#referentiel_referentielSections_'+id+'_orderNumber').val());
+
+            switch (type){
+                case 'add_section':
+                    $('#referentiel_referentielSections_'+id+'_orderNumber').val(id);
+                    console.log($('#referentiel_referentielSections_'+id+'_orderNumber').val());
+                    break;
+                case 'add_question':
+                    $('#referentiel_referentielSections_0_referentielQuestions_'+id+'_orderNumber').val(id);
+                    break;
+                case 'add_answer':
+                    $('#referentiel_referentielSections_0_referentielQuestions_2_referentielAnswers_'+id+'_orderNumber').val(id);
+                    break;
+            }
+
             collectionHolder.dataset.index++;
         }
     });

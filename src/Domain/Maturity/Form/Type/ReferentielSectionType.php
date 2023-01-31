@@ -68,6 +68,7 @@ class ReferentielSectionType extends AbstractType
                 'entry_type' => ReferentielQuestionType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
+                'by_reference' => false,
             ])
 
             ->add('orderNumber', HiddenType::class,[

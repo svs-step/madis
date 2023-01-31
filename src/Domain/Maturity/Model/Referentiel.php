@@ -136,6 +136,7 @@ class Referentiel
 
     public function addReferentielSection(ReferentielSection $referentielSection): void
     {
+        $referentielSection->setReferentiel($this);
         $this->referentielSections[] = $referentielSection;
     }
 

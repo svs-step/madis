@@ -12,18 +12,13 @@
         <field name="description" column="description"/>
         <field name="orderNumber" column="order_number" type="integer"/>
 
-        <many-to-one field="referentiel" target-entity="App\Domain\Maturity\Model\Referentiel" inversed-by="referentielSections">
-            <cascade>
-                <cascade-persist/>
-            </cascade>
-        </many-to-one>
+        <many-to-one field="referentiel" target-entity="App\Domain\Maturity\Model\Referentiel" inversed-by="referentielSections"/>
 
         <one-to-many field="referentielQuestions" target-entity="App\Domain\Maturity\Model\ReferentielQuestion" mapped-by="referentielSection">
             <cascade>
                 <cascade-persist/>
             </cascade>
         </one-to-many>
-
     </entity>
 
 </doctrine-mapping>

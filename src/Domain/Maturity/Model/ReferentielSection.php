@@ -103,6 +103,7 @@ class ReferentielSection
 
     public function addReferentielQuestion(?ReferentielQuestion $referentielQuestion): void
     {
+        $referentielQuestion->setReferentielSection($this);
         $this->referentielQuestions[] = $referentielQuestion;
     }
 

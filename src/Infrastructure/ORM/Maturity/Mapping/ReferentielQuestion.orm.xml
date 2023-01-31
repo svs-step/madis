@@ -14,9 +14,7 @@
         <field name="option" column="option" type="boolean"/>
         <field name="optionReason" column="option_reason"/>
 
-        <many-to-one field="referentielSection" target-entity="App\Domain\Maturity\Model\ReferentielSection" inversed-by="referentielQuestions">
-            <join-column on-delete="CASCADE" />
-        </many-to-one>
+        <many-to-one field="referentielSection" target-entity="App\Domain\Maturity\Model\ReferentielSection" inversed-by="referentielQuestions"/>
 
         <one-to-many field="referentielAnswers" target-entity="App\Domain\Maturity\Model\ReferentielAnswer" mapped-by="referentielQuestion">
             <cascade>

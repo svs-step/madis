@@ -133,6 +133,7 @@ class ReferentielQuestion
 
     public function addReferentielAnswer(ReferentielAnswer $referentielAnswer): void
     {
+        $referentielAnswer->setReferentielQuestion($this);
         $this->referentielAnswers[] = $referentielAnswer;
     }
 
