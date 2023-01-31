@@ -1,19 +1,19 @@
 App\Domain\Maturity\Model\ReferentielAnswer:
 
     maturity_referentiel_answer_1:
-        answerNumber: 1
+        orderNumber: 1
         referentielQuestion: '@maturity_referentiel_question_1'
         name: Reponse 1
         recommendation: Recommandation 1
 
     maturity_referentiel_answer_2:
-        answerNumber: 2
+        orderNumber: 2
         referentielQuestion: '@maturity_referentiel_question_1'
         name: Reponse 2
         recommendation: Recommandation 3
 
     maturity_referentiel_answer_3:
-        answerNumber: 3
+        orderNumber: 3
         referentielQuestion: '@maturity_referentiel_question_1'
         name: Reponse 3
         recommendation: Recommandation 3

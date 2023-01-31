@@ -10,7 +10,7 @@
         <id name="id" column="id" type="uuid"/>
         <field name="name" column="name"/>
         <field name="weight" column="weight" type="integer"/>
-        <field name="questionNumber" column="question_number" type="integer"/>
+        <field name="orderNumber" column="order_number" type="integer"/>
         <field name="option" column="option" type="boolean"/>
         <field name="optionReason" column="option_reason"/>
 

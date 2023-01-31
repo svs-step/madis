@@ -53,7 +53,7 @@ class ReferentielAnswer
     /**
      * @var int|null
      */
-    private $answerNumber;
+    public $orderNumber;
 
     public function __construct()
     {
@@ -85,14 +85,14 @@ class ReferentielAnswer
         $this->recommendation = $recommendation;
     }
 
-    public function getAnswerNumber(): ?int
+    public function getOrderNumber(): ?int
     {
-        return $this->answerNumber;
+        return $this->orderNumber;
     }
 
-    public function setAnswerNumber(?int $answerNumber): void
+    public function setOrderNumber(?int $orderNumber): void
     {
-        $this->answerNumber = $answerNumber;
+        $this->orderNumber = $orderNumber;
     }
 
     public function getReferentielQuestion(): ?ReferentielQuestion

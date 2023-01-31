@@ -48,7 +48,7 @@ class ReferentielQuestion
     /**
      * @var int|null
      */
-    public $questionNumber;
+    public $orderNumber;
 
     /**
      * @var ReferentielSection|null
@@ -101,14 +101,14 @@ class ReferentielQuestion
         $this->weight = $weight;
     }
 
-    public function getQuestionNumber(): ?int
+    public function getOrderNumber(): ?int
     {
-        return $this->questionNumber;
+        return $this->orderNumber;
     }
 
-    public function setQuestionNumber(?int $questionNumber): void
+    public function setOrderNumber(?int $orderNumber): void
     {
-        $this->questionNumber = $questionNumber;
+        $this->orderNumber = $orderNumber;
     }
 
     public function getReferentielSection(): ?ReferentielSection

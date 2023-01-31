@@ -10,7 +10,7 @@
         <id name="id" column="id" type="uuid"/>
         <field name="name" column="name"/>
         <field name="recommendation" column="recommendation"/>
-        <field name="answerNumber" column="answer_number" type="integer"/>
+        <field name="orderNumber" column="order_number" type="integer"/>
 
         <many-to-one field="referentielQuestion" target-entity="App\Domain\Maturity\Model\ReferentielQuestion" inversed-by="referentielAnswers">
             <join-column on-delete="CASCADE" />

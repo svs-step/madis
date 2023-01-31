@@ -58,7 +58,7 @@ class ReferentielQuestionType extends AbstractType
                 'expanded' => false,
                 'choices'  => [0,1,2,3,4,5],
             ])
-            ->add('questionNumber', HiddenType::class, [
+            ->add('orderNumber', HiddenType::class, [
                 'required' => false,
             ])
             ->add('option', CheckboxType::class, [

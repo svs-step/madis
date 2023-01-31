@@ -70,7 +70,6 @@ class ReferentielSectionType extends AbstractType
                 'allow_delete' => true,
             ])
 
-
             ->add('orderNumber', HiddenType::class,[
                 'required' => false,
             ])

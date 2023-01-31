@@ -7,14 +7,14 @@
             {{ form_row(form.weight) }}
         </div>
         <div class="col-md-2">
-            <a href="#question_{{ question.questionNumber.vars['value'] }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
+            <a href="#question_{{ question.orderNumber.vars['value'] }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
         </div>
     </div>
-    <div class="collapse" id="question_{{ question.questionNumber.vars['value'] }}">
+    <div class="collapse" id="question_{{ question.orderNumber.vars['value'] }}">
         <div class="box-body">
             <div class="col-md-12">
                 <div>Réponses :</div>
-                {{ form_row(form.questionNumber) }}
+                {{ form_row(form.orderNumber) }}
                 <div class="col-md-2">
                     {{ form_row(form.option) }}
                 </div>
@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         {% if question.referentielAnswers is not empty %}
-                            {% for answer in question.referentielAnswers|sort((a, b) => a.vars['value'].answerNumber <=> b.vars['value'].answerNumber) %}
+                            {% for answer in question.referentielAnswers|sort((a, b) => a.vars['value'].orderNumber <=> b.vars['value'].orderNumber) %}
                                 {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': answer} %}
                             {% endfor %}
                         {% endif %}

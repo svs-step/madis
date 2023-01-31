@@ -56,7 +56,7 @@ class ReferentielAnswerType extends AbstractType
                 'maxlength' => 255,
                 ],
             ])
-            ->add('answerNumber', HiddenType::class, [
+            ->add('orderNumber', HiddenType::class, [
                 'required' => false,
             ])
         ;

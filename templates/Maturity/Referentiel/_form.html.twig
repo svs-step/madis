@@ -77,17 +77,19 @@
             const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
             const item = document.createElement('li');
+            const id = collectionHolder.dataset.index;
 
             item.innerHTML = collectionHolder
                 .dataset
                 .prototype
                 .replace(
                     /__name__/g,
-                    collectionHolder.dataset.index
+                    id
                 );
 
             collectionHolder.appendChild(item);
-
+            $('#referentiel_referentielSections_'+id+'_orderNumber').val(id);
+            console.log('tt',$('#referentiel_referentielSections_'+id+'_orderNumber').val());
             collectionHolder.dataset.index++;
         }
     });

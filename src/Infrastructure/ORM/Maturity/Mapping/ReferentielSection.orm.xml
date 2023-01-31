@@ -13,7 +13,9 @@
         <field name="orderNumber" column="order_number" type="integer"/>
 
         <many-to-one field="referentiel" target-entity="App\Domain\Maturity\Model\Referentiel" inversed-by="referentielSections">
-            <join-column on-delete="CASCADE" />
+            <cascade>
+                <cascade-persist/>
+            </cascade>
         </many-to-one>
 
         <one-to-many field="referentielQuestions" target-entity="App\Domain\Maturity\Model\ReferentielQuestion" mapped-by="referentielSection">
