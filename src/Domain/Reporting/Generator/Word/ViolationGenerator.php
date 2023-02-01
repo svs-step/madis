@@ -148,7 +148,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
                 [
                     'Nature de la violation',
-                    $this->translateWithDictionary(ViolationNatureDictionary::getNatures(), $violation->getViolationNature()),
+                    $this->translateWithDictionary(ViolationNatureDictionary::getNatures(), $violation->getViolationNatures()),
                 ],
                 [
                     'Origine de la perte de données',

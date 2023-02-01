@@ -46,7 +46,7 @@ user:
             informations_complementaires: Informations complémentaires
             finess_geo: FINESS Géo.
             population: Population
-            nbr_agents: Nombre d'agents
+            nbr_agents: Nombre de salariés
             nbr_cnil: Numéro de désignation CNIL
         flashbag:
             success:
@@ -61,8 +61,8 @@ user:
             type: Type
             informations_complementaires: Informations complémentaires
             date_maj: Date Mise à jour
-            nbr_agents: Nombre d'agents
-            nbr_cnil: Numéro CNIL
+            nbr_agents: Nombre de salariés
+            nbr_cnil: Numéro de désignation CNIL
             population: Population
             tel_referent_rgpd: Tel Référent RGPD
         modal:
@@ -97,7 +97,7 @@ user:
             website: Site internet
             finess_geo: FINESS Géo.
             population: Population
-            nbr_agents: Nombre d'agents
+            nbr_agents: Nombre de salariés
             nbr_cnil: Numéro de désignation CNIL
         tab:
           address: Adresse
