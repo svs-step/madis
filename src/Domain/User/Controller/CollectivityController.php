@@ -198,16 +198,16 @@ class CollectivityController extends CRUDController
     protected function getLabelAndKeysArray(): array
     {
         return [
-            0 => 'nom',
-            1 => 'nom_court',
-            2 => 'type',
-            3 => 'info',
-            4 => 'siren',
-            5 => 'statut',
-            6 => 'nbr_cnil',
-            7 => 'nbr_agents',
-            8 => 'population',
-            9 => 'date_maj',
+            0  => 'nom',
+            1  => 'nom_court',
+            2  => 'type',
+            3  => 'info',
+            4  => 'siren',
+            5  => 'statut',
+            6  => 'nbr_cnil',
+            7  => 'nbr_agents',
+            8  => 'population',
+            9  => 'date_maj',
             10 => 'tel_referent_rgpd',
             11 => 'actions',
         ];

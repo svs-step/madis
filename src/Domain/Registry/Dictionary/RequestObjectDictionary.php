@@ -56,7 +56,7 @@ class RequestObjectDictionary extends SimpleDictionary
             self::OBJECT_ACCESS             => 'Accéder à des données',
             self::OBJECT_DATA_PORTABILITY   => 'Portabilité des données',
             self::OBJECT_LIMIT_TREATMENT    => 'Limiter le traitement',
-            self::OBJECT_OPPOSITE_TREATMENT => "Opposition au traitement",
+            self::OBJECT_OPPOSITE_TREATMENT => 'Opposition au traitement',
             self::OBJECT_OTHER              => 'Autre',
         ];
     }

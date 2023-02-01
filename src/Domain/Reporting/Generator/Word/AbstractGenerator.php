@@ -239,12 +239,11 @@ abstract class AbstractGenerator implements GeneratorInterface
 
         if ($collectivity->getNbrCnil()) {
             $section->addText(
-                "Numéro de désignation CNIL : " . $collectivity->getNbrCnil(),
+                'Numéro de désignation CNIL : ' . $collectivity->getNbrCnil(),
                 ['italic'    => false],
                 ['alignment' => Jc::CENTER, 'spaceBefore' => 500]
             );
         }
-
 
         $section->addText(
             "{$this->getDate(new \DateTimeImmutable(), 'd/m/Y')}",
