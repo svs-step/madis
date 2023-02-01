@@ -12,9 +12,7 @@
         <field name="recommendation" column="recommendation"/>
         <field name="orderNumber" column="order_number" type="integer"/>
 
-        <many-to-one field="referentielQuestion" target-entity="App\Domain\Maturity\Model\ReferentielQuestion" inversed-by="referentielAnswers">
-            <join-column on-delete="CASCADE" />
-        </many-to-one>
+        <many-to-one field="referentielQuestion" target-entity="App\Domain\Maturity\Model\ReferentielQuestion" inversed-by="referentielAnswers"/>
     </entity>
 
 </doctrine-mapping>
