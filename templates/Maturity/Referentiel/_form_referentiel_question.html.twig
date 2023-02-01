@@ -37,7 +37,7 @@
                                 data-index="{{ form.referentielAnswers|length > 0 ? form.referentielAnswers|last.vars.name + 1 : 0 }}"
                                 data-prototype="{{ form_widget(form.referentielAnswers.vars.prototype)|e('html_attr') }}"
                             ></ul>
-                            <button type="button" class="add_answer btn btn-primary" data-collection-holder-class="referentielAnswers{{ question.vars.value.id }}"><i class="fa fa-plus"></i> Ajouter une réponse</button>
+                            <button type="button" class="add_answer btn btn-primary" data-question="{{ question.vars['id'] }}" data-collection-holder-class="referentielAnswers{{ question.vars.value.id }}"><i class="fa fa-plus"></i> Ajouter une réponse</button>
                         </div>
                     </div>
                 </div>

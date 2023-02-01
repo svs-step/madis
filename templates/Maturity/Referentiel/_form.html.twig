@@ -27,7 +27,7 @@
                         <div class="row">
                             <div class="box box-solid {{ colors[colorSection] }}">
                                 <div class="box-header with-border">
-                                    {{ loop.index }}.Section
+                                    {{ loop.index }}.{{ section.vars['value'].name }}
                                     <a href="#section_{{ loop.index }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
                                 </div>
                                 <div class="collapse" id="section_{{ loop.index }}">
@@ -74,7 +74,7 @@
         $('.add_answer').on('click', addFormToCollection);
 
         function addFormToCollection(e){
-            console.log('e', e.currentTarget.classList[0]);
+            console.log('section', e.currentTarget.dataset['section']);
             let type = e.currentTarget.classList[0];
             const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
@@ -95,14 +95,12 @@
             switch (type){
                 case 'add_section':
                     $('#referentiel_referentielSections_'+id+'_orderNumber').val(id);
-                    console.log($('#referentiel_referentielSections_'+id+'_orderNumber').val());
                     break;
                 case 'add_question':
-                    $('#referentiel_referentielSections_0_referentielQuestions_'+id+'_orderNumber').val(id);
+                    $('#'+ e.currentTarget.dataset['section'] + '_referentielQuestions_' + id + '_orderNumber').val(id);
                     break;
                 case 'add_answer':
-                    console.log(type);
-                    $('#referentiel_referentielSections_0_referentielQuestions_2_referentielAnswers_'+id+'_orderNumber').val(id);
+                    $('#'+ e.currentTarget.dataset['question'] + '_referentielAnswers_'+id+'_orderNumber').val(id);
                     break;
             }
 
