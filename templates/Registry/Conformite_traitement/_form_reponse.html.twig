@@ -62,7 +62,7 @@
                             <td>{{ form_widget(reponse.conforme, { 'attr': {'data-select-id': reponse.actionProtections.vars.id} }) }}</td>
                             <td>{{ form_widget(reponse.actionProtections) }}</td>
                             <td>
-                                <button id="{{ reponse.actionProtections.vars.id }}_add_button" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ reponse.actionProtections.vars.id }}">
+                                <button id="{{ reponse.actionProtections.vars.id }}_add_button" aria-label="Ajouter une action de protection" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ reponse.actionProtections.vars.id }}">
                                     <span class="fa fa-plus-circle"></span>
                                 </button>
                             </td>

@@ -4,6 +4,8 @@ aipd:
             import: Importer un modèle
             new: Nouveau modèle
             back_to_list: Retour à la liste
+            new_submit: Créer le modèle
+            edit_submit: Modifier le modèle
         title:
             create: Créer un modèle
             edit: Modifier un modèle
@@ -32,6 +34,8 @@ aipd:
         action:
             new: Nouvelle mesure
             back_to_list: Retour à la liste
+            new_submit: Créer la mesure de protection
+            edit_submit: Modifier la mesure de protection
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
@@ -78,6 +82,8 @@ aipd:
             edit: Modifier l'AIPD
             modele: Choisir ce modèle
             validation: Passer en validation
+            new_submit: Créer l'AIPD
+            edit_submit: Modifier l'AIPD
         flashbag:
             success:
                 delete: L'analyse d'impact "%object%" a bien été supprimée

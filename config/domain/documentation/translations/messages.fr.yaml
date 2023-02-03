@@ -9,6 +9,8 @@ documentation:
             url: Nouveau lien
             list: Afficher en liste
             grid: Afficher en grille
+            new_submit: Créer le document
+            edit_submit: Modifier le document
 
         form:
             title:
@@ -68,6 +70,8 @@ documentation:
             new: Ajouter une catégorie
             list: Catégories documentaires
             files: Tous les fichiers
+            new_submit: Créer la catégorie
+            edit_submit: Modifier la catégorie
         list:
             name: Nom
             count: Total

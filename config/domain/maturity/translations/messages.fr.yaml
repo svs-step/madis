@@ -3,6 +3,8 @@ maturity:
         action:
             back_to_list: Retour à la liste
             new: Nouvel indice de maturité
+            new_submit: Créer l'indice de maturité
+            edit_submit: Modifier l'indice de maturité
         breadcrumb:
             create: Nouvel indice de maturité
             edit: Modifier un indice de maturité

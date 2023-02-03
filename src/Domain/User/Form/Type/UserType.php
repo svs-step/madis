@@ -133,7 +133,7 @@ class UserType extends AbstractType
                     'expanded'      => false,
                     'attr'          => [
                         'class'            => 'selectpicker',
-                        'title'            => 'placeholder.multiple_select',
+                        'title'            => 'placeholder.multiple_select_user_collectivity',
                         'data-live-search' => true,
                         'data-width'       => '450px',
                     ],

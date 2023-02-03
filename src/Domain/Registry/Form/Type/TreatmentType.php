@@ -171,7 +171,7 @@ class TreatmentType extends AbstractType
                 },
                 'attr'          => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'title' => 'placeholder.multiple_select_cat_data',
                 ],
             ])
             ->add('dataCategoryOther', TextareaType::class, [
@@ -219,7 +219,7 @@ class TreatmentType extends AbstractType
                 },
                 'attr'          => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'title' => 'placeholder.multiple_select_contractors',
                 ],
             ])
             ->add('delay', DelayType::class, [
@@ -309,7 +309,7 @@ class TreatmentType extends AbstractType
                 'placeholder' => 'placeholder.precision',
                 'attr'        => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'title' => 'placeholder.multiple_select_moyen_collecte',
                 ],
             ])
             ->add('estimatedConcernedPeople', IntegerType::class, [

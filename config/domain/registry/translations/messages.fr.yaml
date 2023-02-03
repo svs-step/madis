@@ -21,6 +21,8 @@ registry:
             back_to_list: Retour à la liste
             new: Nouveau sous-traitant
             report: Générer une impression
+            new_submit: Créer le sous-traitant
+            edit_submit: Modifier le sous-traitant
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
@@ -94,6 +96,8 @@ registry:
             back_to_list: Retour à la liste
             new: Nouvelle action
             show_mesurement: Voir l'action de protection
+            new_submit: Créer l'action de protection
+            edit_submit: Modifier l'action de protection'
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
@@ -167,7 +171,7 @@ registry:
             list: Liste des actions de protection
             show: Visualiser une action de protection
         modal:
-          cancel: Annuler
+          cancel: Annuler la création
           create: Créer
           title: Ajouter une action de protection
 
@@ -178,6 +182,8 @@ registry:
             new: Ajouter une preuve
             not_archived: Voir les preuves non archivées
             download: Télécharger tous les documents
+            new_submit: Créer la preuve
+            edit_submit: Modifier la preuve
         breadcrumb:
             archive: Archiver "%name%"
             create: Créer
@@ -225,6 +231,8 @@ registry:
             new: Nouvelle demande
             not_archived: Voir les demandes non archivées
             report: Générer une impression
+            new_submit: Créer la demande
+            edit_submit: Modifier la demande
         breadcrumb:
             create: Créer
             delete: Archiver "%name%"
@@ -339,6 +347,8 @@ registry:
             inactive: Voir les traitements inactifs
             new: Nouveau traitement
             report: Générer une impression
+            new_submit: Créer le traitement
+            edit_submit: Modifier le traitement
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
@@ -520,6 +530,8 @@ registry:
             new: Nouvelle violation
             report: Générer une impression
             not_archived: Voir les violations non archivées
+            new_submit: Créer la violation
+            edit_submit: Modifier la violation
         breadcrumb:
             create: Créer
             delete: Archiver "%name%"
@@ -661,3 +673,5 @@ registry:
             delete: Supprimer
             report: Générer une impression
             print: Imprimer
+            new_submit: Créer l'évaluation de l'organisation
+            edit_submit: Modifier l'évaluation de l'organisation

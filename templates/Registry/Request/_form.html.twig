@@ -1,5 +1,8 @@
-{% set submitValue = submitValue|default('action.submit'|trans) %}
-
+{% if form.vars.value.createdAt.timestamp is defined %}
+    {% set submitValue = submitValue|default('registry.request.action.edit_submit'|trans) %}
+{% else %}
+    {% set submitValue = submitValue|default('registry.request.action.new_submit'|trans) %}
+{% endif %}
 
 <div class="row">
     {{ form_start(form) }}
