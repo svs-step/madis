@@ -120,6 +120,11 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
     private $documentView;
 
     /**
+     * @var array|null
+     */
+    private $moreInfos;
+
+    /**
      * User constructor.
      *
      * @throws \Exception
@@ -130,6 +135,7 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
         $this->roles                 = [];
         $this->enabled               = true;
         $this->collectivitesReferees = [];
+        $this->moreInfos             = [];
     }
 
     public function getId(): UuidInterface
@@ -356,5 +362,15 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
     public function setDocumentView(bool $documentView): void
     {
         $this->documentView = $documentView;
+    }
+
+    public function getMoreInfos(): ?array
+    {
+        return $this->moreInfos;
+    }
+
+    public function setMoreInfos(array $moreInfos): void
+    {
+        $this->moreInfos = $moreInfos;
     }
 }
