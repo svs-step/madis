@@ -126,7 +126,7 @@ registry:
             cost: Coût
             manager: Responsable d'action
             name: Nom
-            planification_date: Echéance
+            planification_date: Échéance
             priority: Priorité
             status: Statut
             type:
@@ -632,7 +632,7 @@ registry:
         title:
             create: Créer une évaluation
             edit: Modifier une évaluation
-            list: Lister les évaluations
+            list: Conformité de l’organisation
             delete: Supprimer une évaluation
         list:
             collectivite: Nom de la Structure

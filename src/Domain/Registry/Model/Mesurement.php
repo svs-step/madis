@@ -89,7 +89,7 @@ class Mesurement implements LoggableSubject
     private $status;
 
     /**
-     * FR: Echéance.
+     * FR: Échéance.
      *
      * @var \DateTime|null
      */
