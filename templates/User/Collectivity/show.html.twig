@@ -470,27 +470,29 @@
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="box box-solid box-default">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.services'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th><strong>{{ 'user.collectivity.show.name'|trans }}</strong></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for service in object.services %}
+        {% if object.services is not empty %}
+            <div class="col-md-6">
+                <div class="box box-solid box-default">
+                    <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.services'|trans }}</h3></div>
+                    <div class="box-body no-padding">
+                        <table class="table">
+                            <thead>
                             <tr>
-                                <td>{{ service.name }}</td>
+                                <th><strong>{{ 'user.collectivity.show.name'|trans }}</strong></th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {% for service in object.services %}
+                                <tr>
+                                    <td>{{ service.name }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
 
     </div>
 {% endblock %}
