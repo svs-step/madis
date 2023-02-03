@@ -54,7 +54,7 @@ Il est possible de naviguer dans les différentes pages :
 * Le menu « **Indice de maturité** » permet d'accéder à la gestion de l’évolution de la mise en conformité et de l'évaluer ;
 * Le menu « **Générer un bilan** » permet de générer le bilan synthétisant l'ensemble des éléments renseignés dans Madis au format Word ;
 * Le menu « **Espace documentaire** » permet de consulter toutes les ressources mises à disposition par le DPD ;
-* Le menu « **Ma collectivité** » permet de modifier les informations de la structure ;
+* Le menu « **Ma structure** » permet de modifier les informations de la structure ;
 * Le menu « **Mon compte** » permet de modifier les informations du compte (prénom, nom, email, mot de passe). **L'adresse mail renseignée ne doit pas déjà avoir été utilisée par un autre compte**.
 
 ![Menu Madis](images/Madis-Navigation-Menu-Desktop.png)
@@ -97,9 +97,9 @@ D'une manière générale dans Madis, lorsque le nombre d'éléments à afficher
 
 Dans les formulaires, les champs précédés d’un astérisque « * » sont obligatoires.
 
-## Paramétrage : Ma collectivité
+## Paramétrage : Ma structure
 
-Le menu « **Ma collectivité** » permet de modifier les informations de la structure.
+Le menu « **Ma structure** » permet de modifier les informations de la structure.
 
 (Seul un administrateur peut modifier les informations générales et l’adresse.)
 
@@ -952,7 +952,7 @@ Il est possible d'effectuer plusieurs actions :
 
 # Administration
 
-Cette partie est réservée aux administrateurs, c'est-à-dire, principalement les Délégués à la Protection des Données (DPD). Le profil « référent multi-collectivité » a également accès au tableau de bord administrateur, mais seulement dans la limite de son périmètre d'action.
+Cette partie est réservée aux administrateurs, c'est-à-dire, principalement les Délégués à la Protection des Données (DPD). Le profil « référent multi-structure » a également accès au tableau de bord administrateur, mais seulement dans la limite de son périmètre d'action.
 
 ## Tableau de bord administrateur
 
@@ -973,7 +973,7 @@ Plusieurs indicateurs sont disponibles :
 
 Il est possible d'exporter certaines informations au format Excel :
 
-* « **Exporter les collectivités** » : Export comprenant toutes les informations enregistrées dans la [gestion des structures](#Gestion-des-structures) (Statut actif/inactif ; Nom ; SIREN ; Dernier utilisateur connecté ; Date de la dernière connexion ; ...) ainsi que les informations comprises dans le [module conformité de l'organisation](#Module-conformité-de-l’organisation) ;
+* « **Exporter les structures** » : Export comprenant toutes les informations enregistrées dans la [gestion des structures](#Gestion-des-structures) (Statut actif/inactif ; Nom ; SIREN ; Dernier utilisateur connecté ; Date de la dernière connexion ; ...) ainsi que les informations comprises dans le [module conformité de l'organisation](#Module-conformité-de-l’organisation) ;
 * « **Exporter les traitements** » : Export comprenant toutes les informations enregistrées dans le [registre des traitements](#Le-registre-des-traitements) (Statut actif/inactif ; Date de dernière modification...) ainsi que les informations comprises dans le [module conformité des traitements](#Module-conformité-des-traitements) ;
 * « **Exporter les sous-traitants** » : Export comprenant toutes les informations enregistrées dans le [registre des sous-traitants](#Le-registre-des-sous-traitants) (Nom du sous-traitant ; Clauses vérifiées ; Traitements associés ; ...) ;
 * « **Exporter les actions de protection** » : Export comprenant toutes les informations enregistrées dans les [actions de protection](#Les-actions-de-protection) et dans le [plan d'actions](#Plan-d’actions) (Nom de l'action ; Statut ; Echéance ; ...).
@@ -1288,7 +1288,7 @@ Il est possible d'effectuer plusieurs actions :
 
 ## Gestion des structures
 
-Le menu « **Collectivités** » permet de consulter la liste des structures qui ont été créées dans Madis et d'en ajouter.
+Le menu « **Structures** » permet de consulter la liste des structures qui ont été créées dans Madis et d'en ajouter.
 
 ![Liste des structures](images/Madis-Liste-Des-Structures.png)
 
@@ -1382,7 +1382,7 @@ Dans les informations générales, il est possible de renseigner les éléments 
 * **Prénom** ;
 * **Nom** ;
 * **E-mail** : L’adresse mail renseignée ne doit pas déjà avoir été utilisée par un autre compte ;
-* **Collectivité** : Choix de la structure ;
+* **Structure** : Choix de la structure ;
 * **Role** : Gestion des droits ;
 * **Accès aux Webservices (API)** : permet de choisir si l'utilisateur peut être accédé ou non par les webservices (API). Consulter l'[API](#API) pour plus d'information ;
 * **Actif** : Le statut actif est coché par défaut. Un utilisateur inactif sera archivé et il ne pourra plus se connecter à Madis.

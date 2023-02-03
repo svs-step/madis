@@ -102,7 +102,7 @@ class OverviewGenerator extends AbstractGenerator
         $section->addTitle('Objet', 1);
 
         $section->addText(
-            "Ce document constitue le bilan de gestion des données à caractère personnel de la collectivité '{$collectivity->getName()}'."
+            "Ce document constitue le bilan de gestion des données à caractère personnel de la structure '{$collectivity->getName()}'."
         );
     }
 
@@ -113,7 +113,7 @@ class OverviewGenerator extends AbstractGenerator
         $section->addTitle('Présentation de la structure', 1);
 
         $section->addTitle('Mission de la structure', 2);
-        $section->addText(\ucfirst($collectivity->getName()) . ' est une collectivité territoriale.');
+        $section->addText(\ucfirst($collectivity->getName()) . ' est une structure territoriale.');
 
         $section->addTitle('Engagement de la direction', 2);
 

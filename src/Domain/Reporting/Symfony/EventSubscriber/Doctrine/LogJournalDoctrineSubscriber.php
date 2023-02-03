@@ -117,7 +117,7 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
                 $object = $object->getEvaluation();
                 $action = LogJournalActionDictionary::UPDATE;
                 break;
-                // l'ajout d'un contact IL ou d'un service entraine la modification de la collectivité
+                // l'ajout d'un contact IL ou d'un service entraine la modification de la Structure
             case ComiteIlContact::class:
                 $object = $object->getCollectivity();
                 $action = LogJournalActionDictionary::UPDATE;
