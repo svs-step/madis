@@ -20,12 +20,12 @@ user:
         action:
             back_to_list: Retour à la liste
             back_to_show: Retour à la visualisation
-            new: Nouvel organisme
+            new: Nouvelle structure
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
             edit: Éditer "%name%"
-            list: Liste des organismes
+            list: Liste des structures
             show: Visualiser "%name%"
         form:
             active: Statut
@@ -102,12 +102,12 @@ user:
             continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
           services: Services
         title:
-            create: Créer un organisme
-            delete: Supprimer un organisme
-            edit: Éditer un organisme
-            label: Organisme
-            list: Liste des organismes
-            show: Visualiser un organisme
+            create: Créer une structure
+            delete: Supprimer une structure
+            edit: Éditer une structure
+            label: Structure
+            list: Liste des structures
+            show: Visualiser une structure
 
     profile:
         breadcrumb:
