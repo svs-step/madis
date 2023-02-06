@@ -191,9 +191,12 @@ class SurveyController extends CRUDController
             }
         }
 
+        $referentiels = $this->entityManager->getRepository(Model\Referentiel::class)->findAll();
+
         return $this->render($this->getTemplatingBasePath('create'), [
             'flow' => $this->surveyFlow,
             'form' => $form->createView(),
+            'referentiels' => $referentiels,
         ]);
     }
 
