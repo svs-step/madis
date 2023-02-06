@@ -1,3 +1,10 @@
+{% import _self as formMacros %}
+{% macro printQuestionRow(question) %}
+    <li class="col-md-12">
+        {%  include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': question} %}
+    </li>
+{% endmacro %}
+
 <div class="row">
     <div class="box-body">
         <div class="col-md-6">
@@ -7,18 +14,20 @@
         </div>
 
         <div class="col-md-12">
-            {% if section.referentielQuestions is not empty %}
-                {% for question in section.referentielQuestions|sort((a, b) => a.vars['value'].orderNumber <=> b.vars['value'].orderNumber) %}
-                    {%  include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': question} %}
-                {% endfor %}
-            {% endif %}
+
             <div class="row">
                 <div class="col-md-12">
-                    <ul class="referentielQuestions{{ section.vars.value.id }}"
+                    <ul class="referentielQuestions" style="margin: 0;list-style: none; padding:0"
                         data-index="{{ form.referentielQuestions|length > 0 ? form.referentielQuestions|last.vars.name + 1 : 0 }}"
-                        data-prototype="{{ form_widget(form.referentielQuestions.vars.prototype)|e('html_attr') }}"
-                    ></ul>
-                    <button type="button" class="add_question btn btn-primary" data-section="{{ section.vars['id'] }}" data-collection-holder-class="referentielQuestions{{ section.vars.value.id }}"><i class="fa fa-plus"></i> Ajouter une question</button>
+                        data-section="{{ form.vars.name ? form.vars.name : 0 }}"
+                    >
+                        {% if section.referentielQuestions is not empty %}
+                            {% for question in section.referentielQuestions|sort((a, b) => a.vars['value'].orderNumber <=> b.vars['value'].orderNumber) %}
+                                {{ formMacros.printQuestionRow(question) }}
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                    {{ form_row(form.addQuestion) }}
                 </div>
             </div>
         </div>

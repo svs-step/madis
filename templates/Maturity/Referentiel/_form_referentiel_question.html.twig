@@ -1,3 +1,10 @@
+{% import _self as formMacros %}
+{% macro printAnswerRow(answer) %}
+    <li class="col-md-12">
+        {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': answer} %}
+    </li>
+{% endmacro %}
+
 <div class="box box-solid box-info">
     <div class="box-header">
         <div class="col-md-5">
@@ -7,10 +14,11 @@
             {{ form_row(form.weight) }}
         </div>
         <div class="col-md-2">
-            <a href="#question_{{ question.orderNumber.vars['value'] }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
+            <a href="#question_{{ form.parent.parent.orderNumber.vars['value'] }}_{{ question.orderNumber.vars['value'] }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
         </div>
     </div>
-    <div class="collapse" id="question_{{ question.orderNumber.vars['value'] }}">
+
+    <div class="collapse" id="question_{{ form.parent.parent.orderNumber.vars['value'] }}_{{ question.orderNumber.vars['value'] }}">
         <div class="box-body">
             <div class="col-md-12">
                 <div>Réponses :</div>
@@ -22,22 +30,24 @@
                     {{ form_row(form.optionReason) }}
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        {% if question.referentielAnswers is not empty %}
-                            {% for answer in question.referentielAnswers|sort((a, b) => a.vars['value'].orderNumber <=> b.vars['value'].orderNumber) %}
-                                {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': answer} %}
-                            {% endfor %}
-                        {% endif %}
-                    </div>
+
                 </div>
                 <div class="row">
                     <div class="row">
                         <div class="col-md-12">
-                            <ul class="referentielAnswers{{ question.vars.value.id }}"
+                            <ul class="referentielAnswers"
+                                style="margin: 0;list-style: none; padding:0"
                                 data-index="{{ form.referentielAnswers|length > 0 ? form.referentielAnswers|last.vars.name + 1 : 0 }}"
-                                data-prototype="{{ form_widget(form.referentielAnswers.vars.prototype)|e('html_attr') }}"
-                            ></ul>
-                            <button type="button" class="add_answer btn btn-primary" data-question="{{ question.vars['id'] }}" data-collection-holder-class="referentielAnswers{{ question.vars.value.id }}"><i class="fa fa-plus"></i> Ajouter une réponse</button>
+                                data-question="{{ form.vars.name ? form.vars.name : 0 }}"
+                                data-section="{{ form.parent.parent.vars.name ? form.parent.parent.vars.name : 0 }}"
+                            >
+                                    {% if question.referentielAnswers is not empty %}
+                                        {% for answer in question.referentielAnswers|sort((a, b) => a.vars['value'].orderNumber <=> b.vars['value'].orderNumber) %}
+                                            {{ formMacros.printAnswerRow(answer) }}
+                                        {% endfor %}
+                                    {% endif %}
+                            </ul>
+                            {{ form_row(form.addAnswer) }}
                         </div>
                     </div>
                 </div>

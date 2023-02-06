@@ -1,5 +1,36 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
-
+{% import _self as formMacros %}
+{% macro printAnswerRow(answer) %}
+    <li class="col-md-12">
+        {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': answer} %}
+    </li>
+{% endmacro %}
+{% macro printQuestionRow(question) %}
+    <li class="col-md-12">
+        {%  include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': question} %}
+    </li>
+{% endmacro %}
+{% macro printSectionRow(section, index, colors) %}
+    {% set colorSection = 0 %}
+    {% if index matches '/^\\d+$/' %}
+        {% set colorSection = (index - 1) % 4 %}
+    {% endif %}
+    <li class="col-md-12">
+        <div class="row">
+            <div class="box box-solid {{ colors[colorSection] }}">
+                <div class="box-header with-border">
+                    {{ index }}.{{ section.vars['value'] ? section.vars['value'].name : 'Nouvelle section' }}
+                    <a href="#section_{{ index }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="collapse section" id="section_{{ index }}">
+                    <div class="box-body">
+                        {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': section} %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+{% endmacro %}
 <div class="row">
     <div class="col-md-12">
         {{ form_start(form) }}
@@ -19,33 +50,26 @@
                     Référentiel
                 </div>
             </div>
-            {% if form.referentielSections is not empty %}
-                {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
-                {% for section in form.referentielSections|sort((a, b) => a.vars['value'].orderNumber <=> b.vars['value'].orderNumber) %}
-                    {% set colorSection = (loop.index - 1) % 4 %}
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="box box-solid {{ colors[colorSection] }}">
-                                <div class="box-header with-border">
-                                    {{ loop.index }}.{{ section.vars['value'].name }}
-                                    <a href="#section_{{ loop.index }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
-                                </div>
-                                <div class="collapse" id="section_{{ loop.index }}">
-                                    <div class="box-body">
-                                        {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': section} %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
+
+        {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
+        <div id="prototypes"
+            data-prototype-answer = "{{ formMacros.printAnswerRow(form.referentielSections.vars.prototype.children['referentielQuestions'].vars.prototype.children['referentielAnswers'].vars.prototype)|e }}"
+            data-prototype-question = "{{ formMacros.printQuestionRow(form.referentielSections.vars.prototype.children['referentielQuestions'].vars.prototype)|e }}"
+            data-prototype-section="{{ formMacros.printSectionRow(form.referentielSections.vars.prototype, '__index__', colors)|e('html_attr') }}"
+        ></div>
+
             <div class="row">
                 <div class="col-md-12">
-                    <ul class="referentielSections"
-                        data-index="{{ form.referentielSections|length > 0 ? form.referentielSections|last.vars.name + 1 : 0 }}"
-                        data-prototype="{{ form_widget(form.referentielSections.vars.prototype)|e('html_attr') }}"
-                    ></ul>
+                    <ul class="referentielSections" style="margin: 0;list-style: none; padding:0"
+                        data-index="{{ form.referentielSections|length > 0 ? form.referentielSections|length : 9999 }}"
+                   >
+                        {% do form.referentielSections.setRendered() %}
+                        {% if form.referentielSections is not empty %}
+                            {% for section in form.referentielSections|sort((a, b) => a.vars['value'].orderNumber <=> b.vars['value'].orderNumber) %}
+                                {{ formMacros.printSectionRow(section, loop.index, colors) }}
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
                     <button type="button" class="add_section btn btn-primary" data-collection-holder-class="referentielSections"><i class="fa fa-plus"></i> Ajouter une section</button>
                 </div>
             </div>
@@ -68,43 +92,67 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+
     $(document).ready(function() {
-        $('.add_section').on('click', addFormToCollection);
-        $('.add_question').on('click', addFormToCollection);
-        $('.add_answer').on('click', addFormToCollection);
+        $('body').on('click', '.add_section', addFormToCollection)
+            .on('click', '.add_question', addFormToCollection)
+            .on('click', '.add_answer', addFormToCollection)
+        ;
+        $(document).on("click", '.box-link', function() {
+            $(this).parent().next().collapse('toggle');
+        });
 
         function addFormToCollection(e){
-            console.log('section', e.currentTarget.dataset['section']);
+            const btn = $(e.currentTarget)
             let type = e.currentTarget.classList[0];
-            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
-            const item = document.createElement('li');
-            const id = collectionHolder.dataset.index;
-            console.log('index', id);
+            let html = $('#prototypes').data('prototype-section')
+            if (type === 'add_section') {
+                const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+                collectionHolder.dataset.index++
+                const index = collectionHolder.dataset.index;
+                let html = $('#prototypes').data('prototype-section')
+                console.log('old HTML', html)
+                html = html.replace(/__section_name__/g, index).replace(/__index__/g, index)
+                console.log('new HTML', html)
+                btn.parent('div').find('ul.referentielSections').append('<li>'+html+'</li>');
+                $('#referentiel_referentielSections_'+index+'_orderNumber').val(index);
+            } else if (type === 'add_question') {
+                let html = $('#prototypes').data('prototype-question')
+                const holder = btn.parent().parent().find('ul.referentielQuestions')
+                const section = holder.data('section');
+                const oldIndex = holder.data('index')
+                html = html.replace(/__section_name__/g, section).replace(/__question_name__/g, oldIndex)
+                holder.append('<li>'+html+'</li>');
+                const newIndex = holder.data('index') + 1
+                holder.data('index', newIndex)
+                $('#referentiel_referentielSections_'+ section + '_referentielQuestions_' + oldIndex + '_orderNumber').val(oldIndex);
+            } else {
+                let html = $('#prototypes').data('prototype-answer')
+                const holder = btn.parent().parent().find('ul.referentielAnswers')
+                console.log('holder', holder)
+                const section = holder.data('section');
+                const question = holder.data('question');
+                const oldIndex = holder.data('index')
+                html = html.replace(/__section_name__/g, section).replace(/__question_name__/g, question).replace(/__answer_name__/g, oldIndex)
+                holder.append('<li>'+html+'</li>');
+                const newIndex = holder.data('index') + 1
+                holder.data('index', newIndex)
+                $(`#referentiel_referentielSections_${section}_referentielQuestions_${question}_referentielAnswers_${oldIndex}_orderNumber`).val(oldIndex)
+            }
 
-            item.innerHTML = collectionHolder
-                .dataset
-                .prototype
-                .replace(
-                    /__name__/g,
-                    id
-                );
-
-            collectionHolder.appendChild(item);
 
             switch (type){
                 case 'add_section':
-                    $('#referentiel_referentielSections_'+id+'_orderNumber').val(id);
+
                     break;
                 case 'add_question':
-                    $('#'+ e.currentTarget.dataset['section'] + '_referentielQuestions_' + id + '_orderNumber').val(id);
                     break;
                 case 'add_answer':
-                    $('#'+ e.currentTarget.dataset['question'] + '_referentielAnswers_'+id+'_orderNumber').val(id);
+                    //
                     break;
             }
 
-            collectionHolder.dataset.index++;
         }
     });
 </script>

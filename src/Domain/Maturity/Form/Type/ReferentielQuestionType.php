@@ -26,12 +26,15 @@ namespace App\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Model\ReferentielQuestion;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
@@ -80,8 +83,35 @@ class ReferentielQuestionType extends AbstractType
                     'allow_add' => true,
                     'allow_delete' => true,
                     'by_reference' => false,
+                    'prototype_name' => '__answer_name__'
                 ]
             )
+        ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $form = $event->getForm();
+            if (null !== $data = $event->getData()) {
+                $form->add('addAnswer', ButtonType::class,[
+                    'label' => '<i class="fa fa-plus"></i> Ajouter une réponse',
+                    'label_html' => true,
+                    'attr' => [
+                        'class' => 'add_answer btn btn-primary',
+                        'data-question' => ($data ? $data->getId() : ''),
+                        'data-collection-holder-class' => 'referentielAnswers',
+                    ],
+                ]);
+            } else {
+                $form->add('addAnswer', ButtonType::class,[
+                    'label' => '<i class="fa fa-plus"></i> Ajouter une réponse',
+                    'label_html' => true,
+                    'attr' => [
+                        'class' => 'add_answer btn btn-primary',
+                        'data-question' => '9999',
+                        'data-collection-holder-class' => 'referentielAnswers',
+                    ],
+                ]);
+            }
+        })
         ;
     }
 

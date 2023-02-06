@@ -59,6 +59,7 @@ class ReferentielType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'prototype_name' => '__section_name__'
             ])
 
 
