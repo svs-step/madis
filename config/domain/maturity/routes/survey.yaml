@@ -6,7 +6,7 @@ maturity_survey_list:
 maturity_survey_create:
     path: '/creer'
     methods: ['GET', 'POST']
-    controller: 'App\Domain\Maturity\Controller\SurveyController:createAction'
+    controller: 'App\Domain\Maturity\Controller\SurveyController:createMaturitySurveyAction'
 
 maturity_survey_edit:
     path: '/editer/{id}'

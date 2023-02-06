@@ -26,7 +26,9 @@ namespace App\Domain\Maturity\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\AIPD\Form\Flow\AnalyseImpactFlow;
 use App\Domain\Maturity\Calculator\MaturityHandler;
+use App\Domain\Maturity\Form\Flow\SurveyFlow;
 use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
@@ -68,6 +70,8 @@ class SurveyController extends CRUDController
      */
     protected $maturityHandler;
 
+    private SurveyFlow $surveyFlow;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -77,7 +81,8 @@ class SurveyController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
         MaturityHandler $maturityHandler,
-        Pdf $pdf
+        Pdf $pdf,
+        SurveyFlow $surveyFlow,
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
         $this->questionRepository   = $questionRepository;
@@ -85,6 +90,7 @@ class SurveyController extends CRUDController
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
         $this->maturityHandler      = $maturityHandler;
+        $this->surveyFlow          = $surveyFlow;
     }
 
     /**
@@ -161,35 +167,33 @@ class SurveyController extends CRUDController
      * {@inheritdoc}
      * Override method in order to hydrate survey answers.
      */
-    public function createAction(Request $request): Response
+    public function createMaturitySurveyAction(Request $request): Response
     {
-        /**
-         * @var Model\Survey
-         */
-        $modelClass = $this->getModelClass();
-        $object     = new $modelClass();
+        $object = new Model\Survey();
 
-        // Before create form, hydrate answers array with potential question responses
-        foreach ($this->questionRepository->findAll() as $question) {
-            $answer = new Model\Answer();
-            $answer->setQuestion($question);
-            $object->addAnswer($answer);
+        $this->surveyFlow->bind($object);
+        $form = $this->surveyFlow->createForm();
+
+        if ($this->surveyFlow->isValid($form)) {
+            $this->formPrePersistData($object);
+            $this->surveyFlow->saveCurrentStepData($form);
+
+            if ($this->surveyFlow->nextStep()) {
+                $form = $this->surveyFlow->createForm();
+                // TODO Persist and flush here to allow draft ?
+            } else {
+                $this->entityManager->persist($object);
+                $this->entityManager->flush();
+
+                $this->surveyFlow->reset();
+
+                return $this->redirectToRoute($this->getRouteName('list'));
+            }
         }
-
-        $form = $this->createForm($this->getFormType(), $object);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($object);
-            $em->flush();
-
-            $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object));
-
-            return $this->redirectToRoute($this->getRouteName('list'));
-        }
+        dd($this->surveyFlow);
 
         return $this->render($this->getTemplatingBasePath('create'), [
+            'flow' => $this->analyseFlow,
             'form' => $form->createView(),
         ]);
     }

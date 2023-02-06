@@ -5,8 +5,21 @@
 
 {% block title %}{{ 'maturity.survey.title.create'|trans }} - {{ parent() }}{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+{% endblock %}
+
 {% block body_head %}
-    <h1>{{ 'maturity.survey.title.create'|trans }}</h1>
+    <h1>
+        {% if flow.getCurrentStepNumber() == 1 %}
+            {% set smallTitle = form.vars.value.maturity.survey.name ~ ' - Étape 1 sur 2 : Sélection du référentiel' %}
+        {% elseif flow.getCurrentStepNumber() == 2 %}
+            {% set smallTitle = form.vars.value.maturity.survey.name ~ ' - Étape 2 sur 2 : Complétion du référentiel' %}
+        {% endif %}
+        {{ 'maturity.survey.title.list'|trans }}
+        <small>{{ smallTitle }}</small>
+    </h1>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -18,5 +31,45 @@
 {% endblock %}
 
 {% block body %}
-    {{ include('Maturity/Survey/_form.html.twig') }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/craueformflow/css/buttons.css') }}" />
+
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    {% if flow.getCurrentStepNumber() == 1 %}
+                        <p>Pour chacun des points suivants, précisez le niveau de conformité, justifiez votre réponse et éventuellement ajoutez une image pour préciser.</p>
+                        {% include '@templates_path/Aipd/Analyse_impact/_form_step_1.html.twig' with {
+                        form: form
+                    } %}
+                    {% elseif flow.getCurrentStepNumber() == 2 %}
+                        <p>L'évaluation des principes fondamentaux a été réalisée lors de l'évaluation de la conformité des traitements, il peut être nécessaire ici de justifier.</p>
+                        {% include '@templates_path/Aipd/Analyse_impact/_form_step_2.html.twig' with {
+                        form: form
+                    } %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-body text-center">
+                    <a  href="{{ path('maturity_survey_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
+                    {% include '@templates_path/_Utils/_craue_buttons.html.twig' with {
+                        craue_formflow_button_class_last: 'btn btn-primary',
+                        craue_formflow_button_class_back: 'btn btn-default',
+                        craue_formflow_button_render_reset: false,
+                        craue_formflow_button_label_next: 'Suivant',
+                        craue_formflow_button_label_back: 'Précédent',
+                        craue_formflow_button_label_finish: 'Suivant',
+                        craue_formflow_button_label_last: 'Terminer',
+                    } %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
 {% endblock %}
