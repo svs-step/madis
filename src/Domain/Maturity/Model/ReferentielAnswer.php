@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Model;
 
-use App\Domain\Maturity\Model\Answer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 

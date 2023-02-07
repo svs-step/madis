@@ -55,13 +55,12 @@ class ReferentielType extends AbstractType
                 ],
             ])
             ->add('referentielSections', CollectionType::class, [
-                'entry_type' => ReferentielSectionType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'prototype_name' => '__section_name__'
+                'entry_type'     => ReferentielSectionType::class,
+                'allow_add'      => true,
+                'allow_delete'   => true,
+                'by_reference'   => false,
+                'prototype_name' => '__section_name__',
             ])
-
 
         ;
     }

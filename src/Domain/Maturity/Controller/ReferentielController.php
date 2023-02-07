@@ -26,7 +26,7 @@ namespace App\Domain\Maturity\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
-use App\Domain\Documentation\Model\Category;
+use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Maturity\Calculator\MaturityHandler;
 use App\Domain\Maturity\Form\Type\ModeleReferentielRightsType;
 use App\Domain\Maturity\Form\Type\ReferentielType;
@@ -43,7 +43,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use App\Application\Traits\ServersideDatatablesTrait;
 
 /**
  * @property Repository\Referentiel $repository
@@ -76,6 +75,8 @@ class ReferentielController extends CRUDController
      */
     protected $maturityHandler;
 
+    protected RouterInterface $router;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -89,10 +90,10 @@ class ReferentielController extends CRUDController
         Collectivity $collectivityRepository,
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->wordHandler          = $wordHandler;
-        $this->authorizationChecker = $authorizationChecker;
-        $this->userProvider         = $userProvider;
-        $this->maturityHandler      = $maturityHandler;
+        $this->wordHandler            = $wordHandler;
+        $this->authorizationChecker   = $authorizationChecker;
+        $this->userProvider           = $userProvider;
+        $this->maturityHandler        = $maturityHandler;
         $this->router                 = $router;
         $this->collectivityRepository = $collectivityRepository;
     }
@@ -167,14 +168,14 @@ class ReferentielController extends CRUDController
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
-        $sections =  $this->entityManager->getRepository(Model\ReferentielSection::class)->findBy(['referentiel' => $object]);
+        $sections = $this->entityManager->getRepository(Model\ReferentielSection::class)->findBy(['referentiel' => $object]);
 
         // Before create form, hydrate new answers array with potential question responses
         foreach ($sections as $section) {
-            $questions =  $this->entityManager->getRepository(Model\ReferentielQuestion::class)->findBy(['referentielSection' => $section]);
-            foreach ($questions as $question){
+            $questions = $this->entityManager->getRepository(Model\ReferentielQuestion::class)->findBy(['referentielSection' => $section]);
+            foreach ($questions as $question) {
                 $answers = $this->entityManager->getRepository(Model\ReferentielAnswer::class)->findBy(['referentielQuestion' => $question]);
-                foreach($answers as $answer){
+                foreach ($answers as $answer) {
                     $question->addReferentielAnswer($answer);
                 }
                 $section->addReferentielQuestion($question);
@@ -196,7 +197,7 @@ class ReferentielController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('edit'), [
-            'form'           => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -215,11 +216,11 @@ class ReferentielController extends CRUDController
     public function listDataTables(Request $request): JsonResponse
     {
         $referentiels = $this->getResults($request);
-        $reponse = $this->getBaseDataTablesResponse($request, $referentiels);
+        $reponse      = $this->getBaseDataTablesResponse($request, $referentiels);
 
         foreach ($referentiels as $referentiel) {
             $reponse['data'][] = [
-                'name'         => $referentiel->getName(),
+                'name'        => $referentiel->getName(),
                 'description' => $referentiel->getDescription(),
                 'createdAt'   => date_format($referentiel->getCreatedAt(), 'd-m-Y'),
                 'updatedAt'   => date_format($referentiel->getUpdatedAt(), 'd-m-Y'),

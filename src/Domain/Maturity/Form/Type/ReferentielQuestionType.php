@@ -36,7 +36,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class ReferentielQuestionType extends AbstractType
 {
@@ -45,7 +44,7 @@ class ReferentielQuestionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var ReferentielQuestion $referentielQuestion */
+        /* @var ReferentielQuestion $referentielQuestion */
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'maturity.referentiel.form.question_name',
@@ -59,7 +58,7 @@ class ReferentielQuestionType extends AbstractType
                 'required' => true,
                 'multiple' => false,
                 'expanded' => false,
-                'choices'  => [0,1,2,3,4,5],
+                'choices'  => [0, 1, 2, 3, 4, 5],
             ])
             ->add('orderNumber', HiddenType::class, [
                 'required' => false,
@@ -73,17 +72,17 @@ class ReferentielQuestionType extends AbstractType
                 'required' => false,
                 'attr'     => [
                     'placeholder' => 'Précisez',
-                    'maxlength' => 255,
+                    'maxlength'   => 255,
                 ],
             ])
             ->add('referentielAnswers', CollectionType::class, [
-                    'label' => 'maturity.referentiel.form.answer',
-                    'entry_type' => ReferentielAnswerType::class,
-                    'required' => false,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'by_reference' => false,
-                    'prototype_name' => '__answer_name__'
+                    'label'          => 'maturity.referentiel.form.answer',
+                    'entry_type'     => ReferentielAnswerType::class,
+                    'required'       => false,
+                    'allow_add'      => true,
+                    'allow_delete'   => true,
+                    'by_reference'   => false,
+                    'prototype_name' => '__answer_name__',
                 ]
             )
         ;
@@ -91,22 +90,22 @@ class ReferentielQuestionType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $form = $event->getForm();
             if (null !== $data = $event->getData()) {
-                $form->add('addAnswer', ButtonType::class,[
-                    'label' => '<i class="fa fa-plus"></i> Ajouter une réponse',
+                $form->add('addAnswer', ButtonType::class, [
+                    'label'      => '<i class="fa fa-plus"></i> Ajouter une réponse',
                     'label_html' => true,
-                    'attr' => [
-                        'class' => 'add_answer btn btn-primary',
-                        'data-question' => ($data ? $data->getId() : ''),
+                    'attr'       => [
+                        'class'                        => 'add_answer btn btn-primary',
+                        'data-question'                => ($data ? $data->getId() : ''),
                         'data-collection-holder-class' => 'referentielAnswers',
                     ],
                 ]);
             } else {
-                $form->add('addAnswer', ButtonType::class,[
-                    'label' => '<i class="fa fa-plus"></i> Ajouter une réponse',
+                $form->add('addAnswer', ButtonType::class, [
+                    'label'      => '<i class="fa fa-plus"></i> Ajouter une réponse',
                     'label_html' => true,
-                    'attr' => [
-                        'class' => 'add_answer btn btn-primary',
-                        'data-question' => '9999',
+                    'attr'       => [
+                        'class'                        => 'add_answer btn btn-primary',
+                        'data-question'                => '9999',
                         'data-collection-holder-class' => 'referentielAnswers',
                     ],
                 ]);

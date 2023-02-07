@@ -25,7 +25,6 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
-use App\Domain\User\Repository\Collectivity;
 
 interface ReferentielSection extends CRUDRepositoryInterface
 {

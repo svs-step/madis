@@ -62,7 +62,7 @@ class ReferentielSection
 
     public function __construct()
     {
-        $this->id = Uuid::uuid4();
+        $this->id                   = Uuid::uuid4();
         $this->referentielQuestions = new ArrayCollection();
     }
 
@@ -137,6 +137,4 @@ class ReferentielSection
     {
         $this->orderNumber = $orderNumber;
     }
-
-
 }

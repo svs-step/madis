@@ -84,10 +84,9 @@ class Referentiel
      */
     private ?string $optionRightSelection = null;
 
-
     public function __construct()
     {
-        $this->id = Uuid::uuid4();
+        $this->id                  = Uuid::uuid4();
         $this->referentielSections = new ArrayCollection();
     }
 

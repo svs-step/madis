@@ -46,13 +46,13 @@ class CollectivityTypeDictionaryTest extends TestCase
     public function testGetRoles()
     {
         $data = [
-            CollectivityTypeDictionary::TYPE_COMMUNE            => 'Commune',
-            CollectivityTypeDictionary::TYPE_SOCIAL_INSTITUTION => 'Établissement social',
-            CollectivityTypeDictionary::TYPE_EPCI               => 'Établissement Public de Coopération Intercommunale (EPCI)',
-            CollectivityTypeDictionary::TYPE_DEPARTMENTAL_UNION => 'Syndicat départemental',
-            CollectivityTypeDictionary::TYPE_MEDICAL_INSTITUTION     => 'Établissement médico-social',
-            CollectivityTypeDictionary::TYPE_SANITARY_INSTITUTION     => 'Établissement sanitaire',
-            CollectivityTypeDictionary::TYPE_OTHER              => 'Autre',
+            CollectivityTypeDictionary::TYPE_COMMUNE              => 'Commune',
+            CollectivityTypeDictionary::TYPE_SOCIAL_INSTITUTION   => 'Établissement social',
+            CollectivityTypeDictionary::TYPE_EPCI                 => 'Établissement Public de Coopération Intercommunale (EPCI)',
+            CollectivityTypeDictionary::TYPE_DEPARTMENTAL_UNION   => 'Syndicat départemental',
+            CollectivityTypeDictionary::TYPE_MEDICAL_INSTITUTION  => 'Établissement médico-social',
+            CollectivityTypeDictionary::TYPE_SANITARY_INSTITUTION => 'Établissement sanitaire',
+            CollectivityTypeDictionary::TYPE_OTHER                => 'Autre',
         ];
 
         $this->assertEquals($data, CollectivityTypeDictionary::getTypes());

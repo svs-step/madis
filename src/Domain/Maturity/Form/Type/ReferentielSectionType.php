@@ -24,16 +24,11 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Form\Type;
 
-use App\Domain\Maturity\Model\Question;
 use App\Domain\Maturity\Model\ReferentielSection;
-use App\Domain\Registry\Form\Type\ConformiteTraitement\ReponseType;
-use App\Domain\Registry\Form\Type\TreatmentType;
-use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -66,37 +61,36 @@ class ReferentielSectionType extends AbstractType
             ])
 
             ->add('referentielQuestions', CollectionType::class, [
-                'entry_type' => ReferentielQuestionType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
+                'entry_type'     => ReferentielQuestionType::class,
+                'allow_add'      => true,
+                'allow_delete'   => true,
+                'by_reference'   => false,
                 'prototype_name' => '__question_name__',
             ])
 
-
-            ->add('orderNumber', HiddenType::class,[
+            ->add('orderNumber', HiddenType::class, [
                 'required' => false,
             ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $form = $event->getForm();
             if (null !== $data = $event->getData()) {
-                $form->add('addQuestion', ButtonType::class,[
-                    'label' => '<i class="fa fa-plus"></i> Ajouter une question',
+                $form->add('addQuestion', ButtonType::class, [
+                    'label'      => '<i class="fa fa-plus"></i> Ajouter une question',
                     'label_html' => true,
-                    'attr' => [
-                        'class' => 'add_question btn btn-primary',
-                        'data-section' => ($data ? $data->getId() : ''),
+                    'attr'       => [
+                        'class'                        => 'add_question btn btn-primary',
+                        'data-section'                 => ($data ? $data->getId() : ''),
                         'data-collection-holder-class' => 'referentielQuestions',
                     ],
                 ]);
             } else {
-                $form->add('addQuestion', ButtonType::class,[
-                    'label' => '<i class="fa fa-plus"></i> Ajouter une question',
+                $form->add('addQuestion', ButtonType::class, [
+                    'label'      => '<i class="fa fa-plus"></i> Ajouter une question',
                     'label_html' => true,
-                    'attr' => [
-                        'class' => 'add_question btn btn-primary',
-                        'data-section' => '__section_name__',
+                    'attr'       => [
+                        'class'                        => 'add_question btn btn-primary',
+                        'data-section'                 => '__section_name__',
                         'data-collection-holder-class' => 'referentielQuestions',
                     ],
                 ]);

@@ -35,6 +35,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class Referentiel extends CRUDRepository implements Repository\Referentiel
 {
     use RepositoryUtils;
+
     /**
      * {@inheritdoc}
      */
@@ -54,6 +55,7 @@ class Referentiel extends CRUDRepository implements Repository\Referentiel
 
         return new Paginator($qb);
     }
+
     public function count(array $criteria = [])
     {
         $qb = $this->createQueryBuilder();
