@@ -95,7 +95,7 @@ class NotificationsSendCommand extends Command
             $prefs->setLastSent(new \DateTime('2012-01-01 00:00:00'));
             $prefs->setNotificationMask(0x7FF);
 
-            if ($user) {
+            if ($user && $user->getEmailNotificationPreference()) {
                 // if a registered user, respect their preferences.
                 $prefs = $user->getEmailNotificationPreference();
             }
@@ -107,12 +107,15 @@ class NotificationsSendCommand extends Command
                 0 === $prefs->getNotificationMask()
             ) {
                 // Exit if user has email notifications disabled
+                $output->writeln('User ' . $mail . ' has disabled notifications');
+                $output->writeln(json_encode($prefs));
                 continue;
             }
 
             $nextTimeToSend = $this->getNextTimeToSendFromPreferences($prefs);
 
             if ($nextTimeToSend->format('Ymdhi') !== date('Ymdhi')) {
+                $output->writeln('Not the time to send. Programmed time is ' . $nextTimeToSend->format('Ymdhi') . 'a dnc urrent time is ' . date('Ymdhi'));
                 // Now is not the time to send for this user, abort
                 continue;
             }
@@ -137,6 +140,8 @@ class NotificationsSendCommand extends Command
                     if (in_array($mod, $availableModules) && (EmailNotificationPreference::MODULES[$mod] & $prefs->getNotificationMask())) {
                         // Current notification module is enabled in user preferences
                         $notifications[] = $nu->getNotification();
+                    } else {
+                        $output->writeln('User ' . $mail . ' does not have notifications active for module ' . $mod);
                     }
                 }
             }
@@ -168,7 +173,7 @@ class NotificationsSendCommand extends Command
                      * @var NotificationUser $notifUser
                      */
                     if ($nu->getCreatedAt() > $lastSent) {
-                        // $nu->setSent(true);
+                        $nu->setSent(true);
                         $this->notificationUserRepository->update($nu);
                     }
                 }

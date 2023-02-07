@@ -25,6 +25,7 @@ notifications:
 notification:
     module: Notifications
     modules:
+        aipd: AIPD
         treatment: Traitements
         contractor: Sous-traitants
         subcontractor: Sous-traitants
@@ -47,7 +48,7 @@ notification:
         late_survey: En retard
         no_login: Inactif
     email:
-        subject: Nouvelles notification Madis
+        subject: Nouvelles notifications Madis
         madis: Accéder à madis
     notification:
         flashbag:
