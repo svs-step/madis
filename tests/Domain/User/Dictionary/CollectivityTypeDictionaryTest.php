@@ -47,11 +47,14 @@ class CollectivityTypeDictionaryTest extends TestCase
     {
         $data = [
             CollectivityTypeDictionary::TYPE_COMMUNE              => 'Commune',
-            CollectivityTypeDictionary::TYPE_SOCIAL_INSTITUTION   => 'Établissement social',
+            CollectivityTypeDictionary::TYPE_CCAS                 => 'Centre Communal d’Action Sociale (CCAS)',
             CollectivityTypeDictionary::TYPE_EPCI                 => 'Établissement Public de Coopération Intercommunale (EPCI)',
-            CollectivityTypeDictionary::TYPE_DEPARTMENTAL_UNION   => 'Syndicat départemental',
-            CollectivityTypeDictionary::TYPE_MEDICAL_INSTITUTION  => 'Établissement médico-social',
+            CollectivityTypeDictionary::TYPE_CIAS                 => 'Centre Intercommunal d’Action Sociale (CIAS)',
+            CollectivityTypeDictionary::TYPE_DEPARTMENTAL_UNION   => 'Syndicat',
             CollectivityTypeDictionary::TYPE_SANITARY_INSTITUTION => 'Établissement sanitaire',
+            CollectivityTypeDictionary::TYPE_MEDICAL_INSTITUTION  => 'Établissement social ou médico-social',
+            CollectivityTypeDictionary::TYPE_ASSOCIATION          => 'Association',
+            CollectivityTypeDictionary::TYPE_ENTERPRISE           => 'Entreprise',
             CollectivityTypeDictionary::TYPE_OTHER                => 'Autre',
         ];
 
@@ -62,11 +65,14 @@ class CollectivityTypeDictionaryTest extends TestCase
     {
         $data = [
             CollectivityTypeDictionary::TYPE_COMMUNE,
-            CollectivityTypeDictionary::TYPE_SOCIAL_INSTITUTION,
+            CollectivityTypeDictionary::TYPE_CCAS,
             CollectivityTypeDictionary::TYPE_EPCI,
+            CollectivityTypeDictionary::TYPE_CIAS,
             CollectivityTypeDictionary::TYPE_DEPARTMENTAL_UNION,
-            CollectivityTypeDictionary::TYPE_MEDICAL_INSTITUTION,
             CollectivityTypeDictionary::TYPE_SANITARY_INSTITUTION,
+            CollectivityTypeDictionary::TYPE_MEDICAL_INSTITUTION,
+            CollectivityTypeDictionary::TYPE_ASSOCIATION,
+            CollectivityTypeDictionary::TYPE_ENTERPRISE,
             CollectivityTypeDictionary::TYPE_OTHER,
         ];
 

@@ -29,11 +29,14 @@ use App\Application\Dictionary\SimpleDictionary;
 class CollectivityTypeDictionary extends SimpleDictionary
 {
     public const TYPE_COMMUNE              = 'commune';
-    public const TYPE_SOCIAL_INSTITUTION   = 'social_institution';
+    public const TYPE_CCAS                 = 'ccas';
     public const TYPE_EPCI                 = 'epci';
+    public const TYPE_CIAS                 = 'cias';
     public const TYPE_DEPARTMENTAL_UNION   = 'departmental_union';
-    public const TYPE_MEDICAL_INSTITUTION  = 'medical_institution';
     public const TYPE_SANITARY_INSTITUTION = 'sanitary_institution';
+    public const TYPE_MEDICAL_INSTITUTION  = 'medical_institution';
+    public const TYPE_ASSOCIATION          = 'association';
+    public const TYPE_ENTERPRISE           = 'entreprise';
     public const TYPE_OTHER                = 'other';
 
     public function __construct()
@@ -50,11 +53,14 @@ class CollectivityTypeDictionary extends SimpleDictionary
     {
         return [
             self::TYPE_COMMUNE              => 'Commune',
-            self::TYPE_SOCIAL_INSTITUTION   => 'Établissement social',
+            self::TYPE_CCAS                 => 'Centre Communal d’Action Sociale (CCAS)',
             self::TYPE_EPCI                 => 'Établissement Public de Coopération Intercommunale (EPCI)',
-            self::TYPE_DEPARTMENTAL_UNION   => 'Syndicat départemental',
-            self::TYPE_MEDICAL_INSTITUTION  => 'Établissement médico-social',
+            self::TYPE_CIAS                 => 'Centre Intercommunal d’Action Sociale (CIAS)',
+            self::TYPE_DEPARTMENTAL_UNION   => 'Syndicat',
             self::TYPE_SANITARY_INSTITUTION => 'Établissement sanitaire',
+            self::TYPE_MEDICAL_INSTITUTION  => 'Établissement social ou médico-social',
+            self::TYPE_ASSOCIATION          => 'Association',
+            self::TYPE_ENTERPRISE           => 'Entreprise',
             self::TYPE_OTHER                => 'Autre',
         ];
     }
