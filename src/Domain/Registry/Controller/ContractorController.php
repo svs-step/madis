@@ -230,7 +230,7 @@ class ContractorController extends CRUDController
                 'donnees_hors_eu'        => $contractor->isSendingDataOutsideEu() ?
                     '<span class="label label-danger">' . $this->translator->trans('label.yes') . '</span>' :
                     '<span class="label label-success">' . $this->translator->trans('label.no') . '</span>',
-                'actions'                => $this->getActionCellsContent($contractor),
+                'actions' => $this->getActionCellsContent($contractor),
             ];
         }
 

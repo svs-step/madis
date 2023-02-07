@@ -107,23 +107,26 @@ class NotificationGenerationTest extends WebTestCase
         $csrfToken = $client->getContainer()->get('security.csrf.token_manager')->getToken('request');
         $client->request('POST', $url, [
             'request' => [
-                'object'          => $request->getObject(),
-                'otherObject'     => $request->getOtherObject(),
-                'applicant'       => [
-                    'firstName' => $request->getApplicant()->getFirstName(),
-                    'lastName'  => $request->getApplicant()->getLastName(),
-                    'civility'  => $request->getApplicant()->getCivility(),
-                    'mail'      => $request->getApplicant()->getMail(),
+                'object'      => $request->getObject(),
+                'otherObject' => $request->getOtherObject(),
+                'applicant'   => [
+                    'firstName'       => $request->getApplicant()->getFirstName(),
+                    'lastName'        => $request->getApplicant()->getLastName(),
+                    'civility'        => $request->getApplicant()->getCivility() ?? 'm',
+                    'mail'            => $request->getApplicant()->getMail(),
+                    'address'         => $request->getApplicant()->getAddress(),
+                    'concernedPeople' => 1,
                 ],
                 'date'            => date('d/m/Y'),
                 'concernedPeople' => [
                     'firstName' => $request->getConcernedPeople()->getFirstName(),
                     'lastName'  => $request->getConcernedPeople()->getLastName(),
-                    'civility'  => $request->getConcernedPeople()->getCivility(),
+                    'civility'  => $request->getConcernedPeople()->getCivility() ?? 'm',
                     'mail'      => $request->getConcernedPeople()->getMail(),
                 ],
-                'state'           => RequestStateDictionary::STATE_AWAITING_SERVICE,
-                '_token'          => $csrfToken,
+                'state'                => RequestStateDictionary::STATE_AWAITING_SERVICE,
+                'stateRejectionReason' => 'N/A',
+                '_token'               => $csrfToken,
                 // 'uploadedFile' => $uploadedFile,
             ],
         ]);
@@ -175,12 +178,12 @@ class NotificationGenerationTest extends WebTestCase
 
         $client->request('POST', $url, [
             'analyse_avis' => [
-                'avisReferent'     => [
+                'avisReferent' => [
                     'date'    => date('d/m/Y'),
                     'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
                     'detail'  => 'ok',
                 ],
-                'avisDpd'          => [
+                'avisDpd' => [
                     'date'    => date('d/m/Y'),
                     'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
                     'detail'  => 'ok',
@@ -190,12 +193,12 @@ class NotificationGenerationTest extends WebTestCase
                     'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
                     'detail'  => 'ok',
                 ],
-                'avisResponsable'  => [
+                'avisResponsable' => [
                     'date'    => date('d/m/Y'),
                     'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
                     'detail'  => 'ok',
                 ],
-                '_token'           => $csrfToken,
+                '_token' => $csrfToken,
                 // 'uploadedFile' => $uploadedFile,
             ],
         ]);

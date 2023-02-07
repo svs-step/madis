@@ -39,8 +39,8 @@ class AnswerType extends AbstractType
     {
         $builder
             ->add('response', ChoiceType::class, [
-                'label'    => false,
-                'choices'  => [
+                'label'   => false,
+                'choices' => [
                     'Non / Je ne sais pas' => 0,
                     'En partie'            => 1,
                     'Oui / Complètement'   => 2,

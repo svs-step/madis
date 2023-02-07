@@ -27,13 +27,10 @@ namespace App\Domain\Maturity\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
-use App\Domain\Maturity\Calculator\MaturityHandler;
 use App\Domain\Maturity\Form\Type\ModeleReferentielRightsType;
 use App\Domain\Maturity\Form\Type\ReferentielType;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
-use App\Domain\Reporting\Handler\WordHandler;
-use App\Domain\User\Repository\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -50,15 +47,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ReferentielController extends CRUDController
 {
     use ServersideDatatablesTrait;
-    /**
-     * @var WordHandler
-     */
-    private $wordHandler;
-
-    /**
-     * @var Collectivity
-     */
-    protected $collectivityRepository;
 
     /**
      * @var AuthorizationCheckerInterface
@@ -70,32 +58,21 @@ class ReferentielController extends CRUDController
      */
     protected $userProvider;
 
-    /**
-     * @var MaturityHandler
-     */
-    protected $maturityHandler;
-
     protected RouterInterface $router;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Referentiel $repository,
-        WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
-        MaturityHandler $maturityHandler,
         RouterInterface $router,
         Pdf $pdf,
-        Collectivity $collectivityRepository,
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->wordHandler            = $wordHandler;
-        $this->authorizationChecker   = $authorizationChecker;
-        $this->userProvider           = $userProvider;
-        $this->maturityHandler        = $maturityHandler;
-        $this->router                 = $router;
-        $this->collectivityRepository = $collectivityRepository;
+        $this->authorizationChecker = $authorizationChecker;
+        $this->userProvider         = $userProvider;
+        $this->router               = $router;
     }
 
     /**
