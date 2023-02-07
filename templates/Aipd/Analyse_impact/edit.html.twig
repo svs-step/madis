@@ -45,23 +45,22 @@
             <div class="box box-solid">
                 <div class="box-body">
                     {% if flow.getCurrentStepNumber() == 1 %}
-                        <p>Pour chacun des points suivants, précisez le niveau de conformité, justifiez votre réponse et éventuellement ajoutez une image pour préciser.</p>
+                        <p>Cette étape permet d’analyser la conformité des critères relatifs à la description du traitement. Pour chaque description, indiquer le niveau de conformité, et éventuellement une justification et une image. </p>
                         {% include '@templates_path/Aipd/Analyse_impact/_form_step_1.html.twig' with {
                             form: form
                         } %}
                     {% elseif flow.getCurrentStepNumber() == 2 %}
-                        <p>L'évaluation des principes fondamentaux a été réalisée lors de l'évaluation de la conformité des traitements, il peut être nécessaire ici de justifier.</p>
+                        <p>Cette étape permet de prendre connaissance des informations renseignées par l’évaluation de la conformité du traitement. Pour chaque critère, justifier le contexte lorsque cela est possible.</p>
                         {% include '@templates_path/Aipd/Analyse_impact/_form_step_2.html.twig' with {
                             form: form
                         } %}
                     {% elseif flow.getCurrentStepNumber() == 3 %}
-                        <p>Pour chacun des risques suivants, précisez si nécessaire l'impact sur la Disponibilité, l'Intégrité ou la Confidentialité (DIC), la vraisemblance que le risque ce produise, la gravité s'il se produit.
-                            Apportez toute précision en complétant le dernier champ à cet effet.</p>
+                        <p>Cette étape permet d’évaluer l’impact potentiel des différents scénarios de menace. Pour chaque scénario de menace, lorsque cela est possible, indiquer le critère DIC (Disponibilité ; Intégrité ; Confidentialité) ainsi que la vraisemblance et la gravité des menaces. Adapter la précision en fonction du contexte.</p>
                         {% include '@templates_path/Aipd/Analyse_impact/_form_step_3.html.twig' with {
                             form: form
                         } %}
                     {% elseif flow.getCurrentStepNumber() == 4 %}
-                        <p>Pour chacune des mesures ou questions suivantes, précisez son niveau de mise en œuvre, et dans le dernier champ décrivez ce qui est mis en œuvre.</p>
+                        <p>Cette étape permet d’évaluer les mesures de protection mises en œuvre. Pour chacune des mesures, indiquer le niveau de mise en œuvre et adapter le détail en fonction.</p>
                         {% include '@templates_path/Aipd/Analyse_impact/_form_step_4.html.twig' with {
                             form: form
                         } %}
