@@ -109,7 +109,7 @@ registry:
             description: Description
             manager: Responsable d'action
             name: Nom
-            planification_date: Planification
+            planification_date: Échéance
             priority: Priorité
             status: Statut
             type: Type
@@ -146,7 +146,7 @@ registry:
             description: Description
             manager: Responsable d'action
             name: Nom
-            planification_date: Planification
+            planification_date: Échéance
             priority: Priorité
             status: Statut
             type: Type

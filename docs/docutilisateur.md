@@ -518,7 +518,7 @@ Dans les informations générales, il est possible de renseigner les éléments 
 Dans l'application, il est possible de renseigner les éléments suivants :
 
 * **Statut** : Statut de l'action de protection. Une fois l'action entièrement réalisée, il faudra passer le statut de « **Non appliquée** » à « **Appliquée** ». Une action non réalisable doit avoir le statut « **Non applicable** » ;
-* **Planification** : Date prévisionnelle de l'action pour la planifier. Si le statut de l'action de protection est « **Non appliquée** » et qu'elle est planifiée, elle apparaîtra alors dans le [plan d'actions](#Plan-d’actions) ;
+* **Échéance** : Date prévisionnelle de l'action pour la planifier. Si le statut de l'action de protection est « **Non appliquée** » et qu'elle est planifiée, elle apparaîtra alors dans le [plan d'actions](#Plan-d’actions) ;
 * **Observations** : Toute précision complémentaire sur la planification de l'action.
 
 ### Éléments liés
