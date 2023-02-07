@@ -403,6 +403,7 @@ registry:
             legalMentions: Mentions légales apposées
             consentRequest: Consentement demandé
             consentRequestFormat: Format de la demande du consentement
+            exemptAipd: Est exempté d’AIPD
         flashbag:
             success:
                 create: Traitement "%object%" créé avec succès
