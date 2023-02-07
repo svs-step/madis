@@ -66,6 +66,7 @@
         <embedded name="concernedPeopleElected" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_elected_"/>
         <embedded name="concernedPeopleCompany" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_company_"/>
         <embedded name="concernedPeoplePartner" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_partner_"/>
+        <embedded name="concernedPeopleUsager" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_usager_"/>
         <embedded name="concernedPeopleOther" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="concerned_people_other_"/>
 
         <many-to-many field="contractors" target-entity="App\Domain\Registry\Model\Contractor" inversed-by="treatments">
