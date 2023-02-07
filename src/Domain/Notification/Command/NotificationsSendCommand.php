@@ -163,8 +163,8 @@ class NotificationsSendCommand extends Command
                 $this->mailer->send($email);
 
                 if ($user) {
-                    // $prefs->setLastSent((new \DateTime()));
-                    // $user->setEmailNotificationPreference($prefs);
+                    $prefs->setLastSent(new \DateTime());
+                    $user->setEmailNotificationPreference($prefs);
                     $this->userRepository->update($user);
                 }
 

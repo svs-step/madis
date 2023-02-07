@@ -6,6 +6,8 @@ parameters:
     # Env variables
     # Re declared in order to use ParameterBagInterface in DI
     APP_DEFAULT_REFERENT: "%env(APP_DEFAULT_REFERENT)%"
+    APP_URL: '%env(APP_URL)%'
+    env(APP_URL): "http://localhost"
 
     # DPO
     APP_DPO_ADDRESS_CITY: '%env(APP_DPO_ADDRESS_CITY)%'

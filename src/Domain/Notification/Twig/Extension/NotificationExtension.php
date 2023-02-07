@@ -10,6 +10,7 @@ use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\Registry\Model\Proof;
 use App\Domain\Registry\Model\Violation;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
@@ -68,7 +69,7 @@ class NotificationExtension extends AbstractExtension
     public function getObjectLink(Notification $notification): string
     {
         try {
-            return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id]);
+            return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
         } catch (\Exception $e) {
             return '';
         }

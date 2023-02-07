@@ -1,3 +1,4 @@
 framework:
     router:
         strict_requirements: ~
+        default_uri: '%env(APP_URL)%'

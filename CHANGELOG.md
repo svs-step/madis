@@ -1,5 +1,8 @@
 CHANGELOG
 =========
+## [2.0.1] - 2022-12-13
+### Changement
+- Ajout du parametre APP_URL dans le .env pour afficher les liens corrects dans les emails de notifications
 
 ## [2.0] - 2022-12-13
 ### Changement
