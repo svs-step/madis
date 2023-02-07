@@ -33,6 +33,7 @@ use App\Domain\Registry\Dictionary\ViolationImpactDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\Registry\Dictionary\ViolationNotificationDictionary;
 use App\Domain\Registry\Dictionary\ViolationOriginDictionary;
+use App\Domain\Registry\Model\Violation;
 use PhpOffice\PhpWord\Element\Section;
 
 class ViolationGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
@@ -104,14 +105,16 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
         ];
 
         foreach ($data as $violation) {
+            /** @var Violation $violation */
             $cellDate   = [];
             $cellDate[] = $this->getDate($violation->getDate(), 'd/m/Y');
             if ($violation->isInProgress()) {
                 $cellDate[] = '(Toujours en cours)';
             }
+            $natures = join(', ', array_map(function($n) { return ViolationNatureDictionary::getNatures()[$n] ?? $n;}, (array)$violation->getViolationNatures()));
             $tableData[] = [
                 $cellDate,
-                ViolationNatureDictionary::getNatures()[$violation->getViolationNature()],
+                $natures,
                 ViolationCauseDictionary::getNatures()[$violation->getCause()],
                 ViolationGravityDictionary::getGravities()[$violation->getGravity()],
             ];
@@ -141,14 +144,16 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
             if ($violation->isInProgress()) {
                 $cellDate[] = '(Toujours en cours)';
             }
+            $natures = join(', ', array_map(function($n) { return ViolationNatureDictionary::getNatures()[$n] ?? $n;}, (array)$violation->getViolationNatures()));
+
             $generalInformationData = [
                 [
                     'Date de la violation',
                     $cellDate,
                 ],
                 [
-                    'Nature de la violation',
-                    $this->translateWithDictionary(ViolationNatureDictionary::getNatures(), $violation->getViolationNature()),
+                    'Natures de la violation',
+                    $natures
                 ],
                 [
                     'Origine de la perte de données',
