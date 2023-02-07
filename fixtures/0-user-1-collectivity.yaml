@@ -35,7 +35,7 @@ App\Domain\User\Model\Collectivity:
     user_collectivity_soluris:
         name: Soluris
         shortName: SI17
-        type: '<(App\Domain\User\Dictionary\CollectivityTypeDictionary::TYPE_DEPARTMENTAL_UNION)>'
+        type: '<(App\Domain\User\Dictionary\CollectivityTypeDictionary::TYPE_CCAS)>'
         siren: <randomNumber(9)>
         address: '@user_address_collectivity_soluris'
         legalManager: '@user_contact_collectivity_soluris_manager_legal'
@@ -65,6 +65,6 @@ App\Domain\User\Model\Collectivity:
     user_collectivity_foobar:
         name: Structure Foobar
         shortName: Foobar
-        type: '<(App\Domain\User\Dictionary\CollectivityTypeDictionary::TYPE_COMMUNE)>'
+        type: '<(App\Domain\User\Dictionary\CollectivityTypeDictionary::TYPE_CIAS)>'
         siren: <randomNumber(9)>
         address: '@user_address_collectivity_foobar'
