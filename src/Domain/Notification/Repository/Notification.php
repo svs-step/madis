@@ -28,4 +28,5 @@ use App\Application\DDD\Repository\CRUDRepositoryInterface;
 
 interface Notification extends CRUDRepositoryInterface
 {
+    public function findOneBy(array $criteria);
 }

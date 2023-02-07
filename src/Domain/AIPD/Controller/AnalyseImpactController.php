@@ -257,6 +257,9 @@ class AnalyseImpactController extends CRUDController
         if (null === $object = $this->repository->findOneByIdWithoutInvisibleScenarios($id)) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
+        /**
+         * @var AnalyseImpact $object
+         */
         if ($object->isValidated()) {
             $this->addFlash('info', $this->getFlashbagMessage('info', 'cant_edit', $object));
 

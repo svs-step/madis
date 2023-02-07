@@ -64,7 +64,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
             }
             $tableData[] = [
                 $cellDate,
-                ViolationNatureDictionary::getNatures()[$violation->getViolationNature()],
+                ViolationNatureDictionary::getNatures(),
                 ViolationCauseDictionary::getNatures()[$violation->getCause()],
                 ViolationGravityDictionary::getGravities()[$violation->getGravity()],
             ];

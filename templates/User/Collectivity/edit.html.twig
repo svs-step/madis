@@ -46,7 +46,9 @@
         });
     </script>
 
-    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+
+    {{ encore_entry_script_tags('js/collectionManager') }}
+
     <script>
         $(document).ready(function(){
             if ($('#collectivity_differentDpo').is(':checked')){

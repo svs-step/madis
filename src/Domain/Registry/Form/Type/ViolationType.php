@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Model\Service;
@@ -110,11 +111,15 @@ class ViolationType extends AbstractType
                 'label'    => 'registry.violation.form.in_progress',
                 'required' => false,
             ])
-            ->add('violationNature', DictionaryType::class, [
-                'label'    => 'registry.violation.form.violation_nature',
+            ->add('violationNatures', DictionaryType::class, [
+                'label'    => 'registry.violation.form.violation_natures',
                 'name'     => 'registry_violation_nature',
-                'expanded' => true,
-                'multiple' => false,
+                'expanded' => false,
+                'multiple' => true,
+                'attr'     => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
             ])
             ->add('origins', DictionaryType::class, [
                 'label'    => 'registry.violation.form.origins',
@@ -224,6 +229,25 @@ class ViolationType extends AbstractType
             ->add('treatments', EntityType::class, [
                 'class'         => Treatment::class,
                 'label'         => 'registry.violation.form.treatment',
+                'query_builder' => function (EntityRepository $er) use ($violation) {
+                    $collectivity = $violation->getCollectivity();
+
+                    return $er->createQueryBuilder('s')
+                        ->where('s.collectivity = :collectivity')
+                        ->setParameter(':collectivity', $collectivity)
+                        ->orderBy('s.name', 'ASC');
+                },
+                'required'      => false,
+                'expanded'      => false,
+                'multiple'      => true,
+                'attr'          => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
+            ])
+            ->add('contractors', EntityType::class, [
+                'class'         => Contractor::class,
+                'label'         => 'registry.violation.form.contractor',
                 'query_builder' => function (EntityRepository $er) use ($violation) {
                     $collectivity = $violation->getCollectivity();
 

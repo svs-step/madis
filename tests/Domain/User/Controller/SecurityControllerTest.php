@@ -25,12 +25,18 @@ declare(strict_types=1);
 namespace App\Tests\Domain\User\Controller;
 
 use App\Application\Controller\ControllerHelper;
+use App\Application\Symfony\Security\UserProvider;
 use App\Domain\User\Component\Mailer;
 use App\Domain\User\Component\TokenGenerator;
 use App\Domain\User\Controller\SecurityController;
 use App\Domain\User\Form\Type\ResetPasswordType;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
+use Doctrine\ORM\EntityManagerInterface;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
+use League\OAuth2\Client\Token\AccessToken;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -41,11 +47,13 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityControllerTest extends TestCase
 {
     use ProphecyTrait;
+
     /**
      * @var ControllerHelper
      */
@@ -76,6 +84,11 @@ class SecurityControllerTest extends TestCase
      */
     private $controller;
 
+    /**
+     * @var UserProvider
+     */
+    private $userProviderProphecy;
+
     public function setUp(): void
     {
         $this->helperProphecy              = $this->prophesize(ControllerHelper::class);
@@ -83,13 +96,19 @@ class SecurityControllerTest extends TestCase
         $this->tokenGeneratorProphecy      = $this->prophesize(TokenGenerator::class);
         $this->userRepositoryProphecy      = $this->prophesize(Repository\User::class);
         $this->mailerProphecy              = $this->prophesize(Mailer::class);
+        $this->userProviderProphecy        = $this->prophesize(UserProvider::class);
+        $this->entityManagerProphecy       = $this->prophesize(EntityManagerInterface::class);
 
         $this->controller = new SecurityController(
             $this->helperProphecy->reveal(),
             $this->authenticationUtilsProphecy->reveal(),
             $this->tokenGeneratorProphecy->reveal(),
             $this->userRepositoryProphecy->reveal(),
-            $this->mailerProphecy->reveal()
+            $this->mailerProphecy->reveal(),
+            $this->userProviderProphecy->reveal(),
+            $this->entityManagerProphecy->reveal(),
+            null,
+            'foo'
         );
     }
 
@@ -115,11 +134,11 @@ class SecurityControllerTest extends TestCase
                 [
                     'last_username' => $lastUsername,
                     'error'         => $error,
+                    'sso_type'      => null,
                 ]
             )
             ->shouldBeCalled()
-            ->willReturn(new Response())
-        ;
+            ->willReturn(new Response());
 
         $this->controller->loginAction();
     }
@@ -134,8 +153,7 @@ class SecurityControllerTest extends TestCase
         $this->helperProphecy
             ->render('User/Security/forget_password.html.twig')
             ->shouldBeCalled()
-            ->willReturn($response)
-        ;
+            ->willReturn($response);
 
         $this->assertEquals(
             $response,
@@ -164,8 +182,7 @@ class SecurityControllerTest extends TestCase
         $this->userRepositoryProphecy
             ->findOneOrNullByEmail($email)
             ->shouldBeCalled()
-            ->willReturn($userProphecy->reveal())
-        ;
+            ->willReturn($userProphecy->reveal());
         $this->userRepositoryProphecy->update($userProphecy->reveal())->shouldBeCalled();
 
         $this->tokenGeneratorProphecy->generateToken()->shouldBeCalled()->willReturn($token);
@@ -173,12 +190,10 @@ class SecurityControllerTest extends TestCase
         $this->helperProphecy
             ->render('User/Security/forget_password_confirm.html.twig')
             ->shouldBeCalled()
-            ->willReturn($response)
-        ;
+            ->willReturn($response);
         $this->helperProphecy
             ->redirectToRoute('forget_password')
-            ->shouldNotBeCalled()
-        ;
+            ->shouldNotBeCalled();
         $this->helperProphecy->addFlash('danger', Argument::type('string'))->shouldNotBeCalled();
         $this->helperProphecy
             ->trans(
@@ -187,8 +202,7 @@ class SecurityControllerTest extends TestCase
                     '%email%' => $email,
                 ]
             )
-            ->shouldNotBeCalled()
-        ;
+            ->shouldNotBeCalled();
 
         $this->mailerProphecy->sendForgetPassword($userProphecy->reveal())->shouldBeCalled();
 
@@ -219,8 +233,7 @@ class SecurityControllerTest extends TestCase
         $this->userRepositoryProphecy
             ->findOneOrNullByEmail($email)
             ->shouldBeCalled()
-            ->willReturn(null)
-        ;
+            ->willReturn(null);
         $this->userRepositoryProphecy->update($userProphecy->reveal())->shouldNotBeCalled();
 
         $this->tokenGeneratorProphecy->generateToken()->shouldNotBeCalled();
@@ -228,12 +241,10 @@ class SecurityControllerTest extends TestCase
         $this->helperProphecy
             ->render('User/Security/forget_password_confirm.html.twig')
             ->shouldBeCalled()
-            ->willReturn($response)
-        ;
+            ->willReturn($response);
         $this->helperProphecy
             ->redirectToRoute('forget_password')
-            ->shouldNotBeCalled()
-        ;
+            ->shouldNotBeCalled();
         $this->helperProphecy->addFlash('danger', Argument::type('string'))->shouldNotBeCalled();
         $this->helperProphecy
             ->trans(
@@ -242,8 +253,7 @@ class SecurityControllerTest extends TestCase
                     '%email%' => $email,
                 ]
             )
-            ->shouldNotBeCalled()
-        ;
+            ->shouldNotBeCalled();
 
         $this->mailerProphecy->sendForgetPassword($userProphecy->reveal())->shouldNotBeCalled();
 
@@ -271,12 +281,10 @@ class SecurityControllerTest extends TestCase
         $this->userRepositoryProphecy
             ->findOneOrNullByForgetPasswordToken($forgetPasswordToken)
             ->shouldBeCalled()
-            ->willReturn($user)
-        ;
+            ->willReturn($user);
         $this->userRepositoryProphecy
             ->update($user)
-            ->shouldNotBeCalled()
-        ;
+            ->shouldNotBeCalled();
 
         // FlashBag & Translation (only display, no flashbag)
         $this->helperProphecy->addFlash('danger', Argument::any())->shouldNotBeCalled();
@@ -293,8 +301,7 @@ class SecurityControllerTest extends TestCase
         $this->helperProphecy
             ->createForm(ResetPasswordType::class, $user)
             ->shouldBeCalled()
-            ->willReturn($formProphecy->reveal())
-        ;
+            ->willReturn($formProphecy->reveal());
 
         // Routing & rendering
         $this->helperProphecy->redirectToRoute('login')->shouldNotBeCalled();
@@ -306,8 +313,7 @@ class SecurityControllerTest extends TestCase
                 ]
             )
             ->shouldBeCalled()
-            ->willReturn($response)
-        ;
+            ->willReturn($response);
 
         $this->assertEquals(
             $response,
@@ -333,12 +339,10 @@ class SecurityControllerTest extends TestCase
         $this->userRepositoryProphecy
             ->findOneOrNullByForgetPasswordToken($forgetPasswordToken)
             ->shouldBeCalled()
-            ->willReturn($userProphecy->reveal())
-        ;
+            ->willReturn($userProphecy->reveal());
         $this->userRepositoryProphecy
             ->update($userProphecy->reveal())
-            ->shouldBeCalled()
-        ;
+            ->shouldBeCalled();
 
         // FlashBag & Translation (only display, no flashbag)
         $this->helperProphecy->addFlash('danger', Argument::any())->shouldNotBeCalled();
@@ -355,15 +359,13 @@ class SecurityControllerTest extends TestCase
         $this->helperProphecy
             ->createForm(ResetPasswordType::class, $userProphecy->reveal())
             ->shouldBeCalled()
-            ->willReturn($formProphecy->reveal())
-        ;
+            ->willReturn($formProphecy->reveal());
 
         // Routing & rendering
         $this->helperProphecy->redirectToRoute('login')->shouldBeCalled()->willReturn($response);
         $this->helperProphecy
             ->render('User/Security/reset_password.html.twig', Argument::type('array'))
-            ->shouldNotBeCalled()
-        ;
+            ->shouldNotBeCalled();
 
         $this->assertEquals(
             $response,
@@ -387,12 +389,10 @@ class SecurityControllerTest extends TestCase
         $this->userRepositoryProphecy
             ->findOneOrNullByForgetPasswordToken($forgetPasswordToken)
             ->shouldBeCalled()
-            ->willReturn(null)
-        ;
+            ->willReturn(null);
         $this->userRepositoryProphecy
             ->update(Argument::type(Model\User::class))
-            ->shouldNotBeCalled()
-        ;
+            ->shouldNotBeCalled();
 
         // FlashBag & Translation (only display, no flashbag)
         $this->helperProphecy->addFlash('danger', Argument::any())->shouldBeCalled();
@@ -408,19 +408,172 @@ class SecurityControllerTest extends TestCase
         $formProphecy->isValid()->shouldNotBeCalled();
         $this->helperProphecy
             ->createForm(ResetPasswordType::class, Argument::type(Model\User::class))
-            ->shouldNotBeCalled()
-        ;
+            ->shouldNotBeCalled();
 
         // Routing & rendering
         $this->helperProphecy->redirectToRoute('login')->shouldBeCalled()->willReturn($response);
         $this->helperProphecy
             ->render('User/Security/reset_password.html.twig', Argument::type('array'))
-            ->shouldNotBeCalled()
-        ;
+            ->shouldNotBeCalled();
 
         $this->assertEquals(
             $response,
             $this->controller->resetPasswordAction(new Request(), $forgetPasswordToken)
+        );
+    }
+
+    /**
+     * Test Oauth connect redirection.
+     *
+     * @return void
+     */
+    public function testOauthConnectAction()
+    {
+        $response = $this->prophesize(RedirectResponse::class)->reveal();
+        $this->userProviderProphecy->getAuthenticatedUser()->shouldBeCalled()->willReturn(null);
+        $clientRegistryProphecy = $this->prophesize(ClientRegistry::class);
+        $oAuth2Client           = $this->prophesize(OAuth2Client::class);
+        $clientRegistryProphecy->getClient(null)->shouldBeCalled()->willReturn($oAuth2Client->reveal());
+
+        $oAuth2Client->redirect([], [])->shouldBeCalled()->willReturn($response);
+        $this->controller->oauthConnectAction(new Request(), $clientRegistryProphecy->reveal());
+    }
+
+    /**
+     * Test Oauth connect if user is already associated.
+     *
+     * @return void
+     */
+    public function testOauthConnectActionUserAlreadyAssociated()
+    {
+        $response = $this->prophesize(RedirectResponse::class)->reveal();
+
+        $user = $this->prophesize(Model\User::class);
+        $user->getSsoKey()->shouldBeCalled()->willReturn('Foo');
+        $this->userProviderProphecy->getAuthenticatedUser()->shouldBeCalled()->willReturn($user);
+
+        $clientRegistryProphecy = $this->prophesize(ClientRegistry::class);
+        $clientRegistryProphecy->getClient(null)->shouldNotBeCalled();
+
+        // FlashBag & Translation (only display, no flashbag)
+        $this->helperProphecy->addFlash('warning', Argument::any())->shouldBeCalled();
+        $this->helperProphecy->trans('user.profile.flashbag.error.sso_already_associated')->shouldBeCalled()->willReturn('Foo');
+        $this->helperProphecy->redirectToRoute('user_profile_user_edit')->shouldBeCalled()->willReturn($response);
+
+        $this->assertEquals(
+            $response,
+            $this->controller->oauthConnectAction(new Request(), $clientRegistryProphecy->reveal())
+        );
+    }
+
+    /**
+     * Test SSO check - user login.
+     *
+     * @return void
+     */
+    public function testOauthCheckAction()
+    {
+        $response = $this->prophesize(RedirectResponse::class)->reveal();
+
+        $clientRegistryProphecy = $this->prophesize(ClientRegistry::class);
+        $oAuth2Client           = $this->prophesize(OAuth2Client::class);
+        $clientRegistryProphecy->getClient(null)->shouldBeCalled()->willReturn($oAuth2Client->reveal());
+        $token = new AccessToken(['access_token' => 'Foo']);
+
+        $oAuth2Client->getAccessToken()->shouldBeCalled()->willReturn($token);
+        $resourceOwner = $this->prophesize(ResourceOwnerInterface::class);
+        $resourceOwner->toArray()->shouldBeCalled()->willReturn(['foo' => 'Foo']);
+        $oAuth2Client->fetchUserFromToken($token)->shouldBeCalled()->willReturn($resourceOwner);
+
+        $this->userProviderProphecy->getAuthenticatedUser()->shouldBeCalled()->willReturn(null);
+
+        $user = $this->prophesize(Model\User::class);
+        $this->userRepositoryProphecy->findOneOrNullBySsoKey('Foo')->shouldBeCalled()->willReturn($user);
+        $user->getRoles()->shouldBeCalled()->willReturn([]);
+        $user->getPassword()->shouldBeCalled()->willReturn('Foo');
+
+        $tokenStorageProphecy = $this->prophesize(TokenStorageInterface::class);
+
+        $this->helperProphecy->redirectToRoute('reporting_dashboard_index')->shouldBeCalled()->willReturn($response);
+        $this->assertEquals(
+            $response,
+            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal())
+        );
+    }
+
+    /**
+     * Test SSO check - associate user with sso key.
+     *
+     * @return void
+     */
+    public function testOauthCheckActionAssociateUser()
+    {
+        $response = $this->prophesize(RedirectResponse::class)->reveal();
+
+        $clientRegistryProphecy = $this->prophesize(ClientRegistry::class);
+        $oAuth2Client           = $this->prophesize(OAuth2Client::class);
+        $clientRegistryProphecy->getClient(null)->shouldBeCalled()->willReturn($oAuth2Client->reveal());
+        $token = new AccessToken(['access_token' => 'Foo']);
+
+        $oAuth2Client->getAccessToken()->shouldBeCalled()->willReturn($token);
+        $resourceOwner = $this->prophesize(ResourceOwnerInterface::class);
+        $resourceOwner->toArray()->shouldBeCalled()->willReturn(['foo' => 'Foo']);
+        $oAuth2Client->fetchUserFromToken($token)->shouldBeCalled()->willReturn($resourceOwner);
+
+        $user = $this->prophesize(Model\User::class);
+        $this->userProviderProphecy->getAuthenticatedUser()->shouldBeCalled()->willReturn($user);
+        $this->userRepositoryProphecy->findOneOrNullBySsoKey('Foo')->shouldBeCalled()->willReturn(null);
+
+        $user->setSsoKey('Foo')->shouldBeCalled();
+
+        $this->helperProphecy->addFlash('success', Argument::any())->shouldBeCalled();
+        $this->helperProphecy->trans('user.profile.flashbag.success.sso_associated')->shouldBeCalled()->willReturn('Foo');
+        $this->helperProphecy->redirectToRoute('user_profile_user_edit')->shouldBeCalled()->willReturn($response);
+
+        $tokenStorageProphecy = $this->prophesize(TokenStorageInterface::class);
+
+        $this->assertEquals(
+            $response,
+            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal())
+        );
+    }
+
+    /**
+     * Test SSO check - associate user with sso key - key already used.
+     *
+     * @return void
+     */
+    public function testOauthCheckActionAssociateUserSsoKeyAlreadyUsed()
+    {
+        $response = $this->prophesize(RedirectResponse::class)->reveal();
+
+        $clientRegistryProphecy = $this->prophesize(ClientRegistry::class);
+        $oAuth2Client           = $this->prophesize(OAuth2Client::class);
+        $clientRegistryProphecy->getClient(null)->shouldBeCalled()->willReturn($oAuth2Client->reveal());
+        $token = new AccessToken(['access_token' => 'Foo']);
+
+        $oAuth2Client->getAccessToken()->shouldBeCalled()->willReturn($token);
+        $resourceOwner = $this->prophesize(ResourceOwnerInterface::class);
+        $resourceOwner->toArray()->shouldBeCalled()->willReturn(['foo' => 'Foo']);
+        $oAuth2Client->fetchUserFromToken($token)->shouldBeCalled()->willReturn($resourceOwner);
+
+        $user = $this->prophesize(Model\User::class);
+        $this->userProviderProphecy->getAuthenticatedUser()->shouldBeCalled()->willReturn($user);
+        $user2 = $this->prophesize(Model\User::class);
+        $this->userRepositoryProphecy->findOneOrNullBySsoKey('Foo')->shouldBeCalled()->willReturn($user2);
+
+        $user->setSsoKey('Foo')->shouldNotBeCalled();
+        $user2->getEmail()->shouldBeCalled()->willReturn('user2email');
+
+        $this->helperProphecy->addFlash('danger', Argument::any())->shouldBeCalled();
+        $this->helperProphecy->trans('user.profile.flashbag.error.sso_key_duplicate', ['email' => 'user2email'])->shouldBeCalled()->willReturn('Foo');
+        $this->helperProphecy->redirectToRoute('user_profile_user_edit')->shouldBeCalled()->willReturn($response);
+
+        $tokenStorageProphecy = $this->prophesize(TokenStorageInterface::class);
+
+        $this->assertEquals(
+            $response,
+            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal())
         );
     }
 }

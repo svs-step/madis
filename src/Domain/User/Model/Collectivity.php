@@ -188,6 +188,19 @@ class Collectivity implements LoggableSubject
     private $finessGeo;
 
     /**
+     * @var int|null
+     */
+    private $population;
+    /**
+     * @var int|null
+     */
+    private $nbrAgents;
+    /**
+     * @var int|null
+     */
+    private $nbrCnil;
+
+    /**
      * Collectivity constructor.
      *
      * @throws \Exception
@@ -555,5 +568,35 @@ class Collectivity implements LoggableSubject
 
         $this->referentiels[] = $referentiel;
         $referentiel->addAuthorizedCollectivity($this);
+    }
+
+    public function getNbrAgents(): ?int
+    {
+        return $this->nbrAgents;
+    }
+
+    public function setNbrAgents(?int $nbrAgents): void
+    {
+        $this->nbrAgents = $nbrAgents;
+    }
+
+    public function getNbrCnil(): ?int
+    {
+        return $this->nbrCnil;
+    }
+
+    public function setNbrCnil(?int $nbrCnil): void
+    {
+        $this->nbrCnil = $nbrCnil;
+    }
+
+    public function getPopulation(): ?int
+    {
+        return $this->population;
+    }
+
+    public function setPopulation(?int $population): void
+    {
+        $this->population = $population;
     }
 }

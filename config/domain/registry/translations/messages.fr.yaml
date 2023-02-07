@@ -8,6 +8,7 @@ registry:
             mail: Email
             phone_number: Téléphone
             zip_code: Code postal
+            country: Pays
         show:
             city: Ville
             line_one: Adresse
@@ -15,6 +16,7 @@ registry:
             mail: Email
             phone_number: Téléphone
             zip_code: Code postal
+            country: Pays
 
     contractor:
         action:
@@ -557,8 +559,9 @@ registry:
             origins: Origine de la perte de données
             potential_impacts_nature: Nature des impacts potentiels pour les personnes
             service: Service
-            violation_nature: Nature de la violation
+            violation_natures: Nature de la violation
             treatment: Traitements associés
+            contractor: Sous traitants associés
         list:
             cause: Cause
             collectivity: Structure
@@ -593,6 +596,7 @@ registry:
             historic: Historique
             information: Informations sur la violation
             treatment: Traitements associés
+            contractor: Sous traitants associés
         title:
             create: Créer une violation
             delete: Archiver une violation

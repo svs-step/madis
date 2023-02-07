@@ -1,0 +1,23 @@
+notification_notificationMailParameters_create:
+    path: '/creer'
+    methods: ['GET', 'POST']
+    controller: 'App\Domain\Notification\Controller\NotificationMailParametersController:createNotifMailParams'
+
+notification_notificationMailParameters_index:
+    path: '/'
+    methods: [ 'GET' ]
+    controller: 'App\Domain\Notification\Controller\NotificationController:listAction'
+    defaults:
+        keepQueryParams: true
+
+notification_notificationMailParameters_list:
+    path: '/liste'
+    methods: [ 'GET' ]
+    controller: 'App\Domain\Notification\Controller\NotificationController:listAction'
+
+notification_notificationMailParameters_edit:
+    path: '/editer/{id}'
+    methods: [ 'GET', 'POST' ]
+    controller: 'App\Domain\Notification\Controller\NotificationMailParametersController:createNotifMailParams'
+
+    

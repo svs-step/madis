@@ -15,6 +15,35 @@ user:
             job: Fonction
             mail: Email
             phone_number: Téléphone
+            notification: Notification
+
+    notifications:
+        form:
+            frequency:
+                label: Fréquence
+                month: Mensuelle
+                week: Hebdomadaire
+                day: Quotidien
+                hour: Toutes les
+                each: A chaque notification
+                none: Jamais
+                label_hour: heures
+                monthly: Mensuelle le
+                weekly: Hebdomadaire le
+                dayly: Quotidien à
+                hourly: Toutes les
+            modules:
+                treatment: Traitements
+                subcontractor: Sous-traitants
+                request: Demandes
+                violation: Violations
+                proof: Preuves
+                protect_action: Actions de protection
+                maturity: Maturité
+                treatment_conformity: Conformité des traitements
+                organization_conformity: Conformité de l'organisation
+                aipd: AIPD
+                document: Documents
 
     collectivity:
         action:
@@ -31,7 +60,7 @@ user:
             active: Statut
             address: Adresse
             different_dpo: Différent du DPD moral
-            different_it_manager: Différent du Référent Opérationnel
+            different_it_manager: Différent du Référent RGPD
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de l'organisation
             is_services_enabled: Activation des services
@@ -45,6 +74,9 @@ user:
             website: Site internet
             informations_complementaires: Informations complémentaires
             finess_geo: FINESS Géo.
+            population: Population
+            nbr_agents: Nombre d'agents
+            nbr_cnil: Numéro de désignation CNIL
         flashbag:
             success:
                 create: Structure "%object%" créée avec succès
@@ -57,6 +89,11 @@ user:
             siren: SIREN
             type: Type
             informations_complementaires: Informations complémentaires
+            date_maj: Date Mise à jour
+            nbr_agents: Nombre d'agents
+            nbr_cnil: Numéro CNIL
+            population: Population
+            tel_referent_rgpd: Tel Référent RGPD
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cette Structure ?
         show:
@@ -75,7 +112,7 @@ user:
             contact_phone_number: Téléphone
             created_at: Date de création
             different_dpo: Différent du DPD moral
-            different_it_manager: Différent du Référent Opérationnel
+            different_it_manager: Différent du Référent RGPD
             informations_complementaires: Informations complémentaires
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de l'organisation
@@ -88,6 +125,9 @@ user:
             updated_at: Date de dernière modification
             website: Site internet
             finess_geo: FINESS Géo.
+            population: Population
+            nbr_agents: Nombre d'agents
+            nbr_cnil: Numéro de désignation CNIL
         tab:
           address: Adresse
           comite_il: Composition du comité Informatique et Libertés
@@ -96,7 +136,7 @@ user:
           historic: Historique
           it_manager: Responsable informatique
           legal_manager: Responsable de traitement
-          referent: Référent Opérationnel
+          referent: Référent RGPD
           reporting_block:
             management_commitment: Bilan paragraphe "Engagement de la direction"
             continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
@@ -118,12 +158,25 @@ user:
             success:
                 collectivity_edit: Votre Structure vient d'être mise à jour
                 user_edit: Votre compte vient d'être mis à jour
+                sso_associated: Le compte a été associé
+                sso_unlink: Le compte a été dissocié
+            error:
+                sso_already_associated: La délégation d'authentification est déjà paramétrée
+                sso_key_duplicate: 'Identifiant SSO déjà utilisé pour le compte: email'
+            #                ...
         form_user:
             tab:
                 general: Vos informations
+                moreInfo: Informations supplémentaires
                 optional: Informations facultatives
+                login_delegation: Délégation de l'authentification
             help:
                 password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe
+            sso:
+                linked: Associé
+                link: Associer le compte
+                unlink: Dissocier le compte
+
         title:
             collectivity_edit: Éditer ma Structure
 
@@ -149,6 +202,10 @@ user:
               error: Aucun compte associé à cette clé d'authentification
               success: Votre mot de passe vient d'être réinitialisé
           verbatim: Réinitialisation de votre mot de passe
+        sso_login:
+            link: Se connecter avec %service%
+            flashbag:
+                sso_client_error: Erreur service SSO
         title:
             forget_password: Mot de passe oublié
             forget_password_confirm: Mot de passe oublié
@@ -171,6 +228,7 @@ user:
             edit: Éditer "%name%"
             unarchive: Rétablir "%name%"
         form:
+            notifications: Notifications
             apiAuthorized: Accès aux Webservices (API)
             collectivity: Structure
             collectivitesReferees: Structures rattachées
@@ -183,7 +241,13 @@ user:
             password: Mot de passe
             password_repeat: Répéter le mot de passe
             roles: Role
+            moreInfos: Informations supplémentaires
             services: Services
+            sso_key: Fournisseur d'identité
+            respInfo: Responsable informatique
+            respTreat: Responsable traitement
+            refOp: Référent RGPD
+            dpo: DPO
         flashbag:
             success:
                 create: Utilisateur "%object%" créée avec succès
@@ -198,6 +262,7 @@ user:
             last_login: Dernière connexion
             last_name: Nom
             roles: Role
+            moreInfos: Informations supplémentaires
             services: Service
             services_list: Liste des services
             service_number_users: Nombre d'utilisateurs dans ce service

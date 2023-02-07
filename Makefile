@@ -1,12 +1,14 @@
 QA        = docker run --rm --workdir=/project -v `pwd`:/project jakzal/phpqa:php8.1
 ARTEFACTS = var/artefacts
 
-# This file allow one to run tests on docker like they do on gitlab.
+# This file allows one to run tests on docker like they do on gitlab.
 
 ##
 ## Tests
 ## -----
 ##
+
+tests: tu
 
 tu: ## Run unit tests
 	$(QA) vendor/bin/phpunit

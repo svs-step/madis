@@ -151,8 +151,6 @@ class DuplicationType extends AbstractType
             $choices = array_map(function ($object) {
                 return $object->getId()->__toString();
             }, $choices);
-//            dump($data['data']);
-//            dd($choices);
 
             $form->add('data', ChoiceType::class, [
                 'label'    => 'admin.duplication.form.data',

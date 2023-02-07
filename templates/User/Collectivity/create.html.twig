@@ -40,7 +40,8 @@
         });
     </script>
 
-    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+    {{ encore_entry_script_tags('js/collectionManager') }}
+
     <script>
         $(document).ready(function(){
             $("#collectivity_dpo_civility").prop("required", false);

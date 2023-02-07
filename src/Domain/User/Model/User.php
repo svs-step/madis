@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Model;
 
 use App\Application\Interfaces\CollectivityRelated;
+use App\Application\Traits\Model\HistoryTrait;
 use App\Application\Traits\Model\SoftDeletableTrait;
 use App\Domain\Documentation\Model\Document;
 use App\Domain\Reporting\Model\LoggableSubject;
@@ -38,6 +39,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements LoggableSubject, UserInterface, CollectivityRelated, PasswordAuthenticatedUserInterface
 {
     use SoftDeletableTrait;
+    use HistoryTrait;
 
     /**
      * @var UuidInterface
@@ -120,6 +122,23 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
     private $documentView;
 
     /**
+     * @var array|null
+     */
+    private $moreInfos;
+
+    private EmailNotificationPreference $emailNotificationPreference;
+
+    /**
+     * @var Collection|array|null
+     */
+    private $notifications;
+
+    /**
+     * @var string|null
+     */
+    private $ssoKey;
+
+    /**
      * User constructor.
      *
      * @throws \Exception
@@ -130,6 +149,7 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
         $this->roles                 = [];
         $this->enabled               = true;
         $this->collectivitesReferees = [];
+        $this->moreInfos             = [];
     }
 
     public function getId(): UuidInterface
@@ -356,5 +376,45 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
     public function setDocumentView(bool $documentView): void
     {
         $this->documentView = $documentView;
+    }
+
+    public function getMoreInfos(): ?array
+    {
+        return $this->moreInfos;
+    }
+
+    public function setMoreInfos(array $moreInfos): void
+    {
+        $this->moreInfos = $moreInfos;
+    }
+
+    public function getEmailNotificationPreference(): EmailNotificationPreference
+    {
+        return $this->emailNotificationPreference;
+    }
+
+    public function setEmailNotificationPreference(EmailNotificationPreference $emailNotificationPreference): void
+    {
+        $this->emailNotificationPreference = $emailNotificationPreference;
+    }
+
+    public function getNotifications(): ?Collection
+    {
+        return $this->notifications;
+    }
+
+    public function setNotifications(?Collection $notifications): void
+    {
+        $this->notifications = $notifications;
+    }
+
+    public function getSsoKey(): ?string
+    {
+        return $this->ssoKey;
+    }
+
+    public function setSsoKey(?string $ssoKey): void
+    {
+        $this->ssoKey = $ssoKey;
     }
 }

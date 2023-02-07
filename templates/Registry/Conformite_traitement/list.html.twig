@@ -70,8 +70,8 @@
                             {% if conformiteTraitement is not null %}
                                 {% set planifiedMesurementToBeNotified = getPlanifiedMesurements(conformiteTraitement) %}
                                 {% set nbTotal = conformiteTraitement.nbConformes + conformiteTraitement.nbNonConformesMineures + conformiteTraitement.nbNonConformesMajeures %}
-                                {% set widthNbConforme = ((conformiteTraitement.nbConformes * 100) / nbTotal)|round %}
-                                {% set widthnbNonConformesMineures = ((conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round %}
+                                {% set widthNbConforme = nbTotal > 0 ? ((conformiteTraitement.nbConformes * 100) / nbTotal)|round : 0 %}
+                                {% set widthnbNonConformesMineures = nbTotal > 0 ? ((conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round : 0 %}
                                 {% set widthnbNonConformesMajeures = 100 - (widthNbConforme + widthnbNonConformesMineures) %}
                                 {% set conformiteBackgroundColor = getConformiteLevelWeight(conformiteTraitement) %}
                                 {% if conformiteTraitement.analyseImpacts is not empty %}

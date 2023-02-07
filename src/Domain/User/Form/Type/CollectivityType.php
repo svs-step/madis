@@ -137,6 +137,18 @@ class CollectivityType extends AbstractType
                         'maxlength' => 255,
                     ],
                 ])
+                ->add('population', NumberType::class, [
+                    'label'    => 'user.collectivity.form.population',
+                    'required' => false,
+                ])
+                ->add('nbrAgents', NumberType::class, [
+                    'label'    => 'user.collectivity.form.nbr_agents',
+                    'required' => false,
+                ])
+                ->add('nbrCnil', NumberType::class, [
+                    'label'    => 'user.collectivity.form.nbr_cnil',
+                    'required' => false,
+                ])
                 ->add('services', CollectionType::class, [
                     'label'        => false,
                     'entry_type'   => ServiceType::class,

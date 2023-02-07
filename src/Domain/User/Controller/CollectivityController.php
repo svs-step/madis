@@ -153,14 +153,17 @@ class CollectivityController extends CRUDController
         /** @var Model\Collectivity $collectivity */
         foreach ($collectivities as $collectivity) {
             $reponse['data'][] = [
-                'nom'                          => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' .
-                    $collectivity->getName() .
-                    '</a>',
+                'nom'                          => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' . $collectivity->getName() . '</a>',
                 'nom_court'                    => $collectivity->getShortName(),
-                'type'                         => !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] : null,
+                'type'                         => !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] ?? $collectivity->getType() : null,
                 'informations_complementaires' => !\is_null($collectivity->getInformationsComplementaires()) ? nl2br($collectivity->getInformationsComplementaires()) : null,
                 'siren'                        => $collectivity->getSiren(),
                 'statut'                       => $collectivity->isActive() ? $active : $inactive,
+                'date_maj'                     => date_format($collectivity->getUpdatedAt(), 'd-m-Y H:i:s'),
+                'population'                   => $collectivity->getPopulation(),
+                'nbr_agents'                   => $collectivity->getNbrAgents(),
+                'nbr_cnil'                     => $collectivity->getNbrCnil(),
+                'tel_referent_rgpd'            => !\is_null($collectivity->getDpo()) ? ($collectivity->getDpo())->getPhoneNumber() : null,
                 'actions'                      => $this->getActionCellsContent($collectivity),
             ];
         }
@@ -193,12 +196,18 @@ class CollectivityController extends CRUDController
     protected function getLabelAndKeysArray(): array
     {
         return [
-            0 => 'nom',
-            1 => 'nom_court',
-            2 => 'type',
-            3 => 'siren',
-            4 => 'statut',
-            5 => 'actions',
+            0  => 'nom',
+            1  => 'nom_court',
+            2  => 'type',
+            3  => 'info',
+            4  => 'siren',
+            5  => 'statut',
+            6  => 'date_maj',
+            7  => 'population',
+            8  => 'nbr_agents',
+            9  => 'nbr_cnil',
+            10 => 'tel_referent_rgpd',
+            11 => 'actions',
         ];
     }
 

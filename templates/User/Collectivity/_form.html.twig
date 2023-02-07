@@ -45,6 +45,9 @@
                 {{ form_row(form.hasModuleConformiteOrganisation) }}
                 {{ form_row(form.informationsComplementaires) }}
                 {{ form_row(form.finessGeo) }}
+                {{ form_row(form.population) }}
+                {{ form_row(form.nbrAgents) }}
+                {{ form_row(form.nbrCnil) }}
             </div>
         </div>
 
@@ -89,7 +92,7 @@
                         </a>
                     </div>
                 </div>
-            
+
         </div>
          {# prevents weird label from showing up in new #}
         {{ form_widget(form.services) }}
@@ -150,7 +153,7 @@
         </div>
 
         {# prevents weird label from showing up in new #}
-        {{ form_widget(form.comiteIlContacts) }}
+{#        {{ form_widget(form.comiteIlContacts) }}#}
     </div>
 
     <div class="col-md-12">

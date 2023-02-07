@@ -33,6 +33,7 @@ use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use App\Tests\Utils\ReflectionTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
@@ -132,7 +133,7 @@ class CollectivityControllerTest extends TestCase
         $collectivity = $this->prophesize(Model\Collectivity::class);
 
         $user->getRoles()->shouldBeCalled()->willReturn([UserRoleDictionary::ROLE_REFERENT]);
-        $user->getCollectivitesReferees()->shouldBeCalled()->willReturn([$collectivity->reveal()]);
+        $user->getCollectivitesReferees()->shouldBeCalled()->willReturn(new ArrayCollection([$collectivity->reveal()]));
         $collectivity->getId()->shouldBeCalled()->willReturn(Uuid::uuid4());
 
         $this->security->getUser()->shouldBeCalled()->willReturn($user->reveal());

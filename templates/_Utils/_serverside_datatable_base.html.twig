@@ -164,6 +164,50 @@
             var table = $('#table').DataTable();
             table.columns().search('').draw();
         })
+
+        var oTable = $('#table').DataTable();
+        $('#delete-all').on('click', function(event) {
+            event.stopPropagation(); 
+            let data = oTable.rows().data().toArray().map(row => row.id);
+            $('#delete-all').attr('href', function(index, href) {
+                let param = `ids=${data}`;
+                if (href.charAt(href.length - 1) === '?')
+                    return href + param;
+                else if (href.indexOf('?') > 0)
+                    return href + '&' + param;
+                else
+                    return href + '?' + param;
+            });
+            event = event.originalEvent;
+        })
+        $('#archive-all').on('click', function(event) {
+            event.stopPropagation(); 
+            let data = oTable.rows().data().toArray().map(row => row.id);
+            $('#archive-all').attr('href', function(index, href) {
+                let param = `ids=${data}`;
+                if (href.charAt(href.length - 1) === '?')
+                    return href + param;
+                else if (href.indexOf('?') > 0)
+                    return href + '&' + param;
+                else
+                    return href + '?' + param;
+            });
+            event = event.originalEvent;
+        })
+        $('#print-all').on('click', function(event) {
+            event.stopPropagation(); 
+            let data = oTable.rows().data().toArray().map(row => row.id);
+            $('#print-all').attr('href', function(index, href) {
+                let param = `ids=${data}`;
+                if (href.charAt(href.length - 1) === '?')
+                    return href + param;
+                else if (href.indexOf('?') > 0)
+                    return href + '&' + param;
+                else
+                    return href + '?' + param;
+            });
+            event = event.originalEvent;
+        })
     });
 
     $('#table').on( 'preInit.dt', function(e, settings) {

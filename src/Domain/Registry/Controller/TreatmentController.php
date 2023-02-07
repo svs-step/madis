@@ -490,11 +490,10 @@ class TreatmentController extends CRUDController
         return null;
     }
 
-    public function pdfAllAction()
+    public function pdfAllAction(Request $request)
     {
-        $request = $this->requestStack->getMasterRequest();
-        $ids     = $request->query->get('ids');
-        $ids     = explode(',', $ids);
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
 
         $objects = [];
 
@@ -515,11 +514,10 @@ class TreatmentController extends CRUDController
      * The archive action view
      * Display a confirmation message to confirm data archivation.
      */
-    public function archiveAllAction(): Response
+    public function archiveAllAction(Request $request): Response
     {
-        $request = $this->requestStack->getMasterRequest();
-        $ids     = $request->query->get('ids');
-        $ids     = explode(',', $ids);
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
 
         if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
             $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');
@@ -576,11 +574,10 @@ class TreatmentController extends CRUDController
      * The delete action view
      * Display a confirmation message to confirm data deletion.
      */
-    public function deleteAllAction(): Response
+    public function deleteAllAction(Request $request): Response
     {
-        $request = $this->requestStack->getMasterRequest();
-        $ids     = $request->query->get('ids');
-        $ids     = explode(',', $ids);
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
 
         if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
             $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');
@@ -594,10 +591,9 @@ class TreatmentController extends CRUDController
         ]);
     }
 
-    public function deleteConfirmationAllAction(): Response
+    public function deleteConfirmationAllAction(Request $request): Response
     {
-        $request = $this->requestStack->getMasterRequest();
-        $ids     = $request->query->get('ids');
+        $ids = $request->query->get('ids');
 
         if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
             $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');
