@@ -202,10 +202,12 @@ class UserController extends CRUDController
                 $roles .= $span;
             }
 
-            $infos = '';
-            foreach ($user->getMoreInfos() as $info) {
-                $span = '<span class="badge">' . UserMoreInfoDictionary::getMoreInfos()[$info] . '</span>';
-                $infos .= $span;
+            $infos ='';
+            if ($user->getMoreInfos()){
+                foreach ($user->getMoreInfos() as $info) {
+                    $span = '<span class="badge">' . UserMoreInfoDictionary::getMoreInfos()[$info] . '</span>';
+                    $infos .= $span;
+                }
             }
 
             $userActifBgColor = 'bg-green';
@@ -238,7 +240,7 @@ class UserController extends CRUDController
                 'roles'        => $roles,
                 'moreInfos'    => $infos,
                 'actif'        => $actif,
-                'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('Y-m-d H:i:s') : null,
+                'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('d/m/Y H:i:s') : null,
                 'services'     => $services,
                 'actions'      => $this->getActionCellsContent($user),
             ];
@@ -258,11 +260,11 @@ class UserController extends CRUDController
             2 => 'email',
             3 => 'collectivite',
             4 => 'roles',
-            5 => 'actif',
-            6 => 'connexion',
-            7 => 'services',
-            8 => 'actions',
-            9 => 'moreInfos',
+            5 => 'moreInfos',
+            6 => 'actif',
+            7 => 'connexion',
+            8 => 'services',
+            9 => 'actions',
         ];
     }
 
