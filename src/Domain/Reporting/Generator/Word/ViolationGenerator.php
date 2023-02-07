@@ -62,9 +62,15 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
             if ($violation->isInProgress()) {
                 $cellDate[] = '(Toujours en cours)';
             }
+            $natureViolations = '';
+            foreach ($violation->getViolationNatures() as $item){
+                $natureViolations .= ViolationNatureDictionary::getNatures()[$item] .', ';
+            }
+            $natureViolations = substr($natureViolations, 0, -2);
+
             $tableData[] = [
                 $cellDate,
-                ViolationNatureDictionary::getNatures(),
+                $natureViolations,
                 ViolationCauseDictionary::getNatures()[$violation->getCause()],
                 ViolationGravityDictionary::getGravities()[$violation->getGravity()],
             ];
@@ -109,9 +115,16 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
             if ($violation->isInProgress()) {
                 $cellDate[] = '(Toujours en cours)';
             }
+
+            $natureViolations = '';
+            foreach ($violation->getViolationNatures() as $item){
+                $natureViolations .= ViolationNatureDictionary::getNatures()[$item] .', ';
+            }
+            $natureViolations = substr($natureViolations, 0, -2);
+
             $tableData[] = [
                 $cellDate,
-                ViolationNatureDictionary::getNatures()[$violation->getViolationNature()],
+                $natureViolations,
                 ViolationCauseDictionary::getNatures()[$violation->getCause()],
                 ViolationGravityDictionary::getGravities()[$violation->getGravity()],
             ];
@@ -148,7 +161,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
                 [
                     'Nature de la violation',
-                    $this->translateWithDictionary(ViolationNatureDictionary::getNatures(), $violation->getViolationNature()),
+                    $this->translateWithDictionary(ViolationNatureDictionary::getNatures(), $violation->getViolationNatures()),
                 ],
                 [
                     'Origine de la perte de données',

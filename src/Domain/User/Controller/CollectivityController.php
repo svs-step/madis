@@ -153,7 +153,9 @@ class CollectivityController extends CRUDController
         /** @var Model\Collectivity $collectivity */
         foreach ($collectivities as $collectivity) {
             $reponse['data'][] = [
-                'nom'                          => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' . $collectivity->getName() . '</a>',
+                'nom'                          => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' .
+                    $collectivity->getName() .
+                    '</a>',
                 'nom_court'                    => $collectivity->getShortName(),
                 'type'                         => !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] ?? $collectivity->getType() : null,
                 'informations_complementaires' => !\is_null($collectivity->getInformationsComplementaires()) ? nl2br($collectivity->getInformationsComplementaires()) : null,
@@ -202,10 +204,10 @@ class CollectivityController extends CRUDController
             3  => 'info',
             4  => 'siren',
             5  => 'statut',
-            6  => 'date_maj',
-            7  => 'population',
-            8  => 'nbr_agents',
-            9  => 'nbr_cnil',
+            6  => 'nbr_cnil',
+            7  => 'nbr_agents',
+            8  => 'population',
+            9  => 'date_maj',
             10 => 'tel_referent_rgpd',
             11 => 'actions',
         ];

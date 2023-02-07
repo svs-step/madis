@@ -49,18 +49,18 @@ user:
         action:
             back_to_list: Retour à la liste
             back_to_show: Retour à la visualisation
-            new: Nouvel organisme
+            new: Nouvelle structure
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
             edit: Éditer "%name%"
-            list: Liste des organismes
+            list: Liste des structures
             show: Visualiser "%name%"
         form:
             active: Statut
             address: Adresse
             different_dpo: Différent du DPD moral
-            different_it_manager: Différent du Référent RGPD
+            different_it_manager: Différent du Référent Opérationnel
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de l'organisation
             is_services_enabled: Activation des services
@@ -75,7 +75,7 @@ user:
             informations_complementaires: Informations complémentaires
             finess_geo: FINESS Géo.
             population: Population
-            nbr_agents: Nombre d'agents
+            nbr_agents: Nombre de salariés
             nbr_cnil: Numéro de désignation CNIL
         flashbag:
             success:
@@ -90,8 +90,8 @@ user:
             type: Type
             informations_complementaires: Informations complémentaires
             date_maj: Date Mise à jour
-            nbr_agents: Nombre d'agents
-            nbr_cnil: Numéro CNIL
+            nbr_agents: Nombre de salariés
+            nbr_cnil: Numéro de désignation CNIL
             population: Population
             tel_referent_rgpd: Tel Référent RGPD
         modal:
@@ -112,7 +112,7 @@ user:
             contact_phone_number: Téléphone
             created_at: Date de création
             different_dpo: Différent du DPD moral
-            different_it_manager: Différent du Référent RGPD
+            different_it_manager: Différent du Référent Opérationnel
             informations_complementaires: Informations complémentaires
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de l'organisation
@@ -136,18 +136,18 @@ user:
           historic: Historique
           it_manager: Responsable informatique
           legal_manager: Responsable de traitement
-          referent: Référent RGPD
+          referent: Référent Opérationnel
           reporting_block:
             management_commitment: Bilan paragraphe "Engagement de la direction"
             continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
           services: Services
         title:
-            create: Créer un organisme
-            delete: Supprimer un organisme
-            edit: Éditer un organisme
-            label: Organisme
-            list: Liste des organismes
-            show: Visualiser un organisme
+            create: Créer une structure
+            delete: Supprimer une structure
+            edit: Éditer une structure
+            label: Structure
+            list: Liste des structures
+            show: Visualiser une structure
 
     profile:
         breadcrumb:

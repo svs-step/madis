@@ -108,6 +108,14 @@
                             </td>
                         </tr>
                         <tr>
+                            <td><strong>{{ 'user.collectivity.show.nbr_agents'|trans }}</strong></td>
+                            <td>{{ object.nbrAgents }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.population'|trans }}</strong></td>
+                            <td>{{ object.population }}</td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'user.collectivity.show.informations_complementaires'|trans }}</strong></td>
                             <td>{{ object.informationsComplementaires|nl2br }}</td>
                         </tr>
@@ -213,6 +221,10 @@
                 <div class="box-body no-padding">
                     <table class="table">
                         <tbody>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.nbr_cnil'|trans }}</strong></td>
+                            <td>{{ object.nbrCnil }}</td>
+                        </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.different_it_manager'|trans }}</strong></td>
                             <td>
@@ -322,7 +334,7 @@
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
                             <td>
-                                {% if object.differentDpo %}
+                                {% if object.dpo.firstname is not null %}
                                     {{ object.dpo.civility|dictionary('user_contact_civility') }}
                                 {% else %}
                                     {{ default_dpo_civility }}
@@ -331,43 +343,23 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
-                            {% if object.differentDpo %}
-                                <td>{{ object.dpo.firstName }}</td>
-                            {% else %}
-                                <td>{{ default_dpo_firstName }}</td>
-                            {% endif %}
+                            <td>{{ object.dpo.firstName|default(default_dpo_firstName) }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
-                            {% if object.differentDpo %}
-                                <td>{{ object.dpo.lastName }}</td>
-                            {% else %}
-                                <td>{{ default_dpo_lastName }}</td>
-                            {% endif %}
+                            <td>{{ object.dpo.lastName|default(default_dpo_lastName) }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
-                            {% if object.differentDpo %}
-                                <td>{{ object.dpo.job }}</td>
-                            {% else %}
-                                <td>{{ default_dpo_job }}</td>
-                            {% endif %}
+                            <td>{{ object.dpo.job|default(default_dpo_job) }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
-                            {% if object.differentDpo %}
-                                <td>{{ object.dpo.mail }}</td>
-                            {% else %}
-                                <td>{{ default_dpo_mail }}</td>
-                            {% endif %}
+                            <td>{{ object.dpo.mail|default(default_dpo_mail) }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
-                            {% if object.differentDpo %}
-                                <td>{{ object.dpo.phoneNumber }}</td>
-                            {% else %}
-                                <td>{{ default_dpo_phoneNumber }}</td>
-                            {% endif %}
+                            <td>{{ object.dpo.phoneNumber|default(default_dpo_phoneNumber) }}</td>
                         </tr>
                         </tbody>
                     </table>

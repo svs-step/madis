@@ -150,6 +150,10 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.concerned_people_partner',
                 'required' => false,
             ])
+            ->add('concernedPeopleUsager', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_usager',
+                'required' => false,
+            ])
             ->add('concernedPeopleOther', ComplexChoiceType::class, [
                 'label'    => 'registry.treatment.form.concerned_people_other',
                 'required' => false,
