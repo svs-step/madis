@@ -62,6 +62,13 @@ class AddressType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
+            ->add('country', TextType::class, [
+                'label'    => 'registry.address.form.country',
+                'required' => $required,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
             ->add('zipCode', TextType::class, [
                 'label'    => 'registry.address.form.zip_code',
                 'required' => $required,

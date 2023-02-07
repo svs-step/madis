@@ -27,6 +27,8 @@ namespace App\Domain\User\Form\Type;
 use App\Domain\User\Model\Collectivity;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
+use phpDocumentor\Reflection\Types\Integer;
+use PHPStan\Type\IntegerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
