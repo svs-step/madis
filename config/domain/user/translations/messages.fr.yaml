@@ -73,7 +73,7 @@ user:
             otherType: Autre type (descriptif)
             website: Site internet
             informations_complementaires: Informations complémentaires
-            finess_geo: FINESS Géo.
+            finess_geo: FINESS Géo
             population: Population
             nbr_agents: Nombre de salariés
             nbr_cnil: Numéro de désignation CNIL
@@ -125,7 +125,7 @@ user:
             otherType: Autre type (descriptif)
             updated_at: Date de dernière modification
             website: Site internet
-            finess_geo: FINESS Géo.
+            finess_geo: FINESS Géo
             population: Population
             nbr_agents: Nombre d'agents
             nbr_cnil: Numéro de désignation CNIL
