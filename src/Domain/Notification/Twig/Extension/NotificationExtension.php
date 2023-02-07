@@ -42,8 +42,18 @@ class NotificationExtension extends AbstractExtension
         $sentence .= $this->translator->trans('label.de') . ' ' .
             '<a href="' . $this->getObjectLink($notification) . '">' . $notification->getName() . '</a> '
         ;
+
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Violation::class]) {
-            $sentence .= '<strong>(' . ViolationNatureDictionary::getNatures()[$notification->getObject()->violationNature] . ')</strong> ';
+            $natures = [];
+
+            if ($notification->getObject()->violationNatures) {
+                $raw = $notification->getObject()->violationNatures;
+                if (is_string($raw)) {
+                    $raw = explode(',', $raw);
+                }
+                $natures = array_map(function ($n) {return ViolationNatureDictionary::getNatures()[trim($n)]; }, (array) $raw);
+            }
+            $sentence .= '<strong>(' . join(', ', $natures) . ')</strong> ';
         }
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Proof::class]) {
             $sentence .= '<strong>(' . ProofTypeDictionary::getTypes()[$notification->getObject()->type] . ')</strong> ';

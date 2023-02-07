@@ -39,6 +39,7 @@ class NotificationUser
 
     /**
      * @ORM\Id()
+     *
      * @ORM\Column(type="uuid")
      *
      * @var UuidInterface
@@ -52,12 +53,14 @@ class NotificationUser
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\Notification\Model\Notification", inversedBy="notificationUsers")
+     *
      * @ORM\JoinColumn(name="notification_id", referencedColumnName="id")
      */
     private Notification $notification;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User", inversedBy="notifications")
+     *
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      */
     private ?User $user;

@@ -111,7 +111,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
             if ($violation->isInProgress()) {
                 $cellDate[] = '(Toujours en cours)';
             }
-            $natures = join(', ', array_map(function($n) { return ViolationNatureDictionary::getNatures()[$n] ?? $n;}, (array)$violation->getViolationNatures()));
+            $natures     = join(', ', array_map(function ($n) { return ViolationNatureDictionary::getNatures()[$n] ?? $n; }, (array) $violation->getViolationNatures()));
             $tableData[] = [
                 $cellDate,
                 $natures,
@@ -144,7 +144,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
             if ($violation->isInProgress()) {
                 $cellDate[] = '(Toujours en cours)';
             }
-            $natures = join(', ', array_map(function($n) { return ViolationNatureDictionary::getNatures()[$n] ?? $n;}, (array)$violation->getViolationNatures()));
+            $natures = join(', ', array_map(function ($n) { return ViolationNatureDictionary::getNatures()[$n] ?? $n; }, (array) $violation->getViolationNatures()));
 
             $generalInformationData = [
                 [
@@ -153,7 +153,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
                 [
                     'Natures de la violation',
-                    $natures
+                    $natures,
                 ],
                 [
                     'Origine de la perte de données',
