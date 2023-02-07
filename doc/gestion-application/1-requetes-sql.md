@@ -1,10 +1,10 @@
 Requêtes SQL
 ============
 
-## Dupliquer les traitements sur une collectivité
+## Dupliquer les traitements sur une structure
 
 Une procédure SQL a été créée afin de dupliquer les traitements
-sur les collectivités de destination.
+sur les structures de destination.
 
 ```sql
 CREATE DEFINER=`madis`@`localhost` PROCEDURE `dupliquer_traitements_sur_une_CT`(id_coll_source CHAR(36), id_user_dest CHAR(36), id_coll_destination CHAR(36))

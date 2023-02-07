@@ -60,10 +60,10 @@
                 <div class="box-header">{{ 'label.for_your_information'|trans }}</div>
                 <div class="box-body">
                     <ul>
-                        <li>Vous disposez d'un compte associé à la collectivité <strong>{{ form.vars.value.collectivity }}.</strong></li>
-                        <li>Vous disposez des droits de <strong>lecture</strong> sur votre collectivité{% if app.user.roles[0] == 'ROLE_REFERENT' %} et sur vos collectivités rattacheés{% endif %}.</li>
+                        <li>Vous disposez d'un compte associé à la structure <strong>{{ form.vars.value.collectivity }}.</strong></li>
+                        <li>Vous disposez des droits de <strong>lecture</strong> sur votre structure{% if app.user.roles[0] == 'ROLE_REFERENT' %} et sur vos structures rattacheés{% endif %}.</li>
                         {% if is_granted('ROLE_USER') %}
-                            <li>Vous disposez des droits d'<strong>écriture</strong> sur votre collectivité{% if app.user.roles[0] == 'ROLE_REFERENT' %} et  sur vos collectivités rattacheés via la fonctionnalité "se connecter en tant que"{% endif %}.</li>
+                            <li>Vous disposez des droits d'<strong>écriture</strong> sur votre structure{% if app.user.roles[0] == 'ROLE_REFERENT' %} et  sur vos structures rattacheés via la fonctionnalité "se connecter en tant que"{% endif %}.</li>
                         {% endif %}
                         {% if app.user.roles[0] == 'ROLE_REFERENT' %}
                             <li>Liste des organismes rattachées :</li>
