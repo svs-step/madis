@@ -417,6 +417,7 @@ registry:
             completion: Taux de complétion
             contractors: Sous-traitants
             conformite_traitement: Conformité du traitement
+            avis_aipd: Avis AIPD
             entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
             goal: Finalité
             legal_basis: Base légale
