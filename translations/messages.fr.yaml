@@ -24,6 +24,7 @@ action:
     new_submit: Créer
     edit_submit: Modifier
     submit: Soumettre
+    submit_treatment : Créer le traitement
     unarchive: Rétablir
     validate: Valider
 

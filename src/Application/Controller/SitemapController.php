@@ -1,46 +1,36 @@
 <?php
 
-namespace App\Application\Controller;
+namespace App\Controller;
 
-// use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Route;
+// use Symfony\Component\Routing\RouterInterface;
 
-
-class SitemapController extends AbstractController
+class DefaultController extends AbstractController
 {
-
-    /**
-     * @var RouterInterface
-     */
-    protected $router;
-
-    public function __construct(RouterInterface $router) {
-        parent::__construct();
-        $this->router = $router;
+    #[Route('/', name: 'homepage', options: ['sitemap' => true])]
+    public function indexAction()
+    {
+        //...
     }
-    /**
-     * @Route("/sitemap.xml", name="sitemap", defaults={"_format"="xml"})
-     */
-    public function index(Request $request) {
 
-        $hostname = $request->getSchemeAndHttpHost();
+    #[Route('/faq', name: 'faq', options: ['sitemap' => ['priority' => 0.7]])]
+    public function faqAction()
+    {
+        //...
+    }
 
-        $urls = array();
-        $urls[] = array('loc' => $this->generateUrl('registry_request_list'));
-        $urls[] = array('loc' => $this->generateUrl('registry_violation_list'));
-        $urls[] = array('loc' => $this->generateUrl('registry_proof_list'));
-        // $this->router->generate('registry_contractor_list_datatables')
+    #[Route('/about', name: 'about', options: ['sitemap' => ['priority' => 0.7, 'changefreq' => UrlConcrete::CHANGEFREQ_WEEKLY]])]
+    public function aboutAction()
+    {
+        //...
+    }
 
-        // return response in XML format
-        $response = new Response(
-            $this->renderView('sitemap.html.twig', ['urls' => $urls, 'hostname' => $hostname]),
-            200
-        );
-        $response->headers->set('Content-Type', 'text/xml');
-
-        return $response;
+    #[Route('/contact', name: 'contact', options: ['sitemap' => ['priority' => 0.7, 'changefreq' => UrlConcrete::CHANGEFREQ_WEEKLY, 'section' => 'misc']])]
+    public function contactAction()
+    {
+        //...
     }
 }

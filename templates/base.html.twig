@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr-FR">
 
 <head>
     <meta charset="utf-8">
@@ -43,7 +43,7 @@
       <li><a href="#main-content">Contenu</a></li>
       <li><a href="#main-footer">Pied de page</a></li>
     </ul>
-  </nav>
+</nav>
     {# Impersonate banner #}
     {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
     <div class="banner-impersonate bg-danger text-red">
@@ -74,7 +74,7 @@
                 {{ include('_flashbag.html.twig') }}
                 {% block body %}{% endblock %}
             </section>
-        </div>
+        </main>
 
         {{ include('_footer.html.twig') }}
     </div>

@@ -17,10 +17,9 @@
             {% if item.link is defined %}
             <a aria-label="{{ item.name }}" href="{{ item.link }}">
             {% endif %}
-
-                {{ item.name }}
-
-            {% if item.link is defined %}
+                <i class="fa fa-tachometer-alt"></i>
+                {{ 'reporting.dashboard.breadcrumb.index'|trans }}
+            {% if breadcrumb|length > 0 %}
             </a>
             {% endif %}
         </li>
