@@ -52,7 +52,7 @@ class RequestObjectDictionaryTest extends TestCase
             RequestObjectDictionary::OBJECT_ACCESS             => 'Accéder à des données',
             RequestObjectDictionary::OBJECT_DATA_PORTABILITY   => 'Portabilité des données',
             RequestObjectDictionary::OBJECT_LIMIT_TREATMENT    => 'Limiter le traitement',
-            RequestObjectDictionary::OBJECT_OPPOSITE_TREATMENT => "Opposition au traitement",
+            RequestObjectDictionary::OBJECT_OPPOSITE_TREATMENT => 'Opposition au traitement',
             RequestObjectDictionary::OBJECT_OTHER              => 'Autre',
         ];
 

@@ -304,8 +304,6 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getConcernedPeopleCompany()->getComment(),
             $treatment->getConcernedPeoplePartner()->isCheck() ? $yes : $no,
             $treatment->getConcernedPeoplePartner()->getComment(),
-            $treatment->getConcernedPeopleUsager()->isCheck() ? $yes : $no,
-            $treatment->getConcernedPeopleUsager()->getComment(),
             $treatment->getConcernedPeopleOther()->isCheck() ? $yes : $no,
             $treatment->getConcernedPeopleOther()->getComment(),
             $treatment->getEstimatedConcernedPeople(),

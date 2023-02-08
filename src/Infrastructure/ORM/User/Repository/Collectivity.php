@@ -162,14 +162,17 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
                 break;
             case 'type':
                 $queryBuilder->addSelect('(case
-                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_OTHER . '\' THEN 1
-                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_SOCIAL_INSTITUTION . '\' THEN 2
-                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_MEDICAL_INSTITUTION . '\' THEN 3
-                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_COMMUNE . '\' THEN 4
-                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_EPCI . '\' THEN 5
-                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_DEPARTMENTAL_UNION . '\' THEN 6
-                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_SANITARY_INSTITUTION . '\' THEN 7
-                ELSE 8 END) AS HIDDEN hidden_type')
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_COMMUNE . '\' THEN 1
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_CCAS . '\' THEN 2
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_EPCI . '\' THEN 3
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_CIAS . '\' THEN 4
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_SYNDICAT . '\' THEN 5
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_SANITARY_INSTITUTION . '\' THEN 6
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_MEDICAL_INSTITUTION . '\' THEN 7
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_ASSOCIATION . '\' THEN 8
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_ENTERPRISE . '\' THEN 9
+                WHEN o.type = \'' . CollectivityTypeDictionary::TYPE_OTHER . '\' THEN 10
+                ELSE 11 END) AS HIDDEN hidden_type')
                     ->addOrderBy('hidden_type', $orderDir);
                 break;
             case 'siren':

@@ -63,8 +63,8 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
                 $cellDate[] = '(Toujours en cours)';
             }
             $natureViolations = '';
-            foreach ($violation->getViolationNatures() as $item){
-                $natureViolations .= ViolationNatureDictionary::getNatures()[$item] .', ';
+            foreach ($violation->getViolationNatures() as $item) {
+                $natureViolations .= ViolationNatureDictionary::getNatures()[$item] . ', ';
             }
             $natureViolations = substr($natureViolations, 0, -2);
 
@@ -117,8 +117,8 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
             }
 
             $natureViolations = '';
-            foreach ($violation->getViolationNatures() as $item){
-                $natureViolations .= ViolationNatureDictionary::getNatures()[$item] .', ';
+            foreach ($violation->getViolationNatures() as $item) {
+                $natureViolations .= ViolationNatureDictionary::getNatures()[$item] . ', ';
             }
             $natureViolations = substr($natureViolations, 0, -2);
 

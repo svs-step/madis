@@ -366,7 +366,7 @@ class TreatmentController extends CRUDController
             $yes = '<span class="badge bg-green">' . $this->translator->trans('label.yes') . '</span>';
             $no  = '<span class="badge bg-orange">' . $this->translator->trans('label.no') . '</span>';
 
-            //dd($treatment);
+            // dd($treatment);
 
             $reponse['data'][] = [
                 'id'                     => $treatment->getId(),
@@ -428,29 +428,28 @@ class TreatmentController extends CRUDController
 
     private function getAvisAipd(Treatment $treatment)
     {
-
         if (!$treatment->getConformiteTraitement()) {
             return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non réalisée</span>';
         }
-        $conf  = $treatment->getConformiteTraitement();
+        $conf = $treatment->getConformiteTraitement();
 
-        if ($conf->getLastAnalyseImpact() === null) {
+        if (null === $conf->getLastAnalyseImpact()) {
             return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non réalisée</span>';
         }
         $analyse_impact = $conf->getLastAnalyseImpact();
-        $statut = $analyse_impact->getStatut();
+        $statut         = $analyse_impact->getStatut();
 
         switch ($statut) {
-            case "defavorable":
-                $label = "Défavorable";
+            case 'defavorable':
+                $label = 'Défavorable';
                 $class = 'label-danger';
                 break;
-            case "favorable_avec_reserves":
-                $label = "Favorable avec réserves";
+            case 'favorable_avec_reserves':
+                $label = 'Favorable avec réserves';
                 $class = 'label-warning';
                 break;
-            case "favorable":
-                $label = "Favorable";
+            case 'favorable':
+                $label = 'Favorable';
                 $class = 'label-success';
                 break;
             default:
@@ -458,7 +457,7 @@ class TreatmentController extends CRUDController
                 $class = 'label-default';
         }
 
-        return '<span class="label '.$class.'" style="min-width: 100%; display: inline-block;">'.$label.'</span>';
+        return '<span class="label ' . $class . '" style="min-width: 100%; display: inline-block;">' . $label . '</span>';
     }
 
     private function getSpecificTraitement(Treatment $treatment)
