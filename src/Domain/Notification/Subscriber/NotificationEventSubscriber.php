@@ -11,6 +11,7 @@ use App\Domain\Notification\Event\NoLoginEvent;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Model\NotificationUser;
 use App\Domain\Notification\Serializer\NotificationNormalizer;
+use App\Domain\Registry\Model\Mesurement;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
@@ -134,7 +135,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     {
         $action   = $event->getMesurement();
         $existing = $this->notificationRepository->findBy([
-            'module'       => 'notification.modules.action',
+            'module'       => 'notification.modules.' . Notification::MODULES[Mesurement::class],
             'collectivity' => $action->getCollectivity(),
             'action'       => 'notifications.actions.late_action',
             'name'         => $action->getName(),
@@ -147,7 +148,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
         $users        = $this->userRepository->findNonDpoUsersForCollectivity($action->getCollectivity());
         $notification = new Notification();
-        $notification->setModule('notification.modules.action');
+        $notification->setModule('notification.modules.'.Notification::MODULES[Mesurement::class]);
         $notification->setCollectivity($action->getCollectivity());
         $notification->setAction('notifications.actions.late_action');
         $notification->setName($action->getName());

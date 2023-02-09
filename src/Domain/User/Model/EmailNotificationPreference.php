@@ -36,7 +36,6 @@ class EmailNotificationPreference
         'violation'               => self::NOTIF_VIOLATION,
         'proof'                   => self::NOTIF_PROOF,
         'protect_action'          => self::NOTIF_PROTECT_ACTION,
-        'action'                  => self::NOTIF_PROTECT_ACTION,
         'maturity'                => self::NOTIF_MATURITY,
         'treatment_conformity'    => self::NOTIF_TREATMENT_CONFORMITY,
         'organization_conformity' => self::NOTIF_ORGANIZATION_CONFORMITY,

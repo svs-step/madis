@@ -40,7 +40,7 @@ class NotificationExtension extends AbstractExtension
         $sentence = '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong> ' .
             $this->translator->trans($notification->getAction()) . ' ';
 
-        $sentence .= $this->translator->trans('label.de') . ' ' .
+        $sentence .= ' : ' .
             '<a href="' . $this->getObjectLink($notification) . '">' . $notification->getName() . '</a> '
         ;
 
@@ -87,7 +87,6 @@ class NotificationExtension extends AbstractExtension
                 return 'registry_violation_show';
             case 'notification.modules.proof':
                 return 'registry_proof_edit';
-            case 'notification.modules.action':
             case 'notification.modules.protect_action':
                 return 'registry_mesurement_show';
             case 'notification.modules.request':

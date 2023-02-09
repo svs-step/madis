@@ -22,6 +22,7 @@ notifications:
         late_request: En retard
         late_survey: En retard
         no_login: Inactif
+        validation: Validation
 notification:
     module: Notifications
     modules:
