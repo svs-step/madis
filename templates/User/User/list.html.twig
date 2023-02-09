@@ -159,7 +159,6 @@
 
             $('#search_role').off('change');
             $('#search_role').change(function(){
-                console.log(oTable.column('4'));
                 oTable.column('4').search($(this).val()).draw() ;
             });
 
