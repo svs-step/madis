@@ -15,7 +15,7 @@ user:
             job: Fonction
             mail: Email
             phone_number: Téléphone
-            notification: Notification
+            notification: Notification par email
 
     notifications:
         form:

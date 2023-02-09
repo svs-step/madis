@@ -240,7 +240,9 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         if (0 === $refs->count()) {
             // No ref OP, get from collectivity
             if ($object->getCollectivity() && $object->getCollectivity()->getReferent()) {
-                $refs = [$object->getCollectivity()->getReferent()->getMail()];
+                if ($object->getCollectivity()->getReferent()->getNotification()) {
+                    $refs = [$object->getCollectivity()->getReferent()->getMail()];
+                }
             }
         }
         // Add notification with email address for the référents
@@ -258,7 +260,9 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         if (0 === $refs->count()) {
             // No ref OP, get from collectivity
             if ($object->getCollectivity() && $object->getCollectivity()->getLegalManager()) {
-                $refs = [$object->getCollectivity()->getLegalManager()->getMail()];
+                if ($object->getCollectivity()->getLegalManager()->getNotification()) {
+                    $refs = [$object->getCollectivity()->getLegalManager()->getMail()];
+                }
             }
         }
 
