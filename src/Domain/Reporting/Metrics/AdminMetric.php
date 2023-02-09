@@ -102,35 +102,35 @@ class AdminMetric implements MetricInterface
         $totalCollectivity = count($collectivities);
 
         $data = [
-            'collectivityByType' => [
+            'collectivityByType'              => [
                 'value' => [
                     'all'  => $totalCollectivity,
                     'type' => $collectivityByType,
                 ],
             ],
-            'collectivityByAddressInsee' => [
+            'collectivityByAddressInsee'      => [
                 'value' => [
                     'all'          => $totalCollectivity,
                     'addressInsee' => [],
                     'dpoPercent'   => 0,
                 ],
             ],
-            'mesurementByCollectivity' => [
+            'mesurementByCollectivity'        => [
                 'average' => $averageMesurement,
             ],
-            'proofByCollectivity' => [
+            'proofByCollectivity'             => [
                 'average' => $averageProof,
             ],
             'balanceSheetProofByCollectivity' => [
                 'average' => $averageBalanceSheetPoof * 100,
             ],
-            'surveyLastYear' => [
+            'surveyLastYear'                  => [
                 'average' => $averageSurveyLastYer * 100,
             ],
         ];
 
         $nbIsDifferentDpo = 0;
-        $inseeValidType   = [CollectivityTypeDictionary::TYPE_COMMUNE, CollectivityTypeDictionary::TYPE_SOCIAL_INSTITUTION, CollectivityTypeDictionary::TYPE_OTHER];
+        $inseeValidType   = [CollectivityTypeDictionary::TYPE_COMMUNE, CollectivityTypeDictionary::TYPE_CCAS, CollectivityTypeDictionary::TYPE_CIAS, CollectivityTypeDictionary::TYPE_MEDICAL_INSTITUTION, CollectivityTypeDictionary::TYPE_OTHER];
         foreach ($collectivities as $collectivity) {
             if (!\is_null($collectivity->getAddress())
                 && !\is_null($collectivity->getAddress()->getInsee())

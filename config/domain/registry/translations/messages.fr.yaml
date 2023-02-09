@@ -640,7 +640,7 @@ registry:
         title:
             create: Créer une évaluation
             edit: Modifier une évaluation
-            list: Lister les évaluations
+            list: Conformité de l’organisation
             delete: Supprimer une évaluation
         list:
             collectivite: Nom de la Structure
