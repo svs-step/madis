@@ -54,10 +54,10 @@ Bien faire attention à la génération de la clef primaire qui est ici un uuid.
 INSERT INTO `conformite_traitement_question` (`id`, `question`, `position`) VALUES ('4d66c04e-62e7-4216-85a2-6d9feb71722a', 'Ceci est le texte de la question', '13')
 ```
 
-## Conformité de l'organisation
+## Conformité de la structure
 ### Ajouter une question 
 
-2 cas se présentent pour ajouter une question à la conformité de l'organisation :
+2 cas se présentent pour ajouter une question à la conformité de la structure :
 
 ####1 - Pour ajouter une nouvelle question dans à un processus existant 
 Il faut vérifier en base de données la dernière valeur pour le champ `position` qui ordonne les questions liées à ce processus.

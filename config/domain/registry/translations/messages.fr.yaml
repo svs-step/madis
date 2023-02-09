@@ -666,12 +666,12 @@ registry:
                 add: Ajouter un participant
         flashbag:
             success:
-                create: Conformité de l'organisation "%object%" créée avec succès
+                create: Conformité de la structure "%object%" créée avec succès
                 pilote: Les pilotes ont été enregistrés avec succès
-                edit: Conformité de l'organisation "%object%" éditée avec succès
-                delete: Conformité de l'organisation "%object%" supprimée avec succès
+                edit: Conformité de la structure "%object%" éditée avec succès
+                delete: Conformité de la structure "%object%" supprimée avec succès
         action:
-            create: Nouvelle évaluation de l'organisation
+            create: Nouvelle évaluation de la structure
             back_to_list: Retour à la liste
             edit: Modifier
             delete: Supprimer

@@ -132,7 +132,7 @@ CHANGELOG
 ## [1.7.4] - 2020-07-28
 ### Ajout
 - [MODULE] Conformité des traitements, #279
-- [MODULE] Conformité de l'organisation, #280
+- [MODULE] Conformité de la structure, #280
 
 ## [1.7.3] - 2020-10-06
 ### Ajout

@@ -41,7 +41,7 @@ user:
                 protect_action: Actions de protection
                 maturity: Maturité
                 treatment_conformity: Conformité des traitements
-                organization_conformity: Conformité de l'organisation
+                organization_conformity: Conformité de la structure
                 aipd: AIPD
                 document: Documents
 
@@ -62,7 +62,7 @@ user:
             different_dpo: Différent du DPD moral
             different_it_manager: Différent du Référent Opérationnel
             has_module_conformite_traitement: Module conformité des traitements
-            has_module_conformite_organisation: Module conformité de l'organisation
+            has_module_conformite_organisation: Module conformité de la structure
             is_services_enabled: Activation des services
             name: Nom
             placeholder:
@@ -116,7 +116,7 @@ user:
             different_it_manager: Différent du Référent Opérationnel
             informations_complementaires: Informations complémentaires
             has_module_conformite_traitement: Module conformité des traitements
-            has_module_conformite_organisation: Module conformité de l'organisation
+            has_module_conformite_organisation: Module conformité de la structure
             name: Nom
             short_name: Nom court
             services: Services
