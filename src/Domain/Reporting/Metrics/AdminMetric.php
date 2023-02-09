@@ -149,7 +149,9 @@ class AdminMetric implements MetricInterface
                 ++$nbIsDifferentDpo;
             }
 
-            ++$data['collectivityByType']['value']['type'][$collectivity->getType()];
+            if (isset($data['collectivityByType']['value']['type'][$collectivity->getType()])) {
+                ++$data['collectivityByType']['value']['type'][$collectivity->getType()];
+            }
         }
 
         if ($totalCollectivity > 0) {

@@ -103,7 +103,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'concernedPeopleElected'            => ComplexChoiceType::class,
             'concernedPeopleCompany'            => ComplexChoiceType::class,
             'concernedPeoplePartner'            => ComplexChoiceType::class,
-            'concernedPeopleUsager'            => ComplexChoiceType::class,
+            'concernedPeopleUsager'             => ComplexChoiceType::class,
             'concernedPeopleOther'              => ComplexChoiceType::class,
             'dataCategories'                    => EntityType::class,
             'dataCategoryOther'                 => TextareaType::class,
