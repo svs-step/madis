@@ -156,7 +156,7 @@ class ConformiteOrganisationController extends CRUDController
         }
 
         $category = $this->entityManager->getRepository(Category::class)->findOneBy([
-            'name' => "Conformité de l'organisation",
+            'name' => 'Conformité de la structure',
         ]);
 
         return $this->render($this->getTemplatingBasePath('list'), [

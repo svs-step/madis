@@ -78,7 +78,7 @@ class AccessModuleConformiteSubscriber implements EventSubscriberInterface
                 break;
             case $controller[0] instanceof ConformiteOrganisationController
             && !$user->getCollectivity()->isHasModuleConformiteOrganisation():
-                throw new AccessDeniedHttpException('You can\'t access to conformite de l\'organisation');
+                throw new AccessDeniedHttpException('You can\'t access to conformite de la structure');
                 break;
         }
     }

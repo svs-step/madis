@@ -24,7 +24,7 @@ App\Domain\Documentation\Model\Category:
         name: "Bilan"
         systeme: true
     documentation_category_9:
-        name: "Conformité de l'organisation"
+        name: "Conformité de la structure"
         systeme: true
     documentation_category_10:
         name: "Conformité des traitements"

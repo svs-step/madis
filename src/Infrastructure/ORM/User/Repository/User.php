@@ -235,8 +235,7 @@ class User extends CRUDRepository implements Repository\User
                         ->setParameter('collectivite_name', '%' . $search . '%');
                     break;
                 case 'roles':
-                    $queryBuilder->andWhere('o.roles LIKE :role')
-                        ->setParameter('role', sprintf('"%s"', '%' . $search . '%'));
+                    $this->addWhereClause($queryBuilder, 'roles', '%' . $search . '%', 'LIKE');
                     break;
                 case 'connexion':
                     $queryBuilder->andWhere('o.lastLogin LIKE :date')

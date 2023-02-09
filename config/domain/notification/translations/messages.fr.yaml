@@ -68,7 +68,7 @@ notification:
             action: Action
             name: Nom
             object: Objet
-            collectivity: Collectivité
+            collectivity: Structure
             date: Date
             user: Nom d'utilisateur
             read_date: Lu le
@@ -95,7 +95,7 @@ notification:
             is_protectAction: Notifications pour le module actions de protection
             is_maturity: Notifications pour le module maturité
             is_treatmenConformity: Notifications pour le module conformité des traitements
-            is_organizationConformity: Notifications pour le module conformité de l'organisation
+            is_organizationConformity: Notifications pour le module conformité de la structure
             is_AIPD: Notifications pour le module AIPD
             is_document: Notifications pour le module espace documentaire
             frequency: Fréquence par défaut des notifications Email

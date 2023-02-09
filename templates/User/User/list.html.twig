@@ -81,6 +81,7 @@
                                     {% endfor %}
                                 </select></th>
                             <th></th>
+                            <th></th>
                             <th>
                                 <input class="datepicker form-control" type="text" id="search_last_login" placeholder="Date" style="width: 100%;">
                             </th>
@@ -163,11 +164,11 @@
 
             $('#search_last_login').off('change');
             $('#search_last_login').change(function(){
-                oTable.column('6').search($(this).val()).draw() ;
+                oTable.column('7').search($(this).val()).draw() ;
             });
             $('#search_services').off('keyup');
             $('#search_services').keyup($.debounce(250, function(){
-                oTable.column('7').search($(this).val()).draw() ;
+                oTable.column('8').search($(this).val()).draw() ;
             }));
         }
 

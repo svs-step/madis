@@ -73,7 +73,7 @@ class TreatmentType extends AbstractType
                 'required' => false,
             ])
             ->add('exempt_AIPD', CheckboxType::class, [
-                'label'    => ' ',
+                'label'    => 'registry.treatment.form.exemptAipd',
                 'required' => false,
             ])
             ->add('name', TextType::class, [
@@ -148,6 +148,10 @@ class TreatmentType extends AbstractType
             ])
             ->add('concernedPeoplePartner', ComplexChoiceType::class, [
                 'label'    => 'registry.treatment.form.concerned_people_partner',
+                'required' => false,
+            ])
+            ->add('concernedPeopleUsager', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_usager',
                 'required' => false,
             ])
             ->add('concernedPeopleOther', ComplexChoiceType::class, [
