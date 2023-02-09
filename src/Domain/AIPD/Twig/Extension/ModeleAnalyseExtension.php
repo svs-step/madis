@@ -11,7 +11,7 @@ use Twig\TwigFunction;
 
 class ModeleAnalyseExtension extends AbstractExtension
 {
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('getCriteres', [$this, 'getCriteres']),

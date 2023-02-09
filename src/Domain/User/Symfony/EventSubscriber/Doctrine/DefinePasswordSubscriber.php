@@ -42,7 +42,7 @@ class DefinePasswordSubscriber implements EventSubscriber
         $this->tokenGenerator = $tokenGenerator;
     }
 
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             'prePersist',

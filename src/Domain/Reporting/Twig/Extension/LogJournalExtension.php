@@ -41,7 +41,7 @@ class LogJournalExtension extends AbstractExtension
     /**
      * @return array|TwigFunction[]
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('getLogJournalLink', [$this, 'getLogJournalLink']),

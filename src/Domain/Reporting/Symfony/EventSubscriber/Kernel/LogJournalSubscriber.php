@@ -26,7 +26,7 @@ class LogJournalSubscriber implements EventSubscriberInterface
         $this->logJournalRepository = $logJournalRepository;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             LogJournalEvent::class => ['saveLogJournal'],

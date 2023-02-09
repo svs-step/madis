@@ -1,4 +1,5 @@
 security:
+    enable_authenticator_manager: true
     password_hashers:
         App\Domain\User\Model\User:
             algorithm: auto
@@ -19,7 +20,6 @@ security:
             security: false
         docs:
             pattern: ^/api/docs
-            anonymous: ~
         api_login:
             pattern: ^/api/login
             stateless: true
@@ -45,7 +45,6 @@ security:
             remember_me:
                 secret: '%env(APP_SECRET)%'
                 lifetime: 604800 # 1 week in seconds
-            anonymous: ~
             provider: user_provider
             user_checker: App\Domain\User\Symfony\Security\Checker\UserChecker
             switch_user: true

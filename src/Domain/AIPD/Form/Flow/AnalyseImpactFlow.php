@@ -14,7 +14,7 @@ class AnalyseImpactFlow extends FormFlow
 {
     protected $allowDynamicStepNavigation = true;
 
-    protected function loadStepsConfig()
+    protected function loadStepsConfig(): array
     {
         return [
             [

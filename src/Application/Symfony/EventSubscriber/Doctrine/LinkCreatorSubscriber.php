@@ -55,7 +55,7 @@ class LinkCreatorSubscriber implements EventSubscriber
         $this->linkAdmin    = $linkAdmin;
     }
 
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             'prePersist',

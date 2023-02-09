@@ -30,7 +30,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class HistorySubscriber implements EventSubscriber
 {
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             'prePersist',

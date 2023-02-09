@@ -92,7 +92,7 @@ class LogJournalDoctrineSubscriber implements EventSubscriber
         $this->requestStack    = $requestStack;
     }
 
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::postPersist,

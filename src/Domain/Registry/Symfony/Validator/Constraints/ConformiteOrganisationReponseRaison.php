@@ -36,7 +36,7 @@ class ConformiteOrganisationReponseRaison extends Constraint
      */
     public $message = 'This field is mandatory';
 
-    public function getTargets()
+    public function getTargets(): string|array
     {
         return self::CLASS_CONSTRAINT;
     }

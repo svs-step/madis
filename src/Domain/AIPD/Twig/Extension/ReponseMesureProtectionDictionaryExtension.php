@@ -13,14 +13,14 @@ use Twig\TwigFunction;
 
 class ReponseMesureProtectionDictionaryExtension extends AbstractExtension
 {
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('reponsedictionary', [$this, 'getDictionary']),
         ];
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('reponsedictionary', [$this, 'getValue']),

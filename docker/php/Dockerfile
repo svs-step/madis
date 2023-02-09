@@ -17,14 +17,18 @@ COPY php.ini "$PHP_INI_DIR/php.ini"
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && chmod +x /usr/local/bin/composer
 
 RUN apt-get update && apt-get install -y \
+    fontconfig libfreetype6 libjpeg62-turbo libpng16-16 libxrender1 xfonts-75dpi xfonts-base libxext6 netcat \
 		libfreetype6-dev \
 		libjpeg62-turbo-dev \
-		libpng-dev \
+		libpng-dev libicu-dev \
     libzip-dev zlib1g-dev \
 	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
 	&& docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install pdo_mysql  \
-    && docker-php-ext-install zip
+    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl \
+    && docker-php-ext-install zip \
+    && apt-get clean all
 
 # NPM INSTALL (used for webpack-encore)
 # ======================================
@@ -39,7 +43,6 @@ RUN curl -L https://github.com/fabpot/local-php-security-checker/releases/downlo
 
 # INSTALL WKHTMLTOPDF
 # ===================
-RUN apt-get install -y fontconfig libfreetype6 libjpeg62-turbo libpng16-16 libxrender1 xfonts-75dpi xfonts-base libxext6 netcat
 RUN dpkgArch="$(dpkg --print-architecture)"; \
     curl -L https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_${dpkgArch}.deb --output wkhtmltox_0.12.6-1.buster_${dpkgArch}.deb && \
     dpkg -i wkhtmltox_0.12.6-1.buster_${dpkgArch}.deb

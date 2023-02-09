@@ -64,7 +64,7 @@ class SwitchUserSubscriber implements EventSubscriberInterface
         $this->userRepository = $userRepository;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             SecurityEvents::SWITCH_USER => 'onSwitchUser',

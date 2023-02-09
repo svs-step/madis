@@ -9,7 +9,7 @@ use Craue\FormFlowBundle\Form\FormFlow;
 
 class ModeleAIPDFlow extends FormFlow
 {
-    protected function loadStepsConfig()
+    protected function loadStepsConfig(): array
     {
         return [
             [

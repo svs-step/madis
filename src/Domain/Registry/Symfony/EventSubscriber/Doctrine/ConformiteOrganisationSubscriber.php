@@ -21,7 +21,7 @@ class ConformiteOrganisationSubscriber implements EventSubscriber
         $this->conformiteCalculator = $calculator;
     }
 
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             'prePersist',

@@ -36,7 +36,7 @@ class RequestStateRejectionReason extends Constraint
      */
     public $message = 'Rejection reason is mandatory';
 
-    public function getTargets()
+    public function getTargets(): string|array
     {
         return self::CLASS_CONSTRAINT;
     }

@@ -170,6 +170,11 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
         return $this->getFullName();
     }
 
+    public function getUserIdentifier(): string
+    {
+        return $this->getEmail();
+    }
+
     public function getFirstName(): ?string
     {
         return $this->firstName;
@@ -245,9 +250,9 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
         $this->forgetPasswordToken = $forgetPasswordToken;
     }
 
-    public function getSalt()
+    public function getSalt(): string
     {
-        return null;
+        return 's_' . mt_rand();
     }
 
     public function getRoles(): array

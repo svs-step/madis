@@ -27,7 +27,7 @@ class NotificationExtension extends AbstractExtension
         $this->router     = $router;
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('sentence', [$this, 'getSentence']),

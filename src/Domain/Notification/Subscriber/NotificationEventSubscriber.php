@@ -46,7 +46,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $this->userRepository             = $userRepository;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             LateActionEvent::class                    => 'onLateAction',

@@ -31,7 +31,7 @@ use Doctrine\ORM\Event\PreUpdateEventArgs;
 
 class ApiRoleSubscriber implements EventSubscriber
 {
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             'prePersist',
