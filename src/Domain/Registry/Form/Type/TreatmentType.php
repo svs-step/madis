@@ -73,7 +73,7 @@ class TreatmentType extends AbstractType
                 'required' => false,
             ])
             ->add('exempt_AIPD', CheckboxType::class, [
-                'label'    => ' ',
+                'label'    => 'registry.treatment.form.exemptAipd',
                 'required' => false,
             ])
             ->add('name', TextType::class, [
@@ -150,6 +150,10 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.concerned_people_partner',
                 'required' => false,
             ])
+            ->add('concernedPeopleUsager', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_usager',
+                'required' => false,
+            ])
             ->add('concernedPeopleOther', ComplexChoiceType::class, [
                 'label'    => 'registry.treatment.form.concerned_people_other',
                 'required' => false,
@@ -164,7 +168,7 @@ class TreatmentType extends AbstractType
                     return $er->createQueryBuilder('dc')
                         ->orderBy('dc.position', Criteria::ASC);
                 },
-                'choice_attr' => function (TreatmentDataCategory $model) {
+                'choice_attr'   => function (TreatmentDataCategory $model) {
                     if ($model->isSensible()) {
                         return [
                             'style' => 'font-weight: bold;',
@@ -173,7 +177,7 @@ class TreatmentType extends AbstractType
 
                     return [];
                 },
-                'attr' => [
+                'attr'      => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
