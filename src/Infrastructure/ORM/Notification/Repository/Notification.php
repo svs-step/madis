@@ -32,6 +32,7 @@ use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Expr\OrderBy;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Security;
 
@@ -53,13 +54,8 @@ class Notification extends CRUDRepository implements Repository\Notification
         return Model\Notification::class;
     }
 
-    public function findAll(array $order = ['createdAt' => 'desc']): array
+    public function findAll(array $order = ['createdAt' => 'DESC']): array
     {
-        // TODO only get notifications for the current user.
-        $orderBy = [];
-        foreach ($order as $key => $value) {
-            $orderBy[$key] = $value;
-        }
         /**
          * @var User $user
          */
@@ -74,6 +70,10 @@ class Notification extends CRUDRepository implements Repository\Notification
         }
 
         $qb = $this->createQueryBuilder();
+
+        foreach ($order as $field => $direction) {
+            $qb->addOrderBy(new OrderBy('o.' . $field, $direction));
+        }
 
         if ($allNotifs) {
             $qb->where('o.dpo = 1');

@@ -114,7 +114,7 @@
                                 <td>
                                     {{ notification.object.name }}
                                 </td>
-                                <td>{{ notification.createdAt|date('d/m/Y') }}</td>
+                                <td>{{ notification.createdAt|date('d/m/Y H:i') }}</td>
                                 <td>{{notification.createdBy}}</td>
                             </tr>
                         {% endfor %}

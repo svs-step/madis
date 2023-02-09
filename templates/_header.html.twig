@@ -24,7 +24,7 @@
                         <i class="far fa-bell"></i>
                         <span class="badge bg-yellow navbar-badge">{{ notifs|filter(n => n.readAt is not defined or n.readAt is null)|length }}</span>
                     </a>
-                    <ul class="dropdown-menu dropdown-large">
+                    <ul class="dropdown-menu dropdown-large" style="width:600px">
                         {{ block("body", "Notification/Notification/box.html.twig") }}
                     </ul>
                 </li>
