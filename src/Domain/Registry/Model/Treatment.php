@@ -304,6 +304,13 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $concernedPeopleParticular;
 
     /**
+     * FR: Usagers (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleUsager;
+
+    /**
      * FR: Internautes (Personnes concernées).
      *
      * @var ComplexChoice
@@ -462,6 +469,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->proofs                            = [];
         $this->concernedPeopleParticular         = new ComplexChoice();
         $this->concernedPeopleUser               = new ComplexChoice();
+        $this->concernedPeopleUsager             = new ComplexChoice();
         $this->concernedPeopleAgent              = new ComplexChoice();
         $this->concernedPeopleElected            = new ComplexChoice();
         $this->concernedPeopleCompany            = new ComplexChoice();
@@ -861,6 +869,16 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function setConcernedPeopleUser(ComplexChoice $concernedPeopleUser): void
     {
         $this->concernedPeopleUser = $concernedPeopleUser;
+    }
+
+    public function getConcernedPeopleUsager(): ComplexChoice
+    {
+        return $this->concernedPeopleUsager;
+    }
+
+    public function setConcernedPeopleUsager(ComplexChoice $concernedPeopleUsager): void
+    {
+        $this->concernedPeopleUsager = $concernedPeopleUsager;
     }
 
     public function getConcernedPeopleAgent(): ComplexChoice
