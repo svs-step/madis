@@ -1319,7 +1319,7 @@ Consulter le [module conformité des traitements](#Module-conformité-des-traite
 
 Le module conformité de la structure est optionnel et peut être activé par structure en cochant la case « **Module conformité de la structure** ». Cette action est réalisable par le DPD (compte administrateur) dans l'édition de la structure.
 
-Consulter le [module conformité de l’organisation](#Module-conformité-de-l’organisation) pour plus d'information.
+Consulter le [module Conformité de la structure](#Module-conformité-de-l’organisation) pour plus d'information.
 
 ![Activation du module conformité de la structure](images/Madis-Activation-Module-Conformite-De-L-Organisation.png)
 
