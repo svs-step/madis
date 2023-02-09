@@ -1,6 +1,6 @@
 App\Domain\User\Model\Collectivity:
     user_collectivity_awkan:
-        name: Collectivité Awkan
+        name: Structure Awkan
         shortName: Awkan
         type: '<(App\Domain\User\Dictionary\CollectivityTypeDictionary::TYPE_OTHER)>'
         siren: <randomNumber(9)>
@@ -63,7 +63,7 @@ App\Domain\User\Model\Collectivity:
             \<p\>Conclusion\</p\>
 
     user_collectivity_foobar:
-        name: Collectivité Foobar
+        name: Structure Foobar
         shortName: Foobar
         type: '<(App\Domain\User\Dictionary\CollectivityTypeDictionary::TYPE_COMMUNE)>'
         siren: <randomNumber(9)>

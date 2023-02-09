@@ -496,7 +496,7 @@ registry:
             systematic_monitoring: Surveillance systématique
             updated_at: Dernière mise à jour
             vulnerable_people: Personnes vulnérables
-            delete_related_objects_error: Une erreur est survenue lors de la suppression des %relateds% de la collectivité "%object%"
+            delete_related_objects_error: Une erreur est survenue lors de la suppression des %relateds% de la structure "%object%"
             legalMentions: Mentions légales apposées
             consentRequest: Consentement demandé
             consentRequestFormat: Format de la demande du consentement

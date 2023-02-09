@@ -67,7 +67,7 @@ notification:
             action: Action
             name: Nom
             object: Objet
-            collectivity: Collectivité
+            collectivity: Structure
             date: Date
             user: Nom d'utilisateur
             read_date: Lu le

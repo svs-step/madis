@@ -58,7 +58,7 @@ class DuplicationFormDTO
     private $targetOption;
 
     /**
-     * FR: Types des collectivités cible, sur lesquelles dupliquer les données.
+     * FR: Types des structures cible, sur lesquelles dupliquer les données.
      *
      * @var array
      */

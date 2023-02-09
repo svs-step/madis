@@ -34,29 +34,29 @@ CHANGELOG
 
 ## [1.8.8] - 2022-03-10
 ### Changement
-- Correction d'un bug empêchant l'administrateur de se connecter en un utilisateur d'une collectivités comportant des services supprimés
+- Correction d'un bug empêchant l'administrateur de se connecter en un utilisateur d'une structures comportant des services supprimés
 
 ## [1.8.7] - 2022-03-04
 ### Changement
-- Correction d'un bug affichant tous les services de la collectivité lors de la création d'éléments sans prise en compte des services de l'utilisateur
+- Correction d'un bug affichant tous les services de la structure lors de la création d'éléments sans prise en compte des services de l'utilisateur
 - Correction d'un bug empêchant les utilisateurs sans service de supprimer les services des éléments
 - Correction d'une erreur 500 lors de la duplication d'éléments
-- Correction d'un bug empêchant d'affecter des services lors de la création d'un utilisateur si la collectivité n'est pas celle par défaut du formulaire
+- Correction d'un bug empêchant d'affecter des services lors de la création d'un utilisateur si la structure n'est pas celle par défaut du formulaire
 
 ## [1.8.6] - 2022-02-17
 ### Changement
 - Correction d'un bug entraînant la multiplication du nombre d'éléments dupliqués
-- Correction d'un bug affichant toujours les services comme inactifs lors de la modification d'une collectivité, empêchant de les désactiver 
+- Correction d'un bug affichant toujours les services comme inactifs lors de la modification d'une structure, empêchant de les désactiver 
 
 ## [1.8.5] - 2022-02-15
 ### Changement
-- Correction d'un bug affichant les services dans les éléments d'une collectivité n'ayant pas de services
+- Correction d'un bug affichant les services dans les éléments d'une structure n'ayant pas de services
 
 ## [1.8.4] - 2022-02-14
 ### Changement
 - Correction d'une erreur entraînant la multiplication des éléments dupliqués
-- Correction d'un bug affichant tous les services de toutes les collectivités sur certains éléments
-- Ajout de la possibilité pour un utilisateur sans service de modifier tous les éléments de sa collectivité quelque soit le service
+- Correction d'un bug affichant tous les services de toutes les structures sur certains éléments
+- Ajout de la possibilité pour un utilisateur sans service de modifier tous les éléments de sa structure quelque soit le service
 - Renommage "publique" en "public"
 
 ## [1.8.3] - 2022-02-02
@@ -93,7 +93,7 @@ CHANGELOG
 
 ## [1.7.11] - 2020-10-16
 ### Changement
-- Correctif bug utilisateur archivé visible dans la liste "Ma collectivité" #295
+- Correctif bug utilisateur archivé visible dans la liste "Ma structure" #295
 - Dans le bilan chapitre 4.1 le nombre de domaine est désormais calculé
 - Correctif sur la liste des plans d'actions qui affiche bien les actions de protections non planifiées et non appliquées
 
@@ -108,14 +108,14 @@ CHANGELOG
 
 ## [1.7.8] - 2020-09-30
 ### Changement
-- Correction sur le dashboard utilisateur et correction des placeholders sur la liste des collectivités. 
+- Correction sur le dashboard utilisateur et correction des placeholders sur la liste des structures. 
 
 ## [1.7.7] - 2020-09-21
 ### Ajout
 - Ajout du Lot 4
 - Ajout d'un export de CSV des actions de protections, sous-traitants sur le dashboard
-- Ajout du traitement côté serveur pour les sous-traitants, utilisateurs, demandes, collectivités, preuves et violations
-- Ajout du référent multi-collectivités
+- Ajout du traitement côté serveur pour les sous-traitants, utilisateurs, demandes, structures, preuves et violations
+- Ajout du référent multi-structures
 
 ## [1.7.6] - 2020-09-03
 ### Ajout
@@ -123,7 +123,7 @@ CHANGELOG
 - Journalisation des actions, log, traçabilité #286
 - Imprimer (PDF) une fiche (traitements, sous-traitants, ...) #286
 ### Changement
-- Divers changements sur le dashboard des collectivités #285
+- Divers changements sur le dashboard des structures #285
 
 ## [1.7.5] - 2020-07-29
 ### Changement
@@ -138,8 +138,8 @@ CHANGELOG
 ### Ajout
 - [MA COLLECTIVITE] Comité IL afficher dans le bilan, #258
 - [BILAN] Ajout de paragraphes, #257
-- [DASHBOARD] Cartographie, stats, export csv traitement, export csv collectivité, #255
-- [DASHBOARD] Nombre de collectivités (par type)(par DPO), #225
+- [DASHBOARD] Cartographie, stats, export csv traitement, export csv structure, #255
+- [DASHBOARD] Nombre de structures (par type)(par DPO), #225
 ### Changement
 - [SOUS-TRAITANT] Fiche sous-traitants - traitements effectués par sous-traitant, #260
 - [TRAITEMENTS] Fiche Traitements - Précision des personnes concernées, #259
@@ -163,15 +163,15 @@ CHANGELOG
 
 ## [1.6.0] - 2019-09-20
 ### Ajout
-- [DUPLICATION] Un administrateur peut maintenant dupliquer des traitements / sous-traitants / actions de protections d'une collectivité vers des autres, #187
+- [DUPLICATION] Un administrateur peut maintenant dupliquer des traitements / sous-traitants / actions de protections d'une structure vers des autres, #187
 - [PREUVE] Possibilité de lier une preuve à une ou plusieurs données, #186
 - [ADMINISTRATION] Subrogation d'un utilisateur de l'application, #107
 - [GLOBAL] Ajout d'un DatePicker dans les formulaires pour les champs date, #37
 ### Changement
 - [USER] La suppression (non fonctionnelle) a été remplacée par un archivage, #199
 ### Fix
-- [COLLECTIVITE] Il est maintenant possible de supprimer le site web d'une collectivité, #202 
-- [PREUVE] Un administrateur peut maintenant télécharger les documents qui ne sont pas de sa collectivité, #197
+- [COLLECTIVITE] Il est maintenant possible de supprimer le site web d'une structure, #202 
+- [PREUVE] Un administrateur peut maintenant télécharger les documents qui ne sont pas de sa structure, #197
 - [GLOBAL] Passage des dates au format FR (DD/MM/YYYY) dans les listes, #37 #205
 
 ## [1.5.2] - 2019-07-27
@@ -236,8 +236,8 @@ CHANGELOG
 - [TRAITEMENT] Le champ "Autre délai" ne s'affichait pas dans la visualisation d'un traitement, #144
 - [TRAITEMENT] Le champ "Délai de conservation" n'étais pas traduit sur le word (on pouvait lire "month" par exemple), #144
 - [USER] Modifier uniquement un mot de passe ne fonctionnait pas, #139
-- [GLOBAL] La sidebar se décalait lorsque nous allions sur l'onglet "Ma collectivité", #139
-- [USER] Le lecteur ne pouvait pas accéder aux infos de sa collectivité et son profil, #139
+- [GLOBAL] La sidebar se décalait lorsque nous allions sur l'onglet "Ma structure", #139
+- [USER] Le lecteur ne pouvait pas accéder aux infos de sa structure et son profil, #139
 - [VIOLATION] Erreur d'affichage lors de la visualisation d'une violation qui n'a pas de champ notification renseigné, #139
 
 ## [1.3.1] - 2019-01-31
@@ -277,7 +277,7 @@ CHANGELOG
 - [GLOBAL] Fix de typo, #92 #84 #80 #46
 - [TABLEAU DE BORD] Ajout de la couleur pour le donuts des statuts des demandes (le statut "Incomplet" n'avait pas de couleur)
 - [TABLEAU DE BORD] Les traitements inactifs ne sont plus comptabilisés dans les stats "Mesures de sécurité", #82
-- [GLOBAL] Fil d'ariane - Les URLs qui poitaient vers la liste des collectivités n'en sont plus, #62
+- [GLOBAL] Fil d'ariane - Les URLs qui poitaient vers la liste des structures n'en sont plus, #62
 
 ## [1.0.0] - 2018-08-29
 ### Ajout
