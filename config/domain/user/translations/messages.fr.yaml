@@ -88,6 +88,7 @@ user:
             short_name: Nom court
             siren: SIREN
             type: Type
+            other: Autre (description)
             informations_complementaires: Informations complémentaires
             date_maj: Date Mise à jour
             nbr_agents: Nombre d'agents
