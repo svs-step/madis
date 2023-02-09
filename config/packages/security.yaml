@@ -51,12 +51,12 @@ security:
 
     access_control:
         # Authentication routes
-        - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/deconnexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/mot-de-passe-oublie, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/reinitialisation-de-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/public, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/oauth, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/connexion, roles: PUBLIC_ACCESS }
+        - { path: ^/deconnexion, roles: PUBLIC_ACCESS }
+        - { path: ^/mot-de-passe-oublie, roles: PUBLIC_ACCESS }
+        - { path: ^/reinitialisation-de-mot-de-passe, roles: PUBLIC_ACCESS }
+        - { path: ^/public, roles: PUBLIC_ACCESS }
+        - { path: ^/oauth, roles: PUBLIC_ACCESS }
         # Referent routes
         - { path: ^/collectivites/liste, roles: ROLE_REFERENT }
         - { path: ^/collectivites/visualiser/.+$, roles: ROLE_REFERENT }
@@ -83,8 +83,8 @@ security:
         - { path: ^/.+/supprimer/.+/confirmation$, roles: ROLE_USER }
         - { path: ^espace-documentaire/telecharger/.+$, roles: ROLE_USER}
         # API routes
-        - { path: ^/api/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Allows accessing API documentations and Swagger UI
-        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/docs, roles: PUBLIC_ACCESS } # Allows accessing API documentations and Swagger UI
+        - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/, roles: [ IS_AUTHENTICATED_FULLY ] } #IS_AUTHENTICATED_FULLY
 
         # Others
