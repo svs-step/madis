@@ -969,7 +969,7 @@ Plusieurs indicateurs sont disponibles :
 * La cartographie des structures accompagnées grâce à l'indication du code INSEE dans la [gestion des structures](#Gestion-des-structures) ;
 * La répartition des structures en fonction de leur type identifié dans la [gestion des structures](#Gestion-des-structures) ;
 
-``Astuce : Depuis la carte, au survol d'un territoire, il est possible de consulter la Liste des organismes identifiées dans celui-ci. Il est alors possible de consulter le nom de la structure, le nombre de traitements actifs et le nombre d'actions de protection.``
+``Astuce : Depuis la carte, au survol d'un territoire, il est possible de consulter la Liste des structures identifiées dans celui-ci. Il est alors possible de consulter le nom de la structure, le nombre de traitements actifs et le nombre d'actions de protection.``
 
 Il est possible d'exporter certaines informations au format Excel :
 
@@ -1288,13 +1288,13 @@ Il est possible d'effectuer plusieurs actions :
 
 ## Gestion des structures
 
-Le menu « **Structures** » permet de consulter la Liste des organismes qui ont été créées dans Madis et d'en ajouter.
+Le menu « **Structures** » permet de consulter la Liste des structures qui ont été créées dans Madis et d'en ajouter.
 
-![Liste des organismes](images/Madis-Liste-Des-Structures.png)
+![Liste des structures](images/Madis-Liste-Des-Structures.png)
 
 Il est possible d'effectuer plusieurs actions :
 
-- « **+ Nouvel organisme** » permet d'ajouter une Nouvel organisme ;
+- « **+ Nouvelle structure** » permet d'ajouter une nouvelle structure ;
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
 - « **Modifier** » permet de modifier les informations d'une structure ;
 - « **Supprimer** » permet de supprimer définitivement la structure. La suppression de la structure n'est possible que s'il n'y a plus d'utilisateur. **Cette action est irréversible**.
@@ -1539,7 +1539,7 @@ Pour en savoir plus, [accéder aux API Madis](https://madis-test.soluris.fr/api/
 
 ### Responsable de traitement
 
-« La personne physique ou morale, l'autorité publique, le service ou un autre organisme qui, seul ou conjointement avec d'autres, détermine les finalités et les moyens du traitement; lorsque les finalités et les moyens de ce traitement sont déterminés par le droit de l'Union ou le droit d'un État membre, le responsable du traitement peut être désigné ou les critères spécifiques applicables à sa désignation peuvent être prévus par le droit de l'Union ou par le droit d'un État membre. » ([Art. 4 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre1#Article4)).
+« La personne physique ou morale, l'autorité publique, le service ou une autre structure qui, seul ou conjointement avec d'autres, détermine les finalités et les moyens du traitement; lorsque les finalités et les moyens de ce traitement sont déterminés par le droit de l'Union ou le droit d'un État membre, le responsable du traitement peut être désigné ou les critères spécifiques applicables à sa désignation peuvent être prévus par le droit de l'Union ou par le droit d'un État membre. » ([Art. 4 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre1#Article4)).
 
 ### Responsables conjoints
 
@@ -1547,7 +1547,7 @@ Pour en savoir plus, [accéder aux API Madis](https://madis-test.soluris.fr/api/
 
 ### Sous-traitant
 
-« La personne physique ou morale, l'autorité publique, le service ou un autre organisme qui traite des données à caractère personnel pour le compte du responsable du traitement. » ([Art. 4 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre1#Article4)).
+« La personne physique ou morale, l'autorité publique, le service ou une autre structure qui traite des données à caractère personnel pour le compte du responsable du traitement. » ([Art. 4 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre1#Article4)).
 
 ----
 

@@ -49,12 +49,12 @@ user:
         action:
             back_to_list: Retour à la liste
             back_to_show: Retour à la visualisation
-            new: Nouvel organisme
+            new: Nouvelle structure
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
             edit: Éditer "%name%"
-            list: Liste des organismes
+            list: Liste des structures
             show: Visualiser "%name%"
         form:
             active: Statut
@@ -147,7 +147,7 @@ user:
             delete: Supprimer une Structure
             edit: Éditer une Structure
             label: Structure
-            list: Liste des organismes
+            list: Liste des structures
             show: Visualiser une Structure
 
     profile:

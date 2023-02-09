@@ -65,7 +65,7 @@ class DuplicationFormDTO
     private $targetCollectivityTypes;
 
     /**
-     * FR: Liste des organismes cible, sur lesquelles dupliquer les données.
+     * FR: Liste des structures cible, sur lesquelles dupliquer les données.
      *
      * @var Collectivity[]
      */

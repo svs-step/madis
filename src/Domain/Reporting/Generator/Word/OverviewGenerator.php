@@ -110,9 +110,9 @@ class OverviewGenerator extends AbstractGenerator
     {
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
 
-        $section->addTitle('Présentation de l\'organisme', 1);
+        $section->addTitle('Présentation de la structure', 1);
 
-        $section->addTitle('Mission de l\'organisme', 2);
+        $section->addTitle('Mission de la structure', 2);
         $section->addText(\ucfirst($collectivity->getName()) . ' est une structure territoriale.');
 
         $section->addTitle('Engagement de la direction', 2);
