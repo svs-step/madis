@@ -33,7 +33,7 @@
                 <!-- User Account Menu -->
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button -->
-                    <a {% if not is_granted('ROLE_PREVIOUS_ADMIN') %}href="{{ path('logout') }}"{% endif %} class="dropdown-toggle">
+                    <a {% if not is_granted('ROLE_PREVIOUS_ADMIN') %} href="{{ path('logout') }}"{% endif %} class="dropdown-toggle">
                         <span>{{ app.user }} - {{ app.user.roles[0]|dictionary('user_user_role') }}&nbsp;&nbsp;&nbsp;</span>
                         <i class="fa fa-power-off"></i>
                     </a>

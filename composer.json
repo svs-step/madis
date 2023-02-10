@@ -32,7 +32,6 @@
         "phpdocumentor/reflection-docblock": "^5",
         "phpoffice/phpword": "^1.0",
         "phpspec/prophecy-phpunit": "^2.0",
-        "presta/sitemap-bundle": "^3.3",
         "ramsey/uuid": "^4.6",
         "ramsey/uuid-doctrine": "^1.8",
         "rollerworks/password-strength-bundle": "^2.0",
