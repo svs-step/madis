@@ -27,3 +27,14 @@ maturity_survey_delete_confirm:
     path: '/supprimer/{id}/confirmation'
     methods: ['GET']
     controller: 'App\Domain\Maturity\Controller\SurveyController:deleteConfirmationAction'
+
+maturity_survey_start:
+    path: '/commencer-survey'
+    methods: [ 'GET', 'POST' ]
+    controller: 'App\Domain\Maturity\Controller\SurveyController:startSurveyAction'
+
+maturity_survey_referentiel_datatables:
+    path: '/referentiel_datatables'
+    methods: [ 'GET','POST' ]
+    controller: 'App\Domain\maturity\Controller\SurveyController:referentielsDatatablesAction'
+

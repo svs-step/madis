@@ -58,9 +58,9 @@ class Survey implements LoggableSubject
     private $score;
 
     /**
-     * @var iterable|Referentiel[]
+     * @var Referentiel
      */
-    private $referentiels;
+    private $referentiel;
 
     /**
      * Survey constructor.
@@ -147,25 +147,13 @@ class Survey implements LoggableSubject
         $this->score = $score;
     }
 
-    public function getReferentiels(): iterable
+    public function getReferentiel(): Referentiel
     {
-        return $this->referentiels;
+        return $this->referentiel;
     }
 
-    public function addReferentiel(Referentiel $referentiel): void
+    public function setReferentiel(Referentiel $referentiel): void
     {
-        $referentiel->setReferentiel($this);
-        $this->referentiels[] = $referentiel;
-    }
-
-    public function removeReferentiel(Referentiel $referentiel): void
-    {
-        $key = \array_search($referentiel, $this->referentiels, true);
-
-        if (false === $key) {
-            return;
-        }
-
-        unset($this->referentiels[$key]);
+        $this->referentiel = $referentiel;
     }
 }

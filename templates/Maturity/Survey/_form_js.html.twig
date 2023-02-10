@@ -1,0 +1,24 @@
+<script>
+    function disableSelect(jQuerySelect) {
+        let idToDisable = jQuerySelect.data('select-id');
+        let selectToDisable = $('#'+idToDisable);
+        let addButtonToDisable = $('#' + idToDisable + '_add_button');
+        if (jQuerySelect.val() == 1) {
+            selectToDisable.prop('disabled', true);
+            addButtonToDisable.prop('disabled', true);
+            selectToDisable.selectpicker('val', []);
+        } else {
+            selectToDisable.prop('disabled', false);
+            addButtonToDisable.prop('disabled', false);
+        }
+        selectToDisable.selectpicker('refresh');
+    }
+
+    $( ".survey-select" ).change(function() {
+        disableSelect($(this));
+    });
+
+    $( ".survey-select" ).each(function() {
+        disableSelect($(this));
+    });
+</script>

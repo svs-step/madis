@@ -3,6 +3,7 @@ maturity:
         action:
             back_to_list: Retour à la liste
             new: Nouvel indice de maturité
+            referentiel: Choisir ce référentiel
         breadcrumb:
             create: Nouvel indice de maturité
             edit: Modifier un indice de maturité
@@ -22,6 +23,7 @@ maturity:
             edit: Modifier un indice de maturité
             list: Liste des indices de maturité
             delete: Supprimer un indice de maturité
+            name: test
     referentiel:
         action:
             back_to_list: Retour à la liste
