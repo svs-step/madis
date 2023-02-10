@@ -32,19 +32,24 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SurveyType extends AbstractType
 {
-    /**
-     * Build type form.
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('answers', CollectionType::class, [
-                'label'        => 'Questions',
-                'entry_type'   => AnswerType::class,
-                'allow_add'    => false,
-                'allow_delete' => false,
-            ])
-        ;
+        switch ($options['flow_step']) {
+            case 1:
+                $builder
+                    ->add('referentiels', CollectionType::class, [
+                        'entry_type' => ReferentielType::class,
+                        'required'   => true,
+                    ]);
+                break;
+            case 2:
+                $builder
+                    ->add('answers', CollectionType::class, [
+                        'entry_type' => AnswerType::class,
+                        'required'   => true,
+                    ]);
+                break;
+        }
     }
 
     /**

@@ -57,6 +57,9 @@ services:
     aipd.form.flow.analyse_impact:
         class: App\Domain\AIPD\Form\Flow\AnalyseImpactFlow
 
+    maturity.form.flow.survey:
+      class: App\Domain\Maturity\Form\Flow\SurveyFlow
+
     aipd.model.analyse_impact:
         class: App\Domain\AIPD\Model\AnalyseImpact
 

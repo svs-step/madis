@@ -58,5 +58,8 @@ maturity:
             answer: Réponses
             question_name: Nom de la question
             recommendation: Préconisation
+        table:
+            label: Nom du référentiel
+            description: description
 
 

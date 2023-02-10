@@ -1,0 +1,17 @@
+<table class="table table-bordered criteres-table">
+    <thead>
+    <tr>
+        <th class="col-md-5">{{ 'maturity.referentiel.table.label'|trans }}</th>
+        <th class="col-md-7">{{ 'maturity.referentiel.table.description'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for referentiel in referentiels %}
+        <tr>
+            <th><input type="radio" name="ref" value="{{ referentiel.id }}"><span style="margin-left: 15px">{{ referentiel.name }}</span></th>
+            <th>{{ referentiel.description }}</th>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
