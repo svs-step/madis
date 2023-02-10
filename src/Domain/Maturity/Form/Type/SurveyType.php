@@ -34,22 +34,15 @@ class SurveyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        switch ($options['flow_step']) {
-            case 1:
-                $builder
-                    ->add('referentiels', CollectionType::class, [
-                        'entry_type' => ReferentielType::class,
-                        'required'   => true,
-                    ]);
-                break;
-            case 2:
-                $builder
-                    ->add('answers', CollectionType::class, [
-                        'entry_type' => AnswerType::class,
-                        'required'   => true,
-                    ]);
-                break;
-        }
+         $builder
+             ->add('questions', CollectionType::class, [
+                 'entry_type' => ReferentielQuestionType::class,
+                 'required'   => true,
+             ])
+             ->add('answers', CollectionType::class, [
+                 'entry_type' => AnswerType::class,
+                 'required'   => true,
+             ]);
     }
 
     /**

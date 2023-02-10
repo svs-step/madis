@@ -26,6 +26,9 @@
             </cascade>
         </one-to-many>
 
+        <one-to-one field="referentiel" target-entity="App\Domain\Maturity\Model\Referentiel">
+        </one-to-one>
+
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">
             <join-column on-delete="CASCADE" />

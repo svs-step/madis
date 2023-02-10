@@ -176,7 +176,7 @@ class SurveyController extends CRUDController
      */
     public function formPrePersistData($object)
     {
-        $this->maturityHandler->handle($object);
+        //$this->maturityHandler->handle($object);
     }
 
     /**
@@ -185,34 +185,27 @@ class SurveyController extends CRUDController
      */
     public function createMaturitySurveyAction(Request $request): Response
     {
-        $object = new Model\Survey();
+        /**
+         * @var Model\Survey
+         */
+        $modelClass = $this->getModelClass();
+        $object     = new $modelClass();
 
-        $this->surveyFlow->bind($object);
-        $form = $this->surveyFlow->createForm();
+        $form = $this->createForm($this->getFormType(), $object);
 
-        if ($this->surveyFlow->isValid($form)) {
-            $this->formPrePersistData($object);
-            $this->surveyFlow->saveCurrentStepData($form);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($object);
+            $em->flush();
 
-            if ($this->surveyFlow->nextStep()) {
-                $form = $this->surveyFlow->createForm();
-                // TODO Persist and flush here to allow draft ?
-            } else {
-                $this->entityManager->persist($object);
-                $this->entityManager->flush();
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object->getName()));
 
-                $this->surveyFlow->reset();
-
-                return $this->redirectToRoute($this->getRouteName('list'));
-            }
+            return $this->redirectToRoute($this->getRouteName('list'));
         }
 
-        $referentiels = $this->entityManager->getRepository(Model\Referentiel::class)->findAll();
-
         return $this->render($this->getTemplatingBasePath('create'), [
-            'flow' => $this->surveyFlow,
             'form' => $form->createView(),
-            'referentiels' => $referentiels,
         ]);
     }
 
@@ -247,26 +240,20 @@ class SurveyController extends CRUDController
             throw new NotFoundHttpException('No referentiel with Id ' . $request->request->get('referentiel_choice') . ' exists.');
         }
 
-        $survey = new Model\Survey();
-        $survey->setReferentiel($referentiel);
-        $this->entityManager->persist($survey);
-        $this->entityManager->flush();
-
         return $this->redirectToRoute('maturity_survey_create', [
-            'id' => $survey->getId(),
+            'referentiel' => $referentiel->getId()
         ]);
     }
 
     public function referentielsDatatablesAction()
     {
         $request      = $this->requestStack->getMasterRequest();
-
         $referentiels = $this->getReferentielResults($request);
 
         $reponse = $this->getBaseDataTablesResponse($request, $referentiels);
         foreach ($referentiels as $referentiel) {
             $reponse['data'][] = [
-                'nom'         => '<input type="radio" value="' . $referentiel->getId() . '" name="referentiel_choice" required="true"/> ' . $referentiel->getNom(),
+                'nom'         => '<input type="radio" value="' . $referentiel->getId() . '" name="referentiel_choice" required="true"/> ' . $referentiel->getName(),
                 'description' => $referentiel->getDescription(),
             ];
 
@@ -283,7 +270,7 @@ class SurveyController extends CRUDController
 
         $reponse = [
             'draw'            => $draw,
-            'recordsTotal'    => $this->repository->count($criteria),
+            'recordsTotal'    => $this->referentielRepository->count($criteria),
             'recordsFiltered' => count($results),
             'data'            => [],
         ];
