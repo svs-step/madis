@@ -77,6 +77,9 @@
         <many-to-one field="creator" target-entity="App\Domain\User\Model\User">
             <join-column on-delete="SET NULL" />
         </many-to-one>
+        <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">
+            <join-column on-delete="CASCADE" />
+        </many-to-one>
         <field name="createdAt" column="created_at" type="datetime_immutable">
             <gedmo:timestampable on="create"/>
         </field>

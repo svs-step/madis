@@ -95,6 +95,8 @@ registry:
         flashbag:
             success:
                 create: Outil ou support "%object%" créé avec succès
+                delete: Outil ou support "%object%" supprimé avec succès
+                edit: Outil ou support "%object%" modifié avec succès
         type:
             not_null: Vous devez choisir le type
         name:
@@ -135,6 +137,8 @@ registry:
         title:
             list: Logiciels et supports
             create: Création d'un logiciel ou support
+            edit: Modification d'un logiciel ou support
+            delete: Suppression d'un logiciel ou support
         action:
             new: Nouveau logiciel ou support
             edit: Editer

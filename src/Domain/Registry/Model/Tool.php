@@ -33,14 +33,16 @@ use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\User;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Action de protection / Plan d'action.
  */
-class Tool implements LoggableSubject
+class Tool implements LoggableSubject, CollectivityRelated
 {
     use CreatorTrait;
     use HistoryTrait;
+    use CollectivityTrait;
 
     const COUNTRY_FRANCE = 'registry.tool.country.france';
     const COUNTRY_EU = 'registry.tool.country.eu';
@@ -51,9 +53,9 @@ class Tool implements LoggableSubject
     const COUNTRY_OTHER_TEXT = 'Pays d’hébergement de la donnée';
 
     const COUNTRY_TYPES = [
-        self::COUNTRY_FRANCE => self::COUNTRY_FRANCE_TEXT,
-        self::COUNTRY_EU => self::COUNTRY_EU_TEXT,
-        self::COUNTRY_OTHER => self::COUNTRY_OTHER_TEXT,
+        self::COUNTRY_FRANCE_TEXT => self::COUNTRY_FRANCE,
+        self::COUNTRY_EU_TEXT => self::COUNTRY_EU,
+        self::COUNTRY_OTHER_TEXT => self::COUNTRY_OTHER,
     ];
 
     /**
@@ -235,6 +237,7 @@ class Tool implements LoggableSubject
 
         return $this->getName();
     }
+
 
     public function getId(): UuidInterface
     {

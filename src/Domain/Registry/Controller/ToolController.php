@@ -290,10 +290,6 @@ class ToolController extends CRUDController
             $object->setDeletedAt(new \DateTimeImmutable());
             $this->repository->update($object);
         } else {
-            /* Delete clonedFrom id from clone to prevent SQL error on foreign key */
-            foreach ($this->repository->findBy(['clonedFrom' => $id]) as $clone) {
-                $clone->setClonedFrom(null);
-            }
             $this->entityManager->remove($object);
             $this->entityManager->flush();
         }

@@ -48,6 +48,8 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ToolType extends AbstractType
 {
@@ -64,6 +66,10 @@ class ToolType extends AbstractType
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
+                ],
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 3]),
                 ],
             ])
 
@@ -128,18 +134,12 @@ class ToolType extends AbstractType
             ->add('country_type', ChoiceType::class, [
                 'label' => 'registry.tool.form.country_type',
                 'choices' => Tool::COUNTRY_TYPES,
-                'required' => false,
-
+                'required' => true,
             ])
 
             ->add('country_name', TextType::class, [
                 'label' => 'registry.tool.form.country_name',
                 'required' => false,
-                'constraints' => [
-                    new Callback(function($data) {
-                        dd($data);
-                    })
-                ]
             ])
 
             ->add('country_guarantees', TextType::class, [
@@ -184,11 +184,6 @@ class ToolType extends AbstractType
                 'required' => false,
             ])
         ;
-
-        $builder->addEventListener(FormEvents::SUBMIT, function(FormEvent $event) {
-            $data = $event->getData();
-
-        });
     }
 
     /**
