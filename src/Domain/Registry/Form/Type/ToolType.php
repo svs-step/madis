@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Model\Proof;
@@ -37,12 +38,16 @@ use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Validator\Constraints\Callback;
 
 class ToolType extends AbstractType
 {
@@ -69,7 +74,21 @@ class ToolType extends AbstractType
                 'multiple' => false,
                 'expanded' => true,
             ])
-            ->add('editor', CheckboxType::class, [
+            ->add('description', TextareaType::class, [
+                'label'    => 'registry.tool.form.description',
+                'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('other_info', TextareaType::class, [
+                'label'    => 'registry.tool.form.other_info',
+                'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('editor', TextType::class, [
                 'label'    => 'registry.tool.form.editor',
                 'required' => false,
                 'attr'     => [
@@ -77,8 +96,9 @@ class ToolType extends AbstractType
                 ],
             ])
 
+
             ->add('contractors', EntityType::class, [
-                'label'         => 'registry.tool.form.contractor',
+                'label'         => 'registry.tool.form.contractors',
                 'class'         => Contractor::class,
                 'required'      => false,
                 'multiple'      => true,
@@ -94,58 +114,81 @@ class ToolType extends AbstractType
                 ],
             ])
 
-            ->add('treatments', EntityType::class, [
-                'label'         => 'registry.tool.form.treatment',
-                'class'         => Treatment::class,
-                'required'      => false,
-                'multiple'      => true,
-                'expanded'      => false,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c')
-                        ->addOrderBy('c.name', 'asc')
-                    ;
-                },
-                'attr'          => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+            ->add('prod_date', DateType::class, [
+                'label' => 'registry.tool.form.prod_date',
+                'required' => false,
+                'widget'   => 'single_text',
+                'format'   => 'dd/MM/yyyy',
+                'html5'    => false,
+                'attr'     => [
+                    'class' => 'datepicker',
                 ],
             ])
 
-            ->add('proofs', EntityType::class, [
-                'label'         => 'registry.tool.form.proof',
-                'class'         => Proof::class,
-                'required'      => false,
-                'multiple'      => true,
-                'expanded'      => false,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c')
-                        ->addOrderBy('c.name', 'asc')
-                    ;
-                },
-                'attr'          => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
-                ],
+            ->add('country_type', ChoiceType::class, [
+                'label' => 'registry.tool.form.country_type',
+                'choices' => Tool::COUNTRY_TYPES,
+                'required' => false,
+
             ])
 
-            ->add('actions', EntityType::class, [
-                'label'         => 'registry.tool.form.action',
-                'class'         => Mesurement::class,
-                'required'      => false,
-                'multiple'      => true,
-                'expanded'      => false,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c')
-                        ->addOrderBy('c.name', 'asc')
-                    ;
-                },
-                'attr'          => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
-                ],
+            ->add('country_name', TextType::class, [
+                'label' => 'registry.tool.form.country_name',
+                'required' => false,
+                'constraints' => [
+                    new Callback(function($data) {
+                        dd($data);
+                    })
+                ]
             ])
 
+            ->add('country_guarantees', TextType::class, [
+                'label' => 'registry.tool.form.country_guarantees',
+                'required' => false,
+            ])
+
+            ->add('archival', ComplexChoiceType::class, [
+                'label'    => 'registry.tool.form.archival',
+                'required' => false,
+            ])
+            ->add('tracking', ComplexChoiceType::class, [
+                'label'    => 'registry.tool.form.tracking',
+                'required' => false,
+            ])
+            ->add('encrypted', ComplexChoiceType::class, [
+                'label'    => 'registry.tool.form.encrypted',
+                'required' => false,
+            ])
+            ->add('access_control', ComplexChoiceType::class, [
+                'label'    => 'registry.tool.form.access_control',
+                'required' => false,
+            ])
+            ->add('update', ComplexChoiceType::class, [
+                'label'    => 'registry.tool.form.update',
+                'required' => false,
+            ])
+            ->add('backup', ComplexChoiceType::class, [
+                'label'    => 'registry.tool.form.backup',
+                'required' => false,
+            ])
+            ->add('deletion', ComplexChoiceType::class, [
+                'label'    => 'registry.tool.form.deletion',
+                'required' => false,
+            ])
+            ->add('has_comment', ComplexChoiceType::class, [
+                'label'    => 'registry.tool.form.has_comment',
+                'required' => false,
+            ])
+            ->add('other', ComplexChoiceType::class, [
+                'label'    => 'registry.tool.form.other',
+                'required' => false,
+            ])
         ;
+
+        $builder->addEventListener(FormEvents::SUBMIT, function(FormEvent $event) {
+            $data = $event->getData();
+
+        });
     }
 
     /**

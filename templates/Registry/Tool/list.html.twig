@@ -87,6 +87,13 @@
                                 </select>
                             </th>
                             <th>
+                                <select class="form-control" id="search_tracking" style="width: 100%;">
+                                    <option value="">Traçabilité</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
                                 <select class="form-control" id="search_access_control" style="width: 100%;">
                                     <option value="">Contrôle d'accès</option>
                                     <option value="1">Oui</option>
@@ -136,6 +143,7 @@
                             <th>{{ 'registry.tool.list.editor'|trans }}</th>
                             <th>{{ 'registry.tool.list.archival'|trans }}</th>
                             <th>{{ 'registry.tool.list.encrypted'|trans }}</th>
+                            <th>{{ 'registry.tool.list.tracking'|trans }}</th>
                             <th>{{ 'registry.tool.list.access_control'|trans }}</th>
                             <th>{{ 'registry.tool.list.update'|trans }}</th>
                             <th>{{ 'registry.tool.list.backup'|trans }}</th>
@@ -176,6 +184,7 @@
             {"data": "editor"},
             {"data": "archival"},
             {"data": "encrypted"},
+            {"data": "tracking"},
             {"data": "access_control"},
             {"data": "update"},
             {"data": "backup"},

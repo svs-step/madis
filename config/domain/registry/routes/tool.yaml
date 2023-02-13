@@ -1,3 +1,15 @@
+
+registry_tool_index:
+    path: '/'
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    methods: ['GET']
+    defaults:
+        route: 'registry_tool_list'
+        permanent: true
+        keepQueryParams: true
+        keepRequestMethod: true
+        ignoreAttributes: true
+
 registry_tool_list:
     path: '/liste'
     methods: ['GET']

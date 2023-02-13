@@ -92,18 +92,61 @@ registry:
             other_delay: Autre délai
 
     tool:
+        flashbag:
+            success:
+                create: Outil ou support "%object%" créé avec succès
+        type:
+            not_null: Vous devez choisir le type
+        name:
+            not_blank: Le nom de l'outil est indispensable
+
+        country:
+            france: France
+            eu: Autre pays de l’Union Européenne ou pays adéquats
+            other: Pays d’hébergement de la donnée
+        breadcrumb:
+            list: Liste des outils et supports
+            create: Création
+        form:
+            name: Nom
+            type: Type
+            editor: Editeur
+            contractors: Sous-traitants
+            description: Description
+            other_info: Autres informations
+            prod_date: Date de mise en production
+            country_type: Pays
+            country_name: Nom du pays
+            country_guarantees: Garanties pour le transfert
+            manager: Personne en charge
+            archival: Archivage
+            tracking: Traçabilité
+            encrypted: Chiffrement
+            access_control: Contrôle d'accès
+            update: Mise à jour
+            backup: Sauvegarde
+            deletion: Suppression
+            has_comment: Zone de commentaire libre
+            other: Autres
+        tab:
+            relations: Relations
+            general: Général
+            measures: Mesures de sécurité et confidentialité
         title:
             list: Logiciels et supports
-
+            create: Création d'un logiciel ou support
         action:
             new: Nouveau logiciel ou support
             edit: Editer
             delete: Supprimer
+            submit: Sauvegarder
+            back_to_list: Retour à la liste
         list:
             name: Nom
             access_control: Contrôle d'accès
             update: Mise à jour
             backup: Sauvegarde
+            tracking: Traçabilité
             deletion: Suppression
             has_comment: Zone de commentaire libre
             other: Autre

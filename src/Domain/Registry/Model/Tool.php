@@ -28,6 +28,7 @@ use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
+use App\Domain\Registry\Model\Embeddable\ComplexChoice;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\User;
 use Ramsey\Uuid\Uuid;
@@ -40,6 +41,20 @@ class Tool implements LoggableSubject
 {
     use CreatorTrait;
     use HistoryTrait;
+
+    const COUNTRY_FRANCE = 'registry.tool.country.france';
+    const COUNTRY_EU = 'registry.tool.country.eu';
+    const COUNTRY_OTHER = 'registry.tool.country.other';
+
+    const COUNTRY_FRANCE_TEXT = 'France';
+    const COUNTRY_EU_TEXT = 'Autre pays de l’Union Européenne ou pays adéquats';
+    const COUNTRY_OTHER_TEXT = 'Pays d’hébergement de la donnée';
+
+    const COUNTRY_TYPES = [
+        self::COUNTRY_FRANCE => self::COUNTRY_FRANCE_TEXT,
+        self::COUNTRY_EU => self::COUNTRY_EU_TEXT,
+        self::COUNTRY_OTHER => self::COUNTRY_OTHER_TEXT,
+    ];
 
     /**
      * @var UuidInterface
@@ -68,58 +83,114 @@ class Tool implements LoggableSubject
     private $editor;
 
     /**
+     * FR: Personne en charge.
+     *
+     * @var string|null
+     */
+    private $manager;
+
+    /**
+     * FR: Description.
+     *
+     * @var string|null
+     */
+    private $description;
+
+    /**
+     * FR: Date de mise en prodution.
+     *
+     * @var \DateTime|null
+     */
+    private $prod_date;
+
+    /**
+     * FR: Pays d'hébergement ou de stockage
+     *
+     * @var string|null
+     */
+    private $country_type;
+
+    /**
+     * FR: Pays d'hébergement ou de stockage
+     *
+     * @var string|null
+     */
+    private $country_name;
+
+    /**
+     * FR: Garanties pour le transfert
+     *
+     * @var string|null
+     */
+    private $country_guarantees;
+
+    /**
+     * FR: Autres informations
+     *
+     * @var string|null
+     */
+    private $other_info;
+
+    /**
      * FR: Archivage.
      *
-     * @var bool|null
+     * @var ComplexChoice
      */
     private $archival;
 
     /**
+     * FR: Traçabilité.
+     *
+     * @var ComplexChoice
+     */
+    private $tracking;
+
+    /**
      * FR: Chiffrement.
      *
-     * @var bool|null
+     * @var ComplexChoice
      */
     private $encrypted;
 
     /**
      * FR: Controle d'accès.
      *
-     * @var bool|null
+     * @var ComplexChoice
      */
     private $access_control;
 
     /**
      * FR: Mise à jour.
      *
-     * @var bool|null
+     * @var ComplexChoice
      */
     private $update;
 
     /**
      * FR: Sauvegarde.
      *
-     * @var bool|null
+     * @var ComplexChoice
      */
     private $backup;
 
     /**
      * FR: Suppression.
      *
-     * @var bool|null
+     * @var ComplexChoice
      */
     private $deletion;
 
     /**
      * FR: Zone de commentaire libre.
      *
-     * @var bool|null
+     * @var ComplexChoice
      */
     private $has_comment;
 
     /**
      * FR: Autres.
      *
-     * @var bool|null
+     * @var ComplexChoice
      */
     private $other;
 
@@ -140,6 +211,16 @@ class Tool implements LoggableSubject
         $this->contractors = [];
         $this->mesurements = [];
         $this->treatments  = [];
+        $this->tracking = new ComplexChoice();
+        $this->update = new ComplexChoice();
+        $this->archival = new ComplexChoice();
+        $this->other = new ComplexChoice();
+        $this->has_comment = new ComplexChoice();
+        $this->deletion = new ComplexChoice();
+        $this->backup = new ComplexChoice();
+        $this->update = new ComplexChoice();
+        $this->access_control = new ComplexChoice();
+        $this->encrypted = new ComplexChoice();
     }
 
     public function __toString(): string
@@ -190,85 +271,208 @@ class Tool implements LoggableSubject
         $this->editor = $editor;
     }
 
-    public function getArchival(): ?bool
+    public function getArchival(): ?ComplexChoice
     {
         return $this->archival;
     }
 
-    public function setArchival(?bool $archival): void
+    public function setArchival(?ComplexChoice $archival): void
     {
         $this->archival = $archival;
     }
 
-    public function getEncrypted(): ?bool
+    public function getEncrypted(): ?ComplexChoice
     {
         return $this->encrypted;
     }
 
-    public function setEncrypted(?bool $encrypted): void
+    public function setEncrypted(?ComplexChoice $encrypted): void
     {
         $this->encrypted = $encrypted;
     }
 
-    public function getAccessControl(): ?bool
+    public function getAccessControl(): ?ComplexChoice
     {
         return $this->access_control;
     }
 
-    public function setAccessControl(?bool $access_control): void
+    public function setAccessControl(?ComplexChoice $access_control): void
     {
         $this->access_control = $access_control;
     }
 
-    public function getUpdate(): ?bool
+    public function getUpdate(): ?ComplexChoice
     {
         return $this->update;
     }
 
-    public function setUpdate(?bool $update): void
+    public function setUpdate(?ComplexChoice $update): void
     {
         $this->update = $update;
     }
 
-    public function getBackup(): ?bool
+    public function getBackup(): ?ComplexChoice
     {
         return $this->backup;
     }
 
-    public function setBackup(?bool $backup): void
+    public function setBackup(?ComplexChoice $backup): void
     {
         $this->backup = $backup;
     }
 
-    public function getDeletion(): ?bool
+    public function getDeletion(): ?ComplexChoice
     {
         return $this->deletion;
     }
 
-    public function setDeletion(?bool $deletion): void
+    public function setDeletion(?ComplexChoice $deletion): void
     {
         $this->deletion = $deletion;
     }
 
-    public function getHasComment(): ?bool
+    public function getHasComment(): ?ComplexChoice
     {
         return $this->has_comment;
     }
 
-    public function setHasComment(?bool $has_comment): void
+    public function setHasComment(?ComplexChoice $has_comment): void
     {
         $this->has_comment = $has_comment;
     }
 
-    public function getOther(): ?bool
+    public function getOther(): ?ComplexChoice
     {
         return $this->other;
     }
 
-    public function setOther(?bool $other): void
+    public function setOther(?ComplexChoice $other): void
     {
         $this->other = $other;
     }
+
+    public function getTracking(): ?ComplexChoice
+    {
+        return $this->tracking;
+    }
+
+    public function setTracking(?ComplexChoice $tracking): void
+    {
+        $this->tracking = $tracking;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getManager(): ?string
+    {
+        return $this->manager;
+    }
+
+    /**
+     * @param string|null $manager
+     */
+    public function setManager(?string $manager): void
+    {
+        $this->manager = $manager;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string|null $description
+     */
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getProdDate(): ?\DateTime
+    {
+        return $this->prod_date;
+    }
+
+    /**
+     * @param \DateTime|null $prod_date
+     */
+    public function setProdDate(?\DateTime $prod_date): void
+    {
+        $this->prod_date = $prod_date;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCountryType(): ?string
+    {
+        return $this->country_type;
+    }
+
+    /**
+     * @param string|null $country_type
+     */
+    public function setCountryType(?string $country_type): void
+    {
+        $this->country_type = $country_type;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCountryName(): ?string
+    {
+        return $this->country_name;
+    }
+
+    /**
+     * @param string|null $country_name
+     */
+    public function setCountryName(?string $country_name): void
+    {
+        $this->country_name = $country_name;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCountryGuarantees(): ?string
+    {
+        return $this->country_guarantees;
+    }
+
+    /**
+     * @param string|null $country_guarantees
+     */
+    public function setCountryGuarantees(?string $country_guarantees): void
+    {
+        $this->country_guarantees = $country_guarantees;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getOtherInfo(): ?string
+    {
+        return $this->other_info;
+    }
+
+    /**
+     * @param string|null $other_info
+     */
+    public function setOtherInfo(?string $other_info): void
+    {
+        $this->other_info = $other_info;
+    }
+
 
     public function getTreatments(): iterable|null
     {

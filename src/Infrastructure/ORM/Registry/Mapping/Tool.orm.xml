@@ -13,14 +13,21 @@
         <field name="name" column="name"/>
         <field name="type" column="type" nullable="true"/>
         <field name="editor" column="editor" nullable="true"/>
-        <field name="archival" column="archival" nullable="true" type="boolean"/>
-        <field name="encrypted" column="encrypted" nullable="true" type="boolean"/>
-        <field name="access_control" column="access_control" nullable="true" type="boolean"/>
-        <field name="update" column="updating" nullable="true" type="boolean"/>
-        <field name="backup" column="backup" nullable="true" type="boolean"/>
-        <field name="deletion" column="deletion" nullable="true" type="boolean"/>
-        <field name="has_comment" column="has_comment" nullable="true" type="boolean"/>
-        <field name="other" column="other" nullable="true" type="boolean"/>
+        <field name="description" column="description" nullable="true" type="text"/>
+        <field name="prod_date" column="prod_date" nullable="true" type="date"/>
+        <field name="country_name" column="country_name" nullable="true" />
+        <field name="country_type" column="country_type" nullable="true" />
+        <field name="country_guarantees" column="country_guarantees" nullable="true" />
+        <field name="other_info" column="other_info" nullable="true" type="text"/>
+        <embedded name="archival" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="archival_"/>
+        <embedded name="encrypted" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="encrypted_"/>
+        <embedded name="access_control" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="access_control_"/>
+        <embedded name="update" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="updating_"/>
+        <embedded name="backup" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="backup_"/>
+        <embedded name="deletion" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="deletion_"/>
+        <embedded name="tracking" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="tracking_"/>
+        <embedded name="has_comment" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="has_comment_"/>
+        <embedded name="other" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="other_"/>
 
         <many-to-many field="proofs" target-entity="App\Domain\Registry\Model\Proof" inversed-by="tools">
             <join-table name="tool_proof">
