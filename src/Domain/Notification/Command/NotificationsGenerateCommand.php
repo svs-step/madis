@@ -10,6 +10,7 @@ use App\Domain\Notification\Event\LateSurveyEvent;
 use App\Domain\Notification\Event\NoLoginEvent;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Registry\Model\TreatmentDataCategory;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteTraitement\ConformiteTraitement as ConformiteTraitementRepository;
 use App\Infrastructure\ORM\Registry\Repository\Mesurement as MesurementRepository;
@@ -31,6 +32,8 @@ class NotificationsGenerateCommand extends Command
     private UserRepository $userRepository;
     private SurveyRepository $surveyRepository;
     private ConformiteTraitementRepository $conformiteTraitementRepository;
+
+    private SymfonyStyle $io;
 
     public function __construct(
         EventDispatcherInterface $dispatcher,
@@ -59,18 +62,21 @@ class NotificationsGenerateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
+        $this->io = new SymfonyStyle($input, $output);
+        $cnt      = $this->generateNoLoginNotifications();
+        $this->io->success($cnt . ' inactive users notifications generated');
 
-        $cnt = $this->generateNoLoginNotifications();
-        $io->success($cnt . ' inactive users notifications generated');
         $cnt = $this->generateLateActionNotifications();
-        $io->success($cnt . ' late actions notifications generated');
+        $this->io->success($cnt . ' late actions notifications generated');
 
         $cnt = $this->generateLateRequestNotification();
-        $io->success($cnt . ' late requests notifications generated');
+        $this->io->success($cnt . ' late requests notifications generated');
 
         $cnt = $this->generateLateSurveyNotification();
-        $io->success($cnt . ' late survey notifications generated');
+        $this->io->success($cnt . ' late survey notifications generated');
+
+        $cnt = $this->generateTreatmentNeedsAIPDNotification();
+        $this->io->success($cnt . ' treatment needs AIPD notifications generated');
 
         return 0;
     }
@@ -87,6 +93,7 @@ class NotificationsGenerateCommand extends Command
             if ($action->getPlanificationDate() && $action->getPlanificationDate() < $now) {
                 $this->dispatcher->dispatch(new LateActionEvent($action));
                 ++$cnt;
+//                $this->io->writeln('late action count so far: ' . $cnt);
             }
         }
 
@@ -100,6 +107,7 @@ class NotificationsGenerateCommand extends Command
         foreach ($requests as $request) {
             $this->dispatcher->dispatch(new LateRequestEvent($request));
             ++$cnt;
+//            $this->io->writeln('late request count so far: ' . $cnt);
         }
 
         return $cnt;
@@ -114,6 +122,7 @@ class NotificationsGenerateCommand extends Command
         foreach ($surveys as $survey) {
             $this->dispatcher->dispatch(new LateSurveyEvent($survey));
             ++$cnt;
+//            $this->io->writeln('late survey count so far: ' . $cnt);
         }
 
         return $cnt;
@@ -127,6 +136,7 @@ class NotificationsGenerateCommand extends Command
         foreach ($users as $user) {
             ++$cnt;
             $this->dispatcher->dispatch(new NoLoginEvent($user));
+//            $this->io->writeln('No login count so far: ' . $cnt);
         }
 
         return $cnt;
@@ -134,32 +144,69 @@ class NotificationsGenerateCommand extends Command
 
     protected function generateTreatmentNeedsAIPDNotification(): int
     {
-        // Get users that have last login null and created_at more than 6 months ago
+        // Get all conformité traitements that should have an AIPD
         $cfs = $this->conformiteTraitementRepository->findAll();
         $cnt = 0;
         foreach ($cfs as $conformite) {
-            /*
-             * @var ConformiteTraitement $conformite
-             */
-            ++$cnt;
-            $this->dispatcher->dispatch(new ConformiteTraitementNeedsAIPDEvent($conformite));
+            /** @var ConformiteTraitement $conformite */
+            if ($conformite->getTraitement() && !$conformite->getTraitement()->getExemptAIPD()
+                && null === $conformite->getLastAnalyseImpact() && $this->getCritereValid($conformite)) {
+                ++$cnt;
+                $this->dispatcher->dispatch(new ConformiteTraitementNeedsAIPDEvent($conformite));
+//                $this->io->writeln('treatment needs AIPD count so far: ' . $cnt);
+            }
         }
 
         return $cnt;
     }
 
-    private function getPlanifiedMesurements(ConformiteTraitement $conformiteTraitement): array
+    private function getCritereValid(ConformiteTraitement $conformite)
     {
-        $planifiedMesurementsToBeNotified = [];
-        foreach ($conformiteTraitement->getReponses() as $reponse) {
-            $mesurements = \iterable_to_array($reponse->getActionProtectionsPlanifiedNotSeens());
-            foreach ($mesurements as $mesurement) {
-                if (!\in_array($mesurement, $planifiedMesurementsToBeNotified)) {
-                    \array_push($planifiedMesurementsToBeNotified, $mesurement);
-                }
-            }
+        $counter  = 0;
+        $sensible = false;
+
+        $t = $conformite->getTraitement();
+
+        if ($t && $t->isSystematicMonitoring()) {
+            ++$counter;
+        }
+        if ($t && $t->isLargeScaleCollection()) {
+            ++$counter;
+        }
+        if ($t && $t->isVulnerablePeople()) {
+            ++$counter;
+        }
+        if ($t && $t->isDataCrossing()) {
+            ++$counter;
+        }
+        if ($t && $t->isEvaluationOrRating()) {
+            ++$counter;
+        }
+        if ($t && $t->isAutomatedDecisionsWithLegalEffect()) {
+            ++$counter;
+        }
+        if ($t && $t->isAutomaticExclusionService()) {
+            ++$counter;
+        }
+        if ($t && $t->isInnovativeUse()) {
+            ++$counter;
         }
 
-        return $planifiedMesurementsToBeNotified;
+        if (1 === $counter) {
+            foreach ($t->getDataCategories() as $category) {
+                /** @var TreatmentDataCategory $category */
+                if ($category->isSensible()) {
+                    $sensible = true;
+                }
+            }
+
+            return $sensible;
+        }
+
+        if ($counter > 1) {
+            return true;
+        }
+
+        return false;
     }
 }

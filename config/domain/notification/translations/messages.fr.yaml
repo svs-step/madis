@@ -17,12 +17,13 @@ notifications:
         delete: Suppression
         create: Création
         update: Modification
-        state_change: Changement d'état
         late_action: En retard
         late_request: En retard
         late_survey: En retard
         no_login: Inactif
         validation: Validation
+        treatment_needs_aipd: Nécéssité de faire une AIPD
+        state_change: Changement d'état
 notification:
     module: Notifications
     modules:
@@ -39,15 +40,18 @@ notification:
         user: Utilisateurs
         documentation: Documentation
         maturity: Indices de maturité
+
     actions:
         delete: Suppression
         create: Création
         update: Modification
-        state_change: Changement d'état
         late_action: En retard
         late_request: En retard
         late_survey: En retard
         no_login: Inactif
+        validation: Validation
+        treatment_needs_aipd: Nécéssité de faire une AIPD
+        state_change: Changement d'état
     email:
         subject: Nouvelles notifications Madis
         madis: Accéder à madis

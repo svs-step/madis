@@ -11,6 +11,7 @@ use App\Domain\Notification\Event\NoLoginEvent;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Model\NotificationUser;
 use App\Domain\Notification\Serializer\NotificationNormalizer;
+use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Model\User;
@@ -89,6 +90,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
         $notification->setNotificationUsers($nus);
         $this->notificationRepository->update($notification);
+        $this->saveEmailNotificationForDPOs($notification, $conformite);
     }
 
     /**
@@ -264,6 +266,28 @@ class NotificationEventSubscriber implements EventSubscriberInterface
                 if ($object->getCollectivity()->getLegalManager()->getNotification()) {
                     $refs = [$object->getCollectivity()->getLegalManager()->getMail()];
                 }
+            }
+        }
+
+        $this->saveEmailNotifications($notification, $refs);
+    }
+
+    private function saveEmailNotificationForDPOs(Notification $notification, ConformiteTraitement $object)
+    {
+        // Get DPOs
+        $t    = $object->getTraitement();
+        $refs = $t->getCollectivity()->getUsers()->filter(function (User $u) {
+            $mi = $u->getMoreInfos();
+
+            return in_array('ROLE_ADMIN', $u->getRoles())
+                || in_array('ROLE_REFERENT', $u->getRoles())
+                || ($mi && isset($mi[UserMoreInfoDictionary::MOREINFO_DPD]) && $mi[UserMoreInfoDictionary::MOREINFO_DPD]);
+        });
+
+        // Also get DPOs from collectivity
+        if ($t->getCollectivity() && $t->getCollectivity()->getDpo()) {
+            if ($t->getCollectivity()->getDpo()->getNotification()) {
+                $refs[] = $t->getCollectivity()->getDpo()->getMail();
             }
         }
 
