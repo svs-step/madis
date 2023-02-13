@@ -45,6 +45,10 @@ body > div.banner-impersonate {
   transform: translateY(0);
 }
 
+a:focus {
+  outline: 1px dashed red;
+}
+
 /* Footer */
 .footer-public > footer{
   margin-left:0;
