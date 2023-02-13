@@ -25,25 +25,35 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Model;
+use App\Domain\Maturity\Model\ReferentielAnswer;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\CallbackTransformer;
 
 class SurveyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-         $builder
-             ->add('questions', CollectionType::class, [
-                 'entry_type' => ReferentielQuestionType::class,
-                 'required'   => true,
-             ])
-             ->add('answers', CollectionType::class, [
-                 'entry_type' => AnswerType::class,
-                 'required'   => true,
-             ]);
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
+            $referentiel = $event->getData()->getReferentiel();
+
+            foreach ($referentiel->getReferentielSections() as $section){
+                $event->getForm()->add('surveySections', CollectionType::class, [
+                    'entry_type'     => SurveySectionType::class,
+                    'by_reference'   => false,
+                    'prototype_name' => '__section_name__',
+                ]);
+            }
+        });
     }
+
+
 
     /**
      * Provide type options.

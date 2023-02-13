@@ -13,7 +13,7 @@
 {% block body_head %}
     <h1>
         {{ 'maturity.survey.title.create'|trans }}
-        <small>{{ "now"|date("d/m/Y") ~ smallTitle }}</small>
+        <small>{{ "now"|date("d/m/Y") }}</small>
     </h1>
 {% endblock %}
 
@@ -26,34 +26,5 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-solid">
-                <div class="box-body">
-                    <p><b>Une fois le référentiel choisi, il n'est plus possible de revenir en arrière</b></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{ form_start(form) }}
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-solid">
-                <div class="box-body">
-                    <p>L'évaluation des principes fondamentaux a été réalisée lors de l'évaluation de la conformité des traitements, il peut être nécessaire ici de justifier.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-solid">
-                <div class="box-body text-center">
-                    {{ dump() }}
-                </div>
-            </div>
-        </div>
-    </div>
-    {{ form_end(form) }}
+    {{ include('Maturity/Survey/_form.html.twig') }}
 {% endblock %}

@@ -191,6 +191,12 @@ class SurveyController extends CRUDController
         $modelClass = $this->getModelClass();
         $object     = new $modelClass();
 
+        $referentiel = $this->entityManager->getRepository(Model\Referentiel::class)->findOneBy([
+            'id' => $request->get('referentiel')
+        ]);
+
+        $object->setReferentiel($referentiel);
+
         $form = $this->createForm($this->getFormType(), $object);
 
         $form->handleRequest($request);
@@ -206,6 +212,7 @@ class SurveyController extends CRUDController
 
         return $this->render($this->getTemplatingBasePath('create'), [
             'form' => $form->createView(),
+            'referentiel' => $referentiel,
         ]);
     }
 
