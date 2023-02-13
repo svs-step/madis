@@ -11,15 +11,15 @@
         </a>
         {% endif %}
     </li>
-
     {% for item in breadcrumb %}
         <li {% if loop.last %}class="active"{% endif %}>
             {% if item.link is defined %}
             <a aria-label="{{ item.name }}" href="{{ item.link }}">
             {% endif %}
-                <i class="fa fa-tachometer-alt"></i>
-                {{ 'reporting.dashboard.breadcrumb.index'|trans }}
-            {% if breadcrumb|length > 0 %}
+
+                {{ item.name }}
+
+            {% if item.link is defined %}
             </a>
             {% endif %}
         </li>
