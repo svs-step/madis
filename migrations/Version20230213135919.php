@@ -12,15 +12,15 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20230213135919 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE registry_tool (id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', creator_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', name VARCHAR(255) NOT NULL, type VARCHAR(255) DEFAULT NULL, editor VARCHAR(255) DEFAULT NULL, description LONGTEXT DEFAULT NULL, prod_date DATE DEFAULT NULL, country_name VARCHAR(255) DEFAULT NULL, country_type VARCHAR(255) DEFAULT NULL, country_guarantees VARCHAR(255) DEFAULT NULL, other_info LONGTEXT DEFAULT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', updated_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', archival_check TINYINT(1) NOT NULL, archival_comment VARCHAR(255) DEFAULT NULL, encrypted_check TINYINT(1) NOT NULL, encrypted_comment VARCHAR(255) DEFAULT NULL, access_control_check TINYINT(1) NOT NULL, access_control_comment VARCHAR(255) DEFAULT NULL, updating_check TINYINT(1) NOT NULL, updating_comment VARCHAR(255) DEFAULT NULL, backup_check TINYINT(1) NOT NULL, backup_comment VARCHAR(255) DEFAULT NULL, deletion_check TINYINT(1) NOT NULL, deletion_comment VARCHAR(255) DEFAULT NULL, tracking_check TINYINT(1) NOT NULL, tracking_comment VARCHAR(255) DEFAULT NULL, has_comment_check TINYINT(1) NOT NULL, has_comment_comment VARCHAR(255) DEFAULT NULL, other_check TINYINT(1) NOT NULL, other_comment VARCHAR(255) DEFAULT NULL, INDEX IDX_3C2A7CF261220EA6 (creator_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE tool_proof (tool_id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', proof_id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', INDEX IDX_1A2C9A858F7B22CC (tool_id), INDEX IDX_1A2C9A85D7086615 (proof_id), PRIMARY KEY(tool_id, proof_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -38,10 +38,10 @@ final class Version20230213135919 extends AbstractMigration
         $this->addSql('ALTER TABLE tool_mesurement ADD CONSTRAINT FK_FC3B23CD2EA38911 FOREIGN KEY (mesurement_id) REFERENCES registry_mesurement (id) ON DELETE CASCADE');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE tool_proof DROP FOREIGN KEY FK_1A2C9A858F7B22CC');
         $this->addSql('ALTER TABLE tool_treatment DROP FOREIGN KEY FK_3DE4482E8F7B22CC');

@@ -33,7 +33,6 @@ use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\User;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Action de protection / Plan d'action.
@@ -44,18 +43,18 @@ class Tool implements LoggableSubject, CollectivityRelated
     use HistoryTrait;
     use CollectivityTrait;
 
-    const COUNTRY_FRANCE = 'registry.tool.country.france';
-    const COUNTRY_EU = 'registry.tool.country.eu';
-    const COUNTRY_OTHER = 'registry.tool.country.other';
+    public const COUNTRY_FRANCE = 'registry.tool.country.france';
+    public const COUNTRY_EU     = 'registry.tool.country.eu';
+    public const COUNTRY_OTHER  = 'registry.tool.country.other';
 
-    const COUNTRY_FRANCE_TEXT = 'France';
-    const COUNTRY_EU_TEXT = 'Autre pays de l’Union Européenne ou pays adéquats';
-    const COUNTRY_OTHER_TEXT = 'Pays d’hébergement de la donnée';
+    public const COUNTRY_FRANCE_TEXT = 'France';
+    public const COUNTRY_EU_TEXT     = 'Autre pays de l’Union Européenne ou pays adéquats';
+    public const COUNTRY_OTHER_TEXT  = 'Pays d’hébergement de la donnée';
 
-    const COUNTRY_TYPES = [
+    public const COUNTRY_TYPES = [
         self::COUNTRY_FRANCE_TEXT => self::COUNTRY_FRANCE,
-        self::COUNTRY_EU_TEXT => self::COUNTRY_EU,
-        self::COUNTRY_OTHER_TEXT => self::COUNTRY_OTHER,
+        self::COUNTRY_EU_TEXT     => self::COUNTRY_EU,
+        self::COUNTRY_OTHER_TEXT  => self::COUNTRY_OTHER,
     ];
 
     /**
@@ -106,28 +105,28 @@ class Tool implements LoggableSubject, CollectivityRelated
     private $prod_date;
 
     /**
-     * FR: Pays d'hébergement ou de stockage
+     * FR: Pays d'hébergement ou de stockage.
      *
      * @var string|null
      */
     private $country_type;
 
     /**
-     * FR: Pays d'hébergement ou de stockage
+     * FR: Pays d'hébergement ou de stockage.
      *
      * @var string|null
      */
     private $country_name;
 
     /**
-     * FR: Garanties pour le transfert
+     * FR: Garanties pour le transfert.
      *
      * @var string|null
      */
     private $country_guarantees;
 
     /**
-     * FR: Autres informations
+     * FR: Autres informations.
      *
      * @var string|null
      */
@@ -208,21 +207,21 @@ class Tool implements LoggableSubject, CollectivityRelated
      */
     public function __construct()
     {
-        $this->id          = Uuid::uuid4();
-        $this->proofs      = [];
-        $this->contractors = [];
-        $this->mesurements = [];
-        $this->treatments  = [];
-        $this->tracking = new ComplexChoice();
-        $this->update = new ComplexChoice();
-        $this->archival = new ComplexChoice();
-        $this->other = new ComplexChoice();
-        $this->has_comment = new ComplexChoice();
-        $this->deletion = new ComplexChoice();
-        $this->backup = new ComplexChoice();
-        $this->update = new ComplexChoice();
+        $this->id             = Uuid::uuid4();
+        $this->proofs         = [];
+        $this->contractors    = [];
+        $this->mesurements    = [];
+        $this->treatments     = [];
+        $this->tracking       = new ComplexChoice();
+        $this->update         = new ComplexChoice();
+        $this->archival       = new ComplexChoice();
+        $this->other          = new ComplexChoice();
+        $this->has_comment    = new ComplexChoice();
+        $this->deletion       = new ComplexChoice();
+        $this->backup         = new ComplexChoice();
+        $this->update         = new ComplexChoice();
         $this->access_control = new ComplexChoice();
-        $this->encrypted = new ComplexChoice();
+        $this->encrypted      = new ComplexChoice();
     }
 
     public function __toString(): string
@@ -237,7 +236,6 @@ class Tool implements LoggableSubject, CollectivityRelated
 
         return $this->getName();
     }
-
 
     public function getId(): UuidInterface
     {
@@ -364,118 +362,75 @@ class Tool implements LoggableSubject, CollectivityRelated
         $this->tracking = $tracking;
     }
 
-    /**
-     * @return string|null
-     */
     public function getManager(): ?string
     {
         return $this->manager;
     }
 
-    /**
-     * @param string|null $manager
-     */
     public function setManager(?string $manager): void
     {
         $this->manager = $manager;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string|null $description
-     */
     public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getProdDate(): ?\DateTime
     {
         return $this->prod_date;
     }
 
-    /**
-     * @param \DateTime|null $prod_date
-     */
     public function setProdDate(?\DateTime $prod_date): void
     {
         $this->prod_date = $prod_date;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCountryType(): ?string
     {
         return $this->country_type;
     }
 
-    /**
-     * @param string|null $country_type
-     */
     public function setCountryType(?string $country_type): void
     {
         $this->country_type = $country_type;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCountryName(): ?string
     {
         return $this->country_name;
     }
 
-    /**
-     * @param string|null $country_name
-     */
     public function setCountryName(?string $country_name): void
     {
         $this->country_name = $country_name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCountryGuarantees(): ?string
     {
         return $this->country_guarantees;
     }
 
-    /**
-     * @param string|null $country_guarantees
-     */
     public function setCountryGuarantees(?string $country_guarantees): void
     {
         $this->country_guarantees = $country_guarantees;
     }
 
-    /**
-     * @return string|null
-     */
     public function getOtherInfo(): ?string
     {
         return $this->other_info;
     }
 
-    /**
-     * @param string|null $other_info
-     */
     public function setOtherInfo(?string $other_info): void
     {
         $this->other_info = $other_info;
     }
-
 
     public function getTreatments(): iterable|null
     {

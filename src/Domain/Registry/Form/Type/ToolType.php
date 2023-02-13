@@ -26,28 +26,17 @@ namespace App\Domain\Registry\Form\Type;
 
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Model\Contractor;
-use App\Domain\Registry\Model\Mesurement;
-use App\Domain\Registry\Model\Proof;
-use App\Domain\Registry\Model\Request;
 use App\Domain\Registry\Model\Tool;
-use App\Domain\Registry\Model\Treatment;
-use App\Domain\Registry\Model\Violation;
-use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -102,7 +91,6 @@ class ToolType extends AbstractType
                 ],
             ])
 
-
             ->add('contractors', EntityType::class, [
                 'label'         => 'registry.tool.form.contractors',
                 'class'         => Contractor::class,
@@ -114,14 +102,14 @@ class ToolType extends AbstractType
                         ->addOrderBy('c.name', 'asc')
                     ;
                 },
-                'attr'          => [
+                'attr' => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
             ])
 
             ->add('prod_date', DateType::class, [
-                'label' => 'registry.tool.form.prod_date',
+                'label'    => 'registry.tool.form.prod_date',
                 'required' => false,
                 'widget'   => 'single_text',
                 'format'   => 'dd/MM/yyyy',
@@ -132,18 +120,18 @@ class ToolType extends AbstractType
             ])
 
             ->add('country_type', ChoiceType::class, [
-                'label' => 'registry.tool.form.country_type',
-                'choices' => Tool::COUNTRY_TYPES,
+                'label'    => 'registry.tool.form.country_type',
+                'choices'  => Tool::COUNTRY_TYPES,
                 'required' => true,
             ])
 
             ->add('country_name', TextType::class, [
-                'label' => 'registry.tool.form.country_name',
+                'label'    => 'registry.tool.form.country_name',
                 'required' => false,
             ])
 
             ->add('country_guarantees', TextType::class, [
-                'label' => 'registry.tool.form.country_guarantees',
+                'label'    => 'registry.tool.form.country_guarantees',
                 'required' => false,
             ])
 

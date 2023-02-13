@@ -230,7 +230,7 @@ class ToolController extends CRUDController
                 'editor'         => $tool->getEditor(),
                 'archival'       => $tool->getArchival()->isCheck() ? $yes : $no,
                 'encrypted'      => $tool->getEncrypted()->isCheck() ? $yes : $no,
-                'tracking'      => $tool->getTracking()->isCheck() ? $yes : $no,
+                'tracking'       => $tool->getTracking()->isCheck() ? $yes : $no,
                 'access_control' => $tool->getAccessControl()->isCheck() ? $yes : $no,
                 'update'         => $tool->getUpdate()->isCheck() ? $yes : $no,
                 'backup'         => $tool->getBackup()->isCheck() ? $yes : $no,
