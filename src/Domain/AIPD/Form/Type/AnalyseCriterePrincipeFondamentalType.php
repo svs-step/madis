@@ -31,16 +31,16 @@ class AnalyseCriterePrincipeFondamentalType extends AbstractType
                 'required' => false,
             ])
             ->add('fichierFile', FileType::class, [
-                'required'    => false,
-                'label'       => false,
-                'attr'        => [
+                'required' => false,
+                'label'    => false,
+                'attr'     => [
                     'accept' => 'image/*',
                 ],
                 'constraints' => [
                     new File([
-                        'maxSize'          => $this->maxSize,
-                        'groups'           => ['default'],
-                        'mimeTypes'        => [
+                        'maxSize'   => $this->maxSize,
+                        'groups'    => ['default'],
+                        'mimeTypes' => [
                             'image/png', // .png
                             'image/jpg', // .jpg
                             'image/jpeg', // .jpeg

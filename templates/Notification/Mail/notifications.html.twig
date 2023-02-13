@@ -3,7 +3,7 @@
 {% block body %}
     <h1>{{ 'notification.email.subject'|trans }}</h1>
 
-    <p>Bonjour {{ user ? user.firstname : '' }},</p>
+    <p>Bonjour{{ user ? ' ' ~ user.firstname : '' }},</p>
     <p>Des modifications ont été apportées dans <span style="color:#3880AB"><b>Madis</b></span>.</p>
 
     {% for notification in notifications %}

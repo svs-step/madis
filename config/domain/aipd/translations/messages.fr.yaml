@@ -72,6 +72,9 @@ aipd:
             precision: Précision
             visible: Visible
             vraisemblance: Vraisemblance
+            title_d: Disponibilité des données
+            title_i: Intégrité des données
+            title_c: Confidentialité des données
     analyse_impact:
         action:
             create: Réaliser une AIPD

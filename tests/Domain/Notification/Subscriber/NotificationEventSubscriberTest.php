@@ -190,7 +190,7 @@ class NotificationEventSubscriberTest extends TestCase
         $action->setCreatedAt(new \DateTimeImmutable());
 
         $this->notificationRepository->findBy([
-            'module'       => 'notification.modules.action',
+            'module'       => 'notification.modules.' . Notification::MODULES[Mesurement::class],
             'collectivity' => $action->getCollectivity(),
             'action'       => 'notifications.actions.late_action',
             'name'         => $action->__toString(),
@@ -200,7 +200,7 @@ class NotificationEventSubscriberTest extends TestCase
 
         $notification = new Notification();
 
-        $notification->setModule('notification.modules.action');
+        $notification->setModule('notification.modules.' . Notification::MODULES[Mesurement::class]);
         $notification->setCollectivity($action->getCollectivity());
         $notification->setAction('notifications.actions.late_action');
         $notification->setName($action->__toString());

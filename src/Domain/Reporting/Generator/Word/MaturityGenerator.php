@@ -66,7 +66,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $section->addTitle('Évaluation de la mise en conformité', 2);
 
         $section->addText('Afin de répondre aux objectifs du RGPD, la gestion des données à caractère personnel est structurée en ' . \count($domainsName) . ' domaines.');
-        $section->addText('Chacun des ' . \count($domainsName) . ' domaines a été évalué par la collectivité selon l’échelle de maturité ci-après.');
+        $section->addText('Chacun des ' . \count($domainsName) . ' domaines a été évalué par la structure selon l’échelle de maturité ci-après.');
 
         $table = $section->addTable($this->tableStyle);
         $row   = $table->addRow(200, ['valign' => 'center']);

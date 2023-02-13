@@ -2,15 +2,16 @@
 <br/>
 <table class="table table-bordered" style="text-: center" id="step3-table">
     <tr>
-        <th style="width: 3%">D</th>
-        <th style="width: 3%">I</th>
-        <th style="width: 3%">C</th>
+        <th style="width: 3%" title="{{'aipd.scenario_menace.list.title_d'|trans}}">D</th>
+        <th style="width: 3%" title="{{'aipd.scenario_menace.list.title_i'|trans}}">I</th>
+        <th style="width: 3%" title="{{'aipd.scenario_menace.list.title_c'|trans}}">C</th>
         <th style="width: 35%">{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
         <th style="width: 12%">{{ 'aipd.scenario_menace.list.vraisemblance'|trans }}</th>
         <th style="width: 12%">{{ 'aipd.scenario_menace.list.gravite'|trans }}</th>
         <th style="width: 10%">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
         <th>{{ 'aipd.scenario_menace.list.precision'|trans }}</th>
     </tr>
+    {% do form.scenarioMenaces.setRendered() %}
     {% for scenario in form.scenarioMenaces %}
         <tr>
             <td>

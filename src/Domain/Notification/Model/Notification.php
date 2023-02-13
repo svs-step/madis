@@ -71,6 +71,7 @@ class Notification
 
     /**
      * @ORM\Id()
+     *
      * @ORM\Column(type="uuid")
      *
      * @var UuidInterface
@@ -114,12 +115,14 @@ class Notification
      * @var Collectivity|null
      *
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\Collectivity")
+     *
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $collectivity;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
+     *
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private ?User $readBy;
@@ -131,6 +134,7 @@ class Notification
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User")
+     *
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private ?User $createdBy;

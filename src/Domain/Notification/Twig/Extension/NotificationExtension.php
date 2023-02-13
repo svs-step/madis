@@ -10,6 +10,7 @@ use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\Registry\Model\Proof;
 use App\Domain\Registry\Model\Violation;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
@@ -39,11 +40,21 @@ class NotificationExtension extends AbstractExtension
         $sentence = '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong> ' .
             $this->translator->trans($notification->getAction()) . ' ';
 
-        $sentence .= $this->translator->trans('label.de') . ' ' .
+        $sentence .= ' : ' .
             '<a href="' . $this->getObjectLink($notification) . '">' . $notification->getName() . '</a> '
         ;
+
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Violation::class]) {
-            $sentence .= '<strong>(' . ViolationNatureDictionary::getNatures()[$notification->getObject()->violationNature] . ')</strong> ';
+            $natures = [];
+
+            if ($notification->getObject()->violationNatures) {
+                $raw = $notification->getObject()->violationNatures;
+                if (is_string($raw)) {
+                    $raw = explode(',', $raw);
+                }
+                $natures = array_map(function ($n) {return ViolationNatureDictionary::getNatures()[trim($n)]; }, (array) $raw);
+            }
+            $sentence .= '<strong>(' . join(', ', $natures) . ')</strong> ';
         }
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Proof::class]) {
             $sentence .= '<strong>(' . ProofTypeDictionary::getTypes()[$notification->getObject()->type] . ')</strong> ';
@@ -58,7 +69,7 @@ class NotificationExtension extends AbstractExtension
     public function getObjectLink(Notification $notification): string
     {
         try {
-            return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id]);
+            return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
         } catch (\Exception $e) {
             return '';
         }
@@ -76,7 +87,6 @@ class NotificationExtension extends AbstractExtension
                 return 'registry_violation_show';
             case 'notification.modules.proof':
                 return 'registry_proof_edit';
-            case 'notification.modules.action':
             case 'notification.modules.protect_action':
                 return 'registry_mesurement_show';
             case 'notification.modules.request':

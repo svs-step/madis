@@ -54,7 +54,7 @@ final class Version20220516133955 extends AbstractMigration
             ], [
                 'name' => 'Bilan',
             ], [
-                'name' => 'Conformité de l\'organisation',
+                'name' => 'Conformité de la structure',
             ], [
                 'name' => 'Conformité des traitements',
             ],

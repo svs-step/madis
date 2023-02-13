@@ -216,6 +216,7 @@
                             <th>{{ 'registry.treatment.list.responsable_traitement'|trans }}</th>
                             <th>{{ 'registry.treatment.list.specific_traitement'|trans }}</th>
                             <th>{{ 'registry.treatment.list.conformite_traitement'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.avis_aipd'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -263,6 +264,7 @@
         {"data": "responsableTraitement", "visible": false},
         {"data": "specific_traitement", "render": "[, ]","visible": true, "orderable": false},
         {"data": "conformite_traitement","visible": false, "orderable": false},
+        {"data": "avis_aipd","visible": false, "orderable": false},
         {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
     ] %}
     {% if is_granted('ROLE_REFERENT') %}
@@ -288,6 +290,7 @@
             {"data": "responsableTraitement", "visible": false},
             {"data": "specific_traitement", "render": "[, ]","visible": true, "orderable": false},
             {"data": "conformite_traitement","visible": false, "orderable": false},
+            {"data": "avis_aipd","visible": false, "orderable": false},
             {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
         ] %}
     {% endif %}

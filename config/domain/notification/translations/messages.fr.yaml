@@ -17,14 +17,17 @@ notifications:
         delete: Suppression
         create: Création
         update: Modification
-        state_change: Changement d'état
         late_action: En retard
         late_request: En retard
         late_survey: En retard
         no_login: Inactif
+        validation: Validation
+        treatment_needs_aipd: Nécéssité de faire une AIPD
+        state_change: Changement d'état
 notification:
     module: Notifications
     modules:
+        aipd: AIPD
         treatment: Traitements
         contractor: Sous-traitants
         subcontractor: Sous-traitants
@@ -37,17 +40,20 @@ notification:
         user: Utilisateurs
         documentation: Documentation
         maturity: Indices de maturité
+
     actions:
         delete: Suppression
         create: Création
         update: Modification
-        state_change: Changement d'état
         late_action: En retard
         late_request: En retard
         late_survey: En retard
         no_login: Inactif
+        validation: Validation
+        treatment_needs_aipd: Nécéssité de faire une AIPD
+        state_change: Changement d'état
     email:
-        subject: Nouvelles notification Madis
+        subject: Nouvelles notifications Madis
         madis: Accéder à madis
     notification:
         flashbag:
@@ -66,7 +72,7 @@ notification:
             action: Action
             name: Nom
             object: Objet
-            collectivity: Collectivité
+            collectivity: Structure
             date: Date
             user: Nom d'utilisateur
             read_date: Lu le
@@ -93,7 +99,7 @@ notification:
             is_protectAction: Notifications pour le module actions de protection
             is_maturity: Notifications pour le module maturité
             is_treatmenConformity: Notifications pour le module conformité des traitements
-            is_organizationConformity: Notifications pour le module conformité de l'organisation
+            is_organizationConformity: Notifications pour le module conformité de la structure
             is_AIPD: Notifications pour le module AIPD
             is_document: Notifications pour le module espace documentaire
             frequency: Fréquence par défaut des notifications Email

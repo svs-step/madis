@@ -117,11 +117,11 @@ App\Domain\Maturity\Model\Question:
         domain: '@maturity_domain_4'
 
     maturity_domain_4_question_6:
-        name: Un DPD a été désigné dans la collectivité
+        name: Un DPD a été désigné dans la structure
         domain: '@maturity_domain_4'
 
     maturity_domain_4_question_7:
-        name: Un registre des traitements est tenu dans la collectivité
+        name: Un registre des traitements est tenu dans la structure
         domain: '@maturity_domain_4'
 
     # --------
@@ -171,7 +171,7 @@ App\Domain\Maturity\Model\Question:
         domain: '@maturity_domain_6'
 
     maturity_domain_6_question_4:
-        name: Le principe d'interdiction de la collecte des données sensibles est connu par les agents et élus de la collectivité
+        name: Le principe d'interdiction de la collecte des données sensibles est connu par les agents et élus de la structure
         domain: '@maturity_domain_6'
 
     maturity_domain_6_question_5:

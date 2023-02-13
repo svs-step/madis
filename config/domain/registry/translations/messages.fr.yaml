@@ -130,7 +130,7 @@ registry:
             description: Description
             manager: Responsable d'action
             name: Nom
-            planification_date: Planification
+            planification_date: Échéance
             priority: Priorité
             status: Statut
             type: Type
@@ -149,7 +149,7 @@ registry:
             cost: Coût
             manager: Responsable d'action
             name: Nom
-            planification_date: Echéance
+            planification_date: Échéance
             priority: Priorité
             status: Statut
             type:
@@ -167,7 +167,7 @@ registry:
             description: Description
             manager: Responsable d'action
             name: Nom
-            planification_date: Planification
+            planification_date: Échéance
             priority: Priorité
             status: Statut
             type: Type
@@ -385,6 +385,7 @@ registry:
             concerned_people_partner: Partenaires
             concerned_people_other: Autres
             concerned_people_user: Internautes
+            concerned_people_usager: Usagers
             contractors: Sous-traitants
             data_crossing: Croisement de données
             data_category: Catégorie de données
@@ -423,6 +424,7 @@ registry:
             legalMentions: Mentions légales apposées
             consentRequest: Consentement demandé
             consentRequestFormat: Format de la demande du consentement
+            exemptAipd: Est exempté d’AIPD
         flashbag:
             success:
                 create: Traitement "%object%" créé avec succès
@@ -437,6 +439,7 @@ registry:
             completion: Taux de complétion
             contractors: Sous-traitants
             conformite_traitement: Conformité du traitement
+            avis_aipd: Avis AIPD
             entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
             goal: Finalité
             legal_basis: Base légale
@@ -468,6 +471,7 @@ registry:
             concerned_people_elected: Élus
             concerned_people_particular: Particuliers
             concerned_people_partner: Partenaires
+            concerned_people_usager: Usagers
             concerned_people_other: Autres
             concerned_people_user: Internautes
             conformite_traitement: Conformité du traitement
@@ -517,7 +521,7 @@ registry:
             systematic_monitoring: Surveillance systématique
             updated_at: Dernière mise à jour
             vulnerable_people: Personnes vulnérables
-            delete_related_objects_error: Une erreur est survenue lors de la suppression des %relateds% de la collectivité "%object%"
+            delete_related_objects_error: Une erreur est survenue lors de la suppression des %relateds% de la structure "%object%"
             legalMentions: Mentions légales apposées
             consentRequest: Consentement demandé
             consentRequestFormat: Format de la demande du consentement
@@ -657,7 +661,7 @@ registry:
         title:
             create: Créer une évaluation
             edit: Modifier une évaluation
-            list: Lister les évaluations
+            list: Conformité de la structure
             delete: Supprimer une évaluation
         list:
             collectivite: Nom de la Structure
@@ -683,12 +687,12 @@ registry:
                 add: Ajouter un participant
         flashbag:
             success:
-                create: Conformité de l'organisation "%object%" créée avec succès
+                create: Conformité de la structure "%object%" créée avec succès
                 pilote: Les pilotes ont été enregistrés avec succès
-                edit: Conformité de l'organisation "%object%" éditée avec succès
-                delete: Conformité de l'organisation "%object%" supprimée avec succès
+                edit: Conformité de la structure "%object%" éditée avec succès
+                delete: Conformité de la structure "%object%" supprimée avec succès
         action:
-            create: Nouvelle évaluation de l'organisation
+            create: Nouvelle évaluation de la structure
             back_to_list: Retour à la liste
             edit: Modifier
             delete: Supprimer

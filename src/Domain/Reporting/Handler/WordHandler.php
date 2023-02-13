@@ -390,7 +390,7 @@ class WordHandler
 
     public function generateRegistryConformiteOrganisationReport(Evaluation $evaluation, bool $withAllActions): Response
     {
-        $title = 'Diagnostic de la conformite de l\'organisation';
+        $title = 'Diagnostic de la conformite de la structure';
 
         $this->conformiteOrganisationGenerator->initializeDocument($this->document);
 

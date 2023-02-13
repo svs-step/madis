@@ -389,9 +389,9 @@ class Violation implements Repository\Violation
                 break;
             case 'nature':
                 $queryBuilder->addSelect('(case
-                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_INTEGRITY . '\' THEN 1
-                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_CONFIDENTIALITY . '\' THEN 2
-                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_AVAILABILITY . '\' THEN 3
+                WHEN o.violationNatures LIKE \'%' . ViolationNatureDictionary::NATURE_INTEGRITY . '%\' THEN 1
+                WHEN o.violationNatures LIKE \'%' . ViolationNatureDictionary::NATURE_CONFIDENTIALITY . '%\' THEN 2
+                WHEN o.violationNatures LIKE \'%' . ViolationNatureDictionary::NATURE_AVAILABILITY . '%\' THEN 3
                 ELSE 4 END) AS HIDDEN hidden_violation_nature')
                     ->addOrderBy('hidden_violation_nature', $orderDir);
                 break;
@@ -430,7 +430,8 @@ class Violation implements Repository\Violation
                         ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
                     break;
                 case 'nature':
-                    $this->addWhereClause($queryBuilder, 'violationNature', $search);
+                    $queryBuilder->andWhere('o.violationNatures LIKE :nature')
+                        ->setParameter('nature', '%' . $search . '%');
                     break;
                 case 'cause':
                     $this->addWhereClause($queryBuilder, 'cause', $search);
