@@ -100,13 +100,6 @@ class CollectivityType extends AbstractType
                     'multiple' => false,
                     'expanded' => true,
                 ])
-                ->add('website', UrlType::class, [
-                    'label'    => 'user.collectivity.form.website',
-                    'required' => false,
-                    'attr'     => [
-                        'placeholder' => 'user.collectivity.form.placeholder.website',
-                    ],
-                ])
                 ->add('address', AddressType::class, [
                     'label'    => 'user.collectivity.form.address',
                     'required' => true,
@@ -139,7 +132,14 @@ class CollectivityType extends AbstractType
 
         // Now add standard information
         $builder
-            ->add('legalManager', ContactType::class, [
+            ->add('website', UrlType::class, [
+                'label'    => 'user.collectivity.form.website',
+                'required' => false,
+                'attr'     => [
+                    'placeholder' => 'user.collectivity.form.placeholder.website',
+                ],
+            ])
+                ->add('legalManager', ContactType::class, [
                 'label'             => 'user.collectivity.form.legal_manager',
                 'required'          => true,
                 'validation_groups' => ['default', 'collectivity_legal_manager'],
