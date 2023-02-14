@@ -84,14 +84,14 @@
                     <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th scope="col">
+                                <input class="form-control" type="text" id="search_personne_concernee" placeholder="Personne" style="width: 100%;">
+                            </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
                                     <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
                                 </th>
                             {% endif %}
-                            <th scope="col">
-                                <input class="form-control" type="text" id="search_personne_concernee" placeholder="Personne" style="width: 100%;">
-                            </th>
                             <th scope="col">
                                 <input class="datepicker form-control" type="text" id="search_date_demande" placeholder="Date" style="width: 100%;">
                             </th>
@@ -137,10 +137,10 @@
                             </th>
                         </tr>
                         <tr>
+                            <th scope="col">{{ 'registry.request.list.concerned_people'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">{{ 'registry.request.list.collectivity'|trans }}</th>
                             {% endif %}
-                            <th scope="col">{{ 'registry.request.list.concerned_people'|trans }}</th>
                             <th scope="col">{{ 'registry.request.list.date'|trans }}</th>
                             <th scope="col">{{ 'registry.request.list.object'|trans }}</th>
                             <th scope="col">{{ 'registry.request.list.complete'|trans }}</th>
@@ -171,7 +171,7 @@
     {% endif %}
 
     {% set cols = [
-        {"data": "personne_concernee"},
+        {"data": "personne_concernee", "className": "noVis"},
         {"data": "date_demande"},
         {"data": "objet_demande"},
         {"data": "demande_complete"},
@@ -184,8 +184,8 @@
 
     {% if is_granted('ROLE_REFERENT') %}
         {% set cols = [
+            {"data": "personne_concernee", "className": "noVis"},
             {"data": "collectivite", "visible": collectiviteIsVisible, "className": collectiviteClassname},
-            {"data": "personne_concernee"},
             {"data": "date_demande"},
             {"data": "objet_demande"},
             {"data": "demande_complete"},
@@ -212,13 +212,13 @@
                 col = 1;
             {% endif %}
 
-            $('#search_collectivite').off('keyup');
-            $('#search_collectivite').keyup($.debounce(250, function(){
+            $('#search_personne_concernee').off('keyup');
+            $('#search_personne_concernee').keyup($.debounce(250, function(){
                 oTable.column('0').search($(this).val()).draw();
             }));
 
-            $('#search_personne_concernee').off('keyup');
-            $('#search_personne_concernee').keyup($.debounce(250, function(){
+            $('#search_collectivite').off('keyup');
+            $('#search_collectivite').keyup($.debounce(250, function(){
                 oTable.column(col).search($(this).val()).draw();
             }));
 

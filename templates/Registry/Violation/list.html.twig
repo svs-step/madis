@@ -81,14 +81,14 @@
                     <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th scope="col">
+                                <input class="datepicker form-control" type="text" id="search_date" placeholder="Date de violation" style="width: 100%;">
+                            </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
                                     <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
                                 </th>
                             {% endif %}
-                            <th scope="col">
-                                <input class="datepicker form-control" type="text" id="search_date" placeholder="Date de violation" style="width: 100%;">
-                            </th>
                             <th scope="col">
                                 <select class="form-control" id="search_nature" style="width: 100%;">
                                     <option value="">Nature</option>
@@ -116,10 +116,10 @@
                             <th scope="col"></th>
                         </tr>
                         <tr>
+                            <th scope="col">{{ 'registry.violation.list.date'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">{{ 'registry.violation.list.collectivity'|trans }}</th>
                             {%  endif %}
-                            <th scope="col">{{ 'registry.violation.list.date'|trans }}</th>
                             <th scope="col">{{ 'registry.violation.list.violation_nature'|trans }}</th>
                             <th scope="col">{{ 'registry.violation.list.cause'|trans }}</th>
                             <th scope="col">{{ 'registry.violation.list.gravity'|trans }}</th>
@@ -149,7 +149,7 @@
     {% endif %}
 
     {% set cols = [
-        {"data": "date"},
+        {"data": "date", "className": "noVis"},
         {"data": "nature"},
         {"data": "cause"},
         {"data": "gravity"},
@@ -158,8 +158,8 @@
 
     {% if is_granted('ROLE_REFERENT') %}
         {% set cols = [
+            {"data": "date", "className": "noVis"},
             {"data": "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
-            {"data": "date"},
             {"data": "nature"},
             {"data": "cause"},
             {"data": "gravity"},
@@ -181,15 +181,15 @@
                 col = 1;
             {% endif %}
 
-            $('#search_collectivite').off('keyup');
-            $('#search_collectivite').keyup($.debounce(250, function(){
-                oTable.column('0').search($(this).val()).draw() ;
-            }));
-
             $('#search_date').off('change');
             $('#search_date').change(function(){
-                oTable.column(col).search($(this).val()).draw() ;
+                oTable.column('0').search($(this).val()).draw() ;
             });
+
+            $('#search_collectivite').off('keyup');
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column(col).search($(this).val()).draw() ;
+            }));
 
             $('#search_nature').off('change');
             $('#search_nature').change(function(){
