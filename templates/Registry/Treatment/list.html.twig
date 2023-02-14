@@ -244,7 +244,7 @@
     {% endif %}
 
     {% set cols = [
-        {"data": "id", "className": "noVis"},
+        {"data": "id", "className": "noVis isId"},
         {"data": "nom", "className": "noVis"},
         {"data": "baseLegal", "visible": true},
         {"data": "logiciel", "visible": true},
@@ -268,7 +268,7 @@
     ] %}
     {% if is_granted('ROLE_REFERENT') %}
         {% set cols = [
-            {"data": "id", "className": "noVis"},
+            {"data": "id", "className": "noVis isId"},
             {"data": "nom", "className": "noVis"},
             {"data" : "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
             {"data": "baseLegal", "visible": true},
@@ -296,6 +296,7 @@
 
     {% set dataTableOptions = {
         columns: cols,
+        excludeId : true,
         order:  [
             [1, 'asc' ]
         ],
@@ -502,6 +503,7 @@
         $(document).ready(function() {
             $('#table_filter').hide();
             setEvents();
+
         } );
         $('#table').on('column-visibility.dt', function() {
             setEvents();
