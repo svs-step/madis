@@ -148,6 +148,7 @@ class ProofType extends AbstractType
                 },
                 'attr'          => [
                     'class' => 'selectpicker',
+                    'data-live-search' => 'true',
                     'title' => 'placeholder.multiple_select_traitement',
                 ],
                 'required'      => false,
@@ -166,6 +167,7 @@ class ProofType extends AbstractType
                 },
                 'attr'          => [
                     'class' => 'selectpicker',
+                    'data-live-search' => 'true',
                     'title' => 'placeholder.multiple_select_contractors',
                 ],
                 'required'      => false,
@@ -184,6 +186,7 @@ class ProofType extends AbstractType
                 },
                 'attr'          => [
                     'class' => 'selectpicker',
+                    'data-live-search' => 'true',
                     'title' => 'placeholder.multiple_select_action_protection',
                 ],
                 'required'      => false,
@@ -213,6 +216,7 @@ class ProofType extends AbstractType
                 },
                 'attr'          => [
                     'class' => 'selectpicker',
+                    'data-live-search' => 'true',
                     'title' => 'placeholder.multiple_select_demande_personne',
                 ],
                 'required'      => false,
@@ -241,6 +245,7 @@ class ProofType extends AbstractType
                 },
                 'attr'          => [
                     'class' => 'selectpicker',
+                    'data-live-search' => 'true',
                     'title' => 'placeholder.multiple_select_violation',
                 ],
                 'required'      => false,

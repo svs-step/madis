@@ -171,6 +171,7 @@ class TreatmentType extends AbstractType
                 },
                 'attr'          => [
                     'class' => 'selectpicker',
+                    'data-live-search' => 'true',
                     'title' => 'placeholder.multiple_select_cat_data',
                 ],
             ])
@@ -219,6 +220,7 @@ class TreatmentType extends AbstractType
                 },
                 'attr'          => [
                     'class' => 'selectpicker',
+                    'data-live-search' => 'true',
                     'title' => 'placeholder.multiple_select_contractors',
                 ],
             ])
