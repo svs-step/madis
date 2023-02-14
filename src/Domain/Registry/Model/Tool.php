@@ -98,7 +98,7 @@ class Tool implements LoggableSubject, CollectivityRelated
     private $description;
 
     /**
-     * FR: Date de mise en prodution.
+     * FR: Date de mise en production.
      *
      * @var \DateTime|null
      */

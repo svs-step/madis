@@ -212,7 +212,7 @@ class ToolController extends CRUDController
             'other',
             'treatments',
             'contractors',
-            'documents',
+            'proofs',
             'mesurements',
             'createdAt',
             'updatedAt',
@@ -248,7 +248,7 @@ class ToolController extends CRUDController
                 'other'          => $tool->getOther()->isCheck() ? $yes : $no,
                 'treatments'     => $this->generateLinkedDataColumn($tool->getTreatments()),
                 'contractors'    => $this->generateLinkedDataColumn($tool->getContractors()),
-                'documents'      => '',
+                'proofs'      => '',
                 'mesurements'    => $this->generateLinkedDataColumn($tool->getMesurements()),
                 'createdAt'      => $tool->getCreatedAt()->format('d-m-Y H:i:s'),
                 'updatedAt'      => $tool->getUpdatedAt()->format('d-m-Y H:i:s'),
@@ -295,6 +295,11 @@ class ToolController extends CRUDController
             $this->router->generate('registry_tool_delete', ['id' => $tool->getId()]) .
             '"><i class="fa fa-trash"></i> ' .
             $this->translator->trans('registry.tool.action.delete')
+            . '</a>'.'
+            <a href="' .
+            $this->router->generate('registry_tool_pdf', ['id' => $tool->getId()]) .
+            '"><i class="fa fa-print"></i> ' .
+            $this->translator->trans('registry.tool.action.print')
             . '</a>';
     }
 

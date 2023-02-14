@@ -59,3 +59,13 @@ registry_tool_delete_all_confirm:
     path: '/supprimer-tous/confirmation'
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\ToolController:deleteConfirmationAllAction'
+
+registry_tool_pdf:
+    path: '/pdf/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ToolController:pdfAction'
+
+registry_tool_print_all:
+    path: '/imprimer-tous'
+    methods: ['GET']
+    controller: 'App\Domain\Registry\Controller\ToolController:pdfAllAction'

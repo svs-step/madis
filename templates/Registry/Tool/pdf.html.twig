@@ -1,47 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_pdf.html.twig' %}
 
-{% set bodyClass = 'registry_tool show' %}
-{% set menuItem = 'registry_tool' %}
+{% set bodyClass = 'registry_mesurement show' %}
+{% set menuItem = 'registry_mesurement' %}
 
-{% block title %}{{ 'registry.tool.title.show'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'registry.mesurement.title.show'|trans }} - {{ parent() }}{% endblock %}
 
-{% block body_head %}
-    <h1>
-        {{ 'registry.tool.title.show'|trans }}
-        <small>{{ object }}</small>
-    </h1>
-{% endblock %}
-
-{% block breadcrumb %}
-    {% set breadcrumb = [
-        { 'name': 'registry.tool.breadcrumb.list'|trans, 'link': path('registry_tool_list') },
-        { 'name': 'registry.tool.breadcrumb.show'|trans({'%name%': object}) }
-    ] %}
-    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
-{% endblock %}
+{% block body_head %}{{ object.name }}{% endblock %}
 
 {% block body %}
-
-    {% if is_granted('ROLE_USER') %}
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="action-bar">
-                <a href="{{ path('registry_tool_list') }}" class="btn btn-default">
-                    <i class="fa fa-arrow-left"></i>
-                    {{ 'registry.tool.action.back_to_list'|trans }}
-                </a>
-                <a href="{{ path('registry_tool_edit', {'id': object.id}) }}" class="btn btn-default">
-                    <i class="fa fa-pencil-alt"></i>
-                    {{ 'action.edit'|trans }}
-                </a>
-                <a href="{{ path('registry_tool_pdf', {'id': object.id}) }}" class="btn btn-default">
-                    <i class="fa fa-print"></i>
-                    {{ 'action.print'|trans }}
-                </a>
-            </div>
-        </div>
-    </div>
-    {% endif %}
 
     <div class="row">
         {# LEFT #}
