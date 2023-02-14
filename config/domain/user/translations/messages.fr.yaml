@@ -129,6 +129,7 @@ user:
             population: Population
             nbr_agents: Nombre de salariés
             nbr_cnil: Numéro de désignation CNIL
+            registre_public: Registre public
         tab:
           address: Adresse
           comite_il: Composition du comité Informatique et Libertés
