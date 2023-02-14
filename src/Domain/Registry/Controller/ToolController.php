@@ -36,6 +36,7 @@ use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Repository as UserRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -197,17 +198,24 @@ class ToolController extends CRUDController
     {
         return [
             'name',
+            'collectivity',
             'type',
             'editor',
             'archival',
             'encrypted',
-            'tracking',
             'access_control',
             'update',
             'backup',
             'deletion',
+            'tracking',
             'has_comment',
             'other',
+            'treatments',
+            'contractors',
+            'documents',
+            'mesurements',
+            'createdAt',
+            'updatedAt',
             'actions',
         ];
     }
@@ -226,17 +234,24 @@ class ToolController extends CRUDController
             $reponse['data'][] = [
                 'id'             => $tool->getId(),
                 'name'           => $this->generateShowLink($tool),
+                'collectivity'   => $tool->getCollectivity()->getName(),
                 'type'           => ToolTypeDictionary::getTypes()[$tool->getType()],
                 'editor'         => $tool->getEditor(),
                 'archival'       => $tool->getArchival()->isCheck() ? $yes : $no,
                 'encrypted'      => $tool->getEncrypted()->isCheck() ? $yes : $no,
-                'tracking'       => $tool->getTracking()->isCheck() ? $yes : $no,
                 'access_control' => $tool->getAccessControl()->isCheck() ? $yes : $no,
                 'update'         => $tool->getUpdate()->isCheck() ? $yes : $no,
                 'backup'         => $tool->getBackup()->isCheck() ? $yes : $no,
                 'deletion'       => $tool->getDeletion()->isCheck() ? $yes : $no,
+                'tracking'       => $tool->getTracking()->isCheck() ? $yes : $no,
                 'has_comment'    => $tool->getHasComment()->isCheck() ? $yes : $no,
                 'other'          => $tool->getOther()->isCheck() ? $yes : $no,
+                'treatments'     => $this->generateLinkedDataColumn($tool->getTreatments()),
+                'contractors'    => $this->generateLinkedDataColumn($tool->getContractors()),
+                'documents'      => '',
+                'mesurements'    => $this->generateLinkedDataColumn($tool->getMesurements()),
+                'createdAt'      => $tool->getCreatedAt()->format('d-m-Y H:i:s'),
+                'updatedAt'      => $tool->getUpdatedAt()->format('d-m-Y H:i:s'),
                 'actions'        => $this->generateActionCell($tool),
             ];
         }
@@ -245,6 +260,20 @@ class ToolController extends CRUDController
         $jsonResponse->setJson(json_encode($reponse));
 
         return $jsonResponse;
+    }
+
+    private function generateLinkedDataColumn(iterable|Collection|null $data)
+    {
+        if (is_null($data)) {
+            return '';
+        }
+        if (is_object($data) && method_exists($data, 'toArray')) {
+            $data = $data->toArray();
+        }
+
+        return join(', ', array_map(function ($object) {
+            return $object->getName();
+        }, (array) $data));
     }
 
     private function generateShowLink(Model\Tool $tool)

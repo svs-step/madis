@@ -45,18 +45,18 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
-                    <div style="float:left">
-                        <a id="delete-all"  href="{{ path('registry_tool_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Supprimer
-                        </a>
-                    </div>
+                <div class="box-body" style="overflow-x: auto">
                     <table id="table" class="table table-bordered table-hover" style="clear: both">
                         <thead>
                         <tr>
                             <th>
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th>
+                                    <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
+                                </th>
+                            {% endif %}
                             <th>
                                 <select class="form-control" id="search_type" style="width: 100%;">
                                     <option value="">Type</option>
@@ -66,11 +66,7 @@
                                 </select>
                             </th>
                             <th>
-                                <select class="form-control" id="search_editor" style="width: 100%;">
-                                    <option value="">Editeur</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
-                                </select>
+                                <input class="form-control" type="text" id="search_editor" placeholder="Editeur" style="width: 100%;">
                             </th>
                             <th>
                                 <select class="form-control" id="search_archival" style="width: 100%;">
@@ -82,13 +78,6 @@
                             <th>
                                 <select class="form-control" id="search_encrypted" style="width: 100%;">
                                     <option value="">Chiffrement</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
-                                </select>
-                            </th>
-                            <th>
-                                <select class="form-control" id="search_tracking" style="width: 100%;">
-                                    <option value="">Traçabilité</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
@@ -122,8 +111,15 @@
                                 </select>
                             </th>
                             <th>
+                                <select class="form-control" id="search_tracking" style="width: 100%;">
+                                    <option value="">Traçabilité</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
                                 <select class="form-control" id="search_has_comment" style="width: 100%;">
-                                    <option value="">Zone de commentaire libre</option>
+                                    <option value="">A un commentaire</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
@@ -136,20 +132,39 @@
                                 </select>
                             </th>
                             <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>
+                                <input class="datepicker form-control" type="text" id="search_created_at" placeholder="Date" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date" style="width: 100%;">
+                            </th>
+                            <th></th>
                         </tr>
                         <tr>
                             <th>{{ 'registry.tool.list.name'|trans }}</th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                            <th>{{ 'registry.tool.list.collectivity'|trans }}</th>
+                            {% endif %}
                             <th>{{ 'registry.tool.list.type'|trans }}</th>
                             <th>{{ 'registry.tool.list.editor'|trans }}</th>
                             <th>{{ 'registry.tool.list.archival'|trans }}</th>
                             <th>{{ 'registry.tool.list.encrypted'|trans }}</th>
-                            <th>{{ 'registry.tool.list.tracking'|trans }}</th>
                             <th>{{ 'registry.tool.list.access_control'|trans }}</th>
                             <th>{{ 'registry.tool.list.update'|trans }}</th>
                             <th>{{ 'registry.tool.list.backup'|trans }}</th>
                             <th>{{ 'registry.tool.list.deletion'|trans }}</th>
+                            <th>{{ 'registry.tool.list.tracking'|trans }}</th>
                             <th>{{ 'registry.tool.list.has_comment'|trans }}</th>
                             <th>{{ 'registry.tool.list.other'|trans }}</th>
+                            <th>{{ 'registry.tool.list.treatments'|trans }}</th>
+                            <th>{{ 'registry.tool.list.contractors'|trans }}</th>
+                            <th>{{ 'registry.tool.list.documents'|trans }}</th>
+                            <th>{{ 'registry.tool.list.mesurements'|trans }}</th>
+                            <th>{{ 'registry.tool.list.created_at'|trans }}</th>
+                            <th>{{ 'registry.tool.list.updated_at'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th>{{ 'label.actions'|trans }}</th>
                             {% endif %}
@@ -180,17 +195,24 @@
     {% set dataTableOptions = {
         columns: [
             {"data": "name", "className": "noVis"},
-            {"data": "type", "className": collectivityClassname, "visible": collectivityIsVisible},
-            {"data": "editor"},
+            {"data": "collectivity", "className": collectivityClassname, "visible": collectivityIsVisible},
+            {"data": "type"},
+            {"data": "editor", "visible": false},
             {"data": "archival"},
             {"data": "encrypted"},
-            {"data": "tracking"},
-            {"data": "access_control"},
+            {"data": "access_control", "visible": false},
             {"data": "update"},
             {"data": "backup"},
-            {"data": "deletion"},
-            {"data": "has_comment"},
+            {"data": "deletion", "visible": false},
+            {"data": "tracking", "visible": false},
+            {"data": "has_comment", "visible": false},
             {"data": "other"},
+            {"data": "treatments", "visible": false, "orderable": false},
+            {"data": "contractors", "visible": false, "orderable": false},
+            {"data": "documents", "visible": false, "orderable": false},
+            {"data": "mesurements", "visible": false, "orderable": false},
+            {"data": "createdAt", "visible": false},
+            {"data": "updatedAt", "visible": false},
             {"data": "actions", "orderable": false, "className": "noVis action", "visible": actionIsVisible},
         ],
         order:  [
@@ -207,35 +229,47 @@
             $('#search_nom').keyup($.debounce(250, function(){
                 oTable.column('0').search($(this).val()).draw() ;
             }));
-            $('#search_type').change(function(){
+            $('#search_collectivity').keyup($.debounce(250, function(){
                 oTable.column('1').search($(this).val()).draw() ;
-            });
-            $('#search_editor').change(function(){
+            }));
+            $('#search_type').change(function(){
                 oTable.column('2').search($(this).val()).draw() ;
             });
-            $('#search_archival').change(function(){
+            $('#search_editor').keyup($.debounce(250, function(){
                 oTable.column('3').search($(this).val()).draw() ;
-            });
-            $('#search_encrypted').change(function(){
+            }));
+            $('#search_archival').change(function(){
                 oTable.column('4').search($(this).val()).draw() ;
             });
-            $('#search_access_control').change(function(){
+            $('#search_encrypted').change(function(){
                 oTable.column('5').search($(this).val()).draw() ;
             });
-            $('#search_update').change(function(){
+            $('#search_access_control').change(function(){
                 oTable.column('6').search($(this).val()).draw() ;
             });
-            $('#search_backup').change(function(){
+            $('#search_update').change(function(){
                 oTable.column('7').search($(this).val()).draw() ;
             });
-            $('#search_deletion').change(function(){
+            $('#search_backup').change(function(){
                 oTable.column('8').search($(this).val()).draw() ;
             });
-            $('#search_has_comment').change(function(){
+            $('#search_deletion').change(function(){
                 oTable.column('9').search($(this).val()).draw() ;
             });
-            $('#search_other').change(function(){
+            $('#search_tracking').change(function(){
                 oTable.column('10').search($(this).val()).draw() ;
+            });
+            $('#search_has_comment').change(function(){
+                oTable.column('11').search($(this).val()).draw() ;
+            });
+            $('#search_other').change(function(){
+                oTable.column('12').search($(this).val()).draw() ;
+            });
+            $('#search_created_at').change(function(){
+                oTable.column('17').search($(this).val()).draw();
+            });
+            $('#search_updated_at').change(function(){
+                oTable.column('18').search($(this).val()).draw();
             });
         } );
     </script>

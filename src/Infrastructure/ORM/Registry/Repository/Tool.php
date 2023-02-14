@@ -98,7 +98,10 @@ class Tool extends CRUDRepository implements Repository\Tool
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
     {
-        $query = $this->createQueryBuilder();
+        $query = $this->createQueryBuilder()
+            ->leftJoin('o.collectivity', 'collectivity')
+            ->leftJoin('o.contractors', 'contractors')
+        ;
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($query, $key, $value);
         }
@@ -120,6 +123,22 @@ class Tool extends CRUDRepository implements Repository\Tool
                 case 'editor':
                     $this->addWhereClause($queryBuilder, $columnName, '%' . $search . '%', 'LIKE');
                     break;
+                case 'collectivity':
+                    $queryBuilder->andWhere('collectivity.name LIKE :colnom')
+                        ->setParameter('colnom', '%' . $search . '%');
+                    break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt LIKE :createdAt')
+                        ->setParameter('createdAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt LIKE :updatedAt')
+                        ->setParameter('updatedAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'contractors':
+                    $queryBuilder->andWhere('contractors.name LIKE :st_nom')
+                        ->setParameter('st_nom', '%' . $search . '%');
+                    break;
                 default:
                     $this->addWhereClause($queryBuilder, $columnName, $search);
                     break;
@@ -130,6 +149,9 @@ class Tool extends CRUDRepository implements Repository\Tool
     private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
     {
         switch ($orderColumn) {
+            case 'collectivity':
+                $queryBuilder->addOrderBy('collectivity.name', $orderDir);
+                break;
             default:
                 $queryBuilder->addOrderBy('o.' . $orderColumn, $orderDir);
                 break;

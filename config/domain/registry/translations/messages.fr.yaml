@@ -147,7 +147,14 @@ registry:
             back_to_list: Retour à la liste
         list:
             name: Nom
+            collectivity: Structure
+            treatments: Traitements
+            contractors: Sous-traitants
+            mesurements: Actions de protection
+            documents: Documents
             access_control: Contrôle d'accès
+            created_at: Date de création
+            updated_at: Date de mise à jour
             update: Mise à jour
             backup: Sauvegarde
             tracking: Traçabilité
