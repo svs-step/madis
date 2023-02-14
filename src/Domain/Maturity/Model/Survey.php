@@ -44,16 +44,6 @@ class Survey implements LoggableSubject
     private $id;
 
     /**
-     * @var Collection|Answer[]
-     */
-    private $answers;
-
-    /**
-     * @var iterable
-     */
-    private $maturity;
-
-    /**
      * @var int
      */
     private $score;
@@ -62,6 +52,11 @@ class Survey implements LoggableSubject
      * @var Referentiel
      */
     private $referentiel;
+
+    /**
+     * @var SurveyReferentiel
+     */
+    private $surveyReferentiel;
 
     /**
      * @var iterable|ReferentielSection[]
@@ -76,8 +71,6 @@ class Survey implements LoggableSubject
     public function __construct()
     {
         $this->id       = Uuid::uuid4();
-        $this->answers  = [];
-        $this->maturity = [];
         $this->score    = 0;
     }
 
@@ -91,63 +84,6 @@ class Survey implements LoggableSubject
         return "Indice du {$this->createdAt->format('d/m/Y')}";
     }
 
-    public function addAnswer(Answer $answer): void
-    {
-        $this->answers[] = $answer;
-        $answer->setSurvey($this);
-    }
-
-    public function removeAnswer(Answer $answer): void
-    {
-        $key = \array_search($answer, $this->answers, true);
-
-        if (false === $key) {
-            return;
-        }
-
-        unset($this->answers[$key]);
-    }
-
-    public function setAnswers(Answer $answers)
-    {
-        $this->answers = $answers;
-    }
-
-    public function getAnswers()
-    {
-        return $this->answers;
-    }
-
-    public function addMaturity(Maturity $maturity): void
-    {
-        $this->maturity[] = $maturity;
-        $maturity->setSurvey($this);
-    }
-
-    public function removeMaturity(Maturity $maturity): void
-    {
-        $key = \array_search($maturity, $this->maturity, true);
-
-        if (false === $key) {
-            return;
-        }
-
-        unset($this->maturity[$key]);
-    }
-
-    public function getMaturity(): iterable
-    {
-        return $this->maturity;
-    }
-
-    public function setMaturity(array $maturityList): void
-    {
-        foreach ($maturityList as $maturity) {
-            $this->maturity[] = $maturity;
-            $maturity->setSurvey($this);
-        }
-    }
-
     public function getScore(): int
     {
         return $this->score;
@@ -158,6 +94,16 @@ class Survey implements LoggableSubject
         $this->score = $score;
     }
 
+    public function getSurveyReferentiel(): SurveyReferentiel
+    {
+        return $this->surveyReferentiel;
+    }
+
+    public function setSurveyReferentiel(SurveyReferentiel $surveyReferentiel): void
+    {
+        $this->surveyReferentiel = $surveyReferentiel;
+    }
+
     public function getReferentiel(): Referentiel
     {
         return $this->referentiel;
@@ -166,16 +112,5 @@ class Survey implements LoggableSubject
     public function setReferentiel(Referentiel $referentiel): void
     {
         $this->referentiel = $referentiel;
-    }
-
-    public function getReferentielSections(): iterable
-    {
-        return $this->referentielSections;
-    }
-
-    public function addReferentielSection(ReferentielSection $referentielSection): void
-    {
-        $referentielSection->setReferentiel($this);
-        $this->referentielSections[] = $referentielSection;
     }
 }

@@ -25,34 +25,37 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Model;
-use App\Domain\Maturity\Model\ReferentielAnswer;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\CallbackTransformer;
 
-class SurveyType extends AbstractType
+class SurveyReferentielType extends AbstractType
 {
+    /**
+     * Build type form.
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
-            $referentiel = $event->getData()->getReferentiel();
-
-            $event->getForm()->add('surveyReferentiel', CollectionType::class, [
-                'entry_type'     => SurveyReferentielType::class,
+        $builder
+            ->add('name', TextType::class, [
+                'label'    => 'maturity.referentiel.form.referentiel_name',
+                'read_only' => true,
+            ])
+            ->add('description', TextareaType::class, [
+                'label'    => 'maturity.referentiel.form.description',
+                'read_only' => true,
+            ])
+            ->add('surveyReferentielSections', CollectionType::class, [
+                'entry_type'     => ReferentielSectionType::class,
                 'by_reference'   => false,
                 'prototype_name' => '__section_name__',
-            ]);
+            ])
 
-        });
+        ;
     }
-
-
 
     /**
      * Provide type options.
@@ -61,10 +64,10 @@ class SurveyType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => Model\Survey::class,
+                'data_class'        => Model\Referentiel::class,
                 'validation_groups' => [
                     'default',
-                    'survey',
+                    'referentiel',
                 ],
             ])
         ;

@@ -4,7 +4,7 @@
  * This file is part of the MADIS - RGPD Management application.
  *
  * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
- * @author Donovan Bourlard <donovan@awkan.fr>
+ * @author ANODE <contact@agence-anode.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -24,35 +24,41 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Form\Type;
 
-use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Model\ReferentielAnswer;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\CallbackTransformer;
 
-class SurveyType extends AbstractType
+class SurveyReferentielAnswerType extends AbstractType
 {
+    /**
+     * Build type form.
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
-            $referentiel = $event->getData()->getReferentiel();
-
-            $event->getForm()->add('surveyReferentiel', CollectionType::class, [
-                'entry_type'     => SurveyReferentielType::class,
-                'by_reference'   => false,
-                'prototype_name' => '__section_name__',
-            ]);
-
-        });
+        /* @var ReferentielAnswer $referentielAnswer */
+        $builder
+            ->add('name', TextType::class, [
+                'label'    => false,
+                'required' => false,
+                'attr'     => [
+                'maxlength' => 255,
+                ],
+            ])
+            ->add('recommendation', TextType::class, [
+                'label'    => 'maturity.referentiel.form.recommendation',
+                'required' => false,
+                'attr'     => [
+                'maxlength' => 255,
+                ],
+            ])
+            ->add('orderNumber', HiddenType::class, [
+                'required' => false,
+            ])
+        ;
     }
-
-
 
     /**
      * Provide type options.
@@ -61,12 +67,10 @@ class SurveyType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => Model\Survey::class,
+                'data_class'        => ReferentielAnswer::class,
                 'validation_groups' => [
                     'default',
-                    'survey',
                 ],
-            ])
-        ;
+            ]);
     }
 }

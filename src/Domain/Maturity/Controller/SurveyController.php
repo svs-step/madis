@@ -53,11 +53,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SurveyController extends CRUDController
 {
     /**
-     * @var Repository\Question
-     */
-    private $questionRepository;
-
-    /**
      * @var WordHandler
      */
     private $wordHandler;
@@ -77,7 +72,6 @@ class SurveyController extends CRUDController
      */
     protected $maturityHandler;
 
-    private SurveyFlow $surveyFlow;
     private Repository\Referentiel  $referentielRepository;
     private $router;
     private RequestStack $requestStack;
@@ -92,7 +86,6 @@ class SurveyController extends CRUDController
         UserProvider $userProvider,
         MaturityHandler $maturityHandler,
         Pdf $pdf,
-        SurveyFlow $surveyFlow,
         Repository\Referentiel  $referentielRepository,
         RouterInterface $router,
         RequestStack $requestStack,
@@ -103,7 +96,6 @@ class SurveyController extends CRUDController
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
         $this->maturityHandler      = $maturityHandler;
-        $this->surveyFlow           = $surveyFlow;
         $this->referentielRepository = $referentielRepository;
         $this->router                 = $router;
         $this->requestStack         = $requestStack;
@@ -194,7 +186,47 @@ class SurveyController extends CRUDController
         $referentiel = $this->entityManager->getRepository(Model\Referentiel::class)->findOneBy([
             'id' => $request->get('referentiel')
         ]);
+        $object->setReferentiel($referentiel);
 
+        if ($referentiel){
+
+            $referentielSurvey = new Model\SurveyReferentiel();
+            $referentielSurvey->setName($referentiel->getName());
+            $referentielSurvey->setDescription($referentiel->getDescription());
+            $this->entityManager->persist($referentielSurvey);
+            $this->entityManager->flush();
+            $sections = $referentiel->getReferentielSections();
+            foreach ($sections as $section){
+                $surveySection = new Model\SurveyReferentielSection();
+                $surveySection->setName($section->getName());
+                $surveySection->setDescription($section->getDescription());
+                $surveySection->setOrderNumber($section->getOrderNumber());
+                $surveySection->setSurveyReferentiel($referentielSurvey);
+                $this->entityManager->persist($surveySection);
+                $this->entityManager->flush();
+                $questions = $section->getReferentielQuestions();
+                foreach ($questions as $question){
+                    $surveyQuestion = new Model\SurveyReferentielQuestion();
+                    $surveyQuestion->setName($question->getName());
+                    $surveyQuestion->setWeight($question->getWeight());
+                    $surveyQuestion->setOrderNumber($question->getOrderNumber());
+                    $surveyQuestion->setSurveyReferentielSection($surveySection);
+                    $this->entityManager->persist($surveyQuestion);
+                    $this->entityManager->flush();
+                    $answers = $question->getReferentielAnswers();
+                    foreach ($answers as $answer){
+                        $surveyAnswer = new Model\SurveyReferentielAnswer();
+                        $surveyAnswer->setName($answer->getName());
+                        $surveyAnswer->setRecommendation($answer->getRecommendation());
+                        $surveyAnswer->setOrderNumber($answer->getOrderNumber());
+                        $surveyAnswer->setSurveyReferentielQuestion($surveyQuestion);
+                        $this->entityManager->persist($surveyAnswer);
+                        $this->entityManager->flush();
+                    }
+                }
+            }
+        }
+        dd('test');
         $object->setReferentiel($referentiel);
 
         $form = $this->createForm($this->getFormType(), $object);
