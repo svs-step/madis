@@ -84,18 +84,18 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th scope="col">
+                                <input class="form-control" type="text" id="search_personne_concernee" placeholder="Personne" style="width: 100%;">
+                            </th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
                                 </th>
                             {% endif %}
-                            <th>
-                                <input class="form-control" type="text" id="search_personne_concernee" placeholder="Personne" style="width: 100%;">
-                            </th>
-                            <th>
+                            <th scope="col">
                                 <input class="datepicker form-control" type="text" id="search_date_demande" placeholder="Date" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_objet" style="width: 100%;">
                                     <option value="">Objet</option>
                                     {% for key, subject in dictionary('registry_request_object') %}
@@ -103,31 +103,31 @@
                                     {% endfor %}
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_complete" style="width: 100%;">
                                     <option value="">Complète</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_demandeur" style="width: 100%;">
                                     <option value="">Demandeur</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_legitime" style="width: 100%;">
                                     <option value="">Légitime</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="datepicker form-control" type="text" id="search_date_traitement" placeholder="Date" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_etat" style="width: 100%;">
                                     <option value="">État</option>
                                     {% for key, subject in dictionary('registry_request_state') %}
@@ -137,18 +137,18 @@
                             </th>
                         </tr>
                         <tr>
+                            <th scope="col">{{ 'registry.request.list.concerned_people'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th>{{ 'registry.request.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'registry.request.list.collectivity'|trans }}</th>
                             {% endif %}
-                            <th>{{ 'registry.request.list.concerned_people'|trans }}</th>
-                            <th>{{ 'registry.request.list.date'|trans }}</th>
-                            <th>{{ 'registry.request.list.object'|trans }}</th>
-                            <th>{{ 'registry.request.list.complete'|trans }}</th>
-                            <th>{{ 'registry.request.list.legitimate_applicant'|trans }}</th>
-                            <th>{{ 'registry.request.list.legitimate_request'|trans }}</th>
-                            <th>{{ 'registry.request.list.answer_date'|trans }}</th>
-                            <th>{{ 'registry.request.list.state'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.list.date'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.list.object'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.list.complete'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.list.legitimate_applicant'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.list.legitimate_request'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.list.answer_date'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.list.state'|trans }}</th>
+                            <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>
@@ -171,7 +171,7 @@
     {% endif %}
 
     {% set cols = [
-        {"data": "personne_concernee"},
+        {"data": "personne_concernee", "className": "noVis"},
         {"data": "date_demande"},
         {"data": "objet_demande"},
         {"data": "demande_complete"},
@@ -184,8 +184,8 @@
 
     {% if is_granted('ROLE_REFERENT') %}
         {% set cols = [
+            {"data": "personne_concernee", "className": "noVis"},
             {"data": "collectivite", "visible": collectiviteIsVisible, "className": collectiviteClassname},
-            {"data": "personne_concernee"},
             {"data": "date_demande"},
             {"data": "objet_demande"},
             {"data": "demande_complete"},
@@ -226,13 +226,13 @@
                 }
             });
 
-            $('#search_collectivite').off('keyup');
-            $('#search_collectivite').keyup($.debounce(250, function(){
+            $('#search_personne_concernee').off('keyup');
+            $('#search_personne_concernee').keyup($.debounce(250, function(){
                 oTable.column('0').search($(this).val()).draw();
             }));
 
-            $('#search_personne_concernee').off('keyup');
-            $('#search_personne_concernee').keyup($.debounce(250, function(){
+            $('#search_collectivite').off('keyup');
+            $('#search_collectivite').keyup($.debounce(250, function(){
                 oTable.column(col).search($(this).val()).draw();
             }));
 

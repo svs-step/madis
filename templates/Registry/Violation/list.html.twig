@@ -82,7 +82,7 @@
                         <thead>
                         <tr>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_date" placeholder="Date" style="z-index:10;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_date" placeholder="Date de violation" style="z-index:10;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
@@ -228,7 +228,7 @@
                 }
             });
 
-                $('#search_created_at').show('slide',function(){
+            $('#search_created_at').show('slide',function(){
                 $('input#search_created_at').val('');
             });
             $('#search_updated_at').show('slide',function(){
@@ -237,6 +237,7 @@
             $('#search_date').show('slide',function(){
                 $('input#search_date').val('');
             });
+
 
             $('#search_date').off('change');
             $('#search_date').change(function(){
