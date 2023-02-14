@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Model\ReferentielSection;
+use App\Domain\Maturity\Model\SurveyReferentielSection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -46,45 +47,17 @@ class SurveyReferentielSectionType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'maturity.referentiel.form.name',
-                'read_only' =>'true'
             ])
 
             ->add('description', TextareaType::class, [
                 'label'    => 'maturity.referentiel.form.description',
-                'read_only' =>'true'
             ])
 
             ->add('SurveyReferentielQuestions', CollectionType::class, [
-                'entry_type'     => ReferentielQuestionType::class,
+                'entry_type'     => SurveyReferentielQuestionType::class,
                 'by_reference'   => false,
                 'prototype_name' => '__question_name__',
             ]);
-
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            if (null !== $data = $event->getData()) {
-                $form->add('addQuestion', ButtonType::class, [
-                    'label'      => '<i class="fa fa-plus"></i> Ajouter une question',
-                    'label_html' => true,
-                    'attr'       => [
-                        'class'                        => 'add_question btn btn-primary',
-                        'data-section'                 => ($data ? $data->getId() : ''),
-                        'data-collection-holder-class' => 'referentielQuestions',
-                    ],
-                ]);
-            } else {
-                $form->add('addQuestion', ButtonType::class, [
-                    'label'      => '<i class="fa fa-plus"></i> Ajouter une question',
-                    'label_html' => true,
-                    'attr'       => [
-                        'class'                        => 'add_question btn btn-primary',
-                        'data-section'                 => '__section_name__',
-                        'data-collection-holder-class' => 'referentielQuestions',
-                    ],
-                ]);
-            }
-        })
-        ;
     }
 
     /**
@@ -94,7 +67,7 @@ class SurveyReferentielSectionType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => ReferentielSection::class,
+                'data_class'        => SurveyReferentielSection::class,
                 'validation_groups' => [
                     'default',
                 ],

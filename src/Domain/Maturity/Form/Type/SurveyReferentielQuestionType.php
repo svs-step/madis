@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Model\ReferentielQuestion;
+use App\Domain\Maturity\Model\SurveyReferentielQuestion;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -48,11 +49,9 @@ class SurveyReferentielQuestionType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'maturity.referentiel.form.question_name',
-                'read_only' =>'true'
             ])
             ->add('weight', ChoiceType::class, [
                 'label'    => 'maturity.referentiel.form.weight',
-                'read_only' =>'true'
             ])
 
             ->add('option', CheckboxType::class, [
@@ -76,32 +75,6 @@ class SurveyReferentielQuestionType extends AbstractType
                 ]
             )
         ;
-
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            if (null !== $data = $event->getData()) {
-                $form->add('addAnswer', ButtonType::class, [
-                    'label'      => '<i class="fa fa-plus"></i> Ajouter une réponse',
-                    'label_html' => true,
-                    'attr'       => [
-                        'class'                        => 'add_answer btn btn-primary',
-                        'data-question'                => ($data ? $data->getId() : ''),
-                        'data-collection-holder-class' => 'referentielAnswers',
-                    ],
-                ]);
-            } else {
-                $form->add('addAnswer', ButtonType::class, [
-                    'label'      => '<i class="fa fa-plus"></i> Ajouter une réponse',
-                    'label_html' => true,
-                    'attr'       => [
-                        'class'                        => 'add_answer btn btn-primary',
-                        'data-question'                => '9999',
-                        'data-collection-holder-class' => 'referentielAnswers',
-                    ],
-                ]);
-            }
-        })
-        ;
     }
 
     /**
@@ -111,7 +84,7 @@ class SurveyReferentielQuestionType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => ReferentielQuestion::class,
+                'data_class'        => SurveyReferentielQuestion::class,
                 'validation_groups' => [
                     'default',
                 ],

@@ -94,8 +94,13 @@ class SurveyReferentiel
         $this->description = $description;
     }
 
-    public function getSections(): iterable
+    public function getSurveyReferentielSections(): iterable
     {
         return $this->surveyReferentielSections;
+    }
+
+    public function addSurveyReferentielSection(SurveyReferentielSection $surveyReferentielSection): void
+    {
+        $this->surveyReferentielSections[] = $surveyReferentielSection;
     }
 }

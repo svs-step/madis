@@ -59,11 +59,6 @@ class Survey implements LoggableSubject
     private $surveyReferentiel;
 
     /**
-     * @var iterable|ReferentielSection[]
-     */
-    private $referentielSections;
-
-    /**
      * Survey constructor.
      *
      * @throws \Exception

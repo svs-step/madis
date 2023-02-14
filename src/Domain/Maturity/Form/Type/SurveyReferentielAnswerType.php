@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Model\ReferentielAnswer;
+use App\Domain\Maturity\Model\SurveyReferentielAnswer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -54,9 +55,6 @@ class SurveyReferentielAnswerType extends AbstractType
                 'maxlength' => 255,
                 ],
             ])
-            ->add('orderNumber', HiddenType::class, [
-                'required' => false,
-            ])
         ;
     }
 
@@ -67,7 +65,7 @@ class SurveyReferentielAnswerType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => ReferentielAnswer::class,
+                'data_class'        => SurveyReferentielAnswer::class,
                 'validation_groups' => [
                     'default',
                 ],

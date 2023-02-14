@@ -1,0 +1,57 @@
+{% import _self as formMacros %}
+{#  macro printAnswerRow(answer) %}
+    <li class="col-md-12">
+        {% include 'Maturity/Survey/_form_survey_referentiel_answer.html.twig' with {'form': answer} %}
+    </li>
+{% endmacro #}
+
+<div class="box box-solid box-info">
+    <div class="box-header">
+        <div class="col-md-5">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-md-5">
+            {{ form_row(form.weight) }}
+        </div>
+        <a href="#question_{{ form.parent.parent.orderNumber.vars['value'] }}_{{ question.orderNumber.vars['value'] }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
+
+    </div>
+
+    {# <div class="collapse" id="question_{{ form.parent.parent.orderNumber.vars['value'] }}_{{ question.orderNumber.vars['value'] }}">
+        <div class="box-body">
+            <div class="col-md-12">
+                <div>Réponses :</div>
+                {{ form_row(form.orderNumber) }}
+                <div class="col-md-2">
+                    {{ form_row(form.option) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.optionReason) }}
+                </div>
+                <div class="row">
+
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="surveyReferentielAnswers"
+                                style="margin: 0;list-style: none; padding:0"
+                                data-index="{{ form.surveyReferentielAnswers|length > 0 ? form.surveyReferentielAnswers|last.vars.name + 1 : 0 }}"
+                                data-question="{{ form.vars.name ? form.vars.name : 0 }}"
+                                data-section="{{ form.parent.parent.vars.name ? form.parent.parent.vars.name : 0 }}"
+                            >
+                                    {% if question.surveyReferentielAnswers is not empty %}
+                                        {% for answer in question.surveyReferentielAnswers|sort((a, b) => a.vars['value'].orderNumber <=> b.vars['value'].orderNumber) %}
+                                            {{ formMacros.printAnswerRow(answer) }}
+                                        {% endfor %}
+                                    {% endif %}
+                            </ul>
+                            {{ form_row(form.addAnswer) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    #}
+</div>

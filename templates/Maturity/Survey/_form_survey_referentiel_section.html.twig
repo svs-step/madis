@@ -1,0 +1,37 @@
+{% import _self as formMacros %}
+{#  macro printQuestionRow(question) %}
+    <li class="col-md-12">
+        {%  include 'Maturity/Survey/_form_survey_referentiel_question.html.twig' with {'form': question} %}
+    </li>
+{% endmacro #}
+
+<div class="row">
+    <div class="box-body">
+        <div class="col-md-6">
+            {{ form_row(form.orderNumber) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
+        </div>
+
+        <div class="col-md-12">
+    {#  <div class="row">
+                <div class="col-md-12">
+                    <ul class="referentielQuestions" style="margin: 0;list-style: none; padding:0"
+                        data-index="{{ form.surveyReferentielQuestions|length > 0 ? form.surveyReferentielQuestions|last.vars.name + 1 : 0 }}"
+                        data-section="{{ form.vars.name ? form.vars.name : 0 }}"
+                    >
+                        {% if section.surveyReferentielQuestions is not empty %}
+                            {% for question in section.surveyReferentielQuestions|sort((a, b) => a.vars['value'].orderNumber <=> b.vars['value'].orderNumber) %}
+                                {{ formMacros.printQuestionRow(question) }}
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                    {{ form_row(form.addQuestion) }}
+                </div>
+            </div> #}
+
+        </div>
+    </div>
+</div>
+
+

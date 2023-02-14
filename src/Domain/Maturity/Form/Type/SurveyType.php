@@ -27,9 +27,12 @@ namespace App\Domain\Maturity\Form\Type;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Model\ReferentielAnswer;
 use Doctrine\DBAL\Types\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -40,16 +43,11 @@ class SurveyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
-            $referentiel = $event->getData()->getReferentiel();
-
-            $event->getForm()->add('surveyReferentiel', CollectionType::class, [
-                'entry_type'     => SurveyReferentielType::class,
-                'by_reference'   => false,
-                'prototype_name' => '__section_name__',
-            ]);
-
-        });
+        $builder
+            ->add('surveyReferentiel', SurveyReferentielType::class, [
+                'data_class' => Model\SurveyReferentiel::class
+            ])
+        ;
     }
 
 

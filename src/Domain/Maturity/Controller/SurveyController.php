@@ -189,7 +189,6 @@ class SurveyController extends CRUDController
         $object->setReferentiel($referentiel);
 
         if ($referentiel){
-
             $referentielSurvey = new Model\SurveyReferentiel();
             $referentielSurvey->setName($referentiel->getName());
             $referentielSurvey->setDescription($referentiel->getDescription());
@@ -222,12 +221,14 @@ class SurveyController extends CRUDController
                         $surveyAnswer->setSurveyReferentielQuestion($surveyQuestion);
                         $this->entityManager->persist($surveyAnswer);
                         $this->entityManager->flush();
+                        $surveyQuestion->addSurveyReferenceAnswer($surveyAnswer);
                     }
+                    $surveySection->addSurveyReferentielQuestion($surveyQuestion);
                 }
+                $referentielSurvey->addSurveyReferentielSection($surveySection);
             }
+            $object->setSurveyReferentiel($referentielSurvey);
         }
-        dd('test');
-        $object->setReferentiel($referentiel);
 
         $form = $this->createForm($this->getFormType(), $object);
 
@@ -244,7 +245,6 @@ class SurveyController extends CRUDController
 
         return $this->render($this->getTemplatingBasePath('create'), [
             'form' => $form->createView(),
-            'referentiel' => $referentiel,
         ]);
     }
 

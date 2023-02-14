@@ -150,4 +150,9 @@ class SurveyReferentielQuestion
     {
         $this->optionReason = $optionReason;
     }
+
+    public function addSurveyReferenceAnswer(SurveyReferentielAnswer $surveyReferentielAnswer): void
+    {
+        $this->surveyReferentielAnswers[] = $surveyReferentielAnswer;
+    }
 }

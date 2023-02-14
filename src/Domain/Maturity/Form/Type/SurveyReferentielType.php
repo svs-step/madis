@@ -42,19 +42,15 @@ class SurveyReferentielType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'maturity.referentiel.form.referentiel_name',
-                'read_only' => true,
             ])
             ->add('description', TextareaType::class, [
                 'label'    => 'maturity.referentiel.form.description',
-                'read_only' => true,
             ])
             ->add('surveyReferentielSections', CollectionType::class, [
-                'entry_type'     => ReferentielSectionType::class,
+                'entry_type'     => SurveyReferentielSectionType::class,
                 'by_reference'   => false,
                 'prototype_name' => '__section_name__',
-            ])
-
-        ;
+                ]);
     }
 
     /**
@@ -64,7 +60,7 @@ class SurveyReferentielType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => Model\Referentiel::class,
+                'data_class'        => Model\SurveyReferentiel::class,
                 'validation_groups' => [
                     'default',
                     'referentiel',

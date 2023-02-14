@@ -119,4 +119,9 @@ class SurveyReferentielSection
     {
         $this->surveyReferentiel = $surveyReferentiel;
     }
+
+    public function addSurveyReferentielQuestion(SurveyReferentielQuestion $surveyReferentielQuestion): void
+    {
+        $this->surveyReferentielQuestions[] = $surveyReferentielQuestion;
+    }
 }
