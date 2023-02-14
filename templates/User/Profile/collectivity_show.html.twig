@@ -70,6 +70,12 @@
                             <td><strong>{{ 'user.collectivity.show.website'|trans }}</strong></td>
                             <td>{{ object.website }}</td>
                         </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.registre_public'|trans }}</strong></td>
+                            <td><a target="_blank" rel="nofollow noreferrer noopener" href="{{ path('registry_public_treatment_list', {id: object.id}) }}">
+                                Accéder au registre public
+                            </a></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

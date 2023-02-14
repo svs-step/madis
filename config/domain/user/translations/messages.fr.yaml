@@ -113,6 +113,7 @@ user:
             type: Type
             updated_at: Date de dernière modification
             website: Site internet
+            registre_public: Registre public
         tab:
           address: Adresse
           comite_il: Composition du comité Informatique et Libertés
