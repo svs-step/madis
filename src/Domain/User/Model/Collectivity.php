@@ -155,6 +155,10 @@ class Collectivity implements LoggableSubject
      * @var bool
      */
     private $hasModuleConformiteOrganisation;
+    /**
+     * @var bool
+     */
+    private $hasModuleTools;
 
     /**
      * @var iterable
@@ -573,4 +577,22 @@ class Collectivity implements LoggableSubject
     {
         $this->population = $population;
     }
+
+    /**
+     * @return bool
+     */
+    public function isHasModuleTools(): bool
+    {
+        return $this->hasModuleTools;
+    }
+
+    /**
+     * @param bool $hasModuleTools
+     */
+    public function setHasModuleTools(bool $hasModuleTools): void
+    {
+        $this->hasModuleTools = $hasModuleTools;
+    }
+
+
 }

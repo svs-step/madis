@@ -43,6 +43,7 @@ use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model as UserModel;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Repository as UserRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
@@ -371,7 +372,7 @@ class TreatmentController extends CRUDController
                 'nom'                    => $treatmentLink,
                 'collectivite'           => $this->authorizationChecker->isGranted('ROLE_REFERENT') ? $treatment->getCollectivity()->getName() : '',
                 'baseLegal'              => !empty($treatment->getLegalBasis()) && array_key_exists($treatment->getLegalBasis(), TreatmentLegalBasisDictionary::getBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : $treatment->getLegalBasis(),
-                'logiciel'               => $treatment->getSoftware(),
+                'logiciel'               => $this->getTools($treatment),
                 'enTantQue'              => !empty($treatment->getAuthor()) && array_key_exists($treatment->getAuthor(), TreatmentAuthorDictionary::getAuthors()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : $treatment->getAuthor(),
                 'gestionnaire'           => $treatment->getManager(),
                 'sousTraitant'           => $contractors,
@@ -395,6 +396,24 @@ class TreatmentController extends CRUDController
         }
 
         return new JsonResponse($reponse);
+    }
+
+    private function getTools(Treatment $treatment)
+    {
+        $data = $treatment->getTools();
+        if (!$treatment->getCollectivity()->isHasModuleTools()) {
+            return $treatment->getSoftware();
+        }
+        if (is_null($data)) {
+            return '';
+        }
+        if (is_object($data) && method_exists($data, 'toArray')) {
+            $data = $data->toArray();
+        }
+
+        return join(', ', array_map(function ($object) {
+            return $object->getName();
+        }, (array) $data));
     }
 
     private function getTreatmentConformity(Treatment $treatment)

@@ -76,7 +76,7 @@
                 <label class="col-sm-2 control-label">
                   {{ 'registry.treatment.show.concerned_people'|trans }}*
                 </label>
-   
+
                 {% set concernedPeopleErrorBlock = null %}
                 {% for error in form.vars.errors %}
                     {% if error.origin.name == 'concernedPeopleParticular' %}
@@ -100,13 +100,17 @@
                     {{ form_row(form.concernedPeoplePartner) }}
                     {{ form_row(form.concernedPeopleUsager) }}
                     {{ form_row(form.concernedPeopleOther) }}
-                    {% if concernedPeopleErrorBlock is not null %} 
-                        {{ concernedPeopleErrorBlock }} 
+                    {% if concernedPeopleErrorBlock is not null %}
+                        {{ concernedPeopleErrorBlock }}
                     {% endif %}
                   </div>
                 </div>
                 {{ form_row(form.estimatedConcernedPeople) }}
+                {% if form.tools is defined %}
+                {{ form_row(form.tools) }}
+                {% else %}
                 {{ form_row(form.software) }}
+                {% endif %}
                 {{ form_row(form.paperProcessing) }}
                 <div class="delay-group">
                     <div class="form-group" style="margin-bottom: 0;">

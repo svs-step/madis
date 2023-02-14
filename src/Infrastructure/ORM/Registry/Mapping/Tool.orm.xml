@@ -16,6 +16,7 @@
         <field name="description" column="description" nullable="true" type="text"/>
         <field name="prod_date" column="prod_date" nullable="true" type="date"/>
         <field name="country_name" column="country_name" nullable="true" />
+
         <field name="country_type" column="country_type" nullable="true" />
         <field name="country_guarantees" column="country_guarantees" nullable="true" />
         <field name="other_info" column="other_info" nullable="true" type="text"/>
@@ -40,15 +41,7 @@
             </join-table>
         </many-to-many>
 
-        <many-to-many field="treatments" inversed-by="tools" target-entity="App\Domain\Registry\Model\Treatment">
-            <join-table name="tool_treatment">
-                <join-columns>
-                    <join-column on-delete="CASCADE"/>
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column on-delete="CASCADE"/>
-                </inverse-join-columns>
-            </join-table>
+        <many-to-many field="treatments" mapped-by="tools" target-entity="App\Domain\Registry\Model\Treatment">
         </many-to-many>
 
         <many-to-many field="contractors" inversed-by="tools" target-entity="App\Domain\Registry\Model\Contractor">

@@ -80,11 +80,11 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $manager;
 
     /**
-     * FR: Logiciel.
+     * FR: Logiciels et supports.
      *
-     * @var string|null
+     * @var Tool[]|iterable
      */
-    private $software;
+    private $tools;
 
     /**
      * FR: Traitement papier.
@@ -123,6 +123,9 @@ class Treatment implements LoggableSubject, CollectivityRelated
      * @var string|null
      */
     private $dataCategoryOther;
+
+
+    private $software;
 
     /**
      * FR: Origine des données.
@@ -552,14 +555,14 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->manager = $manager;
     }
 
-    public function getSoftware(): ?string
+    public function getTools(): ?iterable
     {
-        return $this->software;
+        return $this->tools;
     }
 
-    public function setSoftware(?string $software): void
+    public function setTools(?iterable $tools): void
     {
-        $this->software = $software;
+        $this->tools = $tools;
     }
 
     public function isPaperProcessing(): bool
@@ -839,6 +842,22 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function setAutomatedDecisionsWithLegalEffect(bool $automatedDecisionsWithLegalEffect): void
     {
         $this->automatedDecisionsWithLegalEffect = $automatedDecisionsWithLegalEffect;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSoftware(): ?string
+    {
+        return $this->software;
+    }
+
+    /**
+     * @param string|null $software
+     */
+    public function setSoftware(?string $software): void
+    {
+        $this->software = $software;
     }
 
     public function isAutomaticExclusionService(): bool

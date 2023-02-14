@@ -449,7 +449,13 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.software'|trans }}</strong></td>
-                            <td>{{ object.software }}</td>
+                            <td>
+                                {% if object.collectivity.hasModuleTools %}
+                                {{ object.tools|map(t => t.name)|join(', ') }}
+                                {% else %}
+                                {{ object.software }}
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.paper_processing'|trans }}</strong></td>

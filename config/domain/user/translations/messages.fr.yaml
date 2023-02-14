@@ -63,6 +63,7 @@ user:
             different_it_manager: Différent du Référent Opérationnel
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de la structure
+            has_module_tools: Module logiciels et supports
             is_services_enabled: Activation des services
             name: Nom
             placeholder:
@@ -117,6 +118,7 @@ user:
             informations_complementaires: Informations complémentaires
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de la structure
+            has_module_tools: Module logiciels et supports
             name: Nom
             short_name: Nom court
             services: Services
