@@ -80,6 +80,7 @@
         }) %}
 
         var options = {{ dataTableOptions|json_encode|raw }}
+        console.log('options', {{ dataTableOptions|json_encode|raw }})
 
         if (options.addcheckbox) {
             options.columnDefs = [{
@@ -144,7 +145,11 @@
                 var visible = api.columns().visible();
                 console.log('api.ajax', api.ajax.params())
                 var params = api.ajax.params();
+                console.log('params', params)
                 params.columns = params.columns.filter(function(c, i) { return visible[i] })
+                if (options.excludeId) {
+                    params.columns = params.columns.filter( (c) => c.data !== "id")
+                }
                 var exportBody = getFullData(params);
 
                 console.log('full data', exportBody)
@@ -152,8 +157,6 @@
                 d.body.push.apply(d.body, exportBody);
             })
         } catch { }
-
-        console.log('datatable options', options);
 
         $('#table').DataTable(options);
 
@@ -166,6 +169,7 @@
         })
 
         var oTable = $('#table').DataTable();
+        console.log('oTable', oTable);
         $('#delete-all').on('click', function(event) {
             event.stopPropagation(); 
             let data = oTable.rows().data().toArray().map(row => row.id);
