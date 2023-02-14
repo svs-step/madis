@@ -251,7 +251,7 @@ class ProofType extends AbstractType
             ])
 
         ;
-        if($options['data']->getCollectivity()->isHasModuleTools()) {
+        if ($options['data']->getCollectivity()->isHasModuleTools()) {
             $builder->add('tools', EntityType::class, [
                 'label'         => 'registry.treatment.form.software',
                 'class'         => Tool::class,
@@ -272,7 +272,7 @@ class ProofType extends AbstractType
                         ->where('c.collectivity = :collectivity')
                         ->addOrderBy('c.name', 'asc')
                         ->setParameter('collectivity', $collectivity)
-                        ;
+                    ;
                 },
                 'attr' => [
                     'class' => 'selectpicker',

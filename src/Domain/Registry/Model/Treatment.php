@@ -124,7 +124,6 @@ class Treatment implements LoggableSubject, CollectivityRelated
      */
     private $dataCategoryOther;
 
-
     private $software;
 
     /**
@@ -844,17 +843,11 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->automatedDecisionsWithLegalEffect = $automatedDecisionsWithLegalEffect;
     }
 
-    /**
-     * @return string|null
-     */
     public function getSoftware(): ?string
     {
         return $this->software;
     }
 
-    /**
-     * @param string|null $software
-     */
     public function setSoftware(?string $software): void
     {
         $this->software = $software;

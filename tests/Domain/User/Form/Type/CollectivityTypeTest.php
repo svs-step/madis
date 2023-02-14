@@ -91,6 +91,7 @@ class CollectivityTypeTest extends FormTypeHelper
             'comiteIlContacts'                    => CollectionType::class,
             'hasModuleConformiteTraitement'       => CheckboxType::class,
             'hasModuleConformiteOrganisation'     => CheckboxType::class,
+            'hasModuleTools'                      => CheckboxType::class,
             'isServicesEnabled'                   => CheckboxType::class,
             'services'                            => CollectionType::class,
             'finessGeo'                           => TextType::class,

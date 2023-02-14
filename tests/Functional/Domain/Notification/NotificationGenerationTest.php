@@ -91,7 +91,9 @@ class NotificationGenerationTest extends WebTestCase
          * @var RequestRepository $requestRepository
          */
         $requestRepository = $client->getContainer()->get(RequestRepository::class);
-        $requests          = $requestRepository->findAll();
+        $requests          = $requestRepository->findBy([
+            'state' => RequestStateDictionary::STATE_TO_TREAT,
+        ]);
         $this->assertNotEmpty($requests);
         /**
          * @var Request $request
@@ -99,8 +101,6 @@ class NotificationGenerationTest extends WebTestCase
         $request = $requests[0];
 
         $this->assertNotNull($request);
-
-        $oldState = $request->getState();
 
         $url = $client->getContainer()->get('router')->generate('registry_request_edit', ['id' => $request->getId()], UrlGeneratorInterface::RELATIVE_PATH);
 

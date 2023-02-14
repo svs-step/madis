@@ -39,7 +39,6 @@ use App\Domain\User\Repository as UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -77,20 +76,12 @@ class ToolController extends CRUDController
      */
     protected $userProvider;
 
-    /**
-     * @var FormFactoryInterface
-     */
-    protected $formFactory;
+    protected RequestStack $requestStack;
 
     /**
      * @var RouterInterface
      */
     protected $router;
-
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -100,7 +91,6 @@ class ToolController extends CRUDController
         WordHandler $wordHandler,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
-        FormFactoryInterface $formFactory,
         RouterInterface $router,
         Pdf $pdf,
         RequestStack $requestStack
@@ -110,7 +100,6 @@ class ToolController extends CRUDController
         $this->wordHandler            = $wordHandler;
         $this->authorizationChecker   = $authorizationChecker;
         $this->userProvider           = $userProvider;
-        $this->formFactory            = $formFactory;
         $this->router                 = $router;
         $this->requestStack           = $requestStack;
     }
@@ -295,7 +284,7 @@ class ToolController extends CRUDController
             $this->router->generate('registry_tool_delete', ['id' => $tool->getId()]) .
             '"><i class="fa fa-trash"></i> ' .
             $this->translator->trans('registry.tool.action.delete')
-            . '</a>'.'
+            . '</a>' . '
             <a href="' .
             $this->router->generate('registry_tool_pdf', ['id' => $tool->getId()]) .
             '"><i class="fa fa-print"></i> ' .

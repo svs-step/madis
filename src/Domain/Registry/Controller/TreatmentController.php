@@ -43,7 +43,6 @@ use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model as UserModel;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Repository as UserRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
