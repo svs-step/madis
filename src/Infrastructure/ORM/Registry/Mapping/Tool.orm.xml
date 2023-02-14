@@ -30,15 +30,10 @@
         <embedded name="has_comment" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="has_comment_"/>
         <embedded name="other" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="other_"/>
 
-        <many-to-many field="proofs" target-entity="App\Domain\Registry\Model\Proof" inversed-by="tools">
-            <join-table name="tool_proof">
-                <join-columns>
-                    <join-column on-delete="CASCADE"/>
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column on-delete="CASCADE"/>
-                </inverse-join-columns>
-            </join-table>
+        <many-to-many field="mesurements" mapped-by="tools" target-entity="App\Domain\Registry\Model\Mesurement">
+        </many-to-many>
+
+        <many-to-many field="proofs" mapped-by="tools" target-entity="App\Domain\Registry\Model\Proof">
         </many-to-many>
 
         <many-to-many field="treatments" mapped-by="tools" target-entity="App\Domain\Registry\Model\Treatment">
@@ -55,16 +50,6 @@
             </join-table>
         </many-to-many>
 
-        <many-to-many field="mesurements" inversed-by="tools" target-entity="App\Domain\Registry\Model\Mesurement">
-            <join-table name="tool_mesurement">
-                <join-columns>
-                    <join-column on-delete="CASCADE"/>
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column on-delete="CASCADE"/>
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
 
         <!-- Traits -->
         <many-to-one field="creator" target-entity="App\Domain\User\Model\User">

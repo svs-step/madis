@@ -234,7 +234,7 @@ class ToolController extends CRUDController
             $reponse['data'][] = [
                 'id'             => $tool->getId(),
                 'name'           => $this->generateShowLink($tool),
-                'collectivity'   => $tool->getCollectivity()->getName(),
+                'collectivity'   => $this->authorizationChecker->isGranted('ROLE_REFERENT') ? $tool->getCollectivity()->getName() : '',
                 'type'           => ToolTypeDictionary::getTypes()[$tool->getType()],
                 'editor'         => $tool->getEditor(),
                 'archival'       => $tool->getArchival()->isCheck() ? $yes : $no,
@@ -248,7 +248,7 @@ class ToolController extends CRUDController
                 'other'          => $tool->getOther()->isCheck() ? $yes : $no,
                 'treatments'     => $this->generateLinkedDataColumn($tool->getTreatments()),
                 'contractors'    => $this->generateLinkedDataColumn($tool->getContractors()),
-                'proofs'      => '',
+                'proofs'         => $this->generateLinkedDataColumn($tool->getProofs()),
                 'mesurements'    => $this->generateLinkedDataColumn($tool->getMesurements()),
                 'createdAt'      => $tool->getCreatedAt()->format('d-m-Y H:i:s'),
                 'updatedAt'      => $tool->getUpdatedAt()->format('d-m-Y H:i:s'),

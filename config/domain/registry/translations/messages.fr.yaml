@@ -156,7 +156,7 @@ registry:
             treatments: Traitements
             contractors: Sous-traitants
             mesurements: Actions de protection
-            documents: Documents
+            proofs: Documents
             access_control: Contrôle d'accès
             created_at: Date de création
             updated_at: Date de mise à jour
