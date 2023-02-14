@@ -160,7 +160,8 @@ class MesurementType extends AbstractType
                 },
                 'attr' => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'data-live-search' => 'true',
+                    'title' => 'placeholder.multiple_select_contractors',
                 ],
             ])
             ->add('treatments', EntityType::class, [
@@ -187,7 +188,8 @@ class MesurementType extends AbstractType
                 },
                 'attr' => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'data-live-search' => 'true',
+                    'title' => 'placeholder.multiple_select_traitement',
                 ],
             ])
             ->add('violations', EntityType::class, [
@@ -213,7 +215,8 @@ class MesurementType extends AbstractType
                 },
                 'attr' => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'data-live-search' => 'true',
+                    'title' => 'placeholder.multiple_select_violation',
                 ],
             ])
             ->add('requests', EntityType::class, [
@@ -239,7 +242,8 @@ class MesurementType extends AbstractType
                 },
                 'attr' => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'data-live-search' => 'true',
+                    'title' => 'placeholder.multiple_select_demande_personne',
                 ],
             ])
             ->add('updatedBy', HiddenType::class, [

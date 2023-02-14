@@ -148,7 +148,8 @@ class ProofType extends AbstractType
                 },
                 'attr' => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'data-live-search' => 'true',
+                    'title' => 'placeholder.multiple_select_traitement',
                 ],
                 'required' => false,
                 'multiple' => true,
@@ -166,7 +167,8 @@ class ProofType extends AbstractType
                 },
                 'attr' => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'data-live-search' => 'true',
+                    'title' => 'placeholder.multiple_select_contractors',
                 ],
                 'required' => false,
                 'multiple' => true,
@@ -184,7 +186,8 @@ class ProofType extends AbstractType
                 },
                 'attr' => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'data-live-search' => 'true',
+                    'title' => 'placeholder.multiple_select_action_protection',
                 ],
                 'required' => false,
                 'multiple' => true,
@@ -213,7 +216,8 @@ class ProofType extends AbstractType
                 },
                 'attr' => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'data-live-search' => 'true',
+                    'title' => 'placeholder.multiple_select_demande_personne',
                 ],
                 'required' => false,
                 'multiple' => true,
@@ -241,7 +245,8 @@ class ProofType extends AbstractType
                 },
                 'attr' => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'data-live-search' => 'true',
+                    'title' => 'placeholder.multiple_select_violation',
                 ],
                 'required' => false,
                 'multiple' => true,

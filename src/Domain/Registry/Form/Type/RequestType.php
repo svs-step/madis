@@ -180,7 +180,8 @@ class RequestType extends AbstractType
                 },
                 'attr' => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'data-live-search' => 'true',
+                    'title' => 'placeholder.multiple_select_traitement_associe',
                 ],
                 'required' => false,
                 'multiple' => true,
