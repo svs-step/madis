@@ -11,8 +11,8 @@
         <field name="name" column="name"/>
         <field name="weight" column="weight" type="integer"/>
         <field name="orderNumber" column="order_number" type="integer"/>
-        <field name="option" column="option" type="boolean"/>
-        <field name="optionReason" column="option_reason"/>
+        <field name="option" column="option" type="boolean" nullable="true"/>
+        <field name="optionReason" column="option_reason" nullable="true"/>
 
         <many-to-one field="surveyReferentielSection" target-entity="App\Domain\Maturity\Model\SurveyReferentielSection" inversed-by="SurveyReferentielQuestions"/>
 
