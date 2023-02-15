@@ -45,31 +45,9 @@ class SurveyReferentielQuestionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /* @var ReferentielQuestion $referentielQuestion */
         $builder
-            ->add('name', TextType::class, [
-                'label'    => 'maturity.referentiel.form.question_name',
-            ])
-            ->add('weight', ChoiceType::class, [
-                'label'    => 'maturity.referentiel.form.weight',
-            ])
-
-            ->add('option', CheckboxType::class, [
-                'label'    => "Activer l'option : Non concerné",
-                'required' => false,
-            ])
-            ->add('optionReason', TextType::class, [
-                'label'    => false,
-                'required' => false,
-                'attr'     => [
-                    'placeholder' => 'Précisez',
-                    'maxlength'   => 255,
-                ],
-            ])
             ->add('referentielAnswers', CollectionType::class, [
-                    'label'          => 'maturity.referentiel.form.answer',
                     'entry_type'     => SurveyReferentielAnswerType::class,
-                    'required'       => false,
                     'by_reference'   => false,
                     'prototype_name' => '__answer_name__',
                 ]

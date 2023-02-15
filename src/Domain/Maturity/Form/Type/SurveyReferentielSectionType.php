@@ -45,15 +45,7 @@ class SurveyReferentielSectionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
-                'label'    => 'maturity.referentiel.form.name',
-            ])
-
-            ->add('description', TextareaType::class, [
-                'label'    => 'maturity.referentiel.form.description',
-            ])
-
-            ->add('SurveyReferentielQuestions', CollectionType::class, [
+            ->add('surveyReferentielQuestions', CollectionType::class, [
                 'entry_type'     => SurveyReferentielQuestionType::class,
                 'by_reference'   => false,
                 'prototype_name' => '__question_name__',
