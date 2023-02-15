@@ -127,7 +127,7 @@ user:
             website: Site internet
             finess_geo: FINESS Géo
             population: Population
-            nbr_agents: Nombre d'agents
+            nbr_agents: Nombre de salariés
             nbr_cnil: Numéro de désignation CNIL
         tab:
           address: Adresse

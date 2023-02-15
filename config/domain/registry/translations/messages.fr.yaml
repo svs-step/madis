@@ -170,7 +170,7 @@ registry:
             show: Visualiser une action de protection
         modal:
           cancel: Annuler
-          create: Créer
+          create: Enregistrer
           title: Ajouter une action de protection
 
     proof:
@@ -643,7 +643,7 @@ registry:
             list: Conformité de la structure
             delete: Supprimer une évaluation
         list:
-            collectivite: Nom de la Structure
+            collectivite: Structure
             draft: Brouillon
             pilote: Pilote
             processus: Processus

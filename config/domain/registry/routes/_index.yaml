@@ -28,4 +28,4 @@ _registry_violation:
 
 _registry_conformite_organisation:
     resource: 'conformite_organisation.yaml'
-    prefix:   '/conformite-organisation'
+    prefix:   '/conformite-structure'
