@@ -331,9 +331,11 @@ class MesurementController extends CRUDController
                 2 => 'date_planification',
                 3 => 'cout',
                 4 => 'charge',
-                5 => 'responsable_action',
-                6 => 'priorite',
-                7 => 'actions',
+                5 => 'priorite',
+                6 => 'responsable_action',
+                7 => 'description',
+                8 => 'observation',
+                9 => 'actions',
             ];
         }
 
@@ -360,6 +362,17 @@ class MesurementController extends CRUDController
 
         /** @var Model\Mesurement $action */
         foreach ($actions as $action) {
+
+            // Réduit la longueur du texte à 105 caractères
+            $description = $action->getDescription();
+            if(isset($description) && strlen($description) > 105) {
+                $description = substr($description, 0, 105).'...';
+            }
+            $observation = $action->getComment();
+            if(isset($observation) && strlen($observation) > 105) {
+                $observation = substr($observation, 0, 105).'...';
+            }
+
             $reponse['data'][] = [
                 'id'                 => $action->getId(),
                 'nom'                => !$isActionPlan ? $this->generateShowLink($action) : $action->getName(),
@@ -370,6 +383,8 @@ class MesurementController extends CRUDController
                 'priorite'           => !\is_null($action->getPriority()) ? MesurementPriorityDictionary::getPriorities()[$action->getPriority()] : null,
                 'date_planification' => !\is_null($action->getPlanificationDate()) ? \date_format($action->getPlanificationDate(), 'd/m/Y') : null,
                 'responsable_action' => $action->getManager(),
+                'description'        => $description,
+                'observation'        => $observation,
                 'actions'            => $this->generateActionCell($action, $isActionPlan),
             ];
         }

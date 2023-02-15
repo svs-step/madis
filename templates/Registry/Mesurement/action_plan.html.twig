@@ -57,9 +57,6 @@
                                 <input class="form-control" type="text" id="search_charge" placeholder="Charge" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_responsable_action" placeholder="Responsable" style="width: 100%;">
-                            </th>
-                            <th scope="col">
                                 <select class="form-control" id="search_priorite" style="width: 100%;">
                                     <option value="">Priorité</option>
                                     {% for key, subject in dictionary('registry_mesurement_priority') %}
@@ -67,6 +64,11 @@
                                     {% endfor %}
                                 </select>
                             </th>
+                            <th scope="col">
+                                <input class="form-control" type="text" id="search_responsable_action" placeholder="Responsable" style="width: 100%;">
+                            </th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                         <tr>
                             <th scope="col">{{ 'registry.mesurement.list.name'|trans }}</th>
@@ -74,8 +76,10 @@
                             <th scope="col">{{ 'registry.mesurement.list.planification_date'|trans }}</th>
                             <th scope="col">{{ 'registry.mesurement.list.cost'|trans }}</th>
                             <th scope="col">{{ 'registry.mesurement.list.charge'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.manager'|trans }}</th>
                             <th scope="col">{{ 'registry.mesurement.list.priority'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.list.manager'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.list.description'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.list.observation'|trans }}</th>
                             <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -103,12 +107,14 @@
             {"data": "date_planification"},
             {"data": "cout"},
             {"data": "charge"},
-            {"data": "responsable_action"},
             {"data": "priorite"},
+            {"data": "responsable_action"},
+            {"data": "description", "visible": false, "orderable": false},
+            {"data": "observation", "visible": false, "orderable": false},
             {"data": "actions", "orderable": false, "className": "noVis"},
         ],
         order:  [
-            [6, 'desc' ]
+            [5, 'desc' ]
         ],
     } %}
 
@@ -143,15 +149,16 @@
                 oTable.column('4').search($(this).val()).draw() ;
             }));
 
-            $('#search_responsable_action').off('keyup');
-            $('#search_responsable_action').keyup($.debounce(250, function(){
-                oTable.column('5').search($(this).val()).draw() ;
-            }));
-
             $('#search_priorite').off('change');
             $('#search_priorite').change(function(){
-                oTable.column('6').search($(this).val()).draw() ;
+                oTable.column('5').search($(this).val()).draw() ;
             });
+
+            $('#search_responsable_action').off('keyup');
+            $('#search_responsable_action').keyup($.debounce(250, function(){
+                oTable.column('6').search($(this).val()).draw() ;
+            }));
+
         }
 
         $(document).ready(function() {

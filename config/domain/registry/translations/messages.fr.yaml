@@ -97,7 +97,7 @@ registry:
             new: Nouvelle action
             show_mesurement: Voir l'action de protection
             new_submit: Créer l'action de protection
-            edit_submit: Modifier l'action de protection'
+            edit_submit: Modifier l'action de protection
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
@@ -132,6 +132,8 @@ registry:
             name: Nom
             planification_date: Date de planification
             priority: Priorité
+            description: Description
+            observation: Observations
             status: Statut
             type:
                 legal: Actions juridiques
