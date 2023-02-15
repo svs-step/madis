@@ -116,7 +116,15 @@
         order:  [
             [5, 'desc' ]
         ],
+        addSubstr : [7, 8],
     } %}
+
+    <script>
+        function substrColRenderFunction (data, type, full, meta){
+            let content = data && data.length > 105 ? `<span data-toggle="tooltip" data-placement="bottom" title="${data}">${data.substring(0, 105)}...</span>` : data
+            return content;
+        }
+    </script>
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
 

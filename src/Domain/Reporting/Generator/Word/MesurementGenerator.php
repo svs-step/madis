@@ -193,6 +193,10 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
                         ? ($mesurement->getPlanificationDate() ? $this->getDate($mesurement->getPlanificationDate()) : null)
                         : 'Non applicable',
                 ],
+                [
+                    'Observations',
+                    $mesurement->getComment(),
+                ],
             ];
 
             $historyData = [

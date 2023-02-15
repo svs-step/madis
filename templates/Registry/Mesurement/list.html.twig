@@ -93,6 +93,8 @@
                             <th scope="col">
                                 <input class="form-control" type="text" id="search_responsable_action" placeholder="Responsable" style="width: 100%;">
                             </th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                         <tr>
                             <th scope="col">{{ 'registry.mesurement.list.name'|trans }}</th>
@@ -102,6 +104,8 @@
                             <th scope="col">{{ 'registry.mesurement.list.charge'|trans }}</th>
                             <th scope="col">{{ 'registry.mesurement.list.priority'|trans }}</th>
                             <th scope="col">{{ 'registry.mesurement.list.responsable'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.list.description'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.list.observation'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th scope="col">{{ 'label.actions'|trans }}</th>
                             {% endif %}
@@ -138,19 +142,31 @@
             {"data": "charge"},
             {"data": "priorite"},
             {"data": "responsable_action"},
+            {"data": "description", "visible": false, "orderable": false},
+            {"data": "observation", "visible": false, "orderable": false},
             {"data": "actions", "orderable": false, "className": "noVis", "visible": actionIsVisible},
         ],
         order:  [
             [5, 'desc' ]
         ],
+        addSubstr : [7, 8],
     } %}
+
+    <script>
+        function substrColRenderFunction (data, type, full, meta){
+            let content = data && data.length > 105 ? `<span data-toggle="tooltip" data-placement="bottom" title="${data}">${data.substring(0, 105)}...</span>` : data
+            return content;
+        }
+    </script>
 
     {{ include('_Utils/_serverside_datatable.html.twig') }}
 
     <script>
         $(document).ready(function() {
             $('#table_filter').hide();
+
             var oTable = $('#table').DataTable();
+
             $('#search_nom').keyup($.debounce(250, function(){
                 oTable.column('0').search($(this).val()).draw() ;
             }));
@@ -172,6 +188,7 @@
             $('#search_responsable_action').keyup($.debounce(250, function(){
                 oTable.column('6').search($(this).val()).draw() ;
             }));
+
         } );
     </script>
 {% endblock %}

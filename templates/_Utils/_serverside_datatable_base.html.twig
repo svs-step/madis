@@ -94,6 +94,17 @@
             delete options.addcheckbox;
         }
 
+        if ( options.addSubstr ) {
+            options.columnDefs = [{
+                targets: options.addSubstr,
+                searchable: false,
+                orderable: false,
+                render: substrColRenderFunction,
+            }];
+
+            delete options.addSubstr;
+        }
+
         var fullData = [];
 
         var strip = function ( str ) {
