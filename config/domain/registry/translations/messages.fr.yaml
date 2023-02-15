@@ -423,6 +423,7 @@ registry:
             completion: Taux de complétion
             contractors: Sous-traitants
             conformite_traitement: Conformité du traitement
+            created_at: Date de création
             entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
             goal: Finalité
             legal_basis: Base légale
@@ -436,7 +437,7 @@ registry:
             specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             software: Logiciel
             tracability: Traçabilité
-            updated_at: Date mise à jour
+            updated_at: Date de modification
             update: Mise à jour
             specific_traitement: Traitements spécifiques
         modal:

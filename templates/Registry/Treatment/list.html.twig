@@ -172,7 +172,10 @@
                                 </select>
                             </th>
                             <th scope="col">
-                                <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date" style="width: 100%;">
+                                <input class="datepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="width: 100%;">
+                            </th>
+                            <th scope="col">
+                                <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_public" placeholder="{{ 'registry.treatment.list.public'|trans }}" style="width: 100%;">
@@ -211,6 +214,7 @@
                             <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.entitled_persons'|trans }}</th>
                             <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.open_accounts'|trans }}</th>
                             <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.specificities_delivered'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.created_at'|trans }}</th>
                             <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.updated_at'|trans }}</th>
                             <th scope="col">{{ 'registry.treatment.list.public'|trans }}</th>
                             <th scope="col">{{ 'registry.treatment.list.update'|trans }}</th>
@@ -258,6 +262,7 @@
         {"data": "entitledPersons", "visible": false},
         {"data": "openAccounts", "visible": false},
         {"data": "specificitiesDelivered", "visible": false},
+        {"data": "createdAt", "visible": true},
         {"data": "updatedAt", "visible": true},
         {"data": "public", "visible": false, "orderable": false},
         {"data": "update", "visible": true},
@@ -283,6 +288,7 @@
             {"data": "entitledPersons", "visible": false},
             {"data": "openAccounts", "visible": false},
             {"data": "specificitiesDelivered", "visible": false},
+            {"data": "createdAt", "visible": true},
             {"data": "updatedAt", "visible": true},
             {"data": "public", "visible": false, "orderable": false},
             {"data": "update", "visible": true},
@@ -460,21 +466,29 @@
             $('#search_specificite').change(function(){
                 oTable.column(col + 13).search($(this).val()).draw() ;
             });
+
+            $('#search_created_at').off('change');
+            $('#search_created_at').change(function(){
+                console.log('create', $(this).val(), oTable.column(col + 14))
+                oTable.column(col + 14).search($(this).val()).draw();
+            });
+
             $('#search_updated_at').off('change');
             $('#search_updated_at').change(function(){
-                oTable.column(col + 14).search($(this).val()).draw();
+                console.log('modif', $(this).val(), oTable.column(col + 15))
+                oTable.column(col + 15).search($(this).val()).draw();
             });
             $('#search_public').off('change');
             $('#search_public').change(function(){
-                oTable.column(col + 15).search($(this).val()).draw() ;
+                oTable.column(col + 16).search($(this).val()).draw() ;
             });
             $('#search_update').off('change');
             $('#search_update').change(function(){
-                oTable.column(col + 16).search($(this).val()).draw() ;
+                oTable.column(col + 17).search($(this).val()).draw() ;
             });
             $('#search_responsable_traitement').off('keyup');
             $('#search_responsable_traitement').keyup($.debounce(250, function(){
-                oTable.column(col + 17).search($(this).val()).draw() ;
+                oTable.column(col + 18).search($(this).val()).draw() ;
             }));
 
             // Handle click on "Select all" control

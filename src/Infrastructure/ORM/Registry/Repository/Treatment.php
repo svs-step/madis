@@ -410,6 +410,10 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     $queryBuilder->andWhere('o.securitySpecificitiesDelivered = :specificitiesDelivered')
                         ->setParameter('specificitiesDelivered', $search);
                     break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
                 case 'updatedAt':
                     $queryBuilder->andWhere('o.updatedAt LIKE :date')
                         ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
