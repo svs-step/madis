@@ -137,14 +137,6 @@ class CollectivityType extends AbstractType
                         'maxlength' => 255,
                     ],
                 ])
-                ->add('population', NumberType::class, [
-                    'label'    => 'user.collectivity.form.population',
-                    'required' => false,
-                ])
-                ->add('nbrAgents', NumberType::class, [
-                    'label'    => 'user.collectivity.form.nbr_agents',
-                    'required' => false,
-                ])
                 ->add('nbrCnil', NumberType::class, [
                     'label'    => 'user.collectivity.form.nbr_cnil',
                     'required' => false,
@@ -165,6 +157,14 @@ class CollectivityType extends AbstractType
 
         // Now add standard information
         $builder
+            ->add('population', NumberType::class, [
+                'label'    => 'user.collectivity.form.population',
+                'required' => false,
+            ])
+            ->add('nbrAgents', NumberType::class, [
+                'label'    => 'user.collectivity.form.nbr_agents',
+                'required' => false,
+            ])
             ->add('legalManager', ContactType::class, [
                 'label'             => 'user.collectivity.form.legal_manager',
                 'required'          => true,

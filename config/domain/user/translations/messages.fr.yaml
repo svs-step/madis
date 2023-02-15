@@ -142,6 +142,8 @@ user:
             management_commitment: Bilan paragraphe "Engagement de la direction"
             continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
           services: Services
+          population: Population
+          nbr_agents: Nombre de salariés
         title:
             create: Créer une Structure
             delete: Supprimer une Structure
