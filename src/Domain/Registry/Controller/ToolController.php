@@ -36,7 +36,6 @@ use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Repository as UserRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;

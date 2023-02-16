@@ -158,7 +158,6 @@ class Tool extends CRUDRepository implements Repository\Tool
         }
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -174,6 +173,6 @@ class Tool extends CRUDRepository implements Repository\Tool
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

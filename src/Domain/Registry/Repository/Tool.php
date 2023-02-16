@@ -26,7 +26,9 @@ namespace App\Domain\Registry\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
 use App\Application\Doctrine\Repository\DataTablesRepository;
+use App\Domain\User\Model\Collectivity;
 
 interface Tool extends CRUDRepositoryInterface, DataTablesRepository
 {
+    public function findAllByCollectivity(Collectivity $collectivity = null, array $order = []);
 }

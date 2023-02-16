@@ -32,6 +32,8 @@ use App\Domain\Registry\Form\Type\ToolType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 use App\Domain\User\Repository as UserRepository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,6 +41,7 @@ use Knp\Snappy\Pdf;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -165,6 +168,46 @@ class ToolControllerTest extends TestCase
         $this->assertEquals(
             ToolType::class,
             $this->invokeMethod($this->controller, 'getFormType', [])
+        );
+    }
+
+    /**
+     * Test reportAction.
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     */
+    public function testReportAction()
+    {
+        $orderKey   = 'name';
+        $orderDir   = 'asc';
+        $treatments = [];
+        $response   = $this->prophesize(BinaryFileResponse::class)->reveal();
+
+        $collectivity = $this->prophesize(Collectivity::class)->reveal();
+        $userProphecy = $this->prophesize(User::class);
+        $userProphecy->getCollectivity()->shouldBeCalled()->willReturn($collectivity);
+        $this->userProviderProphecy
+            ->getAuthenticatedUser()
+            ->shouldBeCalled()
+            ->willReturn($userProphecy->reveal())
+        ;
+
+        // findAllByCollectivity must be called but not findAll
+        $this->repositoryProphecy
+            ->findAllByCollectivity($collectivity, [$orderKey => $orderDir])
+            ->shouldBeCalled()
+            ->willReturn($treatments)
+        ;
+
+        $this->wordHandlerProphecy
+            ->generateRegistryToolReport($treatments)
+            ->shouldBeCalled()
+            ->willReturn($response)
+        ;
+
+        $this->assertEquals(
+            $response,
+            $this->controller->reportAction()
         );
     }
 }

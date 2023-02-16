@@ -70,7 +70,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
          * @var Treatment
          */
         foreach ($data as $key => $treatment) {
-            /** @var Treatment $treatment */
+            /* @var Treatment $treatment */
             // Overview
 
             if (10 > $key) {

@@ -577,7 +577,6 @@ class Treatment implements LoggableSubject, CollectivityRelated
         }, (array) $data));
     }
 
-
     public function setTools(?iterable $tools): void
     {
         $this->tools = $tools;

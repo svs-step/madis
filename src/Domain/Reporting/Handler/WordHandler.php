@@ -117,7 +117,7 @@ class WordHandler
         $this->requestGenerator                = $requestGenerator;
         $this->treatmentGenerator              = $treatmentGenerator;
         $this->violationGenerator              = $violationGenerator;
-        $this->toolGenerator              = $toolGenerator;
+        $this->toolGenerator                   = $toolGenerator;
         $this->conformiteTraitementGenerator   = $conformiteTraitementGenerator;
         $this->conformiteOrganisationGenerator = $conformiteOrganisationGenerator;
     }
@@ -353,7 +353,6 @@ class WordHandler
 
         // Section which will get whole content
         $contentSection = $this->toolGenerator->createContentSection($this->document, $title);
-
         // Table of content
         $this->toolGenerator->addTableOfContent($contentSection, 1);
 
