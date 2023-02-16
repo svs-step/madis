@@ -26,10 +26,10 @@ final class Version20230213132653 extends AbstractMigration
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
         $usersWithoutEmailPreferences = $this->connection->query('SELECT `id` FROM user_user WHERE `email_notification_preference_id` IS NULL')->fetchAll();
 
-        foreach($usersWithoutEmailPreferences as $user) {
-            $prefId = Uuid::uuid4()->__toString();
+        foreach ($usersWithoutEmailPreferences as $user) {
+            $prefId                     = Uuid::uuid4()->__toString();
             $this->prefIds[$user['id']] = $prefId;
-            $this->addSql('INSERT INTO user_notification_preference (id, frequency, enabled, start_hour, start_day, start_week, notification_mask) VALUES ("'.$prefId.'", "none", 1, NULL, NULL, NULL, 0 ) ');
+            $this->addSql('INSERT INTO user_notification_preference (id, frequency, enabled, start_hour, start_day, start_week, notification_mask, last_sent) VALUES ("' . $prefId . '", "none", 1, NULL, NULL, NULL, 0, NOW() ) ');
         }
     }
 

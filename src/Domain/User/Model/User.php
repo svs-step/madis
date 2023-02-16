@@ -145,11 +145,11 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
      */
     public function __construct()
     {
-        $this->id                    = Uuid::uuid4();
-        $this->roles                 = [];
-        $this->enabled               = true;
-        $this->collectivitesReferees = [];
-        $this->moreInfos             = [];
+        $this->id                          = Uuid::uuid4();
+        $this->roles                       = [];
+        $this->enabled                     = true;
+        $this->collectivitesReferees       = [];
+        $this->moreInfos                   = [];
         $this->emailNotificationPreference = new EmailNotificationPreference();
     }
 
