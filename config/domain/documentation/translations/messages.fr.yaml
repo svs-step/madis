@@ -50,6 +50,7 @@ documentation:
             name: Nom
             category: Catégorie
             created_at: Date de création
+            updated_at: Date de modification
             score: Score
             pinned: Épinglé
             favorited: Favori

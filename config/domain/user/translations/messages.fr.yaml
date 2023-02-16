@@ -95,6 +95,8 @@ user:
             nbr_cnil: Numéro de désignation CNIL
             population: Population
             tel_referent_rgpd: Tel Référent RGPD
+            created_at: Date de création
+            updated_at: Date de modification
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cette Structure ?
         show:
@@ -271,6 +273,8 @@ user:
             services: Service
             services_list: Liste des services
             service_number_users: Nombre d'utilisateurs dans ce service
+            created_at: Date de création
+            updated_at: Date de modification
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cet utilisateur ?
         tab:

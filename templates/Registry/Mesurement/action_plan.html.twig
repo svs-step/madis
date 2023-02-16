@@ -74,6 +74,12 @@
                             </th>
                             <th scope="col"></th>
                             <th scope="col"></th>
+                            <th scope="col">
+                                <input class="datepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="width: 100%;">
+                            </th>
+                            <th scope="col">
+                                <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="width: 100%;">
+                            </th>
                         </tr>
                         <tr>
                             <th scope="col">{{ 'registry.mesurement.list.name'|trans }}</th>
@@ -85,6 +91,8 @@
                             <th scope="col">{{ 'registry.mesurement.list.manager'|trans }}</th>
                             <th scope="col">{{ 'registry.mesurement.list.description'|trans }}</th>
                             <th scope="col">{{ 'registry.mesurement.list.observation'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.list.created_at'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.list.updated_at'|trans }}</th>
                             <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -116,6 +124,8 @@
             {"data": "responsable_action"},
             {"data": "description", "visible": false, "orderable": false},
             {"data": "observation", "visible": false, "orderable": false},
+            {"data": "createdAt", "visible": false},
+            {"data": "updatedAt", "visible": false},
             {"data": "actions", "orderable": false, "className": "noVis"},
         ],
         order:  [
@@ -172,6 +182,15 @@
                 oTable.column('6').search($(this).val()).draw() ;
             }));
 
+            $('#search_created_at').off('change');
+            $('#search_created_at').change(function(){
+                oTable.column('9').search($(this).val()).draw() ;
+            });
+
+            $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
+                oTable.column('10').search($(this).val()).draw() ;
+            });
         }
 
         $(document).ready(function() {

@@ -87,12 +87,14 @@ class MesureProtectionController extends CRUDController
         /** @var ModeleMesureProtection $mesure */
         foreach ($mesures as $mesure) {
             $reponse['data'][] = [
-              'nom'                => $mesure[0]->getNom(),
-              'nomCourt'           => $mesure[0]->getNomCourt(),
-              'detail'             => $mesure[0]->getDetail(),
-              'poidsVraisemblance' => $mesure[0]->getPoidsVraisemblance(),
-              'poidsGravite'       => $mesure[0]->getPoidsGravite(),
-              'actions'            => $this->generateActionCellContent($mesure['id']),
+                'nom'                => $mesure[0]->getNom(),
+                'nomCourt'           => $mesure[0]->getNomCourt(),
+                'detail'             => $mesure[0]->getDetail(),
+                'poidsVraisemblance' => $mesure[0]->getPoidsVraisemblance(),
+                'poidsGravite'       => $mesure[0]->getPoidsGravite(),
+                'createdAt'           => date_format($mesure[0]->getCreatedAt(), 'd-m-Y H:i:s'),
+                'updatedAt'           => date_format($mesure[0]->getUpdatedAt(), 'd-m-Y H:i:s'),
+                'actions'            => $this->generateActionCellContent($mesure['id']),
             ];
         }
 
@@ -110,7 +112,9 @@ class MesureProtectionController extends CRUDController
             '2' => 'detail',
             '3' => 'poidsVraisemblance',
             '4' => 'poidsGravite',
-            '5' => 'actions',
+            '5' => 'createdAt',
+            '6' => 'updatedAt',
+            '7' => 'actions',
         ];
     }
 

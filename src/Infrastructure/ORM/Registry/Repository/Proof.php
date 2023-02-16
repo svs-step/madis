@@ -494,6 +494,10 @@ class Proof implements Repository\Proof
                         ->setParameter('updated_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
                         ->setParameter('updated_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
             }
         }
     }

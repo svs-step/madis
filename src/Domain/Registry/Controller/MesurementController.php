@@ -335,7 +335,9 @@ class MesurementController extends CRUDController
                 6 => 'responsable_action',
                 7 => 'description',
                 8 => 'observation',
-                9 => 'actions',
+                9 => 'createdAt',
+                10 => 'updatedAt',
+                11 => 'actions',
             ];
         }
 
@@ -349,7 +351,9 @@ class MesurementController extends CRUDController
             6 => 'responsable_action', 
             7 => 'description',
             8 => 'observation',
-            9 => 'actions',
+            9 => 'createdAt',
+            10 => 'updatedAt',
+            11 => 'actions',
         ];
     }
 
@@ -377,6 +381,8 @@ class MesurementController extends CRUDController
                 'responsable_action' => $action->getManager(),
                 'description'        => $action->getDescription(),
                 'observation'        => $action->getComment(),
+                'createdAt'          => \date_format($action->getCreatedAt(), 'd/m/Y H:i'),
+                'updatedAt'          => \date_format($action->getUpdatedAt(), 'd/m/Y H:i'),
                 'actions'            => $this->generateActionCell($action, $isActionPlan),
             ];
         }

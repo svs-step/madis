@@ -57,14 +57,22 @@
                             <th>
                                 <input class="form-control" type="text" id="search_poids_gravite" placeholder="Poids de la gravité" style="width: 100%;">
                             </th>
+                            <th scope="col">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="width: 100%;">
+                            </th>
+                            <th scope="col">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="width: 100%;">
+                            </th>
                         </tr>
                         <tr>
-                            <th>{{ 'aipd.mesure_protection.list.nom'|trans }}</th>
-                            <th>{{ 'aipd.mesure_protection.list.nom_court'|trans }}</th>
-                            <th>{{ 'aipd.mesure_protection.list.detail'|trans }}</th>
-                            <th>{{ 'aipd.mesure_protection.list.poids_vraisemblance'|trans }}</th>
-                            <th>{{ 'aipd.mesure_protection.list.poids_gravite'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'aipd.mesure_protection.list.nom'|trans }}</th>
+                            <th scope="col">{{ 'aipd.mesure_protection.list.nom_court'|trans }}</th>
+                            <th scope="col">{{ 'aipd.mesure_protection.list.detail'|trans }}</th>
+                            <th scope="col">{{ 'aipd.mesure_protection.list.poids_vraisemblance'|trans }}</th>
+                            <th scope="col">{{ 'aipd.mesure_protection.list.poids_gravite'|trans }}</th>
+                            <th scope="col">{{ 'aipd.mesure_protection.list.created_at'|trans }}</th>
+                            <th scope="col">{{ 'aipd.mesure_protection.list.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>
@@ -84,6 +92,8 @@
             {"data": "detail", "visible": false},
             {"data": "poidsVraisemblance", "visible": false},
             {"data": "poidsGravite", "visible": false},
+            {"data": "createdAt", "visible": false},
+            {"data": "updatedAt", "visible": false},
             {"data": "actions", "className": "noVis", "orderable": false}
         ]
     } %}
@@ -113,7 +123,16 @@
             $('#search_poids_gravite').off('keyup');
             $('#search_poids_gravite').keyup($.debounce(250, function(){
                 oTable.column('4').search($(this).val()).draw() ;
-            }));            
+            }));
+            $('#search_created_at').off('change');
+            $('#search_created_at').change(function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            });
+
+            $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
+                oTable.column('6').search($(this).val()).draw();
+            });
         }
 
         $(document).ready(function() {

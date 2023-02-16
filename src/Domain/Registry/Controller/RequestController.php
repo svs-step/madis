@@ -208,6 +208,8 @@ class RequestController extends CRUDController
                 'demande_legitime'   => $demande->isLegitimateRequest() ? $yes : $no,
                 'date_traitement'    => null !== $demande->getAnswer()->getDate() ? \date_format($demande->getAnswer()->getDate(), 'd/m/Y') : '',
                 'etat_demande'       => array_key_exists($demande->getState(), RequestStateDictionary::getStates()) ? RequestStateDictionary::getStates()[$demande->getState()] : $demande->getState(),
+                'createdAt'          => date_format($demande->getCreatedAt(), 'd-m-Y H:i:s'),
+                'updatedAt'          => date_format($demande->getUpdatedAt(), 'd-m-Y H:i:s'),
                 'actions'            => $this->getActionsCellContent($demande),
             ];
         }
@@ -241,7 +243,9 @@ class RequestController extends CRUDController
             6 => 'demande_legitime',
             7 => 'date_traitement',
             8 => 'etat_demande',
-            9 => 'actions',
+            9 => 'createdAt',
+            10 => 'updatedAt',
+            11 => 'actions',
         ];
     }
 

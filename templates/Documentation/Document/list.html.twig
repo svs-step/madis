@@ -100,10 +100,10 @@
                                     <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
                                 </th>
                                 <th>
-                                    <select class="form-control selectpicker" id="search_category" style="width: 100%;" 
-                                        multiple 
-                                        title="Catégories" 
-                                        > 
+                                    <select class="form-control selectpicker" id="search_category" style="width: 100%;"
+                                        multiple
+                                        title="Catégories"
+                                        >
                                         {% for category in categories %}
                                             {% if category.name in activeCategories %}
                                                 <option
@@ -118,19 +118,21 @@
                                         {% endfor %}
                                     </select>
                                 </th>
-                                <th><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
-                                <th></th>
+                                <th scope="col"><input class="daterangepicker form-control" type="text" id="search_date" placeholder="Date de création" style="width: 100%;"></th>
+                                <th scope="col"><input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="width: 100%;"></th>
+                                <th scope="col"></th>
                             </tr>
-                            
+
                             <tr>
-                                <th>{{ 'documentation.document.list.pinned'|trans }}</th>
-                                <th>{{ 'documentation.document.list.favorited'|trans }}</th>
-                                <th>{{ 'documentation.document.list.type'|trans }}</th>
-                                <th>{{ 'documentation.document.list.weight'|trans }}</th>
-                                <th>{{ 'documentation.document.list.name'|trans }}</th>
-                                <th>{{ 'documentation.document.list.category'|trans }}</th>
-                                <th>{{ 'documentation.document.list.created_at'|trans }}</th>
-                                <th>{{ 'label.actions'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.pinned'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.favorited'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.type'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.weight'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.name'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.category'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.created_at'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.updated_at'|trans }}</th>
+                                <th scope="col">{{ 'label.actions'|trans }}</th>
                             </tr>
 
                         </thead>
@@ -180,6 +182,8 @@
                                 {{ object.categories|map(c => "#{c.name}") | join(', ') }}
                             </td>
                             <td>{{ object.createdAt|date('d/m/Y') }}</td>
+                            <td>{{ object.updatedAt|date('d/m/Y') }}</td>
+
                             <td>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
@@ -259,7 +263,8 @@
             {"data": "weight"},
             {"data": "name"},
             {"data": "category"},
-            {"data": "created_at"},
+            {"data": "created_at", "visible" : false},
+            {"data": "updated_at", "visible" : false},
             {"data": "actions", "className": "noVis", "orderable": false, "visible": actionIsVisible},
         ],
 
@@ -272,7 +277,7 @@
         dom: 'Brtip',
         columnDefs: [
             {
-                targets: 4,
+                targets: 8,
                 className: 'noVis'
             }
         ],
@@ -347,7 +352,7 @@
         }
         function setEvents() {
             var oTable = $('#table').DataTable();
-            
+
             $('#search_favorite').off('change');
             $('#search_favorite').change(function(){
                 oTable.column('1').search($(this).prop('checked') ? "1" : "").draw();
@@ -377,6 +382,11 @@
             $('#search_created_at').off('change');
             $('#search_created_at').change(function(){
                 oTable.column('6').search($(this).val()).draw() ;
+            });
+
+            $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
+                oTable.column('7').search($(this).val()).draw() ;
             });
         }
 
@@ -420,7 +430,7 @@
                 obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i>' : '<i data-value="0" class="far fa-star"></i>'
             })
         }
-        
+
 
     </script>
 

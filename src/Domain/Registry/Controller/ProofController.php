@@ -358,6 +358,7 @@ class ProofController extends CRUDController
                 'type'         => !\is_null($proof->getType()) ? ProofTypeDictionary::getTypes()[$proof->getType()] : null,
                 'commentaire'  => $proof->getComment(),
                 'date'         => \date_format($proof->getCreatedAt(), 'd/m/Y H:i'),
+                'updatedAt'         => \date_format($proof->getUpdatedAt(), 'd/m/Y H:i'),
                 'actions'      => $this->getActionCellsContent($proof),
             ];
         }
@@ -376,7 +377,8 @@ class ProofController extends CRUDController
             2 => 'type',
             3 => 'commentaire',
             4 => 'date',
-            5 => 'actions',
+            5 => 'updatedAt',
+            6 => 'actions',
         ];
     }
 

@@ -159,11 +159,12 @@ class CollectivityController extends CRUDController
                 'informations_complementaires' => !\is_null($collectivity->getInformationsComplementaires()) ? nl2br($collectivity->getInformationsComplementaires()) : null,
                 'siren'                        => $collectivity->getSiren(),
                 'statut'                       => $collectivity->isActive() ? $active : $inactive,
-                'date_maj'                     => date_format($collectivity->getUpdatedAt(), 'd-m-Y H:i:s'),
                 'population'                   => $collectivity->getPopulation(),
                 'nbr_agents'                   => $collectivity->getNbrAgents(),
                 'nbr_cnil'                     => $collectivity->getNbrCnil(),
                 'tel_referent_rgpd'            => !\is_null($collectivity->getDpo()) ? ($collectivity->getDpo())->getPhoneNumber() : null,
+                'createdAt'                    => date_format($collectivity->getCreatedAt(), 'd-m-Y H:i:s'),
+                'updatedAt'                    => date_format($collectivity->getUpdatedAt(), 'd-m-Y H:i:s'),
                 'actions'                      => $this->getActionCellsContent($collectivity),
             ];
         }
@@ -196,17 +197,18 @@ class CollectivityController extends CRUDController
     protected function getLabelAndKeysArray(): array
     {
         return [
-            0  => 'nom',
-            1  => 'nom_court',
-            2  => 'type',
-            3  => 'informations_complementaires',
-            4  => 'siren',
-            5  => 'statut',
-            6  => 'nbr_cnil',
-            7  => 'nbr_agents',
-            8  => 'population',
-            9  => 'date_maj',
-            10 => 'tel_referent_rgpd',
+
+            0 => 'nom',
+            1 => 'nom_court',
+            2 => 'type',
+            3 => 'siren',
+            4 => 'statut',
+            5  => 'nbr_cnil',
+            6  => 'nbr_agents',
+            7  => 'population',
+            8 => 'tel_referent_rgpd',
+            9 => 'createdAt',
+            10 => 'updatedAt',
             11 => 'actions',
         ];
     }
