@@ -31,6 +31,7 @@ use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Embeddable\ComplexChoice;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\User;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -475,5 +476,19 @@ class Tool implements LoggableSubject, CollectivityRelated
     public function isInUserServices(User $user): bool
     {
         return true;
+    }
+
+    public static function generateLinkedDataColumn(iterable|Collection|null $data)
+    {
+        if (is_null($data)) {
+            return '';
+        }
+        if (is_object($data) && method_exists($data, 'toArray')) {
+            $data = $data->toArray();
+        }
+
+        return join(', ', array_map(function ($object) {
+            return $object->getName();
+        }, (array) $data));
     }
 }

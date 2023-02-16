@@ -559,6 +559,25 @@ class Treatment implements LoggableSubject, CollectivityRelated
         return $this->tools;
     }
 
+    public function getToolsString(): ?string
+    {
+        $data = $this->getTools();
+        if (!$this->getCollectivity()->isHasModuleTools()) {
+            return $this->getSoftware();
+        }
+        if (is_null($data)) {
+            return null;
+        }
+        if (is_object($data) && method_exists($data, 'toArray')) {
+            $data = $data->toArray();
+        }
+
+        return join(', ', array_map(function ($object) {
+            return $object->getName();
+        }, (array) $data));
+    }
+
+
     public function setTools(?iterable $tools): void
     {
         $this->tools = $tools;

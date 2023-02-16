@@ -16,7 +16,7 @@ App\Domain\Registry\Model\Request:
     registry_request_awkan_{1..20}:
         object: <dictionary('registry_request_object')>
         otherObject: <dictionary('registry_request_object')>
-        reason: <dictionary('registry_request_civility')>
+        reason: <fr_FR:word()>
         applicant: '@request_applicant_<current()>'
         concernedPeople: '@request_concerned_people_<current()>'
         state: <dictionary('registry_request_state')>

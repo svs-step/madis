@@ -50,7 +50,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
 
 /**
- * @property Repository\Mesurement $repository
+ * @property Repository\Tool $repository
  */
 class ToolController extends CRUDController
 {
@@ -183,6 +183,21 @@ class ToolController extends CRUDController
         return $criteria;
     }
 
+    /**
+     * Generate a word report of contractors.
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     */
+    public function reportAction(): Response
+    {
+        $objects = $this->repository->findAllByCollectivity(
+            $this->userProvider->getAuthenticatedUser()->getCollectivity(),
+            ['name' => 'asc']
+        );
+
+        return $this->wordHandler->generateRegistryToolReport($objects);
+    }
+
     protected function getLabelAndKeysArray(): array
     {
         return [
@@ -235,10 +250,10 @@ class ToolController extends CRUDController
                 'tracking'       => $tool->getTracking()->isCheck() ? $yes : $no,
                 'has_comment'    => $tool->getHasComment()->isCheck() ? $yes : $no,
                 'other'          => $tool->getOther()->isCheck() ? $yes : $no,
-                'treatments'     => $this->generateLinkedDataColumn($tool->getTreatments()),
-                'contractors'    => $this->generateLinkedDataColumn($tool->getContractors()),
-                'proofs'         => $this->generateLinkedDataColumn($tool->getProofs()),
-                'mesurements'    => $this->generateLinkedDataColumn($tool->getMesurements()),
+                'treatments'     => Model\Tool::generateLinkedDataColumn($tool->getTreatments()),
+                'contractors'    => Model\Tool::generateLinkedDataColumn($tool->getContractors()),
+                'proofs'         => Model\Tool::generateLinkedDataColumn($tool->getProofs()),
+                'mesurements'    => Model\Tool::generateLinkedDataColumn($tool->getMesurements()),
                 'createdAt'      => $tool->getCreatedAt()->format('d-m-Y H:i:s'),
                 'updatedAt'      => $tool->getUpdatedAt()->format('d-m-Y H:i:s'),
                 'actions'        => $this->generateActionCell($tool),
@@ -249,20 +264,6 @@ class ToolController extends CRUDController
         $jsonResponse->setJson(json_encode($reponse));
 
         return $jsonResponse;
-    }
-
-    private function generateLinkedDataColumn(iterable|Collection|null $data)
-    {
-        if (is_null($data)) {
-            return '';
-        }
-        if (is_object($data) && method_exists($data, 'toArray')) {
-            $data = $data->toArray();
-        }
-
-        return join(', ', array_map(function ($object) {
-            return $object->getName();
-        }, (array) $data));
     }
 
     private function generateShowLink(Model\Tool $tool)

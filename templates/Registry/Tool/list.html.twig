@@ -31,6 +31,12 @@
                     {{ 'registry.tool.action.new'|trans }}
                 </a>
                 {% endif %}
+                {% if app.user.roles[0] != 'ROLE_REFERENT' %}
+                    <a href="{{ path('registry_tool_report') }}" class="btn btn-default">
+                        <i class="fa fa-clipboard-list"></i>
+                        {{ 'registry.treatment.action.report'|trans }}
+                    </a>
+                {% endif %}
 
                 {% if category is defined and category and category.documents|length > 0 %}
                     <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">

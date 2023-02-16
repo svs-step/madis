@@ -65,7 +65,7 @@ registry_tool_pdf:
     methods: ['GET']
     controller: 'App\Domain\Registry\Controller\ToolController:pdfAction'
 
-registry_tool_print_all:
-    path: '/imprimer-tous'
+registry_tool_report:
+    path: '/bilan'
     methods: ['GET']
-    controller: 'App\Domain\Registry\Controller\ToolController:pdfAllAction'
+    controller: 'App\Domain\Registry\Controller\ToolController:reportAction'

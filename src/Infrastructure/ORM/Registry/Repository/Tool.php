@@ -157,4 +157,23 @@ class Tool extends CRUDRepository implements Repository\Tool
                 break;
         }
     }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllByCollectivity(Collectivity $collectivity = null, array $order = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        if (!\is_null($collectivity)) {
+            $this->addCollectivityClause($qb, $collectivity);
+        }
+        $this->addOrder($qb, $order);
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

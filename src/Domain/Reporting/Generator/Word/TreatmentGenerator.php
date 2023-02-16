@@ -70,6 +70,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
          * @var Treatment
          */
         foreach ($data as $key => $treatment) {
+            /** @var Treatment $treatment */
             // Overview
 
             if (10 > $key) {
@@ -80,9 +81,10 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             }
 
             // Digitalisation
-            if (!\is_null($treatment->getSoftware()) && $treatment->isPaperProcessing()) {
+            $hasSoft = $treatment->getCollectivity()->isHasModuleTools() ? count($treatment->getTools()) > 0 : !\is_null($treatment->getSoftware());
+            if ($hasSoft && $treatment->isPaperProcessing()) {
                 ++$digitalisation['both'];
-            } elseif (!\is_null($treatment->getSoftware())) {
+            } elseif ($hasSoft) {
                 ++$digitalisation['onlyDigital'];
             } elseif ($treatment->isPaperProcessing()) {
                 ++$digitalisation['paper'];
@@ -91,7 +93,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             }
 
             // Security
-            if (!\is_null($treatment->getSoftware())) {
+            if ($hasSoft) {
                 if ($treatment->getSecurityAccessControl()->isCheck()) {
                     ++$security['accessControl'];
                 }
@@ -257,7 +259,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
                 1 => [
                     'Logiciel',
-                    \is_string($treatment->getSoftware()) ? $treatment->getSoftware() : null,
+                    \is_string($treatment->getToolsString()) ? $treatment->getToolsString() : null,
                 ],
                 2 => [
                     'Gestion papier',
