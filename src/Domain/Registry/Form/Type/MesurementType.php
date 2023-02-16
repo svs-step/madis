@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Form\Type;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Model\Request;
+use App\Domain\Registry\Model\Tool;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Model\User;
@@ -242,6 +243,36 @@ class MesurementType extends AbstractType
                 ],
             ])
         ;
+
+        if ($options['data']->getCollectivity()->isHasModuleTools()) {
+            $builder->add('tools', EntityType::class, [
+                'label'         => 'registry.treatment.form.software',
+                'class'         => Tool::class,
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
+                'query_builder' => function (EntityRepository $er) use ($mesurement) {
+                    $collectivity = null;
+                    if (!\is_null($mesurement->getCollectivity())) {
+                        $collectivity = $mesurement->getCollectivity();
+                    } else {
+                        /** @var User $authenticatedUser */
+                        $authenticatedUser = $this->security->getUser();
+                        $collectivity      = $authenticatedUser->getCollectivity();
+                    }
+
+                    return $er->createQueryBuilder('c')
+                        ->where('c.collectivity = :collectivity')
+                        ->addOrderBy('c.name', 'asc')
+                        ->setParameter('collectivity', $collectivity)
+                    ;
+                },
+                'attr' => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
+            ]);
+        }
     }
 
     /**

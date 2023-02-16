@@ -45,7 +45,7 @@
                 <span class="info-box-icon bg-green"><i class="fa fa-clipboard-list"></i></span>
 
                 <div class="info-box-content">
-                    <span style="white-space: normal;">Collectivités ayant déposées un bilan (12 der mois)</span>
+                    <span style="white-space: normal;">Structures ayant déposées un bilan (12 der mois)</span>
                     <span class="info-box-number">{{ data.balanceSheetProofByCollectivity.average|number_format }}<small>%</small></span>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 <span class="info-box-icon bg-yellow"><i class="fa fa-chart-bar"></i></span>
 
                 <div class="info-box-content">
-                    <span style="white-space: normal;">Collectivités ayant fait un indice de mat. (12 der mois)</span>
+                    <span style="white-space: normal;">Structures ayant fait un indice de mat. (12 der mois)</span>
                     <span class="info-box-number">{{ data.surveyLastYear.average|number_format }}<small>%</small></span>
                 </div>
             </div>
@@ -83,7 +83,7 @@
                 <div class="report text-center">
                   <span class="info-box-text "> <i class="far fa-chart-bar"></i></span>
                   <span class="info-box-number">{{data.collectivityByAddressInsee.value.all}}</span>
-                  <span class="info-box-text">Nombre de collectivités</span>
+                  <span class="info-box-text">Nombre de structures</span>
                   <br />
                   <span class="info-box-text "> <i class="far fa-chart-bar"></i></span>
                   <span class="info-box-number">{{data.collectivityByAddressInsee.value.dpoPercent}}</span>
@@ -105,38 +105,38 @@
             {% endif %}
         </div>
         <div class="col-sm-6 col-xs-12">
-            <div class="box box-solid">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Collectivités</h3>
-                </div>
-                <div class="box-body">
-                    {% if 0 == data.collectivityByType.value.all %}
-                        Aucune donnée à afficher
-                    {% else %}
-                        <div>
-                            <canvas id="collectivity-type" width="400" height="200"></canvas>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
+          <div class="box box-solid">
+              <div class="box-header with-border">
+                <h3 class="box-title">Structures</h3>
+              </div>
+              <div class="box-body">
+                  {% if 0 == data.collectivityByType.value.all %}
+                      Aucune donnée à afficher
+                  {% else %}
+                      <div>
+                          <canvas id="collectivity-type" width="400" height="200"></canvas>
+                      </div>
+                  {% endif %}
+              </div>
+          </div>
         </div>
         {# EXPORT CSV #}
         <div class="col-sm-6 col-xs-12">
             <div class="small-box bg-yellow">
                 <div class="inner">
-                    <p>Exporter les collectivités</p>
+                    <p>Exporter les structures</p>
                 </div>
                 <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::COLLECTIVITY_TYPE')}) }}" class="small-box-footer">
                     Exporter <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
             <div class="small-box bg-yellow">
-                <div class="inner">
-                    <p>Exporter les traitements</p>
-                </div>
-                <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::TREATMENT_TYPE')}) }}" class="small-box-footer">
-                    Exporter <i class="fa fa-arrow-circle-right"></i>
-                </a>
+              <div class="inner">
+                  <p>Exporter les traitements</p>
+              </div>
+              <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::TREATMENT_TYPE')}) }}" class="small-box-footer">
+                  Exporter <i class="fa fa-arrow-circle-right"></i>
+              </a>
             </div>
             <div class="small-box bg-yellow">
                 <div class="inner">
@@ -155,9 +155,12 @@
                 </a>
             </div>
         </div>
+      </div>
+    </div>
+
     </div>{# end row #}
 
-    <div id="tooltip" class="tooltip-box text-left" title="commune"></div>
+     <div id="tooltip" class="tooltip-box text-left" title="commune"></div>
 {% endblock %}
 
 {% set inseeObjectFlatten = data.collectivityByAddressInsee.value.addressInsee %}
@@ -180,29 +183,43 @@
         let colorTealOpacity = 'rgba(0, 105, 92, 0.5)';
         let colorOrange = 'rgb(255, 136, 0, 1)';
         let colorOrangeOpacity = 'rgb(255, 136, 0, 0.5)';
+        let colorOne = 'rgb(255, 246, 0, 1)';
+        let colorOneOpacity = 'rgb(255, 246, 0, 0.5)';
+        let colorTwo = 'rgb(89,46,11, 1)';
+        let colorTwoOpacity = 'rgb(89,46,11, 0.5)';
+        let colorThree = 'rgb(255, 0, 0, 1)';
+        let colorThreeOpacity = 'rgb(255, 0, 0, 0.5)';
+        let colorFour = 'rgb(173, 173, 173, 1)';
+        let colorFourOpacity = 'rgb(173, 173, 173, 0.5)';
 
         // COLLECTIVITY BY TYPE
         let collectivityByTypeLabel = [
             'Commune',
-            'Établissement social',
-            'Établissement Public de Coopération Intercommunale (EPCI)',
-            'Syndicat départemental',
-            'Établissement médico-social',
-            'Établissement sanitaire',
+            'CCAS',
+            'EPCI',
+            'CIAS',
+            'Syndicat',
+            'Sanitaire',
+            'Méd/Social',
+            'Association',
+            'Entreprise',
             'Autre',
         ];
         let collectivityByTypeData = [
             {{ data.collectivityByType.value.type.commune }},
-            {{ data.collectivityByType.value.type.social_institution }},
+            {{ data.collectivityByType.value.type.ccas }},
             {{ data.collectivityByType.value.type.epci }},
-            {{ data.collectivityByType.value.type.departmental_union }},
-            {{ data.collectivityByType.value.type.medical_institution }},
+            {{ data.collectivityByType.value.type.cias }},
+            {{ data.collectivityByType.value.type.syndicat }},
             {{ data.collectivityByType.value.type.sanitary_institution }},
+            {{ data.collectivityByType.value.type.medical_institution }},
+            {{ data.collectivityByType.value.type.association }},
+            {{ data.collectivityByType.value.type.enterprise }},
             {{ data.collectivityByType.value.type.other }},
         ];
     </script>
 
-    <script>
+<script>
 
         (function mapModule (){
 

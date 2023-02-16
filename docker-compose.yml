@@ -42,5 +42,6 @@ services:
       - PMA_HOST=db
       - PMA_USER=${MYSQL_USER}
       - PMA_PASSWORD=${MYSQL_PASSWORD}
+      - UPLOAD_LIMIT=256M
     depends_on:
       - db

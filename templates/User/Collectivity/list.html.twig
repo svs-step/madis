@@ -56,6 +56,7 @@
                                     {% endfor %}
                                 </select>
                             </th>
+                            <th></th>
                             <th>
                                 <input class="form-control" type="text" id="search_informations_complementaires" placeholder="Infos complémentaires" style="width: 100%;">
                             </th>
@@ -69,19 +70,28 @@
                                     <option value="0">{{ 'label.inactive'|trans }}</option>
                                 </select>
                             </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_nbr_cnil" placeholder="Numéro CNIL" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_nbr_agents" placeholder="Salariés" style="width: 100%;">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" id="search_population" placeholder="Population" style="width: 100%;">
+                            </th>
                         </tr>
                         <tr>
                             <th>{{ 'user.collectivity.list.name'|trans }}</th>
                             <th>{{ 'user.collectivity.list.short_name'|trans }}</th>
                             <th>{{ 'user.collectivity.list.type'|trans }}</th>
+                            <th>{{ 'user.collectivity.list.other'|trans }}</th>
                             <th>{{ 'user.collectivity.list.informations_complementaires'|trans }}</th>
                             <th>{{ 'user.collectivity.list.siren'|trans }}</th>
                             <th>{{ 'user.collectivity.list.active'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.date_maj'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.population'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.nbr_agents'|trans }}</th>
                             <th>{{ 'user.collectivity.list.nbr_cnil'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.tel_referent_rgpd'|trans }}</th>
+                            <th>{{ 'user.collectivity.list.nbr_agents'|trans }}</th>
+                            <th>{{ 'user.collectivity.list.population'|trans }}</th>
+                            <th>{{ 'user.collectivity.list.date_maj'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -104,14 +114,14 @@
             {"data": "nom"},
             {"data": "nom_court"},
             {"data": "type"},
+            {"data": "other"},
             {"data": "informations_complementaires"},
             {"data": "siren"},
             {"data": "statut"},
+            {"data": "nbr_cnil", "visible": false},
+            {"data": "nbr_agents", "visible": false},
+            {"data": "population", "visible": false},
             {"data": "date_maj"},
-            {"data": "population"},
-            {"data": "nbr_agents"},
-            {"data": "nbr_cnil"},
-            {"data": "tel_referent_rgpd", "orderable": false},
             {"data": "actions", "className": "noVis", "orderable": false, "visible": actionsIsVisible},
         ],
         order:  [
@@ -142,18 +152,36 @@
 
             $('#search_informations_complementaires').off('keyup');
             $('#search_informations_complementaires').keyup($.debounce(250, function(){
-                oTable.column('3').search($(this).val()).draw() ;
+                oTable.column('5').search($(this).val()).draw() ;
             }));
 
             $('#search_siren').off('keyup');
             $('#search_siren').keyup($.debounce(250, function(){
-                oTable.column('4').search($(this).val()).draw() ;
+                oTable.column('5').search($(this).val()).draw() ;
             }));
 
             $('#search_actif').off('change');
             $('#search_actif').change(function(){
-                oTable.column('5').search($(this).val()).draw() ;
+                oTable.column('6').search($(this).val()).draw() ;
             });
+
+            $('#search_nbr_cnil').off('keyup');
+            $('#search_nbr_cnil').keyup($.debounce(250, function(){
+                console.log('a',oTable.column('7'));
+                oTable.column('7').search($(this).val()).draw() ;
+            }));
+
+            $('#search_nbr_agents').off('keyup');
+            $('#search_nbr_agents').keyup($.debounce(250, function(){
+                console.log('b',oTable.column('8'));
+                oTable.column('8').search($(this).val()).draw() ;
+            }));
+
+            $('#search_population').off('keyup');
+            $('#search_population').keyup($.debounce(250, function(){
+                console.log('c',oTable.column('9'));
+                oTable.column('9').search($(this).val()).draw() ;
+            }));
         }
 
         $(document).ready(function() {

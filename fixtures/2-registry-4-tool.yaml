@@ -1,0 +1,21 @@
+App\Domain\Registry\Model\Embeddable\ComplexChoice:
+    registry_tool_choice_1:
+        check: true
+        comment: <word()>
+    registry_tool_choice_2:
+        check: true
+        comment: <word()>
+
+App\Domain\Registry\Model\Tool:
+    tool_{1..20}:
+        name: <fr_FR:company()>
+        type: <dictionary('registry_tool_type')>
+        editor: <boolean()>
+        archival: '@registry_tool_choice_1'
+        encrypted: '@registry_tool_choice_2'
+        access_control: '@registry_tool_choice_1'
+        update: '@registry_tool_choice_2'
+        backup: '@registry_tool_choice_1'
+        deletion: '@registry_tool_choice_1'
+        has_comment: '@registry_tool_choice_2'
+        other: '@registry_tool_choice_2'

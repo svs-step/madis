@@ -198,7 +198,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         ;
     }
 
-    public function findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity = null, bool $active = true, array $order = [])
+    public function findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity = null, bool $active = true, array $order = ['name' => 'ASC'])
     {
         $qb = $this->createQueryBuilder();
 

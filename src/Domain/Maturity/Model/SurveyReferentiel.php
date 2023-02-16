@@ -25,10 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Model;
 
 use App\Application\Traits\Model\HistoryTrait;
-use App\Domain\Maturity\Form\Type\SurveyReferentielType;
-use App\Domain\User\Model\Collectivity;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -52,7 +49,7 @@ class SurveyReferentiel
 
     public function __construct()
     {
-        $this->id                  = Uuid::uuid4();
+        $this->id                        = Uuid::uuid4();
         $this->surveyReferentielSections = new ArrayCollection();
     }
 

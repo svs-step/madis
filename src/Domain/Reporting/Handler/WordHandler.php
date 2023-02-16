@@ -32,6 +32,7 @@ use App\Domain\Reporting\Generator\Word\MaturityGenerator;
 use App\Domain\Reporting\Generator\Word\MesurementGenerator;
 use App\Domain\Reporting\Generator\Word\OverviewGenerator;
 use App\Domain\Reporting\Generator\Word\RequestGenerator;
+use App\Domain\Reporting\Generator\Word\ToolGenerator;
 use App\Domain\Reporting\Generator\Word\TreatmentGenerator;
 use App\Domain\Reporting\Generator\Word\ViolationGenerator;
 use PhpOffice\PhpWord\PhpWord;
@@ -76,6 +77,11 @@ class WordHandler
     private $treatmentGenerator;
 
     /**
+     * @var ToolGenerator
+     */
+    private $toolGenerator;
+
+    /**
      * @var ViolationGenerator
      */
     private $violationGenerator;
@@ -99,6 +105,7 @@ class WordHandler
         RequestGenerator $requestGenerator,
         TreatmentGenerator $treatmentGenerator,
         ViolationGenerator $violationGenerator,
+        ToolGenerator $toolGenerator,
         ConformiteTraitementGenerator $conformiteTraitementGenerator,
         ConformiteOrganisationGenerator $conformiteOrganisationGenerator
     ) {
@@ -110,6 +117,7 @@ class WordHandler
         $this->requestGenerator                = $requestGenerator;
         $this->treatmentGenerator              = $treatmentGenerator;
         $this->violationGenerator              = $violationGenerator;
+        $this->toolGenerator                   = $toolGenerator;
         $this->conformiteTraitementGenerator   = $conformiteTraitementGenerator;
         $this->conformiteOrganisationGenerator = $conformiteOrganisationGenerator;
     }
@@ -324,6 +332,38 @@ class WordHandler
     }
 
     /**
+     * Generate tool report.
+     *
+     * @param array $tools treatments to use for generation
+     *
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     * @throws \Exception
+     *
+     * @return Response The generated Word file
+     */
+    public function generateRegistryToolReport(array $tools = [])
+    {
+        $title = 'Registre des Logiciels et supports';
+
+        // Initialize document
+        $this->toolGenerator->initializeDocument($this->document);
+
+        // Begin generation
+        $this->toolGenerator->addHomepage($this->document, $title);
+
+        // Section which will get whole content
+        $contentSection = $this->toolGenerator->createContentSection($this->document, $title);
+        // Table of content
+        $this->toolGenerator->addTableOfContent($contentSection, 1);
+
+        // Content
+        $this->toolGenerator->addSyntheticView($contentSection, $tools);
+        $this->toolGenerator->addDetailedView($contentSection, $tools);
+
+        return $this->toolGenerator->generateResponse($this->document, 'logiciels-et-supports');
+    }
+
+    /**
      * Generate violation report.
      *
      * @param array $treatments treatments to use for generation
@@ -390,7 +430,7 @@ class WordHandler
 
     public function generateRegistryConformiteOrganisationReport(Evaluation $evaluation, bool $withAllActions): Response
     {
-        $title = 'Diagnostic de la conformite de l\'organisation';
+        $title = 'Diagnostic de la conformite de la structure';
 
         $this->conformiteOrganisationGenerator->initializeDocument($this->document);
 

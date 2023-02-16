@@ -70,6 +70,10 @@
                             <td>{{ object.siren|number_format(0, '.', ' ') }}</td>
                         </tr>
                         <tr>
+                            <td><strong>{{ 'user.collectivity.show.finess_geo'|trans }}</strong></td>
+                            <td>{{ object.finessGeo }}</td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'user.collectivity.show.active'|trans }}</strong></td>
                             <td>
                                 {% if object.active %}
@@ -108,24 +112,28 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'user.collectivity.show.informations_complementaires'|trans }}</strong></td>
-                            <td>{{ object.informationsComplementaires|nl2br }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.finess_geo'|trans }}</strong></td>
-                            <td>{{ object.finessGeo }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.population'|trans }}</strong></td>
-                            <td>{{ object.population }}</td>
+                            <td><strong>{{ 'user.collectivity.show.has_module_tools'|trans }}</strong></td>
+                            <td>
+                                <span class="badge bg-gr">
+                                    {% if object.hasModuleTools %}
+                                        {{ 'label.yes'|trans }}
+                                    {% else %}
+                                        {{ 'label.no'|trans }}
+                                    {% endif %}
+                                </span>
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.nbr_agents'|trans }}</strong></td>
                             <td>{{ object.nbrAgents }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'user.collectivity.show.nbr_cnil'|trans }}</strong></td>
-                            <td>{{ object.nbrCnil }}</td>
+                            <td><strong>{{ 'user.collectivity.show.population'|trans }}</strong></td>
+                            <td>{{ object.population }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.informations_complementaires'|trans }}</strong></td>
+                            <td>{{ object.informationsComplementaires|nl2br }}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -308,6 +316,10 @@
                     <table class="table">
                         <tbody>
                         <tr>
+                            <td><strong>{{ 'user.collectivity.show.nbr_cnil'|trans }}</strong></td>
+                            <td>{{ object.nbrCnil }}</td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'user.collectivity.show.different_dpo'|trans }}</strong></td>
                             <td>
                                 <span class="badge bg-gr">
@@ -481,28 +493,29 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-md-6">
-            <div class="box box-solid box-default">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.services'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th><strong>{{ 'user.collectivity.show.name'|trans }}</strong></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for service in object.services %}
+        {% if object.isServicesEnabled and object.services is not empty %}
+            <div class="col-md-6">
+                <div class="box box-solid box-default">
+                    <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.services'|trans }}</h3></div>
+                    <div class="box-body no-padding">
+                        <table class="table">
+                            <thead>
                             <tr>
-                                <td>{{ service.name }}</td>
+                                <th><strong>{{ 'user.collectivity.show.name'|trans }}</strong></th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {% for service in object.services %}
+                                <tr>
+                                    <td>{{ service.name }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
 
     </div>
 {% endblock %}

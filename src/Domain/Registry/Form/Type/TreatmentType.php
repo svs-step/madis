@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Form\Type;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Model\Contractor;
+use App\Domain\Registry\Model\Tool;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\TreatmentDataCategory;
 use App\Domain\User\Model\Service;
@@ -73,7 +74,7 @@ class TreatmentType extends AbstractType
                 'required' => false,
             ])
             ->add('exempt_AIPD', CheckboxType::class, [
-                'label'    => ' ',
+                'label'    => 'registry.treatment.form.exemptAipd',
                 'required' => false,
             ])
             ->add('name', TextType::class, [
@@ -97,13 +98,7 @@ class TreatmentType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
-            ->add('software', TextType::class, [
-                'label'    => 'registry.treatment.form.software',
-                'required' => false,
-                'attr'     => [
-                    'maxlength' => 255,
-                ],
-            ])
+
             ->add('paperProcessing', CheckboxType::class, [
                 'label'    => 'registry.treatment.form.paper_processing',
                 'required' => false,
@@ -148,6 +143,10 @@ class TreatmentType extends AbstractType
             ])
             ->add('concernedPeoplePartner', ComplexChoiceType::class, [
                 'label'    => 'registry.treatment.form.concerned_people_partner',
+                'required' => false,
+            ])
+            ->add('concernedPeopleUsager', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_usager',
                 'required' => false,
             ])
             ->add('concernedPeopleOther', ComplexChoiceType::class, [
@@ -366,6 +365,44 @@ class TreatmentType extends AbstractType
             $builder->add('dpoMessage', TextareaType::class, [
                 'label'    => 'registry.treatment.form.dpoMessage',
                 'required' => false,
+            ]);
+        }
+
+        if ($options['data']->getCollectivity()->isHasModuleTools()) {
+            $builder->add('tools', EntityType::class, [
+                'label'         => 'registry.treatment.form.software',
+                'class'         => Tool::class,
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
+                'query_builder' => function (EntityRepository $er) use ($treatment) {
+                    $collectivity = null;
+                    if (!\is_null($treatment->getCollectivity())) {
+                        $collectivity = $treatment->getCollectivity();
+                    } else {
+                        /** @var User $authenticatedUser */
+                        $authenticatedUser = $this->security->getUser();
+                        $collectivity      = $authenticatedUser->getCollectivity();
+                    }
+
+                    return $er->createQueryBuilder('c')
+                        ->where('c.collectivity = :collectivity')
+                        ->addOrderBy('c.name', 'asc')
+                        ->setParameter('collectivity', $collectivity)
+                    ;
+                },
+                'attr' => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
+            ]);
+        } else {
+            $builder->add('software', TextType::class, [
+                'label'    => 'registry.treatment.form.software',
+                'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ]);
         }
 

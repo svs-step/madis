@@ -1,0 +1,41 @@
+App\Domain\Registry\Model\Tool:
+    properties:
+        name:
+            - NotBlank:
+                message: 'registry.tool.name.not_blank'
+                groups: ['default']
+            - Length:
+                max: 255
+                groups: ['default']
+        type:
+            - NotNull:
+                message: 'registry.tool.type.not_null'
+                groups: ['default']
+        manager:
+            - Length:
+                max: 255
+                groups: ['default']
+        archival:
+            - Valid: ~
+        tracking:
+            - Valid: ~
+        encrypted:
+            - Valid: ~
+        access_control:
+            - Valid: ~
+        update:
+            - Valid: ~
+        backup:
+            - Valid: ~
+        deletion:
+            - Valid: ~
+        has_comment:
+            - Valid: ~
+        other:
+            - Valid: ~
+        country_type:
+            - NotNull:
+                  groups: ['default']
+            - NotBlank:
+                  groups: ['default']
+            - Callback: [validate]

@@ -28,7 +28,6 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Reporting\Model\LoggableSubject;
-use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -65,8 +64,8 @@ class Survey implements LoggableSubject
      */
     public function __construct()
     {
-        $this->id       = Uuid::uuid4();
-        $this->score    = 0;
+        $this->id    = Uuid::uuid4();
+        $this->score = 0;
     }
 
     public function getId(): UuidInterface

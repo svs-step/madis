@@ -44,6 +44,7 @@ class TreatmentCloner extends AbstractCloner
         $treatment->setGoal($referent->getGoal());
         $treatment->setManager($referent->getManager());
         $treatment->setSoftware($referent->getSoftware());
+        $treatment->setTools($referent->getTools());
         $treatment->setPaperProcessing($referent->isPaperProcessing());
         $treatment->setLegalBasis($referent->getLegalBasis());
         $treatment->setLegalBasisJustification($referent->getLegalBasisJustification());
@@ -65,6 +66,9 @@ class TreatmentCloner extends AbstractCloner
         }
         if (null !== $referent->getConcernedPeoplePartner()) {
             $treatment->setConcernedPeoplePartner($referent->getConcernedPeoplePartner());
+        }
+        if (null !== $referent->getConcernedPeopleUsager()) {
+            $treatment->setConcernedPeopleUsager($referent->getConcernedPeopleUsager());
         }
         if (null !== $referent->getConcernedPeopleOther()) {
             $treatment->setConcernedPeopleOther($referent->getConcernedPeopleOther());

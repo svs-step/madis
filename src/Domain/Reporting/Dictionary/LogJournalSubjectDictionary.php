@@ -88,7 +88,7 @@ class LogJournalSubjectDictionary extends SimpleDictionary
         return [
             self::ADMIN_DUPLICATION                           => 'Duplication',
             self::REGISTRY_MESUREMENT                         => 'Action de protection',
-            self::USER_COLLECTIVITY                           => 'Collectivité',
+            self::USER_COLLECTIVITY                           => 'Structure',
             self::REGISTRY_CONFORMITE_ORGANISATION_EVALUATION => 'Conformité organisation',
             self::REGISTRY_CONFORMITE_TRAITEMENT              => 'Conformité traitement',
             self::REGISTRY_REQUEST                            => 'Demande',

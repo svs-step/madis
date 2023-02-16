@@ -46,6 +46,7 @@ class TreatmentTest extends TestCase
         $this->assertInstanceOf(ComplexChoice::class, $model->getConcernedPeopleElected());
         $this->assertInstanceOf(ComplexChoice::class, $model->getConcernedPeopleCompany());
         $this->assertInstanceOf(ComplexChoice::class, $model->getConcernedPeoplePartner());
+        $this->assertInstanceOf(ComplexChoice::class, $model->getConcernedPeopleUsager());
         $this->assertInstanceOf(ComplexChoice::class, $model->getConcernedPeopleOther());
         $this->assertEquals([], $model->getDataCategories());
         $this->assertEquals([], $model->getContractors());

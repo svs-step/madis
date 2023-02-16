@@ -70,6 +70,7 @@ class EmailNotificationPreference
         $this->notificationMask = 0;
         $this->enabled          = 1;
         $this->frequency        = 'none';
+        $this->lastSent         = new \DateTime();
     }
 
     public function getId(): UuidInterface

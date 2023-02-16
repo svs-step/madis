@@ -126,7 +126,7 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
      */
     private $moreInfos;
 
-    private EmailNotificationPreference $emailNotificationPreference;
+    private ?EmailNotificationPreference $emailNotificationPreference;
 
     /**
      * @var Collection|array|null
@@ -145,11 +145,12 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
      */
     public function __construct()
     {
-        $this->id                    = Uuid::uuid4();
-        $this->roles                 = [];
-        $this->enabled               = true;
-        $this->collectivitesReferees = [];
-        $this->moreInfos             = [];
+        $this->id                          = Uuid::uuid4();
+        $this->roles                       = [];
+        $this->enabled                     = true;
+        $this->collectivitesReferees       = [];
+        $this->moreInfos                   = [];
+        $this->emailNotificationPreference = new EmailNotificationPreference();
     }
 
     public function getId(): UuidInterface
@@ -388,12 +389,12 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
         $this->moreInfos = $moreInfos;
     }
 
-    public function getEmailNotificationPreference(): EmailNotificationPreference
+    public function getEmailNotificationPreference(): ?EmailNotificationPreference
     {
         return $this->emailNotificationPreference;
     }
 
-    public function setEmailNotificationPreference(EmailNotificationPreference $emailNotificationPreference): void
+    public function setEmailNotificationPreference(?EmailNotificationPreference $emailNotificationPreference): void
     {
         $this->emailNotificationPreference = $emailNotificationPreference;
     }

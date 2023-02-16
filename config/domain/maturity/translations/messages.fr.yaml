@@ -15,7 +15,7 @@ maturity:
                 edit: Indice de maturité "%object%" modifié avec succès
                 delete: Indice de maturité "%object%" supprimé avec succès
         list:
-            collectivity: Collectivité
+            collectivity: Structure
             created_at: Date de création
             score: Score
         title:

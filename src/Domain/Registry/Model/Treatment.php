@@ -80,11 +80,11 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $manager;
 
     /**
-     * FR: Logiciel.
+     * FR: Logiciels et supports.
      *
-     * @var string|null
+     * @var Tool[]|iterable
      */
-    private $software;
+    private $tools;
 
     /**
      * FR: Traitement papier.
@@ -123,6 +123,8 @@ class Treatment implements LoggableSubject, CollectivityRelated
      * @var string|null
      */
     private $dataCategoryOther;
+
+    private $software;
 
     /**
      * FR: Origine des données.
@@ -304,6 +306,13 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $concernedPeopleParticular;
 
     /**
+     * FR: Usagers (Personnes concernées).
+     *
+     * @var ComplexChoice
+     */
+    private $concernedPeopleUsager;
+
+    /**
      * FR: Internautes (Personnes concernées).
      *
      * @var ComplexChoice
@@ -462,6 +471,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->proofs                            = [];
         $this->concernedPeopleParticular         = new ComplexChoice();
         $this->concernedPeopleUser               = new ComplexChoice();
+        $this->concernedPeopleUsager             = new ComplexChoice();
         $this->concernedPeopleAgent              = new ComplexChoice();
         $this->concernedPeopleElected            = new ComplexChoice();
         $this->concernedPeopleCompany            = new ComplexChoice();
@@ -544,14 +554,32 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->manager = $manager;
     }
 
-    public function getSoftware(): ?string
+    public function getTools(): ?iterable
     {
-        return $this->software;
+        return $this->tools;
     }
 
-    public function setSoftware(?string $software): void
+    public function getToolsString(): ?string
     {
-        $this->software = $software;
+        $data = $this->getTools();
+        if (!$this->getCollectivity()->isHasModuleTools()) {
+            return $this->getSoftware();
+        }
+        if (is_null($data)) {
+            return null;
+        }
+        if (is_object($data) && method_exists($data, 'toArray')) {
+            $data = $data->toArray();
+        }
+
+        return join(', ', array_map(function ($object) {
+            return $object->getName();
+        }, (array) $data));
+    }
+
+    public function setTools(?iterable $tools): void
+    {
+        $this->tools = $tools;
     }
 
     public function isPaperProcessing(): bool
@@ -833,6 +861,16 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->automatedDecisionsWithLegalEffect = $automatedDecisionsWithLegalEffect;
     }
 
+    public function getSoftware(): ?string
+    {
+        return $this->software;
+    }
+
+    public function setSoftware(?string $software): void
+    {
+        $this->software = $software;
+    }
+
     public function isAutomaticExclusionService(): bool
     {
         return $this->automaticExclusionService;
@@ -861,6 +899,16 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function setConcernedPeopleUser(ComplexChoice $concernedPeopleUser): void
     {
         $this->concernedPeopleUser = $concernedPeopleUser;
+    }
+
+    public function getConcernedPeopleUsager(): ComplexChoice
+    {
+        return $this->concernedPeopleUsager;
+    }
+
+    public function setConcernedPeopleUsager(ComplexChoice $concernedPeopleUsager): void
+    {
+        $this->concernedPeopleUsager = $concernedPeopleUsager;
     }
 
     public function getConcernedPeopleAgent(): ComplexChoice

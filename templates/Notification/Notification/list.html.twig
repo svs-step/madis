@@ -193,7 +193,7 @@
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <td>{{object.collectivity}}</td>
                                 {% endif %}
-                                <td>{{ object.createdAt|date('d/m/Y') }}</td>
+                                <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
                                 <td>{{object.createdBy}}</td>
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <td>{{object.readAt|date('d/m/Y') }}</td>

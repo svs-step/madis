@@ -110,7 +110,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
             ],
         ];
 
-        $section->addTitle('Analyse de la conformité de l\'organisation', 2);
+        $section->addTitle('Analyse de la conformité de la structure', 2);
 
         $section->addChart('column', $this->extractConformiteProcessus($evaluation), $scores, $style);
 

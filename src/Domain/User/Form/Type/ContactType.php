@@ -26,7 +26,6 @@ namespace App\Domain\User\Form\Type;
 
 use App\Domain\User\Model\Embeddable\Contact;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
-use PhpOffice\PhpWord\Element\CheckBox;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -111,7 +110,8 @@ class ContactType extends AbstractType
                 'required' => false,
             ]);
 
-        if ('collectivity' === $collectivity_page) {
+        // Email notificaiton only available on collectivity page for responsable traitement and referent RGPD
+        if ('collectivity' === $collectivity_page && (in_array('collectivity_legal_manager', $options['validation_groups'] ?? []) || in_array('collectivity_referent', $options['validation_groups'] ?? []))) {
             $builder->add('notification', CheckboxType::class, [
                 'label'    => 'user.contact.form.notification',
                 'required' => false,

@@ -371,7 +371,7 @@ class TreatmentController extends CRUDController
                 'nom'                    => $treatmentLink,
                 'collectivite'           => $this->authorizationChecker->isGranted('ROLE_REFERENT') ? $treatment->getCollectivity()->getName() : '',
                 'baseLegal'              => !empty($treatment->getLegalBasis()) && array_key_exists($treatment->getLegalBasis(), TreatmentLegalBasisDictionary::getBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : $treatment->getLegalBasis(),
-                'logiciel'               => $treatment->getSoftware(),
+                'logiciel'               => $treatment->getToolsString(),
                 'enTantQue'              => !empty($treatment->getAuthor()) && array_key_exists($treatment->getAuthor(), TreatmentAuthorDictionary::getAuthors()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : $treatment->getAuthor(),
                 'gestionnaire'           => $treatment->getManager(),
                 'sousTraitant'           => $contractors,
@@ -388,6 +388,7 @@ class TreatmentController extends CRUDController
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
                 'specific_traitement'    => $this->getSpecificTraitement($treatment),
                 'conformite_traitement'  => $this->getTreatmentConformity($treatment),
+                'avis_aipd'              => $this->getAvisAipd($treatment),
                 'actions'                => $this->generateActionCellContent($treatment),
                 'exempt_AIPD'            => $treatment->getExemptAIPD() ? $yes : $no,
             ];
@@ -418,6 +419,40 @@ class TreatmentController extends CRUDController
             default:
                 $label = 'Non-conforme majeure';
                 $class = 'label-danger';
+        }
+
+        return '<span class="label ' . $class . '" style="min-width: 100%; display: inline-block;">' . $label . '</span>';
+    }
+
+    private function getAvisAipd(Treatment $treatment)
+    {
+        if (!$treatment->getConformiteTraitement()) {
+            return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non réalisée</span>';
+        }
+        $conf = $treatment->getConformiteTraitement();
+
+        if (null === $conf->getLastAnalyseImpact()) {
+            return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non réalisée</span>';
+        }
+        $analyse_impact = $conf->getLastAnalyseImpact();
+        $statut         = $analyse_impact->getStatut();
+
+        switch ($statut) {
+            case 'defavorable':
+                $label = 'Défavorable';
+                $class = 'label-danger';
+                break;
+            case 'favorable_avec_reserves':
+                $label = 'Favorable avec réserves';
+                $class = 'label-warning';
+                break;
+            case 'favorable':
+                $label = 'Favorable';
+                $class = 'label-success';
+                break;
+            default:
+                $label = 'Non réalisée';
+                $class = 'label-default';
         }
 
         return '<span class="label ' . $class . '" style="min-width: 100%; display: inline-block;">' . $label . '</span>';

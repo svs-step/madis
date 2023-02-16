@@ -30,7 +30,9 @@
 
             {# General #}
             <div class="box box-solid box-primary">
-                <div class="box-header">{{ 'user.profile.form_user.tab.general'|trans }}</div>
+                <div class="box-header">
+                    <h3 class="box-title">{{ 'user.profile.form_user.tab.general'|trans }}</h3>
+                </div>
                 {{ form_start(form) }}
                 <div class="box-body">
                     {{ form_row(form.firstName) }}
@@ -49,7 +51,9 @@
 
             {# Reset password #}
             <div class="box box-solid box-danger">
-                <div class="box-header"><h3 class="box-title">{{ 'user.profile.form_user.tab.optional'|trans }}</h3></div>
+                <div class="box-header">
+                    <h3 class="box-title">{{ 'user.profile.form_user.tab.optional'|trans }}</h3>
+                </div>
                 <div class="box-body">
                     <blockquote>
                         <small>{{ 'user.user.form.help.password'|trans }}</small>
@@ -64,13 +68,15 @@
 
             {# Information #}
             <div class="box box-solid box-primary">
-                <div class="box-header">{{ 'label.for_your_information'|trans }}</div>
+                <div class="box-header">
+                    <h3 class="box-title">{{ 'label.for_your_information'|trans }}</h3>
+                </div>
                 <div class="box-body">
                     <ul>
-                        <li>Vous disposez d'un compte associé à la collectivité <strong>{{ form.vars.value.collectivity }}.</strong></li>
-                        <li>Vous disposez des droits de <strong>lecture</strong> sur votre collectivité{% if app.user.roles[0] == 'ROLE_REFERENT' %} et sur vos collectivités rattacheés{% endif %}.</li>
+                        <li>Vous disposez d'un compte associé à la structure <strong>{{ form.vars.value.collectivity }}.</strong></li>
+                        <li>Vous disposez des droits de <strong>lecture</strong> sur votre structure{% if app.user.roles[0] == 'ROLE_REFERENT' %} et sur vos structures rattacheés{% endif %}.</li>
                         {% if is_granted('ROLE_USER') %}
-                            <li>Vous disposez des droits d'<strong>écriture</strong> sur votre collectivité{% if app.user.roles[0] == 'ROLE_REFERENT' %} et  sur vos collectivités rattacheés via la fonctionnalité "se connecter en tant que"{% endif %}.</li>
+                            <li>Vous disposez des droits d'<strong>écriture</strong> sur votre structure{% if app.user.roles[0] == 'ROLE_REFERENT' %} et  sur vos structures rattacheés via la fonctionnalité "se connecter en tant que"{% endif %}.</li>
                         {% endif %}
                         {% if app.user.roles[0] == 'ROLE_REFERENT' %}
                             <li>Liste des structures rattachées :</li>
@@ -87,7 +93,9 @@
             {# SSO #}
             {% if sso_title %}
                 <div class="box box-solid box-primary">
-                    <div class="box-header">{{ 'user.profile.form_user.tab.login_delegation'|trans }}</div>
+                    <div class="box-header">
+                        <h3 class="box-title">{{ 'user.profile.form_user.tab.login_delegation'|trans }}</h3>
+                    </div>
                     <div class="box-body">
                         <label class="col-sm-2">{{ 'user.user.form.sso_key'|trans }}</label>
 

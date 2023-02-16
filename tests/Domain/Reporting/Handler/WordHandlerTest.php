@@ -31,6 +31,7 @@ use App\Domain\Reporting\Generator\Word\MaturityGenerator;
 use App\Domain\Reporting\Generator\Word\MesurementGenerator;
 use App\Domain\Reporting\Generator\Word\OverviewGenerator;
 use App\Domain\Reporting\Generator\Word\RequestGenerator;
+use App\Domain\Reporting\Generator\Word\ToolGenerator;
 use App\Domain\Reporting\Generator\Word\TreatmentGenerator;
 use App\Domain\Reporting\Generator\Word\ViolationGenerator;
 use App\Domain\Reporting\Handler\WordHandler;
@@ -82,6 +83,11 @@ class WordHandlerTest extends TestCase
     private $treatmentGeneratorProphecy;
 
     /**
+     * @var ToolGenerator
+     */
+    private $toolGeneratorProphecy;
+
+    /**
      * @var ViolationGenerator
      */
     private $violationGeneratorProphecy;
@@ -111,6 +117,7 @@ class WordHandlerTest extends TestCase
         $this->requestGeneratorProphecy              = $this->prophesize(RequestGenerator::class);
         $this->treatmentGeneratorProphecy            = $this->prophesize(TreatmentGenerator::class);
         $this->violationGeneratorProphecy            = $this->prophesize(ViolationGenerator::class);
+        $this->toolGeneratorProphecy                 = $this->prophesize(ToolGenerator::class);
         $this->conformiteTraitementGeneratorProphecy = $this->prophesize(ConformiteTraitementGenerator::class);
         $this->conformiteOrganisationGenerator       = $this->prophesize(ConformiteOrganisationGenerator::class);
 
@@ -123,6 +130,7 @@ class WordHandlerTest extends TestCase
             $this->requestGeneratorProphecy->reveal(),
             $this->treatmentGeneratorProphecy->reveal(),
             $this->violationGeneratorProphecy->reveal(),
+            $this->toolGeneratorProphecy->reveal(),
             $this->conformiteTraitementGeneratorProphecy->reveal(),
             $this->conformiteOrganisationGenerator->reveal(),
         );
@@ -352,6 +360,44 @@ class WordHandlerTest extends TestCase
         $this->assertEquals(
             $responseProphecy->reveal(),
             $this->handler->generateRegistryTreatmentReport($treatments)
+        );
+    }
+
+    /**
+     * Test generateRegistryToolReport.
+     */
+    public function testGenerateRegistryToolReport()
+    {
+        $this->markTestSkipped();
+        $section          = new Section(1);
+        $title            = 'Registre des logiciels et supports';
+        $documentName     = 'logiciels-et-supports';
+        $tools            = [];
+        $responseProphecy = $this->prophesize(BinaryFileResponse::class);
+
+        $phpWord = $this->phpWordProphecy->reveal();
+
+        // Initialization + homepage + table of content
+        $this->toolGeneratorProphecy->initializeDocument($phpWord)->shouldBeCalled();
+        $this->toolGeneratorProphecy->createContentSection($phpWord, $title)->shouldBeCalled()->willReturn($section);
+
+        $this->toolGeneratorProphecy->addHomepage($phpWord, $title)->shouldBeCalled();
+        $this->toolGeneratorProphecy->addTableOfContent($section, 1)->shouldBeCalled();
+
+        // Content
+        $this->toolGeneratorProphecy->addSyntheticView($section, $tools)->shouldBeCalled();
+        $this->toolGeneratorProphecy->addDetailedView($section, $tools)->shouldBeCalled();
+
+        // Generation
+        $this->toolGeneratorProphecy
+            ->generateResponse($phpWord, $documentName)
+            ->shouldBeCalled()
+            ->willReturn($responseProphecy->reveal())
+        ;
+
+        $this->assertEquals(
+            $responseProphecy->reveal(),
+            $this->handler->generateRegistryToolReport($tools)
         );
     }
 

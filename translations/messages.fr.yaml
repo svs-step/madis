@@ -39,15 +39,18 @@ label:
     linked_documents: Documents associés
     linked_treatment: Traitements associés
     linked_mesurement: Actions de protection associées
+    linked_mesurements: Actions de protection associées
     linked_violations: Violations associées
     linked_request: Demandes associées
     linked_contractor: Sous-traitants associés
+    linked_contractors: Sous-traitants associés
     no: Non
     yes: Oui
     no_linked_document: Aucun document associé
     no_linked_contractor: Aucun sous traitant associé
     no_linked_treatment: Aucun traitement associé
     no_linked_mesurement: Aucune action de protection associée
+    no_linked_mesurements: Aucune action de protection associée
     no_linked_violations: Aucune violation associée
     no_linked_requests: Aucune demande associée
     no_linked_contractors: Aucun sous-traitants associé
@@ -84,11 +87,12 @@ sidebar_menu:
   registry_mesurements: Actions de protection
   registry_proofs: Documents
   registry_requests: Demandes
+  registry_tools: Logiciels et supports
   registry_treatments: Traitements
   registry_violations: Violations
   reporting_review: Générer un bilan
   user_collectivities: Structures
-  user_profile_collectivity: Ma collectivité
+  user_profile_collectivity: Ma structure
   user_profile_user: Mon compte
   user_users: Utilisateurs
   reporting_journalisation: Journalisation

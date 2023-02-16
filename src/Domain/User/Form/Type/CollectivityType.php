@@ -126,6 +126,10 @@ class CollectivityType extends AbstractType
                     'label'    => 'user.collectivity.form.has_module_conformite_organisation',
                     'required' => false,
                 ])
+                ->add('hasModuleTools', CheckboxType::class, [
+                    'label'    => 'user.collectivity.form.has_module_tools',
+                    'required' => false,
+                ])
                 ->add('informationsComplementaires', TextareaType::class, [
                     'label'    => 'user.collectivity.form.informations_complementaires',
                     'required' => false,
@@ -136,14 +140,6 @@ class CollectivityType extends AbstractType
                     'attr'     => [
                         'maxlength' => 255,
                     ],
-                ])
-                ->add('population', NumberType::class, [
-                    'label'    => 'user.collectivity.form.population',
-                    'required' => false,
-                ])
-                ->add('nbrAgents', NumberType::class, [
-                    'label'    => 'user.collectivity.form.nbr_agents',
-                    'required' => false,
                 ])
                 ->add('nbrCnil', NumberType::class, [
                     'label'    => 'user.collectivity.form.nbr_cnil',
@@ -165,6 +161,14 @@ class CollectivityType extends AbstractType
 
         // Now add standard information
         $builder
+            ->add('population', NumberType::class, [
+                'label'    => 'user.collectivity.form.population',
+                'required' => false,
+            ])
+            ->add('nbrAgents', NumberType::class, [
+                'label'    => 'user.collectivity.form.nbr_agents',
+                'required' => false,
+            ])
             ->add('legalManager', ContactType::class, [
                 'label'             => 'user.collectivity.form.legal_manager',
                 'required'          => true,

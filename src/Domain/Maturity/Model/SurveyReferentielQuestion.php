@@ -72,7 +72,7 @@ class SurveyReferentielQuestion
 
     public function __construct()
     {
-        $this->id                 = Uuid::uuid4();
+        $this->id                       = Uuid::uuid4();
         $this->surveyReferentielAnswers = new ArrayCollection();
     }
 

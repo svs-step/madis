@@ -26,10 +26,7 @@ namespace App\Domain\Maturity\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
-use App\Application\Traits\ServersideDatatablesTrait;
-use App\Domain\AIPD\Form\Flow\AnalyseImpactFlow;
 use App\Domain\Maturity\Calculator\MaturityHandler;
-use App\Domain\Maturity\Form\Flow\SurveyFlow;
 use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
@@ -41,7 +38,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -86,19 +82,19 @@ class SurveyController extends CRUDController
         UserProvider $userProvider,
         MaturityHandler $maturityHandler,
         Pdf $pdf,
-        Repository\Referentiel  $referentielRepository,
+        Repository\Referentiel $referentielRepository,
         RouterInterface $router,
         RequestStack $requestStack,
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->questionRepository   = $questionRepository;
-        $this->wordHandler          = $wordHandler;
-        $this->authorizationChecker = $authorizationChecker;
-        $this->userProvider         = $userProvider;
-        $this->maturityHandler      = $maturityHandler;
+        $this->questionRepository    = $questionRepository;
+        $this->wordHandler           = $wordHandler;
+        $this->authorizationChecker  = $authorizationChecker;
+        $this->userProvider          = $userProvider;
+        $this->maturityHandler       = $maturityHandler;
         $this->referentielRepository = $referentielRepository;
-        $this->router                 = $router;
-        $this->requestStack         = $requestStack;
+        $this->router                = $router;
+        $this->requestStack          = $requestStack;
     }
 
     /**
@@ -168,7 +164,7 @@ class SurveyController extends CRUDController
      */
     public function formPrePersistData($object)
     {
-        //$this->maturityHandler->handle($object);
+        // $this->maturityHandler->handle($object);
     }
 
     /**
@@ -184,18 +180,18 @@ class SurveyController extends CRUDController
         $object     = new $modelClass();
 
         $referentiel = $this->entityManager->getRepository(Model\Referentiel::class)->findOneBy([
-            'id' => $request->get('referentiel')
+            'id' => $request->get('referentiel'),
         ]);
         $object->setReferentiel($referentiel);
 
-        if ($referentiel){
+        if ($referentiel) {
             $referentielSurvey = new Model\SurveyReferentiel();
             $referentielSurvey->setName($referentiel->getName());
             $referentielSurvey->setDescription($referentiel->getDescription());
             $this->entityManager->persist($referentielSurvey);
             $this->entityManager->flush();
             $sections = $referentiel->getReferentielSections();
-            foreach ($sections as $section){
+            foreach ($sections as $section) {
                 $surveySection = new Model\SurveyReferentielSection();
                 $surveySection->setName($section->getName());
                 $surveySection->setDescription($section->getDescription());
@@ -204,7 +200,7 @@ class SurveyController extends CRUDController
                 $this->entityManager->persist($surveySection);
                 $this->entityManager->flush();
                 $questions = $section->getReferentielQuestions();
-                foreach ($questions as $question){
+                foreach ($questions as $question) {
                     $surveyQuestion = new Model\SurveyReferentielQuestion();
                     $surveyQuestion->setName($question->getName());
                     $surveyQuestion->setWeight($question->getWeight());
@@ -213,7 +209,7 @@ class SurveyController extends CRUDController
                     $this->entityManager->persist($surveyQuestion);
                     $this->entityManager->flush();
                     $answers = $question->getReferentielAnswers();
-                    foreach ($answers as $answer){
+                    foreach ($answers as $answer) {
                         $surveyAnswer = new Model\SurveyReferentielAnswer();
                         $surveyAnswer->setName($answer->getName());
                         $surveyAnswer->setRecommendation($answer->getRecommendation());
@@ -266,12 +262,13 @@ class SurveyController extends CRUDController
 
         return $this->wordHandler->generateMaturitySurveyReport($data);
     }
+
     public function startSurveyAction(Request $request)
     {
         if ($request->isMethod('GET')) {
             return $this->render($this->getTemplatingBasePath('start'), [
-                'totalItem'            => $this->referentielRepository->count(),
-                'route'                => $this->router->generate('maturity_survey_referentiel_datatables'),
+                'totalItem' => $this->referentielRepository->count(),
+                'route'     => $this->router->generate('maturity_survey_referentiel_datatables'),
             ]);
         }
 
@@ -280,7 +277,7 @@ class SurveyController extends CRUDController
         }
 
         return $this->redirectToRoute('maturity_survey_create', [
-            'referentiel' => $referentiel->getId()
+            'referentiel' => $referentiel->getId(),
         ]);
     }
 
@@ -295,7 +292,6 @@ class SurveyController extends CRUDController
                 'nom'         => '<input type="radio" value="' . $referentiel->getId() . '" name="referentiel_choice" required="true"/> ' . $referentiel->getName(),
                 'description' => $referentiel->getDescription(),
             ];
-
         }
         $reponse['recordsTotal']    = count($reponse['data']);
         $reponse['recordsFiltered'] = count($reponse['data']);

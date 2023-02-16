@@ -91,6 +91,112 @@ registry:
         form:
             other_delay: Autre délai
 
+    tool:
+        flashbag:
+            success:
+                create: Outil ou support "%object%" créé avec succès
+                delete: Outil ou support "%object%" supprimé avec succès
+                edit: Outil ou support "%object%" modifié avec succès
+        type:
+            not_null: Vous devez choisir le type
+        name:
+            not_blank: Le nom de l'outil est indispensable
+
+        country:
+            france: France
+            eu: Autre pays de l’Union Européenne ou pays adéquats
+            other: Pays d’hébergement de la donnée
+        breadcrumb:
+            list: Liste des outils et supports
+            create: Création
+            show: Visualiser
+        form:
+            name: Nom
+            type: Type
+            editor: Editeur
+            contractors: Sous-traitants
+            description: Description
+            other_info: Autres informations
+            prod_date: Date de mise en production
+            country_type: Pays
+            country_name: Nom du pays
+            country_guarantees: Garanties pour le transfert
+            manager: Personne en charge
+            archival: Archivage
+            tracking: Traçabilité
+            encrypted: Chiffrement
+            access_control: Contrôle d'accès
+            update: Mise à jour
+            backup: Sauvegarde
+            deletion: Suppression
+            has_comment: Zone de commentaire libre
+            other: Autres
+        tab:
+            relations: Relations
+            measures: Mesures de sécurité et confidentialité
+            general: Informations générales
+            historic: Historique
+        title:
+            list: Logiciels et supports
+            create: Création d'un logiciel ou support
+            edit: Modification d'un logiciel ou support
+            delete: Suppression d'un logiciel ou support
+            show: Visualiser un logiciel ou support
+        action:
+            new: Nouveau logiciel ou support
+            edit: Editer
+            delete: Supprimer
+            submit: Sauvegarder
+            back_to_list: Retour à la liste
+            print_all: Générer une impression
+            print: Imprimer
+        list:
+            name: Nom
+            collectivity: Structure
+            treatments: Traitements
+            contractors: Sous-traitants
+            mesurements: Actions de protection
+            proofs: Documents
+            access_control: Contrôle d'accès
+            created_at: Date de création
+            updated_at: Date de mise à jour
+            update: Mise à jour
+            backup: Sauvegarde
+            tracking: Traçabilité
+            deletion: Suppression
+            has_comment: Zone de commentaire libre
+            other: Autre
+            type: Type
+            editor: Editeur
+            archival: Archivage
+            encrypted: Chiffrement
+        show:
+            name: Nom
+            collectivity: Structure
+            treatments: Traitements
+            contractors: Sous-traitants
+            mesurements: Actions de protection
+            documents: Documents
+            access_control: Contrôle d'accès
+            created_at: Date de création
+            updated_at: Date de mise à jour
+            update: Mise à jour
+            backup: Sauvegarde
+            tracking: Traçabilité
+            deletion: Suppression
+            has_comment: Zone de commentaire libre
+            other: Autre
+            type: Type
+            editor: Editeur
+            manager: Personne en charge
+            archival: Archivage
+            encrypted: Chiffrement
+            creator: Créateur
+            description: Description
+            other_info: Autres informations
+            prod_date: Date de mise en production
+            country: pays
+
     mesurement:
         action:
             back_to_list: Retour à la liste
@@ -109,7 +215,7 @@ registry:
             description: Description
             manager: Responsable d'action
             name: Nom
-            planification_date: Planification
+            planification_date: Échéance
             priority: Priorité
             status: Statut
             type: Type
@@ -128,7 +234,7 @@ registry:
             cost: Coût
             manager: Responsable d'action
             name: Nom
-            planification_date: Echéance
+            planification_date: Échéance
             priority: Priorité
             status: Statut
             type:
@@ -146,7 +252,7 @@ registry:
             description: Description
             manager: Responsable d'action
             name: Nom
-            planification_date: Planification
+            planification_date: Échéance
             priority: Priorité
             status: Statut
             type: Type
@@ -170,7 +276,7 @@ registry:
             show: Visualiser une action de protection
         modal:
           cancel: Annuler
-          create: Créer
+          create: Enregistrer
           title: Ajouter une action de protection
 
     proof:
@@ -227,6 +333,7 @@ registry:
             new: Nouvelle demande
             not_archived: Voir les demandes non archivées
             report: Générer une impression
+            print: Imprimer
         breadcrumb:
             create: Créer
             delete: Archiver "%name%"
@@ -364,6 +471,7 @@ registry:
             concerned_people_partner: Partenaires
             concerned_people_other: Autres
             concerned_people_user: Internautes
+            concerned_people_usager: Usagers
             contractors: Sous-traitants
             data_crossing: Croisement de données
             data_category: Catégorie de données
@@ -402,6 +510,7 @@ registry:
             legalMentions: Mentions légales apposées
             consentRequest: Consentement demandé
             consentRequestFormat: Format de la demande du consentement
+            exemptAipd: Est exempté d’AIPD
         flashbag:
             success:
                 create: Traitement "%object%" créé avec succès
@@ -416,6 +525,7 @@ registry:
             completion: Taux de complétion
             contractors: Sous-traitants
             conformite_traitement: Conformité du traitement
+            avis_aipd: Avis AIPD
             entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
             goal: Finalité
             legal_basis: Base légale
@@ -447,6 +557,7 @@ registry:
             concerned_people_elected: Élus
             concerned_people_particular: Particuliers
             concerned_people_partner: Partenaires
+            concerned_people_usager: Usagers
             concerned_people_other: Autres
             concerned_people_user: Internautes
             conformite_traitement: Conformité du traitement
@@ -496,7 +607,7 @@ registry:
             systematic_monitoring: Surveillance systématique
             updated_at: Dernière mise à jour
             vulnerable_people: Personnes vulnérables
-            delete_related_objects_error: Une erreur est survenue lors de la suppression des %relateds% de la collectivité "%object%"
+            delete_related_objects_error: Une erreur est survenue lors de la suppression des %relateds% de la structure "%object%"
             legalMentions: Mentions légales apposées
             consentRequest: Consentement demandé
             consentRequestFormat: Format de la demande du consentement
@@ -636,10 +747,10 @@ registry:
         title:
             create: Créer une évaluation
             edit: Modifier une évaluation
-            list: Lister les évaluations
+            list: Conformité de la structure
             delete: Supprimer une évaluation
         list:
-            collectivite: Nom de la Structure
+            collectivite: Structure
             draft: Brouillon
             pilote: Pilote
             processus: Processus
@@ -662,12 +773,12 @@ registry:
                 add: Ajouter un participant
         flashbag:
             success:
-                create: Conformité de l'organisation "%object%" créée avec succès
+                create: Conformité de la structure "%object%" créée avec succès
                 pilote: Les pilotes ont été enregistrés avec succès
-                edit: Conformité de l'organisation "%object%" éditée avec succès
-                delete: Conformité de l'organisation "%object%" supprimée avec succès
+                edit: Conformité de la structure "%object%" éditée avec succès
+                delete: Conformité de la structure "%object%" supprimée avec succès
         action:
-            create: Nouvelle évaluation de l'organisation
+            create: Nouvelle évaluation de la structure
             back_to_list: Retour à la liste
             edit: Modifier
             delete: Supprimer
