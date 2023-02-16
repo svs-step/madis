@@ -27,7 +27,6 @@ namespace App\Domain\Reporting\Generator\Word;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Dictionary\ToolTypeDictionary;
 use App\Domain\Registry\Model\Tool;
-use App\Domain\Registry\Model\Treatment;
 use PhpOffice\PhpWord\Element\Section;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -47,44 +46,6 @@ class ToolGenerator extends AbstractGenerator implements ImpressionGeneratorInte
         );
 
         $this->translator = $translator;
-    }
-
-    /**
-     * Global overview : Information to display for treatment in overview report.
-     */
-    public function addGlobalOverview(Section $section, array $data): void
-    {
-        // GENERATE ALL DATA BEFORE WORD GENERATION IN ORDER TO AVOID SEVERAL LOOP
-        $nbTools  = \count($data);
-        $overview = [
-            [
-                'Nom',
-                'Gestionnaire',
-            ],
-        ];
-
-        /*
-         * @var Treatment
-         */
-        foreach ($data as $key => $tool) {
-            /* @var Tool $tool */
-            // Overview
-
-            if (10 > $key) {
-                $overview[] = [
-                    $tool->getName(),
-                    $tool->getManager() ?? $this->parameterBag->get('APP_DEFAULT_REFERENT'),
-                ];
-            }
-        }
-
-        $section->addTitle('Registre des logiciels et supports', 2);
-
-        if (empty($data)) {
-            $section->addText('Il n’y a aucun logiciel ou support identifié.');
-
-            return;
-        }
     }
 
     /**
