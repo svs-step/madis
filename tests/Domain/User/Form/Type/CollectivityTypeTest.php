@@ -107,6 +107,8 @@ class CollectivityTypeTest extends FormTypeHelper
     public function testBuildFormUser(): void
     {
         $builder = [
+            'population'                          => NumberType::class,
+            'nbrAgents'                           => NumberType::class,
             'legalManager'                        => ContactType::class,
             'referent'                            => ContactType::class,
             'differentDpo'                        => CheckboxType::class,

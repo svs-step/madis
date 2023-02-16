@@ -40,9 +40,9 @@ class EmailNotificationPreferenceType extends AbstractType
     {
         $builder
         ->add('frequency', ChoiceType::class, [
-            'label'       => 'user.notifications.form.frequency.label',
-            'required'    => true,
-            'choices'     => [
+            'label'    => 'user.notifications.form.frequency.label',
+            'required' => true,
+            'choices'  => [
                 'user.notifications.form.frequency.none'    => EmailNotificationPreference::FREQUENCY_NONE,
                 'user.notifications.form.frequency.each'    => EmailNotificationPreference::FREQUENCY_EACH,
                 'user.notifications.form.frequency.hourly'  => EmailNotificationPreference::FREQUENCY_HOUR,
@@ -58,8 +58,8 @@ class EmailNotificationPreferenceType extends AbstractType
                 'user.notifications.form.frequency.weekly'  => ['class' => 'select-frequency'],
                 'user.notifications.form.frequency.monthly' => ['class' => 'select-frequency'],
             ],
-            'expanded'    => true,
-            'multiple'    => false,
+            'expanded' => true,
+            'multiple' => false,
         ])
 
         ;
@@ -83,9 +83,9 @@ class EmailNotificationPreferenceType extends AbstractType
                 'block_prefix' => 'wrapped_choice',
             ])
             ->add('day', ChoiceType::class, [
-                'label'        => 'à',
-                'required'     => true,
-                'choices'      => [
+                'label'    => 'à',
+                'required' => true,
+                'choices'  => [
                     'Lundi'    => 1,
                     'Mardi'    => 2,
                     'Mercredi' => 3,
@@ -99,9 +99,9 @@ class EmailNotificationPreferenceType extends AbstractType
                 'block_prefix' => 'wrapped_choice',
             ])
             ->add('week', ChoiceType::class, [
-                'label'        => '',
-                'required'     => true,
-                'choices'      => [
+                'label'    => '',
+                'required' => true,
+                'choices'  => [
                     'Premier'   => 1,
                     'Second'    => 2,
                     'Troisième' => 3,
