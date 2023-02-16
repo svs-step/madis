@@ -25,7 +25,9 @@ declare(strict_types=1);
 namespace App\Domain\Registry\Form\Type;
 
 use App\Domain\Registry\Model;
+use App\Domain\Registry\Model\Tool;
 use App\Domain\User\Model as UserModel;
+use App\Domain\User\Model\User;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
@@ -247,7 +249,37 @@ class ProofType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
             ])
+
         ;
+        if ($options['data']->getCollectivity()->isHasModuleTools()) {
+            $builder->add('tools', EntityType::class, [
+                'label'         => 'registry.treatment.form.software',
+                'class'         => Tool::class,
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
+                'query_builder' => function (EntityRepository $er) use ($proof) {
+                    $collectivity = null;
+                    if (!\is_null($proof->getCollectivity())) {
+                        $collectivity = $proof->getCollectivity();
+                    } else {
+                        /** @var User $authenticatedUser */
+                        $authenticatedUser = $this->security->getUser();
+                        $collectivity      = $authenticatedUser->getCollectivity();
+                    }
+
+                    return $er->createQueryBuilder('c')
+                        ->where('c.collectivity = :collectivity')
+                        ->addOrderBy('c.name', 'asc')
+                        ->setParameter('collectivity', $collectivity)
+                    ;
+                },
+                'attr' => [
+                    'class' => 'selectpicker',
+                    'title' => 'placeholder.multiple_select',
+                ],
+            ]);
+        }
     }
 
     /**

@@ -350,7 +350,7 @@ class UserMetric implements MetricInterface
             ++$data['treatment']['value']['active'];
 
             // Numeric treatment
-            if (!\is_null($treatment->getSoftware())) {
+            if (!\is_null($treatment->getToolsString()) && strlen($treatment->getToolsString()) > 0) {
                 ++$data['treatment']['value']['numeric'];
 
                 if ($treatment->getSecurityAccessControl()->isCheck()) {

@@ -371,7 +371,7 @@ class TreatmentController extends CRUDController
                 'nom'                    => $treatmentLink,
                 'collectivite'           => $this->authorizationChecker->isGranted('ROLE_REFERENT') ? $treatment->getCollectivity()->getName() : '',
                 'baseLegal'              => !empty($treatment->getLegalBasis()) && array_key_exists($treatment->getLegalBasis(), TreatmentLegalBasisDictionary::getBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : $treatment->getLegalBasis(),
-                'logiciel'               => $treatment->getSoftware(),
+                'logiciel'               => $treatment->getToolsString(),
                 'enTantQue'              => !empty($treatment->getAuthor()) && array_key_exists($treatment->getAuthor(), TreatmentAuthorDictionary::getAuthors()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : $treatment->getAuthor(),
                 'gestionnaire'           => $treatment->getManager(),
                 'sousTraitant'           => $contractors,

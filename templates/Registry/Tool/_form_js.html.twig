@@ -1,0 +1,26 @@
+<script>
+    $(document).ready(function(){
+        var showDependents = function($el) {
+            var val = $el.val()
+
+            if (val === 'registry.tool.country.france') {
+                $('#tool_country_name').attr('required', false).parent().parent().hide()
+                $('#tool_country_guarantees').attr('required', false).parent().parent().hide()
+            }
+            if (val === 'registry.tool.country.eu') {
+                $('#tool_country_name').attr('required', true).parent().parent().show()
+                $('#tool_country_guarantees').attr('required', false).parent().parent().hide()
+            }
+            if (val === 'registry.tool.country.other') {
+                $('#tool_country_name').attr('required', true).parent().parent().show()
+                $('#tool_country_guarantees').attr('required', true).parent().parent().show()
+            }
+        }
+
+        $('#tool_country_type').on('change', function(e) {
+            showDependents($(e.currentTarget))
+        })
+
+        showDependents($('#tool_country_type'))
+    });
+</script>

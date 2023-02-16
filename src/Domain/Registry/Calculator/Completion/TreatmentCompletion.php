@@ -50,7 +50,7 @@ class TreatmentCompletion extends AbstractCompletion
             ++$points;
         }
 
-        if ($object->getSoftware() || $object->isPaperProcessing()) {
+        if (($object->getTools() && count($object->getTools())) || $object->isPaperProcessing()) {
             ++$points;
         }
 

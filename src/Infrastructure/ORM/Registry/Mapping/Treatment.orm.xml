@@ -19,7 +19,6 @@
         </field>
         <field name="goal" column="goal" type="text" nullable="true"/>
         <field name="manager" column="manager" nullable="true"/>
-        <field name="software" column="software" nullable="true"/>
         <field name="paperProcessing" column="paper_processing" type="boolean"/>
         <field name="legalBasis" column="legal_basis" type="json_array" nullable="true"/>
         <field name="legalBasisJustification" column="legal_basis_justification" type="text" nullable="true"/>
@@ -43,6 +42,7 @@
         <field name="securityOpenAccounts" column="security_open_accounts" type="boolean"/>
         <field name="securitySpecificitiesDelivered" column="security_specificities_delivered" type="boolean"/>
         <field name="author" column="author" nullable="true"/>
+        <field name="software" column="software" nullable="true" />
         <field name="coordonneesResponsableTraitement" column="coordonnees_responsable_traitement" nullable="true"/>
         <field name="collectingMethod" column="collecting_method" type="json_array" nullable="true"/>
         <field name="estimatedConcernedPeople" column="estimated_concerned_people" type="integer" nullable="true"/>
@@ -99,6 +99,20 @@
         <many-to-many field="violations" target-entity="App\Domain\Registry\Model\Violation" mapped-by="treatments"/>
 
         <many-to-many field="proofs" target-entity="App\Domain\Registry\Model\Proof" mapped-by="treatments">
+            <order-by>
+                <order-by-field name="name"/>
+            </order-by>
+        </many-to-many>
+
+        <many-to-many field="tools" target-entity="App\Domain\Registry\Model\Tool" inversed-by="treatments">
+            <join-table name="tool_treatment">
+                <join-columns>
+                    <join-column on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
             <order-by>
                 <order-by-field name="name"/>
             </order-by>

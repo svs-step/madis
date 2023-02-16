@@ -6,7 +6,7 @@ App\Domain\Registry\Model\Treatment:
             groups: ['treatment_read']
         manager:
             groups: ['treatment_read']
-        software:
+        tools:
             groups: ['treatment_read']
         paperProcessing:
             groups: ['treatment_read']

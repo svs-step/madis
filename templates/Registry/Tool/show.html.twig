@@ -1,0 +1,194 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_tool show' %}
+{% set menuItem = 'registry_tool' %}
+
+{% block title %}{{ 'registry.tool.title.show'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'registry.tool.title.show'|trans }}
+        <small>{{ object }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.tool.breadcrumb.list'|trans, 'link': path('registry_tool_list') },
+        { 'name': 'registry.tool.breadcrumb.show'|trans({'%name%': object}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+
+    {% if is_granted('ROLE_USER') %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="action-bar">
+                <a href="{{ path('registry_tool_list') }}" class="btn btn-default">
+                    <i class="fa fa-arrow-left"></i>
+                    {{ 'registry.tool.action.back_to_list'|trans }}
+                </a>
+                <a href="{{ path('registry_tool_edit', {'id': object.id}) }}" class="btn btn-default">
+                    <i class="fa fa-pencil-alt"></i>
+                    {{ 'action.edit'|trans }}
+                </a>
+                <a href="{{ path('registry_tool_pdf', {'id': object.id}) }}" class="btn btn-default">
+                    <i class="fa fa-print"></i>
+                    {{ 'action.print'|trans }}
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+        {# LEFT #}
+        <div class="col-md-6">
+            {# GENERAL INFORMATIONS #}
+            <div class="box box-solid box-info">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.tool.tab.general'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.name'|trans }}</strong></td>
+                            <td>{{ object.name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.type'|trans }}</strong></td>
+                            <td>{{ object.type|dictionary('registry_tool_type') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.editor'|trans }}</strong></td>
+                            <td>{{ object.editor }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.manager'|trans }}</strong></td>
+                            <td>{{ object.manager }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.description'|trans }}</strong></td>
+                            <td>{{ object.description|nl2br }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.prod_date'|trans }}</strong></td>
+                            <td>{{ object.prodDate|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.country'|trans }}</strong></td>
+                            <td>
+                                {{ object.countryType|trans }}
+                                {{ object.countryName }}
+                                {{ object.countryGuarantees }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.other_info'|trans }}</strong></td>
+                            <td>{{ object.otherInfo|nl2br }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {# HISTORIC #}
+            <div class="box box-solid box-default">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.tool.tab.historic'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.creator'|trans }}</strong></td>
+                            <td>
+                                {{ object.creator }}
+                            </td>
+                        </tr>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <tr>
+                                <td><strong>{{ 'registry.tool.show.collectivity'|trans }}</strong></td>
+                                <td>
+                                    <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                        {{ object.collectivity }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.created_at'|trans }}</strong></td>
+                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.updated_at'|trans }}</strong></td>
+                            <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        {# RIGHT #}
+        <div class="col-md-6">
+
+            {# PROOFS #}
+            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+
+            {# CONTRACTORS #}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_contractors'|trans }}</h3></div>
+                <div class="box-body">
+                    {% if object.contractors and object.contractors |length %}
+                        <ul>
+                            {% for contractor in object.contractors %}
+                                <li><a href="{{ path('registry_contractor_show', {id: contractor.id}) }}">
+                                        {{ contractor|default('registry.mesurement.show.none'|trans) }}
+                                    </a></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ 'label.no_linked_contractors'|trans }}
+                    {% endif %}
+                </div>
+            </div>
+
+            {# TREATMENTS #}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_treatment'|trans }}</h3></div>
+                <div class="box-body">
+                    {% if object.treatments and object.treatments |length %}
+                        <ul>
+                            {% for treatment in object.treatments %}
+                                <li><a href="{{ path('registry_treatment_show', {id: treatment.id}) }}">
+                                        {{ treatment|default('registry.mesurement.show.none'|trans) }}
+                                    </a></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ 'label.no_linked_treatment'|trans }}
+                    {% endif %}
+                </div>
+            </div>
+
+
+            {# Mesurements #}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_mesurements'|trans }}</h3></div>
+                <div class="box-body">
+                    {% if object.mesurements and object.mesurements |length %}
+                        <ul>
+                            {% for mesurement in object.mesurements %}
+                                <li><a href="{{ path('registry_mesurement_show', {id: mesurement.id}) }}">
+                                        {{ mesurement|default('registry.mesurement.show.none'|trans) }}
+                                    </a></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ 'label.no_linked_mesurements'|trans }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

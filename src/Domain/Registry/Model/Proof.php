@@ -51,6 +51,13 @@ class Proof implements LoggableSubject
     private $name;
 
     /**
+     * FR: Logiciels et supports.
+     *
+     * @var Tool[]|iterable
+     */
+    private $tools;
+
+    /**
      * @var string|null
      */
     private $type;
@@ -281,5 +288,21 @@ class Proof implements LoggableSubject
         }
 
         unset($this->violations[$key]);
+    }
+
+    /**
+     * @return Tool[]|iterable
+     */
+    public function getTools(): ?iterable
+    {
+        return $this->tools;
+    }
+
+    /**
+     * @param Tool[]|iterable|null $tools
+     */
+    public function setTools(?iterable $tools): void
+    {
+        $this->tools = $tools;
     }
 }

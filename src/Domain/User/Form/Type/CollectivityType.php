@@ -126,6 +126,10 @@ class CollectivityType extends AbstractType
                     'label'    => 'user.collectivity.form.has_module_conformite_organisation',
                     'required' => false,
                 ])
+                ->add('hasModuleTools', CheckboxType::class, [
+                    'label'    => 'user.collectivity.form.has_module_tools',
+                    'required' => false,
+                ])
                 ->add('informationsComplementaires', TextareaType::class, [
                     'label'    => 'user.collectivity.form.informations_complementaires',
                     'required' => false,

@@ -155,6 +155,10 @@ class Collectivity implements LoggableSubject
      * @var bool
      */
     private $hasModuleConformiteOrganisation;
+    /**
+     * @var bool
+     */
+    private $hasModuleTools;
 
     /**
      * @var iterable
@@ -210,6 +214,7 @@ class Collectivity implements LoggableSubject
         $this->differentItManager              = false;
         $this->hasModuleConformiteTraitement   = false;
         $this->hasModuleConformiteOrganisation = false;
+        $this->hasModuleTools                  = false;
         $this->evaluations                     = [];
         $this->userReferents                   = [];
     }
@@ -572,5 +577,15 @@ class Collectivity implements LoggableSubject
     public function setPopulation(?int $population): void
     {
         $this->population = $population;
+    }
+
+    public function isHasModuleTools(): bool
+    {
+        return $this->hasModuleTools;
+    }
+
+    public function setHasModuleTools(bool $hasModuleTools): void
+    {
+        $this->hasModuleTools = $hasModuleTools;
     }
 }
