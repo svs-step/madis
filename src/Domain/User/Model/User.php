@@ -150,6 +150,7 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
         $this->enabled               = true;
         $this->collectivitesReferees = [];
         $this->moreInfos             = [];
+        $this->emailNotificationPreference = new EmailNotificationPreference();
     }
 
     public function getId(): UuidInterface
