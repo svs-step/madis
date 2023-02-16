@@ -84,6 +84,8 @@ user:
             siren: SIREN
             type: Type
             informations_complementaires: Informations complémentaires
+            created_at: Date de création
+            updated_at: Date de modification
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cette collectivité ?
         show:
@@ -252,6 +254,8 @@ user:
             services: Service
             services_list: Liste des services
             service_number_users: Nombre d'utilisateurs dans ce service
+            created_at: Date de création
+            updated_at: Date de modification
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cet utilisateur ?
         tab:

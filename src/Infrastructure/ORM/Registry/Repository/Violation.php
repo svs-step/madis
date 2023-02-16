@@ -414,6 +414,12 @@ class Violation implements Repository\Violation
                 ELSE 4 END) AS HIDDEN hidden_gravity')
                     ->addOrderBy('hidden_gravity', $orderDir);
                 break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
         }
     }
 
@@ -438,7 +444,15 @@ class Violation implements Repository\Violation
                 case 'gravity':
                     $this->addWhereClause($queryBuilder, 'gravity', $search);
                     break;
-            }
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+        }
         }
     }
 }

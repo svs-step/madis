@@ -291,6 +291,14 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
                 case 'responsable_action':
                     $this->addWhereClause($queryBuilder, 'manager', '%' . $search . '%', 'LIKE');
                     break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
             }
         }
     }
@@ -326,6 +334,12 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
                 break;
             case 'responsable_action':
                 $queryBuilder->addOrderBy('o.manager', $orderDir);
+                break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
                 break;
         }
     }

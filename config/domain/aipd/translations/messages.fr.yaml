@@ -20,6 +20,7 @@ aipd:
             description: Description
             name: Nom du modèle d'analyse d'impact
             updated_at: Date de modification
+            created_at: Date de création
         flashbag:
             success:
                 create: Modele d'analyse "%object%" créé avec succès
@@ -58,6 +59,8 @@ aipd:
             poids_vraisemblance: Poids de la vraisemblance
             poids_gravite: Poids de la gravité
             reponse: Réponses
+            updated_at: Date de modification
+            created_at: Date de création
         modal:
             confirm_deletion: Voulez vous vraiment supprimer cette mesure de protection ?
         title:

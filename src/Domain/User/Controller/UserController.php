@@ -240,6 +240,8 @@ class UserController extends CRUDController
                 'actif'        => $actif,
                 'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('Y-m-d H:i:s') : null,
                 'services'     => $services,
+                'createdAt'    => date_format($user->getCreatedAt(), 'd-m-Y H:i:s'),
+                'updatedAt'    => date_format($user->getUpdatedAt(), 'd-m-Y H:i:s'),
                 'actions'      => $this->getActionCellsContent($user),
             ];
         }
@@ -261,8 +263,10 @@ class UserController extends CRUDController
             5 => 'actif',
             6 => 'connexion',
             7 => 'services',
-            8 => 'actions',
-            9 => 'moreInfos',
+            8 => 'createdAt',
+            9 => 'updatedAt',
+            10 => 'actions',
+            11 => 'moreInfos',
         ];
     }
 

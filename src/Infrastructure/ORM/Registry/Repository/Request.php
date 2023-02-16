@@ -425,6 +425,12 @@ class Request implements Repository\Request
                 ELSE 7 END) AS HIDDEN hidden_state')
                     ->addOrderBy('hidden_state', $orderDir);
                 break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
         }
     }
 
@@ -461,6 +467,14 @@ class Request implements Repository\Request
                     break;
                 case 'etat_demande':
                     $this->addWhereClause($queryBuilder, 'state', $search);
+                    break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
                     break;
             }
         }

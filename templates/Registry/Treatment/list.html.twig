@@ -268,8 +268,8 @@
         {"data": "responsableTraitement", "visible": false},
         {"data": "specific_traitement", "render": "[, ]","visible": true, "orderable": false},
         {"data": "conformite_traitement","visible": false, "orderable": false},
-        {"data": "createdAt", "visible": true},
-        {"data": "updatedAt", "visible": true},
+        {"data": "createdAt", "visible": false},
+        {"data": "updatedAt", "visible": false},
         {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
     ] %}
     {% if is_granted('ROLE_REFERENT') %}
@@ -484,13 +484,11 @@
 
             $('#search_created_at').off('change');
             $('#search_created_at').change(function(){
-                console.log('create', $(this).val(), oTable.column(col + 14))
                 oTable.column(col + 19).search($(this).val()).draw();
             });
 
             $('#search_updated_at').off('change');
             $('#search_updated_at').change(function(){
-                console.log('modif', $(this).val(), oTable.column(col + 15))
                 oTable.column(col + 20).search($(this).val()).draw();
             });
 

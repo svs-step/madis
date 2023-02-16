@@ -177,6 +177,12 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
             case 'statut':
                 $queryBuilder->addOrderBy('o.active', $orderDir);
                 break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
         }
     }
 
@@ -198,6 +204,14 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
                     break;
                 case 'statut':
                     $this->addWhereClause($queryBuilder, 'active', $search);
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
                     break;
             }
         }

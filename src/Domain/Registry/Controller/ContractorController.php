@@ -230,6 +230,8 @@ class ContractorController extends CRUDController
                 'donnees_hors_eu'        => $contractor->isSendingDataOutsideEu() ?
                     '<span class="label label-danger">' . $this->translator->trans('label.yes') . '</span>' :
                     '<span class="label label-success">' . $this->translator->trans('label.no') . '</span>',
+                'createdAt'              => date_format($contractor->getCreatedAt(), 'd-m-Y H:i:s'),
+                'updatedAt'              => date_format($contractor->getUpdatedAt(), 'd-m-Y H:i:s'),
                 'actions'                => $this->getActionCellsContent($contractor),
             ];
         }
@@ -260,7 +262,9 @@ class ContractorController extends CRUDController
             3 => 'element_securite',
             4 => 'registre_traitements',
             5 => 'donnees_hors_eu',
-            6 => 'actions',
+            6 => 'createdAt',
+            7 => 'updatedAt',
+            8 => 'actions',
         ];
     }
 

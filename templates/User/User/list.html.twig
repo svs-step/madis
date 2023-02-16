@@ -81,11 +81,18 @@
                                     {% endfor %}
                                 </select></th>
                             <th scope="col"></th>
+                            <th scope="col"></th>
                             <th scope="col">
                                 <input class="datepicker form-control" type="text" id="search_last_login" placeholder="Date" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <input class="form-control" type="text" id="search_services" placeholder="Service" style="width: 100%;">
+                            </th>
+                            <th scope="col">
+                                <input class="datepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="width: 100%;">
+                            </th>
+                            <th scope="col">
+                                <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="width: 100%;">
                             </th>
                             <th scope="col"></th>
                         </tr>
@@ -99,6 +106,8 @@
                             <th scope="col">{{ 'user.user.list.enabled'|trans }}</th>
                             <th scope="col">{{ 'user.user.list.last_login'|trans }}</th>
                             <th scope="col">{{ 'user.user.list.services'|trans }}</th>
+                            <th scope="col">{{ 'user.user.list.created_at'|trans }}</th>
+                            <th scope="col">{{ 'user.user.list.updated_at'|trans }}</th>
                             <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -123,6 +132,8 @@
             {"data": "actif", "orderable": false},
             {"data": "connexion"},
             {"data": "services", "orderable": false},
+            {"data": "createdAt", "visible": false},
+            {"data": "updatedAt", "visible": false},
             {"data": "actions", "className": "noVis", "orderable": false},
         ],
         order:  [
@@ -168,6 +179,17 @@
             $('#search_services').off('keyup');
             $('#search_services').keyup($.debounce(250, function(){
                 oTable.column('7').search($(this).val()).draw() ;
+            }));
+
+            $('#search_created_at').off('keyup');
+            $('#search_created_at').keyup($.debounce(250, function(){
+                console.log('search_created_at', $(this).val())
+                oTable.column('9').search($(this).val()).draw() ;
+            }));
+
+            $('#search_updated_at').off('keyup');
+            $('#search_updated_at').keyup($.debounce(250, function(){
+                oTable.column('10').search($(this).val()).draw() ;
             }));
         }
 

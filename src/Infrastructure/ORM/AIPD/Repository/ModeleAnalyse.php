@@ -58,6 +58,9 @@ class ModeleAnalyse extends CRUDRepository implements Repository\ModeleAnalyse
             case 'updatedAt':
                 $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
                 break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
         }
     }
 
@@ -73,6 +76,10 @@ class ModeleAnalyse extends CRUDRepository implements Repository\ModeleAnalyse
                     break;
                 case 'updatedAt':
                     $queryBuilder->andWhere('o.updatedAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt LIKE :date')
                         ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
                     break;
             }

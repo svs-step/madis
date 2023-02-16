@@ -187,6 +187,8 @@ class ViolationController extends CRUDController
                 'nature'       => !\is_null($violation->getViolationNature()) ? ViolationNatureDictionary::getNatures()[$violation->getViolationNature()] : null,
                 'cause'        => !\is_null($violation->getCause()) ? ViolationCauseDictionary::getNatures()[$violation->getCause()] : null,
                 'gravity'      => !\is_null($violation->getGravity()) ? ViolationGravityDictionary::getGravities()[$violation->getGravity()] : null,
+                'createdAt'    => date_format($violation->getCreatedAt(), 'd-m-Y H:i:s'),
+                'updatedAt'    => date_format($violation->getUpdatedAt(), 'd-m-Y H:i:s'),
                 'actions'      => $this->getActionCellsContent($violation),
             ];
         }
@@ -216,7 +218,9 @@ class ViolationController extends CRUDController
             2 => 'nature',
             3 => 'cause',
             4 => 'gravity',
-            5 => 'actions',
+            5 => 'createdAt',
+            6 => 'updatedAt',
+            7 => 'actions',
         ];
     }
 

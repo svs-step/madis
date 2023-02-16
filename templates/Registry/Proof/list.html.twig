@@ -99,7 +99,10 @@
                                 <input class="form-control" type="text" id="search_commentaire" placeholder="Commentaire" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;">
+                                <input class="datepicker form-control" type="text" id="search_date" placeholder="Date de création" style="width: 100%;">
+                            </th>
+                            <th scope="col">
+                                <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="width: 100%;">
                             </th>
                             <th scope="col"></th>
                         </tr>
@@ -111,6 +114,7 @@
                             <th scope="col">{{ 'registry.proof.list.type'|trans }}</th>
                             <th scope="col">{{ 'registry.proof.list.comment'|trans }}</th>
                             <th scope="col">{{ 'registry.proof.list.created_at'|trans }}</th>
+                            <th scope="col">{{ 'registry.proof.list.updated_at'|trans }}</th>
                             <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -136,6 +140,7 @@
         {"data": "type"},
         {"data": "commentaire"},
         {"data": "date"},
+        {"data": "updatedAt", "visible": false},
         {"data": "actions", "className": "noVis", "orderable": false},
     ] %}
 
@@ -145,7 +150,8 @@
             {"data": "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
             {"data": "type"},
             {"data": "commentaire"},
-            {"data": "date"},
+            {"data": "date", "visible": false},
+            {"data": "updatedAt", "visible": false},
             {"data": "actions", "className": "noVis", "orderable": false},
         ] %}
     {% endif %}
@@ -190,6 +196,11 @@
             $('#search_date').off('change');
             $('#search_date').change(function(){
                 oTable.column(col + 3).search($(this).val()).draw() ;
+            });
+
+            $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
+                oTable.column(col + 4).search($(this).val()).draw() ;
             });
         }
 

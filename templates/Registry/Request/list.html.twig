@@ -135,6 +135,12 @@
                                     {% endfor %}
                                 </select>
                             </th>
+                            <th scope="col">
+                                <input class="datepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="width: 100%;">
+                            </th>
+                            <th scope="col">
+                                <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="width: 100%;">
+                            </th>
                         </tr>
                         <tr>
                             <th scope="col">{{ 'registry.request.list.concerned_people'|trans }}</th>
@@ -148,6 +154,8 @@
                             <th scope="col">{{ 'registry.request.list.legitimate_request'|trans }}</th>
                             <th scope="col">{{ 'registry.request.list.answer_date'|trans }}</th>
                             <th scope="col">{{ 'registry.request.list.state'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'registry.request.list.created_at'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'registry.request.list.updated_at'|trans }}</th>
                             <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -179,6 +187,8 @@
         {"data": "demande_legitime"},
         {"data": "date_traitement", "orderable": true, 'type': 'date'},
         {"data": "etat_demande"},
+        {"data": "createdAt", "visible": false},
+        {"data": "updatedAt", "visible": false},
         {"data": "actions", "visible": actionsIsVisible, "className": "noVis", "orderable": false},
     ] %}
 
@@ -193,6 +203,8 @@
             {"data": "demande_legitime"},
             {"data": "date_traitement", "orderable": true, 'type': 'date'},
             {"data": "etat_demande"},
+            {"data": "createdAt", "visible": false},
+            {"data": "updatedAt", "visible": false},
             {"data": "actions", "visible": actionsIsVisible, "className": "noVis", "orderable": false},
         ] %}
     {%  endif %}
@@ -255,6 +267,16 @@
             $('#search_etat').off('change');
             $('#search_etat').change(function(){
                 oTable.column(col + 7).search($(this).val()).draw();
+            });
+
+            $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
+                oTable.column(col + 8).search($(this).val()).draw();
+            });
+
+            $('#search_created_at').off('change');
+            $('#search_created_at').change(function(){
+                oTable.column(col + 9).search($(this).val()).draw();
             });
         }
 

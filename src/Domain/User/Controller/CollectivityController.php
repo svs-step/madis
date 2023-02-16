@@ -159,6 +159,8 @@ class CollectivityController extends CRUDController
                 'informations_complementaires' => !\is_null($collectivity->getInformationsComplementaires()) ? nl2br($collectivity->getInformationsComplementaires()) : null,
                 'siren'                        => $collectivity->getSiren(),
                 'statut'                       => $collectivity->isActive() ? $active : $inactive,
+                'createdAt'                    => date_format($collectivity->getCreatedAt(), 'd-m-Y H:i:s'),
+                'updatedAt'                    => date_format($collectivity->getUpdatedAt(), 'd-m-Y H:i:s'),
                 'actions'                      => $this->getActionCellsContent($collectivity),
             ];
         }
@@ -196,7 +198,9 @@ class CollectivityController extends CRUDController
             2 => 'type',
             3 => 'siren',
             4 => 'statut',
-            5 => 'actions',
+            5 => 'createdAt',
+            6 => 'updatedAt',
+            7 => 'actions',
         ];
     }
 

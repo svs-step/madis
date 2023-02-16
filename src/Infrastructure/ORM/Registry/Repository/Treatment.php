@@ -345,6 +345,9 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             case 'responsableTraitement':
                 $queryBuilder->addOrderBy('o.coordonneesResponsableTraitement', $orderDir);
                 break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
             case 'updatedAt':
                 $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
                 break;

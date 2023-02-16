@@ -48,9 +48,11 @@ registry:
             adopted_security_features: Adopte les éléments de sécurité
             collectivity: Collectivité
             contractual_clauses_verified: Clauses contractuelles vérifiées
+            created_at: Date de création
             maintains_treatment_register: Registre des traitements
             name: Nom
             sending_data_outside_eu: Données hors UE
+            updated_at: Date de modification
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce sous-traitant ?
         show:
@@ -128,6 +130,7 @@ registry:
             charge: Charge
             collectivity: Collectivité
             cost: Coût
+            created_at: Date de création
             manager: Responsable d'action
             name: Nom
             planification_date: Date de planification
@@ -135,6 +138,7 @@ registry:
             description: Description
             observation: Observations
             status: Statut
+            updated_at: Date de modification
             type:
                 legal: Actions juridiques
                 organisational: Actions organisationnelles
@@ -215,6 +219,8 @@ registry:
             created_at: Date de création
             name: Nom
             type: Type
+            updated_at: Date de modification
+
         tab:
             general: Informations générales
             link: Association
@@ -265,11 +271,13 @@ registry:
             collectivity: Collectivité
             complete: Demande complète
             concerned_people: Personne concernée
+            created_at: Date de création
             date: Date de la demande
             legitimate_applicant: Demandeur légitime
             legitimate_request: Demande légitime
             object: Objet de la demande
             state: État de la demande
+            updated_at: Date de modification
         show:
             answer_response: Réponse apportée
             answer_date: Date de traitement
@@ -569,9 +577,12 @@ registry:
         list:
             cause: Cause
             collectivity: Collectivité
+            created_at: Date de création
             date: Date de violation
             gravity: Niveau de gravité
             violation_nature: Nature
+            updated_at: Date de modification
+
         show:
             applied_measures_after_violation: Mesures techniques et organisationnelles appliquées suite à la violation
             cause: Cause de la violation

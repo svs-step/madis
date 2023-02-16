@@ -120,7 +120,8 @@
                                         {% endfor %}
                                     </select>
                                 </th>
-                                <th scope="col"><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
+                                <th scope="col"><input class="datepicker form-control" type="text" id="search_date" placeholder="Date de création" style="width: 100%;"></th>
+                                <th scope="col"><input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="width: 100%;"></th>
                                 <th scope="col"></th>
                             </tr>
                             
@@ -132,6 +133,7 @@
                                 <th scope="col">{{ 'documentation.document.list.name'|trans }}</th>
                                 <th scope="col">{{ 'documentation.document.list.category'|trans }}</th>
                                 <th scope="col">{{ 'documentation.document.list.created_at'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.updated_at'|trans }}</th>
                                 <th scope="col">{{ 'label.actions'|trans }}</th>
                             </tr>
 
@@ -182,6 +184,7 @@
                                 {{ object.categories|map(c => "#{c.name}") | join(', ') }}
                             </td>
                             <td>{{ object.createdAt|date('d/m/Y') }}</td>
+                            <td>{{ object.updatedAt|date('d/m/Y') }}</td>
 
                             <td>
                                 {% if is_granted('ROLE_ADMIN') %}
@@ -257,7 +260,8 @@
             {"data": "weight"},
             {"data": "name"},
             {"data": "category"},
-            {"data": "created_at"},
+            {"data": "created_at", "visible" : false},
+            {"data": "updated_at", "visible" : false},
             {"data": "actions", "orderable": false},
         ],
 
@@ -374,6 +378,11 @@
             $('#search_date').off('change');
             $('#search_date').change(function(){
                 oTable.column('6').search($(this).val()).draw() ;
+            });
+
+            $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
+                oTable.column('7').search($(this).val()).draw() ;
             });
         }
 
