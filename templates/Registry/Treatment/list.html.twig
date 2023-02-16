@@ -71,7 +71,7 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
-                    <div style="float:left">
+                    <div id="custom-buttons" style="float:left">
                         <a aria-label="Imprimer" id="print-all"  href="{{ path('registry_treatment_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Imprimer
                         </a>
@@ -330,6 +330,9 @@
             exportButton.removeClass('dt-button')
             //
             $('#action-top-buttons').append(exportButton);
+
+            let columnButton = $("button.dt-button > span:contains('Colonnes')").parent();
+            $( "#custom-buttons" ).prepend( columnButton.css("float", "left").css("margin-right", "0.5em") );
         })
         function setEvents() {
             var oTable = $('#table').DataTable();
