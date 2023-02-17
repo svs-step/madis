@@ -24,6 +24,21 @@ class AbstractMesureProtection
     private int $poidsVraisemblance;
     private int $poidsGravite;
 
+    /**
+     * @var \DateTimeImmutable|null
+     *
+     * @Serializer\Type("DateTimeImmutable")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTimeImmutable|null
+     *
+     * @Serializer\Type("DateTimeImmutable")
+     */
+    private $updatedAt;
+
+
     public function __construct()
     {
         $this->id = Uuid::uuid4();
