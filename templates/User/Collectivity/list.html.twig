@@ -69,11 +69,11 @@
                                     <option value="0">{{ 'label.inactive'|trans }}</option>
                                 </select>
                             </th>
-                            <th scope="col">
-                                <input class="datepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="width: 100%;">
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
                             </th>
-                            <th scope="col">
-                                <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="width: 100%;">
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
                             </th>
                         </tr>
                         <tr>
@@ -124,6 +124,13 @@
     <script>
         function setEvents() {
             var oTable = $('#table').DataTable();
+
+            $('#search_created_at').show('slide',function(){
+                $('input#search_created_at').val('');
+            });
+            $('#search_updated_at').show('slide',function(){
+                $('input#search_updated_at').val('');
+            });
 
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){

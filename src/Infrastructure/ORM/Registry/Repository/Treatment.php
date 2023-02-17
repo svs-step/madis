@@ -418,8 +418,8 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                         ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
                     break;
                 case 'updatedAt':
-                    $queryBuilder->andWhere('o.updatedAt LIKE :date')
-                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    $queryBuilder->andWhere('o.updatedAt LIKE :updatedAt')
+                        ->setParameter('updatedAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
                     break;
                 case 'public':
                     $queryBuilder->andWhere('o.public = :public')

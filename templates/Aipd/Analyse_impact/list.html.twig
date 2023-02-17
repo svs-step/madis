@@ -33,11 +33,11 @@
                             <th scope="col">
                                 <input class="form-control" type="text" id="search_traitement" placeholder="Traitement" style="width: 100%;">
                             </th>
-                            <th scope="col">
-                                <input class="datepicker form-control" type="text" id="search_date_de_creation" placeholder="Date création" style="width: 100%;">
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_date_de_creation" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;font-family: inherit;z-index:10">
                             </th>
-                            <th scope="col">
-                                <input class="datepicker form-control" type="text" id="search_date_de_validation" placeholder="Date validation" style="width: 100%;">
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_date_de_validation" placeholder="Date de validation" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;font-family: inherit;z-index:10">
                             </th>
                             <th scope="col">
                                 <input class="form-control" type="text" id="search_modele" placeholder="Modèle utilisé" style="width: 100%;">
@@ -116,6 +116,13 @@
     <script>
         $(document).ready(function () {
             var oTable = $('#table').DataTable();
+
+            $('#search_date_de_creation').show('slide',function(){
+                $('input#search_date_de_creation').val('');
+            });
+            $('#search_date_de_validation').show('slide',function(){
+                $('input#search_date_de_validation').val('');
+            });
 
             $('#search_traitement').off('keyup');
             $('#search_traitement').keyup($.debounce(250, function(){

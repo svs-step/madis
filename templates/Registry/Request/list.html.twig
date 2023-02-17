@@ -92,8 +92,8 @@
                                     <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
                                 </th>
                             {% endif %}
-                            <th scope="col">
-                                <input class="datepicker form-control" type="text" id="search_date_demande" placeholder="Date" style="width: 100%;">
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_date_demande" placeholder="Date demande" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_objet" style="width: 100%;">
@@ -124,8 +124,8 @@
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th scope="col">
-                                <input class="datepicker form-control" type="text" id="search_date_traitement" placeholder="Date" style="width: 100%;">
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_date_traitement" placeholder="Date traitement" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_etat" style="width: 100%;">
@@ -135,11 +135,11 @@
                                     {% endfor %}
                                 </select>
                             </th>
-                            <th scope="col">
-                                <input class="datepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="width: 100%;">
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
                             </th>
-                            <th scope="col">
-                                <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="width: 100%;">
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
                             </th>
                         </tr>
                         <tr>
@@ -223,6 +223,19 @@
             {% if is_granted('ROLE_REFERENT') %}
                 col = 1;
             {% endif %}
+
+            $('#search_created_at').show('slide',function(){
+                $('input#search_created_at').val('');
+            });
+            $('#search_updated_at').show('slide',function(){
+                $('input#search_updated_at').val('');
+            });
+            $('#search_date_traitement').show('slide',function(){
+                $('input#search_date_traitement').val('');
+            });
+            $('#search_date_demande').show('slide',function(){
+                $('input#search_date_demande').val('');
+            });
 
             $('#search_personne_concernee').off('keyup');
             $('#search_personne_concernee').keyup($.debounce(250, function(){

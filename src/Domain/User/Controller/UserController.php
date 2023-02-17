@@ -255,18 +255,18 @@ class UserController extends CRUDController
     protected function getLabelAndKeysArray(): array
     {
         return [
-            0 => 'prenom',
-            1 => 'nom',
-            2 => 'email',
-            3 => 'collectivite',
-            4 => 'roles',
-            5 => 'actif',
-            6 => 'connexion',
-            7 => 'services',
-            8 => 'createdAt',
-            9 => 'updatedAt',
-            10 => 'actions',
-            11 => 'moreInfos',
+            'prenom',
+            'nom',
+            'email',
+            'collectivite',
+            'roles',
+            'moreInfos',
+            'actif',
+            'connexion',
+            'services',
+            'createdAt',
+            'updatedAt',
+            'actions',
         ];
     }
 

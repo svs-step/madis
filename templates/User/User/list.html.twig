@@ -82,17 +82,17 @@
                                 </select></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
-                            <th scope="col">
-                                <input class="datepicker form-control" type="text" id="search_last_login" placeholder="Date" style="width: 100%;">
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_last_login" placeholder="Date" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;font-family: inherit;z-index:10">
                             </th>
                             <th scope="col">
                                 <input class="form-control" type="text" id="search_services" placeholder="Service" style="width: 100%;">
                             </th>
-                            <th scope="col">
-                                <input class="datepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="width: 100%;">
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;font-family: inherit;z-index:10">
                             </th>
-                            <th scope="col">
-                                <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="width: 100%;">
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;font-family: inherit;z-index:10">
                             </th>
                             <th scope="col"></th>
                         </tr>
@@ -147,6 +147,16 @@
         function setEvents() {
             var oTable = $('#table').DataTable();
 
+            $('#search_created_at').show('slide',function(){
+                $('input#search_created_at').val('');
+            });
+            $('#search_updated_at').show('slide',function(){
+                $('input#search_updated_at').val('');
+            });
+            $('#search_last_login').show('slide',function(){
+                $('input#search_last_login').val('');
+            });
+
             $('#search_prenom').off('keyup');
             $('#search_prenom').keyup($.debounce(250, function(){
                 oTable.column('0').search($(this).val()).draw() ;
@@ -174,23 +184,22 @@
 
             $('#search_last_login').off('change');
             $('#search_last_login').change(function(){
-                oTable.column('6').search($(this).val()).draw() ;
+                oTable.column('7').search($(this).val()).draw() ;
             });
             $('#search_services').off('keyup');
             $('#search_services').keyup($.debounce(250, function(){
-                oTable.column('7').search($(this).val()).draw() ;
+                oTable.column('8').search($(this).val()).draw() ;
             }));
 
-            $('#search_created_at').off('keyup');
-            $('#search_created_at').keyup($.debounce(250, function(){
-                console.log('search_created_at', $(this).val())
+            $('#search_created_at').off('change');
+            $('#search_created_at').change(function(){
                 oTable.column('9').search($(this).val()).draw() ;
-            }));
+            });
 
-            $('#search_updated_at').off('keyup');
-            $('#search_updated_at').keyup($.debounce(250, function(){
+            $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
                 oTable.column('10').search($(this).val()).draw() ;
-            }));
+            });
         }
 
         $(document).ready(function() {
