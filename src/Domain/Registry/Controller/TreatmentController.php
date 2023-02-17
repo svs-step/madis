@@ -390,10 +390,25 @@ class TreatmentController extends CRUDController
                 'specific_traitement'    => $this->getSpecificTraitement($treatment),
                 'conformite_traitement'  => $this->getTreatmentConformity($treatment),
                 'actions'                => $this->generateActionCellContent($treatment),
+                'sensitiveData'          => $this->countSensitiveData($treatment->getDataCategories()) ,
             ];
         }
 
         return new JsonResponse($reponse);
+    }
+
+    private function countSensitiveData($categories){
+        $sensitive = '<span class="badge bg-orange">' . $this->translator->trans('label.yes') . '</span>';
+        $noSensitive  = '<span class="badge bg-green">' . $this->translator->trans('label.no') . '</span>';
+
+        $count = 0;
+        foreach($categories as $category){
+            if ($category->isSensible()){
+                $count++;
+            }
+        }
+
+        return $count > 0 ? $sensitive : $noSensitive;
     }
 
     private function getTreatmentConformity(Treatment $treatment)
@@ -636,14 +651,14 @@ class TreatmentController extends CRUDController
                 '5'  => 'enTantQue',
                 '6'  => 'gestionnaire',
                 '7'  => 'sousTraitant',
-                '8'  => 'controleAcces',
-                '9'  => 'tracabilite',
-                '10' => 'saving',
-                '11' => 'other',
-                '12' => 'entitledPersons',
-                '13' => 'openAccounts',
-                '14' => 'specificitiesDelivered',
-                '15' => 'createdAt',
+                '8'  => 'sensitiveData',
+                '9'  => 'controleAcces',
+                '10'  => 'tracabilite',
+                '11' => 'saving',
+                '12' => 'other',
+                '13' => 'entitledPersons',
+                '14' => 'openAccounts',
+                '15' => 'specificitiesDelivered',
                 '16' => 'updatedAt',
                 '17' => 'public',
                 '18' => 'update',
@@ -661,14 +676,14 @@ class TreatmentController extends CRUDController
             '4'  => 'enTantQue',
             '5'  => 'gestionnaire',
             '6'  => 'sousTraitant',
-            '7'  => 'controleAcces',
-            '8'  => 'tracabilite',
-            '9'  => 'saving',
-            '10' => 'other',
-            '11' => 'entitledPersons',
-            '12' => 'openAccounts',
-            '13' => 'specificitiesDelivered',
-            '14' => 'createdAt',
+            '7'  => 'sensitiveData',
+            '8'  => 'controleAcces',
+            '9'  => 'tracabilite',
+            '10'  => 'saving',
+            '11' => 'other',
+            '12' => 'entitledPersons',
+            '13' => 'openAccounts',
+            '14' => 'specificitiesDelivered',
             '15' => 'updatedAt',
             '16' => 'public',
             '17' => 'update',
