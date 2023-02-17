@@ -174,6 +174,9 @@ class ViolationController extends CRUDController
         $users    = $this->getResults($request, $criteria);
         $reponse  = $this->getBaseDataTablesResponse($request, $users, $criteria);
 
+        $yes = '<span class="badge bg-orange">' . $this->translator->trans('label.yes') . '</span>';
+        $no  = '<span class="badge bg-green">' . $this->translator->trans('label.no') . '</span>';
+
         /** @var Model\Violation $violation */
         foreach ($users as $violation) {
             $violationLink = '<a aria-label="' . \date_format($violation->getDate(), 'd/m/Y') . '" href="' . $this->router->generate('registry_violation_show', ['id' => $violation->getId()->toString()]) . '">
@@ -189,7 +192,9 @@ class ViolationController extends CRUDController
                 'gravity'      => !\is_null($violation->getGravity()) ? ViolationGravityDictionary::getGravities()[$violation->getGravity()] : null,
                 'createdAt'    => date_format($violation->getCreatedAt(), 'd-m-Y H:i:s'),
                 'updatedAt'    => date_format($violation->getUpdatedAt(), 'd-m-Y H:i:s'),
+                'inProgress'       => $violation->isInProgress() ? $yes : $no ,
                 'actions'      => $this->getActionCellsContent($violation),
+                'notification' => $this->getNotifications(),
             ];
         }
 
@@ -216,11 +221,13 @@ class ViolationController extends CRUDController
             0 => 'collectivite',
             1 => 'date',
             2 => 'nature',
-            3 => 'cause',
-            4 => 'gravity',
-            5 => 'createdAt',
-            6 => 'updatedAt',
-            7 => 'actions',
+            3 => 'inProgress',
+            4 => 'cause',
+            5 => 'gravity',
+            6 => 'notification',
+            7 => 'createdAt',
+            8 => 'updatedAt',
+            9 => 'actions',
         ];
     }
 

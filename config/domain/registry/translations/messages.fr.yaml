@@ -583,6 +583,8 @@ registry:
             gravity: Niveau de gravité
             violation_nature: Nature
             updated_at: Date de modification
+            in_progress: Violation en cours
+            notification: Notification
 
         show:
             applied_measures_after_violation: Mesures techniques et organisationnelles appliquées suite à la violation
