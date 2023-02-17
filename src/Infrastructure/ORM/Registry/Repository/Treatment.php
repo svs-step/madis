@@ -276,6 +276,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             ->addSelect('collectivite')
             ->leftJoin('o.collectivity', 'collectivite')
             ->leftJoin('o.contractors', 'sous_traitants')
+            ->leftJoin('o.dataCategories', 'data_categories')
         ;
 
         if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
@@ -427,6 +428,10 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     break;
                 case 'responsableTraitement':
                     $this->addWhereClause($queryBuilder, 'coordonneesResponsableTraitement', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'sensitiveData':
+                    $queryBuilder->andWhere('data_categories.sensible = :sensitiveData')
+                        ->setParameter('sensitiveData', $search);
                     break;
             }
         }
