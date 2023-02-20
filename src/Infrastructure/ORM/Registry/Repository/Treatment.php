@@ -415,12 +415,14 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                         ->setParameter('specificitiesDelivered', $search);
                     break;
                 case 'createdAt':
-                    $queryBuilder->andWhere('o.createdAt LIKE :date')
-                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    $queryBuilder->andWhere('o.createdAt BETWEEN :start_date AND :finish_date')
+                        ->setParameter('start_date', date_create_from_format('d/m/y', substr($search, 0,8))->format('Y-m-d'))
+                        ->setParameter('finish_date', date_create_from_format('d/m/y', substr($search, 11,8))->format('Y-m-d'));
                     break;
                 case 'updatedAt':
-                    $queryBuilder->andWhere('o.updatedAt LIKE :updatedAt')
-                        ->setParameter('updatedAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    $queryBuilder->andWhere('o.updatedAt BETWEEN :start_date AND :finish_date')
+                        ->setParameter('start_date', date_create_from_format('d/m/y', substr($search, 0,8))->format('Y-m-d'))
+                        ->setParameter('finish_date', date_create_from_format('d/m/y', substr($search, 11,8))->format('Y-m-d'));
                     break;
                 case 'public':
                     $queryBuilder->andWhere('o.public = :public')
