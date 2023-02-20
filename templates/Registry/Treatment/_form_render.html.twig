@@ -16,6 +16,9 @@
                 <a aria-label="{{ 'registry.treatment.action.back_to_list'|trans }}" href="{{ path('registry_treatment_list') }}" class="btn btn-default">
                     {{ 'registry.treatment.action.back_to_list'|trans }}
                 </a>
+                {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_REFERENT') %}
+                    <input type="submit" class="btn btn-info draft" value="{{ ('registry.treatment.action.draft'|trans) }}">
+                {% endif %}
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>
         </div>
@@ -23,6 +26,15 @@
 </div>
 
 {{ form_end(form) }}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.draft').on('click',function(){
+            $('#treatment_statut').val('draft');
+        })
+    });
+</script>
 
 {# dump(form)    .vars(value) #}
 

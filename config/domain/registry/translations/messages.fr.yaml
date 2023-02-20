@@ -359,6 +359,7 @@ registry:
             report: Générer une impression
             new_submit: Créer le traitement
             edit_submit: Modifier le traitement
+            draft: Enregistrer le brouillon
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
