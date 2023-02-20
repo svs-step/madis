@@ -198,7 +198,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         ;
     }
 
-    public function findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity = null, bool $active = true, array $order = ['name' => 'ASC'])
+    public function findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity = null, bool $active = true, array $order = [])
     {
         $qb = $this->createQueryBuilder();
 
@@ -276,6 +276,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             ->addSelect('collectivite')
             ->leftJoin('o.collectivity', 'collectivite')
             ->leftJoin('o.contractors', 'sous_traitants')
+            ->leftJoin('o.dataCategories', 'data_categories')
         ;
 
         if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
@@ -345,6 +346,9 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             case 'responsableTraitement':
                 $queryBuilder->addOrderBy('o.coordonneesResponsableTraitement', $orderDir);
                 break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
             case 'updatedAt':
                 $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
                 break;
@@ -410,9 +414,15 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     $queryBuilder->andWhere('o.securitySpecificitiesDelivered = :specificitiesDelivered')
                         ->setParameter('specificitiesDelivered', $search);
                     break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt BETWEEN :start_date AND :finish_date')
+                        ->setParameter('start_date', date_create_from_format('d/m/y', substr($search, 0,8))->format('Y-m-d'))
+                        ->setParameter('finish_date', date_create_from_format('d/m/y', substr($search, 11,8))->format('Y-m-d'));
+                    break;
                 case 'updatedAt':
-                    $queryBuilder->andWhere('o.updatedAt LIKE :date')
-                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    $queryBuilder->andWhere('o.updatedAt BETWEEN :start_date AND :finish_date')
+                        ->setParameter('start_date', date_create_from_format('d/m/y', substr($search, 0,8))->format('Y-m-d'))
+                        ->setParameter('finish_date', date_create_from_format('d/m/y', substr($search, 11,8))->format('Y-m-d'));
                     break;
                 case 'public':
                     $queryBuilder->andWhere('o.public = :public')
@@ -420,6 +430,10 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     break;
                 case 'responsableTraitement':
                     $this->addWhereClause($queryBuilder, 'coordonneesResponsableTraitement', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'sensitiveData':
+                    $queryBuilder->andWhere('data_categories.sensible = :sensitiveData')
+                        ->setParameter('sensitiveData', $search);
                     break;
             }
         }
