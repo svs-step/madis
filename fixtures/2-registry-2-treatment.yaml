@@ -7,6 +7,7 @@ App\Domain\Registry\Model\Treatment:
     registry_treatment_awkan_{1..20}:
         name: Traitement <current()>
         goal: <text()>
+        statut: 'draft'
         manager: <firstName()> <lastName()>
         software: '50%? <word()>'
         legalBasis: '<(App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary::BASE_LEGAL_OBLIGATION)>'
@@ -23,6 +24,7 @@ App\Domain\Registry\Model\Treatment:
     registry_treatment_soluris_{1..10}:
         name: Traitement <current()>
         goal: <text()>
+        statut: 'finished'
         manager: <firstName()> <lastName()>
         software: '50%? <word()>'
         legalBasis: '<(App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary::BASE_PUBLIC_INTEREST_MISSION)>'
@@ -39,6 +41,7 @@ App\Domain\Registry\Model\Treatment:
     registry_treatment_foobar_{1..10}:
         name: Traitement <current()>
         goal: <text()>
+        statut: 'checked'
         manager: <firstName()> <lastName()>
         software: '50%? <word()>'
         legalBasis: '<(App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary::BASE_LEGAL_OBLIGATION)>'

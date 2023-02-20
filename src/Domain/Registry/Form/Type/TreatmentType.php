@@ -349,10 +349,16 @@ class TreatmentType extends AbstractType
         ;
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')) {
-            $builder->add('dpoMessage', TextAreaType::class, [
-                'label'    => 'registry.treatment.form.dpoMessage',
-                'required' => false,
-            ]);
+            $builder
+                ->add('dpoMessage', TextAreaType::class, [
+                    'label'    => 'registry.treatment.form.dpoMessage',
+                    'required' => false,
+                ])
+                ->add('statut', DictionaryType::class, [
+                    'label'    => 'registry.treatment.form.statut',
+                    'name'     => 'treatment_statut',
+                    'required' => false,
+                ]);
         }
 
         // Check if services are enabled for the collectivity's treatment

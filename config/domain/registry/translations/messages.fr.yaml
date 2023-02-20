@@ -412,6 +412,7 @@ registry:
             security_tracability: Traçabilité
             security_update: Mise à jour
             service: Service
+            statut: Statut
             systematic_monitoring: Surveillance systématique
             software: Logiciel
             ultimate_fate: Sort final
@@ -508,11 +509,13 @@ registry:
             security_update: Mise à jour
             service: Service
             software: Logiciel
+            statut: Statut
             ultimate_fate: Sort final
             systematic_monitoring: Surveillance systématique
             updated_at: Dernière mise à jour
             vulnerable_people: Personnes vulnérables
             delete_related_objects_error: Une erreur est survenue lors de la suppression des %relateds% de la collectivité "%object%"
+            preconization_dpo: Préconisations
         title:
             create: Créer un traitement
             delete: Supprimer un traitement
@@ -534,6 +537,7 @@ registry:
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
           dpo_message: Préconisations DPO
+          statut_dpo: Statut et préconisations DPO
 
     violation:
         action:

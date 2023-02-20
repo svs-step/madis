@@ -1,5 +1,16 @@
 <div class="row">
     <div class="col-md-6">
+        {# DPO Statut #}
+        {% if is_granted('ROLE_REFERENT') or is_granted('ROLE_ADMIN') %}
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.statut_dpo'|trans }}</h3></div>
+                <div class="box-body">
+                    {{ form_row(form.statut) }}
+                    {{ form_row(form.dpoMessage) }}
+                </div>
+            </div>
+        {% endif %}
+
         {# GENERAL INFORMATIONS #}
         <div class="box box-solid box-info">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
@@ -18,9 +29,6 @@
                 {{ form_row(form.legalBasis) }}
                 {{ form_row(form.legalBasisJustification) }}
                 {{ form_row(form.observation) }}
-                {% if is_granted('ROLE_REFERENT') or is_granted('ROLE_ADMIN') %}
-                    {{ form_row(form.dpoMessage) }}
-                {% endif %}
                 <div class="form-group">
                     <label for="treatment_public" class="col-sm-2 control-label" style="white-space: nowrap">
                         {{ 'registry.treatment.tab.public'|trans }}
