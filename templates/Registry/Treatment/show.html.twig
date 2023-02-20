@@ -48,6 +48,27 @@
     <div class="row">
         {# LEFT #}
         <div class="col-md-6">
+            {# DPO Statut #}
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.statut_dpo'|trans }}</h3></div>
+                <div class="box-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.statut'|trans }}</strong></td>
+                                <td>
+                                    {{ object.statut|dictionary('treatment_statut') }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.preconization_dpo'|trans }}</strong></td>
+                                <td>{{ object.dpoMessage }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             {# GENERAL INFORMATIONS #}
             <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
@@ -118,17 +139,7 @@
                     </table>
                 </div>
             </div>
-            {# DPO Message  #}
-            {% if object.dpoMessage is not null %}
-                <div class="box box-solid box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
-                    </div>
-                    <div class="box-body">
-                        {{  object.dpoMessage }}
-                    </div>
-                </div>
-            {% endif %}
+
 
             {# DATA CATEGORY #}
             <div class="box box-solid box-warning">

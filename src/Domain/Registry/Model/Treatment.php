@@ -403,6 +403,13 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $dpoMessage;
 
     /**
+     * FR: Statut.
+     *
+     * @var string|null
+     */
+    private $statut;
+
+    /**
      * FR: Autre moyen de collecte.
      *
      * @var string|null
@@ -505,6 +512,16 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function setName(?string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?string $statut): void
+    {
+        $this->statut = $statut;
     }
 
     public function getPublic(): ?bool
