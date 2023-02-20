@@ -389,9 +389,9 @@ class Violation implements Repository\Violation
                 break;
             case 'nature':
                 $queryBuilder->addSelect('(case
-                WHEN o.violationNatures LIKE \'%' . ViolationNatureDictionary::NATURE_INTEGRITY . '%\' THEN 1
-                WHEN o.violationNatures LIKE \'%' . ViolationNatureDictionary::NATURE_CONFIDENTIALITY . '%\' THEN 2
-                WHEN o.violationNatures LIKE \'%' . ViolationNatureDictionary::NATURE_AVAILABILITY . '%\' THEN 3
+                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_INTEGRITY . '\' THEN 1
+                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_CONFIDENTIALITY . '\' THEN 2
+                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_AVAILABILITY . '\' THEN 3
                 ELSE 4 END) AS HIDDEN hidden_violation_nature')
                     ->addOrderBy('hidden_violation_nature', $orderDir);
                 break;
@@ -414,6 +414,12 @@ class Violation implements Repository\Violation
                 ELSE 4 END) AS HIDDEN hidden_gravity')
                     ->addOrderBy('hidden_gravity', $orderDir);
                 break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
         }
     }
 
@@ -430,8 +436,10 @@ class Violation implements Repository\Violation
                         ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
                     break;
                 case 'nature':
-                    $queryBuilder->andWhere('o.violationNatures LIKE :nature')
-                        ->setParameter('nature', '%' . $search . '%');
+                    $this->addWhereClause($queryBuilder, 'violationNature', $search);
+                    break;
+                case 'inProgress':
+                    $this->addWhereClause($queryBuilder, 'in_progress', $search);
                     break;
                 case 'cause':
                     $this->addWhereClause($queryBuilder, 'cause', $search);
@@ -439,7 +447,18 @@ class Violation implements Repository\Violation
                 case 'gravity':
                     $this->addWhereClause($queryBuilder, 'gravity', $search);
                     break;
-            }
+                case 'notification':
+                    $this->addWhereClause($queryBuilder, 'notification', $search);
+                    break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+        }
         }
     }
 }
