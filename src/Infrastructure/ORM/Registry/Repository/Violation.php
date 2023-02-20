@@ -438,11 +438,17 @@ class Violation implements Repository\Violation
                 case 'nature':
                     $this->addWhereClause($queryBuilder, 'violationNature', $search);
                     break;
+                case 'inProgress':
+                    $this->addWhereClause($queryBuilder, 'in_progress', $search);
+                    break;
                 case 'cause':
                     $this->addWhereClause($queryBuilder, 'cause', $search);
                     break;
                 case 'gravity':
                     $this->addWhereClause($queryBuilder, 'gravity', $search);
+                    break;
+                case 'notification':
+                    $this->addWhereClause($queryBuilder, 'notification', $search);
                     break;
                 case 'createdAt':
                     $queryBuilder->andWhere('o.createdAt LIKE :date')
