@@ -50,7 +50,7 @@ class Maturity
 
         // Begin calculation
         foreach ($survey->getAnswers() as $answer) {
-            $domain   = $answer->getQuestion()->getDomain();
+            $domain   = $answer->getQuestion()->getSection();
             $domainId = $domain->getId()->toString();
 
             // Get all domain in specific array

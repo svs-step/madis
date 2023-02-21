@@ -43,20 +43,22 @@ class Survey implements LoggableSubject
      */
     private $id;
 
-    /**
-     * @var int
-     */
-    private $score;
+    private Referentiel $referentiel;
 
     /**
-     * @var Referentiel
+     * @var iterable|null
      */
-    private $referentiel;
+    private $answers;
 
     /**
      * @var iterable
      */
-    private $answers;
+    private $maturity;
+
+    /**
+     * @var int
+     */
+    private $score;
 
     /**
      * Survey constructor.
@@ -65,9 +67,10 @@ class Survey implements LoggableSubject
      */
     public function __construct()
     {
-        $this->id    = Uuid::uuid4();
-        $this->score = 0;
-        $this->answers = new ArrayCollection();
+        $this->id       = Uuid::uuid4();
+        $this->answers  = [];
+        $this->maturity = [];
+        $this->score    = 0;
     }
 
     public function getId(): UuidInterface
@@ -80,6 +83,58 @@ class Survey implements LoggableSubject
         return "Indice du {$this->createdAt->format('d/m/Y')}";
     }
 
+    public function addAnswer(Answer $answer): void
+    {
+        $this->answers[] = $answer;
+        $answer->setSurvey($this);
+    }
+
+    public function removeAnswer(Answer $answer): void
+    {
+        $key = \array_search($answer, $this->answers, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->answers[$key]);
+    }
+
+    public function getAnswers(): ?iterable
+    {
+        return $this->answers;
+    }
+
+    public function addMaturity(Maturity $maturity): void
+    {
+        $this->maturity[] = $maturity;
+        $maturity->setSurvey($this);
+    }
+
+    public function removeMaturity(Maturity $maturity): void
+    {
+        $key = \array_search($maturity, $this->maturity, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->maturity[$key]);
+    }
+
+    public function getMaturity(): iterable
+    {
+        return $this->maturity;
+    }
+
+    public function setMaturity(array $maturityList): void
+    {
+        foreach ($maturityList as $maturity) {
+            $this->maturity[] = $maturity;
+            $maturity->setSurvey($this);
+        }
+    }
+
     public function getScore(): int
     {
         return $this->score;
@@ -90,35 +145,20 @@ class Survey implements LoggableSubject
         $this->score = $score;
     }
 
-
+    /**
+     * @return Referentiel
+     */
     public function getReferentiel(): Referentiel
     {
         return $this->referentiel;
     }
 
+    /**
+     * @param Referentiel $referentiel
+     */
     public function setReferentiel(Referentiel $referentiel): void
     {
         $this->referentiel = $referentiel;
     }
-
-    /**
-     * @return ReferentielAnswer[]|iterable
-     */
-    public function getAnswers(): iterable
-    {
-        return $this->answers;
-    }
-
-    /**
-     * @param ReferentielAnswer[]|iterable $answers
-     */
-    public function setAnswers(iterable $answers): void
-    {
-        $this->answers = $answers;
-    }
-
-    public function getSections(): iterable
-    {
-        return $this->referentiel ? $this->referentiel->getReferentielSections() : [];
-    }
 }
+
