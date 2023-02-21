@@ -184,47 +184,6 @@ class SurveyController extends CRUDController
         ]);
         $object->setReferentiel($referentiel);
 
-        if ($referentiel) {
-            $referentielSurvey = new Model\SurveyReferentiel();
-            $referentielSurvey->setName($referentiel->getName());
-            $referentielSurvey->setDescription($referentiel->getDescription());
-            $this->entityManager->persist($referentielSurvey);
-            $this->entityManager->flush();
-            $sections = $referentiel->getReferentielSections();
-            foreach ($sections as $section) {
-                $surveySection = new Model\SurveyReferentielSection();
-                $surveySection->setName($section->getName());
-                $surveySection->setDescription($section->getDescription());
-                $surveySection->setOrderNumber($section->getOrderNumber());
-                $surveySection->setSurveyReferentiel($referentielSurvey);
-                $this->entityManager->persist($surveySection);
-                $this->entityManager->flush();
-                $questions = $section->getReferentielQuestions();
-                foreach ($questions as $question) {
-                    $surveyQuestion = new Model\SurveyReferentielQuestion();
-                    $surveyQuestion->setName($question->getName());
-                    $surveyQuestion->setWeight($question->getWeight());
-                    $surveyQuestion->setOrderNumber($question->getOrderNumber());
-                    $surveyQuestion->setSurveyReferentielSection($surveySection);
-                    $this->entityManager->persist($surveyQuestion);
-                    $this->entityManager->flush();
-                    $answers = $question->getReferentielAnswers();
-                    foreach ($answers as $answer) {
-                        $surveyAnswer = new Model\SurveyReferentielAnswer();
-                        $surveyAnswer->setName($answer->getName());
-                        $surveyAnswer->setRecommendation($answer->getRecommendation());
-                        $surveyAnswer->setOrderNumber($answer->getOrderNumber());
-                        $surveyAnswer->setSurveyReferentielQuestion($surveyQuestion);
-                        $this->entityManager->persist($surveyAnswer);
-                        $this->entityManager->flush();
-                        $surveyQuestion->addSurveyReferenceAnswer($surveyAnswer);
-                    }
-                    $surveySection->addSurveyReferentielQuestion($surveyQuestion);
-                }
-                $referentielSurvey->addSurveyReferentielSection($surveySection);
-            }
-            $object->setSurveyReferentiel($referentielSurvey);
-        }
 
         $form = $this->createForm($this->getFormType(), $object);
 

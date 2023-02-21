@@ -35,24 +35,14 @@ class SurveyReferentielAnswer
     private $id;
 
     /**
-     * @var string|null
+     * @var Survey
      */
-    private $name;
+    private $survey;
 
     /**
-     * @var string|null
+     * @var ReferentielAnswer
      */
-    private $recommendation;
-
-    /**
-     * @var SurveyReferentielQuestion|null
-     */
-    private $surveyReferentielQuestion;
-
-    /**
-     * @var int|null
-     */
-    public $orderNumber;
+    private $answer;
 
     public function __construct()
     {
@@ -64,43 +54,35 @@ class SurveyReferentielAnswer
         return $this->id;
     }
 
-    public function getName(): ?string
+    /**
+     * @return Survey
+     */
+    public function getSurvey(): Survey
     {
-        return $this->name;
+        return $this->survey;
     }
 
-    public function setName(?string $name): void
+    /**
+     * @param Survey $survey
+     */
+    public function setSurvey(Survey $survey): void
     {
-        $this->name = $name;
+        $this->survey = $survey;
     }
 
-    public function getRecommendation(): ?string
+    /**
+     * @return ReferentielAnswer
+     */
+    public function getAnswer(): ReferentielAnswer
     {
-        return $this->recommendation;
+        return $this->answer;
     }
 
-    public function setRecommendation(?string $recommendation): void
+    /**
+     * @param ReferentielAnswer $answer
+     */
+    public function setAnswer(ReferentielAnswer $answer): void
     {
-        $this->recommendation = $recommendation;
-    }
-
-    public function getOrderNumber(): ?int
-    {
-        return $this->orderNumber;
-    }
-
-    public function setOrderNumber(?int $orderNumber): void
-    {
-        $this->orderNumber = $orderNumber;
-    }
-
-    public function getSurveyReferentielQuestion(): ?SurveyReferentielQuestion
-    {
-        return $this->surveyReferentielQuestion;
-    }
-
-    public function setSurveyReferentielQuestion(?SurveyReferentielQuestion $surveyReferentielQuestion): void
-    {
-        $this->surveyReferentielQuestion = $surveyReferentielQuestion;
+        $this->answer = $answer;
     }
 }

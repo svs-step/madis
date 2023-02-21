@@ -13,6 +13,9 @@
         <field name="orderNumber" column="order_number" type="integer"/>
 
         <many-to-one field="referentielQuestion" target-entity="App\Domain\Maturity\Model\ReferentielQuestion" inversed-by="referentielAnswers"/>
+
+        <many-to-many field="surveys" target-entity="App\Domain\Maturity\Model\Survey" inversed-by="answers">
+        </many-to-many>
     </entity>
 
 </doctrine-mapping>

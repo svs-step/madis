@@ -50,6 +50,11 @@ class ReferentielAnswer
     private $referentielQuestion;
 
     /**
+     * @var Survey[]|iterable
+     */
+    private $surveys;
+
+    /**
      * @var int|null
      */
     public $orderNumber;
@@ -57,6 +62,11 @@ class ReferentielAnswer
     public function __construct()
     {
         $this->id = Uuid::uuid4();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): UuidInterface
@@ -102,5 +112,21 @@ class ReferentielAnswer
     public function setReferentielQuestion(?ReferentielQuestion $referentielQuestion): void
     {
         $this->referentielQuestion = $referentielQuestion;
+    }
+
+    /**
+     * @return Survey[]|iterable
+     */
+    public function getSurveys(): iterable
+    {
+        return $this->surveys;
+    }
+
+    /**
+     * @param Survey[]|iterable $surveys
+     */
+    public function setSurveys(iterable $surveys): void
+    {
+        $this->surveys = $surveys;
     }
 }

@@ -1,9 +1,7 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
 
 {{ form_start(form) }}
-    {% for section in form.surveyReferentiel.surveyReferentielSections|sort((a, b) => a.vars.data.orderNumber <=> b.vars.data.orderNumber) %}
-        {% include 'Maturity/Survey/_form_survey_referentiel_section.html.twig' with {'form': section} %}
-    {%  endfor %}
+    {{  form_row(form.answers) }}
 
     <div class="row">
         <div class="col-md-12">

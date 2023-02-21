@@ -4,7 +4,7 @@
  * This file is part of the MADIS - RGPD Management application.
  *
  * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
- * @author Donovan Bourlard <donovan@awkan.fr>
+ * @author ANODE <contact@agence-anode.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -24,9 +24,18 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Form\Type;
 
-use App\Domain\Maturity\Model;
+use App\Domain\Maturity\Model\Referentiel;
+use App\Domain\Maturity\Model\ReferentielAnswer;
+use App\Domain\Maturity\Model\ReferentielQuestion;
+use App\Domain\Maturity\Model\ReferentielSection;
+use App\Domain\Maturity\Model\SurveyReferentiel;
+use App\Domain\Maturity\Model\SurveyReferentielAnswer;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -37,12 +46,12 @@ class SurveyReferentielType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+//        $section = $options['data'];
         $builder
-            ->add('surveyReferentielSections', CollectionType::class, [
-                'entry_type'     => SurveyReferentielSectionType::class,
-                'by_reference'   => false,
-                'prototype_name' => '__section_name__',
-                ]);
+            ->add('referentielSections', CollectionType::class, [
+                'entry_type' => SurveyReferentielSectionType::class,
+            ])
+        ;
     }
 
     /**
@@ -52,12 +61,10 @@ class SurveyReferentielType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => Model\SurveyReferentiel::class,
+                'data_class'        => Referentiel::class,
                 'validation_groups' => [
                     'default',
-                    'referentiel',
                 ],
-            ])
-        ;
+            ]);
     }
 }

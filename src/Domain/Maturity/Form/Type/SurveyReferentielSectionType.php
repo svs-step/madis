@@ -24,9 +24,16 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Form\Type;
 
-use App\Domain\Maturity\Model\SurveyReferentielSection;
+use App\Domain\Maturity\Model\ReferentielAnswer;
+use App\Domain\Maturity\Model\ReferentielQuestion;
+use App\Domain\Maturity\Model\ReferentielSection;
+use App\Domain\Maturity\Model\SurveyReferentielAnswer;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -37,12 +44,12 @@ class SurveyReferentielSectionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
-            ->add('surveyReferentielQuestions', CollectionType::class, [
-                'entry_type'     => SurveyReferentielQuestionType::class,
-                'by_reference'   => false,
-                'prototype_name' => '__question_name__',
-            ]);
+            ->add('referentielQuestions', CollectionType::class, [
+                'entry_type' => SurveyReferentielQuestionType::class,
+            ])
+        ;
     }
 
     /**
@@ -52,7 +59,7 @@ class SurveyReferentielSectionType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => SurveyReferentielSection::class,
+                'data_class'        => ReferentielSection::class,
                 'validation_groups' => [
                     'default',
                 ],

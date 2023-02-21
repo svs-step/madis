@@ -28,6 +28,7 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Reporting\Model\LoggableSubject;
+use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -53,9 +54,9 @@ class Survey implements LoggableSubject
     private $referentiel;
 
     /**
-     * @var SurveyReferentiel
+     * @var iterable
      */
-    private $surveyReferentiel;
+    private $answers;
 
     /**
      * Survey constructor.
@@ -66,6 +67,7 @@ class Survey implements LoggableSubject
     {
         $this->id    = Uuid::uuid4();
         $this->score = 0;
+        $this->answers = new ArrayCollection();
     }
 
     public function getId(): UuidInterface
@@ -88,15 +90,6 @@ class Survey implements LoggableSubject
         $this->score = $score;
     }
 
-    public function getSurveyReferentiel(): SurveyReferentiel
-    {
-        return $this->surveyReferentiel;
-    }
-
-    public function setSurveyReferentiel(SurveyReferentiel $surveyReferentiel): void
-    {
-        $this->surveyReferentiel = $surveyReferentiel;
-    }
 
     public function getReferentiel(): Referentiel
     {
@@ -106,5 +99,26 @@ class Survey implements LoggableSubject
     public function setReferentiel(Referentiel $referentiel): void
     {
         $this->referentiel = $referentiel;
+    }
+
+    /**
+     * @return ReferentielAnswer[]|iterable
+     */
+    public function getAnswers(): iterable
+    {
+        return $this->answers;
+    }
+
+    /**
+     * @param ReferentielAnswer[]|iterable $answers
+     */
+    public function setAnswers(iterable $answers): void
+    {
+        $this->answers = $answers;
+    }
+
+    public function getSections(): iterable
+    {
+        return $this->referentiel ? $this->referentiel->getReferentielSections() : [];
     }
 }

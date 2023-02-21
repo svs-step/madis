@@ -29,7 +29,7 @@ maturity_survey_delete_confirm:
     controller: 'App\Domain\Maturity\Controller\SurveyController:deleteConfirmationAction'
 
 maturity_survey_start:
-    path: '/commencer-survey'
+    path: '/commencer'
     methods: [ 'GET', 'POST' ]
     controller: 'App\Domain\Maturity\Controller\SurveyController:startSurveyAction'
 

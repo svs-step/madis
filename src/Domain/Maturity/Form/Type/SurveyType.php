@@ -25,7 +25,15 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Model;
+use App\Domain\Registry\Form\Type\ConformiteTraitement\ReponseType;
+use App\Domain\Registry\Model\Contractor;
+use App\Domain\User\Model\User;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -33,11 +41,27 @@ class SurveyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var Model\Referentiel $ref */
+        $ref = $options['data']->getReferentiel();
+
         $builder
-            ->add('surveyReferentiel', SurveyReferentielType::class, [
-                'data_class' => Model\SurveyReferentiel::class,
+//            ->add('referentiel', SurveyReferentielType::class, [])
+            ->add('answers', EntityType::class, [
+                'class' => Model\ReferentielAnswer::class,
+                'multiple' => true,
+                'expanded' => true,
+                'query_builder' => function (EntityRepository $er) use ($ref) {
+                    return $er->createQueryBuilder('a')
+                        ->leftJoin('a.referentielQuestion', 'q')
+                        ->leftJoin('q.referentielSection', 's')
+                        ->where('s.referentiel = :referentiel')
+                        ->addOrderBy('q.orderNumber', 'asc')
+                        ->setParameter('referentiel', $ref)
+                        ;
+                },
             ])
         ;
+
     }
 
     /**
