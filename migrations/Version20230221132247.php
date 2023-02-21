@@ -27,6 +27,7 @@ final class Version20230221132247 extends AbstractMigration
         $this->addSql('ALTER TABLE registry_request ADD updated_by LONGTEXT DEFAULT NULL');
         $this->addSql('ALTER TABLE registry_mesurement ADD updated_by LONGTEXT DEFAULT NULL');
         $this->addSql('ALTER TABLE registry_contractor ADD updated_by LONGTEXT DEFAULT NULL');
+        $this->addSql('ALTER TABLE user_collectivity ADD updated_by LONGTEXT DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -39,5 +40,6 @@ final class Version20230221132247 extends AbstractMigration
         $this->addSql('ALTER TABLE registry_request DROP updated_by');
         $this->addSql('ALTER TABLE registry_mesurement DROP updated_by');
         $this->addSql('ALTER TABLE registry_contractor DROP updated_by');
+        $this->addSql('ALTER TABLE user_collectivity DROP updated_by');
     }
 }
