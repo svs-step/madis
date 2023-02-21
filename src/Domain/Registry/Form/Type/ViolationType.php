@@ -236,9 +236,9 @@ class ViolationType extends AbstractType
                 'expanded'      => false,
                 'multiple'      => true,
                 'attr'          => [
-                    'class' => 'selectpicker',
+                    'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title' => 'placeholder.multiple_select_traitement_associe',
+                    'title'            => 'placeholder.multiple_select_traitement_associe',
                 ],
             ])
         ;

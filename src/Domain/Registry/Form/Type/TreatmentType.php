@@ -171,9 +171,9 @@ class TreatmentType extends AbstractType
                     return [];
                 },
                 'attr'          => [
-                    'class' => 'selectpicker',
+                    'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title' => 'placeholder.multiple_select_cat_data',
+                    'title'            => 'placeholder.multiple_select_cat_data',
                 ],
             ])
             ->add('dataCategoryOther', TextareaType::class, [
@@ -220,9 +220,9 @@ class TreatmentType extends AbstractType
                     ;
                 },
                 'attr'          => [
-                    'class' => 'selectpicker',
+                    'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title' => 'placeholder.multiple_select_contractors',
+                    'title'            => 'placeholder.multiple_select_contractors',
                 ],
             ])
             ->add('delay', DelayType::class, [

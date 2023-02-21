@@ -326,32 +326,32 @@ class MesurementController extends CRUDController
 
         if ($isActionPlan) {
             return [
-                0 => 'nom',
-                1 => 'collectivite',
-                2 => 'date_planification',
-                3 => 'cout',
-                4 => 'charge',
-                5 => 'priorite',
-                6 => 'responsable_action',
-                7 => 'description',
-                8 => 'observation',
-                9 => 'createdAt',
+                0  => 'nom',
+                1  => 'collectivite',
+                2  => 'date_planification',
+                3  => 'cout',
+                4  => 'charge',
+                5  => 'priorite',
+                6  => 'responsable_action',
+                7  => 'description',
+                8  => 'observation',
+                9  => 'createdAt',
                 10 => 'updatedAt',
                 11 => 'actions',
             ];
         }
 
         return [
-            0 => 'nom',
-            1 => 'collectivite',
-            2 => 'statut',
-            3 => 'cout',
-            4 => 'charge',
-            5 => 'priorite',
-            6 => 'responsable_action', 
-            7 => 'description',
-            8 => 'observation',
-            9 => 'createdAt',
+            0  => 'nom',
+            1  => 'collectivite',
+            2  => 'statut',
+            3  => 'cout',
+            4  => 'charge',
+            5  => 'priorite',
+            6  => 'responsable_action',
+            7  => 'description',
+            8  => 'observation',
+            9  => 'createdAt',
             10 => 'updatedAt',
             11 => 'actions',
         ];
@@ -368,7 +368,6 @@ class MesurementController extends CRUDController
 
         /** @var Model\Mesurement $action */
         foreach ($actions as $action) {
-
             $reponse['data'][] = [
                 'id'                 => $action->getId(),
                 'nom'                => !$isActionPlan ? $this->generateShowLink($action) : $action->getName(),

@@ -84,7 +84,7 @@ class Notification extends CRUDRepository implements Repository\Notification
                 ->groupBy('o.id')
             ;
         }
-        
+
         return $qb->getQuery()->getResult();
     }
 

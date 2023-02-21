@@ -178,9 +178,9 @@ class RequestType extends AbstractType
                         ->orderBy('s.name', 'ASC');
                 },
                 'attr'          => [
-                    'class' => 'selectpicker',
+                    'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title' => 'placeholder.multiple_select_traitement_associe',
+                    'title'            => 'placeholder.multiple_select_traitement_associe',
                 ],
                 'required'      => false,
                 'multiple'      => true,

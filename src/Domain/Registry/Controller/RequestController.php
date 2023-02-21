@@ -234,16 +234,16 @@ class RequestController extends CRUDController
     protected function getLabelAndKeysArray(): array
     {
         return [
-            0 => 'collectivite',
-            1 => 'personne_concernee',
-            2 => 'date_demande',
-            3 => 'objet_demande',
-            4 => 'demande_complete',
-            5 => 'demandeur_legitime',
-            6 => 'demande_legitime',
-            7 => 'date_traitement',
-            8 => 'etat_demande',
-            9 => 'createdAt',
+            0  => 'collectivite',
+            1  => 'personne_concernee',
+            2  => 'date_demande',
+            3  => 'objet_demande',
+            4  => 'demande_complete',
+            5  => 'demandeur_legitime',
+            6  => 'demande_legitime',
+            7  => 'date_traitement',
+            8  => 'etat_demande',
+            9  => 'createdAt',
             10 => 'updatedAt',
             11 => 'actions',
         ];
