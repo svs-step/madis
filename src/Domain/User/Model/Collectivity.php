@@ -62,6 +62,11 @@ class Collectivity implements LoggableSubject
     private $type;
 
     /**
+     * @var string|null
+     */
+    private $updatedBy;
+
+    /**
      * @var int|null
      */
     private $siren;
@@ -246,6 +251,17 @@ class Collectivity implements LoggableSubject
     {
         $this->shortName = $shortName;
     }
+
+    public function getUpdatedBy(): ?string
+    {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy(?string $updatedBy): void
+    {
+        $this->updatedBy = $updatedBy;
+    }
+
 
     public function getType(): ?string
     {

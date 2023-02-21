@@ -12,6 +12,7 @@
 
         <field name="name" column="name"/>
         <field name="shortName" column="short_name" length="80"/>
+        <field name="updatedBy" column="updated_by" type="text" nullable="true"/>
         <field name="type" column="type"/>
         <field name="siren" column="siren" type="integer"/>
         <field name="active" column="active" type="boolean"/>
