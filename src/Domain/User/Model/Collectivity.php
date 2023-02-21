@@ -244,7 +244,6 @@ class Collectivity implements LoggableSubject
         $this->updatedBy = $updatedBy;
     }
 
-
     public function getType(): ?string
     {
         return $this->type;

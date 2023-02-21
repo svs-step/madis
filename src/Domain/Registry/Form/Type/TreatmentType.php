@@ -347,7 +347,7 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.otherCollectingMethod',
                 'required' => false,
             ])
-            ->add('updatedBy', HiddenType::class,[
+            ->add('updatedBy', HiddenType::class, [
                 'required' => false,
                 'data'     => $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()),
             ])

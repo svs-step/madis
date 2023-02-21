@@ -56,7 +56,7 @@ class CollectivityType extends AbstractType
     /**
      * CollectivityType constructor.
      */
-    public function __construct(Security $security,AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(Security $security, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->authorizationChecker = $authorizationChecker;
         $this->security             = $security;
@@ -135,7 +135,7 @@ class CollectivityType extends AbstractType
                     'label'    => 'user.collectivity.form.is_services_enabled',
                     'required' => false,
                 ])
-                ->add('updatedBy', HiddenType::class,[
+                ->add('updatedBy', HiddenType::class, [
                     'required' => false,
                     'data'     => $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()),
                 ])
