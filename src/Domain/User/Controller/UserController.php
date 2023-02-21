@@ -238,7 +238,7 @@ class UserController extends CRUDController
                 'roles'        => $roles,
                 'moreInfos'    => $infos,
                 'actif'        => $actif,
-                'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('Y-m-d H:i:s') : null,
+                'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('d-m-Y H:i:s') : null,
                 'services'     => $services,
                 'createdAt'    => date_format($user->getCreatedAt(), 'd-m-Y H:i:s'),
                 'updatedAt'    => date_format($user->getUpdatedAt(), 'd-m-Y H:i:s'),
