@@ -11,6 +11,7 @@
         <id name="id" column="id" type="uuid"/>
 
         <field name="date" column="date" type="date"/>
+        <field name="updatedBy" column="updated_by" type="text" nullable="true"/>
         <field name="inProgress" column="in_progress" type="boolean"/>
         <field name="violationNature" column="violation_nature"/>
         <field name="origins" column="origins" type="json_array"/>

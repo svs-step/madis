@@ -34,6 +34,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -240,6 +241,10 @@ class ViolationType extends AbstractType
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_traitement_associe',
                 ],
+            ])
+            ->add('updatedBy', HiddenType::class,[
+                'required' => false,
+                'data'     => $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()),
             ])
         ;
     }

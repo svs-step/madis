@@ -56,6 +56,11 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $name;
 
     /**
+     * @var string|null
+     */
+    private $updatedBy;
+
+    /**
      * @var bool
      */
     private $public = false;
@@ -478,6 +483,16 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function setName(?string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getUpdatedBy(): ?string
+    {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy(?string $updatedBy): void
+    {
+        $this->updatedBy = $updatedBy;
     }
 
     public function getStatut(): ?string

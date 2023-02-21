@@ -75,6 +75,7 @@ registry:
             referent: Agent référent
             sending_data_outside_eu: Envoi des données hors UE
             updated_at: Dernière mise à jour
+            updated_by: Modifié par
         tab:
             coordinates: Coordonnées
             dpo: DPD
@@ -159,6 +160,7 @@ registry:
             status: Statut
             type: Type
             updated_at: Dernière mise à jour
+            updated_by: Modifié par
             contractor: Sous-traitants
             treatment: Traitements
             violation: Violations
@@ -310,6 +312,7 @@ registry:
             state: État de la demande
             state_rejection_reason: Motifs du refus
             updated_at: Date de dernière modification
+            updated_by: Modifié par
         tab:
             answer: Réponse
             applicant: Demandeur
@@ -514,6 +517,7 @@ registry:
             ultimate_fate: Sort final
             systematic_monitoring: Surveillance systématique
             updated_at: Dernière mise à jour
+            updated_by: Modifié par
             vulnerable_people: Personnes vulnérables
             delete_related_objects_error: Une erreur est survenue lors de la suppression des %relateds% de la collectivité "%object%"
             preconization_dpo: Préconisations
@@ -613,6 +617,7 @@ registry:
             origins: Origine de la perte de données
             potential_impacts_nature: Nature des impacts potentiels pour les personnes
             updated_at: Date de dernière modification
+            updated_by: Modifié par
             violation_nature: Nature de la violation
         tab:
             consequence: Conséquences de la violation

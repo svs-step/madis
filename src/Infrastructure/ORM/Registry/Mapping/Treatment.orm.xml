@@ -16,6 +16,7 @@
         </field>
         <field name="statut" column="statut"/>
         <field name="goal" column="goal" type="text" nullable="true"/>
+        <field name="updatedBy" column="updated_by" type="text" nullable="true"/>
         <field name="manager" column="manager" nullable="true"/>
         <field name="software" column="software" nullable="true"/>
         <field name="paperProcessing" column="paper_processing" type="boolean"/>
