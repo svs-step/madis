@@ -39,6 +39,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class CollectivityType extends AbstractType
 {
@@ -48,11 +49,17 @@ class CollectivityType extends AbstractType
     private $authorizationChecker;
 
     /**
+     * @var Security
+     */
+    private $security;
+
+    /**
      * CollectivityType constructor.
      */
-    public function __construct(AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(Security $security,AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->authorizationChecker = $authorizationChecker;
+        $this->security             = $security;
     }
 
     /**

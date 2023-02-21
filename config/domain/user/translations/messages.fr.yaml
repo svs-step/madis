@@ -123,6 +123,7 @@ user:
             siren: SIREN
             type: Type
             updated_at: Date de dernière modification
+            updated_by: Modifié par
             website: Site internet
             finess_geo: FINESS Géo
             population: Population
