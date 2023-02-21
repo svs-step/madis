@@ -114,6 +114,7 @@ user:
             siren: SIREN
             type: Type
             updated_at: Date de dernière modification
+            updated_by: Modifié par
             website: Site internet
             registre_public: Registre public
         tab:
