@@ -91,7 +91,14 @@ class Mesurement implements LoggableSubject, CollectivityRelated
     private $status;
 
     /**
-     * FR: Echéance.
+     * FR: Modifié par.
+     *
+     * @var string|null
+     */
+    private $updatedBy;
+
+    /**
+     * FR: Date de planification.
      *
      * @var \DateTime|null
      */
@@ -166,6 +173,16 @@ class Mesurement implements LoggableSubject, CollectivityRelated
     public function getId(): UuidInterface
     {
         return $this->id;
+    }
+
+    public function getUpdatedBy(): ?string
+    {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy(?string $updatedBy): void
+    {
+        $this->updatedBy = $updatedBy;
     }
 
     public function getName(): ?string

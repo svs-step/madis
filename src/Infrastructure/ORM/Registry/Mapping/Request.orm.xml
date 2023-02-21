@@ -14,6 +14,7 @@
         <field name="otherObject" column="other_object" nullable="true"/>
         <field name="date" column="date" type="date"/>
         <field name="reason" column="reason" nullable="true"/>
+        <field name="updatedBy" column="updated_by" type="text" nullable="true"/>
 
         <embedded name="applicant" class="App\Domain\Registry\Model\Embeddable\RequestApplicant" column-prefix="applicant_"/>
         <embedded name="concernedPeople" class="App\Domain\Registry\Model\Embeddable\RequestConcernedPeople" column-prefix="concerned_"/>
