@@ -40,8 +40,6 @@ class Request implements Repository\Request
 {
     use RepositoryUtils;
 
-    private string $lateRequestDelayDays;
-
     /**
      * @var ManagerRegistry
      */
@@ -50,10 +48,9 @@ class Request implements Repository\Request
     /**
      * Request constructor.
      */
-    public function __construct(ManagerRegistry $registry, string $lateRequestDelayDays)
+    public function __construct(ManagerRegistry $registry)
     {
-        $this->registry             = $registry;
-        $this->lateRequestDelayDays = $lateRequestDelayDays;
+        $this->registry = $registry;
     }
 
     /**
@@ -405,8 +402,7 @@ class Request implements Repository\Request
                 WHEN o.object = \'' . RequestObjectDictionary::OBJECT_CORRECT . '\' THEN 5
                 WHEN o.object = \'' . RequestObjectDictionary::OBJECT_WITHDRAW_CONSENT . '\' THEN 6
                 WHEN o.object = \'' . RequestObjectDictionary::OBJECT_DELETE . '\' THEN 7
-                WHEN o.object = \'' . RequestObjectDictionary::OBJECT_OPPOSITE_TREATMENT . '\' THEN 8
-                ELSE 9 END) AS HIDDEN hidden_object')
+                ELSE 8 END) AS HIDDEN hidden_object')
                     ->addOrderBy('hidden_object', $orderDir);
                 break;
             case 'demande_complete':
@@ -428,6 +424,12 @@ class Request implements Repository\Request
                 WHEN o.state = \'' . RequestStateDictionary::STATE_AWAITING_SERVICE . '\' THEN 6
                 ELSE 7 END) AS HIDDEN hidden_state')
                     ->addOrderBy('hidden_state', $orderDir);
+                break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
                 break;
         }
     }
@@ -466,6 +468,16 @@ class Request implements Repository\Request
                 case 'etat_demande':
                     $this->addWhereClause($queryBuilder, 'state', $search);
                     break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt BETWEEN :created_start_date AND :created_finish_date')
+                        ->setParameter('created_start_date', date_create_from_format('d/m/y', substr($search, 0,8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('created_finish_date', date_create_from_format('d/m/y', substr($search, 11,8))->format('Y-m-d 23:59:59'));
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt BETWEEN :updated_start_date AND :updated_finish_date')
+                        ->setParameter('updated_start_date', date_create_from_format('d/m/y', substr($search, 0,8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('updated_finish_date', date_create_from_format('d/m/y', substr($search, 11,8))->format('Y-m-d 23:59:59'));
+                    break;
             }
         }
     }
@@ -476,7 +488,7 @@ class Request implements Repository\Request
     public function findAllLate(): array
     {
         $now       = new \DateTime();
-        $lastMonth = $now->sub(\DateInterval::createFromDateString($this->lateRequestDelayDays . ' days'));
+        $lastMonth = $now->sub(\DateInterval::createFromDateString('1 month'));
 
         return $this->createQueryBuilder()
             ->andWhere('o.updatedAt < :lastmonth')

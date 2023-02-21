@@ -291,6 +291,14 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
                 case 'responsable_action':
                     $this->addWhereClause($queryBuilder, 'manager', '%' . $search . '%', 'LIKE');
                     break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt LIKE :date')
+                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
             }
         }
     }
@@ -326,6 +334,16 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
                 break;
             case 'responsable_action':
                 $queryBuilder->addOrderBy('o.manager', $orderDir);
+                break;
+            case 'createdAt':
+                $queryBuilder->andWhere('o.createdAt BETWEEN :created_start_date AND :created_finish_date')
+                    ->setParameter('created_start_date', date_create_from_format('d/m/y', substr($search, 0,8))->format('Y-m-d 00:00:00'))
+                    ->setParameter('created_finish_date', date_create_from_format('d/m/y', substr($search, 11,8))->format('Y-m-d 23:59:59'));
+                break;
+            case 'updatedAt':
+                $queryBuilder->andWhere('o.updatedAt BETWEEN :updated_start_date AND :updated_finish_date')
+                    ->setParameter('updated_start_date', date_create_from_format('d/m/y', substr($search, 0,8))->format('Y-m-d 00:00:00'))
+                    ->setParameter('updated_finish_date', date_create_from_format('d/m/y', substr($search, 11,8))->format('Y-m-d 23:59:59'));
                 break;
         }
     }
