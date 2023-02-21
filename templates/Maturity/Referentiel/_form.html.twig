@@ -53,19 +53,19 @@
 
         {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
         <div id="prototypes"
-            data-prototype-answer = "{{ formMacros.printAnswerRow(form.referentielSections.vars.prototype.children['referentielQuestions'].vars.prototype.children['referentielAnswers'].vars.prototype)|e }}"
-            data-prototype-question = "{{ formMacros.printQuestionRow(form.referentielSections.vars.prototype.children['referentielQuestions'].vars.prototype)|e }}"
-            data-prototype-section="{{ formMacros.printSectionRow(form.referentielSections.vars.prototype, '__index__', colors)|e('html_attr') }}"
+            data-prototype-answer = "{{ formMacros.printAnswerRow(form.domains.vars.prototype.children['questions'].vars.prototype.children['answers'].vars.prototype)|e }}"
+            data-prototype-question = "{{ formMacros.printQuestionRow(form.domains.vars.prototype.children['questions'].vars.prototype)|e }}"
+            data-prototype-section="{{ formMacros.printSectionRow(form.domains.vars.prototype, '__index__', colors)|e('html_attr') }}"
         ></div>
 
             <div class="row">
                 <div class="col-md-12">
                     <ul class="referentielSections" style="margin: 0;list-style: none; padding:0"
-                        data-index="{{ form.referentielSections|length > 0 ? form.referentielSections|length : 9999 }}"
+                        data-index="{{ form.domains|length }}"
                    >
-                        {% do form.referentielSections.setRendered() %}
-                        {% if form.referentielSections is not empty %}
-                            {% for section in form.referentielSections|sort((a, b) => a.vars['value'].orderNumber <=> b.vars['value'].orderNumber) %}
+                        {% do form.domains.setRendered() %}
+                        {% if form.domains is not empty %}
+                            {% for section in form.domains|sort((a, b) => a.vars['value'].position <=> b.vars['value'].position) %}
                                 {{ formMacros.printSectionRow(section, loop.index, colors) }}
                             {% endfor %}
                         {% endif %}
@@ -108,6 +108,7 @@
 
             let html = $('#prototypes').data('prototype-section')
             if (type === 'add_section') {
+                console.log('adding section')
                 const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
                 collectionHolder.dataset.index++
                 const index = collectionHolder.dataset.index;

@@ -10,6 +10,15 @@
         <id name="id" column="id" type="uuid"/>
 
         <field name="name" column="name"/>
+        <field name="position" column="position" type="integer"/>
+        <field name="option" column="option" type="boolean"/>
+        <field name="optionReason" column="option_reason" nullable="true" type="string"/>
+
+        <one-to-many field="answers" target-entity="App\Domain\Maturity\Model\Answer" mapped-by="question">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
 
         <many-to-one field="domain" target-entity="App\Domain\Maturity\Model\Domain" inversed-by="questions"/>
 

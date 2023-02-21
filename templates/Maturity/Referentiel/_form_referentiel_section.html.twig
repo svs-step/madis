@@ -8,7 +8,8 @@
 <div class="row">
     <div class="box-body">
         <div class="col-md-6">
-            {{ form_row(form.orderNumber) }}
+            {{ form_row(form.position) }}
+            {{ form_row(form.color) }}
             {{ form_row(form.name) }}
             {{ form_row(form.description) }}
         </div>
@@ -18,11 +19,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul class="referentielQuestions" style="margin: 0;list-style: none; padding:0"
-                        data-index="{{ form.referentielQuestions|length > 0 ? form.referentielQuestions|last.vars.name + 1 : 0 }}"
+                        data-index="{{ form.questions|length > 0 ? form.questions|last.vars.name + 1 : 0 }}"
                         data-section="{{ form.vars.name ? form.vars.name : 0 }}"
                     >
-                        {% if section.referentielQuestions is not empty %}
-                            {% for question in section.referentielQuestions|sort((a, b) => a.vars['value'].orderNumber <=> b.vars['value'].orderNumber) %}
+                        {% if section.questions is not empty %}
+                            {% for question in section.questions|sort((a, b) => a.vars['value'].position <=> b.vars['value'].position) %}
                                 {{ formMacros.printQuestionRow(question) }}
                             {% endfor %}
                         {% endif %}

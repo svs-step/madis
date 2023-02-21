@@ -123,9 +123,9 @@ class ReferentielController extends CRUDController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($object);
-            $em->flush();
+            $this->formPrePersistData($object);
+            $this->entityManager->persist($object);
+            $this->entityManager->flush();
 
             $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object->getName()));
 
@@ -145,20 +145,7 @@ class ReferentielController extends CRUDController
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
-        $sections = $this->entityManager->getRepository(Model\ReferentielSection::class)->findBy(['referentiel' => $object]);
-
-        // Before create form, hydrate new answers array with potential question responses
-        foreach ($sections as $section) {
-            $questions = $this->entityManager->getRepository(Model\ReferentielQuestion::class)->findBy(['referentielSection' => $section]);
-            foreach ($questions as $question) {
-                $answers = $this->entityManager->getRepository(Model\ReferentielAnswer::class)->findBy(['referentielQuestion' => $question]);
-                foreach ($answers as $answer) {
-                    $question->addReferentielAnswer($answer);
-                }
-                $section->addReferentielQuestion($question);
-            }
-            $object->addReferentielSection($section);
-        }
+        $sections = $this->entityManager->getRepository(Model\Domain::class)->findBy(['referentiel' => $object]);
 
         $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
 
@@ -177,6 +164,54 @@ class ReferentielController extends CRUDController
             'form' => $form->createView(),
         ]);
     }
+
+    public function formPrePersistData($object)
+    {
+        $domains = [];
+
+        $colors = [
+            'info',
+            'success',
+            'primary',
+            'warning',
+        ];
+
+        foreach ($object->getDomains() as $k => $domain) {
+            /** @var Model\Domain $domain */
+            if (is_null($domain->getPosition())) {
+                $domain->setPosition($k);
+            }
+            if (is_null($domain->getColor())) {
+                $domain->setColor($colors[$k % 4]);
+            }
+
+            $questions = [];
+            foreach ($domain->getQuestions() as $n => $question) {
+                /** @var Model\Question $question */
+                if (is_null($question->getPosition())) {
+                    $question->setPosition($n);
+                }
+                $question->setDomain($domain);
+
+                foreach ($question->getAnswers() as $l => $answer) {
+                    /** @var Model\Answer $answer */
+
+                    if (is_null($answer->getPosition())) {
+                        $answer->setPosition($l);
+                    }
+                    $answer->setQuestion($question);
+                }
+
+                $questions[] = $question;
+            }
+            $domain->setQuestions($questions);
+            $domain->setReferentiel($object);
+            $domains[] = $domain;
+        }
+
+        $object->setDomains($domains);
+    }
+
 
     /**
      * The list action view

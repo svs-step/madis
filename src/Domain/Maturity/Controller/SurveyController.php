@@ -185,13 +185,15 @@ class SurveyController extends CRUDController
         $object->setReferentiel($referentiel);
 
 
+
         $form = $this->createForm($this->getFormType(), $object);
+
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($object);
-            $em->flush();
+            $this->formPrePersistData($object);
+            $this->entityManager->persist($object);
+            $this->entityManager->flush();
 
             $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object->getName()));
 

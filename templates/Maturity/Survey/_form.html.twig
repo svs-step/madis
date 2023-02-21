@@ -1,7 +1,12 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
 
 {{ form_start(form) }}
-    {{  form_row(form.answers) }}
+{% dump(form) %}
+{% for answer in form.answers %}
+    {% dump(answer) %}
+    {{ answer.question.name }}
+
+{% endfor %}
 
     <div class="row">
         <div class="col-md-12">

@@ -13,8 +13,12 @@
         <field name="color" column="color" length="20"/>
         <field name="position" column="position" type="smallint"/>
 
-        <one-to-many field="questions" target-entity="App\Domain\Maturity\Model\Question" mapped-by="domain"/>
-        <one-to-many field="maturity" target-entity="App\Domain\Maturity\Model\Maturity" mapped-by="domain"/>
+        <one-to-many field="questions" target-entity="App\Domain\Maturity\Model\Question" mapped-by="domain">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+        <many-to-one field="referentiel" target-entity="App\Domain\Maturity\Model\Referentiel" inversed-by="domains"/>
     </entity>
 
 </doctrine-mapping>

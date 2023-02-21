@@ -35,9 +35,9 @@ class Maturity
     private $id;
 
     /**
-     * @var Domain|null
+     * @var Referentiel|null
      */
-    private $domain;
+    private $referentiel;
 
     /**
      * @var int|null
@@ -92,5 +92,21 @@ class Maturity
     public function setSurvey(?Survey $survey): void
     {
         $this->survey = $survey;
+    }
+
+    /**
+     * @return Referentiel|null
+     */
+    public function getReferentiel(): ?Referentiel
+    {
+        return $this->referentiel;
+    }
+
+    /**
+     * @param Referentiel|null $referentiel
+     */
+    public function setReferentiel(?Referentiel $referentiel): void
+    {
+        $this->referentiel = $referentiel;
     }
 }

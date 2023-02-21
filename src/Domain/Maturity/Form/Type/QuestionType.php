@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Form\Type;
 
-use App\Domain\Maturity\Model\ReferentielQuestion;
+use App\Domain\Maturity\Model\Question;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -37,14 +37,14 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ReferentielQuestionType extends AbstractType
+class QuestionType extends AbstractType
 {
     /**
      * Build type form.
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /* @var ReferentielQuestion $referentielQuestion */
+        /* @var Question $question */
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'maturity.referentiel.form.question_name',
@@ -60,7 +60,7 @@ class ReferentielQuestionType extends AbstractType
                 'expanded' => false,
                 'choices'  => [0, 1, 2, 3, 4, 5],
             ])
-            ->add('orderNumber', HiddenType::class, [
+            ->add('position', HiddenType::class, [
                 'required' => false,
             ])
             ->add('option', CheckboxType::class, [
@@ -75,9 +75,9 @@ class ReferentielQuestionType extends AbstractType
                     'maxlength'   => 255,
                 ],
             ])
-            ->add('referentielAnswers', CollectionType::class, [
+            ->add('answers', CollectionType::class, [
                     'label'          => 'maturity.referentiel.form.answer',
-                    'entry_type'     => ReferentielAnswerType::class,
+                    'entry_type'     => AnswerType::class,
                     'required'       => false,
                     'allow_add'      => true,
                     'allow_delete'   => true,
@@ -121,7 +121,7 @@ class ReferentielQuestionType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => ReferentielQuestion::class,
+                'data_class'        => Question::class,
                 'validation_groups' => [
                     'default',
                 ],

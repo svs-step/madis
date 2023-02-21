@@ -54,8 +54,8 @@ class ReferentielType extends AbstractType
                     'rows' => 3,
                 ],
             ])
-            ->add('referentielSections', CollectionType::class, [
-                'entry_type'     => ReferentielSectionType::class,
+            ->add('domains', CollectionType::class, [
+                'entry_type'     => DomainType::class,
                 'allow_add'      => true,
                 'allow_delete'   => true,
                 'by_reference'   => false,

@@ -46,19 +46,9 @@ class SurveyType extends AbstractType
 
         $builder
 //            ->add('referentiel', SurveyReferentielType::class, [])
-            ->add('answers', EntityType::class, [
-                'class' => Model\ReferentielAnswer::class,
-                'multiple' => true,
-                'expanded' => true,
-                'query_builder' => function (EntityRepository $er) use ($ref) {
-                    return $er->createQueryBuilder('a')
-                        ->leftJoin('a.referentielQuestion', 'q')
-                        ->leftJoin('q.referentielSection', 's')
-                        ->where('s.referentiel = :referentiel')
-                        ->addOrderBy('q.orderNumber', 'asc')
-                        ->setParameter('referentiel', $ref)
-                        ;
-                },
+            ->add('answers', CollectionType::class, [
+                //'data_class' => Model\Answer::class,
+                'entry_type' => SurveyAnswerType::class,
             ])
         ;
 

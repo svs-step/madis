@@ -41,6 +41,26 @@ class Question
     private $name;
 
     /**
+     * @var int|null
+     */
+    private $position;
+
+    /**
+     * @var int|null
+     */
+    private $weight;
+
+    /**
+     * @var bool|null
+     */
+    private $option;
+
+    /**
+     * @var string|null
+     */
+    private $optionReason;
+
+    /**
      * @var Domain|null
      */
     private $domain;
@@ -89,5 +109,86 @@ class Question
     public function getAnswers(): ?iterable
     {
         return $this->answers;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int|null $position
+     */
+    public function setPosition(?int $position): void
+    {
+        $this->position = $position;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getWeight(): ?int
+    {
+        return $this->weight;
+    }
+
+    /**
+     * @param int|null $weight
+     */
+    public function setWeight(?int $weight): void
+    {
+        $this->weight = $weight;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getOption(): ?bool
+    {
+        return $this->option;
+    }
+
+    /**
+     * @param bool|null $option
+     */
+    public function setOption(?bool $option): void
+    {
+        $this->option = $option;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getOptionReason(): ?string
+    {
+        return $this->optionReason;
+    }
+
+    /**
+     * @param string|null $optionReason
+     */
+    public function setOptionReason(?string $optionReason): void
+    {
+        $this->optionReason = $optionReason;
+    }
+
+    /**
+     * @param iterable|null $answers
+     */
+    public function setAnswers(iterable|ArrayCollection|null $answers): void
+    {
+        $this->answers = $answers;
+    }
+
+    /**
+     * @param Answer $answer
+     */
+    public function addAnswer(Answer $answer): void
+    {
+        $this->answers[] = $answer;
+        $answer->setQuestion($this);
     }
 }

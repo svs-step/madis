@@ -86,7 +86,7 @@ class Survey implements LoggableSubject
     public function addAnswer(Answer $answer): void
     {
         $this->answers[] = $answer;
-        $answer->setSurvey($this);
+        $answer->addSurvey($this);
     }
 
     public function removeAnswer(Answer $answer): void

@@ -42,26 +42,18 @@ class Referentiel
     private ?UuidInterface $id;
 
     private string $name;
-    private string $description;
+    private ?string $description;
 
     /**
-     * @var \DateTimeImmutable|null
-     *
-     * @Serializer\Type("DateTimeImmutable")
+     * @var iterable|Domain[]
      */
-    private $createdAt;
+    private $domains;
+
 
     /**
-     * @var \DateTimeImmutable|null
-     *
-     * @Serializer\Type("DateTimeImmutable")
+     * @var iterable
      */
-    private $updatedAt;
-
-    /**
-     * @var iterable|ReferentielSection[]
-     */
-    private $referentielSections;
+    private $maturity;
 
     /**
      * @var Collection|Collectivity[]
@@ -87,7 +79,9 @@ class Referentiel
     public function __construct()
     {
         $this->id                  = Uuid::uuid4();
-        $this->referentielSections = new ArrayCollection();
+        $this->domains = new ArrayCollection();
+        $this->authorizedCollectivities = new ArrayCollection();
+        $this->authorizedCollectivityTypes = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -128,27 +122,6 @@ class Referentiel
         $this->description = $description;
     }
 
-    public function getReferentielSections(): iterable
-    {
-        return $this->referentielSections;
-    }
-
-    public function addReferentielSection(ReferentielSection $referentielSection): void
-    {
-        $referentielSection->setReferentiel($this);
-        $this->referentielSections[] = $referentielSection;
-    }
-
-    public function removeReferentielSection(ReferentielSection $referentielSection): void
-    {
-        $key = \array_search($referentielSection, $this->referentielSections, true);
-
-        if (false === $key) {
-            return;
-        }
-
-        unset($this->referentielSections[$key]);
-    }
 
     public function getAuthorizedCollectivities()
     {
@@ -188,5 +161,37 @@ class Referentiel
     public function setAuthorizedCollectivityTypes(iterable $authorizedCollectivityTypes)
     {
         $this->authorizedCollectivityTypes = $authorizedCollectivityTypes;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getDomains(): iterable
+    {
+        return $this->domains;
+    }
+
+    /**
+     * @param Domain[]|iterable $domains
+     */
+    public function setDomains(iterable $domains): void
+    {
+        $this->domains = $domains;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getMaturity(): iterable
+    {
+        return $this->maturity;
+    }
+
+    /**
+     * @param iterable $maturity
+     */
+    public function setMaturity(iterable $maturity): void
+    {
+        $this->maturity = $maturity;
     }
 }

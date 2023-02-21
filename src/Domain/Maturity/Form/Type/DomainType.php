@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Form\Type;
 
+use App\Domain\Maturity\Model\Domain;
 use App\Domain\Maturity\Model\ReferentielSection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -36,7 +37,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ReferentielSectionType extends AbstractType
+class DomainType extends AbstractType
 {
     /**
      * Build type form.
@@ -60,15 +61,18 @@ class ReferentielSectionType extends AbstractType
                 ],
             ])
 
-            ->add('referentielQuestions', CollectionType::class, [
-                'entry_type'     => ReferentielQuestionType::class,
+            ->add('questions', CollectionType::class, [
+                'entry_type'     => QuestionType::class,
                 'allow_add'      => true,
                 'allow_delete'   => true,
                 'by_reference'   => false,
                 'prototype_name' => '__question_name__',
             ])
 
-            ->add('orderNumber', HiddenType::class, [
+            ->add('position', HiddenType::class, [
+                'required' => false,
+            ])
+            ->add('color', HiddenType::class, [
                 'required' => false,
             ]);
 
@@ -106,7 +110,7 @@ class ReferentielSectionType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => ReferentielSection::class,
+                'data_class'        => Domain::class,
                 'validation_groups' => [
                     'default',
                 ],

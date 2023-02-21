@@ -13,15 +13,15 @@
         <div class="col-md-5">
             {{ form_row(form.weight) }}
         </div>
-        <a href="#question_{{ form.parent.parent.orderNumber.vars['value'] }}_{{ question.orderNumber.vars['value'] }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
+        <a href="#question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
 
     </div>
 
-    <div class="collapse" id="question_{{ form.parent.parent.orderNumber.vars['value'] }}_{{ question.orderNumber.vars['value'] }}">
+    <div class="collapse" id="question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}">
         <div class="box-body">
             <div class="col-md-12">
                 <div>Réponses :</div>
-                {{ form_row(form.orderNumber) }}
+                {{ form_row(form.position) }}
                 <div class="col-md-2">
                     {{ form_row(form.option) }}
                 </div>
@@ -36,12 +36,12 @@
                         <div class="col-md-12">
                             <ul class="referentielAnswers"
                                 style="margin: 0;list-style: none; padding:0"
-                                data-index="{{ form.referentielAnswers|length > 0 ? form.referentielAnswers|last.vars.name + 1 : 0 }}"
+                                data-index="{{ form.answers|length > 0 ? form.answers|last.vars.name + 1 : 0 }}"
                                 data-question="{{ form.vars.name ? form.vars.name : 0 }}"
                                 data-section="{{ form.parent.parent.vars.name ? form.parent.parent.vars.name : 0 }}"
                             >
-                                    {% if question.referentielAnswers is not empty %}
-                                        {% for answer in question.referentielAnswers|sort((a, b) => a.vars['value'].orderNumber <=> b.vars['value'].orderNumber) %}
+                                    {% if question.answers is not empty %}
+                                        {% for answer in question.answers|sort((a, b) => a.vars['value'].position <=> b.vars['value'].position) %}
                                             {{ formMacros.printAnswerRow(answer) }}
                                         {% endfor %}
                                     {% endif %}
