@@ -450,7 +450,7 @@ class Request implements Repository\Request
                         ->setParameter('person_name', '%' . $search . '%');
                     break;
                 case 'date_demande':
-                    $queryBuilder->andWhere('o.createdAt BETWEEN :request_start_date AND :request_finish_date')
+                    $queryBuilder->andWhere('o.date BETWEEN :request_start_date AND :request_finish_date')
                         ->setParameter('request_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
                         ->setParameter('request_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
@@ -463,8 +463,8 @@ class Request implements Repository\Request
                 case 'demandeur_legitime':
                     $this->addWhereClause($queryBuilder, 'legitimateApplicant', $search);
                     break;
-                case 'date_treatment':
-                    $queryBuilder->andWhere('o.createdAt BETWEEN :treatment_start_date AND :treatment_finish_date')
+                case 'date_traitement':
+                    $queryBuilder->andWhere('o.answer.date BETWEEN :treatment_start_date AND :treatment_finish_date')
                         ->setParameter('treatment_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
                         ->setParameter('treatment_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;

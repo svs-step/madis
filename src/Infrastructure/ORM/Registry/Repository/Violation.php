@@ -432,8 +432,9 @@ class Violation implements Repository\Violation
                         ->setParameter('nom', '%' . $search . '%');
                     break;
                 case 'date':
-                    $queryBuilder->andWhere('o.date LIKE :date')
-                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    $queryBuilder->andWhere('o.date BETWEEN :date_start_date AND :date_finish_date')
+                        ->setParameter('date_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('date_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
                 case 'nature':
                     $this->addWhereClause($queryBuilder, 'violationNature', $search);

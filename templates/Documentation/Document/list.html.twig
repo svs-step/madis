@@ -387,8 +387,8 @@
                 }
             });
 
-            $('#search_date').off('change');
-            $('#search_date').change(function(){
+            $('#search_created_at').off('change');
+            $('#search_created_at').change(function(){
                 oTable.column('6').search($(this).val()).draw() ;
             });
 
