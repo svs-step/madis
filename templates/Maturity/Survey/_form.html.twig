@@ -1,13 +1,29 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
 
 {{ form_start(form) }}
-{% dump(form) %}
-{% for answer in form.answers %}
-    {% dump(answer) %}
-    {{ answer.question.name }}
-
+{% do form.answers.setRendered() %}
+{% do form.referentiel.setRendered() %}
+{{ dump(form.children) }}
+<ul>
+{% for domain in form.vars.value.referentiel.domains %}
+    <li>
+    Section: {{ domain.name }}
+    <ul>
+    {% for question in domain.questions %}
+        <li>
+        {{ question.name }}
+        {% for answer in question.answers %}
+            <label>
+                <input id="answer-{{ answer.id }}" type="radio" name="survey[answers][]" value="{{ answer.id }}" />
+                {{ answer.name }}
+            </label>
+        {% endfor %}
+        </li>
+    {% endfor %}
+</ul>
+    </li>
 {% endfor %}
-
+</ul>
     <div class="row">
         <div class="col-md-12">
             <div class="box box-solid">

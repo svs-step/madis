@@ -91,6 +91,10 @@ class Maturity
      */
     public function getGlobalScore(array $maturityList = []): int
     {
+        if (count($maturityList) === 0) {
+            return 0;
+        }
+
         $points = 0;
         foreach ($maturityList as $maturity) {
             $points += $maturity->getScore();

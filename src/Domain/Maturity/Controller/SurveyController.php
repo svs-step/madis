@@ -25,12 +25,15 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Controller;
 
 use App\Application\Controller\CRUDController;
+use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Maturity\Calculator\MaturityHandler;
 use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Knp\Snappy\Pdf;
@@ -184,9 +187,9 @@ class SurveyController extends CRUDController
         ]);
         $object->setReferentiel($referentiel);
 
-
-
         $form = $this->createForm($this->getFormType(), $object);
+
+        $form->setData(['referentiel' => $referentiel]);
 
 
         $form->handleRequest($request);
@@ -195,7 +198,7 @@ class SurveyController extends CRUDController
             $this->entityManager->persist($object);
             $this->entityManager->flush();
 
-            $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object->getName()));
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object->__toString()));
 
             return $this->redirectToRoute($this->getRouteName('list'));
         }
