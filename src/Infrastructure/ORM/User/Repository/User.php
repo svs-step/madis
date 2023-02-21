@@ -245,8 +245,9 @@ class User extends CRUDRepository implements Repository\User
                         ->setParameter('role', sprintf('"%s"', '%' . $search . '%'));
                     break;
                 case 'connexion':
-                    $queryBuilder->andWhere('o.lastLogin LIKE :date')
-                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    $queryBuilder->andWhere('o.lastLogin BETWEEN :connexion_start_date AND :connexion_finish_date')
+                        ->setParameter('connexion_start_date', date_create_from_format('d/m/y', substr($search, 0,8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('connexion_finish_date', date_create_from_format('d/m/y', substr($search, 11,8))->format('Y-m-d 23:59:59'));
                     break;
                 case 'services':
                     $queryBuilder->andWhere('services.name LIKE :service_name')

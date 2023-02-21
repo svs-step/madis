@@ -123,15 +123,15 @@
                 oTable.column('0').search($(this).val()).draw() ;
             }));
 
-            $('#search_date_de_creation').off('keyup');
-            $('#search_date_de_creation').keyup($.debounce(250, function(){
+            $('#search_date_de_creation').off('change');
+            $('#search_date_de_creation').change(function(){
                 oTable.column('1').search($(this).val()).draw();
-            }));
+            });
 
-            $('#search_date_de_validation').off('keyup');
-            $('#search_date_de_validation').keyup($.debounce(250, function(){
+            $('#search_date_de_validation').off('change');
+            $('#search_date_de_validation').change(function(){
                 oTable.column('2').search($(this).val()).draw();
-            }));
+            });
 
             $('#search_modele').off('keyup');
             $('#search_modele').keyup($.debounce(250, function(){
