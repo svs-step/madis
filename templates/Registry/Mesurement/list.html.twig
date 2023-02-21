@@ -167,11 +167,18 @@
                     printButton.attr("href", printLink);
                     printButton.removeClass("disabled");
                 } else {
-                    deleteButton.addClass("disabled"); 
+                    deleteButton.addClass("disabled");
                     deleteButton.removeAttr("href");
                     printButton.addClass("disabled");
                     printButton.removeAttr("href");
                 }
+            });
+            $('#search_created_at').show('slide',function(){
+                $('input#search_created_at').val('');
+            });
+            $('#search_updated_at').show('slide',function(){
+                $('input#search_updated_at').val('');
+
             });
 
             $('#search_nom').keyup($.debounce(250, function(){
