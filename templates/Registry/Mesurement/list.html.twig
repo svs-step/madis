@@ -51,12 +51,12 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
-                    <div style="float:left">
-                        <a id="delete-all" href="" class="dt-button buttons-collection buttons-colvis">
-                            Supprimer
-                        </a>
+                    <div id="custom-buttons" style="float:left">
                         <a id="print-all" href="" class="dt-button buttons-collection buttons-colvis">
                             Imprimer
+                        </a>
+                        <a id="delete-all" href="" class="dt-button buttons-collection buttons-colvis">
+                            Supprimer
                         </a>
                     </div>
                     <table role="presentation" id="table" class="table table-bordered table-hover">
@@ -196,6 +196,14 @@
                     printButton.removeAttr("href");
                 }
             });
+
+
+            let columnButton = $("button.dt-button > span:contains('Colonnes')").parent();
+            $( "#custom-buttons" ).prepend( columnButton.css("float", "left").css("margin-right", "0.5em"));
+
+            let exportButton = $("button.dt-button > span:contains('Exporter')").parent();
+            $("#delete-all").before(exportButton.css("bottom", "17px") );
+
 
             $('#search_created_at').show('slide',function(){
                 console.log('set')
