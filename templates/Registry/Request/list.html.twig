@@ -73,7 +73,7 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
-                    <div style="float:left">
+                    <div id="custom-buttons" style="float:left">
                         {# <a id="delete-all"  href="{{ path('registry_request_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Archiver
                         </a> #}
@@ -310,6 +310,10 @@
         $(document).ready(function() {
             $('#table_filter').hide();
             setEvents();
+
+            let columnButton = $("button.dt-button > span:contains('Colonnes')").parent();
+            $( "#custom-buttons" ).prepend( columnButton.css("float", "left").css("margin-right", "0.5em"));
+
         } );
         $('#table').on('column-visibility.dt', function() {
             setEvents();
