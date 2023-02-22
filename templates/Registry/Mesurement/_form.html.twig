@@ -12,7 +12,6 @@
 {% import _self as macro %}
 
 <div class="row">
-
     <div class="col-md-6">
         {# GENERAL INFORMATIONS #}
         <div class="box box-solid box-info">
@@ -47,11 +46,12 @@
                 {{ form_row(form.treatments) }}
                 {{ form_row(form.requests) }}
                 {{ form_row(form.violations) }}
-                {{ form_row(form.tools) }}
+                {% if form.vars.data.collectivity.hasModuleTools %}
+                    {{ form_row(form.tools) }}
+                {% endif %}
             </div>
         </div>
     </div>
-
 </div>
 
 <div class="row">
