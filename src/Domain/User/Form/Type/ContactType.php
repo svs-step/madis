@@ -100,13 +100,7 @@ class ContactType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
-            ->add('phoneNumber', TextType::class, [
-                'label'    => 'user.contact.form.phone_number',
-                'required' => $isComiteIl ? false : $required,
-                'attr'     => [
-                    'maxlength' => 10,
-                ],
-            ]);
+        ;
 
         // Email notificaiton only available on collectivity page for responsable traitement and referent RGPD
         if ($this->activeNotifications && 'collectivity' === $collectivity_page && (in_array('collectivity_legal_manager', $options['validation_groups'] ?? []) || in_array('collectivity_referent', $options['validation_groups'] ?? []))) {
@@ -115,6 +109,14 @@ class ContactType extends AbstractType
                 'required' => false,
             ]);
         }
+
+        $builder->add('phoneNumber', TextType::class, [
+            'label'    => 'user.contact.form.phone_number',
+            'required' => $isComiteIl ? false : $required,
+            'attr'     => [
+                'maxlength' => 10,
+            ],
+        ]);
     }
 
     /**

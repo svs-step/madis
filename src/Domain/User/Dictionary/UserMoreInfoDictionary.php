@@ -47,8 +47,8 @@ class UserMoreInfoDictionary extends SimpleDictionary
     {
         return [
             self::MOREINFO_TREATMENT    => 'Responsable de traitement',
-            self::MOREINFO_INFORMATIC   => 'Référent RGPD',
-            self::MOREINFO_OPERATIONNAL => 'Responsable informatique',
+            self::MOREINFO_INFORMATIC   => 'Responsable informatique',
+            self::MOREINFO_OPERATIONNAL => 'Référent RGPD',
             self::MOREINFO_DPD          => 'DPO',
         ];
     }

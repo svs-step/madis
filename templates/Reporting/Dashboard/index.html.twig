@@ -201,6 +201,14 @@
                             </a>
                         </div>
                     </div>
+                    <div class="col-sm-12">
+                        {% if app_activate_notifications == 'true' and app_notification_dashboard_shown == 'true' %}
+                            {# {{app_notification_max_shown}} #}
+                            <div id="notifications" class="box box-solid">
+                                {{ block("body", "Notification/Notification/box.html.twig") }}
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
