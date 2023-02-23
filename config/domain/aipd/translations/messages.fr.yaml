@@ -111,6 +111,7 @@ aipd:
             non_realisee: Non réalisée
             defavorable: Défavorable
             favorable_avec_reserves: Favorable avec réserves
+            favorable_reserve: Favorable avec réserves
             favorable: Favorable
             non_favorable: Défavorable
             evaluation:
