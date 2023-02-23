@@ -36,11 +36,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContactType extends AbstractType
 {
-    private $requestStack;
+    private RequestStack $requestStack;
+    private bool $activeNotifications;
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack, string $activeNotifications)
     {
         $this->requestStack = $requestStack;
+        $this->activeNotifications = $activeNotifications === "true";
     }
 
     /**
@@ -107,7 +109,7 @@ class ContactType extends AbstractType
             ]);
 
         // Email notificaiton only available on collectivity page for responsable traitement and referent RGPD
-        if ('collectivity' === $collectivity_page && (in_array('collectivity_legal_manager', $options['validation_groups'] ?? []) || in_array('collectivity_referent', $options['validation_groups'] ?? []))) {
+        if ($this->activeNotifications && 'collectivity' === $collectivity_page && (in_array('collectivity_legal_manager', $options['validation_groups'] ?? []) || in_array('collectivity_referent', $options['validation_groups'] ?? []))) {
             $builder->add('notification', CheckboxType::class, [
                 'label'    => 'user.contact.form.notification',
                 'required' => false,

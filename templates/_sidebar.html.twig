@@ -44,6 +44,7 @@
             </a>
         </li>
 
+        {% if app_activate_notifications == 'true' %}
         {# Notification #}
         <li class="header">{{ 'sidebar_menu.notifications'|trans }}</li>
         <li {% if menuItem == 'notification_notification' %}class="active"{% endif %}>
@@ -52,6 +53,7 @@
                 <span>{{ 'sidebar_menu.notifications'|trans }}</span>
             </a>
         </li>
+        {% endif %}
 
         {# ACTIONS #}
         <li class="header">Actions</li>
