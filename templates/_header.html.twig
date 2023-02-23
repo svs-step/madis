@@ -21,8 +21,10 @@
                 {% if app_activate_notifications == 'true' %}
                 <li id="notifications" class="nav-item dropdown notifications-menu">
                     <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-bell"></i>
+                        <i class="fa fa-bell"></i>
+                        {% if notifs|filter(n => n.readAt is not defined or n.readAt is null)|length %}
                         <span class="badge bg-yellow navbar-badge">{{ notifs|filter(n => n.readAt is not defined or n.readAt is null)|length }}</span>
+                        {% endif %}
                     </a>
                     <ul class="dropdown-menu dropdown-large" style="width:600px">
                         {{ block("body", "Notification/Notification/box.html.twig") }}

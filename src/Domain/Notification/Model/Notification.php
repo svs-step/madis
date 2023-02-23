@@ -151,8 +151,9 @@ class Notification
      */
     public function __construct()
     {
-        $this->id  = Uuid::uuid4();
-        $this->dpo = false;
+        $this->id        = Uuid::uuid4();
+        $this->dpo       = false;
+        $this->createdBy = null;
     }
 
     public function __toString(): string
