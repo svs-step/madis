@@ -53,7 +53,7 @@ class NotificationsGenerateCommand extends Command
         $this->surveyRepository               = $surveyRepository;
         $this->conformiteTraitementRepository = $conformiteTraitementRepository;
 
-        $this->activeNotifications = $activeNotifications === "true";
+        $this->activeNotifications = 'true' === $activeNotifications;
 
         parent::__construct();
     }
@@ -73,7 +73,7 @@ class NotificationsGenerateCommand extends Command
             $this->io->warning('Notifications are not active. Exiting now');
             exit(0);
         }
-        $cnt      = $this->generateNoLoginNotifications();
+        $cnt = $this->generateNoLoginNotifications();
         $this->io->success($cnt . ' inactive users notifications generated');
 
         $cnt = $this->generateLateActionNotifications();

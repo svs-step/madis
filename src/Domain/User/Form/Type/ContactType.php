@@ -41,8 +41,8 @@ class ContactType extends AbstractType
 
     public function __construct(RequestStack $requestStack, string $activeNotifications)
     {
-        $this->requestStack = $requestStack;
-        $this->activeNotifications = $activeNotifications === "true";
+        $this->requestStack        = $requestStack;
+        $this->activeNotifications = 'true' === $activeNotifications;
     }
 
     /**

@@ -12,9 +12,9 @@
         {% endif %}
     </div>
 
-    <div class="box-body">
+    <div class="box-body p-0">
     {% if unreadNotifs|length > 0 %}
-        <ul>
+        <ul class="m-0 p-0">
     {% for notif in unreadNotifs %}
         {% if loop.index0 < app_notification_max_shown %}
             <li class="box-header with-border single-notification" style="padding: 0.8em;">
@@ -25,6 +25,13 @@
                         <div class="col-md-12" href="#">
                     {% endif %}
                             {{ notif | sentence | raw }}
+
+                            <div class="text-muted">
+                                {{ notif.action | trans }}, <b>{{ notif.createdAt|ago }}</b>
+                                {% if notif.createdBy %}
+                                par <b>{{ notif.createdBy }}</b>
+                                {% endif %}
+                            </div>
                     </div>
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="col-md-4 text-center">

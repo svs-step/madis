@@ -45,7 +45,7 @@ class NotificationsSendCommand extends Command
         $this->mailer                     = $mailer;
         $this->notificationUserRepository = $notificationUserRepository;
         $this->translator                 = $translator;
-        $this->activeNotifications = $activeNotifications === "true";
+        $this->activeNotifications        = 'true' === $activeNotifications;
     }
 
     protected function configure(): void

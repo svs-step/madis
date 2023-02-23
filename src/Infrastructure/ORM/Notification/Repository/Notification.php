@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\Notification\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Application\Traits\RepositoryUtils;
 use App\Domain\Notification\Model;
 use App\Domain\Notification\Repository;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
@@ -32,12 +33,17 @@ use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Query\Expr\OrderBy;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Security;
 
 class Notification extends CRUDRepository implements Repository\Notification
 {
+    use RepositoryUtils;
+
     protected Security $security;
 
     public function __construct(ManagerRegistry $registry, Security $security)
@@ -119,6 +125,141 @@ class Notification extends CRUDRepository implements Repository\Notification
         ;
         if (count($notifs) > 0) {
             return $notifs[0];
+        }
+    }
+
+    public function count(array $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $qb->leftJoin('o.collectivity', 'collectivite');
+            $qb->andWhere(
+                $qb->expr()->in('collectivite', ':collectivities')
+            )
+                ->setParameter('collectivities', $criteria['collectivity']->toArray())
+            ;
+            unset($criteria['collectivity']);
+        }
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
+    {
+        $qb = $this->createQueryBuilder()
+            ->addSelect('collectivity')
+            ->leftJoin('o.collectivity', 'collectivity')
+        ;
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $qb->andWhere(
+                $qb->expr()->in('collectivity', ':collectivities')
+            )
+                ->setParameter('collectivities', $criteria['collectivity']->toArray())
+            ;
+            unset($criteria['collectivity']);
+        }
+
+        foreach ($criteria as $key => $value) {
+            $this->addWhereClause($qb, $key, $value);
+        }
+
+        $this->addTableOrder($qb, $orderColumn, $orderDir);
+        $this->addTableSearches($qb, $searches);
+
+        $qb = $qb->getQuery();
+        $qb->setFirstResult($firstResult);
+        $qb->setMaxResults($maxResults);
+
+        return new Paginator($qb);
+    }
+
+    private function addTableSearches(QueryBuilder $queryBuilder, $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'state':
+                    if ('read' === $search) {
+                        $queryBuilder->andWhere('o.readAt IS NOT NULL');
+                    } else {
+                        $queryBuilder->andWhere('o.readAt IS NULL');
+                    }
+
+                    break;
+                case 'collectivity':
+                    $queryBuilder->andWhere('collectivity.name LIKE :nom')
+                        ->setParameter('nom', '%' . $search . '%');
+                    break;
+                case 'name':
+                    $queryBuilder->andWhere('o.name LIKE :name')
+                        ->setParameter('name', '%' . $search . '%');
+                    break;
+                case 'action':
+                    $queryBuilder->andWhere('o.action LIKE :action')
+                        ->setParameter('action', '%' . $search . '%');
+                    break;
+                case 'module':
+                    $queryBuilder->andWhere('o.module LIKE :module')
+                        ->setParameter('module', '%' . $search . '%');
+                    break;
+                case 'date':
+                    $queryBuilder->andWhere('o.createdAt LIKE :createdAt')
+                        ->setParameter('createdAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'user':
+                    $queryBuilder->leftJoin('o.createdBy', 'cb');
+                    $queryBuilder->andWhere('CONCAT(cb.firstName, \' \', cb.lastName) LIKE :user')
+                        ->setParameter('user', '%' . $search . '%');
+                    break;
+                case 'read_date':
+                    $queryBuilder->andWhere('o.readAt LIKE :readAt')
+                        ->setParameter('readAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt LIKE :updatedAt')
+                        ->setParameter('updatedAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    break;
+            }
+        }
+    }
+
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'name':
+                $queryBuilder->addOrderBy('o.name', $orderDir);
+                break;
+            case 'collectivity':
+                $queryBuilder->addOrderBy('collectivity.name', $orderDir);
+                break;
+            case 'action':
+                $queryBuilder->addOrderBy('o.action', $orderDir);
+                break;
+            case 'module':
+                $queryBuilder->addOrderBy('o.module', $orderDir);
+                break;
+            case 'date':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
+            case 'user':
+                $queryBuilder->join('o.createdBy', 'cb');
+                $queryBuilder->addSelect('CONCAT(cb.firstName, \' \', cb.lastName)
+                    AS HIDDEN person_name')
+                    ->addOrderBy('person_name', $orderDir);
+                break;
+            case 'read_date':
+                $queryBuilder->addOrderBy('o.readAt', $orderDir);
+                break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
         }
     }
 }
