@@ -1,4 +1,5 @@
 {% set notifs = notifications.findAll() %}
+{% set maxNotifs = app_notification_header_number %}
 
 <header class="main-header">
     <!-- Logo -->
@@ -26,6 +27,7 @@
                         <span class="badge bg-yellow navbar-badge">{{ notifs|filter(n => n.readAt is not defined or n.readAt is null)|length }}</span>
                         {% endif %}
                     </a>
+                    {% set notifs = notifs|filter(n => n.readAt is not defined or n.readAt is null) %}
                     <ul class="dropdown-menu dropdown-large" style="width:600px">
                         {{ block("body", "Notification/Notification/box.html.twig") }}
                     </ul>
