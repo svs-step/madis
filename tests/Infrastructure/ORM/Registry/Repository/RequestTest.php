@@ -58,7 +58,7 @@ class RequestTest extends TestCase
         $this->registryProphecy      = $this->prophesize(ManagerRegistry::class);
         $this->entityManagerProphecy = $this->prophesize(EntityManagerInterface::class);
 
-        $this->infraRepo = new InfraRepo\Request($this->registryProphecy->reveal());
+        $this->infraRepo = new InfraRepo\Request($this->registryProphecy->reveal(), '60');
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Domain\AIPD\Dictionary\ReponseAvisDictionary;
 use App\Domain\AIPD\Dictionary\StatutAnalyseImpactDictionary;
 use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\Notification\Model\NotificationUser;
+use App\Domain\Registry\Dictionary\RequestCivilityDictionary;
 use App\Domain\Registry\Dictionary\RequestStateDictionary;
 use App\Domain\Registry\Model\Request;
 use App\Domain\User\Repository\User as UserRepository;
@@ -110,17 +111,17 @@ class NotificationGenerationTest extends WebTestCase
                 'object'      => $request->getObject(),
                 'otherObject' => $request->getOtherObject(),
                 'applicant'   => [
-                    'firstName' => $request->getApplicant()->getFirstName(),
-                    'lastName'  => $request->getApplicant()->getLastName(),
-                    'civility'  => $request->getApplicant()->getCivility(),
-                    'mail'      => $request->getApplicant()->getMail(),
+                    'firstName' => 'firstname',
+                    'lastName'  => 'lastname',
+                    'civility'  => RequestCivilityDictionary::CIVILITY_MISS,
+                    'mail'      => 'test1@example.org',
                 ],
                 'date'            => date('d/m/Y'),
                 'concernedPeople' => [
-                    'firstName' => $request->getConcernedPeople()->getFirstName(),
-                    'lastName'  => $request->getConcernedPeople()->getLastName(),
-                    'civility'  => $request->getConcernedPeople()->getCivility(),
-                    'mail'      => $request->getConcernedPeople()->getMail(),
+                    'firstName' => 'first',
+                    'lastName'  => 'last',
+                    'civility'  => RequestCivilityDictionary::CIVILITY_MISS,
+                    'mail'      => 'test@example.org',
                 ],
                 'state'  => RequestStateDictionary::STATE_AWAITING_SERVICE,
                 '_token' => $csrfToken,

@@ -33,6 +33,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class Survey extends CRUDRepository implements Repository\Survey
 {
     private string $lateSurveyDelayDays;
+
     /**
      * CRUDRepository constructor.
      */
@@ -42,6 +43,7 @@ class Survey extends CRUDRepository implements Repository\Survey
 
         $this->lateSurveyDelayDays = $lateSurveyDelayDays;
     }
+
     /**
      * {@inheritdoc}
      */
