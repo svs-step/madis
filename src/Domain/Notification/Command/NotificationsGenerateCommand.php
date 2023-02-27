@@ -37,6 +37,7 @@ class NotificationsGenerateCommand extends Command
 
     private bool $activeNotifications;
 
+
     public function __construct(
         EventDispatcherInterface $dispatcher,
         MesurementRepository $mesurementRepository,
@@ -54,6 +55,7 @@ class NotificationsGenerateCommand extends Command
         $this->conformiteTraitementRepository = $conformiteTraitementRepository;
 
         $this->activeNotifications = 'true' === $activeNotifications;
+
 
         parent::__construct();
     }

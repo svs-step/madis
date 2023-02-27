@@ -7,6 +7,7 @@ services:
             string $maxSize: '%APP_MAX_UPLOAD_SIZE%'
             string $activeNotifications: '%APP_ACTIVATE_NOTIFICATIONS%'
 
+
     App\Application\:
         resource: '../src/Application/*'
         exclude: '../src/Application/{Controller,Dictionary,Entity,Migrations,Symfony/EventSubscriber,Symfony/Form,Tests,Kernel.php}'
