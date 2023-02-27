@@ -28,6 +28,7 @@ final class Version20230216122611 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->addSql('DROP TABLE aipd_modele_scenario_menace_mesure_protection');
+        $this->addSql('ALTER TABLE aipd_modele_scenario_menace_mesure_protection DROP FOREIGN KEY FK_D482719194A6586A');
+        $this->addSql('ALTER TABLE aipd_modele_scenario_menace_mesure_protection DROP FOREIGN KEY FK_D48271917D1480F8');
     }
 }
