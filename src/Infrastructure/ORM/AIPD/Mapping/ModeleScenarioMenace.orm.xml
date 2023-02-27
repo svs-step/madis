@@ -9,7 +9,10 @@
         <many-to-one field="modeleAnalyse" target-entity="App\Domain\AIPD\Model\ModeleAnalyse" inversed-by="scenarioMenaces"/>
 
         <many-to-many field="mesuresProtections" target-entity="App\Domain\AIPD\Model\ModeleMesureProtection" inversed-by="scenariosMenaces">
-            <cascade><cascade-persist/><cascade-remove/></cascade>
+            <join-table name="aipd_modele_scenario_menace_mesure_protection">
+                <join-columns><join-column on-delete="CASCADE"/></join-columns>
+                <inverse-join-columns><join-column on-delete="CASCADE"/></inverse-join-columns>
+            </join-table>
         </many-to-many>
     </entity>
 </doctrine-mapping>

@@ -391,21 +391,22 @@ class TreatmentController extends CRUDController
                 'avis_aipd'              => $this->getAvisAipd($treatment),
                 'actions'                => $this->generateActionCellContent($treatment),
                 'exempt_AIPD'            => $treatment->getExemptAIPD() ? $yes : $no,
-                'sensitiveData'          => $this->countSensitiveData($treatment->getDataCategories()) ,
+                'sensitiveData'          => $this->countSensitiveData($treatment->getDataCategories()),
             ];
         }
 
         return new JsonResponse($reponse);
     }
 
-    private function countSensitiveData($categories){
-        $sensitive = '<span class="badge bg-orange">' . $this->translator->trans('label.yes') . '</span>';
-        $noSensitive  = '<span class="badge bg-green">' . $this->translator->trans('label.no') . '</span>';
+    private function countSensitiveData($categories)
+    {
+        $sensitive   = '<span class="badge bg-orange">' . $this->translator->trans('label.yes') . '</span>';
+        $noSensitive = '<span class="badge bg-green">' . $this->translator->trans('label.no') . '</span>';
 
         $count = 0;
-        foreach($categories as $category){
-            if ($category->isSensible()){
-                $count++;
+        foreach ($categories as $category) {
+            if ($category->isSensible()) {
+                ++$count;
             }
         }
 
@@ -688,7 +689,7 @@ class TreatmentController extends CRUDController
                 '7'  => 'sousTraitant',
                 '8'  => 'sensitiveData',
                 '9'  => 'controleAcces',
-                '10'  => 'tracabilite',
+                '10' => 'tracabilite',
                 '11' => 'saving',
                 '12' => 'other',
                 '13' => 'entitledPersons',
@@ -714,7 +715,7 @@ class TreatmentController extends CRUDController
             '7'  => 'sensitiveData',
             '8'  => 'controleAcces',
             '9'  => 'tracabilite',
-            '10'  => 'saving',
+            '10' => 'saving',
             '11' => 'other',
             '12' => 'entitledPersons',
             '13' => 'openAccounts',
