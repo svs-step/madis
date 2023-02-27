@@ -102,15 +102,15 @@ class SurveyControllerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
-        $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);
-        $this->repositoryProphecy             = $this->prophesize(Repository\Survey::class);
-        $this->questionRepositoryProphecy     = $this->prophesize(Repository\Question::class);
-        $this->wordHandlerProphecy            = $this->prophesize(WordHandler::class);
-        $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
-        $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
-        $this->maturityHandlerProphecy        = $this->prophesize(MaturityHandler::class);
-        $this->pdf                            = $this->prophesize(Pdf::class);
+        $this->managerProphecy               = $this->prophesize(EntityManagerInterface::class);
+        $this->translatorProphecy            = $this->prophesize(TranslatorInterface::class);
+        $this->repositoryProphecy            = $this->prophesize(Repository\Survey::class);
+        $this->questionRepositoryProphecy    = $this->prophesize(Repository\Question::class);
+        $this->wordHandlerProphecy           = $this->prophesize(WordHandler::class);
+        $this->authenticationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
+        $this->userProviderProphecy          = $this->prophesize(UserProvider::class);
+        $this->maturityHandlerProphecy       = $this->prophesize(MaturityHandler::class);
+        $this->pdf                           = $this->prophesize(Pdf::class);
 
         $this->controller = new SurveyController(
             $this->managerProphecy->reveal(),

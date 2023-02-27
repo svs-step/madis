@@ -258,7 +258,7 @@
                         <div class="col-md-12">
                             {# DETAIL : CONFORMITE ORGANISATION #}
                             <div class="box box-solid">
-                                <div class="box-header with-border"><h3 class="box-title">Conformité de l'organisation</h3></div>
+                                <div class="box-header with-border"><h3 class="box-title">Conformité de la structure</h3></div>
                                 {% if data.conformiteOrganisation is empty %}
                                     <div class="box-body">
                                         Aucune donnée à afficher
@@ -334,8 +334,8 @@
                                     <td>{{ logJournal.userFullName }}</td>
                                     <td>{{ logJournal.userEmail }}</td>
                                     <td>{{ logJournal.date|date('d/m/Y') }}</td>
-                                    <td>{{ logJournal.subjectType|dictionary('reporting_log_journal_subject') }}</td>
-                                    <td>{{ logJournal.action|dictionary('reporting_log_journal_action') }}</td>
+                                    <td>{{ logJournal.subjectType ? logJournal.subjectType|dictionary('reporting_log_journal_subject') : '' }}</td>
+                                    <td>{{ logJournal.action ? logJournal.action|dictionary('reporting_log_journal_action') : '' }}</td>
                                     <td>{{ logJournal.subjectName }}</td>
                                     <td>
                                         {% if logJournal.isDeleted %}
@@ -481,5 +481,5 @@
     </script>
 
     {# USE DATA & DEFINE GRAPH #}
-    <script src="{{ asset('build/js/dashboard.js') }}"></script>
+    {{ encore_entry_script_tags('js/dashboard') }}
 {% endblock %}

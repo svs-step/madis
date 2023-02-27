@@ -1,5 +1,65 @@
 notifications:
+    module: Notifications
+    modules:
+        treatment: Traitements
+        contractor: Sous-traitants
+        subcontractor: Sous-traitants
+        violation: Violations
+        proof: Preuves
+        document: Document
+        action: Actions de protection
+        protect_action: Actions de protection
+        request: Demandes
+        user: Utilisateurs
+        documentation: Documentation
+        maturity: Indices de maturité
+    actions:
+        delete: Suppression
+        create: Création
+        update: Modification
+        late_action: En retard
+        late_request: En retard
+        late_survey: En retard
+        no_login: Inactif
+        validation: Validation
+        treatment_needs_aipd: Nécéssité de faire une AIPD
+        state_change: Changement d'état
+notification:
+    module: Notifications
+    modules:
+        aipd: AIPD
+        treatment: Traitements
+        contractor: Sous-traitants
+        subcontractor: Sous-traitants
+        violation: Violations
+        proof: Preuves
+        document: Document
+        action: Actions de protection
+        protect_action: Actions de protection
+        request: Demandes
+        user: Utilisateurs
+        documentation: Documentation
+        maturity: Indices de maturité
+
+    actions:
+        delete: Suppression
+        create: Création
+        update: Modification
+        late_action: En retard
+        late_request: En retard
+        late_survey: En retard
+        no_login: Inactif
+        validation: Validation
+        treatment_needs_aipd: Nécéssité de faire une AIPD
+        state_change: Changement d'état
+    email:
+        subject: Nouvelles notifications Madis
+        madis: Accéder à madis
     notification:
+        flashbag:
+            success:
+                markall: Toutes les notifications sont marquées comme lu
+                delete: Notification "%object%" supprimée avec succès
         title:
             list: Centre de notifications
             delete: Supprimer une notification
@@ -10,9 +70,9 @@ notifications:
             state: État
             module: Module
             action: Action
-            name: Nom 
+            name: Nom
             object: Objet
-            collectivity: Collectivité
+            collectivity: Structure
             date: Date
             user: Nom d'utilisateur
             read_date: Lu le
@@ -20,8 +80,26 @@ notifications:
         action:
             back_to_list: Retour à la liste
             mark_as_read: Marquer comme lu
+            mark_as_unread: Marquer comme non lu
             mark_as_read_all: Tout marquer comme lu
-        flashbag:
-            success:
-                delete: Notification "%object%" supprimée avec succès
-
+    notificationMailParameters:
+        title: Notifications
+        breadcrumb:
+            create: Nouvelle notification
+            edit: Modifier notification
+            list: Espace notification
+            delete: Supprimernotification
+        form:
+            is_notified: Les actions de cet utilisateur ne génère pas de notification
+            is_treatment: Notifications pour le module traitements
+            is_subcontract: Notifications pour le module sous-traitants
+            is_request: Notifications pour le module demandes
+            is_violation: Notifications pour le module violations
+            is_proof: Notifications pour le module preuves
+            is_protectAction: Notifications pour le module actions de protection
+            is_maturity: Notifications pour le module maturité
+            is_treatmenConformity: Notifications pour le module conformité des traitements
+            is_organizationConformity: Notifications pour le module conformité de la structure
+            is_AIPD: Notifications pour le module AIPD
+            is_document: Notifications pour le module espace documentaire
+            frequency: Fréquence par défaut des notifications Email

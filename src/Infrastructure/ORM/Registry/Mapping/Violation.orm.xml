@@ -12,7 +12,7 @@
 
         <field name="date" column="date" type="date"/>
         <field name="inProgress" column="in_progress" type="boolean"/>
-        <field name="violationNature" column="violation_nature"/>
+        <field name="violationNatures" column="violation_natures" type="json_array"/>
         <field name="origins" column="origins" type="json_array"/>
         <field name="cause" column="cause"/>
         <field name="concernedDataNature" column="concerned_data_nature" type="json_array"/>
@@ -39,6 +39,17 @@
         </many-to-many>
 
         <many-to-many field="mesurements" target-entity="App\Domain\Registry\Model\Mesurement" mapped-by="violations"/>
+
+        <many-to-many field="contractors" target-entity="App\Domain\Registry\Model\Contractor" inversed-by="violations">
+            <join-table name="contractor_violation">
+                <join-columns>
+                    <join-column on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
 
         <many-to-many field="treatments" target-entity="App\Domain\Registry\Model\Treatment" inversed-by="violations">
             <join-table name="treatment_violation">

@@ -100,7 +100,7 @@ class Participant implements LoggableSubject
 
     public function __clone()
     {
-        $this->id   = Uuid::uuid4();
+        $this->id = Uuid::uuid4();
     }
 
     public function __toString(): string

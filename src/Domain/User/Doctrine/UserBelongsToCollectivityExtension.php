@@ -39,7 +39,7 @@ final class UserBelongsToCollectivityExtension implements QueryCollectionExtensi
         }
 
         if (Request::class === $resourceClass) {
-            //Handle treatment case
+            // Handle treatment case
             $rootAlias = $queryBuilder->getRootAliases()[0];
             $queryBuilder->andWhere(sprintf('%s.collectivity = :user_collectivity', $rootAlias));
             $queryBuilder->setParameter(
@@ -49,7 +49,7 @@ final class UserBelongsToCollectivityExtension implements QueryCollectionExtensi
         }
 
         if (Treatment::class === $resourceClass) {
-            //Handle treatment case
+            // Handle treatment case
             $rootAlias = $queryBuilder->getRootAliases()[0];
             $queryBuilder->andWhere(sprintf('%s.collectivity = :user_collectivity', $rootAlias));
             $queryBuilder->setParameter(

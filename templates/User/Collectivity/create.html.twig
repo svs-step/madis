@@ -23,6 +23,54 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('label[for="collectivity_otherType"]').hide();
+            $('input[name="collectivity[otherType]"]').hide();
+            $('input[name="collectivity[nbrCnil]"]').removeAttr('disabled');
+            $("#collectivity_type").change(function(){
+                if ($('input[name="collectivity[type]"]:checked').val() === 'other'){
+                    $('label[for="collectivity_otherType"]').show();
+                    $('input[name="collectivity[otherType]"]').show();
+                }else {
+                    $('label[for="collectivity_otherType"]').hide();
+                    $('input[name="collectivity[otherType]"]').hide();
+                    $('input[name="collectivity[otherType]"]').val('');
+                }
+            });
+        });
+    </script>
 
-    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+    {{ encore_entry_script_tags('js/collectionManager') }}
+
+    <script>
+        $(document).ready(function(){
+            $("#collectivity_dpo_civility").prop("required", false);
+            $("#collectivity_dpo_firstName").prop("required", false);
+            $("#collectivity_dpo_lastName").prop("required", false);
+            $("#collectivity_dpo_job").prop("required", false);
+            $("#collectivity_dpo_mail").prop("required", false);
+            $("#collectivity_dpo_phoneNumber").prop("required", false);
+
+            $('#collectivity_differentDpo').on('change', function(){
+                if ($('#collectivity_differentDpo').is(':checked')){
+                    $("#collectivity_dpo_civility").prop("required", "true");
+                    $("#collectivity_dpo_firstName").prop("required", "true");
+                    $("#collectivity_dpo_lastName").prop("required", "true");
+                    $("#collectivity_dpo_job").prop("required", "true");
+                    $("#collectivity_dpo_mail").prop("required", "true");
+                    $("#collectivity_dpo_phoneNumber").prop("required", "true");
+                }
+                else {
+                    $("#collectivity_dpo_civility").prop("required", false);
+                    $("#collectivity_dpo_firstName").prop("required", false);
+                    $("#collectivity_dpo_lastName").prop("required", false);
+                    $("#collectivity_dpo_job").prop("required", false);
+                    $("#collectivity_dpo_mail").prop("required", false);
+                    $("#collectivity_dpo_phoneNumber").prop("required", false);
+                }
+                $('input[name="collectivity[nbrCnil]"]').removeAttr('disabled');
+            })
+        })
+    </script>
 {% endblock %}

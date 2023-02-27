@@ -1,5 +1,5 @@
 security:
-    encoders:
+    password_hashers:
         App\Domain\User\Model\User:
             algorithm: auto
     providers:
@@ -57,6 +57,7 @@ security:
         - { path: ^/mot-de-passe-oublie, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reinitialisation-de-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/public, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/oauth, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # Referent routes
         - { path: ^/collectivites/liste, roles: ROLE_REFERENT }
         - { path: ^/collectivites/visualiser/.+$, roles: ROLE_REFERENT }

@@ -62,11 +62,11 @@ class AnalyseImpactController extends CRUDController
         Filesystem $fichierFilesystem
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->router                  = $router;
-        $this->requestStack            = $requestStack;
-        $this->modeleRepository        = $modeleRepository;
-        $this->analyseFlow             = $analyseFlow;
-        $this->fichierFilesystem       = $fichierFilesystem;
+        $this->router            = $router;
+        $this->requestStack      = $requestStack;
+        $this->modeleRepository  = $modeleRepository;
+        $this->analyseFlow       = $analyseFlow;
+        $this->fichierFilesystem = $fichierFilesystem;
     }
 
     protected function getDomain(): string
@@ -104,7 +104,7 @@ class AnalyseImpactController extends CRUDController
         $criteria = [];
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity']  = $user->getCollectivity();
+            $criteria['collectivity'] = $user->getCollectivity();
         }
 
         $analyses = $this->getResults($request, $criteria);
@@ -233,7 +233,7 @@ class AnalyseImpactController extends CRUDController
 
             if ($this->analyseFlow->nextStep()) {
                 $form = $this->analyseFlow->createForm();
-            //TODO Persist and flush here to allow draft ?
+            // TODO Persist and flush here to allow draft ?
             } else {
                 $this->entityManager->persist($object);
                 $this->entityManager->flush();
@@ -257,6 +257,9 @@ class AnalyseImpactController extends CRUDController
         if (null === $object = $this->repository->findOneByIdWithoutInvisibleScenarios($id)) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
+        /**
+         * @var AnalyseImpact $object
+         */
         if ($object->isValidated()) {
             $this->addFlash('info', $this->getFlashbagMessage('info', 'cant_edit', $object));
 
@@ -299,9 +302,9 @@ class AnalyseImpactController extends CRUDController
 
         $reponse = $this->getBaseDataTablesResponse($request, $modeles);
         foreach ($modeles as $modele) {
-            $collectivityType               = $collectivity->getType();
-            $authorizedCollectivities       = $modele->getAuthorizedCollectivities();
-            $authorizedCollectivityTypes    = $modele->getAuthorizedCollectivityTypes();
+            $collectivityType            = $collectivity->getType();
+            $authorizedCollectivities    = $modele->getAuthorizedCollectivities();
+            $authorizedCollectivityTypes = $modele->getAuthorizedCollectivityTypes();
 
             if ((!\is_null($authorizedCollectivityTypes)
                 && in_array($collectivityType, $authorizedCollectivityTypes)) ||

@@ -36,19 +36,19 @@
             <a href="{{ path('aipd_modele_analyse_list') }}" class="btn btn-default">
                 {{ 'aipd.modele_analyse.action.back_to_list'|trans }}
             </a>
-             <input type="submit" class="btn btn-primary" value="Soumettre">
+             <input type="submit" class="btn btn-primary" value="Enregistrer">
         </div>
 
 
         {{ form_end(form) }}
     </div>
 
-    
+
 {% endblock %}
 
 {% block javascripts %}
 
-    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+    {{ encore_entry_script_tags('js/collectionManager') }}
 
     {{ include('Aipd/Modele_analyse/_form_js.html.twig') }}
 

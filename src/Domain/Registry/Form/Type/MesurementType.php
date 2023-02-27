@@ -50,7 +50,7 @@ class MesurementType extends AbstractType
 
     public function __construct(Security $security)
     {
-        $this->security            = $security;
+        $this->security = $security;
     }
 
     /**
@@ -155,7 +155,7 @@ class MesurementType extends AbstractType
                         ->where('c.collectivity = :collectivity')
                         ->addOrderBy('c.name', 'asc')
                         ->setParameter('collectivity', $collectivity)
-                        ;
+                    ;
                 },
                 'attr' => [
                     'class' => 'selectpicker',
@@ -182,7 +182,7 @@ class MesurementType extends AbstractType
                         ->where('c.collectivity = :collectivity')
                         ->addOrderBy('c.name', 'asc')
                         ->setParameter('collectivity', $collectivity)
-                        ;
+                    ;
                 },
                 'attr' => [
                     'class' => 'selectpicker',
@@ -208,7 +208,7 @@ class MesurementType extends AbstractType
                     return $er->createQueryBuilder('c')
                         ->where('c.collectivity = :collectivity')
                         ->setParameter('collectivity', $collectivity)
-                        ;
+                    ;
                 },
                 'attr' => [
                     'class' => 'selectpicker',
@@ -234,7 +234,7 @@ class MesurementType extends AbstractType
                     return $er->createQueryBuilder('c')
                         ->where('c.collectivity = :collectivity')
                         ->setParameter('collectivity', $collectivity)
-                        ;
+                    ;
                 },
                 'attr' => [
                     'class' => 'selectpicker',

@@ -94,17 +94,17 @@ class DocumentControllerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->managerProphecy                = $this->prophesize(EntityManagerInterface::class);
-        $this->translatorProphecy             = $this->prophesize(TranslatorInterface::class);
-        $this->repositoryProphecy             = $this->prophesize(Repository\Document::class);
-        $this->categoryRepositoryProphecy     = $this->prophesize(Repository\Category::class);
-        $this->authenticationCheckerProphecy  = $this->prophesize(AuthorizationCheckerInterface::class);
-        $this->userProviderProphecy           = $this->prophesize(UserProvider::class);
-        $this->pdf                            = $this->prophesize(Pdf::class);
-        $this->documentFilesystem             = $this->prophesize(FilesystemInterface::class);
-        $this->thumbFilesystem                = $this->prophesize(FilesystemInterface::class);
-        $this->requestStack                   = $this->prophesize(RequestStack::class);
-        $this->controller                     = new DocumentController(
+        $this->managerProphecy               = $this->prophesize(EntityManagerInterface::class);
+        $this->translatorProphecy            = $this->prophesize(TranslatorInterface::class);
+        $this->repositoryProphecy            = $this->prophesize(Repository\Document::class);
+        $this->categoryRepositoryProphecy    = $this->prophesize(Repository\Category::class);
+        $this->authenticationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
+        $this->userProviderProphecy          = $this->prophesize(UserProvider::class);
+        $this->pdf                           = $this->prophesize(Pdf::class);
+        $this->documentFilesystem            = $this->prophesize(FilesystemInterface::class);
+        $this->thumbFilesystem               = $this->prophesize(FilesystemInterface::class);
+        $this->requestStack                  = $this->prophesize(RequestStack::class);
+        $this->controller                    = new DocumentController(
             $this->managerProphecy->reveal(),
             $this->translatorProphecy->reveal(),
             $this->repositoryProphecy->reveal(),

@@ -9,5 +9,6 @@ services:
         tags: ['knp_dictionary.dictionary']
 
     App\Domain\AIPD\Dictionary\ReponseMesureProtectionDictionary:
-        arguments:
+        arguments: ['@aipd.model.analyse_impact']
+
 

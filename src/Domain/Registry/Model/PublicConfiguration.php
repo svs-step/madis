@@ -27,8 +27,6 @@ namespace App\Domain\Registry\Model;
 use App\Application\Traits\Model\HistoryTrait;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use ReflectionClass;
-use stdClass;
 
 /**
  * Public Configuration / Choose what will be public or not.
@@ -37,7 +35,7 @@ class PublicConfiguration
 {
     use HistoryTrait;
 
-    const bannedProperties = [
+    public const bannedProperties = [
         Treatment::class => [
             'id',
             'public',
@@ -62,7 +60,7 @@ class PublicConfiguration
     private $savedConfiguration;
 
     /**
-     * @var stdClass
+     * @var \stdClass
      */
     private $mappedObject;
 
@@ -117,7 +115,7 @@ class PublicConfiguration
         return $this;
     }
 
-    public function getMappedObject(): stdClass
+    public function getMappedObject(): \stdClass
     {
         if (!$this->mappedObject) {
             $this->_initMappedObject();
@@ -145,8 +143,8 @@ class PublicConfiguration
         if (!$this->mappedObject) {
             $this->_initMappedObject();
         }
-        $this->mappedObject->$name  = $value;
-        $this->savedConfiguration   = json_encode($this->mappedObject);
+        $this->mappedObject->$name = $value;
+        $this->savedConfiguration  = json_encode($this->mappedObject);
     }
 
     public function __call(string $name, $arguments)
@@ -157,10 +155,10 @@ class PublicConfiguration
     private function _initMappedObject()
     {
         if (!$this->mappedObject) {
-            $this->mappedObject = new stdClass();
+            $this->mappedObject = new \stdClass();
             $className          = $this->type;
             $entity             = new $className();
-            $reflection         = new ReflectionClass($entity);
+            $reflection         = new \ReflectionClass($entity);
             $properties         = $reflection->getProperties();
 
             foreach ($properties as $property) {

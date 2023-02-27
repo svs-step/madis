@@ -138,7 +138,7 @@
                                 </th>
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <th>
-                                    <input class="form-control" type="text" id="search_collectivity" placeholder="Collectivité" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
                                 </th>
                                 {% endif %}
                                 <th><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
@@ -193,7 +193,7 @@
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <td>{{object.collectivity}}</td>
                                 {% endif %}
-                                <td>{{ object.createdAt|date('d/m/Y') }}</td>
+                                <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
                                 <td>{{object.createdBy}}</td>
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <td>{{object.readAt|date('d/m/Y') }}</td>

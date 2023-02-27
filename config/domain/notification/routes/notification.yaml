@@ -26,10 +26,14 @@ notification_notification_delete_confirm:
     controller: 'App\Domain\Notification\Controller\NotificationController:deleteConfirmationAction'
 
 notification_notification_mark_as_read:
-    # path: '/marquer-comme-lu/{id}'
-    path: '/marquer-comme-lu'
+    path: '/marquer-comme-lu/{id}'
     methods: ['GET']
     controller: 'App\Domain\Notification\Controller\NotificationController:markAsReadAction'
+
+notification_notification_mark_as_unread:
+    path: '/marquer-comme-non-lu/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Notification\Controller\NotificationController:markAsUnreadAction'
 
 notification_notification_mark_as_read_all:
     path: '/tous-marquer-comme-lu'

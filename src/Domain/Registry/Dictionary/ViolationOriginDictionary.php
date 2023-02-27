@@ -28,16 +28,16 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ViolationOriginDictionary extends SimpleDictionary
 {
-    const ORIGIN_LOST_STOLEN_EQUIPMENT       = 'lost_stolen_equipement';
-    const ORIGIN_LOST_STOLEN_PAPER           = 'lost_stolen_paper';
-    const ORIGIN_LOST_OPENED_MAIL            = 'lost_opened_mail';
-    const ORIGIN_HACK                        = 'hack';
-    const ORIGIN_TRASH_CONFIDENTIAL_DOCUMENT = 'trash_confidential_document';
-    const ORIGIN_TRASH_CONFIDENTIAL_DEVICE   = 'trash_confidential_device';
-    const ORIGIN_NON_VOLUNTARY_PUBLICATION   = 'non_voluntary_publication';
-    const ORIGIN_BAD_PEOPLE_DATA_DISPLAY     = 'bad_people_data_display';
-    const ORIGIN_BAD_RECIPIENT_DATA          = 'bad_recipient';
-    const ORIGIN_VERBALLY_DISCLOSED          = 'verbally_disclosed';
+    public const ORIGIN_LOST_STOLEN_EQUIPMENT       = 'lost_stolen_equipement';
+    public const ORIGIN_LOST_STOLEN_PAPER           = 'lost_stolen_paper';
+    public const ORIGIN_LOST_OPENED_MAIL            = 'lost_opened_mail';
+    public const ORIGIN_HACK                        = 'hack';
+    public const ORIGIN_TRASH_CONFIDENTIAL_DOCUMENT = 'trash_confidential_document';
+    public const ORIGIN_TRASH_CONFIDENTIAL_DEVICE   = 'trash_confidential_device';
+    public const ORIGIN_NON_VOLUNTARY_PUBLICATION   = 'non_voluntary_publication';
+    public const ORIGIN_BAD_PEOPLE_DATA_DISPLAY     = 'bad_people_data_display';
+    public const ORIGIN_BAD_RECIPIENT_DATA          = 'bad_recipient';
+    public const ORIGIN_VERBALLY_DISCLOSED          = 'verbally_disclosed';
 
     public function __construct()
     {

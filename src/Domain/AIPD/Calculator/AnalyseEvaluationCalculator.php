@@ -26,7 +26,7 @@ class AnalyseEvaluationCalculator
         return self::getImpactFromGraviteAndVraisemblance($graviteResiduel, $vraisemblanceResiduel);
     }
 
-    private static function getImpactFromGraviteAndVraisemblance($gravite, $vraisemblance)
+    public static function getImpactFromGraviteAndVraisemblance($gravite, $vraisemblance)
     {
         $value = 1;
         if ($gravite > 2 && $vraisemblance > 2) {
@@ -42,7 +42,7 @@ class AnalyseEvaluationCalculator
 
     public static function calculateIndicateurResiduel(AnalyseScenarioMenace $scenarioMenace, $indicateurPotentiel, string $poidsType = 'gravite'): float
     {
-        //Gr = max[Gi - (Gi * <mG/<pG); 0,01]
+        // Gr = max[Gi - (Gi * <mG/<pG); 0,01]
 
         /* S'il n'y a pas de mesures de protection, il n'y a rien à pondérer car le risque n'est pas traité.
         On retourne alors le risque potentiel (= initial) */

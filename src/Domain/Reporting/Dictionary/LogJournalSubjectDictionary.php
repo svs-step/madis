@@ -41,25 +41,25 @@ use App\Domain\User\Model\User;
 
 class LogJournalSubjectDictionary extends SimpleDictionary
 {
-    const ADMIN_DUPLICATION                           = 'admin_duplication';
-    const MATURITY_SURVEY                             = 'maturity_survey';
-    const REGISTRY_CONFORMITE_ORGANISATION_EVALUATION = 'registry_conformite_organisation_evaluation';
-    const REGISTRY_CONFORMITE_TRAITEMENT              = 'registry_conformite_traitement';
-    const REGISTRY_CONTRACTOR                         = 'registry_contractor';
-    const REGISTRY_MESUREMENT                         = 'registry_mesurement';
-    const REGISTRY_PROOF                              = 'registry_proof';
-    const REGISTRY_REQUEST                            = 'registry_request';
-    const REGISTRY_TREATMENT                          = 'registry_treatment';
-    const USER_COLLECTIVITY                           = 'user_collectivity';
-    const USER_EMAIL                                  = 'user_email';
-    const USER_FIRSTNAME                              = 'user_firstname';
-    const USER_LASTNAME                               = 'user_lastname';
-    const USER_PASSWORD                               = 'user_password';
-    const USER_USER                                   = 'user_user';
-    const REGISTRY_VIOLATION                          = 'registry_violation';
-    const USER_SERVICE                                = 'user_service';
+    public const ADMIN_DUPLICATION                           = 'admin_duplication';
+    public const MATURITY_SURVEY                             = 'maturity_survey';
+    public const REGISTRY_CONFORMITE_ORGANISATION_EVALUATION = 'registry_conformite_organisation_evaluation';
+    public const REGISTRY_CONFORMITE_TRAITEMENT              = 'registry_conformite_traitement';
+    public const REGISTRY_CONTRACTOR                         = 'registry_contractor';
+    public const REGISTRY_MESUREMENT                         = 'registry_mesurement';
+    public const REGISTRY_PROOF                              = 'registry_proof';
+    public const REGISTRY_REQUEST                            = 'registry_request';
+    public const REGISTRY_TREATMENT                          = 'registry_treatment';
+    public const USER_COLLECTIVITY                           = 'user_collectivity';
+    public const USER_EMAIL                                  = 'user_email';
+    public const USER_FIRSTNAME                              = 'user_firstname';
+    public const USER_LASTNAME                               = 'user_lastname';
+    public const USER_PASSWORD                               = 'user_password';
+    public const USER_USER                                   = 'user_user';
+    public const REGISTRY_VIOLATION                          = 'registry_violation';
+    public const USER_SERVICE                                = 'user_service';
 
-    const CLASS_NAME_SUBJECT = [
+    public const CLASS_NAME_SUBJECT = [
         Duplication::class          => self::ADMIN_DUPLICATION,
         Survey::class               => self::MATURITY_SURVEY,
         Collectivity::class         => self::USER_COLLECTIVITY,
@@ -88,7 +88,7 @@ class LogJournalSubjectDictionary extends SimpleDictionary
         return [
             self::ADMIN_DUPLICATION                           => 'Duplication',
             self::REGISTRY_MESUREMENT                         => 'Action de protection',
-            self::USER_COLLECTIVITY                           => 'Collectivité',
+            self::USER_COLLECTIVITY                           => 'Structure',
             self::REGISTRY_CONFORMITE_ORGANISATION_EVALUATION => 'Conformité organisation',
             self::REGISTRY_CONFORMITE_TRAITEMENT              => 'Conformité traitement',
             self::REGISTRY_REQUEST                            => 'Demande',

@@ -16,7 +16,7 @@ trait RepositoryUtils
         return $qb
             ->andWhere("o.{$key} $operator :{$key}_value")
             ->setParameter("{$key}_value", $value)
-            ;
+        ;
     }
 
     protected function addInClauseCollectivities(QueryBuilder $qb, array $collectivities)

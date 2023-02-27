@@ -1,6 +1,6 @@
 _user_collectivity:
     resource: 'collectivity.yaml'
-    prefix:   '/collectivites'
+    prefix:   '/structures'
 
 _user_profile:
     resource: 'profile.yaml'

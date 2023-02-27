@@ -98,16 +98,16 @@ class ReviewController extends AbstractController
         MaturityRepository\Survey $surveyRepository,
         Repository\ConformiteOrganisation\Evaluation $evaluationRepository
     ) {
-        $this->wordHandler                    = $wordHandler;
-        $this->userProvider                   = $userProvider;
-        $this->authorizationChecker           = $authorizationChecker;
-        $this->treatmentRepository            = $treatmentRepository;
-        $this->contractorRepository           = $contractorRepository;
-        $this->mesurementRepository           = $mesurementRepository;
-        $this->requestRepository              = $requestRepository;
-        $this->violationRepository            = $violationRepository;
-        $this->surveyRepository               = $surveyRepository;
-        $this->evaluationRepository           = $evaluationRepository;
+        $this->wordHandler          = $wordHandler;
+        $this->userProvider         = $userProvider;
+        $this->authorizationChecker = $authorizationChecker;
+        $this->treatmentRepository  = $treatmentRepository;
+        $this->contractorRepository = $contractorRepository;
+        $this->mesurementRepository = $mesurementRepository;
+        $this->requestRepository    = $requestRepository;
+        $this->violationRepository  = $violationRepository;
+        $this->surveyRepository     = $surveyRepository;
+        $this->evaluationRepository = $evaluationRepository;
     }
 
     /**

@@ -46,9 +46,9 @@ class ContactCivilityDictionaryTest extends TestCase
     public function testGetRoles()
     {
         $data = [
+            ContactCivilityDictionary::CIVILITY_NONE   => '',
             ContactCivilityDictionary::CIVILITY_MISS   => 'Madame',
             ContactCivilityDictionary::CIVILITY_MISTER => 'Monsieur',
-            ContactCivilityDictionary::CIVILITY_NONE   => '',
         ];
 
         $this->assertEquals($data, ContactCivilityDictionary::getCivilities());
@@ -57,9 +57,9 @@ class ContactCivilityDictionaryTest extends TestCase
     public function testGetRolesKeys()
     {
         $data = [
+            ContactCivilityDictionary::CIVILITY_NONE,
             ContactCivilityDictionary::CIVILITY_MISS,
             ContactCivilityDictionary::CIVILITY_MISTER,
-            ContactCivilityDictionary::CIVILITY_NONE,
         ];
 
         $this->assertEquals($data, ContactCivilityDictionary::getCivilitiesKeys());

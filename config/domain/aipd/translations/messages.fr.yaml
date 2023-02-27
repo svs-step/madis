@@ -72,6 +72,9 @@ aipd:
             precision: Précision
             visible: Visible
             vraisemblance: Vraisemblance
+            title_d: Disponibilité des données
+            title_i: Intégrité des données
+            title_c: Confidentialité des données
     analyse_impact:
         action:
             create: Réaliser une AIPD
@@ -98,7 +101,7 @@ aipd:
             avis_referent: Avis du référent RGPD
             avis_representant: Avis des représentants des personnes concernées
             avis_responsable: Validation du responsable de traitement
-            collectivite: Collectivité
+            collectivite: Structure
             traitement: Traitement
             date_creation: Date de création
             date_validation: Date de validation
@@ -108,6 +111,7 @@ aipd:
             non_realisee: Non réalisée
             defavorable: Défavorable
             favorable_avec_reserves: Favorable avec réserves
+            favorable_reserve: Favorable avec réserves
             favorable: Favorable
             non_favorable: Défavorable
             evaluation:

@@ -73,10 +73,8 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
      * Create the base of QueryBuilder to use for repository calls.
      *
      * @throws \Exception
-     *
-     * @return \Doctrine\ORM\QueryBuilder
      */
-    protected function createQueryBuilder()
+    protected function createQueryBuilder(): \Doctrine\ORM\QueryBuilder
     {
         return $this->getManager()
             ->createQueryBuilder()
@@ -151,7 +149,7 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
             ->getManager()
             ->getRepository($this->getModelClass())
             ->findBy([], $orderBy)
-            ;
+        ;
     }
 
     /**
@@ -176,6 +174,6 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
             ->getManager()
             ->getRepository($this->getModelClass())
             ->findBy($criterias)
-            ;
+        ;
     }
 }

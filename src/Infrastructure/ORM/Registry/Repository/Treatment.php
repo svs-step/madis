@@ -54,7 +54,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         return $qb
             ->andWhere('o.collectivity = :collectivity')
             ->setParameter('collectivity', $collectivity)
-            ;
+        ;
     }
 
     /**
@@ -65,7 +65,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         return $qb
             ->andWhere('o.active = :active')
             ->setParameter('active', $active)
-            ;
+        ;
     }
 
     /**
@@ -93,7 +93,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -195,10 +195,10 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
-    public function findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity = null, bool $active = true, array $order = [])
+    public function findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity = null, bool $active = true, array $order = ['name' => 'ASC'])
     {
         $qb = $this->createQueryBuilder();
 
@@ -227,14 +227,14 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         ;
 
         $qb->leftJoin('k.analyseImpacts', 'a')
-            //, 'WITH', 'a.dateValidation = (SELECT MAX(a2.dateValidation) FROM App\Domain\AIPD\Model\AnalyseImpact as a2 WHERE a2.conformiteTraitement = k)
+            // , 'WITH', 'a.dateValidation = (SELECT MAX(a2.dateValidation) FROM App\Domain\AIPD\Model\AnalyseImpact as a2 WHERE a2.conformiteTraitement = k)
             ->addSelect('a')
         ;
 
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     public function countAllWithNoConformiteTraitementByCollectivity(?Collectivity $collectivity)
@@ -363,7 +363,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                         ->setParameter('nom', '%' . $search . '%');
                     break;
                 case 'baseLegal':
-                    $this->addWhereClause($queryBuilder, 'legalBasis', json_encode($search));
+                    $this->addWhereClause($queryBuilder, 'legalBasis', '%' . $search . '%', 'LIKE');
                     break;
                 case 'logiciel':
                     $this->addWhereClause($queryBuilder, 'software', '%' . $search . '%', 'LIKE');
@@ -447,6 +447,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

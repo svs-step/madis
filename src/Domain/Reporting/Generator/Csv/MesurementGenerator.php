@@ -68,10 +68,10 @@ class MesurementGenerator extends AbstractGenerator
         Mesurement $mesurementRepository,
         Security $security
     ) {
-        $this->translator              = $translatorInterface;
-        $this->collectivityRepository  = $collectivityRepository;
-        $this->mesurementRepository    = $mesurementRepository;
-        $this->security                = $security;
+        $this->translator             = $translatorInterface;
+        $this->collectivityRepository = $collectivityRepository;
+        $this->mesurementRepository   = $mesurementRepository;
+        $this->security               = $security;
     }
 
     /**

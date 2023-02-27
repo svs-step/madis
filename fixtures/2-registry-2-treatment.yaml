@@ -19,6 +19,8 @@ App\Domain\Registry\Model\Treatment:
         contractors: ['@registry_contractor_awkan_1', '@registry_contractor_awkan_3']
         active: '80%? 1 : 0'
         collectivity: '@user_collectivity_awkan'
+        legal_mentions: true
+        consent_request: false
 
     registry_treatment_soluris_{1..10}:
         name: Traitement <current()>
@@ -35,6 +37,8 @@ App\Domain\Registry\Model\Treatment:
         contractors: ['@registry_contractor_soluris_3']
         active: '80%? 1 : 0'
         collectivity: '@user_collectivity_soluris'
+        legal_mentions: true
+        consent_request: false
 
     registry_treatment_foobar_{1..10}:
         name: Traitement <current()>
@@ -51,3 +55,5 @@ App\Domain\Registry\Model\Treatment:
         contractors: [ '@registry_contractor_foobar_3' ]
         active: '80%? 1 : 0'
         collectivity: '@user_collectivity_foobar'
+        legal_mentions: false
+        consent_request: false

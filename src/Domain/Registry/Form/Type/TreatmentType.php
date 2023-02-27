@@ -72,6 +72,10 @@ class TreatmentType extends AbstractType
                 'label'    => ' ',
                 'required' => false,
             ])
+            ->add('exempt_AIPD', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.exemptAipd',
+                'required' => false,
+            ])
             ->add('name', TextType::class, [
                 'label'    => 'registry.treatment.form.name',
                 'required' => true,
@@ -144,6 +148,10 @@ class TreatmentType extends AbstractType
             ])
             ->add('concernedPeoplePartner', ComplexChoiceType::class, [
                 'label'    => 'registry.treatment.form.concerned_people_partner',
+                'required' => false,
+            ])
+            ->add('concernedPeopleUsager', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_usager',
                 'required' => false,
             ])
             ->add('concernedPeopleOther', ComplexChoiceType::class, [
@@ -301,13 +309,13 @@ class TreatmentType extends AbstractType
                 ],
             ])
             ->add('collectingMethod', DictionaryType::class, [
-                'label'         => 'registry.treatment.form.collecting_method',
-                'name'          => 'registry_treatment_collecting_method',
-                'required'      => false,
-                'expanded'      => false,
-                'multiple'      => true,
-                'placeholder'   => 'placeholder.precision',
-                'attr'          => [
+                'label'       => 'registry.treatment.form.collecting_method',
+                'name'        => 'registry_treatment_collecting_method',
+                'required'    => false,
+                'expanded'    => false,
+                'multiple'    => true,
+                'placeholder' => 'placeholder.precision',
+                'attr'        => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
@@ -341,13 +349,25 @@ class TreatmentType extends AbstractType
                 'placeholder' => 'placeholder.precision',
             ])
             ->add('otherCollectingMethod', TextType::class, [
-                'label'       => 'registry.treatment.form.otherCollectingMethod',
-                'required'    => false,
+                'label'    => 'registry.treatment.form.otherCollectingMethod',
+                'required' => false,
+            ])
+            ->add('legalMentions', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.legalMentions',
+                'required' => false,
+            ])
+            ->add('consentRequest', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.consentRequest',
+                'required' => false,
+            ])
+            ->add('consentRequestFormat', TextType::class, [
+                'label'    => 'registry.treatment.form.consentRequestFormat',
+                'required' => false,
             ])
         ;
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')) {
-            $builder->add('dpoMessage', TextAreaType::class, [
+            $builder->add('dpoMessage', TextareaType::class, [
                 'label'    => 'registry.treatment.form.dpoMessage',
                 'required' => false,
             ]);
@@ -362,14 +382,14 @@ class TreatmentType extends AbstractType
                     if ($treatment->getCollectivity()) {
                         /** @var User $authenticatedUser */
                         $authenticatedUser = $this->security->getUser();
-                        $collectivity = $treatment->getCollectivity();
+                        $collectivity      = $treatment->getCollectivity();
 
                         $qb = $er->createQueryBuilder('s')
                         ->where('s.collectivity = :collectivity')
                         ->setParameter(':collectivity', $collectivity)
                         ;
 
-                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && ($authenticatedUser->getServices()->getValues())) {
+                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && $authenticatedUser->getServices()->getValues()) {
                             $qb->leftJoin('s.users', 'users')
                                 ->andWhere('users.id = :id')
                                 ->setParameter('id', $authenticatedUser->getId())
@@ -378,7 +398,7 @@ class TreatmentType extends AbstractType
 
                         $qb
                         ->orderBy('s.name', 'ASC');
-                        //dd($qb);
+                        // dd($qb);
 
                         return $qb;
                     }
@@ -386,7 +406,7 @@ class TreatmentType extends AbstractType
                     return $er->createQueryBuilder('s')
                         ->orderBy('s.name', 'ASC');
                 },
-                'required'      => false,
+                'required' => false,
             ]);
         }
     }

@@ -1,4 +1,11 @@
 $(document).ready(function() {
+    // Handle complex form on user page
+    $('input.select-frequency:not(:checked)').parents('tr').find('select').attr('disabled', 'disabled')
+    $('input.select-frequency').on('change', function(ev){
+        console.log('radio changed', ev)
+        $('input.select-frequency').parents('table').find('select').attr('disabled', 'disabled')
+        $(ev.currentTarget).parents('tr').find('select').removeAttr('disabled')
+    })
     /* Simple fields */
     $('input[type=password]').each(function() {
         let input = $(this);

@@ -17,7 +17,7 @@ class ParticipantTypeTest extends FormTypeHelper
 
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, (new ParticipantType()));
+        $this->assertInstanceOf(AbstractType::class, new ParticipantType());
     }
 
     public function testBuildForm()

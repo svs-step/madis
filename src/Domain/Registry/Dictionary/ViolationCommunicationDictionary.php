@@ -28,9 +28,9 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ViolationCommunicationDictionary extends SimpleDictionary
 {
-    const YES  = 'yes';
-    const SOON = 'soon';
-    const NO   = 'no';
+    public const YES  = 'yes';
+    public const SOON = 'soon';
+    public const NO   = 'no';
 
     public function __construct()
     {

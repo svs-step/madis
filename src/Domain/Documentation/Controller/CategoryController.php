@@ -33,9 +33,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Intl\Exception\MethodNotImplementedException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
 
 /**
  * @property Repository\Category $repository
@@ -140,7 +140,7 @@ class CategoryController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('delete'), [
-            'object'            => $object,
+            'object' => $object,
         ]);
     }
 

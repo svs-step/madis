@@ -34,8 +34,6 @@ class ConformiteOrganisationReponseRaisonValidator extends ConstraintValidator
 {
     /**
      * {@inheritdoc}
-     *
-     * @var Reponse
      */
     public function validate($value, Constraint $constraint)
     {

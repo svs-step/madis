@@ -28,12 +28,16 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class CollectivityTypeDictionary extends SimpleDictionary
 {
-    const TYPE_COMMUNE            = 'commune';
-    const TYPE_CCAS               = 'ccas';
-    const TYPE_EPCI               = 'epci';
-    const TYPE_CIAS               = 'cias';
-    const TYPE_DEPARTMENTAL_UNION = 'departmental_union';
-    const TYPE_OTHER              = 'other';
+    public const TYPE_COMMUNE              = 'commune';
+    public const TYPE_CCAS                 = 'ccas';
+    public const TYPE_EPCI                 = 'epci';
+    public const TYPE_CIAS                 = 'cias';
+    public const TYPE_SYNDICAT             = 'syndicat';
+    public const TYPE_SANITARY_INSTITUTION = 'sanitary_institution';
+    public const TYPE_MEDICAL_INSTITUTION  = 'medical_institution';
+    public const TYPE_ASSOCIATION          = 'association';
+    public const TYPE_ENTERPRISE           = 'enterprise';
+    public const TYPE_OTHER                = 'other';
 
     public function __construct()
     {
@@ -48,12 +52,16 @@ class CollectivityTypeDictionary extends SimpleDictionary
     public static function getTypes()
     {
         return [
-            self::TYPE_COMMUNE            => 'Commune',
-            self::TYPE_CCAS               => 'CCAS',
-            self::TYPE_EPCI               => 'EPCI',
-            self::TYPE_CIAS               => 'CIAS',
-            self::TYPE_DEPARTMENTAL_UNION => 'Syndicat départemental',
-            self::TYPE_OTHER              => 'Autre',
+            self::TYPE_COMMUNE              => 'Commune',
+            self::TYPE_CCAS                 => 'Centre Communal d’Action Sociale (CCAS)',
+            self::TYPE_EPCI                 => 'Établissement Public de Coopération Intercommunale (EPCI)',
+            self::TYPE_CIAS                 => 'Centre Intercommunal d’Action Sociale (CIAS)',
+            self::TYPE_SYNDICAT             => 'Syndicat',
+            self::TYPE_SANITARY_INSTITUTION => 'Établissement sanitaire',
+            self::TYPE_MEDICAL_INSTITUTION  => 'Établissement social ou médico-social',
+            self::TYPE_ASSOCIATION          => 'Association',
+            self::TYPE_ENTERPRISE           => 'Entreprise',
+            self::TYPE_OTHER                => 'Autre',
         ];
     }
 

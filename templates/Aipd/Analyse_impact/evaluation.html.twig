@@ -21,6 +21,13 @@
 {% block body %}
 
     <div class="row">
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <p><b>Cette étape finale permet de valider l’instruction de l’AIPD. Une fois validée, il ne sera plus possible de la modifier.</b></p>
+                </div>
+            </div>
+        </div>
         <div class="col-md-6">
             <div class="box box-solid box-info">
                 <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.grands_domaines'|trans }}</div>
@@ -127,7 +134,7 @@
         let domainesDatas = [];
         {% for critere in analyseImpact.criterePrincipeFondamentaux %}
             {% if critere.reponse != 'non_applicable' %}
-                domainesLabels.push("{{ critere.label|truncate(28,'...')|raw|escape('js') }}");
+                domainesLabels.push("{{ critere.label|u.truncate(28,'...')|raw|escape('js') }}");
                 {% if critere.reponse == 'conforme' %}
                     domainesDatas.push(5);
                 {% else %}
@@ -145,7 +152,7 @@
             {% else %}
                 domainesDatas.push(1);
             {% endif %}
-            domainesLabels.push("{{ question.question|truncate(28, '...')|raw|escape('js') }}");
+            domainesLabels.push("{{ question.question|u.truncate(28, '...')|raw|escape('js') }}");
         {% endfor %}
 
         /* The format of the data used by the chart is [[],[]] but here we use only 1 set of data */
@@ -168,7 +175,7 @@
 
         // impact Potentiel {{ rp }}
 
-            risquesLabels.push("{{ scenario.nom|truncate(20, '...')|raw|escape('js') }}");
+            risquesLabels.push("{{ scenario.nom|u.truncate(20, '...')|raw|escape('js') }}");
             risquesCouvertDataSet.push({{ rp-rr }});
             risquesResiduelDataSet.push({{ rr }})
             dicResiduelsData.push({
@@ -181,7 +188,7 @@
 
 
         {% for mesure in analyseImpact.mesureProtections %}
-            mesuresLabels.push("{{ mesure.nom|truncate(28, '...')|raw|escape('js') }}");
+            mesuresLabels.push("{{ mesure.nom|u.truncate(28, '...')|raw|escape('js') }}");
             {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
             mesuresDatas.push(1);
             {% elseif mesure.reponse == 'besoin_amelioration' %}
@@ -196,7 +203,7 @@
         let risquesDatas = [risquesResiduel, risquesCouvert];
     </script>
 
-    <script src="{{ asset('build/js/evaluation.js') }}"></script>
+    {{ encore_entry_script_tags('js/evaluation') }}
 
 
 {% endblock %}

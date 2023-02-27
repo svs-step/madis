@@ -13,6 +13,7 @@
         <field name="zipCode" column="zip_code" length="5" nullable="true"/>
         <field name="mail" column="mail" nullable="true"/>
         <field name="phoneNumber" column="phone_number" length="10" nullable="true"/>
+        <field name="country" column="country" nullable="true"/>
 
     </embeddable>
 

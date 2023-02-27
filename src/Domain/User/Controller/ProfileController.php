@@ -30,13 +30,13 @@ use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Repository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\ControllerTrait;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProfileController
+class ProfileController extends AbstractController
 {
-    use ControllerTrait;
+    // use ControllerTrait;
 
     /**
      * @var EntityManagerInterface
@@ -67,6 +67,7 @@ class ProfileController
      * @var Repository\User
      */
     private $userRepository;
+    private ?string $sso_type;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -74,7 +75,8 @@ class ProfileController
         RequestStack $requestStack,
         UserProvider $userProvider,
         Repository\Collectivity $collectivityRepository,
-        Repository\User $userRepository
+        Repository\User $userRepository,
+        ?string $sso_type
     ) {
         $this->entityManager          = $entityManager;
         $this->helper                 = $helper;
@@ -82,6 +84,7 @@ class ProfileController
         $this->userProvider           = $userProvider;
         $this->collectivityRepository = $collectivityRepository;
         $this->userRepository         = $userRepository;
+        $this->sso_type               = $sso_type;
     }
 
     /**
@@ -109,9 +112,9 @@ class ProfileController
      */
     public function collectivityEditAction(): Response
     {
-        $request      = $this->requestStack->getMasterRequest();
-        $object       = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-        $form         = $this->helper->createForm(
+        $request = $this->requestStack->getMasterRequest();
+        $object  = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+        $form    = $this->helper->createForm(
             CollectivityType::class,
             $object,
             [
@@ -177,9 +180,24 @@ class ProfileController
         }
 
         return $this->helper->render('User/Profile/user_edit.html.twig', [
-            'form'     => $form->createView(),
-            'roles'    => $object->getRoles(),
-            'services' => $services,
+            'form'           => $form->createView(),
+            'roles'          => $object->getRoles(),
+            'services'       => $services,
+            'sso_type'       => $this->sso_type,
+            'sso_associated' => null !== $object->getSsoKey(),
         ]);
+    }
+
+    public function userSsoUnlinkAction(): Response
+    {
+        $object = $this->userProvider->getAuthenticatedUser();
+        $object->setSsoKey(null);
+        $this->entityManager->persist($object);
+        $this->entityManager->flush();
+        $this->helper->addFlash('success',
+            $this->helper->trans('user.profile.flashbag.success.sso_unlink')
+        );
+
+        return $this->helper->redirectToRoute('user_profile_user_edit');
     }
 }

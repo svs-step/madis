@@ -69,11 +69,11 @@ class ConformiteOrganisationController extends CRUDController
         Pdf $pdf
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->questionRepository     = $questionRepository;
-        $this->processusRepository    = $processusRepository;
-        $this->conformiteRepository   = $conformiteRepository;
-        $this->dispatcher             = $dispatcher;
-        $this->wordHandler            = $wordHandler;
+        $this->questionRepository   = $questionRepository;
+        $this->processusRepository  = $processusRepository;
+        $this->conformiteRepository = $conformiteRepository;
+        $this->dispatcher           = $dispatcher;
+        $this->wordHandler          = $wordHandler;
     }
 
     public function createAction(Request $request): Response
@@ -121,7 +121,7 @@ class ConformiteOrganisationController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('create'), [
-            'form'      => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -152,11 +152,11 @@ class ConformiteOrganisationController extends CRUDController
             if (\in_array(UserRoleDictionary::ROLE_REFERENT, $connectedUser->getRoles())) {
                 $collectivities = \iterable_to_array($connectedUser->getCollectivitesReferees());
             }
-            $evaluations  = $this->repository->findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate($collectivities);
+            $evaluations = $this->repository->findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate($collectivities);
         }
 
         $category = $this->entityManager->getRepository(Category::class)->findOneBy([
-            'name' => "Conformité de l'organisation",
+            'name' => 'Conformité de la structure',
         ]);
 
         return $this->render($this->getTemplatingBasePath('list'), [

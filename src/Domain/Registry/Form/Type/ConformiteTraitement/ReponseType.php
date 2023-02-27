@@ -69,7 +69,7 @@ class ReponseType extends AbstractType
         ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $parentForm = $event->getForm()->getParent()->getParent();
+            $parentForm   = $event->getForm()->getParent()->getParent();
             $collectivity = $parentForm->getData()->getTraitement()->getCollectivity();
             $event->getForm()->add('actionProtections', EntityType::class, [
                     'required'      => false,
@@ -98,7 +98,7 @@ class ReponseType extends AbstractType
                     'choice_attr' => function (Mesurement $choice) {
                         $name = $choice->getName();
                         if (\mb_strlen($name) > 85) {
-                            $name =  \mb_substr($name, 0, 85) . '...';
+                            $name = \mb_substr($name, 0, 85) . '...';
                         }
 
                         return ['data-content' => $name];

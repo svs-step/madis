@@ -60,9 +60,9 @@ class Violation implements LoggableSubject, CollectivityRelated
     private $inProgress;
 
     /**
-     * @var string|null
+     * @var iterable
      */
-    private $violationNature;
+    private $violationNatures;
 
     /**
      * @var iterable
@@ -146,6 +146,7 @@ class Violation implements LoggableSubject, CollectivityRelated
 
     private Collection $mesurements;
     private Collection $treatments;
+    private Collection $contractors;
 
     /**
      * Violation constructor.
@@ -157,12 +158,14 @@ class Violation implements LoggableSubject, CollectivityRelated
         $this->id                        = Uuid::uuid4();
         $this->date                      = new \DateTime();
         $this->inProgress                = false;
+        $this->violationNatures          = [];
         $this->origins                   = [];
         $this->concernedDataNature       = [];
         $this->concernedPeopleCategories = [];
         $this->potentialImpactsNature    = [];
         $this->proofs                    = [];
         $this->treatments                = new ArrayCollection();
+        $this->contractors               = new ArrayCollection();
     }
 
     public function getId(): UuidInterface
@@ -199,14 +202,14 @@ class Violation implements LoggableSubject, CollectivityRelated
         $this->inProgress = $inProgress;
     }
 
-    public function getViolationNature(): ?string
+    public function getViolationNatures(): iterable
     {
-        return $this->violationNature;
+        return $this->violationNatures;
     }
 
-    public function setViolationNature(?string $violationNature): void
+    public function setViolationNatures(iterable $violationNatures): void
     {
-        $this->violationNature = $violationNature;
+        $this->violationNatures = $violationNatures;
     }
 
     public function getOrigins(): iterable
@@ -406,5 +409,22 @@ class Violation implements LoggableSubject, CollectivityRelated
     public function getTreatments(): iterable
     {
         return $this->treatments;
+    }
+
+    public function addContractor(Contractor $contractor): void
+    {
+        $this->contractors[] = $contractor;
+    }
+
+    public function removeContractor(Contractor $contractor): void
+    {
+        if ($this->contractors && $this->contractors->count() && $this->contractors->contains($contractor)) {
+            $this->contractors->removeElement($contractor);
+        }
+    }
+
+    public function getContractors(): Collection
+    {
+        return $this->contractors;
     }
 }

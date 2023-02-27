@@ -93,7 +93,7 @@
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                             <th>
-                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
                             </th>
                             {% endif %}
                             <th>
@@ -216,6 +216,7 @@
                             <th>{{ 'registry.treatment.list.responsable_traitement'|trans }}</th>
                             <th>{{ 'registry.treatment.list.specific_traitement'|trans }}</th>
                             <th>{{ 'registry.treatment.list.conformite_traitement'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.avis_aipd'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
@@ -263,6 +264,7 @@
         {"data": "responsableTraitement", "visible": false},
         {"data": "specific_traitement", "render": "[, ]","visible": true, "orderable": false},
         {"data": "conformite_traitement","visible": false, "orderable": false},
+        {"data": "avis_aipd","visible": false, "orderable": false},
         {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
     ] %}
     {% if is_granted('ROLE_REFERENT') %}
@@ -288,6 +290,7 @@
             {"data": "responsableTraitement", "visible": false},
             {"data": "specific_traitement", "render": "[, ]","visible": true, "orderable": false},
             {"data": "conformite_traitement","visible": false, "orderable": false},
+            {"data": "avis_aipd","visible": false, "orderable": false},
             {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
         ] %}
     {% endif %}
@@ -485,6 +488,7 @@
 
             // Handle click on checkbox to set state of "Select all" control
             $('#table tbody').on('change', 'input[type="checkbox"]', function(){
+                console.log('change');
                 // If checkbox is not checked
                 if(!this.checked){
                     var el = $('#select-all-treatments').get(0);
@@ -495,6 +499,14 @@
                         el.indeterminate = true;
                     }
                 }
+            });
+
+            $("[id*='search_']").on('change', function(){
+                $('#select-all-treatments').prop('checked', false);
+            });
+
+            $("#table").on('page.dt', function(){
+                $('#select-all-treatments').prop('checked', false);
             });
         }
 

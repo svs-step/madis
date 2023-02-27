@@ -37,12 +37,17 @@
                 {{ form_row(form.name) }}
                 {{ form_row(form.shortName) }}
                 {{ form_row(form.type) }}
+                {{ form_row(form.otherType) }}
                 {{ form_row(form.siren) }}
+                {{ form_row(form.finessGeo) }}
                 {{ form_row(form.active) }}
                 {{ form_row(form.website) }}
                 {{ form_row(form.hasModuleConformiteTraitement) }}
                 {{ form_row(form.hasModuleConformiteOrganisation) }}
+                {{ form_row(form.nbrAgents) }}
+                {{ form_row(form.population) }}
                 {{ form_row(form.informationsComplementaires) }}
+
             </div>
         </div>
 
@@ -58,6 +63,7 @@
         <div id="box-dpo" class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.dpo'|trans }}</h3></div>
             <div class="box-body">
+                {{ form_row(form.nbrCnil) }}
                 {{ form_row(form.differentDpo) }}
                 {{ form_widget(form.dpo) }}
             </div>
@@ -72,6 +78,7 @@
         </div>
 
         {# SERVICES TODO #}
+        {% do form.services.setRendered() %}
         <div class="box box-solid" id="box-services">
             <div class="box-header with-border"><h3 class="box-title"> {{ form_widget(form.isServicesEnabled) }}</h3></div>
                 <div class="box-body">
@@ -87,10 +94,8 @@
                         </a>
                     </div>
                 </div>
-            
+
         </div>
-         {# prevents weird label from showing up in new #}
-        {{ form_widget(form.services) }}
     </div>
 
     {# RIGHT #}
@@ -129,6 +134,7 @@
         </div>
 
         {# COMITE IL CONTACT #}
+        {% do form.comiteIlContacts.setRendered() %}
         <div class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.comite_il'|trans }}</h3></div>
             <div class="box-body">
@@ -138,6 +144,7 @@
                 >
                     {% for contact in form.comiteIlContacts %}
                         {{ formMacros.printComiteIlContact(contact) }}
+                        <hr style="border-top-color: #dddddd" />
                     {% endfor %}
                     <a href="#" class="js-collection-add">
                         <span class="fa fa-plus-circle"></span>
@@ -148,7 +155,7 @@
         </div>
 
         {# prevents weird label from showing up in new #}
-        {{ form_widget(form.comiteIlContacts) }}
+{#        {{ form_widget(form.comiteIlContacts) }}#}
     </div>
 
     <div class="col-md-12">

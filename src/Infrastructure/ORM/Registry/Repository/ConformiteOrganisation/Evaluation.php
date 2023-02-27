@@ -45,7 +45,7 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
             ->setParameter('true', true)
             ->addOrderBy('o.date', 'DESC')
             ->addOrderBy('o.createdAt', 'DESC')
-            ;
+        ;
 
         return $qBuilder
             ->getQuery()
@@ -55,7 +55,7 @@ class Evaluation extends CRUDRepository implements Repository\ConformiteOrganisa
 
     public function findLastByOrganisation(Collectivity $organisation): ?Model\ConformiteOrganisation\Evaluation
     {
-        $results =  $this->createQueryBuilder()
+        $results = $this->createQueryBuilder()
             ->addSelect('conformites, processus, reponses, questions, actionProtections')
             ->andWhere('o.collectivity = :organisation')
             ->setParameter('organisation', $organisation)

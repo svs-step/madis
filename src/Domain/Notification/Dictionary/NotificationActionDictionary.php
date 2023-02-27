@@ -4,7 +4,7 @@
  * This file is part of the MADIS - RGPD Management application.
  *
  * @copyright Copyright (c) 2018-2019 Soluris - Solutions Numériques Territoriales Innovantes
- * @author <chayrouse@datakode.fr>
+ * @author Donovan Bourlard <donovan@awkan.fr>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -28,39 +28,39 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class NotificationActionDictionary extends SimpleDictionary
 {
-    const CREATE       = 'create';
-    const ADD          = 'add';
-    const EDIT         = 'edit';
-    const DELETE       = 'delete';
-    const LATE         = 'late';
+    public const CREATE = 'create';
+    public const ADD    = 'add';
+    public const EDIT   = 'edit';
+    public const DELETE = 'delete';
+    public const LATE   = 'late';
 
     public function __construct()
     {
-        parent::__construct('notifications_notification_action', self::getActions());
+        parent::__construct('notificationAction', self::getActions());
     }
 
     /**
-     * Get an array of Objects.
+     * Get an array of Roles.
      *
      * @return array
      */
     public static function getActions()
     {
         return [
-            self::CREATE      => 'Création',
-            self::ADD         => 'Ajout',
-            self::EDIT        => 'Modification',
-            self::DELETE      => 'Suppression',
-            self::LATE        => 'Retard (automatique)',
+            self::CREATE => 'Création',
+            self::ADD    => 'Ajout',
+            self::EDIT   => 'Modification',
+            self::DELETE => 'Suppression',
+            self::LATE   => 'Retard (automatique)',
         ];
     }
 
     /**
-     * Get keys of the Objects array.
+     * Get keys of the Roles array.
      *
      * @return array
      */
-    public static function getActionsKeys()
+    public static function getFrequenciesKeys()
     {
         return \array_keys(self::getActions());
     }

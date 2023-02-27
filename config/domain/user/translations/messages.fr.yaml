@@ -15,17 +15,46 @@ user:
             job: Fonction
             mail: Email
             phone_number: Téléphone
+            notification: Notification par email
+
+    notifications:
+        form:
+            frequency:
+                label: Fréquence
+                month: Mensuelle
+                week: Hebdomadaire
+                day: Quotidien
+                hour: Toutes les
+                each: A chaque notification
+                none: Jamais
+                label_hour: heures
+                monthly: Mensuelle le
+                weekly: Hebdomadaire le
+                dayly: Quotidien à
+                hourly: Toutes les
+            modules:
+                treatment: Traitements
+                subcontractor: Sous-traitants
+                request: Demandes
+                violation: Violations
+                proof: Preuves
+                protect_action: Actions de protection
+                maturity: Maturité
+                treatment_conformity: Conformité des traitements
+                organization_conformity: Conformité de la structure
+                aipd: AIPD
+                document: Documents
 
     collectivity:
         action:
             back_to_list: Retour à la liste
             back_to_show: Retour à la visualisation
-            new: Nouvelle collectivité
+            new: Nouvelle structure
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
             edit: Éditer "%name%"
-            list: Liste des collectivités
+            list: Liste des structures
             show: Visualiser "%name%"
         form:
             active: Statut
@@ -33,7 +62,7 @@ user:
             different_dpo: Différent du DPD moral
             different_it_manager: Différent du Référent Opérationnel
             has_module_conformite_traitement: Module conformité des traitements
-            has_module_conformite_organisation: Module conformité de l'organisation
+            has_module_conformite_organisation: Module conformité de la structure
             is_services_enabled: Activation des services
             name: Nom
             placeholder:
@@ -41,22 +70,33 @@ user:
             short_name: Nom court
             siren: SIREN
             type: Type
+            otherType: Autre type (descriptif)
             website: Site internet
             informations_complementaires: Informations complémentaires
+            finess_geo: FINESS Géo
+            population: Population
+            nbr_agents: Nombre de salariés
+            nbr_cnil: Numéro de désignation CNIL
         flashbag:
             success:
-                create: Collectivité "%object%" créée avec succès
-                edit: Collectivité "%object%" éditée avec succès
-                delete: Collectivité "%object%" supprimée avec succès
+                create: Structure "%object%" créée avec succès
+                edit: Structure "%object%" éditée avec succès
+                delete: Structure "%object%" supprimée avec succès
         list:
             active: Statut
             name: Nom
             short_name: Nom court
             siren: SIREN
             type: Type
+            other: Autre (Description)
             informations_complementaires: Informations complémentaires
+            date_maj: Date Mise à jour
+            nbr_agents: Nombre de salariés
+            nbr_cnil: Numéro de désignation CNIL
+            population: Population
+            tel_referent_rgpd: Tel Référent RGPD
         modal:
-            confirm_deletion: Voulez-vous vraiment supprimer cette collectivité ?
+            confirm_deletion: Voulez-vous vraiment supprimer cette Structure ?
         show:
             active: Statut
             address_line_one: Adresse
@@ -70,20 +110,25 @@ user:
             contact_last_name: Nom
             contact_job: Fonction
             contact_mail: Email
-            contact_phone_number: N° tél.
+            contact_phone_number: Téléphone
             created_at: Date de création
             different_dpo: Différent du DPD moral
             different_it_manager: Différent du Référent Opérationnel
             informations_complementaires: Informations complémentaires
             has_module_conformite_traitement: Module conformité des traitements
-            has_module_conformite_organisation: Module conformité de l'organisation
+            has_module_conformite_organisation: Module conformité de la structure
             name: Nom
             short_name: Nom court
             services: Services
             siren: SIREN
             type: Type
+            otherType: Autre type (descriptif)
             updated_at: Date de dernière modification
             website: Site internet
+            finess_geo: FINESS Géo
+            population: Population
+            nbr_agents: Nombre de salariés
+            nbr_cnil: Numéro de désignation CNIL
         tab:
           address: Adresse
           comite_il: Composition du comité Informatique et Libertés
@@ -97,31 +142,46 @@ user:
             management_commitment: Bilan paragraphe "Engagement de la direction"
             continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
           services: Services
+          population: Population
+          nbr_agents: Nombre de salariés
         title:
-            create: Créer une collectivité
-            delete: Supprimer une collectivité
-            edit: Éditer une collectivité
-            label: Collectivité
-            list: Liste des collectivités
-            show: Visualiser une collectivité
+            create: Créer une Structure
+            delete: Supprimer une Structure
+            edit: Éditer une Structure
+            label: Structure
+            list: Liste des structures
+            show: Visualiser une Structure
 
     profile:
         breadcrumb:
             collectivity_edit: Éditer
-            collectivity_show: Ma collectivité
+            collectivity_show: Ma Structure
             user_edit: Éditer mon profil
         flashbag:
             success:
-                collectivity_edit: Votre collectivité vient d'être mise à jour
+                collectivity_edit: Votre Structure vient d'être mise à jour
                 user_edit: Votre compte vient d'être mis à jour
+                sso_associated: Le compte a été associé
+                sso_unlink: Le compte a été dissocié
+            error:
+                sso_already_associated: La délégation d'authentification est déjà paramétrée
+                sso_key_duplicate: 'Identifiant SSO déjà utilisé pour le compte: email'
+            #                ...
         form_user:
             tab:
                 general: Vos informations
+                moreInfo: Informations supplémentaires
                 optional: Informations facultatives
+                login_delegation: Délégation de l'authentification
             help:
                 password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe
+            sso:
+                linked: Associé
+                link: Associer le compte
+                unlink: Dissocier le compte
+
         title:
-            collectivity_edit: Éditer ma collectivité
+            collectivity_edit: Éditer ma Structure
 
     security:
         forget_password:
@@ -145,6 +205,10 @@ user:
               error: Aucun compte associé à cette clé d'authentification
               success: Votre mot de passe vient d'être réinitialisé
           verbatim: Réinitialisation de votre mot de passe
+        sso_login:
+            link: Se connecter avec %service%
+            flashbag:
+                sso_client_error: Erreur service SSO
         title:
             forget_password: Mot de passe oublié
             forget_password_confirm: Mot de passe oublié
@@ -167,9 +231,10 @@ user:
             edit: Éditer "%name%"
             unarchive: Rétablir "%name%"
         form:
+            notifications: Notifications
             apiAuthorized: Accès aux Webservices (API)
-            collectivity: Collectivité
-            collectivitesReferees: Collectivités rattachées
+            collectivity: Structure
+            collectivitesReferees: Structures rattachées
             email: E-mail
             enabled: Actif
             first_name: Prénom
@@ -179,7 +244,13 @@ user:
             password: Mot de passe
             password_repeat: Répéter le mot de passe
             roles: Role
+            moreInfos: Informations supplémentaires
             services: Services
+            sso_key: Fournisseur d'identité
+            respInfo: Responsable informatique
+            respTreat: Responsable traitement
+            refOp: Référent RGPD
+            dpo: DPO
         flashbag:
             success:
                 create: Utilisateur "%object%" créée avec succès
@@ -187,13 +258,14 @@ user:
                 delete: Utilisateur "%object%" supprimée avec succès
                 unarchive: Utilisateur "%object%" rétabli avec succès
         list:
-            collectivity: Collectivité
+            collectivity: Structure
             email: E-mail
             enabled: Actif
             first_name: Prénom
             last_login: Dernière connexion
             last_name: Nom
             roles: Role
+            moreInfos: Informations supplémentaires
             services: Service
             services_list: Liste des services
             service_number_users: Nombre d'utilisateurs dans ce service

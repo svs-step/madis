@@ -209,8 +209,8 @@ class TreatmentController extends CRUDController
         }
 
         return $this->render('Registry/Treatment/configuration.html.twig', [
-            'route'     => $this->router->generate('registry_treatment_configuration', ['active' => $criteria['active']]),
-            'form'      => $form->createView(),
+            'route' => $this->router->generate('registry_treatment_configuration', ['active' => $criteria['active']]),
+            'form'  => $form->createView(),
         ]);
     }
 
@@ -230,9 +230,9 @@ class TreatmentController extends CRUDController
         ->getRepository(Treatment::class)
         ->findBy(
             [
-                'collectivity'  => $collectivity,
-                'public'        => 1,
-                'active'            => 1,
+                'collectivity' => $collectivity,
+                'public'       => 1,
+                'active'       => 1,
             ],
             [
                 'name' => 'ASC',
@@ -326,12 +326,12 @@ class TreatmentController extends CRUDController
      */
     public function listDataTables(Request $request): JsonResponse
     {
-        $request                   = $this->requestStack->getMasterRequest();
-        $criteria['active']        = $request->query->getBoolean('active');
-        $user                      = $this->userProvider->getAuthenticatedUser();
+        $request            = $this->requestStack->getMasterRequest();
+        $criteria['active'] = $request->query->getBoolean('active');
+        $user               = $this->userProvider->getAuthenticatedUser();
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity']  = $user->getCollectivity();
+            $criteria['collectivity'] = $user->getCollectivity();
         }
 
         if ($user) {
@@ -341,7 +341,7 @@ class TreatmentController extends CRUDController
         }
 
         /** @var Paginator $treatments */
-        $treatments  = $this->getResults($request, $criteria);
+        $treatments = $this->getResults($request, $criteria);
 
         $reponse = $this->getBaseDataTablesResponse($request, $treatments, $criteria);
 
@@ -388,7 +388,9 @@ class TreatmentController extends CRUDController
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
                 'specific_traitement'    => $this->getSpecificTraitement($treatment),
                 'conformite_traitement'  => $this->getTreatmentConformity($treatment),
+                'avis_aipd'              => $this->getAvisAipd($treatment),
                 'actions'                => $this->generateActionCellContent($treatment),
+                'exempt_AIPD'            => $treatment->getExemptAIPD() ? $yes : $no,
             ];
         }
 
@@ -417,6 +419,40 @@ class TreatmentController extends CRUDController
             default:
                 $label = 'Non-conforme majeure';
                 $class = 'label-danger';
+        }
+
+        return '<span class="label ' . $class . '" style="min-width: 100%; display: inline-block;">' . $label . '</span>';
+    }
+
+    private function getAvisAipd(Treatment $treatment)
+    {
+        if (!$treatment->getConformiteTraitement()) {
+            return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non réalisée</span>';
+        }
+        $conf = $treatment->getConformiteTraitement();
+
+        if (null === $conf->getLastAnalyseImpact()) {
+            return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non réalisée</span>';
+        }
+        $analyse_impact = $conf->getLastAnalyseImpact();
+        $statut         = $analyse_impact->getStatut();
+
+        switch ($statut) {
+            case 'defavorable':
+                $label = 'Défavorable';
+                $class = 'label-danger';
+                break;
+            case 'favorable_avec_reserves':
+                $label = 'Favorable avec réserves';
+                $class = 'label-warning';
+                break;
+            case 'favorable':
+                $label = 'Favorable';
+                $class = 'label-success';
+                break;
+            default:
+                $label = 'Non réalisée';
+                $class = 'label-default';
         }
 
         return '<span class="label ' . $class . '" style="min-width: 100%; display: inline-block;">' . $label . '</span>';
@@ -456,7 +492,7 @@ class TreatmentController extends CRUDController
 
     private function isTreatmentInUserServices(Model\Treatment $treatment): bool
     {
-        $user   = $this->userProvider->getAuthenticatedUser();
+        $user = $this->userProvider->getAuthenticatedUser();
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             return true;
         }
@@ -482,18 +518,17 @@ class TreatmentController extends CRUDController
                  <i class="fa fa-trash"></i>
                  ' . $this->translator->trans('action.delete') . '
              </a>'
-                    ;
+                ;
             }
         }
 
         return null;
     }
 
-    public function pdfAllAction()
+    public function pdfAllAction(Request $request)
     {
-        $request = $this->requestStack->getMasterRequest();
-        $ids     = $request->query->get('ids');
-        $ids     = explode(',', $ids);
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
 
         $objects = [];
 
@@ -514,11 +549,10 @@ class TreatmentController extends CRUDController
      * The archive action view
      * Display a confirmation message to confirm data archivation.
      */
-    public function archiveAllAction(): Response
+    public function archiveAllAction(Request $request): Response
     {
-        $request = $this->requestStack->getMasterRequest();
-        $ids     = $request->query->get('ids');
-        $ids     = explode(',', $ids);
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
 
         if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
             $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');
@@ -527,8 +561,8 @@ class TreatmentController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('archive_all'), [ // delete_all
-            'ids'               => $ids,
-            'treatment_length'  => count($ids),
+            'ids'              => $ids,
+            'treatment_length' => count($ids),
         ]);
     }
 
@@ -575,11 +609,10 @@ class TreatmentController extends CRUDController
      * The delete action view
      * Display a confirmation message to confirm data deletion.
      */
-    public function deleteAllAction(): Response
+    public function deleteAllAction(Request $request): Response
     {
-        $request = $this->requestStack->getMasterRequest();
-        $ids     = $request->query->get('ids');
-        $ids     = explode(',', $ids);
+        $ids = $request->query->get('ids');
+        $ids = explode(',', $ids);
 
         if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
             $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');
@@ -588,15 +621,14 @@ class TreatmentController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('delete_all'), [ // delete_all
-            'ids'               => $ids,
-            'treatment_length'  => count($ids),
+            'ids'              => $ids,
+            'treatment_length' => count($ids),
         ]);
     }
 
-    public function deleteConfirmationAllAction(): Response
+    public function deleteConfirmationAllAction(Request $request): Response
     {
-        $request = $this->requestStack->getMasterRequest();
-        $ids     = $request->query->get('ids');
+        $ids = $request->query->get('ids');
 
         if (!$this->authorizationChecker->isGranted('ROLE_USER')) {
             $this->addFlash('error', 'Vous ne pouvez pas supprimer ces traitements');

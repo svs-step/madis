@@ -1,0 +1,16 @@
+{% extends 'base_mail.html.twig' %}
+
+{% block body %}
+    <h1>{{ 'notification.email.subject'|trans }}</h1>
+
+    <p>Bonjour{{ user ? ' ' ~ user.firstname : '' }},</p>
+    <p>Des modifications ont été apportées dans <span style="color:#3880AB"><b>Madis</b></span>.</p>
+
+    {% for notification in notifications %}
+        <p>{{ notification|sentence|raw }}</p>
+    {% endfor %}
+
+    <p>
+        <a href="{{ url('reporting_dashboard_index') }}">{{ 'notification.email.madis'|trans }}</a>
+    </p>
+{% endblock %}

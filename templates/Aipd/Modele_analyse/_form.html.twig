@@ -107,9 +107,9 @@
                             <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
                             <th>{{ 'aipd.scenario_menace.list.mesures'|trans }}</th>
                             <th style="max-width: 40px">{{ 'aipd.scenario_menace.list.visible'|trans }}</th>
-                            <th style="max-width: 30px">D</th>
-                            <th style="max-width: 30px">I</th>
-                            <th style="max-width: 30px">C</th>
+                            <th style="width: 3%" title="{{'aipd.scenario_menace.list.title_d'|trans}}">D</th>
+                            <th style="width: 3%" title="{{'aipd.scenario_menace.list.title_i'|trans}}">I</th>
+                            <th style="width: 3%" title="{{'aipd.scenario_menace.list.title_c'|trans}}">C</th>
                             <th>{{ 'aipd.scenario_menace.list.vraisemblance'|trans }}</th>
                             <th>{{ 'aipd.scenario_menace.list.gravite'|trans }}</th>
                             <th>{{ 'aipd.scenario_menace.list.precision'|trans }}</th>
@@ -119,7 +119,6 @@
                             {{ formMacros.printScenariosMenaces(scenarioMenace) }}
                         {% endfor %}
                     </table>
-                    {{ form_widget(form.scenarioMenaces) }}
                 </div>
             </div>
         {% endif %}
@@ -137,7 +136,7 @@
                         craue_formflow_button_render_reset: false,
                         craue_formflow_button_label_next: 'Suivant',
                         craue_formflow_button_label_back: 'Précédent',
-                        craue_formflow_button_label_last: 'Terminer',
+                        craue_formflow_button_label_finish: 'Enregistrer',
                     } %}
                 </div>
             </div>

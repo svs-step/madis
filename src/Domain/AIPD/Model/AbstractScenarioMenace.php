@@ -24,6 +24,7 @@ abstract class AbstractScenarioMenace
 
     /**
      * @var array|PersistentCollection|AnalyseMesureProtection[]|ModeleMesureProtection[]
+     *
      * @Serializer\Type("array<App\Domain\AIPD\Model\ModeleMesureProtection>")
      */
     protected $mesuresProtections;

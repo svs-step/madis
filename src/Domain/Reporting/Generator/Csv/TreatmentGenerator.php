@@ -157,6 +157,7 @@ class TreatmentGenerator extends AbstractGenerator
             $this->translator->trans('registry.treatment.show.legal_basis_justification'),
             $this->translator->trans('registry.treatment.show.observation'),
             $this->translator->trans('registry.treatment.show.public_register'),
+            $this->translator->trans('registry.treatment.show.exempt_AIPD'),
             $this->translator->trans('registry.treatment.show.dpo_message'),
         ];
     }
@@ -267,6 +268,8 @@ class TreatmentGenerator extends AbstractGenerator
             $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_company') . ' - Commentaire',
             $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_partner'),
             $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_partner') . ' - Commentaire',
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_usager'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_usager') . ' - Commentaire',
             $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_other'),
             $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_other') . ' - Commentaire',
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.estimated_concerned_people'),
@@ -291,6 +294,8 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getConcernedPeopleParticular()->getComment(),
             $treatment->getConcernedPeopleUser()->isCheck() ? $yes : $no,
             $treatment->getConcernedPeopleUser()->getComment(),
+            $treatment->getConcernedPeopleUsager()->isCheck() ? $yes : $no,
+            $treatment->getConcernedPeopleUsager()->getComment(),
             $treatment->getConcernedPeopleAgent()->isCheck() ? $yes : $no,
             $treatment->getConcernedPeopleAgent()->getComment(),
             $treatment->getConcernedPeopleElected()->isCheck() ? $yes : $no,

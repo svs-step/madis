@@ -118,10 +118,10 @@ class DuplicationType extends AbstractType
                     return $er->createQueryBuilder('c')
                         ->orderBy('c.name', 'ASC');
                 },
-                'required'   => false,
-                'multiple'   => true,
-                'expanded'   => false,
-                'attr'       => [
+                'required' => false,
+                'multiple' => true,
+                'expanded' => false,
+                'attr'     => [
                     'size' => 18,
                 ],
             ])
@@ -130,7 +130,7 @@ class DuplicationType extends AbstractType
         // Reset view transformer to disable mapping between choices values & given values
         // Since we send "random" values which are not defined in Form, no need to validate sended values with transformer
         // This data initial view transformer is \Symfony\Component\Form\Extension\Core\DataTransformer\ChoicesToValuesTransformer
-        //$builder->get('data')->resetViewTransformers();
+        // $builder->get('data')->resetViewTransformers();
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
             $data = $event->getData();
@@ -151,8 +151,6 @@ class DuplicationType extends AbstractType
             $choices = array_map(function ($object) {
                 return $object->getId()->__toString();
             }, $choices);
-//            dump($data['data']);
-//            dd($choices);
 
             $form->add('data', ChoiceType::class, [
                 'label'    => 'admin.duplication.form.data',

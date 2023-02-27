@@ -59,9 +59,19 @@
                             <td><strong>{{ 'user.collectivity.show.type'|trans }}</strong></td>
                             <td>{% if object.type is not null %}{{ object.type|dictionary('user_collectivity_type') }}{% endif %}</td>
                         </tr>
+                        {% if object.type|dictionary('user_collectivity_type') == 'Autre' %}
+                            <tr>
+                                <td><strong>{{ 'user.collectivity.show.otherType'|trans }}</strong></td>
+                                <td>{{ object.otherType }}</td>
+                            </tr>
+                        {% endif %}
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.siren'|trans }}</strong></td>
                             <td>{{ object.siren|number_format(0, '.', ' ') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.finess_geo'|trans }}</strong></td>
+                            <td>{{ object.finessGeo }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.active'|trans }}</strong></td>
@@ -100,6 +110,14 @@
                                     {% endif %}
                                 </span>
                             </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.nbr_agents'|trans }}</strong></td>
+                            <td>{{ object.nbrAgents }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.population'|trans }}</strong></td>
+                            <td>{{ object.population }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.informations_complementaires'|trans }}</strong></td>
@@ -286,6 +304,10 @@
                     <table class="table">
                         <tbody>
                         <tr>
+                            <td><strong>{{ 'user.collectivity.show.nbr_cnil'|trans }}</strong></td>
+                            <td>{{ object.nbrCnil }}</td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'user.collectivity.show.different_dpo'|trans }}</strong></td>
                             <td>
                                 <span class="badge bg-gr">
@@ -300,7 +322,7 @@
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
                             <td>
-                                {% if object.dpo.firstname is not null %}
+                                {% if object.differentDpo %}
                                     {{ object.dpo.civility|dictionary('user_contact_civility') }}
                                 {% else %}
                                     {{ default_dpo_civility }}
@@ -309,23 +331,43 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
-                            <td>{{ object.dpo.firstName|default(default_dpo_firstName) }}</td>
+                            {% if object.differentDpo %}
+                                <td>{{ object.dpo.firstName }}</td>
+                            {% else %}
+                                <td>{{ default_dpo_firstName }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
-                            <td>{{ object.dpo.lastName|default(default_dpo_lastName) }}</td>
+                            {% if object.differentDpo %}
+                                <td>{{ object.dpo.lastName }}</td>
+                            {% else %}
+                                <td>{{ default_dpo_lastName }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
-                            <td>{{ object.dpo.job|default(default_dpo_job) }}</td>
+                            {% if object.differentDpo %}
+                                <td>{{ object.dpo.job }}</td>
+                            {% else %}
+                                <td>{{ default_dpo_job }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
-                            <td>{{ object.dpo.mail|default(default_dpo_mail) }}</td>
+                            {% if object.differentDpo %}
+                                <td>{{ object.dpo.mail }}</td>
+                            {% else %}
+                                <td>{{ default_dpo_mail }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
-                            <td>{{ object.dpo.phoneNumber|default(default_dpo_phoneNumber) }}</td>
+                            {% if object.differentDpo %}
+                                <td>{{ object.dpo.phoneNumber }}</td>
+                            {% else %}
+                                <td>{{ default_dpo_phoneNumber }}</td>
+                            {% endif %}
                         </tr>
                         </tbody>
                     </table>
@@ -439,28 +481,29 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-md-6">
-            <div class="box box-solid box-default">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.services'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th><strong>{{ 'user.collectivity.show.name'|trans }}</strong></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for service in object.services %}
+        {% if object.isServicesEnabled and object.services is not empty %}
+            <div class="col-md-6">
+                <div class="box box-solid box-default">
+                    <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.services'|trans }}</h3></div>
+                    <div class="box-body no-padding">
+                        <table class="table">
+                            <thead>
                             <tr>
-                                <td>{{ service.name }}</td>
+                                <th><strong>{{ 'user.collectivity.show.name'|trans }}</strong></th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {% for service in object.services %}
+                                <tr>
+                                    <td>{{ service.name }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
 
     </div>
 {% endblock %}

@@ -44,6 +44,7 @@ class Document
     use CreatorTrait;
     /**
      * @ORM\Id()
+     *
      * @ORM\Column(type="uuid")
      *
      * @var UuidInterface
@@ -67,7 +68,7 @@ class Document
     /**
      * @ORM\Column(type="integer", nullable=true)
      *
-     * @var string|null
+     * @var int|null
      */
     private $size;
 
@@ -95,6 +96,7 @@ class Document
 
     /**
      * @var string|null
+     *
      * @ORM\Column(type="text", length=255, nullable=true)
      */
     private $thumbUrl;
@@ -115,6 +117,7 @@ class Document
 
     /**
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="documents")
+     *
      * @ORM\JoinTable(name="document_categories",
      *      joinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="document_id", referencedColumnName="id")}
@@ -126,6 +129,7 @@ class Document
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Domain\User\Model\User", inversedBy="favoriteDocuments")
+     *
      * @ORM\JoinTable(name="user_favorite_documents",
      *      joinColumns={@ORM\JoinColumn(name="document_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
@@ -137,6 +141,7 @@ class Document
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User", cascade={"persist"})
+     *
      * @ORM\JoinColumn(onDelete="SET NULL")
      *
      * @var User|null
@@ -331,7 +336,7 @@ class Document
             return 'Vide';
         }
         $units = ['o', 'Ko', 'Mo', 'Go', 'To', 'Po', 'Eo', 'Zo', 'Yo'];
-        $pow   = $this->size > 0 ? floor(log((float) $this->size, 1024)) : 0;
+        $pow   = floor(log((float) $this->size, 1024));
         $size  = number_format($this->size / pow(1024, $pow), 2, ',', ' ') . ' ' . $units[$pow];
 
         return $size;

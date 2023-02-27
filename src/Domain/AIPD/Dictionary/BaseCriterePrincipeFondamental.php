@@ -9,11 +9,11 @@ use App\Domain\AIPD\Model\CriterePrincipeFondamental;
 
 class BaseCriterePrincipeFondamental extends SimpleDictionary
 {
-    const PORTE_TRAITEMENT          = 'portee_traitement';
-    const IDENTIFICATION_BIENS      = 'identification_biens';
-    const DESCRIPTION_FONCTIONNELLE = 'description_fonctionnelle';
-    const CONFORMITE_CODE           = 'conformite_code';
-    const CONTEXTE_TRAITEMENT       = 'contexte_traitement';
+    public const PORTE_TRAITEMENT          = 'portee_traitement';
+    public const IDENTIFICATION_BIENS      = 'identification_biens';
+    public const DESCRIPTION_FONCTIONNELLE = 'description_fonctionnelle';
+    public const CONFORMITE_CODE           = 'conformite_code';
+    public const CONTEXTE_TRAITEMENT       = 'contexte_traitement';
 
     public function __construct()
     {

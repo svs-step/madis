@@ -73,12 +73,12 @@ class AccessModuleConformiteSubscriber implements EventSubscriberInterface
 
         switch (true) {
             case $controller[0] instanceof ConformiteTraitementController
-                && !$user->getCollectivity()->isHasModuleConformiteTraitement():
+            && !$user->getCollectivity()->isHasModuleConformiteTraitement():
                 throw new AccessDeniedHttpException('You can\'t access to conformite des traitements');
                 break;
             case $controller[0] instanceof ConformiteOrganisationController
-                && !$user->getCollectivity()->isHasModuleConformiteOrganisation():
-                throw new AccessDeniedHttpException('You can\'t access to conformite de l\'organisation');
+            && !$user->getCollectivity()->isHasModuleConformiteOrganisation():
+                throw new AccessDeniedHttpException('You can\'t access to conformite de la structure');
                 break;
         }
     }

@@ -80,14 +80,15 @@ class TreatmentTypeTest extends FormTypeHelper
 
     public function testBuildForm()
     {
-        $treatment      = new Treatment();
-        $collectivity   = new Collectivity();
+        $treatment    = new Treatment();
+        $collectivity = new Collectivity();
         $collectivity->setIsServicesEnabled(true);
         $treatment->setCollectivity($collectivity);
 
         $builder = [
             'public'                            => CheckboxType::class,
             'name'                              => TextType::class,
+            'exempt_AIPD'                       => CheckboxType::class,
             'service'                           => EntityType::class,
             'goal'                              => TextareaType::class,
             'manager'                           => TextType::class,
@@ -102,6 +103,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'concernedPeopleElected'            => ComplexChoiceType::class,
             'concernedPeopleCompany'            => ComplexChoiceType::class,
             'concernedPeoplePartner'            => ComplexChoiceType::class,
+            'concernedPeopleUsager'             => ComplexChoiceType::class,
             'concernedPeopleOther'              => ComplexChoiceType::class,
             'dataCategories'                    => EntityType::class,
             'dataCategoryOther'                 => TextareaType::class,
@@ -132,6 +134,9 @@ class TreatmentTypeTest extends FormTypeHelper
             'securitySpecificitiesDelivered'    => CheckboxType::class,
             'ultimateFate'                      => DictionaryType::class,
             'otherCollectingMethod'             => TextType::class,
+            'legalMentions'                     => CheckboxType::class,
+            'consentRequest'                    => CheckboxType::class,
+            'consentRequestFormat'              => TextType::class,
         ];
 
         $this->formType->buildForm($this->prophesizeBuilder($builder), ['data' => $treatment]);

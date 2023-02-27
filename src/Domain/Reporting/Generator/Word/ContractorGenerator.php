@@ -193,11 +193,15 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
                     ],
                 ],
                 [
+                    'Pays',
+                    $contractor->getAddress()->getCountry(),
+                ],
+                [
                     'Email',
                     $contractor->getAddress()->getMail(),
                 ],
                 [
-                    'N° de téléphone',
+                    'Téléphone',
                     $contractor->getAddress()->getPhoneNumber(),
                 ],
             ];
@@ -224,7 +228,7 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
                     $contractor->getDpo()->getMail(),
                 ],
                 [
-                    'N° tél.',
+                    'Téléphone',
                     $contractor->getDpo()->getPhoneNumber(),
                 ],
             ];
@@ -247,7 +251,7 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
             $section->addTitle('Informations générales', 3);
             $this->addTable($section, $generalInformationsData, true, self::TABLE_ORIENTATION_VERTICAL);
 
-            $section->addTitle('Adresse', 3);
+            $section->addTitle('Coordonnées', 3);
             $this->addTable($section, $addressData, true, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('DPD', 3);
