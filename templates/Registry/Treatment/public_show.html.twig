@@ -243,7 +243,8 @@
 
         {# SPECIFIC #}
         {% if (
-            (config.systematicMonitoring == true)
+            (config.exempt_AIPD == true)
+            or (config.systematicMonitoring == true)
             or (config.largeScaleCollection == true)
             or (config.vulnerablePeople == true)
             or (config.dataCrossing == true)
@@ -258,6 +259,22 @@
                 <div class="box-body no-padding">
                     <table class="table">
                         <tbody>
+                            {% if (config.exempt_AIPD == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.exempt_AIPD'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% if object.exemptAIPD %}
+                                                <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            {% else %}
+                                                <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endif %}
                             {% if (config.systematicMonitoring == true) %}
                                 <tr>
                                     <td>
