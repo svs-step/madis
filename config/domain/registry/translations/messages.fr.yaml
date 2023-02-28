@@ -518,6 +518,7 @@ registry:
                 delete: Traitement "%object%" supprimé avec succès
                 archive: Traitement "%object%" archivé avec succès
         list:
+            sensitive_data: Données sensibles
             access_control: Controle d'accès
             active: Statut
             author: En tant que
