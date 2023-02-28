@@ -5,7 +5,7 @@
 
     <p>Bonjour{{ user ? ' ' ~ user.firstname : '' }},</p>
     <p>
-        {{ app_notification_email_first_line }}
+        {{ app_notification_email_first_line|raw }}
     </p>
 
     {% for notification in notifications %}
