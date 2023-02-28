@@ -31,7 +31,6 @@ use App\Domain\Documentation\Model;
 use App\Domain\Documentation\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -119,15 +118,6 @@ class CategoryController extends CRUDController
     public function formPrePersistData($object)
     {
         $object->setSysteme(false);
-    }
-
-    public function editAction(Request $request, string $id): Response
-    {
-        if ($this->isGranted('ROLE_ADMIN')) {
-            return parent::editAction($request, $id);
-        }
-
-        return $this->redirectToRoute('documentation_document_list');
     }
 
     /**
