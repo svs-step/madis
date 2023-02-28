@@ -12,6 +12,7 @@ class AbstractMesureProtection
 {
     /**
      * @Serializer\Accessor(getter="getIdString",setter="setIdFromString")
+     *
      * @Serializer\Type("string")
      */
     private UuidInterface $id;
