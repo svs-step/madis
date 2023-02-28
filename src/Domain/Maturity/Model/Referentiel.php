@@ -49,7 +49,6 @@ class Referentiel
      */
     private $domains;
 
-
     /**
      * @var iterable
      */
@@ -78,9 +77,9 @@ class Referentiel
 
     public function __construct()
     {
-        $this->id                  = Uuid::uuid4();
-        $this->domains = new ArrayCollection();
-        $this->authorizedCollectivities = new ArrayCollection();
+        $this->id                          = Uuid::uuid4();
+        $this->domains                     = new ArrayCollection();
+        $this->authorizedCollectivities    = new ArrayCollection();
         $this->authorizedCollectivityTypes = new ArrayCollection();
     }
 
@@ -122,7 +121,6 @@ class Referentiel
         $this->description = $description;
     }
 
-
     public function getAuthorizedCollectivities()
     {
         return $this->authorizedCollectivities;
@@ -163,9 +161,6 @@ class Referentiel
         $this->authorizedCollectivityTypes = $authorizedCollectivityTypes;
     }
 
-    /**
-     * @return iterable
-     */
     public function getDomains(): iterable
     {
         return $this->domains;
@@ -179,17 +174,11 @@ class Referentiel
         $this->domains = $domains;
     }
 
-    /**
-     * @return iterable
-     */
     public function getMaturity(): iterable
     {
         return $this->maturity;
     }
 
-    /**
-     * @param iterable $maturity
-     */
     public function setMaturity(iterable $maturity): void
     {
         $this->maturity = $maturity;

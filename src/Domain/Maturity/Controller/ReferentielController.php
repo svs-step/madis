@@ -195,7 +195,6 @@ class ReferentielController extends CRUDController
 
                 foreach ($question->getAnswers() as $l => $answer) {
                     /** @var Model\Answer $answer */
-
                     if (is_null($answer->getPosition())) {
                         $answer->setPosition($l);
                     }
@@ -211,7 +210,6 @@ class ReferentielController extends CRUDController
 
         $object->setDomains($domains);
     }
-
 
     /**
      * The list action view

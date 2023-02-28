@@ -50,6 +50,11 @@ class Maturity
     private $survey;
 
     /**
+     * @var Domain|null
+     */
+    private $domain;
+
+    /**
      * Maturity constructor.
      *
      * @throws \Exception
@@ -94,17 +99,11 @@ class Maturity
         $this->survey = $survey;
     }
 
-    /**
-     * @return Referentiel|null
-     */
     public function getReferentiel(): ?Referentiel
     {
         return $this->referentiel;
     }
 
-    /**
-     * @param Referentiel|null $referentiel
-     */
     public function setReferentiel(?Referentiel $referentiel): void
     {
         $this->referentiel = $referentiel;

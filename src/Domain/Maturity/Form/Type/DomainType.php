@@ -25,7 +25,6 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Model\Domain;
-use App\Domain\Maturity\Model\ReferentielSection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;

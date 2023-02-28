@@ -71,7 +71,7 @@ class Answer
      */
     public function __construct()
     {
-        $this->id = Uuid::uuid4();
+        $this->id       = Uuid::uuid4();
         $this->response = '';
     }
 
@@ -115,49 +115,31 @@ class Answer
         $this->surveys[] = $survey;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getRecommendation(): ?string
     {
         return $this->recommendation;
     }
 
-    /**
-     * @param string|null $recommendation
-     */
     public function setRecommendation(?string $recommendation): void
     {
         $this->recommendation = $recommendation;
     }
 
-    /**
-     * @return int|null
-     */
     public function getPosition(): ?int
     {
         return $this->position;
     }
 
-    /**
-     * @param int|null $position
-     */
     public function setPosition(?int $position): void
     {
         $this->position = $position;

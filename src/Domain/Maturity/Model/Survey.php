@@ -28,7 +28,6 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Reporting\Model\LoggableSubject;
-use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -145,20 +144,13 @@ class Survey implements LoggableSubject
         $this->score = $score;
     }
 
-    /**
-     * @return Referentiel
-     */
     public function getReferentiel(): Referentiel
     {
         return $this->referentiel;
     }
 
-    /**
-     * @param Referentiel $referentiel
-     */
     public function setReferentiel(Referentiel $referentiel): void
     {
         $this->referentiel = $referentiel;
     }
 }
-

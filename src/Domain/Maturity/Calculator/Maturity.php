@@ -91,7 +91,7 @@ class Maturity
      */
     public function getGlobalScore(array $maturityList = []): int
     {
-        if (count($maturityList) === 0) {
+        if (0 === count($maturityList)) {
             return 0;
         }
 

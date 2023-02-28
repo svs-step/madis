@@ -58,6 +58,10 @@ class Domain
      * @var iterable
      */
     private $questions;
+    /**
+     * @var iterable
+     */
+    private $maturity;
 
     /**
      * @var Referentiel
@@ -160,33 +164,21 @@ class Domain
         return $this->maturity;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string|null $description
-     */
     public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
-    /**
-     * @return Referentiel
-     */
     public function getReferentiel(): Referentiel
     {
         return $this->referentiel;
     }
 
-    /**
-     * @param Referentiel $referentiel
-     */
     public function setReferentiel(Referentiel $referentiel): void
     {
         $this->referentiel = $referentiel;

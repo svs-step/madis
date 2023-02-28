@@ -25,7 +25,6 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Model\Answer;
-use App\Domain\Maturity\Model\ReferentielAnswer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
