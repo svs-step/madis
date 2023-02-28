@@ -443,7 +443,7 @@ class TreatmentController extends CRUDController
                 $class = 'label-danger';
                 break;
             case 'favorable_avec_reserves':
-                $label = 'Favorable avec réserves';
+                $label = 'Favorable avec réserve(s)';
                 $class = 'label-warning';
                 break;
             case 'favorable':

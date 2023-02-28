@@ -24,7 +24,7 @@ class StatutAnalyseImpactDictionary extends SimpleDictionary
         return [
             self::NON_REALISEE            => 'Non réalisée',
             self::FAVORABLE               => 'Favorable',
-            self::FAVORABLE_AVEC_RESERVES => 'Favorable avec réserves',
+            self::FAVORABLE_AVEC_RESERVES => 'Favorable avec réserve(s)',
             self::NON_FAVORABLE           => 'Non favorable',
             self::EN_COURS                => 'En cours',
         ];
