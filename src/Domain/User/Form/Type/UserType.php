@@ -104,7 +104,7 @@ class UserType extends AbstractType
                         return $er->createQueryBuilder('c')
                             ->orderBy('c.name', 'ASC');
                     },
-                    'required' => true,
+                    'required'      => true,
                 ])
                 ->add('roles', DictionaryType::class, [
                     'label'    => 'user.user.form.roles',
@@ -128,10 +128,10 @@ class UserType extends AbstractType
                         return $er->createQueryBuilder('c')
                             ->orderBy('c.name', 'ASC');
                     },
-                    'required' => false,
-                    'multiple' => true,
-                    'expanded' => false,
-                    'attr'     => [
+                    'required'      => false,
+                    'multiple'      => true,
+                    'expanded'      => false,
+                    'attr'          => [
                         'class'            => 'selectpicker',
                         'title'            => 'placeholder.multiple_select',
                         'data-live-search' => true,
@@ -232,8 +232,8 @@ class UserType extends AbstractType
                 'placeholder' => 'Aucune information',
             ])
             ->add('plainPassword', RepeatedType::class, [
-                'type'          => PasswordType::class,
-                'first_options' => [
+                'type'           => PasswordType::class,
+                'first_options'  => [
                     'label' => 'user.user.form.password',
                     'attr'  => [
                         'maxlength' => 255,
@@ -245,7 +245,7 @@ class UserType extends AbstractType
                         'maxlength' => 255,
                     ],
                 ],
-                'required' => false,
+                'required'       => false,
             ])
             ->add('emailNotificationPreference', EmailNotificationPreferenceType::class)
         ;
