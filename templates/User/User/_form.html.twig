@@ -79,8 +79,9 @@
                 </div>
             </div>
         {% endif %}
-
+        {% if app_activate_notifications == 'true' %}
         {% include('@templates_path/User/Profile/notifications.html.twig') %}
+        {% endif %}
     </div>
 
 

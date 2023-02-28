@@ -28,9 +28,22 @@ use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
 use App\Domain\User\Model\Collectivity;
+use Doctrine\Persistence\ManagerRegistry;
 
 class Survey extends CRUDRepository implements Repository\Survey
 {
+    private string $lateSurveyDelayDays;
+
+    /**
+     * CRUDRepository constructor.
+     */
+    public function __construct(ManagerRegistry $registry, string $lateSurveyDelayDays)
+    {
+        parent::__construct($registry);
+
+        $this->lateSurveyDelayDays = $lateSurveyDelayDays;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -149,7 +162,7 @@ class Survey extends CRUDRepository implements Repository\Survey
     public function findAllLate(): array
     {
         $now       = new \DateTime();
-        $monthsAgo = $now->sub(\DateInterval::createFromDateString('1 month'));
+        $monthsAgo = $now->sub(\DateInterval::createFromDateString($this->lateSurveyDelayDays . ' days'));
 
         return $this->createQueryBuilder()
             ->andWhere('o.updatedAt < :lastmonth')

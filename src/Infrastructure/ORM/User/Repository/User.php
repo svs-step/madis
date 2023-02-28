@@ -31,10 +31,19 @@ use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Persistence\ManagerRegistry;
 
 class User extends CRUDRepository implements Repository\User
 {
     use RepositoryUtils;
+
+    private string $inactiveUserDelayDays;
+
+    public function __construct(ManagerRegistry $registry, string $inactiveUserDelayDays)
+    {
+        parent::__construct($registry);
+        $this->inactiveUserDelayDays = $inactiveUserDelayDays;
+    }
 
     /**
      * {@inheritdoc}
@@ -268,7 +277,7 @@ class User extends CRUDRepository implements Repository\User
     public function findAllNoLogin()
     {
         $now       = new \DateTime();
-        $monthsAgo = $now->sub(\DateInterval::createFromDateString('6 month'));
+        $monthsAgo = $now->sub(\DateInterval::createFromDateString($this->inactiveUserDelayDays . ' days'));
         $qb        = $this->createQueryBuilder();
         $query     = $qb->where($qb->expr()->isNull('o.lastLogin'))
             ->andWhere($qb->expr()->orX(

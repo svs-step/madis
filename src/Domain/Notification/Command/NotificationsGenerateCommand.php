@@ -35,13 +35,16 @@ class NotificationsGenerateCommand extends Command
 
     private SymfonyStyle $io;
 
+    private bool $activeNotifications;
+
     public function __construct(
         EventDispatcherInterface $dispatcher,
         MesurementRepository $mesurementRepository,
         RequestRepository $requestRepository,
         UserRepository $userRepository,
         SurveyRepository $surveyRepository,
-        ConformiteTraitementRepository $conformiteTraitementRepository
+        ConformiteTraitementRepository $conformiteTraitementRepository,
+        string $activeNotifications
     ) {
         $this->dispatcher                     = $dispatcher;
         $this->mesurementRepository           = $mesurementRepository;
@@ -49,6 +52,8 @@ class NotificationsGenerateCommand extends Command
         $this->userRepository                 = $userRepository;
         $this->surveyRepository               = $surveyRepository;
         $this->conformiteTraitementRepository = $conformiteTraitementRepository;
+
+        $this->activeNotifications = 'true' === $activeNotifications;
 
         parent::__construct();
     }
@@ -63,7 +68,12 @@ class NotificationsGenerateCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->io = new SymfonyStyle($input, $output);
-        $cnt      = $this->generateNoLoginNotifications();
+
+        if (!$this->activeNotifications) {
+            $this->io->warning('Notifications are not active. Exiting now');
+            exit(0);
+        }
+        $cnt = $this->generateNoLoginNotifications();
         $this->io->success($cnt . ' inactive users notifications generated');
 
         $cnt = $this->generateLateActionNotifications();

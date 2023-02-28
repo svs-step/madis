@@ -40,6 +40,8 @@ class Request implements Repository\Request
 {
     use RepositoryUtils;
 
+    private string $lateRequestDelayDays;
+
     /**
      * @var ManagerRegistry
      */
@@ -48,9 +50,10 @@ class Request implements Repository\Request
     /**
      * Request constructor.
      */
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, string $lateRequestDelayDays)
     {
-        $this->registry = $registry;
+        $this->registry             = $registry;
+        $this->lateRequestDelayDays = $lateRequestDelayDays;
     }
 
     /**
@@ -473,7 +476,7 @@ class Request implements Repository\Request
     public function findAllLate(): array
     {
         $now       = new \DateTime();
-        $lastMonth = $now->sub(\DateInterval::createFromDateString('1 month'));
+        $lastMonth = $now->sub(\DateInterval::createFromDateString($this->lateRequestDelayDays . ' days'));
 
         return $this->createQueryBuilder()
             ->andWhere('o.updatedAt < :lastmonth')

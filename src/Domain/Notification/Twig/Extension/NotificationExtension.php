@@ -40,9 +40,17 @@ class NotificationExtension extends AbstractExtension
         $sentence = '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong> ' .
             $this->translator->trans($notification->getAction()) . ' ';
 
-        $sentence .= ' : ' .
-            '<a href="' . $this->getObjectLink($notification) . '">' . $notification->getName() . '</a> '
-        ;
+        $link = $this->getObjectLink($notification);
+
+        if ($link && 'delete' !== $notification->getAction()) {
+            $sentence .= ' : ' .
+                '<a href="' . $link . '">' . $notification->getName() . '</a> '
+            ;
+        } else {
+            $sentence .= ' : ' .
+                '<span>' . $notification->getName() . '</span> '
+            ;
+        }
 
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Violation::class]) {
             $natures = [];

@@ -61,7 +61,7 @@ class UserTest extends TestCase
         $this->registryProphecy      = $this->prophesize(ManagerRegistry::class);
         $this->entityManagerProphecy = $this->prophesize(EntityManagerInterface::class);
 
-        $this->infraRepo = new InfraRepo\User($this->registryProphecy->reveal());
+        $this->infraRepo = new InfraRepo\User($this->registryProphecy->reveal(), '60');
     }
 
     /**
