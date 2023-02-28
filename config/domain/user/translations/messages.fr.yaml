@@ -25,8 +25,8 @@ user:
                 week: Hebdomadaire
                 day: Quotidien
                 hour: Toutes les
-                each: A chaque notification
-                none: Jamais
+                each: À chaque notification
+                none: aucun notification
                 label_hour: heures
                 monthly: Mensuelle le
                 weekly: Hebdomadaire le
@@ -39,11 +39,11 @@ user:
                 violation: Violations
                 proof: Preuves
                 protect_action: Actions de protection
-                maturity: Maturité
+                maturity: Indice de maturité
                 treatment_conformity: Conformité des traitements
                 organization_conformity: Conformité de la structure
                 aipd: AIPD
-                document: Documents
+                document: Espace documentaire
 
     collectivity:
         action:

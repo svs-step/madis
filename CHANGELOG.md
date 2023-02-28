@@ -1,8 +1,29 @@
 CHANGELOG
 =========
+## [2.0.2] - 2023-02-28
+### Changement
+- Ajout des parametres suivants dans le .env concernant les notifications
+```
+# number of unread notificaitons to display on the admin dashboard
+APP_NOTIFICATION_DASHBOARD_NUMBER=15
+# number of unread notificaitons to display on the page header
+APP_NOTIFICATION_HEADER_NUMBER=5
+# Whether to show notifications on the admin dashboard
+APP_NOTIFICATION_DASHBOARD_SHOWN=true
+# Number of days before a inactive user notification is sent
+APP_INACTIVE_USER_NOTIFICATION_DELAY_DAYS=365
+# Number of days before a late request notification is sent
+APP_REQUEST_NOTIFICATION_DELAY_DAYS=365
+# Number of days before a late Survey (indice de maturité) notificaiton is sent
+APP_SURVEY_NOTIFICATION_DELAY_DAYS=365
+# First line of notification emails
+APP_NOTIFICATION_EMAIL_FIRST_LINE="Des modifications ont été apportées dans <a href='https://madis.fr'>Madis</a>"
+```
+
 ## [2.0.1] - 2022-12-13
 ### Changement
 - Ajout du parametre APP_URL dans le .env pour afficher les liens corrects dans les emails de notifications
+
 
 ## [2.0] - 2022-12-13
 ### Changement

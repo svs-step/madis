@@ -122,6 +122,13 @@
                                 <input class="form-control" type="text" id="search_sous_traitants" placeholder="Sous-traitants" style="width: 100%;">
                             </th>
                             <th>
+                                <select class="form-control" id="search_sensitive_data" style="width: 100%;">
+                                    <option value="">Données sensibles</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th>
                                 <select class="form-control" id="search_controle_acces" style="width: 100%;">
                                     <option value="">Contrôle d'accès</option>
                                     <option value="1">Oui</option>
@@ -203,6 +210,7 @@
                             <th>{{ 'registry.treatment.list.author'|trans }}</th>
                             <th>{{ 'registry.treatment.list.manager'|trans }}</th>
                             <th>{{ 'registry.treatment.list.contractors'|trans }}</th>
+                            <th>{{ 'registry.treatment.list.sensitive_data'|trans }}</th>
                             <th>{{ 'registry.treatment.list.access_control'|trans }}</th>
                             <th>{{ 'registry.treatment.list.tracability'|trans }}</th>
                             <th>{{ 'registry.treatment.list.saving'|trans }}</th>
@@ -251,6 +259,7 @@
         {"data": "enTantQue", "visible": false},
         {"data": "gestionnaire", "visible": true},
         {"data": "sousTraitant", "visible": false, "orderable": false},
+        {"data": "sensitiveData", "visible": false},
         {"data": "controleAcces", "visible": false},
         {"data": "tracabilite", "visible": false},
         {"data": "saving", "visible": true},
@@ -277,6 +286,7 @@
             {"data": "enTantQue", "visible": false},
             {"data": "gestionnaire", "visible": true},
             {"data": "sousTraitant", "visible": false, "orderable": false},
+            {"data": "sensitiveData", "visible": false},
             {"data": "controleAcces", "visible": false},
             {"data": "tracabilite", "visible": false},
             {"data": "saving", "visible": true},
@@ -426,56 +436,62 @@
                 oTable.column(col + 6).search($(this).val()).draw() ;
             }));
 
+            $('#search_sensitive_data').off('change');
+            $('#search_sensitive_data').change(function(){
+                oTable.column(col + 7).search($(this).val()).draw() ;
+            });
+
+
             $('#search_controle_acces').off('change');
             $('#search_controle_acces').change(function(){
-                oTable.column(col + 7).search($(this).val()).draw() ;
+                oTable.column(col + 8).search($(this).val()).draw() ;
             });
 
             $('#search_tracabilite').off('change');
             $('#search_tracabilite').change(function(){
-                oTable.column(col + 8).search($(this).val()).draw() ;
+                oTable.column(col + 9).search($(this).val()).draw() ;
             });
 
             $('#search_sauvegarde').off('change');
             $('#search_sauvegarde').change(function(){
-                oTable.column(col + 9).search($(this).val()).draw() ;
+                oTable.column(col + 10).search($(this).val()).draw() ;
             });
 
 
             $('#search_autres').off('change');
             $('#search_autres').change(function(){
-                oTable.column(col + 10).search($(this).val()).draw() ;
+                oTable.column(col + 11).search($(this).val()).draw() ;
             });
 
             $('#search_capacite').off('change');
             $('#search_capacite').change(function(){
-                oTable.column(col + 11).search($(this).val()).draw() ;
+                oTable.column(col + 12).search($(this).val()).draw() ;
             });
 
             $('#search_procedure').off('change');
             $('#search_procedure').change(function(){
-                oTable.column(col + 12).search($(this).val()).draw() ;
+                oTable.column(col + 13).search($(this).val()).draw() ;
             });
 
             $('#search_specificite').off('change');
             $('#search_specificite').change(function(){
-                oTable.column(col + 13).search($(this).val()).draw() ;
+                oTable.column(col + 14).search($(this).val()).draw() ;
             });
             $('#search_updated_at').off('change');
             $('#search_updated_at').change(function(){
-                oTable.column(col + 14).search($(this).val()).draw();
+                oTable.column(col + 15).search($(this).val()).draw();
             });
             $('#search_public').off('change');
             $('#search_public').change(function(){
-                oTable.column(col + 15).search($(this).val()).draw() ;
+                oTable.column(col + 16).search($(this).val()).draw() ;
             });
             $('#search_update').off('change');
             $('#search_update').change(function(){
-                oTable.column(col + 16).search($(this).val()).draw() ;
+                oTable.column(col + 17).search($(this).val()).draw() ;
             });
             $('#search_responsable_traitement').off('keyup');
             $('#search_responsable_traitement').keyup($.debounce(250, function(){
-                oTable.column(col + 17).search($(this).val()).draw() ;
+                oTable.column(col + 18).search($(this).val()).draw() ;
             }));
 
             // Handle click on "Select all" control

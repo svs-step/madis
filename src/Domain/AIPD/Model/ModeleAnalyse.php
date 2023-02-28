@@ -121,8 +121,6 @@ class ModeleAnalyse
             foreach ($scenario->getMesuresProtections() as $mesure) {
                 $mesure->addScenarioMenace($scenario);
             }
-
-            $scenario->setMesuresProtections([]);
         }
         foreach ($this->questionConformites as $question) {
             $question->deserialize();

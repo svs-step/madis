@@ -243,7 +243,8 @@
 
         {# SPECIFIC #}
         {% if (
-            (config.systematicMonitoring == true)
+            (config.exempt_AIPD == true)
+            or (config.systematicMonitoring == true)
             or (config.largeScaleCollection == true)
             or (config.vulnerablePeople == true)
             or (config.dataCrossing == true)
@@ -258,6 +259,22 @@
                 <div class="box-body no-padding">
                     <table class="table">
                         <tbody>
+                            {% if (config.exempt_AIPD == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.exempt_AIPD'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% if object.exemptAIPD %}
+                                                <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            {% else %}
+                                                <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endif %}
                             {% if (config.systematicMonitoring == true) %}
                                 <tr>
                                     <td>
@@ -448,9 +465,11 @@
         or (object.concernedPeopleElected and config.concernedPeopleElected == true)
         or (object.concernedPeopleCompany and config.concernedPeopleCompany == true)
         or (object.concernedPeoplePartner and config.concernedPeoplePartner == true)
+        or (object.concernedPeopleUsager and config.concernedPeopleUsager == true)
         or (object.concernedPeopleOther and config.concernedPeopleOther == true)
         or (object.estimatedConcernedPeople and config.estimatedConcernedPeople == true)
-        or (object.tools and config.tools == true)
+        or (object.software and config.software == true)
+            or (object.tools and config.tools == true)
         or (object.paperProcessing and config.paperProcessing == true)
         or (object.delay and config.delay == true)
         or (object.ultimateFate and config.ultimateFate == true)
@@ -559,6 +578,21 @@
                                     </td>
                                 </tr>
                             {% endif %}
+                            {% if (object.concernedPeopleUsager and config.concernedPeopleUsager == true) %}
+                                <tr>
+                                    <td class="concerned-people-type">
+                                        <strong>{{ 'registry.treatment.show.concerned_people_usager'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.concernedPeopleUsager.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.concernedPeopleUsager.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
                             {% if (object.concernedPeopleOther and config.concernedPeopleOther == true) %}
                                 <tr>
                                     <td class="concerned-people-type">
@@ -659,6 +693,42 @@
                                         </ul>
                                         {% if object.collectingMethod is not null %}{% endif %}
                                     </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.legalMentions == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.legal_mentions'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.legalMentions == 1 %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.consentRequest == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.consent_request'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.consentRequest == 1 %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.consentRequestFormat and config.consentRequestFormat == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.consent_request_format'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.consentRequestFormat }}</td>
                                 </tr>
                             {% endif %}
                         </tbody>

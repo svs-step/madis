@@ -3,6 +3,8 @@ services:
         autowire: true
         autoconfigure: true
         public: false
+        bind:
+            string $lateSurveyDelayDays: '%APP_SURVEY_NOTIFICATION_DELAY_DAYS%'
 
     App\Infrastructure\ORM\Maturity\Repository\:
         resource: '../../../../src/Infrastructure/ORM/Maturity/Repository'

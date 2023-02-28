@@ -10,6 +10,11 @@ notification_notification_list:
     methods: ['GET']
     controller: 'App\Domain\Notification\Controller\NotificationController:listAction'
 
+notification_notification_list_datatables:
+    path: '/liste-datatable'
+    methods: ['POST']
+    controller: 'App\Domain\Notification\Controller\NotificationController:listDataTables'
+
 notification_notification_edit:
     path: '/editer/{id}'
     methods: ['GET', 'POST']
@@ -39,4 +44,4 @@ notification_notification_mark_as_read_all:
     path: '/tous-marquer-comme-lu'
     methods: ['GET']
     controller: 'App\Domain\Notification\Controller\NotificationController:markAsReadAllAction'
-    
+

@@ -26,6 +26,9 @@ notifications:
         state_change: Changement d'état
 notification:
     module: Notifications
+    state:
+        read: Lu
+        unread: Non Lu
     modules:
         aipd: AIPD
         treatment: Traitements

@@ -25,14 +25,21 @@ declare(strict_types=1);
 namespace App\Domain\Notification\Dictionary;
 
 use App\Application\Dictionary\SimpleDictionary;
+use App\Domain\AIPD\Model\AnalyseImpact;
+use App\Domain\Documentation\Model\Document;
+use App\Domain\Maturity\Model\Maturity;
+use App\Domain\Notification\Model\Notification;
+use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
+use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
+use App\Domain\Registry\Model\Contractor;
+use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Registry\Model\Proof;
+use App\Domain\Registry\Model\Request;
+use App\Domain\Registry\Model\Treatment;
+use App\Domain\Registry\Model\Violation;
 
 class NotificationModuleDictionary extends SimpleDictionary
 {
-    public const DOCUMENT  = 'document';
-    public const VIOLATION = 'violation';
-    public const TREATMENT = 'treatment';
-    public const ACTION    = 'actions';
-
     public function __construct()
     {
         parent::__construct('notificationModule', self::getModules());
@@ -46,10 +53,18 @@ class NotificationModuleDictionary extends SimpleDictionary
     public static function getModules()
     {
         return [
-            self::DOCUMENT  => 'Documents',
-            self::VIOLATION => 'Violations',
-            self::TREATMENT => 'Traitements',
-            self::ACTION    => 'Actions de protection',
+            Notification::MODULES[Treatment::class]            => 'Traitement',
+            Notification::MODULES[Contractor::class]           => 'Sous-traitant',
+            Notification::MODULES[Request::class]              => 'Demande',
+            Notification::MODULES[Violation::class]            => 'Violation',
+            Notification::MODULES[Proof::class]                => 'Preuve',
+            Notification::MODULES[Mesurement::class]           => 'Action de protection',
+            Notification::MODULES[Maturity::class]             => 'Indice de maturité',
+            Notification::MODULES[ConformiteTraitement::class] => 'Conformité du traitement',
+            Notification::MODULES[Conformite::class]           => 'Conformité de la structure',
+            Notification::MODULES[AnalyseImpact::class]        => 'Analyse d\'impact',
+            Notification::MODULES[Document::class]             => 'Document',
+            'user'                                             => 'Utilisateurs',
         ];
     }
 

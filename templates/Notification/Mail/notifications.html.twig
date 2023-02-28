@@ -4,7 +4,9 @@
     <h1>{{ 'notification.email.subject'|trans }}</h1>
 
     <p>Bonjour{{ user ? ' ' ~ user.firstname : '' }},</p>
-    <p>Des modifications ont été apportées dans <span style="color:#3880AB"><b>Madis</b></span>.</p>
+    <p>
+        {{ app_notification_email_first_line }}
+    </p>
 
     {% for notification in notifications %}
         <p>{{ notification|sentence|raw }}</p>

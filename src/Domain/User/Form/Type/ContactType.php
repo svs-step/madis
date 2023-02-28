@@ -36,11 +36,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContactType extends AbstractType
 {
-    private $requestStack;
+    private RequestStack $requestStack;
+    private bool $activeNotifications;
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack, string $activeNotifications)
     {
-        $this->requestStack = $requestStack;
+        $this->requestStack        = $requestStack;
+        $this->activeNotifications = 'true' === $activeNotifications;
     }
 
     /**
@@ -98,25 +100,23 @@ class ContactType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
-            ->add('phoneNumber', TextType::class, [
-                'label'    => 'user.contact.form.phone_number',
-                'required' => $isComiteIl ? false : $required,
-                'attr'     => [
-                    'maxlength' => 10,
-                ],
-            ])
-            ->add('notification', CheckboxType::class, [
-                'label'    => 'user.contact.form.notification',
-                'required' => false,
-            ]);
+        ;
 
         // Email notificaiton only available on collectivity page for responsable traitement and referent RGPD
-        if ('collectivity' === $collectivity_page && (in_array('collectivity_legal_manager', $options['validation_groups'] ?? []) || in_array('collectivity_referent', $options['validation_groups'] ?? []))) {
+        if ($this->activeNotifications && 'collectivity' === $collectivity_page && (in_array('collectivity_legal_manager', $options['validation_groups'] ?? []) || in_array('collectivity_referent', $options['validation_groups'] ?? []))) {
             $builder->add('notification', CheckboxType::class, [
                 'label'    => 'user.contact.form.notification',
                 'required' => false,
             ]);
         }
+
+        $builder->add('phoneNumber', TextType::class, [
+            'label'    => 'user.contact.form.phone_number',
+            'required' => $isComiteIl ? false : $required,
+            'attr'     => [
+                'maxlength' => 10,
+            ],
+        ]);
     }
 
     /**

@@ -220,6 +220,9 @@
             "config/packages/knp_snappy.yaml"
         ]
     },
+    "knplabs/knp-time-bundle": {
+        "version": "v1.20.0"
+    },
     "knpuniversity/oauth2-client-bundle": {
         "version": "2.10",
         "recipe": {

@@ -62,7 +62,7 @@ class SurveyTest extends TestCase
         $this->registryProphecy      = $this->prophesize(ManagerRegistry::class);
         $this->entityManagerProphecy = $this->prophesize(EntityManagerInterface::class);
 
-        $this->infraRepo = new InfraRepo\Survey($this->registryProphecy->reveal());
+        $this->infraRepo = new InfraRepo\Survey($this->registryProphecy->reveal(), '60');
     }
 
     /**
