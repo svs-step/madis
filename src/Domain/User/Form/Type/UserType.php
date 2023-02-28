@@ -64,17 +64,21 @@ class UserType extends AbstractType
      */
     private $security;
 
+    private bool $activeNotifications;
+
     /**
      * UserType constructor.
      */
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
         EncoderFactoryInterface $encoderFactory,
-        Security $security
+        Security $security,
+        string $activeNotifications
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->encoderFactory       = $encoderFactory;
         $this->security             = $security;
+        $this->activeNotifications = 'true' === $activeNotifications;
     }
 
     /**
@@ -247,8 +251,11 @@ class UserType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('emailNotificationPreference', EmailNotificationPreferenceType::class)
         ;
+
+        if ($this->activeNotifications) {
+            $builder->add('emailNotificationPreference', EmailNotificationPreferenceType::class);
+        }
 
         $builder
             ->get('moreInfos')
