@@ -32,6 +32,7 @@ use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
 use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
+use App\Domain\Registry\Dictionary\TreatmentStatutDictionary;
 use App\Domain\Registry\Form\Type\TreatmentConfigurationType;
 use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model;
@@ -392,6 +393,7 @@ class TreatmentController extends CRUDController
                 'actions'                => $this->generateActionCellContent($treatment),
                 'exempt_AIPD'            => $treatment->getExemptAIPD() ? $yes : $no,
                 'sensitiveData'          => $this->countSensitiveData($treatment->getDataCategories()),
+                'statut'                 => TreatmentStatutDictionary::getStatuts()[$treatment->getStatut()],
             ];
         }
 
@@ -705,7 +707,8 @@ class TreatmentController extends CRUDController
                 '19' => 'responsableTraitement',
                 '20' => 'specific_traitement',
                 '21' => 'conformite_traitement',
-                '22' => 'actions',
+                '23' => 'statut',
+                '24' => 'actions',
             ];
         }
 
@@ -730,7 +733,8 @@ class TreatmentController extends CRUDController
             '18' => 'responsableTraitement',
             '19' => 'specific_traitement',
             '20' => 'conformite_traitement',
-            '21' => 'actions',
+            '22' => 'statut',
+            '23' => 'actions',
         ];
     }
 }
