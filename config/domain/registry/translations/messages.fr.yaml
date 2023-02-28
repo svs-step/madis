@@ -454,6 +454,7 @@ registry:
             updated_at: Date de modification
             update: Mise à jour
             specific_traitement: Traitements spécifiques
+            statut: Statut
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer ce traitement ?
         show:

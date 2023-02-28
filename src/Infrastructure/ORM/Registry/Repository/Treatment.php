@@ -26,6 +26,7 @@ namespace App\Infrastructure\ORM\Registry\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Traits\RepositoryUtils;
+use App\Domain\Registry\Dictionary\TreatmentStatutDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
@@ -352,6 +353,14 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             case 'updatedAt':
                 $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
                 break;
+            case 'statut':
+                $queryBuilder->addSelect('(case
+                WHEN o.statut = \'' . TreatmentStatutDictionary::DRAFT . '\' THEN 1
+                WHEN o.statut = \'' . TreatmentStatutDictionary::CHECKED . '\' THEN 2
+                WHEN o.statut = \'' . TreatmentStatutDictionary::FINISHED . '\' THEN 3
+                ELSE 4 END) AS HIDDEN hidden_statut')
+                    ->addOrderBy('hidden_statut', $orderDir);
+                break;
         }
     }
 
@@ -434,6 +443,10 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                 case 'sensitiveData':
                     $queryBuilder->andWhere('data_categories.sensible = :sensitiveData')
                         ->setParameter('sensitiveData', $search);
+                    break;
+                case 'statut':
+                    $queryBuilder->andWhere('o.statut = :statut')
+                        ->setParameter('statut', $search);
                     break;
             }
         }
