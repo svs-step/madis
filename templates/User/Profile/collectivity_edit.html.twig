@@ -33,15 +33,10 @@
                 <div class="col-md-6">
                     {# GENERAL #}
                     <div class="box box-solid">
-                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.nbr_agents'|trans }}</h3></div>
+                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.general'|trans }}</h3></div>
                         <div class="box-body">
-                            {{ form_widget(form.nbrAgents) }}
-                        </div>
-                    </div>
-                    <div class="box box-solid">
-                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.population'|trans }}</h3></div>
-                        <div class="box-body">
-                            {{ form_widget(form.population) }}
+                            {{ form_row(form.nbrAgents) }}
+                            {{ form_row(form.population) }}
                         </div>
                     </div>
                 </div>
