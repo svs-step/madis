@@ -362,7 +362,7 @@ class TreatmentType extends AbstractType
                 ->add('statut', DictionaryType::class, [
                     'label'    => 'registry.treatment.form.statut',
                     'name'     => 'treatment_statut',
-                    'required' => false,
+                    'required' => true,
                 ]);
         } else {
             $builder
