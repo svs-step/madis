@@ -441,9 +441,18 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     $this->addWhereClause($queryBuilder, 'coordonneesResponsableTraitement', '%' . $search . '%', 'LIKE');
                     break;
                 case 'sensitiveData':
-                    $queryBuilder->andWhere('data_categories.sensible = :sensitiveData')
-                        ->setParameter('sensitiveData', $search);
-                    break;
+                    if ($search){
+                        $queryBuilder->leftJoin('o.dataCategories', 'c')
+                            ->andWhere('c.sensible = :sensible')
+                            ->setParameter('sensible', $search ? 1 : 0);
+                    } else
+                    {
+                        $queryBuilder->leftJoin('o.dataCategories', 'c')
+                            ->andWhere('c.sensible = :sensible')
+                            ->setParameter('sensible', $search ? 1 : 0);
+                        break;
+                    }
+
                 case 'statut':
                     $queryBuilder->andWhere('o.statut = :statut')
                         ->setParameter('statut', $search);
