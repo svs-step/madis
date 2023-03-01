@@ -91,6 +91,112 @@ registry:
         form:
             other_delay: Autre délai
 
+    tool:
+        flashbag:
+            success:
+                create: Outil ou support "%object%" créé avec succès
+                delete: Outil ou support "%object%" supprimé avec succès
+                edit: Outil ou support "%object%" modifié avec succès
+        type:
+            not_null: Vous devez choisir le type
+        name:
+            not_blank: Le nom de l'outil est indispensable
+
+        country:
+            france: France
+            eu: Autre pays de l’Union Européenne ou pays adéquats
+            other: Pays d’hébergement de la donnée
+        breadcrumb:
+            list: Liste des outils et supports
+            create: Création
+            show: Visualiser
+        form:
+            name: Nom
+            type: Type
+            editor: Editeur
+            contractors: Sous-traitants
+            description: Description
+            other_info: Autres informations
+            prod_date: Date de mise en production
+            country_type: Pays
+            country_name: Nom du pays
+            country_guarantees: Garanties pour le transfert
+            manager: Personne en charge
+            archival: Archivage
+            tracking: Traçabilité
+            encrypted: Chiffrement
+            access_control: Contrôle d'accès
+            update: Mise à jour
+            backup: Sauvegarde
+            deletion: Suppression
+            has_comment: Zone de commentaire libre
+            other: Autres
+        tab:
+            relations: Relations
+            measures: Mesures de sécurité et confidentialité
+            general: Informations générales
+            historic: Historique
+        title:
+            list: Logiciels et supports
+            create: Création d'un logiciel ou support
+            edit: Modification d'un logiciel ou support
+            delete: Suppression d'un logiciel ou support
+            show: Visualiser un logiciel ou support
+        action:
+            new: Nouveau logiciel ou support
+            edit: Editer
+            delete: Supprimer
+            submit: Sauvegarder
+            back_to_list: Retour à la liste
+            print_all: Générer une impression
+            print: Imprimer
+        list:
+            name: Nom
+            collectivity: Structure
+            treatments: Traitements
+            contractors: Sous-traitants
+            mesurements: Actions de protection
+            proofs: Documents
+            access_control: Contrôle d'accès
+            created_at: Date de création
+            updated_at: Date de mise à jour
+            update: Mise à jour
+            backup: Sauvegarde
+            tracking: Traçabilité
+            deletion: Suppression
+            has_comment: Zone de commentaire libre
+            other: Autre
+            type: Type
+            editor: Editeur
+            archival: Archivage
+            encrypted: Chiffrement
+        show:
+            name: Nom
+            collectivity: Structure
+            treatments: Traitements
+            contractors: Sous-traitants
+            mesurements: Actions de protection
+            documents: Documents
+            access_control: Contrôle d'accès
+            created_at: Date de création
+            updated_at: Date de mise à jour
+            update: Mise à jour
+            backup: Sauvegarde
+            tracking: Traçabilité
+            deletion: Suppression
+            has_comment: Zone de commentaire libre
+            other: Autre
+            type: Type
+            editor: Editeur
+            manager: Personne en charge
+            archival: Archivage
+            encrypted: Chiffrement
+            creator: Créateur
+            description: Description
+            other_info: Autres informations
+            prod_date: Date de mise en production
+            country: pays
+
     mesurement:
         action:
             back_to_list: Retour à la liste
@@ -227,6 +333,7 @@ registry:
             new: Nouvelle demande
             not_archived: Voir les demandes non archivées
             report: Générer une impression
+            print: Imprimer
         breadcrumb:
             create: Créer
             delete: Archiver "%name%"
@@ -411,6 +518,7 @@ registry:
                 delete: Traitement "%object%" supprimé avec succès
                 archive: Traitement "%object%" archivé avec succès
         list:
+            sensitive_data: Données sensibles
             access_control: Controle d'accès
             active: Statut
             author: En tant que
@@ -504,6 +612,11 @@ registry:
             legalMentions: Mentions légales apposées
             consentRequest: Consentement demandé
             consentRequestFormat: Format de la demande du consentement
+            legal_mentions: Mentions légales apposées
+            consent_request: Consentement demandé
+            consent_request_format: Format de la demande du consentement
+            exempt_aipd: Est exempté d'AIPD
+            tools: Logiciel
         title:
             create: Créer un traitement
             delete: Supprimer un traitement
