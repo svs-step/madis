@@ -209,7 +209,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
                     $this->getDate($mesurement->getCreatedAt()),
                 ],
                 [
-                    'Dernière mise à jour',
+                    'Date de modification',
                     $this->getDate($mesurement->getUpdatedAt()),
                 ],
             ];

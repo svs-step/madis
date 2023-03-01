@@ -448,7 +448,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     $this->getDate($treatment->getCreatedAt()),
                 ],
                 [
-                    'Dernière mise à jour',
+                    'Date de modification',
                     $this->getDate($treatment->getUpdatedAt()),
                 ],
             ];

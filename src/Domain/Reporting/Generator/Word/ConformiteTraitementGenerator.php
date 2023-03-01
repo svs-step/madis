@@ -206,7 +206,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                     $this->getDate($conformiteTraitement->getCreatedAt()),
                 ],
                 [
-                    'Dernière mise à jour',
+                    'Date de modification',
                     $this->getDate($conformiteTraitement->getUpdatedAt()),
                 ],
             ];

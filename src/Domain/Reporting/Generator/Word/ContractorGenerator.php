@@ -239,7 +239,7 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
                     $this->getDate($contractor->getCreatedAt()),
                 ],
                 [
-                    'Dernière mise à jour',
+                    'Date de modification',
                     $this->getDate($contractor->getUpdatedAt()),
                 ],
             ];
