@@ -74,7 +74,6 @@ class CollectivityTypeTest extends FormTypeHelper
             'name'                                => TextType::class,
             'shortName'                           => TextType::class,
             'type'                                => DictionaryType::class,
-            'otherType'                           => TextType::class,
             'siren'                               => NumberType::class,
             'active'                              => ChoiceType::class,
             'website'                             => UrlType::class,

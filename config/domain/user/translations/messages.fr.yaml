@@ -70,7 +70,6 @@ user:
             short_name: Nom court
             siren: SIREN
             type: Type
-            otherType: Autre type (descriptif)
             website: Site internet
             informations_complementaires: Informations complémentaires
             finess_geo: FINESS Géo
@@ -122,7 +121,6 @@ user:
             services: Services
             siren: SIREN
             type: Type
-            otherType: Autre type (descriptif)
             updated_at: Date de dernière modification
             website: Site internet
             finess_geo: FINESS Géo
