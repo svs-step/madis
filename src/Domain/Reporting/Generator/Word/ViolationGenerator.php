@@ -226,7 +226,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
                     $this->getDate($violation->getCreatedAt()),
                 ],
                 [
-                    'Dernière mise à jour',
+                    'Date de modification',
                     $this->getDate($violation->getUpdatedAt()),
                 ],
             ];

@@ -74,7 +74,7 @@ registry:
             other_informations: Autres informations
             referent: Agent référent
             sending_data_outside_eu: Envoi des données hors UE
-            updated_at: Dernière mise à jour
+            updated_at: Date de modification
             updated_by: Modifié par
         tab:
             coordinates: Coordonnées
@@ -159,7 +159,7 @@ registry:
             priority: Priorité
             status: Statut
             type: Type
-            updated_at: Dernière mise à jour
+            updated_at: Date de modification
             updated_by: Modifié par
             contractor: Sous-traitants
             treatment: Traitements
@@ -517,7 +517,7 @@ registry:
             statut: Statut
             ultimate_fate: Sort final
             systematic_monitoring: Surveillance systématique
-            updated_at: Dernière mise à jour
+            updated_at: Date de modification
             updated_by: Modifié par
             vulnerable_people: Personnes vulnérables
             delete_related_objects_error: Une erreur est survenue lors de la suppression des %relateds% de la collectivité "%object%"
