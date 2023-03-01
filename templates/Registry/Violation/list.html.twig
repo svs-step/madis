@@ -123,7 +123,7 @@
                             <th scope="col">
                                 <select class="form-control" id="search_notification" style="width: 100%;">
                                     <option value="">Notification</option>
-                                    {% for key, subject in dictionary('registry_violation_notification') %}
+                                    {% for key, subject in dictionary('registry_violation_notification_list') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
                                 </select>
