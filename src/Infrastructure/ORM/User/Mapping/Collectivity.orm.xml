@@ -13,7 +13,6 @@
         <field name="name" column="name"/>
         <field name="shortName" column="short_name" length="80"/>
         <field name="type" column="type"/>
-        <field name="otherType" type="text" nullable="true"/>
         <field name="siren" column="siren" type="integer"/>
         <field name="active" column="active" type="boolean"/>
         <field name="website" column="website" nullable="true"/>
