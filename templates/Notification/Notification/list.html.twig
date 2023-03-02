@@ -65,12 +65,6 @@
                                     <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
                                 </th>
                                 <th>
-                                    <select class="form-control" id="search_object" style="width: 100%;">
-                                        <option value="" selected>{{ 'notification.notification.list.object'|trans }}</option>
-                                        {# {% for key, subject in dictionary('documentation_document_type') %}
-                                            <option value="{{ key }}">{{ subject }}</option>
-                                        {% endfor %} #}
-                                    </select>
                                 </th>
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <th>
@@ -126,7 +120,7 @@
             {"data": "module"},
             {"data": "action"},
             {"data": "name"},
-            {"data": "object"},
+            {"data": "object", "orderable": false},
             {"data": "collectivity"},
             {"data": "date"},
             {"data": "user"},

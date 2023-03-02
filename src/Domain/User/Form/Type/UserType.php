@@ -78,7 +78,7 @@ class UserType extends AbstractType
         $this->authorizationChecker = $authorizationChecker;
         $this->encoderFactory       = $encoderFactory;
         $this->security             = $security;
-        $this->activeNotifications = 'true' === $activeNotifications;
+        $this->activeNotifications  = 'true' === $activeNotifications;
     }
 
     /**

@@ -30,6 +30,7 @@ use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Notification\Model;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Repository;
+use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -171,10 +172,10 @@ class NotificationController extends CRUDController
 
             $link = $this->getObjectLink($notification);
 
-            $objectHtml = '<span>' . $notification->getName() . '</span> ';
+            $nameHtml = '<span>' . $notification->getName() . '</span> ';
 
-            if ($link && 'delete' !== $notification->getAction()) {
-                $objectHtml = '<a href="' . $link . '">' . $notification->getName() . '</a>'
+            if ($link && 'notifications.actions.delete' !== $notification->getAction()) {
+                $nameHtml = '<a href="' . $link . '">' . $notification->getName() . '</a>'
                 ;
             }
 
@@ -182,8 +183,8 @@ class NotificationController extends CRUDController
                 'state'        => $notification->getReadAt() ? $read : $unread,
                 'module'       => $this->translator->trans($notification->getModule()),
                 'action'       => $this->translator->trans($notification->getAction()),
-                'name'         => $notification->getName(),
-                'object'       => $objectHtml,
+                'name'         => $nameHtml,
+                'object'       => $this->getSubjectForNotification($notification),
                 'collectivity' => $this->authorizationChecker->isGranted('ROLE_REFERENT') ? $notification->getCollectivity()->getName() : '',
                 'date'         => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
                 'user'         => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
@@ -194,6 +195,60 @@ class NotificationController extends CRUDController
         }
 
         return new JsonResponse($reponse);
+    }
+
+    private function getSubjectForNotification(Notification $notification): string
+    {
+        if (
+            'notification.modules.violation' === $notification->getModule()
+        ) {
+            return join(', ', array_map(function ($v) {
+                return ViolationNatureDictionary::getNatures()[$v];
+            }, $notification->getObject()->getViolationNatures()));
+        }
+
+        if (
+            'notification.modules.proof' === $notification->getModule()
+        ) {
+            return $notification->getObject()->getType();
+        }
+
+        if ('notifications.actions.no_login' === $notification->getAction()) {
+            return $this->translator->trans('notifications.subject.no_login');
+        }
+
+        if ('notifications.actions.state_change' === $notification->getAction()) {
+            return $notification->getObject()->getState();
+        }
+
+        if ('notifications.actions.late_survey' === $notification->getAction()) {
+            $days = $this->getParameter('APP_SURVEY_NOTIFICATION_DELAY_DAYS');
+
+            return $this->translator->trans('notifications.subject.late_survey', ['%days%' => $days]);
+        }
+
+        if ('notifications.actions.protect_action' === $notification->getAction()) {
+            return $notification->getObject()->getStatus();
+        }
+
+        if ('notifications.actions.late_action' === $notification->getAction()) {
+            $ob   = $notification->getObject();
+            $date = \DateTime::createFromFormat(DATE_ATOM, $ob->planificationDate)->format('d/m/Y');
+
+            return $this->translator->trans('notifications.subject.late_action', ['%date%' => $date]);
+        }
+
+        if ('notifications.actions.validation' === $notification->getAction()) {
+            return $this->translator->trans('notifications.subject.validation');
+        }
+
+        if ('notifications.actions.late_request' === $notification->getAction()) {
+            $days = $this->getParameter('APP_REQUEST_NOTIFICATION_DELAY_DAYS');
+
+            return $this->translator->trans('notifications.subject.late_request', ['%days%' => $days]);
+        }
+
+        return '';
     }
 
     private function generateActionCellContent(Model\Notification $notification)
