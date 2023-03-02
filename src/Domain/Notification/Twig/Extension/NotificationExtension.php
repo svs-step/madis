@@ -37,8 +37,17 @@ class NotificationExtension extends AbstractExtension
 
     public function getSentence(Notification $notification): string
     {
-        $sentence = '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong> ' .
-            $this->translator->trans($notification->getAction()) . ' ';
+        $sentence = '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong> ';
+
+        if ($notification->getAction() === 'notifications.actions.late_request') {
+            $sentence .= $this->translator->trans('notifications.sentence.late_request', [
+                '%name%' => $notification->getObject()->name,
+                '%days%' => '',
+            ]) . ' ';
+        } else {
+            $sentence .= $this->translator->trans($notification->getAction()) . ' ';
+        }
+
 
         $link = $this->getObjectLink($notification);
 

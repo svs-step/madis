@@ -30,6 +30,8 @@ notifications:
         late_survey: Aucun indice de maturité n'a été réalisé depuis plus de %days% jours
         validation: Validation nécéssaire
         late_action: Retard %date%
+    sentence:
+        late_request: La demande de %name% n'a pas été traitée depuis au moins %days% jours depuis la date de la dernière modification
 notification:
     module: Notifications
     state:
