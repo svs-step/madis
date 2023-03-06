@@ -1,3 +1,34 @@
+{% macro printShelfLife(shelfLife) %}
+    <div class="js-collection-item col-md-6 nopadding">
+        <div class="box box-default">
+            <div class="box-tools pull-right">
+                <a href="#" class="btn btn-box-tool js-remove-item" data-toggle="tooltip" title="Remove">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+            <div class="box-body">
+                {{ form_errors(shelfLife) }}
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td class="text-bold">{{ 'registry.treatment.form.shelflife_name'|trans }}</td>
+                        <td>{{ form_widget(shelfLife.name) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">{{ 'registry.treatment.form.shelflife_duration'|trans }}</td>
+                        <td>{{ form_widget(shelfLife.duration) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">{{ 'registry.treatment.form.shelflife_ultimate_fate'|trans }}</td>
+                        <td>{{ form_widget(shelfLife.ultimateFate) }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
 <div class="row">
     <div class="col-md-6">
         {# GENERAL INFORMATIONS #}
@@ -123,13 +154,27 @@
                     <div>{{ form_row(form.delay.otherDelay) }}</div>
                     <div>{{ form_row(form.delay.comment) }}</div>
                 </div>
-                {{ form_row(form.ultimateFate) }}
                 {{ form_row(form.dataOrigin) }}
                 {{ form_row(form.collectingMethod) }}
                 {{ form_row(form.otherCollectingMethod) }}
                 {{ form_row(form.legalMentions) }}
                 {{ form_row(form.consentRequest) }}
                 {{ form_row(form.consentRequestFormat) }}
+
+                <div class="col-sm-6">
+                    <div class="js-collection-wrapper"
+                         data-prototype="{{ formMacros.printS(form.shelfLifes.vars.prototype)|e('html_attr') }}"
+                         data-index="{{ form.shelfLifes|length }}"
+                    >
+
+                        {% for shelfLife in form.shelfLifes %}
+                            {{ formMacros.printShelfLife(shelfLife) }}
+                        {% endfor %}
+                        <a href="#" class="js-collection-add btn btn-default">
+                            <span class="fa fa-pencil-alt"></span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 

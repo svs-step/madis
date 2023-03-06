@@ -39,6 +39,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -337,11 +338,11 @@ class TreatmentType extends AbstractType
                 'required'     => false,
                 'block_prefix' => 'custom_checkbox',
             ])
-            ->add('ultimateFate', DictionaryType::class, [
-                'label'       => 'registry.treatment.form.ultimate_fate',
-                'name'        => 'registry_treatment_ultimate_fate',
-                'required'    => false,
-                'placeholder' => 'placeholder.precision',
+            ->add('shelfLifes', CollectionType::class, [
+                'entry_type'   => ShelfLifeType::class,
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'by_reference' => false,
             ])
             ->add('otherCollectingMethod', TextType::class, [
                 'label'    => 'registry.treatment.form.otherCollectingMethod',

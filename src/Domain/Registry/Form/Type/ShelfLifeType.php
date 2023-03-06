@@ -31,7 +31,7 @@ class ShelfLifeType extends AbstractType
             ->add('ultimate_fate', DictionaryType::class, [
                 'label'    => 'registry.treatment.form.shelflife_ultimate_fate',
                 'required' => true,
-                'name'     => 'user_contact_civility',
+                'name'     => 'registry_treatment_ultimate_fate',
             ])
         ;
     }
