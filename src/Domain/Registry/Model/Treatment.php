@@ -118,6 +118,11 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $dataCategories;
 
     /**
+     * @var iterable
+     */
+    private $shelfLifes;
+
+    /**
      * FR: Autres catégories.
      *
      * @var string|null
@@ -446,6 +451,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
     {
         $this->id                                = Uuid::uuid4();
         $this->paperProcessing                   = false;
+        $this->shelfLifes                        = [];
         $this->dataCategories                    = [];
         $this->contractors                       = [];
         $this->delay                             = new Delay();
@@ -630,6 +636,16 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function setDataCategories(iterable $dataCategories): void
     {
         $this->dataCategories = $dataCategories;
+    }
+
+    public function getShelfLifes(): iterable
+    {
+        return $this->shelfLifes;
+    }
+
+    public function setShelfLifes(iterable $shelfLifes): void
+    {
+        $this->shelfLifes = $shelfLifes;
     }
 
     public function getDataCategoryOther(): ?string

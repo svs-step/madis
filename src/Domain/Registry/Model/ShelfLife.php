@@ -5,8 +5,9 @@ namespace App\Domain\Registry\Model;
 use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Form\AbstractType;
 
-class ShelfLife implements LoggableSubject
+class ShelfLife extends AbstractType
 {
     /**
      * @var UuidInterface
@@ -28,6 +29,11 @@ class ShelfLife implements LoggableSubject
      */
     private $ultimateFate;
 
+    /**
+     * @var Treatment
+     */
+    private $treatment;
+
     public function __construct()
     {
         $this->id = Uuid::uuid4();
@@ -36,6 +42,16 @@ class ShelfLife implements LoggableSubject
     public function getId(): UuidInterface
     {
         return $this->id;
+    }
+
+    public function getTreatment(): Treatment
+    {
+        return $this->treatment;
+    }
+
+    public function setTreatment(Treatment $treatment): void
+    {
+        $this->treatment = $treatment;
     }
 
     public function getName(): ?string
@@ -67,4 +83,6 @@ class ShelfLife implements LoggableSubject
     {
         $this->ultimateFate = $ultimateFate;
     }
+
+
 }
