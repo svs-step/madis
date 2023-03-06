@@ -57,7 +57,9 @@
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.statut'|trans }}</strong></td>
                                 <td>
+                                    {% if object.statut is defined and object.statut %}
                                     {{ object.statut|dictionary('treatment_statut') }}
+                                    {% endif %}
                                 </td>
                             </tr>
                             <tr>
