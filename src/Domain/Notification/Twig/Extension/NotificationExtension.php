@@ -21,10 +21,15 @@ class NotificationExtension extends AbstractExtension
     protected TranslatorInterface $translator;
     protected RouterInterface $router;
 
-    public function __construct(TranslatorInterface $translator, RouterInterface $router)
+    protected string $requestDays;
+    protected string $surveyDays;
+
+    public function __construct(TranslatorInterface $translator, RouterInterface $router, string $requestDays, string $surveyDays)
     {
         $this->translator = $translator;
         $this->router     = $router;
+        $this->requestDays     = $requestDays;
+        $this->surveyDays     = $surveyDays;
     }
 
     public function getFilters()
@@ -39,26 +44,32 @@ class NotificationExtension extends AbstractExtension
     {
         $sentence = '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong> ';
 
-        if ($notification->getAction() === 'notifications.actions.late_request') {
-            $sentence .= $this->translator->trans('notifications.sentence.late_request', [
-                '%name%' => $notification->getObject()->name,
-                '%days%' => '',
-            ]) . ' ';
-        } else {
-            $sentence .= $this->translator->trans($notification->getAction()) . ' ';
-        }
+        switch ($notification->getAction()) {
+            case 'notifications.actions.late_request':
+                $link = $this->getObjectLink($notification);
+                $sentence .= $this->translator->trans('notifications.sentence.late_request', [
+                    '%name%' => '<a href="' . $link . '">' . $notification->getName() . '</a> ',
+                    '%days%' => $this->requestDays,
+                ]) . ' ';
+                break;
+            case 'notifications.sentence.late_request':
+                $sentence .= $this->translator->trans('notifications.sentence.late_survey', [
+                    '%days%' => $this->surveyDays,
+                ]) . ' ';
+                break;
+            case 'notifications.actions.delete':
+                $sentence .= $this->translator->trans($notification->getAction()) . ' ';
+                $sentence .= ' : ' .
+                    '<span>' . $notification->getName() . '</span> '
+                ;
+                break;
+            default:
+                $sentence .= $this->translator->trans($notification->getAction()) . ' ';
+                $link = $this->getObjectLink($notification);
+                $sentence .= ' : ' .
+                    '<a href="' . $link . '">' . $notification->getName() . '</a> '
+                ;
 
-
-        $link = $this->getObjectLink($notification);
-
-        if ($link && 'delete' !== $notification->getAction()) {
-            $sentence .= ' : ' .
-                '<a href="' . $link . '">' . $notification->getName() . '</a> '
-            ;
-        } else {
-            $sentence .= ' : ' .
-                '<span>' . $notification->getName() . '</span> '
-            ;
         }
 
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Violation::class]) {
