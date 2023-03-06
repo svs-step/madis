@@ -507,7 +507,6 @@ registry:
             shelflife_ultimate_fate: Sort final
             systematic_monitoring: Surveillance systématique
             software: Logiciel
-            ultimate_fate: Sort final
             vulnerable_people: Personnes vulnérables
             dpoMessage: Préconisations DPO
             legalMentions: Mentions légales apposées
@@ -607,7 +606,6 @@ registry:
             security_update: Mise à jour
             service: Service
             software: Logiciel
-            ultimate_fate: Sort final
             systematic_monitoring: Surveillance systématique
             updated_at: Dernière mise à jour
             vulnerable_people: Personnes vulnérables

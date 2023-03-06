@@ -278,7 +278,6 @@ class TreatmentGenerator extends AbstractGenerator
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Nombre',
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Période',
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Commentaire',
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.ultimate_fate'),
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.data_origin'),
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.collecting_method'),
         ];
@@ -312,7 +311,6 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getDelay()->getNumber(),
             !\is_null($treatment->getDelay()->getPeriod()) && array_key_exists($treatment->getDelay()->getPeriod(), DelayPeriodDictionary::getPeriods()) ? DelayPeriodDictionary::getPeriods()[$treatment->getDelay()->getPeriod()] : $treatment->getDelay()->getPeriod(),
             $treatment->getDelay()->getComment(),
-            !\is_null($treatment->getUltimateFate()) && array_key_exists($treatment->getUltimateFate(), TreatmentUltimateFateDictionary::getUltimateFates()) ? TreatmentUltimateFateDictionary::getUltimateFates()[$treatment->getUltimateFate()] : $treatment->getUltimateFate(),
             $treatment->getDataOrigin(),
             !\is_null($treatment->getCollectingMethod()) ? join(', ', array_map(function ($cm) {
                 return array_key_exists($cm, TreatmentCollectingMethodDictionary::getMethods()) ? TreatmentCollectingMethodDictionary::getMethods()[$cm] : $cm;

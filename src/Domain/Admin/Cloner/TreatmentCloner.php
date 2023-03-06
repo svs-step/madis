@@ -109,7 +109,6 @@ class TreatmentCloner extends AbstractCloner
         $treatment->setAuthor($referent->getAuthor());
         $treatment->setCollectingMethod($referent->getCollectingMethod());
         $treatment->setEstimatedConcernedPeople($referent->getEstimatedConcernedPeople());
-        $treatment->setUltimateFate($referent->getUltimateFate());
         $treatment->setLegalMentions($referent->getLegalMentions());
         $treatment->setConsentRequest($referent->getConsentRequest());
         $treatment->setConsentRequestFormat($referent->getConsentRequestFormat());

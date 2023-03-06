@@ -271,7 +271,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
                 4 => [
                     'Sort final',
-                    !\is_null($treatment->getUltimateFate()) ? TreatmentUltimateFateDictionary::getUltimateFates()[$treatment->getUltimateFate()] : '',
+                    '',
                 ],
                 5 => [
                     'Origine des données',

@@ -472,7 +472,6 @@
         or (object.tools and config.tools == true)
         or (object.paperProcessing and config.paperProcessing == true)
         or (object.delay and config.delay == true)
-        or (object.ultimateFate and config.ultimateFate == true)
         or (object.dataOrigin and config.dataOrigin == true)
         or ((object.collectingMethod is not empty) and config.collectingMethod == true)) %}
 
@@ -644,34 +643,7 @@
                                     </td>
                                 </tr>
                             {% endif %}
-                            {% if (object.delay and config.delay == true) %}
-                                <tr>
-                                    <td>
-                                        <strong>{{ 'registry.treatment.show.delay'|trans }}</strong>
-                                    </td>
-                                    <td>
-                                        {% if object.delay.number and object.delay.period %}
-                                            {{ object.delay.number }}
-                                            {{ object.delay.period|dictionary('registry_delay_period') }}
-                                        {% elseif object.delay.otherDelay %}
-                                            {{ object.delay.comment }}
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% endif %}
 
-                            {% if (object.ultimateFate and config.ultimateFate == true) %}
-                                <tr>
-                                    <td>
-                                        <strong>{{ 'registry.treatment.show.ultimate_fate'|trans }}</strong>
-                                    </td>
-                                    <td>
-                                        {% if object.ultimateFate is not null %}
-                                            {{ object.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% endif %}
                             {% if (object.dataOrigin and config.dataOrigin == true) %}
                                 <tr>
                                     <td>

@@ -385,12 +385,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
      */
     private $estimatedConcernedPeople;
 
-    /**
-     * FR: Sort final (Détails).
-     *
-     * @var string|null
-     */
-    private $ultimateFate;
+
 
     /**
      * @var ConformiteTraitement|null
@@ -1045,16 +1040,6 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function setSecuritySpecificitiesDelivered(bool $securitySpecificitiesDelivered): void
     {
         $this->securitySpecificitiesDelivered = $securitySpecificitiesDelivered;
-    }
-
-    public function getUltimateFate(): ?string
-    {
-        return $this->ultimateFate;
-    }
-
-    public function setUltimateFate(?string $ultimateFate): void
-    {
-        $this->ultimateFate = $ultimateFate;
     }
 
     public function isInnovativeUse(): bool
