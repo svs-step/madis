@@ -348,6 +348,10 @@ class TreatmentController extends CRUDController
 
         /** @var Model\Treatment $treatment */
         foreach ($treatments as $treatment) {
+            if (is_array($treatment)) {
+                $sensitiveData = $treatment['sensitiveData'];
+                $treatment = $treatment[0];
+            }
             if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
                 $treatmentLink = '<a aria-label="' . \htmlspecialchars($treatment->getName()) . '" href="' . $this->router->generate('registry_public_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
                 ' . \htmlspecialchars($treatment->getName()) . '
@@ -390,9 +394,9 @@ class TreatmentController extends CRUDController
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
                 'specific_traitement'    => $this->getSpecificTraitement($treatment),
                 'conformite_traitement'  => $this->getTreatmentConformity($treatment),
-                'actions'                => $this->generateActionCellContent($treatment),
+                'statut'                 => $treatment->getStatut() && isset(TreatmentStatutDictionary::getStatuts()[$treatment->getStatut()]) ? TreatmentStatutDictionary::getStatuts()[$treatment->getStatut()] : '',
                 'sensitiveData'          => $this->countSensitiveData($treatment->getDataCategories()),
-                'statut'                 => TreatmentStatutDictionary::getStatuts()[$treatment->getStatut()],
+                'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
 
