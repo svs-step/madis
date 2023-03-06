@@ -24,6 +24,14 @@ notifications:
         validation: Validation
         treatment_needs_aipd: Nécéssité de faire une AIPD
         state_change: Changement d'état
+    subject:
+        no_login: Aucune connexion depuis la création du compte
+        late_request: Demande non traitée depuis au moins %days% jours depuis la date de la dernière modification
+        late_survey: Aucun indice de maturité n'a été réalisé depuis plus de %days% jours
+        validation: Validation nécéssaire
+        late_action: Retard %date%
+    sentence:
+        late_request: La demande de %name% n'a pas été traitée depuis au moins %days% jours depuis la date de la dernière modification
 notification:
     module: Notifications
     state:
