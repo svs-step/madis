@@ -76,6 +76,7 @@ security:
         - { path: ^/espace-documentaire/creer$, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/editer/.+$, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/supprimer/.+$, roles: ROLE_ADMIN }
+        - { path: ^/espace-documentaire/categorie, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/categorie/creer$, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/categorie/editer/.+$, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/categorie/supprimer/.+$, roles: ROLE_ADMIN }
