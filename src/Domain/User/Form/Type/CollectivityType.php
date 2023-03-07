@@ -175,6 +175,7 @@ class CollectivityType extends AbstractType
             ->add('dpo', ContactType::class, [
                 'label'    => 'user.collectivity.form.dpo',
                 'required' => false,
+                'validation_groups' => ['default', 'collectivity_dpo'],
             ])
             ->add('differentItManager', CheckboxType::class, [
                 'label'    => 'user.collectivity.form.different_it_manager',
