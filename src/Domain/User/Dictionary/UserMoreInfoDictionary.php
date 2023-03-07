@@ -29,6 +29,7 @@ use App\Application\Dictionary\SimpleDictionary;
 class UserMoreInfoDictionary extends SimpleDictionary
 {
     public const MOREINFO_TREATMENT    = 'MOREINFO_TREATMENT';
+    public const MOREINFO_INFORMATIC   = 'MOREINFO_INFORMATIC';
     public const MOREINFO_OPERATIONNAL = 'MOREINFO_OPERATIONNAL';
     public const MOREINFO_DPD          = 'MOREINFO_DPD';
 
@@ -47,6 +48,7 @@ class UserMoreInfoDictionary extends SimpleDictionary
         return [
             self::MOREINFO_TREATMENT    => 'Responsable de traitement',
             self::MOREINFO_OPERATIONNAL => 'Référent RGPD',
+            self::MOREINFO_INFORMATIC   => 'Responsable informatique',
             self::MOREINFO_DPD          => 'DPO',
         ];
     }

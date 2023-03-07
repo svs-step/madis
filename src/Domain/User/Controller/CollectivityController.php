@@ -205,7 +205,7 @@ class CollectivityController extends CRUDController
             6  => 'nbr_cnil',
             7  => 'nbr_agents',
             8  => 'population',
-            9 => 'date_maj',
+            9  => 'date_maj',
             10 => 'tel_referent_rgpd',
             11 => 'actions',
         ];
