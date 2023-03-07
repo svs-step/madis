@@ -51,7 +51,6 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $request           = $this->requestStack->getCurrentRequest();
-        $collectivity_page = substr($request->attributes->get('_route'), 5, 12);
 
         $intersectIsEmpty = empty(\array_intersect(
             [
@@ -102,8 +101,14 @@ class ContactType extends AbstractType
             ])
         ;
 
-        // Email notificaiton only available on collectivity page for responsable traitement and referent RGPD
-        if ($this->activeNotifications && 'collectivity' === $collectivity_page && (in_array('collectivity_legal_manager', $options['validation_groups'] ?? []) || in_array('collectivity_referent', $options['validation_groups'] ?? []))) {
+        // Email notification only available on collectivity page for responsable traitement and referent RGPD
+        if ($this->activeNotifications
+            && (
+                in_array('collectivity_legal_manager', $options['validation_groups'] ?? [])
+                || in_array('collectivity_referent', $options['validation_groups'] ?? [])
+                || in_array('collectivity_dpo', $options['validation_groups'] ?? [])
+            )
+        ) {
             $builder->add('notification', CheckboxType::class, [
                 'label'    => 'user.contact.form.notification',
                 'required' => false,

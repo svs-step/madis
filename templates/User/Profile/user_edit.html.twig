@@ -79,12 +79,17 @@
                                 {% endfor %}
                             </ul>
                         {% endif %}
+                        {% if app.user.moreInfos %}
+                            {% for mi in app.user.moreInfos %}
+                                <li>Vous êtes <strong>{{ mi|dictionary('user_user_moreInfo') }}</strong> sur votre structure</li>
+                            {% endfor %}
+                        {% endif %}
                     </ul>
                 </div>
             </div>
 
             {# SSO #}
-            {% if sso_title %}
+            {% if sso_title and sso_type %}
                 <div class="box box-solid box-primary">
                     <div class="box-header">
                         <h3 class="box-title">{{ 'user.profile.form_user.tab.login_delegation'|trans }}</h3>

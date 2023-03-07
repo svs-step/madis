@@ -74,13 +74,22 @@
                             <th>
                                 <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
                             </th>
-                            <th> <select class="form-control" id="search_role" style="width: 100%;">
+                            <th>
+                                <select class="form-control" id="search_role" style="width: 100%;">
                                     <option value="">Rôle</option>
                                     {% for key, subject in dictionary('user_user_role') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
-                                </select></th>
-                            <th></th>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_moreInfos" style="width: 100%;">
+                                    <option value="">Informations supplémentaires</option>
+                                    {% for key, subject in dictionary('user_user_moreInfo') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
                             <th></th>
                             <th>
                                 <input class="datepicker form-control" type="text" id="search_last_login" placeholder="Date" style="width: 100%;">
@@ -120,7 +129,7 @@
             {"data": "email"},
             {"data": "collectivite"},
             {"data": "roles"},
-            {"data": "moreInfos"},
+            {"data": "moreInfos", "visible": false},
             {"data": "actif", "orderable": false},
             {"data": "connexion"},
             {"data": "services", "orderable": false},
@@ -160,6 +169,11 @@
             $('#search_role').off('change');
             $('#search_role').change(function(){
                 oTable.column('4').search($(this).val()).draw() ;
+            });
+
+            $('#search_moreInfos').off('change');
+            $('#search_moreInfos').change(function(){
+                oTable.column('5').search($(this).val()).draw() ;
             });
 
             $('#search_last_login').off('change');
