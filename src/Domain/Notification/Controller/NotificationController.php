@@ -185,7 +185,7 @@ class NotificationController extends CRUDController
                 'action'       => $this->translator->trans($notification->getAction()),
                 'name'         => $nameHtml,
                 'object'       => $this->getSubjectForNotification($notification),
-                'collectivity' => $this->authorizationChecker->isGranted('ROLE_REFERENT') ? $notification->getCollectivity()->getName() : '',
+                'collectivity' => $this->authorizationChecker->isGranted('ROLE_REFERENT') && $notification->getCollectivity() ? $notification->getCollectivity()->getName() : '',
                 'date'         => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
                 'user'         => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
                 'read_date'    => $notification->getReadAt() ? $notification->getReadAt()->format('d-m-Y H:i:s') : '',
