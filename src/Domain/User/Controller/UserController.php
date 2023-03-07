@@ -258,11 +258,11 @@ class UserController extends CRUDController
             2 => 'email',
             3 => 'collectivite',
             4 => 'roles',
-            5 => 'actif',
-            6 => 'connexion',
-            7 => 'services',
-            8 => 'actions',
-            9 => 'moreInfos',
+            5 => 'moreInfos',
+            6 => 'actif',
+            7 => 'connexion',
+            8 => 'services',
+            9 => 'actions',
         ];
     }
 
