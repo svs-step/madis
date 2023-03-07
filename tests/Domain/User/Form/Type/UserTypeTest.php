@@ -118,6 +118,7 @@ class UserTypeTest extends FormTypeHelper
             'roles'                       => DictionaryType::class,
             'enabled'                     => CheckboxType::class,
             'moreInfos'                   => DictionaryType::class,
+            'notGeneratesNotifications'   => CheckboxType::class,
             'plainPassword'               => RepeatedType::class,
             'collectivitesReferees'       => EntityType::class,
             'emailNotificationPreference' => EmailNotificationPreferenceType::class,
@@ -191,6 +192,8 @@ class UserTypeTest extends FormTypeHelper
         ;
 
         $builderProphecy->get('moreInfos')->shouldBeCalled()->willReturn($builderProphecy);
+        $builderProphecy->get('notGeneratesNotifications')->shouldNotBeCalled();
+
         $builderProphecy
             ->addModelTransformer(Argument::type(MoreInfoTransformer::class))
             ->shouldBeCalled()
