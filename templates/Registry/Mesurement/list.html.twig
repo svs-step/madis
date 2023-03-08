@@ -52,9 +52,11 @@
             <div class="box box-solid">
                 <div class="box-body">
                     <div id="custom-buttons" style="float:left">
-                        <a id="delete-all"  href="" class="dt-button buttons-collection buttons-colvis">
-                            Supprimer
-                        </a>
+                        {% if app.user.roles[0] != 'ROLE_PREVIEW' %}
+                            <a id="delete-all"  href="" class="dt-button buttons-collection buttons-colvis">
+                                Supprimer
+                            </a>
+                        {% endif %}
                         <a id="print-all"  href="" class="dt-button buttons-collection buttons-colvis">
                             Imprimer
                         </a>

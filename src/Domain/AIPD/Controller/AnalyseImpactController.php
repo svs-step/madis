@@ -151,23 +151,25 @@ class AnalyseImpactController extends CRUDController
         <i class="fa fa-print"></i>' .
             $this->translator->trans('action.print') . '
         </a>';
-        if (!$analyseImpact->isValidated()) {
-            $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
-                <i class="fa fa-pencil-alt"></i>' .
-                        $this->translator->trans('action.edit') . '
-                </a>';
-            if ($analyseImpact->isReadyForValidation()) {
-                $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_validation', ['id' => $analyseImpact->getId()]) . '">
-                <i class="fa fa-check-square"></i>' .
-                    $this->translator->trans('action.validate') . '
-                </a>';
-            }
-        }
-        $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
-        <i class="fa fa-trash"></i>' .
-            $this->translator->trans('action.delete') . '
-        </a>';
 
+        if (!$this->authorizationChecker->isGranted('ROLE_PREVIEW')) {
+            if (!$analyseImpact->isValidated()) {
+                $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
+                    <i class="fa fa-pencil-alt"></i>' .
+                    $this->translator->trans('action.edit') . '
+                    </a>';
+                if ($analyseImpact->isReadyForValidation()) {
+                    $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_validation', ['id' => $analyseImpact->getId()]) . '">
+                    <i class="fa fa-check-square"></i>' .
+                        $this->translator->trans('action.validate') . '
+                    </a>';
+                }
+            }
+            $cell .= '                                    <a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
+            <i class="fa fa-trash"></i> ' .
+                $this->translator->trans('action.delete') . '
+            </a>';
+        }
         return $cell;
     }
 

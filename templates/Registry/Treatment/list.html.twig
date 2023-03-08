@@ -72,14 +72,16 @@
             <div class="box box-solid">
                 <div class="box-body">
                     <div style="float:left">
-                        {% if app.request.query.get('active') != 'false' %}
+                        {% if app.request.query.get('active') != 'false' and app.user.roles[0] != 'ROLE_PREVIEW' %}
                         <a id="archive-all"  href="{{ path('registry_treatment_archive_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Désactiver
                         </a>
                         {% endif %}
-                        <a id="delete-all"  href="{{ path('registry_treatment_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Supprimer
-                        </a>
+                        {% if app.user.roles[0] != 'ROLE_PREVIEW' %}
+                            <a id="delete-all"  href="{{ path('registry_treatment_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                                Supprimer
+                            </a>
+                        {% endif %}
                         <a id="print-all"  href="{{ path('registry_treatment_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Imprimer
                         </a>
