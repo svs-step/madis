@@ -43,16 +43,16 @@ class ConformiteType extends AbstractType
                         ->setParameter('nonApplied', MesurementStatusDictionary::STATUS_NOT_APPLIED)
                         ->orderBy('m.name', 'ASC');
                 },
-                'choice_label' => 'name',
-                'expanded'     => false,
-                'multiple'     => true,
-                'attr'         => [
+                'choice_label'  => 'name',
+                'expanded'      => false,
+                'multiple'      => true,
+                'attr'          => [
                     'class'            => 'selectpicker',
                     'title'            => 'placeholder.multiple_select',
                     'data-live-search' => true,
                     'data-width'       => '450px',
                 ],
-                'choice_attr' => function (Mesurement $choice) {
+                'choice_attr'   => function (Mesurement $choice) {
                     $name = $choice->getName();
                     if (\mb_strlen($name) > 85) {
                         $name = \mb_substr($name, 0, 85) . '...';

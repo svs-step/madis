@@ -170,6 +170,7 @@ class AnalyseImpactController extends CRUDController
                 $this->translator->trans('action.delete') . '
             </a>';
         }
+
         return $cell;
     }
 

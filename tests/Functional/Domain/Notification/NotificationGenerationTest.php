@@ -108,9 +108,9 @@ class NotificationGenerationTest extends WebTestCase
         $csrfToken = $client->getContainer()->get('security.csrf.token_manager')->getToken('request');
         $client->request('POST', $url, [
             'request' => [
-                'object'      => $request->getObject(),
-                'otherObject' => $request->getOtherObject(),
-                'applicant'   => [
+                'object'          => $request->getObject(),
+                'otherObject'     => $request->getOtherObject(),
+                'applicant'       => [
                     'firstName' => 'firstname',
                     'lastName'  => 'lastname',
                     'civility'  => RequestCivilityDictionary::CIVILITY_MISS,
@@ -123,8 +123,8 @@ class NotificationGenerationTest extends WebTestCase
                     'civility'  => RequestCivilityDictionary::CIVILITY_MISS,
                     'mail'      => 'test@example.org',
                 ],
-                'state'  => RequestStateDictionary::STATE_AWAITING_SERVICE,
-                '_token' => $csrfToken,
+                'state'           => RequestStateDictionary::STATE_AWAITING_SERVICE,
+                '_token'          => $csrfToken,
                 // 'uploadedFile' => $uploadedFile,
             ],
         ]);
@@ -176,12 +176,12 @@ class NotificationGenerationTest extends WebTestCase
 
         $client->request('POST', $url, [
             'analyse_avis' => [
-                'avisReferent' => [
+                'avisReferent'     => [
                     'date'    => date('d/m/Y'),
                     'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
                     'detail'  => 'ok',
                 ],
-                'avisDpd' => [
+                'avisDpd'          => [
                     'date'    => date('d/m/Y'),
                     'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
                     'detail'  => 'ok',
@@ -191,12 +191,12 @@ class NotificationGenerationTest extends WebTestCase
                     'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
                     'detail'  => 'ok',
                 ],
-                'avisResponsable' => [
+                'avisResponsable'  => [
                     'date'    => date('d/m/Y'),
                     'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
                     'detail'  => 'ok',
                 ],
-                '_token' => $csrfToken,
+                '_token'           => $csrfToken,
                 // 'uploadedFile' => $uploadedFile,
             ],
         ]);

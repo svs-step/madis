@@ -33,7 +33,6 @@ trait HistoryTrait
      * @var \DateTimeImmutable|null
      *
      * @ORM\Column(type="datetime_immutable", name="created_at")
-     *
      * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
@@ -42,7 +41,6 @@ trait HistoryTrait
      * @var \DateTimeImmutable|null
      *
      * @ORM\Column(type="datetime_immutable", name="updated_at")
-     *
      * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
