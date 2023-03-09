@@ -158,7 +158,7 @@ class MesurementType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
+                'attr' => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
@@ -185,7 +185,7 @@ class MesurementType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
+                'attr' => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
@@ -211,7 +211,7 @@ class MesurementType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
+                'attr' => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
@@ -237,7 +237,7 @@ class MesurementType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
+                'attr' => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],

@@ -161,10 +161,10 @@ class NotificationEventSubscriber implements EventSubscriber
                 AbstractObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($o) {
                     return $this->getObjectSimpleValue($o);
                 },
-                'maxDepth'                                           => 1,
-                AbstractObjectNormalizer::ENABLE_MAX_DEPTH           => true,
-                AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT   => 1,
-                AbstractObjectNormalizer::MAX_DEPTH_HANDLER          => function ($o) {
+                'maxDepth'                                         => 1,
+                AbstractObjectNormalizer::ENABLE_MAX_DEPTH         => true,
+                AbstractObjectNormalizer::CIRCULAR_REFERENCE_LIMIT => 1,
+                AbstractObjectNormalizer::MAX_DEPTH_HANDLER        => function ($o) {
                     if (is_iterable($o)) {
                         $d = [];
                         foreach ($o as $item) {
