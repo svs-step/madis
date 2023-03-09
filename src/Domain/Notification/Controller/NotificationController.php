@@ -202,9 +202,15 @@ class NotificationController extends CRUDController
         if (
             'notification.modules.violation' === $notification->getModule()
         ) {
-            return join(', ', array_map(function ($v) {
-                return ViolationNatureDictionary::getNatures()[$v];
-            }, $notification->getObject()->violationNatures));
+            $ob = $notification->getObject();
+            if (isset($ob->violationNatures) && is_array($ob->violationNatures) && count($ob->violationNatures) > 0) {
+                return join(', ', array_map(function ($v) {
+                    return ViolationNatureDictionary::getNatures()[$v] ?? '';
+                }, $ob->violationNatures));
+            } elseif (isset($ob->violationNature)) {
+                return ViolationNatureDictionary::getNatures()[$ob->violationNature] ?? '';
+            }
+            return '';
         }
 
         if (
