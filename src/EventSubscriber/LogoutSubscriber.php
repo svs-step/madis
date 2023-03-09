@@ -8,7 +8,8 @@ use Symfony\Component\Security\Http\Event\LogoutEvent;
 
 class LogoutSubscriber implements EventSubscriberInterface
 {
-    public function __construct(){
+    public function __construct()
+    {
     }
 
     public static function getSubscribedEvents(): array
