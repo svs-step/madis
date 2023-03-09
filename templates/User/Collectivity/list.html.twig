@@ -56,7 +56,6 @@
                                     {% endfor %}
                                 </select>
                             </th>
-                            <th></th>
                             <th>
                                 <input class="form-control" type="text" id="search_informations_complementaires" placeholder="Infos complémentaires" style="width: 100%;">
                             </th>
@@ -150,35 +149,35 @@
 
             $('#search_informations_complementaires').off('keyup');
             $('#search_informations_complementaires').keyup($.debounce(250, function(){
-                oTable.column('5').search($(this).val()).draw() ;
+                oTable.column('3').search($(this).val()).draw() ;
             }));
 
             $('#search_siren').off('keyup');
             $('#search_siren').keyup($.debounce(250, function(){
-                oTable.column('5').search($(this).val()).draw() ;
+                oTable.column('4').search($(this).val()).draw() ;
             }));
 
             $('#search_actif').off('change');
             $('#search_actif').change(function(){
-                oTable.column('6').search($(this).val()).draw() ;
+                oTable.column('5').search($(this).val()).draw() ;
             });
 
             $('#search_nbr_cnil').off('keyup');
             $('#search_nbr_cnil').keyup($.debounce(250, function(){
                 console.log('a',oTable.column('7'));
-                oTable.column('7').search($(this).val()).draw() ;
+                oTable.column('6').search($(this).val()).draw() ;
             }));
 
             $('#search_nbr_agents').off('keyup');
             $('#search_nbr_agents').keyup($.debounce(250, function(){
                 console.log('b',oTable.column('8'));
-                oTable.column('8').search($(this).val()).draw() ;
+                oTable.column('7').search($(this).val()).draw() ;
             }));
 
             $('#search_population').off('keyup');
             $('#search_population').keyup($.debounce(250, function(){
                 console.log('c',oTable.column('9'));
-                oTable.column('9').search($(this).val()).draw() ;
+                oTable.column('8').search($(this).val()).draw() ;
             }));
         }
 

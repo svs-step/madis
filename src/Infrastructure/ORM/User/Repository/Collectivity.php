@@ -212,6 +212,9 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
                 case 'type':
                     $this->addWhereClause($queryBuilder, 'type', $search);
                     break;
+                case 'informations_complementaires':
+                    $this->addWhereClause($queryBuilder, 'informationsComplementaires', '%' . $search . '%', 'LIKE');
+                    break;
                 case 'siren':
                     $this->addWhereClause($queryBuilder, 'siren', '%' . $search . '%', 'LIKE');
                     break;
