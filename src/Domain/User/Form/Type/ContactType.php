@@ -50,7 +50,7 @@ class ContactType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $request           = $this->requestStack->getCurrentRequest();
+        $request = $this->requestStack->getCurrentRequest();
 
         $intersectIsEmpty = empty(\array_intersect(
             [
