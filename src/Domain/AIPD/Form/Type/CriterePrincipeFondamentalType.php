@@ -55,7 +55,7 @@ class CriterePrincipeFondamentalType extends AbstractType
                             'image/png',
                         ],
 //                        'mimeTypesMessage' => 'aipd.critere_principe_fondamental.fichier.file',
-                        'groups' => ['default'],
+                        'groups'    => ['default'],
                     ]),
                 ],
             ])
