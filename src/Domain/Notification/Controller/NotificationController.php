@@ -273,8 +273,6 @@ class NotificationController extends CRUDController
         }
 
         return $html;
-
-        return null;
     }
 
     /**
