@@ -204,13 +204,13 @@ class NotificationController extends CRUDController
         ) {
             return join(', ', array_map(function ($v) {
                 return ViolationNatureDictionary::getNatures()[$v];
-            }, $notification->getObject()->getViolationNatures()));
+            }, $notification->getObject()->violationNatures));
         }
 
         if (
             'notification.modules.proof' === $notification->getModule()
         ) {
-            return $notification->getObject()->getType();
+            return $notification->getObject()->type;
         }
 
         if ('notifications.actions.no_login' === $notification->getAction()) {
@@ -218,7 +218,7 @@ class NotificationController extends CRUDController
         }
 
         if ('notifications.actions.state_change' === $notification->getAction()) {
-            return $notification->getObject()->getState();
+            return $notification->getObject()->state;
         }
 
         if ('notifications.actions.late_survey' === $notification->getAction()) {
