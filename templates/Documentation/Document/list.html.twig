@@ -130,7 +130,7 @@
                                 <th>{{ 'documentation.document.list.name'|trans }}</th>
                                 <th>{{ 'documentation.document.list.category'|trans }}</th>
                                 <th>{{ 'documentation.document.list.created_at'|trans }}</th>
-                                {% if not is_granted('ROLE_PREVIEW') %}
+                                {% if app.user.roles[0] != 'ROLE_PREVIEW' %}
                                     <th>{{ 'label.actions'|trans }}</th>
                                 {% endif %}
                             </tr>
@@ -183,7 +183,7 @@
                             </td>
                             <td>{{ object.createdAt|date('d/m/Y') }}</td>
 
-                            {% if not is_granted('ROLE_PREVIEW') %}
+                            {% if app.user.roles[0] != 'ROLE_PREVIEW' %}
                                 <td>
                                     {% if is_granted('ROLE_ADMIN') %}
                                         <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
