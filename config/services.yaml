@@ -45,9 +45,7 @@ services:
         arguments:
             $sso_type: '%SSO_TYPE%'
 
-    App\EventSubscriber\LogoutSubscriber:
-        arguments:
-            $logoutUrl: '%SSO_LOGOUT_URL%'
+#    App\EventSubscriber\LogoutSubscriber:
 
     App\Application\Symfony\OpenApi\JwtDecorator:
         decorates: 'api_platform.openapi.factory'

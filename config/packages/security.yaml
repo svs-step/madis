@@ -42,6 +42,7 @@ security:
             logout:
                 path: /deconnexion
                 target: /
+                invalidate_session: false
             remember_me:
                 secret: '%env(APP_SECRET)%'
                 lifetime: 604800 # 1 week in seconds
