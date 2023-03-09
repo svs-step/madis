@@ -210,6 +210,7 @@ class NotificationController extends CRUDController
             } elseif (isset($ob->violationNature)) {
                 return ViolationNatureDictionary::getNatures()[$ob->violationNature] ?? '';
             }
+
             return '';
         }
 
