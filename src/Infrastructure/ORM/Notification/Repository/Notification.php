@@ -233,6 +233,10 @@ class Notification extends CRUDRepository implements Repository\Notification
     private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
     {
         switch ($orderColumn) {
+            case 'read_date':
+            case 'state':
+                $queryBuilder->addOrderBy('o.readAt', $orderDir);
+                break;
             case 'name':
                 $queryBuilder->addOrderBy('o.name', $orderDir);
                 break;
@@ -253,9 +257,6 @@ class Notification extends CRUDRepository implements Repository\Notification
                 $queryBuilder->addSelect('CONCAT(cb.firstName, \' \', cb.lastName)
                     AS HIDDEN person_name')
                     ->addOrderBy('person_name', $orderDir);
-                break;
-            case 'read_date':
-                $queryBuilder->addOrderBy('o.readAt', $orderDir);
                 break;
             case 'updatedAt':
                 $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
