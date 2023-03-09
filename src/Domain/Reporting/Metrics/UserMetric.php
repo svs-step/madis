@@ -105,18 +105,18 @@ class UserMetric implements MetricInterface
         $data = [
             'conformiteOrganisation' => [
             ],
-            'conformiteTraitement' => [
+            'conformiteTraitement'   => [
                 'data'   => [],
                 'labels' => [],
                 'colors' => [],
             ],
-            'contractor' => [
-                'all'     => 0,
-                'clauses' => [
+            'contractor'             => [
+                'all'                        => 0,
+                'clauses'                    => [
                     'yes' => 0,
                     'no'  => 0,
                 ],
-                'adoptedSecurityFeatures' => [
+                'adoptedSecurityFeatures'    => [
                     'yes' => 0,
                     'no'  => 0,
                 ],
@@ -124,14 +124,14 @@ class UserMetric implements MetricInterface
                     'yes' => 0,
                     'no'  => 0,
                 ],
-                'sendingDataOutsideEu' => [
+                'sendingDataOutsideEu'       => [
                     'yes' => 0,
                     'no'  => 0,
                 ],
             ],
-            'maturity'   => [],
-            'mesurement' => [
-                'value' => [
+            'maturity'               => [],
+            'mesurement'             => [
+                'value'   => [
                     'applied'       => 0,
                     'notApplied'    => 0,
                     'notApplicable' => 0,
@@ -144,10 +144,10 @@ class UserMetric implements MetricInterface
                     'planified'     => 0,
                 ],
             ],
-            'request' => [
+            'request'                => [
                 'value' => [
-                    'all'  => 0,
-                    'type' => [
+                    'all'    => 0,
+                    'type'   => [
                         'correct'         => 0,
                         'delete'          => 0,
                         'withdrawConsent' => 0,
@@ -163,7 +163,7 @@ class UserMetric implements MetricInterface
                     ],
                 ],
             ],
-            'treatment' => [
+            'treatment'              => [
                 'value' => [
                     'active'  => 0,
                     'numeric' => 0,
@@ -172,27 +172,27 @@ class UserMetric implements MetricInterface
                             'yes' => 0,
                             'no'  => 0,
                         ],
-                        'securityTracability' => [
+                        'securityTracability'   => [
                             'yes' => 0,
                             'no'  => 0,
                         ],
-                        'securitySaving' => [
+                        'securitySaving'        => [
                             'yes' => 0,
                             'no'  => 0,
                         ],
-                        'securityUpdate' => [
+                        'securityUpdate'        => [
                             'yes' => 0,
                             'no'  => 0,
                         ],
                     ],
                 ],
             ],
-            'violation' => [
+            'violation'              => [
                 'value' => [
                     'all' => 0,
                 ],
             ],
-            'aipd' => [
+            'aipd'                   => [
                 'toDo' => 0,
             ],
         ];
