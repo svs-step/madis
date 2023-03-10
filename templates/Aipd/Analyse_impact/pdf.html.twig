@@ -449,9 +449,8 @@
             {% endfor %}
             </tbody>
         </table>
+        <div>Le graphique ci-dessous indique les points d’amélioration nécessaires au respect des principes fondamentaux du règlement.</div>
         <div class="reportGraph"><canvas id="grandsDomaines-chart"></canvas></div>
-        <div>Le graphique indique les points d’amélioration nécessaires au respect des principes fondamentaux du règlement.</div>
-
         <div  style="page-break-before: always;"></div>
         <h2>4. Études des risques liés à la sécurité des données</h2>
         <div>Ce chapitre a pour objectifs d'obtenir une bonne connaissance des mesures contribuant à la sécurité et d'apprécier les risques.</div>
@@ -589,11 +588,13 @@
                         <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
                     </tr>
                     {% for scenario in object.scenarioMenaces|sort((a, b) => a.nom >= b.nom) %}
-                        <tr>
-                            <td>{{ scenario.nom }}</td>
-                            <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
-                            <td>{{ getScenarioMenaceImpactResiduelLabel(scenario)|raw }}</td>
-                        </tr>
+                        {% if isScenarioMenaceImpactResiduelImpactNotNegligeable(scenario) %}
+                            <tr>
+                                <td>{{ scenario.nom }}</td>
+                                <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
+                                <td>{{ getScenarioMenaceImpactResiduelLabel(scenario)|raw }}</td>
+                            </tr>
+                        {% enfif %}
                     {% endfor %}
                 </table>
             </div>
@@ -606,7 +607,7 @@
             <div class="box-body">
                 <table class="table table-bordered" style="page-break-inside: avoid">
                     <tr>
-                        <th>Label livrable</th>
+                        <th>Mesure</th>
                         <th>Préconisations</th>
                     </tr>
                     {% for mesure in object.mesureProtections|sort((a, b) => a.labelLivrable >= b.labelLivrable) %}
@@ -636,7 +637,7 @@
         </table>
         <table class="table table-bordered">
             <tr>
-                <td class="table-bluecell">Avis du DPD</td>
+                <td class="table-bluecell">Avis du délégué à la protection des données</td>
                 <td>{{ object.avisDpd.reponse|dictionary('reponse_avis') }}</td>
             </tr>
             <tr><td colspan="2">{{ object.avisDpd.date|date('d/m/Y') }}</td></tr>
@@ -654,7 +655,7 @@
         </table>
         <table class="table table-bordered">
             <tr>
-                <td class="table-bluecell">Décision du RT</td>
+                <td class="table-bluecell">Décision du responsable de traitement</td>
                 <td>{{ object.avisResponsable.reponse|dictionary('reponse_avis') }}</td>
             </tr>
             <tr><td colspan="2">{{ object.avisResponsable.date|date('d/m/Y') }}</td></tr>
@@ -1171,7 +1172,6 @@
                                         <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
-                                </td>
                             </tr>
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.security_open_accounts'|trans }}</strong></td>
@@ -1544,7 +1544,7 @@
                         scaleLabel: {
                             display: true,
                             labelString: 'Vraisemblance',
-                        }
+                        },
                     }],
                 },
                 animation: {
@@ -1607,14 +1607,23 @@
         {% if (scenario.isDisponibilite) %}
             dispoGravity = gravite > dispoGravity ? gravite : dispoGravity;
             dispoVraisemblance = vraisemblance > dispoVraisemblance ? vraisemblance : dispoVraisemblance;
+
+            dispoGravity = dispoGravity > 0.6 ? dispoGravity - 0.5 : dispoGravity
+            dispoVraisemblance = dispoVraisemblance > 0.6 ? dispoVraisemblance - 0.5 : dispoVraisemblance
         {% endif %}
         {% if (scenario.isIntegrite) %}
             integrityGravity = gravite > integrityGravity ? gravite : integrityGravity;
             integrityVraisemblance = vraisemblance > integrityVraisemblance ? vraisemblance : integrityVraisemblance;
+
+            dispoGravity = dispoGravity > 0.6 ? dispoGravity - 0.5 : dispoGravity
+            dispoVraisemblance = dispoVraisemblance > 0.6 ? dispoVraisemblance - 0.5 : dispoVraisemblance
         {% endif %}
         {% if (scenario.isConfidentialite) %}
             confidentialityGravity = gravite > confidentialityGravity ? gravite : confidentialityGravity;
             confidentialityVraisemblance = vraisemblance > confidentialityVraisemblance ? vraisemblance : confidentialityVraisemblance;
+
+            confidentialityGravity = confidentialityGravity > 0.6 ? confidentialityGravity - 0.5 : confidentialityGravity
+            confidentialityVraisemblance = confidentialityVraisemblance > 0.6 ? confidentialityVraisemblance - 0.5 : confidentialityVraisemblance
         {% endif %}
 
         {%  set rr = getScenarioMenaceImpactResiduel(scenario) %}

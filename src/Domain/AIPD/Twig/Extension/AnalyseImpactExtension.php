@@ -88,6 +88,13 @@ class AnalyseImpactExtension extends AbstractExtension
         return $this->getImpactLabel($impact);
     }
 
+    public function isScenarioMenaceImpactResiduelImpactNotNegligeable(AnalyseScenarioMenace $scenarioMenace): bool
+    {
+        $impact = VraisemblanceGraviteDictionary::getImpact($this->getScenarioMenaceImpactResiduel($scenarioMenace));
+
+        return $impact !== VraisemblanceGraviteDictionary::NEGLIGEABLE ;
+    }
+
     private function getImpactLabel(string $impact): string
     {
         $labelColor = null;
