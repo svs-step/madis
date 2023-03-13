@@ -40,9 +40,9 @@ class ComplexChoiceType extends AbstractType
     {
         $builder
             ->add('check', CheckboxType::class, [
-                'label'          => false,
-                'required'       => false,
-                'label_attr'     => [
+                'label'      => false,
+                'required'   => false,
+                'label_attr' => [
                     'removeColClass' => true,
                 ],
                 'error_bubbling' => true,
