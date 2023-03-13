@@ -202,15 +202,22 @@ class NotificationController extends CRUDController
         if (
             'notification.modules.violation' === $notification->getModule()
         ) {
-            return join(', ', array_map(function ($v) {
-                return ViolationNatureDictionary::getNatures()[$v];
-            }, $notification->getObject()->getViolationNatures()));
+            $ob = $notification->getObject();
+            if (isset($ob->violationNatures) && is_array($ob->violationNatures) && count($ob->violationNatures) > 0) {
+                return join(', ', array_map(function ($v) {
+                    return ViolationNatureDictionary::getNatures()[$v] ?? '';
+                }, $ob->violationNatures));
+            } elseif (isset($ob->violationNature)) {
+                return ViolationNatureDictionary::getNatures()[$ob->violationNature] ?? '';
+            }
+
+            return '';
         }
 
         if (
             'notification.modules.proof' === $notification->getModule()
         ) {
-            return $notification->getObject()->getType();
+            return $notification->getObject()->type;
         }
 
         if ('notifications.actions.no_login' === $notification->getAction()) {
@@ -218,7 +225,7 @@ class NotificationController extends CRUDController
         }
 
         if ('notifications.actions.state_change' === $notification->getAction()) {
-            return $notification->getObject()->getState();
+            return $notification->getObject()->state;
         }
 
         if ('notifications.actions.late_survey' === $notification->getAction()) {
@@ -266,8 +273,6 @@ class NotificationController extends CRUDController
         }
 
         return $html;
-
-        return null;
     }
 
     /**

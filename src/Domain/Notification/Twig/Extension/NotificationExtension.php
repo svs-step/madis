@@ -26,10 +26,10 @@ class NotificationExtension extends AbstractExtension
 
     public function __construct(TranslatorInterface $translator, RouterInterface $router, string $requestDays, string $surveyDays)
     {
-        $this->translator = $translator;
-        $this->router     = $router;
-        $this->requestDays     = $requestDays;
-        $this->surveyDays     = $surveyDays;
+        $this->translator  = $translator;
+        $this->router      = $router;
+        $this->requestDays = $requestDays;
+        $this->surveyDays  = $surveyDays;
     }
 
     public function getFilters()
@@ -69,7 +69,6 @@ class NotificationExtension extends AbstractExtension
                 $sentence .= ' : ' .
                     '<a href="' . $link . '">' . $notification->getName() . '</a> '
                 ;
-
         }
 
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Violation::class]) {

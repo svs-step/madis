@@ -139,6 +139,12 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
     private $ssoKey;
 
     /**
+     * @var bool|null
+     *                Whther this user's actions do not generate notifications
+     */
+    private ?bool $notGeneratesNotifications;
+
+    /**
      * User constructor.
      *
      * @throws \Exception
@@ -151,6 +157,7 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
         $this->collectivitesReferees       = [];
         $this->moreInfos                   = [];
         $this->emailNotificationPreference = new EmailNotificationPreference();
+        $this->notGeneratesNotifications   = false;
     }
 
     public function getId(): UuidInterface
@@ -417,5 +424,21 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
     public function setSsoKey(?string $ssoKey): void
     {
         $this->ssoKey = $ssoKey;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNotGeneratesNotifications(): ?bool
+    {
+        return $this->notGeneratesNotifications;
+    }
+
+    /**
+     * @param bool $notGeneratesNotifications
+     */
+    public function setNotGeneratesNotifications(?bool $notGeneratesNotifications): void
+    {
+        $this->notGeneratesNotifications = $notGeneratesNotifications;
     }
 }

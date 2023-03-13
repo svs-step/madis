@@ -26,7 +26,7 @@ user:
                 day: Quotidien
                 hour: Toutes les
                 each: À chaque notification
-                none: aucun notification
+                none: Aucune notification
                 label_hour: heures
                 monthly: Mensuelle le
                 weekly: Hebdomadaire le
@@ -64,6 +64,7 @@ user:
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de la structure
             is_services_enabled: Activation des services
+
             name: Nom
             placeholder:
                 website: https://
@@ -234,6 +235,7 @@ user:
             collectivity: Structure
             collectivitesReferees: Structures rattachées
             email: E-mail
+            not_generates_notifications: Les actions de cet utilisateur ne génèrent pas de notification
             enabled: Actif
             first_name: Prénom
             help:

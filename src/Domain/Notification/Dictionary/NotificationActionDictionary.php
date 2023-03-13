@@ -57,10 +57,10 @@ class NotificationActionDictionary extends SimpleDictionary
             self::ADD                  => 'Ajout',
             self::EDIT                 => 'Modification',
             self::DELETE               => 'Suppression',
-            self::LATE_ACTION          => 'Retard (automatique)',
-            self::LATE_SURVEY          => 'Retard (automatique)',
+            self::LATE_ACTION          => 'Action de protection en retard (automatique)',
+            self::LATE_SURVEY          => 'Indice de maturité en retard (automatique)',
             self::TREATMENT_NEEDS_AIPD => 'Nécéssité de faire une AIPD',
-            self::NO_LOGIN             => 'Inactif',
+            self::NO_LOGIN             => 'Utilisateur inactif',
             self::STATE_CHANGE         => 'Changement d\'état',
         ];
     }
