@@ -30,6 +30,7 @@ use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Notification\Model;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Repository;
+use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use Doctrine\ORM\EntityManagerInterface;
@@ -217,7 +218,9 @@ class NotificationController extends CRUDController
         if (
             'notification.modules.proof' === $notification->getModule()
         ) {
-            return $notification->getObject()->type;
+            $type = $notification->getObject()->type;
+
+            return $type && isset(ProofTypeDictionary::getTypes()[$type]) ? ProofTypeDictionary::getTypes()[$type] : '';
         }
 
         if ('notifications.actions.no_login' === $notification->getAction()) {
