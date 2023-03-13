@@ -594,7 +594,7 @@
                                 <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
                                 <td>{{ getScenarioMenaceImpactResiduelLabel(scenario)|raw }}</td>
                             </tr>
-                        {% enfif %}
+                        {% endif %}
                     {% endfor %}
                 </table>
             </div>
@@ -1591,6 +1591,7 @@
     var risquesDataSet1 = [];
     var risquesDataSet2 = [];
     var dicResiduelsData = [];
+    var risquesResiduelsLabels = [];
 
     var dispoGravity = 0;
     var dispoVraisemblance = 0;
@@ -1630,6 +1631,7 @@
         {%  set rp = getScenarioMenaceImpactPotentiel(scenario) %}
         risquesDataSet1.push({{ rp-rr }})
         risquesDataSet2.push({{ rr }});
+        risquesResiduelsLabels.push("{{ scenario.nom }}");
     {% endfor %}
     dicResiduelsData.push({
         label: "Disponibilité",
@@ -1662,7 +1664,7 @@
     window.onload = function() {
         radarChart("grandsDomaines-chart", domainesLabels, [''], domainesDatas, [colorBlue]);
         radarChart('mesuresSecurite-chart', mesuresLabels, [''], mesuresDatas, [colorPurple]);
-        stackedBarChart("risquesResiduels-chart", risquesLabels, risquesDatas);
+        stackedBarChart("risquesResiduels-chart", risquesResiduelsLabels, risquesDatas);
         bubbleChart('dicResiduels-chart', risquesLabels, dicResiduelsData);
     };
 
