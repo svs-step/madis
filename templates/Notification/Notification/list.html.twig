@@ -114,8 +114,8 @@
 {% block javascripts %}
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 
-    {% set dataTableOptions = {
-        columns: [
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set columns = [
             {"data": "state"},
             {"data": "module"},
             {"data": "action"},
@@ -127,7 +127,21 @@
             {"data": "read_date"},
             {"data": "read_by"},
             {"data": "actions", "orderable": false, "className": "noVis",},
-        ],
+        ] %}
+    {% else %}
+        {% set columns = [
+            {"data": "module"},
+            {"data": "action"},
+            {"data": "name"},
+            {"data": "object", "orderable": false},
+            {"data": "date"},
+            {"data": "user"},
+            {"data": "actions", "orderable": false, "className": "noVis",},
+        ] %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: columns,
         order: [[6, 'desc']],
 
         language: {
