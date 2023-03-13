@@ -110,8 +110,8 @@ aipd:
             en_cours: En cours
             non_realisee: Non réalisée
             defavorable: Défavorable
-            favorable_avec_reserves: Favorable avec réserves
-            favorable_reserve: Favorable avec réserves
+            favorable_avec_reserves: Favorable avec réserve(s)
+            favorable_reserve: Favorable avec réserve(s)
             favorable: Favorable
             non_favorable: Défavorable
             evaluation:

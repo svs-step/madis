@@ -233,7 +233,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
             $responseData = [
                 [
                     'État de la demande',
-                    RequestStateDictionary::getStates()[$request->getState()],
+                    $request->getState() ? RequestStateDictionary::getStates()[$request->getState()] : '',
                 ],
                 [
                     'Réponse apportée',

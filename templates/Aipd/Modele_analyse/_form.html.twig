@@ -118,6 +118,9 @@
                         {% for scenarioMenace in form.scenarioMenaces %}
                             {{ formMacros.printScenariosMenaces(scenarioMenace) }}
                         {% endfor %}
+                        {% if form.scenarioMenaces is empty %}
+                            {% do form.scenarioMenaces.setRendered() %}
+                        {% endif %}
                     </table>
                 </div>
             </div>
