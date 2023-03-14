@@ -42,6 +42,11 @@ class VraisemblanceGraviteDictionary extends SimpleDictionary
         ];
     }
 
+    public function offsetGet($offset): mixed
+    {
+        return isset(self::getVraisemblanceGravite()[$offset]) ? self::getVraisemblanceGravite()[$offset] : '';
+    }
+
     public static function getPoidsFromImpact(string $key): int
     {
         if (array_key_exists($key, array_keys(self::getVraisemblanceGravite()))) {
