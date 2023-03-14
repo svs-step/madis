@@ -253,7 +253,7 @@ class Notification extends CRUDRepository implements Repository\Notification
                 $queryBuilder->addOrderBy('o.createdAt', $orderDir);
                 break;
             case 'user':
-                $queryBuilder->join('o.createdBy', 'cb');
+                $queryBuilder->leftJoin('o.createdBy', 'cb');
                 $queryBuilder->addSelect('CONCAT(cb.firstName, \' \', cb.lastName)
                     AS HIDDEN person_name')
                     ->addOrderBy('person_name', $orderDir);
