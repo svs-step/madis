@@ -242,7 +242,7 @@
 
             $('#search_date').off('change');
             $('#search_date').change(function(){
-                oTable.column('4').search($(this).val()).draw() : oTable.column('4').search($(this).val()).draw() ;
+                oTable.column('4').search($(this).val()).draw() ;
             });
 
             $('#search_user_name').off('keyup');
@@ -255,6 +255,7 @@
         }
 
         $(document).ready(function() {
+
             $('#table_filter').hide();
             $('.dt-button-background').hide();
             $('.dt-button-collection').hide();
