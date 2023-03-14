@@ -179,20 +179,32 @@ class NotificationController extends CRUDController
                 $nameHtml = '<a href="' . $link . '">' . $notification->getName() . '</a>'
                 ;
             }
+            if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+                $reponse['data'][] = [
+                    'state'        => $notification->getReadAt() ? $read : $unread,
+                    'module'       => $this->translator->trans($notification->getModule()),
+                    'action'       => $this->translator->trans($notification->getAction()),
+                    'name'         => $nameHtml,
+                    'object'       => $this->getSubjectForNotification($notification),
+                    'collectivity' => $this->authorizationChecker->isGranted('ROLE_REFERENT') && $notification->getCollectivity() ? $notification->getCollectivity()->getName() : '',
+                    'date'         => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
+                    'user'         => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
+                    'read_date'    => $notification->getReadAt() ? $notification->getReadAt()->format('d-m-Y H:i:s') : '',
+                    'read_by'      => $notification->getReadBy() ? $notification->getReadBy()->__toString() : '',
+                    'actions'      => $this->generateActionCellContent($notification),
+                ];
+            } else {
+                $reponse['data'][] = [
+                    'module'       => $this->translator->trans($notification->getModule()),
+                    'action'       => $this->translator->trans($notification->getAction()),
+                    'name'         => $nameHtml,
+                    'object'       => $this->getSubjectForNotification($notification),
+                    'date'         => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
+                    'user'         => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
+                    'actions'      => $this->generateActionCellContent($notification),
+                ];
+            }
 
-            $reponse['data'][] = [
-                'state'        => $notification->getReadAt() ? $read : $unread,
-                'module'       => $this->translator->trans($notification->getModule()),
-                'action'       => $this->translator->trans($notification->getAction()),
-                'name'         => $nameHtml,
-                'object'       => $this->getSubjectForNotification($notification),
-                'collectivity' => $this->authorizationChecker->isGranted('ROLE_REFERENT') && $notification->getCollectivity() ? $notification->getCollectivity()->getName() : '',
-                'date'         => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
-                'user'         => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
-                'read_date'    => $notification->getReadAt() ? $notification->getReadAt()->format('d-m-Y H:i:s') : '',
-                'read_by'      => $notification->getReadBy() ? $notification->getReadBy()->__toString() : '',
-                'actions'      => $this->generateActionCellContent($notification),
-            ];
         }
 
         return new JsonResponse($reponse);
@@ -350,17 +362,27 @@ class NotificationController extends CRUDController
 
     protected function getLabelAndKeysArray(): array
     {
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            return [
+                'state',
+                'module',
+                'action',
+                'name',
+                'object',
+                'collectivity',
+                'date',
+                'user',
+                'read_date',
+                'read_by',
+            ];
+        }
         return [
-            'state',
             'module',
             'action',
             'name',
             'object',
-            'collectivity',
             'date',
             'user',
-            'read_date',
-            'read_by',
         ];
     }
 
