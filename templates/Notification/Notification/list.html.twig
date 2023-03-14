@@ -22,7 +22,6 @@
 {% endblock %}
 
 {% block body %}
-    <div class="dt-button-background" style=""></div>
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
@@ -138,7 +137,7 @@
         dom: 'Bfrtip',
         columnDefs: [
             {
-                targets: 4,
+                targets: 10,
                 className: 'noVis'
             }
         ],
@@ -245,6 +244,7 @@
 
 
     $('#table').on('column-visibility.dt', function() {
+        console.log('set events')
         setEvents();
     } );
 

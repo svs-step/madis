@@ -63,7 +63,7 @@ class NotificationModuleDictionary extends SimpleDictionary
             Notification::MODULES[ConformiteTraitement::class] => 'Conformité du traitement',
             Notification::MODULES[Conformite::class]           => 'Conformité de la structure',
             Notification::MODULES[AnalyseImpact::class]        => 'Analyse d\'impact',
-            Notification::MODULES[Document::class]             => 'Document',
+            Notification::MODULES[Document::class]             => 'Espace Documentaire',
             'user'                                             => 'Utilisateurs',
         ];
     }

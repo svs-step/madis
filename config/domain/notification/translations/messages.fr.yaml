@@ -6,7 +6,7 @@ notifications:
         subcontractor: Sous-traitants
         violation: Violations
         proof: Preuves
-        document: Document
+        document: Espace documentaire
         action: Actions de protection
         protect_action: Actions de protection
         request: Demandes
