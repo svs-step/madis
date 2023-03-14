@@ -32,6 +32,7 @@ use App\Domain\User\Form\Type\ResetPasswordType;
 use App\Domain\User\Model\User;
 use App\Domain\User\Repository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -39,39 +40,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class SecurityController extends AbstractController
 {
-    /**
-     * @var ControllerHelper
-     */
-    private $helper;
-
-    /**
-     * @var AuthenticationUtils
-     */
-    private $authenticationUtils;
-
-    /**
-     * @var TokenGenerator
-     */
-    private $tokenGenerator;
-
-    /**
-     * @var Repository\User
-     */
-    private $userRepository;
-
-    /**
-     * @var Mailer
-     */
-    private $mailer;
-
+    private ControllerHelper $helper;
+    private AuthenticationUtils $authenticationUtils;
+    private TokenGenerator $tokenGenerator;
+    private Repository\User $userRepository;
+    private Mailer $mailer;
     private UserProvider $userProvider;
-
     private EntityManagerInterface $entityManager;
 
     private ?string $sso_type;
@@ -102,9 +86,9 @@ class SecurityController extends AbstractController
     /**
      * Display login page.
      *
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function loginAction(): Response
     {
@@ -128,21 +112,23 @@ class SecurityController extends AbstractController
         $oauthServiceName = $request->get('service');
         try {
             $client = $clientRegistry->getClient($oauthServiceName);
-        } catch (\Exception) {
+        } catch (Exception) {
             return $this->_handleSsoClientError();
         }
 
-        return $client->redirect([], []);
+        // scope openid required to get id_token needed for logout
+        return $client->redirect(['openid'], []);
     }
 
-    public function oauthCheckAction(Request $request, ClientRegistry $clientRegistry, TokenStorageInterface $tokenStorage)
+    public function oauthCheckAction(Request $request, ClientRegistry $clientRegistry, TokenStorageInterface $tokenStorage): RedirectResponse
     {
         $oauthServiceName = $request->get('service');
 
         /** @var OAuth2Client $client */
         $client = $clientRegistry->getClient($oauthServiceName);
         try {
-            $accessToken   = $client->getAccessToken();
+            // scope openid required to get id_token needed for logout
+            $accessToken   = $client->getAccessToken(['scope' => 'openid']);
             $userOAuthData = $client->fetchUserFromToken($accessToken)->toArray();
         } catch (IdentityProviderException) {
             return $this->_handleSsoClientError();
@@ -151,9 +137,22 @@ class SecurityController extends AbstractController
         $sso_key_field = $this->sso_key_field;
         try {
             $sso_value = $userOAuthData[$sso_key_field];
-        } catch (\Exception) {
+        } catch (Exception) {
             // sso_key_field not found
             return $this->_handleSsoClientError();
+        }
+
+        $ssoLogoutUrl = null;
+        $provider     = $client->getOAuth2Provider();
+        if (method_exists($provider, 'getLogoutUrl')) {
+            $tokenValues  = $accessToken->getValues();
+            $ssoLogoutUrl = $provider->getLogoutUrl([
+                'id_token_hint'            => $tokenValues['id_token'],
+                'post_logout_redirect_uri' => $this->generateUrl('login', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            ]);
+
+            $session = $request->getSession();
+            $session->set('ssoLogoutUrl', $ssoLogoutUrl);
         }
 
         $currentUser = $this->userProvider->getAuthenticatedUser();
@@ -163,7 +162,7 @@ class SecurityController extends AbstractController
 
         $user = $this->userRepository->findOneOrNullBySsoKey($sso_value);
         if (!$user) {
-            return $this->_handleUserNotFound();
+            return $this->_handleUserNotFound($ssoLogoutUrl);
         }
 
         // Login Programmatically
@@ -176,9 +175,9 @@ class SecurityController extends AbstractController
     /**
      * Display Forget password page.
      *
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function forgetPasswordAction(): Response
     {
@@ -192,11 +191,9 @@ class SecurityController extends AbstractController
      * - Send forget password email
      * - Display forget password confirmation page.
      *
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     * @throws \Twig\Error\LoaderError
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @throws RuntimeError
+     * @throws SyntaxError
+     * @throws LoaderError
      */
     public function forgetPasswordConfirmAction(Request $request): Response
     {
@@ -223,9 +220,9 @@ class SecurityController extends AbstractController
      * @param Request $request The Request
      * @param string  $token   The forgetPasswordToken to search the user with
      *
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function resetPasswordAction(Request $request, string $token): Response
     {
@@ -273,12 +270,16 @@ class SecurityController extends AbstractController
         return $this->helper->redirectToRoute('login');
     }
 
-    private function _handleUserNotFound(): RedirectResponse
+    private function _handleUserNotFound(string $logoutUrl = null): RedirectResponse
     {
         $this->helper->addFlash(
             'danger',
             $this->helper->trans('user.security.reset_password.flashbag.error')
         );
+
+        if ($logoutUrl) {
+            return $this->redirect($logoutUrl);
+        }
 
         return $this->helper->redirectToRoute('login');
     }
