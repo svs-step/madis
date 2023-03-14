@@ -249,6 +249,11 @@
 {% block javascripts %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 
+    {% set actionIsVisible = false %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set actionIsVisible = true %}
+    {% endif %}
+
     {% set dataTableOptions = {
         columns: [
             {"data": "pinned"},
@@ -258,7 +263,7 @@
             {"data": "name"},
             {"data": "category"},
             {"data": "created_at"},
-            {"data": "actions", "orderable": false},
+            {"data": "actions", "className": "noVis", "orderable": false, "visible": actionIsVisible},
         ],
 
         order: [[0,'desc'],[6,'desc']],
