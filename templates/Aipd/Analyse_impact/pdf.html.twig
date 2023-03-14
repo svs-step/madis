@@ -1535,6 +1535,7 @@
                         }
                     }],
                     xAxes: [{
+                        offset: true,
                         ticks : {
                             beginAtZero: true,
                             stepSize: 1,
@@ -1631,7 +1632,7 @@
         {%  set rp = getScenarioMenaceImpactPotentiel(scenario) %}
         risquesDataSet1.push({{ rp-rr }})
         risquesDataSet2.push({{ rr }});
-        risquesResiduelsLabels.push("{{ scenario.nom }}");
+        risquesResiduelsLabels.push("{{ scenario.nom|u.truncate(28, '...') }}");
     {% endfor %}
     dicResiduelsData.push({
         label: "Disponibilité",
