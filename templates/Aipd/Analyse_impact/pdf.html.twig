@@ -1053,7 +1053,7 @@
                             </tr>
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.software'|trans }}</strong></td>
-                                <td>{{ traitement.tools }}</td>
+                                <td>{{ traitement.tools|map(t => t.name)|join(', ') }}</td>
                             </tr>
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.paper_processing'|trans }}</strong></td>
