@@ -115,6 +115,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 
     {% if is_granted('ROLE_ADMIN') %}
+        {% set order = [[6, 'desc']] %}
         {% set columns = [
             {"data": "state"},
             {"data": "module"},
@@ -138,11 +139,12 @@
             {"data": "user"},
             {"data": "actions", "orderable": false, "className": "noVis",},
         ] %}
+        {% set order = [[4, 'desc']] %}
     {% endif %}
 
     {% set dataTableOptions = {
         columns: columns,
-        order: [[6, 'desc']],
+        order: order,
 
         language: {
             buttons: {
@@ -150,12 +152,6 @@
             },
         },
         dom: 'Bfrtip',
-        columnDefs: [
-            {
-                targets: 4,
-                className: 'noVis'
-            }
-        ],
         buttons: [
             {
                 extend: 'colvis',
@@ -167,9 +163,7 @@
     {{ include('_Utils/_serverside_datatable.html.twig') }}
 <script>
     const isAdmin = {{ is_granted('ROLE_ADMIN')|json_encode() }}
-
-
-
+        
     function resetFilters() {
             $('[id^=search_]').each(function() {
                 $(this).val('');
