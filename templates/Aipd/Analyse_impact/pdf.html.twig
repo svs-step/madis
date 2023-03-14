@@ -1521,6 +1521,14 @@
                 datasets: data,
             },
             options: {
+                layout: {
+                    padding: {
+                        left: 50,
+                        right: 50,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
                 scales: {
                     yAxes: [{
                         ticks : {
@@ -1535,7 +1543,9 @@
                         }
                     }],
                     xAxes: [{
-                        offset: true,
+                        gridLines: {
+                            offsetGridLines: true
+                        },
                         ticks : {
                             beginAtZero: true,
                             stepSize: 1,
@@ -1609,14 +1619,16 @@
         {% if (scenario.isDisponibilite) %}
             dispoGravity = gravite > dispoGravity ? gravite : dispoGravity;
             dispoVraisemblance = vraisemblance > dispoVraisemblance ? vraisemblance : dispoVraisemblance;
-
+            // P(x,y) => si x>0,6 alors x=x-0,5 si y>0,6 alors y=y-0,5
+            // https://gitlab.adullact.net/soluris/madis/-/issues/635
             dispoGravity = dispoGravity > 0.6 ? dispoGravity - 0.5 : dispoGravity
             dispoVraisemblance = dispoVraisemblance > 0.6 ? dispoVraisemblance - 0.5 : dispoVraisemblance
         {% endif %}
         {% if (scenario.isIntegrite) %}
             integrityGravity = gravite > integrityGravity ? gravite : integrityGravity;
             integrityVraisemblance = vraisemblance > integrityVraisemblance ? vraisemblance : integrityVraisemblance;
-
+            // P(x,y) => si x>0,6 alors x=x-0,5 si y>0,6 alors y=y-0,5
+            // https://gitlab.adullact.net/soluris/madis/-/issues/635
             dispoGravity = dispoGravity > 0.6 ? dispoGravity - 0.5 : dispoGravity
             dispoVraisemblance = dispoVraisemblance > 0.6 ? dispoVraisemblance - 0.5 : dispoVraisemblance
         {% endif %}
