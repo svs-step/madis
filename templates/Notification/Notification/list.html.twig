@@ -22,7 +22,6 @@
 {% endblock %}
 
 {% block body %}
-    <div class="dt-button-background" style=""></div>
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
@@ -181,6 +180,7 @@
         function setEvents() {
             var oTable = $('#table').DataTable();
 
+            {% if is_granted('ROLE_ADMIN') %}
             // NON LU SEULEMENT
             $('#search_state').off('change');
             $('#search_state').change(function(){
@@ -189,17 +189,17 @@
 
             $('#search_module').off('change');
             $('#search_module').change(function(){
-                oTable.column(isAdmin ? '1' : '0').search($(this).val()).draw();
+                oTable.column('1').search($(this).val()).draw();
             });
 
             $('#search_action').off('change');
             $('#search_action').change(function(){
-                oTable.column(isAdmin ? '2' : '1').search($(this).val()).draw();
+                oTable.column('2').search($(this).val()).draw();
             });
 
             $('#search_name').off('keyup');
             $('#search_name').keyup($.debounce(250, function(){
-                oTable.column(isAdmin ? '3' : '2').search($(this).val()).draw();
+                oTable.column('3').search($(this).val()).draw();
             }));
 
             $('#search_collectivity').off('keyup');
@@ -209,24 +209,54 @@
 
             $('#search_date').off('change');
             $('#search_date').change(function(){
-                isAdmin ? oTable.column('6').search($(this).val()).draw() : oTable.column('4').search($(this).val()).draw() ;
+                oTable.column('6').search($(this).val()).draw() : oTable.column('4').search($(this).val()).draw() ;
             });
 
             $('#search_user_name').off('keyup');
             $('#search_user_name').keyup($.debounce(250, function(){
-                isAdmin && oTable.column('7').search($(this).val()).draw();
+                oTable.column('7').search($(this).val()).draw();
             }));
 
             $('#search_read_at').off('change');
             $('#search_read_at').change(function(){
-                isAdmin && oTable.column('8').search($(this).val()).draw()
+                oTable.column('8').search($(this).val()).draw()
             });
 
             $('#search_read_by').off('keyup');
             $('#search_read_by').keyup($.debounce(250, function(){
-                isAdmin && oTable.column('9').search($(this).val()).draw();
+                oTable.column('9').search($(this).val()).draw();
             }));
 
+            {% else %}
+
+
+            $('#search_module').off('change');
+            $('#search_module').change(function(){
+                oTable.column('0').search($(this).val()).draw();
+            });
+
+            $('#search_action').off('change');
+            $('#search_action').change(function(){
+                oTable.column('1').search($(this).val()).draw();
+            });
+
+            $('#search_name').off('keyup');
+            $('#search_name').keyup($.debounce(250, function(){
+                oTable.column('2').search($(this).val()).draw();
+            }));
+
+
+            $('#search_date').off('change');
+            $('#search_date').change(function(){
+                oTable.column('4').search($(this).val()).draw() : oTable.column('4').search($(this).val()).draw() ;
+            });
+
+            $('#search_user_name').off('keyup');
+            $('#search_user_name').keyup($.debounce(250, function(){
+                oTable.column('5').search($(this).val()).draw();
+            }));
+
+            {% endif %}
 
         }
 
