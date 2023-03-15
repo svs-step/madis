@@ -175,7 +175,7 @@ class NotificationController extends CRUDController
 
             $nameHtml = '<span>' . $notification->getName() . '</span> ';
 
-            if ($link && 'notifications.actions.delete' !== $notification->getAction()) {
+            if ($link && 'notification.actions.delete' !== $notification->getAction()) {
                 $nameHtml = '<a href="' . $link . '">' . $notification->getName() . '</a>'
                 ;
             }

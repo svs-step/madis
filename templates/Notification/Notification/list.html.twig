@@ -152,6 +152,12 @@
             },
         },
         dom: 'Bfrtip',
+        columnDefs: [
+            {
+                targets: 10,
+                className: 'noVis'
+            }
+        ],
         buttons: [
             {
                 extend: 'colvis',
@@ -163,7 +169,7 @@
     {{ include('_Utils/_serverside_datatable.html.twig') }}
 <script>
     const isAdmin = {{ is_granted('ROLE_ADMIN')|json_encode() }}
-        
+
     function resetFilters() {
             $('[id^=search_]').each(function() {
                 $(this).val('');
@@ -285,6 +291,7 @@
 
 
     $('#table').on('column-visibility.dt', function() {
+        console.log('set events')
         setEvents();
     } );
 
