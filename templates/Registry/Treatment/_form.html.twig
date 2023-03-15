@@ -1,4 +1,7 @@
+{% import _self as formMacros %}
+
 {% macro printShelfLife(shelfLife) %}
+    {% do form.shelLifes.setRendered() %}
     <div class="js-collection-item col-md-6 nopadding">
         <div class="box box-default">
             <div class="box-tools pull-right">
@@ -20,7 +23,7 @@
                     </tr>
                     <tr>
                         <td class="text-bold">{{ 'registry.treatment.form.shelflife_ultimate_fate'|trans }}</td>
-                        <td>{{ form_widget(shelfLife.ultimateFate) }}</td>
+                        <td>{{ form_widget(shelfLife.ultimate_fate) }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -163,7 +166,7 @@
 
                 <div class="col-sm-6">
                     <div class="js-collection-wrapper"
-                         data-prototype="{{ formMacros.printS(form.shelfLifes.vars.prototype)|e('html_attr') }}"
+                         data-prototype="{{ formMacros.printShelfLife(form.shelfLifes.vars.prototype)|e('html_attr') }}"
                          data-index="{{ form.shelfLifes|length }}"
                     >
 
