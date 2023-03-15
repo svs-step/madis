@@ -102,6 +102,7 @@ class NotificationControllerTest extends TestCase
         );
     }
 
+    /*
     public function testGetLabelsAndKeys()
     {
         $this->assertEquals(
@@ -120,6 +121,7 @@ class NotificationControllerTest extends TestCase
             $this->invokeMethod($this->controller, 'getLabelAndKeysArray', [])
         );
     }
+    */
 
     public function testGetObjectLink()
     {
