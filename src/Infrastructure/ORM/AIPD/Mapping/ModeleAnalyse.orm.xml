@@ -29,7 +29,7 @@
             <cascade><cascade-persist/><cascade-remove/></cascade>
         </one-to-many>
         <one-to-many field="scenarioMenaces"
-                     target-entity="App\Domain\AIPD\Model\ModeleScenarioMenace" mapped-by="modeleAnalyse" orphan-removal="true">
+                     target-entity="App\Domain\AIPD\Model\ModeleScenarioMenace" mapped-by="modeleAnalyse">
             <cascade><cascade-persist/><cascade-remove/></cascade>
         </one-to-many>
         <one-to-many field="questionConformites"
