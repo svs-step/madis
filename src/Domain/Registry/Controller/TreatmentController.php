@@ -458,7 +458,7 @@ class TreatmentController extends CRUDController
                 $label = 'Défavorable';
                 $class = 'label-danger';
                 break;
-            case 'favorable_avec_reserves':
+            case 'favorable_reserve':
                 $label = 'Favorable avec réserve(s)';
                 $class = 'label-warning';
                 break;
