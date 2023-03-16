@@ -14,9 +14,11 @@ use App\Domain\AIPD\Form\Type\ModeleAnalyseRightsType;
 use App\Domain\AIPD\Form\Type\ModeleAnalyseType;
 use App\Domain\AIPD\Model\ModeleAnalyse;
 use App\Domain\AIPD\Model\ModeleQuestionConformite;
+use App\Domain\AIPD\Model\ModeleScenarioMenace;
 use App\Domain\AIPD\Repository;
 use App\Domain\Registry\Repository\ConformiteTraitement\Question;
 use App\Domain\User\Repository\Collectivity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\Exception\FileNotFound;
 use Gaufrette\FilesystemInterface;
@@ -189,6 +191,7 @@ class ModeleAnalyseController extends CRUDController
             if ($this->modeleFlow->nextStep()) {
                 $form = $this->modeleFlow->createForm();
             } else {
+                $this->ScenarioMenacesToDelete($object, $id);
                 $this->entityManager->persist($object);
                 $this->entityManager->flush();
 
@@ -399,5 +402,21 @@ class ModeleAnalyseController extends CRUDController
 
         // Output the 36 character UUID.
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+    }
+
+    private function ScenarioMenacesToDelete($object, $modeleAnalyseId){
+        $ScenarioMenacesToDelete = [];
+        $scenarioMenacesActual = $this->entityManager->getRepository(ModeleScenarioMenace::class)->findBy(['modeleAnalyse' => $modeleAnalyseId]);
+
+        foreach ($scenarioMenacesActual as $actualScenarioMenace){
+            if (!in_array($actualScenarioMenace, $object->getScenarioMenaces()->toArray())){
+                $ScenarioMenacesToDelete[] = $actualScenarioMenace;
+            }
+        }
+
+        foreach ($ScenarioMenacesToDelete as $menaceToDelete) {
+            $menace = $this->entityManager->getRepository(ModeleScenarioMenace::class)->find($menaceToDelete->getId());
+            $this->entityManager->remove((object)$menace);
+        }
     }
 }
