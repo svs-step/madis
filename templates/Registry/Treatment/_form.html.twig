@@ -1,7 +1,6 @@
 {% import _self as formMacros %}
-
+{{ dump(form) }}
 {% macro printShelfLife(shelfLife) %}
-    {% do form.shelLifes.setRendered() %}
     <div class="js-collection-item col-md-6 nopadding">
         <div class="box box-default">
             <div class="box-tools pull-right">
@@ -164,17 +163,17 @@
                 {{ form_row(form.consentRequest) }}
                 {{ form_row(form.consentRequestFormat) }}
 
+                {% do form.shelfLifes.setRendered() %}
                 <div class="col-sm-6">
                     <div class="js-collection-wrapper"
                          data-prototype="{{ formMacros.printShelfLife(form.shelfLifes.vars.prototype)|e('html_attr') }}"
                          data-index="{{ form.shelfLifes|length }}"
                     >
-
                         {% for shelfLife in form.shelfLifes %}
                             {{ formMacros.printShelfLife(shelfLife) }}
                         {% endfor %}
                         <a href="#" class="js-collection-add btn btn-default">
-                            <span class="fa fa-pencil-alt"></span>
+                            <i class="fa fa-plus"></i> Ajouter un délai de conservation
                         </a>
                     </div>
                 </div>

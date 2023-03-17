@@ -468,13 +468,16 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.delay'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.show.shelfLife'|trans }}</strong></td>
                             <td>
-                                {% if object.delay.number and object.delay.period %}
-                                    {{ object.delay.number }} {{ object.delay.period|dictionary('registry_delay_period') }}
-                                {% elseif object.delay.otherDelay %}
-                                    {{ object.delay.comment }}
-                                {% endif %}
+                                <ul>
+                                    {{ dump(object.shelfLifes) }}
+                                    {#  for method in object.shelfLifes %}
+                                        <li>{{ method.name }}</li>
+                                        <li>{{ method.duration }}</li>
+                                        <li>{{ method.ultimate_fate }}</li>
+                                    {% endfor #}
+                                </ul>
                             </td>
                         </tr>
                         <tr>

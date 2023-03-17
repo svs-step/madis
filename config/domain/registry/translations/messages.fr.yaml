@@ -605,6 +605,7 @@ registry:
             security_tracability: Traçabilité
             security_update: Mise à jour
             service: Service
+            shelfLife: Délai de conservation
             software: Logiciel
             systematic_monitoring: Surveillance systématique
             updated_at: Dernière mise à jour
