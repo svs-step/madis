@@ -244,6 +244,8 @@ class AnalyseImpactController extends CRUDController
 
                 $this->analyseFlow->reset();
 
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object));
+
                 return $this->redirectToRoute($this->getRouteName('evaluation'), [
                     'id' => $id,
                 ]);
@@ -284,6 +286,8 @@ class AnalyseImpactController extends CRUDController
                 $this->entityManager->flush();
 
                 $this->analyseFlow->reset();
+
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object));
 
                 return $this->redirectToRoute($this->getRouteName('evaluation'), [
                     'id' => $id,
