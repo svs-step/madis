@@ -1,7 +1,7 @@
 {% import _self as formMacros %}
 {{ dump(form) }}
 {% macro printShelfLife(shelfLife) %}
-    <div class="js-collection-item col-md-6 nopadding">
+    <div class="js-collection-item nopadding">
         <div class="box box-default">
             <div class="box-tools pull-right">
                 <a href="#" class="btn btn-box-tool js-remove-item" data-toggle="tooltip" title="Remove">
@@ -145,27 +145,11 @@
                 {{ form_row(form.software) }}
                 {% endif %}
                 {{ form_row(form.paperProcessing) }}
-                <div class="delay-group">
-                    <div class="form-group" style="margin-bottom: 0;">
-                        {{ form_label(form.delay) }}
-                        <div class="col-sm-10 one-line">
-                            <div>{{ form_widget(form.delay.number) }}</div>
-                            <div>{{ form_widget(form.delay.period) }}</div>
-                        </div>
-                    </div>
-                    <div>{{ form_row(form.delay.otherDelay) }}</div>
-                    <div>{{ form_row(form.delay.comment) }}</div>
-                </div>
-                {{ form_row(form.dataOrigin) }}
-                {{ form_row(form.collectingMethod) }}
-                {{ form_row(form.otherCollectingMethod) }}
-                {{ form_row(form.legalMentions) }}
-                {{ form_row(form.consentRequest) }}
-                {{ form_row(form.consentRequestFormat) }}
 
                 {% do form.shelfLifes.setRendered() %}
-                <div class="col-sm-6">
-                    <div class="js-collection-wrapper"
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Délai de conservation</label>
+                    <div class="js-collection-wrapper col-sm-10"
                          data-prototype="{{ formMacros.printShelfLife(form.shelfLifes.vars.prototype)|e('html_attr') }}"
                          data-index="{{ form.shelfLifes|length }}"
                     >
@@ -177,6 +161,13 @@
                         </a>
                     </div>
                 </div>
+
+                {{ form_row(form.dataOrigin) }}
+                {{ form_row(form.collectingMethod) }}
+                {{ form_row(form.otherCollectingMethod) }}
+                {{ form_row(form.legalMentions) }}
+                {{ form_row(form.consentRequest) }}
+                {{ form_row(form.consentRequestFormat) }}
             </div>
         </div>
 

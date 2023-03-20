@@ -3,17 +3,17 @@ App\Domain\Registry\Model\ShelfLife:
         treatment: '@registry_treatment_awkan_1'
         name: shelflife 1
         duration: 5 jours
-        ultimate_fate: ultimate 1
+        ultimate_fate: deposit
 
     registry_treatment_shelf_life_2:
         treatment: '@registry_treatment_awkan_1'
         name: shelflife 2
         duration: 4 jours
-        ultimate_fate: ultimate 2
+        ultimate_fate: 	conservation
 
     registry_treatment_shelf_life_3:
         treatment: '@registry_treatment_awkan_2'
         name: shelflife 3
         duration: 3 jours
-        ultimate_fate: ultimate 3
+        ultimate_fate: conservation
 
