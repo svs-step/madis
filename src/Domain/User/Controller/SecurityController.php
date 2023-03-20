@@ -36,6 +36,7 @@ use Exception;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -120,7 +121,7 @@ class SecurityController extends AbstractController
         return $client->redirect(['openid'], []);
     }
 
-    public function oauthCheckAction(Request $request, ClientRegistry $clientRegistry, TokenStorageInterface $tokenStorage): RedirectResponse
+    public function oauthCheckAction(Request $request, ClientRegistry $clientRegistry, TokenStorageInterface $tokenStorage, LoggerInterface $logger): RedirectResponse
     {
         $oauthServiceName = $request->get('service');
 
@@ -138,7 +139,8 @@ class SecurityController extends AbstractController
         try {
             $sso_value = $userOAuthData[$sso_key_field];
         } catch (Exception) {
-            // sso_key_field not found
+            $logger->error('SSO field "' . $sso_key_field . '" not found.');
+            $logger->info('Data returned by SSO: ' . json_encode($userOAuthData));
             return $this->_handleSsoClientError();
         }
 

@@ -32,6 +32,19 @@ class LemonLdap extends Keycloak
     }
 
     /**
+     * Builds the logout URL.
+     *
+     * @return string Authorization URL
+     */
+    public function getLogoutUrl(array $options = []): string
+    {
+        $base  = $this->getBaseLogoutUrl();
+        $query = $this->buildQueryString($options);
+
+        return $this->appendQuery($base, $query);
+    }
+
+    /**
      * Get logout url to logout of session token.
      */
     private function getBaseLogoutUrl(): string
