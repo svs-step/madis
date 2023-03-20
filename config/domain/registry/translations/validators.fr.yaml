@@ -25,16 +25,6 @@ registry_contractor:
     sending_data_outside_eu:
         not_null: Envoi des données hors UE doit être renseignée
 
-registry_delay:
-    number:
-        expression: Vous ne pouvez saisir un jour puisque vous avez sélectionné une autre durée
-        min_range: La plus petite valeur possible est {{ limit }}
-        type: Vous devez reseigner un chiffre
-    other_delay:
-        not_null: Vous devez saisir une valeur
-    comment:
-        expression: Vous ne pouvez saisir de détail puisque d'une durée spécifique doit être saisie
-
 registry_proof:
     document_file:
         not_null: Vous devez ajouter un document

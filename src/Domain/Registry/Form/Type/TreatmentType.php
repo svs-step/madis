@@ -25,7 +25,6 @@ declare(strict_types=1);
 namespace App\Domain\Registry\Form\Type;
 
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
-use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Tool;
 use App\Domain\Registry\Model\Treatment;
@@ -225,10 +224,6 @@ class TreatmentType extends AbstractType
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
-            ])
-            ->add('delay', DelayType::class, [
-                'label'    => 'registry.treatment.form.delay',
-                'required' => false,
             ])
             ->add('securityAccessControl', ComplexChoiceType::class, [
                 'label'    => 'registry.treatment.form.security_access_control',

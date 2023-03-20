@@ -30,7 +30,6 @@ use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\Embeddable\ComplexChoice;
-use App\Domain\Registry\Model\Embeddable\Delay;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
@@ -151,11 +150,6 @@ class Treatment implements LoggableSubject, CollectivityRelated
      * @var iterable
      */
     private $contractors;
-
-    /**
-     * @var Delay
-     */
-    private $delay;
 
     /**
      * FR: Contrôle d'accès (mesure de sécurité).
@@ -449,7 +443,6 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->shelfLifes                        = [];
         $this->dataCategories                    = [];
         $this->contractors                       = [];
-        $this->delay                             = new Delay();
         $this->securityAccessControl             = new ComplexChoice();
         $this->securityTracability               = new ComplexChoice();
         $this->securitySaving                    = new ComplexChoice();
@@ -695,16 +688,6 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function getContractors(): iterable
     {
         return $this->contractors;
-    }
-
-    public function getDelay(): Delay
-    {
-        return $this->delay;
-    }
-
-    public function setDelay(Delay $delay): void
-    {
-        $this->delay = $delay;
     }
 
     public function getSecurityAccessControl(): ComplexChoice

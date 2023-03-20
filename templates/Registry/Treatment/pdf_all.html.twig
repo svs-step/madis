@@ -367,13 +367,30 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.delay'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.show.shelfLife'|trans }}</strong></td>
                             <td>
-                                {% if object.delay.number and object.delay.period %}
-                                    {{ object.delay.number }} {{ object.delay.period|dictionary('registry_delay_period') }}
-                                {% elseif object.delay.otherDelay %}
-                                    {{ object.delay.comment }}
-                                {% endif %}
+                                {% for method in object.shelfLifes %}
+                                    <div class="box box-default">
+                                        <div class="box-body">
+                                            <table class="table">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="text-bold">{{ 'registry.treatment.form.shelflife_name'|trans }}</td>
+                                                    <td>{{ method.name }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-bold">{{ 'registry.treatment.form.shelflife_duration'|trans }}</td>
+                                                    <td>{{ method.duration }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-bold">{{ 'registry.treatment.form.shelflife_ultimate_fate'|trans }}</td>
+                                                    <td>{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                {% endfor %}
                             </td>
                         </tr>
                         <tr>

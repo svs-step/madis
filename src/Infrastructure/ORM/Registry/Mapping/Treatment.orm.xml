@@ -46,7 +46,7 @@
         <field name="coordonneesResponsableTraitement" column="coordonnees_responsable_traitement" nullable="true"/>
         <field name="collectingMethod" column="collecting_method" type="json_array" nullable="true"/>
         <field name="estimatedConcernedPeople" column="estimated_concerned_people" type="integer" nullable="true"/>
-        <one-to-many field="shelfLifes" target-entity="App\Domain\Registry\Model\ShelfLife" mapped-by="treatment" fetch="EAGER">
+        <one-to-many field="shelfLifes" target-entity="App\Domain\Registry\Model\ShelfLife" mapped-by="treatment" fetch="EAGER" orphan-removal="true">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove />
@@ -58,7 +58,6 @@
         <field name="consentRequest" column="consent_request" type="boolean"/>
         <field name="consentRequestFormat" column="consent_request_format" type="text" nullable="true"/>
 
-        <embedded name="delay" class="App\Domain\Registry\Model\Embeddable\Delay" column-prefix="delay_"/>
         <embedded name="securityAccessControl" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_access_control_"/>
         <embedded name="securityTracability" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_tracability_"/>
         <embedded name="securitySaving" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_saving_"/>

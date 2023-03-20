@@ -146,13 +146,13 @@
                 {% endif %}
                 {{ form_row(form.paperProcessing) }}
 
-                {% do form.shelfLifes.setRendered() %}
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Délai de conservation</label>
                     <div class="js-collection-wrapper col-sm-10"
                          data-prototype="{{ formMacros.printShelfLife(form.shelfLifes.vars.prototype)|e('html_attr') }}"
                          data-index="{{ form.shelfLifes|length }}"
                     >
+                        {% do form.shelfLifes.setRendered() %}
                         {% for shelfLife in form.shelfLifes %}
                             {{ formMacros.printShelfLife(shelfLife) }}
                         {% endfor %}

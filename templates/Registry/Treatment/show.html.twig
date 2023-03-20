@@ -470,30 +470,28 @@
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.shelfLife'|trans }}</strong></td>
                             <td>
-                                <ul>
-                                    {% for method in object.shelfLifes %}
-                                        <div class="box box-default">
-                                            <div class="box-body">
-                                                <table class="table">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td class="text-bold">{{ 'registry.treatment.form.shelflife_name'|trans }}</td>
-                                                        <td>{{ method.name }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold">{{ 'registry.treatment.form.shelflife_duration'|trans }}</td>
-                                                        <td>{{ method.duration }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold">{{ 'registry.treatment.form.shelflife_ultimate_fate'|trans }}</td>
-                                                        <td>{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                {% for method in object.shelfLifes %}
+                                    <div class="box box-default">
+                                        <div class="box-body">
+                                            <table class="table">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="text-bold">{{ 'registry.treatment.form.shelflife_name'|trans }}</td>
+                                                    <td>{{ method.name }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-bold">{{ 'registry.treatment.form.shelflife_duration'|trans }}</td>
+                                                    <td>{{ method.duration }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-bold">{{ 'registry.treatment.form.shelflife_ultimate_fate'|trans }}</td>
+                                                    <td>{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                    {% endfor %}
-                                </ul>
+                                    </div>
+                                {% endfor %}
                             </td>
                         </tr>
                         <tr>
