@@ -466,6 +466,10 @@ class TreatmentController extends CRUDController
                 $label = 'Favorable';
                 $class = 'label-success';
                 break;
+            case 'en_cours':
+                $label = 'En cours';
+                $class = 'label-default';
+                break;
             default:
                 $label = 'Non réalisée';
                 $class = 'label-default';
