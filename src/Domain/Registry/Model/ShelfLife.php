@@ -2,12 +2,10 @@
 
 namespace App\Domain\Registry\Model;
 
-use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Form\AbstractType;
 
-class ShelfLife extends AbstractType
+class ShelfLife
 {
     /**
      * @var UuidInterface

@@ -46,7 +46,7 @@
         <field name="coordonneesResponsableTraitement" column="coordonnees_responsable_traitement" nullable="true"/>
         <field name="collectingMethod" column="collecting_method" type="json_array" nullable="true"/>
         <field name="estimatedConcernedPeople" column="estimated_concerned_people" type="integer" nullable="true"/>
-        <one-to-many field="shelfLifes" target-entity="App\Domain\Registry\Model\ShelfLife" mapped-by="treatments" orphan-removal="true">
+        <one-to-many field="shelfLifes" target-entity="App\Domain\Registry\Model\ShelfLife" mapped-by="treatment">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove />
