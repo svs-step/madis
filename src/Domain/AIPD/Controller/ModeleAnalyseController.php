@@ -164,6 +164,8 @@ class ModeleAnalyseController extends CRUDController
 
                 $this->modeleFlow->reset();
 
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object));
+
                 return $this->redirectToRoute($this->getRouteName('list'));
             }
         }
@@ -196,6 +198,8 @@ class ModeleAnalyseController extends CRUDController
                 $this->entityManager->flush();
 
                 $this->modeleFlow->reset();
+
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object));
 
                 return $this->redirectToRoute($this->getRouteName('list'));
             }
