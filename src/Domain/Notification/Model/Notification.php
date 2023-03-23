@@ -140,7 +140,7 @@ class Notification
     private ?User $createdBy;
 
     /**
-     * @ORM\OneToMany(mappedBy="notification", targetEntity="App\Domain\Notification\Model\NotificationUser", cascade={"persist"})
+     * @ORM\OneToMany(mappedBy="notification", targetEntity="App\Domain\Notification\Model\NotificationUser", cascade={"persist", "remove"})
      */
     private Collection|array $notificationUsers = [];
 

@@ -93,6 +93,7 @@ notification:
             mark_as_read: Marquer comme lu
             mark_as_unread: Marquer comme non lu
             mark_as_read_all: Tout marquer comme lu
+            delete: Supprimer
     notificationMailParameters:
         title: Notifications
         breadcrumb:

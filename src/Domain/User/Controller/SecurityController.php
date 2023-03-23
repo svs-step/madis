@@ -141,6 +141,7 @@ class SecurityController extends AbstractController
         } catch (Exception) {
             $logger->error('SSO field "' . $sso_key_field . '" not found.');
             $logger->info('Data returned by SSO: ' . json_encode($userOAuthData));
+
             return $this->_handleSsoClientError();
         }
 

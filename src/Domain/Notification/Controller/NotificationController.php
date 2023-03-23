@@ -195,16 +195,16 @@ class NotificationController extends CRUDController
                 ];
             } else {
                 $reponse['data'][] = [
-                    'module'       => $this->translator->trans($notification->getModule()),
-                    'action'       => $this->translator->trans($notification->getAction()),
-                    'name'         => $nameHtml,
-                    'object'       => $this->getSubjectForNotification($notification),
-                    'date'         => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
-                    'user'         => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
-                    'actions'      => $this->generateActionCellContent($notification),
+                    'state'   => $notification->getReadAt() ? $read : $unread,
+                    'module'  => $this->translator->trans($notification->getModule()),
+                    'action'  => $this->translator->trans($notification->getAction()),
+                    'name'    => $nameHtml,
+                    'object'  => $this->getSubjectForNotification($notification),
+                    'date'    => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
+                    'user'    => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
+                    'actions' => $this->generateActionCellContent($notification),
                 ];
             }
-
         }
 
         return new JsonResponse($reponse);
@@ -285,7 +285,17 @@ class NotificationController extends CRUDController
 <i class="fas fa-clipboard-check"></i>&nbsp;
                 ' . $this->translator->trans('notification.notification.action.mark_as_read') . '
                 </a>';
+        } else {
+            $html .= '<a href="' . $this->router->generate('notification_notification_mark_as_unread', ['id' => $id]) . '">
+<i class="fas fa-clipboard"></i>&nbsp;
+                ' . $this->translator->trans('notification.notification.action.mark_as_unread') . '
+                </a>';
         }
+
+        $html .= ' <a href="' . $this->router->generate('notification_notification_delete', ['id' => $id]) . '">
+<i class="fas fa-trash"></i>&nbsp;
+                ' . $this->translator->trans('notification.notification.action.delete') . '
+                </a>';
 
         return $html;
     }
@@ -376,7 +386,9 @@ class NotificationController extends CRUDController
                 'read_by',
             ];
         }
+
         return [
+            'state',
             'module',
             'action',
             'name',
@@ -393,6 +405,33 @@ class NotificationController extends CRUDController
         } catch (\Exception $e) {
             return '';
         }
+    }
+
+    public function deleteConfirmationAction(string $id): Response
+    {
+        /** @var Notification $notification */
+        $notification = $this->repository->findOneById($id);
+        if (!$notification) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+        if ($notification->getDpo()) {
+            $this->entityManager->remove($notification);
+            $this->entityManager->flush();
+        } else {
+            $user = $this->userProvider->getAuthenticatedUser();
+            $nu   = $notification->getNotificationUsers()->findFirst(function ($i, $n) use ($user) {
+                /* @var Model\NotificationUser $n */
+                return $n->getUser()->getId() === $user->getId();
+            });
+            if ($nu) {
+                $this->entityManager->remove($nu);
+                $this->entityManager->flush();
+            }
+        }
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $notification));
+
+        return $this->redirectToRoute($this->getRouteName('list'));
     }
 
     private function getRouteForModule($module): string

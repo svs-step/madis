@@ -41,6 +41,7 @@ use League\OAuth2\Client\Token\AccessToken;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -496,11 +497,12 @@ class SecurityControllerTest extends TestCase
         $user->getPassword()->shouldBeCalled()->willReturn('Foo');
 
         $tokenStorageProphecy = $this->prophesize(TokenStorageInterface::class);
+        $loggerProphecy = $this->prophesize(LoggerInterface::class);
 
         $this->helperProphecy->redirectToRoute('reporting_dashboard_index')->shouldBeCalled()->willReturn($response);
         $this->assertEquals(
             $response,
-            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal())
+            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal(), $loggerProphecy->reveal())
         );
     }
 
@@ -536,10 +538,10 @@ class SecurityControllerTest extends TestCase
         $this->helperProphecy->redirectToRoute('user_profile_user_edit')->shouldBeCalled()->willReturn($response);
 
         $tokenStorageProphecy = $this->prophesize(TokenStorageInterface::class);
-
+        $loggerProphecy = $this->prophesize(LoggerInterface::class);
         $this->assertEquals(
             $response,
-            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal())
+            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal(), $loggerProphecy->reveal())
         );
     }
 
@@ -577,10 +579,11 @@ class SecurityControllerTest extends TestCase
         $this->helperProphecy->redirectToRoute('user_profile_user_edit')->shouldBeCalled()->willReturn($response);
 
         $tokenStorageProphecy = $this->prophesize(TokenStorageInterface::class);
+        $loggerProphecy = $this->prophesize(LoggerInterface::class);
 
         $this->assertEquals(
             $response,
-            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal())
+            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal(), $loggerProphecy->reveal())
         );
     }
 }
