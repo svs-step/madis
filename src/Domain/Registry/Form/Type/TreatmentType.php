@@ -163,7 +163,7 @@ class TreatmentType extends AbstractType
                     return $er->createQueryBuilder('dc')
                         ->orderBy('dc.position', Criteria::ASC);
                 },
-                'choice_attr' => function (TreatmentDataCategory $model) {
+                'choice_attr'   => function (TreatmentDataCategory $model) {
                     if ($model->isSensible()) {
                         return [
                             'style' => 'font-weight: bold;',
@@ -172,7 +172,7 @@ class TreatmentType extends AbstractType
 
                     return [];
                 },
-                'attr' => [
+                'attr'          => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
@@ -220,7 +220,7 @@ class TreatmentType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr' => [
+                'attr'          => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
@@ -387,7 +387,7 @@ class TreatmentType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr' => [
+                'attr'          => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
@@ -435,7 +435,7 @@ class TreatmentType extends AbstractType
                     return $er->createQueryBuilder('s')
                         ->orderBy('s.name', 'ASC');
                 },
-                'required' => false,
+                'required'      => false,
             ]);
         }
     }

@@ -81,6 +81,4 @@ class ShelfLife
     {
         $this->ultimateFate = $ultimateFate;
     }
-
-
 }

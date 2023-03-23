@@ -28,7 +28,6 @@ use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentCollectingMethodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
-use App\Domain\Registry\Dictionary\TreatmentUltimateFateDictionary;
 use App\Domain\Registry\Model\Treatment;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shared\Converter;

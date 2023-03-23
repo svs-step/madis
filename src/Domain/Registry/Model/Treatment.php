@@ -379,8 +379,6 @@ class Treatment implements LoggableSubject, CollectivityRelated
      */
     private $estimatedConcernedPeople;
 
-
-
     /**
      * @var ConformiteTraitement|null
      */
