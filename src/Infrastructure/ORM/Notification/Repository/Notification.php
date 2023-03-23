@@ -69,6 +69,7 @@ class Notification extends CRUDRepository implements Repository\Notification
 
         $allNotifs = false;
 
+
         $allowedRoles = [UserRoleDictionary::ROLE_REFERENT, UserRoleDictionary::ROLE_ADMIN];
         if ($user && (count($user->getRoles()) && in_array($user->getRoles()[0], $allowedRoles)) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
             // Find notifications with null user if current user is dpo
@@ -83,8 +84,9 @@ class Notification extends CRUDRepository implements Repository\Notification
 
         if ($allNotifs) {
             $qb->where('o.dpo = 1');
-            if (UserRoleDictionary::ROLE_ADMIN !== $user->getRoles()[0]) {
-                if (UserRoleDictionary::ROLE_REFERENT === $user->getRoles()[0]) {
+            if (!in_array(UserRoleDictionary::ROLE_ADMIN, $user->getRoles())) {
+                // For non admin users
+                if (in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
                     $cf = $user->getCollectivitesReferees();
                     $cf = new ArrayCollection([...$cf]);
 //                    if (!is_object($cf) || ArrayCollection::class !== get_class($cf)) {
@@ -130,12 +132,54 @@ class Notification extends CRUDRepository implements Repository\Notification
 
     public function count(array $criteria = [])
     {
+        /**
+         * @var User $user
+         */
+        $user = $this->security->getUser();
+
+        $allNotifs = false;
+
+
+        $allowedRoles = [UserRoleDictionary::ROLE_REFERENT, UserRoleDictionary::ROLE_ADMIN];
+        if ($user && (count($user->getRoles()) && in_array($user->getRoles()[0], $allowedRoles)) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
+            // Find notifications with null user if current user is dpo
+            $allNotifs = true;
+        }
+
         $qb = $this->createQueryBuilder();
 
         $qb->select('COUNT(o.id)');
 
+        if ($allNotifs) {
+            $qb->where('o.dpo = 1');
+            if (!in_array(UserRoleDictionary::ROLE_ADMIN, $user->getRoles())) {
+                // For non admin users
+                if (in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
+                    $cf = $user->getCollectivitesReferees();
+                    $cf = new ArrayCollection([...$cf]);
+//                    if (!is_object($cf) || ArrayCollection::class !== get_class($cf)) {
+//                        $cf = new ArrayCollection([...$cf]);
+//                    }
+                    $collectivityIds = $cf->map(function (Collectivity $c) {return $c->getId()->__toString(); })->toArray();
+                } else {
+                    $collectivityIds = [$user->getCollectivity()->getId()->__toString()];
+                }
+                $qb->innerJoin('o.collectivity', 'c');
+                $qb->andWhere(
+                    $qb->expr()->in('c.id', ':ids')
+                );
+                $qb->setParameter('ids', $collectivityIds);
+            }
+        } else {
+            $qb->leftJoin('o.notificationUsers', 'u')
+                ->where('u.active = 1')
+                ->where('u.user = :user')
+                ->setParameter('user', $user)
+            ;
+        }
+
         if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
-            $qb->leftJoin('o.collectivity', 'collectivite');
+            $qb->innerJoin('o.collectivity', 'collectivite');
             $qb->andWhere(
                 $qb->expr()->in('collectivite', ':collectivities')
             )
@@ -143,6 +187,8 @@ class Notification extends CRUDRepository implements Repository\Notification
             ;
             unset($criteria['collectivity']);
         }
+//
+//        dd($criteria);
 
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
@@ -155,8 +201,50 @@ class Notification extends CRUDRepository implements Repository\Notification
     {
         $qb = $this->createQueryBuilder()
             ->addSelect('collectivity')
-            ->leftJoin('o.collectivity', 'collectivity')
+            ->innerJoin('o.collectivity', 'collectivity')
         ;
+
+        /**
+         * @var User $user
+         */
+        $user = $this->security->getUser();
+
+        $allNotifs = false;
+
+
+        $allowedRoles = [UserRoleDictionary::ROLE_REFERENT, UserRoleDictionary::ROLE_ADMIN];
+        if ($user && (count($user->getRoles()) && in_array($user->getRoles()[0], $allowedRoles)) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
+            // Find notifications with null user if current user is dpo
+            $allNotifs = true;
+        }
+
+        if ($allNotifs) {
+            $qb->where('o.dpo = 1');
+            if (!in_array(UserRoleDictionary::ROLE_ADMIN, $user->getRoles())) {
+                // For non admin users
+                if (in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
+                    $cf = $user->getCollectivitesReferees();
+                    $cf = new ArrayCollection([...$cf]);
+//                    if (!is_object($cf) || ArrayCollection::class !== get_class($cf)) {
+//                        $cf = new ArrayCollection([...$cf]);
+//                    }
+                    $collectivityIds = $cf->map(function (Collectivity $c) {return $c->getId()->__toString(); })->toArray();
+                } else {
+                    $collectivityIds = [$user->getCollectivity()->getId()->__toString()];
+                }
+                $qb->innerJoin('o.collectivity', 'c');
+                $qb->andWhere(
+                    $qb->expr()->in('c.id', ':ids')
+                );
+                $qb->setParameter('ids', $collectivityIds);
+            }
+        } else {
+            $qb->leftJoin('o.notificationUsers', 'u')
+                ->where('u.active = 1')
+                ->where('u.user = :user')
+                ->setParameter('user', $user)
+            ;
+        }
 
         if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
             $qb->andWhere(
