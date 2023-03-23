@@ -93,7 +93,7 @@ class AnalyseImpactExtension extends AbstractExtension
     {
         $impact = VraisemblanceGraviteDictionary::getImpact($this->getScenarioMenaceImpactResiduel($scenarioMenace));
 
-        return $impact !== VraisemblanceGraviteDictionary::NEGLIGEABLE ;
+        return VraisemblanceGraviteDictionary::NEGLIGEABLE !== $impact;
     }
 
     private function getImpactLabel(string $impact): string

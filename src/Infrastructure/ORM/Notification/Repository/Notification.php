@@ -69,7 +69,6 @@ class Notification extends CRUDRepository implements Repository\Notification
 
         $allNotifs = false;
 
-
         $allowedRoles = [UserRoleDictionary::ROLE_REFERENT, UserRoleDictionary::ROLE_ADMIN];
         if ($user && (count($user->getRoles()) && in_array($user->getRoles()[0], $allowedRoles)) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
             // Find notifications with null user if current user is dpo
@@ -138,7 +137,6 @@ class Notification extends CRUDRepository implements Repository\Notification
         $user = $this->security->getUser();
 
         $allNotifs = false;
-
 
         $allowedRoles = [UserRoleDictionary::ROLE_REFERENT, UserRoleDictionary::ROLE_ADMIN];
         if ($user && (count($user->getRoles()) && in_array($user->getRoles()[0], $allowedRoles)) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
@@ -210,7 +208,6 @@ class Notification extends CRUDRepository implements Repository\Notification
         $user = $this->security->getUser();
 
         $allNotifs = false;
-
 
         $allowedRoles = [UserRoleDictionary::ROLE_REFERENT, UserRoleDictionary::ROLE_ADMIN];
         if ($user && (count($user->getRoles()) && in_array($user->getRoles()[0], $allowedRoles)) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {

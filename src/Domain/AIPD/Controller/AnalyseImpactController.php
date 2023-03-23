@@ -153,7 +153,7 @@ class AnalyseImpactController extends CRUDController
         </a>';
 
         $user = $this->userProvider->getAuthenticatedUser();
-        if ($user->getRoles()[0] !=='ROLE_PREVIEW') {
+        if ('ROLE_PREVIEW' !== $user->getRoles()[0]) {
             if (!$analyseImpact->isValidated()) {
                 $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
                     <i class="fa fa-pencil-alt"></i>' .

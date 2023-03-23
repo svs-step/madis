@@ -44,7 +44,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
 
 /**
  * @property Repository\Notification $repository
@@ -196,17 +195,16 @@ class NotificationController extends CRUDController
                 ];
             } else {
                 $reponse['data'][] = [
-                    'state'        => $notification->getReadAt() ? $read : $unread,
-                    'module'       => $this->translator->trans($notification->getModule()),
-                    'action'       => $this->translator->trans($notification->getAction()),
-                    'name'         => $nameHtml,
-                    'object'       => $this->getSubjectForNotification($notification),
-                    'date'         => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
-                    'user'         => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
-                    'actions'      => $this->generateActionCellContent($notification),
+                    'state'   => $notification->getReadAt() ? $read : $unread,
+                    'module'  => $this->translator->trans($notification->getModule()),
+                    'action'  => $this->translator->trans($notification->getAction()),
+                    'name'    => $nameHtml,
+                    'object'  => $this->getSubjectForNotification($notification),
+                    'date'    => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
+                    'user'    => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
+                    'actions' => $this->generateActionCellContent($notification),
                 ];
             }
-
         }
 
         return new JsonResponse($reponse);
@@ -388,6 +386,7 @@ class NotificationController extends CRUDController
                 'read_by',
             ];
         }
+
         return [
             'state',
             'module',
@@ -420,8 +419,8 @@ class NotificationController extends CRUDController
             $this->entityManager->flush();
         } else {
             $user = $this->userProvider->getAuthenticatedUser();
-            $nu = $notification->getNotificationUsers()->findFirst(function($i, $n) use ($user) {
-                /** @var Model\NotificationUser $n */
+            $nu   = $notification->getNotificationUsers()->findFirst(function ($i, $n) use ($user) {
+                /* @var Model\NotificationUser $n */
                 return $n->getUser()->getId() === $user->getId();
             });
             if ($nu) {
