@@ -116,6 +116,10 @@
 
     {% if is_granted('ROLE_ADMIN') %}
         {% set order = [[6, 'desc']] %}
+        {% set coldefs = [{
+            targets: 10,
+            className: 'noVis'
+        }] %}
         {% set columns = [
             {"data": "state"},
             {"data": "module"},
@@ -140,6 +144,10 @@
             {"data": "actions", "orderable": false, "className": "noVis",},
         ] %}
         {% set order = [[4, 'desc']] %}
+        {% set coldefs = [{
+            targets: 6,
+            className: 'noVis'
+        }] %}
     {% endif %}
 
     {% set dataTableOptions = {
@@ -152,12 +160,7 @@
             },
         },
         dom: 'Bfrtip',
-        columnDefs: [
-            {
-                targets: 10,
-                className: 'noVis'
-            }
-        ],
+        columnDefs: coldefs,
         buttons: [
             {
                 extend: 'colvis',
