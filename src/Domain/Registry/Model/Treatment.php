@@ -636,6 +636,23 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->shelfLifes = $shelfLifes;
     }
 
+    public function addShelfLife(ShelfLife $shelfLife): void
+    {
+        $this->shelfLifes[] = $shelfLife;
+        $shelfLife->setTreatment($this);
+    }
+
+    public function removeShelfLife(ShelfLife $shelfLife)
+    {
+        $key = \array_search($shelfLife, iterable_to_array($this->shelfLifes), true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->shelfLifes[$key]);
+    }
+
     public function getDataCategoryOther(): ?string
     {
         return $this->dataCategoryOther;
