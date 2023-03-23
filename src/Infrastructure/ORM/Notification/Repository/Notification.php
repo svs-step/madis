@@ -103,10 +103,11 @@ class Notification extends CRUDRepository implements Repository\Notification
             }
         } else {
             $qb->leftJoin('o.notificationUsers', 'u')
-                ->where('u.active = 1')
-                ->where('u.user = :user')
+                ->andWhere('u.active = 1')
+                ->andWhere('u.user = :user')
                 ->setParameter('user', $user)
             ;
+            $qb->addSelect('u.readAt as userReadAt');
         }
 
         return $qb->getQuery()->getResult();
@@ -268,13 +269,28 @@ class Notification extends CRUDRepository implements Repository\Notification
 
     private function addTableSearches(QueryBuilder $queryBuilder, $searches)
     {
+        $user = $this->security->getUser();
         foreach ($searches as $columnName => $search) {
             switch ($columnName) {
                 case 'state':
                     if ('read' === $search) {
-                        $queryBuilder->andWhere('o.readAt IS NOT NULL');
+                        if ($this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_REFERENT')) {
+                            $queryBuilder->andWhere('o.readAt IS NOT NULL');
+                        } else {
+                            $queryBuilder->leftJoin('o.notificationUsers', 'nu');
+                            $queryBuilder->andWhere('nu.user=:user');
+                            $queryBuilder->andWhere('nu.readAt IS NOT NULL');
+                            $queryBuilder->setParameter('user', $user);
+                        }
                     } else {
-                        $queryBuilder->andWhere('o.readAt IS NULL');
+                        if ($this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_REFERENT')) {
+                            $queryBuilder->andWhere('o.readAt IS NULL');
+                        } else {
+                            $queryBuilder->leftJoin('o.notificationUsers', 'nu');
+                            $queryBuilder->andWhere('nu.user=:user');
+                            $queryBuilder->andWhere('nu.readAt IS NULL');
+                            $queryBuilder->setParameter('user', $user);
+                        }
                     }
 
                     break;
@@ -304,8 +320,16 @@ class Notification extends CRUDRepository implements Repository\Notification
                         ->setParameter('user', '%' . $search . '%');
                     break;
                 case 'read_date':
-                    $queryBuilder->andWhere('o.readAt LIKE :readAt')
-                        ->setParameter('readAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    if ($this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_REFERENT')) {
+                        $queryBuilder->andWhere('o.readAt LIKE :readAt')
+                            ->setParameter('readAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    } else {
+                        $queryBuilder->leftJoin('o.notificationUsers', 'nu2');
+                        $queryBuilder->andWhere('nu2.user=:user');
+                        $queryBuilder->andWhere('nu2.readAt LIKE :readAt')
+                            ->setParameter('readAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                        $queryBuilder->setParameter('user', $user);
+                    }
                     break;
                 case 'updatedAt':
                     $queryBuilder->andWhere('o.updatedAt LIKE :updatedAt')
@@ -320,7 +344,15 @@ class Notification extends CRUDRepository implements Repository\Notification
         switch ($orderColumn) {
             case 'read_date':
             case 'state':
+            if ($this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_REFERENT')) {
                 $queryBuilder->addOrderBy('o.readAt', $orderDir);
+            } else {
+                $user = $this->security->getUser();
+                $queryBuilder->leftJoin('o.notificationUsers', 'nu3');
+                $queryBuilder->andWhere('nu3.user=:user');
+                $queryBuilder->addOrderBy('nu3.readAt');
+                $queryBuilder->setParameter('user', $user);
+            }
                 break;
             case 'name':
                 $queryBuilder->addOrderBy('o.name', $orderDir);

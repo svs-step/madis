@@ -1,4 +1,10 @@
 {% set notifs = notifications.findAll() %}
+{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENT') %}
+    {% set unreadNotifs = notifs|filter(n => n.readAt is not defined or n.readAt is null) %}
+{% else %}
+    {% set unreadNotifs = notifs|filter(n => n.userReadAt is not defined or n.userReadAt is null)|map(n => n[0]) %}
+    {% dump(unreadNotifs) %}
+{% endif %}
 {% set maxNotifs = app_notification_header_number %}
 
 <header class="main-header">
@@ -23,11 +29,11 @@
                 <li id="notifications" class="nav-item dropdown notifications-menu">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell"></i>
-                        {% if notifs|filter(n => n.readAt is not defined or n.readAt is null)|length %}
-                        <span class="badge bg-yellow navbar-badge">{{ notifs|filter(n => n.readAt is not defined or n.readAt is null)|length }}</span>
+                        {% if unreadNotifs|length %}
+                        <span class="badge bg-yellow navbar-badge">{{ unreadNotifs|length }}</span>
                         {% endif %}
                     </a>
-                    {% set notifs = notifs|filter(n => n.readAt is not defined or n.readAt is null) %}
+                    {% set notifs = unreadNotifs %}
                     <ul class="dropdown-menu dropdown-large" style="width:600px">
                         {{ block("body", "Notification/Notification/box.html.twig") }}
                     </ul>
