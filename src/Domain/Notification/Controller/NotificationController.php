@@ -195,6 +195,7 @@ class NotificationController extends CRUDController
                 ];
             } else {
                 $reponse['data'][] = [
+                    'state'        => $notification->getReadAt() ? $read : $unread,
                     'module'       => $this->translator->trans($notification->getModule()),
                     'action'       => $this->translator->trans($notification->getAction()),
                     'name'         => $nameHtml,
@@ -377,6 +378,7 @@ class NotificationController extends CRUDController
             ];
         }
         return [
+            'state',
             'module',
             'action',
             'name',
