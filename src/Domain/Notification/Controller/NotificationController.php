@@ -44,6 +44,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
 
 /**
  * @property Repository\Notification $repository
@@ -286,7 +287,17 @@ class NotificationController extends CRUDController
 <i class="fas fa-clipboard-check"></i>&nbsp;
                 ' . $this->translator->trans('notification.notification.action.mark_as_read') . '
                 </a>';
+        } else {
+            $html .= '<a href="' . $this->router->generate('notification_notification_mark_as_unread', ['id' => $id]) . '">
+<i class="fas fa-clipboard"></i>&nbsp;
+                ' . $this->translator->trans('notification.notification.action.mark_as_unread') . '
+                </a>';
         }
+
+        $html .= ' <a href="' . $this->router->generate('notification_notification_delete', ['id' => $id]) . '">
+<i class="fas fa-trash"></i>&nbsp;
+                ' . $this->translator->trans('notification.notification.action.delete') . '
+                </a>';
 
         return $html;
     }
@@ -395,6 +406,33 @@ class NotificationController extends CRUDController
         } catch (\Exception $e) {
             return '';
         }
+    }
+
+    public function deleteConfirmationAction(string $id): Response
+    {
+        /** @var Notification $notification */
+        $notification = $this->repository->findOneById($id);
+        if (!$notification) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+        if ($notification->getDpo()) {
+            $this->entityManager->remove($notification);
+            $this->entityManager->flush();
+        } else {
+            $user = $this->userProvider->getAuthenticatedUser();
+            $nu = $notification->getNotificationUsers()->findFirst(function($i, $n) use ($user) {
+                /** @var Model\NotificationUser $n */
+                return $n->getUser()->getId() === $user->getId();
+            });
+            if ($nu) {
+                $this->entityManager->remove($nu);
+                $this->entityManager->flush();
+            }
+        }
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $notification));
+
+        return $this->redirectToRoute($this->getRouteName('list'));
     }
 
     private function getRouteForModule($module): string

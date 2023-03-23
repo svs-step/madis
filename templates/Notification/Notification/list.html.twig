@@ -27,9 +27,7 @@
             <div class="box box-solid">
                 <div class="box-body">
                     <div style="float:right">
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
-                        {% endif %}
+                        <a style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
                     </div>
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
@@ -127,7 +125,7 @@
             {"data": "user"},
             {"data": "read_date"},
             {"data": "read_by"},
-            {"data": "actions", "orderable": false, "className": "noVis",},
+            {"data": "actions", "orderable": false, "className": "noVis actions",},
         ] %}
     {% else %}
         {% set columns = [
@@ -138,7 +136,7 @@
             {"data": "object", "orderable": false},
             {"data": "date"},
             {"data": "user"},
-            {"data": "actions", "orderable": false, "className": "noVis",},
+            {"data": "actions", "orderable": false, "className": "noVis actions",},
         ] %}
         {% set order = [[4, 'desc']] %}
         {% set coldefs = [{
