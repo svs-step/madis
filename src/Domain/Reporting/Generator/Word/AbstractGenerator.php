@@ -359,9 +359,16 @@ abstract class AbstractGenerator implements GeneratorInterface
     protected function addTable(Section $section, array $data = [], bool $header = false, string $orientation = self::TABLE_ORIENTATION_HORIZONTAL): void
     {
         $table = $section->addTable($this->tableStyle);
+        $headersTable = $data[0];
+        $table->addRow(null, array('tblHeader' => true));
+        foreach ($headersTable as $element){
+            $cell = $table->addCell(2500, $this->cellHeadStyle);
+            $cell->addText($element, $this->textHeadStyle);
+        }
+        unset($data[0]);
 
         foreach ($data as $nbLine => $line) {
-            $table->addRow(900, ['tblHeader' => true]);
+            $table->addRow();
             $lineData  = $line['data'] ?? $line;
             $lineStyle = $line['style'] ?? null;
             foreach ($lineData as $nbCol => $col) {
