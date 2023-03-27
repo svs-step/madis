@@ -2,7 +2,7 @@
 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENT') %}
     {% set unreadNotifs = notifs|filter(n => n.readAt is not defined or n.readAt is null) %}
 {% else %}
-    {% set unreadNotifs = notifs|filter(n => n.userReadAt is not defined or n.userReadAt is null)|map(n => n[0]) %}
+    {% set unreadNotifs = notifs|filter(n => n.userReadAt is not defined or n.userReadAt is null)|map(n => n[0] is defined ? n[0] : n) %}
 {% endif %}
 {% set maxNotifs = app_notification_header_number %}
 
