@@ -350,7 +350,7 @@ class NotificationController extends CRUDController
             } else {
                 $nu = $notification->getNotificationUsers()->findFirst(function ($i, $n) use ($user) {
                     /* @var Model\NotificationUser $n */
-                    return $n->getUser()->getId() === $user->getId();
+                    return $n->getUser() && $n->getUser()->getId() === $user->getId();
                 });
                 if ($nu) {
                     $nu->setReadAt(new \DateTime());
@@ -387,7 +387,7 @@ class NotificationController extends CRUDController
         } else {
             $nu = $notification->getNotificationUsers()->findFirst(function ($i, $n) use ($user) {
                 /* @var Model\NotificationUser $n */
-                return $n->getUser()->getId() === $user->getId();
+                return $n->getUser() && $n->getUser()->getId() === $user->getId();
             });
             if ($nu) {
                 $nu->setReadAt(new \DateTime());
@@ -418,7 +418,7 @@ class NotificationController extends CRUDController
             $user = $this->userProvider->getAuthenticatedUser();
             $nu   = $notification->getNotificationUsers()->findFirst(function ($i, $n) use ($user) {
                 /* @var Model\NotificationUser $n */
-                return $n->getUser()->getId() === $user->getId();
+                return $n->getUser() && $n->getUser()->getId() === $user->getId();
             });
             if ($nu) {
                 $nu->setReadAt(null);
