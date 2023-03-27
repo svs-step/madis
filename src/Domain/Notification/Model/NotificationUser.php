@@ -164,17 +164,11 @@ class NotificationUser
         $this->sent = $sent;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getReadAt(): ?\DateTime
     {
         return $this->readAt;
     }
 
-    /**
-     * @param \DateTime|null $readAt
-     */
     public function setReadAt(?\DateTime $readAt): void
     {
         $this->readAt = $readAt;
