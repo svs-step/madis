@@ -347,7 +347,7 @@ class NotificationController extends CRUDController
             if (is_array($notification)) {
                 $notification = $notification[0];
             }
-            if ($notification->getDpo() && (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_REFERENT', $user->getRoles())  || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos()))) {
+            if ($notification->getDpo() && (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_REFERENT', $user->getRoles()) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos()))) {
                 $notification->setReadAt(new \DateTime());
                 $notification->setReadBy($this->getUser());
             } else {
@@ -383,7 +383,7 @@ class NotificationController extends CRUDController
 
         $user = $this->userProvider->getAuthenticatedUser();
 
-        if ($notification->getDpo() && (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_REFERENT', $user->getRoles())  || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos()))) {
+        if ($notification->getDpo() && (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_REFERENT', $user->getRoles()) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos()))) {
             $notification->setReadAt(new \DateTime());
             $notification->setReadBy($this->getUser());
             $this->entityManager->flush();
@@ -413,7 +413,7 @@ class NotificationController extends CRUDController
             throw new NotFoundHttpException('Notification introuvable');
         }
         $user = $this->userProvider->getAuthenticatedUser();
-        if ($notification->getDpo() && (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_REFERENT', $user->getRoles())  || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos()))) {
+        if ($notification->getDpo() && (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_REFERENT', $user->getRoles()) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos()))) {
             $notification->setReadAt(null);
             $notification->setReadBy(null);
             $this->entityManager->flush();
@@ -436,7 +436,7 @@ class NotificationController extends CRUDController
     protected function getLabelAndKeysArray(): array
     {
         $user = $this->userProvider->getAuthenticatedUser();
-        if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')  || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT') || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
             return [
                 'state',
                 'module',
