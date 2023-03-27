@@ -195,7 +195,7 @@ class NotificationController extends CRUDController
                     'actions'      => $this->generateActionCellContent($notification),
                 ];
             } else {
-                $notificationUser = $notification->getNotificationUsers()->findFirst(function($i, Model\NotificationUser $nu) use ($user) {
+                $notificationUser = $notification->getNotificationUsers()->findFirst(function ($i, Model\NotificationUser $nu) use ($user) {
                     return $nu->getUser()->getId() === $user->getId();
                 });
                 $reponse['data'][] = [
@@ -284,7 +284,7 @@ class NotificationController extends CRUDController
         $user = $this->userProvider->getAuthenticatedUser();
         $html = '';
 
-        $notificationUser = $notification->getNotificationUsers()->findFirst(function($i, Model\NotificationUser $nu) use ($user) {
+        $notificationUser = $notification->getNotificationUsers()->findFirst(function ($i, Model\NotificationUser $nu) use ($user) {
             return $nu->getUser()->getId() === $user->getId();
         });
 
@@ -327,16 +327,16 @@ class NotificationController extends CRUDController
     public function markAsReadAllAction(Request $request)
     {
         $notifications = $this->repository->findAll();
-        $user = $this->userProvider->getAuthenticatedUser();
+        $user          = $this->userProvider->getAuthenticatedUser();
         foreach ($notifications as $notification) {
-            if(is_array($notification)) {
+            if (is_array($notification)) {
                 $notification = $notification[0];
             }
             if ($notification->getDpo() && (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_REFERENT', $user->getRoles()))) {
                 $notification->setReadAt(new \DateTime());
                 $notification->setReadBy($this->getUser());
             } else {
-                $nu   = $notification->getNotificationUsers()->findFirst(function ($i, $n) use ($user) {
+                $nu = $notification->getNotificationUsers()->findFirst(function ($i, $n) use ($user) {
                     /* @var Model\NotificationUser $n */
                     return $n->getUser()->getId() === $user->getId();
                 });
@@ -373,7 +373,7 @@ class NotificationController extends CRUDController
             $notification->setReadBy($this->getUser());
             $this->entityManager->flush();
         } else {
-            $nu   = $notification->getNotificationUsers()->findFirst(function ($i, $n) use ($user) {
+            $nu = $notification->getNotificationUsers()->findFirst(function ($i, $n) use ($user) {
                 /* @var Model\NotificationUser $n */
                 return $n->getUser()->getId() === $user->getId();
             });

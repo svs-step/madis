@@ -344,15 +344,15 @@ class Notification extends CRUDRepository implements Repository\Notification
         switch ($orderColumn) {
             case 'read_date':
             case 'state':
-            if ($this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_REFERENT')) {
-                $queryBuilder->addOrderBy('o.readAt', $orderDir);
-            } else {
-                $user = $this->security->getUser();
-                $queryBuilder->leftJoin('o.notificationUsers', 'nu3');
-                $queryBuilder->andWhere('nu3.user=:user');
-                $queryBuilder->addOrderBy('nu3.readAt');
-                $queryBuilder->setParameter('user', $user);
-            }
+                if ($this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_REFERENT')) {
+                    $queryBuilder->addOrderBy('o.readAt', $orderDir);
+                } else {
+                    $user = $this->security->getUser();
+                    $queryBuilder->leftJoin('o.notificationUsers', 'nu3');
+                    $queryBuilder->andWhere('nu3.user=:user');
+                    $queryBuilder->addOrderBy('nu3.readAt');
+                    $queryBuilder->setParameter('user', $user);
+                }
                 break;
             case 'name':
                 $queryBuilder->addOrderBy('o.name', $orderDir);
