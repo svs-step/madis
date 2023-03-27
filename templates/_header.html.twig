@@ -3,7 +3,6 @@
     {% set unreadNotifs = notifs|filter(n => n.readAt is not defined or n.readAt is null) %}
 {% else %}
     {% set unreadNotifs = notifs|filter(n => n.userReadAt is not defined or n.userReadAt is null)|map(n => n[0]) %}
-    {% dump(unreadNotifs) %}
 {% endif %}
 {% set maxNotifs = app_notification_header_number %}
 
