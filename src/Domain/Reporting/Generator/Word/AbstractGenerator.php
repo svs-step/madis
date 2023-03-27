@@ -105,6 +105,9 @@ abstract class AbstractGenerator implements GeneratorInterface
         $document->setDefaultFontSize(10);
         $document->setDefaultParagraphStyle(['spaceAfter' => 200]);
 
+        $properties = $document->getDocInfo();
+        $properties->setTitle('Bilan de gestion des données à caractère personnel');
+
         // STYLE
         // Numbered heading
         $document->addNumberingStyle(
@@ -124,7 +127,6 @@ abstract class AbstractGenerator implements GeneratorInterface
                 'allCaps'   => true,
                 'bold'      => true,
                 'size'      => 16,
-                'underline' => Style\Font::UNDERLINE_SINGLE,
             ],
             [
                 'pageBreakBefore' => false,
@@ -159,6 +161,7 @@ abstract class AbstractGenerator implements GeneratorInterface
                 'spaceAfter'      => 250,
             ]
         );
+
     }
 
     /**
@@ -201,20 +204,16 @@ abstract class AbstractGenerator implements GeneratorInterface
         $section->addText(
             'Responsable du traitement',
             ['bold'        => true, 'size' => 15],
-            ['spaceBefore' => 2500]
+            ['spaceBefore' => 1000]
         );
         $section->addText(
             ContactCivilityDictionary::getCivilities()[$legalManager->getCivility()] . ' ' . $legalManager->getFullName(),
             ['size' => 12]
         );
-        $section->addText(
-            'Signature',
-            ['italic' => true, 'size' => 10]
-        );
 
         // DPO
         $section->addText(
-            'Délégué à la Protection des Données :',
+            'Délégué à la Protection des Données',
             ['bold'        => true, 'size' => 15],
             ['spaceBefore' => 1000]
         );
@@ -237,18 +236,21 @@ abstract class AbstractGenerator implements GeneratorInterface
             ['size' => 12]
         );
 
-        if ($collectivity->getNbrCnil()) {
-            $section->addText(
-                'Numéro de désignation CNIL : ' . $collectivity->getNbrCnil(),
-                ['italic'    => false],
-                ['alignment' => Jc::CENTER, 'spaceBefore' => 500]
-            );
-        }
+        //CNIL
+        $section->addText(
+            'Déclaration CNIL',
+            ['bold'        => true, 'size' => 15],
+            ['spaceBefore' => 1000]
+        );
+
+        $section->addText(
+            'Numéro de désignation CNIL : ' . $collectivity->getNbrCnil(),
+            ['size' => 12]
+        );
 
         $section->addText(
             "{$this->getDate(new \DateTimeImmutable(), 'd/m/Y')}",
-            ['italic'    => true],
-            ['alignment' => Jc::CENTER, 'spaceBefore' => 1000]
+            ['size' => 12]
         );
     }
 
@@ -271,7 +273,8 @@ abstract class AbstractGenerator implements GeneratorInterface
                 'spaceAfter' => 500,
             ]
         );
-        $section->addTOC(null, null, 1, $maxDepth);
+
+        $section->addTOC(['bold' => true], null, 1, $maxDepth);
         $section->addPageBreak();
     }
 
@@ -297,7 +300,7 @@ abstract class AbstractGenerator implements GeneratorInterface
             'unit'        => TblWidth::PERCENT,
             'width'       => 100 * 50,
         ]);
-        $row  = $table->addRow(10);
+        $row  = $table->addRow(10, ['tblHeader' => true]);
         $cell = $row->addCell(15 * 50);
         $cell = $row->addCell(70 * 50, ['alignment' => Jc::CENTER]);
         $cell->addText($title, ['alignment' => Jc::CENTER, 'bold' => true]);
@@ -358,7 +361,7 @@ abstract class AbstractGenerator implements GeneratorInterface
         $table = $section->addTable($this->tableStyle);
 
         foreach ($data as $nbLine => $line) {
-            $table->addRow();
+            $table->addRow(900, ['tblHeader' => true]);
             $lineData  = $line['data'] ?? $line;
             $lineStyle = $line['style'] ?? null;
             foreach ($lineData as $nbCol => $col) {

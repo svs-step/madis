@@ -61,10 +61,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             'saving'        => 0,
             'update'        => 0,
         ];
-        $completion = [
-            '100' => 0,
-            '80'  => 0,
-        ];
 
         /*
          * @var Treatment
@@ -107,13 +103,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     ++$security['update'];
                 }
             }
-
-            // Completion
-            if (100 === $treatment->getCompletion()) {
-                ++$completion['100'];
-            } elseif (80 >= $treatment->getCompletion()) {
-                ++$completion['80'];
-            }
         }
         // Then aggregate
         $digitalisation['digital'] = $digitalisation['onlyDigital'] + $digitalisation['both'];
@@ -126,9 +115,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
         $section->addTitle('Analyse du registre des traitements', 2);
         $section->addText("Il y a aujourd’hui {$nbTreatments} traitements de données à caractère personnel inventoriés");
-        $section->addText("Sur les {$nbTreatments} traitements : ");
-        $section->addListItem("{$completion['100']} sont complétés à 100%");
-        $section->addListItem("{$completion['80']} sont complétés à plus de 80%");
 
         $section->addTextBreak();
         $section->addText('Informatisation des traitements :');
