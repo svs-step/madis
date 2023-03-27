@@ -25,7 +25,6 @@ declare(strict_types=1);
 namespace App\Domain\Registry\Symfony\Validator\Constraints;
 
 use App\Domain\Registry\Dictionary\RequestStateDictionary;
-use App\Domain\Registry\Model\Request;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -34,8 +33,6 @@ class RequestStateRejectionReasonValidator extends ConstraintValidator
 {
     /**
      * {@inheritdoc}
-     *
-     * @var Request
      */
     public function validate($value, Constraint $constraint)
     {

@@ -128,7 +128,7 @@ class MesureProtectionController extends CRUDController
                         <i class="fa fa-trash"></i>
                         ' . $this->translator->trans('action.delete') . '
                     </a>'
-                ;
+            ;
         }
 
         return null;

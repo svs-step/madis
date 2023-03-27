@@ -142,7 +142,7 @@
         <h2>3. Études des principes fondamentaux</h2>
         <h2>4. Études des risques liés à la sécurité des données</h2>
         <h3 style="margin-left: 30px">4.1 Évaluation des risques sur les droits et les libertés des personnes concernées</h3>
-        <h3 style="margin-left: 30px">4.2 Evaluation de l'impact et matrice de décision</h3>
+        <h3 style="margin-left: 30px">4.2 Évaluation de l'impact et matrice de décision</h3>
         <h3 style="margin-left: 30px">4.3 Mesure(s) de réduction des risques envisagée(s)</h3>
         <h3 style="margin-left: 30px">4.4 Risques résiduels</h3>
         <h2>5. Validation de l'AIPD</h2>
@@ -178,7 +178,7 @@
 
         <div  style="page-break-before: always;"></div>
         <h2>2. Étude du contexte</h2>
-        <div>Ce chapitre a pour objectif de fournir une vision claire de l'organisation et du traitement de données personnelles considéré</div>
+        <div>Ce chapitre a pour objectif de fournir une vision claire de la structure et du traitement de données personnelles considéré</div>
         <div class="col-md-6">
             <table class="table table-bordered">
                 <tr>
@@ -193,21 +193,24 @@
                     <tr>
                         <td class="table-bluecell">{{ critere.labelLivrable }}</td>
                         <td>
-                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
-                            {{ critere.justification }}<br />
+                            La conformité :
                             {% if critere.reponse == 'conforme' %}
-                                {{ critere.texteConformite }}
+                                <span class="label label-success" style="min-width: 50px; display: inline-block;">{{ critere.texteConformite }}</span>
                             {% elseif critere.reponse == 'non_conforme' %}
-                                {{ critere.texteNonConformite }}
+                                <span class="label label-danger" style="min-width: 50px; display: inline-block;">{{ critere.texteNonConformite }}</span>
                             {% elseif critere.reponse == 'non_applicable' %}
-                                {{ critere.texteNonApplicable }}
+                                <span class="label label-warning" style="min-width: 50px; display: inline-block;">{{ critere.texteNonApplicable }}</span>
+                            {% endif %}
+                            <br/>
+                            {% if critere.justification is not null %}
+                                <i>Justification : </i>{{ critere.justification }}<br />
                             {% endif %}
                         </td>
                     </tr>
                     {% if critere.fichier %}
                         <tr>
                             <td colspan="2" style="text-align: center">
-                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" height="200" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
+                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" style="max-width:800px" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
                             </td>
                         </tr>
                     {% endif %}
@@ -221,21 +224,24 @@
                     <tr>
                         <td class="table-bluecell">{{  critere.labelLivrable }}</td>
                         <td>
-                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
-                            {{ critere.justification }}<br />
+                            La conformité :
                             {% if critere.reponse == 'conforme' %}
-                                {{ critere.texteConformite }}
+                                <span class="label label-success" style="min-width: 50px; display: inline-block;">{{ critere.texteConformite }}</span>
                             {% elseif critere.reponse == 'non_conforme' %}
-                                {{ critere.texteNonConformite }}
+                                <span class="label label-danger" style="min-width: 50px; display: inline-block;">{{ critere.texteNonConformite }}</span>
                             {% elseif critere.reponse == 'non_applicable' %}
-                                {{ critere.texteNonApplicable }}
+                                <span class="label label-warning" style="min-width: 50px; display: inline-block;">{{ critere.texteNonApplicable }}</span>
+                            {% endif %}
+                            <br/>
+                            {% if critere.justification is not null %}
+                                <i>Justification : </i>{{ critere.justification }}<br />
                             {% endif %}
                         </td>
                     </tr>
                     {% if critere.fichier %}
                         <tr>
                             <td colspan="2" style="text-align: center">
-                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" height="200" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
+                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" style="max-width:800px" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
                             </td>
                         </tr>
                     {% endif %}
@@ -290,27 +296,30 @@
                 </tr>
             </table>
             <div class="separator"></div>
-            {% set critere = object.criterePrincipeFondamentalByCode('description_fonctionnelle') %}
+            {% set critere = object.criterePrincipeFondamentalByCode('identification_biens') %}
             {% if critere and critere.reponse != 'non_renseigne' %}
                 <table class="table table-bordered">
                     <tr>
                         <td class="table-bluecell">{{  critere.labelLivrable }}</td>
                         <td>
-                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
-                            {{ critere.justification }}<br />
+                            La conformité :
                             {% if critere.reponse == 'conforme' %}
-                                {{ critere.texteConformite }}
+                                <span class="label label-success" style="min-width: 50px; display: inline-block;">{{ critere.texteConformite }}</span>
                             {% elseif critere.reponse == 'non_conforme' %}
-                                {{ critere.texteNonConformite }}
+                                <span class="label label-danger" style="min-width: 50px; display: inline-block;">{{ critere.texteNonConformite }}</span>
                             {% elseif critere.reponse == 'non_applicable' %}
-                                {{ critere.texteNonApplicable }}
+                                <span class="label label-warning" style="min-width: 50px; display: inline-block;">{{ critere.texteNonApplicable }}</span>
+                            {% endif %}
+                            <br/>
+                            {% if critere.justification is not null %}
+                                <i>Justification : </i>{{ critere.justification }}<br />
                             {% endif %}
                         </td>
                     </tr>
                     {% if critere.fichier %}
                         <tr>
                             <td colspan="2" style="text-align: center">
-                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" height="200" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
+                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" style="max-width:800px" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
                             </td>
                         </tr>
                     {% endif %}
@@ -324,21 +333,24 @@
                     <tr>
                         <td class="table-bluecell">{{  critere.labelLivrable }}</td>
                         <td>
-                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
-                            {{ critere.justification }}<br />
+                            La conformité :
                             {% if critere.reponse == 'conforme' %}
-                                {{ critere.texteConformite }}
+                                <span class="label label-success" style="min-width: 50px; display: inline-block;">{{ critere.texteConformite }}</span>
                             {% elseif critere.reponse == 'non_conforme' %}
-                                {{ critere.texteNonConformite }}
+                                <span class="label label-danger" style="min-width: 50px; display: inline-block;">{{ critere.texteNonConformite }}</span>
                             {% elseif critere.reponse == 'non_applicable' %}
-                                {{ critere.texteNonApplicable }}
+                                <span class="label label-warning" style="min-width: 50px; display: inline-block;">{{ critere.texteNonApplicable }}</span>
+                            {% endif %}
+                            <br/>
+                            {% if critere.justification is not null %}
+                                <i>Justification : </i>{{ critere.justification }}<br />
                             {% endif %}
                         </td>
                     </tr>
                     {% if critere.fichier %}
                         <tr>
                             <td colspan="2" style="text-align: center">
-                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" height="200" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
+                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" style="max-width:800px" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
                             </td>
                         </tr>
                     {% endif %}
@@ -351,21 +363,24 @@
                     <tr>
                         <td class="table-bluecell">{{  critere.labelLivrable }}</td>
                         <td>
-                            {{ critere.reponse|dictionary('reponse_critere_fondamental') }}<br />
-                            {{ critere.justification }}<br />
+                            La conformité :
                             {% if critere.reponse == 'conforme' %}
-                                {{ critere.texteConformite }}
+                                <span class="label label-success" style="min-width: 50px; display: inline-block;">{{ critere.texteConformite }}</span>
                             {% elseif critere.reponse == 'non_conforme' %}
-                                {{ critere.texteNonConformite }}
+                                <span class="label label-danger" style="min-width: 50px; display: inline-block;">{{ critere.texteNonConformite }}</span>
                             {% elseif critere.reponse == 'non_applicable' %}
-                                {{ critere.texteNonApplicable }}
+                                <span class="label label-warning" style="min-width: 50px; display: inline-block;">{{ critere.texteNonApplicable }}</span>
+                            {% endif %}
+                            <br/>
+                            {% if critere.justification is not null %}
+                                <i>Justification : </i>{{ critere.justification }}<br />
                             {% endif %}
                         </td>
                     </tr>
                     {% if critere.fichier %}
                         <tr>
                             <td colspan="2" style="text-align: center">
-                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" height="200" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
+                                <img src="{{ base_dir ~ asset('/uploads/aipd/critere_principe_fondamentaux/fichier/' ~ critere.fichier)}}" style="max-width:800px" alt="Contexte du traitement {{ critere.label }} - {{ critere.reponse|dictionary('reponse_critere_fondamental') }}">
                             </td>
                         </tr>
                     {% endif %}
@@ -381,7 +396,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Label</th>
+                    <th>Description</th>
                     <th>Conformité</th>
                 </tr>
             </thead>
@@ -395,7 +410,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Question</th>
+                    <th>Principes fondamentaux</th>
                     <th>Conformité</th>
                 </tr>
             </thead>
@@ -404,17 +419,21 @@
                 <tr>
                     {% set reponse = object.conformiteTraitement.getReponseOfPosition(questionConformite.position) %}
                     <td>{{ questionConformite.question }}
-                        {% if reponse and reponse.actionProtections is not null %}
-                            {% for action in reponse.actionProtections %}
-                                <div style="margin-left: 20px;font-size:12px;">
-                                    <span>{{action.name}}</span>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
                         {% if questionConformite.justificatif is not null %}
                             <div style="margin-left: 20px;font-size:12px;">
-                                <span>{{ questionConformite.justificatif }}</span>
+                                <span>Justification : {{ questionConformite.justificatif }}</span>
                             </div>
+                        {% endif %}
+
+                        {% if reponse and (reponse.actionProtections is not null) and (reponse.actionProtections|length > 0) %}
+                            <div style="margin-left: 20px;font-size:12px;">
+                                <span>Actions associées : </span>
+                            </div>
+                            <ul>
+                                {% for action in reponse.actionProtections %}
+                                    <li style="margin-left: 20px;font-size:12px;">{{action.name}}</li>
+                                {% endfor %}
+                            </ul>
                         {% endif %}
                     </td>
                     {% if reponse and reponse.conforme %}
@@ -430,14 +449,14 @@
             {% endfor %}
             </tbody>
         </table>
+        <div>Le graphique ci-dessous indique les points d’amélioration nécessaires au respect des principes fondamentaux du règlement.</div>
         <div class="reportGraph"><canvas id="grandsDomaines-chart"></canvas></div>
-
         <div  style="page-break-before: always;"></div>
         <h2>4. Études des risques liés à la sécurité des données</h2>
         <div>Ce chapitre a pour objectifs d'obtenir une bonne connaissance des mesures contribuant à la sécurité et d'apprécier les risques.</div>
         <h3>4.1 Évaluation des risques sur les droits et les libertés des personnes concernées</h3>
         <div style="text-align: center"><img src="{{ base_dir ~ asset("images/NiveauRisque.png") }}" height="300" alt="Niveau risque"></div>
-        <table class="table table-bordered" style="margin-left: 40px; margin-right: 40px;">
+        <table class="table table-bordered">
             <tr class="table-indicateur-head">
                 <td>Niveaux</td>
                 <td>Descriptions génériques de l'échelle de gravité</td>
@@ -460,32 +479,33 @@
             </tr>
         </table>
 
-        <table class="table table-bordered" style="margin-left: 40px; margin-right: 40px;">
+        <table class="table table-bordered">
             <tr class="table-indicateur-head">
                 <td>Niveaux</td>
                 <td>Descriptions génériques de l'échelle de vraisemblance</td>
             </tr>
             <tr>
                 <td class="table-indicateur-maximale">Maximale</td>
-                <td>Il semble extrêmement facile pour les sources des risques retenues de réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papier stockés dans le hall public de l'organisme).</td>
+                <td>Il semble extrêmement facile pour les sources des risques retenues de réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papier stockés dans le hall public de la structure).</td>
             </tr>
             <tr>
                 <td class="table-indicateur-importante">Importante</td>
-                <td>Il semble possible pour les sources de risques retenues de réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papiers stockés dans les bureaux d'un organisme dont l'accès est contrôlé par une personne à l'accueil).</td>
+                <td>Il semble possible pour les sources de risques retenues de réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papiers stockés dans les bureaux d'une structure dont l'accès est contrôlé par une personne à l'accueil).</td>
             </tr>
             <tr>
                 <td class="table-indicateur-limitee">Limitée</td>
-                <td>Il semble difficile pour les sources de risques retenues de réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papiers stockés dans un local de l'organisme dont l'accès est contrôlé par badge).</td>
+                <td>Il semble difficile pour les sources de risques retenues de réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papiers stockés dans un local de la structure dont l'accès est contrôlé par badge).</td>
             </tr>
             <tr>
                 <td class="table-indicateur-negligeable">Négligeable</td>
-                <td>Il ne semble pas possible que les sources de risques retenues puissent réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papiers stockés dans un local de l'organisme dont l'accès est contrôlé par badge et code d'accès).</td>
+                <td>Il ne semble pas possible que les sources de risques retenues puissent réaliser la menace en s'appuyant sur les caractéristiques des supports (ex: vol de supports papiers stockés dans un local de la structure dont l'accès est contrôlé par badge et code d'accès).</td>
             </tr>
         </table>
         <div style="text-align: center"><img src="{{ base_dir ~ asset("images/matriceAIPD.png") }}" height="300" alt="MatriceAIPD"></div>
 
         <div  style="page-break-before: always;"></div>
-        <h3>4.2 Evaluation de l'impact et matrice de décision</h3>
+        <h3>4.2 Évaluation de l'impact et matrice de décision</h3>
+        <div>Le tableau ci-dessous identifie des scénarios de menaces pour lesquels une évaluation est réalisée sur la vraisemblance (risques d’occurrence) et la gravité (conséquences en cas d’évènement). D, I et C représentent les critères de classification de l'information : <b>D</b>isponibilité, <b>I</b>ntégrité, <b>C</b>onfidentialité. </div>
         <table class="table table-bordered">
             <tr>
                 <th>D</th>
@@ -496,7 +516,7 @@
                 <th>Gravité</th>
                 <th>Impact potentiel</th>
             </tr>
-            {% for scenario in object.scenarioMenaces %}
+            {% for scenario in object.scenarioMenaces|sort((a,b) => a.nom <=> b.nom) %}
                 <tr>
                     <td>{% if scenario.isDisponibilite %}X{% endif %}</td>
                     <td>{% if scenario.isIntegrite %}X{% endif %}</td>
@@ -508,40 +528,20 @@
                 </tr>
             {% endfor %}
         </table>
-        <div>La matrice de décision ci-dessous vous informe du comportement attendu par la CNIL selon le niveau d'impact identifié :</div>
         <div>La CNIL préconise d’accepter les risques uniquement lorsque l’impact est négligeable. Dans les autres cas, il faudra apporter des mesures de protection supplémentaires pour venir corriger les anomalies identifiées. Dans le cas où le risque est maximal et que les mesures ne sont pas jugées suffisantes, il conviendra de solliciter l’avis de la CNIL.</div>
+        <div>La matrice de décision ci-dessous vous informe du comportement attendu par la CNIL selon le niveau d'impact identifié :</div>
         <div style="text-align: center"><img src="{{ base_dir ~ asset("images/MatriceDecision.png") }}" height="300" alt="MatriceDecision"></div>
-
-        <h3>4.3 Mesure(s) de réduction des risques mise(s) en place</h3>
+        <br/>
+        <h3 style="page-break-before: always">4.3 Mesure(s) de réduction des risques mise(s) en place</h3>
+        <div>Le radar ci-dessous présente les mesures déjà mises en place dans la structure pour réduire l’ensemble des risques identifiés.</div>
         <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
-        <table class="table table-bordered">
-            <tr>
-                <th>Mesure</th>
-                <th>Évaluation</th>
-                <th>Avis sur les mesures existantes</th>
-            </tr>
-            {% for mesure in object.mesureProtections %}
-                <tr>
-                    <td>{{ mesure.nom }}</td>
-                    <td>
-                        {% if mesure.reponse in reponsedictionary(object)|keys %}
-                        {{ mesure.reponse|reponsedictionary(object) }}
-                        {% else %}
-                        {{ mesure.reponse }}
-                        {% endif %}
-                    </td>
-                    <td>{{ mesure.detail }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-
         <div class="box box-solid box-primary">
             <div class="box-header with-border">Mesures de protection</div>
-            <table class="table table-bordered">
+            <table class="table table-bordered" style="page-break-inside: avoid">
                 <tr>
                     <th>Mesure</th>
-                    <th>Description</th>
-                    <th>Réponse</th>
+                    <th>Avis sur les mesures existantes</th>
+                    <th>Évaluation</th>
                     <th>Préconisations</th>
                 </tr>
 
@@ -553,7 +553,7 @@
                         {% endif%}
                     {% endfor %}
                 {% endfor %}
-                {% for element in mesures %}
+                {% for element in mesures|sort((a, b) => a.labelLivrable >= b.labelLivrable) %}
                     <tr>
                         <td>{{ element.labelLivrable }}</td>
                         <td>{{ element.detail }}</td>
@@ -563,7 +563,11 @@
                                 {{ element.reponse }}
                             {% endif %}
                         </td>
-                        <td>{{ element.phrasePreconisation }}</td>
+                        {% if element.reponse is same as "satisfaisant" %}
+                            <td></td>
+                        {% else %}
+                            <td>{{ element.phrasePreconisation }}</td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </table>
@@ -571,41 +575,49 @@
 
         <div  style="page-break-before: always;"></div>
         <h3>4.4 Risques résiduels</h3>
-        <div>Les risques résiduels correspondent aux risques non-traités ou pour lesquels il n'est pas prévu de mettre en oeuvre l'ensemble des mesures de sécurité.</div>
+        <div>Les risques résiduels correspondent aux risques non traités à ce jour ou pour lesquels des préconisations ont été formulées (voir actions conseillées par le DPD).</div>
         <div class="reportGraph"><canvas id="risquesResiduels-chart"></canvas></div>
-        <div class="reportGraph"><canvas id="dicResiduels-chart"></canvas></div>
+        <br/>
         <div class="box box-solid box-primary">
             <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
             <div class="box-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered" style="page-break-inside: avoid">
                     <tr>
                         <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
                         <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
                         <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
                     </tr>
-                    {% for scenario in object.scenarioMenaces %}
-                        <tr>
-                            <td>{{ scenario.nom }}</td>
-                            <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
-                            <td>{{ getScenarioMenaceImpactResiduelLabel(scenario)|raw }}</td>
-                        </tr>
+                    {% for scenario in object.scenarioMenaces|sort((a, b) => a.nom >= b.nom) %}
+                        {% if isScenarioMenaceImpactResiduelImpactNotNegligeable(scenario) %}
+                            <tr>
+                                <td>{{ scenario.nom }}</td>
+                                <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
+                                <td>{{ getScenarioMenaceImpactResiduelLabel(scenario)|raw }}</td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 </table>
             </div>
         </div>
+        <p>Le graphique ci dessous représente les risques résiduels sur la disponibilité, l'intégrité et la confidentialité des données à caractère personnel</p>
+        <div class="reportGraph"><canvas id="dicResiduels-chart"></canvas></div>
+        <div>Le plan d’action ci-après présente les mesures de sécurité liées aux seuls scénarios de menaces dont l’impact est refusé.</div>
         <div class="box box-solid box-primary">
             <div class="box-header with-border">Actions conseillées par le DPD à mettre en place</div>
-                <table class="table table-bordered">
+            <div class="box-body">
+                <table class="table table-bordered" style="page-break-inside: avoid">
                     <tr>
-                        <th>Label livrable</th>
+                        <th>Mesure</th>
                         <th>Préconisations</th>
                     </tr>
-                        {% for mesure in mesuresProtection %}
+                    {% for mesure in object.mesureProtections|sort((a, b) => a.labelLivrable >= b.labelLivrable) %}
+                        {% if (getMeasureImpactResiduel(mesure.poidsGravite,mesure.poidsVraisemblance) is not same as 1) %}
                             <tr>
                                 <td>{{ mesure.labelLivrable }}</td>
                                 <td>{{ mesure.phrasePreconisation }}</td>
                             </tr>
-                        {% endfor %}
+                        {% endif %}
+                    {% endfor %}
                 </table>
             </div>
         </div>
@@ -614,21 +626,23 @@
         <div>Ce chapitre a pour objectifs de permettre la prise de décision visant à accepter ou non l'AIPD au regard des résultats de l'étude.</div>
 
         <h3>Avis des personnes consultées</h3>
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="page-break-inside: avoid">
             <tr>
                 <td class="table-bluecell">Avis du référent RGPD</td>
                 <td>{{ object.avisReferent.reponse|dictionary('reponse_avis') }}</td>
             </tr>
             <tr><td colspan="2">{{ object.avisReferent.date|date('d/m/Y') }}</td></tr>
             <tr><td colspan="2">{% if object.avisReferent.detail is not null %}{{ object.avisReferent.detail }}{% else %}{% endif %}</td></tr>
+            <tr style="height: 80px"><td colspan="2">Signature : </td></tr>
         </table>
         <table class="table table-bordered">
             <tr>
-                <td class="table-bluecell">Avis du DPD</td>
+                <td class="table-bluecell">Avis du délégué à la protection des données</td>
                 <td>{{ object.avisDpd.reponse|dictionary('reponse_avis') }}</td>
             </tr>
             <tr><td colspan="2">{{ object.avisDpd.date|date('d/m/Y') }}</td></tr>
             <tr><td colspan="2">{% if object.avisDpd.detail is not null %}{{ object.avisDpd.detail }}{% else %}{% endif %}</td></tr>
+            <tr style="height: 80px"><td colspan="2">Signature : </td></tr>
         </table>
         <table class="table table-bordered">
             <tr>
@@ -637,14 +651,16 @@
             </tr>
             <tr><td colspan="2">{{ object.avisRepresentant.date|date('d/m/Y') }}</td></tr>
             <tr><td colspan="2">{% if object.avisRepresentant.detail is not null %}{{ object.avisRepresentant.detail }}{% else %}{% endif %}</td></tr>
+            <tr style="height: 80px"><td colspan="2">Signature : </td></tr>
         </table>
         <table class="table table-bordered">
             <tr>
-                <td class="table-bluecell">Décision du RT</td>
+                <td class="table-bluecell">Décision du responsable de traitement</td>
                 <td>{{ object.avisResponsable.reponse|dictionary('reponse_avis') }}</td>
             </tr>
             <tr><td colspan="2">{{ object.avisResponsable.date|date('d/m/Y') }}</td></tr>
             <tr><td colspan="2">{% if object.avisResponsable.detail is not null %}{{ object.avisResponsable.detail }}{% else %}{% endif %}</td></tr>
+            <tr style="height: 80px"><td colspan="2">Signature : </td></tr>
         </table>
 
 {#            //////////////////////////////////////#}
@@ -666,9 +682,9 @@
             <div class="annexe-head">Personnes concernées</div>
             <div>Personnes auxquelles se rapportent les données qui font l'objet du traitement.</div>
             <div class="annexe-head">Responsable de traitement</div>
-            <div>La personne physique ou morale, l'autorité publique, le service ou un autre organisme qui, seul ou conjointement avec d'autres, détermine les finalités et les moyens du traitement ; lorsque les finalités et les moyens de ce traitement sont déterminés par le droit de l'Union ou le droit d'un État membre, le responsable du traitement peut être désigné ou les traitements spécifiques applicables à sa désignation peuvent être prévus par le droit de l'Union ou par le droit d'un État membre.</div>
+            <div>La personne physique ou morale, l'autorité publique, le service ou une autre structure qui, seul ou conjointement avec d'autres, détermine les finalités et les moyens du traitement ; lorsque les finalités et les moyens de ce traitement sont déterminés par le droit de l'Union ou le droit d'un État membre, le responsable du traitement peut être désigné ou les traitements spécifiques applicables à sa désignation peuvent être prévus par le droit de l'Union ou par le droit d'un État membre.</div>
             <div class="annexe-head">Traitement de données à caractère personnel (traitement)</div>
-            <div>Tout opération ou tout ensemble d'opérations effectuées ou non à l'aide de procédés automatisés et appliqués à des données ou des ensembles de données à caractère personnel, tel que la collecte, l'enregistrement, l'organisation, la structuration, la conservation, l'adaptation ou la modification, l'extraction, la consultation, l'utilisation, la communication par transmission, la diffusion ou tout autre forme de mise à disposition, le rapprochement ou l'interconnexion, la limitation, l'effacement ou la destruction.</div>
+            <div>Tout opération ou tout ensemble d'opérations effectuées ou non à l'aide de procédés automatisés et appliqués à des données ou des ensembles de données à caractère personnel, tel que la collecte, l'enregistrement, la structure, la structuration, la conservation, l'adaptation ou la modification, l'extraction, la consultation, l'utilisation, la communication par transmission, la diffusion ou tout autre forme de mise à disposition, le rapprochement ou l'interconnexion, la limitation, l'effacement ou la destruction.</div>
             <div class="annexe-head">Vraisemblance</div>
             <div>Estimation de la possibilité qu'un risque se réalise.</div>
 
@@ -1156,7 +1172,6 @@
                                         <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
-                                </td>
                             </tr>
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.security_open_accounts'|trans }}</strong></td>
@@ -1395,8 +1410,7 @@
 
             </div>
         </div>
-
-    </section>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -1507,6 +1521,14 @@
                 datasets: data,
             },
             options: {
+                layout: {
+                    padding: {
+                        left: 50,
+                        right: 50,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
                 scales: {
                     yAxes: [{
                         ticks : {
@@ -1521,6 +1543,9 @@
                         }
                     }],
                     xAxes: [{
+                        gridLines: {
+                            offsetGridLines: true
+                        },
                         ticks : {
                             beginAtZero: true,
                             stepSize: 1,
@@ -1530,7 +1555,7 @@
                         scaleLabel: {
                             display: true,
                             labelString: 'Vraisemblance',
-                        }
+                        },
                     }],
                 },
                 animation: {
@@ -1549,7 +1574,7 @@
     var domainesDatas = [];
 
     {% for critere in object.criterePrincipeFondamentaux %}
-    domainesLabels.push("{{ critere.label|truncate(28,'...')|raw|escape('js') }}");
+    domainesLabels.push("{{ critere.label|u.truncate(28,'...')|raw|escape('js') }}");
     {% if critere.reponse == 'conforme' %}
     domainesDatas.push(5);
     {% else %}
@@ -1566,30 +1591,74 @@
     {% else %}
     domainesDatas.push(1);
     {% endif %}
-    domainesLabels.push("{{ question.question|truncate(28, "...")|raw|escape('js') }}");
+    domainesLabels.push("{{ question.question|u.truncate(28, "...")|raw|escape('js') }}");
     {% endfor %}
     /* The format of the data used by the chart is [[],[]] but here we use only 1 set of data */
     domainesDatas = [domainesDatas];
 
-    var mesuresLabels = [];
+    var mesuresLabels = ['Disponibilité','Intégrité', 'Confidentialité'];
     var mesuresDatas = [];
     var risquesLabels = [];
     var risquesDataSet1 = [];
     var risquesDataSet2 = [];
     var dicResiduelsData = [];
+    var risquesResiduelsLabels = [];
+
+    var dispoGravity = 0;
+    var dispoVraisemblance = 0;
+    var integrityGravity = 0;
+    var integrityVraisemblance = 0;
+    var confidentialityGravity = 0;
+    var confidentialityVraisemblance = 0;
+    var vraisemblance = 0;
+    var gravite = 0;
+
     {% for scenario in object.scenarioMenaces %}
-        risquesLabels.push("{{ scenario.nom|truncate(20, '...')|raw|escape('js') }}");
+        vraisemblance = {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}
+        gravite = {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}
+        {% if (scenario.isDisponibilite) %}
+            dispoGravity = gravite > dispoGravity ? gravite : dispoGravity;
+            dispoVraisemblance = vraisemblance > dispoVraisemblance ? vraisemblance : dispoVraisemblance;
+            // P(x,y) => si x>0,6 alors x=x-0,5 si y>0,6 alors y=y-0,5
+            // https://gitlab.adullact.net/soluris/madis/-/issues/635
+            dispoGravity = dispoGravity > 0.6 ? dispoGravity - 0.5 : dispoGravity
+            dispoVraisemblance = dispoVraisemblance > 0.6 ? dispoVraisemblance - 0.5 : dispoVraisemblance
+        {% endif %}
+        {% if (scenario.isIntegrite) %}
+            integrityGravity = gravite > integrityGravity ? gravite : integrityGravity;
+            integrityVraisemblance = vraisemblance > integrityVraisemblance ? vraisemblance : integrityVraisemblance;
+            // P(x,y) => si x>0,6 alors x=x-0,5 si y>0,6 alors y=y-0,5
+            // https://gitlab.adullact.net/soluris/madis/-/issues/635
+            dispoGravity = dispoGravity > 0.6 ? dispoGravity - 0.5 : dispoGravity
+            dispoVraisemblance = dispoVraisemblance > 0.6 ? dispoVraisemblance - 0.5 : dispoVraisemblance
+        {% endif %}
+        {% if (scenario.isConfidentialite) %}
+            confidentialityGravity = gravite > confidentialityGravity ? gravite : confidentialityGravity;
+            confidentialityVraisemblance = vraisemblance > confidentialityVraisemblance ? vraisemblance : confidentialityVraisemblance;
+
+            confidentialityGravity = confidentialityGravity > 0.6 ? confidentialityGravity - 0.5 : confidentialityGravity
+            confidentialityVraisemblance = confidentialityVraisemblance > 0.6 ? confidentialityVraisemblance - 0.5 : confidentialityVraisemblance
+        {% endif %}
+
         {%  set rr = getScenarioMenaceImpactResiduel(scenario) %}
         {%  set rp = getScenarioMenaceImpactPotentiel(scenario) %}
         risquesDataSet1.push({{ rp-rr }})
         risquesDataSet2.push({{ rr }});
-        dicResiduelsData.push({
-            label: "{{ scenario.nom }}",
-            data: [{x: {{ getScenarioMenaceIndicateurResiduel(scenario, 'vraisemblance') }}, y: {{ getScenarioMenaceIndicateurResiduel(scenario, 'gravite') }}, r: 10}],
-            backgroundColor: 'hsl({{ (23*loop.index) % 360 }}, 100%, 50%)'
-        });
-
+        risquesResiduelsLabels.push("{{ scenario.nom|u.truncate(28, '...') }}");
     {% endfor %}
+    dicResiduelsData.push({
+        label: "Disponibilité",
+        data: [{x: dispoVraisemblance, y: dispoGravity, r: 10}],
+        backgroundColor: 'hsl({{ 23 % 360 }}, 100%, 50%)'
+    },{
+        label: "Intégrité",
+        data: [{x: integrityVraisemblance, y: integrityGravity, r: 10}],
+        backgroundColor: 'hsl({{ 46 % 360 }}, 100%, 50%)'
+    },{
+        label: "Confidentialité",
+        data: [{x: confidentialityVraisemblance, y: confidentialityGravity, r: 10}],
+        backgroundColor: 'hsl({{ 69 % 360 }}, 100%, 50%)'
+    });
     {% for mesure in object.mesureProtections %}
         mesuresLabels.push("{{ mesure.nomCourt|raw|escape('js') }}");
         {% if mesure.reponse == 'insatisfaisant' or mesure.reponse is null %}
@@ -1608,7 +1677,7 @@
     window.onload = function() {
         radarChart("grandsDomaines-chart", domainesLabels, [''], domainesDatas, [colorBlue]);
         radarChart('mesuresSecurite-chart', mesuresLabels, [''], mesuresDatas, [colorPurple]);
-        stackedBarChart("risquesResiduels-chart", risquesLabels, risquesDatas);
+        stackedBarChart("risquesResiduels-chart", risquesResiduelsLabels, risquesDatas);
         bubbleChart('dicResiduels-chart', risquesLabels, dicResiduelsData);
     };
 

@@ -62,4 +62,9 @@ interface Survey extends CRUDRepositoryInterface
      * @return array The array of survey given by the collectivity
      */
     public function findAllByCollectivities(array $collectivities, array $order = [], int $limit = null): iterable;
+
+    /**
+     * Find all surveys that have not been updated for more than 18 months.
+     */
+    public function findAllLate(): array;
 }

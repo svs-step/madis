@@ -28,10 +28,10 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class DuplicationTargetOptionDictionary extends SimpleDictionary
 {
-    const NAME = 'admin_duplication_target_option';
+    public const NAME = 'admin_duplication_target_option';
 
-    const KEY_PER_TYPE         = 'per_type';
-    const KEY_PER_COLLECTIVITY = 'per_collectivity';
+    public const KEY_PER_TYPE         = 'per_type';
+    public const KEY_PER_COLLECTIVITY = 'per_collectivity';
 
     public function __construct()
     {

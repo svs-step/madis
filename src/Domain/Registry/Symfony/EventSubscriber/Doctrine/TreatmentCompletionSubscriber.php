@@ -27,7 +27,7 @@ namespace App\Domain\Registry\Symfony\EventSubscriber\Doctrine;
 use App\Domain\Registry\Calculator\Completion\TreatmentCompletion;
 use App\Domain\Registry\Model\Treatment;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class TreatmentCompletionSubscriber implements EventSubscriber
 {

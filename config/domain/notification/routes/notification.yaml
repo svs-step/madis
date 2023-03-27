@@ -10,6 +10,11 @@ notification_notification_list:
     methods: ['GET']
     controller: 'App\Domain\Notification\Controller\NotificationController:listAction'
 
+notification_notification_list_datatables:
+    path: '/liste-datatable'
+    methods: ['POST']
+    controller: 'App\Domain\Notification\Controller\NotificationController:listDataTables'
+
 notification_notification_edit:
     path: '/editer/{id}'
     methods: ['GET', 'POST']
@@ -26,13 +31,17 @@ notification_notification_delete_confirm:
     controller: 'App\Domain\Notification\Controller\NotificationController:deleteConfirmationAction'
 
 notification_notification_mark_as_read:
-    # path: '/marquer-comme-lu/{id}'
-    path: '/marquer-comme-lu'
+    path: '/marquer-comme-lu/{id}'
     methods: ['GET']
     controller: 'App\Domain\Notification\Controller\NotificationController:markAsReadAction'
+
+notification_notification_mark_as_unread:
+    path: '/marquer-comme-non-lu/{id}'
+    methods: ['GET']
+    controller: 'App\Domain\Notification\Controller\NotificationController:markAsUnreadAction'
 
 notification_notification_mark_as_read_all:
     path: '/tous-marquer-comme-lu'
     methods: ['GET']
     controller: 'App\Domain\Notification\Controller\NotificationController:markAsReadAllAction'
-    
+

@@ -81,7 +81,7 @@
 
         $('input[type=text].datepicker').datepicker();
     </script>
-    <script src="{{ asset('build/js/app.js') }}"></script>
+    {{ encore_entry_script_tags('js/app') }}
     {% block javascripts %}{% endblock %}
 </body>
 </html>

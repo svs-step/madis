@@ -72,14 +72,24 @@
                                 <input class="form-control" type="text" id="search_email" placeholder="Email" style="width: 100%;">
                             </th>
                             <th>
-                                <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
                             </th>
-                            <th> <select class="form-control" id="search_role" style="width: 100%;">
+                            <th>
+                                <select class="form-control" id="search_role" style="width: 100%;">
                                     <option value="">Rôle</option>
                                     {% for key, subject in dictionary('user_user_role') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
-                                </select></th>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="form-control" id="search_moreInfos" style="width: 100%;">
+                                    <option value="">Informations supplémentaires</option>
+                                    {% for key, subject in dictionary('user_user_moreInfo') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
                             <th></th>
                             <th>
                                 <input class="datepicker form-control" type="text" id="search_last_login" placeholder="Date" style="width: 100%;">
@@ -95,6 +105,7 @@
                             <th>{{ 'user.user.list.email'|trans }}</th>
                             <th>{{ 'user.user.list.collectivity'|trans }}</th>
                             <th>{{ 'user.user.list.roles'|trans }}</th>
+                            <th>{{ 'user.user.list.moreInfos'|trans }}</th>
                             <th>{{ 'user.user.list.enabled'|trans }}</th>
                             <th>{{ 'user.user.list.last_login'|trans }}</th>
                             <th>{{ 'user.user.list.services'|trans }}</th>
@@ -118,6 +129,7 @@
             {"data": "email"},
             {"data": "collectivite"},
             {"data": "roles"},
+            {"data": "moreInfos", "visible": false},
             {"data": "actif", "orderable": false},
             {"data": "connexion"},
             {"data": "services", "orderable": false},
@@ -159,13 +171,18 @@
                 oTable.column('4').search($(this).val()).draw() ;
             });
 
+            $('#search_moreInfos').off('change');
+            $('#search_moreInfos').change(function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            });
+
             $('#search_last_login').off('change');
             $('#search_last_login').change(function(){
-                oTable.column('6').search($(this).val()).draw() ;
+                oTable.column('7').search($(this).val()).draw() ;
             });
             $('#search_services').off('keyup');
             $('#search_services').keyup($.debounce(250, function(){
-                oTable.column('7').search($(this).val()).draw() ;
+                oTable.column('8').search($(this).val()).draw() ;
             }));
         }
 

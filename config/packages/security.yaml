@@ -1,5 +1,5 @@
 security:
-    encoders:
+    password_hashers:
         App\Domain\User\Model\User:
             algorithm: auto
     providers:
@@ -42,6 +42,7 @@ security:
             logout:
                 path: /deconnexion
                 target: /
+                invalidate_session: false
             remember_me:
                 secret: '%env(APP_SECRET)%'
                 lifetime: 604800 # 1 week in seconds
@@ -57,6 +58,7 @@ security:
         - { path: ^/mot-de-passe-oublie, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reinitialisation-de-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/public, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/oauth, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # Referent routes
         - { path: ^/collectivites/liste, roles: ROLE_REFERENT }
         - { path: ^/collectivites/visualiser/.+$, roles: ROLE_REFERENT }
@@ -72,9 +74,13 @@ security:
         - { path: ^/traitements/configuration, roles: ROLE_ADMIN }
         - { path: ^/modele-analyse, roles: ROLE_ADMIN }
         - { path: ^/mesure-protection, roles: ROLE_ADMIN }
-        - { path: ^espace-documentaire/creer$, roles: ROLE_ADMIN }
-        - { path: ^espace-documentaire/editer/.+$, roles: ROLE_ADMIN }
-        - { path: ^espace-documentaire/supprimer/.+$, roles: ROLE_ADMIN }
+        - { path: ^/espace-documentaire/creer$, roles: ROLE_ADMIN }
+        - { path: ^/espace-documentaire/editer/.+$, roles: ROLE_ADMIN }
+        - { path: ^/espace-documentaire/supprimer/.+$, roles: ROLE_ADMIN }
+        - { path: ^/espace-documentaire/categorie, roles: ROLE_ADMIN }
+        - { path: ^/espace-documentaire/categorie/creer$, roles: ROLE_ADMIN }
+        - { path: ^/espace-documentaire/categorie/editer/.+$, roles: ROLE_ADMIN }
+        - { path: ^/espace-documentaire/categorie/supprimer/.+$, roles: ROLE_ADMIN }
         # Manager routes
         - { path: ^/.+/creer$, roles: ROLE_USER }
         - { path: ^/.+/creer/.+$, roles: ROLE_USER }

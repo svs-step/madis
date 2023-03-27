@@ -40,6 +40,8 @@ class Request implements Repository\Request
 {
     use RepositoryUtils;
 
+    private string $lateRequestDelayDays;
+
     /**
      * @var ManagerRegistry
      */
@@ -48,9 +50,10 @@ class Request implements Repository\Request
     /**
      * Request constructor.
      */
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, string $lateRequestDelayDays)
     {
-        $this->registry = $registry;
+        $this->registry             = $registry;
+        $this->lateRequestDelayDays = $lateRequestDelayDays;
     }
 
     /**
@@ -83,7 +86,7 @@ class Request implements Repository\Request
             ->createQueryBuilder()
             ->select('o')
             ->from($this->getModelClass(), 'o')
-            ;
+        ;
     }
 
     /**
@@ -152,7 +155,7 @@ class Request implements Repository\Request
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -164,7 +167,7 @@ class Request implements Repository\Request
             ->getManager()
             ->getRepository($this->getModelClass())
             ->find($id)
-            ;
+        ;
     }
 
     protected function getModelClass(): string
@@ -194,7 +197,7 @@ class Request implements Repository\Request
         return $qb
             ->andWhere('o.collectivity = :collectivity')
             ->setParameter('collectivity', $collectivity)
-            ;
+        ;
     }
 
     /**
@@ -231,7 +234,7 @@ class Request implements Repository\Request
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -250,7 +253,7 @@ class Request implements Repository\Request
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -268,7 +271,7 @@ class Request implements Repository\Request
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -287,7 +290,7 @@ class Request implements Repository\Request
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -341,7 +344,7 @@ class Request implements Repository\Request
         return $qb
             ->getQuery()
             ->getSingleScalarResult()
-            ;
+        ;
     }
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
@@ -402,7 +405,8 @@ class Request implements Repository\Request
                 WHEN o.object = \'' . RequestObjectDictionary::OBJECT_CORRECT . '\' THEN 5
                 WHEN o.object = \'' . RequestObjectDictionary::OBJECT_WITHDRAW_CONSENT . '\' THEN 6
                 WHEN o.object = \'' . RequestObjectDictionary::OBJECT_DELETE . '\' THEN 7
-                ELSE 8 END) AS HIDDEN hidden_object')
+                WHEN o.object = \'' . RequestObjectDictionary::OBJECT_OPPOSITE_TREATMENT . '\' THEN 8
+                ELSE 9 END) AS HIDDEN hidden_object')
                     ->addOrderBy('hidden_object', $orderDir);
                 break;
             case 'demande_complete':
@@ -464,5 +468,20 @@ class Request implements Repository\Request
                     break;
             }
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllLate(): array
+    {
+        $now       = new \DateTime();
+        $lastMonth = $now->sub(\DateInterval::createFromDateString($this->lateRequestDelayDays . ' days'));
+
+        return $this->createQueryBuilder()
+            ->andWhere('o.updatedAt < :lastmonth')
+            ->setParameter('lastmonth', $lastMonth->format('Y-m-d'))
+            ->getQuery()
+            ->getResult();
     }
 }

@@ -24,18 +24,20 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Model;
 
+use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
 use App\Domain\Reporting\Model\LoggableSubject;
+use App\Domain\User\Model\User;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 /**
  * Action de protection / Plan d'action.
  */
-class Mesurement implements LoggableSubject
+class Mesurement implements LoggableSubject, CollectivityRelated
 {
     use CollectivityTrait;
     use CreatorTrait;
@@ -89,7 +91,7 @@ class Mesurement implements LoggableSubject
     private $status;
 
     /**
-     * FR: Date de planification.
+     * FR: Echéance.
      *
      * @var \DateTime|null
      */
@@ -332,5 +334,10 @@ class Mesurement implements LoggableSubject
     public function setViolations(?iterable $violations): void
     {
         $this->violations = $violations;
+    }
+
+    public function isInUserServices(User $user): bool
+    {
+        return true;
     }
 }

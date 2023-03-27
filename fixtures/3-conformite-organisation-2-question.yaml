@@ -6,7 +6,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_2:
         processus: '@processus_1'
         position: 2
-        nom: "La structure a identifié son DPO ou son référent DPO. Dans les deux cas, il dispose des compétences nécessaires et/ou a reçu une formation. Sa mission est reconnue, positionnée et légitimée dans l'organisation. Il existe une fiche de mission qui formalise ses rôles responsabilités et précise les temps et ressources alloués. Lorsque les tâches du DPO sont réparties sur plusieurs personnes, la répartition des activités est claire."
+        nom: "La structure a identifié son DPO ou son référent DPO. Dans les deux cas, il dispose des compétences nécessaires et/ou a reçu une formation. Sa mission est reconnue, positionnée et légitimée dans la structure. Il existe une fiche de mission qui formalise ses rôles responsabilités et précise les temps et ressources alloués. Lorsque les tâches du DPO sont réparties sur plusieurs personnes, la répartition des activités est claire."
     conformite_organisation_question_3:
         processus: '@processus_1'
         position: 3
@@ -202,7 +202,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_46:
         processus: '@processus_10'
         position: 1
-        nom: "Conformément à l'article 32, de manière régulière, l'organisation teste, analyse, et évalue l'efficacité des mesures techniques et organisationnelles, pour assurer la sécurité du traitement. Les mesures de sécurité en prévention de la violation de données à caractère personnel sont contrôlées régulièrement et en cas de violation de données."
+        nom: "Conformément à l'article 32, de manière régulière, la structure teste, analyse, et évalue l'efficacité des mesures techniques et organisationnelles, pour assurer la sécurité du traitement. Les mesures de sécurité en prévention de la violation de données à caractère personnel sont contrôlées régulièrement et en cas de violation de données."
     conformite_organisation_question_47:
         processus: '@processus_10'
         position: 2

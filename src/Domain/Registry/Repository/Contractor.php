@@ -67,8 +67,8 @@ interface Contractor extends CRUDRepositoryInterface, DataTablesRepository
     public function findAllByClonedFromCollectivity(Collectivity $collectivity);
 
     /**
-     * Set clonedFrom to null by collectivity
-     * @param Collectivity $collectivity
+     * Set clonedFrom to null by collectivity.
+     *
      * @return mixed
      */
     public function resetClonedFromCollectivity(Collectivity $collectivity);

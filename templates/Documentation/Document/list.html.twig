@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% set bodyClass = 'documentation_document list' %}
-{% set menuItem = 'documentation_document' %}
+{% set menuItem = 'documentation' %}
 
 {% set activeCategories = [] %}
 
@@ -69,13 +69,16 @@
                 <div class="box-body">
                     <div style="margin-bottom: 10px">
                         {# SWITCH GRID LIST #}
-                        {% if is_granted('ROLE_USER') %}
-                            <a href="{{ path('documentation_document_grid') }}" class="btn btn-default">
-                                <i class="fas fa-th"></i>
-                                {{ 'documentation.document.action.grid'|trans }}
-                            </a>
-                        {% endif %}
+                        <a href="{{ path('documentation_document_grid') }}" class="btn btn-default">
+                            <i class="fas fa-th"></i>
+                            {{ 'documentation.document.action.grid'|trans }}
+                        </a>
                     </div>
+                    {# <div style="float:left">
+                        <a id="delete-all"  href="{{ path('documentation_document_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            Supprimer
+                        </a>
+                    </div> #}
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -177,7 +180,6 @@
                                 {{ object.categories|map(c => "#{c.name}") | join(', ') }}
                             </td>
                             <td>{{ object.createdAt|date('d/m/Y') }}</td>
-
                             <td>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
@@ -244,6 +246,11 @@
 {% block javascripts %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 
+    {% set actionIsVisible = false %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set actionIsVisible = true %}
+    {% endif %}
+
     {% set dataTableOptions = {
         columns: [
             {"data": "pinned"},
@@ -253,7 +260,7 @@
             {"data": "name"},
             {"data": "category"},
             {"data": "created_at"},
-            {"data": "actions", "orderable": false},
+            {"data": "actions", "className": "noVis", "orderable": false, "visible": actionIsVisible},
         ],
 
         order: [[0,'desc'],[6,'desc']],
@@ -281,10 +288,11 @@
     {{ include('_Utils/_datatable.html.twig') }}
     <script>
         $(document).ready(function() {
+            const isPreview = {{ is_granted('ROLE_PREVIEW')|json_encode() }};
             const isUser = {{ is_granted('ROLE_USER')|json_encode() }};
             const isReferent = {{ is_granted('ROLE_REFERENT')|json_encode() }};
 
-            if (isUser && !isReferent){
+            if ((isPreview || isUser) && !isReferent){
                 var oTable = $('#table').DataTable();
                 oTable.column('7').visible(false);
             }

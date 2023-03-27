@@ -23,24 +23,24 @@ final class JwtDecorator implements OpenApiFactoryInterface
         $schemas = $openApi->getComponents()->getSchemas();
 
         $schemas['Token'] = new \ArrayObject([
-            'type'          => 'object',
-            'properties'    => [
-                'token'     => [
-                    'type'      => 'string',
-                    'readOnly'  => true,
+            'type'       => 'object',
+            'properties' => [
+                'token' => [
+                    'type'     => 'string',
+                    'readOnly' => true,
                 ],
             ],
         ]);
         $schemas['Credentials'] = new \ArrayObject([
-            'type'          => 'object',
-            'properties'    => [
-                'username'  => [
-                    'type'      => 'string',
-                    'example'   => 'johndoe@example.com',
+            'type'       => 'object',
+            'properties' => [
+                'username' => [
+                    'type'    => 'string',
+                    'example' => 'johndoe@example.com',
                 ],
-                'password'  => [
-                    'type'      => 'string',
-                    'example'   => 'apassword',
+                'password' => [
+                    'type'    => 'string',
+                    'example' => 'apassword',
                 ],
             ],
         ]);
@@ -56,8 +56,8 @@ final class JwtDecorator implements OpenApiFactoryInterface
                 ['Token'],
                 [
                     '200' => [
-                        'description'   => 'Get JWT token',
-                        'content'       => [
+                        'description' => 'Get JWT token',
+                        'content'     => [
                             'application/json' => [
                                 'schema' => [
                                     '$ref' => '#/components/schemas/Token',

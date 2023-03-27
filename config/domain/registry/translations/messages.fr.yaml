@@ -6,15 +6,17 @@ registry:
             line_one: Adresse
             line_two: Compl. adresse
             mail: Email
-            phone_number: N° de tel
+            phone_number: Téléphone
             zip_code: Code postal
+            country: Pays
         show:
             city: Ville
             line_one: Adresse
             line_two: Complément d'adresse
             mail: Email
-            phone_number: N° de tel
+            phone_number: Téléphone
             zip_code: Code postal
+            country: Pays
 
     contractor:
         action:
@@ -44,7 +46,7 @@ registry:
                 delete: Sous-traitant "%object%" supprimé avec succès
         list:
             adopted_security_features: Adopte les éléments de sécurité
-            collectivity: Collectivité
+            collectivity: Structure
             contractual_clauses_verified: Clauses contractuelles vérifiées
             maintains_treatment_register: Registre des traitements
             name: Nom
@@ -53,14 +55,14 @@ registry:
             confirm_deletion: Voulez-vous vraiment supprimer ce sous-traitant ?
         show:
             adopted_security_features: A adopté les éléments de sécurité nécessaires
-            collectivity: Collectivité
+            collectivity: Structure
             contractual_clauses_verified: Clauses contractuelles vérifiées
             contact_civility: Civilité
             contact_first_name: Prénom
             contact_last_name: Nom
             contact_job: Fonction
             contact_mail: Email
-            contact_phone_number: N° tél.
+            contact_phone_number: Téléphone
             created_at: Date de création
             creator: Créateur
             deleted_user: Utilisateur supprimé
@@ -89,6 +91,112 @@ registry:
         form:
             other_delay: Autre délai
 
+    tool:
+        flashbag:
+            success:
+                create: Outil ou support "%object%" créé avec succès
+                delete: Outil ou support "%object%" supprimé avec succès
+                edit: Outil ou support "%object%" modifié avec succès
+        type:
+            not_null: Vous devez choisir le type
+        name:
+            not_blank: Le nom de l'outil est indispensable
+
+        country:
+            france: France
+            eu: Autre pays de l’Union Européenne ou pays adéquats
+            other: Pays d’hébergement de la donnée
+        breadcrumb:
+            list: Liste des outils et supports
+            create: Création
+            show: Visualiser
+        form:
+            name: Nom
+            type: Type
+            editor: Editeur
+            contractors: Sous-traitants
+            description: Description
+            other_info: Autres informations
+            prod_date: Date de mise en production
+            country_type: Pays
+            country_name: Nom du pays
+            country_guarantees: Garanties pour le transfert
+            manager: Personne en charge
+            archival: Archivage
+            tracking: Traçabilité
+            encrypted: Chiffrement
+            access_control: Contrôle d'accès
+            update: Mise à jour
+            backup: Sauvegarde
+            deletion: Suppression
+            has_comment: Zone de commentaire libre
+            other: Autres
+        tab:
+            relations: Relations
+            measures: Mesures de sécurité et confidentialité
+            general: Informations générales
+            historic: Historique
+        title:
+            list: Logiciels et supports
+            create: Création d'un logiciel ou support
+            edit: Modification d'un logiciel ou support
+            delete: Suppression d'un logiciel ou support
+            show: Visualiser un logiciel ou support
+        action:
+            new: Nouveau logiciel ou support
+            edit: Editer
+            delete: Supprimer
+            submit: Sauvegarder
+            back_to_list: Retour à la liste
+            print_all: Générer une impression
+            print: Imprimer
+        list:
+            name: Nom
+            collectivity: Structure
+            treatments: Traitements
+            contractors: Sous-traitants
+            mesurements: Actions de protection
+            proofs: Documents
+            access_control: Contrôle d'accès
+            created_at: Date de création
+            updated_at: Date de mise à jour
+            update: Mise à jour
+            backup: Sauvegarde
+            tracking: Traçabilité
+            deletion: Suppression
+            has_comment: Zone de commentaire libre
+            other: Autre
+            type: Type
+            editor: Editeur
+            archival: Archivage
+            encrypted: Chiffrement
+        show:
+            name: Nom
+            collectivity: Structure
+            treatments: Traitements
+            contractors: Sous-traitants
+            mesurements: Actions de protection
+            documents: Documents
+            access_control: Contrôle d'accès
+            created_at: Date de création
+            updated_at: Date de mise à jour
+            update: Mise à jour
+            backup: Sauvegarde
+            tracking: Traçabilité
+            deletion: Suppression
+            has_comment: Zone de commentaire libre
+            other: Autre
+            type: Type
+            editor: Editeur
+            manager: Personne en charge
+            archival: Archivage
+            encrypted: Chiffrement
+            creator: Créateur
+            description: Description
+            other_info: Autres informations
+            prod_date: Date de mise en production
+            country: pays
+
     mesurement:
         action:
             back_to_list: Retour à la liste
@@ -107,7 +215,7 @@ registry:
             description: Description
             manager: Responsable d'action
             name: Nom
-            planification_date: Planification
+            planification_date: Échéance
             priority: Priorité
             status: Statut
             type: Type
@@ -122,11 +230,11 @@ registry:
                 delete: Action de protection "%object%" supprimé avec succès
         list:
             charge: Charge
-            collectivity: Collectivité
+            collectivity: Structure
             cost: Coût
             manager: Responsable d'action
             name: Nom
-            planification_date: Date de planification
+            planification_date: Échéance
             priority: Priorité
             status: Statut
             type:
@@ -136,7 +244,7 @@ registry:
             responsable: Responsable d'action
         show:
             charge: Charge
-            collectivity: Collectivité
+            collectivity: Structure
             comment: Observations
             created_at: Date de création
             creator: Créateur
@@ -144,7 +252,7 @@ registry:
             description: Description
             manager: Responsable d'action
             name: Nom
-            planification_date: Planification
+            planification_date: Échéance
             priority: Priorité
             status: Statut
             type: Type
@@ -168,7 +276,7 @@ registry:
             show: Visualiser une action de protection
         modal:
           cancel: Annuler
-          create: Créer
+          create: Enregistrer
           title: Ajouter une action de protection
 
     proof:
@@ -202,7 +310,7 @@ registry:
                 edit: Preuve "%object%" modifiée avec succès
                 delete: Preuve "%object%" supprimée avec succès
         list:
-            collectivity: Collectivité
+            collectivity: Structure
             comment: Commentaire
             created_at: Date de création
             name: Nom
@@ -225,6 +333,7 @@ registry:
             new: Nouvelle demande
             not_archived: Voir les demandes non archivées
             report: Générer une impression
+            print: Imprimer
         breadcrumb:
             create: Créer
             delete: Archiver "%name%"
@@ -252,7 +361,7 @@ registry:
             treatment: Traitements associés
         list:
             answer_date: Date de traitement
-            collectivity: Collectivité
+            collectivity: Structure
             complete: Demande complète
             concerned_people: Personne concernée
             date: Date de la demande
@@ -270,8 +379,8 @@ registry:
             applicant_first_name: Prénom
             applicant_last_name: Nom
             applicant_mail: Email
-            applicant_phone_number: N° de téléphone
-            collectivity: Collectivité
+            applicant_phone_number: Téléphone
+            collectivity: Structure
             complete: Demande complète
             concerned_people_address: Adresse
             concerned_people_civility: Civilité
@@ -279,7 +388,7 @@ registry:
             concerned_people_last_name: Nom
             concerned_people_link_with_applicant: Lien avec le demandeur
             concerned_people_mail: Email
-            concerned_people_phone_number: N° de téléphone
+            concerned_people_phone_number: Téléphone
             created_at: Date de création
             creator: Créateur
             date: Date
@@ -319,7 +428,7 @@ registry:
             last_name: Nom
             address: Adresse
             mail: Email
-            phone_number: N° de téléphone
+            phone_number: Téléphone
             concerned_people: Est la personne concernée
 
     request_concerned_people:
@@ -329,7 +438,7 @@ registry:
             last_name: Nom
             address: Adresse
             mail: Email
-            phone_number: N° de téléphone
+            phone_number: Téléphone
             link_with_applicant: Lien avec le demandeur
 
     treatment:
@@ -355,13 +464,14 @@ registry:
             collecting_method: Moyens de la collecte
             otherCollectingMethod: Autre moyen de collecte
             concerned_people: Personnes concernées
-            concerned_people_agent: Agents
-            concerned_people_company: Entreprises
+            concerned_people_agent: Salariés
+            concerned_people_company: Professionnels
             concerned_people_elected: Élus
             concerned_people_particular: Particuliers
             concerned_people_partner: Partenaires
             concerned_people_other: Autres
             concerned_people_user: Internautes
+            concerned_people_usager: Usagers
             contractors: Sous-traitants
             data_crossing: Croisement de données
             data_category: Catégorie de données
@@ -397,6 +507,10 @@ registry:
             ultimate_fate: Sort final
             vulnerable_people: Personnes vulnérables
             dpoMessage: Préconisations DPO
+            legalMentions: Mentions légales apposées
+            consentRequest: Consentement demandé
+            consentRequestFormat: Format de la demande du consentement
+            exemptAipd: Est exempté d’AIPD
         flashbag:
             success:
                 create: Traitement "%object%" créé avec succès
@@ -404,13 +518,15 @@ registry:
                 delete: Traitement "%object%" supprimé avec succès
                 archive: Traitement "%object%" archivé avec succès
         list:
+            sensitive_data: Données sensibles
             access_control: Controle d'accès
             active: Statut
             author: En tant que
-            collectivity: Collectivité
+            collectivity: Structure
             completion: Taux de complétion
             contractors: Sous-traitants
             conformite_traitement: Conformité du traitement
+            avis_aipd: Avis AIPD
             entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
             goal: Finalité
             legal_basis: Base légale
@@ -424,7 +540,7 @@ registry:
             specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
             software: Logiciel
             tracability: Traçabilité
-            updated_at: Date mise à jour
+            updated_at: Modifié le
             update: Mise à jour
             specific_traitement: Traitements spécifiques
         modal:
@@ -437,17 +553,18 @@ registry:
             automatic_exclusion_service: Exclusion automatique d'un service
             collecting_method: Moyens de la collecte
             concerned_people: Personnes concernées
-            concerned_people_agent: Agents
-            concerned_people_company: Entreprises
+            concerned_people_agent: Salariés
+            concerned_people_company: Professionnels
             concerned_people_elected: Élus
             concerned_people_particular: Particuliers
             concerned_people_partner: Partenaires
+            concerned_people_usager: Usagers
             concerned_people_other: Autres
             concerned_people_user: Internautes
             conformite_traitement: Conformité du traitement
             conformite_traitement_created_at: Conformité du traitement - Date création
             conformite_traitement_updated_at: Conformité du traitement - Date modification
-            collectivity: Collectivité
+            collectivity: Structure
             otherCollectingMethod: Autre moyen de collecte
             contractors: Sous-traitants
             coordonnees_responsable_traitement: Coordonnées responsable
@@ -463,6 +580,7 @@ registry:
             dpo_message: Préconisations DPO
             estimated_concerned_people: Nombre de concernées
             evaluation_or_rating: Évaluation ou notation
+            exempt_AIPD: Est exempté d'AIPD
             goal: Finalités
             innovative_use: Usage innovant
             large_scale_collection: Collecte à large échelle
@@ -490,7 +608,15 @@ registry:
             systematic_monitoring: Surveillance systématique
             updated_at: Dernière mise à jour
             vulnerable_people: Personnes vulnérables
-            delete_related_objects_error: Une erreur est survenue lors de la suppression des %relateds% de la collectivité "%object%"
+            delete_related_objects_error: Une erreur est survenue lors de la suppression des %relateds% de la structure "%object%"
+            legalMentions: Mentions légales apposées
+            consentRequest: Consentement demandé
+            consentRequestFormat: Format de la demande du consentement
+            legal_mentions: Mentions légales apposées
+            consent_request: Consentement demandé
+            consent_request_format: Format de la demande du consentement
+            exempt_aipd: Est exempté d'AIPD
+            tools: Logiciel
         title:
             create: Créer un traitement
             delete: Supprimer un traitement
@@ -508,6 +634,7 @@ registry:
           last_aipd: Dernière analyse d'impact réalisée
           proofs: Documents associés
           public: Registre public
+          exempt_AIPD: Est exempté d'AIPD
           recipients: Destination
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
@@ -549,18 +676,19 @@ registry:
             origins: Origine de la perte de données
             potential_impacts_nature: Nature des impacts potentiels pour les personnes
             service: Service
-            violation_nature: Nature de la violation
+            violation_natures: Nature de la violation
             treatment: Traitements associés
+            contractor: Sous traitants associés
         list:
             cause: Cause
-            collectivity: Collectivité
+            collectivity: Structure
             date: Date de violation
             gravity: Niveau de gravité
             violation_nature: Nature
         show:
             applied_measures_after_violation: Mesures techniques et organisationnelles appliquées suite à la violation
             cause: Cause de la violation
-            collectivity: Collectivité
+            collectivity: Structure
             comment: Commentaire
             communication: Communications aux personnes concernées
             communication_precision: Précisions sur les communications
@@ -585,6 +713,7 @@ registry:
             historic: Historique
             information: Informations sur la violation
             treatment: Traitements associés
+            contractor: Sous traitants associés
         title:
             create: Créer une violation
             delete: Archiver une violation
@@ -593,7 +722,7 @@ registry:
             show: Visualiser une violation
     conformite_traitement:
         list:
-            collectivity: Collectivité
+            collectivity: Structure
             conformite: Conformité
             conformite_reponse: Conformité des questions
             date_conformite: Date de l'évaluation
@@ -624,10 +753,10 @@ registry:
         title:
             create: Créer une évaluation
             edit: Modifier une évaluation
-            list: Lister les évaluations
+            list: Conformité de la structure
             delete: Supprimer une évaluation
         list:
-            collectivite: Nom de la collectivité
+            collectivite: Structure
             draft: Brouillon
             pilote: Pilote
             processus: Processus
@@ -650,12 +779,12 @@ registry:
                 add: Ajouter un participant
         flashbag:
             success:
-                create: Conformité de l'organisation "%object%" créée avec succès
+                create: Conformité de la structure "%object%" créée avec succès
                 pilote: Les pilotes ont été enregistrés avec succès
-                edit: Conformité de l'organisation "%object%" éditée avec succès
-                delete: Conformité de l'organisation "%object%" supprimée avec succès
+                edit: Conformité de la structure "%object%" éditée avec succès
+                delete: Conformité de la structure "%object%" supprimée avec succès
         action:
-            create: Nouvelle évaluation de l'organisation
+            create: Nouvelle évaluation de la structure
             back_to_list: Retour à la liste
             edit: Modifier
             delete: Supprimer

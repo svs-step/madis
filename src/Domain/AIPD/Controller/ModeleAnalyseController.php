@@ -14,6 +14,7 @@ use App\Domain\AIPD\Form\Type\ModeleAnalyseRightsType;
 use App\Domain\AIPD\Form\Type\ModeleAnalyseType;
 use App\Domain\AIPD\Model\ModeleAnalyse;
 use App\Domain\AIPD\Model\ModeleQuestionConformite;
+use App\Domain\AIPD\Model\ModeleScenarioMenace;
 use App\Domain\AIPD\Repository;
 use App\Domain\Registry\Repository\ConformiteTraitement\Question;
 use App\Domain\User\Repository\Collectivity;
@@ -28,10 +29,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Intl\Exception\NotImplementedException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Polyfill\Intl\Icu\Exception\NotImplementedException;
 
 /**
  * @property Repository\ModeleAnalyse $repository
@@ -64,11 +65,11 @@ class ModeleAnalyseController extends CRUDController
         FilesystemInterface $fichierFilesystem
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->collectivityRepository   = $collectivityRepository;
-        $this->modeleFlow               = $modeleFlow;
-        $this->questionRepository       = $questionRepository;
-        $this->router                   = $router;
-        $this->fichierFilesystem        = $fichierFilesystem;
+        $this->collectivityRepository = $collectivityRepository;
+        $this->modeleFlow             = $modeleFlow;
+        $this->questionRepository     = $questionRepository;
+        $this->router                 = $router;
+        $this->fichierFilesystem      = $fichierFilesystem;
     }
 
     protected function getDomain(): string
@@ -115,7 +116,7 @@ class ModeleAnalyseController extends CRUDController
             $deleteFile = $criterePrincipeFondamental->isDeleteFile();
 
             if ($deleteFile) {
-                //Remove existing file
+                // Remove existing file
                 try {
                     $this->fichierFilesystem->delete($criterePrincipeFondamental->getFichier());
                 } catch (FileNotFound $e) {
@@ -162,6 +163,8 @@ class ModeleAnalyseController extends CRUDController
 
                 $this->modeleFlow->reset();
 
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object));
+
                 return $this->redirectToRoute($this->getRouteName('list'));
             }
         }
@@ -189,10 +192,13 @@ class ModeleAnalyseController extends CRUDController
             if ($this->modeleFlow->nextStep()) {
                 $form = $this->modeleFlow->createForm();
             } else {
+                $this->ScenarioMenacesToDelete($object, $id);
                 $this->entityManager->persist($object);
                 $this->entityManager->flush();
 
                 $this->modeleFlow->reset();
+
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object));
 
                 return $this->redirectToRoute($this->getRouteName('list'));
             }
@@ -240,7 +246,7 @@ class ModeleAnalyseController extends CRUDController
         }
 
         return $this->render('Aipd/Modele_analyse/rights.html.twig', [
-            'form'  => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -251,10 +257,10 @@ class ModeleAnalyseController extends CRUDController
 
         foreach ($modeles as $modele) {
             if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-                $userCollectivity               = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-                $userCollectivityType           = $userCollectivity->getType();
-                $authorizedCollectivities       = $modele->getAuthorizedCollectivities();
-                $authorizedCollectivityTypes    = $modele->getAuthorizedCollectivityTypes();
+                $userCollectivity            = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+                $userCollectivityType        = $userCollectivity->getType();
+                $authorizedCollectivities    = $modele->getAuthorizedCollectivities();
+                $authorizedCollectivityTypes = $modele->getAuthorizedCollectivityTypes();
 
                 if (!\is_null($authorizedCollectivityTypes)
                 && in_array($userCollectivityType, $authorizedCollectivityTypes)) {
@@ -284,12 +290,11 @@ class ModeleAnalyseController extends CRUDController
 
     private function generateActioNCellContent(ModeleAnalyse $modele)
     {
-        $id                     = $modele->getId();
-        $htmltoReturnIfAdmin    = '';
+        $id                  = $modele->getId();
+        $htmltoReturnIfAdmin = '';
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $htmltoReturnIfAdmin =
-            '<a href="' . $this->router->generate('aipd_modele_analyse_rights', ['id' => $id]) . '">
+            $htmltoReturnIfAdmin = '<a href="' . $this->router->generate('aipd_modele_analyse_rights', ['id' => $id]) . '">
                 <i class="fa fa-user-shield"></i>'
                 . $this->translator->trans('action.rights') .
             '</a>';
@@ -355,6 +360,13 @@ class ModeleAnalyseController extends CRUDController
             $serializer = SerializerBuilder::create()->build();
             $object     = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
             $object->deserialize();
+
+            foreach ($object->getScenarioMenaces() as $scenarioMenace) {
+                foreach ($scenarioMenace->getMesuresProtections() as $mesuresProtection) {
+                    $mesuresProtection->setIdFromString($this->guidv4());
+                }
+            }
+
             $object->setNom('(import) ' . $object->getNom());
             $this->entityManager->persist($object);
             $this->entityManager->flush();
@@ -371,13 +383,45 @@ class ModeleAnalyseController extends CRUDController
     private static function formatToFileCompliant(string $string)
     {
         $unwanted_array = [
-            'Š'=> 'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
-            'Ê'=> 'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
-            'Ú'=> 'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
-            'è'=> 'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
-            'ö'=> 'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y',
+            'Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
+            'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
+            'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
+            'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
+            'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y',
         ];
 
         return strtr($string, $unwanted_array);
+    }
+
+    public function guidv4($data = null)
+    {
+        // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
+        $data = $data ?? random_bytes(16);
+        assert(16 == strlen($data));
+
+        // Set version to 0100
+        $data[6] = chr(ord($data[6]) & 0x0F | 0x40);
+        // Set bits 6-7 to 10
+        $data[8] = chr(ord($data[8]) & 0x3F | 0x80);
+
+        // Output the 36 character UUID.
+        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+    }
+
+    private function ScenarioMenacesToDelete($object, $modeleAnalyseId)
+    {
+        $ScenarioMenacesToDelete = [];
+        $scenarioMenacesActual   = $this->entityManager->getRepository(ModeleScenarioMenace::class)->findBy(['modeleAnalyse' => $modeleAnalyseId]);
+
+        foreach ($scenarioMenacesActual as $actualScenarioMenace) {
+            if (!in_array($actualScenarioMenace, $object->getScenarioMenaces()->toArray())) {
+                $ScenarioMenacesToDelete[] = $actualScenarioMenace;
+            }
+        }
+
+        foreach ($ScenarioMenacesToDelete as $menaceToDelete) {
+            $menace = $this->entityManager->getRepository(ModeleScenarioMenace::class)->find($menaceToDelete->getId());
+            $this->entityManager->remove((object) $menace);
+        }
     }
 }

@@ -193,7 +193,7 @@ class MesurementControllerTest extends TestCase
     {
         $valueReturnedByRepository = ['dummyValues'];
 
-        $user         = $this->prophesize(UserModel\User::class);
+        $user = $this->prophesize(UserModel\User::class);
         $user->getRoles()->shouldBeCalled()->willReturn([]);
 
         $this->requestStack->getCurrentRequest()->shouldBeCalled()->willReturn(new Request());

@@ -1,6 +1,6 @@
 twig:
     exception_controller: null
-    paths: 
+    paths:
         '%kernel.project_dir%/templates': templates_path
         '%kernel.project_dir%/public': public_path
 
@@ -49,9 +49,15 @@ twig:
         tooltip_conformite_organisation_mesurable: '%env(TOOLTIP_CONFORMITE_ORGANISATION_MESURABLE)%'
         tooltip_conformite_organisation_revisee: '%env(TOOLTIP_CONFORMITE_ORGANISATION_REVISEE)%'
         app_connexion_status_know: '%env(APP_CONNEXION_STATUS_KNOW)%'
-        app_notification_max_shown: '%env(APP_NOTIFICATION_MAX_SHOWN)%'
+        app_notification_dashboard_number: '%env(APP_NOTIFICATION_DASHBOARD_NUMBER)%'
+        app_notification_header_number: '%env(APP_NOTIFICATION_HEADER_NUMBER)%'
         app_notification_dashboard_shown: '%env(APP_NOTIFICATION_DASHBOARD_SHOWN)%'
         app_activate_notifications: '%env(APP_ACTIVATE_NOTIFICATIONS)%'
+        app_notification_email_first_line: '%env(APP_NOTIFICATION_EMAIL_FIRST_LINE)%'
         app_max_upload_size: '%env(APP_MAX_UPLOAD_SIZE)%'
+        sso_icon: '%env(SSO_ICON)%'
+        sso_title: '%env(SSO_TITLE)%'
+
+        notifications: '@App\Domain\Notification\Repository\Notification'
 
 

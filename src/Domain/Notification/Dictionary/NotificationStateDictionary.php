@@ -28,8 +28,8 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class NotificationStateDictionary extends SimpleDictionary
 {
-    const READ         = 'Lu';
-    const NOT_READ     = 'Non lu';
+    public const READ     = 'read';
+    public const NOT_READ = 'unread';
 
     public function __construct()
     {
@@ -44,8 +44,8 @@ class NotificationStateDictionary extends SimpleDictionary
     public static function getStates()
     {
         return [
-            self::READ            => 'Lu',
-            self::NOT_READ        => 'Non lu',
+            self::READ     => 'Lu',
+            self::NOT_READ => 'Non lu',
         ];
     }
 

@@ -90,13 +90,13 @@ class UserMetricTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->entityManager                    = $this->prophesize(EntityManagerInterface::class);
-        $this->conformiteTraitementRepository   = $this->prophesize(ConformiteTraitement::class);
-        $this->requestRepository                = $this->prophesize(Request::class);
-        $this->treatmentRepository              = $this->prophesize(\App\Domain\Registry\Repository\Treatment::class);
-        $this->userProvider                     = $this->prophesize(UserProvider::class);
-        $this->evaluationRepository             = $this->prophesize(Evaluation::class);
-        $this->logJournalRepository             = $this->prophesize(LogJournal::class);
+        $this->entityManager                  = $this->prophesize(EntityManagerInterface::class);
+        $this->conformiteTraitementRepository = $this->prophesize(ConformiteTraitement::class);
+        $this->requestRepository              = $this->prophesize(Request::class);
+        $this->treatmentRepository            = $this->prophesize(\App\Domain\Registry\Repository\Treatment::class);
+        $this->userProvider                   = $this->prophesize(UserProvider::class);
+        $this->evaluationRepository           = $this->prophesize(Evaluation::class);
+        $this->logJournalRepository           = $this->prophesize(LogJournal::class);
 
         $this->userMetric = new UserMetric(
             $this->entityManager->reveal(),

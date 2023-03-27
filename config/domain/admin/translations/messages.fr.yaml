@@ -5,7 +5,7 @@ admin:
             new: Module de duplication
         form:
             data: Données à dupliquer
-            source_collectivity: Collectivité source
+            source_collectivity: Structure source
             type: Type de données
         tab:
             source: Données sources

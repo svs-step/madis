@@ -48,6 +48,7 @@ class AddressTypeTest extends FormTypeHelper
             'zipCode'     => TextType::class,
             'mail'        => EmailType::class,
             'phoneNumber' => TextType::class,
+            'country'     => TextType::class,
         ];
 
         (new AddressType())->buildForm($this->prophesizeBuilder($builder), ['validation_groups' => []]);

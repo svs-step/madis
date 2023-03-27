@@ -25,7 +25,9 @@ declare(strict_types=1);
 namespace App\Domain\Notification\Repository;
 
 use App\Application\DDD\Repository\CRUDRepositoryInterface;
+use App\Application\Doctrine\Repository\DataTablesRepository;
 
-interface Notification extends CRUDRepositoryInterface
+interface Notification extends CRUDRepositoryInterface, DataTablesRepository
 {
+    public function findOneBy(array $criteria);
 }

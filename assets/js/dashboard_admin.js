@@ -39,6 +39,6 @@ $(document).ready(function() {
         'collectivity-type',
         collectivityByTypeLabel,
         collectivityByTypeData,
-        [colorBlue, colorRed, colorGreen, colorOrange, colorPurple, colorTeal]
+        [colorBlue, colorRed, colorGreen, colorOrange, colorPurple, colorTeal, colorOne, colorTwo, colorThree, colorFour]
     );
 });

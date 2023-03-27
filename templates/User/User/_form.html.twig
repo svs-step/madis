@@ -1,7 +1,12 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
-
+<style>
+    .radio {
+        padding-left: 2em;
+    }
+</style>
 <div class="row">
     {{ form_start(form) }}
+    {{ form_row(form._token) }}
 
     {# LEFT #}
     <div class="col-md-6">
@@ -14,15 +19,13 @@
                 {{ form_row(form.lastName) }}
                 {{ form_row(form.email) }}
                 {{ form_row(form.collectivity) }}
-                {% for role in form.roles %}
-                    {% if role.vars.value != "ROLE_API" %}
-                        {{ form_row(form.roles) }}
-                    {% endif %}
-                {% endfor %}
+                {{ form_row(form.roles) }}
+
                 {{ form_row(form.apiAuthorized) }}
                 <div id="user_collectivitesReferees_div">
                     {{ form_row(form.collectivitesReferees) }}
                 </div>
+                {{ form_row(form.moreInfos) }}
                 {{ form_row(form.enabled) }}
             </div>
         </div>
@@ -42,6 +45,30 @@
             </div>
         </div>
 
+        {# SSO #}
+        {% if sso_title %}
+            <div class="box box-solid box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{{ 'user.profile.form_user.tab.login_delegation'|trans }}</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group {% if form.ssoKey.vars.valid==false %}has-error{% endif %}">
+                        <label class="col-sm-2">{{ 'user.user.form.sso_key'|trans }}</label>
+                        <span class="col-sm-2"><img src="{{ asset(sso_icon) }}" alt="">{{ sso_title }}</span>
+                        <div class="col-sm-8">
+                            <div class="input-group col-sm-8">
+                                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                {{ form_widget(form.ssoKey) }}
+
+                            </div>
+                            {{ form_errors(form.ssoKey) }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        {% endif %}
+
         {% if serviceEnabled %}
             <div class="box box-solid box-success">
                 <div class="box-header with-border">
@@ -52,7 +79,12 @@
                 </div>
             </div>
         {% endif %}
+        {% if app_activate_notifications == 'true' %}
+        {% include('@templates_path/User/Profile/notifications.html.twig') %}
+        {% endif %}
     </div>
+
+
 
     <div class="col-md-12">
         <div class="box box-solid">
@@ -65,5 +97,5 @@
         </div>
     </div>
 
-    {{ form_end(form) }}
+    {{ form_end(form, {render_rest: false}) }}
 </div>

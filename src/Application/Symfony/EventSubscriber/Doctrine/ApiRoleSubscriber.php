@@ -47,7 +47,7 @@ class ApiRoleSubscriber implements EventSubscriber
      */
     public function prePersist(LifecycleEventArgs $args): void
     {
-        $user   = $args->getObject();
+        $user = $args->getObject();
 
         if (!$user instanceof User) {
             return;
@@ -82,7 +82,7 @@ class ApiRoleSubscriber implements EventSubscriber
      */
     public function preUpdate(PreUpdateEventArgs $args): void
     {
-        $user   = $args->getObject();
+        $user = $args->getObject();
 
         if (!$user instanceof User) {
             return;

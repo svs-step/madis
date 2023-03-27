@@ -89,15 +89,15 @@ class CollectivityController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->router                   = $router;
-        $this->security                 = $security;
-        $this->treatmentRepository      = $treatmentRepository;
-        $this->contractorRepository     = $contractorRepository;
-        $this->proofRepository          = $proofRepository;
-        $this->userRepository           = $userRepository;
-        $this->mesurementRepository     = $mesurementRepository;
-        $this->userProvider             = $userProvider;
-        $this->authorizationChecker     = $authorizationChecker;
+        $this->router               = $router;
+        $this->security             = $security;
+        $this->treatmentRepository  = $treatmentRepository;
+        $this->contractorRepository = $contractorRepository;
+        $this->proofRepository      = $proofRepository;
+        $this->userRepository       = $userRepository;
+        $this->mesurementRepository = $mesurementRepository;
+        $this->userProvider         = $userProvider;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -153,14 +153,17 @@ class CollectivityController extends CRUDController
         /** @var Model\Collectivity $collectivity */
         foreach ($collectivities as $collectivity) {
             $reponse['data'][] = [
-                'nom'                          => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' .
-                    $collectivity->getName() .
-                    '</a>',
+                'nom'                          => '<a href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' . $collectivity->getName() . '</a>',
                 'nom_court'                    => $collectivity->getShortName(),
-                'type'                         => !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] : null,
+                'type'                         => !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] ?? $collectivity->getType() : null,
                 'informations_complementaires' => !\is_null($collectivity->getInformationsComplementaires()) ? nl2br($collectivity->getInformationsComplementaires()) : null,
                 'siren'                        => $collectivity->getSiren(),
                 'statut'                       => $collectivity->isActive() ? $active : $inactive,
+                'date_maj'                     => date_format($collectivity->getUpdatedAt(), 'd-m-Y H:i:s'),
+                'population'                   => $collectivity->getPopulation(),
+                'nbr_agents'                   => $collectivity->getNbrAgents(),
+                'nbr_cnil'                     => $collectivity->getNbrCnil(),
+                'tel_referent_rgpd'            => !\is_null($collectivity->getDpo()) ? ($collectivity->getDpo())->getPhoneNumber() : null,
                 'actions'                      => $this->getActionCellsContent($collectivity),
             ];
         }
@@ -177,12 +180,12 @@ class CollectivityController extends CRUDController
             return;
         }
 
-        $cellContent = '<a href="' . $this->router->generate('user_collectivity_edit', ['id'=> $collectivity->getId()]) . '">
+        $cellContent = '<a href="' . $this->router->generate('user_collectivity_edit', ['id' => $collectivity->getId()]) . '">
             <i class="fa fa-pencil-alt"></i> ' .
             $this->translator->trans('action.edit') .
         '</a>';
 
-        $cellContent .= '<a href="' . $this->router->generate('user_collectivity_delete', ['id'=> $collectivity->getId()]) . '">
+        $cellContent .= '<a href="' . $this->router->generate('user_collectivity_delete', ['id' => $collectivity->getId()]) . '">
             <i class="fa fa-trash"></i> ' .
             $this->translator->trans('action.delete') .
         '</a>';
@@ -193,18 +196,24 @@ class CollectivityController extends CRUDController
     protected function getLabelAndKeysArray(): array
     {
         return [
-            0 => 'nom',
-            1 => 'nom_court',
-            2 => 'type',
-            3 => 'siren',
-            4 => 'statut',
-            5 => 'actions',
+            0  => 'nom',
+            1  => 'nom_court',
+            2  => 'type',
+            3  => 'informations_complementaires',
+            4  => 'siren',
+            5  => 'statut',
+            6  => 'nbr_cnil',
+            7  => 'nbr_agents',
+            8  => 'population',
+            9  => 'date_maj',
+            10 => 'tel_referent_rgpd',
+            11 => 'actions',
         ];
     }
 
     private function getRequestCriteria()
     {
-        $criteria            = [];
+        $criteria = [];
 
         if (!$this->security->isGranted('ROLE_ADMIN')) {
             /** @var Model\User $user */
@@ -254,7 +263,7 @@ class CollectivityController extends CRUDController
         foreach ($deletedTreaments as $deletedTreament) {
             $stringObjects[] = 'Traitement - ' . $deletedTreament->getName();
             /**
-             * @var Treatment $deletedTreament
+             * @var Treatment
              */
             $aipds = $deletedTreament->getConformiteTraitement() ? $deletedTreament->getConformiteTraitement()->getAnalyseImpacts() : [];
             foreach ($aipds as $aipd) {
@@ -267,20 +276,20 @@ class CollectivityController extends CRUDController
             $stringObjects[] = 'Sous-traitant - ' . $deletedContractor->getName();
         }
 
-        $deletedProofs =  $this->proofRepository->findBy(['collectivity' => $object]);
+        $deletedProofs = $this->proofRepository->findBy(['collectivity' => $object]);
         foreach ($deletedProofs as $deletedProof) {
             $stringObjects[] = 'Preuve - ' . $deletedProof->getName();
         }
 
-        $deletedUsers =  $this->userRepository->findBy(['collectivity' => $object]);
+        $deletedUsers = $this->userRepository->findBy(['collectivity' => $object]);
         foreach ($deletedUsers as $deletedUser) {
             $stringObjects[] = 'Utilisateur - ' . $deletedUser->getFirstname() . ' ' . $deletedUser->getLastname();
         }
 
         $deletedMesurements = $this->mesurementRepository->findBy(['collectivity' => $object]);
         foreach ($deletedMesurements as $deletedMesurement) {
-            /**
-             * @var Mesurement $deletedMesurement
+            /*
+             * @var Mesurement
              */
             if ($deletedMesurement->getClonedFrom()) {
                 $stringObjects[] = 'Action de protection - ' . $deletedMesurement->getClonedFrom()->getName();
@@ -304,7 +313,7 @@ class CollectivityController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('delete_processing'), [
-            'object'            => $object,
+            'object' => $object,
         ]);
 
         $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));

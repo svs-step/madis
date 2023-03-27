@@ -29,7 +29,7 @@ final class Version20220517094001 extends AbstractMigration
 
     public function preUp(Schema $schema): void
     {
-        //Set position to int
+        // Set position to int
         $this->connection->query('ALTER TABLE aipd_analyse_question_conformite MODIFY position INT UNSIGNED NOT NULL;');
         $this->connection->query('ALTER TABLE aipd_modele_question_conformite MODIFY position INT UNSIGNED NOT NULL;');
         // set new position for all old questions
@@ -60,28 +60,28 @@ final class Version20220517094001 extends AbstractMigration
 
         $data = [
             [
-                'question'                      => 'Exercice du droit à la portabilité',
-                'is_justification_obligatoire'  => 0,
-                'texte_conformite'              => 'Conforme',
-                'texte_non_conformite_majeure'  => 'Non-conformite majeure',
-                'texte_non_conformite_mineure'  => 'Non-conforme mineure',
-                'position'                      => $this->lastQuestionPosition + 3,
+                'question'                     => 'Exercice du droit à la portabilité',
+                'is_justification_obligatoire' => 0,
+                'texte_conformite'             => 'Conforme',
+                'texte_non_conformite_majeure' => 'Non-conformite majeure',
+                'texte_non_conformite_mineure' => 'Non-conforme mineure',
+                'position'                     => $this->lastQuestionPosition + 3,
             ],
             [
-                'question'                      => "Exercice du droit d'effacement",
-                'is_justification_obligatoire'  => 0,
-                'texte_conformite'              => 'Conforme',
-                'texte_non_conformite_majeure'  => 'Non-conformite majeure',
-                'texte_non_conformite_mineure'  => 'Non-conforme mineure',
-                'position'                      => $this->lastQuestionPosition + 6,
+                'question'                     => "Exercice du droit d'effacement",
+                'is_justification_obligatoire' => 0,
+                'texte_conformite'             => 'Conforme',
+                'texte_non_conformite_majeure' => 'Non-conformite majeure',
+                'texte_non_conformite_mineure' => 'Non-conforme mineure',
+                'position'                     => $this->lastQuestionPosition + 6,
             ],
             [
-                'question'                      => "Exercice du droit d'opposition",
-                'is_justification_obligatoire'  => 0,
-                'texte_conformite'              => 'Conforme',
-                'texte_non_conformite_majeure'  => 'Non-conformite majeure',
-                'texte_non_conformite_mineure'  => 'Non-conforme mineure',
-                'position'                      => $this->lastQuestionPosition + 9,
+                'question'                     => "Exercice du droit d'opposition",
+                'is_justification_obligatoire' => 0,
+                'texte_conformite'             => 'Conforme',
+                'texte_non_conformite_majeure' => 'Non-conformite majeure',
+                'texte_non_conformite_mineure' => 'Non-conforme mineure',
+                'position'                     => $this->lastQuestionPosition + 9,
             ],
         ];
 

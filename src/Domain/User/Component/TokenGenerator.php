@@ -29,7 +29,7 @@ use RandomLib\Generator;
 
 class TokenGenerator
 {
-    const TOKEN_LENGTH = 50;
+    public const TOKEN_LENGTH = 50;
     /**
      * @var Factory
      */

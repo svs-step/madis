@@ -3,15 +3,15 @@
 git pull
 
 # Composer
-composer install --prefer-dist --no-interaction --optimize-autoloader
+$(which php8.1) $(which composer) install --prefer-dist --no-interaction --optimize-autoloader
 
 # CSS & JS
-yarn
-yarn run encore production
+npm install
+npm run build
 
 # Cache
-bin/console cache:clear --env=prod --no-debug
-bin/console cache:warmup --env=prod --no-debug
+$(which php8.1) bin/console cache:clear --env=prod --no-debug
+$(which php8.1) bin/console cache:warmup --env=prod --no-debug
 
-bin/console doctrine:migration:migrate -n
-bin/console -q lexik:jwt:generate-keypair || echo "JWT keys already exist"
+$(which php8.1) bin/console doctrine:migration:migrate -n
+$(which php8.1) bin/console -q lexik:jwt:generate-keypair || echo "JWT keys already exist"

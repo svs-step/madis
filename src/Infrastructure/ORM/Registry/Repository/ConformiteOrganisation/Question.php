@@ -43,6 +43,6 @@ class Question extends CRUDRepository implements Repository\ConformiteOrganisati
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

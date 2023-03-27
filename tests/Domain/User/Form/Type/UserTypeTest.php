@@ -24,7 +24,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\User\Form\Type;
 
+use App\Domain\User\Form\DataTransformer\MoreInfoTransformer;
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
+use App\Domain\User\Form\Type\EmailNotificationPreferenceType;
 use App\Domain\User\Form\Type\UserType;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
@@ -86,6 +88,7 @@ class UserTypeTest extends FormTypeHelper
             $this->authorizationCheckerProphecy->reveal(),
             $this->encoderFactoryProphecy->reveal(),
             $this->security->reveal(),
+            'true'
         );
 
         $this->user   = new User();
@@ -101,16 +104,26 @@ class UserTypeTest extends FormTypeHelper
 
     public function testBuildFormAdmin()
     {
+        $this->formType = new UserType(
+            $this->authorizationCheckerProphecy->reveal(),
+            $this->encoderFactoryProphecy->reveal(),
+            $this->security->reveal(),
+            'true'
+        );
         $builder = [
-            'firstName'             => TextType::class,
-            'lastName'              => TextType::class,
-            'email'                 => EmailType::class,
-            'collectivity'          => EntityType::class,
-            'roles'                 => DictionaryType::class,
-            'enabled'               => CheckboxType::class,
-            'plainPassword'         => RepeatedType::class,
-            'collectivitesReferees' => EntityType::class,
-            'apiAuthorized'         => CheckboxType::class,
+            'firstName'                   => TextType::class,
+            'lastName'                    => TextType::class,
+            'email'                       => EmailType::class,
+            'collectivity'                => EntityType::class,
+            'roles'                       => DictionaryType::class,
+            'enabled'                     => CheckboxType::class,
+            'moreInfos'                   => DictionaryType::class,
+            'notGeneratesNotifications'   => CheckboxType::class,
+            'plainPassword'               => RepeatedType::class,
+            'collectivitesReferees'       => EntityType::class,
+            'emailNotificationPreference' => EmailNotificationPreferenceType::class,
+            'apiAuthorized'               => CheckboxType::class,
+            'ssoKey'                      => TextType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
@@ -120,6 +133,69 @@ class UserTypeTest extends FormTypeHelper
         $builderProphecy->get('roles')->shouldBeCalled()->willReturn($builderProphecy);
         $builderProphecy
             ->addModelTransformer(Argument::type(RoleTransformer::class))
+            ->shouldBeCalled()
+        ;
+
+        $builderProphecy->get('moreInfos')->shouldBeCalled()->willReturn($builderProphecy);
+        $builderProphecy
+            ->addModelTransformer(Argument::type(MoreInfoTransformer::class))
+            ->shouldBeCalled()
+        ;
+
+        $builderProphecy
+            ->addEventListener(FormEvents::POST_SUBMIT, Argument::any())
+            ->shouldBeCalled()
+        ;
+        $builderProphecy
+            ->addEventListener(FormEvents::PRE_SET_DATA, Argument::any())
+            ->shouldBeCalled()
+        ;
+        $builderProphecy
+            ->addEventListener(FormEvents::SUBMIT, Argument::any())
+            ->shouldBeCalled()
+        ;
+
+        $this->formType->buildForm($builderProphecy->reveal(), ['data' => $this->user]);
+    }
+
+    public function testBuildFormAdminNotificationsDisabled()
+    {
+        $this->formType = new UserType(
+            $this->authorizationCheckerProphecy->reveal(),
+            $this->encoderFactoryProphecy->reveal(),
+            $this->security->reveal(),
+            'false'
+        );
+
+        $builder = [
+            'firstName'             => TextType::class,
+            'lastName'              => TextType::class,
+            'email'                 => EmailType::class,
+            'collectivity'          => EntityType::class,
+            'roles'                 => DictionaryType::class,
+            'enabled'               => CheckboxType::class,
+            'moreInfos'             => DictionaryType::class,
+            'plainPassword'         => RepeatedType::class,
+            'collectivitesReferees' => EntityType::class,
+            'apiAuthorized'         => CheckboxType::class,
+            'ssoKey'                => TextType::class,
+        ];
+
+        $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
+        $this->authorizationCheckerProphecy->isGranted('ROLE_PREVIEW')->shouldBeCalled()->willReturn(true);
+
+        $builderProphecy = $this->prophesizeBuilder($builder, false);
+        $builderProphecy->get('roles')->shouldBeCalled()->willReturn($builderProphecy);
+        $builderProphecy
+            ->addModelTransformer(Argument::type(RoleTransformer::class))
+            ->shouldBeCalled()
+        ;
+
+        $builderProphecy->get('moreInfos')->shouldBeCalled()->willReturn($builderProphecy);
+        $builderProphecy->get('notGeneratesNotifications')->shouldNotBeCalled();
+
+        $builderProphecy
+            ->addModelTransformer(Argument::type(MoreInfoTransformer::class))
             ->shouldBeCalled()
         ;
 
@@ -141,10 +217,67 @@ class UserTypeTest extends FormTypeHelper
 
     public function testBuildFormUser()
     {
+        $this->formType = new UserType(
+            $this->authorizationCheckerProphecy->reveal(),
+            $this->encoderFactoryProphecy->reveal(),
+            $this->security->reveal(),
+            'true'
+        );
+
+        $builder = [
+            'firstName'                   => TextType::class,
+            'lastName'                    => TextType::class,
+            'email'                       => EmailType::class,
+            'moreInfos'                   => DictionaryType::class,
+            'emailNotificationPreference' => EmailNotificationPreferenceType::class,
+            'plainPassword'               => RepeatedType::class,
+        ];
+
+        $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(false);
+        $this->authorizationCheckerProphecy->isGranted('ROLE_PREVIEW')->shouldBeCalled()->willReturn(true);
+
+        // No transformer since not granted admin
+        $builderProphecy = $this->prophesizeBuilder($builder, false);
+
+        $builderProphecy->get('moreInfos')->shouldBeCalled()->willReturn($builderProphecy);
+        $builderProphecy
+            ->addModelTransformer(Argument::type(MoreInfoTransformer::class))
+            ->shouldBeCalled()
+        ;
+
+        $builderProphecy->get('roles')->shouldNotBeCalled();
+        $builderProphecy->addModelTransformer(Argument::type(RoleTransformer::class))->shouldNotBeCalled();
+
+        $builderProphecy
+            ->addEventListener(FormEvents::POST_SUBMIT, Argument::any())
+            ->shouldBeCalled()
+        ;
+        $builderProphecy
+            ->addEventListener(FormEvents::PRE_SET_DATA, Argument::any())
+            ->shouldBeCalled()
+        ;
+        $builderProphecy
+            ->addEventListener(FormEvents::SUBMIT, Argument::any())
+            ->shouldBeCalled()
+        ;
+
+        $this->formType->buildForm($builderProphecy->reveal(), ['data' => $this->user]);
+    }
+
+    public function testBuildFormUserNotificationsDisabled()
+    {
+        $this->formType = new UserType(
+            $this->authorizationCheckerProphecy->reveal(),
+            $this->encoderFactoryProphecy->reveal(),
+            $this->security->reveal(),
+            'false'
+        );
+
         $builder = [
             'firstName'     => TextType::class,
             'lastName'      => TextType::class,
             'email'         => EmailType::class,
+            'moreInfos'     => DictionaryType::class,
             'plainPassword' => RepeatedType::class,
         ];
 
@@ -153,8 +286,15 @@ class UserTypeTest extends FormTypeHelper
 
         // No transformer since not granted admin
         $builderProphecy = $this->prophesizeBuilder($builder, false);
+
+        $builderProphecy->get('moreInfos')->shouldBeCalled()->willReturn($builderProphecy);
+        $builderProphecy
+            ->addModelTransformer(Argument::type(MoreInfoTransformer::class))
+            ->shouldBeCalled()
+        ;
+
         $builderProphecy->get('roles')->shouldNotBeCalled();
-        $builderProphecy->addModelTransformer(Argument::cetera())->shouldNotBeCalled();
+        $builderProphecy->addModelTransformer(Argument::type(RoleTransformer::class))->shouldNotBeCalled();
 
         $builderProphecy
             ->addEventListener(FormEvents::POST_SUBMIT, Argument::any())

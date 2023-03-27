@@ -39,7 +39,7 @@ class DuplicationFormDTO
     private $type;
 
     /**
-     * FR: Collectivité source, à utiliser comme base pour la duplication.
+     * FR: Structure source, à utiliser comme base pour la duplication.
      *
      * @var Collectivity|null
      */
@@ -58,14 +58,14 @@ class DuplicationFormDTO
     private $targetOption;
 
     /**
-     * FR: Types des collectivités cible, sur lesquelles dupliquer les données.
+     * FR: Types des structures cible, sur lesquelles dupliquer les données.
      *
      * @var array
      */
     private $targetCollectivityTypes;
 
     /**
-     * FR: Liste des collectivités cible, sur lesquelles dupliquer les données.
+     * FR: Liste des structures cible, sur lesquelles dupliquer les données.
      *
      * @var Collectivity[]
      */

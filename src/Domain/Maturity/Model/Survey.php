@@ -43,7 +43,7 @@ class Survey implements LoggableSubject
     private $id;
 
     /**
-     * @var iterable
+     * @var iterable|null
      */
     private $answers;
 
@@ -97,7 +97,7 @@ class Survey implements LoggableSubject
         unset($this->answers[$key]);
     }
 
-    public function getAnswers(): iterable
+    public function getAnswers(): ?iterable
     {
         return $this->answers;
     }

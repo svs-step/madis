@@ -99,16 +99,16 @@ class ReviewControllerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->wordHandlerProphecy                    = $this->prophesize(WordHandler::class);
-        $this->userProviderProphecy                   = $this->prophesize(UserProvider::class);
-        $this->authorizationCheckerProphecy           = $this->prophesize(AuthorizationCheckerInterface::class);
-        $this->treatmentRepositoryProphecy            = $this->prophesize(RegistryRepository\Treatment::class);
-        $this->contractorRepositoryProphecy           = $this->prophesize(RegistryRepository\Contractor::class);
-        $this->mesurementRepositoryProphecy           = $this->prophesize(RegistryRepository\Mesurement::class);
-        $this->surveyRepositoryProphecy               = $this->prophesize(MaturityRepository\Survey::class);
-        $this->requestRepositoryProphecy              = $this->prophesize(RegistryRepository\Request::class);
-        $this->violationRepositoryProphecy            = $this->prophesize(RegistryRepository\Violation::class);
-        $this->evaluationRepository                   = $this->prophesize(Evaluation::class);
+        $this->wordHandlerProphecy          = $this->prophesize(WordHandler::class);
+        $this->userProviderProphecy         = $this->prophesize(UserProvider::class);
+        $this->authorizationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
+        $this->treatmentRepositoryProphecy  = $this->prophesize(RegistryRepository\Treatment::class);
+        $this->contractorRepositoryProphecy = $this->prophesize(RegistryRepository\Contractor::class);
+        $this->mesurementRepositoryProphecy = $this->prophesize(RegistryRepository\Mesurement::class);
+        $this->surveyRepositoryProphecy     = $this->prophesize(MaturityRepository\Survey::class);
+        $this->requestRepositoryProphecy    = $this->prophesize(RegistryRepository\Request::class);
+        $this->violationRepositoryProphecy  = $this->prophesize(RegistryRepository\Violation::class);
+        $this->evaluationRepository         = $this->prophesize(Evaluation::class);
 
         $this->controller = new ReviewController(
             $this->wordHandlerProphecy->reveal(),

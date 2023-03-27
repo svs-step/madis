@@ -35,7 +35,7 @@ user_collectivity:
         length: Le numéro SIREN doit être composé de {{ limit }} chiffres
         not_blank: Vous devez renseigner un numéro de SIREN
     type:
-        not_blank: Vous devez renseigner le type de la collectivité
+        not_blank: Vous devez renseigner le type de la structure
     website:
         url: Vous devez renseigner un site web valide
 

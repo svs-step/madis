@@ -31,7 +31,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 class LogJournalLinkGenerator
 {
-    const DELETE_LABEL = 'Supprimé';
+    public const DELETE_LABEL = 'Supprimé';
 
     /**
      * @var RouterInterface
@@ -45,8 +45,8 @@ class LogJournalLinkGenerator
 
     public function __construct(RouterInterface $router, EntityManagerInterface $entityManager)
     {
-        $this->router           = $router;
-        $this->entityManager    = $entityManager;
+        $this->router        = $router;
+        $this->entityManager = $entityManager;
     }
 
     public function getLink(LogJournal $log)
@@ -81,7 +81,7 @@ class LogJournalLinkGenerator
 
                 return $this->router->generate('user_collectivity_show', ['id' => $service->getCollectivity()->getId()]);
             default:
-                return $this->router->generate($log->getSubjectType() . '_show', ['id' => $id]);
+                return $log->getSubjectType() ? $this->router->generate($log->getSubjectType() . '_show', ['id' => $id]) : '';
         }
     }
 }

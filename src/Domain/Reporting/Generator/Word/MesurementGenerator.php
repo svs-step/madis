@@ -99,12 +99,12 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             'alignment'   => Jc::CENTER,
             'layout'      => \PhpOffice\PhpWord\Style\Table::LAYOUT_FIXED,
         ]);
-        $row   = $table->addRow(null, ['valign' => 'center']);
-        $cell  = $row->addCell(null, ['valign' => 'center', 'gridSpan' => 3]);
+        $row  = $table->addRow(null, ['valign' => 'center']);
+        $cell = $row->addCell(null, ['valign' => 'center', 'gridSpan' => 3]);
         $cell->addText('Légende priorité', ['bold' => true, 'size' => 8], ['align' => 'center']);
 
-        $priorities          = MesurementPriorityDictionary::getPrioritiesNameWithoutNumber();
-        $row                 = $table->addRow();
+        $priorities = MesurementPriorityDictionary::getPrioritiesNameWithoutNumber();
+        $row        = $table->addRow();
         foreach ($priorities as $key => $priority) {
             $cell = $row->addCell(null, ['valign' => 'center', 'bgColor' => MesurementPriorityDictionary::getPrioritiesColors()[$key]]);
             $cell->addText($priority, ['bold' => true, 'size' => 8], ['align' => 'center']);
@@ -198,7 +198,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             $historyData = [
                 [
                     'Créateur',
-                    $mesurement->getCreator(),
+                    strval($mesurement->getCreator()),
                 ],
                 [
                     'Date de création',

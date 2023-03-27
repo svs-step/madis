@@ -4,6 +4,9 @@ App\Domain\User\Model\User:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: ['email']
             groups: ['default']
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+              fields: [ 'ssoKey' ]
+              groups: [ 'default' ]
 
     properties:
         firstName:

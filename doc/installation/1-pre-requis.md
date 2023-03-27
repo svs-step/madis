@@ -7,12 +7,12 @@ Installation
 Afin de permettre un développement rapide sans s’occuper de la stack technique,
 un Docker est mis à disposition. Il va utiliser les paquets suivants :
 
-* PHP-FPM 7.1
-* NGINX 1.10.3
-* MySQL 5.7
+* PHP-FPM 8.1
+* NGINX 1.23
+* MySQL 8.0 ou mariaDB 10.8
 * Composer
 * GIT
-* NodeJS 8 et YARN
+* NodeJS 18 et npm 9
 
 Pour cela, reportez vous au [lancement de la Stack de developpement](../developpement/1-lancer-stack-developpement.md).
 
@@ -24,16 +24,16 @@ De ce fait, et pour des problématiques de sécurités, veuillez installer MADIS
 
 Pour cela il vous faudra installer manuellement la stack technique.
 Vous trouverez ci-dessous la stack technique utilisée et testée.
--	PHP-FPM 7.1
--	NGINX 1.10.3
--	MySQL 5.7 (ou MariaDB à partir de 10.2.3)
--	NodeJS 8
+-	PHP-FPM 8.1
+-	NGINX 1.23
+-	MySQL 8.0 (ou MariaDB à partir de 10.8.3)
+-	NodeJS 18
 -	Composer
 -	GIT
--	YARN 1
+-	npm >= 8
 -   Wkhtmltopdf
 
-Ainsi que des extensions PHP : *php7.1-apcu php7.1-common php-fdomdocument php7.1-xml php7.1-cli php7.1-common php7.1-curl php7.1-fpm php7.1-gd php7.1-intl php7.1-json php7.1-mbstring php7.1-mysql php7.1-opcache php7.1-readline php7.1-bz2 php7.1-zip*.
+Ainsi que des extensions PHP : *php8.1-apcu php8.1-common php-fdomdocument php8.1-xml php8.1-cli php8.1-common php8.1-curl php8.1-fpm php8.1-gd php8.1-intl php8.1-json php8.1-mbstring php8.1-mysql php8.1-opcache php8.1-readline php8.1-bz2 php8.1-zip*.
 
 (L'application peut néanmoins être compatible avec d'autres versions mais le support a lieu sur les versions énumérées ci-dessus)
 
@@ -46,18 +46,18 @@ Installer nodeJS en suivant les indications suivantes:
 Installer YARN en version 1+
 - https://yarnpkg.com/lang/fr/docs/install/#debian-stable
 
-Installer php-fpm 7.1
+Installer php-fpm 8.1
 
    Pour Ubuntu :
-​      - https://www.rosehosting.com/blog/install-php-7-1-with-nginx-on-an-ubuntu-16-04-vps/
+​      - https://www.linuxcapable.com/how-to-install-php-8-1-on-ubuntu-22-04-lts/
 
-   Pour Debian 9 (Stretch) :
-​      - https://linuxhostsupport.com/blog/how-to-install-wordpress-with-php-7-1-and-nginx-on-a-debian-9-vps/
+   Pour Debian 11 (Bullseye) :
+​      - https://www.it-connect.fr/installation-de-php-8-1-sur-debian-11-pour-son-serveur-web/
 
-(Si nécessaire) Installer MariaDB 10.3 :
+(Si nécessaire) Installer MariaDB 10.8 :
 
-​	Pour Debian 9 (Stretch)
+​	Pour Debian 11 (Bullseye)
 
-  - https://computingforgeeks.com/how-to-install-mariadb-10-3-on-debian-9-debian-8/
+  - https://www.linuxcapable.com/install-upgrade-mariadb-10-8-on-debian-11-bullseye/
 
 Pour installer Wkhtmltopdf suivre la documentation suivante : [Installer wkhtmltopdf](6-installer-wkhtmltopdf.md).

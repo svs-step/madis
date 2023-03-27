@@ -28,9 +28,9 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class MesurementTypeDictionary extends SimpleDictionary
 {
-    const TYPE_TECHNICAL      = 'technical';
-    const TYPE_ORGANISATIONAL = 'organisational';
-    const TYPE_LEGAL          = 'legal';
+    public const TYPE_TECHNICAL      = 'technical';
+    public const TYPE_ORGANISATIONAL = 'organisational';
+    public const TYPE_LEGAL          = 'legal';
 
     public function __construct()
     {

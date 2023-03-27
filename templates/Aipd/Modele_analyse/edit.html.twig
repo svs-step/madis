@@ -6,7 +6,7 @@
 {% block title %}{{ 'aipd.modele_analyse.title.edit'|trans }} - {{ parent() }}{% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+    {{ encore_entry_script_tags('js/collectionManager') }}
     {{ include('Aipd/Modele_analyse/_form_js.html.twig') }}
 {% endblock %}
 

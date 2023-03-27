@@ -13,6 +13,7 @@ class ModeleMesureProtection extends AbstractMesureProtection
 {
     /**
      * @var array|ModeleScenarioMenace[]
+     *
      * @Serializer\Exclude
      */
     private $scenariosMenaces;

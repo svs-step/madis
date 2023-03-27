@@ -28,17 +28,17 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ProofTypeDictionary extends SimpleDictionary
 {
-    const TYPE_POLICY_MANAGEMENT        = 'policy_management';
-    const TYPE_POLICY_PROTECTION        = 'policy_protection';
-    const TYPE_CONCERNED_PEOPLE_REQUEST = 'concerned_people_request';
-    const TYPE_MESUREMENT               = 'mesurement';
-    const TYPE_CERTIFICATION            = 'certification';
-    const TYPE_IT_CHARTER               = 'it_charter';
-    const TYPE_DELIBERATION             = 'deliberation';
-    const TYPE_CONTRACT                 = 'contract';
-    const TYPE_SENSITIZATION            = 'sensitization';
-    const TYPE_BALANCE_SHEET            = 'balance_sheet';
-    const TYPE_OTHER                    = 'other';
+    public const TYPE_POLICY_MANAGEMENT        = 'policy_management';
+    public const TYPE_POLICY_PROTECTION        = 'policy_protection';
+    public const TYPE_CONCERNED_PEOPLE_REQUEST = 'concerned_people_request';
+    public const TYPE_MESUREMENT               = 'mesurement';
+    public const TYPE_CERTIFICATION            = 'certification';
+    public const TYPE_IT_CHARTER               = 'it_charter';
+    public const TYPE_DELIBERATION             = 'deliberation';
+    public const TYPE_CONTRACT                 = 'contract';
+    public const TYPE_SENSITIZATION            = 'sensitization';
+    public const TYPE_BALANCE_SHEET            = 'balance_sheet';
+    public const TYPE_OTHER                    = 'other';
 
     public function __construct()
     {

@@ -114,7 +114,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -134,7 +134,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     /**
@@ -353,7 +353,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     public function findAllByClonedFromCollectivity(Collectivity $collectivity)
@@ -367,39 +367,35 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         return $qb
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
-    public function getPlanifiedActionsDashBoard($limit=1000, Collectivity $collectivity = null)
+    public function getPlanifiedActionsDashBoard($limit = 1000, Collectivity $collectivity = null)
     {
         // Add old actions again.
         // Fixes https://gitlab.adullact.net/soluris/madis/-/issues/529
-        //$date         = new \DateTime();
+        // $date         = new \DateTime();
         $queryBuilder = $this->createQueryBuilder();
-        $queryBuilder->select('u')
-            ->from(Model\Mesurement::class, 'u')
-            //->where('u.planificationDate >= :date_start')
-            ->andWhere('u.status = :status')
-            //->setParameter('date_start', $date->format('Y-m-d'))
-            ->setParameter('status', 'not-applied')
-            ->orderBy('u.planificationDate', 'DESC')
-            ->setMaxResults($limit)
+        $queryBuilder
+            ->where('o.status = :status')
+            ->setParameter('status', MesurementStatusDictionary::STATUS_NOT_APPLIED)
+            ->andWhere('o.planificationDate is not null')
+            ->orderBy('o.planificationDate', 'DESC')
         ;
 
         if ($collectivity) {
             $queryBuilder
-                ->andWhere('u.collectivity = :collectivity')
+                ->andWhere('o.collectivity = :collectivity')
                 ->setParameter('collectivity', $collectivity)
             ;
         }
 
-        $actions = $queryBuilder
-            ->getQuery()
-            ->getResult();
+        $query = $queryBuilder
+            ->groupBy('o.id')
+            ->setMaxResults((int) $limit)
+            ->getQuery();
 
-        $actions_limit = array_slice($actions, 0, (int) $limit);
-
-        return $actions_limit;
+        return $query->getResult();
     }
 
     public function resetClonedFromCollectivity(Collectivity $collectivity)

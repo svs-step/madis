@@ -34,48 +34,56 @@ class ModeleAnalyse
 
     /**
      * @var Collection|Collectivity[]
+     *
      * @Serializer\Exclude
      */
     private $authorizedCollectivities;
 
     /**
      * @var array|CriterePrincipeFondamental[]
+     *
      * @Serializer\Type("array<App\Domain\AIPD\Model\CriterePrincipeFondamental>")
      */
     private iterable $criterePrincipeFondamentaux;
 
     /**
      * @var array|ModeleQuestionConformite[]
+     *
      * @Serializer\Type("array<App\Domain\AIPD\Model\ModeleQuestionConformite>")
      */
     private $questionConformites;
 
     /**
      * @var array|ModeleScenarioMenace[]
+     *
      * @Serializer\Type("array<App\Domain\AIPD\Model\ModeleScenarioMenace>")
      */
     private $scenarioMenaces;
 
     /**
      * @see DuplicationTargetOptionDictionary
+     *
      * @Serializer\Exclude
      */
     private ?string $optionRightSelection = null;
 
     /**
      * @see CollectivityTypeDictionary
+     *
      * @Serializer\Exclude
      */
     private ?iterable $authorizedCollectivityTypes;
 
     /**
      * @var \DateTimeImmutable|null
+     *
      * @Serializer\Type("DateTimeImmutable")
      */
     private $createdAt;
 
     /**
      * @var \DateTimeImmutable|null
+     *
      * @Serializer\Type("DateTimeImmutable")
      */
     private $updatedAt;
@@ -113,8 +121,6 @@ class ModeleAnalyse
             foreach ($scenario->getMesuresProtections() as $mesure) {
                 $mesure->addScenarioMenace($scenario);
             }
-
-            $scenario->setMesuresProtections([]);
         }
         foreach ($this->questionConformites as $question) {
             $question->deserialize();

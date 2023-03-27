@@ -28,9 +28,9 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ViolationNotificationDictionary extends SimpleDictionary
 {
-    const NOTIFICATION_CROSS_BORDER = 'cross_border';
-    const NOTIFICATION_CNIL         = 'cnil';
-    const NOTIFICATION_OTHER        = 'other';
+    public const NOTIFICATION_CROSS_BORDER = 'cross_border';
+    public const NOTIFICATION_CNIL         = 'cnil';
+    public const NOTIFICATION_OTHER        = 'other';
 
     public function __construct()
     {

@@ -36,6 +36,7 @@ use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
 use App\Domain\User\Dictionary\UserRoleDictionary;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -162,17 +163,17 @@ class ViolationController extends CRUDController
         ]);
 
         return $this->render($this->getTemplatingBasePath('list'), [
-            'totalItem'   => $this->repository->count($criteria),
-            'category'    => $category,
-            'route'       => $this->router->generate('registry_violation_list_datatables', ['archive' => $criteria['archive']]),
+            'totalItem' => $this->repository->count($criteria),
+            'category'  => $category,
+            'route'     => $this->router->generate('registry_violation_list_datatables', ['archive' => $criteria['archive']]),
         ]);
     }
 
     public function listDataTables(Request $request): JsonResponse
     {
-        $criteria    = $this->getRequestCriteria();
-        $users       = $this->getResults($request, $criteria);
-        $reponse     = $this->getBaseDataTablesResponse($request, $users, $criteria);
+        $criteria = $this->getRequestCriteria();
+        $users    = $this->getResults($request, $criteria);
+        $reponse  = $this->getBaseDataTablesResponse($request, $users, $criteria);
 
         /** @var Model\Violation $violation */
         foreach ($users as $violation) {
@@ -180,10 +181,23 @@ class ViolationController extends CRUDController
                 ' . \date_format($violation->getDate(), 'd/m/Y') . '
             </a>';
 
+            $allNatures   = ViolationNatureDictionary::getNatures();
+            $natures      = '';
+            $naturesArray = new ArrayCollection($violation->getViolationNatures());
+
+            if (count($naturesArray) > 0) {
+                $natures = $naturesArray->map(function ($name) use ($allNatures) {
+                    return $allNatures[$name] ?? null;
+                })->filter(function ($r) {return null !== $r; });
+
+                $natures = join(', ', $natures->toArray());
+            }
+
             $reponse['data'][] = [
+                'id'           => $violation->getId(),
                 'collectivite' => $violation->getCollectivity()->getName(),
                 'date'         => $violationLink,
-                'nature'       => !\is_null($violation->getViolationNature()) ? ViolationNatureDictionary::getNatures()[$violation->getViolationNature()] : null,
+                'nature'       => $natures,
                 'cause'        => !\is_null($violation->getCause()) ? ViolationCauseDictionary::getNatures()[$violation->getCause()] : null,
                 'gravity'      => !\is_null($violation->getGravity()) ? ViolationGravityDictionary::getGravities()[$violation->getGravity()] : null,
                 'actions'      => $this->getActionCellsContent($violation),
@@ -198,7 +212,7 @@ class ViolationController extends CRUDController
 
     private function isRequestInUserServices(Model\Violation $violation): bool
     {
-        $user   = $this->userProvider->getAuthenticatedUser();
+        $user = $this->userProvider->getAuthenticatedUser();
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             return true;

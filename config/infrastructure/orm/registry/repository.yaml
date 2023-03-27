@@ -3,6 +3,9 @@ services:
         autowire: true
         autoconfigure: true
         public: false
+        bind:
+            string $lateRequestDelayDays: '%APP_REQUEST_NOTIFICATION_DELAY_DAYS%'
+
 
     App\Infrastructure\ORM\Registry\Repository\:
         resource: '../../../../src/Infrastructure/ORM/Registry/Repository'

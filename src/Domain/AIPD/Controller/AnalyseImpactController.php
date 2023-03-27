@@ -62,11 +62,11 @@ class AnalyseImpactController extends CRUDController
         Filesystem $fichierFilesystem
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->router                  = $router;
-        $this->requestStack            = $requestStack;
-        $this->modeleRepository        = $modeleRepository;
-        $this->analyseFlow             = $analyseFlow;
-        $this->fichierFilesystem       = $fichierFilesystem;
+        $this->router            = $router;
+        $this->requestStack      = $requestStack;
+        $this->modeleRepository  = $modeleRepository;
+        $this->analyseFlow       = $analyseFlow;
+        $this->fichierFilesystem = $fichierFilesystem;
     }
 
     protected function getDomain(): string
@@ -104,7 +104,7 @@ class AnalyseImpactController extends CRUDController
         $criteria = [];
 
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity']  = $user->getCollectivity();
+            $criteria['collectivity'] = $user->getCollectivity();
         }
 
         $analyses = $this->getResults($request, $criteria);
@@ -151,22 +151,26 @@ class AnalyseImpactController extends CRUDController
         <i class="fa fa-print"></i>' .
             $this->translator->trans('action.print') . '
         </a>';
-        if (!$analyseImpact->isValidated()) {
-            $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
-                <i class="fa fa-pencil-alt"></i>' .
-                        $this->translator->trans('action.edit') . '
-                </a>';
-            if ($analyseImpact->isReadyForValidation()) {
-                $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_validation', ['id' => $analyseImpact->getId()]) . '">
-                <i class="fa fa-check-square"></i>' .
-                    $this->translator->trans('action.validate') . '
-                </a>';
+
+        $user = $this->userProvider->getAuthenticatedUser();
+        if ('ROLE_PREVIEW' !== $user->getRoles()[0]) {
+            if (!$analyseImpact->isValidated()) {
+                $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
+                    <i class="fa fa-pencil-alt"></i>' .
+                    $this->translator->trans('action.edit') . '
+                    </a>';
+                if ($analyseImpact->isReadyForValidation()) {
+                    $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_validation', ['id' => $analyseImpact->getId()]) . '">
+                    <i class="fa fa-check-square"></i>' .
+                        $this->translator->trans('action.validate') . '
+                    </a>';
+                }
             }
+            $cell .= '                                    <a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
+            <i class="fa fa-trash"></i> ' .
+                $this->translator->trans('action.delete') . '
+            </a>';
         }
-        $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
-        <i class="fa fa-trash"></i>' .
-            $this->translator->trans('action.delete') . '
-        </a>';
 
         return $cell;
     }
@@ -233,12 +237,14 @@ class AnalyseImpactController extends CRUDController
 
             if ($this->analyseFlow->nextStep()) {
                 $form = $this->analyseFlow->createForm();
-            //TODO Persist and flush here to allow draft ?
+            // TODO Persist and flush here to allow draft ?
             } else {
                 $this->entityManager->persist($object);
                 $this->entityManager->flush();
 
                 $this->analyseFlow->reset();
+
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object));
 
                 return $this->redirectToRoute($this->getRouteName('evaluation'), [
                     'id' => $id,
@@ -257,6 +263,9 @@ class AnalyseImpactController extends CRUDController
         if (null === $object = $this->repository->findOneByIdWithoutInvisibleScenarios($id)) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
+        /**
+         * @var AnalyseImpact $object
+         */
         if ($object->isValidated()) {
             $this->addFlash('info', $this->getFlashbagMessage('info', 'cant_edit', $object));
 
@@ -277,6 +286,8 @@ class AnalyseImpactController extends CRUDController
                 $this->entityManager->flush();
 
                 $this->analyseFlow->reset();
+
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object));
 
                 return $this->redirectToRoute($this->getRouteName('evaluation'), [
                     'id' => $id,
@@ -299,9 +310,9 @@ class AnalyseImpactController extends CRUDController
 
         $reponse = $this->getBaseDataTablesResponse($request, $modeles);
         foreach ($modeles as $modele) {
-            $collectivityType               = $collectivity->getType();
-            $authorizedCollectivities       = $modele->getAuthorizedCollectivities();
-            $authorizedCollectivityTypes    = $modele->getAuthorizedCollectivityTypes();
+            $collectivityType            = $collectivity->getType();
+            $authorizedCollectivities    = $modele->getAuthorizedCollectivities();
+            $authorizedCollectivityTypes = $modele->getAuthorizedCollectivityTypes();
 
             if ((!\is_null($authorizedCollectivityTypes)
                 && in_array($collectivityType, $authorizedCollectivityTypes)) ||
@@ -365,9 +376,6 @@ class AnalyseImpactController extends CRUDController
 
     public function printAction(Request $request, string $id)
     {
-        /**
-         * @var AnalyseImpact|null $object
-         */
         if (null === $object = $this->repository->findOneById($id)) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
@@ -381,14 +389,14 @@ class AnalyseImpactController extends CRUDController
         $slugger  = new AsciiSlugger();
         $filename = $slugger->slug($object->getConformiteTraitement()->getTraitement()->getName());
 
-        $mesures = [];
+        $mesures   = [];
         $scenarios = $object->getScenarioMenaces();
 
         foreach ($scenarios as $scenario) {
-            /**
-             * @var AnalyseScenarioMenace $scenario
+            /*
+             * @var AnalyseScenarioMenace
              */
-            if ($scenario->getGravite() !== 'negligeable' || $scenario->getGravite() !== 'vide' || $scenario->getVraisemblance() !== 'negligeable' || $scenario->getVraisemblance() !== 'vide') {
+            if ('negligeable' !== $scenario->getGravite() || 'vide' !== $scenario->getGravite() || 'negligeable' !== $scenario->getVraisemblance() || 'vide' !== $scenario->getVraisemblance()) {
                 foreach ($scenario->getMesuresProtections() as $mesure) {
                     if (!array_key_exists($mesure->getNom(), $mesures) && ($mesure->getPoidsGravite() <= 1 || $mesure->getPoidsVraisemblance() <= 1)) {
                         $mesures[$mesure->getNom()] = $mesure;
@@ -397,13 +405,12 @@ class AnalyseImpactController extends CRUDController
             }
         }
 
-
         return new PdfResponse(
             $this->pdf->getOutputFromHtml(
                 $this->renderView($this->getTemplatingBasePath('pdf'), [
-                    'object'   => $object,
+                    'object'            => $object,
                     'mesuresProtection' => $mesures,
-                    'base_dir' => $this->getParameter('kernel.project_dir') . '/public' . $request->getBasePath(),
+                    'base_dir'          => $this->getParameter('kernel.project_dir') . '/public' . $request->getBasePath(),
                 ]), ['javascript-delay' => 1000]),
             $filename . '.pdf'
         );

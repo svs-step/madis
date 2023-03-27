@@ -92,6 +92,10 @@ class CollectivityTypeTest extends FormTypeHelper
             'hasModuleConformiteOrganisation'     => CheckboxType::class,
             'isServicesEnabled'                   => CheckboxType::class,
             'services'                            => CollectionType::class,
+            'finessGeo'                           => TextType::class,
+            'population'                          => NumberType::class,
+            'nbrAgents'                           => NumberType::class,
+            'nbrCnil'                             => NumberType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
@@ -102,6 +106,8 @@ class CollectivityTypeTest extends FormTypeHelper
     public function testBuildFormUser(): void
     {
         $builder = [
+            'population'                          => NumberType::class,
+            'nbrAgents'                           => NumberType::class,
             'legalManager'                        => ContactType::class,
             'referent'                            => ContactType::class,
             'differentDpo'                        => CheckboxType::class,

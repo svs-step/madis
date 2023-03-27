@@ -67,10 +67,10 @@ class ContractorGenerator extends AbstractGenerator
         Contractor $contractorRepository,
         Security $security
     ) {
-        $this->translator              = $translatorInterface;
-        $this->collectivityRepository  = $collectivityRepository;
-        $this->contractorRepository    = $contractorRepository;
-        $this->security                = $security;
+        $this->translator             = $translatorInterface;
+        $this->collectivityRepository = $collectivityRepository;
+        $this->contractorRepository   = $contractorRepository;
+        $this->security               = $security;
     }
 
     /**
@@ -222,7 +222,7 @@ class ContractorGenerator extends AbstractGenerator
     private function initializeContractorHistoric(\App\Domain\Registry\Model\Contractor $contractor): array
     {
         return [
-            $contractor->getCreator(),
+            strval($contractor->getCreator()),
             $this->getDate($contractor->getCreatedAt()),
             $this->getDate($contractor->getUpdatedAt()),
         ];

@@ -1,0 +1,52 @@
+
+{% block body %}
+
+    <div class="box-header with-border" style="list-style: none;">
+        <h3 class="box-title">Vous avez {{ notifs|length }} notifications non lues</h3>
+        {% if notifs|length > 0 %}
+            <a id="read-all" href="{{ path('notification_notification_mark_as_read_all') }}" style="float:right;">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
+        {% endif %}
+    </div>
+
+    <div class="box-body p-0">
+    {% if notifs|length > 0 %}
+        <ul class="m-0 p-0">
+    {% for notif in notifs|slice(0, maxNotifs) %}
+        <li class="box-header with-border single-notification" style="padding: 0.8em;">
+            <div class="row">
+                <div class="col-md-8" href="#">
+                    {{ notif | sentence | raw }}
+
+                    <div class="text-muted">
+                        {{ notif.action | trans }}, <b>{{ notif.createdAt|ago }}</b>
+                        {% if notif.createdBy %}
+                        par <b>{{ notif.createdBy }}</b>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <a  href="{{ path('notification_notification_mark_as_read', { 'id': notif.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
+                        <i class="fas fa-clipboard-check"></i> {{ 'notification.notification.action.mark_as_read'|trans }}
+                    </a>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if notifs|length == 0 %}
+    <div class="text-center p-2">Il n'y a aucune notification non lue</div>
+    {% endif %}
+
+    {% set notifsLeft = notifs|length - maxNotifs > 0 ? notifs|length - maxNotifs : 0 %}
+    <div class="text-center box-header">
+        <a href="{{ path('notification_notification_list') }}">
+            Voir toutes les notifications
+            {% if notifs|length > maxNotifs %} ({{ notifsLeft }} autres non lues) {% endif %}
+        </a>
+    </div>
+    </div>
+{% endblock %}
+
+

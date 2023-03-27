@@ -1,0 +1,5 @@
+notification_notificationUser_unsubscribe:
+    path: '/se-desabonner/{id}/{notif_id}'
+    methods: ['GET']
+    controller: 'App\Domain\Notification\Controller\NotificationUserController:unsubscribe'
+    

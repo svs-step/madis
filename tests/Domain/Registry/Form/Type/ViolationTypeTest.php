@@ -58,7 +58,7 @@ class ViolationTypeTest extends FormTypeHelper
             'date'                          => DateType::class,
             'service'                       => EntityType::class,
             'inProgress'                    => CheckboxType::class,
-            'violationNature'               => DictionaryType::class,
+            'violationNatures'              => DictionaryType::class,
             'origins'                       => DictionaryType::class,
             'cause'                         => DictionaryType::class,
             'concernedDataNature'           => DictionaryType::class,
@@ -74,6 +74,7 @@ class ViolationTypeTest extends FormTypeHelper
             'notificationDetails'           => TextType::class,
             'comment'                       => TextareaType::class,
             'treatments'                    => EntityType::class,
+            'contractors'                   => EntityType::class,
         ];
 
         (new ViolationType($this->prophesize(Security::class)->reveal(), $this->prophesize(AuthorizationCheckerInterface::class)->reveal()))->buildForm($this->prophesizeBuilder($builder), ['data' => $violation]);

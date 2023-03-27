@@ -123,6 +123,17 @@ class CollectivityType extends AbstractType
                     'label'    => 'user.collectivity.form.informations_complementaires',
                     'required' => false,
                 ])
+                ->add('finessGeo', TextType::class, [
+                    'label'    => 'user.collectivity.form.finess_geo',
+                    'required' => false,
+                    'attr'     => [
+                        'maxlength' => 255,
+                    ],
+                ])
+                ->add('nbrCnil', NumberType::class, [
+                    'label'    => 'user.collectivity.form.nbr_cnil',
+                    'required' => false,
+                ])
                 ->add('services', CollectionType::class, [
                     'label'        => false,
                     'entry_type'   => ServiceType::class,
@@ -131,14 +142,22 @@ class CollectivityType extends AbstractType
                     'by_reference' => false,
                 ])
                 ->add('isServicesEnabled', CheckboxType::class, [
-                    'label'     => 'user.collectivity.form.is_services_enabled',
-                    'required'  => false,
+                    'label'    => 'user.collectivity.form.is_services_enabled',
+                    'required' => false,
                 ])
             ;
         }
 
         // Now add standard information
         $builder
+            ->add('population', NumberType::class, [
+                'label'    => 'user.collectivity.form.population',
+                'required' => false,
+            ])
+            ->add('nbrAgents', NumberType::class, [
+                'label'    => 'user.collectivity.form.nbr_agents',
+                'required' => false,
+            ])
             ->add('legalManager', ContactType::class, [
                 'label'             => 'user.collectivity.form.legal_manager',
                 'required'          => true,
@@ -154,8 +173,9 @@ class CollectivityType extends AbstractType
                 'required' => false,
             ])
             ->add('dpo', ContactType::class, [
-                'label'    => 'user.collectivity.form.dpo',
-                'required' => false,
+                'label'             => 'user.collectivity.form.dpo',
+                'required'          => false,
+                'validation_groups' => ['default', 'collectivity_dpo'],
             ])
             ->add('differentItManager', CheckboxType::class, [
                 'label'    => 'user.collectivity.form.different_it_manager',

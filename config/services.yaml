@@ -5,6 +5,8 @@ services:
         public: false
         bind:
             string $maxSize: '%APP_MAX_UPLOAD_SIZE%'
+            string $activeNotifications: '%APP_ACTIVATE_NOTIFICATIONS%'
+
 
     App\Application\:
         resource: '../src/Application/*'
@@ -16,6 +18,9 @@ services:
 
     PhpOffice\PhpWord\PhpWord: ~
     RandomLib\Factory: ~
+
+    Knp\DictionaryBundle\Faker\Provider\Dictionary:
+        tags: [ { name: hautelook_alice.faker.provider } ]
 
     App\Domain\Reporting\Metrics\UserMetric:
         arguments:
@@ -31,6 +36,17 @@ services:
             $requireNumbers: '%env(APP_PASSWORD_REQUIRE_NUMBERS)%'
             $requireSpecialCharacter: '%env(APP_PASSWORD_REQUIRE_SPECIAL_CHARACTERS)%'
 
+    App\Domain\User\Controller\SecurityController:
+        arguments:
+            $sso_type: '%SSO_TYPE%'
+            $sso_key_field: '%SSO_KEY_FIELD%'
+
+    App\Domain\User\Controller\ProfileController:
+        arguments:
+            $sso_type: '%SSO_TYPE%'
+
+#    App\EventSubscriber\LogoutSubscriber:
+
     App\Application\Symfony\OpenApi\JwtDecorator:
         decorates: 'api_platform.openapi.factory'
         autoconfigure: false
@@ -41,6 +57,25 @@ services:
     aipd.form.flow.analyse_impact:
         class: App\Domain\AIPD\Form\Flow\AnalyseImpactFlow
 
+    aipd.model.analyse_impact:
+        class: App\Domain\AIPD\Model\AnalyseImpact
+
+    App\Domain\Notification\Symfony\EventSubscriber\Doctrine\NotificationEventSubscriber:
+        arguments:
+            $notificationRepository: '@App\Infrastructure\ORM\Notification\Repository\Notification'
+            $normalizer: '@App\Domain\Notification\Serializer\NotificationNormalizer'
+            $userRepository: '@App\Domain\User\Repository\User'
+            $security: '@Symfony\Component\Security\Core\Security'
+        tags: [ { name: doctrine.event_subscriber } ]
+
+    App\Domain\Notification\Twig\Extension\NotificationExtension:
+        arguments:
+            $translator: '@translator'
+            $router: '@router'
+            $requestDays: '%env(APP_REQUEST_NOTIFICATION_DELAY_DAYS)%'
+            $surveyDays: '%env(APP_SURVEY_NOTIFICATION_DELAY_DAYS)%'
+
+    App\Domain\AIPD\Model\AnalyseImpact: '@aipd.model.analyse_impact'
 imports:
     - { resource: services/cloner.yaml }
     - { resource: services/controller.yaml }

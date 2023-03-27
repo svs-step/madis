@@ -33,8 +33,6 @@ class RequestConcernedPeopleValidator extends ConstraintValidator
 {
     /**
      * {@inheritdoc}
-     *
-     * @var \App\Domain\Registry\Model\Embeddable\RequestConcernedPeople
      */
     public function validate($value, Constraint $constraint)
     {

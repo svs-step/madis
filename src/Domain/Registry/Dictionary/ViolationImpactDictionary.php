@@ -28,16 +28,16 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ViolationImpactDictionary extends SimpleDictionary
 {
-    const IMPACT_LOSS_CONTROL_PERSONAL_DATA        = 'loss_control_personal_data';
-    const IMPACT_LIMITATION_RIGHT                  = 'limitation_right';
-    const IMPACT_DISCRIMINATION                    = 'discrimination';
-    const IMPACT_IDENTITY_THEFT                    = 'identity_theft';
-    const IMPACT_FRAUD                             = 'fraud';
-    const IMPACT_UNAUTHORIZED_PSEUDO_LIFTING       = 'unauthorized_pseudo_lifting';
-    const IMPACT_FINANCIAL_LOSSES                  = 'financial_losses';
-    const IMPACT_REPUTATION_DAMAGE                 = 'reputation_damage';
-    const IMPACT_LOSS_PROFESSIONAL_CONFIDENTIALITY = 'loss_professional_confidentiality';
-    const IMPACT_OTHER                             = 'other';
+    public const IMPACT_LOSS_CONTROL_PERSONAL_DATA        = 'loss_control_personal_data';
+    public const IMPACT_LIMITATION_RIGHT                  = 'limitation_right';
+    public const IMPACT_DISCRIMINATION                    = 'discrimination';
+    public const IMPACT_IDENTITY_THEFT                    = 'identity_theft';
+    public const IMPACT_FRAUD                             = 'fraud';
+    public const IMPACT_UNAUTHORIZED_PSEUDO_LIFTING       = 'unauthorized_pseudo_lifting';
+    public const IMPACT_FINANCIAL_LOSSES                  = 'financial_losses';
+    public const IMPACT_REPUTATION_DAMAGE                 = 'reputation_damage';
+    public const IMPACT_LOSS_PROFESSIONAL_CONFIDENTIALITY = 'loss_professional_confidentiality';
+    public const IMPACT_OTHER                             = 'other';
 
     public function __construct()
     {

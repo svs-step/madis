@@ -130,7 +130,7 @@ class AdminMetric implements MetricInterface
         ];
 
         $nbIsDifferentDpo = 0;
-        $inseeValidType   = [CollectivityTypeDictionary::TYPE_COMMUNE, CollectivityTypeDictionary::TYPE_CCAS, CollectivityTypeDictionary::TYPE_OTHER];
+        $inseeValidType   = [CollectivityTypeDictionary::TYPE_COMMUNE, CollectivityTypeDictionary::TYPE_CCAS, CollectivityTypeDictionary::TYPE_CIAS, CollectivityTypeDictionary::TYPE_MEDICAL_INSTITUTION, CollectivityTypeDictionary::TYPE_OTHER];
         foreach ($collectivities as $collectivity) {
             if (!\is_null($collectivity->getAddress())
                 && !\is_null($collectivity->getAddress()->getInsee())
@@ -149,7 +149,9 @@ class AdminMetric implements MetricInterface
                 ++$nbIsDifferentDpo;
             }
 
-            ++$data['collectivityByType']['value']['type'][$collectivity->getType()];
+            if (isset($data['collectivityByType']['value']['type'][$collectivity->getType()])) {
+                ++$data['collectivityByType']['value']['type'][$collectivity->getType()];
+            }
         }
 
         if ($totalCollectivity > 0) {

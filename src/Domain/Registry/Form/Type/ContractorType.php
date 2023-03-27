@@ -81,13 +81,13 @@ class ContractorType extends AbstractType
                     'query_builder' => function (EntityRepository $er) use ($contractor) {
                         /** @var User $authenticatedUser */
                         $authenticatedUser = $this->security->getUser();
-                        $collectivity = $contractor->getCollectivity();
+                        $collectivity      = $contractor->getCollectivity();
 
                         $qb = $er->createQueryBuilder('s')
                             ->where('s.collectivity = :collectivity')
                             ->setParameter(':collectivity', $collectivity)
                         ;
-                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && ($authenticatedUser->getServices()->getValues())) {
+                        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && $authenticatedUser->getServices()->getValues()) {
                             $qb->leftJoin('s.users', 'users')
                                 ->andWhere('users.id = :id')
                                 ->setParameter('id', $authenticatedUser->getId())
@@ -139,8 +139,8 @@ class ContractorType extends AbstractType
                 'validation_groups' => ['default', 'contractor'],
             ])
             ->add('legalManager', ContactType::class, [
-                'label'             => 'registry.contractor.form.legal_manager',
-                'required'          => false,
+                'label'    => 'registry.contractor.form.legal_manager',
+                'required' => false,
             ])
             ->add('hasDpo', CheckboxType::class, [
                 'label'    => 'registry.contractor.form.has_dpo',

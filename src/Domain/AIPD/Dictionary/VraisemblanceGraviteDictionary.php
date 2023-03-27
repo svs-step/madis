@@ -9,10 +9,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class VraisemblanceGraviteDictionary extends SimpleDictionary
 {
-    const NEGLIGEABLE = 'negligeable';
-    const LIMITEE     = 'limitee';
-    const IMPORTANTE  = 'importante';
-    const MAXIMALE    = 'maximale';
+    public const NEGLIGEABLE = 'negligeable';
+    public const LIMITEE     = 'limitee';
+    public const IMPORTANTE  = 'importante';
+    public const MAXIMALE    = 'maximale';
 
     public function __construct(string $name = 'vraisemblance_gravite', array $values = [])
     {
@@ -40,6 +40,11 @@ class VraisemblanceGraviteDictionary extends SimpleDictionary
             self::IMPORTANTE  => 'Important',
             self::MAXIMALE    => 'Maximal',
         ];
+    }
+
+    public function offsetGet($offset): mixed
+    {
+        return isset(self::getVraisemblanceGravite()[$offset]) ? self::getVraisemblanceGravite()[$offset] : '';
     }
 
     public static function getPoidsFromImpact(string $key): int

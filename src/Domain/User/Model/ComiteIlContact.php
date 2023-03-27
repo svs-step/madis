@@ -25,11 +25,10 @@ namespace App\Domain\User\Model;
 
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Embeddable\Contact;
-use JsonSerializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class ComiteIlContact implements LoggableSubject, JsonSerializable
+class ComiteIlContact implements LoggableSubject, \JsonSerializable
 {
     /**
      * @var UuidInterface
@@ -76,7 +75,7 @@ class ComiteIlContact implements LoggableSubject, JsonSerializable
         $this->collectivity = $collectivity;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $contact = $this->getContact();
 

@@ -28,12 +28,12 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class UserRoleDictionary extends SimpleDictionary
 {
-    const ROLE_PREVIEW  = 'ROLE_PREVIEW';
-    const ROLE_USER     = 'ROLE_USER';
-    const ROLE_ADMIN    = 'ROLE_ADMIN';
-    const ROLE_REFERENT = 'ROLE_REFERENT';
+    public const ROLE_PREVIEW  = 'ROLE_PREVIEW';
+    public const ROLE_USER     = 'ROLE_USER';
+    public const ROLE_ADMIN    = 'ROLE_ADMIN';
+    public const ROLE_REFERENT = 'ROLE_REFERENT';
     // Role uniquement pour l'API
-    const ROLE_API      = 'ROLE_API';
+    public const ROLE_API = 'ROLE_API';
 
     public function __construct()
     {
@@ -51,7 +51,7 @@ class UserRoleDictionary extends SimpleDictionary
             self::ROLE_PREVIEW  => 'Lecteur',
             self::ROLE_USER     => 'Gestionnaire',
             self::ROLE_ADMIN    => 'Administrateur',
-            self::ROLE_REFERENT => 'Référent multi-collectivité',
+            self::ROLE_REFERENT => 'Référent multi-structures',
             // Ne pas ajouter le ROLE_API
         ];
     }
@@ -67,7 +67,7 @@ class UserRoleDictionary extends SimpleDictionary
             self::ROLE_PREVIEW  => 'Lecteur',
             self::ROLE_USER     => 'Gestionnaire',
             self::ROLE_ADMIN    => 'Administrateur',
-            self::ROLE_REFERENT => 'Référent multi-collectivité',
+            self::ROLE_REFERENT => 'Référent multi-structures',
             self::ROLE_API      => 'API',
         ];
     }

@@ -28,10 +28,10 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ViolationGravityDictionary extends SimpleDictionary
 {
-    const GRAVITY_NEGLIGIBLE = 'negligible';
-    const GRAVITY_LIMITED    = 'limited';
-    const GRAVITY_IMPORTANT  = 'important';
-    const GRAVITY_MAXIMUM    = 'maximum';
+    public const GRAVITY_NEGLIGIBLE = 'negligible';
+    public const GRAVITY_LIMITED    = 'limited';
+    public const GRAVITY_IMPORTANT  = 'important';
+    public const GRAVITY_MAXIMUM    = 'maximum';
 
     public function __construct()
     {

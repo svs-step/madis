@@ -31,6 +31,16 @@
                 {{ form_start(form) }}
 
                 <div class="col-md-6">
+                    {# GENERAL #}
+                    <div class="box box-solid">
+                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.general'|trans }}</h3></div>
+                        <div class="box-body">
+                            {{ form_row(form.nbrAgents) }}
+                            {{ form_row(form.population) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="box box-solid">
                         <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.legal_manager'|trans }}</h3></div>
                         <div class="box-body">
@@ -128,5 +138,5 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+    {{ encore_entry_script_tags('js/collectionManager') }}
 {% endblock %}

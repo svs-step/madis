@@ -31,13 +31,37 @@ use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContactTypeTest extends FormTypeHelper
 {
+    protected Request $currentRequest;
+    protected RequestStack $requestStack;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->currentRequest = new Request(
+            [], // GET parameters
+            [], // POST parameters
+            ['_route' => 'nothing'], // request attributes (parameters parsed from the PATH_INFO, ...)
+            [], // COOKIE parameters
+            [], // FILES parameters
+            [], // SERVER parameters
+            null // raw body data
+        );
+        $this->requestStack = $this->createMock(RequestStack::class);
+        $this->requestStack
+            ->expects($this->any())
+            ->method('getCurrentRequest')
+            ->willReturn($this->currentRequest);
+    }
+
     public function testInstanceOf(): void
     {
-        $this->assertInstanceOf(AbstractType::class, new ContactType());
+        $this->assertInstanceOf(AbstractType::class, new ContactType($this->requestStack, 'false'));
     }
 
     public function testBuildForm(): void
@@ -51,7 +75,7 @@ class ContactTypeTest extends FormTypeHelper
             'phoneNumber' => TextType::class,
         ];
 
-        (new ContactType())->buildForm($this->prophesizeBuilder($builder), []);
+        (new ContactType($this->requestStack, 'false'))->buildForm($this->prophesizeBuilder($builder), []);
     }
 
     public function testConfigureOptions(): void
@@ -64,6 +88,6 @@ class ContactTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new ContactType())->configureOptions($resolverProphecy->reveal());
+        (new ContactType($this->requestStack, 'false'))->configureOptions($resolverProphecy->reveal());
     }
 }

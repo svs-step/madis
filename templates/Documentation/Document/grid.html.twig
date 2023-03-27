@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% set bodyClass = 'documentation_document list' %}
-{% set menuItem = 'documentation_document' %}
+{% set menuItem = 'documentation' %}
 
 {% set activeCategories = [] %}
 
@@ -99,15 +99,15 @@
                 <div class="box-body">
 
                     <div class="row">
-
-                        {# SWITCH GRID LIST #}
-                        {% if is_granted('ROLE_USER') %}
                         <div class="col-md-12 col-xl-2">
                             <div class="ml2">
                                 <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
                                     <i class="fas fa-list"></i>
                                     {{ 'documentation.document.action.list'|trans }}
                                 </a>
+
+                        {# SWITCH GRID LIST #}
+                        {% if is_granted('ROLE_USER') %}
                                 {# RESET FILTERS #}
                                 <button id="button-reset" class="btn btn-default">
                                     Réinitialiser les filtres
@@ -145,8 +145,10 @@
                                 </select>
                             </div>
                         </div>
+                        {% else %}
+                                </div>
+                            </div>
                         {% endif %}
-
                     </div>
 
                     <table id="documentation-grid" class="table cards">
@@ -260,7 +262,7 @@
                                             <a class="sharelink btn btn-block text-info col-md-12" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal" style="border-color:#31708f">
                                                 <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
                                             </a>
-                                        <div>
+                                        </div>
                                     {% endif %}
                                 </td>
                                 <td style="display:none">{{ object.pinned }}</td>
@@ -410,7 +412,7 @@
 
         $(document).ready(function() {
             $('.sharelink').on('click', function() {
-                $('.linkDoc').val($(this).data('id'));
+                setTimeout(() => { $('.linkDoc').val($(this).data('id')); }, 200);
                 $('.copyLink').hide();
             })
 

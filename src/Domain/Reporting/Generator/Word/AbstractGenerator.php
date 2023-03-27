@@ -237,6 +237,14 @@ abstract class AbstractGenerator implements GeneratorInterface
             ['size' => 12]
         );
 
+        if ($collectivity->getNbrCnil()) {
+            $section->addText(
+                'Numéro de désignation CNIL : ' . $collectivity->getNbrCnil(),
+                ['italic'    => false],
+                ['alignment' => Jc::CENTER, 'spaceBefore' => 500]
+            );
+        }
+
         $section->addText(
             "{$this->getDate(new \DateTimeImmutable(), 'd/m/Y')}",
             ['italic'    => true],
@@ -281,8 +289,8 @@ abstract class AbstractGenerator implements GeneratorInterface
         $section = $document->addSection();
 
         // add page header
-        $header  = $section->addHeader();
-        $table   = $header->addTable([
+        $header = $section->addHeader();
+        $table  = $header->addTable([
             'borderColor' => '000000',
             'borderSize'  => 3,
             'cellMargin'  => 100,

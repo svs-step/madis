@@ -188,7 +188,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                     $applicant->getMail(),
                 ],
                 [
-                    'N° de téléphone',
+                    'Téléphone',
                     $applicant->getPhoneNumber(),
                 ],
                 [
@@ -220,7 +220,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                     $concernedPeople->getMail(),
                 ],
                 [
-                    'N° de téléphone',
+                    'Téléphone',
                     $concernedPeople->getPhoneNumber(),
                 ],
                 [
@@ -233,7 +233,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
             $responseData = [
                 [
                     'État de la demande',
-                    RequestStateDictionary::getStates()[$request->getState()],
+                    $request->getState() ? RequestStateDictionary::getStates()[$request->getState()] : '',
                 ],
                 [
                     'Réponse apportée',
@@ -259,7 +259,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
             $historyData = [
                 [
                     'Créateur',
-                    $request->getCreator(),
+                    strval($request->getCreator()),
                 ],
                 [
                     'Date de création',

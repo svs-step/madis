@@ -93,11 +93,11 @@ class DocumentController extends CRUDController
         RequestStack $requestStack
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->authorizationChecker           = $authorizationChecker;
-        $this->documentFilesystem             = $documentFilesystem;
-        $this->thumbFilesystem                = $thumbFilesystem;
-        $this->requestStack                   = $requestStack;
-        $this->categoryRepository             = $categoryRepository;
+        $this->authorizationChecker = $authorizationChecker;
+        $this->documentFilesystem   = $documentFilesystem;
+        $this->thumbFilesystem      = $thumbFilesystem;
+        $this->requestStack         = $requestStack;
+        $this->categoryRepository   = $categoryRepository;
     }
 
     /**
@@ -160,21 +160,15 @@ class DocumentController extends CRUDController
 
     public function indexAction()
     {
+        /**
+         * @var User $user
+         */
         $user = $this->getUser();
         if ($user->isDocumentView()) {
             return $this->gridAction();
         }
 
         return $this->listAction();
-    }
-
-    public function createAction(Request $request): Response
-    {
-        if ($this->isGranted('ROLE_ADMIN')) {
-            return parent::createAction($request);
-        }
-
-        return $this->redirectToRoute('documentation_document_list');
     }
 
     /**
@@ -227,6 +221,9 @@ class DocumentController extends CRUDController
     public function listAction(): Response
     {
         // Set default view to list for current user
+        /**
+         * @var User $user
+         */
         $user = $this->getUser();
         $user->setDocumentView(false);
         $this->entityManager->flush();
@@ -245,6 +242,9 @@ class DocumentController extends CRUDController
     public function gridAction(): Response
     {
         // Set default view to list for current user
+        /**
+         * @var User $user
+         */
         $user = $this->getUser();
         $user->setDocumentView(true);
         $this->entityManager->flush();
@@ -269,6 +269,7 @@ class DocumentController extends CRUDController
     {
         if (false === $object->getIsLink() && null !== $file = $object->getUploadedFile()) {
             $filename = Uuid::uuid4()->toString() . '.' . $file->getClientOriginalExtension();
+
             $this->documentFilesystem->write($filename, \fopen($file->getRealPath(), 'r'));
             $size = $this->documentFilesystem->size($filename);
 

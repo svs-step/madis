@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
+use App\Domain\User\Form\DataTransformer\MoreInfoTransformer;
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\Service;
@@ -63,17 +64,21 @@ class UserType extends AbstractType
      */
     private $security;
 
+    private bool $activeNotifications;
+
     /**
      * UserType constructor.
      */
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
         EncoderFactoryInterface $encoderFactory,
-        Security $security
+        Security $security,
+        string $activeNotifications
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->encoderFactory       = $encoderFactory;
         $this->security             = $security;
+        $this->activeNotifications  = 'true' === $activeNotifications;
     }
 
     /**
@@ -116,6 +121,7 @@ class UserType extends AbstractType
                     'label'    => 'user.user.form.apiAuthorized',
                     'required' => false,
                 ])
+
                 ->add('enabled', CheckboxType::class, [
                     'label'    => 'user.user.form.enabled',
                     'required' => false,
@@ -137,12 +143,17 @@ class UserType extends AbstractType
                         'data-width'       => '450px',
                     ],
                 ])
-            ;
+                ->add('ssoKey', TextType::class, [
+                    'label'    => 'user.user.form.sso_key',
+                    'required' => false,
+                    'attr'     => [
+                        'maxlength' => 255,
+                    ],
+                ]);
 
             $builder
                 ->get('roles')
-                ->addModelTransformer(new RoleTransformer())
-            ;
+                ->addModelTransformer(new RoleTransformer());
         }
 
         $formModifier = function (FormInterface $form, Collectivity $collectivity) use ($serviceDisabled, $authenticatedUser) {
@@ -217,6 +228,14 @@ class UserType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
+            ->add('moreInfos', DictionaryType::class, [
+                'label'       => 'user.user.form.moreInfos',
+                'required'    => false,
+                'name'        => 'user_user_moreInfo',
+                'multiple'    => false,
+                'expanded'    => true,
+                'placeholder' => 'Aucune information',
+            ])
             ->add('plainPassword', RepeatedType::class, [
                 'type'          => PasswordType::class,
                 'first_options' => [
@@ -232,7 +251,23 @@ class UserType extends AbstractType
                     ],
                 ],
                 'required' => false,
-            ]);
+            ])
+        ;
+
+        if ($this->activeNotifications) {
+            $builder->add('emailNotificationPreference', EmailNotificationPreferenceType::class);
+            if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+                $builder->add('notGeneratesNotifications', CheckboxType::class, [
+                    'label'    => 'user.user.form.not_generates_notifications',
+                    'required' => false,
+                ]);
+            }
+        }
+
+        $builder
+            ->get('moreInfos')
+            ->addModelTransformer(new MoreInfoTransformer())
+        ;
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($encoderFactory) {
             $user = $event->getData();

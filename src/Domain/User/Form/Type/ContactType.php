@@ -27,18 +27,31 @@ namespace App\Domain\User\Form\Type;
 use App\Domain\User\Model\Embeddable\Contact;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContactType extends AbstractType
 {
+    private RequestStack $requestStack;
+    private bool $activeNotifications;
+
+    public function __construct(RequestStack $requestStack, string $activeNotifications)
+    {
+        $this->requestStack        = $requestStack;
+        $this->activeNotifications = 'true' === $activeNotifications;
+    }
+
     /**
      * Build type form.
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $request = $this->requestStack->getCurrentRequest();
+
         $intersectIsEmpty = empty(\array_intersect(
             [
                 'collectivity_legal_manager',
@@ -86,13 +99,29 @@ class ContactType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
-            ->add('phoneNumber', TextType::class, [
-                'label'    => 'user.contact.form.phone_number',
-                'required' => $isComiteIl ? false : $required,
-                'attr'     => [
-                    'maxlength' => 10,
-                ],
+        ;
+
+        // Email notification only available on collectivity page for responsable traitement and referent RGPD
+        if ($this->activeNotifications
+            && (
+                in_array('collectivity_legal_manager', $options['validation_groups'] ?? [])
+                || in_array('collectivity_referent', $options['validation_groups'] ?? [])
+                || in_array('collectivity_dpo', $options['validation_groups'] ?? [])
+            )
+        ) {
+            $builder->add('notification', CheckboxType::class, [
+                'label'    => 'user.contact.form.notification',
+                'required' => false,
             ]);
+        }
+
+        $builder->add('phoneNumber', TextType::class, [
+            'label'    => 'user.contact.form.phone_number',
+            'required' => $isComiteIl ? false : $required,
+            'attr'     => [
+                'maxlength' => 10,
+            ],
+        ]);
     }
 
     /**

@@ -173,8 +173,8 @@ body.show .content ul {
 
 .map-wrapper {
   .row{
-    overflow: hidden; 
-    margin-right:0px;
+    overflow: hidden;
+    margin-right:0;
   }
 
   padding:0;
@@ -190,10 +190,10 @@ body.show .content ul {
 
 .is-paddingless{
   .complex-choice-group{
-    padding-left:0px;
+    padding-left:0;
 
     .check{
-      padding-left: 0px;
+      padding-left: 0;
     }
   }
 }
@@ -203,7 +203,7 @@ body.show .content ul {
   margin-bottom: 16px;
 
   div > label {
-    padding-right: 0px;
+    padding-right: 0;
     cursor: pointer;
   }
 }
@@ -356,6 +356,9 @@ tr.selected td:before {
 .p-0 {
     padding: 0!important;
 }
+.p-2 {
+  padding: 2rem;
+}
 .m-0 {
     margin : 0!important;
 }
@@ -439,7 +442,7 @@ button.dt-button, div.dt-button, a.dt-button {
 }
 
   /* ---------- NOTIFICATIONS ---------- */
-  
+
   #notifications i.fa-bell {
     font-size: 16px;
   }
@@ -454,6 +457,23 @@ button.dt-button, div.dt-button, a.dt-button {
   #notifications .dropdown-large a {
     color: #3c8dbc!important;
   }
-  #notifications .notification li{
+  #notifications .single-notification {
     background-color : #deedf6;
   }
+
+  /* -------- LOGIN PAGE -------------- */
+#sso_login {
+  border-top: 1px solid #666;
+  margin-top: 20px;
+
+  &>span {
+    position: relative;
+    top: -11px;
+    background: #fff;
+    padding: 2px;
+  }
+}
+
+td.actions > a {
+  white-space: nowrap;
+}

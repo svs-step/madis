@@ -27,7 +27,7 @@ namespace App\Domain\Maturity\Symfony\EventSubscriber\Doctrine;
 use App\Domain\Maturity\Calculator;
 use App\Domain\Maturity\Model;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class GenerateMaturitySubscriber implements EventSubscriber
 {
