@@ -109,6 +109,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
     public function addSyntheticView(Section $section, array $data): void
     {
         $section->addTitle('Liste des traitements', 1);
+        $section->addBookmark('Traitements en annexe');
 
         uasort($data, [$this, 'sortTreatmentByConformiteTraitementByLevelAndTreatmentName']);
 

@@ -110,8 +110,9 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addTitle('Registre des traitements', 2);
         $section->addText('Une collecte des traitements a été réalisée. Chaque fiche de registre est établie sur une base de 20 critères. Les critères exigés par le règlement sont pris en compte.');
 
-        $section->addTextBreak();
-        $section->addText('Une version de ces traitements et à valeur de preuve figure en annexe.');
+        $textrun = $section->addTextRun();
+        $textrun->addText('Une version de ces traitements et à valeur de preuve ');
+        $textrun->addLink('Traitements en annexe','figure en annexe.',['underline' => 'single'],[], true);
 
         $section->addTitle('Analyse du registre des traitements', 2);
         $section->addText("Il y a aujourd’hui {$nbTreatments} traitements de données à caractère personnel inventoriés");
@@ -147,6 +148,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addListItem("{$security['tracability']} ont une traçabilité");
         $section->addListItem("{$security['saving']} sont sauvegardés");
         $section->addListItem("{$security['update']} sont mis à jour");
+
     }
 
     /**
