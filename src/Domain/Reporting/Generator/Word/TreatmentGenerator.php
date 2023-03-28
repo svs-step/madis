@@ -128,12 +128,14 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             $categories,
             $chartData,
             [
-                'height' => Converter::cmToEmu(11),
-                'width'  => Converter::cmToEmu(15),
+                'height' => Converter::cmToEmu(6),
+                'width'  => Converter::cmToEmu(9),
+                'alignmant'=>'left',
+                'wrappingStyle'=>'square',
+                'positioning' => 'absolute'
             ]
         );
 
-        $section->addTextBreak();
         $section->addText("Sur les {$nbTreatments} traitements : ");
         $section->addListItem("{$digitalisation['paper']} sont uniquement papier");
         $section->addListItem("{$digitalisation['onlyDigital']} sont complétement informatisés");
@@ -142,12 +144,16 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             $section->addListItem("{$digitalisation['other']} ne sont pas renseignés");
         }
 
+        $section->addTextBreak();
+
         $section->addTitle('Sécurité de base des traitements informatisés', 2);
         $section->addText("Sur les {$digitalisation['digital']} traitements informatisés :");
         $section->addListItem("{$security['accessControl']} ont un contrôle d'accès");
         $section->addListItem("{$security['tracability']} ont une traçabilité");
         $section->addListItem("{$security['saving']} sont sauvegardés");
         $section->addListItem("{$security['update']} sont mis à jour");
+
+        $section->addText('Par ailleurs des mesures de protection ont été mises en place sur les X traitements non informatisés.');
 
     }
 

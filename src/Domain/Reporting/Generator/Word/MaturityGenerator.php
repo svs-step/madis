@@ -67,17 +67,23 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
         $section->addText('Afin de répondre aux objectifs du RGPD, la gestion des données à caractère personnel est structurée en ' . \count($domainsName) . ' domaines.');
         $section->addText('Chacun des ' . \count($domainsName) . ' domaines a été évalué par la structure selon l’échelle de maturité ci-après.');
+        $section->addText("Echelle d'estimation de maturité", ['bold' => true]);
 
-        $table = $section->addTable($this->tableStyle);
-        $row   = $table->addRow(200, ['valign' => 'center']);
-        $cell  = $row->addCell(null, ['bgColor' => '3c8dbc', 'gridSpan' => 3, 'valign' => 'center']);
-        $cell->addText("Echelle d'estimation de maturité", ['align' => 'center', 'bold' => true, 'color' => 'ffffff']);
+        $tableStyleConformite = [
+            'borderColor' => '006699',
+            'borderSize'  => 6,
+            'cellMargin'  => 100,
+            'unit'        => TblWidth::PERCENT,
+            'width'       => 100 * 50,
+            'cantsplit'   => true,
+        ];
 
-        $row  = $table->addRow(null, ['valign' => 'center']);
-        $cell = $row->addCell(750, ['bgColor' => 'c5deed']);
-        $cell->addText('Pratique');
-        $cell = $row->addCell(null, ['bgColor' => 'c5deed', 'gridSpan' => 2, 'valign' => 'center']);
-        $cell->addText('Critère d\'appréciation', ['align' => 'center']);
+        $table = $section->addTable($tableStyleConformite);
+        $row  = $table->addRow(null, ['valign' => 'center', 'tblHeader' => true]);
+        $cell = $row->addCell(750, ['bgColor' => '3c8dbc', 'valign' => 'center']);
+        $cell->addText('Pratique',['bold' => true, 'color' => 'ffffff']);
+        $cell = $row->addCell(null, ['bgColor' => '3c8dbc', 'gridSpan' => 2, 'valign' => 'center', ]);
+        $cell->addText('Critère d\'appréciation', ['bold' => true, 'color' => 'ffffff']);
 
         $row  = $table->addRow();
         $cell = $row->addCell(750, ['bgColor' => 'ffb3b3', 'valign' => 'center']);

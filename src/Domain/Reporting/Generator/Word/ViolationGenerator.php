@@ -73,7 +73,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
 
         $section->addTitle('Registre des violations de données', 2);
 
-        if (empty($data)) {
+        if ($nbTotal) {
             $section->addText('Il n’y a aucune violation de données à caractère personnel.');
 
             return;

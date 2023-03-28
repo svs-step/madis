@@ -45,7 +45,6 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
         // Aggregate data before rendering
         $tableData = [
             [
-                'Personne concernée',
                 'Date de la demande',
                 'Objet',
                 'Date de traitement',
@@ -54,14 +53,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
         ];
         $nbTotal = \count($data);
         foreach ($data as $request) {
-            if ($request->getApplicant()->isConcernedPeople() || ' ' === $request->getConcernedPeople()->getFullName()) {
-                $concernedPeople = $request->getApplicant()->getFullName();
-            } else {
-                $concernedPeople = $request->getConcernedPeople()->getFullName();
-            }
-
             $tableData[] = [
-                $concernedPeople,
                 $request->getDate() ? $this->getDate($request->getDate(), 'd/m/Y') : '',
                 array_key_exists($request->getObject(), RequestObjectDictionary::getObjects()) ? RequestObjectDictionary::getObjects()[$request->getObject()] : $request->getObject(),
                 $request->getAnswer() ? $this->getDate($request->getAnswer()->getDate(), 'd/m/Y') : '',
@@ -71,7 +63,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
 
         $section->addTitle('Registre des demandes de personnes concernées', 2);
 
-        if (empty($data)) {
+        if ($nbTotal === 0) {
             $section->addText('Il n’y a aucune demande des personnes concernées.');
 
             return;
