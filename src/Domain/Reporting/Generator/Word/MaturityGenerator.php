@@ -146,6 +146,28 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         }
         $cell = $row->addCell(2500);
         $cell->addText("{$data['new']}", ['align' => 'right', 'color' => '3c8dbc']);
+
+
+        $tablebis = $section->addTable($tableStyleConformite);
+        $row  = $tablebis->addRow(null, ['valign' => 'center', 'tblHeader' => true]);
+        $cell = $row->addCell(2000, ['bgColor' => '3c8dbc', 'valign' => 'center']);
+        $cell->addText('Domaines',['bold' => true, 'color' => 'ffffff']);
+        $cell = $row->addCell(2000, ['bgColor' => '3c8dbc', 'valign' => 'center', ]);
+        $cell->addText($data['old']->getCreatedAt()->format('d/m/Y'), ['bold' => true, 'color' => 'ffffff']);
+        $cell = $row->addCell(2000, ['bgColor' => '3c8dbc', 'valign' => 'center', ]);
+        $cell->addText($data['new']->getCreatedAt()->format('d/m/Y'), ['bold' => true, 'color' => 'ffffff']);
+
+        $i = 0;
+        foreach ($domainsName as $domain){
+            $row  = $tablebis->addRow(null, ['valign' => 'center']);
+            $cell = $row->addCell(2000, ['valign' => 'center', ]);
+            $cell->addText($domain, []);
+            $cell = $row->addCell(2000, ['valign' => 'center', ]);
+            $cell->addText($serie1[$i], []);
+            $cell = $row->addCell(2000, ['valign' => 'center', ]);
+            $cell->addText($serie2[$i], []);
+            $i++;
+        }
     }
 
     /**
