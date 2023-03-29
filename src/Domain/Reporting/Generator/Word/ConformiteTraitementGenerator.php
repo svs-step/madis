@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Generator\Word;
 
+use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
 use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
@@ -167,6 +168,69 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         }
 
         //$this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
+
+        // Analyse impact
+        $section->addTitle('Analyse d’impact', 2);
+
+        $cntAipdToDo = 0;
+        $cntAipdRealised = 0;
+        foreach ($data as $treatment){
+            $conformite = $treatment->getConformiteTraitement();
+
+            if ($conformite){
+                $aipd = $conformite->getLastAnalyseImpact();
+            }
+
+            if ($treatment->getExemptAIPD() === false && $aipd && ($aipd->getStatut() === 'non_realisee')){
+                $cntAipdToDo++;
+            }
+            if ($aipd){
+                $cntAipdRealised++;
+            }
+        }
+
+        $section->addText("Une analyse d’impact sur la protection des données est une étude, qui doit être réalisée si possible en amont du projet, sur des traitements contenant des critères susceptibles d'engendrer un risque élevé pour les droits et libertés des personnes concernées. ");
+        if ($cntAipdRealised === 0){
+            $section->addText("A ce jour, il n’y a pas eu d’Analyse d’impact réalisées.");
+        }
+
+        $textrun = $section->addTextRun();
+        $textrun->addText('Le tableau des traitements à risque et à valeur de preuve ');
+        $textrun->addLink('Traitements en annexe','figure en annexe.',['underline' => 'single'],[], true);
+
+        $section->addText("Ci-dessous, la liste des traitements pour lequel une analyse d’impact sur la protection des données est requise. Au vu des critères, il semble que ". $cntAipdToDo ." traitements requière(nt) une analyse d’impact");
+
+        $tableNeedAipd = $section->addTable($tableStyleConformite);
+        $tableNeedAipd->addRow(null, array('tblHeader' => true));
+        foreach (['Nom du traitement', 'Données sensibles', 'Traitement spécifique'] as $element){
+            $cell = $tableNeedAipd->addCell(2500, $this->cellHeadStyle);
+            $cell->addText($element, $this->textHeadStyle);
+        }
+        foreach ($data as $treatment){
+            $cnt_sensible = 0;
+            $cnt_specific_treatment = 0;
+            $sensibleDatas = [];
+            dd($treatment);
+            foreach($treatment->getDataCategories() as $category){
+                if ($category->isSensible()){
+                    $cnt_sensible++;
+                    $sensibleDatas[] = $category;
+                }
+                $cnt_specific_treatment = ;
+            }
+            if ($cnt_sensible > 0 || $cnt_categories >1){
+                $tableNeedAipd->addRow();
+                $cell = $tableNeedAipd->addCell(2500);
+                $cell->addText($treatment->getName());
+                $cell = $tableNeedAipd->addCell(2500);
+                foreach($sensibleDatas as $sensibleData){
+                    $cell->addListItem($sensibleData);
+                }
+
+                $cell = $tableNeedAipd->addCell(2500);
+                $cell->addText($treatment->getName());
+            }
+        }
     }
 
     /**
