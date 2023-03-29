@@ -206,31 +206,99 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
             $cell = $tableNeedAipd->addCell(2500, $this->cellHeadStyle);
             $cell->addText($element, $this->textHeadStyle);
         }
+
+        $aipdFinished = [];
         foreach ($data as $treatment){
             $cnt_sensible = 0;
-            $cnt_specific_treatment = 0;
             $sensibleDatas = [];
-            dd($treatment);
+            $specificTreatments = [];
+            $treatment->isSystematicMonitoring() ? $specificTreatments[] =  'Surveillance systématique' : null;
+            $treatment->isLargeScaleCollection() ? $specificTreatments[] =  'Collecte à large échelle' : null;
+            $treatment->isVulnerablePeople() ? $specificTreatments[] = 'Personnes vulnérables' : null;
+            $treatment->isDataCrossing() ? $specificTreatments[] = 'Croisement de données' : null;
+            $treatment->isEvaluationOrRating() ? $specificTreatments[] = 'Évaluation ou notation' : null;
+            $treatment->isAutomatedDecisionsWithLegalEffect() ? $specificTreatments[] = 'Décisions automatisées avec effet' : null;
+            $treatment->isAutomaticExclusionService() ? $specificTreatments[] = "Exclusion automatique d'un service" : null;
+            $treatment->isInnovativeUse() ? $specificTreatments[] = 'Usage innovant' : null;
+
+            $cnt_categories = count(array_filter($specificTreatments));
+
             foreach($treatment->getDataCategories() as $category){
                 if ($category->isSensible()){
                     $cnt_sensible++;
                     $sensibleDatas[] = $category;
                 }
-                $cnt_specific_treatment = ;
             }
-            if ($cnt_sensible > 0 || $cnt_categories >1){
+            if (($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories >1){
                 $tableNeedAipd->addRow();
                 $cell = $tableNeedAipd->addCell(2500);
                 $cell->addText($treatment->getName());
                 $cell = $tableNeedAipd->addCell(2500);
                 foreach($sensibleDatas as $sensibleData){
-                    $cell->addListItem($sensibleData);
+                    $cell->addListItem(htmlspecialchars((string)$sensibleData, ENT_COMPAT, 'UTF-8'));
                 }
-
                 $cell = $tableNeedAipd->addCell(2500);
-                $cell->addText($treatment->getName());
+                foreach($specificTreatments as $specificTreatment){
+                    $cell->addListItem($specificTreatment);
+                }
+            }
+
+            if ($treatment->getConformiteTraitement() && $aipd = $treatment->getConformiteTraitement()->getLastAnalyseImpact()){
+                if ($aipd->getStatut() !== 'non_realisee' && $aipd->getStatut() !== 'en_cours'){
+                    $aipdFinished[] = [
+                        $treatment->getName(),
+                        $treatment->getConformiteTraitement()->getLastAnalyseImpact()->getUpdatedAt(),
+                        $treatment->getConformiteTraitement()->getLastAnalyseImpact()->getAvisReferent(),
+                        $treatment->getConformiteTraitement()->getLastAnalyseImpact()->getAvisDpd(),
+                        $treatment->getConformiteTraitement()->getLastAnalyseImpact()->getAvisRepresentant(),
+                        $treatment->getConformiteTraitement()->getLastAnalyseImpact()->getAvisResponsable(),
+                    ];
+                }
             }
         }
+
+        $textrun->addText('X traitements ont fait l’objet d’une analyse d’impact.');
+
+        $tableNeedAipd = $section->addTable($tableStyleConformite);
+        $tableNeedAipd->addRow(null, array('tblHeader' => true));
+        foreach (['Traitements', 'Date de réalisation de l’AIPD', 'Avis du référent RGPD', 'Avis du DPD', 'Avis des représentants des personnes concernées', 'Validation du responsable du traitement'] as $element){
+            $cell = $tableNeedAipd->addCell(1000, $this->cellHeadStyle);
+            $cell->addText($element, $this->textHeadStyle);
+        }
+        foreach($aipdFinished as $line){
+            $tableNeedAipd->addRow();
+            $cell = $tableNeedAipd->addCell(1000);
+            $cell->addText($line[0]);
+            $cell = $tableNeedAipd->addCell(1000);
+            $cell->addText($line[1]->format('d/m/Y'));
+            for ($i = 2; $i <= 5; $i++){
+                $cell = $tableNeedAipd->addCell(1000, ['bgColor' => $this->colorCell($line[$i]->getReponse())]);
+                $cell->addText($this->valueCell($line[$i]->getReponse()));
+            }
+        }
+    }
+
+    private function colorCell($value)
+    {
+        $return_value = match($value){
+            'favorable' => 'bce292',
+            'defavorable' => 'ffa7a7',
+            'pas_de_reponse' => 'ffffff',
+            'favorable_reserve' => 'fac9ad',
+        };
+
+        return $return_value;
+    }
+
+    private function valueCell($value)
+    {
+        $return_value = match($value){
+            'favorable' => 'Favorable',
+            'defavorable' => 'Défavorable',
+            'pas_de_reponse' => 'Pas de reponse',
+            'favorable_reserve' => 'Favorable avec reserve',
+        };
+        return $return_value;
     }
 
     /**
