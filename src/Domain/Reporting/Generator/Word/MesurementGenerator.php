@@ -40,25 +40,29 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
     public function addGlobalOverview(Section $section, array $data): void
     {
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
-        // Aggregate data before rendering
-        $appliedMesurement = [
-            [
-                'ACTION',
-                'DATE',
-                'OBSERVATIONS',
-            ],
-        ];
+
         $actionPlan = [
             [
-                'ACTION',
-                'DATE',
-                'OBSERVATIONS',
-                'RESPONSABLE DE L\'ACTION',
+                'Priorité',
+                'Action',
+                'Date',
+                'Responsable de l\'action',
+                'Observations',
             ],
+        ];
+
+        $this->tableStyleConformite = [
+            'borderColor' => '006699',
+            'borderSize'  => 6,
+            'cellMargin'  => 100,
+            'unit'        => TblWidth::PERCENT,
+            'width'       => 100 * 50,
         ];
 
         uasort($data, [$this, 'sortMesurementByPriority']);
 
+        $appliedMesurement = [];
+        $actionPlan = [];
         foreach ($data as $mesurement) {
             if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {
                 $appliedMesurement[] = [
@@ -75,7 +79,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
                         $mesurement->getComment(),
                     ],
                     'style' => [
-                        'bgColor' => $mesurement->getPriority() ? MesurementPriorityDictionary::getPrioritiesColors()[$mesurement->getPriority()] : '',
+                        'bgColor' => $mesurement->getPriority() ? $this->ColorCellPriority($mesurement->getPriority()) : '',
                     ],
                 ];
             }
@@ -83,20 +87,85 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
 
         $section->addTitle('Actions de protection mises en place', 2);
         $section->addText("Afin de protéger les données à caractère personnel, '{$collectivity}' a mis en place des actions de protection. Une liste exhaustive des actions de protection mises en place figure en annexe. Ci-dessous, les 20 dernières actions :");
-        $this->addTable($section, $appliedMesurement, true, self::TABLE_ORIENTATION_HORIZONTAL);
+
+        $this->ProtectionActionAppliedTable($section, $appliedMesurement);
 
         $section->addTitle("Plan d'actions", 2);
         $section->addText('Un plan d’action a été établi comme suit.');
-        $this->addTable($section, $actionPlan, true, self::TABLE_ORIENTATION_HORIZONTAL);
+        $this->ActionPlanTable($section, $actionPlan);
 
         $section->addTextBreak();
 
+        $section->addText("Nombre d’actions de protection affectées par type de registre :");
+        $this->ActionTypeTable($section);
+
+    }
+
+    private function ActionTypeTable($section){
+        $tableActionType = $section->addTable($this->tableStyleConformite);
+        $tableActionType->addRow(null, ['tblHeader' => true, 'cantSplit' => true]);
+        $cell = $tableActionType->addCell(6000, $this->cellHeadStyle);
+        $cell->addText('Type de registre', $this->textHeadStyle);
+        $cell = $tableActionType->addCell(3000, $this->cellHeadStyle);
+        $cell->addText('Nombre d’actions de protection affectées', $this->textHeadStyle);
+    }
+
+    private function ProtectionActionAppliedTable($section, $appliedMesurement){
+
+        $tableProtectionActionApplied = $section->addTable($this->tableStyleConformite);
+        $tableProtectionActionApplied->addRow(null, ['tblHeader' => true, 'cantSplit' => true]);
+        $cell = $tableProtectionActionApplied->addCell(1500, $this->cellHeadStyle);
+        $cell->addText('Date', $this->textHeadStyle);
+        $cell = $tableProtectionActionApplied->addCell(7500, $this->cellHeadStyle);
+        $cell->addText('Action', $this->textHeadStyle);
+
+        if ($appliedMesurement){
+            foreach ($appliedMesurement as $line){
+                $tableProtectionActionApplied->addRow(null, ['cantSplit' => true]);
+                $cell1 = $tableProtectionActionApplied->addCell(1500);
+                $cell1->addText($line[0]);
+                $cell2 = $tableProtectionActionApplied->addCell(7500);
+                $cell2->addText($line[1]);
+            }
+        }
+    }
+
+    private function ActionPlanTable($section, $actionPlan){
+
+        $tableActionPlan = $section->addTable($this->tableStyleConformite);
+        $tableActionPlan->addRow(null, ['tblHeader' => true, 'cantSplit' => true]);
+        $cell = $tableActionPlan->addCell(1000, $this->cellHeadStyle);
+        $cell->addText('Priorité', $this->textHeadStyle);
+        $cell = $tableActionPlan->addCell(2000, $this->cellHeadStyle);
+        $cell->addText('Action', $this->textHeadStyle);
+        $cell = $tableActionPlan->addCell(1000, $this->cellHeadStyle);
+        $cell->addText('Date', $this->textHeadStyle);
+        $cell = $tableActionPlan->addCell(1500, $this->cellHeadStyle);
+        $cell->addText('Responsable de l\'action', $this->textHeadStyle);
+        $cell = $tableActionPlan->addCell(1500, $this->cellHeadStyle);
+        $cell->addText('Observations', $this->textHeadStyle);
+
+        if ($actionPlan){
+            foreach ($actionPlan as $line){
+                $tableActionPlan->addRow(null,['cantSplit' => true]);
+                $cell1 = $tableActionPlan->addCell(1000, ['bgColor' => $line['style']['bgColor']]);
+                $cell1->addText($line['data'][0]);
+                $cell2 = $tableActionPlan->addCell(2000);
+                $cell2->addText($line['data'][1]);
+                $cell1 = $tableActionPlan->addCell(1000);
+                $cell1->addText($line['data'][2]);
+                $cell2 = $tableActionPlan->addCell(1500);
+                $cell2->addText($line['data'][3]);
+                $cell2 = $tableActionPlan->addCell(1500);
+                $cell2->addText($line['data'][4]);
+            }
+        }
     }
 
     private function ColorCellPriority($priority){
         $returned_value = match($priority){
             'Basse' => 'ffff80',
-            'Normale' => 'fac9ad',
+            'normal' => 'fac9ad',
             'Haute' => 'ffa7a7',
             '' => 'ffffff',
         };
