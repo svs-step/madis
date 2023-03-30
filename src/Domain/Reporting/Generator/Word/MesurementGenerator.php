@@ -62,17 +62,17 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         foreach ($data as $mesurement) {
             if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {
                 $appliedMesurement[] = [
-                    $mesurement->getName(),
                     $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_FORMAT) : '',
-                    $mesurement->getComment(),
+                    $mesurement->getName(),
                 ];
             } elseif (!\is_null($mesurement->getPlanificationDate()) && MesurementStatusDictionary::STATUS_NOT_APPLIED === $mesurement->getStatus()) {
                 $actionPlan[] = [
                     'data' => [
+                        $mesurement->getPriority(),
                         $mesurement->getName(),
                         $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_FORMAT) : '',
-                        $mesurement->getComment(),
                         $mesurement->getManager(),
+                        $mesurement->getComment(),
                     ],
                     'style' => [
                         'bgColor' => $mesurement->getPriority() ? MesurementPriorityDictionary::getPrioritiesColors()[$mesurement->getPriority()] : '',
@@ -82,7 +82,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         }
 
         $section->addTitle('Actions de protection mises en place', 2);
-        $section->addText("Afin de protéger les données à caractère personnel, '{$collectivity}' a mis en place les actions de protection suivantes :");
+        $section->addText("Afin de protéger les données à caractère personnel, '{$collectivity}' a mis en place des actions de protection. Une liste exhaustive des actions de protection mises en place figure en annexe. Ci-dessous, les 20 dernières actions :");
         $this->addTable($section, $appliedMesurement, true, self::TABLE_ORIENTATION_HORIZONTAL);
 
         $section->addTitle("Plan d'actions", 2);
@@ -91,24 +91,17 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
 
         $section->addTextBreak();
 
-        $table = $section->addTable([
-            'borderColor' => '006699',
-            'borderSize'  => 6,
-            'width'       => 50 * 50,
-            'unit'        => TblWidth::PERCENT,
-            'alignment'   => Jc::CENTER,
-            'layout'      => \PhpOffice\PhpWord\Style\Table::LAYOUT_FIXED,
-        ]);
-        $row  = $table->addRow(null, ['valign' => 'center']);
-        $cell = $row->addCell(null, ['valign' => 'center', 'gridSpan' => 3]);
-        $cell->addText('Légende priorité', ['bold' => true, 'size' => 8], ['align' => 'center']);
+    }
 
-        $priorities = MesurementPriorityDictionary::getPrioritiesNameWithoutNumber();
-        $row        = $table->addRow();
-        foreach ($priorities as $key => $priority) {
-            $cell = $row->addCell(null, ['valign' => 'center', 'bgColor' => MesurementPriorityDictionary::getPrioritiesColors()[$key]]);
-            $cell->addText($priority, ['bold' => true, 'size' => 8], ['align' => 'center']);
-        }
+    private function ColorCellPriority($priority){
+        $returned_value = match($priority){
+            'Basse' => 'ffff80',
+            'Normale' => 'fac9ad',
+            'Haute' => 'ffa7a7',
+            '' => 'ffffff',
+        };
+
+        return $returned_value;
     }
 
     /**
