@@ -91,16 +91,16 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         }
 
         $section->addText("Les 10 critères suivants correspondent aux principes fondamentaux du RGPD et ont fait l’objet d’une évaluation :");
-        $section->addListItem('Finalités',0,[],['listType'=> 7]);
-        $section->addListItem('Licéité',0,[],['listType'=> 7]);
-        $section->addListItem('Minimisation des données',0,[],['listType'=> 7]);
-        $section->addListItem('Qualité des données',0,[],['listType'=> 7]);
-        $section->addListItem('Durée de conservation',0,[],['listType'=> 7]);
-        $section->addListItem('Information des personnes concernées',0,[],['listType'=> 7]);
-        $section->addListItem('Recueil de consentement',0,[],['listType'=> 7]);
-        $section->addListItem('Exercice des différents droits',0,[],['listType'=> 7]);
-        $section->addListItem('Sous-traitance',0,[],['listType'=> 7]);
-        $section->addListItem('Transferts en dehors de l’union européenne',0,[],['listType'=> 7]);
+        $section->addListItem('1. Finalités');
+        $section->addListItem('2. Licéité');
+        $section->addListItem('3. Minimisation des données');
+        $section->addListItem('4. Qualité des données');
+        $section->addListItem('5. Durée de conservation');
+        $section->addListItem('6. Information des personnes concernées');
+        $section->addListItem('7. Recueil de consentement');
+        $section->addListItem('8. Exercice des différents droits');
+        $section->addListItem('9. Sous-traitance');
+        $section->addListItem('10. Transferts en dehors de l’union européenne');
 
         $textrun = $section->addTextRun();
         $textrun->addText('Une synthèse de l’analyse de la conformité des traitements et à valeur de preuve ');
@@ -257,22 +257,23 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
             }
         }
 
-        $textrun->addText('X traitements ont fait l’objet d’une analyse d’impact.');
+        $section->addTextBreak();
+        $section->addText('X traitements ont fait l’objet d’une analyse d’impact.');
 
-        $tableNeedAipd = $section->addTable($tableStyleConformite);
-        $tableNeedAipd->addRow(null, array('tblHeader' => true));
+        $tableAipdExist = $section->addTable($tableStyleConformite);
+        $tableAipdExist->addRow(null, array('tblHeader' => true, 'cantSplit' => true));
         foreach (['Traitements', 'Date de réalisation de l’AIPD', 'Avis du référent RGPD', 'Avis du DPD', 'Avis des représentants des personnes concernées', 'Validation du responsable du traitement'] as $element){
-            $cell = $tableNeedAipd->addCell(1000, $this->cellHeadStyle);
+            $cell = $tableAipdExist->addCell(1000, $this->cellHeadStyle);
             $cell->addText($element, $this->textHeadStyle);
         }
         foreach($aipdFinished as $line){
-            $tableNeedAipd->addRow();
-            $cell = $tableNeedAipd->addCell(1000);
+            $tableAipdExist->addRow(null,['cantSplit' => true]);
+            $cell = $tableAipdExist->addCell(1000);
             $cell->addText($line[0]);
-            $cell = $tableNeedAipd->addCell(1000);
+            $cell = $tableAipdExist->addCell(1000);
             $cell->addText($line[1]->format('d/m/Y'));
             for ($i = 2; $i <= 5; $i++){
-                $cell = $tableNeedAipd->addCell(1000, ['bgColor' => $this->colorCell($line[$i]->getReponse())]);
+                $cell = $tableAipdExist->addCell(1000, ['bgColor' => $this->colorCell($line[$i]->getReponse())]);
                 $cell->addText($this->valueCell($line[$i]->getReponse()));
             }
         }

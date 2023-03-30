@@ -11,6 +11,7 @@ use App\Domain\Registry\Service\ConformiteOrganisationService;
 use App\Domain\User\Dictionary\ContactCivilityDictionary;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shared\Converter;
+use PhpOffice\PhpWord\SimpleType\TblWidth;
 
 class ConformiteOrganisationGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
@@ -112,33 +113,70 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
 
         $section->addTitle('Analyse de la conformité de la structure', 2);
 
-        $section->addChart('column', $this->extractConformiteProcessus($evaluation), $scores, $style);
+        $section->addText('Afin de répondre aux objectifs du RGPD, la gestion des DCP est structurée en 12 processus dont les objectifs sont définis dans le document figurant en annexe et à valeur de preuve.');
+        $section->addText('Chacun des 12 processus est évalué annuellement et selon l’échelle de maturité ci-après.');
+        $section->addText('Lorsque cela est nécessaire une ou plusieurs actions de progrès sont proposées au responsable du traitement pour validation et mise en opération.');
+        $section->addText('Liste des 12 processus :');
+        $section->addListItem('1. Organiser la conformité');
+        $section->addListItem('2. Gérer les exigences et les poursuites');
+        $section->addListItem('3. Gérer les sous-traitants de DCP');
+        $section->addListItem('4. Evaluer et auditer');
+        $section->addListItem('5. Gérer les traitements');
+        $section->addListItem('6. Sensibiliser, former, communiquer');
+        $section->addListItem('7. Gérer les risques et les impacts sur la vie privée');
+        $section->addListItem('8. Gérer les droits des personnes concernées');
+        $section->addListItem('9. Gérer les violations de DCP');
+        $section->addListItem('10. Gérer la protection des DCP');
+        $section->addListItem('11. Gérer la documentation et les preuves');
+        $section->addListItem('12. Gérer les opérations du SMDCP');
 
+        $this->average = 0;
         $tableData = $this->getConformitesTable($conformites);
 
-        $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_VERTICAL);
+        $section->addText('Le graphique représente la situation au '.date('d/m/Y').'. Sur l’ensemble des processus, la moyenne est de '.round($this->average, 2).'/5. A chaque processus, des propositions d’améliorations sont faites puis retranscrites dans le plan de progrès.');
+
+        $section->addChart('column', $this->extractConformiteProcessus($evaluation), $scores, $style);
+        
+        $tableStyleConformite = [
+            'borderColor' => '006699',
+            'borderSize'  => 6,
+            'cellMargin'  => 100,
+            'unit'        => TblWidth::PERCENT,
+            'width'       => 100 * 50,
+        ];
+        $tableOrganisationConformite = $section->addTable($tableStyleConformite);
+        $tableOrganisationConformite->addRow(null, array('tblHeader' => true));
+        $cell = $tableOrganisationConformite->addCell(2000, $this->cellHeadStyle);
+        $cell->addText('Pilote', $this->textHeadStyle);
+        $cell = $tableOrganisationConformite->addCell(4500, $this->cellHeadStyle);
+        $cell->addText('Processus', $this->textHeadStyle);
+        $cell = $tableOrganisationConformite->addCell(1500, $this->cellHeadStyle);
+        $cell->addText('Conformité', $this->textHeadStyle);
+
+        foreach ($tableData as $line){
+            $tableOrganisationConformite->addRow();
+            $cell1 = $tableOrganisationConformite->addCell(2000);
+            $cell1->addText($line[0]);
+            $cell2 = $tableOrganisationConformite->addCell(4500);
+            $cell2->addText($line[1]);
+            $cell3 = $tableOrganisationConformite->addCell(1500, ['align'=> 'center','bgColor' => $line[2]['style']['bgColor']]);
+            $cell3->addText($line[2]['content']['text'], ['bold' => true], ['align' => 'center']);
+        }
     }
 
     private function getConformitesTable(array $conformites): array
     {
-        $tableData = [
-            [
-                'Pilote',
-                'Processus',
-                'Conformité',
-            ],
-        ];
-
         foreach ($conformites as $conformite) {
+            $this->average += $conformite->getConformite();
             switch (true) {
                 case $conformite->getConformite() < 2.5:
-                    $bgColor = 'dd4b39';
+                    $bgColor = 'ffa7a7';
                     break;
                 case $conformite->getConformite() < 3.5:
-                    $bgColor = 'f39c12';
+                    $bgColor = 'fac9ad';
                     break;
                 default:
-                    $bgColor = '00a65a';
+                    $bgColor = 'bce292';
                     break;
             }
             $tableData[] = [
@@ -147,6 +185,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
                 ['content' => ['text' => $conformite->getConformite()], 'style' => ['bgColor' => $bgColor, 'bold' => true]],
             ];
         }
+        $this->average /= 12;
 
         return $tableData;
     }
