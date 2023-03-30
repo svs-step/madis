@@ -26,15 +26,25 @@ namespace App\Infrastructure\ORM\User\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Traits\RepositoryUtils;
+use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model;
 use App\Domain\User\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Persistence\ManagerRegistry;
 
 class User extends CRUDRepository implements Repository\User
 {
     use RepositoryUtils;
+
+    private string $inactiveUserDelayDays;
+
+    public function __construct(ManagerRegistry $registry, string $inactiveUserDelayDays)
+    {
+        parent::__construct($registry);
+        $this->inactiveUserDelayDays = $inactiveUserDelayDays;
+    }
 
     /**
      * {@inheritdoc}
@@ -195,13 +205,13 @@ class User extends CRUDRepository implements Repository\User
                 $queryBuilder->addOrderBy('collectivite.name', $orderDir);
                 break;
             case 'roles':
-                $queryBuilder->addSelect('
+                $queryBuilder->addSelect("
                 CASE
-                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.roles, \'$[0]\')) = :role_admin THEN 1
-                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.roles, \'$[0]\')) = :role_user THEN 2
-                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.roles, \'$[0]\')) = :role_preview THEN 3
+                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.roles, '$[0]')) = :role_admin THEN 1
+                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.roles, '$[0]')) = :role_user THEN 2
+                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.roles, '$[0]')) = :role_preview THEN 3
                     ELSE 4
-                END as HIDDEN json_role');
+                END as HIDDEN json_role");
                 $queryBuilder->addOrderBy('json_role', $orderDir);
                 $queryBuilder->setParameters(
                     [
@@ -219,6 +229,25 @@ class User extends CRUDRepository implements Repository\User
                 break;
             case 'createdAt':
                 $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
+            case 'moreInfos':
+                $queryBuilder->addSelect('
+                CASE
+                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.moreInfos, \'$[0]\')) = :treatment THEN 1
+                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.moreInfos, \'$[0]\')) = :info THEN 2
+                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.moreInfos, \'$[0]\')) = :ope THEN 3
+                    WHEN JSON_UNQUOTE(JSON_EXTRACT(o.moreInfos, \'$[0]\')) = :dpd THEN 4
+                    ELSE 5
+                END as HIDDEN json_more');
+                $queryBuilder->addOrderBy('json_more', $orderDir);
+                $queryBuilder->setParameters(
+                    [
+                        'treatment' => UserMoreInfoDictionary::MOREINFO_TREATMENT,
+                        'info'      => UserMoreInfoDictionary::MOREINFO_INFORMATIC,
+                        'ope'       => UserMoreInfoDictionary::MOREINFO_OPERATIONNAL,
+                        'dpd'       => UserMoreInfoDictionary::MOREINFO_DPD,
+                    ]
+                );
                 break;
         }
     }
@@ -241,8 +270,10 @@ class User extends CRUDRepository implements Repository\User
                         ->setParameter('collectivite_name', '%' . $search . '%');
                     break;
                 case 'roles':
-                    $queryBuilder->andWhere('o.roles LIKE :role')
-                        ->setParameter('role', sprintf('"%s"', '%' . $search . '%'));
+                    $this->addWhereClause($queryBuilder, 'roles', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'moreInfos':
+                    $this->addWhereClause($queryBuilder, 'moreInfos', '%' . $search . '%', 'LIKE');
                     break;
                 case 'connexion':
                     $queryBuilder->andWhere('o.lastLogin BETWEEN :connexion_start_date AND :connexion_finish_date')
@@ -286,7 +317,7 @@ class User extends CRUDRepository implements Repository\User
     public function findAllNoLogin()
     {
         $now       = new \DateTime();
-        $monthsAgo = $now->sub(\DateInterval::createFromDateString('6 month'));
+        $monthsAgo = $now->sub(\DateInterval::createFromDateString($this->inactiveUserDelayDays . ' days'));
         $qb        = $this->createQueryBuilder();
         $query     = $qb->where($qb->expr()->isNull('o.lastLogin'))
             ->andWhere($qb->expr()->orX(
@@ -316,7 +347,7 @@ class User extends CRUDRepository implements Repository\User
         $qb->andWhere('o.roles NOT LIKE :role')
             // TODO add andwhere with "is_dpo"
             ->setParameter('role', sprintf('"%s"', '%ROLE_ADMIN%'))
-        ->andWhere('o.collectivity = :collectivity')
+            ->andWhere('o.collectivity = :collectivity')
             ->setParameter('collectivity', $collectivity)
         ;
 
