@@ -192,7 +192,7 @@ class ViolationController extends CRUDController
                 'gravity'      => !\is_null($violation->getGravity()) ? ViolationGravityDictionary::getGravities()[$violation->getGravity()] : null,
                 'createdAt'    => date_format($violation->getCreatedAt(), 'd-m-Y H:i:s'),
                 'updatedAt'    => date_format($violation->getUpdatedAt(), 'd-m-Y H:i:s'),
-                'inProgress'       => $violation->isInProgress() ? $yes : $no ,
+                'inProgress'   => $violation->isInProgress() ? $yes : $no,
                 'actions'      => $this->getActionCellsContent($violation),
                 'notification' => $this->getNotifications(),
             ];

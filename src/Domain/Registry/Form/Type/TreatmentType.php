@@ -161,7 +161,7 @@ class TreatmentType extends AbstractType
                     return $er->createQueryBuilder('dc')
                         ->orderBy('dc.position', Criteria::ASC);
                 },
-                'choice_attr'   => function (TreatmentDataCategory $model) {
+                'choice_attr' => function (TreatmentDataCategory $model) {
                     if ($model->isSensible()) {
                         return [
                             'style' => 'font-weight: bold;',
@@ -170,10 +170,10 @@ class TreatmentType extends AbstractType
 
                     return [];
                 },
-                'attr'          => [
-                    'class' => 'selectpicker',
+                'attr' => [
+                    'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title' => 'placeholder.multiple_select_cat_data',
+                    'title'            => 'placeholder.multiple_select_cat_data',
                 ],
             ])
             ->add('dataCategoryOther', TextareaType::class, [
@@ -219,10 +219,10 @@ class TreatmentType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
-                    'class' => 'selectpicker',
+                'attr' => [
+                    'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title' => 'placeholder.multiple_select_contractors',
+                    'title'            => 'placeholder.multiple_select_contractors',
                 ],
             ])
             ->add('delay', DelayType::class, [
@@ -347,7 +347,7 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.otherCollectingMethod',
                 'required' => false,
             ])
-            ->add('updatedBy', HiddenType::class,[
+            ->add('updatedBy', HiddenType::class, [
                 'required' => false,
                 'data'     => $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()),
             ])
@@ -404,7 +404,7 @@ class TreatmentType extends AbstractType
                     return $er->createQueryBuilder('s')
                         ->orderBy('s.name', 'ASC');
                 },
-                'required'      => false,
+                'required' => false,
             ]);
         }
     }

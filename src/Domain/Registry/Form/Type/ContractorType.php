@@ -151,7 +151,7 @@ class ContractorType extends AbstractType
                 'label'    => 'registry.contractor.form.dpo',
                 'required' => false,
             ])
-            ->add('updatedBy', HiddenType::class,[
+            ->add('updatedBy', HiddenType::class, [
                 'required' => false,
                 'data'     => $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()),
             ])

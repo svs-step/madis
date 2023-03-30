@@ -123,13 +123,13 @@ class AnalyseImpact extends CRUDRepository implements \App\Domain\AIPD\Repositor
                     break;
                 case 'dateDeCreation':
                     $queryBuilder->andWhere('o.createdAt BETWEEN :created_start_date AND :created_finish_date')
-                        ->setParameter('created_start_date', date_create_from_format('d/m/y', substr($search, 0,8))->format('Y-m-d 00:00:00'))
-                        ->setParameter('created_finish_date', date_create_from_format('d/m/y', substr($search, 11,8))->format('Y-m-d 23:59:59'));
+                        ->setParameter('created_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('created_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
                 case 'dateDeValidation':
                     $queryBuilder->andWhere('o.dateValidation BETWEEN :validation_start_date AND :validation_finish_date')
-                        ->setParameter('validation_start_date', date_create_from_format('d/m/y', substr($search, 0,8))->format('Y-m-d 00:00:00'))
-                        ->setParameter('validation_finish_date', date_create_from_format('d/m/y', substr($search, 11,8))->format('Y-m-d 23:59:59'));
+                        ->setParameter('validation_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('validation_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
                 case 'modele':
                     $this->addWhereClause($queryBuilder, 'modeleAnalyse', '%' . $search . '%', 'LIKE');

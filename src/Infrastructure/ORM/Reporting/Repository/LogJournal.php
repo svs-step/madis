@@ -140,8 +140,8 @@ class LogJournal extends CRUDRepository implements Repository\LogJournal
                     break;
                 case 'date':
                     $queryBuilder->andWhere('o.date BETWEEN :start_date AND :finish_date')
-                        ->setParameter('start_date', date_create_from_format('d/m/y', substr($search, 0,8))->format('Y-m-d 00:00:00'))
-                        ->setParameter('finish_date', date_create_from_format('d/m/y', substr($search, 11,8))->format('Y-m-d 23:59:59'));
+                        ->setParameter('start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
                 case 'subject':
                     $queryBuilder->andWhere('o.subjectType = :subject')

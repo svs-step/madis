@@ -28,7 +28,7 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ViolationNotificationListDictionary extends SimpleDictionary
 {
-    public const NOTIFICATION_NOTHING = '';
+    public const NOTIFICATION_NOTHING      = '';
     public const NOTIFICATION_CROSS_BORDER = 'cross_border';
     public const NOTIFICATION_CNIL         = 'cnil';
     public const NOTIFICATION_OTHER        = 'other';
@@ -46,7 +46,7 @@ class ViolationNotificationListDictionary extends SimpleDictionary
     public static function getNotificationsList()
     {
         return [
-            self::NOTIFICATION_NOTHING => 'Aucune notification',
+            self::NOTIFICATION_NOTHING      => 'Aucune notification',
             self::NOTIFICATION_CROSS_BORDER => 'Notification transfrontalière',
             self::NOTIFICATION_CNIL         => 'Notification à la CNIL',
             self::NOTIFICATION_OTHER        => 'Notification à une autre autorité',

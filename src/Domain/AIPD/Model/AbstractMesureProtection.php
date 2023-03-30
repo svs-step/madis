@@ -40,7 +40,6 @@ class AbstractMesureProtection
      */
     private $updatedAt;
 
-
     public function __construct()
     {
         $this->id = Uuid::uuid4();

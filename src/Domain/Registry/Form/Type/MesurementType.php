@@ -242,7 +242,7 @@ class MesurementType extends AbstractType
                     'title' => 'placeholder.multiple_select',
                 ],
             ])
-            ->add('updatedBy', HiddenType::class,[
+            ->add('updatedBy', HiddenType::class, [
                 'required' => false,
                 'data'     => $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()),
             ])

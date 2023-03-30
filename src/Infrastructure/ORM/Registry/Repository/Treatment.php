@@ -364,7 +364,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             case 'sensitiveData':
                 $queryBuilder->leftJoin('o.dataCategories', 'dc')
                     ->where('dc.sensible = 1')
-                    ;
+                ;
                 $queryBuilder->addSelect('(case
                 WHEN dc.sensible = 1 THEN 1
                 WHEN dc.sensible = 0 THEN 2
@@ -435,13 +435,13 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     break;
                 case 'createdAt':
                     $queryBuilder->andWhere('o.createdAt BETWEEN :created_start_date AND :created_finish_date')
-                        ->setParameter('created_start_date', date_create_from_format('d/m/y', substr($search, 0,8))->format('Y-m-d 00:00:00'))
-                        ->setParameter('created_finish_date', date_create_from_format('d/m/y', substr($search, 11,8))->format('Y-m-d 23:59:59'));
+                        ->setParameter('created_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('created_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
                 case 'updatedAt':
                     $queryBuilder->andWhere('o.updatedAt BETWEEN :updated_start_date AND :updated_finish_date')
-                        ->setParameter('updated_start_date', date_create_from_format('d/m/y', substr($search, 0,8))->format('Y-m-d 00:00:00'))
-                        ->setParameter('updated_finish_date', date_create_from_format('d/m/y', substr($search, 11,8))->format('Y-m-d 23:59:59'));
+                        ->setParameter('updated_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('updated_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
                 case 'public':
                     $queryBuilder->andWhere('o.public = :public')
@@ -460,7 +460,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                             ->setParameter('sensitiveData', 1)
                             ->groupBy('o.id')
                         ;
-
                     } else {
                         $queryBuilder
                             ->leftJoin('o.dataCategories', 'dc')
@@ -471,9 +470,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                         ;
                     }
 
-
                     break;
-
                 case 'statut':
                     $queryBuilder->andWhere('o.statut = :statut')
                         ->setParameter('statut', $search);

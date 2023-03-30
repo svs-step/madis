@@ -350,7 +350,7 @@ class TreatmentController extends CRUDController
         foreach ($treatments as $treatment) {
             if (is_array($treatment)) {
                 $sensitiveData = $treatment['sensitiveData'];
-                $treatment = $treatment[0];
+                $treatment     = $treatment[0];
             }
             if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
                 $treatmentLink = '<a href="' . $this->router->generate('registry_public_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
