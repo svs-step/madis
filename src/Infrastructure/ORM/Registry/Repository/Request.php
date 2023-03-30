@@ -40,6 +40,8 @@ class Request implements Repository\Request
 {
     use RepositoryUtils;
 
+    private string $lateRequestDelayDays;
+
     /**
      * @var ManagerRegistry
      */
@@ -48,9 +50,10 @@ class Request implements Repository\Request
     /**
      * Request constructor.
      */
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, string $lateRequestDelayDays)
     {
-        $this->registry = $registry;
+        $this->registry             = $registry;
+        $this->lateRequestDelayDays = $lateRequestDelayDays;
     }
 
     /**
@@ -385,7 +388,7 @@ class Request implements Repository\Request
                     CONCAT(o.applicant.firstName, \' \', o.applicant.lastName), 
                     CONCAT(o.concernedPeople.firstName, \' \', o.applicant.lastName))
                     AS HIDDEN person_name')
-                ->addOrderBy('person_name', $orderDir);
+                    ->addOrderBy('person_name', $orderDir);
                 break;
             case 'date_demande':
                 $queryBuilder->addOrderBy('o.date', $orderDir);
@@ -402,7 +405,8 @@ class Request implements Repository\Request
                 WHEN o.object = \'' . RequestObjectDictionary::OBJECT_CORRECT . '\' THEN 5
                 WHEN o.object = \'' . RequestObjectDictionary::OBJECT_WITHDRAW_CONSENT . '\' THEN 6
                 WHEN o.object = \'' . RequestObjectDictionary::OBJECT_DELETE . '\' THEN 7
-                ELSE 8 END) AS HIDDEN hidden_object')
+                WHEN o.object = \'' . RequestObjectDictionary::OBJECT_OPPOSITE_TREATMENT . '\' THEN 8
+                ELSE 9 END) AS HIDDEN hidden_object')
                     ->addOrderBy('hidden_object', $orderDir);
                 break;
             case 'demande_complete':
@@ -494,7 +498,7 @@ class Request implements Repository\Request
     public function findAllLate(): array
     {
         $now       = new \DateTime();
-        $lastMonth = $now->sub(\DateInterval::createFromDateString('1 month'));
+        $lastMonth = $now->sub(\DateInterval::createFromDateString($this->lateRequestDelayDays . ' days'));
 
         return $this->createQueryBuilder()
             ->andWhere('o.updatedAt < :lastmonth')
