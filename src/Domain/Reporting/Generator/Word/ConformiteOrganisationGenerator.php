@@ -145,7 +145,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
             'width'       => 100 * 50,
         ];
         $tableOrganisationConformite = $section->addTable($tableStyleConformite);
-        $tableOrganisationConformite->addRow(null, array('tblHeader' => true));
+        $tableOrganisationConformite->addRow(null, array('tblHeader' => true, 'cantsplit' => true));
         $cell = $tableOrganisationConformite->addCell(2000, $this->cellHeadStyle);
         $cell->addText('Pilote', $this->textHeadStyle);
         $cell = $tableOrganisationConformite->addCell(4500, $this->cellHeadStyle);
@@ -154,7 +154,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         $cell->addText('Conformité', $this->textHeadStyle);
 
         foreach ($tableData as $line){
-            $tableOrganisationConformite->addRow();
+            $tableOrganisationConformite->addRow(null,['cantsplit' => true]);
             $cell1 = $tableOrganisationConformite->addCell(2000);
             $cell1->addText($line[0]);
             $cell2 = $tableOrganisationConformite->addCell(4500);

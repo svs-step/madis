@@ -79,13 +79,13 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         ];
 
         $table = $section->addTable($tableStyleConformite);
-        $row  = $table->addRow(null, ['valign' => 'center', 'tblHeader' => true]);
+        $row  = $table->addRow(null, ['valign' => 'center', 'tblHeader' => true, 'cantsplit' => true]);
         $cell = $row->addCell(750, ['bgColor' => '3c8dbc', 'valign' => 'center']);
         $cell->addText('Pratique',['bold' => true, 'color' => 'ffffff']);
         $cell = $row->addCell(null, ['bgColor' => '3c8dbc', 'gridSpan' => 2, 'valign' => 'center', ]);
         $cell->addText('Critère d\'appréciation', ['bold' => true, 'color' => 'ffffff']);
 
-        $row  = $table->addRow();
+        $row  = $table->addRow(null,['cantsplit' => true]);
         $cell = $row->addCell(750, ['bgColor' => 'ffb3b3', 'valign' => 'center']);
         $cell->addText('0', ['align' => 'center', 'color' => '990000']);
         $cell = $row->addCell(1250);
@@ -93,7 +93,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $cell = $row->addCell(3000);
         $cell->addText(self::RESPONSE_0 . ' (en dessous de 30%)');
 
-        $row  = $table->addRow();
+        $row  = $table->addRow(null, ['cantsplit' => true]);
         $cell = $row->addCell(750, ['bgColor' => 'ffff80', 'valign' => 'center']);
         $cell->addText('1', ['align' => 'center', 'color' => '999900']);
         $cell = $row->addCell(1250);
@@ -101,7 +101,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $cell = $row->addCell(3000);
         $cell->addText(self::RESPONSE_1 . ' (entre 30% et 70%)');
 
-        $row  = $table->addRow();
+        $row  = $table->addRow(null, ['cantsplit' => true]);
         $cell = $row->addCell(750, ['bgColor' => '85e085', 'valign' => 'center']);
         $cell->addText('2', ['align' => 'center', 'color' => '1f7a1f']);
         $cell = $row->addCell(1250);
@@ -139,7 +139,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             $chart->addSeries(\array_keys($maturityList), $serie2, $data['old']->getCreatedAt()->format('d/m/Y'));
         }
         $table = $section->addTable(['unit' => TblWidth::PERCENT, 'width' => 5000]);
-        $row   = $table->addRow();
+        $row   = $table->addRow(null,['cantsplit' => true]);
         if (!empty($serie2)) {
             $cell = $row->addCell(2500);
             $cell->addText("{$data['old']}", ['color' => 'b30000']);
@@ -149,7 +149,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
 
         $tablebis = $section->addTable($tableStyleConformite);
-        $row  = $tablebis->addRow(null, ['valign' => 'center', 'tblHeader' => true]);
+        $row  = $tablebis->addRow(null, ['valign' => 'center', 'tblHeader' => true, 'cantsplit' => true]);
         $cell = $row->addCell(2000, ['bgColor' => '3c8dbc', 'valign' => 'center']);
         $cell->addText('Domaines',['bold' => true, 'color' => 'ffffff']);
         $cell = $row->addCell(2000, ['bgColor' => '3c8dbc', 'valign' => 'center', ]);
@@ -159,7 +159,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
         $i = 0;
         foreach ($domainsName as $domain){
-            $row  = $tablebis->addRow(null, ['valign' => 'center']);
+            $row  = $tablebis->addRow(null, ['valign' => 'center', 'cantsplit' => true]);
             $cell = $row->addCell(2000, ['valign' => 'center', ]);
             $cell->addText($domain, []);
             $cell = $row->addCell(2000, ['valign' => 'center', ]);

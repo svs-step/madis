@@ -300,7 +300,7 @@ abstract class AbstractGenerator implements GeneratorInterface
             'unit'        => TblWidth::PERCENT,
             'width'       => 100 * 50,
         ]);
-        $row  = $table->addRow(10, ['tblHeader' => true]);
+        $row  = $table->addRow(10, ['tblHeader' => true, 'cantsplit' => true]);
         $cell = $row->addCell(15 * 50);
         $cell = $row->addCell(70 * 50, ['alignment' => Jc::CENTER]);
         $cell->addText($title, ['alignment' => Jc::CENTER, 'bold' => true]);
@@ -360,7 +360,7 @@ abstract class AbstractGenerator implements GeneratorInterface
     {
         $table = $section->addTable($this->tableStyle);
         $headersTable = $data[0];
-        $table->addRow(null, array('tblHeader' => true));
+        $table->addRow(null, array('tblHeader' => true, 'cantsplit' => true));
         foreach ($headersTable as $element){
             $cell = $table->addCell(2500, $this->cellHeadStyle);
             $cell->addText($element, $this->textHeadStyle);
@@ -368,7 +368,7 @@ abstract class AbstractGenerator implements GeneratorInterface
         unset($data[0]);
 
         foreach ($data as $nbLine => $line) {
-            $table->addRow();
+            $table->addRow(null, ['cantsplit' => true]);
             $lineData  = $line['data'] ?? $line;
             $lineStyle = $line['style'] ?? null;
             foreach ($lineData as $nbCol => $col) {

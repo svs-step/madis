@@ -486,4 +486,37 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             $this->addTable($section, $historyData, true, self::TABLE_ORIENTATION_VERTICAL);
         }
     }
+
+    public function TreatmentAnnexeList($section, $data){
+        $section->addTitle('Liste des traitements',2);
+        $treatmentAnnexListTable = $section->addTable($this->tableStyle);
+        $treatmentAnnexListTable->addRow(null, array('tblHeader' => true, 'cantsplit' => true));
+        $cell = $treatmentAnnexListTable->addCell(3000, $this->cellHeadStyle);
+        $cell->addText('Nom', $this->textHeadStyle);
+        $cell = $treatmentAnnexListTable->addCell(2000, $this->cellHeadStyle);
+        $cell->addText('Gestionnaire', $this->textHeadStyle);
+        $cell = $treatmentAnnexListTable->addCell(1500, $this->cellHeadStyle);
+        $cell->addText('Support', $this->textHeadStyle);
+        $cell = $treatmentAnnexListTable->addCell(2000, $this->cellHeadStyle);
+        $cell->addText('Mesures de sécurité et confidentialité', $this->textHeadStyle);
+
+        foreach($data as $item){
+            $treatmentAnnexListTable->addRow(null, ['cantsplit' => true]);
+            $cell = $treatmentAnnexListTable->addCell(3000);
+            $cell->addText($item->getName());
+            $cell = $treatmentAnnexListTable->addCell(2000);
+            $cell->addText($item->getManager());
+            $cell = $treatmentAnnexListTable->addCell(1500);
+            $cell->addText($item->getDataOrigin());
+            $cell = $treatmentAnnexListTable->addCell(2000);
+            $cell->addListItem('Controle d\'accès', null, ['color' => $this->IsMesureOk($item->getSecurityAccessControl())]);
+            $cell->addListItem('Traçabilité', null,  ['color' => $this->IsMesureOk($item->getSecurityTracability())]);
+            $cell->addListItem('Sauvegarde', null, ['color' => $this->IsMesureOk($item->getSecuritySaving())]);
+            $cell->addListItem('Mise à jour', null, ['color' => $this->IsMesureOk($item->getSecurityUpdate())]);
+        }
+    }
+
+    private function IsMesureOk($data){
+        return $data->isCheck() ? 'bce292':'ffa7a7';
+    }
 }

@@ -143,14 +143,14 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
         $tableConformite = $section->addTable($tableStyleConformite);
         $headersTable = $tableData[0];
-        $tableConformite->addRow(null, array('tblHeader' => true));
+        $tableConformite->addRow(null, array('tblHeader' => true, 'cantsplit' => true));
         foreach ($headersTable as $element){
             $cell = $tableConformite->addCell(2500, $this->cellHeadStyle);
             $cell->addText($element, $this->textHeadStyle);
         }
         unset($tableData[0]);
         foreach ($tableData as $line){
-            $tableConformite->addRow();
+            $tableConformite->addRow(null, ['cantsplit' => true]);
             $cell1 = $tableConformite->addCell(2500);
             $cell1->addText($line[0]);
             $cell2 = $tableConformite->addCell(2500);
@@ -201,7 +201,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         $section->addText("Ci-dessous, la liste des traitements pour lequel une analyse d’impact sur la protection des données est requise. Au vu des critères, il semble que ". $cntAipdToDo ." traitements requière(nt) une analyse d’impact");
 
         $tableNeedAipd = $section->addTable($tableStyleConformite);
-        $tableNeedAipd->addRow(null, array('tblHeader' => true));
+        $tableNeedAipd->addRow(null, array('tblHeader' => true, 'cantsplit' => true));
         foreach (['Nom du traitement', 'Données sensibles', 'Traitement spécifique'] as $element){
             $cell = $tableNeedAipd->addCell(2500, $this->cellHeadStyle);
             $cell->addText($element, $this->textHeadStyle);
@@ -230,7 +230,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 }
             }
             if (($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories >1){
-                $tableNeedAipd->addRow();
+                $tableNeedAipd->addRow(null, ['cantsplit' => true]);
                 $cell = $tableNeedAipd->addCell(2500);
                 $cell->addText($treatment->getName());
                 $cell = $tableNeedAipd->addCell(2500);

@@ -210,12 +210,18 @@ class OverviewGenerator extends AbstractGenerator
             $section->addListItem('Le référent opérationnel continue de mettre à jour le registre avec les éventuels nouveaux sous-traitants.');
             $section->addListItem('Le comité génère un bilan chaque année et met en place les mesures correctives adéquates.');
         }
+        $section->addText("Le responsable du traitement atteste avoir pris connaissance de l’ensemble des documents, approuve le bilan et s’engage à mettre en œuvre le plan d’action.");
+        $section->addText('Signature du responsable du traitement');
+        $section->addTextBreak(3);
+        $section->addPageBreak();
+
     }
 
     public function generateAnnexeMention(Section $section, array $treatments = []): void
     {
-        $section->addTitle('Liste des documents en annexe du bilan');
+        $section->addTitle('ANNEXES');
         $section->addListItem('La liste des traitements');
+        $this->treatmentGenerator->TreatmentAnnexeList($section, $treatments);
 
         $this->treatmentGenerator->addSyntheticView($section, $treatments, true);
     }
