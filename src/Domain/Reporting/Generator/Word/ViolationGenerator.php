@@ -260,4 +260,39 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
 
         return $translatedValues;
     }
+
+    public function AnnexeList($section, $violations){
+        $section->addTitle('Liste des violations de données',2);
+        $tableViolationAnnexeApplied = $section->addTable($this->tableStyle);
+        $tableViolationAnnexeApplied->addRow(null, ['tblHeader' => true, 'cantSplit' => true]);
+        $cell = $tableViolationAnnexeApplied->addCell(1000, $this->cellHeadStyle);
+        $cell->addText('Date', $this->textHeadStyle);
+        $cell = $tableViolationAnnexeApplied->addCell(1500, $this->cellHeadStyle);
+        $cell->addText('Communication aux personnes', $this->textHeadStyle);
+        $cell = $tableViolationAnnexeApplied->addCell(1500, $this->cellHeadStyle);
+        $cell->addText('Notification autorité de contrôle', $this->textHeadStyle);
+        $cell = $tableViolationAnnexeApplied->addCell(1500, $this->cellHeadStyle);
+        $cell->addText('Sous-traitants', $this->textHeadStyle);
+        $cell = $tableViolationAnnexeApplied->addCell(1500, $this->cellHeadStyle);
+        $cell->addText('Traitements associés', $this->textHeadStyle);
+
+        foreach ($violations as $line){
+            $tableViolationAnnexeApplied->addRow(null, ['cantSplit' => true]);
+            $cell = $tableViolationAnnexeApplied->addCell(1000);
+            $date = !$line->isInProgress() ? $line->getDate()->format('d/m/Y') : $line->getDate()->format('d/m/Y').' (En cours)';
+            $cell->addText($date);
+            $cell = $tableViolationAnnexeApplied->addCell(1500);
+            $cell->addText($line->getCommunicationPrecision());
+            $cell = $tableViolationAnnexeApplied->addCell(1500);
+            $cell->addText($line->getNotificationDetails());
+            $cell = $tableViolationAnnexeApplied->addCell(1500);
+            foreach($line->getContractors() as $item){
+                $cell->addListItem($item->getName());
+            }
+            $cell = $tableViolationAnnexeApplied->addCell(1500);
+            foreach($line->getTreatments() as $item){
+                $cell->addListItem($item->getName());
+            }
+        }
+    }
 }

@@ -110,7 +110,20 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $cell->addText('Nombre d’actions de protection affectées', $this->textHeadStyle);
     }
 
-    private function ProtectionActionAppliedTable($section, $appliedMesurement){
+    public function ProtectionActionAppliedAnnexeTable($section, $data){
+        $appliedMesurement = [];
+        foreach ($data as $mesurement) {
+            if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {
+                $appliedMesurement[] = [
+                    $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_FORMAT) : '',
+                    $mesurement->getName(),
+                ];
+            }
+        }
+        $this->ProtectionActionAppliedTable($section, $appliedMesurement);
+    }
+
+    public function ProtectionActionAppliedTable($section, $appliedMesurement){
 
         $tableProtectionActionApplied = $section->addTable($this->tableStyleConformite);
         $tableProtectionActionApplied->addRow(null, ['tblHeader' => true, 'cantSplit' => true]);

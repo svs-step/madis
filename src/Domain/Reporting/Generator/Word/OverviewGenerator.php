@@ -217,12 +217,18 @@ class OverviewGenerator extends AbstractGenerator
 
     }
 
-    public function generateAnnexeMention(Section $section, array $treatments = []): void
+    public function generateAnnexeMention(Section $section, array $treatments = [], array $violations = [], array $mesurements = []): void
     {
         $section->addTitle('ANNEXES');
-        $section->addListItem('La liste des traitements');
         $this->treatmentGenerator->TreatmentAnnexeList($section, $treatments);
+        /* todo ajouter la liste des utilisateurs */
+        //$this->conformiteTraitementGenerator->SyntheticAnnexeList($section, $treatments);
+        //$this->treatmentGenerator->RiskTreatmentAnnexeList($section, $treatments);
 
-        $this->treatmentGenerator->addSyntheticView($section, $treatments, true);
+
+        $this->violationGenerator->AnnexeList($section, $violations);
+        $section->addTitle('Liste des actions de protection mises en place',2);
+        $this->mesurementGenerator->ProtectionActionAppliedAnnexeTable($section, $mesurements);
+
     }
 }
