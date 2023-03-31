@@ -217,18 +217,20 @@ class OverviewGenerator extends AbstractGenerator
 
     }
 
-    public function generateAnnexeMention(Section $section, array $treatments = [], array $violations = [], array $mesurements = []): void
+    public function generateAnnexeMention($document, Section $section, array $treatments = [], array $violations = [], array $mesurements = []): void
     {
         $section->addTitle('ANNEXES');
         $this->treatmentGenerator->TreatmentAnnexeList($section, $treatments);
         /* todo ajouter la liste des utilisateurs */
         //$this->conformiteTraitementGenerator->SyntheticAnnexeList($section, $treatments);
-        //$this->treatmentGenerator->RiskTreatmentAnnexeList($section, $treatments);
 
-
-        $this->violationGenerator->AnnexeList($section, $violations);
-        $section->addTitle('Liste des actions de protection mises en place',2);
-        $this->mesurementGenerator->ProtectionActionAppliedAnnexeTable($section, $mesurements);
-
+        $section->addPageBreak();
+        $RiskAnnexeSection = $document->addSection(['orientation' => 'landscape']);
+        $this->treatmentGenerator->RiskTreatmentAnnexeList($RiskAnnexeSection, $treatments);
+        $RiskAnnexeSection->addPageBreak();
+        $this->violationGenerator->AnnexeList($RiskAnnexeSection, $violations);
+        $RiskAnnexeSection->addPageBreak();
+        $RiskAnnexeSection->addTitle('Liste des actions de protection mises en place',2);
+        $this->mesurementGenerator->ProtectionActionAppliedAnnexeTable($RiskAnnexeSection, $mesurements);
     }
 }

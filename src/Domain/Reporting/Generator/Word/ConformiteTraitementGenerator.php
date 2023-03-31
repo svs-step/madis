@@ -229,7 +229,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                     $sensibleDatas[] = $category;
                 }
             }
-            if (($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories >1){
+            if (($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories >1 || ($cnt_sensible>2)){
                 $tableNeedAipd->addRow(null, ['cantsplit' => true]);
                 $cell = $tableNeedAipd->addCell(2500);
                 $cell->addText($treatment->getName());
