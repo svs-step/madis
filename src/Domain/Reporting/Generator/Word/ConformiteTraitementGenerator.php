@@ -435,4 +435,88 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
         return ($orderA < $orderB) ? -1 : 1;
     }
+
+    public function SyntheticAnnexeList($section, $treatments)
+    {
+        $section->addTitle('Synthèse de la conformité des traitements évalués', 2);
+        $section->addText('Légende :');
+        $section->AddListItem('C = Conforme');
+        $section->AddListItem('NCM = Non conforme mineure');
+        $section->AddListItem('NC = Non conforme majeure');
+        $section->addPageBreak();
+
+        $evaluateTreatments = [];
+        foreach ($treatments as $treatment){
+            if ($treatment->getConformiteTraitement()){
+                $evaluateTreatments[] = $treatment;
+                dd($treatment->getConformiteTraitement()->getLastAnalyseImpact()->getCriterePrincipeFondamentaux());
+            }
+        }
+
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(1000,["bgColor" => "3c8dbc", 'vMerge' => 'restart']);
+        $cell->addText('Traitements', $this->textHeadStyle);
+        $cell = $table->addCell(100,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell->addText('Finalités', $this->textHeadStyle);
+        $cell = $table->addCell(100,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell->addText('Licéité du traitement', $this->textHeadStyle);
+        $cell = $table->addCell(100,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell->addText('Minimisation des données', $this->textHeadStyle);
+        $cell = $table->addCell(100,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell->addText('Qualité des données', $this->textHeadStyle);
+        $cell = $table->addCell(100,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell->addText('Durées de conservation', $this->textHeadStyle);
+        $cell = $table->addCell(100,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell->addText('Information des personnes', $this->textHeadStyle);
+        $cell = $table->addCell(100,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell->addText('Recueil du consentement', $this->textHeadStyle);
+        $cell = $table->addCell(1200);
+        $cell->getStyle()->setGridSpan(6);
+        $cell->addText('Exercice des droits', $this->textHeadStyle);
+        $cell = $table->addCell(100,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell->addText('Sous-traitance', $this->textHeadStyle);
+        $cell = $table->addCell(100,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell->addText('Transferts hors UE', $this->textHeadStyle);
+        $cell = $table->addCell(100,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell->addText('');
+        $cell = $table->addCell(100,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell->addText('C', $this->textHeadStyle);
+        $cell = $table->addCell(100,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell->addText('NCM', $this->textHeadStyle);
+        $cell = $table->addCell(100,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell->addText('NC', $this->textHeadStyle);
+        $table->addRow(1000);
+        $table->addCell(1000,['vMerge' => 'continue']);
+        $table->addCell(100,['vMerge' => 'continue']);
+        $table->addCell(100,['vMerge' => 'continue']);
+        $table->addCell(100,['vMerge' => 'continue']);
+        $table->addCell(100,['vMerge' => 'continue']);
+        $table->addCell(100,['vMerge' => 'continue']);
+        $table->addCell(100,['vMerge' => 'continue']);
+        $table->addCell(100,['vMerge' => 'continue']);
+        $cell = $table->addCell(200,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'continue']);
+        $cell->addText('Accès', $this->textHeadStyle);
+        $cell = $table->addCell(200,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'continue']);
+        $cell->addText('Portabilité', $this->textHeadStyle);
+        $cell = $table->addCell(200,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'continue']);
+        $cell->addText('Rectification', $this->textHeadStyle);
+        $cell = $table->addCell(200,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'continue']);
+        $cell->addText('Effacement', $this->textHeadStyle);
+        $cell = $table->addCell(200,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'continue']);
+        $cell->addText('Limitation', $this->textHeadStyle);
+        $cell = $table->addCell(200,["textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, "bgColor" => "3c8dbc", 'vAlign' => 'bottom', 'vMerge' => 'continue']);
+        $cell->addText('Opposition', $this->textHeadStyle);
+        $table->addCell(100,['vMerge' => 'continue']);
+        $table->addCell(100,['vMerge' => 'continue']);
+        $table->addCell(100,['vMerge' => 'continue']);
+        $table->addCell(100,['vMerge' => 'continue']);
+        $table->addCell(100,['vMerge' => 'continue']);
+        $table->addCell(100,['vMerge' => 'continue']);
+        $table->addCell(100,['vMerge' => 'continue']);
+        $table->addCell(100,['vMerge' => 'continue']);
+
+        $table->addRow();
+
+    }
 }

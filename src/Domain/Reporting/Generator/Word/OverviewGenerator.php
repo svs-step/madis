@@ -242,6 +242,7 @@ class OverviewGenerator extends AbstractGenerator
 
         $section->addPageBreak();
         $RiskAnnexeSection = $document->addSection(['orientation' => 'landscape']);
+        $this->conformiteTraitementGenerator->SyntheticAnnexeList($RiskAnnexeSection, $treatments);
         $this->treatmentGenerator->RiskTreatmentAnnexeList($RiskAnnexeSection, $treatments);
         $RiskAnnexeSection->addPageBreak();
         $this->violationGenerator->AnnexeList($RiskAnnexeSection, $violations);
@@ -249,4 +250,5 @@ class OverviewGenerator extends AbstractGenerator
         $RiskAnnexeSection->addTitle('Liste des actions de protection mises en place',2);
         $this->mesurementGenerator->ProtectionActionAppliedAnnexeTable($RiskAnnexeSection, $mesurements);
     }
+
 }
