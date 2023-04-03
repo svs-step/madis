@@ -77,14 +77,14 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
-                                <li><a href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
+                                <li><a aria-label="{{ 'documentation.document.action.file'|trans }}" href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
+                                <li><a aria-label="{{ 'documentation.document.action.url'|trans }}" href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
                             </ul>
                         </div>
                     {% endif %}
                     {# Uniquement pour les DPO #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                        <a aria-label="{{ 'documentation.category.action.list'|trans }}" href="{{ path('documentation_category_list') }}" class="btn btn-default">
                             <i class="fas fa-tag"></i>
                             {{ 'documentation.category.action.list'|trans }}
                         </a>
@@ -99,15 +99,14 @@
                 <div class="box-body">
 
                     <div class="row">
+                        {# SWITCH GRID LIST #}
+                    {% if is_granted('ROLE_USER') %}
                         <div class="col-md-12 col-xl-2">
                             <div class="ml2">
-                                <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
+                                <a aria-label="{{ 'documentation.document.action.list'|trans }}" href="{{ path('documentation_document_list') }}" class="btn btn-default">
                                     <i class="fas fa-list"></i>
                                     {{ 'documentation.document.action.list'|trans }}
                                 </a>
-
-                        {# SWITCH GRID LIST #}
-                        {% if is_granted('ROLE_USER') %}
                                 {# RESET FILTERS #}
                                 <button id="button-reset" class="btn btn-default">
                                     Réinitialiser les filtres
@@ -145,25 +144,26 @@
                                 </select>
                             </div>
                         </div>
-                        {% else %}
-                                </div>
+                    {% else %}
                             </div>
-                        {% endif %}
+                        </div>
+                    {% endif %}
+
                     </div>
 
-                    <table id="documentation-grid" class="table cards">
+                    <table role="presentation" id="documentation-grid" class="table cards">
                         <thead>
                             <tr>
 
-                                <th></th>
-                                <th>{{ 'documentation.document.list.favorite'|trans }}</th>
-                                <th>{{ 'documentation.document.list.name'|trans }}</th>
-                                <th>{{ 'documentation.document.list.type'|trans }}</th>
-                                <th>{{ 'documentation.document.list.weight'|trans }}</th>
-                                <th>{{ 'documentation.document.list.created_at'|trans }}</th>
-                                <th>{{ 'documentation.document.list.category'|trans }}</th>
-                                <th>{{ 'label.actions'|trans }}</th>
-                                <th></th>
+                                <th scope="col"></th>
+                                <th scope="col">{{ 'documentation.document.list.favorite'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.name'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.type'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.weight'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.created_at'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.category'|trans }}</th>
+                                <th scope="col">{{ 'label.actions'|trans }}</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody style="display: flex;flex-wrap: wrap;">
@@ -171,7 +171,7 @@
                             <tr class="grid-item">
 
                                 <td class="text-center p-0">
-                                    <a href="{{ object.url }}" target="_blank" >
+                                    <a aria-label="Media" href="{{ object.url }}" target="_blank" >
                                         {% if (object.thumbUrl) %}
                                             <img src="{{ object.thumbUrl }}" alt="" height="150" style="object-fit : cover;width:100%" />
                                         {% else %}
@@ -198,7 +198,7 @@
                                     </a>
                                 </td>
                                 <td class="text-center favorite"  style="position:absolute; background:white; padding: 5px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15); top:0; left:0;">
-                                    <a href="{{ path('documentation_document_favorite', { 'id': object.id, 'back': app.request.uri }) }}" style="color:#f39c12;">
+                                    <a aria-label="Favoris" href="{{ path('documentation_document_favorite', { 'id': object.id, 'back': app.request.uri }) }}" style="color:#f39c12;">
                                         {% if object.favoritedUsers |filter(f => f.id == app.user.id)|length > 0 %}
                                             1
                                         {% else %}
@@ -207,7 +207,7 @@
                                     </a>
                                 </td>
                                 <td style="line-height: 1.2em;overflow: hidden;height: 25px;">
-                                    <a href="{{ object.url }}" target="_blank" style="word-break: break-word;">
+                                    <a aria-label="{{ object.name }}" href="{{ object.url }}" target="_blank" style="word-break: break-word;">
                                         <strong>{{ object.name }}</strong>
                                     </a>
                                 </td>
@@ -242,16 +242,16 @@
                                 <td>
                                     {% if is_granted('ROLE_ADMIN') %}
                                     <div class="row" style="padding: 0 20px; position: relative; bottom: 0;">
-                                        <a class="sharelink btn btn-block text-info col-md-12" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal" style="border-color:#31708f">
+                                        <a aria-label="{{ 'action.share'|trans }}" class="sharelink btn btn-block text-info col-md-12" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal" style="border-color:#31708f">
                                             <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
                                         </a>
                                         <div class="col-md-12" style="padding: 5px 0 0 0">
-                                            <a class="btn btn-block text-info" href="{{ path('documentation_document_edit', { 'id': object.id }) }}" style="border-color:#31708f">
+                                            <a aria-label="{{ 'action.edit'|trans }}" class="btn btn-block text-info" href="{{ path('documentation_document_edit', { 'id': object.id }) }}" style="border-color:#31708f">
                                                 <i class="fa fa-pencil-alt"></i>&nbsp;{{ 'action.edit'|trans }}
                                             </a>
                                         </div>
                                         <div class="col-md-12" style="padding: 5px 0 0 0">
-                                            <a class="btn btn-block text-info col-md-6" href="{{ path('documentation_document_delete', { 'id': object.id }) }}" style="border-color:#31708f">
+                                            <a aria-label="{{ 'action.delete'|trans }}" class="btn btn-block text-info col-md-6" href="{{ path('documentation_document_delete', { 'id': object.id }) }}" style="border-color:#31708f">
                                                 <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
                                             </a>
                                         </div>
@@ -259,7 +259,7 @@
                                     {% endif %}
                                     {% if is_granted('ROLE_REFERENT') and not is_granted('ROLE_ADMIN') %}
                                         <div class="row" style="padding: 0 20px; position: relative; bottom: 0;">
-                                            <a class="sharelink btn btn-block text-info col-md-12" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal" style="border-color:#31708f">
+                                            <a aria-label="{{ 'action.share'|trans }}" class="sharelink btn btn-block text-info col-md-12" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal" style="border-color:#31708f">
                                                 <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
                                             </a>
                                         </div>

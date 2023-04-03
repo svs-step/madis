@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr-FR">
 
 <head>
     <meta charset="utf-8">
@@ -37,13 +37,19 @@
 
 {% set bodyClass = bodyClass|default('') %}
 <body class="hold-transition skin-blue sidebar-mini {{ bodyClass }}">
-
+<nav class="skiplinks" role="navigation" aria-label="Accès rapide">
+    <ul>
+      <li><a href="#sidebar">Menu</a></li>
+      <li><a href="#main-content">Contenu</a></li>
+      <li><a href="#main-footer">Pied de page</a></li>
+    </ul>
+</nav>
     {# Impersonate banner #}
     {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
     <div class="banner-impersonate bg-danger text-red">
         <div>
             Vous êtes actuellement connecté en tant que "{{ app.user }}" ({{ app.user.collectivity }} - {{ app.user.roles[0]|dictionary('user_user_role') }})
-            <a href="{{ path('user_user_list', {'_switch_user': '_exit'}) }}" class="text-red">
+            <a aria-label="Déconnexion" href="{{ path('user_user_list', {'_switch_user': '_exit'}) }}" class="text-red">
                 Quitter ce mode
             </a>
         </div>
@@ -58,7 +64,7 @@
             {{ include('_sidebar.html.twig') }}
         </aside>
 
-        <div class="content-wrapper">
+        <div id="main-content" class="content-wrapper" role="main" tabindex="-1">
             <section class="content-header">
                 {% block body_head %}{% endblock %}
                 {% block breadcrumb %}{% endblock %}
@@ -68,7 +74,7 @@
                 {{ include('_flashbag.html.twig') }}
                 {% block body %}{% endblock %}
             </section>
-        </div>
+        </main>
 
         {{ include('_footer.html.twig') }}
     </div>

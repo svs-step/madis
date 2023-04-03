@@ -80,7 +80,6 @@
         }) %}
 
         var options = {{ dataTableOptions|json_encode|raw }}
-        console.log('options', {{ dataTableOptions|json_encode|raw }})
 
         if (options.addcheckbox) {
             options.columnDefs = [{
@@ -104,7 +103,6 @@
 
             delete options.addSubstr;
         }
-
         var fullData = [];
 
         var strip = function ( str ) {
@@ -148,7 +146,7 @@
                 });
             });
         }
-        
+
         try {
             (options.buttons[1].exportOptions.customizeData = function(d) {
                 var api = $('#table').DataTable();
@@ -156,11 +154,12 @@
                 var visible = api.columns().visible();
                 console.log('api.ajax', api.ajax.params())
                 var params = api.ajax.params();
-                console.log('params', params)
+
                 params.columns = params.columns.filter(function(c, i) { return visible[i] })
                 if (options.excludeId) {
                     params.columns = params.columns.filter( (c) => c.data !== "id")
                 }
+
                 var exportBody = getFullData(params);
 
                 console.log('full data', exportBody)
@@ -183,7 +182,7 @@
 
         console.log('oTable', oTable);
         $('#delete-all').on('click', function(event) {
-            event.stopPropagation(); 
+            event.stopPropagation();
             let data = oTable.rows().data().toArray().map(row => row.id);
             try {
                 $('#delete-all').attr('href', function(index, href) {
@@ -201,7 +200,7 @@
             }
         })
         $('#archive-all').on('click', function(event) {
-            event.stopPropagation(); 
+            event.stopPropagation();
             let data = oTable.rows().data().toArray().map(row => row.id);
             $('#archive-all').attr('href', function(index, href) {
                 let param = `ids=${data}`;
@@ -215,7 +214,7 @@
             event = event.originalEvent;
         })
         $('#print-all').on('click', function(event) {
-            event.stopPropagation(); 
+            event.stopPropagation();
             let data = oTable.rows().data().toArray().map(row => row.id);
             try {
                 $('#print-all').attr('href', function(index, href) {
@@ -230,6 +229,7 @@
             } catch {
                 console.log()
             }
+
             event = event.originalEvent;
         })
     });

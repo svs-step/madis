@@ -102,10 +102,10 @@
                                     <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
                                 </th>
                                 <th scope="col">
-                                    <select class="form-control selectpicker" id="search_category" style="width: 100%;" 
-                                        multiple 
-                                        title="Catégories" 
-                                        > 
+                                    <select class="form-control selectpicker" id="search_category" style="width: 100%;"
+                                        multiple
+                                        title="Catégories"
+                                        >
                                         {% for category in categories %}
                                             {% if category.name in activeCategories %}
                                                 <option
@@ -128,7 +128,7 @@
                                 </th>
                                 <th scope="col"></th>
                             </tr>
-                            
+
                             <tr>
                                 <th scope="col">{{ 'documentation.document.list.pinned'|trans }}</th>
                                 <th scope="col">{{ 'documentation.document.list.favorited'|trans }}</th>
@@ -294,7 +294,6 @@
     {{ include('_Utils/_datatable.html.twig') }}
     <script>
         $(document).ready(function() {
-
             const isUser = {{ is_granted('ROLE_USER')|json_encode() }};
             const isReferent = {{ is_granted('ROLE_REFERENT')|json_encode() }};
 
@@ -360,7 +359,8 @@
             $('#search_updated_at').show('slide',function(){
                 $('input#search_updated_at').val('');
             });
-            
+
+
             $('#search_favorite').off('change');
             $('#search_favorite').change(function(){
                 oTable.column('1').search($(this).prop('checked') ? "1" : "").draw();
@@ -387,8 +387,8 @@
                 }
             });
 
-            $('#search_date').off('change');
-            $('#search_date').change(function(){
+            $('#search_created_at').off('change');
+            $('#search_created_at').change(function(){
                 oTable.column('6').search($(this).val()).draw() ;
             });
 
@@ -438,7 +438,7 @@
                 obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i>' : '<i data-value="0" class="far fa-star"></i>'
             })
         }
-        
+
 
     </script>
 

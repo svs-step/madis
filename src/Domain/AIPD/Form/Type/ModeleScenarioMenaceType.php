@@ -30,7 +30,7 @@ class ModeleScenarioMenaceType extends AbstractType
                 'class'    => ModeleMesureProtection::class,
                 'attr'     => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'title' => 'placeholder.multiple_select_mesure_protection',
                 ],
             ])
             ->add('isVisible', CheckboxType::class, [

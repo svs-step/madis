@@ -87,7 +87,7 @@
                             {% for service in form.services %}
                                 {{ formMacros.printService(service) }}
                             {% endfor %}
-                        <a id="add-services" href="#" class="js-collection-add">
+                        <a aria-label="Ajouter un service" id="add-services" href="#" class="js-collection-add">
                             <span class="fa fa-plus-circle"></span>
                             Ajouter un service
                         </a>
@@ -145,7 +145,7 @@
                         {{ formMacros.printComiteIlContact(contact) }}
                         <hr style="border-top-color: #dddddd" />
                     {% endfor %}
-                    <a href="#" class="js-collection-add">
+                    <a aria-label="Ajouter un membre" href="#" class="js-collection-add">
                         <span class="fa fa-plus-circle"></span>
                         Ajouter un membre
                     </a>
@@ -160,7 +160,7 @@
     <div class="col-md-12">
         <div class="box box-solid">
                 <div class="box-body text-center">
-                <a href="{{ path('user_collectivity_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'user.collectivity.action.back_to_list'|trans }}" href="{{ path('user_collectivity_list') }}" class="btn btn-default">
                     {{ 'user.collectivity.action.back_to_list'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">

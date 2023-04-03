@@ -32,7 +32,6 @@ use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
 use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
-use App\Domain\Registry\Dictionary\TreatmentStatutDictionary;
 use App\Domain\Registry\Form\Type\TreatmentConfigurationType;
 use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model;
@@ -348,16 +347,12 @@ class TreatmentController extends CRUDController
 
         /** @var Model\Treatment $treatment */
         foreach ($treatments as $treatment) {
-            if (is_array($treatment)) {
-                $sensitiveData = $treatment['sensitiveData'];
-                $treatment     = $treatment[0];
-            }
             if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
-                $treatmentLink = '<a href="' . $this->router->generate('registry_public_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
+                $treatmentLink = '<a aria-label="' . \htmlspecialchars($treatment->getName()) . '" href="' . $this->router->generate('registry_public_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
                 ' . \htmlspecialchars($treatment->getName()) . '
                 </a>';
             } else {
-                $treatmentLink = '<a href="' . $this->router->generate('registry_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
+                $treatmentLink = '<a aria-label="' . \htmlspecialchars($treatment->getName()) . '" href="' . $this->router->generate('registry_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
                 ' . \htmlspecialchars($treatment->getName()) . '
                 </a>';
             }
@@ -380,7 +375,6 @@ class TreatmentController extends CRUDController
                 'enTantQue'              => !empty($treatment->getAuthor()) && array_key_exists($treatment->getAuthor(), TreatmentAuthorDictionary::getAuthors()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : $treatment->getAuthor(),
                 'gestionnaire'           => $treatment->getManager(),
                 'sousTraitant'           => $contractors,
-                'sensitiveData'          => $this->countSensitiveData($treatment->getDataCategories()),
                 'controleAcces'          => $treatment->getSecurityAccessControl()->isCheck() ? $yes : $no,
                 'tracabilite'            => $treatment->getSecurityTracability()->isCheck() ? $yes : $no,
                 'saving'                 => $treatment->getSecuritySaving()->isCheck() ? $yes : $no,
@@ -389,35 +383,16 @@ class TreatmentController extends CRUDController
                 'entitledPersons'        => $treatment->isSecurityEntitledPersons() ? $yes : $no,
                 'openAccounts'           => $treatment->isSecurityOpenAccounts() ? $yes : $no,
                 'specificitiesDelivered' => $treatment->isSecuritySpecificitiesDelivered() ? $yes : $no,
+                'updatedAt'              => date_format($treatment->getUpdatedAt(), 'd-m-Y H:i:s'),
                 'public'                 => $treatment->getPublic() ? $yes : $no,
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
                 'specific_traitement'    => $this->getSpecificTraitement($treatment),
                 'conformite_traitement'  => $this->getTreatmentConformity($treatment),
-                'avis_aipd'              => $this->getAvisAipd($treatment),
-                'exempt_AIPD'            => $treatment->getExemptAIPD() ? $yes : $no,
-                'createdAt'              => date_format($treatment->getCreatedAt(), 'd-m-Y H:i:s'),
-                'updatedAt'              => date_format($treatment->getUpdatedAt(), 'd-m-Y H:i:s'),
-                'statut'                 => $treatment->getStatut() && isset(TreatmentStatutDictionary::getStatuts()[$treatment->getStatut()]) ? TreatmentStatutDictionary::getStatuts()[$treatment->getStatut()] : '',
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
 
         return new JsonResponse($reponse);
-    }
-
-    private function countSensitiveData($categories)
-    {
-        $sensitive   = '<span class="badge bg-orange">' . $this->translator->trans('label.yes') . '</span>';
-        $noSensitive = '<span class="badge bg-green">' . $this->translator->trans('label.no') . '</span>';
-
-        $count = 0;
-        foreach ($categories as $category) {
-            if ($category->isSensible()) {
-                ++$count;
-            }
-        }
-
-        return $count > 0 ? $sensitive : $noSensitive;
     }
 
     private function getTreatmentConformity(Treatment $treatment)
@@ -442,44 +417,6 @@ class TreatmentController extends CRUDController
             default:
                 $label = 'Non-conforme majeure';
                 $class = 'label-danger';
-        }
-
-        return '<span class="label ' . $class . '" style="min-width: 100%; display: inline-block;">' . $label . '</span>';
-    }
-
-    private function getAvisAipd(Treatment $treatment)
-    {
-        if (!$treatment->getConformiteTraitement()) {
-            return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non réalisée</span>';
-        }
-        $conf = $treatment->getConformiteTraitement();
-
-        if (null === $conf->getLastAnalyseImpact()) {
-            return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non réalisée</span>';
-        }
-        $analyse_impact = $conf->getLastAnalyseImpact();
-        $statut         = $analyse_impact->getStatut();
-
-        switch ($statut) {
-            case 'defavorable':
-                $label = 'Défavorable';
-                $class = 'label-danger';
-                break;
-            case 'favorable_reserve':
-                $label = 'Favorable avec réserve(s)';
-                $class = 'label-warning';
-                break;
-            case 'favorable':
-                $label = 'Favorable';
-                $class = 'label-success';
-                break;
-            case 'en_cours':
-                $label = 'En cours';
-                $class = 'label-default';
-                break;
-            default:
-                $label = 'Non réalisée';
-                $class = 'label-default';
         }
 
         return '<span class="label ' . $class . '" style="min-width: 100%; display: inline-block;">' . $label . '</span>';
@@ -537,11 +474,11 @@ class TreatmentController extends CRUDController
             $deletePath = $this->router->generate('registry_treatment_delete', ['id' => $id]);
 
             if ($this->authorizationChecker->isGranted('ROLE_USER')) {
-                return '<a href="' . $editPath . '">
+                return '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $editPath . '">
              <i class="fa fa-pencil-alt"></i>
                  ' . $this->translator->trans('action.edit') . '
              </a>
-             <a href="' . $deletePath . '">
+             <a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $deletePath . '">
                  <i class="fa fa-trash"></i>
                  ' . $this->translator->trans('action.delete') . '
              </a>'
@@ -698,25 +635,20 @@ class TreatmentController extends CRUDController
                 '5'  => 'enTantQue',
                 '6'  => 'gestionnaire',
                 '7'  => 'sousTraitant',
-                '8'  => 'sensitiveData',
-                '9'  => 'controleAcces',
-                '10' => 'tracabilite',
-                '11' => 'saving',
-                '12' => 'update',
-                '13' => 'other',
-                '14' => 'entitledPersons',
-                '15' => 'openAccounts',
-                '16' => 'specificitiesDelivered',
-                '17' => 'public',
+                '8'  => 'controleAcces',
+                '9'  => 'tracabilite',
+                '10' => 'saving',
+                '11' => 'other',
+                '12' => 'entitledPersons',
+                '13' => 'openAccounts',
+                '14' => 'specificitiesDelivered',
+                '15' => 'updatedAt',
+                '16' => 'public',
+                '17' => 'update',
                 '18' => 'responsableTraitement',
                 '19' => 'specific_traitement',
                 '20' => 'conformite_traitement',
-                '22' => 'avis_aipd',
-                '23' => 'exempt_AIPD',
-                '24' => 'createdAt',
-                '25' => 'updatedAt',
-                '26' => 'statut',
-                '27' => 'actions',
+                '21' => 'actions',
             ];
         }
 
@@ -727,23 +659,20 @@ class TreatmentController extends CRUDController
             '4'  => 'enTantQue',
             '5'  => 'gestionnaire',
             '6'  => 'sousTraitant',
-            '7'  => 'sensitiveData',
-            '8'  => 'controleAcces',
-            '9'  => 'tracabilite',
-            '10' => 'saving',
-            '11' => 'update',
-            '12' => 'other',
-            '13' => 'entitledPersons',
-            '14' => 'openAccounts',
-            '15' => 'specificitiesDelivered',
-            '16' => 'public',
+            '7'  => 'controleAcces',
+            '8'  => 'tracabilite',
+            '9'  => 'saving',
+            '10' => 'other',
+            '11' => 'entitledPersons',
+            '12' => 'openAccounts',
+            '13' => 'specificitiesDelivered',
+            '14' => 'updatedAt',
+            '15' => 'public',
+            '16' => 'update',
             '17' => 'responsableTraitement',
             '18' => 'specific_traitement',
             '19' => 'conformite_traitement',
-            '20' => 'createdAt',
-            '21' => 'updatedAt',
-            '22' => 'statut',
-            '23' => 'actions',
+            '20' => 'actions',
         ];
     }
 }

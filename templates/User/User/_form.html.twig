@@ -15,10 +15,11 @@
                 <h3 class="box-title">{{ 'user.user.tab.general'|trans }}</h3>
             </div>
             <div class="box-body">
-                {{ form_row(form.firstName) }}
-                {{ form_row(form.lastName) }}
-                {{ form_row(form.email) }}
-                {{ form_row(form.collectivity) }}
+
+                {{ form_row(form.firstName, {'attr': {'autocomplete': 'given-name'}}) }}
+                {{ form_row(form.lastName, {'attr': {'autocomplete': 'family-name'}}) }}
+                {{ form_row(form.email, {'attr': {'autocomplete': 'email'}}) }}
+                {{ form_row(form.collectivity, {'attr': {'autocomplete': 'organization'}}) }}
                 {{ form_row(form.roles) }}
 
                 {{ form_row(form.apiAuthorized) }}
@@ -51,6 +52,7 @@
                 <div class="box-header">
                     <h3 class="box-title">{{ 'user.profile.form_user.tab.login_delegation'|trans }}</h3>
                 </div>
+
                 <div class="box-body">
                     <div class="form-group {% if form.ssoKey.vars.valid==false %}has-error{% endif %}">
                         <label class="col-sm-2">{{ 'user.user.form.sso_key'|trans }}</label>
@@ -89,7 +91,7 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a href="{{ path('user_user_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'user.user.action.back_to_list'|trans }}" href="{{ path('user_user_list') }}" class="btn btn-default">
                     {{ 'user.user.action.back_to_list'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">

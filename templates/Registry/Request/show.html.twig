@@ -25,17 +25,17 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-                <a href="{{ path('registry_request_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'registry.request.action.back_to_list'|trans }}" href="{{ path('registry_request_list') }}" class="btn btn-default">
                     <i class="fa fa-arrow-left"></i>
                     {{ 'registry.request.action.back_to_list'|trans }}
                 </a>
                 {% if is_granted('ROLE_USER') and object.deletedAt is null and (actionEnabled) %}
-                <a href="{{ path('registry_request_edit', {'id': object.id}) }}" class="btn btn-default">
+                <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('registry_request_edit', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-pencil-alt"></i>
                     {{ 'action.edit'|trans }}
                 </a>
                 {% endif %}
-                <a href="{{ path('registry_request_pdf', {'id': object.id}) }}" class="btn btn-default">
+                <a aria-label="{{ 'action.print'|trans }}" href="{{ path('registry_request_pdf', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-print"></i>
                     {{ 'action.print'|trans }}
                 </a>
@@ -50,7 +50,7 @@
             <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.request'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.request.show.object'|trans }}</strong></td>
@@ -111,7 +111,7 @@
             <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.answer'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.request.show.answer_response'|trans }}</strong></td>
@@ -149,7 +149,7 @@
             <div class="box box-solid box-default">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.historic'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td>
@@ -167,7 +167,7 @@
                             <tr>
                                 <td><strong>{{ 'registry.request.show.collectivity'|trans }}</strong></td>
                                 <td>
-                                    <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                    <a aria-label="{{ object.collectivity }}" href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
                                         {{ object.collectivity }}
                                     </a>
                                 </td>
@@ -198,7 +198,7 @@
             <div class="box box-solid box-success">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.applicant'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.request.show.applicant_civility'|trans }}</strong></td>
@@ -244,7 +244,7 @@
             <div class="box box-solid box-warning">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.concerned_people'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.request.show.concerned_people_civility'|trans }}</strong></td>

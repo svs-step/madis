@@ -26,17 +26,17 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-                <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'registry.treatment.action.back_to_list'|trans }}" href="{{ path('registry_treatment_list') }}" class="btn btn-default">
                     <i class="fa fa-arrow-left"></i>
                     {{ 'registry.treatment.action.back_to_list'|trans }}
                 </a>
                 {% if (actionEnabled) %}
-                    <a href="{{ path('registry_treatment_edit', {'id': object.id}) }}" class="btn btn-default">
+                    <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('registry_treatment_edit', {'id': object.id}) }}" class="btn btn-default">
                         <i class="fa fa-pencil-alt"></i>
                         {{ 'action.edit'|trans }}
                     </a>
                 {% endif %}
-                <a href="{{ path('registry_treatment_pdf', {'id': object.id}) }}" class="btn btn-default">
+                <a aria-label="{{ 'action.print'|trans }}" href="{{ path('registry_treatment_pdf', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-print"></i>
                     {{ 'action.print'|trans }}
                 </a>
@@ -75,7 +75,7 @@
             <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.public'|trans }}</strong></td>
@@ -142,12 +142,11 @@
                 </div>
             </div>
 
-
             {# DATA CATEGORY #}
             <div class="box box-solid box-warning">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.data_category'|trans }}</strong></td>
@@ -176,7 +175,7 @@
             <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.recipient_category'|trans }}</strong></td>
@@ -187,7 +186,7 @@
                             <td>
                                 <ul>
                                     {% for contractor in object.contractors %}
-                                        <li><a href="{{ path('registry_contractor_show', {'id': contractor.id}) }}" >{{ contractor }}</a></li>
+                                        <li><a aria-label="{{ contractor }}" href="{{ path('registry_contractor_show', {'id': contractor.id}) }}" >{{ contractor }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </td>
@@ -201,7 +200,7 @@
             <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.exempt_AIPD'|trans }}</strong></td>
@@ -319,7 +318,7 @@
             <div class="box box-solid box-default">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td>
@@ -337,7 +336,7 @@
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.collectivity'|trans }}</strong></td>
                                 <td>
-                                    <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                    <a aria-label="{{ object.collectivity }}" href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
                                         {{ object.collectivity }}
                                     </a>
                                 </td>
@@ -367,7 +366,7 @@
             <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.concerned_people'|trans }}</strong></td>
@@ -547,7 +546,7 @@
             <div class="box box-solid box-success">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.security_access_control'|trans }}</strong></td>
@@ -652,7 +651,7 @@
                 <div class="box box-solid box-success">
                     <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.conformite'|trans }}</h3></div>
                     <div class="box-body">
-                        <table class="table">
+                        <table role="presentation" class="table">
                             <tr>
                                 <td style="width: 35%">
                                     <strong>Conformité</strong>
@@ -689,7 +688,7 @@
                                         <strong>Actions</strong>
                                     </td>
                                     <td>
-                                        <a href="
+                                        <a  aria-label="{{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}" href="
                                             {% if object.conformiteTraitement is null %}
                                                 {{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}
                                             {% else %}
@@ -706,7 +705,7 @@
                     <div class="box box-solid box-primary">
                         <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.last_aipd'|trans }}</h3></div>
                         <div class="box-body">
-                            <table class="table">
+                            <table class="table" role="presentation">
                                 <tr>
                                     <td style="width: 35%">
                                         <strong>Avis</strong>
@@ -747,7 +746,7 @@
                                             <strong>Actions</strong>
                                         </td>
                                         <td>
-                                            <a href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
+                                            <a  aria-label="{{ 'aipd.analyse_impact.action.edit'|trans }} href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
                                                 <i class="fa fa-chalkboard-teacher"></i>
                                                 {{ 'aipd.analyse_impact.action.edit'|trans }}
                                             </a>

@@ -104,7 +104,7 @@
                 <label class="col-sm-2 control-label">
                   {{ 'registry.treatment.show.concerned_people'|trans }}*
                 </label>
-   
+
                 {% set concernedPeopleErrorBlock = null %}
                 {% for error in form.vars.errors %}
                     {% if error.origin.name == 'concernedPeopleParticular' %}
@@ -128,8 +128,8 @@
                     {{ form_row(form.concernedPeoplePartner) }}
                     {{ form_row(form.concernedPeopleUsager) }}
                     {{ form_row(form.concernedPeopleOther) }}
-                    {% if concernedPeopleErrorBlock is not null %} 
-                        {{ concernedPeopleErrorBlock }} 
+                    {% if concernedPeopleErrorBlock is not null %}
+                        {{ concernedPeopleErrorBlock }}
                     {% endif %}
                   </div>
                 </div>
@@ -154,6 +154,7 @@
                 {{ form_row(form.legalMentions) }}
                 {{ form_row(form.consentRequest) }}
                 {{ form_row(form.consentRequestFormat) }}
+
             </div>
         </div>
 

@@ -26,17 +26,17 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-                <a href="{{ path('registry_contractor_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'registry.contractor.action.back_to_list'|trans }}" href="{{ path('registry_contractor_list') }}" class="btn btn-default">
                     <i class="fa fa-arrow-left"></i>
                     {{ 'registry.contractor.action.back_to_list'|trans }}
                 </a>
                 {% if (actionEnabled) %}
-                    <a href="{{ path('registry_contractor_edit', {'id': object.id}) }}" class="btn btn-default">
+                    <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('registry_contractor_edit', {'id': object.id}) }}" class="btn btn-default">
                         <i class="fa fa-pencil-alt"></i>
                         {{ 'action.edit'|trans }}
                     </a>
                 {% endif %}
-                <a href="{{ path('registry_contractor_pdf', {'id': object.id}) }}" class="btn btn-default">
+                <a aria-label="{{ 'action.print'|trans }}" href="{{ path('registry_contractor_pdf', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-print"></i>
                     {{ 'action.print'|trans }}
                 </a>
@@ -51,7 +51,7 @@
             <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.general'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.contractor.show.name'|trans }}</strong></td>
@@ -114,7 +114,7 @@
             <div class="box box-solid box-success">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.dpo'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.contractor.show.has_dpo'|trans }}</strong></td>
@@ -165,7 +165,7 @@
             <div class="box box-solid box-default">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.historic'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td>
@@ -183,7 +183,7 @@
                             <tr>
                                 <td><strong>{{ 'registry.contractor.show.collectivity'|trans }}</strong></td>
                                 <td>
-                                    <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                    <a aria-label="{{ object.collectivity }}" href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
                                         {{ object.collectivity }}
                                     </a>
                                 </td>
@@ -212,7 +212,7 @@
             <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.coordinates'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.contractor.show.contact_first_name'|trans }}</strong></td>

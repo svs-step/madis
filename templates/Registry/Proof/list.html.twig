@@ -180,6 +180,7 @@
                 $('input#search_updated_at').val('');
             });
 
+
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
                 oTable.column('0').search($(this).val()).draw() ;
@@ -200,8 +201,8 @@
                 oTable.column(col + 2).search($(this).val()).draw() ;
             }));
 
-            $('#search_date').off('change');
-            $('#search_date').change(function(){
+            $('#search_created_at').off('change');
+            $('#search_created_at').change(function(){
                 oTable.column(col + 3).search($(this).val()).draw() ;
             });
 

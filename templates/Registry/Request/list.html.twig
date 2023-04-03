@@ -77,7 +77,7 @@
                         {# <a id="delete-all"  href="{{ path('registry_request_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Archiver
                         </a> #}
-                        <a aria-label="Imprimer" id="print-all" href="" class="dt-button buttons-collection buttons-colvis">
+                        <a aria-label="Imprimer" id="print-all"  href="{{ path('registry_request_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Imprimer
                         </a>
                     </div>
@@ -94,6 +94,7 @@
                             {% endif %}
                             <th scope="col" style="min-width:130px;position:relative;">
                                 <input class="daterangepicker form-control" type="text" id="search_date_demande" placeholder="Date demande" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_objet" style="width: 100%;">
@@ -126,6 +127,7 @@
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
                                 <input class="daterangepicker form-control" type="text" id="search_date_traitement" placeholder="Date traitement" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_etat" style="width: 100%;">
@@ -304,6 +306,7 @@
             $('#search_created_at').off('change');
             $('#search_created_at').change(function(){
                 oTable.column(col + 9).search($(this).val()).draw();
+
             });
         }
 

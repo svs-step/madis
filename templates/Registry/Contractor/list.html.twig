@@ -53,13 +53,12 @@
             <div class="box box-solid">
                 <div class="box-body">
                     <div id="custom-buttons" style="float:left">
-                        <a aria-label="Imprimer" id="print-all" href="" class="dt-button buttons-collection buttons-colvis">
-                            Imprimer
-                        </a>
-                        <a aria-label="Supprimer" id="delete-all" href="" class="dt-button buttons-collection buttons-colvis">
+                        <a aria-label="Supprimer" id="delete-all"  href="{{ path('registry_contractor_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Supprimer
                         </a>
-
+                        <a aria-label="Imprimer" id="print-all"  href="{{ path('registry_contractor_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            Imprimer
+                        </a>
                     </div>
                     <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
@@ -215,6 +214,7 @@
                 $('input#search_updated_at').val('');
             });
 
+
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
                 oTable.column('0').search($(this).val()).draw() ;
@@ -265,7 +265,7 @@
 
             let exportButton = $("button.dt-button > span:contains('Exporter')").parent();
             $("#delete-all").before(exportButton.css("bottom", "17px") );
-            
+
         } );
         $('#table').on('column-visibility.dt', function() {
             setEvents();
