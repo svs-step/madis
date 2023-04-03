@@ -514,10 +514,6 @@
                 oTable.column(col + 14).search($(this).val()).draw() ;
             });
 
-            $('#search_updated_at').off('change');
-            $('#search_updated_at').change(function(){
-                oTable.column(col + 15).search($(this).val()).draw();
-            });
             $('#search_public').off('change');
             $('#search_public').change(function(){
                 oTable.column(col + 16).search($(this).val()).draw() ;
