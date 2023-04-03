@@ -80,6 +80,11 @@ class TreatmentType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
+            ->add('exempt_AIPD', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.exemptAipd',
+                'required' => false,
+            ])
+
             ->add('goal', TextareaType::class, [
                 'label'    => 'registry.treatment.form.goal',
                 'required' => false,
@@ -145,6 +150,10 @@ class TreatmentType extends AbstractType
             ])
             ->add('concernedPeoplePartner', ComplexChoiceType::class, [
                 'label'    => 'registry.treatment.form.concerned_people_partner',
+                'required' => false,
+            ])
+            ->add('concernedPeopleUsager', ComplexChoiceType::class, [
+                'label'    => 'registry.treatment.form.concerned_people_usager',
                 'required' => false,
             ])
             ->add('concernedPeopleOther', ComplexChoiceType::class, [
@@ -351,6 +360,19 @@ class TreatmentType extends AbstractType
                 'required' => false,
                 'data'     => $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()),
             ])
+            ->add('legalMentions', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.legalMentions',
+                'required' => false,
+            ])
+            ->add('consentRequest', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.consentRequest',
+                'required' => false,
+            ])
+            ->add('consentRequestFormat', TextType::class, [
+                'label'    => 'registry.treatment.form.consentRequestFormat',
+                'required' => false,
+            ])
+
         ;
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')) {

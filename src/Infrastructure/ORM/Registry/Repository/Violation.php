@@ -389,9 +389,10 @@ class Violation implements Repository\Violation
                 break;
             case 'nature':
                 $queryBuilder->addSelect('(case
-                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_INTEGRITY . '\' THEN 1
-                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_CONFIDENTIALITY . '\' THEN 2
-                WHEN o.violationNature = \'' . ViolationNatureDictionary::NATURE_AVAILABILITY . '\' THEN 3
+                WHEN o.violationNatures LIKE \'%' . ViolationNatureDictionary::NATURE_INTEGRITY . '%\' THEN 1
+                WHEN o.violationNatures LIKE \'%' . ViolationNatureDictionary::NATURE_CONFIDENTIALITY . '%\' THEN 2
+                WHEN o.violationNatures LIKE \'%' . ViolationNatureDictionary::NATURE_AVAILABILITY . '%\' THEN 3
+
                 ELSE 4 END) AS HIDDEN hidden_violation_nature')
                     ->addOrderBy('hidden_violation_nature', $orderDir);
                 break;
@@ -437,7 +438,8 @@ class Violation implements Repository\Violation
                         ->setParameter('date_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
                 case 'nature':
-                    $this->addWhereClause($queryBuilder, 'violationNature', $search);
+                    $queryBuilder->andWhere('o.violationNatures LIKE :nature')
+                        ->setParameter('nature', '%' . $search . '%');
                     break;
                 case 'inProgress':
                     $this->addWhereClause($queryBuilder, 'in_progress', $search);

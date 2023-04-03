@@ -74,7 +74,7 @@
             <div class="box box-solid">
                 <div class="box-body">
                     <div style="float:left">
-                        <a id="print-all"  href="{{ path('registry_violation_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                        <a id="print-all" style="float:left" href="{{ path('registry_violation_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Imprimer
                         </a>
                     </div>
@@ -214,7 +214,21 @@
                 col = 1;
             {% endif %}
 
-            $('#search_created_at').show('slide',function(){
+            oTable.on( 'draw', function () {
+                const printButton = $('#print-all')
+                let printLink = "{{ path('registry_violation_print_all', { }) }}";
+                let count = oTable.data().rows().count();
+
+                if (count) {
+                    printButton.attr("href", printLink);
+                    printButton.removeClass("disabled");
+                } else {
+                    printButton.addClass("disabled");
+                    printButton.removeAttr("href");
+                }
+            });
+
+                $('#search_created_at').show('slide',function(){
                 $('input#search_created_at').val('');
             });
             $('#search_updated_at').show('slide',function(){
