@@ -72,6 +72,16 @@ class OverviewGenerator extends AbstractGenerator
      */
     protected $conformiteOrganisationGenerator;
 
+    /**
+     * @var UserGenerator
+     */
+    protected $userGenerator;
+
+    /**
+     * @var ProofGenerator
+     */
+    protected $proofGenerator;
+
     public function __construct(
         UserProvider $userProvider,
         ParameterBagInterface $parameterBag,
@@ -82,7 +92,9 @@ class OverviewGenerator extends AbstractGenerator
         RequestGenerator $requestGenerator,
         ViolationGenerator $violationGenerator,
         ConformiteTraitementGenerator $conformiteTraitementGenerator,
-        ConformiteOrganisationGenerator $conformiteOrganisationGenerator
+        ConformiteOrganisationGenerator $conformiteOrganisationGenerator,
+        UserGenerator $userGenerator,
+        ProofGenerator $proofGenerator,
     ) {
         parent::__construct($userProvider, $parameterBag);
         $this->treatmentGenerator              = $treatmentGenerator;
@@ -93,6 +105,8 @@ class OverviewGenerator extends AbstractGenerator
         $this->violationGenerator              = $violationGenerator;
         $this->conformiteTraitementGenerator   = $conformiteTraitementGenerator;
         $this->conformiteOrganisationGenerator = $conformiteOrganisationGenerator;
+        $this->userGenerator                   = $userGenerator;
+        $this->proofGenerator                  = $proofGenerator;
     }
 
     public function generateObjectPart(Section $section): void
@@ -220,7 +234,9 @@ class OverviewGenerator extends AbstractGenerator
     public function generateAnnexeMention($document, Section $section, array $treatments = [], array $violations = [], array $mesurements = []): void
     {
         $section->addTitle('ANNEXES');
+        $this->proofGenerator->ProofList($section);
         $this->treatmentGenerator->TreatmentAnnexeList($section, $treatments);
+        $this->userGenerator->UserList($section);
         /* todo ajouter la liste des utilisateurs */
         //$this->conformiteTraitementGenerator->SyntheticAnnexeList($section, $treatments);
 
