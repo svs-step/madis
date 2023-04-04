@@ -331,6 +331,13 @@ class Notification extends CRUDRepository implements Repository\Notification
                         $queryBuilder->setParameter('user', $user);
                     }
                     break;
+                case 'read_by':
+                    if ($this->security->isGranted('ROLE_REFERENT')) {
+                        $queryBuilder->leftJoin('o.readBy', 'rb')
+                            ->andWhere('CONCAT(rb.firstName, \' \', rb.lastName) LIKE :created_by')
+                            ->setParameter('created_by',  '%' . $search. '%');
+                    }
+                    break;
                 case 'updatedAt':
                     $queryBuilder->andWhere('o.updatedAt LIKE :updatedAt')
                         ->setParameter('updatedAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
