@@ -10,6 +10,7 @@ use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\Registry\Model\Proof;
 use App\Domain\Registry\Model\Violation;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -20,14 +21,16 @@ class NotificationExtension extends AbstractExtension
 {
     protected TranslatorInterface $translator;
     protected RouterInterface $router;
+    protected \App\Domain\Notification\Repository\Notification $repository;
 
     protected string $requestDays;
     protected string $surveyDays;
 
-    public function __construct(TranslatorInterface $translator, RouterInterface $router, string $requestDays, string $surveyDays)
+    public function __construct(TranslatorInterface $translator, RouterInterface $router, \App\Domain\Notification\Repository\Notification $repository, string $requestDays, string $surveyDays)
     {
         $this->translator  = $translator;
         $this->router      = $router;
+        $this->repository     = $repository;
         $this->requestDays = $requestDays;
         $this->surveyDays  = $surveyDays;
     }
@@ -66,9 +69,16 @@ class NotificationExtension extends AbstractExtension
             default:
                 $sentence .= $this->translator->trans($notification->getAction()) . ' ';
                 $link = $this->getObjectLink($notification);
-                $sentence .= ' : ' .
-                    '<a href="' . $link . '">' . $notification->getName() . '</a> '
-                ;
+                if ($this->repository->objectExists($notification)) {
+                    $sentence .= ' : ' .
+                        '<a href="' . $link . '">' . $notification->getName() . '</a> '
+                    ;
+                } else {
+                    $sentence .= ' : ' .
+                        '<span>' . $notification->getName() . '</span> '
+                    ;
+                }
+
         }
 
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Violation::class]) {
