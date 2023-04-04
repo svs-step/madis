@@ -165,7 +165,6 @@ class AnalyseImpactController extends CRUDController
                         $this->translator->trans('action.validate') . '
                     </a>';
                 }
-
             }
             $cell .= ' <a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
             <i class="fa fa-trash"></i> ' .

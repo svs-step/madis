@@ -454,7 +454,6 @@ class TreatmentController extends CRUDController
         return '<span class="label ' . $class . '" style="min-width: 100%; display: inline-block;">' . $label . '</span>';
     }
 
-
     private function getTreatmentConformity(Treatment $treatment)
     {
         if (!$treatment->getConformiteTraitement()) {
@@ -697,7 +696,7 @@ class TreatmentController extends CRUDController
                 '7'  => 'sousTraitant',
                 '8'  => 'sensitiveData',
                 '9'  => 'controleAcces',
-                '10'  => 'tracabilite',
+                '10' => 'tracabilite',
                 '11' => 'saving',
                 '12' => 'other',
                 '13' => 'entitledPersons',

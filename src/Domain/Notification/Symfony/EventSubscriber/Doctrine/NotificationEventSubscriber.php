@@ -369,7 +369,7 @@ class NotificationEventSubscriber implements EventSubscriber
             $nu->setActive(false);
             $nu->setSent(false);
             $nus[] = $nu;
-//            $this->notificationUserRepository->persist($nu);
+            //            $this->notificationUserRepository->persist($nu);
         }
 
         return $nus;

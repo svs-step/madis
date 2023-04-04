@@ -88,9 +88,9 @@ class Notification extends CRUDRepository implements Repository\Notification
                 if (in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
                     $cf = $user->getCollectivitesReferees();
                     $cf = new ArrayCollection([...$cf]);
-//                    if (!is_object($cf) || ArrayCollection::class !== get_class($cf)) {
-//                        $cf = new ArrayCollection([...$cf]);
-//                    }
+                    //                    if (!is_object($cf) || ArrayCollection::class !== get_class($cf)) {
+                    //                        $cf = new ArrayCollection([...$cf]);
+                    //                    }
                     $collectivityIds = $cf->map(function (Collectivity $c) {return $c->getId()->__toString(); })->toArray();
                 } else {
                     $collectivityIds = [$user->getCollectivity()->getId()->__toString()];
@@ -156,9 +156,9 @@ class Notification extends CRUDRepository implements Repository\Notification
                 if (in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
                     $cf = $user->getCollectivitesReferees();
                     $cf = new ArrayCollection([...$cf]);
-//                    if (!is_object($cf) || ArrayCollection::class !== get_class($cf)) {
-//                        $cf = new ArrayCollection([...$cf]);
-//                    }
+                    //                    if (!is_object($cf) || ArrayCollection::class !== get_class($cf)) {
+                    //                        $cf = new ArrayCollection([...$cf]);
+                    //                    }
                     $collectivityIds = $cf->map(function (Collectivity $c) {return $c->getId()->__toString(); })->toArray();
                 } else {
                     $collectivityIds = [$user->getCollectivity()->getId()->__toString()];
@@ -186,8 +186,8 @@ class Notification extends CRUDRepository implements Repository\Notification
             ;
             unset($criteria['collectivity']);
         }
-//
-//        dd($criteria);
+        //
+        //        dd($criteria);
 
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
@@ -223,9 +223,9 @@ class Notification extends CRUDRepository implements Repository\Notification
                 if (in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
                     $cf = $user->getCollectivitesReferees();
                     $cf = new ArrayCollection([...$cf]);
-//                    if (!is_object($cf) || ArrayCollection::class !== get_class($cf)) {
-//                        $cf = new ArrayCollection([...$cf]);
-//                    }
+                    //                    if (!is_object($cf) || ArrayCollection::class !== get_class($cf)) {
+                    //                        $cf = new ArrayCollection([...$cf]);
+                    //                    }
                     $collectivityIds = $cf->map(function (Collectivity $c) {return $c->getId()->__toString(); })->toArray();
                 } else {
                     $collectivityIds = [$user->getCollectivity()->getId()->__toString()];
@@ -335,7 +335,7 @@ class Notification extends CRUDRepository implements Repository\Notification
                     if ($this->security->isGranted('ROLE_REFERENT')) {
                         $queryBuilder->leftJoin('o.readBy', 'rb')
                             ->andWhere('CONCAT(rb.firstName, \' \', rb.lastName) LIKE :created_by')
-                            ->setParameter('created_by',  '%' . $search. '%');
+                            ->setParameter('created_by', '%' . $search . '%');
                     }
                     break;
                 case 'updatedAt':

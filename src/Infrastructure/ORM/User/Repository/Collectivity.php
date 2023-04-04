@@ -184,7 +184,6 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
             case 'statut':
                 $queryBuilder->addOrderBy('o.active', $orderDir);
                 break;
-
             case 'nbr_agents':
                 $queryBuilder->addOrderBy('o.nbrAgents', $orderDir);
                 break;
@@ -193,6 +192,7 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
                 break;
             case 'nbr_cnil':
                 $queryBuilder->addOrderBy('o.nbrCnil', $orderDir);
+                // no break
             case 'updatedAt':
                 $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
                 break;

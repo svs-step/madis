@@ -170,7 +170,7 @@ class TreatmentType extends AbstractType
                     return $er->createQueryBuilder('dc')
                         ->orderBy('dc.position', Criteria::ASC);
                 },
-                'choice_attr'   => function (TreatmentDataCategory $model) {
+                'choice_attr' => function (TreatmentDataCategory $model) {
                     if ($model->isSensible()) {
                         return [
                             'style' => 'font-weight: bold;',
