@@ -380,4 +380,18 @@ class Notification extends CRUDRepository implements Repository\Notification
                 break;
         }
     }
+
+    public function objectExists(\App\Domain\Notification\Model\Notification $notification): bool {
+        if (!$notification->getObject()) {
+            return false;
+        }
+
+        $object = $notification->getObject();
+
+        $moduleName = str_replace('notification.modules.', '', $notification->getModule());
+
+        $objectClass = array_flip(\App\Domain\Notification\Model\Notification::MODULES)[$moduleName];
+
+        return (bool)$this->registry->getRepository($objectClass)->find($object->id);
+    }
 }

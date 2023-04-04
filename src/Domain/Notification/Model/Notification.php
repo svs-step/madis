@@ -67,6 +67,7 @@ class Notification
         Conformite::class           => 'organization_conformity',
         AnalyseImpact::class        => 'aipd',
         Document::class             => 'document',
+        User::class                 => 'user',
     ];
 
     /**
