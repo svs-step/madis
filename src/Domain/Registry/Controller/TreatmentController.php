@@ -32,6 +32,7 @@ use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
 use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
+use App\Domain\Registry\Dictionary\TreatmentStatutDictionary;
 use App\Domain\Registry\Form\Type\TreatmentConfigurationType;
 use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model;
@@ -384,16 +385,75 @@ class TreatmentController extends CRUDController
                 'openAccounts'           => $treatment->isSecurityOpenAccounts() ? $yes : $no,
                 'specificitiesDelivered' => $treatment->isSecuritySpecificitiesDelivered() ? $yes : $no,
                 'updatedAt'              => date_format($treatment->getUpdatedAt(), 'd-m-Y H:i:s'),
+                'createdAt'              => date_format($treatment->getCreatedAt(), 'd-m-Y H:i:s'),
                 'public'                 => $treatment->getPublic() ? $yes : $no,
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
                 'specific_traitement'    => $this->getSpecificTraitement($treatment),
                 'conformite_traitement'  => $this->getTreatmentConformity($treatment),
+                'avis_aipd'              => $this->getAvisAipd($treatment),
+                'exempt_AIPD'            => $treatment->getExemptAIPD() ? $yes : $no,
+                'statut'                 => $treatment->getStatut() && isset(TreatmentStatutDictionary::getStatuts()[$treatment->getStatut()]) ? TreatmentStatutDictionary::getStatuts()[$treatment->getStatut()] : '',
+                'sensitiveData'          => $this->countSensitiveData($treatment->getDataCategories()),
                 'actions'                => $this->generateActionCellContent($treatment),
             ];
         }
 
         return new JsonResponse($reponse);
     }
+
+    private function countSensitiveData($categories)
+    {
+        $sensitive   = '<span class="badge bg-orange">' . $this->translator->trans('label.yes') . '</span>';
+        $noSensitive = '<span class="badge bg-green">' . $this->translator->trans('label.no') . '</span>';
+
+        $count = 0;
+        foreach ($categories as $category) {
+            if ($category->isSensible()) {
+                ++$count;
+            }
+        }
+
+        return $count > 0 ? $sensitive : $noSensitive;
+    }
+
+    private function getAvisAipd(Treatment $treatment)
+    {
+        if (!$treatment->getConformiteTraitement()) {
+            return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non réalisée</span>';
+        }
+        $conf = $treatment->getConformiteTraitement();
+
+        if (null === $conf->getLastAnalyseImpact()) {
+            return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non réalisée</span>';
+        }
+        $analyse_impact = $conf->getLastAnalyseImpact();
+        $statut         = $analyse_impact->getStatut();
+
+        switch ($statut) {
+            case 'defavorable':
+                $label = 'Défavorable';
+                $class = 'label-danger';
+                break;
+            case 'favorable_reserve':
+                $label = 'Favorable avec réserve(s)';
+                $class = 'label-warning';
+                break;
+            case 'favorable':
+                $label = 'Favorable';
+                $class = 'label-success';
+                break;
+            case 'en_cours':
+                $label = 'En cours';
+                $class = 'label-default';
+                break;
+            default:
+                $label = 'Non réalisée';
+                $class = 'label-default';
+        }
+
+        return '<span class="label ' . $class . '" style="min-width: 100%; display: inline-block;">' . $label . '</span>';
+    }
+
 
     private function getTreatmentConformity(Treatment $treatment)
     {
@@ -635,20 +695,25 @@ class TreatmentController extends CRUDController
                 '5'  => 'enTantQue',
                 '6'  => 'gestionnaire',
                 '7'  => 'sousTraitant',
-                '8'  => 'controleAcces',
-                '9'  => 'tracabilite',
-                '10' => 'saving',
-                '11' => 'other',
-                '12' => 'entitledPersons',
-                '13' => 'openAccounts',
-                '14' => 'specificitiesDelivered',
-                '15' => 'updatedAt',
-                '16' => 'public',
-                '17' => 'update',
-                '18' => 'responsableTraitement',
-                '19' => 'specific_traitement',
-                '20' => 'conformite_traitement',
-                '21' => 'actions',
+                '8'  => 'sensitiveData',
+                '9'  => 'controleAcces',
+                '10'  => 'tracabilite',
+                '11' => 'saving',
+                '12' => 'other',
+                '14' => 'entitledPersons',
+                '15' => 'openAccounts',
+                '16' => 'specificitiesDelivered',
+                '17' => 'public',
+                '18' => 'update',
+                '19' => 'responsableTraitement',
+                '20' => 'specific_traitement',
+                '21' => 'conformite_traitement',
+                '22' => 'avis_aipd',
+                '23' => 'exempt_AIPD',
+                '24' => 'createdAt',
+                '25' => 'updatedAt',
+                '26' => 'statut',
+                '27' => 'actions',
             ];
         }
 

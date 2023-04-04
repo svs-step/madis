@@ -70,7 +70,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body"  style="overflow-x: auto">
                     <div id="custom-buttons" style="float:left">
                         {% if app.request.query.get('active') != 'false' %}
                         <a aria-label="Désactiver" id="archive-all"  href="{{ path('registry_treatment_archive_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
@@ -297,7 +297,7 @@
         {"data": "createdAt", "visible": false},
         {"data": "updatedAt", "visible": false},
         {"data": "statut", "visible": true},
-        {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
+        {"data": "actions", "className": "noVis actions", "visible": actionIsVisible, "orderable": false},
     ] %}
     {% if is_granted('ROLE_REFERENT') %}
         {% set cols = [
@@ -328,7 +328,7 @@
             {"data": "updatedAt", "visible": false},
             {"data": "statut", "visible": true},
 
-            {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
+            {"data": "actions", "className": "noVis actions", "visible": actionIsVisible, "orderable": false},
         ] %}
     {% endif %}
 
@@ -533,17 +533,17 @@
 
             $('#search_created_at').off('change');
             $('#search_created_at').change(function(){
-                oTable.column(col + 20).search($(this).val()).draw();
+                oTable.column(col + 22).search($(this).val()).draw();
             });
 
             $('#search_updated_at').off('change');
             $('#search_updated_at').change(function(){
-                oTable.column(col + 21).search($(this).val()).draw();
+                oTable.column(col + 23).search($(this).val()).draw();
             });
 
             $('#search_statut').off('change');
             $('#search_statut').change(function(){
-                oTable.column(col + 22).search($(this).val()).draw();
+                oTable.column(col + 24).search($(this).val()).draw();
             });
 
             // Handle click on "Select all" control
