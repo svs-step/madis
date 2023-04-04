@@ -37,6 +37,7 @@ use App\Domain\Registry\Model\Proof;
 use App\Domain\Registry\Model\Request;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
+use App\Domain\User\Model\User;
 
 class NotificationModuleDictionary extends SimpleDictionary
 {
@@ -64,7 +65,7 @@ class NotificationModuleDictionary extends SimpleDictionary
             Notification::MODULES[Conformite::class]           => 'Conformité de la structure',
             Notification::MODULES[AnalyseImpact::class]        => 'Analyse d\'impact',
             Notification::MODULES[Document::class]             => 'Espace Documentaire',
-            'user'                                             => 'Utilisateurs',
+            Notification::MODULES[User::class]                 => 'Utilisateurs',
         ];
     }
 
