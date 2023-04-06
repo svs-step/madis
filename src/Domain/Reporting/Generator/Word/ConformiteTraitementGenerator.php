@@ -181,7 +181,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 $aipd = $conformite->getLastAnalyseImpact();
             }
 
-            if ($treatment->getExemptAIPD() === false && $aipd && ($aipd->getStatut() === 'non_realisee')){
+            if ($treatment->getExemptAIPD() === false && $aipd && ($aipd->getStatut() === 'non_realisee' || $aipd->getStatut() === 'en_cours')){
                 $cntAipdToDo++;
             }
             if ($aipd){
@@ -258,7 +258,12 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         }
 
         $section->addTextBreak();
-        $section->addText('X traitements ont fait l’objet d’une analyse d’impact.');
+        $text = match (count($aipdFinished)){
+            0 => "Aucun traitement n'a fait l'objet d'une analyse d'impact.",
+            1 => "1 traitement a fait l'objet d'une analyse d'impact.",
+            default => count($aipdFinished).' traitements ont fait l’objet d’une analyse d’impact.'
+        };
+        $section->addText($text);
 
         $tableAipdExist = $section->addTable($tableStyleConformite);
         $tableAipdExist->addRow(null, array('tblHeader' => true, 'cantSplit' => true));

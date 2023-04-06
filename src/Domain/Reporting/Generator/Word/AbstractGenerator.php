@@ -244,12 +244,12 @@ abstract class AbstractGenerator implements GeneratorInterface
         );
 
         $section->addText(
-            'Numéro de désignation CNIL : ' . $collectivity->getNbrCnil(),
+            'Numéro de désignation : ' . $collectivity->getNbrCnil(),
             ['size' => 12]
         );
 
         $section->addText(
-            "{$this->getDate(new \DateTimeImmutable(), 'd/m/Y')}",
+            'Date de désignation : ' ."{$this->getDate(new \DateTimeImmutable(), 'd/m/Y')}",
             ['size' => 12]
         );
     }
@@ -301,7 +301,6 @@ abstract class AbstractGenerator implements GeneratorInterface
             'width'       => 100 * 50,
         ]);
         $row  = $table->addRow(10, ['tblHeader' => true, 'cantsplit' => true]);
-        $cell = $row->addCell(15 * 50);
         $cell = $row->addCell(70 * 50, ['alignment' => Jc::CENTER]);
         $cell->addText($title, ['alignment' => Jc::CENTER, 'bold' => true]);
         $cell = $row->addCell(15 * 50, ['alignment' => Jc::CENTER]);

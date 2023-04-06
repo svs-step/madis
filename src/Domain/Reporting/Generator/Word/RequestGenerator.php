@@ -63,16 +63,13 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
 
         $section->addTitle('Registre des demandes de personnes concernées', 2);
 
-        if ($nbTotal === 0) {
-            $section->addText('Il n’y a aucune demande des personnes concernées.');
-
-            return;
+        $section->addText("Un registre des demandes des personnes concernées est tenu à jour par '{$collectivity}'.");
+        if ($nbTotal === 0){
+            $section->addText("Un registre des demandes est tenu à jour par le référent RGPD et l’organisation du traitement de la demande est opérationnel. A ce jour, il n’y a pas eu de demande de personnes concernées.");
         }
 
-        $section->addText("Un registre des demandes des personnes concernées est tenu à jour par '{$collectivity}'.");
-        $section->addText("Il y a eu {$nbTotal} demandes des personnes concernées.");
-
         if (0 < $nbTotal) {
+            $section->addText("Il y a eu {$nbTotal} demandes des personnes concernées.");
             $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
         }
     }

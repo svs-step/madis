@@ -117,7 +117,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addTitle('Analyse du registre des traitements', 2);
         $section->addText("Il y a aujourd’hui {$nbTreatments} traitements de données à caractère personnel inventoriés");
 
-        $section->addTextBreak();
         $section->addText('Informatisation des traitements :');
 
         $categories = ['Uniquement papier', 'Complétement informatisé', 'Informatisé et papier', 'Non renseigné'];
