@@ -92,8 +92,8 @@ class MesureProtectionController extends CRUDController
                 'detail'             => $mesure[0]->getDetail(),
                 'poidsVraisemblance' => $mesure[0]->getPoidsVraisemblance(),
                 'poidsGravite'       => $mesure[0]->getPoidsGravite(),
-                'createdAt'          => date_format($mesure[0]->getCreatedAt(), 'd-m-Y H:i:s'),
-                'updatedAt'          => date_format($mesure[0]->getUpdatedAt(), 'd-m-Y H:i:s'),
+                'createdAt'          => $mesure[0]->getCreatedAt() ? date_format($mesure[0]->getCreatedAt(), 'd-m-Y H:i:s') : null,
+                'updatedAt'          => $mesure[0]->getUpdatedAt() ? date_format($mesure[0]->getUpdatedAt(), 'd-m-Y H:i:s') : null,
                 'actions'            => $this->generateActionCellContent($mesure['id']),
             ];
         }
