@@ -71,6 +71,17 @@ services:
             $surveyDays: '%env(APP_SURVEY_NOTIFICATION_DELAY_DAYS)%'
         tags: [ { name: doctrine.event_subscriber } ]
 
+    App\Domain\Notification\Subscriber\NotificationEventSubscriber:
+        arguments:
+            $notificationRepository: '@App\Infrastructure\ORM\Notification\Repository\Notification'
+            $notificationUserRepository: '@App\Infrastructure\ORM\Notification\Repository\NotificationUser'
+            $normalizer: '@App\Domain\Notification\Serializer\NotificationNormalizer'
+            $userRepository: '@App\Domain\User\Repository\User'
+            $translator: '@Symfony\Contracts\Translation\TranslatorInterface'
+            $requestDays: '%env(APP_REQUEST_NOTIFICATION_DELAY_DAYS)%'
+            $surveyDays: '%env(APP_SURVEY_NOTIFICATION_DELAY_DAYS)%'
+        tags: [ { name: event_subscriber } ]
+
     App\Domain\Notification\Twig\Extension\NotificationExtension:
         arguments:
             $translator: '@translator'

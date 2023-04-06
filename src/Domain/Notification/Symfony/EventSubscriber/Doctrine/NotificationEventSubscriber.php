@@ -66,6 +66,8 @@ class NotificationEventSubscriber implements EventSubscriber
     protected Security $security;
     protected NormalizerInterface $normalizer;
     protected TranslatorInterface $translator;
+    protected string $requestDays;
+    protected string $surveyDays;
 
     public function __construct(
         NotificationRepository $notificationRepository,
@@ -440,31 +442,12 @@ class NotificationEventSubscriber implements EventSubscriber
             return MesurementStatusDictionary::getStatus()[$notification->getObject()->status] ?? '';
         }
 
-        if ('notifications.actions.no_login' === $notification->getAction() || 'notification.actions.no_login' === $notification->getAction()) {
-            return $this->translator->trans('notifications.subject.no_login');
-        }
-
         if ('notifications.actions.state_change' === $notification->getAction() || 'notification.actions.state_change' === $notification->getAction()) {
             return $notification->getObject()->state;
         }
 
-        if ('notifications.actions.late_survey' === $notification->getAction() || 'notification.actions.late_survey' === $notification->getAction()) {
-            return $this->translator->trans('notifications.subject.late_survey', ['%days%' => $this->surveyDays]);
-        }
-
-        if ('notifications.actions.late_action' === $notification->getAction() || 'notification.actions.late_action' === $notification->getAction()) {
-            $ob   = $notification->getObject();
-            $date = \DateTime::createFromFormat(DATE_ATOM, $ob->planificationDate)->format('d/m/Y');
-
-            return $this->translator->trans('notifications.subject.late_action', ['%date%' => $date]);
-        }
-
         if ('notifications.actions.validation' === $notification->getAction() || 'notification.actions.validation' === $notification->getAction()) {
             return $this->translator->trans('notifications.subject.validation');
-        }
-
-        if ('notifications.actions.late_request' === $notification->getAction() || 'notification.actions.late_request' === $notification->getAction()) {
-            return $this->translator->trans('notifications.subject.late_request', ['%days%' => $this->requestDays]);
         }
 
         return '';

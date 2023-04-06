@@ -41,6 +41,8 @@ use App\Domain\User\Model\User;
 
 class NotificationModuleDictionary extends SimpleDictionary
 {
+    const ACTION_PLAN = 'action_plan';
+
     public function __construct()
     {
         parent::__construct('notificationModule', self::getModules());
@@ -60,22 +62,13 @@ class NotificationModuleDictionary extends SimpleDictionary
             Notification::MODULES[Violation::class]            => 'Violations',
             Notification::MODULES[Proof::class]                => 'Preuves',
             Notification::MODULES[Mesurement::class]           => 'Actions de protection',
+            self::ACTION_PLAN                                  => 'Plan d\'actions',
             Notification::MODULES[ConformiteTraitement::class] => 'Conformité du traitement',
             Notification::MODULES[Conformite::class]           => 'Conformité de la structure',
             Notification::MODULES[AnalyseImpact::class]        => 'AIPD',
             Notification::MODULES[Document::class]             => 'Espace Documentaire',
             Notification::MODULES[Maturity::class]             => 'Indice de maturité',
             Notification::MODULES[User::class]                 => 'Utilisateurs',
-//            Traitements
-//            Sous-traitants
-//            Demandes
-//            Violations
-//            Preuves
-//            Actions de protection
-//            Plan d'actions
-//            AIPD
-//            Indice de maturité
-//            Utilisateurs
         ];
     }
 
