@@ -97,17 +97,36 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $section->addTextBreak();
 
         $section->addText("Nombre d’actions de protection affectées par type de registre :");
-        $this->ActionTypeTable($section);
+        $this->ActionTypeTable($section, $data);
 
     }
 
-    private function ActionTypeTable($section){
+    private function ActionTypeTable($section, $data){
         $tableActionType = $section->addTable($this->tableStyleConformite);
         $tableActionType->addRow(null, ['tblHeader' => true, 'cantSplit' => true]);
         $cell = $tableActionType->addCell(6000, $this->cellHeadStyle);
         $cell->addText('Type de registre', $this->textHeadStyle);
         $cell = $tableActionType->addCell(3000, $this->cellHeadStyle);
         $cell->addText('Nombre d’actions de protection affectées', $this->textHeadStyle);
+
+        $cntTreatment = 0;
+        $cntContractors = 0;
+        $cntViolations = 0;
+        $cntRequests = 0;
+        foreach($data as $item){
+            $cntTreatment = $item->getTreatments() ? $cntTreatment + count($item->getTreatments()) : $cntTreatment;
+            $cntContractors = $item->getContractors() ? $cntContractors + count($item->getContractors()) : $cntContractors;
+            $cntViolations = $item->getViolations() ? $cntViolations + count($item->getViolations()) : $cntViolations;
+            $cntRequests = $item->getRequests() ? $cntRequests + count($item->getRequests()) : $cntRequests;
+        }
+        $arrayTypes = [['type' => 'Traitement', 'count' => $cntTreatment], ['type' => 'Sous-traitants', 'count' => $cntContractors], ['type' => 'Violations de donnéest', 'count' => $cntViolations], ['type' => 'Demandes', 'count' => $cntRequests]];
+        foreach($arrayTypes as $item){
+            $tableActionType->addRow();
+            $cell = $tableActionType->addCell(6000);
+            $cell->addText($item['type']);
+            $cell = $tableActionType->addCell(3000);
+            $cell->addText($item['count']);
+        }
     }
 
     public function ProtectionActionAppliedAnnexeTable($section, $data){
