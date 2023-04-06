@@ -314,6 +314,10 @@ class Notification extends CRUDRepository implements Repository\Notification
                     $queryBuilder->andWhere('o.module LIKE :module')
                         ->setParameter('module', '%' . $search . '%');
                     break;
+                case 'object':
+                    $queryBuilder->andWhere('o.subject LIKE :object')
+                        ->setParameter('object', '%' . $search . '%');
+                    break;
                 case 'date':
                     $queryBuilder->andWhere('o.createdAt LIKE :createdAt')
                         ->setParameter('createdAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
@@ -366,6 +370,10 @@ class Notification extends CRUDRepository implements Repository\Notification
                 break;
             case 'action':
                 $queryBuilder->addOrderBy('o.action', $orderDir);
+                break;
+
+            case 'object':
+                $queryBuilder->addOrderBy('o.subject', $orderDir);
                 break;
             case 'module':
                 $queryBuilder->addOrderBy('o.module', $orderDir);

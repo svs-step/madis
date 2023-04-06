@@ -32,7 +32,7 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>
+                                <th scope="col">
                                     <select class="form-control" id="search_state" style="width: 100%;">
                                         <option value="" selected>{{ 'notification.notification.list.state'|trans }}</option>
                                         {% for key, subject in dictionary('notifications_notification_state') %}
@@ -40,7 +40,7 @@
                                         {% endfor %}
                                     </select>
                                 </th>
-                                <th>
+                                <th scope="col">
                                     <select class="form-control" id="search_module" style="width: 100%;">
                                         <option value="" selected>{{ 'notification.notification.list.module'|trans }}</option>
                                         {% for key, subject in dictionary('notificationModule') %}
@@ -48,7 +48,7 @@
                                         {% endfor %}
                                     </select>
                                 </th>
-                                <th>
+                                <th scope="col">
                                     <select class="form-control" id="search_action" style="width: 100%;">
                                         <option value="" selected>{{ 'notification.notification.list.action'|trans }}</option>
                                         {% for key, subject in dictionary('notificationAction') %}
@@ -56,23 +56,24 @@
                                         {% endfor %}
                                     </select>
                                 </th>
-                                <th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
                                 </th>
-                                <th>
+                                <th scope="col">
+                                    <input class="form-control" type="text" id="search_object" placeholder="Objet" style="width: 100%;">
                                 </th>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
                                 </th>
                                 {% endif %}
-                                <th><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
-                                <th>
+                                <th scope="col"><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_user_name" placeholder="Nom" style="width: 100%;">
                                 </th>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <th><input class="datepicker form-control" type="text" id="search_read_at" placeholder="Date" style="width: 100%;"></th>
-                                <th>
+                                <th scope="col"><input class="datepicker form-control" type="text" id="search_read_at" placeholder="Date" style="width: 100%;"></th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_read_by" placeholder="Nom" style="width: 100%;">
                                 </th>
                                 {% endif %}
@@ -119,7 +120,7 @@
             {"data": "module"},
             {"data": "action"},
             {"data": "name"},
-            {"data": "object", "orderable": false},
+            {"data": "object"},
             {"data": "collectivity"},
             {"data": "date"},
             {"data": "user"},
@@ -133,7 +134,7 @@
             {"data": "module"},
             {"data": "action"},
             {"data": "name"},
-            {"data": "object", "orderable": false},
+            {"data": "object"},
             {"data": "date"},
             {"data": "user"},
             {"data": "actions", "orderable": false, "className": "noVis actions",},
@@ -178,8 +179,6 @@
         function setEvents() {
             var oTable = $('#table').DataTable();
 
-            {% if is_granted('ROLE_ADMIN') %}
-            // NON LU SEULEMENT
             $('#search_state').off('change');
             $('#search_state').change(function(){
                 oTable.column('0').search($(this).val()).draw();
@@ -199,6 +198,15 @@
             $('#search_name').keyup($.debounce(250, function(){
                 oTable.column('3').search($(this).val()).draw();
             }));
+
+            $('#search_object').off('keyup');
+            $('#search_object').keyup($.debounce(250, function(){
+                oTable.column('4').search($(this).val()).draw();
+            }));
+
+            {% if is_granted('ROLE_ADMIN') %}
+            // NON LU SEULEMENT
+
 
             $('#search_collectivity').off('keyup');
             $('#search_collectivity').keyup($.debounce(250, function(){
@@ -227,25 +235,7 @@
 
             {% else %}
 
-            $('#search_state').off('change');
-            $('#search_state').change(function(){
-                oTable.column('0').search($(this).val()).draw();
-            });
 
-            $('#search_module').off('change');
-            $('#search_module').change(function(){
-                oTable.column('1').search($(this).val()).draw();
-            });
-
-            $('#search_action').off('change');
-            $('#search_action').change(function(){
-                oTable.column('2').search($(this).val()).draw();
-            });
-
-            $('#search_name').off('keyup');
-            $('#search_name').keyup($.debounce(250, function(){
-                oTable.column('3').search($(this).val()).draw();
-            }));
 
 
             $('#search_date').off('change');

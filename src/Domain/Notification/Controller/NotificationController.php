@@ -187,7 +187,7 @@ class NotificationController extends CRUDController
                     'module'       => $this->translator->trans($notification->getModule()),
                     'action'       => $this->translator->trans($notification->getAction()),
                     'name'         => $nameHtml,
-                    'object'       => $this->getSubjectForNotification($notification),
+                    'object'       => $notification->getSubject(),
                     'collectivity' => $this->authorizationChecker->isGranted('ROLE_REFERENT') && $notification->getCollectivity() ? $notification->getCollectivity()->getName() : '',
                     'date'         => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
                     'user'         => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
@@ -205,7 +205,7 @@ class NotificationController extends CRUDController
                     'module'  => $this->translator->trans($notification->getModule()),
                     'action'  => $this->translator->trans($notification->getAction()),
                     'name'    => $nameHtml,
-                    'object'  => $this->getSubjectForNotification($notification),
+                    'object'  => $notification->getSubject(),
                     'date'    => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
                     'user'    => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
                     'actions' => $this->generateActionCellContent($notification),
@@ -214,69 +214,6 @@ class NotificationController extends CRUDController
         }
 
         return new JsonResponse($reponse);
-    }
-
-    private function getSubjectForNotification(Notification $notification): string
-    {
-        if (
-            'notification.modules.violation' === $notification->getModule()
-        ) {
-            $ob = $notification->getObject();
-            if (isset($ob->violationNatures) && is_array($ob->violationNatures) && count($ob->violationNatures) > 0) {
-                return join(', ', array_map(function ($v) {
-                    return ViolationNatureDictionary::getNatures()[$v] ?? '';
-                }, $ob->violationNatures));
-            } elseif (isset($ob->violationNature)) {
-                return ViolationNatureDictionary::getNatures()[$ob->violationNature] ?? '';
-            }
-
-            return '';
-        }
-
-        if (
-            'notification.modules.proof' === $notification->getModule()
-        ) {
-            $type = $notification->getObject()->type;
-
-            return $type && isset(ProofTypeDictionary::getTypes()[$type]) ? ProofTypeDictionary::getTypes()[$type] : '';
-        }
-
-        if ('notifications.actions.no_login' === $notification->getAction()) {
-            return $this->translator->trans('notifications.subject.no_login');
-        }
-
-        if ('notifications.actions.state_change' === $notification->getAction()) {
-            return $notification->getObject()->state;
-        }
-
-        if ('notifications.actions.late_survey' === $notification->getAction()) {
-            $days = $this->getParameter('APP_SURVEY_NOTIFICATION_DELAY_DAYS');
-
-            return $this->translator->trans('notifications.subject.late_survey', ['%days%' => $days]);
-        }
-
-        if ('notifications.actions.protect_action' === $notification->getAction()) {
-            return $notification->getObject()->getStatus();
-        }
-
-        if ('notifications.actions.late_action' === $notification->getAction()) {
-            $ob   = $notification->getObject();
-            $date = \DateTime::createFromFormat(DATE_ATOM, $ob->planificationDate)->format('d/m/Y');
-
-            return $this->translator->trans('notifications.subject.late_action', ['%date%' => $date]);
-        }
-
-        if ('notifications.actions.validation' === $notification->getAction()) {
-            return $this->translator->trans('notifications.subject.validation');
-        }
-
-        if ('notifications.actions.late_request' === $notification->getAction()) {
-            $days = $this->getParameter('APP_REQUEST_NOTIFICATION_DELAY_DAYS');
-
-            return $this->translator->trans('notifications.subject.late_request', ['%days%' => $days]);
-        }
-
-        return '';
     }
 
     private function generateActionCellContent(Model\Notification $notification)
