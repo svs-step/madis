@@ -344,10 +344,14 @@ class TreatmentController extends CRUDController
         /** @var Paginator $treatments */
         $treatments = $this->getResults($request, $criteria);
 
+
         $reponse = $this->getBaseDataTablesResponse($request, $treatments, $criteria);
 
         /** @var Model\Treatment $treatment */
         foreach ($treatments as $treatment) {
+            if (is_array($treatment)) {
+                $treatment = $treatment[0];
+            }
             if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
                 $treatmentLink = '<a aria-label="' . \htmlspecialchars($treatment->getName()) . '" href="' . $this->router->generate('registry_public_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
                 ' . \htmlspecialchars($treatment->getName()) . '

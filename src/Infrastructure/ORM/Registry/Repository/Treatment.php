@@ -362,14 +362,11 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     ->addOrderBy('hidden_statut', $orderDir);
                 break;
             case 'sensitiveData':
-                $queryBuilder->leftJoin('o.dataCategories', 'dc')
-                    ->where('dc.sensible = 1')
+                $queryBuilder->leftJoin('o.dataCategories', 'dco', 'WITH', 'dco.sensible = 1')
+                    ->addSelect('COUNT(dco.code) as sensitiveCount')
+                    ->addOrderBy('sensitiveCount', $orderDir)
+                    ->groupBy('o.id')
                 ;
-                $queryBuilder->addSelect('(case
-                WHEN dc.sensible = 1 THEN 1
-                WHEN dc.sensible = 0 THEN 2
-                ELSE 4 END) AS HIDDEN sensitive_data')
-                    ->addOrderBy('sensitive_data', $orderDir);
                 break;
         }
     }
@@ -457,21 +454,21 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                 case 'sensitiveData':
                     if ($search) {
                         $queryBuilder
-                            ->leftJoin('o.dataCategories', 'dc')
-                            ->addSelect('dc.sensible AS sensitiveData')
-                            ->andHaving('COUNT(dc.code) > 0')
-                            ->andWhere('dc.sensible = :sensitiveData')
-                            ->setParameter('sensitiveData', 1)
+                            ->leftJoin('o.dataCategories', 'dcs', 'WITH', 'dcs.sensible = :sensitiveDatas')
+                            ->addSelect('dcs.sensible AS sensitiveData')
+                            ->andHaving('COUNT(dcs.code) > 0')
+                            ->setParameter('sensitiveDatas', 1)
                             ->groupBy('o.id')
                         ;
                     } else {
                         $queryBuilder
-                            ->leftJoin('o.dataCategories', 'dc')
-                            ->andHaving('COUNT(dc.code) = 0')
-                            ->andWhere('dc.sensible = :sensitiveData')
-                            ->setParameter('sensitiveData', 1)
+                            ->leftJoin('o.dataCategories', 'dcs', 'WITH', 'dcs.sensible = :sensitiveDatas')
+                            ->andHaving('COUNT(dcs.code) = 0')
+                            ->setParameter('sensitiveDatas', 1)
                             ->groupBy('o.id')
                         ;
+
+                        // dd($queryBuilder->getQuery()->getSQL());
                     }
 
                     break;
