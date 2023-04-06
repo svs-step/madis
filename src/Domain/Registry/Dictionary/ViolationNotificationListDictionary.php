@@ -28,7 +28,7 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ViolationNotificationListDictionary extends SimpleDictionary
 {
-    public const NOTIFICATION_NOTHING      = '';
+    public const NOTIFICATION_NOTHING      = 'none';
     public const NOTIFICATION_CROSS_BORDER = 'cross_border';
     public const NOTIFICATION_CNIL         = 'cnil';
     public const NOTIFICATION_OTHER        = 'other';

@@ -418,6 +418,9 @@ class Violation implements Repository\Violation
             case 'createdAt':
                 $queryBuilder->addOrderBy('o.createdAt', $orderDir);
                 break;
+            case 'inProgress':
+                $queryBuilder->addOrderBy('o.inProgress', $orderDir);
+                break;
             case 'updatedAt':
                 $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
                 break;
@@ -442,7 +445,7 @@ class Violation implements Repository\Violation
                         ->setParameter('nature', '%' . $search . '%');
                     break;
                 case 'inProgress':
-                    $this->addWhereClause($queryBuilder, 'in_progress', $search);
+                    $this->addWhereClause($queryBuilder, 'inProgress', $search);
                     break;
                 case 'cause':
                     $this->addWhereClause($queryBuilder, 'cause', $search);
@@ -451,7 +454,12 @@ class Violation implements Repository\Violation
                     $this->addWhereClause($queryBuilder, 'gravity', $search);
                     break;
                 case 'notification':
-                    $this->addWhereClause($queryBuilder, 'notification', $search);
+                    if ($search == 'none') {
+                        $queryBuilder->andWhere('o.notification IS NULL');
+                    } else {
+                        $this->addWhereClause($queryBuilder, 'notification', $search);
+                    }
+
                     break;
                 case 'createdAt':
                     $queryBuilder->andWhere('o.createdAt BETWEEN :created_start_date AND :created_finish_date')
