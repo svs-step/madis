@@ -711,6 +711,7 @@ registry:
             origins: Origine de la perte de données
             potential_impacts_nature: Nature des impacts potentiels pour les personnes
             service: Service
+            contractor: Sous-traitants
             violation_nature: Nature de la violation
             violation_natures: Natures de la violation
             treatment: Traitements associés

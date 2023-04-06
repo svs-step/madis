@@ -31,6 +31,7 @@ use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Dictionary\ViolationCauseDictionary;
 use App\Domain\Registry\Dictionary\ViolationGravityDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
+use App\Domain\Registry\Dictionary\ViolationNotificationListDictionary;
 use App\Domain\Registry\Form\Type\ViolationType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
@@ -207,7 +208,7 @@ class ViolationController extends CRUDController
                 'updatedAt'    => date_format($violation->getUpdatedAt(), 'd-m-Y H:i:s'),
                 'inProgress'   => $violation->isInProgress() ? $yes : $no,
                 'actions'      => $this->getActionCellsContent($violation),
-                'notification' => $this->getNotifications(),
+                'notification' => !\is_null($violation->getNotification()) && isset(ViolationNotificationListDictionary::getNotificationsList()[$violation->getNotification()]) ? ViolationNotificationListDictionary::getNotificationsList()[$violation->getNotification()] : null,
             ];
         }
 
