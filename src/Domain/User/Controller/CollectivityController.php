@@ -155,10 +155,16 @@ class CollectivityController extends CRUDController
             $reponse['data'][] = [
                 'nom'                          => '<a aria-label="' . $collectivity->getName() . '" href="' . $this->router->generate('user_collectivity_show', ['id' => $collectivity->getId()]) . '">' . $collectivity->getName() . '</a>',
                 'nom_court'                    => $collectivity->getShortName(),
-                'type'                         => !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] : null,
+                'type'                         => !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] ?? $collectivity->getType() : null,
                 'informations_complementaires' => !\is_null($collectivity->getInformationsComplementaires()) ? nl2br($collectivity->getInformationsComplementaires()) : null,
                 'siren'                        => $collectivity->getSiren(),
                 'statut'                       => $collectivity->isActive() ? $active : $inactive,
+                'population'                   => $collectivity->getPopulation(),
+                'nbr_agents'                   => $collectivity->getNbrAgents(),
+                'nbr_cnil'                     => $collectivity->getNbrCnil(),
+                'tel_referent_rgpd'            => !\is_null($collectivity->getDpo()) ? ($collectivity->getDpo())->getPhoneNumber() : null,
+                'createdAt'                    => !\is_null($collectivity->getCreatedAt()) ? $collectivity->getCreatedAt()->format('d-m-Y H:i:s') : null,
+                'updatedAt'                    => !\is_null($collectivity->getUpdatedAt()) ? $collectivity->getUpdatedAt()->format('d-m-Y H:i:s') : null,
                 'actions'                      => $this->getActionCellsContent($collectivity),
             ];
         }
@@ -191,12 +197,19 @@ class CollectivityController extends CRUDController
     protected function getLabelAndKeysArray(): array
     {
         return [
-            0 => 'nom',
-            1 => 'nom_court',
-            2 => 'type',
-            3 => 'siren',
-            4 => 'statut',
-            5 => 'actions',
+            'nom',
+            'nom_court',
+            'type',
+            'informations_complementaires',
+            'statut',
+            'date_maj',
+            'population',
+            'nbr_agents',
+            'nbr_cnil',
+            'tel_referent_rgpd',
+            'createdAt',
+            'updatedAt',
+            'actions',
         ];
     }
 
