@@ -247,7 +247,7 @@ abstract class CRUDController extends AbstractController
      */
     public function editAction(Request $request, string $id): Response
     {
-//        /** @var CollectivityRelated $object */
+        //        /** @var CollectivityRelated $object */
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");

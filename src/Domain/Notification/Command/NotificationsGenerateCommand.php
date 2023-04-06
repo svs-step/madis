@@ -103,7 +103,7 @@ class NotificationsGenerateCommand extends Command
             if ($action->getPlanificationDate() && $action->getPlanificationDate() < $now) {
                 $this->dispatcher->dispatch(new LateActionEvent($action));
                 ++$cnt;
-//                $this->io->writeln('late action count so far: ' . $cnt);
+                //                $this->io->writeln('late action count so far: ' . $cnt);
             }
         }
 
@@ -117,7 +117,7 @@ class NotificationsGenerateCommand extends Command
         foreach ($requests as $request) {
             $this->dispatcher->dispatch(new LateRequestEvent($request));
             ++$cnt;
-//            $this->io->writeln('late request count so far: ' . $cnt);
+            //            $this->io->writeln('late request count so far: ' . $cnt);
         }
 
         return $cnt;
@@ -132,7 +132,7 @@ class NotificationsGenerateCommand extends Command
         foreach ($surveys as $survey) {
             $this->dispatcher->dispatch(new LateSurveyEvent($survey));
             ++$cnt;
-//            $this->io->writeln('late survey count so far: ' . $cnt);
+            //            $this->io->writeln('late survey count so far: ' . $cnt);
         }
 
         return $cnt;
@@ -146,7 +146,7 @@ class NotificationsGenerateCommand extends Command
         foreach ($users as $user) {
             ++$cnt;
             $this->dispatcher->dispatch(new NoLoginEvent($user));
-//            $this->io->writeln('No login count so far: ' . $cnt);
+            //            $this->io->writeln('No login count so far: ' . $cnt);
         }
 
         return $cnt;
@@ -163,7 +163,7 @@ class NotificationsGenerateCommand extends Command
                 && null === $conformite->getLastAnalyseImpact() && $this->getCritereValid($conformite)) {
                 ++$cnt;
                 $this->dispatcher->dispatch(new ConformiteTraitementNeedsAIPDEvent($conformite));
-//                $this->io->writeln('treatment needs AIPD count so far: ' . $cnt);
+                //                $this->io->writeln('treatment needs AIPD count so far: ' . $cnt);
             }
         }
 

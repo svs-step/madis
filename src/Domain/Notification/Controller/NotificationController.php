@@ -30,8 +30,6 @@ use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Notification\Model;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Repository;
-use App\Domain\Registry\Dictionary\ProofTypeDictionary;
-use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use Doctrine\ORM\EntityManagerInterface;

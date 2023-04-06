@@ -99,8 +99,6 @@ class Notification
     private $module;
     /**
      * @ORM\Column(type="text", nullable=true)
-     *
-     * @var string|null
      */
     private ?string $subject;
 
@@ -281,20 +279,13 @@ class Notification
         $this->dpo = $dpo;
     }
 
-    /**
-     * @return string|null
-     */
     public function getSubject(): ?string
     {
         return $this->subject;
     }
 
-    /**
-     * @param string|null $subject
-     */
     public function setSubject(?string $subject): void
     {
-
         $this->subject = $subject;
     }
 }

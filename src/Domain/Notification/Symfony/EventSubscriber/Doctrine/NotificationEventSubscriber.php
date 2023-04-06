@@ -10,6 +10,7 @@ use App\Domain\Documentation\Model\Document;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Model\NotificationUser;
 use App\Domain\Notification\Serializer\NotificationNormalizer;
+use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\Registry\Model\Contractor;
@@ -380,7 +381,7 @@ class NotificationEventSubscriber implements EventSubscriber
             $nu->setActive(false);
             $nu->setSent(false);
             $nus[] = $nu;
-//            $this->notificationUserRepository->persist($nu);
+            //            $this->notificationUserRepository->persist($nu);
         }
 
         return $nus;
@@ -416,7 +417,7 @@ class NotificationEventSubscriber implements EventSubscriber
             if (isset($ob->violationNatures)) {
                 $vn = explode(',', $ob->violationNatures);
                 if (is_array($vn) && count($vn) > 0) {
-                    return join(', ', array_map(function ($v) use ($ob) {
+                    return join(', ', array_map(function ($v) {
                         return ViolationNatureDictionary::getNatures()[trim($v)] ?? '';
                     }, $vn));
                 }
@@ -435,34 +436,34 @@ class NotificationEventSubscriber implements EventSubscriber
             return $type && isset(ProofTypeDictionary::getTypes()[$type]) ? ProofTypeDictionary::getTypes()[$type] : '';
         }
 
-        if ('notifications.actions.no_login' === $notification->getAction()) {
+        if ('notification.modules.protect_action' === $notification->getModule()) {
+            return MesurementStatusDictionary::getStatus()[$notification->getObject()->status] ?? '';
+        }
+
+        if ('notifications.actions.no_login' === $notification->getAction() || 'notification.actions.no_login' === $notification->getAction()) {
             return $this->translator->trans('notifications.subject.no_login');
         }
 
-        if ('notifications.actions.state_change' === $notification->getAction()) {
+        if ('notifications.actions.state_change' === $notification->getAction() || 'notification.actions.state_change' === $notification->getAction()) {
             return $notification->getObject()->state;
         }
 
-        if ('notifications.actions.late_survey' === $notification->getAction()) {
+        if ('notifications.actions.late_survey' === $notification->getAction() || 'notification.actions.late_survey' === $notification->getAction()) {
             return $this->translator->trans('notifications.subject.late_survey', ['%days%' => $this->surveyDays]);
         }
 
-        if ('notifications.actions.protect_action' === $notification->getAction()) {
-            return $notification->getObject()->getStatus();
-        }
-
-        if ('notifications.actions.late_action' === $notification->getAction()) {
+        if ('notifications.actions.late_action' === $notification->getAction() || 'notification.actions.late_action' === $notification->getAction()) {
             $ob   = $notification->getObject();
             $date = \DateTime::createFromFormat(DATE_ATOM, $ob->planificationDate)->format('d/m/Y');
 
             return $this->translator->trans('notifications.subject.late_action', ['%date%' => $date]);
         }
 
-        if ('notifications.actions.validation' === $notification->getAction()) {
+        if ('notifications.actions.validation' === $notification->getAction() || 'notification.actions.validation' === $notification->getAction()) {
             return $this->translator->trans('notifications.subject.validation');
         }
 
-        if ('notifications.actions.late_request' === $notification->getAction()) {
+        if ('notifications.actions.late_request' === $notification->getAction() || 'notification.actions.late_request' === $notification->getAction()) {
             return $this->translator->trans('notifications.subject.late_request', ['%days%' => $this->requestDays]);
         }
 
