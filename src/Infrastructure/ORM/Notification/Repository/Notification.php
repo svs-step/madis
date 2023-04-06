@@ -303,8 +303,12 @@ class Notification extends CRUDRepository implements Repository\Notification
                         ->setParameter('name', '%' . $search . '%');
                     break;
                 case 'action':
-                    $queryBuilder->andWhere('o.action LIKE :action')
-                        ->setParameter('action', '%' . $search . '%');
+                    $queryBuilder
+                        ->andWhere('o.action LIKE :a1 OR o.action LIKE :a2 OR o.action LIKE :a3')
+                        ->setParameter('a1', '%no_login')
+                        ->setParameter('a2', '%late_survey')
+                        ->setParameter('a3', '%late_action')
+                        ;
                     break;
                 case 'module':
                     $queryBuilder->andWhere('o.module LIKE :module')

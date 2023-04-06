@@ -49,6 +49,7 @@ class NotificationExtension extends AbstractExtension
 
         switch ($notification->getAction()) {
             case 'notifications.actions.late_request':
+            case 'notification.actions.late_request':
                 $link = $this->getObjectLink($notification);
                 $sentence .= $this->translator->trans('notifications.sentence.late_request', [
                     '%name%' => '<a href="' . $link . '">' . $notification->getName() . '</a> ',
@@ -56,15 +57,21 @@ class NotificationExtension extends AbstractExtension
                 ]) . ' ';
                 break;
             case 'notifications.sentence.late_request':
+            case 'notification.sentence.late_request':
                 $sentence .= $this->translator->trans('notifications.sentence.late_survey', [
                     '%days%' => $this->surveyDays,
                 ]) . ' ';
                 break;
             case 'notifications.actions.delete':
+            case 'notification.actions.delete':
                 $sentence .= $this->translator->trans($notification->getAction()) . ' ';
                 $sentence .= ' : ' .
                     '<span>' . $notification->getName() . '</span> '
                 ;
+                break;
+            case 'notifications.actions.document':
+            case 'notification.actions.document':
+                $sentence .= ' Nouveau document déposé par le DPD ';
                 break;
             default:
                 $sentence .= $this->translator->trans($notification->getAction()) . ' ';

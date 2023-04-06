@@ -37,6 +37,7 @@ use App\Domain\Registry\Model\Proof;
 use App\Domain\Registry\Model\Request;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
+use App\Domain\User\Model\User;
 
 class NotificationModuleDictionary extends SimpleDictionary
 {
@@ -53,18 +54,28 @@ class NotificationModuleDictionary extends SimpleDictionary
     public static function getModules()
     {
         return [
-            Notification::MODULES[Treatment::class]            => 'Traitement',
-            Notification::MODULES[Contractor::class]           => 'Sous-traitant',
-            Notification::MODULES[Request::class]              => 'Demande',
-            Notification::MODULES[Violation::class]            => 'Violation',
-            Notification::MODULES[Proof::class]                => 'Preuve',
-            Notification::MODULES[Mesurement::class]           => 'Action de protection',
-            Notification::MODULES[Maturity::class]             => 'Indice de maturité',
+            Notification::MODULES[Treatment::class]            => 'Traitements',
+            Notification::MODULES[Contractor::class]           => 'Sous-traitants',
+            Notification::MODULES[Request::class]              => 'Demandes',
+            Notification::MODULES[Violation::class]            => 'Violations',
+            Notification::MODULES[Proof::class]                => 'Preuves',
+            Notification::MODULES[Mesurement::class]           => 'Actions de protection',
             Notification::MODULES[ConformiteTraitement::class] => 'Conformité du traitement',
             Notification::MODULES[Conformite::class]           => 'Conformité de la structure',
-            Notification::MODULES[AnalyseImpact::class]        => 'Analyse d\'impact',
+            Notification::MODULES[AnalyseImpact::class]        => 'AIPD',
             Notification::MODULES[Document::class]             => 'Espace Documentaire',
-            'user'                                             => 'Utilisateurs',
+            Notification::MODULES[Maturity::class]             => 'Indice de maturité',
+            Notification::MODULES[User::class]                 => 'Utilisateurs',
+//            Traitements
+//            Sous-traitants
+//            Demandes
+//            Violations
+//            Preuves
+//            Actions de protection
+//            Plan d'actions
+//            AIPD
+//            Indice de maturité
+//            Utilisateurs
         ];
     }
 
