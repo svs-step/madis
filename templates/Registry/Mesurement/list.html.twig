@@ -201,52 +201,59 @@
                 }
             });
 
-            let columnButton = $("button.dt-button > span:contains('Colonnes')").parent();
-            $( "#custom-buttons" ).prepend( columnButton.css("float", "left").css("margin-right", "0.5em"));
+            function setEvents() {
 
-            let exportButton = $("button.dt-button > span:contains('Exporter')").parent();
-            $("#delete-all").before(exportButton.css("bottom", "17px") );
+                let columnButton = $("button.dt-button > span:contains('Colonnes')").parent();
+                $("#custom-buttons").prepend(columnButton.css("float", "left").css("margin-right", "0.5em"));
+
+                let exportButton = $("button.dt-button > span:contains('Exporter')").parent();
+                $("#delete-all").before(exportButton.css("bottom", "17px"));
 
 
-            $('#search_created_at').show('slide',function(){
-                $('input#search_created_at').val('');
-            });
-            $('#search_updated_at').show('slide',function(){
-                $('input#search_updated_at').val('');
+                $('#search_created_at').show('slide', function () {
+                    $('input#search_created_at').val('');
+                });
+                $('#search_updated_at').show('slide', function () {
+                    $('input#search_updated_at').val('');
 
-            });
+                });
 
-            $('#search_nom').keyup($.debounce(250, function(){
-                oTable.column('0').search($(this).val()).draw() ;
-            }));
-            $('#search_collectivite').keyup($.debounce(250, function(){
-                oTable.column('1').search($(this).val()).draw() ;
-            }));
-            $('#search_statut').change(function(){
-                oTable.column('2').search($(this).val()).draw() ;
-            });
-            $('#search_cout').keyup($.debounce(250, function(){
-                oTable.column('3').search($(this).val()).draw() ;
-            }));
-            $('#search_charge').keyup($.debounce(250, function(){
-                oTable.column('4').search($(this).val()).draw() ;
-            }));
-            $('#search_priorite').change(function(){
-                oTable.column('5').search($(this).val()).draw() ;
-            });
-            $('#search_responsable_action').keyup($.debounce(250, function(){
-                oTable.column('6').search($(this).val()).draw() ;
-            }));
-            $('#search_created_at').off('change');
-            $('#search_created_at').change(function(){
-                oTable.column('9').search($(this).val()).draw() ;
-            });
+                $('#search_nom').keyup($.debounce(250, function () {
+                    oTable.column('0').search($(this).val()).draw();
+                }));
+                $('#search_collectivite').keyup($.debounce(250, function () {
+                    oTable.column('1').search($(this).val()).draw();
+                }));
+                $('#search_statut').change(function () {
+                    oTable.column('2').search($(this).val()).draw();
+                });
+                $('#search_cout').keyup($.debounce(250, function () {
+                    oTable.column('3').search($(this).val()).draw();
+                }));
+                $('#search_charge').keyup($.debounce(250, function () {
+                    oTable.column('4').search($(this).val()).draw();
+                }));
+                $('#search_priorite').change(function () {
+                    oTable.column('5').search($(this).val()).draw();
+                });
+                $('#search_responsable_action').keyup($.debounce(250, function () {
+                    oTable.column('6').search($(this).val()).draw();
+                }));
+                $('#search_created_at').off('change');
+                $('#search_created_at').change(function () {
+                    oTable.column('9').search($(this).val()).draw();
+                });
 
-            $('#search_updated_at').off('change');
-            $('#search_updated_at').change(function(){
-                oTable.column('10').search($(this).val()).draw() ;
-            });
+                $('#search_updated_at').off('change');
+                $('#search_updated_at').change(function () {
+                    oTable.column('10').search($(this).val()).draw();
+                });
+            }
 
+            $('#table').on('column-visibility.dt', function() {
+                setEvents();
+            } );
+            setEvents();
         } );
     </script>
 {% endblock %}
