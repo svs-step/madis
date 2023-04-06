@@ -454,7 +454,7 @@ class Violation implements Repository\Violation
                     $this->addWhereClause($queryBuilder, 'gravity', $search);
                     break;
                 case 'notification':
-                    if ($search == 'none') {
+                    if ('none' == $search) {
                         $queryBuilder->andWhere('o.notification IS NULL');
                     } else {
                         $this->addWhereClause($queryBuilder, 'notification', $search);

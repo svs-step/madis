@@ -344,7 +344,6 @@ class TreatmentController extends CRUDController
         /** @var Paginator $treatments */
         $treatments = $this->getResults($request, $criteria);
 
-
         $reponse = $this->getBaseDataTablesResponse($request, $treatments, $criteria);
 
         /** @var Model\Treatment $treatment */
