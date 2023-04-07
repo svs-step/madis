@@ -57,7 +57,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
             ],
         ];
         $nbTotal = \count($data);
-        dd($data);
+
         foreach ($data as $violation) {
             $cellDate   = [];
             $cellDate[] = $this->getDate($violation->getDate(), 'd/m/Y');
