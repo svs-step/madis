@@ -235,11 +235,11 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 $cell->addText($treatment->getName());
                 $cell = $tableNeedAipd->addCell(2500);
                 foreach($sensibleDatas as $sensibleData){
-                    $cell->addListItem(htmlspecialchars((string)$sensibleData, ENT_COMPAT, 'UTF-8'));
+                    $cell->addListItem(htmlspecialchars((string)$sensibleData, ENT_COMPAT, 'UTF-8'), (int)null, [], [], ['spaceAfter' => 0]);
                 }
                 $cell = $tableNeedAipd->addCell(2500);
                 foreach($specificTreatments as $specificTreatment){
-                    $cell->addListItem($specificTreatment);
+                    $cell->addListItem($specificTreatment, (int)null, [], [], ['spaceAfter' => 0]);
                 }
             }
 

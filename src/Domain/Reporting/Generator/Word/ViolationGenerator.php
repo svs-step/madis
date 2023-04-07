@@ -57,6 +57,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
             ],
         ];
         $nbTotal = \count($data);
+        dd($data);
         foreach ($data as $violation) {
             $cellDate   = [];
             $cellDate[] = $this->getDate($violation->getDate(), 'd/m/Y');
@@ -75,8 +76,13 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
 
         $section->addText("Un registre des violations de données à caractère personnel est tenu à jour par '{$collectivity}'.");
 
-        if ($nbTotal = 0){
+        if ($nbTotal === 0){
             $section->addText("Un modèle de registre des violations de données est opérationnel et tenu à jour. A ce jour, il n’y a pas eu de violations de données à caractère personnel.");
+        }
+
+        if ($nbTotal === 1){
+            $section->addText("Il y a eu {$nbTotal} violation de données à caractère personnel.");
+            $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
         }
         else {
             $section->addText("Il y a eu {$nbTotal} violations de données à caractère personnel.");
