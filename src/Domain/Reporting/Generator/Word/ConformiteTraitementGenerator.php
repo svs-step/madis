@@ -507,28 +507,9 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
         $listConformityName = [
             'C' => [1 => 0, 2=> 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0, 13 => 0, 14 => 0, 15 => 0],
-            'NC' => [1 => 0, 2=> 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0, 13 => 0, 14 => 0, 15 => 0],
             'NCM' => [1 => 0, 2=> 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0, 13 => 0, 14 => 0, 15 => 0],
+            'NC' => [1 => 0, 2=> 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0, 13 => 0, 14 => 0, 15 => 0],
         ];
-
-        $conformityNames = [
-            ['name' => 'Finalités', 'function' => 'C'],
-            ['name' => 'Licéité du traitement', 'function' => 'NC'],
-            ['name' => 'Minimisation des données', 'function' => 'C'],
-            ['name' => 'Qualité des données', 'function' => 'NCM'],
-            ['name' => 'Durées de conservation', 'function' => 'C'],
-            ['name' => 'Information des personnes', 'function' => 'C'],
-            ['name' => 'Recueil du consentement', 'function' => 'C'],
-            ['name' => 'Accès', 'function' => 'C'],
-            ['name' => 'Portabilité', 'function' => 'C'],
-            ['name' => 'Rectification', 'function' => 'C'],
-            ['name' => 'Effacement', 'function' => 'C'],
-            ['name' => 'Limitation', 'function' => 'C'],
-            ['name' => 'Opposition', 'function' => 'C'],
-            ['name' => 'Sous-traitance', 'function' => 'C'],
-            ['name' => 'Transferts hors UE', 'function' => 'C']];
-
-        $recapConformites = ['C' => $listConformityName, 'NCM' => $listConformityName, 'NC' => $listConformityName];
 
         //Affichage des données de chaque conformité de traitement
         foreach ($treatments as $treatment){
@@ -540,7 +521,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 }
                 ksort($ConformityTreatmentValues);
 
-                $tableSyntheticAnnexeList->addRow();
+                $tableSyntheticAnnexeList->addRow(400,['exactHeight' => true]);
                 $cell = $tableSyntheticAnnexeList->addCell(1000);
                 $cell->addText($treatment->getName());
 
@@ -549,8 +530,8 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 $NCM = 0;
 
                 foreach($ConformityTreatmentValues as $key => $value){
-                    $cell = $tableSyntheticAnnexeList->addCell(300);
-                    $cell->addText($value);
+                    $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => $this->BgColorSyntheticTreatment($value)]);
+                    $cell->addText($value,[], ['alignment' => 'center']);
                     ++$listConformityName[$value][$key];
 
                     match($value){
@@ -563,24 +544,24 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 $cell = $tableSyntheticAnnexeList->addCell(100, ['borderTopColor' => 'ffffff', 'borderTopSize' => 2, 'borderBottomColor' => 'ffffff', 'borderBottomSize' => 2]);
                 $cell->addText('');
                 $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'bce292']);
-                $cell->addText($C);
+                $cell->addText($C, ['bold' => true], ['alignment' => 'center']);
                 $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'ffff80']);
-                $cell->addText($NCM);
+                $cell->addText($NCM, ['bold' => true], ['alignment' => 'center']);
                 $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'ffa7a7']);
-                $cell->addText($NC);
+                $cell->addText($NC, ['bold' => true], ['alignment' => 'center']);
             }
         }
-        $tableSyntheticAnnexeList->addRow();
+        $tableSyntheticAnnexeList->addRow(60,['exactHeight' => true]);
         $cell = $tableSyntheticAnnexeList->addCell(1000, ['borderLeftColor' => 'ffffff', 'borderLeftSize' => 2, 'borderRightColor' => 'ffffff', 'borderRightSize' => 2]);
         $cell->addText('');
 
         foreach ($listConformityName as $key => $datas) {
-            $tableSyntheticAnnexeList->addRow();
+            $tableSyntheticAnnexeList->addRow(400,['exactHeight' => true]);
             $cell = $tableSyntheticAnnexeList->addCell(1000,["bgColor" => "3c8dbc"] );
-            $cell->addText($key, $this->textHeadStyle);
+            $cell->addText($key, $this->textHeadStyle, ['alignment' => 'right']);
             foreach($datas as $item){
                 $cell = $tableSyntheticAnnexeList->addCell(300,['bgColor' => $this->BgColorSyntheticTreatment($key)]);
-                $cell->addText($item);
+                $cell->addText($item, ['bold' => true], ['alignment' => 'center']);
             }
         }
     }

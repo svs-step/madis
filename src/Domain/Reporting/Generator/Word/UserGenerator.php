@@ -87,7 +87,7 @@ class UserGenerator extends AbstractGenerator implements ImpressionGeneratorInte
         $cell->addText('Actif', $this->textHeadStyle);
 
         foreach($users as $item){
-            $userAnnexListTable->addRow(null, ['cantsplit' => true]);
+            $userAnnexListTable->addRow(400, ['exactHeight' => true, 'cantsplit' => true]);
             $cell = $userAnnexListTable->addCell(1500);
             $cell->addText($item->getFirstName());
             $cell = $userAnnexListTable->addCell(1500);
@@ -95,7 +95,7 @@ class UserGenerator extends AbstractGenerator implements ImpressionGeneratorInte
             $cell = $userAnnexListTable->addCell(3000);
             $cell->addText($item->getEmail());
             $cell = $userAnnexListTable->addCell(1000, ['bgColor' => $item->IsEnabled() ? 'bce292' : 'ffa7a7']);
-            $cell->addText($item->IsEnabled() ? 'Actif' : 'Inactif');
+            $cell->addText($item->IsEnabled() ? 'Actif' : 'Inactif', ['bold' => true]);
         }
     }
 }

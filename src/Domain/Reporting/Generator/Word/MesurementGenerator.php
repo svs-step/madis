@@ -153,9 +153,9 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
 
         if ($appliedMesurement){
             foreach ($appliedMesurement as $line){
-                $tableProtectionActionApplied->addRow(null, ['cantSplit' => true]);
+                $tableProtectionActionApplied->addRow(400, ['exactHeight' => true, 'cantsplit' => true]);
                 $cell1 = $tableProtectionActionApplied->addCell(1500);
-                $cell1->addText($line[0]);
+                $cell1->addText($line[0], [], ['alignment' => 'center']);
                 $cell2 = $tableProtectionActionApplied->addCell(7500);
                 $cell2->addText($line[1]);
             }

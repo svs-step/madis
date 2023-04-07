@@ -237,9 +237,6 @@ class OverviewGenerator extends AbstractGenerator
         $this->proofGenerator->ProofList($section);
         $this->treatmentGenerator->TreatmentAnnexeList($section, $treatments);
         $this->userGenerator->UserList($section);
-        /* todo ajouter la liste des utilisateurs */
-        //$this->conformiteTraitementGenerator->SyntheticAnnexeList($section, $treatments);
-
         $section->addPageBreak();
         $RiskAnnexeSection = $document->addSection(['orientation' => 'landscape']);
         $this->conformiteTraitementGenerator->SyntheticAnnexeList($RiskAnnexeSection, $treatments);
@@ -247,8 +244,9 @@ class OverviewGenerator extends AbstractGenerator
         $RiskAnnexeSection->addPageBreak();
         $this->violationGenerator->AnnexeList($RiskAnnexeSection, $violations);
         $RiskAnnexeSection->addPageBreak();
-        $RiskAnnexeSection->addTitle('Liste des actions de protection mises en place',2);
-        $this->mesurementGenerator->ProtectionActionAppliedAnnexeTable($RiskAnnexeSection, $mesurements);
+        $protectionActionSection = $document->addSection(['orientation' => 'portrait']);
+        $protectionActionSection->addTitle('Liste des actions de protection mises en place',2);
+        $this->mesurementGenerator->ProtectionActionAppliedAnnexeTable($protectionActionSection, $mesurements);
     }
 
 }

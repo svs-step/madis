@@ -508,10 +508,10 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             $cell = $treatmentAnnexListTable->addCell(1500);
             $cell->addText($item->getDataOrigin());
             $cell = $treatmentAnnexListTable->addCell(2000);
-            $cell->addListItem('Controle d\'accès', null, ['color' => $this->IsMesureOk($item->getSecurityAccessControl())]);
-            $cell->addListItem('Traçabilité', null,  ['color' => $this->IsMesureOk($item->getSecurityTracability())]);
-            $cell->addListItem('Sauvegarde', null, ['color' => $this->IsMesureOk($item->getSecuritySaving())]);
-            $cell->addListItem('Mise à jour', null, ['color' => $this->IsMesureOk($item->getSecurityUpdate())]);
+            $cell->addListItem('Controle d\'accès', null, ['color' => $this->IsMesureOk($item->getSecurityAccessControl())], [], ['spaceAfter' => 0]);
+            $cell->addListItem('Traçabilité', null,  ['color' => $this->IsMesureOk($item->getSecurityTracability())], [], ['spaceAfter' => 0]);
+            $cell->addListItem('Sauvegarde', null, ['color' => $this->IsMesureOk($item->getSecuritySaving())], [], ['spaceAfter' => 0]);
+            $cell->addListItem('Mise à jour', null, ['color' => $this->IsMesureOk($item->getSecurityUpdate())], [], ['spaceAfter' => 0]);
         }
     }
 
@@ -576,36 +576,36 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
             $RiskTreatmentAnnexListTable->addRow(null, ['cantsplit' => true]);
             $cell = $RiskTreatmentAnnexListTable->addCell();
-            $cell->addText($item->getName());
+            $cell->addText($item->getName(), ['size' => 8]);
             $cell = $RiskTreatmentAnnexListTable->addCell();
             foreach ($item->getDataCategories() as $category) {
-                $cell->addListItem($category->getName());
+                $cell->addListItem($category->getName(), null, ['size' => 8], [], ['spaceAfter' => 0]);
             }
-            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $cnt_sensible > 0 ? 'ffa7a7': null]);
-            $cell->addText($cnt_sensible > 0 ? 'Oui': '');
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isSystematicMonitoring() ? 'ffa7a7': null]);
-            $cell->addText($item->isSystematicMonitoring() ? 'Oui' : '');
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isLargeScaleCollection() ? 'ffa7a7': null]);
-            $cell->addText($item->isLargeScaleCollection() ? 'Oui' : '');
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isVulnerablePeople() ? 'ffa7a7': null]);
-            $cell->addText($item->isVulnerablePeople() ? 'Oui' : '');
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isDataCrossing() ? 'ffa7a7': null]);
-            $cell->addText($item->isDataCrossing() ? 'Oui' : '');
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isEvaluationOrRating() ? 'ffa7a7': null]);
-            $cell->addText($item->isEvaluationOrRating() ? 'Oui' : '');
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isAutomatedDecisionsWithLegalEffect() ? 'ffa7a7': null]);
-            $cell->addText($item->isAutomatedDecisionsWithLegalEffect() ? 'Oui' : '');
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isAutomaticExclusionService() ? 'ffa7a7': null]);
-            $cell->addText($item->isAutomaticExclusionService() ? 'Oui' : '');
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isInnovativeUse() ? 'ffa7a7': null]);
-            $cell->addText($item->isInnovativeUse() ? 'Oui' : '');
+            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $cnt_sensible > 0 ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell->addText($cnt_sensible > 0 ? 'Oui': '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isSystematicMonitoring() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell->addText($item->isSystematicMonitoring() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isLargeScaleCollection() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell->addText($item->isLargeScaleCollection() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isVulnerablePeople() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell->addText($item->isVulnerablePeople() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isDataCrossing() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell->addText($item->isDataCrossing() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isEvaluationOrRating() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell->addText($item->isEvaluationOrRating() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isAutomatedDecisionsWithLegalEffect() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell->addText($item->isAutomatedDecisionsWithLegalEffect() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isAutomaticExclusionService() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell->addText($item->isAutomaticExclusionService() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isInnovativeUse() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell->addText($item->isInnovativeUse() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
             //todo mettte CNIL
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isInnovativeUse() ? 'ffa7a7': null]);
-            $cell->addText($item->isInnovativeUse() ? 'Oui' : '');
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isExemptAIPD() ? 'bce292' : 'ffa7a7']);
-            $cell->addText($item->isExemptAIPD() ? 'Oui' : 'Non');
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => (($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories >1 || ($cnt_sensible>2)) ? 'bce292' : 'ffa7a7']);
-            $cell->addText((($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories >1 || ($cnt_sensible>2)) ? 'Oui' : 'Non');
+            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isInnovativeUse() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell->addText($item->isInnovativeUse() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isExemptAIPD() ? 'bce292' : 'ffa7a7', 'valign' => 'center']);
+            $cell->addText($item->isExemptAIPD() ? 'Oui' : 'Non', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => (($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories >1 || ($cnt_sensible>2)) ? 'bce292' : 'ffa7a7', 'valign' => 'center']);
+            $cell->addText((($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories >1 || ($cnt_sensible>2)) ? 'Oui' : 'Non', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
         }
     }
 
