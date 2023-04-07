@@ -78,16 +78,34 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
 
         if ($nbTotal === 0){
             $section->addText("Un modèle de registre des violations de données est opérationnel et tenu à jour. A ce jour, il n’y a pas eu de violations de données à caractère personnel.");
+        } else {
+            if ($nbTotal === 1){
+                $section->addText("Il y a eu {$nbTotal} violation de données à caractère personnel.");
+            }
+            else {
+                $section->addText("Il y a eu {$nbTotal} violations de données à caractère personnel.");
+            }
+            $violationTable = $section->addTable($this->tableStyle);
+            $violationTable->addRow();
+            $ViolationNames = [
+                ['name' => 'Date', 'width' => 1500, 'merge' => 'restart'],
+                ['name' => 'Nature', 'width' => 1500, 'merge' => 'restart'],
+                ['name' => 'Cause', 'width' => 1500, 'merge' => 'restart'],
+                ['name' => 'Niveau de gravité', 'width' => 1500, 'merge' => 'restart'],
+                ['name' => 'Notification', 'width' => 3000, 'merge' => null]
+            ];
+            foreach ($ViolationNames as $item){
+                $cell = $violationTable->addCell($item['width'],["bgColor" => "3c8dbc", 'vAlign' => 'center', 'vMerge' => $item['merge']]);
+                if ($item['name'] === 'Notification'){
+                    $cell->getStyle()->setGridSpan(2);
+                }
+                $cell->addText($item['name'], $this->textHeadStyle );
+            }
+            
+
         }
 
-        if ($nbTotal === 1){
-            $section->addText("Il y a eu {$nbTotal} violation de données à caractère personnel.");
-            $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
-        }
-        else {
-            $section->addText("Il y a eu {$nbTotal} violations de données à caractère personnel.");
-            $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
-        }
+
     }
 
     /**

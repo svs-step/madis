@@ -267,6 +267,7 @@ abstract class AbstractGenerator implements GeneratorInterface
             [
                 'name' => 'Verdana',
                 'size' => 16,
+                'bold' => true,
             ],
             [
                 'alignment'  => Jc::CENTER,

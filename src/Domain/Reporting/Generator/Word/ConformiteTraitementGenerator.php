@@ -167,8 +167,6 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
             $cell4->addText($line[2], ['bold' => true]);
         }
 
-        //$this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
-
         // Analyse impact
         $section->addTitle('Analyse d’impact', 2);
 

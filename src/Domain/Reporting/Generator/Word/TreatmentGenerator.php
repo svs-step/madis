@@ -122,7 +122,11 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $categories = ['Uniquement papier', 'Complétement informatisé', 'Informatisé et papier', 'Non renseigné'];
         $chartData  = $digitalisation;
         unset($chartData['digital']); // Remove aggregate data which cumulate onlyDigital + both
-        $section->addChart(
+
+        $chartTable = $section->addTable();
+        $chartTable->addRow();
+        $cell = $chartTable->addCell(4000);
+        $cell->addChart(
             'pie',
             $categories,
             $chartData,
@@ -134,16 +138,14 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 'positioning' => 'absolute'
             ]
         );
-
-        $section->addText("Sur les {$nbTreatments} traitements : ");
-        $section->addListItem("{$digitalisation['paper']} sont uniquement papier");
-        $section->addListItem("{$digitalisation['onlyDigital']} sont complétement informatisés");
-        $section->addListItem("{$digitalisation['both']} sont informatisés et papier");
+        $cell = $chartTable->addCell(4000);
+        $cell->addText("Sur les {$nbTreatments} traitements : ");
+        $cell->addListItem("{$digitalisation['paper']} sont uniquement papier");
+        $cell->addListItem("{$digitalisation['onlyDigital']} sont complétement informatisés");
+        $cell->addListItem("{$digitalisation['both']} sont informatisés et papier");
         if (0 < $digitalisation['other']) {
-            $section->addListItem("{$digitalisation['other']} ne sont pas renseignés");
+            $cell->addListItem("{$digitalisation['other']} ne sont pas renseignés");
         }
-
-        $section->addTextBreak();
 
         $section->addTitle('Sécurité de base des traitements informatisés', 2);
         $section->addText("Sur les {$digitalisation['digital']} traitements informatisés :");
