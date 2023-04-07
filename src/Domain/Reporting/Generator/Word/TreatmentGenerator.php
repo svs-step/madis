@@ -112,7 +112,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
         $textrun = $section->addTextRun();
         $textrun->addText('Une version de ces traitements et à valeur de preuve ');
-        $textrun->addLink('Traitements en annexe','figure en annexe.',['underline' => 'single'],[], true);
+        $textrun->addLink('listTreatments','figure en annexe.',['underline' => 'single'],[], true);
 
         $section->addTitle('Analyse du registre des traitements', 2);
         $section->addText("Il y a aujourd’hui {$nbTreatments} traitements de données à caractère personnel inventoriés");
@@ -487,6 +487,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
     }
 
     public function TreatmentAnnexeList($section, $data){
+        $section->addBookmark('listTreatments');
         $section->addTitle('Liste des traitements',2);
         $treatmentAnnexListTable = $section->addTable($this->tableStyle);
         $treatmentAnnexListTable->addRow(null, array('tblHeader' => true, 'cantsplit' => true));
@@ -515,9 +516,11 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         }
     }
 
-    public function RiskTreatmentAnnexeList($RiskAnnexeSection, $treatments){
-        $RiskAnnexeSection->addTitle('Liste des traitements à risques',2);
-        $RiskTreatmentAnnexListTable = $RiskAnnexeSection->addTable($this->tableStyle);
+    public function RiskTreatmentAnnexeList($riskAipdSection, $treatments){
+
+        $riskAipdSection->addBookmark('AipdRisks');
+        $riskAipdSection->addTitle('Liste des traitements à risques',2);
+        $RiskTreatmentAnnexListTable = $riskAipdSection->addTable($this->tableStyle);
         $RiskTreatmentAnnexListTable->addRow(3000, array('tblHeader' => true, 'cantsplit' => true, ));
 
         $CellsStyle = [
@@ -541,6 +544,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             'Usage innovant',
             'CNIL',
             'AIPD exemptée',
+            '',
             'AIPD requise'];
 
         $verticalStyle = [
@@ -549,8 +553,13 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             "vAlign" => 'center',
         ];
         foreach($titles as $title){
-            $cell = $RiskTreatmentAnnexListTable->addCell(50, $verticalStyle);
-            $cell->addText($title, $this->textHeadStyle);
+            if ($title === ''){
+                $cell = $RiskTreatmentAnnexListTable->addCell(10, ['borderTopColor' => 'ffffff', 'borderTopSize' => 2, 'borderBottomColor' => 'ffffff', 'borderBottomSize' => 2]);
+                $cell->addText($title);
+            } else {
+                $cell = $RiskTreatmentAnnexListTable->addCell(50, $verticalStyle);
+                $cell->addText($title, $this->textHeadStyle);
+            }
         }
 
         foreach($treatments as $item) {
@@ -604,9 +613,12 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             $cell->addText($item->isInnovativeUse() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
             $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isExemptAIPD() ? 'bce292' : 'ffa7a7', 'valign' => 'center']);
             $cell->addText($item->isExemptAIPD() ? 'Oui' : 'Non', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(10, ['borderTopColor' => 'ffffff', 'borderTopSize' => 2, 'borderBottomColor' => 'ffffff', 'borderBottomSize' => 2]);
+            $cell->addText('');
             $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => (($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories >1 || ($cnt_sensible>2)) ? 'bce292' : 'ffa7a7', 'valign' => 'center']);
             $cell->addText((($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories >1 || ($cnt_sensible>2)) ? 'Oui' : 'Non', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
         }
+        $riskAipdSection->addPageBreak();
     }
 
     private function IsMesureOk($data){

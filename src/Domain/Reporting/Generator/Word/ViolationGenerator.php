@@ -291,5 +291,6 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
                 $cell->addListItem($item->getName(), null, [], [], ['spaceAfter' => 0]);
             }
         }
+        $section->addPageBreak();
     }
 }

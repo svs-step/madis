@@ -104,7 +104,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
         $textrun = $section->addTextRun();
         $textrun->addText('Une synthèse de l’analyse de la conformité des traitements et à valeur de preuve ');
-        $textrun->addLink('Traitements en annexe','figure en annexe',['underline' => 'single'],[], true);
+        $textrun->addLink('listConformityTreatments','figure en annexe',['underline' => 'single'],[], true);
         $textrun->addText(".");
 
         $section->addText("Ci-dessous l’évaluation de la conformité des traitements au ".date("d/m/Y")." :");
@@ -196,7 +196,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
         $textrun = $section->addTextRun();
         $textrun->addText('Le tableau des traitements à risque et à valeur de preuve ');
-        $textrun->addLink('Traitements en annexe','figure en annexe.',['underline' => 'single'],[], true);
+        $textrun->addLink('AipdRisks','figure en annexe.',['underline' => 'single'],[], true);
 
         $section->addText("Ci-dessous, la liste des traitements pour lequel une analyse d’impact sur la protection des données est requise. Au vu des critères, il semble que ". $cntAipdToDo ." traitements requière(nt) une analyse d’impact");
 
@@ -443,6 +443,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
     public function SyntheticAnnexeList($section, $treatments)
     {
+        $section->addBookmark('listConformityTreatments');
         $section->addTitle('Synthèse de la conformité des traitements évalués', 2);
         $section->addText('Légende :');
         $section->AddListItem('C = Conforme');
@@ -523,7 +524,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
                 $tableSyntheticAnnexeList->addRow(400,['exactHeight' => true]);
                 $cell = $tableSyntheticAnnexeList->addCell(1000);
-                $cell->addText($treatment->getName());
+                $cell->addText($treatment->getName(), ['size' => 8]);
 
                 $C = 0;
                 $NC = 0;
@@ -531,7 +532,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
                 foreach($ConformityTreatmentValues as $key => $value){
                     $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => $this->BgColorSyntheticTreatment($value)]);
-                    $cell->addText($value,[], ['alignment' => 'center']);
+                    $cell->addText($value,['size' => 8], ['alignment' => 'center']);
                     ++$listConformityName[$value][$key];
 
                     match($value){

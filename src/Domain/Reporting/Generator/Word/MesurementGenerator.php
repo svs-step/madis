@@ -130,6 +130,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
     }
 
     public function ProtectionActionAppliedAnnexeTable($section, $data){
+        $section->addTitle('Liste des actions de protection mises en place',2);
         $appliedMesurement = [];
         foreach ($data as $mesurement) {
             if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {

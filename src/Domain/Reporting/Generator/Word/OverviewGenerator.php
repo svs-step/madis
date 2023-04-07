@@ -235,17 +235,19 @@ class OverviewGenerator extends AbstractGenerator
     {
         $section->addTitle('ANNEXES');
         $this->proofGenerator->ProofList($section);
-        $this->treatmentGenerator->TreatmentAnnexeList($section, $treatments);
-        $this->userGenerator->UserList($section);
-        $section->addPageBreak();
+        $AnnexeTreatmentListSection = $document->addSection(['orientation' => 'portrait']);
+        $this->treatmentGenerator->TreatmentAnnexeList($AnnexeTreatmentListSection, $treatments);
+        $AnnexeUserListSection = $document->addSection(['orientation' => 'portrait']);
+        $this->userGenerator->UserList($AnnexeUserListSection);
+
         $RiskAnnexeSection = $document->addSection(['orientation' => 'landscape']);
         $this->conformiteTraitementGenerator->SyntheticAnnexeList($RiskAnnexeSection, $treatments);
-        $this->treatmentGenerator->RiskTreatmentAnnexeList($RiskAnnexeSection, $treatments);
-        $RiskAnnexeSection->addPageBreak();
+
+        $riskAipdSection = $document->addSection(['orientation' => 'landscape']);
+        $this->treatmentGenerator->RiskTreatmentAnnexeList($riskAipdSection, $treatments);
         $this->violationGenerator->AnnexeList($RiskAnnexeSection, $violations);
-        $RiskAnnexeSection->addPageBreak();
+
         $protectionActionSection = $document->addSection(['orientation' => 'portrait']);
-        $protectionActionSection->addTitle('Liste des actions de protection mises en place',2);
         $this->mesurementGenerator->ProtectionActionAppliedAnnexeTable($protectionActionSection, $mesurements);
     }
 
