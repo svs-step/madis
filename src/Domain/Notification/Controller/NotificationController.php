@@ -399,6 +399,9 @@ class NotificationController extends CRUDController
 
     private function getObjectLink(Notification $notification): string
     {
+        if ($notification->getModule() === 'notification.modules.aipd' && $notification->getAction() === 'notification.actions.validation') {
+            return $this->router->generate('aipd_analyse_impact_validation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+        }
         try {
             return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
         } catch (\Exception $e) {

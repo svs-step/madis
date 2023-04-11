@@ -55,8 +55,8 @@ class NotificationExtension extends AbstractExtension
                     '%days%' => $this->requestDays,
                 ]) . ' ';
                 break;
-            case 'notifications.sentence.late_request':
-            case 'notification.sentence.late_request':
+            case 'notifications.actions.late_survey':
+            case 'notification.actions.late_survey':
                 $sentence .= $this->translator->trans('notifications.sentence.late_survey', [
                     '%days%' => $this->surveyDays,
                 ]) . ' ';
@@ -111,6 +111,9 @@ class NotificationExtension extends AbstractExtension
     public function getObjectLink(Notification $notification): string
     {
         try {
+            if ($notification->getModule() === 'notification.modules.aipd' && $notification->getAction() === 'notification.actions.validation') {
+                return $this->router->generate('aipd_analyse_impact_validation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
             return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
         } catch (\Exception $e) {
             return '';
@@ -131,6 +134,8 @@ class NotificationExtension extends AbstractExtension
                 return 'registry_proof_edit';
             case 'notification.modules.protect_action':
                 return 'registry_mesurement_show';
+            case 'notification.modules.aipd':
+                return 'aipd_analyse_impact_edit';
             case 'notification.modules.request':
                 return 'registry_request_show';
             case 'notification.modules.user':

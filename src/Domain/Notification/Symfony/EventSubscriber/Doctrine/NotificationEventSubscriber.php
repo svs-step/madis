@@ -118,7 +118,9 @@ class NotificationEventSubscriber implements EventSubscriber
         }
 
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
+
             $class = get_class($entity);
+
             if (!in_array($class, $this->classes) || Document::class === $class) {
                 continue;
             }
@@ -138,6 +140,7 @@ class NotificationEventSubscriber implements EventSubscriber
                 if (!isset($ch['statut']) && !isset($ch['isReadyForValidation'])) {
                     continue;
                 }
+
                 if (isset($ch['statut'])) {
                     $action = 'state_change';
                 } elseif (isset($ch['isReadyForValidation'])) {
@@ -147,7 +150,6 @@ class NotificationEventSubscriber implements EventSubscriber
 
             $this->createNotifications($entity, $action, $em);
         }
-
         foreach ($uow->getScheduledEntityDeletions() as $entity) {
             $class = get_class($entity);
             if (!in_array($class, $this->classes) || Request::class == $class || Document::class === $class || AnalyseImpact::class === $class) {
@@ -442,8 +444,12 @@ class NotificationEventSubscriber implements EventSubscriber
             return MesurementStatusDictionary::getStatus()[$notification->getObject()->status] ?? '';
         }
 
-        if ('notifications.actions.state_change' === $notification->getAction() || 'notification.actions.state_change' === $notification->getAction()) {
+        if ('notification.modules.request' === $notification->getModule() && ('notifications.actions.state_change' === $notification->getAction() || 'notification.actions.state_change' === $notification->getAction())) {
             return $notification->getObject()->state;
+        }
+
+        if ('notification.modules.aipd' === $notification->getModule() && ('notifications.actions.state_change' === $notification->getAction() || 'notification.actions.state_change' === $notification->getAction())) {
+            return $notification->getObject()->statut;
         }
 
         if ('notifications.actions.validation' === $notification->getAction() || 'notification.actions.validation' === $notification->getAction()) {
