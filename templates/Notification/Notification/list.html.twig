@@ -48,7 +48,7 @@
                                                 <option value="{{ key }}">{{ subject }}</option>
                                             {% endfor %}
                                         {% else %}
-                                            {% for key, subject in dictionary('notificationModuleUser') %}
+                                            {% for key, subject in dictionary('notificationUserModule') %}
                                                 <option value="{{ key }}">{{ subject }}</option>
                                             {% endfor %}
                                         {% endif %}
@@ -149,7 +149,6 @@
             {"data": "name"},
             {"data": "object"},
             {"data": "date"},
-            {"data": "user"},
             {"data": "actions", "orderable": false, "className": "noVis actions",},
         ] %}
         {% set order = [[4, 'desc']] %}
