@@ -47,15 +47,6 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
     {
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
 
-        // Aggregate data before rendering
-        $tableData = [
-            [
-                'Date',
-                'Nature',
-                'Cause',
-                'Niveau de gravité',
-            ],
-        ];
         $nbTotal = \count($data);
 
         foreach ($data as $violation) {
@@ -69,6 +60,8 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
                 ViolationNatureDictionary::getNatures(),
                 ViolationCauseDictionary::getNatures()[$violation->getCause()],
                 ViolationGravityDictionary::getGravities()[$violation->getGravity()],
+                'test CNIL',
+                'test Concernes'
             ];
         }
 
@@ -88,24 +81,45 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
             $violationTable = $section->addTable($this->tableStyle);
             $violationTable->addRow();
             $ViolationNames = [
-                ['name' => 'Date', 'width' => 1500, 'merge' => 'restart'],
+                ['name' => 'Date', 'width' => 1000, 'merge' => 'restart'],
                 ['name' => 'Nature', 'width' => 1500, 'merge' => 'restart'],
                 ['name' => 'Cause', 'width' => 1500, 'merge' => 'restart'],
                 ['name' => 'Niveau de gravité', 'width' => 1500, 'merge' => 'restart'],
                 ['name' => 'Notification', 'width' => 3000, 'merge' => null]
             ];
             foreach ($ViolationNames as $item){
-                $cell = $violationTable->addCell($item['width'],["bgColor" => "3c8dbc", 'vAlign' => 'center', 'vMerge' => $item['merge']]);
+                $cell = $violationTable->addCell($item['width'],["bgColor" => "3c8dbc", 'vMerge' => $item['merge']]);
                 if ($item['name'] === 'Notification'){
                     $cell->getStyle()->setGridSpan(2);
                 }
                 $cell->addText($item['name'], $this->textHeadStyle );
             }
-            
+            $violationTable->addRow();
+            $violationTable->addCell(1000,['vMerge' => 'continue']);
+            $violationTable->addCell(1500,['vMerge' => 'continue']);
+            $violationTable->addCell(1500,['vMerge' => 'continue']);
+            $violationTable->addCell(1500,['vMerge' => 'continue']);
+            $cell = $violationTable->addCell(1500, ["bgColor" => "3c8dbc", 'vAlign' => 'center']);
+            $cell->addText('CNIL', $this->textHeadStyle);
+            $cell = $violationTable->addCell(1500, ["bgColor" => "3c8dbc", 'vAlign' => 'center']);
+            $cell->addText('Concernés', $this->textHeadStyle);
+
+
+            foreach ($tableData as $key => $row){
+                $violationTable->addRow();
+                foreach ($row as $cellItem){
+                    $cell = $violationTable->addCell($key === 0 ? 1000 : 1500);
+                    if (is_array($cellItem)){
+                        foreach($cellItem as $item){
+                            $cell->addListItem($item, (int)null, [], [], ['spaceAfter' => 0]);
+                        }
+                    } else {
+                        $cell->addText($cellItem);
+                    }
+                }
+            }
 
         }
-
-
     }
 
     /**
