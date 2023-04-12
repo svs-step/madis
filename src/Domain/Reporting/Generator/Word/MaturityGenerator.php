@@ -87,7 +87,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
         $row  = $table->addRow(null,['cantsplit' => true]);
         $cell = $row->addCell(750, ['bgColor' => 'ffb3b3', 'valign' => 'center']);
-        $cell->addText('0', ['align' => 'center', 'color' => '990000']);
+        $cell->addText('0');
         $cell = $row->addCell(1250);
         $cell->addText('Inexistant');
         $cell = $row->addCell(3000);
@@ -95,7 +95,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
         $row  = $table->addRow(null, ['cantsplit' => true]);
         $cell = $row->addCell(750, ['bgColor' => 'ffff80', 'valign' => 'center']);
-        $cell->addText('1', ['align' => 'center', 'color' => '999900']);
+        $cell->addText('1');
         $cell = $row->addCell(1250);
         $cell->addText('Partielle');
         $cell = $row->addCell(3000);
@@ -103,7 +103,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
         $row  = $table->addRow(null, ['cantsplit' => true]);
         $cell = $row->addCell(750, ['bgColor' => '85e085', 'valign' => 'center']);
-        $cell->addText('2', ['align' => 'center', 'color' => '1f7a1f']);
+        $cell->addText('2');
         $cell = $row->addCell(1250);
         $cell->addText('Conforme');
         $cell = $row->addCell(3000);
