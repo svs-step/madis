@@ -79,7 +79,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
                 $section->addText("Il y a eu {$nbTotal} violations de données à caractère personnel.");
             }
             $violationTable = $section->addTable($this->tableStyle);
-            $violationTable->addRow(null, ['cantsplit' => true]);
+            $violationTable->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
             $ViolationNames = [
                 ['name' => 'Date', 'width' => 1000, 'merge' => 'restart'],
                 ['name' => 'Nature', 'width' => 1500, 'merge' => 'restart'],
@@ -94,7 +94,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
                 }
                 $cell->addText($item['name'], $this->textHeadStyle );
             }
-            $violationTable->addRow(null, ['cantsplit' => true]);
+            $violationTable->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
             $violationTable->addCell(1000,['vMerge' => 'continue']);
             $violationTable->addCell(1500,['vMerge' => 'continue']);
             $violationTable->addCell(1500,['vMerge' => 'continue']);
