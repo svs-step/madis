@@ -3,6 +3,7 @@
 namespace App\Tests\Domain\Notification\Subscriber;
 
 use App\Domain\Maturity\Model\Survey;
+use App\Domain\Notification\Dictionary\NotificationModuleDictionary;
 use App\Domain\Notification\Event\ConformiteTraitementNeedsAIPDEvent;
 use App\Domain\Notification\Event\LateActionEvent;
 use App\Domain\Notification\Event\LateRequestEvent;
@@ -25,6 +26,7 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class NotificationEventSubscriberTest extends TestCase
 {
@@ -34,6 +36,7 @@ class NotificationEventSubscriberTest extends TestCase
     private ObjectProphecy $userRepository;
     private ObjectProphecy $notificationUserRepository;
     private ObjectProphecy $notificationRepository;
+    private ObjectProphecy $translator;
 
     private NotificationEventSubscriber $subscriber;
 
@@ -43,8 +46,17 @@ class NotificationEventSubscriberTest extends TestCase
         $this->notificationNormalizer     = $this->prophesize(NotificationNormalizer::class);
         $this->userRepository             = $this->prophesize(UserRepository::class);
         $this->notificationUserRepository = $this->prophesize(NotificationUserRepository::class);
+        $this->translator                 = $this->prophesize(TranslatorInterface::class);
 
-        $this->subscriber = new NotificationEventSubscriber($this->notificationRepository->reveal(), $this->notificationUserRepository->reveal(), $this->notificationNormalizer->reveal(), $this->userRepository->reveal());
+        $this->subscriber = new NotificationEventSubscriber(
+            $this->notificationRepository->reveal(),
+            $this->notificationUserRepository->reveal(),
+            $this->notificationNormalizer->reveal(),
+            $this->userRepository->reveal(),
+            $this->translator->reveal(),
+            30,
+            30
+        );
     }
 
     public function testInstanceOf()
@@ -188,19 +200,21 @@ class NotificationEventSubscriberTest extends TestCase
         $action = new Mesurement();
         $action->setCollectivity($collectivity);
         $action->setCreatedAt(new \DateTimeImmutable());
+        $action->setPlanificationDate(new \DateTime());
 
         $this->notificationRepository->findBy([
-            'module'       => 'notification.modules.' . Notification::MODULES[Mesurement::class],
+            'module'       => 'notification.modules.' . NotificationModuleDictionary::ACTION_PLAN,
             'collectivity' => $action->getCollectivity(),
             'action'       => 'notifications.actions.late_action',
             'name'         => $action->__toString(),
         ])->shouldBeCalled()->willReturn([]);
 
         $user = new User();
+        $user->setCollectivity($collectivity);
 
         $notification = new Notification();
 
-        $notification->setModule('notification.modules.' . Notification::MODULES[Mesurement::class]);
+        $notification->setModule('notification.modules.' . NotificationModuleDictionary::ACTION_PLAN);
         $notification->setCollectivity($action->getCollectivity());
         $notification->setAction('notifications.actions.late_action');
         $notification->setName($action->__toString());
@@ -209,6 +223,7 @@ class NotificationEventSubscriberTest extends TestCase
             'collectivity' => [
                 'name' => 'coll',
             ],
+            'planificationDate' => (new \DateTime())->format(DATE_ATOM),
         ]);
 
         $this->notificationRepository->insert(new NotificationToken($notification))->shouldBeCalled();
@@ -223,7 +238,9 @@ class NotificationEventSubscriberTest extends TestCase
 
         $this->userRepository->findNonDpoUsersForCollectivity($collectivity)->shouldBeCalled()->willReturn([$user]);
 
-        $this->notificationUserRepository->saveUsers(new NotificationToken($notification), [$user])->shouldBeCalled()->willReturn([$nu]);
+        $this->notificationUserRepository->saveUsers(new NotificationToken($notification), [$user])
+            ->shouldBeCalled()
+            ->willReturn([$nu]);
 
         $this->notificationNormalizer->normalize(Argument::exact($action), null, Argument::any())
             ->shouldBeCalled()
@@ -231,6 +248,7 @@ class NotificationEventSubscriberTest extends TestCase
                 'collectivity' => [
                     'name' => 'coll',
                 ],
+                'planificationDate' => (new \DateTime())->format(DATE_ATOM),
             ])
         ;
 

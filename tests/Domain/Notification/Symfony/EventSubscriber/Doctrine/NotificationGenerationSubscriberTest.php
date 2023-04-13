@@ -5,6 +5,7 @@ namespace App\Tests\Domain\Notification\Symfony\EventSubscriber\Doctrine;
 use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\Notification\Serializer\NotificationNormalizer;
 use App\Domain\Notification\Symfony\EventSubscriber\Doctrine\NotificationEventSubscriber;
+use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\Proof;
 use App\Domain\Registry\Model\Treatment;
@@ -23,6 +24,7 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class NotificationGenerationSubscriberTest extends TestCase
 {
@@ -32,6 +34,7 @@ class NotificationGenerationSubscriberTest extends TestCase
     private ObjectProphecy $userRepository;
     private ObjectProphecy $security;
     private ObjectProphecy $notificationUserRepository;
+    private ObjectProphecy $translator;
 
     private NotificationEventSubscriber $subscriber;
 
@@ -46,9 +49,19 @@ class NotificationGenerationSubscriberTest extends TestCase
         $this->notificationNormalizer     = $this->prophesize(NotificationNormalizer::class);
         $this->userRepository             = $this->prophesize(User::class);
         $this->notificationUserRepository = $this->prophesize(NotificationUser::class);
+        $this->translator                 = $this->prophesize(TranslatorInterface::class);
 
         $this->security   = $this->prophesize(Security::class);
-        $this->subscriber = new NotificationEventSubscriber($nr->reveal(), $this->notificationNormalizer->reveal(), $this->userRepository->reveal(), $this->notificationUserRepository->reveal(), $this->security->reveal());
+        $this->subscriber = new NotificationEventSubscriber(
+            $nr->reveal(),
+            $this->notificationNormalizer->reveal(),
+            $this->userRepository->reveal(),
+            $this->notificationUserRepository->reveal(),
+            $this->security->reveal(),
+            $this->translator->reveal(),
+            30,
+            30
+        );
 
         $conn   = \Doctrine\DBAL\DriverManager::getConnection(['driver' => 'pdo_sqlite', 'memory' => true]);
         $config = new \Doctrine\ORM\Configuration();
@@ -194,6 +207,7 @@ class NotificationGenerationSubscriberTest extends TestCase
     public function testCreateProofNotification()
     {
         $object = new Proof();
+        $object->setType(ProofTypeDictionary::TYPE_POLICY_MANAGEMENT);
 
         $om  = $this->prophesize(EntityManagerInterface::class);
         $uow = $this->prophesize(UnitOfWork::class);
@@ -208,7 +222,11 @@ class NotificationGenerationSubscriberTest extends TestCase
         $om->getClassMetadata(\App\Domain\Notification\Model\Notification::class)->shouldBeCalled()->willReturn($this->notificationMetadata);
         $om->getClassMetadata(\App\Domain\Notification\Model\NotificationUser::class)->shouldBeCalled()->willReturn($this->notificationUserMetadata);
 
-        $this->notificationNormalizer->normalize($object, null, Argument::type('array'))->shouldBeCalled();
+        $this->notificationNormalizer->normalize($object, null, Argument::type('array'))
+            ->shouldBeCalled()
+            ->willReturn((object) [
+                'type' => ProofTypeDictionary::TYPE_POLICY_MANAGEMENT,
+            ]);
         $this->userRepository->findNonDpoUsers()->shouldNotBeCalled();
         $this->userRepository->findNonDpoUsersForCollectivity(Argument::any())->shouldNotBeCalled();
         $this->lifeCycleEventArgs->getObjectManager()->shouldBeCalled()->willReturn($om);
@@ -222,7 +240,7 @@ class NotificationGenerationSubscriberTest extends TestCase
         $notification->setName($object->getName());
         $notification->setAction('notification.actions.create');
         $notification->setCreatedBy(null);
-        $notification->setObject((object) []);
+        $notification->setObject((object) ['type' => ProofTypeDictionary::TYPE_POLICY_MANAGEMENT]);
 
         $om->persist(new NotificationToken($notification))->shouldHaveBeenCalled();
         $om->persist(Argument::type(\App\Domain\Notification\Model\NotificationUser::class))->shouldNotHaveBeenCalled();
@@ -232,6 +250,7 @@ class NotificationGenerationSubscriberTest extends TestCase
     public function testUpdateProofNotification()
     {
         $object = new Proof();
+        $object->setType(ProofTypeDictionary::TYPE_POLICY_MANAGEMENT);
 
         $om  = $this->prophesize(EntityManagerInterface::class);
         $uow = $this->prophesize(UnitOfWork::class);
@@ -247,7 +266,11 @@ class NotificationGenerationSubscriberTest extends TestCase
         $om->getClassMetadata(\App\Domain\Notification\Model\Notification::class)->shouldBeCalled()->willReturn($this->notificationMetadata);
         $om->getClassMetadata(\App\Domain\Notification\Model\NotificationUser::class)->shouldBeCalled()->willReturn($this->notificationUserMetadata);
 
-        $this->notificationNormalizer->normalize($object, null, Argument::type('array'))->shouldBeCalled();
+        $this->notificationNormalizer->normalize($object, null, Argument::type('array'))
+            ->shouldBeCalled()
+            ->willReturn((object) [
+                'type' => ProofTypeDictionary::TYPE_POLICY_MANAGEMENT,
+            ]);
         $this->userRepository->findNonDpoUsers()->shouldNotBeCalled();
         $this->userRepository->findNonDpoUsersForCollectivity(Argument::any())->shouldNotBeCalled();
         $this->lifeCycleEventArgs->getObjectManager()->shouldBeCalled()->willReturn($om);
@@ -260,7 +283,7 @@ class NotificationGenerationSubscriberTest extends TestCase
         $notification->setName($object->getName());
         $notification->setAction('notification.actions.update');
         $notification->setCreatedBy(null);
-        $notification->setObject((object) []);
+        $notification->setObject((object) ['type' => ProofTypeDictionary::TYPE_POLICY_MANAGEMENT]);
 
         $om->persist(new NotificationToken($notification))->shouldHaveBeenCalled();
         $om->persist(Argument::type(\App\Domain\Notification\Model\NotificationUser::class))->shouldNotHaveBeenCalled();
@@ -270,6 +293,7 @@ class NotificationGenerationSubscriberTest extends TestCase
     public function testDeleteProofNotification()
     {
         $object = new Proof();
+        $object->setType(ProofTypeDictionary::TYPE_POLICY_MANAGEMENT);
 
         $om  = $this->prophesize(EntityManagerInterface::class);
         $uow = $this->prophesize(UnitOfWork::class);
@@ -282,10 +306,17 @@ class NotificationGenerationSubscriberTest extends TestCase
 
         $this->security->getUser()->shouldBeCalled()->willReturn(new \App\Domain\User\Model\User());
 
-        $om->getClassMetadata(\App\Domain\Notification\Model\Notification::class)->shouldBeCalled()->willReturn($this->notificationMetadata);
-        $om->getClassMetadata(\App\Domain\Notification\Model\NotificationUser::class)->shouldBeCalled()->willReturn($this->notificationUserMetadata);
+        $om->getClassMetadata(\App\Domain\Notification\Model\Notification::class)
+            ->shouldBeCalled()
+            ->willReturn($this->notificationMetadata);
+        $om->getClassMetadata(\App\Domain\Notification\Model\NotificationUser::class)
+            ->shouldBeCalled()
+            ->willReturn($this->notificationUserMetadata);
 
-        $this->notificationNormalizer->normalize($object, null, Argument::type('array'))->shouldBeCalled();
+        $this->notificationNormalizer->normalize($object, null, Argument::type('array'))
+            ->shouldBeCalled()->willReturn((object) [
+                'type' => ProofTypeDictionary::TYPE_POLICY_MANAGEMENT,
+            ]);
         $this->userRepository->findNonDpoUsers()->shouldNotBeCalled();
         $this->userRepository->findNonDpoUsersForCollectivity(Argument::any())->shouldNotBeCalled();
         $this->lifeCycleEventArgs->getObjectManager()->shouldBeCalled()->willReturn($om);
@@ -298,7 +329,7 @@ class NotificationGenerationSubscriberTest extends TestCase
         $notification->setName($object->getName());
         $notification->setAction('notification.actions.delete');
         $notification->setCreatedBy(null);
-        $notification->setObject((object) []);
+        $notification->setObject((object) ['type' => ProofTypeDictionary::TYPE_POLICY_MANAGEMENT]);
 
         $om->persist(new NotificationToken($notification))->shouldHaveBeenCalled();
 
