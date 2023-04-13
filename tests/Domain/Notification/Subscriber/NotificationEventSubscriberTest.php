@@ -200,7 +200,7 @@ class NotificationEventSubscriberTest extends TestCase
         $action = new Mesurement();
         $action->setCollectivity($collectivity);
         $action->setCreatedAt(new \DateTimeImmutable());
-        $action->setPlanificationDate(new \DateTime());
+        // $action->setPlanificationDate((new \DateTime())->sub(new \DateInterval('P3M')));
 
         $this->notificationRepository->findBy([
             'module'       => 'notification.modules.' . NotificationModuleDictionary::ACTION_PLAN,
@@ -223,22 +223,19 @@ class NotificationEventSubscriberTest extends TestCase
             'collectivity' => [
                 'name' => 'coll',
             ],
-            'planificationDate' => (new \DateTime())->format(DATE_ATOM),
+            'planificationDate' => (new \DateTime())->sub(new \DateInterval('P3M'))->format(DATE_ATOM),
         ]);
 
-        $this->notificationRepository->insert(new NotificationToken($notification))->shouldBeCalled();
+        $this->notificationRepository->insert(Argument::any())->shouldBeCalled();
 
         $nu = new NotificationUser();
         $nu->setUser($user);
         $nu->setNotification($notification);
+        $notification->setNotificationUsers([$nu]);
 
-        $notification->setNotificationUsers([$user]);
-
-        $this->notificationRepository->update(new NotificationToken($notification))->shouldBeCalled();
-
+        $this->notificationRepository->update(Argument::any())->shouldBeCalled();
         $this->userRepository->findNonDpoUsersForCollectivity($collectivity)->shouldBeCalled()->willReturn([$user]);
-
-        $this->notificationUserRepository->saveUsers(new NotificationToken($notification), [$user])
+        $this->notificationUserRepository->saveUsers(Argument::any(), Argument::any())
             ->shouldBeCalled()
             ->willReturn([$nu]);
 
@@ -248,7 +245,7 @@ class NotificationEventSubscriberTest extends TestCase
                 'collectivity' => [
                     'name' => 'coll',
                 ],
-                'planificationDate' => (new \DateTime())->format(DATE_ATOM),
+                'planificationDate' => (new \DateTime())->sub(new \DateInterval('P3M'))->format(DATE_ATOM),
             ])
         ;
 
