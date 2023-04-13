@@ -148,7 +148,7 @@ class Notification extends CRUDRepository implements Repository\Notification
         if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
             $collectivityIds = $criteria['collectivity']->toArray();
             array_push($collectivityIds, null);
-            //$qb->innerJoin('o.collectivity', 'collectivite');
+            // $qb->innerJoin('o.collectivity', 'collectivite');
             $qb->andWhere(
                 $qb->expr()->in('collectivity', ':collectivities')
             )
@@ -170,25 +170,25 @@ class Notification extends CRUDRepository implements Repository\Notification
     {
         $qb = $this->getQueryBuilder();
 
-//        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
-//            $collectivityIds = $criteria['collectivity']->map(function($c) {
-//                if ($c instanceof Collectivity) {
-//                    return $c->getId()->__toString();
-//                }
-//                return $c;
-//            })->toArray();
-//            //dd($collectivityIds);
-//            array_push($collectivityIds, null);
-//            //$qb->innerJoin('o.collectivity', 'collectivite');
-//            $qb->andWhere(
-//                $qb->expr()->in('collectivity', ':collectivities')
-//            )
-//                ->setParameter('collectivities', $collectivityIds)
-//            ;
-//
-//            //dd($qb->getQuery()->getParameters());
-            unset($criteria['collectivity']);
-//        }
+        //        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+        //            $collectivityIds = $criteria['collectivity']->map(function($c) {
+        //                if ($c instanceof Collectivity) {
+        //                    return $c->getId()->__toString();
+        //                }
+        //                return $c;
+        //            })->toArray();
+        //            //dd($collectivityIds);
+        //            array_push($collectivityIds, null);
+        //            //$qb->innerJoin('o.collectivity', 'collectivite');
+        //            $qb->andWhere(
+        //                $qb->expr()->in('collectivity', ':collectivities')
+        //            )
+        //                ->setParameter('collectivities', $collectivityIds)
+        //            ;
+        //
+        //            //dd($qb->getQuery()->getParameters());
+        unset($criteria['collectivity']);
+        //        }
 
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
