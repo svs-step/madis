@@ -401,15 +401,16 @@ class NotificationController extends CRUDController
     private function getObjectLink(Notification $notification): string
     {
         try {
-            if ($notification->getModule() === 'notification.modules.aipd' && $notification->getAction() === 'notification.actions.validation') {
+            if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.validation' === $notification->getAction()) {
                 return $this->router->generate('aipd_analyse_impact_validation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
             }
-            if ($notification->getModule() === 'notification.modules.aipd' && $notification->getAction() === 'notification.actions.state_change') {
+            if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.state_change' === $notification->getAction()) {
                 return $this->router->generate('aipd_analyse_impact_evaluation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
             }
-            if ($notification->getModule() === 'notification.modules.document' && $notification->getAction() !== 'notification.actions.delete') {
+            if ('notification.modules.document' === $notification->getModule() && 'notification.actions.delete' !== $notification->getAction()) {
                 return $notification->getObject()->url;
             }
+
             return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
         } catch (\Exception $e) {
             return '';

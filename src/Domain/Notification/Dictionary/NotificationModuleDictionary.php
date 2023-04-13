@@ -41,7 +41,7 @@ use App\Domain\User\Model\User;
 
 class NotificationModuleDictionary extends SimpleDictionary
 {
-    const ACTION_PLAN = 'action_plan';
+    public const ACTION_PLAN = 'action_plan';
 
     public function __construct()
     {

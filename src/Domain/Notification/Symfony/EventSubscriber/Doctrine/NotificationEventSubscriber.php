@@ -118,7 +118,6 @@ class NotificationEventSubscriber implements EventSubscriber
         }
 
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
-
             $class = get_class($entity);
 
             if (!in_array($class, $this->classes) || Document::class === $class) {
