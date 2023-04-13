@@ -29,23 +29,14 @@ use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\Documentation\Model\Document;
 use App\Domain\Maturity\Model\Maturity;
 use App\Domain\Notification\Model\Notification;
-use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
-use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
-use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
-use App\Domain\Registry\Model\Proof;
 use App\Domain\Registry\Model\Request;
-use App\Domain\Registry\Model\Treatment;
-use App\Domain\Registry\Model\Violation;
-use App\Domain\User\Model\User;
 
-class NotificationModuleDictionary extends SimpleDictionary
+class NotificationModuleUserDictionary extends SimpleDictionary
 {
-    const ACTION_PLAN = 'action_plan';
-
     public function __construct()
     {
-        parent::__construct('notificationModule', self::getModules());
+        parent::__construct('notificationUserModule', self::getModules());
     }
 
     /**
@@ -56,19 +47,11 @@ class NotificationModuleDictionary extends SimpleDictionary
     public static function getModules()
     {
         return [
-            Notification::MODULES[Treatment::class]            => 'Traitements',
-            Notification::MODULES[Contractor::class]           => 'Sous-traitants',
-            Notification::MODULES[Request::class]              => 'Demandes',
-            Notification::MODULES[Violation::class]            => 'Violations',
-            Notification::MODULES[Proof::class]                => 'Preuves',
-            Notification::MODULES[Mesurement::class]           => 'Actions de protection',
-            self::ACTION_PLAN                                  => 'Plan d\'actions',
-            Notification::MODULES[ConformiteTraitement::class] => 'Conformité du traitement',
-            Notification::MODULES[Conformite::class]           => 'Conformité de la structure',
-            Notification::MODULES[AnalyseImpact::class]        => 'AIPD',
-            Notification::MODULES[Document::class]             => 'Espace Documentaire',
-            Notification::MODULES[Maturity::class]             => 'Indice de maturité',
-            Notification::MODULES[User::class]                 => 'Utilisateurs',
+            Notification::MODULES[Request::class]       => 'Demandes',
+            Notification::MODULES[Mesurement::class]    => 'Actions de protection',
+            Notification::MODULES[AnalyseImpact::class] => 'AIPD',
+            Notification::MODULES[Maturity::class]      => 'Indice de maturité',
+            Notification::MODULES[Document::class]      => 'Espace Documentaire',
         ];
     }
 

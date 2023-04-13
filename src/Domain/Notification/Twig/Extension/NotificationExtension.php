@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Domain\Notification\Twig\Extension;
 
+use App\Domain\Documentation\Model\Document;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Model\Notification as NotificationModel;
 use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\Registry\Model\Proof;
 use App\Domain\Registry\Model\Violation;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -30,7 +30,7 @@ class NotificationExtension extends AbstractExtension
     {
         $this->translator  = $translator;
         $this->router      = $router;
-        $this->repository     = $repository;
+        $this->repository  = $repository;
         $this->requestDays = $requestDays;
         $this->surveyDays  = $surveyDays;
     }
@@ -47,6 +47,10 @@ class NotificationExtension extends AbstractExtension
     {
         $sentence = '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong> ';
 
+        if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Document::class]) {
+            $sentence .= ' Nouveau document déposé par le DPD&nbsp;';
+        }
+
         switch ($notification->getAction()) {
             case 'notifications.actions.late_request':
             case 'notification.actions.late_request':
@@ -56,8 +60,8 @@ class NotificationExtension extends AbstractExtension
                     '%days%' => $this->requestDays,
                 ]) . ' ';
                 break;
-            case 'notifications.sentence.late_request':
-            case 'notification.sentence.late_request':
+            case 'notifications.actions.late_survey':
+            case 'notification.actions.late_survey':
                 $sentence .= $this->translator->trans('notifications.sentence.late_survey', [
                     '%days%' => $this->surveyDays,
                 ]) . ' ';
@@ -69,15 +73,13 @@ class NotificationExtension extends AbstractExtension
                     '<span>' . $notification->getName() . '</span> '
                 ;
                 break;
-            case 'notifications.actions.document':
-            case 'notification.actions.document':
-                $sentence .= ' Nouveau document déposé par le DPD ';
-                break;
             default:
-                $sentence .= $this->translator->trans($notification->getAction()) . ' ';
+                if ($notification->getModule() !== 'notification.modules.' . NotificationModel::MODULES[Document::class]) {
+                    $sentence .= $this->translator->trans($notification->getAction()) . ' ';
+                }
                 $link = $this->getObjectLink($notification);
                 if ($this->repository->objectExists($notification)) {
-                    $sentence .= ' : ' .
+                    $sentence .= '&nbsp;: ' .
                         '<a href="' . $link . '">' . $notification->getName() . '</a> '
                     ;
                 } else {
@@ -85,7 +87,6 @@ class NotificationExtension extends AbstractExtension
                         '<span>' . $notification->getName() . '</span> '
                     ;
                 }
-
         }
 
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Violation::class]) {
@@ -103,6 +104,7 @@ class NotificationExtension extends AbstractExtension
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Proof::class]) {
             $sentence .= '<strong>(' . ProofTypeDictionary::getTypes()[$notification->getObject()->type] . ')</strong> ';
         }
+
         if ($notification->getCollectivity()) {
             $sentence .= $this->translator->trans('label.par') . ' <strong>' . $notification->getCollectivity()->getName() . '</strong>';
         }
@@ -113,6 +115,15 @@ class NotificationExtension extends AbstractExtension
     public function getObjectLink(Notification $notification): string
     {
         try {
+            if ($notification->getModule() === 'notification.modules.aipd' && $notification->getAction() === 'notification.actions.validation') {
+                return $this->router->generate('aipd_analyse_impact_validation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
+            if ($notification->getModule() === 'notification.modules.aipd' && $notification->getAction() === 'notification.actions.state_change') {
+                return $this->router->generate('aipd_analyse_impact_evaluation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
+            if ($notification->getModule() === 'notification.modules.document' && $notification->getAction() !== 'notification.actions.delete') {
+                return $notification->getObject()->url;
+            }
             return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
         } catch (\Exception $e) {
             return '';
@@ -133,6 +144,8 @@ class NotificationExtension extends AbstractExtension
                 return 'registry_proof_edit';
             case 'notification.modules.protect_action':
                 return 'registry_mesurement_show';
+            case 'notification.modules.aipd':
+                return 'aipd_analyse_impact_edit';
             case 'notification.modules.request':
                 return 'registry_request_show';
             case 'notification.modules.user':

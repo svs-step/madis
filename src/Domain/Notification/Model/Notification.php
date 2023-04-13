@@ -97,6 +97,10 @@ class Notification
      * @var string|null
      */
     private $module;
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $subject;
 
     /**
      * @ORM\Column(type="string")
@@ -273,5 +277,15 @@ class Notification
     public function setDpo(?bool $dpo): void
     {
         $this->dpo = $dpo;
+    }
+
+    public function getSubject(): ?string
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(?string $subject): void
+    {
+        $this->subject = $subject;
     }
 }
