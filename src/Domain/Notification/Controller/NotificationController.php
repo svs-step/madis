@@ -32,6 +32,7 @@ use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Repository;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Knp\Snappy\Pdf;
@@ -150,8 +151,8 @@ class NotificationController extends CRUDController
 
         $criteria = [];
 
-        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity'] = $user->getCollectivity();
+        if (!$this->authorizationChecker->isGranted('ROLE_REFERENT')) {
+            $criteria['collectivity'] = new ArrayCollection([$user->getCollectivity(), null]);
         }
 
         if ($user) {
@@ -399,10 +400,16 @@ class NotificationController extends CRUDController
 
     private function getObjectLink(Notification $notification): string
     {
-        if ($notification->getModule() === 'notification.modules.aipd' && $notification->getAction() === 'notification.actions.validation') {
-            return $this->router->generate('aipd_analyse_impact_validation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
-        }
         try {
+            if ($notification->getModule() === 'notification.modules.aipd' && $notification->getAction() === 'notification.actions.validation') {
+                return $this->router->generate('aipd_analyse_impact_validation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
+            if ($notification->getModule() === 'notification.modules.aipd' && $notification->getAction() === 'notification.actions.state_change') {
+                return $this->router->generate('aipd_analyse_impact_evaluation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
+            if ($notification->getModule() === 'notification.modules.document' && $notification->getAction() !== 'notification.actions.delete') {
+                return $notification->getObject()->url;
+            }
             return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
         } catch (\Exception $e) {
             return '';
@@ -456,7 +463,7 @@ class NotificationController extends CRUDController
                 return 'user_user_edit';
             case 'notification.modules.documentation':
             case 'notification.modules.document':
-                return 'documentation_document_edit';
+                return 'documentation_document_download';
             case 'notification.modules.maturity':
                 return 'maturity_survey_edit';
         }
