@@ -410,6 +410,9 @@ class NotificationController extends CRUDController
             if ('notification.modules.document' === $notification->getModule() && 'notification.actions.delete' !== $notification->getAction()) {
                 return $notification->getObject()->url;
             }
+            if ('notification.modules.action_plan' === $notification->getModule()) {
+                return $this->router->generate('registry_mesurement_show', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
 
             return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
         } catch (\Exception $e) {
