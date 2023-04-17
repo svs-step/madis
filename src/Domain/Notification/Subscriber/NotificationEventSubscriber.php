@@ -13,7 +13,6 @@ use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Model\NotificationUser;
 use App\Domain\Notification\Serializer\NotificationNormalizer;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
-use App\Domain\Registry\Model\Mesurement;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
