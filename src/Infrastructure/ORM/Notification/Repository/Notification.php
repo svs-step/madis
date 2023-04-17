@@ -32,7 +32,7 @@ use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
-use App\Infrastructure\ORM\Registry\Repository\Mesurement;
+use App\Domain\Registry\Model\Mesurement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Query\Expr\OrderBy;
