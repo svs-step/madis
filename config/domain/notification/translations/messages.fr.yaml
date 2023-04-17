@@ -8,7 +8,7 @@ notifications:
         proof: Preuves
         document: Espace documentaire
         action: Actions de protection
-        action_plan: Plans d'action
+        action_plan: Plan d'actions
         protect_action: Actions de protection
         request: Demandes
         user: Utilisateurs
@@ -48,7 +48,7 @@ notification:
         document: Espace documentaire
         action: Actions de protection
         protect_action: Actions de protection
-        action_plan: Plans d'action
+        action_plan: Plan d'actions
         request: Demandes
         user: Utilisateurs
         documentation: Documentation
