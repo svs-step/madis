@@ -159,7 +159,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
         $users        = $this->userRepository->findNonDpoUsersForCollectivity($action->getCollectivity());
         $notification = new Notification();
-        $notification->setModule('notification.modules.' . Notification::MODULES[Mesurement::class]);
+        $notification->setModule('notification.modules.' . NotificationModuleDictionary::ACTION_PLAN);
         $notification->setCollectivity($action->getCollectivity());
         $notification->setAction('notifications.actions.late_action');
         $notification->setName($action->getName());
