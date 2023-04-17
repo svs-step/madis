@@ -32,6 +32,7 @@ use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
+use App\Infrastructure\ORM\Registry\Repository\Mesurement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Query\Expr\OrderBy;
@@ -342,10 +343,14 @@ class Notification extends CRUDRepository implements Repository\Notification
         }
 
         $object = $notification->getObject();
-
         $moduleName = str_replace('notification.modules.', '', $notification->getModule());
 
-        $objectClass = array_flip(\App\Domain\Notification\Model\Notification::MODULES)[$moduleName];
+        if ($moduleName === 'action_plan') {
+            $objectClass = Mesurement::class;
+        } else {
+            $objectClass = array_flip(\App\Domain\Notification\Model\Notification::MODULES)[$moduleName];
+        }
+
 
         return (bool) $this->registry->getRepository($objectClass)->find($object->id);
     }
