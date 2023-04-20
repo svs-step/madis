@@ -29,11 +29,12 @@ use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\Documentation\Model\Document;
 use App\Domain\Maturity\Model\Maturity;
 use App\Domain\Notification\Model\Notification;
-use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Model\Request;
 
 class NotificationModuleUserDictionary extends SimpleDictionary
 {
+    public const ACTION_PLAN = 'action_plan';
+
     public function __construct()
     {
         parent::__construct('notificationUserModule', self::getModules());
@@ -48,7 +49,7 @@ class NotificationModuleUserDictionary extends SimpleDictionary
     {
         return [
             Notification::MODULES[Request::class]       => 'Demandes',
-            Notification::MODULES[Mesurement::class]    => 'Actions de protection',
+            self::ACTION_PLAN                           => 'Plan d\'actions',
             Notification::MODULES[AnalyseImpact::class] => 'AIPD',
             Notification::MODULES[Maturity::class]      => 'Indice de maturité',
             Notification::MODULES[Document::class]      => 'Espace Documentaire',
