@@ -80,10 +80,10 @@
                                 </th>
                                 {% endif %}
                                 <th scope="col"><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
+                                {% if is_granted('ROLE_ADMIN') %}
                                 <th scope="col">
                                     <input class="form-control" type="text" id="search_user_name" placeholder="Nom" style="width: 100%;">
                                 </th>
-                                {% if is_granted('ROLE_ADMIN') %}
                                 <th scope="col">
                                     <input class="datepicker form-control" type="text" id="search_read_at" placeholder="Date" style="width: 100%;">
                                 </th>
@@ -102,8 +102,9 @@
                                 <th scope="col">{{ 'notification.notification.list.collectivity'|trans }}</th>
                                 {% endif %}
                                 <th scope="col">{{ 'notification.notification.list.date'|trans }}</th>
-                                <th scope="col">{{ 'notification.notification.list.user'|trans }}</th>
+
                                 {% if is_granted('ROLE_ADMIN') %}
+                                    <th scope="col">{{ 'notification.notification.list.user'|trans }}</th>
                                 <th scope="col">{{ 'notification.notification.list.read_date'|trans }}</th>
                                 <th scope="col">{{ 'notification.notification.list.read_by'|trans }}</th>
                                 {% endif %}
