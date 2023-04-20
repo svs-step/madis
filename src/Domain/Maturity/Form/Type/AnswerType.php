@@ -69,6 +69,7 @@ class AnswerType extends AbstractType
                 'data_class'        => Answer::class,
                 'validation_groups' => [
                     'default',
+                    'answer',
                 ],
             ]);
     }
