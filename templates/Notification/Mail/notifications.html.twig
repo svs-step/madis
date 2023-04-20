@@ -5,11 +5,17 @@
 
     <p>Bonjour{{ user ? ' ' ~ user.firstname : '' }},</p>
     <p>
-        {{ app_notification_email_first_line }}
+        {{ app_notification_email_first_line|raw }}
     </p>
 
     {% for notification in notifications %}
         <p>{{ notification|sentence|raw }}</p>
+        <p class="text-muted">
+            {{ notification.action | trans }}, <b>{{ notification.createdAt|ago }}</b>
+            {% if notification.createdBy %}
+                par <b>{{ notification.createdBy }}</b>
+            {% endif %}
+        </p>
     {% endfor %}
 
     <p>

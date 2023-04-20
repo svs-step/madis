@@ -124,7 +124,7 @@ class NotificationsSendCommand extends Command
             $nextTimeToSend = $this->getNextTimeToSendFromPreferences($prefs);
 
             if ($nextTimeToSend->format('Ymdhi') !== date('Ymdhi')) {
-                $output->writeln('Not the time to send. Programmed time is ' . $nextTimeToSend->format('Ymdhi') . 'a dnc urrent time is ' . date('Ymdhi'));
+                $output->writeln('Not the time to send. Programmed time is ' . $nextTimeToSend->format('YmdHi') . ' and current time is ' . date('YmdHi'));
                 // Now is not the time to send for this user, abort
                 continue;
             }

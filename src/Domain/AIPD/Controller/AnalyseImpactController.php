@@ -151,22 +151,26 @@ class AnalyseImpactController extends CRUDController
         <i class="fa fa-print"></i>' .
             $this->translator->trans('action.print') . '
         </a>';
-        if (!$analyseImpact->isValidated()) {
-            $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
-                <i class="fa fa-pencil-alt"></i>' .
-                        $this->translator->trans('action.edit') . '
-                </a>';
-            if ($analyseImpact->isReadyForValidation()) {
-                $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_validation', ['id' => $analyseImpact->getId()]) . '">
-                <i class="fa fa-check-square"></i>' .
-                    $this->translator->trans('action.validate') . '
-                </a>';
+
+        $user = $this->userProvider->getAuthenticatedUser();
+        if ('ROLE_PREVIEW' !== $user->getRoles()[0]) {
+            if (!$analyseImpact->isValidated()) {
+                $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
+                    <i class="fa fa-pencil-alt"></i>' .
+                    $this->translator->trans('action.edit') . '
+                    </a>';
+                if ($analyseImpact->isReadyForValidation()) {
+                    $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_validation', ['id' => $analyseImpact->getId()]) . '">
+                    <i class="fa fa-check-square"></i>' .
+                        $this->translator->trans('action.validate') . '
+                    </a>';
+                }
             }
+            $cell .= '                                    <a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
+            <i class="fa fa-trash"></i> ' .
+                $this->translator->trans('action.delete') . '
+            </a>';
         }
-        $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
-        <i class="fa fa-trash"></i>' .
-            $this->translator->trans('action.delete') . '
-        </a>';
 
         return $cell;
     }
@@ -240,6 +244,8 @@ class AnalyseImpactController extends CRUDController
 
                 $this->analyseFlow->reset();
 
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object));
+
                 return $this->redirectToRoute($this->getRouteName('evaluation'), [
                     'id' => $id,
                 ]);
@@ -280,6 +286,8 @@ class AnalyseImpactController extends CRUDController
                 $this->entityManager->flush();
 
                 $this->analyseFlow->reset();
+
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object));
 
                 return $this->redirectToRoute($this->getRouteName('evaluation'), [
                     'id' => $id,

@@ -197,7 +197,7 @@
                                             {% else %}
 
 
-                                                {% if not conformiteTraitement.traitement.ExemptAIPD and analyseImpact is null and critereValid %}
+                                                {% if not conformiteTraitement.traitement.ExemptAIPD and analyseImpact is null %}
                                                     <a href="{{ path('registry_conformite_traitement_start_aipd', {'id': conformiteTraitement.id}) }}">
                                                         <i class="fa fa-chalkboard-teacher"></i>
                                                         {{ 'aipd.analyse_impact.action.create'|trans }}

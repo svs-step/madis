@@ -147,7 +147,10 @@ class NotificationGenerationTest extends WebTestCase
             'action' => 'notification.actions.state_change',
         ]);
 
-        $this->assertEquals($request->getCollectivity(), $notif->getCollectivity());
+        $this->assertEquals(
+            $request->getCollectivity(),
+            $notif->getCollectivity()
+        );
         $this->assertEquals($request->__toString(), $notif->getName());
 
         $this->assertEquals(0, count($notif->getNotificationUsers()));

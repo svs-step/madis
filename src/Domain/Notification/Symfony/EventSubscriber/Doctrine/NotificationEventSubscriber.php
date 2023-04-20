@@ -85,6 +85,13 @@ class NotificationEventSubscriber implements EventSubscriber
 
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
+        /** @var User|null $user */
+        $user = $this->security->getUser();
+
+        if (isset($user) && is_object($user) && User::class === get_class($user) && $user->isNotGeneratesNotifications()) {
+            // User does not generate notifications, exit now
+            return;
+        }
         $em  = $eventArgs->getObjectManager();
         $uow = $em->getUnitOfWork();
 

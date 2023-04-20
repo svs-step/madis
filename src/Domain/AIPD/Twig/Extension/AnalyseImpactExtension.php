@@ -31,6 +31,7 @@ class AnalyseImpactExtension extends AbstractExtension
             new TwigFunction('getScenarioMenaceImpactResiduel', [$this, 'getScenarioMenaceImpactResiduel']),
             new TwigFunction('getScenarioMenaceIndicateurResiduel', [$this, 'getScenarioMenaceIndicateurResiduel']),
             new TwigFunction('getMeasureImpactResiduel', [$this, 'getMeasureImpactResiduel']),
+            new TwigFunction('isScenarioMenaceImpactResiduelImpactNotNegligeable', [$this, 'isScenarioMenaceImpactResiduelImpactNotNegligeable']),
         ];
     }
 
@@ -86,6 +87,13 @@ class AnalyseImpactExtension extends AbstractExtension
         $impact = VraisemblanceGraviteDictionary::getImpact($this->getScenarioMenaceImpactResiduel($scenarioMenace));
 
         return $this->getImpactLabel($impact);
+    }
+
+    public function isScenarioMenaceImpactResiduelImpactNotNegligeable(AnalyseScenarioMenace $scenarioMenace): bool
+    {
+        $impact = VraisemblanceGraviteDictionary::getImpact($this->getScenarioMenaceImpactResiduel($scenarioMenace));
+
+        return VraisemblanceGraviteDictionary::NEGLIGEABLE !== $impact;
     }
 
     private function getImpactLabel(string $impact): string

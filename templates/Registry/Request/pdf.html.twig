@@ -91,10 +91,12 @@
                             <td><strong>{{ 'registry.request.show.answer_type'|trans }}</strong></td>
                             <td>{% if object.answer.type is not null %}{{ object.answer.type|dictionary('registry_request_answer_type') }}{% endif %}</td>
                         </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.request.show.state'|trans }}</strong></td>
-                            <td>{{ object.state|dictionary('registry_request_state') }}</td>
-                        </tr>
+                        {% if object.state is not same as "" %}
+                            <tr>
+                                <td><strong>{{ 'registry.request.show.state'|trans }}</strong></td>
+                                <td>{{ object.state|dictionary('registry_request_state') }}</td>
+                            </tr>
+                        {% endif %}
                         {% if object.state == constant('App\\Domain\\Registry\\Dictionary\\RequestStateDictionary::STATE_DENIED') %}
                             <tr>
                                 <td><strong>{{ 'registry.request.show.state_rejection_reason'|trans }}</strong></td>
