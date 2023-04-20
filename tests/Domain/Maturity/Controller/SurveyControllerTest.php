@@ -42,6 +42,8 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -99,6 +101,18 @@ class SurveyControllerTest extends TestCase
      * @var SurveyController
      */
     private $controller;
+    /**
+     * @var Repository\Referentiel
+     */
+    private $referentielRepository;
+    /**
+     * @var RouterInterface
+     */
+    private $router;
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
 
     public function setUp(): void
     {
@@ -111,6 +125,9 @@ class SurveyControllerTest extends TestCase
         $this->userProviderProphecy          = $this->prophesize(UserProvider::class);
         $this->maturityHandlerProphecy       = $this->prophesize(MaturityHandler::class);
         $this->pdf                           = $this->prophesize(Pdf::class);
+        $this->referentielRepository         = $this->prophesize(Repository\Referentiel::class);
+        $this->router                        = $this->prophesize(RouterInterface::class);
+        $this->requestStack                  = $this->prophesize(RequestStack::class);
 
         $this->controller = new SurveyController(
             $this->managerProphecy->reveal(),
@@ -121,7 +138,10 @@ class SurveyControllerTest extends TestCase
             $this->authenticationCheckerProphecy->reveal(),
             $this->userProviderProphecy->reveal(),
             $this->maturityHandlerProphecy->reveal(),
-            $this->pdf->reveal()
+            $this->pdf->reveal(),
+            $this->referentielRepository->reveal(),
+            $this->router->reveal(),
+            $this->requestStack->reveal()
         );
     }
 
