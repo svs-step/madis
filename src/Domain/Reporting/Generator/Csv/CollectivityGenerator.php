@@ -228,7 +228,6 @@ class CollectivityGenerator extends AbstractGenerator
             $this->translator->trans('user.collectivity.show.name'),
             $this->translator->trans('user.collectivity.show.short_name'),
             $this->translator->trans('user.collectivity.show.type'),
-            $this->translator->trans('user.collectivity.show.other_type'),
             $this->translator->trans('user.collectivity.show.siren'),
             $this->translator->trans('user.collectivity.show.active'),
             $this->translator->trans('user.collectivity.show.website'),
