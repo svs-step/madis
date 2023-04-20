@@ -14,6 +14,7 @@ use App\Domain\AIPD\Form\Type\ModeleAnalyseRightsType;
 use App\Domain\AIPD\Form\Type\ModeleAnalyseType;
 use App\Domain\AIPD\Model\ModeleAnalyse;
 use App\Domain\AIPD\Model\ModeleQuestionConformite;
+use App\Domain\AIPD\Model\ModeleScenarioMenace;
 use App\Domain\AIPD\Repository;
 use App\Domain\Registry\Repository\ConformiteTraitement\Question;
 use App\Domain\User\Repository\Collectivity;
@@ -162,6 +163,8 @@ class ModeleAnalyseController extends CRUDController
 
                 $this->modeleFlow->reset();
 
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object));
+
                 return $this->redirectToRoute($this->getRouteName('list'));
             }
         }
@@ -189,10 +192,13 @@ class ModeleAnalyseController extends CRUDController
             if ($this->modeleFlow->nextStep()) {
                 $form = $this->modeleFlow->createForm();
             } else {
+                $this->ScenarioMenacesToDelete($object, $id);
                 $this->entityManager->persist($object);
                 $this->entityManager->flush();
 
                 $this->modeleFlow->reset();
+
+                $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object));
 
                 return $this->redirectToRoute($this->getRouteName('list'));
             }
@@ -354,6 +360,13 @@ class ModeleAnalyseController extends CRUDController
             $serializer = SerializerBuilder::create()->build();
             $object     = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
             $object->deserialize();
+
+            foreach ($object->getScenarioMenaces() as $scenarioMenace) {
+                foreach ($scenarioMenace->getMesuresProtections() as $mesuresProtection) {
+                    $mesuresProtection->setIdFromString($this->guidv4());
+                }
+            }
+
             $object->setNom('(import) ' . $object->getNom());
             $this->entityManager->persist($object);
             $this->entityManager->flush();
@@ -378,5 +391,37 @@ class ModeleAnalyseController extends CRUDController
         ];
 
         return strtr($string, $unwanted_array);
+    }
+
+    public function guidv4($data = null)
+    {
+        // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
+        $data = $data ?? random_bytes(16);
+        assert(16 == strlen($data));
+
+        // Set version to 0100
+        $data[6] = chr(ord($data[6]) & 0x0F | 0x40);
+        // Set bits 6-7 to 10
+        $data[8] = chr(ord($data[8]) & 0x3F | 0x80);
+
+        // Output the 36 character UUID.
+        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+    }
+
+    private function ScenarioMenacesToDelete($object, $modeleAnalyseId)
+    {
+        $ScenarioMenacesToDelete = [];
+        $scenarioMenacesActual   = $this->entityManager->getRepository(ModeleScenarioMenace::class)->findBy(['modeleAnalyse' => $modeleAnalyseId]);
+
+        foreach ($scenarioMenacesActual as $actualScenarioMenace) {
+            if (!in_array($actualScenarioMenace, $object->getScenarioMenaces()->toArray())) {
+                $ScenarioMenacesToDelete[] = $actualScenarioMenace;
+            }
+        }
+
+        foreach ($ScenarioMenacesToDelete as $menaceToDelete) {
+            $menace = $this->entityManager->getRepository(ModeleScenarioMenace::class)->find($menaceToDelete->getId());
+            $this->entityManager->remove((object) $menace);
+        }
     }
 }

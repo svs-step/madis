@@ -5,6 +5,8 @@ services:
         public: false
         bind:
             string $maxSize: '%APP_MAX_UPLOAD_SIZE%'
+            string $activeNotifications: '%APP_ACTIVATE_NOTIFICATIONS%'
+
 
     App\Application\:
         resource: '../src/Application/*'
@@ -43,9 +45,7 @@ services:
         arguments:
             $sso_type: '%SSO_TYPE%'
 
-    App\EventSubscriber\LogoutSubscriber:
-        arguments:
-            $logoutUrl: '%SSO_LOGOUT_URL%'
+#    App\EventSubscriber\LogoutSubscriber:
 
     App\Application\Symfony\OpenApi\JwtDecorator:
         decorates: 'api_platform.openapi.factory'
@@ -68,6 +68,12 @@ services:
             $security: '@Symfony\Component\Security\Core\Security'
         tags: [ { name: doctrine.event_subscriber } ]
 
+    App\Domain\Notification\Twig\Extension\NotificationExtension:
+        arguments:
+            $translator: '@translator'
+            $router: '@router'
+            $requestDays: '%env(APP_REQUEST_NOTIFICATION_DELAY_DAYS)%'
+            $surveyDays: '%env(APP_SURVEY_NOTIFICATION_DELAY_DAYS)%'
 
     App\Domain\AIPD\Model\AnalyseImpact: '@aipd.model.analyse_impact'
 imports:

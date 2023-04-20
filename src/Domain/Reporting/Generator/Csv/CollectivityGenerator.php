@@ -291,7 +291,6 @@ class CollectivityGenerator extends AbstractGenerator
             $collectivity->getName(),
             $collectivity->getShortName(),
             !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] : '',
-            $collectivity->getOtherType(),
             $collectivity->getSiren(),
             $collectivity->isActive() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
             $collectivity->getWebsite(),

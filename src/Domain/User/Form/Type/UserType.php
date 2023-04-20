@@ -64,17 +64,21 @@ class UserType extends AbstractType
      */
     private $security;
 
+    private bool $activeNotifications;
+
     /**
      * UserType constructor.
      */
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
         EncoderFactoryInterface $encoderFactory,
-        Security $security
+        Security $security,
+        string $activeNotifications
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->encoderFactory       = $encoderFactory;
         $this->security             = $security;
+        $this->activeNotifications  = 'true' === $activeNotifications;
     }
 
     /**
@@ -117,6 +121,7 @@ class UserType extends AbstractType
                     'label'    => 'user.user.form.apiAuthorized',
                     'required' => false,
                 ])
+
                 ->add('enabled', CheckboxType::class, [
                     'label'    => 'user.user.form.enabled',
                     'required' => false,
@@ -247,8 +252,17 @@ class UserType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('emailNotificationPreference', EmailNotificationPreferenceType::class)
         ;
+
+        if ($this->activeNotifications) {
+            $builder->add('emailNotificationPreference', EmailNotificationPreferenceType::class);
+            if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+                $builder->add('notGeneratesNotifications', CheckboxType::class, [
+                    'label'    => 'user.user.form.not_generates_notifications',
+                    'required' => false,
+                ]);
+            }
+        }
 
         $builder
             ->get('moreInfos')

@@ -30,18 +30,22 @@ class NotificationsSendCommand extends Command
     protected MailerInterface $mailer;
     protected TranslatorInterface $translator;
 
+    private bool $activeNotifications;
+
     public function __construct(
         UserRepository $userRepository,
         NotificationUserRepository $notificationUserRepository,
         MailerInterface $mailer,
         TranslatorInterface $translator,
-        string $name = null
+        string $activeNotifications,
+        string $name = null,
     ) {
         parent::__construct($name);
         $this->userRepository             = $userRepository;
         $this->mailer                     = $mailer;
         $this->notificationUserRepository = $notificationUserRepository;
         $this->translator                 = $translator;
+        $this->activeNotifications        = 'true' === $activeNotifications;
     }
 
     protected function configure(): void
@@ -54,6 +58,11 @@ class NotificationsSendCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+
+        if (!$this->activeNotifications) {
+            $io->warning('Notifications are not active. Exiting now');
+            exit(0);
+        }
 
         // Get all users
         $users = new ArrayCollection($this->userRepository->findAll());
@@ -115,7 +124,7 @@ class NotificationsSendCommand extends Command
             $nextTimeToSend = $this->getNextTimeToSendFromPreferences($prefs);
 
             if ($nextTimeToSend->format('Ymdhi') !== date('Ymdhi')) {
-                $output->writeln('Not the time to send. Programmed time is ' . $nextTimeToSend->format('Ymdhi') . 'a dnc urrent time is ' . date('Ymdhi'));
+                $output->writeln('Not the time to send. Programmed time is ' . $nextTimeToSend->format('YmdHi') . ' and current time is ' . date('YmdHi'));
                 // Now is not the time to send for this user, abort
                 continue;
             }

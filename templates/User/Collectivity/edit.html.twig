@@ -28,21 +28,6 @@
     {{ parent() }}
     <script>
         $(document).ready(function() {
-            if ($('input[name="collectivity[type]"]:checked').val() !== 'other'){
-                $('label[for="collectivity_otherType"]').hide();
-                $('input[name="collectivity[otherType]"]').hide();
-            }
-
-            $("#collectivity_type").change(function(){
-                if ($('input[name="collectivity[type]"]:checked').val() === 'other'){
-                    $('label[for="collectivity_otherType"]').show();
-                    $('input[name="collectivity[otherType]"]').show();
-                }else {
-                    $('label[for="collectivity_otherType"]').hide();
-                    $('input[name="collectivity[otherType]"]').hide();
-                    $('input[name="collectivity[otherType]"]').val('');
-                }
-            });
             $('input[name="collectivity[nbrCnil]"]').removeAttr('disabled');
         });
     </script>

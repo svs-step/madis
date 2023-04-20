@@ -35,11 +35,13 @@ use App\Domain\User\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
+use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -435,7 +437,7 @@ class SecurityControllerTest extends TestCase
         $oAuth2Client           = $this->prophesize(OAuth2Client::class);
         $clientRegistryProphecy->getClient(null)->shouldBeCalled()->willReturn($oAuth2Client->reveal());
 
-        $oAuth2Client->redirect([], [])->shouldBeCalled()->willReturn($response);
+        $oAuth2Client->redirect(['openid'], [])->shouldBeCalled()->willReturn($response);
         $this->controller->oauthConnectAction(new Request(), $clientRegistryProphecy->reveal());
     }
 
@@ -478,9 +480,11 @@ class SecurityControllerTest extends TestCase
         $clientRegistryProphecy = $this->prophesize(ClientRegistry::class);
         $oAuth2Client           = $this->prophesize(OAuth2Client::class);
         $clientRegistryProphecy->getClient(null)->shouldBeCalled()->willReturn($oAuth2Client->reveal());
+        $oAuth2Provider = $this->prophesize(AbstractProvider::class);
+        $oAuth2Client->getOAuth2Provider()->shouldBeCalled()->willReturn($oAuth2Provider->reveal());
         $token = new AccessToken(['access_token' => 'Foo']);
 
-        $oAuth2Client->getAccessToken()->shouldBeCalled()->willReturn($token);
+        $oAuth2Client->getAccessToken(['scope' => 'openid'])->shouldBeCalled()->willReturn($token);
         $resourceOwner = $this->prophesize(ResourceOwnerInterface::class);
         $resourceOwner->toArray()->shouldBeCalled()->willReturn(['foo' => 'Foo']);
         $oAuth2Client->fetchUserFromToken($token)->shouldBeCalled()->willReturn($resourceOwner);
@@ -493,11 +497,12 @@ class SecurityControllerTest extends TestCase
         $user->getPassword()->shouldBeCalled()->willReturn('Foo');
 
         $tokenStorageProphecy = $this->prophesize(TokenStorageInterface::class);
+        $loggerProphecy       = $this->prophesize(LoggerInterface::class);
 
         $this->helperProphecy->redirectToRoute('reporting_dashboard_index')->shouldBeCalled()->willReturn($response);
         $this->assertEquals(
             $response,
-            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal())
+            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal(), $loggerProphecy->reveal())
         );
     }
 
@@ -513,9 +518,11 @@ class SecurityControllerTest extends TestCase
         $clientRegistryProphecy = $this->prophesize(ClientRegistry::class);
         $oAuth2Client           = $this->prophesize(OAuth2Client::class);
         $clientRegistryProphecy->getClient(null)->shouldBeCalled()->willReturn($oAuth2Client->reveal());
+        $oAuth2Provider = $this->prophesize(AbstractProvider::class);
+        $oAuth2Client->getOAuth2Provider()->shouldBeCalled()->willReturn($oAuth2Provider->reveal());
         $token = new AccessToken(['access_token' => 'Foo']);
 
-        $oAuth2Client->getAccessToken()->shouldBeCalled()->willReturn($token);
+        $oAuth2Client->getAccessToken(['scope' => 'openid'])->shouldBeCalled()->willReturn($token);
         $resourceOwner = $this->prophesize(ResourceOwnerInterface::class);
         $resourceOwner->toArray()->shouldBeCalled()->willReturn(['foo' => 'Foo']);
         $oAuth2Client->fetchUserFromToken($token)->shouldBeCalled()->willReturn($resourceOwner);
@@ -531,10 +538,10 @@ class SecurityControllerTest extends TestCase
         $this->helperProphecy->redirectToRoute('user_profile_user_edit')->shouldBeCalled()->willReturn($response);
 
         $tokenStorageProphecy = $this->prophesize(TokenStorageInterface::class);
-
+        $loggerProphecy       = $this->prophesize(LoggerInterface::class);
         $this->assertEquals(
             $response,
-            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal())
+            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal(), $loggerProphecy->reveal())
         );
     }
 
@@ -550,9 +557,11 @@ class SecurityControllerTest extends TestCase
         $clientRegistryProphecy = $this->prophesize(ClientRegistry::class);
         $oAuth2Client           = $this->prophesize(OAuth2Client::class);
         $clientRegistryProphecy->getClient(null)->shouldBeCalled()->willReturn($oAuth2Client->reveal());
+        $oAuth2Provider = $this->prophesize(AbstractProvider::class);
+        $oAuth2Client->getOAuth2Provider()->shouldBeCalled()->willReturn($oAuth2Provider->reveal());
         $token = new AccessToken(['access_token' => 'Foo']);
 
-        $oAuth2Client->getAccessToken()->shouldBeCalled()->willReturn($token);
+        $oAuth2Client->getAccessToken(['scope' => 'openid'])->shouldBeCalled()->willReturn($token);
         $resourceOwner = $this->prophesize(ResourceOwnerInterface::class);
         $resourceOwner->toArray()->shouldBeCalled()->willReturn(['foo' => 'Foo']);
         $oAuth2Client->fetchUserFromToken($token)->shouldBeCalled()->willReturn($resourceOwner);
@@ -570,10 +579,11 @@ class SecurityControllerTest extends TestCase
         $this->helperProphecy->redirectToRoute('user_profile_user_edit')->shouldBeCalled()->willReturn($response);
 
         $tokenStorageProphecy = $this->prophesize(TokenStorageInterface::class);
+        $loggerProphecy       = $this->prophesize(LoggerInterface::class);
 
         $this->assertEquals(
             $response,
-            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal())
+            $this->controller->oauthCheckAction(new Request(), $clientRegistryProphecy->reveal(), $tokenStorageProphecy->reveal(), $loggerProphecy->reveal())
         );
     }
 }

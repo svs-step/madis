@@ -276,7 +276,7 @@ registry:
             show: Visualiser une action de protection
         modal:
           cancel: Annuler
-          create: Créer
+          create: Enregistrer
           title: Ajouter une action de protection
 
     proof:
@@ -518,6 +518,7 @@ registry:
                 delete: Traitement "%object%" supprimé avec succès
                 archive: Traitement "%object%" archivé avec succès
         list:
+            sensitive_data: Données sensibles
             access_control: Controle d'accès
             active: Statut
             author: En tant que
@@ -611,6 +612,11 @@ registry:
             legalMentions: Mentions légales apposées
             consentRequest: Consentement demandé
             consentRequestFormat: Format de la demande du consentement
+            legal_mentions: Mentions légales apposées
+            consent_request: Consentement demandé
+            consent_request_format: Format de la demande du consentement
+            exempt_aipd: Est exempté d'AIPD
+            tools: Logiciel
         title:
             create: Créer un traitement
             delete: Supprimer un traitement
@@ -750,7 +756,7 @@ registry:
             list: Conformité de la structure
             delete: Supprimer une évaluation
         list:
-            collectivite: Nom de la Structure
+            collectivite: Structure
             draft: Brouillon
             pilote: Pilote
             processus: Processus

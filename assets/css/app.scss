@@ -477,3 +477,7 @@ button.dt-button, div.dt-button, a.dt-button {
     padding: 2px;
   }
 }
+
+td.actions > a {
+  white-space: nowrap;
+}

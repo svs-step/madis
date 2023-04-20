@@ -4,10 +4,18 @@
     <h1>{{ 'notification.email.subject'|trans }}</h1>
 
     <p>Bonjour{{ user ? ' ' ~ user.firstname : '' }},</p>
-    <p>Des modifications ont été apportées dans <span style="color:#3880AB"><b>Madis</b></span>.</p>
+    <p>
+        {{ app_notification_email_first_line|raw }}
+    </p>
 
     {% for notification in notifications %}
         <p>{{ notification|sentence|raw }}</p>
+        <p class="text-muted">
+            {{ notification.action | trans }}, <b>{{ notification.createdAt|ago }}</b>
+            {% if notification.createdBy %}
+                par <b>{{ notification.createdBy }}</b>
+            {% endif %}
+        </p>
     {% endfor %}
 
     <p>

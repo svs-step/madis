@@ -28,11 +28,17 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class NotificationActionDictionary extends SimpleDictionary
 {
-    public const CREATE = 'create';
-    public const ADD    = 'add';
-    public const EDIT   = 'edit';
-    public const DELETE = 'delete';
-    public const LATE   = 'late';
+    public const CREATE               = 'create';
+    public const ADD                  = 'add';
+    public const EDIT                 = 'edit';
+    public const DELETE               = 'delete';
+    public const LATE                 = 'late';
+    public const LATE_ACTION          = 'late_action';
+    public const LATE_SURVEY          = 'late_survey';
+    public const NO_LOGIN             = 'no_login';
+    public const VALIDATION           = 'validation';
+    public const TREATMENT_NEEDS_AIPD = 'treatment_needs_aipd';
+    public const STATE_CHANGE         = 'state_change';
 
     public function __construct()
     {
@@ -47,11 +53,15 @@ class NotificationActionDictionary extends SimpleDictionary
     public static function getActions()
     {
         return [
-            self::CREATE => 'Création',
-            self::ADD    => 'Ajout',
-            self::EDIT   => 'Modification',
-            self::DELETE => 'Suppression',
-            self::LATE   => 'Retard (automatique)',
+            self::CREATE               => 'Création',
+            self::ADD                  => 'Ajout',
+            self::EDIT                 => 'Modification',
+            self::DELETE               => 'Suppression',
+            self::LATE_ACTION          => 'Action de protection en retard (automatique)',
+            self::LATE_SURVEY          => 'Indice de maturité en retard (automatique)',
+            self::TREATMENT_NEEDS_AIPD => 'Nécéssité de faire une AIPD',
+            self::NO_LOGIN             => 'Utilisateur inactif',
+            self::STATE_CHANGE         => 'Changement d\'état',
         ];
     }
 

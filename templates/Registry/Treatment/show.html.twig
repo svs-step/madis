@@ -672,20 +672,22 @@
                                     {% endif %}
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <strong>Actions</strong>
-                                </td>
-                                <td>
-                                    <a href="
-                                        {% if object.conformiteTraitement is null %}
-                                            {{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}
-                                        {% else %}
-                                            {{ path('registry_conformite_traitement_edit', {'id': object.conformiteTraitement.id}) }}
-                                        {% endif %}
-                                    "><i class="fa fa-pencil-alt"></i> {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}</a>
-                                </td>
-                            </tr>
+                            {% if not is_granted('ROLE_PREVIEW') %}
+                                <tr>
+                                    <td>
+                                        <strong>Actions</strong>
+                                    </td>
+                                    <td>
+                                        <a href="
+                                            {% if object.conformiteTraitement is null %}
+                                                {{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}
+                                            {% else %}
+                                                {{ path('registry_conformite_traitement_edit', {'id': object.conformiteTraitement.id}) }}
+                                            {% endif %}
+                                        "><i class="fa fa-pencil-alt"></i> {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}</a>
+                                    </td>
+                                </tr>
+                            {%  endif %}
                         </table>
                     </div>
                 </div>
@@ -704,7 +706,7 @@
                                         {% set labelAipdColor = "label-default" %}
                                         {% if analyseImpact.statut == "defavorable" %}
                                             {% set labelAipdColor = "label-danger" %}
-                                        {% elseif analyseImpact.statut == "favorable_avec_reserves" %}
+                                        {% elseif analyseImpact.statut == "favorable_reserve" %}
                                             {% set labelAipdColor = "label-warning" %}
                                         {% elseif analyseImpact.statut == "favorable" %}
                                             {% set labelAipdColor = "label-success" %}
@@ -728,17 +730,19 @@
                                         {% endif %}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Actions</strong>
-                                    </td>
-                                    <td>
-                                        <a href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
-                                            <i class="fa fa-chalkboard-teacher"></i>
-                                            {{ 'aipd.analyse_impact.action.edit'|trans }}
-                                        </a>
-                                    </td>
-                                </tr>
+                                {% if not is_granted('ROLE_PREVIEW') %}
+                                    <tr>
+                                        <td>
+                                            <strong>Actions</strong>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
+                                                <i class="fa fa-chalkboard-teacher"></i>
+                                                {{ 'aipd.analyse_impact.action.edit'|trans }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endif %}
                             </table>
                         </div>
                     </div>

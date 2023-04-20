@@ -1,106 +1,122 @@
-<div class="box box-solid box-success">
+<div class="box box-solid box-info">
     <div class="box-header with-border">
         <h3 class="box-title">{{ 'user.user.form.notifications'|trans }}</h3>
     </div>
     <div class="box-body">
-        <h4>Fréquence des notifications</h4>
-        <table style="border: 0; vertical-align: top">
-            {% for f in form.emailNotificationPreference.frequency %}
-                <tr>
+        {% if form.notGeneratesNotifications is defined %}
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Génération des notifications</label>
+            <div class="col-sm-10">
+                {{ form_widget(form.notGeneratesNotifications) }}
+            </div>
+        </div>
+        {% endif %}
 
-                    <td style="border: 0; vertical-align: top">
-                        {{ form_widget(f) }}
-                    </td>
-                    <td style="border: 0; vertical-align: top">
-                        <div>
-                            {% if f.vars.value == 'hour' or f.vars.value == 'day' %}
-                                {% set h = form.emailNotificationPreference.hour %}
-                                {% if h.vars.choices is defined %}
-                                    <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
-                                        {% for op in h.vars.choices %}
-                                            <option value="{{ op.value }}" {% if h.vars.value == op.value %} selected {% endif %}>{{ op.label }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <label style="display: inline-block"  for="{{ h.vars.id }}">
-                                        {{ h.vars.label }}
-                                    </label>
+        <div class="form-group">
+            <label class="col-sm-2 control-label required">Fréquence des notifications par email</label>
+            <div class="col-sm-10">
+                <table style="border: 0; vertical-align: top">
+                    {% for f in form.emailNotificationPreference.frequency %}
+                        <tr>
 
-                                {% endif %}
-                            {% endif %}
-                            {% if f.vars.value == 'week' %}
-                                {% set h = form.emailNotificationPreference.day %}
-                                {% if h.vars.choices is defined %}
-                                    <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
-                                        {% for op in h.vars.choices %}
-                                            <option value="{{ op.value }}" {% if h.vars.value == op.value %} selected {% endif %}>{{ op.label }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <label style="display: inline-block"  for="{{ h.vars.id }}">
-                                        {{ h.vars.label }}
-                                    </label>
+                            <td style="border: 0; vertical-align: top">
+                                {{ form_widget(f) }}
+                            </td>
+                            <td style="border: 0; vertical-align: top">
+                                <div>
+                                    {% if f.vars.value == 'hour' or f.vars.value == 'day' %}
+                                        {% set h = form.emailNotificationPreference.hour %}
+                                        {% if h.vars.choices is defined %}
+                                            <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
+                                                {% for op in h.vars.choices %}
+                                                    <option value="{{ op.value }}" {% if h.vars.value == op.value %} selected {% endif %}>{{ op.label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label style="display: inline-block"  for="{{ h.vars.id }}">
+                                                {{ h.vars.label }}
+                                            </label>
 
-                                {% endif %}
-                                {% set h = form.emailNotificationPreference.hour %}
-                                {% if h.vars.choices is defined %}
-                                    <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
-                                        {% for op in h.vars.choices %}
-                                            <option value="{{ op.value }}" {% if h.vars.value == op.value %} selected {% endif %}>{{ op.label }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <label style="display: inline-block"  for="{{ h.vars.id }}">
-                                        {{ h.vars.label }}
-                                    </label>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if f.vars.value == 'week' %}
+                                        {% set h = form.emailNotificationPreference.day %}
+                                        {% if h.vars.choices is defined %}
+                                            <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
+                                                {% for op in h.vars.choices %}
+                                                    <option value="{{ op.value }}" {% if h.vars.value == op.value %} selected {% endif %}>{{ op.label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label style="display: inline-block"  for="{{ h.vars.id }}">
+                                                {{ h.vars.label }}
+                                            </label>
 
-                                {% endif %}
+                                        {% endif %}
+                                        {% set h = form.emailNotificationPreference.hour %}
+                                        {% if h.vars.choices is defined %}
+                                            <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
+                                                {% for op in h.vars.choices %}
+                                                    <option value="{{ op.value }}" {% if h.vars.value == op.value %} selected {% endif %}>{{ op.label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label style="display: inline-block"  for="{{ h.vars.id }}">
+                                                {{ h.vars.label }}
+                                            </label>
 
-                            {% endif %}
+                                        {% endif %}
 
-                            {% if f.vars.value == 'month' %}
-                                {% set h = form.emailNotificationPreference.week %}
-                                {% if h.vars.choices is defined %}
-                                    <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
-                                        {% for op in h.vars.choices %}
-                                            <option value="{{ op.value }}" {% if h.vars.value == op.value %} selected {% endif %}>{{ op.label }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <label style="display: inline-block"  for="{{ h.vars.id }}">
-                                        {{ h.vars.label }}
-                                    </label>
+                                    {% endif %}
 
-                                {% endif %}
-                                {% set h = form.emailNotificationPreference.day %}
-                                {% if h.vars.choices is defined %}
-                                    <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
-                                        {% for op in h.vars.choices %}
-                                            <option value="{{ op.value }}" {% if h.vars.value == op.value %} selected {% endif %}>{{ op.label }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <label style="display: inline-block"  for="{{ h.vars.id }}">
-                                        {{ h.vars.label }}
-                                    </label>
+                                    {% if f.vars.value == 'month' %}
+                                        {% set h = form.emailNotificationPreference.week %}
+                                        {% if h.vars.choices is defined %}
+                                            <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
+                                                {% for op in h.vars.choices %}
+                                                    <option value="{{ op.value }}" {% if h.vars.value == op.value %} selected {% endif %}>{{ op.label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label style="display: inline-block"  for="{{ h.vars.id }}">
+                                                {{ h.vars.label }}
+                                            </label>
 
-                                {% endif %}
-                                {% set h = form.emailNotificationPreference.hour %}
-                                {% if h.vars.choices is defined %}
-                                    <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
-                                        {% for op in h.vars.choices %}
-                                            <option value="{{ op.value }}"{% if h.vars.value == op.value %} selected {% endif %}>{{ op.label }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <label style="display: inline-block"  for="{{ h.vars.id }}">
-                                        {{ h.vars.label }}
-                                    </label>
+                                        {% endif %}
+                                        {% set h = form.emailNotificationPreference.day %}
+                                        {% if h.vars.choices is defined %}
+                                            <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
+                                                {% for op in h.vars.choices %}
+                                                    <option value="{{ op.value }}" {% if h.vars.value == op.value %} selected {% endif %}>{{ op.label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label style="display: inline-block"  for="{{ h.vars.id }}">
+                                                {{ h.vars.label }}
+                                            </label>
 
-                                {% endif %}
+                                        {% endif %}
+                                        {% set h = form.emailNotificationPreference.hour %}
+                                        {% if h.vars.choices is defined %}
+                                            <select style="display: inline-block;width:auto" class="form-control" id="{{ h.vars.id }}" name="{{ h.vars.full_name }}">
+                                                {% for op in h.vars.choices %}
+                                                    <option value="{{ op.value }}"{% if h.vars.value == op.value %} selected {% endif %}>{{ op.label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label style="display: inline-block"  for="{{ h.vars.id }}">
+                                                {{ h.vars.label }}
+                                            </label>
 
-                            {% endif %}
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-        <H4 style="margin-top: 1em">Recevoir des notifications par email</H4>
+                                        {% endif %}
 
-        {{ form_widget(form.emailNotificationPreference.notificationMask) }}
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label required">Recevoir des notifications par email</label>
+            <div class="col-sm-10">
+                {{ form_widget(form.emailNotificationPreference.notificationMask) }}
+            </div>
+        </div>
     </div>
 </div>

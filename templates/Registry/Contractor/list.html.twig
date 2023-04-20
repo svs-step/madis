@@ -52,11 +52,13 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
-                    <div style="float:left">
-                        <a id="delete-all"  href="{{ path('registry_contractor_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Supprimer
-                        </a>
-                        <a id="print-all"  href="{{ path('registry_contractor_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                    <div id="custom-buttons" style="float:left">
+                        {% if app.user.roles[0] != 'ROLE_PREVIEW' %}
+                            <a id="delete-all" href="" class="dt-button buttons-collection buttons-colvis">
+                                Supprimer
+                            </a>
+                        {% endif %}
+                        <a id="print-all" href="" class="dt-button buttons-collection buttons-colvis">
                             Imprimer
                         </a>
                     </div>
@@ -174,6 +176,26 @@
             {% if is_granted('ROLE_REFERENT') %}
                 col = 1;
             {% endif %}
+
+            oTable.on( 'draw', function () {
+                const deleteButton = $('#delete-all')
+                const printButton = $('#print-all')
+                let deleteLink = "{{ path('registry_contractor_delete_all', { }) }}";
+                let printLink = "{{ path('registry_contractor_print_all', { }) }}";
+                let count = oTable.data().rows().count();
+
+                if (count) {
+                    deleteButton.attr("href", deleteLink);
+                    deleteButton.removeClass("disabled");
+                    printButton.attr("href", printLink);
+                    printButton.removeClass("disabled");
+                } else {
+                    deleteButton.addClass("disabled"); 
+                    deleteButton.removeAttr("href");
+                    printButton.addClass("disabled");
+                    printButton.removeAttr("href");
+                }
+            });
 
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){

@@ -21,24 +21,21 @@
 {% block body %}
 
     <div class="row">
-        <div class="col-md-12">
-            <p>Cette étape finale permet de valider l’instruction de l’AIPD. Une fois validée, il ne sera plus possible de la modifier.</p>
-        </div>
         <div class="col-md-6">
             <div class="box box-solid box-info">
-                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.grands_domaines'|trans }}</div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.analyse_impact.values.evaluation.grands_domaines'|trans }}</h3></div>
                 <div class="box-body">
                     <canvas id="grandsDomaines-chart"></canvas>
                 </div>
             </div>
             <div class="box box-solid box-warning">
-                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.risques_residuels'|trans }}</div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.analyse_impact.values.evaluation.risques_residuels'|trans }}</h3></div>
                 <div class="box-body">
                     <canvas id="risquesResiduels-chart"></canvas>
                 </div>
             </div>
             <div class="box box-solid box-info">
-                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.description_conformite'|trans }}</div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.analyse_impact.values.evaluation.description_conformite'|trans }}</h3></div>
                 <div class="box-body">
                     <table class="table table-bordered">
                         <tr>
@@ -70,20 +67,20 @@
         </div>
         <div class="col-md-6">
             <div class="box box-solid box-primary">
-                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.mesures_securites'|trans }}</div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.analyse_impact.values.evaluation.mesures_securites'|trans }}</h3></div>
                 <div class="box-body">
                     <canvas id="mesuresSecurite-chart"></canvas>
                 </div>
             </div>
 
             <div class="box box-solid box-success">
-                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.moyenne_dic_residuel'|trans }}</div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.analyse_impact.values.evaluation.moyenne_dic_residuel'|trans }}</h3></div>
                 <div class="box-body">
                     <canvas id="dicResiduels-chart"></canvas>
                 </div>
             </div>
             <div class="box box-solid box-primary">
-                <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</h3></div>
                 <div class="box-body">
                     <table class="table table-bordered">
                         <tr>

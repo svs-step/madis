@@ -164,7 +164,7 @@
                                         {% if analyseImpact.statut == "defavorable" %}
 
                                             {% set labelAipdColor = "label-danger" %}
-                                        {% elseif analyseImpact.statut == "favorable_avec_reserves" %}
+                                        {% elseif analyseImpact.statut == "favorable_reserve" %}
                                             {% set labelAipdColor = "label-warning" %}
                                         {% elseif analyseImpact.statut == "favorable" %}
                                             {% set labelAipdColor = "label-success" %}
@@ -197,7 +197,7 @@
                                             {% else %}
 
 
-                                                {% if not conformiteTraitement.traitement.ExemptAIPD and analyseImpact is null and critereValid %}
+                                                {% if not conformiteTraitement.traitement.ExemptAIPD and analyseImpact is null %}
                                                     <a href="{{ path('registry_conformite_traitement_start_aipd', {'id': conformiteTraitement.id}) }}">
                                                         <i class="fa fa-chalkboard-teacher"></i>
                                                         {{ 'aipd.analyse_impact.action.create'|trans }}

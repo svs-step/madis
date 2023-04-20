@@ -140,7 +140,7 @@ class Notification
     private ?User $createdBy;
 
     /**
-     * @ORM\OneToMany(mappedBy="notification", targetEntity="App\Domain\Notification\Model\NotificationUser", cascade={"persist"})
+     * @ORM\OneToMany(mappedBy="notification", targetEntity="App\Domain\Notification\Model\NotificationUser", cascade={"persist", "remove"})
      */
     private Collection|array $notificationUsers = [];
 
@@ -151,8 +151,9 @@ class Notification
      */
     public function __construct()
     {
-        $this->id  = Uuid::uuid4();
-        $this->dpo = false;
+        $this->id        = Uuid::uuid4();
+        $this->dpo       = false;
+        $this->createdBy = null;
     }
 
     public function __toString(): string

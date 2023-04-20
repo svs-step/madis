@@ -60,3 +60,17 @@ server {
     access_log /var/log/nginx/madis_access.log;
 }
 ```
+
+##Module notifications
+
+Pour activer le module notifications, rajouter ceci dans le fichier .env :
+```
+APP_ACTIVATE_NOTIFICATIONS=true
+```
+
+Vous devrez ensuite ajouter les deux lignes suivantes à votre cron :
+```
+* * * * * cd /var/www/madis && $(which php8.1) bin/console notifications:generate >> /var/www/madis/notifications.log
+* * * * * cd /var/www/madis && $(which php8.1) bin/console notifications:send >> /var/www/madis/notifications.log
+```
+En veillant bien à changer le chemin `/var/www/madis/` par celui qui vous correspond.

@@ -83,6 +83,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3>
                 </div>
                 <div class="box-body">
+                    {{ form_row(form.exempt_AIPD) }}
                     {{ form_row(form.systematicMonitoring) }}
                     {{ form_row(form.largeScaleCollection) }}
                     {{ form_row(form.vulnerablePeople) }}
@@ -142,6 +143,7 @@
                             {{ form_row(form.concernedPeopleElected) }}
                             {{ form_row(form.concernedPeopleCompany) }}
                             {{ form_row(form.concernedPeoplePartner) }}
+                            {{ form_row(form.concernedPeopleUsager) }}
                             {{ form_row(form.concernedPeopleOther) }}
                             {% if concernedPeopleErrorBlock is not null %}
                                 {{ concernedPeopleErrorBlock }}

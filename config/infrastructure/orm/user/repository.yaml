@@ -3,6 +3,8 @@ services:
         autowire: true
         autoconfigure: true
         public: false
+        bind:
+            string $inactiveUserDelayDays: '%APP_INACTIVE_USER_NOTIFICATION_DELAY_DAYS%'
 
     App\Infrastructure\ORM\User\Repository\:
         resource: '../../../../src/Infrastructure/ORM/User/Repository'

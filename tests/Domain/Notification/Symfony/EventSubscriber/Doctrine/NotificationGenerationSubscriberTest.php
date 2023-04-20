@@ -17,6 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\UnitOfWork;
+use Doctrine\Persistence\ManagerRegistry;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -318,6 +319,8 @@ class NotificationGenerationSubscriberTest extends TestCase
         $object->setConformiteTraitement($conform);
         $object->setCreatedAt(new \DateTimeImmutable());
 
+        $registry = $this->prophesize(ManagerRegistry::class);
+
         $om  = $this->prophesize(EntityManagerInterface::class);
         $uow = $this->prophesize(UnitOfWork::class);
 
@@ -326,7 +329,7 @@ class NotificationGenerationSubscriberTest extends TestCase
         $uow->getScheduledEntityDeletions()->shouldBeCalled()->willReturn([$object]);
 
         $om->getUnitOfWork()->shouldBeCalled()->willReturn($uow);
-        $this->security->getUser()->shouldNotBeCalled();
+        $this->security->getUser()->shouldBeCalled()->willReturn(new \App\Domain\User\Model\User());
 
         $om->getClassMetadata(\App\Domain\Notification\Model\Notification::class)->shouldNotBeCalled();
         $om->getClassMetadata(\App\Domain\Notification\Model\NotificationUser::class)->shouldNotBeCalled();

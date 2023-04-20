@@ -178,11 +178,6 @@ class Collectivity implements LoggableSubject
     /**
      * @var string|null
      */
-    private $otherType;
-
-    /**
-     * @var string|null
-     */
     private $finessGeo;
 
     /**
@@ -527,16 +522,6 @@ class Collectivity implements LoggableSubject
     public function setInformationsComplementaires(?string $informationsComplementaires): void
     {
         $this->informationsComplementaires = $informationsComplementaires;
-    }
-
-    public function getOtherType(): ?string
-    {
-        return $this->otherType;
-    }
-
-    public function setOtherType(?string $otherType): void
-    {
-        $this->otherType = $otherType;
     }
 
     public function getFinessGeo(): ?string

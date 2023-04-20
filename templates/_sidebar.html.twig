@@ -52,15 +52,6 @@
             </a>
         </li>
 
-        {# Notification #}
-        <li class="header">{{ 'sidebar_menu.notifications'|trans }}</li>
-        <li {% if menuItem == 'notification_notification' %}class="active"{% endif %}>
-            <a href="{{ path('notification_notification_list') }}">
-                <i class="fa fa-bell"></i>
-                <span>{{ 'sidebar_menu.notifications'|trans }}</span>
-            </a>
-        </li>
-
         {# ACTIONS #}
         <li class="header">Actions</li>
         <li {% if menuItem == 'registry_mesurement' %}class="active"{% endif %}>
