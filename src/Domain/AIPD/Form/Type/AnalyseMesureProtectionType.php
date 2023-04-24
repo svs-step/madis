@@ -19,7 +19,7 @@ class AnalyseMesureProtectionType extends AbstractType
                 'placeholder' => 'Pas de réponse',
             ])
             ->add('detail', TextType::class, [
-                'required' => false,
+                'required' => true,
             ])
         ;
     }
