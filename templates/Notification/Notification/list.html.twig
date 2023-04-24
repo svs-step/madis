@@ -43,7 +43,7 @@
                                 <th scope="col">
                                     <select class="form-control" id="search_module" style="width: 100%;">
                                         <option value="" selected>{{ 'notification.notification.list.module'|trans }}</option>
-                                        {% if is_granted('ROLE_REFERENT') %}
+                                        {% if is_granted('ROLE_REFERENT') or 'MOREINFO_DPD' in app.user.moreInfos %}
                                             {% for key, subject in dictionary('notificationModule') %}
                                                 <option value="{{ key }}">{{ subject }}</option>
                                             {% endfor %}
@@ -57,7 +57,7 @@
                                 <th scope="col">
                                     <select class="form-control" id="search_action" style="width: 100%;">
                                         <option value="" selected>{{ 'notification.notification.list.action'|trans }}</option>
-                                        {% if is_granted('ROLE_REFERENT') %}
+                                        {% if is_granted('ROLE_REFERENT') or 'MOREINFO_DPD' in app.user.moreInfos %}
                                             {% for key, subject in dictionary('notificationAction') %}
                                                 <option value="{{ key }}">{{ subject }}</option>
                                             {% endfor %}
@@ -104,7 +104,7 @@
                                 <th scope="col">{{ 'notification.notification.list.date'|trans }}</th>
 
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <th scope="col">{{ 'notification.notification.list.user'|trans }}</th>
+                                <th scope="col">{{ 'notification.notification.list.user'|trans }}</th>
                                 <th scope="col">{{ 'notification.notification.list.read_date'|trans }}</th>
                                 <th scope="col">{{ 'notification.notification.list.read_by'|trans }}</th>
                                 {% endif %}
