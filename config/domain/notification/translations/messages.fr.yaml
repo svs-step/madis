@@ -24,7 +24,7 @@ notifications:
         no_login: Inactif
         validation: Validation
         treatment_needs_aipd: Nécéssité de faire une AIPD
-        state_change: Changement d'état
+        state_change: Changement d'étape
     subject:
         no_login: Aucune connexion depuis la création du compte
         late_request: Demande non traitée depuis au moins %days% jours depuis la date de la dernière modification
@@ -64,7 +64,7 @@ notification:
         no_login: Inactif
         validation: Validation
         treatment_needs_aipd: Nécéssité de faire une AIPD
-        state_change: Changement d'état
+        state_change: Changement d'étape
     email:
         subject: Nouvelles notifications Madis
         madis: Accéder à madis
