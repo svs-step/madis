@@ -18,9 +18,9 @@ notifications:
         delete: Suppression
         create: Création
         update: Modification
-        late_action: En retard
-        late_request: En retard
-        late_survey: En retard
+        late_action: Rappel automatique
+        late_request: Rappel automatique
+        late_survey: Rappel automatique
         no_login: Inactif
         validation: Validation
         treatment_needs_aipd: Nécéssité de faire une AIPD
@@ -58,9 +58,9 @@ notification:
         delete: Suppression
         create: Création
         update: Modification
-        late_action: En retard
-        late_request: En retard
-        late_survey: En retard
+        late_action: Rappel automatique
+        late_request: Rappel automatique
+        late_survey: Rappel automatique
         no_login: Inactif
         validation: Validation
         treatment_needs_aipd: Nécéssité de faire une AIPD
