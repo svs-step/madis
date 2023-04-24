@@ -102,7 +102,7 @@ class ModeleToAnalyseConverter
                     }
                 }
             }
-//            $scenario->setMesuresProtections(self::convertMesuresProtections($scenarioModele, $scenario, $analyseImpact));
+            //            $scenario->setMesuresProtections(self::convertMesuresProtections($scenarioModele, $scenario, $analyseImpact));
             if ($scenarioModele->isDisponibilite() || $scenarioModele->isIntegrite() || $scenarioModele->isConfidentialite()) {
                 $scenario->setCanDicBeModified(false);
             } else {
@@ -127,7 +127,7 @@ class ModeleToAnalyseConverter
             $analyseMesure->setPoidsVraisemblance($mesureProtection->getPoidsVraisemblance());
             $analyseMesure->setPoidsGravite($mesureProtection->getPoidsGravite());
 
-//            $analyseMesure->setScenarioMenace($analyseScenarioMenace);
+            //            $analyseMesure->setScenarioMenace($analyseScenarioMenace);
             $analyseMesure->setOriginId($mesureProtection->getId()->toString());
             $analyseMesure->setAnalyseImpact($analyseImpact);
 

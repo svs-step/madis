@@ -26,23 +26,18 @@ namespace App\Domain\Notification\Dictionary;
 
 use App\Application\Dictionary\SimpleDictionary;
 
-class NotificationActionDictionary extends SimpleDictionary
+class NotificationActionUserDictionary extends SimpleDictionary
 {
-    public const CREATE               = 'create';
     public const ADD                  = 'add';
-    public const EDIT                 = 'edit';
-    public const DELETE               = 'delete';
-    public const LATE                 = 'late';
     public const AUTOMATIC            = 'automatic';
     public const LATE_SURVEY          = 'late_survey';
     public const NO_LOGIN             = 'no_login';
     public const VALIDATION           = 'validation';
     public const TREATMENT_NEEDS_AIPD = 'treatment_needs_aipd';
-    public const STATE_CHANGE         = 'state_change';
 
     public function __construct()
     {
-        parent::__construct('notificationAction', self::getActions());
+        parent::__construct('notificationActionUser', self::getActions());
     }
 
     /**
@@ -54,12 +49,8 @@ class NotificationActionDictionary extends SimpleDictionary
     {
         return [
             self::ADD                  => 'Ajout',
-            self::CREATE               => 'Création',
-            self::EDIT                 => 'Modification',
-            self::STATE_CHANGE         => 'Changement d\'étape',
             self::TREATMENT_NEEDS_AIPD => 'AIPD nécéssaire',
             self::VALIDATION           => 'Validation nécéssaire',
-            self::DELETE               => 'Suppression',
             self::AUTOMATIC            => 'Rappel automatique',
         ];
     }

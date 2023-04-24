@@ -88,9 +88,9 @@ class NotificationNormalizer extends ObjectNormalizer
         }
 
         foreach ($stack as $attribute => $attributeValue) {
-//            if (!$this->serializer instanceof NormalizerInterface) {
-//                throw new LogicException(sprintf('Cannot normalize attribute "%s" because the injected serializer is not a normalizer.', $attribute));
-//            }
+            //            if (!$this->serializer instanceof NormalizerInterface) {
+            //                throw new LogicException(sprintf('Cannot normalize attribute "%s" because the injected serializer is not a normalizer.', $attribute));
+            //            }
 
             $data = $this->updateData($data, $attribute, $this->getObjectSimpleValue($attributeValue), $class, $format, $context);
         }
