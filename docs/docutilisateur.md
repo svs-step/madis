@@ -298,7 +298,7 @@ Dans les coordonnées, il est possible de renseigner les éléments suivants :
 * **Code postal** ;
 * **Ville** ;
 * **Email** ;
-* **Téléphone**.
+* **N° de tel**.
 
 ## Le registre des demandes
 
@@ -357,7 +357,7 @@ Dans le demandeur, il est possible de renseigner les éléments suivants :
 * **Nom** ;
 * **Adresse** ;
 * **Email** ;
-* **Téléphone** ;
+* **N° de téléphone** ;
 
 Par défaut, la case « **Est la personne concernée** » est cochée, cependant, dans le cas où le demandeur est différent de la personne concernée, il faut la décocher et compléter les coordonnées de l'élément « [**Personne concernée**](#Personne-concernée) ».
 
@@ -704,47 +704,47 @@ Il convient donc à présent de reconsidérer le niveau de conformité du ou des
 
 Ce module permet donc, par itérations successives, de faire tendre chacun des traitements vers leur conformité complète.
 
-# Module conformité de l'organisation
+# Module conformité de la structure
 
-Ce module permet, par itération successive, de faire tendre l'ensemble de la structure vers la mise en conformité complète. L'évaluation de l'organisation doit être réalisée régulièrement, idéalement une fois par an. 
+Ce module permet, par itération successive, de faire tendre l'ensemble de la structure vers la mise en conformité complète. L'évaluation de la structure doit être réalisée régulièrement, idéalement une fois par an. 
 
 Les obligations décrites dans le RGPD et ses lignes directrices sont réparties en **Processus**, dont le **Pilote** a la responsabilité de faire augmenter le score de conformité.
 
-Le module conformité de l'organisation est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module conformité de l'organisation](#Activation-du-module-conformité-de-l’organisation) pour plus d'information.
+Le module conformité de la structure est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module conformité de la structure](#Activation-du-module-conformité-de-la-structure) pour plus d'information.
 
-L'activation du module ajoute l'élément « **Conformité de l'organisation** » dans le menu ainsi que l'indicateur sur le tableau de bord de la structure de la progression de conformité des processus.
+L'activation du module ajoute l'élément « **Conformité de la structure** » dans le menu ainsi que l'indicateur sur le tableau de bord de la structure de la progression de conformité des processus.
 
-![Indicateur de la conformité de l'organisation](images/Madis-Indicateur-Conformite-De-L-Organisation.png)
+![Indicateur de la conformité de la structure](images/Madis-Indicateur-Conformite-De-L-Organisation.png)
 
-## Conformité de l'organisation
+## Conformité de la structure
 
-Le menu « **Conformité de l'organisation** » permet de consulter la conformité de l'organisation et de l'évaluer.
+Le menu « **Conformité de la structure** » permet de consulter la conformité de la structure et de l'évaluer.
 
 Il est possible d'identifier et de nommer un responsable par processus que l'on nomme « **Pilote** ».  Une personne peut être responsable de plusieurs processus.
 
-![Liste des pilotes et de la conformité de l'organisation](images/Madis-Liste-De-Conformite-De-L-Organisation.png)
+![Liste des pilotes et de la conformité de la structure](images/Madis-Liste-De-Conformite-De-L-Organisation.png)
 
 Il est possible d'effectuer plusieurs actions :
 
-- « **Générer une impression** » permet de générer le diagnostic de la dernière évaluation de la conformité de l'organisation au format Word ;
+- « **Générer une impression** » permet de générer le diagnostic de la dernière évaluation de la conformité de la structure au format Word ;
 - « **Enregistrer** » permet d'enregistrer les informations saisies ou modifiées pour les pilotes ;
-- « **Nouvelle évaluation de l'organisation** » permet de procéder à l'évaluation de l'organisation ;
+- « **Nouvelle évaluation de la structure** » permet de procéder à l'évaluation de la structure ;
 - « **Imprimer** » permet de générer le diagnostic de l'évaluation au format Word ;
 - « **Modifier** » permet de modifier les informations d'une évaluation. Cette action est possible tant que l'évaluation est en brouillon ;
 - « **Supprimer** » permet de supprimer définitivement l'évaluation. **Cette action est irréversible**.
 
-### Nouvelle évaluation de l'organisation
+### Nouvelle évaluation de la structure
 
-« **Nouvelle évaluation de l'organisation** » permet de procéder à l'évaluation de l'organisation.
+« **Nouvelle évaluation de la structure** » permet de procéder à l'évaluation de la structure.
 
 **Pour rappel, dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
 
-![Évaluation de l'organisation](images/Madis-Evaluation-De-L-Organisation.png)
+![Évaluation de la structure](images/Madis-Evaluation-De-L-Organisation.png)
 
 Il est possible d'effectuer plusieurs actions :
 
 - « **Retourner à la liste** » permet de quitter l'évaluation en ne prenant pas en compte les informations saisies ou modifiées ;
-- « **Enregistrer** » permet de terminer l'évaluation et d'actualiser les notes de conformité du tableau avec les pilotes. Il n'est pas possible de modifier une évaluation terminée ;
+- « **Soumettre** » permet de terminer l'évaluation et d'actualiser les notes de conformité du tableau avec les pilotes. Il n'est pas possible de modifier une évaluation terminée ;
 - « **Enregistrer un brouillon** » permet de quitter l'évaluation en prenant en compte les informations saisies ou modifiées. Les informations d'une évaluation en brouillon ne sont pas prises en compte dans le calcul de la conformité ;
 - « **Ajouter un participant** » permet d'ajouter un participant. Les informations du ou des participants sont repris dans l'impression de l'évaluation ;
 
@@ -759,11 +759,11 @@ Il est nécessaire que le plus haut niveau hiérarchique de la structure soit as
 
 ``Astuce : « Ajouter un participant » permet d'ajouter un participant. Il est possible d'ajouter autant de participant que souhaité.``
 
-![Contexte de l'évaluation de l'organisation](images/Madis-Evaluation-De-L-Organisation-Contexte.png)
+![Contexte de l'évaluation de la structure](images/Madis-Evaluation-De-L-Organisation-Contexte.png)
 
-#### Évaluation de l'organisation
+#### Évaluation de la structure
 
-Dans l'évaluation de l'organisation, il est possible d'évaluer la conformité de chaque processus en répondant à un ensemble de questions appelées « pratiques ». Un processus est donc composé de plusieurs pratiques. Suivant la réponse aux pratiques, un score par processus sera calculé.
+Dans l'évaluation de la structure, il est possible d'évaluer la conformité de chaque processus en répondant à un ensemble de questions appelées « pratiques ». Un processus est donc composé de plusieurs pratiques. Suivant la réponse aux pratiques, un score par processus sera calculé.
 
 Pour chaque pratique, il est possible de répondre par l'une des réponses suivantes :
 
@@ -973,10 +973,10 @@ Plusieurs indicateurs sont disponibles :
 
 Il est possible d'exporter certaines informations au format Excel :
 
-* « **Exporter les collectivités** » : Export comprenant toutes les informations enregistrées dans la [gestion des structures](#Gestion-des-structures) (Statut actif/inactif ; Nom ; SIREN ; Dernier utilisateur connecté ; Date de la dernière connexion ; ...) ainsi que les informations comprises dans le [module conformité de l'organisation](#Module-conformité-de-l’organisation) ;
+* « **Exporter les collectivités** » : Export comprenant toutes les informations enregistrées dans la [gestion des structures](#Gestion-des-structures) (Statut actif/inactif ; Nom ; SIREN ; Dernier utilisateur connecté ; Date de la dernière connexion ; ...) ainsi que les informations comprises dans le [module conformité de la structure](#Module-conformité-de-la-structure) ;
 * « **Exporter les traitements** » : Export comprenant toutes les informations enregistrées dans le [registre des traitements](#Le-registre-des-traitements) (Statut actif/inactif ; Date de dernière modification...) ainsi que les informations comprises dans le [module conformité des traitements](#Module-conformité-des-traitements) ;
 * « **Exporter les sous-traitants** » : Export comprenant toutes les informations enregistrées dans le [registre des sous-traitants](#Le-registre-des-sous-traitants) (Nom du sous-traitant ; Clauses vérifiées ; Traitements associés ; ...) ;
-* « **Exporter les actions de protection** » : Export comprenant toutes les informations enregistrées dans les [actions de protection](#Les-actions-de-protection) et dans le [plan d'actions](#Plan-d’actions) (Nom de l'action ; Statut ; Echéance ; ...).
+* « **Exporter les actions de protection** » : Export comprenant toutes les informations enregistrées dans les [actions de protection](#Les-actions-de-protection) et dans le [plan d'actions](#Plan-d’actions) (Nom de l'action ; Statut ; Date de planification ; ...).
 
 ``Attention : Les exports, notamment pour le registre des traitements, peuvent être volumineux. L'export peut alors prendre un peu de temps.``
 
@@ -1294,14 +1294,14 @@ Le menu « **Collectivités** » permet de consulter la liste des structures qui
 
 Il est possible d'effectuer plusieurs actions :
 
-- « **+ Nouvelle structure** » permet d'ajouter une nouvelle structure ;
+- « **+ Nouvelle collectivité** » permet d'ajouter une nouvelle structure ;
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
 - « **Modifier** » permet de modifier les informations d'une structure ;
 - « **Supprimer** » permet de supprimer définitivement la structure. La suppression de la structure n'est possible que s'il n'y a plus d'utilisateur. **Cette action est irréversible**.
 
 ``Astuce : Il est possible de visualiser les informations d'une structure en cliquant sur son nom. Lors de la consultation de celui-ci, un bouton d'action « Modifier » permet de modifier les informations de la structure.``
 
-Outre les éléments de [paramétrage d'une collectivité](#Paramétrage--Ma-collectivité), il est possible d'activer ou de désactiver les modules [conformité des traitements](#Activation-du-module-conformité-des-traitements), [conformité de l'organisation](#Activation-du-module-conformité-de-l’organisation), [AIPD](#Activation-du-module-AIPD) et le module [services](#Activation-du-module-Services-et-Habilitations).
+Outre les éléments de [paramétrage d'une collectivité](#Paramétrage--Ma-collectivité), il est possible d'activer ou de désactiver les modules [conformité des traitements](#Activation-du-module-conformité-des-traitements), [conformité de la structure](#Activation-du-module-conformité-de-la-structure), [AIPD](#Activation-du-module-AIPD) et le module [services](#Activation-du-module-Services-et-Habilitations).
 
 ``Rappel : Les informations générales et l’adresse de la structure ne sont pas modifiables par un utilisateur gestionnaire.``
 
@@ -1315,13 +1315,13 @@ Consulter le [module conformité des traitements](#Module-conformité-des-traite
 
 ![Activation du module conformité des traitements](images/Madis-Activation-Module-Conformite-Des-Traitements.png)
 
-### Activation du module conformité de l'organisation
+### Activation du module conformité de la structure
 
-Le module conformité de l'organisation est optionnel et peut être activé par structure en cochant la case « **Module conformité de l'organisation** ». Cette action est réalisable par le DPD (compte administrateur) dans l'édition de la structure.
+Le module conformité de la structure est optionnel et peut être activé par structure en cochant la case « **Module conformité de la structure** ». Cette action est réalisable par le DPD (compte administrateur) dans l'édition de la structure.
 
-Consulter le [module conformité de l’organisation](#Module-conformité-de-l’organisation) pour plus d'information.
+Consulter le [module conformité de la structure](#Module-conformité-de-la-structure) pour plus d'information.
 
-![Activation du module conformité de l'organisation](images/Madis-Activation-Module-Conformite-De-L-Organisation.png)
+![Activation du module conformité de la structure](images/Madis-Activation-Module-Conformite-De-L-Organisation.png)
 
 ### Activation du module AIPD
 
@@ -1392,7 +1392,7 @@ Il est possible de choisir l'un des rôles suivant :
 - **Lecteur** : L'utilisateur peut consulter les informations comprises dans Madis. Il peut générer des bilans et faire des impressions, mais ne peut modifier les informations ;
 - **Gestionnaire** : L'utilisateur peut consulter et modifier tout ce qui se trouve dans Madis pour sa structure ;
 - **Administrateur** : L'utilisateur peut consulter et modifier tout ce qui se trouve dans Madis pour toutes les structures ;
-- **Référent multi-structures** : L'utilisateur peut voir et modifier tout ce qui se trouve dans Madis pour les structures pour lesquels il est référent. Cependant, il ne peut pas créer ou modifier de nouvelles structures ni d'utilisateurs ou modifier son propre profil utilisateur (en ajoutant des structures dans son champ d'action).
+- **Référent multi-collectivité** : L'utilisateur peut voir et modifier tout ce qui se trouve dans Madis pour les structures pour lesquels il est référent. Cependant, il ne peut pas créer ou modifier de nouvelles structures ni d'utilisateurs ou modifier son propre profil utilisateur (en ajoutant des structures dans son champ d'action).
 
 #### Informations facultatives
 

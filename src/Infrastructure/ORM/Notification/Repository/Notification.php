@@ -28,6 +28,7 @@ use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Traits\RepositoryUtils;
 use App\Domain\Notification\Model;
 use App\Domain\Notification\Repository;
+use App\Domain\Registry\Model\Mesurement;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Model\Collectivity;
@@ -60,7 +61,7 @@ class Notification extends CRUDRepository implements Repository\Notification
         return Model\Notification::class;
     }
 
-    public function findAll(array $order = ['createdAt' => 'DESC']): array
+    private function getQueryBuilder(array $order = ['createdAt' => 'DESC']): QueryBuilder
     {
         /**
          * @var User $user
@@ -75,11 +76,10 @@ class Notification extends CRUDRepository implements Repository\Notification
             $allNotifs = true;
         }
 
-        $qb = $this->createQueryBuilder();
-
-        foreach ($order as $field => $direction) {
-            $qb->addOrderBy(new OrderBy('o.' . $field, $direction));
-        }
+        $qb = $this->createQueryBuilder()
+            ->addSelect('collectivity')
+            ->leftJoin('o.collectivity', 'collectivity')
+        ;
 
         if ($allNotifs) {
             $qb->where('o.dpo = 1');
@@ -93,7 +93,7 @@ class Notification extends CRUDRepository implements Repository\Notification
                     //                    }
                     $collectivityIds = $cf->map(function (Collectivity $c) {return $c->getId()->__toString(); })->toArray();
                 } else {
-                    $collectivityIds = [$user->getCollectivity()->getId()->__toString()];
+                    $collectivityIds = [$user->getCollectivity()->getId()->__toString(), null];
                 }
                 $qb->innerJoin('o.collectivity', 'c');
                 $qb->andWhere(
@@ -103,11 +103,21 @@ class Notification extends CRUDRepository implements Repository\Notification
             }
         } else {
             $qb->leftJoin('o.notificationUsers', 'u')
-                ->andWhere('u.active = 1')
-                ->andWhere('u.user = :user')
+                ->where('u.active = 1')
+                ->where('u.user = :user')
                 ->setParameter('user', $user)
             ;
-            $qb->addSelect('u.readAt as userReadAt');
+        }
+
+        return $qb;
+    }
+
+    public function findAll(array $order = ['createdAt' => 'DESC']): array
+    {
+        $qb = $this->getQueryBuilder($order);
+
+        foreach ($order as $field => $direction) {
+            $qb->addOrderBy(new OrderBy('o.' . $field, $direction));
         }
 
         return $qb->getQuery()->getResult();
@@ -132,57 +142,18 @@ class Notification extends CRUDRepository implements Repository\Notification
 
     public function count(array $criteria = [])
     {
-        /**
-         * @var User $user
-         */
-        $user = $this->security->getUser();
-
-        $allNotifs = false;
-
-        $allowedRoles = [UserRoleDictionary::ROLE_REFERENT, UserRoleDictionary::ROLE_ADMIN];
-        if ($user && (count($user->getRoles()) && in_array($user->getRoles()[0], $allowedRoles)) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
-            // Find notifications with null user if current user is dpo
-            $allNotifs = true;
-        }
-
-        $qb = $this->createQueryBuilder();
+        $qb = $this->getQueryBuilder();
 
         $qb->select('COUNT(o.id)');
 
-        if ($allNotifs) {
-            $qb->where('o.dpo = 1');
-            if (!in_array(UserRoleDictionary::ROLE_ADMIN, $user->getRoles())) {
-                // For non admin users
-                if (in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
-                    $cf = $user->getCollectivitesReferees();
-                    $cf = new ArrayCollection([...$cf]);
-                    //                    if (!is_object($cf) || ArrayCollection::class !== get_class($cf)) {
-                    //                        $cf = new ArrayCollection([...$cf]);
-                    //                    }
-                    $collectivityIds = $cf->map(function (Collectivity $c) {return $c->getId()->__toString(); })->toArray();
-                } else {
-                    $collectivityIds = [$user->getCollectivity()->getId()->__toString()];
-                }
-                $qb->innerJoin('o.collectivity', 'c');
-                $qb->andWhere(
-                    $qb->expr()->in('c.id', ':ids')
-                );
-                $qb->setParameter('ids', $collectivityIds);
-            }
-        } else {
-            $qb->leftJoin('o.notificationUsers', 'u')
-                ->where('u.active = 1')
-                ->where('u.user = :user')
-                ->setParameter('user', $user)
-            ;
-        }
-
         if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
-            $qb->innerJoin('o.collectivity', 'collectivite');
+            $collectivityIds = $criteria['collectivity']->toArray();
+            array_push($collectivityIds, null);
+            // $qb->innerJoin('o.collectivity', 'collectivite');
             $qb->andWhere(
-                $qb->expr()->in('collectivite', ':collectivities')
+                $qb->expr()->in('collectivity', ':collectivities')
             )
-                ->setParameter('collectivities', $criteria['collectivity']->toArray())
+                ->setParameter('collectivities', $collectivityIds)
             ;
             unset($criteria['collectivity']);
         }
@@ -198,60 +169,27 @@ class Notification extends CRUDRepository implements Repository\Notification
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
     {
-        $qb = $this->createQueryBuilder()
-            ->addSelect('collectivity')
-            ->innerJoin('o.collectivity', 'collectivity')
-        ;
+        $qb = $this->getQueryBuilder();
 
-        /**
-         * @var User $user
-         */
-        $user = $this->security->getUser();
-
-        $allNotifs = false;
-
-        $allowedRoles = [UserRoleDictionary::ROLE_REFERENT, UserRoleDictionary::ROLE_ADMIN];
-        if ($user && (count($user->getRoles()) && in_array($user->getRoles()[0], $allowedRoles)) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
-            // Find notifications with null user if current user is dpo
-            $allNotifs = true;
-        }
-
-        if ($allNotifs) {
-            $qb->where('o.dpo = 1');
-            if (!in_array(UserRoleDictionary::ROLE_ADMIN, $user->getRoles())) {
-                // For non admin users
-                if (in_array(UserRoleDictionary::ROLE_REFERENT, $user->getRoles())) {
-                    $cf = $user->getCollectivitesReferees();
-                    $cf = new ArrayCollection([...$cf]);
-                    //                    if (!is_object($cf) || ArrayCollection::class !== get_class($cf)) {
-                    //                        $cf = new ArrayCollection([...$cf]);
-                    //                    }
-                    $collectivityIds = $cf->map(function (Collectivity $c) {return $c->getId()->__toString(); })->toArray();
-                } else {
-                    $collectivityIds = [$user->getCollectivity()->getId()->__toString()];
-                }
-                $qb->innerJoin('o.collectivity', 'c');
-                $qb->andWhere(
-                    $qb->expr()->in('c.id', ':ids')
-                );
-                $qb->setParameter('ids', $collectivityIds);
-            }
-        } else {
-            $qb->leftJoin('o.notificationUsers', 'u')
-                ->where('u.active = 1')
-                ->where('u.user = :user')
-                ->setParameter('user', $user)
-            ;
-        }
-
-        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
-            $qb->andWhere(
-                $qb->expr()->in('collectivity', ':collectivities')
-            )
-                ->setParameter('collectivities', $criteria['collectivity']->toArray())
-            ;
-            unset($criteria['collectivity']);
-        }
+        //        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+        //            $collectivityIds = $criteria['collectivity']->map(function($c) {
+        //                if ($c instanceof Collectivity) {
+        //                    return $c->getId()->__toString();
+        //                }
+        //                return $c;
+        //            })->toArray();
+        //            //dd($collectivityIds);
+        //            array_push($collectivityIds, null);
+        //            //$qb->innerJoin('o.collectivity', 'collectivite');
+        //            $qb->andWhere(
+        //                $qb->expr()->in('collectivity', ':collectivities')
+        //            )
+        //                ->setParameter('collectivities', $collectivityIds)
+        //            ;
+        //
+        //            //dd($qb->getQuery()->getParameters());
+        unset($criteria['collectivity']);
+        //        }
 
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($qb, $key, $value);
@@ -303,12 +241,26 @@ class Notification extends CRUDRepository implements Repository\Notification
                         ->setParameter('name', '%' . $search . '%');
                     break;
                 case 'action':
-                    $queryBuilder->andWhere('o.action LIKE :action')
-                        ->setParameter('action', '%' . $search . '%');
+                    if ('automatic' === $search) {
+                        $queryBuilder
+                            ->andWhere('o.action LIKE :a1 OR o.action LIKE :a2 OR o.action LIKE :a3')
+                            ->setParameter('a1', '%no_login')
+                            ->setParameter('a2', '%late_survey')
+                            ->setParameter('a3', '%late_action')
+                        ;
+                    } else {
+                        $queryBuilder->andWhere('o.action LIKE :action')
+                            ->setParameter('action', '%' . $search . '%');
+                    }
+
                     break;
                 case 'module':
                     $queryBuilder->andWhere('o.module LIKE :module')
                         ->setParameter('module', '%' . $search . '%');
+                    break;
+                case 'object':
+                    $queryBuilder->andWhere('o.subject LIKE :object')
+                        ->setParameter('object', '%' . $search . '%');
                     break;
                 case 'date':
                     $queryBuilder->andWhere('o.createdAt LIKE :createdAt')
@@ -363,6 +315,9 @@ class Notification extends CRUDRepository implements Repository\Notification
             case 'action':
                 $queryBuilder->addOrderBy('o.action', $orderDir);
                 break;
+            case 'object':
+                $queryBuilder->addOrderBy('o.subject', $orderDir);
+                break;
             case 'module':
                 $queryBuilder->addOrderBy('o.module', $orderDir);
                 break;
@@ -379,5 +334,23 @@ class Notification extends CRUDRepository implements Repository\Notification
                 $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
                 break;
         }
+    }
+
+    public function objectExists(\App\Domain\Notification\Model\Notification $notification): bool
+    {
+        if (!$notification->getObject()) {
+            return false;
+        }
+
+        $object     = $notification->getObject();
+        $moduleName = str_replace('notification.modules.', '', $notification->getModule());
+
+        if ('action_plan' === $moduleName) {
+            $objectClass = Mesurement::class;
+        } else {
+            $objectClass = array_flip(\App\Domain\Notification\Model\Notification::MODULES)[$moduleName];
+        }
+
+        return (bool) $this->registry->getRepository($objectClass)->find($object->id);
     }
 }

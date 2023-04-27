@@ -17,7 +17,6 @@ class AnalyseQuestionConformite extends AbstractQuestionConformite
     public function __construct(string $question, int $position)
     {
         parent::__construct($question, $position);
-        $this->reponseConformite = new Reponse();
     }
 
     public function getAnalyseImpact(): AnalyseImpact

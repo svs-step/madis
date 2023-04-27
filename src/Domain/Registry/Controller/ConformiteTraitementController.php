@@ -325,9 +325,10 @@ class ConformiteTraitementController extends CRUDController
         }
 
         $analyseImpact = ModeleToAnalyseConverter::createFromModeleAnalyse($modele);
+        $analyseImpact->setCreatedAt(new \DateTimeImmutable());
         $analyseImpact->setConformiteTraitement($conformiteTraitement);
+
         $this->setAnalyseReponsesQuestionConformite($analyseImpact, $conformiteTraitement);
-        $this->entityManager->persist($analyseImpact);
 
         foreach ($analyseImpact->getScenarioMenaces() as $scenarioMenace) {
             if (null !== $scenarioMenace->getMesuresProtections()) {
@@ -336,6 +337,8 @@ class ConformiteTraitementController extends CRUDController
                 }
             }
         }
+
+        $this->entityManager->persist($analyseImpact);
         $this->entityManager->flush();
 
         return $this->redirectToRoute('aipd_analyse_impact_create', [
@@ -348,7 +351,10 @@ class ConformiteTraitementController extends CRUDController
         foreach ($conformiteTraitement->getReponses() as $reponse) {
             $pos = $reponse->getQuestion()->getPosition();
             $q   = $analyseImpact->getQuestionConformitesOfPosition($pos);
+            $q->setAnalyseImpact($analyseImpact);
             $q->setReponseConformite($reponse);
+            $reponse->addAnalyseQuestionConformite($q);
+            $this->entityManager->persist($reponse);
         }
     }
 }
