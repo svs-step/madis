@@ -636,6 +636,8 @@
 
             {# Mesurements #}
             {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
+            {# Tools#}
+            {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
 
             {% if object.collectivity.hasModuleConformiteTraitement and object.ExemptAIPD == false %}
                 <div class="box box-solid box-success">
