@@ -102,7 +102,6 @@ class Proof implements LoggableSubject
      */
     private $violations;
 
-
     /**
      * Proof constructor.
      *

@@ -175,6 +175,7 @@ class Reponse implements LoggableSubject
         if ($this->question) {
             return 'Reponse .' . $this->question->getQuestion();
         }
+
         return 'Reponse ???';
     }
 

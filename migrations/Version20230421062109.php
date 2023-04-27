@@ -12,7 +12,7 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20230421062109 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return 'Replace departmental_union type to syndicat and replace "m " to "m" for legal_civility for collectivity;';
     }
