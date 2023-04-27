@@ -54,7 +54,7 @@ label:
     no_linked_mesurements: Aucune action de protection associée
     no_linked_violations: Aucune violation associée
     no_linked_requests: Aucune demande associée
-    no_linked_tools: Aucune demande associée
+    no_linked_tools: Aucun logiciel ou support associé
     no_linked_contractors: Aucun sous-traitants associé
     not_archived: Non archivés
     category: Catégories documentaires
