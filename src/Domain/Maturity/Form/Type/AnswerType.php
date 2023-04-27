@@ -41,7 +41,7 @@ class AnswerType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label'    => false,
-                'required' => false,
+                'required' => true,
                 'attr'     => [
                 'maxlength' => 255,
                 ],
@@ -54,7 +54,7 @@ class AnswerType extends AbstractType
                 ],
             ])
             ->add('position', HiddenType::class, [
-                'required' => false,
+                'required' => true,
             ])
         ;
     }
