@@ -99,7 +99,7 @@ aipd:
             evaluation: Évaluer une AIPD
             validation: Valider une AIPD
         list:
-            avis_dpd: Avis du DPD
+            avis_dpd: Avis du délégué à la protection des données
             avis_referent: Avis du référent RGPD
             avis_representant: Avis des représentants des personnes concernées
             avis_responsable: Validation du responsable de traitement
