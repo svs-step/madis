@@ -30,10 +30,9 @@ use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Notification\Model;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Repository;
-use App\Domain\Registry\Dictionary\ProofTypeDictionary;
-use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Knp\Snappy\Pdf;
@@ -152,8 +151,8 @@ class NotificationController extends CRUDController
 
         $criteria = [];
 
-        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity'] = $user->getCollectivity();
+        if (!$this->authorizationChecker->isGranted('ROLE_REFERENT')) {
+            $criteria['collectivity'] = new ArrayCollection([$user->getCollectivity(), null]);
         }
 
         if ($user) {
@@ -176,7 +175,7 @@ class NotificationController extends CRUDController
 
             $nameHtml = '<span>' . $notification->getName() . '</span> ';
 
-            if ($link && 'notification.actions.delete' !== $notification->getAction()) {
+            if ($link && 'notification.actions.delete' !== $notification->getAction() && $this->repository->objectExists($notification)) {
                 $nameHtml = '<a href="' . $link . '">' . $notification->getName() . '</a>'
                 ;
             }
@@ -187,7 +186,7 @@ class NotificationController extends CRUDController
                     'module'       => $this->translator->trans($notification->getModule()),
                     'action'       => $this->translator->trans($notification->getAction()),
                     'name'         => $nameHtml,
-                    'object'       => $this->getSubjectForNotification($notification),
+                    'object'       => $notification->getSubject(),
                     'collectivity' => $this->authorizationChecker->isGranted('ROLE_REFERENT') && $notification->getCollectivity() ? $notification->getCollectivity()->getName() : '',
                     'date'         => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
                     'user'         => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
@@ -205,7 +204,7 @@ class NotificationController extends CRUDController
                     'module'  => $this->translator->trans($notification->getModule()),
                     'action'  => $this->translator->trans($notification->getAction()),
                     'name'    => $nameHtml,
-                    'object'  => $this->getSubjectForNotification($notification),
+                    'object'  => $notification->getSubject(),
                     'date'    => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
                     'user'    => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
                     'actions' => $this->generateActionCellContent($notification),
@@ -214,69 +213,6 @@ class NotificationController extends CRUDController
         }
 
         return new JsonResponse($reponse);
-    }
-
-    private function getSubjectForNotification(Notification $notification): string
-    {
-        if (
-            'notification.modules.violation' === $notification->getModule()
-        ) {
-            $ob = $notification->getObject();
-            if (isset($ob->violationNatures) && is_array($ob->violationNatures) && count($ob->violationNatures) > 0) {
-                return join(', ', array_map(function ($v) {
-                    return ViolationNatureDictionary::getNatures()[$v] ?? '';
-                }, $ob->violationNatures));
-            } elseif (isset($ob->violationNature)) {
-                return ViolationNatureDictionary::getNatures()[$ob->violationNature] ?? '';
-            }
-
-            return '';
-        }
-
-        if (
-            'notification.modules.proof' === $notification->getModule()
-        ) {
-            $type = $notification->getObject()->type;
-
-            return $type && isset(ProofTypeDictionary::getTypes()[$type]) ? ProofTypeDictionary::getTypes()[$type] : '';
-        }
-
-        if ('notifications.actions.no_login' === $notification->getAction()) {
-            return $this->translator->trans('notifications.subject.no_login');
-        }
-
-        if ('notifications.actions.state_change' === $notification->getAction()) {
-            return $notification->getObject()->state;
-        }
-
-        if ('notifications.actions.late_survey' === $notification->getAction()) {
-            $days = $this->getParameter('APP_SURVEY_NOTIFICATION_DELAY_DAYS');
-
-            return $this->translator->trans('notifications.subject.late_survey', ['%days%' => $days]);
-        }
-
-        if ('notifications.actions.protect_action' === $notification->getAction()) {
-            return $notification->getObject()->getStatus();
-        }
-
-        if ('notifications.actions.late_action' === $notification->getAction()) {
-            $ob   = $notification->getObject();
-            $date = \DateTime::createFromFormat(DATE_ATOM, $ob->planificationDate)->format('d/m/Y');
-
-            return $this->translator->trans('notifications.subject.late_action', ['%date%' => $date]);
-        }
-
-        if ('notifications.actions.validation' === $notification->getAction()) {
-            return $this->translator->trans('notifications.subject.validation');
-        }
-
-        if ('notifications.actions.late_request' === $notification->getAction()) {
-            $days = $this->getParameter('APP_REQUEST_NOTIFICATION_DELAY_DAYS');
-
-            return $this->translator->trans('notifications.subject.late_request', ['%days%' => $days]);
-        }
-
-        return '';
     }
 
     private function generateActionCellContent(Model\Notification $notification)
@@ -465,6 +401,19 @@ class NotificationController extends CRUDController
     private function getObjectLink(Notification $notification): string
     {
         try {
+            if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.validation' === $notification->getAction()) {
+                return $this->router->generate('aipd_analyse_impact_validation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
+            if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.state_change' === $notification->getAction()) {
+                return $this->router->generate('aipd_analyse_impact_evaluation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
+            if ('notification.modules.document' === $notification->getModule() && 'notification.actions.delete' !== $notification->getAction()) {
+                return $notification->getObject()->url;
+            }
+            if ('notification.modules.action_plan' === $notification->getModule()) {
+                return $this->router->generate('registry_mesurement_show', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
+
             return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
         } catch (\Exception $e) {
             return '';
@@ -518,7 +467,7 @@ class NotificationController extends CRUDController
                 return 'user_user_edit';
             case 'notification.modules.documentation':
             case 'notification.modules.document':
-                return 'documentation_document_edit';
+                return 'documentation_document_download';
             case 'notification.modules.maturity':
                 return 'maturity_survey_edit';
         }

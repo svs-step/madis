@@ -8,6 +8,7 @@ notifications:
         proof: Preuves
         document: Espace documentaire
         action: Actions de protection
+        action_plan: Plan d'actions
         protect_action: Actions de protection
         request: Demandes
         user: Utilisateurs
@@ -17,13 +18,13 @@ notifications:
         delete: Suppression
         create: Création
         update: Modification
-        late_action: En retard
-        late_request: En retard
-        late_survey: En retard
+        late_action: Rappel automatique
+        late_request: Rappel automatique
+        late_survey: Rappel automatique
         no_login: Inactif
         validation: Validation
         treatment_needs_aipd: Nécéssité de faire une AIPD
-        state_change: Changement d'état
+        state_change: Changement d'étape
     subject:
         no_login: Aucune connexion depuis la création du compte
         late_request: Demande non traitée depuis au moins %days% jours depuis la date de la dernière modification
@@ -44,9 +45,10 @@ notification:
         subcontractor: Sous-traitants
         violation: Violations
         proof: Preuves
-        document: Document
+        document: Espace documentaire
         action: Actions de protection
         protect_action: Actions de protection
+        action_plan: Plan d'actions
         request: Demandes
         user: Utilisateurs
         documentation: Documentation
@@ -56,13 +58,13 @@ notification:
         delete: Suppression
         create: Création
         update: Modification
-        late_action: En retard
-        late_request: En retard
-        late_survey: En retard
+        late_action: Rappel automatique
+        late_request: Rappel automatique
+        late_survey: Rappel automatique
         no_login: Inactif
         validation: Validation
         treatment_needs_aipd: Nécéssité de faire une AIPD
-        state_change: Changement d'état
+        state_change: Changement d'étape
     email:
         subject: Nouvelles notifications Madis
         madis: Accéder à madis

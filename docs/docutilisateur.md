@@ -54,7 +54,7 @@ Il est possible de naviguer dans les différentes pages :
 * Le menu « **Indice de maturité** » permet d'accéder à la gestion de l’évolution de la mise en conformité et de l'évaluer ;
 * Le menu « **Générer un bilan** » permet de générer le bilan synthétisant l'ensemble des éléments renseignés dans Madis au format Word ;
 * Le menu « **Espace documentaire** » permet de consulter toutes les ressources mises à disposition par le DPD ;
-* Le menu « **Ma structure** » permet de modifier les informations de la structure ;
+* Le menu « **Ma collectivité** » permet de modifier les informations de la structure ;
 * Le menu « **Mon compte** » permet de modifier les informations du compte (prénom, nom, email, mot de passe). **L'adresse mail renseignée ne doit pas déjà avoir été utilisée par un autre compte**.
 
 ![Menu Madis](images/Madis-Navigation-Menu-Desktop.png)
@@ -97,9 +97,9 @@ D'une manière générale dans Madis, lorsque le nombre d'éléments à afficher
 
 Dans les formulaires, les champs précédés d’un astérisque « * » sont obligatoires.
 
-## Paramétrage : Ma structure
+## Paramétrage : Ma collectivité
 
-Le menu « **Ma structure** » permet de modifier les informations de la structure.
+Le menu « **Ma collectivité** » permet de modifier les informations de la structure.
 
 (Seul un administrateur peut modifier les informations générales et l’adresse.)
 
@@ -108,7 +108,7 @@ Le menu « **Ma structure** » permet de modifier les informations de la structu
 Il est possible de modifier les différents acteurs intervenants dans la mise en conformité (référent opérationnel, responsable de traitement, responsable informatique). Ces informations seront reprises dans le bilan.
 
 * **Référent opérationnel** (ou Référent RGPD) : personne qui tient à jour les registres et anime la conformité RGPD en collaboration avec le DPD au sein de sa structure.
-* **Référent informatique** : personne qui garantit la structure, le suivi ainsi que la gestion du système d'information.
+* **Référent informatique** : personne qui garantit l'organisation, le suivi ainsi que la gestion du système d'information.
 * **Responsable de traitement** : personne responsable de la structure qui détermine les moyens et finalités d’un traitement.
 
 Par défaut, les coordonnées du DPD sont celles du DPD mutualisé. Dans le cas où un DPD est désigné en interne, il faut cocher la case « **Différent du DPD moral** » et compléter ses coordonnées.
@@ -298,7 +298,7 @@ Dans les coordonnées, il est possible de renseigner les éléments suivants :
 * **Code postal** ;
 * **Ville** ;
 * **Email** ;
-* **Téléphone**.
+* **N° de tel**.
 
 ## Le registre des demandes
 
@@ -357,7 +357,7 @@ Dans le demandeur, il est possible de renseigner les éléments suivants :
 * **Nom** ;
 * **Adresse** ;
 * **Email** ;
-* **Téléphone** ;
+* **N° de téléphone** ;
 
 Par défaut, la case « **Est la personne concernée** » est cochée, cependant, dans le cas où le demandeur est différent de la personne concernée, il faut la décocher et compléter les coordonnées de l'élément « [**Personne concernée**](#Personne-concernée) ».
 
@@ -710,7 +710,7 @@ Ce module permet, par itération successive, de faire tendre l'ensemble de la st
 
 Les obligations décrites dans le RGPD et ses lignes directrices sont réparties en **Processus**, dont le **Pilote** a la responsabilité de faire augmenter le score de conformité.
 
-Le module conformité de la structure est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module conformité de la structure](#Activation-du-module-conformité-de-l’organisation) pour plus d'information.
+Le module conformité de la structure est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module conformité de la structure](#Activation-du-module-conformité-de-la-structure) pour plus d'information.
 
 L'activation du module ajoute l'élément « **Conformité de la structure** » dans le menu ainsi que l'indicateur sur le tableau de bord de la structure de la progression de conformité des processus.
 
@@ -744,7 +744,7 @@ Il est possible d'effectuer plusieurs actions :
 Il est possible d'effectuer plusieurs actions :
 
 - « **Retourner à la liste** » permet de quitter l'évaluation en ne prenant pas en compte les informations saisies ou modifiées ;
-- « **Enregistrer** » permet de terminer l'évaluation et d'actualiser les notes de conformité du tableau avec les pilotes. Il n'est pas possible de modifier une évaluation terminée ;
+- « **Soumettre** » permet de terminer l'évaluation et d'actualiser les notes de conformité du tableau avec les pilotes. Il n'est pas possible de modifier une évaluation terminée ;
 - « **Enregistrer un brouillon** » permet de quitter l'évaluation en prenant en compte les informations saisies ou modifiées. Les informations d'une évaluation en brouillon ne sont pas prises en compte dans le calcul de la conformité ;
 - « **Ajouter un participant** » permet d'ajouter un participant. Les informations du ou des participants sont repris dans l'impression de l'évaluation ;
 
@@ -952,7 +952,7 @@ Il est possible d'effectuer plusieurs actions :
 
 # Administration
 
-Cette partie est réservée aux administrateurs, c'est-à-dire, principalement les Délégués à la Protection des Données (DPD). Le profil « référent multi-structure » a également accès au tableau de bord administrateur, mais seulement dans la limite de son périmètre d'action.
+Cette partie est réservée aux administrateurs, c'est-à-dire, principalement les Délégués à la Protection des Données (DPD). Le profil « référent multi-collectivité » a également accès au tableau de bord administrateur, mais seulement dans la limite de son périmètre d'action.
 
 ## Tableau de bord administrateur
 
@@ -969,14 +969,14 @@ Plusieurs indicateurs sont disponibles :
 * La cartographie des structures accompagnées grâce à l'indication du code INSEE dans la [gestion des structures](#Gestion-des-structures) ;
 * La répartition des structures en fonction de leur type identifié dans la [gestion des structures](#Gestion-des-structures) ;
 
-``Astuce : Depuis la carte, au survol d'un territoire, il est possible de consulter la Liste des structures identifiées dans celui-ci. Il est alors possible de consulter le nom de la structure, le nombre de traitements actifs et le nombre d'actions de protection.``
+``Astuce : Depuis la carte, au survol d'un territoire, il est possible de consulter la liste des structures identifiées dans celui-ci. Il est alors possible de consulter le nom de la structure, le nombre de traitements actifs et le nombre d'actions de protection.``
 
 Il est possible d'exporter certaines informations au format Excel :
 
-* « **Exporter les structures** » : Export comprenant toutes les informations enregistrées dans la [gestion des structures](#Gestion-des-structures) (Statut actif/inactif ; Nom ; SIREN ; Dernier utilisateur connecté ; Date de la dernière connexion ; ...) ainsi que les informations comprises dans le [module conformité de la structure](#Module-conformité-de-l’organisation) ;
+* « **Exporter les collectivités** » : Export comprenant toutes les informations enregistrées dans la [gestion des structures](#Gestion-des-structures) (Statut actif/inactif ; Nom ; SIREN ; Dernier utilisateur connecté ; Date de la dernière connexion ; ...) ainsi que les informations comprises dans le [module conformité de la structure](#Module-conformité-de-la-structure) ;
 * « **Exporter les traitements** » : Export comprenant toutes les informations enregistrées dans le [registre des traitements](#Le-registre-des-traitements) (Statut actif/inactif ; Date de dernière modification...) ainsi que les informations comprises dans le [module conformité des traitements](#Module-conformité-des-traitements) ;
 * « **Exporter les sous-traitants** » : Export comprenant toutes les informations enregistrées dans le [registre des sous-traitants](#Le-registre-des-sous-traitants) (Nom du sous-traitant ; Clauses vérifiées ; Traitements associés ; ...) ;
-* « **Exporter les actions de protection** » : Export comprenant toutes les informations enregistrées dans les [actions de protection](#Les-actions-de-protection) et dans le [plan d'actions](#Plan-d’actions) (Nom de l'action ; Statut ; Echéance ; ...).
+* « **Exporter les actions de protection** » : Export comprenant toutes les informations enregistrées dans les [actions de protection](#Les-actions-de-protection) et dans le [plan d'actions](#Plan-d’actions) (Nom de l'action ; Statut ; Date de planification ; ...).
 
 ``Attention : Les exports, notamment pour le registre des traitements, peuvent être volumineux. L'export peut alors prendre un peu de temps.``
 
@@ -1288,20 +1288,20 @@ Il est possible d'effectuer plusieurs actions :
 
 ## Gestion des structures
 
-Le menu « **Structures** » permet de consulter la Liste des structures qui ont été créées dans Madis et d'en ajouter.
+Le menu « **Collectivités** » permet de consulter la liste des structures qui ont été créées dans Madis et d'en ajouter.
 
 ![Liste des structures](images/Madis-Liste-Des-Structures.png)
 
 Il est possible d'effectuer plusieurs actions :
 
-- « **+ Nouvelle structure** » permet d'ajouter une nouvelle structure ;
+- « **+ Nouvelle collectivité** » permet d'ajouter une nouvelle structure ;
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
 - « **Modifier** » permet de modifier les informations d'une structure ;
 - « **Supprimer** » permet de supprimer définitivement la structure. La suppression de la structure n'est possible que s'il n'y a plus d'utilisateur. **Cette action est irréversible**.
 
 ``Astuce : Il est possible de visualiser les informations d'une structure en cliquant sur son nom. Lors de la consultation de celui-ci, un bouton d'action « Modifier » permet de modifier les informations de la structure.``
 
-Outre les éléments de [paramétrage d'une structure](#Paramétrage--Ma-structure), il est possible d'activer ou de désactiver les modules [conformité des traitements](#Activation-du-module-conformité-des-traitements), [conformité de la structure](#Activation-du-module-conformité-de-l’organisation), [AIPD](#Activation-du-module-AIPD) et le module [services](#Activation-du-module-Services-et-Habilitations).
+Outre les éléments de [paramétrage d'une collectivité](#Paramétrage--Ma-collectivité), il est possible d'activer ou de désactiver les modules [conformité des traitements](#Activation-du-module-conformité-des-traitements), [conformité de la structure](#Activation-du-module-conformité-de-la-structure), [AIPD](#Activation-du-module-AIPD) et le module [services](#Activation-du-module-Services-et-Habilitations).
 
 ``Rappel : Les informations générales et l’adresse de la structure ne sont pas modifiables par un utilisateur gestionnaire.``
 
@@ -1319,7 +1319,7 @@ Consulter le [module conformité des traitements](#Module-conformité-des-traite
 
 Le module conformité de la structure est optionnel et peut être activé par structure en cochant la case « **Module conformité de la structure** ». Cette action est réalisable par le DPD (compte administrateur) dans l'édition de la structure.
 
-Consulter le [module Conformité de la structure](#Module-conformité-de-l’organisation) pour plus d'information.
+Consulter le [module conformité de la structure](#Module-conformité-de-la-structure) pour plus d'information.
 
 ![Activation du module conformité de la structure](images/Madis-Activation-Module-Conformite-De-L-Organisation.png)
 
@@ -1382,7 +1382,7 @@ Dans les informations générales, il est possible de renseigner les éléments 
 * **Prénom** ;
 * **Nom** ;
 * **E-mail** : L’adresse mail renseignée ne doit pas déjà avoir été utilisée par un autre compte ;
-* **Structure** : Choix de la structure ;
+* **Collectivité** : Choix de la structure ;
 * **Role** : Gestion des droits ;
 * **Accès aux Webservices (API)** : permet de choisir si l'utilisateur peut être accédé ou non par les webservices (API). Consulter l'[API](#API) pour plus d'information ;
 * **Actif** : Le statut actif est coché par défaut. Un utilisateur inactif sera archivé et il ne pourra plus se connecter à Madis.
@@ -1392,7 +1392,7 @@ Il est possible de choisir l'un des rôles suivant :
 - **Lecteur** : L'utilisateur peut consulter les informations comprises dans Madis. Il peut générer des bilans et faire des impressions, mais ne peut modifier les informations ;
 - **Gestionnaire** : L'utilisateur peut consulter et modifier tout ce qui se trouve dans Madis pour sa structure ;
 - **Administrateur** : L'utilisateur peut consulter et modifier tout ce qui se trouve dans Madis pour toutes les structures ;
-- **Référent multi-structures** : L'utilisateur peut voir et modifier tout ce qui se trouve dans Madis pour les structures pour lesquels il est référent. Cependant, il ne peut pas créer ou modifier de nouvelles structures ni d'utilisateurs ou modifier son propre profil utilisateur (en ajoutant des structures dans son champ d'action).
+- **Référent multi-collectivité** : L'utilisateur peut voir et modifier tout ce qui se trouve dans Madis pour les structures pour lesquels il est référent. Cependant, il ne peut pas créer ou modifier de nouvelles structures ni d'utilisateurs ou modifier son propre profil utilisateur (en ajoutant des structures dans son champ d'action).
 
 #### Informations facultatives
 
@@ -1523,7 +1523,7 @@ WKHTMLTOIMAGE_PATH=/usr/local/bin/wkhtmltoimage
 # API
 
 Les fonctionnalités suivantes sont disponibles via API :
-- Structure (lecture) ;
+- Collectivité (lecture) ;
 - Demandes (lecture/écriture) ;
 - Traitements (lecture).
 
@@ -1539,7 +1539,7 @@ Pour en savoir plus, [accéder aux API Madis](https://madis-test.soluris.fr/api/
 
 ### Responsable de traitement
 
-« La personne physique ou morale, l'autorité publique, le service ou une autre structure qui, seul ou conjointement avec d'autres, détermine les finalités et les moyens du traitement; lorsque les finalités et les moyens de ce traitement sont déterminés par le droit de l'Union ou le droit d'un État membre, le responsable du traitement peut être désigné ou les critères spécifiques applicables à sa désignation peuvent être prévus par le droit de l'Union ou par le droit d'un État membre. » ([Art. 4 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre1#Article4)).
+« La personne physique ou morale, l'autorité publique, le service ou un autre organisme qui, seul ou conjointement avec d'autres, détermine les finalités et les moyens du traitement; lorsque les finalités et les moyens de ce traitement sont déterminés par le droit de l'Union ou le droit d'un État membre, le responsable du traitement peut être désigné ou les critères spécifiques applicables à sa désignation peuvent être prévus par le droit de l'Union ou par le droit d'un État membre. » ([Art. 4 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre1#Article4)).
 
 ### Responsables conjoints
 
@@ -1547,7 +1547,7 @@ Pour en savoir plus, [accéder aux API Madis](https://madis-test.soluris.fr/api/
 
 ### Sous-traitant
 
-« La personne physique ou morale, l'autorité publique, le service ou une autre structure qui traite des données à caractère personnel pour le compte du responsable du traitement. » ([Art. 4 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre1#Article4)).
+« La personne physique ou morale, l'autorité publique, le service ou un autre organisme qui traite des données à caractère personnel pour le compte du responsable du traitement. » ([Art. 4 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre1#Article4)).
 
 ----
 

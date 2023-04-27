@@ -172,7 +172,10 @@ class Reponse implements LoggableSubject
 
     public function __toString(): string
     {
-        return 'Reponse .' . $this->question->getQuestion();
+        if ($this->question) {
+            return 'Reponse .' . $this->question->getQuestion();
+        }
+        return 'Reponse ???';
     }
 
     public function getAnalyseQuestionsConformite(): iterable
