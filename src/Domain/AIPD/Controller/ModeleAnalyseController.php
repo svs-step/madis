@@ -18,7 +18,6 @@ use App\Domain\AIPD\Model\ModeleScenarioMenace;
 use App\Domain\AIPD\Repository;
 use App\Domain\Registry\Repository\ConformiteTraitement\Question;
 use App\Domain\User\Repository\Collectivity;
-use App\Infrastructure\ORM\AIPD\Repository\ModeleMesureProtection;
 use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\Exception\FileNotFound;
 use Gaufrette\FilesystemInterface;
@@ -359,7 +358,7 @@ class ModeleAnalyseController extends CRUDController
             $content    = file_get_contents($form->getData()['file']->getPathname());
             $serializer = SerializerBuilder::create()->build();
             /** @var ModeleAnalyse $object */
-            $object     = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
+            $object = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
             $object->deserialize();
             $sm = [];
             foreach ($object->getScenarioMenaces() as $scenarioMenace) {
