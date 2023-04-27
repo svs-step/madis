@@ -22,9 +22,6 @@ final class Version20230425000001 extends AbstractMigration
     {
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
         $this->addSql('INSERT INTO category(id, name, systeme, created_at, updated_at) VALUES (?, ?, ?, ?, ?)',[Uuid::uuid4(),"Violation",true, date_create()->format('Y-m-d H:i:s'), date_create()->format('Y-m-d H:i:s')]);
-        //$this->addSql('INSERT INTO conformite_traitement_question(id, question, position) VALUES (?, ?, ?)', [Uuid::uuid4(), $item['question'], $item['position']]);
-
-
     }
 
     public function down(Schema $schema): void
