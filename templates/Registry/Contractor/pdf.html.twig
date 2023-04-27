@@ -177,6 +177,11 @@
             {# TREATMENTS #}
             {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
 
+            {% if object.collectivity.isHasModuleTools %}
+                {# Tools#}
+                {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
+            {% endif %}
+
 
             {# HISTORIC #}
             <div class="box box-solid box-default">

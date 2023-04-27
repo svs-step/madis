@@ -133,6 +133,8 @@ class Contractor implements LoggableSubject, CollectivityRelated
 
     private Collection $mesurements;
 
+    private iterable $tools;
+
     /**
      * Contractor constructor.
      *
@@ -148,6 +150,7 @@ class Contractor implements LoggableSubject, CollectivityRelated
         $this->hasDpo                     = false;
         $this->treatments                 = [];
         $this->proofs                     = [];
+        $this->tools                      = [];
     }
 
     public function getId(): UuidInterface
@@ -349,5 +352,15 @@ class Contractor implements LoggableSubject, CollectivityRelated
     public function setMesurement(?Collection $mesurements): void
     {
         $this->mesurements = $mesurements;
+    }
+
+    public function getTools(): iterable
+    {
+        return $this->tools;
+    }
+
+    public function setTools(iterable $tools): void
+    {
+        $this->tools = $tools;
     }
 }
