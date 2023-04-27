@@ -36,8 +36,10 @@
                 {{ form_row(form.mesurements) }}
                 {{ form_row(form.requests) }}
                 {{ form_row(form.violations) }}
-                {% if(form.tools is defined) %}
-                {{ form_row(form.tools) }}
+                {% if form.tools is defined %}
+                    {{ form_row(form.tools) }}
+                {% else %}
+                    {{ form_row(form.software) }}
                 {% endif %}
             </div>
         </div>

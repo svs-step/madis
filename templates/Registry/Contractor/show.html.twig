@@ -260,8 +260,10 @@
             {# Mesurements #}
             {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
 
-            {# Tools and software #}
-            {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
+            {% if object.collectivity.isHasModuleTools %}
+                {# Tools#}
+                {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
+            {% endif %}
         </div>
 
     </div>

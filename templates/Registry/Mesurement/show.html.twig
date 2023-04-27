@@ -157,8 +157,10 @@
             {# PROOFS #}
             {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
 
-            {# Tools#}
-            {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
+            {% if object.collectivity.isHasModuleTools %}
+                {# Tools#}
+                {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
+            {% endif %}
 
             {# CONTRACTORS #}
             <div class="box box-solid box-warning">
