@@ -26,6 +26,7 @@ registry:
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
+            delete_many: Suppression
             edit: Modifier "%name%"
             list: Liste des sous-traitants
             show: Visualiser "%name%"
@@ -205,6 +206,7 @@ registry:
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
+            delete_many: Suppression
             edit: Modifier "%name%"
             list: Liste des actions
             show: Visualiser "%name%"
@@ -451,6 +453,7 @@ registry:
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
+            delete_many: Suppression
             edit: Modifier "%name%"
             list: Liste des traitements
             show: Visualiser "%name%"
