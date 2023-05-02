@@ -16,6 +16,7 @@ use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\AIPD\Model\AnalyseScenarioMenace;
 use App\Domain\AIPD\Model\CriterePrincipeFondamental;
 use App\Domain\AIPD\Repository;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -91,8 +92,12 @@ class AnalyseImpactController extends CRUDController
 
     public function listAction(): Response
     {
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'AIPD',
+        ]);
         return $this->render($this->getTemplatingBasePath('list'), [
             'totalItem' => $this->repository->count(),
+            'category'  => $category,
             'route'     => $this->router->generate('aipd_analyse_impact_datatables'),
         ]);
     }
