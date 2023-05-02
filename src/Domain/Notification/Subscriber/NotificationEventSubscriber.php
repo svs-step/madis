@@ -235,7 +235,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setCollectivity($user->getCollectivity());
         $notification->setAction('notifications.actions.no_login');
         $notification->setName($user->getFullName());
-        //$notification->setCreatedBy($user);
+        // $notification->setCreatedBy($user);
         $notification->setObject((object) $this->normalizer->normalize($user, null, self::normalizerOptions()));
         $notification->setDpo(true);
         $notification->setSubject($this->translator->trans('notifications.subject.no_login'));
