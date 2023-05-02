@@ -95,6 +95,7 @@ class AnalyseImpactController extends CRUDController
         $category = $this->entityManager->getRepository(Category::class)->findOneBy([
             'name' => 'AIPD',
         ]);
+
         return $this->render($this->getTemplatingBasePath('list'), [
             'totalItem' => $this->repository->count(),
             'category'  => $category,
