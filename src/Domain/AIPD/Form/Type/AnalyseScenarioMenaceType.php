@@ -56,6 +56,9 @@ class AnalyseScenarioMenaceType extends AbstractType
             ])
             ->add('precisions', TextType::class, [
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
         ;
     }

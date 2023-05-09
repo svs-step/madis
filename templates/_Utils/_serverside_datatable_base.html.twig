@@ -112,7 +112,8 @@
 
             str = str.replace( /\n/g, ' ' );
 
-
+            str = str.replace( /&#039;/g, "'" );
+            str = str.replace( /&amp;/g, "&" );
             return str;
         };
 
@@ -136,7 +137,7 @@
                 });
             });
         }
-        
+
         try {
             (options.buttons[1].exportOptions.customizeData = function(d) {
                 var api = $('#table').DataTable();
@@ -167,7 +168,7 @@
 
         var oTable = $('#table').DataTable();
         $('#delete-all').on('click', function(event) {
-            event.stopPropagation(); 
+            event.stopPropagation();
             let data = oTable.rows().data().toArray().map(row => row.id);
             $('#delete-all').attr('href', function(index, href) {
                 let param = `ids=${data}`;
@@ -181,7 +182,7 @@
             event = event.originalEvent;
         })
         $('#archive-all').on('click', function(event) {
-            event.stopPropagation(); 
+            event.stopPropagation();
             let data = oTable.rows().data().toArray().map(row => row.id);
             $('#archive-all').attr('href', function(index, href) {
                 let param = `ids=${data}`;
@@ -195,7 +196,7 @@
             event = event.originalEvent;
         })
         $('#print-all').on('click', function(event) {
-            event.stopPropagation(); 
+            event.stopPropagation();
             let data = oTable.rows().data().toArray().map(row => row.id);
             $('#print-all').attr('href', function(index, href) {
                 let param = `ids=${data}`;

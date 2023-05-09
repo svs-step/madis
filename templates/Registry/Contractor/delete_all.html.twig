@@ -13,8 +13,8 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'registry.treatment.breadcrumb.list'|trans, 'link': path('registry_treatment_list') },
-        { 'name': 'registry.treatment.breadcrumb.delete' }
+        { 'name': 'registry.contractor.breadcrumb.list'|trans, 'link': path('registry_contractor_list') },
+        { 'name': 'registry.contractor.breadcrumb.delete_many'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
