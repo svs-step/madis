@@ -166,6 +166,7 @@ class SurveyController extends CRUDController
      */
     public function formPrePersistData($object)
     {
+        dd($object);
         // $this->maturityHandler->handle($object);
     }
 
@@ -176,23 +177,33 @@ class SurveyController extends CRUDController
     public function createMaturitySurveyAction(Request $request): Response
     {
         /**
-         * @var Model\Survey
+         * @var Model\Survey $object
          */
         $modelClass = $this->getModelClass();
         $object     = new $modelClass();
 
+        /** @var Model\Referentiel $referentiel */
         $referentiel = $this->entityManager->getRepository(Model\Referentiel::class)->findOneBy([
             'id' => $request->get('referentiel'),
         ]);
+
         $object->setReferentiel($referentiel);
 
         $form = $this->createForm($this->getFormType(), $object);
 
-        $form->setData(['referentiel' => $referentiel]);
+        $form->setData(['referentiel' => $request->get('referentiel')]);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->formPrePersistData($object);
+
+        if($form->isSubmitted()) {
+            $data = $request->request->all();
+            foreach ($data['survey']['questions'] as $questionId => $question) {
+                foreach ($question['answers'] as $answerId) {
+                    $answer = $this->entityManager->getRepository(Model\Answer::class)->find($answerId);
+                    $object->addAnswer($answer);
+                }
+            }
+
             $this->entityManager->persist($object);
             $this->entityManager->flush();
 
@@ -200,6 +211,7 @@ class SurveyController extends CRUDController
 
             return $this->redirectToRoute($this->getRouteName('list'));
         }
+
 
         return $this->render($this->getTemplatingBasePath('create'), [
             'form' => $form->createView(),

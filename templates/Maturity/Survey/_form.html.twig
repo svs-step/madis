@@ -1,29 +1,47 @@
 {% set submitValue = submitValue|default('action.submit'|trans) %}
 
 {{ form_start(form) }}
-{% do form.answers.setRendered() %}
+{% do form.questions.setRendered() %}
 {% do form.referentiel.setRendered() %}
-{{ dump(form.children) }}
-<ul>
-{% for domain in form.vars.value.referentiel.domains %}
-    <li>
-    Section: {{ domain.name }}
-    <ul>
-    {% for question in domain.questions %}
-        <li>
-        {{ question.name }}
-        {% for answer in question.answers %}
-            <label>
-                <input id="answer-{{ answer.id }}" type="radio" name="survey[answers][]" value="{{ answer.id }}" />
-                {{ answer.name }}
-            </label>
-        {% endfor %}
-        </li>
-    {% endfor %}
-</ul>
-    </li>
+
+{% for a in form.vars.data.answers %}
+{#{{ dump(a.id) }}#}
 {% endfor %}
-</ul>
+{{ form_errors(form) }}
+<div class="row">
+    {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
+    <input type="hidden" name="referentiel" value="{{ form.vars.value.referentiel.id }}" />
+{% for domain in form.vars.value.referentiel.domains %}
+    <div class="col-md-6">
+        <div class="box box-solid {{ colors[loop.index % 4] }}">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ domain.name }}</h3>
+            </div>
+            <div class="box-body">
+
+    {% for question in domain.questions %}
+        <div class="row">
+            <div class="col-md-12">
+                {{ question.name }}
+                <ul>
+                {% for answer in question.answers %}
+                    <li>
+                    <label>
+                        <input {% if form.vars.data.answers|filter(a => a.id == answer.id)|length > 0 %} checked {% endif%} id="answer-{{ answer.id }}" type="radio" name="survey[questions][{{ question.id }}][answers][]" value="{{ answer.id }}" required />
+                        {{ answer.name }}
+                    </label>
+                    </li>
+                {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+    {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
     <div class="row">
         <div class="col-md-12">
             <div class="box box-solid">

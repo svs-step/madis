@@ -25,10 +25,14 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Model;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -44,21 +48,10 @@ class SurveyType extends AbstractType
                 'class'      => Model\Referentiel::class,
                 'empty_data' => $ref,
             ])
-            ->add('answers', EntityType::class, [
-                'multiple'      => true,
-                'class'         => Model\Answer::class,
-                'choice_label'  => 'name',
-                'query_builder' => function (EntityRepository $er) use ($ref) {
-                    return $er->createQueryBuilder('a')
-                        ->leftJoin('a.question', 'q')
-                        ->leftJoin('q.domain', 'd')
-                        ->where('d.referentiel = :referentiel')
-                        ->orderBy('a.position', Criteria::ASC)
-                        ->setParameter('referentiel', $ref)
-                    ;
-                },
+            ->add('questions', CollectionType::class, [
+                'entry_type' => SurveyAnswerType::class,
+                'mapped' => false,
             ])
-
         ;
     }
 
