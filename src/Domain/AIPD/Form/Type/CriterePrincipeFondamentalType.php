@@ -28,7 +28,11 @@ class CriterePrincipeFondamentalType extends AbstractType
     {
         $builder
             ->add('label', TextType::class)
-            ->add('labelLivrable', TextType::class)
+            ->add('labelLivrable', TextType::class, [
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
             ->add('reponse', DictionaryType::class, [
                 'name' => 'reponse_critere_fondamental',
             ])
@@ -36,11 +40,26 @@ class CriterePrincipeFondamentalType extends AbstractType
                 'label'    => false,
                 'required' => false,
             ])
-            ->add('texteConformite', TextType::class)
-            ->add('texteNonConformite', TextType::class)
-            ->add('texteNonApplicable', TextType::class)
+            ->add('texteConformite', TextType::class, [
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('texteNonConformite', TextType::class, [
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('texteNonApplicable', TextType::class, [
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
             ->add('justification', TextType::class, [
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('deleteFile', HiddenType::class, [
                 'data' => 0,

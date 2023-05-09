@@ -10,17 +10,38 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 class MesureProtectionAIPDType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('nomCourt', TextType::class)
-            ->add('labelLivrable', TextType::class)
-            ->add('phrasePreconisation', TextType::class)
-            ->add('detail', TextType::class)
+            ->add('nom', TextType::class, [
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('nomCourt', TextType::class, [
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('labelLivrable', TextType::class, [
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('phrasePreconisation', TextType::class, [
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('detail', TextType::class, [
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
             ->add('poidsVraisemblance', IntegerType::class, [
                 'attr' => [
                     'min' => 1,

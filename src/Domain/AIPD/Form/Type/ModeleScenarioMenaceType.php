@@ -21,6 +21,9 @@ class ModeleScenarioMenaceType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 'label' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('mesuresProtections', EntityType::class, [
                 'required' => false,
@@ -62,6 +65,9 @@ class ModeleScenarioMenaceType extends AbstractType
             ->add('precisions', TextType::class, [
                 'required' => false,
                 'label'    => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
         ;
     }

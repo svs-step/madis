@@ -17,6 +17,9 @@ class AnalyseQuestionConformiteType extends AbstractType
         $builder
             ->add('justificatif', TextType::class, [
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ]);
     }
 
