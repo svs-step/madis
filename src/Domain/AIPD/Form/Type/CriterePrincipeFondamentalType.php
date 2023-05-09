@@ -29,7 +29,7 @@ class CriterePrincipeFondamentalType extends AbstractType
         $builder
             ->add('label', TextType::class)
             ->add('labelLivrable', TextType::class, [
-                'attr'     => [
+                'attr' => [
                     'maxlength' => 255,
                 ],
             ])
@@ -41,17 +41,17 @@ class CriterePrincipeFondamentalType extends AbstractType
                 'required' => false,
             ])
             ->add('texteConformite', TextType::class, [
-                'attr'     => [
+                'attr' => [
                     'maxlength' => 255,
                 ],
             ])
             ->add('texteNonConformite', TextType::class, [
-                'attr'     => [
+                'attr' => [
                     'maxlength' => 255,
                 ],
             ])
             ->add('texteNonApplicable', TextType::class, [
-                'attr'     => [
+                'attr' => [
                     'maxlength' => 255,
                 ],
             ])
