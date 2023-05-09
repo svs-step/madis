@@ -20,6 +20,9 @@ class AnalyseMesureProtectionType extends AbstractType
             ])
             ->add('detail', TextType::class, [
                 'required' => true,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
         ;
     }

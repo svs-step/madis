@@ -22,12 +22,21 @@ class ModeleQuestionConformiteType extends AbstractType
             ])
             ->add('texteConformite', TextType::class, [
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('texteNonConformiteMineure', TextType::class, [
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('texteNonConformiteMajeure', TextType::class, [
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
         ;
     }

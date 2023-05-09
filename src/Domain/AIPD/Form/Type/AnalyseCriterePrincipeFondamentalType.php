@@ -29,6 +29,9 @@ class AnalyseCriterePrincipeFondamentalType extends AbstractType
         ])
             ->add('justification', TextType::class, [
                 'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('fichierFile', FileType::class, [
                 'required' => false,
