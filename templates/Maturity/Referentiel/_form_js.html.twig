@@ -1,5 +1,55 @@
 <script>
     $(document).ready(function() {
+        $('body').on('click', '.add_section', addFormToCollection)
+            .on('click', '.add_question', addFormToCollection)
+            .on('click', '.add_answer', addFormToCollection)
+        ;
+        $(document).on("click", '.box-link', function() {
+            $(this).parent().next().collapse('toggle');
+        });
+
+        function addFormToCollection(e){
+            const btn = $(e.currentTarget)
+            let type = e.currentTarget.classList[0];
+
+            let html = $('#prototypes').data('prototype-section')
+            if (type === 'add_section') {
+                console.log('adding section')
+                const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+                collectionHolder.dataset.index++
+                const index = collectionHolder.dataset.index;
+                let html = $('#prototypes').data('prototype-section')
+                console.log('old HTML', html)
+                html = html.replace(/__section_name__/g, index).replace(/__index__/g, index)
+                console.log('new HTML', html)
+                btn.parent('div').find('ul.referentielSections').append('<li>'+html+'</li>');
+                $('#referentiel_referentielSections_'+index+'_orderNumber').val(index);
+            } else if (type === 'add_question') {
+                let html = $('#prototypes').data('prototype-question')
+                const holder = btn.parent().parent().find('ul.referentielQuestions')
+                const section = holder.data('section');
+                const oldIndex = holder.data('index')
+                html = html.replace(/__section_name__/g, section).replace(/__question_name__/g, oldIndex)
+                holder.append('<li>'+html+'</li>');
+                const newIndex = holder.data('index') + 1
+                holder.data('index', newIndex)
+                $('#referentiel_referentielSections_'+ section + '_referentielQuestions_' + oldIndex + '_orderNumber').val(oldIndex);
+            } else {
+                let html = $('#prototypes').data('prototype-answer')
+                const holder = btn.parent().parent().parent().find('ul.referentielAnswers')
+                console.log('holder', holder)
+                const section = holder.data('section');
+                const question = holder.data('question');
+                const oldIndex = holder.data('index')
+                html = html.replace(/__section_name__/g, section).replace(/__question_name__/g, question).replace(/__answer_name__/g, oldIndex)
+                holder.append('<li>'+html+'</li>');
+                const newIndex = holder.data('index') + 1
+                holder.data('index', newIndex)
+                console.log('object val', $(`#referentiel_referentielSections_${section}_referentielQuestions_${question}_referentielAnswers_${oldIndex}_orderNumber`))
+                $(`#referentiel_referentielSections_${section}_referentielQuestions_${question}_referentielAnswers_${oldIndex}_orderNumber`).val(oldIndex)
+            }
+        }
+
         var $wrapper = $('.js-table-collection-wrapper');
 
         $wrapper.on('click', '.js-table-remove-item', function(e) {
@@ -34,6 +84,52 @@
             $h.val(1);
             $p.remove();
             console.log('$h', $h)
+        })
+
+        $("ul.referentielAnswers").each(function(n, el){
+            console.log('el', el)
+            $(el).sortable({
+                stop: function( event, ui ) {
+                    console.log("answer order changed", event.target)
+                    setTimeout(function() {
+                        $(event.target).find('li').each(function(i, li) {
+                            console.log('i', i, li)
+                            $(li).find('input[type=hidden]').val(i+1)
+                        })
+                    }, 10)
+
+                }
+            })
+        })
+
+        $("ul.referentielQuestions").each(function(n, el){
+            console.log('el', el)
+            $(el).sortable({
+                stop: function( event, ui ) {
+                    console.log("question order changed", event.target)
+                    setTimeout(function() {
+                        $(event.target).find('li').each(function(i, li) {
+                            console.log('i', i, li)
+                            $(li).find('input[type=hidden]').val(i+1)
+                        })
+                    }, 10)
+                }
+            })
+        })
+
+        $("ul.referentielSections").each(function(n, el){
+            console.log('el', el)
+            $(el).sortable({
+                stop: function( event, ui ) {
+                    console.log("question order changed", event.target)
+                    setTimeout(function() {
+                        $(event.target).find('li').each(function(i, li) {
+                            console.log('i', i, li)
+                            $(li).find('input[type=hidden]').val(i+1)
+                        })
+                    }, 10)
+                }
+            })
         })
     });
 </script>

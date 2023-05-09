@@ -40,7 +40,7 @@ class AnswerType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label'    => false,
+                'label'    => 'maturity.referentiel.form.answer.name',
                 'required' => true,
                 'attr'     => [
                 'maxlength' => 255,
