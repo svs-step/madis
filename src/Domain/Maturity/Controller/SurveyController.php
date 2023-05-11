@@ -166,8 +166,10 @@ class SurveyController extends CRUDController
      */
     public function formPrePersistData($object)
     {
-        dd($object);
-        // $this->maturityHandler->handle($object);
+        $this->maturityHandler->handle($object);
+        foreach($object->getMaturity() as $m) {
+            $this->entityManager->persist($m);
+        }
     }
 
     /**
@@ -204,10 +206,65 @@ class SurveyController extends CRUDController
                 }
             }
 
+            $this->formPrePersistData($object);
             $this->entityManager->persist($object);
             $this->entityManager->flush();
 
             $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object->__toString()));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+
+        return $this->render($this->getTemplatingBasePath('create'), [
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * {@inheritdoc}
+     * Override method in order to hydrate survey answers.
+     */
+    public function editAction(Request $request, string $id): Response
+    {
+        /**
+         * @var Model\Survey $object
+         */
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $form = $this->createForm($this->getFormType(), $object);
+
+        $form->setData(['referentiel' => $request->get('referentiel')]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()) {
+            $this->formPrePersistData($object);
+
+            foreach ($object->getAnswers() as $a) {
+                $object->removeAnswer($a);
+                $a->setSurveys([]);
+            }
+            $object->setAnswers([]);
+
+            $data = $request->request->all();
+            foreach ($data['survey']['questions'] as $questionId => $question) {
+                foreach ($question['answers'] as $answerId) {
+                    /** @var Model\Answer $answer */
+                    $answer = $this->entityManager->getRepository(Model\Answer::class)->find($answerId);
+                    $object->addAnswer($answer);
+                }
+            }
+
+            //dd('dead');
+            $this->entityManager->persist($object);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'update', $object->__toString()));
 
             return $this->redirectToRoute($this->getRouteName('list'));
         }

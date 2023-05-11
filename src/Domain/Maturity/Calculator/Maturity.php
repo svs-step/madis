@@ -44,8 +44,12 @@ class Maturity
         $maturityList = [];
 
         // Get all existant maturity to update it
+        /** @var Model\Maturity $item */
         foreach ($survey->getMaturity() as $item) {
-            $maturityList[$item->getDomain()->getId()->toString()] = $item;
+            /** @var Model\Domain $domain */
+            foreach($item->getReferentiel()->getDomains() as $domain) {
+                $maturityList[$domain->getId()->toString()] = $item;
+            }
         }
 
         // Begin calculation
@@ -73,6 +77,7 @@ class Maturity
         foreach ($points as $key => $point) {
             if (!isset($maturityList[$key])) {
                 $maturityList[$key] = new Model\Maturity();
+                $maturityList[$key]->setReferentiel($survey->getReferentiel());
                 $maturityList[$key]->setDomain($domains[$key]);
                 $maturityList[$key]->setSurvey($survey);
             }

@@ -36,6 +36,7 @@ class LogJournalSubscriber implements EventSubscriberInterface
     public function saveLogJournal(LogJournalEvent $event)
     {
         $logJournal = $event->getLogJournal();
+        //dd($logJournal);
         $this->entityManager->persist($logJournal);
         $this->entityManager->flush();
 

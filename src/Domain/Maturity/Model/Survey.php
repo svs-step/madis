@@ -88,9 +88,14 @@ class Survey implements LoggableSubject
         $answer->addSurvey($this);
     }
 
+    public function setAnswers(iterable $answers): void
+    {
+        $this->answers = $answers;
+    }
+
     public function removeAnswer(Answer $answer): void
     {
-        $key = \array_search($answer, $this->answers, true);
+        $key = \array_search($answer, (array)$this->answers, true);
 
         if (false === $key) {
             return;
