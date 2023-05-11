@@ -260,11 +260,10 @@ class SurveyController extends CRUDController
                 }
             }
 
-            //dd('dead');
             $this->entityManager->persist($object);
             $this->entityManager->flush();
 
-            $this->addFlash('success', $this->getFlashbagMessage('success', 'update', $object->__toString()));
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object->__toString()));
 
             return $this->redirectToRoute($this->getRouteName('list'));
         }
