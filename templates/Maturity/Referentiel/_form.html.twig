@@ -19,8 +19,9 @@
         <div class="row">
             <div class="box box-solid {{ colors[colorSection] }}">
                 <div class="box-header with-border">
+                    <i class="fas fa-ellipsis-v" style="padding: 0 0.5em 0 0.4em; cursor: grab"></i>
                     {{ index }}.{{ section.vars['value'] ? section.vars['value'].name : 'Nouvelle section' }}
-                    <a href="#section_{{ index }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
+                    <a href="#section_{{ index }}" class="box-link" data-toggle="collapse" style="float:right;padding: 0 1em"><i class="fa fa-plus"></i></a>
                 </div>
                 <div class="collapse section" id="section_{{ index }}">
                     <div class="box-body">
@@ -37,7 +38,11 @@
         <div class="col-md-12">
             <div class="row" style="background: white">
                 <div class="box box-solid" >
-                    <div class="box-header with-border">{{ 'maturity.referentiel.form.informations_generales'|trans }}</div>
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            {{ 'maturity.referentiel.form.informations_generales'|trans }}
+                        </h3>
+                    </div>
                     <div class="box-body col-md-6">
                         {{ form_row(form.name) }}
                         {{ form_row(form.description) }}
@@ -47,7 +52,7 @@
         </div>
             <div class="row">
                 <div class="col-md-12">
-                    Référentiel
+                    <h3>Référentiel</h3>
                 </div>
             </div>
 

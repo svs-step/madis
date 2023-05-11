@@ -7,15 +7,21 @@
 
 <div class="box box-solid box-info">
     <div class="box-header">
-            <div class="col-md-5">
-                {{ form_row(form.name) }}
-            </div>
-            <div class="col-md-5">
-                {{ form_row(form.weight) }}
+        <div class="float-left">
+            <i class="fas fa-ellipsis-v" style="padding: 0 0.5em 0 0.4em; cursor: grab;line-height: 2em"></i>
+        </div>
+        <div class="col-md-5">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-md-5">
+            {{ form_row(form.weight) }}
             </div>
 
-        <a href="#question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}" class="box-link" data-toggle="collapse" style="float:right"><i class="fa fa-plus"></i></a>
-
+        <a
+                href="#question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}"
+                class="box-link" data-toggle="collapse" style="float:right;padding: 0 1em">
+            <i class="fa fa-plus"></i>
+        </a>
     </div>
 
     <div class="collapse" id="question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}">
