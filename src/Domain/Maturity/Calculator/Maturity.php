@@ -46,9 +46,12 @@ class Maturity
         // Get all existant maturity to update it
         /** @var Model\Maturity $item */
         foreach ($survey->getMaturity() as $item) {
-            /** @var Model\Domain $domain */
-            foreach ($item->getReferentiel()->getDomains() as $domain) {
-                $maturityList[$domain->getId()->toString()] = $item;
+            $did = $item->getDomain()->getId()->toString();
+            $maturityList[$did] = $item;
+
+            // Get all domain in specific array
+            if (!isset($domains[$did])) {
+                $domains[$did] = $item->getDomain();
             }
         }
 
@@ -73,20 +76,24 @@ class Maturity
             $points[$domainId]['nbItem'] += $w;
         }
 
+        dump($domains);
+
         // Update maturityList with new points
         // If maturity doesn't exists for related domain, create it
         foreach ($points as $key => $point) {
             if (!isset($maturityList[$key])) {
                 $maturityList[$key] = new Model\Maturity();
-                $maturityList[$key]->setReferentiel($survey->getReferentiel());
-                $maturityList[$key]->setDomain($domains[$key]);
-                $maturityList[$key]->setSurvey($survey);
             }
+            $maturityList[$key]->setReferentiel($survey->getReferentiel());
+            $maturityList[$key]->setDomain($domains[$key]);
+            $maturityList[$key]->setSurvey($survey);
             // * 10 to keep int data in order to display a {int}/10 in report
             $score = \intval(\ceil($point['value'] / ($point['nbItem'] * 2) * 5 * 10));
+            dump($score);
             $maturityList[$key]->setScore($score);
+            dump($key, $maturityList[$key]);
         }
-
+//        dd($maturityList);
         return $maturityList;
     }
 

@@ -26,11 +26,11 @@
             <div class="col-md-12">
                 {{ question.name }}
                 <ul>
-                {% for answer in question.answers %}
+                {% for answer in question.answers|sort((a, b) => a.position > b.position) %}
                     <li>
                     <label>
                         <input {% if form.vars.data.answers|filter(a => a.id == answer.id)|length > 0 %} checked {% endif%} id="answer-{{ answer.id }}" type="radio" name="survey[questions][{{ question.id }}][answers][]" value="{{ answer.id }}" required />
-                        {{ answer.name }}
+                        {{ answer.position }} - {{ answer.name }}
                     </label>
                     </li>
                 {% endfor %}
