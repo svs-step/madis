@@ -25,11 +25,8 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Model;
-use Doctrine\Common\Collections\Criteria;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -42,9 +39,9 @@ class SurveyAnswerType extends AbstractType
     {
         $builder
             ->add('answer', EntityType::class, [
-                'multiple'      => true,
-                'class'         => Model\Answer::class,
-                'choice_label'  => 'name',
+                'multiple'     => true,
+                'class'        => Model\Answer::class,
+                'choice_label' => 'name',
             ])
         ;
     }

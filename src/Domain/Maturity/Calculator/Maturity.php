@@ -47,7 +47,7 @@ class Maturity
         /** @var Model\Maturity $item */
         foreach ($survey->getMaturity() as $item) {
             /** @var Model\Domain $domain */
-            foreach($item->getReferentiel()->getDomains() as $domain) {
+            foreach ($item->getReferentiel()->getDomains() as $domain) {
                 $maturityList[$domain->getId()->toString()] = $item;
             }
         }
@@ -73,8 +73,6 @@ class Maturity
             $points[$domainId]['nbItem'] += $w;
         }
 
-
-
         // Update maturityList with new points
         // If maturity doesn't exists for related domain, create it
         foreach ($points as $key => $point) {
@@ -85,9 +83,9 @@ class Maturity
                 $maturityList[$key]->setSurvey($survey);
             }
             // * 10 to keep int data in order to display a {int}/10 in report
-            $maturityList[$key]->setScore(\intval(\ceil($point['value'] / ($point['nbItem'] * 2) * 5 * 10)));
+            $score = \intval(\ceil($point['value'] / ($point['nbItem'] * 2) * 5 * 10));
+            $maturityList[$key]->setScore($score);
         }
-
 
         return $maturityList;
     }
@@ -105,7 +103,7 @@ class Maturity
         }
 
         $points = 0;
-        foreach ($maturityList as $maturity) {
+        foreach ($maturityList as $i => $maturity) {
             $points += $maturity->getScore();
         }
 

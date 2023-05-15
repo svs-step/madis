@@ -42,7 +42,7 @@ class Survey implements LoggableSubject
      */
     private $id;
 
-    private Referentiel $referentiel;
+    private ?Referentiel $referentiel;
 
     /**
      * @var iterable|null
@@ -95,7 +95,7 @@ class Survey implements LoggableSubject
 
     public function removeAnswer(Answer $answer): void
     {
-        $key = \array_search($answer, (array)$this->answers, true);
+        $key = \array_search($answer, (array) $this->answers, true);
 
         if (false === $key) {
             return;
@@ -133,6 +133,7 @@ class Survey implements LoggableSubject
 
     public function setMaturity(array $maturityList): void
     {
+        $this->maturity = [];
         foreach ($maturityList as $maturity) {
             $this->maturity[] = $maturity;
             $maturity->setSurvey($this);
@@ -149,12 +150,12 @@ class Survey implements LoggableSubject
         $this->score = $score;
     }
 
-    public function getReferentiel(): Referentiel
+    public function getReferentiel(): ?Referentiel
     {
         return $this->referentiel;
     }
 
-    public function setReferentiel(Referentiel $referentiel): void
+    public function setReferentiel(?Referentiel $referentiel): void
     {
         $this->referentiel = $referentiel;
     }

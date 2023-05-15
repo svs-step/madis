@@ -166,10 +166,8 @@ class SurveyController extends CRUDController
      */
     public function formPrePersistData($object)
     {
-        $this->maturityHandler->handle($object);
-        foreach($object->getMaturity() as $m) {
-            $this->entityManager->persist($m);
-        }
+        // Removed because this is done in App\Domain\Maturity\Symfony\EventSubscriber\Doctrine\GenerateMaturitySubscriber
+        // $this->maturityHandler->handle($object);
     }
 
     /**
@@ -197,7 +195,7 @@ class SurveyController extends CRUDController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()) {
+        if ($form->isSubmitted()) {
             $data = $request->request->all();
             foreach ($data['survey']['questions'] as $questionId => $question) {
                 foreach ($question['answers'] as $answerId) {
@@ -215,12 +213,10 @@ class SurveyController extends CRUDController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
-
         return $this->render($this->getTemplatingBasePath('create'), [
             'form' => $form->createView(),
         ]);
     }
-
 
     /**
      * {@inheritdoc}
@@ -242,9 +238,7 @@ class SurveyController extends CRUDController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()) {
-            $this->formPrePersistData($object);
-
+        if ($form->isSubmitted()) {
             foreach ($object->getAnswers() as $a) {
                 $object->removeAnswer($a);
                 $a->setSurveys([]);
@@ -259,7 +253,7 @@ class SurveyController extends CRUDController
                     $object->addAnswer($answer);
                 }
             }
-
+            $this->formPrePersistData($object);
             $this->entityManager->persist($object);
             $this->entityManager->flush();
 
@@ -267,7 +261,6 @@ class SurveyController extends CRUDController
 
             return $this->redirectToRoute($this->getRouteName('list'));
         }
-
 
         return $this->render($this->getTemplatingBasePath('create'), [
             'form' => $form->createView(),

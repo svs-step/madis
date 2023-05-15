@@ -10,8 +10,10 @@
 {{ form_errors(form) }}
 <div class="row">
     {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
-    <input type="hidden" name="referentiel" value="{{ form.vars.value.referentiel.id }}" />
-{% for domain in form.vars.value.referentiel.domains %}
+    <input type="hidden" name="referentiel" value="{{ form.vars.value.referentiel ? form.vars.value.referentiel.id : '' }}" />
+    {% set domains = form.vars.value.referentiel ? form.vars.value.referentiel.domains : [] %}
+
+{% for domain in domains %}
     <div class="col-md-6">
         <div class="box box-solid {{ colors[loop.index % 4] }}">
             <div class="box-header with-border">
@@ -46,10 +48,15 @@
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class="box-body text-center">
+                    {% if domains|length == 0 %}
+                        <p>Aucun référentiel pour cet indice de maturité.</p>
+                    {% endif %}
                     <a href="{{ path('maturity_survey_list') }}" class="btn btn-default">
                         {{ 'maturity.survey.action.back_to_list'|trans }}
                     </a>
+                    {% if domains|length > 0 %}
                     <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                    {% endif %}
                 </div>
             </div>
         </div>
