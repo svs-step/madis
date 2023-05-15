@@ -66,7 +66,7 @@ class Referentiel
      *
      * @Serializer\Exclude
      */
-    private ?iterable $authorizedCollectivityTypes;
+    private $authorizedCollectivityTypes;
 
     /**
      * @see DuplicationTargetOptionDictionary
@@ -151,12 +151,12 @@ class Referentiel
         $this->optionRightSelection = $optionRightSelection;
     }
 
-    public function getAuthorizedCollectivityTypes()
+    public function getAuthorizedCollectivityTypes(): ?Collection
     {
         return $this->authorizedCollectivityTypes;
     }
 
-    public function setAuthorizedCollectivityTypes(iterable $authorizedCollectivityTypes)
+    public function setAuthorizedCollectivityTypes(?iterable $authorizedCollectivityTypes)
     {
         $this->authorizedCollectivityTypes = $authorizedCollectivityTypes;
     }

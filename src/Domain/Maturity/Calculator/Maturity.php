@@ -46,7 +46,7 @@ class Maturity
         // Get all existant maturity to update it
         /** @var Model\Maturity $item */
         foreach ($survey->getMaturity() as $item) {
-            $did = $item->getDomain()->getId()->toString();
+            $did                = $item->getDomain()->getId()->toString();
             $maturityList[$did] = $item;
 
             // Get all domain in specific array
@@ -93,7 +93,7 @@ class Maturity
             $maturityList[$key]->setScore($score);
             dump($key, $maturityList[$key]);
         }
-//        dd($maturityList);
+        //        dd($maturityList);
         return $maturityList;
     }
 

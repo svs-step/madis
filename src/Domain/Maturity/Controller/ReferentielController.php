@@ -165,6 +165,65 @@ class ReferentielController extends CRUDController
         ]);
     }
 
+    public function duplicateAction(Request $request, string $id): Response
+    {
+        /** @var Model\Referentiel $object */
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $newRef = new Model\Referentiel();
+
+        $newRef->setName($object->getName());
+        $newRef->setDescription($object->getDescription());
+
+        $newRef->setAuthorizedCollectivities($object->getAuthorizedCollectivities());
+
+        $newRef->setAuthorizedCollectivityTypes($object->getAuthorizedCollectivityTypes());
+        $newRef->setOptionRightSelection($newRef->getOptionRightSelection());
+
+        /** @var Model\Domain $domain */
+        foreach ($object->getDomains() as $domain) {
+            $d = new Model\Domain();
+            $d->setName($domain->getName());
+            $d->setDescription($domain->getDescription());
+            $d->setReferentiel($newRef);
+            $d->setColor($domain->getColor());
+            $d->setPosition($domain->getPosition());
+
+            $this->entityManager->persist($d);
+            /** @var Model\Question $q */
+            foreach ($domain->getQuestions() as $q) {
+                $newQ = new Model\Question();
+                $newQ->setPosition($q->getPosition());
+                $newQ->setName($q->getName());
+                $newQ->setOption($q->getOption());
+                $newQ->setOptionReason($q->getOptionReason());
+                $newQ->setWeight($q->getWeight());
+                $newQ->setDomain($d);
+                $this->entityManager->persist($newQ);
+                /** @var Model\Answer $a */
+                foreach ($q->getAnswers() as $a) {
+                    $newA = new Model\Answer();
+                    $newA->setName($a->getName());
+                    $newA->setPosition($a->getPosition());
+                    $newA->setRecommendation($a->getRecommendation());
+                    $newA->setResponse($a->getResponse());
+                    $newA->setQuestion($newQ);
+                    $this->entityManager->persist($newA);
+                }
+            }
+        }
+
+        $this->entityManager->persist($newRef);
+        $this->entityManager->flush();
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'duplicate', $object));
+
+        return $this->redirectToRoute($this->getRouteName('edit'), ['id' => $newRef->getId()->toString()]);
+    }
+
     public function formPrePersistData($object)
     {
         $domains = [];
@@ -234,7 +293,7 @@ class ReferentielController extends CRUDController
                 'description' => $referentiel->getDescription(),
                 'createdAt'   => date_format($referentiel->getCreatedAt(), 'd-m-Y'),
                 'updatedAt'   => date_format($referentiel->getUpdatedAt(), 'd-m-Y'),
-                'actions'     => $this->generateActioNCellContent($referentiel),
+                'actions'     => $this->generateActionCellContent($referentiel),
             ];
         }
 
@@ -244,7 +303,7 @@ class ReferentielController extends CRUDController
         return new JsonResponse($reponse);
     }
 
-    private function generateActioNCellContent(Model\Referentiel $referentiel)
+    private function generateActionCellContent(Model\Referentiel $referentiel)
     {
         $id                  = $referentiel->getId();
         $htmltoReturnIfAdmin = '';
@@ -262,7 +321,7 @@ class ReferentielController extends CRUDController
             . $this->translator->trans('action.edit') .
             '</a>'
             . $htmltoReturnIfAdmin .
-            '<a href="' . $this->router->generate('maturity_referentiel_edit', ['id' => $id]) . '">
+            '<a href="' . $this->router->generate('maturity_referentiel_duplicate', ['id' => $id]) . '">
                 <i class="fa fa-clone"></i>' .
             $this->translator->trans('action.duplicate') .
             '</a>' .
