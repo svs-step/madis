@@ -14,7 +14,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'registry.mesurement.breadcrumb.list'|trans, 'link': path('registry_mesurement_list') },
-        { 'name': 'registry.mesurement.breadcrumb.delete'|trans }
+        { 'name': 'registry.mesurement.breadcrumb.delete_many'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}

@@ -21,18 +21,33 @@ class ModeleAnalyseType extends AbstractType
                 $builder
                     ->add('nom', TextType::class, [
                         'required' => true,
+                        'attr'     => [
+                            'maxlength' => 255,
+                        ],
                     ])
                     ->add('description', TextType::class, [
                         'required' => true,
+                        'attr'     => [
+                            'maxlength' => 255,
+                        ],
                     ])
                     ->add('labelAmeliorationPrevue', TextType::class, [
                         'required' => true,
+                        'attr'     => [
+                            'maxlength' => 255,
+                        ],
                     ])
                     ->add('labelInsatisfaisant', TextType::class, [
                         'required' => true,
+                        'attr'     => [
+                            'maxlength' => 255,
+                        ],
                     ])
                     ->add('labelSatisfaisant', TextType::class, [
                         'required' => true,
+                        'attr'     => [
+                            'maxlength' => 255,
+                        ],
                     ])
                     ->add('criterePrincipeFondamentaux', CollectionType::class, [
                         'entry_type'  => CriterePrincipeFondamentalType::class,

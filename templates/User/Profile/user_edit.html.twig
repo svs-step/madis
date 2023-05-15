@@ -36,9 +36,9 @@
                 </div>
                 {{ form_start(form) }}
                 <div class="box-body">
-                    {{ form_row(form.firstName {'attr': {'autocomplete': 'given-name'}}) }}
-                    {{ form_row(form.lastName {'attr': {'autocomplete': 'family-name'}}) }}
-                    {{ form_row(form.email {'attr': {'autocomplete': 'email'}}) }}
+                    {{ form_row(form.firstName) }}
+                    {{ form_row(form.lastName) }}
+                    {{ form_row(form.email) }}
                 </div>
             </div>
 
@@ -103,13 +103,12 @@
                         {{ sso_title }}
                         <small><em>({{ 'user.profile.form_user.sso.linked'|trans }} <span class="fa fa-check text-success"></span>)</em></small>
                     </span>
-
-                            <a aria-label="{{ 'user.profile.form_user.sso.unlink'|trans }}" href="{{ path('user_profile_user_sso_unlink') }}" class="col-sm-3 btn btn-default">
+                            <a href="{{ path('user_profile_user_sso_unlink') }}" class="col-sm-3 btn btn-default">
                                 <span class="fa fa-unlink"></span> {{ 'user.profile.form_user.sso.unlink'|trans }}
                             </a>
                         {% else %}
                             <span class="col-sm-7 sso-title"><img  src="{{ asset(sso_icon) }}" alt="">{{ sso_title }}</span>
-                            <a aria-label="{{ 'user.profile.form_user.sso.link'|trans }}" href="{{ path('oauth_connect', {'service':sso_type}) }}" class="col-sm-3 btn btn-primary">
+                            <a href="{{ path('oauth_connect', {'service':sso_type}) }}" class="col-sm-3 btn btn-primary">
                                 <span class="fa fa-link"></span> {{ 'user.profile.form_user.sso.link'|trans }}
                             </a>
                         {% endif %}
@@ -129,18 +128,17 @@
                     </div>
                 {% endif %}
             {% endfor %}
-
+            {% if app_activate_notifications == 'true' %}
             {% include('@templates_path/User/Profile/notifications.html.twig') %}
+            {% endif %}
         </div>
     </div>
     {{ form_row(form._token) }}
-    <div class="col-md-12">
-        <div class="box box-solid">
-            <div class="box-body text-center">
-                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
-            </div>
+
+    <div class="box box-solid">
+        <div class="box-body text-center">
+            <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
         </div>
     </div>
-
 
 {% endblock %}

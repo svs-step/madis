@@ -122,7 +122,8 @@
 
             str = str.replace( /\n/g, ' ' );
 
-
+            str = str.replace( /&#039;/g, "'" );
+            str = str.replace( /&amp;/g, "&" );
             return str;
         };
 

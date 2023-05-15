@@ -87,6 +87,13 @@ function bubbleChart(id, labels, data) {
             legend: {
               display: false
             },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data){
+                        return data['datasets'][tooltipItem['datasetIndex']]['label'];
+                    }
+                }
+            },
             scales: {
                 yAxes: [{
                     ticks : {
