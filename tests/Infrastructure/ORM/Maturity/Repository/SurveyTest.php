@@ -93,6 +93,7 @@ class SurveyTest extends TestCase
     public function testFindAllByCollectivity()
     {
         $collectivity = new Collectivity();
+        $referentiel = new Model\Referentiel();
         $orderKey     = 'key';
         $orderDir     = 'asc';
         $results      = ['dummyResult'];
@@ -120,6 +121,11 @@ class SurveyTest extends TestCase
         ;
         $queryBuilderProphecy
             ->setParameter('collectivity', $collectivity)
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
+        $queryBuilderProphecy
+            ->setParameter('referentiel', $referentiel)
             ->shouldBeCalled()
             ->willReturn($queryBuilderProphecy)
         ;
