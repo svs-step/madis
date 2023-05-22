@@ -25,11 +25,12 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Form\Type\SurveyType;
+use App\Domain\Maturity\Model\Referentiel;
 use App\Domain\Maturity\Model\Survey;
 use App\Tests\Utils\FormTypeHelper;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SurveyTypeTest extends FormTypeHelper
@@ -44,10 +45,15 @@ class SurveyTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'answers' => CollectionType::class,
+            'answers'     => EntityType::class,
+            'referentiel' => EntityType::class,
         ];
 
-        (new SurveyType())->buildForm($this->prophesizeBuilder($builder), []);
+        $survey = new Survey();
+
+        $survey->setReferentiel(new Referentiel());
+
+        (new SurveyType())->buildForm($this->prophesizeBuilder($builder), ['data' => $survey]);
     }
 
     public function testConfigureOptions(): void

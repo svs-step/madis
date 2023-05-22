@@ -88,6 +88,7 @@ class Survey extends CRUDRepository implements Repository\Survey
             ->from(Model\Survey::class, 's')
             ->andWhere('o.id = :id')
             ->andWhere('o.collectivity = s.collectivity')
+            ->andWhere('o.referentiel = s.referentiel')  // Referentiels must match
             ->andWhere('o.createdAt > s.createdAt')
             ->orderBy('s.createdAt', 'DESC')
             ->setMaxResults($limit)

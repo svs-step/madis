@@ -42,6 +42,11 @@ class Domain
     /**
      * @var string|null
      */
+    private $description;
+
+    /**
+     * @var string|null
+     */
     private $color;
 
     /**
@@ -53,11 +58,15 @@ class Domain
      * @var iterable
      */
     private $questions;
-
     /**
      * @var iterable
      */
     private $maturity;
+
+    /**
+     * @var Referentiel
+     */
+    private $referentiel;
 
     /**
      * Domain constructor.
@@ -112,6 +121,11 @@ class Domain
         $question->setDomain($this);
     }
 
+    public function setQuestions(iterable $questions): void
+    {
+        $this->questions = $questions;
+    }
+
     public function removeQuestion(Question $question): void
     {
         $key = \array_search($question, $this->questions, true);
@@ -148,5 +162,25 @@ class Domain
     public function getMaturity(): iterable
     {
         return $this->maturity;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function getReferentiel(): Referentiel
+    {
+        return $this->referentiel;
+    }
+
+    public function setReferentiel(Referentiel $referentiel): void
+    {
+        $this->referentiel = $referentiel;
     }
 }

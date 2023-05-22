@@ -21,7 +21,7 @@ class ModeleScenarioMenaceType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 'label' => false,
-                'attr'     => [
+                'attr'  => [
                     'maxlength' => 255,
                 ],
             ])

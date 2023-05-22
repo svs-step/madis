@@ -1,0 +1,135 @@
+<script>
+    $(document).ready(function() {
+        $('body').on('click', '.add_section', addFormToCollection)
+            .on('click', '.add_question', addFormToCollection)
+            .on('click', '.add_answer', addFormToCollection)
+        ;
+        $(document).on("click", '.box-link', function() {
+            $(this).parent().next().collapse('toggle');
+        });
+
+        function addFormToCollection(e){
+            const btn = $(e.currentTarget)
+            let type = e.currentTarget.classList[0];
+
+            let html = $('#prototypes').data('prototype-section')
+            if (type === 'add_section') {
+                console.log('adding section')
+                const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+                collectionHolder.dataset.index++
+                const index = collectionHolder.dataset.index;
+                let html = $('#prototypes').data('prototype-section')
+                console.log('old HTML', html)
+                html = html.replace(/__section_name__/g, index).replace(/__index__/g, index)
+                console.log('new HTML', html)
+                btn.parent('div').find('ul.referentielSections').append('<li>'+html+'</li>');
+                $('#referentiel_referentielSections_'+index+'_orderNumber').val(index);
+            } else if (type === 'add_question') {
+                let html = $('#prototypes').data('prototype-question')
+                const holder = btn.parent().parent().find('ul.referentielQuestions')
+                const section = holder.data('section');
+                const oldIndex = holder.data('index')
+                html = html.replace(/__section_name__/g, section).replace(/__question_name__/g, oldIndex)
+                holder.append('<li>'+html+'</li>');
+                const newIndex = holder.data('index') + 1
+                holder.data('index', newIndex)
+                $('#referentiel_referentielSections_'+ section + '_referentielQuestions_' + oldIndex + '_orderNumber').val(oldIndex);
+            } else {
+                let html = $('#prototypes').data('prototype-answer')
+                const holder = btn.parent().parent().parent().find('ul.referentielAnswers')
+                console.log('holder', holder)
+                const section = holder.data('section');
+                const question = holder.data('question');
+                const oldIndex = holder.data('index')
+                html = html.replace(/__section_name__/g, section).replace(/__question_name__/g, question).replace(/__answer_name__/g, oldIndex)
+                holder.append('<li>'+html+'</li>');
+                const newIndex = holder.data('index') + 1
+                holder.data('index', newIndex)
+                console.log('object val', $(`#referentiel_referentielSections_${section}_referentielQuestions_${question}_referentielAnswers_${oldIndex}_orderNumber`))
+                $(`#referentiel_referentielSections_${section}_referentielQuestions_${question}_referentielAnswers_${oldIndex}_orderNumber`).val(oldIndex)
+            }
+        }
+
+        var $wrapper = $('.js-table-collection-wrapper');
+
+        $wrapper.on('click', '.js-table-remove-item', function(e) {
+            e.preventDefault();
+            $(this).closest('.js-table-collection-item')
+                .fadeOut()
+                .remove();
+        });
+
+        $wrapper.on('click', '.js-table-collection-add', function(e) {
+            console.log("Here");
+            e.preventDefault();
+            // Get the data-prototype explained earlier
+            var prototype = $(this).parent().data('prototype');
+            // get the new index
+            var index = $(this).parent().data('index');
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+            // increase the index with one for the next item
+            $(this).parent().data('index', index + 1);
+            // Display the form in the page before the "new" link
+            $('#js-table-collection tr:last').after(newForm);
+            console.log($('.selectpicker'));
+            $('.selectpicker').selectpicker('refresh');
+        });
+
+        $('.delete-file').on('click', function(ev) {
+            var $t = $(ev.currentTarget)
+            var $p = $t.parent();
+            var $h = $p.parent().find('input[type=hidden]')
+            $h.val(1);
+            $p.remove();
+            console.log('$h', $h)
+        })
+
+        $("ul.referentielAnswers").each(function(n, el){
+            console.log('el', el)
+            $(el).sortable({
+                stop: function( event, ui ) {
+                    console.log("answer order changed", event.target)
+                    setTimeout(function() {
+                        $(event.target).find(' > li').each(function(i, li) {
+                            console.log('i', i, li)
+                            $(li).find('input[type=hidden]').val(i)
+                        })
+                    }, 10)
+
+                }
+            })
+        })
+
+        $("ul.referentielQuestions").each(function(n, el){
+            console.log('el', el)
+            $(el).sortable({
+                stop: function( event, ui ) {
+                    console.log("question order changed", event.target)
+                    setTimeout(function() {
+                        $(event.target).find(' > li').each(function(i, li) {
+                            console.log('i', i, li)
+                            $(li).find('input[type=hidden]').val(i)
+                        })
+                    }, 10)
+                }
+            })
+        })
+
+        $("ul.referentielSections").each(function(n, el){
+            console.log('el', el)
+            $(el).sortable({
+                stop: function( event, ui ) {
+                    console.log("section order changed", event.target)
+                    setTimeout(function() {
+                        $(event.target).find(' > li').each(function(i, li) {
+                            console.log('i', i, li)
+                            $(li).find('input[type=hidden]').val(i)
+                        })
+                    }, 10)
+                }
+            })
+        })
+    });
+</script>

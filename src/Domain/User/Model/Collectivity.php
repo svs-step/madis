@@ -26,6 +26,7 @@ namespace App\Domain\User\Model;
 
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\AIPD\Model\ModeleAnalyse;
+use App\Domain\Maturity\Model\Referentiel;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Embeddable\Address;
 use App\Domain\User\Model\Embeddable\Contact;
@@ -145,6 +146,11 @@ class Collectivity implements LoggableSubject
      * @var Collection|ModeleAnalyse[]
      */
     private $modeleAnalyses;
+
+    /**
+     * @var Collection|Referentiel[]
+     */
+    private $referentiels;
 
     /**
      * @var bool
@@ -532,6 +538,26 @@ class Collectivity implements LoggableSubject
     public function setFinessGeo(?string $finessGeo): void
     {
         $this->finessGeo = $finessGeo;
+    }
+
+    public function getReferentiels()
+    {
+        return $this->referentiels;
+    }
+
+    public function setReferentiels($referentiels): void
+    {
+        $this->referentiels = $referentiels;
+    }
+
+    public function addReferentiel(Referentiel $referentiel)
+    {
+        if ($this->referentiels->contains($referentiel)) {
+            return;
+        }
+
+        $this->referentiels[] = $referentiel;
+        $referentiel->addAuthorizedCollectivity($this);
     }
 
     public function getNbrAgents(): ?int

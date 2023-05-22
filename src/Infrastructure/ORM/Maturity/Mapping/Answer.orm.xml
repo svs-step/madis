@@ -10,13 +10,16 @@
         <id name="id" column="id" type="uuid"/>
 
         <field name="response" column="response" type="integer"/>
-        
-        <many-to-one field="question" target-entity="App\Domain\Maturity\Model\Question">
+        <field name="recommendation" column="recommendation"  nullable="true" />
+        <field name="name" column="name" />
+        <field name="position" column="position" type="integer"/>
+
+        <many-to-one field="question" target-entity="App\Domain\Maturity\Model\Question" inversed-by="answers">
             <join-column on-delete="CASCADE" />
         </many-to-one>
-        <many-to-one field="survey" target-entity="App\Domain\Maturity\Model\Survey" inversed-by="answers">
-            <join-column on-delete="CASCADE" />
-        </many-to-one>
+
+        <many-to-many field="surveys" target-entity="App\Domain\Maturity\Model\Survey" inversed-by="answers">
+        </many-to-many>
 
     </entity>
 

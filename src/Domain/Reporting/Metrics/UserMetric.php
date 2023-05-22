@@ -325,7 +325,11 @@ class UserMetric implements MetricInterface
             // Type
             if ($request->getObject()) {
                 $inflector = InflectorFactory::createForLanguage(Language::FRENCH)->build();
-                ++$data['request']['value']['type'][$inflector->camelize($request->getObject())];
+                if (isset($data['request']['value']['type'][$inflector->camelize($request->getObject())])) {
+                    ++$data['request']['value']['type'][$inflector->camelize($request->getObject())];
+                } else {
+                    $data['request']['value']['type'][$inflector->camelize($request->getObject())] = 1;
+                }
             }
 
             // Status

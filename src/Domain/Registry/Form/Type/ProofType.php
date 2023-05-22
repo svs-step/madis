@@ -249,8 +249,8 @@ class ProofType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
             ])
-
         ;
+
         if ($options['data']->getCollectivity()->isHasModuleTools()) {
             $builder->add('tools', EntityType::class, [
                 'label'         => 'registry.treatment.form.software',

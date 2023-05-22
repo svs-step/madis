@@ -26,7 +26,7 @@
             <div class="col-xs-12">
                 <div class="action-bar">
                     {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('maturity_survey_create') }}" class="btn btn-default">
+                    <a href="{{ path('maturity_survey_start') }}" class="btn btn-default">
                         <i class="fa fa-plus"></i>
                         {{ 'maturity.survey.action.new'|trans }}
                     </a>

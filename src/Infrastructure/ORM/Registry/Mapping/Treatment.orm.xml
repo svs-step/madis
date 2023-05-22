@@ -49,9 +49,6 @@
         <field name="ultimateFate" column="ultimate_fate" nullable="true"/>
         <field name="dpoMessage" column="dpo_message" type="text" nullable="true"/>
         <field name="otherCollectingMethod" column="other_collecting_method" type="text" nullable="true"/>
-        <field name="legalMentions" column="legal_mentions" type="boolean"/>
-        <field name="consentRequest" column="consent_request" type="boolean"/>
-        <field name="consentRequestFormat" column="consent_request_format" type="text" nullable="true"/>
 
         <embedded name="delay" class="App\Domain\Registry\Model\Embeddable\Delay" column-prefix="delay_"/>
         <embedded name="securityAccessControl" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_access_control_"/>

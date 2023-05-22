@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Length;
 
 class MesureProtectionAIPDType extends AbstractType
 {
@@ -18,27 +17,27 @@ class MesureProtectionAIPDType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'attr'     => [
+                'attr' => [
                     'maxlength' => 255,
                 ],
             ])
             ->add('nomCourt', TextType::class, [
-                'attr'     => [
+                'attr' => [
                     'maxlength' => 255,
                 ],
             ])
             ->add('labelLivrable', TextType::class, [
-                'attr'     => [
+                'attr' => [
                     'maxlength' => 255,
                 ],
             ])
             ->add('phrasePreconisation', TextType::class, [
-                'attr'     => [
+                'attr' => [
                     'maxlength' => 255,
                 ],
             ])
             ->add('detail', TextType::class, [
-                'attr'     => [
+                'attr' => [
                     'maxlength' => 255,
                 ],
             ])
