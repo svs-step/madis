@@ -18,6 +18,7 @@ maturity:
             collectivity: Structure
             created_at: Date de création
             score: Score
+            referentiel: Référentiel
         title:
             create: Nouvel indice de maturité
             edit: Modifier un indice de maturité

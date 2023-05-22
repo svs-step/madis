@@ -46,6 +46,7 @@
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th>{{ 'maturity.survey.list.collectivity'|trans }}</th>
                             {% endif %}
+                            <th>{{ 'maturity.survey.list.referentiel'|trans }}</th>
                             <th>{{ 'maturity.survey.list.created_at'|trans }}</th>
                             <th>{{ 'maturity.survey.list.score'|trans }}</th>
                             <th>{{ 'label.actions'|trans }}</th>
@@ -57,18 +58,31 @@
                             {% if is_granted('ROLE_REFERENT') %}
                                 <td>{{ object.collectivity }}</td>
                             {% endif %}
+                            <td>
+                                {% if is_granted('ROLE_ADMIN') and object.referentiel is defined and object.referentiel.id is defined %}
+                                <a href="{{ path('maturity_referentiel_edit', { 'id': object.referentiel.id }) }}">
+                                {{ object.referentiel.name }}
+                                </a>
+                                {% elseif(object.referentiel is defined and object.referentiel.name is defined) %}
+                                    {{ object.referentiel.name }}
+                                {% endif %}
+                            </td>
                             <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
                             <td>{{ object.score / 10 }}</td>
                             <td>
+                                {% if object.referentiel is defined and object.referentiel.id is defined  %}
                                 <a href="{{ path('maturity_survey_report', { 'id': object.id }) }}">
                                     <i class="fa fa-clipboard-list"></i>
                                     {{ 'action.print'|trans }}
                                 </a>
+                                {% endif %}
                                 {% if is_granted('ROLE_USER') %}
+                                {% if object.referentiel is defined and object.referentiel.id is defined %}
                                 <a href="{{ path('maturity_survey_edit', { 'id': object.id }) }}">
                                     <i class="fa fa-pencil-alt"></i>
                                     {{ 'action.edit'|trans }}
                                 </a>
+                                {% endif %}
                                 <a href="{{ path('maturity_survey_delete', { 'id': object.id }) }}">
                                     <i class="fa fa-trash"></i>
                                     {{ 'action.delete'|trans }}
