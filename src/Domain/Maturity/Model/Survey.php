@@ -50,6 +50,11 @@ class Survey implements LoggableSubject
     private $answers;
 
     /**
+     * @var iterable|null
+     */
+    private $optionalAnswers;
+
+    /**
      * @var iterable
      */
     private $maturity;
@@ -107,6 +112,33 @@ class Survey implements LoggableSubject
     public function getAnswers(): ?iterable
     {
         return $this->answers;
+    }
+
+    public function addOptionalAnswer(OptionalAnswer $answer): void
+    {
+        $this->optionalAnswers[] = $answer;
+        $answer->setSurvey($this);
+    }
+
+    public function setOptionalAnswers(iterable $answers): void
+    {
+        $this->optionalAnswers = $answers;
+    }
+
+    public function removeOptionalAnswer(OptionalAnswer $answer): void
+    {
+        $key = \array_search($answer, (array) $this->optionalAnswers, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->optionalAnswers[$key]);
+    }
+
+    public function getOptionalAnswers(): ?iterable
+    {
+        return $this->optionalAnswers;
     }
 
     public function addMaturity(Maturity $maturity): void

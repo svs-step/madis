@@ -66,17 +66,19 @@ class Maturity
                 $domains[$domainId] = $domain;
             }
             // Make an addition with answer response by domain
-            $w = $answer->getQuestion()->getWeight();
+            $w  = $answer->getQuestion()->getWeight();
+            $v  = $answer->getPosition();
+            $ac = count($answer->getQuestion()->getAnswers());
             if (isset($points[$domainId])) {
-                $points[$domainId]['value'] += $answer->getPosition() * $w;
+                $points[$domainId]['value'] += $v / $ac * 5 * $w;
             } else {
-                $points[$domainId]['value']  = $answer->getPosition() * $w;
-                $points[$domainId]['nbItem'] = 0;
+                $points[$domainId] = [
+                    'value'  => $v / $ac * 5 * $w,
+                    'nbItem' => 0,
+                ];
             }
             $points[$domainId]['nbItem'] += $w;
         }
-
-        dump($domains);
 
         // Update maturityList with new points
         // If maturity doesn't exists for related domain, create it
@@ -88,10 +90,8 @@ class Maturity
             $maturityList[$key]->setDomain($domains[$key]);
             $maturityList[$key]->setSurvey($survey);
             // * 10 to keep int data in order to display a {int}/10 in report
-            $score = \intval(\ceil($point['value'] / ($point['nbItem'] * 2) * 5 * 10));
-            dump($score);
+            $score = \intval(\ceil($point['value'] / $point['nbItem'] * 10));
             $maturityList[$key]->setScore($score);
-            dump($key, $maturityList[$key]);
         }
         //        dd($maturityList);
         return $maturityList;

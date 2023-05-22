@@ -1,24 +1,17 @@
 <script>
-    function disableSelect(jQuerySelect) {
-        let idToDisable = jQuerySelect.data('select-id');
-        let selectToDisable = $('#'+idToDisable);
-        let addButtonToDisable = $('#' + idToDisable + '_add_button');
-        if (jQuerySelect.val() == 1) {
-            selectToDisable.prop('disabled', true);
-            addButtonToDisable.prop('disabled', true);
-            selectToDisable.selectpicker('val', []);
+    $('.question-option').on('change', function(ev) {
+        var $ch = $(ev.currentTarget);
+        console.log($ch, $ch.is(":checked"))
+        if ($ch.is(":checked")) {
+            $ch.parent().find('.question-option-reason').show()
+            $ch.parent().find('.question-option-reason input').attr('required')
+            $ch.parent().parent().find('ul').hide()
+            $ch.parent().parent().find('ul input').removeAttr('required')
         } else {
-            selectToDisable.prop('disabled', false);
-            addButtonToDisable.prop('disabled', false);
+            $ch.parent().find('.question-option-reason').hide()
+            $ch.parent().parent().find('ul').show()
+            $ch.parent().parent().find('ul input').attr('required')
+            $ch.parent().find('.question-option-reason input').removeAttr('required')
         }
-        selectToDisable.selectpicker('refresh');
-    }
-
-    $( ".survey-select" ).change(function() {
-        disableSelect($(this));
-    });
-
-    $( ".survey-select" ).each(function() {
-        disableSelect($(this));
-    });
+    })
 </script>
