@@ -289,7 +289,7 @@ class SurveyController extends CRUDController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
-        return $this->render($this->getTemplatingBasePath('create'), [
+        return $this->render($this->getTemplatingBasePath('edit'), [
             'form' => $form->createView(),
         ]);
     }

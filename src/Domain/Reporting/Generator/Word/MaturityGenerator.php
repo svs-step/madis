@@ -182,7 +182,6 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             $tableData[0][] = $this->getDate($data['old']->getCreatedAt(), 'd/m/Y');
         }
         $tableData[0][] = $this->getDate($data['new']->getCreatedAt(), 'd/m/Y');
-
         // Table data + radar data
         foreach ($maturityList as $position => $score) {
             $row   = [];
@@ -191,9 +190,11 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
                 $row[]    = $score['old'] / 10; // Display comma with 1 digit precision
                 $serie2[] = $score['old'] / 10;
             }
-            $row[]       = $score['new'] / 10; // Display comma with 1 digit precision
-            $serie1[]    = $score['new'] / 10;
-            $tableData[] = $row;
+            if (isset($score['new'])) {
+                $row[]       = $score['new'] / 10; // Display comma with 1 digit precision
+                $serie1[]    = $score['new'] / 10;
+                $tableData[] = $row;
+            }
         }
         // Display
         $section->addTitle('Vue d\'ensemble', 1);

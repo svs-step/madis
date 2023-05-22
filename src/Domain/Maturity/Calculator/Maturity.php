@@ -25,9 +25,17 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Calculator;
 
 use App\Domain\Maturity\Model;
+use Doctrine\ORM\EntityManagerInterface;
 
 class Maturity
 {
+    protected EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     /**
      * Compute maturity indice for each linked survey maturity.
      *
@@ -80,6 +88,7 @@ class Maturity
             $points[$domainId]['nbItem'] += $w;
         }
 
+        $removedMaturities = $maturityList;
         // Update maturityList with new points
         // If maturity doesn't exists for related domain, create it
         foreach ($points as $key => $point) {
@@ -92,8 +101,14 @@ class Maturity
             // * 10 to keep int data in order to display a {int}/10 in report
             $score = \intval(\ceil($point['value'] / $point['nbItem'] * 10));
             $maturityList[$key]->setScore($score);
+            // This maturity still exists, so remove it from the removed maturities array
+            unset($removedMaturities[$key]);
         }
-        //        dd($maturityList);
+
+        foreach ($removedMaturities as $k => $removedMaturity) {
+            unset($maturityList[$k]);
+        }
+
         return $maturityList;
     }
 

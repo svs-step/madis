@@ -4,7 +4,7 @@
         console.log($ch, $ch.is(":checked"))
         if ($ch.is(":checked")) {
             $ch.parent().find('.question-option-reason').show()
-            $ch.parent().find('.question-option-reason input').attr('required')
+            $ch.parent().find('.question-option-reason input').attr('required', true)
             $ch.parent().parent().find('ul').hide()
             $ch.parent().parent().find('ul input').removeAttr('required')
         } else {

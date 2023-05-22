@@ -6,7 +6,14 @@
 {% block title %}{{ 'maturity.survey.title.edit'|trans }} - {{ parent() }}{% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'maturity.survey.title.edit'|trans }}</h1>
+    <h1>
+        {{ 'maturity.survey.title.edit'|trans }}
+        <small>{{ form.vars.value.createdAt|date("d/m/Y") }}</small>
+        {% if form.vars.value.referentiel and form.vars.value.referentiel.name %}
+            <small>Référentiel : {{ form.vars.value.referentiel.name}}</small>
+        {% endif %}
+    </h1>
+
 {% endblock %}
 
 {% block breadcrumb %}

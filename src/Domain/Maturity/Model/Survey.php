@@ -149,7 +149,7 @@ class Survey implements LoggableSubject
 
     public function removeMaturity(Maturity $maturity): void
     {
-        $key = \array_search($maturity, $this->maturity, true);
+        $key = \array_search($maturity, (array) $this->maturity, true);
 
         if (false === $key) {
             return;
