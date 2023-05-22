@@ -29,13 +29,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class Maturity
 {
-    protected EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-
     /**
      * Compute maturity indice for each linked survey maturity.
      *

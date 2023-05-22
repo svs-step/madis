@@ -43,14 +43,14 @@
         {{ form_end(form) }}
     </div>
 
-    
+
 {% endblock %}
 
 {% block javascripts %}
 
     <script src="{{ asset('build/js/collectionManager.js') }}"></script>
 
-    {{ include('maturity/Referentiel/_form_js.html.twig') }}
+    {{ include('Maturity/Referentiel/_form_js.html.twig') }}
 
     <script>
         $(document).ready(function() {
