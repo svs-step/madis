@@ -48,9 +48,6 @@ class ToolGenerator extends AbstractGenerator implements ImpressionGeneratorInte
         $this->translator = $translator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addSyntheticView(Section $section, array $data, bool $forOverviewReport = false): void
     {
         // Break page for overview report
@@ -89,9 +86,6 @@ class ToolGenerator extends AbstractGenerator implements ImpressionGeneratorInte
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail des logiciels et supports', 1);

@@ -426,9 +426,6 @@ class UserMetric implements MetricInterface
         return $data;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplateViewName(): string
     {
         return 'Reporting/Dashboard/index.html.twig';

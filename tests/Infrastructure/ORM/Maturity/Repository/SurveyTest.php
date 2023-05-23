@@ -93,7 +93,6 @@ class SurveyTest extends TestCase
     public function testFindAllByCollectivity()
     {
         $collectivity = new Collectivity();
-        $referentiel  = new Model\Referentiel();
         $orderKey     = 'key';
         $orderDir     = 'asc';
         $results      = ['dummyResult'];
@@ -121,11 +120,6 @@ class SurveyTest extends TestCase
         ;
         $queryBuilderProphecy
             ->setParameter('collectivity', $collectivity)
-            ->shouldBeCalled()
-            ->willReturn($queryBuilderProphecy)
-        ;
-        $queryBuilderProphecy
-            ->setParameter('referentiel', $referentiel)
             ->shouldBeCalled()
             ->willReturn($queryBuilderProphecy)
         ;
@@ -168,6 +162,9 @@ class SurveyTest extends TestCase
         $limit   = 2;
         $results = ['dummyResult'];
 
+        $referentiel = new Model\Referentiel();
+        $referentiel->setName('ref');
+
         // Query
         $queryProphecy = $this->prophesize(AbstractQuery::class);
         $queryProphecy->getResult()->shouldBeCalled()->willReturn($results);
@@ -183,6 +180,11 @@ class SurveyTest extends TestCase
 
         $queryBuilderProphecy->andWhere('o.id = :id')->shouldBeCalled()->willReturn($queryBuilderProphecy);
         $queryBuilderProphecy->andWhere('o.collectivity = s.collectivity')->shouldBeCalled()->willReturn($queryBuilderProphecy);
+        $queryBuilderProphecy
+            ->andWhere('o.referentiel = s.referentiel')
+            ->shouldBeCalled()
+            ->willReturn($queryBuilderProphecy)
+        ;
         $queryBuilderProphecy->andWhere('o.createdAt > s.createdAt')->shouldBeCalled()->willReturn($queryBuilderProphecy);
         $queryBuilderProphecy->orderBy('s.createdAt', 'DESC')->shouldBeCalled()->willReturn($queryBuilderProphecy);
 

@@ -93,9 +93,6 @@ class TreatmentCompletion extends AbstractCompletion
         return $points;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getMaxPoints(): int
     {
         return 12;

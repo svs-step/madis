@@ -43,9 +43,6 @@ class JournalisationController extends AbstractController
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function listDataTables(Request $request): JsonResponse
     {
         /** @var Paginator $logs */
@@ -89,9 +86,6 @@ class JournalisationController extends AbstractController
         return '<a href="' . $content . '">Voir</a>';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getLabelAndKeysArray(): array
     {
         return [

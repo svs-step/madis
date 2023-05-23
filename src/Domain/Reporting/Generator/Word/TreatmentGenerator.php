@@ -163,9 +163,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addListItem("{$security['update']} sont mis à jour");
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addSyntheticView(Section $section, array $data, bool $forOverviewReport = false): void
     {
         // Break page for overview report
@@ -199,9 +196,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail des traitements', 1);

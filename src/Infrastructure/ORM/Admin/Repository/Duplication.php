@@ -30,9 +30,6 @@ use App\Domain\Admin\Repository;
 
 class Duplication extends CRUDRepository implements Repository\Duplication
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Duplication::class;

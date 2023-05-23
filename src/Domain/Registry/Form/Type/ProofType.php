@@ -284,8 +284,6 @@ class ProofType extends AbstractType
 
     /**
      * Prefix every inactive object with "Inactif".
-     *
-     * @param mixed $object
      */
     protected function formatInactiveObjectLabel($object): string
     {
@@ -302,8 +300,6 @@ class ProofType extends AbstractType
 
     /**
      * Prefix every archived object with "Archivé".
-     *
-     * @param mixed $object
      */
     protected function formatArchivedObjectLabel($object): string
     {

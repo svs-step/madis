@@ -87,8 +87,6 @@ class Violation implements Repository\Violation
     /**
      * Insert an object.
      *
-     * @param mixed $object
-     *
      * @throws \Exception
      */
     public function insert($object): void
@@ -100,8 +98,6 @@ class Violation implements Repository\Violation
     /**
      * Update an object.
      *
-     * @param mixed $object
-     *
      * @throws \Exception
      */
     public function update($object): void
@@ -111,8 +107,6 @@ class Violation implements Repository\Violation
 
     /**
      * Create an object.
-     *
-     * @return mixed
      */
     public function create()
     {
@@ -124,8 +118,6 @@ class Violation implements Repository\Violation
     /**
      * Remove an object.
      *
-     * @param mixed $object
-     *
      * @throws \Exception
      */
     public function remove($object): void
@@ -135,8 +127,6 @@ class Violation implements Repository\Violation
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findAll(bool $deleted = false): array
@@ -171,9 +161,6 @@ class Violation implements Repository\Violation
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Violation::class;
@@ -181,8 +168,6 @@ class Violation implements Repository\Violation
 
     /**
      * Add a where clause.
-     *
-     * @param mixed $value
      */
     protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
     {
@@ -230,8 +215,6 @@ class Violation implements Repository\Violation
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findAllByCollectivity(Collectivity $collectivity, bool $deleted = false, array $order = [])
@@ -255,8 +238,6 @@ class Violation implements Repository\Violation
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findBy(array $criteria = [])
@@ -274,8 +255,6 @@ class Violation implements Repository\Violation
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findAllArchivedByCollectivity(Collectivity $collectivity, bool $archived = false, array $order = [])
@@ -292,9 +271,6 @@ class Violation implements Repository\Violation
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function countAllByCollectivity(Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
@@ -305,9 +281,6 @@ class Violation implements Repository\Violation
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findOneOrNullLastUpdateByCollectivity(Collectivity $collectivity): ?Model\Violation
     {
         $qb = $this->createQueryBuilder();

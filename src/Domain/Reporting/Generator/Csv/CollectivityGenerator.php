@@ -181,9 +181,6 @@ class CollectivityGenerator extends AbstractGenerator
         $this->defaultDpoPhoneNumber  = $defaultDpoPhoneNumber;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function initializeExtract(): array
     {
         $headers = array_merge(

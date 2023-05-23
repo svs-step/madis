@@ -103,9 +103,6 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addSyntheticView(Section $section, array $data): void
     {
         $section->addTitle('Liste des traitements', 1);
@@ -144,9 +141,6 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail des traitements', 1);

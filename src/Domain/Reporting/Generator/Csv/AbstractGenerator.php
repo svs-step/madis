@@ -28,9 +28,6 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 abstract class AbstractGenerator implements GeneratorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function generateResponse(string $documentName): BinaryFileResponse
     {
         $currentDate = (new \DateTimeImmutable())->format('Ymd');

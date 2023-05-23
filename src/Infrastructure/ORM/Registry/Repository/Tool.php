@@ -49,9 +49,6 @@ class Tool extends CRUDRepository implements Repository\Tool
         $this->security = $security;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Tool::class;
@@ -158,9 +155,6 @@ class Tool extends CRUDRepository implements Repository\Tool
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllByCollectivity(Collectivity $collectivity = null, array $order = [])
     {
         $qb = $this->createQueryBuilder();

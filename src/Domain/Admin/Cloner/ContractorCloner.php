@@ -30,8 +30,6 @@ use App\Domain\User\Model as UserModel;
 class ContractorCloner extends AbstractCloner
 {
     /**
-     * {@inheritdoc}
-     *
      * @param RegistryModel\Contractor $referent
      *
      * @throws \Exception

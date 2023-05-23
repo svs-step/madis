@@ -119,25 +119,16 @@ class ConformiteTraitementController extends CRUDController
         $this->router                 = $router;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'conformite_traitement';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\ConformiteTraitement\ConformiteTraitement::class;
@@ -152,17 +143,11 @@ class ConformiteTraitementController extends CRUDController
         return $this->wordHandler->generateRegistryConformiteTraitementReport($objects);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return ConformiteTraitementType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getListData()
     {
         $collectivity = null;
@@ -179,9 +164,6 @@ class ConformiteTraitementController extends CRUDController
         return $this->treatmentRepository->findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function listAction(): Response
     {
         $category = $this->entityManager->getRepository(Category::class)->findOneBy([

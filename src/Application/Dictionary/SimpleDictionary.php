@@ -44,65 +44,41 @@ class SimpleDictionary implements DictionaryInterface
         $this->values = $values;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getValues(): array
     {
         return $this->values;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getKeys(): array
     {
         return \array_keys($this->values);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function offsetExists(mixed $offset): bool
     {
         return \array_key_exists($offset, $this->values);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function offsetGet($offset): mixed
     {
         return $this->values[$offset];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->values[$offset] = $value;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function offsetUnset($offset): void
     {
         unset($this->values[$offset]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->values);
