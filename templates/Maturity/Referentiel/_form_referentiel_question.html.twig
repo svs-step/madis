@@ -1,6 +1,6 @@
 {% import _self as formMacros %}
 {% macro printAnswerRow(answer) %}
-    <li class="col-md-12">
+    <li class="col-md-12 answer-item">
         {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': answer} %}
     </li>
 {% endmacro %}
@@ -17,9 +17,10 @@
             {{ form_row(form.weight) }}
             </div>
 
-        <a
-                href="#question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}"
-                class="box-link" data-toggle="collapse" style="float:right;padding: 0 1em"><i class="fa fa-plus"></i></a>
+        <a href="#question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}"
+                class="box-link btn btn-default" data-toggle="collapse" style="float:right;border:none"><i class="fa fa-plus"></i></a>
+
+        <a href="#" class="delete-question btn btn-default" style="float:right;border:none"><i class="fa fa-trash"></i></a>
     </div>
 
     <div class="collapse" id="question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}">

@@ -235,7 +235,14 @@ class ReferentielController extends CRUDController
             'warning',
         ];
 
+        // get all existing domains
+        $toRemove = $this->entityManager->getRepository(Model\Domain::class)->findBy(['referentiel' => $object]);
+
         foreach ($object->getDomains() as $k => $domain) {
+            $key = array_search($domain, $toRemove);
+            if (false !== $key) {
+                unset($toRemove[$key]);
+            }
             /** @var Model\Domain $domain */
             if (is_null($domain->getPosition())) {
                 $domain->setPosition($k);
@@ -244,27 +251,54 @@ class ReferentielController extends CRUDController
                 $domain->setColor($colors[$k % 4]);
             }
 
+            // get all existing questions
+            $toRemoveQuestions = $this->entityManager->getRepository(Model\Question::class)->findBy(['domain' => $domain]);
+
             $questions = [];
             foreach ($domain->getQuestions() as $n => $question) {
                 /** @var Model\Question $question */
+                $key = array_search($question, $toRemoveQuestions);
+                if (false !== $key) {
+                    unset($toRemoveQuestions[$key]);
+                }
                 if (is_null($question->getPosition())) {
                     $question->setPosition($n);
                 }
                 $question->setDomain($domain);
 
+                // get all existing Answers
+                $toRemoveAnswers = $this->entityManager->getRepository(Model\Answer::class)->findBy(['question' => $question]);
+
                 foreach ($question->getAnswers() as $l => $answer) {
                     /** @var Model\Answer $answer */
+                    $key = array_search($answer, $toRemoveAnswers);
+                    if (false !== $key) {
+                        unset($toRemoveAnswers[$key]);
+                    }
                     if (is_null($answer->getPosition())) {
                         $answer->setPosition($l);
                     }
                     $answer->setQuestion($question);
                 }
 
+                foreach ($toRemoveAnswers as $removing) {
+                    $this->entityManager->remove($removing);
+                }
+
                 $questions[] = $question;
+            }
+            foreach ($toRemoveQuestions as $removing) {
+                $this->entityManager->remove($removing);
             }
             $domain->setQuestions($questions);
             $domain->setReferentiel($object);
+
             $domains[] = $domain;
+        }
+
+        // Remove deleted domains
+        foreach ($toRemove as $removing) {
+            $this->entityManager->remove($removing);
         }
 
         $object->setDomains($domains);

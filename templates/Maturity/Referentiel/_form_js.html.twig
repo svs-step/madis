@@ -3,16 +3,33 @@
         $('body').on('click', '.add_section', addFormToCollection)
             .on('click', '.add_question', addFormToCollection)
             .on('click', '.add_answer', addFormToCollection)
+            .on("click", '.box-link', function(ev) {
+                ev.preventDefault()
+                $(ev.currentTarget).parent().next().collapse('toggle');
+                console.log(ev.currentTarget)
+                if ($(this).html() === '<i class="fa fa-plus"></i>') {
+                    $(this).html('<i class="fa fa-minus"></i>')
+                } else {
+                    $(this).html('<i class="fa fa-plus"></i>')
+                }
+            })
+            .on('click', '.delete-section', function(ev) {
+                ev.preventDefault()
+                $(ev.currentTarget).parents('li.col-md-12').remove()
+            })
+            .on('click', '.duplicate-section', function(ev) {
+                ev.preventDefault()
+                alert('Désolé, cette fonctionalité n\'est pas encore prête')
+            })
+            .on('click', '.delete-question', function(ev) {
+                ev.preventDefault()
+                $(ev.currentTarget).parents('li.question-item').remove()
+            })
+            .on('click', '.delete-answer', function(ev) {
+                ev.preventDefault()
+                $(ev.currentTarget).parents('li.answer-item').remove()
+            })
         ;
-        $(document).on("click", '.box-link', function() {
-            $(this).parent().next().collapse('toggle');
-            console.log($(this).html())
-            if ($(this).html() === '<i class="fa fa-plus"></i>') {
-                $(this).html('<i class="fa fa-minus"></i>')
-            } else {
-                $(this).html('<i class="fa fa-plus"></i>')
-            }
-        });
 
         function addFormToCollection(e){
             const btn = $(e.currentTarget)

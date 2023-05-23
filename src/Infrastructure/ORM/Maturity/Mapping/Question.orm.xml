@@ -18,10 +18,13 @@
         <one-to-many field="answers" target-entity="App\Domain\Maturity\Model\Answer" mapped-by="question">
             <cascade>
                 <cascade-persist/>
+                <cascade-remove/>
             </cascade>
         </one-to-many>
 
-        <many-to-one field="domain" target-entity="App\Domain\Maturity\Model\Domain" inversed-by="questions"/>
+        <many-to-one field="domain" target-entity="App\Domain\Maturity\Model\Domain" inversed-by="questions">
+            <join-column on-delete="CASCADE"/>
+        </many-to-one>
 
     </entity>
 

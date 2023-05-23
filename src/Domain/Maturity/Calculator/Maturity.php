@@ -25,7 +25,6 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Calculator;
 
 use App\Domain\Maturity\Model;
-use Doctrine\ORM\EntityManagerInterface;
 
 class Maturity
 {
