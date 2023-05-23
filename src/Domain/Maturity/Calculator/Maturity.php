@@ -92,8 +92,14 @@ class Maturity
             $maturityList[$key]->setReferentiel($survey->getReferentiel());
             $maturityList[$key]->setDomain($domains[$key]);
             $maturityList[$key]->setSurvey($survey);
-            // * 10 to keep int data in order to display a {int}/10 in report
-            $score = \intval(\ceil($point['value'] / $point['nbItem'] * 10));
+            // Prevent division by 0 for question with no answers
+            if (0 === $point['nbItem']) {
+                $score = 0;
+            } else {
+                // * 10 to keep int data in order to display a {int}/10 in report
+                $score = \intval(\ceil($point['value'] / $point['nbItem'] * 10));
+            }
+
             $maturityList[$key]->setScore($score);
             // This maturity still exists, so remove it from the removed maturities array
             unset($removedMaturities[$key]);
