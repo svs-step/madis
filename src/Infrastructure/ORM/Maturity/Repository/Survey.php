@@ -44,17 +44,11 @@ class Survey extends CRUDRepository implements Repository\Survey
         $this->lateSurveyDelayDays = $lateSurveyDelayDays;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Survey::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null): iterable
     {
         $qb = $this->createQueryBuilder()
@@ -78,9 +72,6 @@ class Survey extends CRUDRepository implements Repository\Survey
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findPreviousById(string $id, int $limit = 1): iterable
     {
         return $this->createQueryBuilder()
@@ -98,9 +89,6 @@ class Survey extends CRUDRepository implements Repository\Survey
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function averageSurveyDuringLastYear(array $collectivities = [])
     {
         $sql = 'SELECT AVG(a.rcount) FROM (
@@ -127,9 +115,6 @@ class Survey extends CRUDRepository implements Repository\Survey
         return $stmt->fetchColumn();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllByCollectivities(array $collectivities, array $order = [], int $limit = null): iterable
     {
         $qb = $this->createQueryBuilder();
@@ -157,9 +142,6 @@ class Survey extends CRUDRepository implements Repository\Survey
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllLate(): array
     {
         $now       = new \DateTime();

@@ -73,9 +73,6 @@ class ContractorGenerator extends AbstractGenerator
         $this->security               = $security;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function initializeExtract(): array
     {
         $this->yes = $this->translator->trans('label.yes');

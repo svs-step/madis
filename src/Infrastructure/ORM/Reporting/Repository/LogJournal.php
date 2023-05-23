@@ -16,9 +16,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class LogJournal extends CRUDRepository implements Repository\LogJournal
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\LogJournal::class;

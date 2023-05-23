@@ -88,8 +88,6 @@ class Proof implements Repository\Proof
     /**
      * Insert an object.
      *
-     * @param mixed $object
-     *
      * @throws \Exception
      */
     public function insert($object): void
@@ -101,8 +99,6 @@ class Proof implements Repository\Proof
     /**
      * Update an object.
      *
-     * @param mixed $object
-     *
      * @throws \Exception
      */
     public function update($object): void
@@ -112,8 +108,6 @@ class Proof implements Repository\Proof
 
     /**
      * Create an object.
-     *
-     * @return mixed
      */
     public function create()
     {
@@ -124,8 +118,6 @@ class Proof implements Repository\Proof
 
     /**
      * Remove an object.
-     *
-     * @param mixed $object
      *
      * @throws \Exception
      */
@@ -218,8 +210,6 @@ class Proof implements Repository\Proof
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findAllByCollectivity(Collectivity $collectivity, bool $deleted = false, array $order = [])
@@ -243,8 +233,6 @@ class Proof implements Repository\Proof
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findBy(array $criteria = [])
@@ -262,8 +250,6 @@ class Proof implements Repository\Proof
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findAllArchivedByCollectivity(Collectivity $collectivity, bool $archived = false, array $order = [])
@@ -280,9 +266,6 @@ class Proof implements Repository\Proof
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findOneOrNullByTypeAndCollectivity(string $type, Collectivity $collectivity): ?Model\Proof
     {
         $qb = $this->createQueryBuilder();
@@ -299,9 +282,6 @@ class Proof implements Repository\Proof
         return $qb->getQuery()->getOneOrNullResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function countAllByCollectivity(Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
@@ -313,9 +293,6 @@ class Proof implements Repository\Proof
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function averageProofFiled(array $collectivities = [])
     {
         $sql = 'SELECT AVG(a.rcount) FROM (
@@ -342,9 +319,6 @@ class Proof implements Repository\Proof
         return $stmt->fetchColumn();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function averageBalanceSheetProof(array $collectivities = [])
     {
         $sql = 'SELECT AVG(a.rcount) FROM (

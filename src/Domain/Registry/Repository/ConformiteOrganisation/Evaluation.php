@@ -9,8 +9,6 @@ interface Evaluation extends CRUDRepositoryInterface
 {
     /**
      * @param Collectivity|array|null $organisation
-     *
-     * @return mixed
      */
     public function findAllByActiveOrganisationWithHasModuleConformiteOrganisationAndOrderedByDate($organisation = null);
 

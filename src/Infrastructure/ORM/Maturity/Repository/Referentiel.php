@@ -36,9 +36,6 @@ class Referentiel extends CRUDRepository implements Repository\Referentiel
 {
     use RepositoryUtils;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Referentiel::class;

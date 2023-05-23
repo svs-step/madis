@@ -8,8 +8,6 @@ trait RepositoryUtils
 {
     /**
      * Add a where clause to query.
-     *
-     * @param mixed $value
      */
     protected function addWhereClause(QueryBuilder $qb, string $key, $value, $operator = '='): QueryBuilder
     {

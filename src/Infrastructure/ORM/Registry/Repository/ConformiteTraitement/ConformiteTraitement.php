@@ -31,17 +31,11 @@ use App\Domain\User\Model\Collectivity;
 
 class ConformiteTraitement extends CRUDRepository implements Repository\ConformiteTraitement\ConformiteTraitement
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\ConformiteTraitement\ConformiteTraitement::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllByCollectivity(Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();

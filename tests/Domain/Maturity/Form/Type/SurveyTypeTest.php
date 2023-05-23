@@ -31,6 +31,7 @@ use App\Tests\Utils\FormTypeHelper;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SurveyTypeTest extends FormTypeHelper
@@ -45,8 +46,8 @@ class SurveyTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'answers'     => EntityType::class,
             'referentiel' => EntityType::class,
+            'questions'   => CollectionType::class,
         ];
 
         $survey = new Survey();

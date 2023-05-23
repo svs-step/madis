@@ -110,10 +110,10 @@ class NotificationsSendCommand extends Command
             }
 
             if (
-                !$prefs ||
-                !$prefs->getEnabled() ||
-                EmailNotificationPreference::FREQUENCY_NONE == $prefs->getFrequency() ||
-                0 === $prefs->getNotificationMask()
+                !$prefs
+                || !$prefs->getEnabled()
+                || EmailNotificationPreference::FREQUENCY_NONE == $prefs->getFrequency()
+                || 0 === $prefs->getNotificationMask()
             ) {
                 // Exit if user has email notifications disabled
                 $output->writeln('User ' . $mail . ' has disabled notifications');

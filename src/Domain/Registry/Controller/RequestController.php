@@ -96,41 +96,26 @@ class RequestController extends CRUDController
         $this->router               = $router;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'request';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Request::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return RequestType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getListData()
     {
         $request  = $this->requestStack->getMasterRequest();
@@ -146,9 +131,6 @@ class RequestController extends CRUDController
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function isSoftDelete(): bool
     {
         return true;
@@ -283,8 +265,8 @@ class RequestController extends CRUDController
     private function getLinkForPersonneConcernee(Model\Request $demande)
     {
         $link = '<a href="' . $this->router->generate('registry_request_show', ['id' => $demande->getId()]) . '">';
-        if ($demande->getApplicant()->isConcernedPeople() ||
-            ' ' === $demande->getConcernedPeople()->getFullName()) {
+        if ($demande->getApplicant()->isConcernedPeople()
+            || ' ' === $demande->getConcernedPeople()->getFullName()) {
             $link .= $demande->getApplicant()->getFullName();
         } else {
             $link .= $demande->getConcernedPeople()->getFullName();

@@ -36,17 +36,11 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
 {
     use RepositoryUtils;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Collectivity::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findByIds(array $ids): array
     {
         $qb = $this->createQueryBuilder();
@@ -59,10 +53,7 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function findByTypes(array $types, ?Model\Collectivity $excludedCollectivity = null): array
+    public function findByTypes(array $types, Model\Collectivity $excludedCollectivity = null): array
     {
         $qb = $this->createQueryBuilder();
 
@@ -81,9 +72,6 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllActive(bool $active = true, array $order = [])
     {
         $qb = $this->createQueryBuilder();

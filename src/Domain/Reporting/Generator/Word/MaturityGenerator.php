@@ -145,9 +145,6 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $cell->addText("{$data['new']}", ['align' => 'right', 'color' => '3c8dbc']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addSyntheticView(Section $section, array $data): void
     {
         $maturityList = [];
@@ -218,9 +215,6 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $section->addPageBreak();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail', 1);

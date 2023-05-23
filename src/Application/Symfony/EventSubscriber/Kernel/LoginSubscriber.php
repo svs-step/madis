@@ -68,9 +68,6 @@ class LoginSubscriber implements EventSubscriberInterface
         $this->logJournalDuration   = $logJournalDuration;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents()
     {
         return [

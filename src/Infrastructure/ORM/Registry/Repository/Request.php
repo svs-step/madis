@@ -92,8 +92,6 @@ class Request implements Repository\Request
     /**
      * Insert an object.
      *
-     * @param mixed $object
-     *
      * @throws \Exception
      */
     public function insert($object): void
@@ -105,8 +103,6 @@ class Request implements Repository\Request
     /**
      * Update an object.
      *
-     * @param mixed $object
-     *
      * @throws \Exception
      */
     public function update($object): void
@@ -116,8 +112,6 @@ class Request implements Repository\Request
 
     /**
      * Create an object.
-     *
-     * @return mixed
      */
     public function create()
     {
@@ -129,8 +123,6 @@ class Request implements Repository\Request
     /**
      * Remove an object.
      *
-     * @param mixed $object
-     *
      * @throws \Exception
      */
     public function remove($object): void
@@ -139,9 +131,6 @@ class Request implements Repository\Request
         $this->getManager()->flush();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAll(bool $deleted = false): array
     {
         $qb = $this->createQueryBuilder();
@@ -158,9 +147,6 @@ class Request implements Repository\Request
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findOneById(string $id)
     {
         return $this->registry
@@ -213,8 +199,6 @@ class Request implements Repository\Request
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findAllByCollectivity(Collectivity $collectivity, bool $deleted = false, array $order = [])
@@ -238,8 +222,6 @@ class Request implements Repository\Request
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findBy(array $criteria = [])
@@ -257,8 +239,6 @@ class Request implements Repository\Request
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findAllArchived(bool $archived = false, array $order = [])
@@ -275,8 +255,6 @@ class Request implements Repository\Request
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findAllArchivedByCollectivity(Collectivity $collectivity, bool $archived = false, array $order = [])
@@ -293,9 +271,6 @@ class Request implements Repository\Request
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function countAllByCollectivity(Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
@@ -306,9 +281,6 @@ class Request implements Repository\Request
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findOneOrNullLastUpdateByCollectivity(Collectivity $collectivity): ?Model\Request
     {
         $qb = $this->createQueryBuilder();
@@ -470,9 +442,6 @@ class Request implements Repository\Request
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllLate(): array
     {
         $now       = new \DateTime();

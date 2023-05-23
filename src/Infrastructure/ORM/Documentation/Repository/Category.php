@@ -30,9 +30,6 @@ use App\Domain\Documentation\Repository;
 
 class Category extends CRUDRepository implements Repository\Category
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Category::class;
