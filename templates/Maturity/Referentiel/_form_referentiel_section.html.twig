@@ -1,6 +1,6 @@
 {% import _self as formMacros %}
 {% macro printQuestionRow(question) %}
-    <li class="col-md-12">
+    <li class="col-md-12 question-item">
         {%  include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': question} %}
     </li>
 {% endmacro %}

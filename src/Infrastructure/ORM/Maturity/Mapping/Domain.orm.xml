@@ -16,6 +16,7 @@
         <one-to-many field="questions" target-entity="App\Domain\Maturity\Model\Question" mapped-by="domain">
             <cascade>
                 <cascade-persist/>
+                <cascade-remove/>
             </cascade>
         </one-to-many>
         <one-to-many field="maturity" target-entity="App\Domain\Maturity\Model\Maturity" mapped-by="domain">
@@ -23,7 +24,9 @@
                 <cascade-persist/>
             </cascade>
         </one-to-many>
-        <many-to-one field="referentiel" target-entity="App\Domain\Maturity\Model\Referentiel" inversed-by="domains"/>
+        <many-to-one field="referentiel" target-entity="App\Domain\Maturity\Model\Referentiel" inversed-by="domains">
+            <join-column on-delete="CASCADE"/>
+        </many-to-one>
     </entity>
 
 </doctrine-mapping>

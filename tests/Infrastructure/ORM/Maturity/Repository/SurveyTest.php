@@ -93,7 +93,7 @@ class SurveyTest extends TestCase
     public function testFindAllByCollectivity()
     {
         $collectivity = new Collectivity();
-        $referentiel = new Model\Referentiel();
+        $referentiel  = new Model\Referentiel();
         $orderKey     = 'key';
         $orderDir     = 'asc';
         $results      = ['dummyResult'];

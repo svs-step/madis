@@ -21,6 +21,7 @@
         <one-to-many field="domains" target-entity="App\Domain\Maturity\Model\Domain" mapped-by="referentiel">
             <cascade>
                 <cascade-persist/>
+                <cascade-remove/>
             </cascade>
         </one-to-many>
         <one-to-many field="maturity" target-entity="App\Domain\Maturity\Model\Maturity" mapped-by="referentiel"/>

@@ -43,7 +43,8 @@ class AnswerType extends AbstractType
                 'label'    => 'maturity.referentiel.form.answer.name',
                 'required' => true,
                 'attr'     => [
-                'maxlength' => 255,
+                    'maxlength' => 255,
+                    'required'  => 'required',
                 ],
             ])
             ->add('recommendation', TextType::class, [

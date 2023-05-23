@@ -21,20 +21,15 @@
                 <div class="box-header with-border">
                     <i class="fas fa-ellipsis-v" style="padding: 0 0.5em 0 0.4em; cursor: grab"></i>
                     {{ index }}.{{ section.vars['value'] ? section.vars['value'].name : 'Nouvelle section' }}
-                    <div  style="float:right;padding: 0 1em">
-                    <a href="#section_{{ index }}" class="box-link" data-toggle="collapse"><i class="fa fa-plus"></i></a>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: none">
-                                <i class="fa fa-cog"></i> <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </div>
+                    <a href="#section_{{ index }}" class="box-link btn btn-default " data-toggle="collapse" style="float:right;border:none"><i class="fa fa-plus"></i></a>
+                    <div class="btn-group" style="float:right;padding: 0 1em">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: none">
+                            <i class="fa fa-cog"></i> <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" style="left: -100px;">
+                            <li><a href="#" style="color: #777" class="delete-section"><i class="fa fa-trash"></i> Supprimer</a></li>
+                            <li><a href="#" style="color: #777" class="duplicate-section"><i class="fa fa-clone"></i> Dupliquer</a></li>
+                        </ul>
                     </div>
                 </div>
                 <div class="collapse section" id="section_{{ index }}">

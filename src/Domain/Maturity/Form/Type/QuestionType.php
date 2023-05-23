@@ -48,7 +48,7 @@ class QuestionType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'maturity.referentiel.form.question_name',
-                'required' => false,
+                'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
