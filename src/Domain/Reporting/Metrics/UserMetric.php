@@ -267,7 +267,7 @@ class UserMetric implements MetricInterface
         }
 
         // MATURITY
-        if (isset($maturity[0])) {
+        if (isset($maturity[0]) && $maturity[0]->getReferentiel() !== null) {
             $data['maturity']['new']['name'] = $maturity[0]->getCreatedAt()->format('d/m/Y');
             foreach ($maturity[0]->getMaturity() as $item) {
                 $data['maturity']['new']['data'][$item->getDomain()->getPosition()]['name']  = $item->getDomain()->getName();
@@ -275,7 +275,7 @@ class UserMetric implements MetricInterface
             }
             \ksort($data['maturity']['new']['data']);
         }
-        if (isset($maturity[1])) {
+        if (isset($maturity[1]) && $maturity[0]->getReferentiel() !== null) {
             $data['maturity']['old']['name'] = $maturity[1]->getCreatedAt()->format('d/m/Y');
             foreach ($maturity[1]->getMaturity() as $item) {
                 $data['maturity']['old']['data'][$item->getDomain()->getPosition()]['name']  = $item->getDomain()->getName();
