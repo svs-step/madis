@@ -161,11 +161,7 @@ class SurveyController extends CRUDController
      */
     public function createMaturitySurveyAction(Request $request): Response
     {
-        /**
-         * @var Model\Survey $object
-         */
-        $modelClass = $this->getModelClass();
-        $object     = new $modelClass();
+        $object = new Model\Survey();
 
         /** @var Model\Referentiel $referentiel */
         $referentiel = $this->entityManager->getRepository(Model\Referentiel::class)->findOneBy([
