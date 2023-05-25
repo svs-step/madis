@@ -35,6 +35,7 @@ use App\Domain\Maturity\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializerBuilder;
 use Knp\Snappy\Pdf;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -404,7 +405,7 @@ class ReferentielController extends CRUDController
         }
         /** @var Model\Referentiel $toExport */
         $toExport = clone $object;
-        
+
         $serializer = SerializerBuilder::create()->build();
         $xml        = $serializer->serialize($toExport, 'xml');
 
@@ -428,30 +429,12 @@ class ReferentielController extends CRUDController
             $serializer = SerializerBuilder::create()->build();
             /** @var Model\Referentiel $object */
             $object = $serializer->deserialize($content, Model\Referentiel::class, 'xml');
-            dd($object);
             $object->deserialize();
-            $domains = [];
-            foreach ($object->getDomains() as $domain) {
-                /** @var Model\Domain $domain */
-                $questions = [];
-                foreach ($domain->getQuestions() as $question) {
-                    // Check if this mesure already exists
-                    $mm = $this->entityManager->find(Model\Question::class, $question->getId());
-                    if ($mm) {
-                        $questions[] = $mm;
-                    } else {
-                        // If not, save it now
-                        $this->entityManager->persist($question);
-                        $questions[] = $question;
-                    }
-                }
-                $domain->setQuestions($questions);
-                $domains[] = $domain;
-            }
+            // dd($object);
+            //$object->setDomains($domain);
 
-            $object->setDomains($domain);
             $object->setCreatedAt(new \DateTimeImmutable());
-            $object->setNom('(import) ' . $object->getNom());
+            $object->setName('(import) ' . $object->getName());
             $this->entityManager->persist($object);
             $this->entityManager->flush();
             $this->addFlash('success', $this->getFlashbagMessage('success', 'import', $object));

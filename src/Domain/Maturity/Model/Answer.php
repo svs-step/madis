@@ -80,6 +80,11 @@ class Answer
         $this->recommendation = '';
     }
 
+    public function deserialize(): void
+    {
+        $this->id = Uuid::uuid4();
+    }
+
     public function getId(): UuidInterface
     {
         return $this->id;

@@ -41,11 +41,7 @@ class Domain
      */
     private $id;
 
-    /**
-     * @var string|null
-     *
-     */
-    private $name;
+    private string $name;
 
     /**
      * @var string|null
@@ -53,28 +49,13 @@ class Domain
      */
     private $description;
 
-    /**
-     * @var string|null
-     *
-     */
-    private $color;
+    private string $color;
 
-    /**
-     * @var int|null
-     *
-     */
-    private $position;
+    private int $position;
 
-    /**
-     * @var Collection
-     *
-     */
-    public $questions;
-    /**
-     * @var iterable
-     *
-     */
-    private $maturity;
+    public Question $questions;
+
+    private Maturity $maturity;
 
     /**
      * @var Referentiel
@@ -104,6 +85,17 @@ class Domain
             $questions[] = clone $question;
         }
         $this->questions = $questions;
+    }
+
+    public function deserialize(): void
+    {
+        $this->id = Uuid::uuid4();
+        foreach ($this->questions as $question) {
+            if (isset($question)){
+                $question->deserialize();
+            }
+        }
+
     }
 
     public function getId(): UuidInterface
@@ -157,7 +149,7 @@ class Domain
         $this->questions->removeElement($question);
     }
 
-    public function getQuestions(): iterable
+    public function getQuestions(): Question
     {
         return $this->questions;
     }

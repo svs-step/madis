@@ -98,6 +98,15 @@ class Question
         $this->answers = $answers;
     }
 
+    public function deserialize(): void
+    {
+        $this->id = Uuid::uuid4();
+        if(isset($this->answers))
+        foreach ($this->answers as $answer) {
+            $answer->deserialize();
+        }
+    }
+
     public function getId(): UuidInterface
     {
         return $this->id;

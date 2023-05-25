@@ -114,6 +114,17 @@ class Referentiel
         $this->domains = $domains;
     }
 
+    public function deserialize(): void
+    {
+        $this->id = Uuid::uuid4();
+
+        if (isset($this->domains)){
+            foreach ($this->domains as $domain) {
+                $domain->deserialize();
+            }
+        }
+    }
+
     public function __toString(): string
     {
         if (\is_null($this->getName())) {
