@@ -1,6 +1,6 @@
 ![Madis](images/Madis-Logo.png)
 
-# Généralités
+# Présentation
 
 Madis est une application web OpenSource conçue par [Soluris](https://www.soluris.fr/) pour accompagner les structures à la mise en œuvre de leur conformité au RGPD.
 
@@ -22,6 +22,8 @@ Par défaut, les règles de sécurité du mot de passe sont les suivantes :
 * Au moins un chiffre et un caractère spécial.
 
 La case à cocher « **Se souvenir de moi** » permet de mémoriser la session dans le navigateur.
+
+``À noter : Si le module de délégation de l'authentification est actif, une autre méthode d'authentification sera possible lors de la connexion.``
 
 ## Tableau de bord
 
@@ -54,7 +56,7 @@ Il est possible de naviguer dans les différentes pages :
 * Le menu « **Indice de maturité** » permet d'accéder à la gestion de l’évolution de la mise en conformité et de l'évaluer ;
 * Le menu « **Générer un bilan** » permet de générer le bilan synthétisant l'ensemble des éléments renseignés dans Madis au format Word ;
 * Le menu « **Espace documentaire** » permet de consulter toutes les ressources mises à disposition par le DPD ;
-* Le menu « **Ma collectivité** » permet de modifier les informations de la structure ;
+* Le menu « **Ma structure** » permet de modifier les informations de la structure ;
 * Le menu « **Mon compte** » permet de modifier les informations du compte (prénom, nom, email, mot de passe). **L'adresse mail renseignée ne doit pas déjà avoir été utilisée par un autre compte**.
 
 ![Menu Madis](images/Madis-Navigation-Menu-Desktop.png)
@@ -67,7 +69,7 @@ Dans le bandeau d'en-tête, le nom d'utilisateur et le rôle sont affichés et p
 
 ![Accès à la déconnexion](images/Madis-Navigation-Profil-Deconnexion.png)
 
-Dans les différents registres et pages de Madis, il est possible de visualiser les informations d'un élément en cliquant sur son nom. Lors de la consultation de celui-ci, il est possible de consulter la liste des éléments associés. Un bouton d'action « Imprimer » permet d'imprimer les informations au format PDF.
+Dans les différents registres et pages de Madis, il est possible de visualiser les informations d'un élément en cliquant sur son nom. Lors de la consultation de celui-ci, il est possible de consulter la liste des éléments associés. Un bouton d'action « **Imprimer** » permet d'imprimer les informations au format PDF.
 
 ![Visualiser un traitement](images/Madis-Visualiser-Un-Traitement.png)
 
@@ -97,13 +99,13 @@ D'une manière générale dans Madis, lorsque le nombre d'éléments à afficher
 
 Dans les formulaires, les champs précédés d’un astérisque « * » sont obligatoires.
 
-## Paramétrage : Ma collectivité
+## Paramétrage : Ma structure
 
-Le menu « **Ma collectivité** » permet de modifier les informations de la structure.
+Le menu « **Ma structure** » permet de modifier les informations de la structure.
 
-(Seul un administrateur peut modifier les informations générales et l’adresse.)
+``À noter : À l'exception du nombre de salariés ou de la population, seul un administrateur peut modifier les informations générales et l’adresse.``
 
-![Visualiser une structure](images/Madis-Visualiser-Une-Structure.png)
+![Visualiser ma structure](images/Madis-Visualiser-Ma-Structure.png)
 
 Il est possible de modifier les différents acteurs intervenants dans la mise en conformité (référent opérationnel, responsable de traitement, responsable informatique). Ces informations seront reprises dans le bilan.
 
@@ -127,6 +129,20 @@ L'élément « **Liste des utilisateurs** » permet de prendre connaissance des 
 Le menu « **Mon compte** » permet de modifier les informations du compte (prénom, nom, email, mot de passe) ainsi que d'afficher les droits. **L'adresse mail renseignée ne doit pas déjà avoir été utilisée par un autre compte**.
 
 ![Mon profil](images/Madis-Mon-Profil.png)
+
+### Délégation de l'authentification (SSO)
+
+Ce module permet de paramétrer Madis pour qu’il délègue son authentification à un système tiers.
+
+Le module de délégation de l'authentification (SSO) est optionnel et peut être activé pour l'ensemble de Madis par le DPD (compte administrateur). Consulter l'[activation du module de délégation de l'authentification (SSO)](#activation-du-module-de-delegation-de-lauthentification-(sso)) pour plus d'information.
+
+L’activation du module ajoute une nouvelle méthode d'authentification lors de la connexion ainsi que des éléments de paramétrage dans son profil permettant d'associer le compte à la délégation.
+
+![Page de connexion avec le module SSO](images/Madis-Connexion-SSO.png)
+
+Pour utiliser cette méthode d'authentification, il est nécessaire d'associer son compte à un fournisseur d'identité en cliquant depuis son profil sur « **Associer le compte** ».
+
+![Mon profil](images/Madis-Mon-Profil-SSO.png)
 
 # Les registres
 
@@ -169,14 +185,14 @@ Dans les informations générales, il est possible de renseigner les éléments 
 
 * **Nom** : Intitulé du traitement ;
 * **Finalités** : Précise l'objectif du traitement et ses fonctions. Par exemple, pour une activité de formation des personnels, il peut être renseigné : « Suivi des demandes et des périodes de formations effectuées, organisation des sessions et évaluation des connaissances » ;
-* **En tant que** : Précise si le traitement est effectué en tant que **[responsable de traitement](#Responsable-de-traitement)**, en tant que **[sous-traitant](#Sous-traitant)** ou lorsque la **[responsabilité est conjointe](#Responsables-conjoints)**. Selon le choix, il est possible de renseigner ses coordonnées ;
+* **En tant que** : Précise si le traitement est effectué en tant que **[responsable de traitement](#responsable-de-traitement)**, en tant que **[sous-traitant](#sous-traitant)** ou lorsque la **[responsabilité est conjointe](#responsables-conjoints)**. Selon le choix, il est possible de renseigner ses coordonnées ;
 * **Gestionnaire** : Personne(s) ou service qui gère le traitement. Peut-être différent du responsable de traitement ou du référent opérationnel ;
 * **Statut** : Le statut actif est coché par défaut. Un traitement inactif n'apparaît pas dans le registre des traitements ni dans le bilan ;
 * **Base légale** : Liste des bases légales énumérées dans le RGPD. Il est possible de positionner la base légale sur « **À déterminer** » si la base légale n'est pas connue au moment de la création du traitement ;
 * **Justification de la base légale** : Toute base légale doit être justifiée grâce à des références de texte réglementaire (Exemple CGCT). Par exemple, pour le consentement, il faut avoir l'accord écrit de la personne concernée. Il est également possible d'indiquer le texte réglementaire permettant de justifier le choix du délai de conservation ;
 * **Observations** : Toute précision complémentaire sur la tenue de ce traitement ;
 * **Préconisations DPO** : Champ affiché uniquement aux DPD permettant de préciser toute préconisation à destination de la structure. Si ce champ est renseigné, une zone de préconisation DPD apparaîtra lors de la visualisation d'un traitement ;
-* **Registre public** : Rend visible le traitement dans une page non authentifiée à destination du grand public. Les champs affichés sont ceux [paramétrés par le DPD](#Registre-Public).
+* **Registre public** : Rend visible le traitement dans une page non authentifiée à destination du grand public. Les champs affichés sont ceux [paramétrés par le DPD](#registre-public).
 
 Ci-après un exemple d’informations générales pré-rempli :
 
@@ -207,6 +223,7 @@ Dans la destination, il est possible de renseigner les éléments suivants :
 #### Traitement spécifique
 
 Un ou plusieurs traitements spécifiques vont peut-être conditionner une analyse d’impact, notamment s‘ils sont croisés avec des données sensibles. Il est possible de renseigner les éléments suivants :
+* **Est exempté d'AIPD** : Si le traitement est exempté, il n'y aura pas d'indication alertant de la nécessité de réaliser une AIPD. Il est cependant toujours possible d'en réaliser une si souhaité ;
 * **Surveillance systématique de personnes** : Par exemple, télésurveillance... ;
 * **Collecte à large échelle** : Vise à traiter un volume considérable de données à caractère personnel, par exemple au niveau régional... ;
 * **Personnes vulnérables** : Personnes âgées, enfant de moins de 15 ans, personne en situation de handicap, patients, employés... ;
@@ -227,7 +244,10 @@ Dans les détails, il est possible de renseigner les éléments suivants :
 * **Délai de conservation** : Le délai de conservation indiqué est le délai réel mis en œuvre par la structure. Si le délai est calculé, préciser les critères utilisés pour déterminer le délai de conservation (Exemple : 3 ans à compter de la fin de la relation contractuelle) ;
 * **Sort final** : Sort final appliqué à l'issue du traitement ;
 * **Origine des données** : Données provenant d'un tiers (CAF, Société, ...) ou de la personne concernée directement ;
-* **Moyens de la collecte** : Moyen utilisé pour collecter les données à caractère personnel.
+* **Moyens de la collecte** : Moyen utilisé pour collecter les données à caractère personnel ;
+* **Mentions légales apposées** : Si les mentions légales sont indiqués ;
+* **Consentement demandé** : Si le consentement est demandé ;
+* **Format de la demande du consentement**.
 
 #### Mesures de sécurité et confidentialité
 
@@ -257,6 +277,8 @@ Il est possible d'effectuer plusieurs actions :
 - « **+ Nouveau sous-traitant** » permet d'ajouter un nouveau sous-traitant ;
 - « **Générer une impression** » permet de générer le registre des sous-traitants au format Word ;
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
+- « **Supprimer** » permet de supprimer les éléments filtrés dans l'affichage. **Cette action est irréversible** ;
+- « **Imprimer** » permet de générer les éléments filtrés dans l'affichage au format PDF ;
 - « **Modifier** » permet de modifier les informations d'un traitement ;
 - « **Supprimer** » permet de supprimer définitivement le traitement. **Cette action est irréversible**.
 
@@ -297,6 +319,7 @@ Dans les coordonnées, il est possible de renseigner les éléments suivants :
 * **Compl. adresse** ;
 * **Code postal** ;
 * **Ville** ;
+* **Pays** ;
 * **Email** ;
 * **N° de tel**.
 
@@ -311,6 +334,7 @@ Il est possible d'effectuer plusieurs actions :
 - « **+ Nouvelle demande** » permet d'ajouter une nouvelle demande ;
 - « **Générer une impression** » permet de générer le registre des demandes au format Word ;
 - « **Voir les traitements archivés** » permet d'accéder aux demandes archivées. Une demande archivée n'apparaît pas dans le registre des demandes ni dans le bilan ;
+- « **Imprimer** » permet de générer les éléments filtrés dans l'affichage au format PDF ;
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
 - « **Modifier** » permet de modifier les informations d'une demande ;
 - « **Archiver** » permet d'archiver une demande. Une demande archivée n'apparaît pas dans le registre des demandes ni dans le bilan.
@@ -359,11 +383,11 @@ Dans le demandeur, il est possible de renseigner les éléments suivants :
 * **Email** ;
 * **N° de téléphone** ;
 
-Par défaut, la case « **Est la personne concernée** » est cochée, cependant, dans le cas où le demandeur est différent de la personne concernée, il faut la décocher et compléter les coordonnées de l'élément « [**Personne concernée**](#Personne-concernée) ».
+Par défaut, la case « **Est la personne concernée** » est cochée, cependant, dans le cas où le demandeur est différent de la personne concernée, il faut la décocher et compléter les coordonnées de l'élément « [**Personne concernée**](#personne-concernee) ».
 
 #### Personne concernée
 
-Dans le cas où le demandeur serait différent de la personne concernée, il faut décocher la case « **Est la personne concernée** » présente dans l'élément « [**Demandeur**](#Demandeur) » et compléter ses coordonnées.
+Dans le cas où le demandeur serait différent de la personne concernée, il faut décocher la case « **Est la personne concernée** » présente dans l'élément « [**Demandeur**](#demandeur) » et compléter ses coordonnées.
 
 #### Traitements associés
 
@@ -382,6 +406,7 @@ Il est possible d'effectuer plusieurs actions :
 - « **+ Nouvelle violation** » permet d'ajouter une nouvelle violation ;
 - « **Générer une impression** » permet de générer le registre des violations au format Word ;
 - « **Voir les violations archivées** » permet d'accéder aux violations archivées. Une violation archivée n'apparaît pas dans le registre des violations ni dans le bilan ;
+- « **Imprimer** » permet de générer les éléments filtrés dans l'affichage au format PDF ;
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
 - « **Modifier** » permet de modifier les informations d'une violation ;
 - « **Archiver** » permet d'archiver une violation. Une violation archivée n'apparaît pas dans le registre des violations ni dans le bilan.
@@ -428,6 +453,10 @@ Dans les conséquences de la violation, il est possible de renseigner les élém
 #### Traitements associés
 
 Il est possibilité d'associer une violation à un ou plusieurs traitements.
+
+#### Sous-traitants associés
+
+Il est possibilité d'associer une violation à un ou plusieurs sous-traitants.
 
 # Gestion de la preuve
 
@@ -488,6 +517,8 @@ Il est possible d'effectuer plusieurs actions :
 
 - « **+ Nouvelle action** » permet d'ajouter une nouvelle action ;
 - « **Générer une impression** » permet de générer le registre des actions de protection au format Word ;
+- « **Supprimer** » permet de supprimer les éléments filtrés dans l'affichage. **Cette action est irréversible** ;
+- « **Imprimer** » permet de générer les éléments filtrés dans l'affichage au format PDF ;
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
 - « **Modifier** » permet de modifier les informations d'une action de protection ;
 - « **Supprimer** » permet de supprimer définitivement l'action de protection. **Cette action est irréversible**.
@@ -518,7 +549,7 @@ Dans les informations générales, il est possible de renseigner les éléments 
 Dans l'application, il est possible de renseigner les éléments suivants :
 
 * **Statut** : Statut de l'action de protection. Une fois l'action entièrement réalisée, il faudra passer le statut de « **Non appliquée** » à « **Appliquée** ». Une action non réalisable doit avoir le statut « **Non applicable** » ;
-* **Planification** : Date prévisionnelle de l'action pour la planifier. Si le statut de l'action de protection est « **Non appliquée** » et qu'elle est planifiée, elle apparaîtra alors dans le [plan d'actions](#Plan-d’actions) ;
+* **Échéance** : Date d'échéance de l'action pour la planifier. Si le statut de l'action de protection est « **Non appliquée** » et qu'elle est planifiée, elle apparaîtra alors dans le [plan d'actions](#plan-dactions) ;
 * **Observations** : Toute précision complémentaire sur la planification de l'action.
 
 ### Éléments liés
@@ -529,7 +560,7 @@ Il est possible d'associer une action de protection à un ou plusieurs élément
 
 Le menu « **Plan d'actions** » permet de consulter la liste des actions de protection planifiées. Le plan d’actions recense l’ensemble des mesures planifiées permettant de budgétiser et d'évaluer les charges en jour/homme.
 
-Un plan d'actions reflète les décisions prises dans le but d’améliorer la mise en conformité au RGPD. Pour aiguiller dans l’élaboration de celui-ci, il est possible de s'appuyer sur les thèmes prioritaires mis en exergue suite à la réalisation de l'[indice de maturité](#Indice-de-maturité) de la structure.
+Un plan d'actions reflète les décisions prises dans le but d’améliorer la mise en conformité au RGPD. Pour aiguiller dans l’élaboration de celui-ci, il est possible de s'appuyer sur les thèmes prioritaires mis en exergue suite à la réalisation de l'[indice de maturité](#indice-de-maturite) de la structure.
 
 ![Plan d'actions](images/Madis-Plan-D-Actions.png)
 
@@ -540,13 +571,13 @@ Il est possible d'effectuer plusieurs actions :
 
 ``Astuce : Il est possible de trier les actions par date/coût/charge...``
 
-Pour ajouter une action au plan d'actions, il faut aller dans la [liste des actions de protection](#Les-actions-de-protection) et passer le **statut de l'action** en question en « **Non appliquée** » et renseigner une **date prévisionnelle**.
+Pour ajouter une action au plan d'actions, il faut aller dans la [liste des actions de protection](#les-actions-de-protection) et passer le **statut de l'action** en question en « **Non appliquée** » et renseigner une **date prévisionnelle**.
 
 # Indice de maturité
 
 Le menu « **Indice de maturité** » permet de consulter la liste des indices de maturité et d'en ajouter. Cette liste recense la progression du niveau de maturité de la structure.
 
-L’indice de maturité est une suite de questions, classées par thématiques permettant de suivre l’évolution de la mise en conformité de la structure. Outil d’aide à la décision, il permet ainsi de mettre en exergue les thèmes prioritaires à développer. Il est le repère indispensable pour aiguiller dans l’élaboration du [plan d'actions](#Plan-d’actions).
+L’indice de maturité est une suite de questions, classées par thématiques permettant de suivre l’évolution de la mise en conformité de la structure. Outil d’aide à la décision, il permet ainsi de mettre en exergue les thèmes prioritaires à développer. Il est le repère indispensable pour aiguiller dans l’élaboration du [plan d'actions](#plan-dactions).
 
 ![Liste des indices de maturité](images/Madis-Liste-Des-Indices-De-Maturite.png)
 
@@ -581,7 +612,7 @@ Le menu « **Générer un bilan** » permet de générer le bilan de la structur
 
 Ce dernier synthétise l’ensemble des éléments renseignés dans Madis, du recensement des traitements, aux actions de protection en place et à planifier...
 
-**Le bilan généré peut être déposé dans les [preuves](#Gestion-de-la-preuve).**
+**Le bilan généré peut être déposé dans les [preuves](#gestion-de-la-preuve).**
 
 ![Générer un bilan](images/Madis-Generer-Un-Bilan.png)
 
@@ -610,7 +641,7 @@ Dans chaque module, un bouton « **Ressources utiles** » permet d'accéder aux 
 
 Ce module permet, par itération successive, de faire tendre les traitements vers leur conformité complète. L'évaluation d'un traitement doit être réalisée régulièrement, tout au long de l'année, pour gérer l'avancée de la mise en conformité des traitements au RGPD.
 
-Le module conformité des traitements est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module conformité des traitements](#Activation-du-module-conformité-des-traitements) pour plus d'information.
+Le module conformité des traitements est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module conformité des traitements](#activation-du-module-conformite-des-traitements) pour plus d'information.
 
 L'activation du module ajoute l'élément « **Conformité des traitements** » dans le menu ainsi que l'indicateur sur le tableau de bord de la structure de la proportion de conformité des traitements.
 
@@ -620,7 +651,7 @@ De plus, l'activation du module ajoute l'élément « **Évaluation de la confor
 
 ![Évaluation de la conformité du traitement dans la visualisation du traitement](images/Madis-Visualiser-Un-Traitement-Conformite-Du-Traitement.png)
 
-Enfin, l'activation du module activera le module AIPD. Consulter le [module AIPD](#Module-AIPD) pour plus d'information.
+Enfin, l'activation du module activera le module AIPD. Consulter le [module AIPD](#module-aipd) pour plus d'information.
 
 ## Conformité des traitements
 
@@ -632,7 +663,7 @@ Il est possible d'effectuer plusieurs actions :
 
 - « **Générer une impression** » permet de générer le diagnostic de la conformité des traitements au format Word ;
 - « **Évaluer** » permet de procéder à l'évaluation du traitement ;
-- « **Réaliser une AIPD** » ou « **Modifier l'AIPD** » permet de réaliser ou de modifier l’[instruction d’une AIPD](#Instruction-d’un-dossier-d’AIPD) pour le traitement.
+- « **Réaliser une AIPD** » ou « **Modifier l'AIPD** » permet de réaliser ou de modifier l’[instruction d’une AIPD](#instruction-dun-dossier-daipd) pour le traitement.
 
 Un traitement évalué peut être :
 
@@ -678,7 +709,7 @@ Pour chacun de ces critères, il est possible de dire si le traitement est confo
 
 ``À noter : Il est important que les actions choisies soient planifiées. Un critère ayant une action non planifiée sera considéré comme non-conforme majeure.``
 
-Une fois les actions de protection planifiées et affectées aux différents points non-conformes, le [plan d'actions](#Plan-d’actions) permet de les mettre en œuvre et de suivre leur réalisation.
+Une fois les actions de protection planifiées et affectées aux différents points non-conformes, le [plan d'actions](#plan-dactions) permet de les mettre en œuvre et de suivre leur réalisation.
 
 #### Modifier un traitement
 
@@ -710,11 +741,11 @@ Ce module permet, par itération successive, de faire tendre l'ensemble de la st
 
 Les obligations décrites dans le RGPD et ses lignes directrices sont réparties en **Processus**, dont le **Pilote** a la responsabilité de faire augmenter le score de conformité.
 
-Le module conformité de la structure est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module conformité de la structure](#Activation-du-module-conformité-de-la-structure) pour plus d'information.
+Le module conformité de la structure est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module conformité de la structure](#activation-du-module-conformite-de-la-structure) pour plus d'information.
 
 L'activation du module ajoute l'élément « **Conformité de la structure** » dans le menu ainsi que l'indicateur sur le tableau de bord de la structure de la progression de conformité des processus.
 
-![Indicateur de la conformité de la structure](images/Madis-Indicateur-Conformite-De-L-Organisation.png)
+![Indicateur de la conformité de la structure](images/Madis-Indicateur-Conformite-De-La-Structure.png)
 
 ## Conformité de la structure
 
@@ -722,7 +753,7 @@ Le menu « **Conformité de la structure** » permet de consulter la conformité
 
 Il est possible d'identifier et de nommer un responsable par processus que l'on nomme « **Pilote** ».  Une personne peut être responsable de plusieurs processus.
 
-![Liste des pilotes et de la conformité de la structure](images/Madis-Liste-De-Conformite-De-L-Organisation.png)
+![Liste des pilotes et de la conformité de la structure](images/Madis-Liste-De-Conformite-De-La-Structure.png)
 
 Il est possible d'effectuer plusieurs actions :
 
@@ -739,12 +770,12 @@ Il est possible d'effectuer plusieurs actions :
 
 **Pour rappel, dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
 
-![Évaluation de la structure](images/Madis-Evaluation-De-L-Organisation.png)
+![Évaluation de la structure](images/Madis-Evaluation-De-La-Structure.png)
 
 Il est possible d'effectuer plusieurs actions :
 
 - « **Retourner à la liste** » permet de quitter l'évaluation en ne prenant pas en compte les informations saisies ou modifiées ;
-- « **Soumettre** » permet de terminer l'évaluation et d'actualiser les notes de conformité du tableau avec les pilotes. Il n'est pas possible de modifier une évaluation terminée ;
+- « **Enregistrer** » permet de terminer l'évaluation et d'actualiser les notes de conformité du tableau avec les pilotes. Il n'est pas possible de modifier une évaluation terminée ;
 - « **Enregistrer un brouillon** » permet de quitter l'évaluation en prenant en compte les informations saisies ou modifiées. Les informations d'une évaluation en brouillon ne sont pas prises en compte dans le calcul de la conformité ;
 - « **Ajouter un participant** » permet d'ajouter un participant. Les informations du ou des participants sont repris dans l'impression de l'évaluation ;
 
@@ -759,7 +790,7 @@ Il est nécessaire que le plus haut niveau hiérarchique de la structure soit as
 
 ``Astuce : « Ajouter un participant » permet d'ajouter un participant. Il est possible d'ajouter autant de participant que souhaité.``
 
-![Contexte de l'évaluation de la structure](images/Madis-Evaluation-De-L-Organisation-Contexte.png)
+![Contexte de l'évaluation de la structure](images/Madis-Evaluation-De-La-Structure-Contexte.png)
 
 #### Évaluation de la structure
 
@@ -785,7 +816,7 @@ Pour chaque processus, il est proposé d'affecter une ou plusieurs actions de pr
 
 Le Module Analyse d’Impact sur la Protection des Données à caractère personnel (AIPD) permet d’instruire une AIPD sur un traitement et permet de générer les documents nécessaires pour démontrer la conformité.
 
-Le module d’Analyse d’Impact sur la Protection des Données à caractère personnel (AIPD) est visible quand le module conformité des traitements est activé par le DPD (compte administrateur). Consulter l'[activation du module AIPD](#Activation-du-module-AIPD) pour plus d'information.
+Le module d’Analyse d’Impact sur la Protection des Données à caractère personnel (AIPD) est visible quand le module conformité des traitements est activé par le DPD (compte administrateur). Consulter l'[activation du module AIPD](#activation-du-module-aipd) pour plus d'information.
 
 L'activation du module ajoute l'élément « **Analyse d'impacts** » dans le menu ainsi que l'indicateur sur le tableau de bord de la structure du nombre d'AIPD à réaliser.
 
@@ -822,6 +853,8 @@ Un traitement doit faire l’objet d’une AIPD si :
 L’instruction d’une nouvelle AIPD démarre depuis la liste de conformité des traitements consultables par le menu « **Conformité des traitements** ».
 
 **Il est nécessaire d’avoir réalisé l’évaluation de la conformité du traitement pour pouvoir réaliser une AIPD sur celui-ci.**
+
+``Astuce : Lorsqu’une AIPD doit être réalisée sur le traitement, une icône (triangle orange) apparaît pour le signaler.``
 
 ![Liste de conformité des traitements](images/Madis-Liste-De-Conformite-Des-Traitements.png)
 
@@ -952,7 +985,7 @@ Il est possible d'effectuer plusieurs actions :
 
 # Administration
 
-Cette partie est réservée aux administrateurs, c'est-à-dire, principalement les Délégués à la Protection des Données (DPD). Le profil « référent multi-collectivité » a également accès au tableau de bord administrateur, mais seulement dans la limite de son périmètre d'action.
+Cette partie est réservée aux administrateurs, c'est-à-dire, principalement les Délégués à la Protection des Données (DPD). Le profil « **référent multi-structures** » a également accès au tableau de bord administrateur, mais seulement dans la limite de son périmètre d'action.
 
 ## Tableau de bord administrateur
 
@@ -966,23 +999,23 @@ Plusieurs indicateurs sont disponibles :
 * La moyenne de preuves déposées dans l'espace « **Documents** » ;
 * Le nombre en pourcentage de structures ayant déposé dans Madis, dans l'espace « **Documents** », un document avec le type « Bilan » au cours des 12 derniers mois ;
 * Le nombre de structures, en pourcentage, ayant fait un indice de maturité dans Madis au cours des 12 derniers mois ;
-* La cartographie des structures accompagnées grâce à l'indication du code INSEE dans la [gestion des structures](#Gestion-des-structures) ;
-* La répartition des structures en fonction de leur type identifié dans la [gestion des structures](#Gestion-des-structures) ;
+* La cartographie des structures accompagnées grâce à l'indication du code INSEE dans la [gestion des structures](#gestion-des-structures) ;
+* La répartition des structures en fonction de leur type identifié dans la [gestion des structures](#gestion-des-structures) ;
 
 ``Astuce : Depuis la carte, au survol d'un territoire, il est possible de consulter la liste des structures identifiées dans celui-ci. Il est alors possible de consulter le nom de la structure, le nombre de traitements actifs et le nombre d'actions de protection.``
 
 Il est possible d'exporter certaines informations au format Excel :
 
-* « **Exporter les collectivités** » : Export comprenant toutes les informations enregistrées dans la [gestion des structures](#Gestion-des-structures) (Statut actif/inactif ; Nom ; SIREN ; Dernier utilisateur connecté ; Date de la dernière connexion ; ...) ainsi que les informations comprises dans le [module conformité de la structure](#Module-conformité-de-la-structure) ;
-* « **Exporter les traitements** » : Export comprenant toutes les informations enregistrées dans le [registre des traitements](#Le-registre-des-traitements) (Statut actif/inactif ; Date de dernière modification...) ainsi que les informations comprises dans le [module conformité des traitements](#Module-conformité-des-traitements) ;
-* « **Exporter les sous-traitants** » : Export comprenant toutes les informations enregistrées dans le [registre des sous-traitants](#Le-registre-des-sous-traitants) (Nom du sous-traitant ; Clauses vérifiées ; Traitements associés ; ...) ;
-* « **Exporter les actions de protection** » : Export comprenant toutes les informations enregistrées dans les [actions de protection](#Les-actions-de-protection) et dans le [plan d'actions](#Plan-d’actions) (Nom de l'action ; Statut ; Date de planification ; ...).
+* « **Exporter les structures** » : Export comprenant toutes les informations enregistrées dans la [gestion des structures](#gestion-des-structures) (Statut actif/inactif ; Nom ; SIREN ; Dernier utilisateur connecté ; Date de la dernière connexion ; ...) ainsi que les informations comprises dans le [module conformité de la structure](#module-conformite-de-la-structure) ;
+* « **Exporter les traitements** » : Export comprenant toutes les informations enregistrées dans le [registre des traitements](#le-registre-des-traitements) (Statut actif/inactif ; Date de dernière modification...) ainsi que les informations comprises dans le [module conformité des traitements](#module-conformite-des-traitements) ;
+* « **Exporter les sous-traitants** » : Export comprenant toutes les informations enregistrées dans le [registre des sous-traitants](#le-registre-des-sous-traitants) (Nom du sous-traitant ; Clauses vérifiées ; Traitements associés ; ...) ;
+* « **Exporter les actions de protection** » : Export comprenant toutes les informations enregistrées dans les [actions de protection](#les-actions-de-protection) et dans le [plan d'actions](#plan-dactions) (Nom de l'action ; Statut ; Échéance ; ...).
 
 ``Attention : Les exports, notamment pour le registre des traitements, peuvent être volumineux. L'export peut alors prendre un peu de temps.``
 
 ## Gestion des AIPD
 
-Le module AIPD est visible quand le module conformité des traitements est activé. Consulter l'[activation du module AIPD](#Activation-du-module-AIPD) pour plus d'information.
+Le module AIPD est visible quand le module conformité des traitements est activé. Consulter l'[activation du module AIPD](#activation-du-module-aipd) pour plus d'information.
 
 ### Modèles d'analyse
 
@@ -993,12 +1026,12 @@ Le menu « **Modèle d'analyse** » permet de consulter la liste des modèles d'
 Il est possible d'effectuer plusieurs actions :
 
 - « **+ Nouveau modèle** » permet d'ajouter un nouveau modèle ;
-- « **+ Importer un modèle** » permet d'importer un modèle d'AIPD. Seul un fichier au format XML peut être importé ;
+- « **+ Importer un modèle** » permet d'importer un modèle d'AIPD et ses mesures liées. Seul un fichier au format XML peut être importé ;
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
 - « **Modifier** » permet de modifier les informations d'un modèle. La modification de celui-ci n’entraîne pas la modification du modèle utilisé dans un AIPD en cours de réalisation ou réalisée ;
 - « **Droits** » permet de choisir la ou les structures pouvant utiliser le modèle. **Par défaut, un modèle n’a aucun droit, il est donc nécessaire après la création d'un modèle, d’aller choisir les structures autorisées à l’utiliser** ;
-- « **Exporter** » permet d'exporter le modèle au format XML ;
-- « **Supprimer** » permet de supprimer définitivement le modèle. La suppression d’un modèle n’entraîne pas la suppression des AIPD réalisées à partir de celui-ci. **Cette action est irréversible**.
+- « **Exporter** » permet d'exporter le modèle et ses mesures liées au format XML ;
+- « **Supprimer** » permet de supprimer définitivement le modèle. La suppression d’un modèle n’entraîne pas la suppression des mesures liées et des AIPD réalisées à partir de celui-ci. **Cette action est irréversible**.
 
 ``Rappel : Lorsqu'un modèle est utilisé pour la réalisation d'une AIPD, celui-ci sera complètement dissocié. Le modèle principal pourra donc être modifié ou supprimé sans impacter l'instruction d'une AIPD en cours de réalisation ou réalisé.``
 
@@ -1157,11 +1190,11 @@ Il est possible pour une structure de disposer d'une page, non authentifiée, à
 
 ![Liste des traitements publics](images/Madis-Liste-Des-Traitements-Publics.png)
 
-L'URL est constituée du **nom de domaine Madis**, suivie de « **/public/traitements/liste/"** » et terminée par le **numéro de la structure** souhaitée.
+L'URL est constituée du **nom de domaine Madis**, suivie de « **/public/traitements/liste/** » et terminée par le **numéro de la structure** souhaitée.
 
 Exemple : madis-exemple.fr/public/traitements/liste/e611ec51-8031-4492-98bc-05254959f708
 
-Le numéro de la structure est constitué d'une suite de chiffres et de lettres séparés par des tirets. Il peut être trouvé dans l'URL lors de la consultation ou la modification d'une structure.
+Le numéro de la structure est constitué d'une suite de chiffres et de lettres séparés par des tirets. Il peut être trouvé dans l'URL lors de la visualisation ou la modification d'une structure.
 
 ![URL du numéro de la structure](images/Madis-Structure-ID.png)
 
@@ -1225,7 +1258,7 @@ Les fichiers autorisés sont :
 
 #### Catégories
 
-Il est possible de lier le fichier à une ou plusieurs catégories. Les catégories listées peuvent être gérées dans les [catégories documentaires](#Catégories-documentaires). Si un document est lié à une catégorie *système*, un bouton apparaît dans le module en question permettant de rediriger vers les documents liés à la catégorie du module.
+Il est possible de lier le fichier à une ou plusieurs catégories. Les catégories listées peuvent être gérées dans les [catégories documentaires](#categories-documentaires). Si un document est lié à une catégorie *système*, un bouton apparaît dans le module en question permettant de rediriger vers les documents liés à la catégorie du module.
 
 ### Ajouter un lien
 
@@ -1246,7 +1279,7 @@ Dans lien, il est possible de renseigner les éléments suivants :
 
 #### Catégories
 
-Il est possible de lier le lien à une ou plusieurs catégories. Les catégories listées peuvent être gérées dans les [catégories documentaires](#Catégories-documentaires). Si un document est lié à une catégorie *système*, un bouton apparaît dans le module en question permettant de rediriger vers les documents liés à la catégorie du module.
+Il est possible de lier le lien à une ou plusieurs catégories. Les catégories listées peuvent être gérées dans les [catégories documentaires](#categories-documentaires). Si un document est lié à une catégorie *système*, un bouton apparaît dans le module en question permettant de rediriger vers les documents liés à la catégorie du module.
 
 ### Catégories documentaires
 
@@ -1259,7 +1292,7 @@ Il existe deux types de catégorie :
 - Les catégories systèmes (Exemple : Traitement, Sous-traitant, …) ;
 - Les catégories créées par le DPD.
 
-Les  catégories systèmes ne peuvent pas être supprimées ni modifiées. Elles font référence aux différents modules de Madis. Quand un document ou un lien est lié à une catégorie système, un bouton ("Ressources Utiles") apparaît dans le module en question. Celui-ci redirige dans l'espace documentaire vers les documents liés à la catégorie du module.
+Les  catégories systèmes ne peuvent pas être modifiées ni supprimées. Elles font référence aux différents modules de Madis. Quand un document ou un lien est lié à une catégorie système, un bouton « **Ressources Utiles** » apparaît dans le module en question. Celui-ci redirige dans l'espace documentaire vers les documents liés à la catégorie du module.
 
 Le DPD peut créer autant de catégories de document que nécessaire.
 
@@ -1277,9 +1310,7 @@ Le menu « **Module de duplication** » permet de dupliquer une ou plusieurs don
 
 ![Module de duplication](images/Madis-Module-Duplication.png)
 
-Le module de duplication sert à dupliquer une ou plusieurs données (un traitement actif ou inactif, un sous-traitant ou une action de protection) enregistrée dans une structure pour l'intégrer à une ou plusieurs autres structures. 
-
-``Astuce : Il est possible d'utiliser ctrl pour sélectionner plusieurs éléments à dupliquer.``
+``Astuce : Il est possible d'utiliser la touche Maj ou en maintenant le clic pour sélectionner plusieurs éléments à la suite. Pour ne sélectionner que certains éléments, il est possible d'utiliser ctrl puis de cliquer sur les éléments souhaités.``
 
 Il est possible d'effectuer plusieurs actions :
 
@@ -1288,22 +1319,22 @@ Il est possible d'effectuer plusieurs actions :
 
 ## Gestion des structures
 
-Le menu « **Collectivités** » permet de consulter la liste des structures qui ont été créées dans Madis et d'en ajouter.
+Le menu « **Structures** » permet de consulter la liste des structures qui ont été créées dans Madis et d'en ajouter.
 
 ![Liste des structures](images/Madis-Liste-Des-Structures.png)
 
 Il est possible d'effectuer plusieurs actions :
 
-- « **+ Nouvelle collectivité** » permet d'ajouter une nouvelle structure ;
+- « **+ Nouvelle structure** » permet d'ajouter une nouvelle structure ;
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
 - « **Modifier** » permet de modifier les informations d'une structure ;
 - « **Supprimer** » permet de supprimer définitivement la structure. La suppression de la structure n'est possible que s'il n'y a plus d'utilisateur. **Cette action est irréversible**.
 
 ``Astuce : Il est possible de visualiser les informations d'une structure en cliquant sur son nom. Lors de la consultation de celui-ci, un bouton d'action « Modifier » permet de modifier les informations de la structure.``
 
-Outre les éléments de [paramétrage d'une collectivité](#Paramétrage--Ma-collectivité), il est possible d'activer ou de désactiver les modules [conformité des traitements](#Activation-du-module-conformité-des-traitements), [conformité de la structure](#Activation-du-module-conformité-de-la-structure), [AIPD](#Activation-du-module-AIPD) et le module [services](#Activation-du-module-Services-et-Habilitations).
+Outre les éléments de [paramétrage d'une structure](#parametrage-ma-structure), il est possible d'activer ou de désactiver les modules [conformité des traitements](#activation-du-module-conformite-des-traitements), [conformité de la structure](#activation-du-module-conformite-de-la-structure), [AIPD](#activation-du-module-aipd) et le module [services](#activation-du-module-services-et-habilitations).
 
-``Rappel : Les informations générales et l’adresse de la structure ne sont pas modifiables par un utilisateur gestionnaire.``
+``Rappel : Les informations générales (excepté le nombre de salariés ou la population) et l’adresse de la structure ne sont pas modifiables par un utilisateur gestionnaire.``
 
 ![Ajouter d'une structure](images/Madis-Ajouter-Une-Structure.png)
 
@@ -1311,7 +1342,7 @@ Outre les éléments de [paramétrage d'une collectivité](#Paramétrage--Ma-col
 
 Le module conformité des traitements est optionnel et peut être activé par structure en cochant la case « **Module conformité des traitements** ». Cette action est réalisable par le DPD (compte administrateur) dans l'édition de la structure.
 
-Consulter le [module conformité des traitements](#Module-conformité-des-traitements) pour plus d'information.
+Consulter le [module conformité des traitements](#module-conformite-des-traitements) pour plus d'information.
 
 ![Activation du module conformité des traitements](images/Madis-Activation-Module-Conformite-Des-Traitements.png)
 
@@ -1319,15 +1350,15 @@ Consulter le [module conformité des traitements](#Module-conformité-des-traite
 
 Le module conformité de la structure est optionnel et peut être activé par structure en cochant la case « **Module conformité de la structure** ». Cette action est réalisable par le DPD (compte administrateur) dans l'édition de la structure.
 
-Consulter le [module conformité de la structure](#Module-conformité-de-la-structure) pour plus d'information.
+Consulter le [module conformité de la structure](#module-conformite-de-la-structure) pour plus d'information.
 
-![Activation du module conformité de la structure](images/Madis-Activation-Module-Conformite-De-L-Organisation.png)
+![Activation du module conformité de la structure](images/Madis-Activation-Module-Conformite-De-La-Structure.png)
 
 ### Activation du module AIPD
 
-Le module d’Analyse d’Impact sur la Protection des Données à caractère personnel (AIPD) est visible quand le module conformité des traitements est activé dans l'administration de la structure. Consulter l'[activation du module conformité des traitements](#Activation-du-module-conformité-des-traitements) pour plus d'information.
+Le module d’Analyse d’Impact sur la Protection des Données à caractère personnel (AIPD) est visible quand le module conformité des traitements est activé dans l'administration de la structure. Consulter l'[activation du module conformité des traitements](#activation-du-module-conformite-des-traitements) pour plus d'information.
 
-Consulter le [module AIPD](#Module-AIPD) pour plus d'information.
+Consulter le [module AIPD](#module-aipd) pour plus d'information.
 
 En tant qu'administrateur, l'activation du module ajoute les éléments de paramétrages « **Modèle d'analyse** » et « **Mesure de protection** ».
 
@@ -1341,7 +1372,7 @@ La gestion par service permet de restreindre la modification des éléments des 
 
 ![Activation du module services et habilitations](images/Madis-Activation-Module-Services-Et-Habilitations.png)
 
-L'activation du module ajoute un élément « **Services et Habilitations** » dans le profil des utilisateurs de la structure. Consulter la [gestion des services et habilitations](#Gestion-des-Services-et-Habilitations) pour plus d'information. 
+L'activation du module ajoute un élément « **Services et Habilitations** » dans le profil des utilisateurs de la structure. Consulter la [gestion des services et habilitations](#gestion-des-services-et-habilitations) pour plus d'information. 
 
 ![Services et habilitations dans le profil utilisateur](images/Madis-Ajouter-Un-Utilisateur-Module-Services-Et-Habilitations.png)
 
@@ -1382,9 +1413,9 @@ Dans les informations générales, il est possible de renseigner les éléments 
 * **Prénom** ;
 * **Nom** ;
 * **E-mail** : L’adresse mail renseignée ne doit pas déjà avoir été utilisée par un autre compte ;
-* **Collectivité** : Choix de la structure ;
+* **Structure** : Choix de la structure ;
 * **Role** : Gestion des droits ;
-* **Accès aux Webservices (API)** : permet de choisir si l'utilisateur peut être accédé ou non par les webservices (API). Consulter l'[API](#API) pour plus d'information ;
+* **Accès aux Webservices (API)** : permet de choisir si l'utilisateur peut être accédé ou non par les webservices (API). Consulter l'[API](#api) pour plus d'information ;
 * **Actif** : Le statut actif est coché par défaut. Un utilisateur inactif sera archivé et il ne pourra plus se connecter à Madis.
 
 Il est possible de choisir l'un des rôles suivant :
@@ -1392,7 +1423,7 @@ Il est possible de choisir l'un des rôles suivant :
 - **Lecteur** : L'utilisateur peut consulter les informations comprises dans Madis. Il peut générer des bilans et faire des impressions, mais ne peut modifier les informations ;
 - **Gestionnaire** : L'utilisateur peut consulter et modifier tout ce qui se trouve dans Madis pour sa structure ;
 - **Administrateur** : L'utilisateur peut consulter et modifier tout ce qui se trouve dans Madis pour toutes les structures ;
-- **Référent multi-collectivité** : L'utilisateur peut voir et modifier tout ce qui se trouve dans Madis pour les structures pour lesquels il est référent. Cependant, il ne peut pas créer ou modifier de nouvelles structures ni d'utilisateurs ou modifier son propre profil utilisateur (en ajoutant des structures dans son champ d'action).
+- **Référent multi-structures** : L'utilisateur peut voir et modifier tout ce qui se trouve dans Madis pour les structures pour lesquels il est référent. Cependant, il ne peut pas créer ou modifier de nouvelles structures ni d'utilisateurs ou modifier son propre profil utilisateur (en ajoutant des structures dans son champ d'action).
 
 #### Informations facultatives
 
@@ -1405,7 +1436,7 @@ Par défaut, les règles de sécurité du mot de passe sont les suivantes :
 
 ### Gestion des Services et Habilitations
 
-Le module services et habilitations est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module services et habilitations](#Activation-du-module-Services-et-Habilitations) pour plus d'information.
+Le module services et habilitations est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module services et habilitations](#activation-du-module-services-et-habilitations) pour plus d'information.
 
 Dans le profil d'un utilisateur, l'élément « **Services et Habilitations** » permet de l'associer à un ou plusieurs services. Si un utilisateur n’est affecté à aucun service, celui-ci peut modifier l’ensemble des éléments. Et inversement si un utilisateur est lié à au moins un service, celui-ci ne pourra alors modifier que les éléments associés à son service.
 
@@ -1414,6 +1445,16 @@ Dans le profil d'un utilisateur, l'élément « **Services et Habilitations** »
 ![Services et habilitations dans le profil utilisateur](images/Madis-Ajouter-Un-Utilisateur-Module-Services-Et-Habilitations.png)
 
 ``Astuce : Il est possible d'utiliser ctrl pour sélectionner plusieurs services à la fois.``
+
+### Activation du module de délégation de l'authentification (SSO)
+
+Le module de délégation de l'authentification (SSO) est optionnel. Il peut être activé et configuré dans les variables d'environnement dans le fichier « **.env** ».
+
+Ce module permet de paramétrer Madis pour qu’il délègue son authentification à un système de Single Sign On (SSO) tiers. Cette fonctionnalité s’appuie sur le protocole OpenID. Deux configurations (provider) sont disponibles : LemonLDAP et Keycloak.
+
+Un gestionnaire ou lecteur pourra depuis son profil, associer ou dissocier son compte au fournisseur d'identité paramétré. Un administrateur a la possibilité d'effectuer cette action à la place de l'utilisateur en renseignant ou non la clé d'authentification.
+
+![Paramétrer la clé d'authentification d'un utilisateur](images/Madis-Modifier-Un-Utilisateur-SSO.png)
 
 ## Journalisation
 
@@ -1425,7 +1466,7 @@ Madis associant un ID à chaque personne, même si la personne change de nom, el
 
 ## Sécurité
 
-Outre la [journalisation](#Journalisation), il est possible de configurer des éléments de sécurité pour la connexion à Madis via des variables d'environnement. Il est possible de définir une limite du nombre de tentatives de connexion, d'afficher ou masquer le champ « **Se souvenir de moi** », ainsi que de préciser la politique de mot de passe.
+Outre la [journalisation](#journalisation), il est possible de configurer des éléments de sécurité pour la connexion à Madis via des variables d'environnement. Il est possible de définir une limite du nombre de tentatives de connexion, d'afficher ou masquer le champ « **Se souvenir de moi** », ainsi que de préciser la politique de mot de passe.
 
 Par défaut, les règles de sécurité du mot de passe sont les suivantes :
 * 14 caractères ;
@@ -1492,11 +1533,6 @@ APP_PASSWORD_REQUIRE_SPECIAL_CHARACTERS=true
 APP_MAX_UPLOAD_SIZE=4M
 # Maximum number of login attempts before the user account is deactivated
 APP_MAX_LOGIN_ATTEMPTS=10
-APP_NOTIFICATION_MAX_SHOWN=5
-APP_NOTIFICATION_DASHBOARD_SHOWN=false
-
-# Show notification icon in header
-APP_ACTIVATE_NOTIFICATIONS=false
 
 #TRUSTED_PROXIES=127.0.0.1,127.0.0.2
 #TRUSTED_HOSTS=localhost,example.com
@@ -1510,22 +1546,22 @@ TOOLTIP_CONFORMITE_ORGANISATION_QUASI_CONFORME="La ou les pratiques sont conform
 TOOLTIP_CONFORMITE_ORGANISATION_MESURABLE="La ou les pratiques sont conforme à la définition.<br/>Elles sont documentées et contrôlables dans le cas d'un audit."
 TOOLTIP_CONFORMITE_ORGANISATION_REVISEE="La ou les pratiques sont coordonnées et conforme à la définition.<br/>Des évaluations sont réalisées.<br/>Des améliorations sont systématiquement apportées à partir de l'analyse des évaluations effectuées. "
 
-# For Gmail as a transport, use: "gmail://username:password@localhost"
-# For a generic SMTP server, use: "smtp://localhost:25?encryption=&auth_mode="
-# Delivery is disabled by default via "null://localhost"
-MAILER_URL=gmail://username:password@localhost
-
-WKHTMLTOPDF_PATH=/usr/local/bin/wkhtmltopdf
-WKHTMLTOIMAGE_PATH=/usr/local/bin/wkhtmltoimage
-
+###> SSO LOGIN ###
+SSO_TITLE="SSO"
+SSO_ICON="images/sso-icon.png"
+# sso user info field used to identify user on the app
+SSO_KEY_FIELD="sub"
+###> Value used for oauth2 client config see config/packages/knpu_oauth2_client.yaml ###
+# leave empty to disable SSO (available types: LemonLDAP and keycloak)
+OAUTH_TYPE=
+OAUTH_URL=https://xxxxxxxxxx/auth
+OAUTH_REALM=REALM
+OAUTH_CLIENT_ID=XXXXX
+OAUTH_CLIENT_SECRET=XXXXX
+###< SSO LOGIN ###
 ```
 
 # API
-
-Les fonctionnalités suivantes sont disponibles via API :
-- Collectivité (lecture) ;
-- Demandes (lecture/écriture) ;
-- Traitements (lecture).
 
 À l'édition d'un utilisateur, l'administrateur a la possibilité de choisir si l'utilisateur peut être accédé ou non par les webservices (API).
 
