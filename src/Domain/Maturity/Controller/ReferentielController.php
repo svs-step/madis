@@ -404,11 +404,7 @@ class ReferentielController extends CRUDController
         }
         /** @var Model\Referentiel $toExport */
         $toExport = clone $object;
-
-        if( $toExport->getDomains() !== [] ){
-            $toExport->setDomains($toExport->getDomains());
-        }
-
+        
         $serializer = SerializerBuilder::create()->build();
         $xml        = $serializer->serialize($toExport, 'xml');
 

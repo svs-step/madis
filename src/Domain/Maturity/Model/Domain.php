@@ -29,6 +29,9 @@ use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use JMS\Serializer\Annotation as Serializer;
 
+/**
+ * @Serializer\ExclusionPolicy("none")
+ */
 class Domain
 {
     /**
@@ -41,41 +44,35 @@ class Domain
     /**
      * @var string|null
      *
-     * @Serializer\Exclude
      */
     private $name;
 
     /**
      * @var string|null
      *
-     * @Serializer\Exclude
      */
     private $description;
 
     /**
      * @var string|null
      *
-     *  @Serializer\Exclude
      */
     private $color;
 
     /**
      * @var int|null
      *
-     * @Serializer\Exclude
      */
     private $position;
 
     /**
      * @var Collection
      *
-     * @Serializer\Exclude
      */
     public $questions;
     /**
      * @var iterable
      *
-     * @Serializer\Exclude
      */
     private $maturity;
 
@@ -101,7 +98,6 @@ class Domain
     public function __clone()
     {
         $this->id                       = null;
-        $this->authorizedCollectivities = null;
 
         $questions = [];
         foreach ($this->questions as $question) {

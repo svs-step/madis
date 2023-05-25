@@ -25,13 +25,19 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @Serializer\ExclusionPolicy("none")
+ */
 class Question
 {
     /**
      * @var UuidInterface
+     *
+     * @Serializer\Exclude
      */
     private $id;
 
@@ -84,7 +90,6 @@ class Question
     public function __clone()
     {
         $this->id                       = null;
-        $this->authorizedCollectivities = null;
 
         $answers = [];
         foreach ($this->answers as $answer) {
