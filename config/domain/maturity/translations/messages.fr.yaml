@@ -29,6 +29,7 @@ maturity:
         action:
             back_to_list: Retour à la liste
             new: Nouveau référentiel
+            import: Importer un référentiel
         breadcrumb:
             create: Nouveau référentiel
             edit: Modifier le référentiel
@@ -50,6 +51,7 @@ maturity:
             list: Liste des référentiels
             delete: Supprimer un référentiel
             rights: Modifier les droits
+            import: Importer un référentiel
         form:
             referentiel_name: Nom du référentiel
             name: Nom de la section

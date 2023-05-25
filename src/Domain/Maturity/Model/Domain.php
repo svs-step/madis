@@ -27,45 +27,62 @@ namespace App\Domain\Maturity\Model;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use JMS\Serializer\Annotation as Serializer;
 
 class Domain
 {
     /**
      * @var UuidInterface
+     *
+     * @Serializer\Exclude
      */
     private $id;
 
     /**
      * @var string|null
+     *
+     * @Serializer\Exclude
      */
     private $name;
 
     /**
      * @var string|null
+     *
+     * @Serializer\Exclude
      */
     private $description;
 
     /**
      * @var string|null
+     *
+     *  @Serializer\Exclude
      */
     private $color;
 
     /**
      * @var int|null
+     *
+     * @Serializer\Exclude
      */
     private $position;
 
     /**
      * @var Collection
+     *
+     * @Serializer\Exclude
      */
     private $questions;
     /**
      * @var iterable
+     *
+     * @Serializer\Exclude
      */
     private $maturity;
 
     /**
      * @var Referentiel
+     *
+     * @Serializer\Exclude
      */
     private $referentiel;
 

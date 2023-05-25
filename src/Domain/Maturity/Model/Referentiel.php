@@ -45,12 +45,16 @@ class Referentiel
     private ?string $description;
 
     /**
-     * @var iterable|Domain[]
+     * @var array|Domain[]
+     *
+     * @Serializer\Type("array<App\Domain\Maturity\Model\Domain>")
      */
-    private $domains;
+    private iterable $domains;
 
     /**
      * @var iterable
+     *
+     * @Serializer\Exclude
      */
     private $maturity;
 
@@ -75,12 +79,39 @@ class Referentiel
      */
     private ?string $optionRightSelection = null;
 
+    /**
+     * @var \DateTimeImmutable|null
+     *
+     * @Serializer\Type("DateTimeImmutable")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTimeImmutable|null
+     *
+     * @Serializer\Type("DateTimeImmutable")
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->id                          = Uuid::uuid4();
         $this->domains                     = new ArrayCollection();
         $this->authorizedCollectivities    = new ArrayCollection();
         $this->authorizedCollectivityTypes = new ArrayCollection();
+    }
+
+    public function __clone()
+    {
+        $this->id                       = null;
+        $this->authorizedCollectivities = null;
+
+        $domains = [];
+        foreach ($this->domains as $domain) {
+            $domains[] = clone $domain;
+        }
+        $this->domains = $domains;
+
     }
 
     public function __toString(): string
@@ -161,7 +192,7 @@ class Referentiel
         $this->authorizedCollectivityTypes = $authorizedCollectivityTypes;
     }
 
-    public function getDomains(): iterable
+    public function getDomains()
     {
         return $this->domains;
     }

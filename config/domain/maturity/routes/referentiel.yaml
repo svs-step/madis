@@ -23,6 +23,11 @@ maturity_referentiel_export:
     methods: ['GET', 'POST']
     controller: 'App\Domain\Maturity\Controller\ReferentielController:exportAction'
 
+maturity_referentiel_import:
+    path: '/import'
+    methods: [ 'GET', 'POST' ]
+    controller: 'App\Domain\Maturity\Controller\ReferentielController:importAction'
+
 maturity_referentiel_delete:
     path: '/supprimer/{id}'
     methods: ['GET']
