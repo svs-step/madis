@@ -99,33 +99,21 @@ class ContractorController extends CRUDController
         $this->router                 = $router;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'contractor';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Contractor::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return ContractorType::class;
@@ -144,9 +132,6 @@ class ContractorController extends CRUDController
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getListData()
     {
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {

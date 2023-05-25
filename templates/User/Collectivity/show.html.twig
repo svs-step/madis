@@ -106,6 +106,18 @@
                             </td>
                         </tr>
                         <tr>
+                            <td><strong>{{ 'user.collectivity.show.has_module_tools'|trans }}</strong></td>
+                            <td>
+                                <span class="badge bg-gr">
+                                    {% if object.hasModuleTools %}
+                                        {{ 'label.yes'|trans }}
+                                    {% else %}
+                                        {{ 'label.no'|trans }}
+                                    {% endif %}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'user.collectivity.show.nbr_agents'|trans }}</strong></td>
                             <td>{{ object.nbrAgents }}</td>
                         </tr>

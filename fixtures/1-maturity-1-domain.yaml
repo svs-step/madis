@@ -4,28 +4,34 @@ App\Domain\Maturity\Model\Domain:
         name: Technique
         color: danger
         position: 1
+        referentiel: '@maturity_referentiel_2'
 
     maturity_domain_2:
         name: Vie privée
         color: info
         position: 2
+        referentiel: '@maturity_referentiel_2'
 
     maturity_domain_3:
         name: Violation de données
         color: primary
         position: 3
+        referentiel: '@maturity_referentiel_2'
 
     maturity_domain_4:
         name: Organisation
         color: success
         position: 4
+        referentiel: '@maturity_referentiel_2'
 
     maturity_domain_5:
         name: Juridique
         color: warning
         position: 5
+        referentiel: '@maturity_referentiel_2'
 
     maturity_domain_6:
         name: Sensibilisation Formation
         color: info
         position: 6
+        referentiel: '@maturity_referentiel_2'

@@ -82,41 +82,26 @@ class NotificationController extends CRUDController
         $this->userProvider         = $userProvider;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'notification';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'notification';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Notification::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return '';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getListData()
     {
         $order = [
@@ -142,9 +127,6 @@ class NotificationController extends CRUDController
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function listDataTables(Request $request): JsonResponse
     {
         $user = $this->userProvider->getAuthenticatedUser();

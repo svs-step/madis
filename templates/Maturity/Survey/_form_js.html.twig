@@ -1,0 +1,17 @@
+<script>
+    $('.question-option').on('change', function(ev) {
+        var $ch = $(ev.currentTarget);
+        console.log($ch, $ch.is(":checked"))
+        if ($ch.is(":checked")) {
+            $ch.parent().find('.question-option-reason').show()
+            $ch.parent().find('.question-option-reason input').attr('required', true)
+            $ch.parent().parent().find('ul').hide()
+            $ch.parent().parent().find('ul input').removeAttr('required')
+        } else {
+            $ch.parent().find('.question-option-reason').hide()
+            $ch.parent().parent().find('ul').show()
+            $ch.parent().parent().find('ul input').attr('required')
+            $ch.parent().find('.question-option-reason input').removeAttr('required')
+        }
+    })
+</script>

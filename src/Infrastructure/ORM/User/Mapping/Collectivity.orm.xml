@@ -31,6 +31,11 @@
                 <option name="default">0</option>
             </options>
         </field>
+        <field name="hasModuleTools" type="boolean">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
         <field name="informationsComplementaires" type="text" nullable="true"/>
         <field name="finessGeo" type="text" nullable="true"/>
         <field name="population" column="population" nullable="true" type="integer"/>

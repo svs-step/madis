@@ -22,6 +22,14 @@
                 <span>{{ 'sidebar_menu.registry_contractors'|trans }}</span>
             </a>
         </li>
+        {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleTools == true %}
+        <li {% if menuItem == 'registry_tool' %}class="active"{% endif %}>
+            <a href="{{ path('registry_tool_list') }}">
+                <i class="fa fa-briefcase"></i>
+                <span>{{ 'sidebar_menu.registry_tools'|trans }}</span>
+            </a>
+        </li>
+        {% endif %}
         <li {% if menuItem == 'registry_request' %}class="active"{% endif %}>
             <a href="{{ path('registry_request_list') }}">
                 <i class="fa fa-users"></i>
@@ -94,6 +102,14 @@
                 <span>{{ 'sidebar_menu.maturity_survey'|trans }}</span>
             </a>
         </li>
+        {% if is_granted('ROLE_ADMIN') %}
+        <li {% if menuItem == 'maturity_referentiel' %}class="active"{% endif %}>
+            <a href="{{ path('maturity_referentiel_list') }}">
+                <i class="fa fa-chart-bar"></i>
+                <span>{{ 'sidebar_menu.maturity_referentiel'|trans }}</span>
+            </a>
+        </li>
+        {% endif %}
         <li {% if menuItem == 'reporting_review' %}class="active"{% endif %}>
             <a href="{{ path('reporting_review_index', {'id': app.user.collectivity.id}) }}">
                 <i class="fa fa-clipboard-list"></i>

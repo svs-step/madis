@@ -30,8 +30,6 @@ use App\Domain\User\Model as UserModel;
 class TreatmentCloner extends AbstractCloner
 {
     /**
-     * {@inheritdoc}
-     *
      * @param RegistryModel\Treatment $referent
      *
      * @throws \Exception
@@ -44,6 +42,7 @@ class TreatmentCloner extends AbstractCloner
         $treatment->setGoal($referent->getGoal());
         $treatment->setManager($referent->getManager());
         $treatment->setSoftware($referent->getSoftware());
+        $treatment->setTools($referent->getTools());
         $treatment->setPaperProcessing($referent->isPaperProcessing());
         $treatment->setLegalBasis($referent->getLegalBasis());
         $treatment->setLegalBasisJustification($referent->getLegalBasisJustification());

@@ -31,9 +31,6 @@ use Doctrine\ORM\QueryBuilder;
 
 class NotificationUser extends CRUDRepository implements Repository\NotificationUser
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\NotificationUser::class;

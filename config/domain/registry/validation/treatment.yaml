@@ -42,10 +42,6 @@ App\Domain\Registry\Model\Treatment:
             - Length:
                 max: 255
                 groups: ['default']
-        software:
-            - Length:
-                max: 255
-                groups: ['default']
         dataOrigin:
             - Length:
                 max: 255

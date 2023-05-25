@@ -50,7 +50,7 @@ class TreatmentCompletion extends AbstractCompletion
             ++$points;
         }
 
-        if ($object->getSoftware() || $object->isPaperProcessing()) {
+        if (($object->getTools() && count($object->getTools())) || $object->isPaperProcessing()) {
             ++$points;
         }
 
@@ -93,9 +93,6 @@ class TreatmentCompletion extends AbstractCompletion
         return $points;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getMaxPoints(): int
     {
         return 12;

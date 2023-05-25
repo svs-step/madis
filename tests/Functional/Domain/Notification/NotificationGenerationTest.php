@@ -92,7 +92,9 @@ class NotificationGenerationTest extends WebTestCase
          * @var RequestRepository $requestRepository
          */
         $requestRepository = $client->getContainer()->get(RequestRepository::class);
-        $requests          = $requestRepository->findAll();
+        $requests          = $requestRepository->findBy([
+            'state' => RequestStateDictionary::STATE_TO_TREAT,
+        ]);
         $this->assertNotEmpty($requests);
         /**
          * @var Request $request
@@ -100,8 +102,6 @@ class NotificationGenerationTest extends WebTestCase
         $request = $requests[0];
 
         $this->assertNotNull($request);
-
-        $oldState = $request->getState();
 
         $url = $client->getContainer()->get('router')->generate('registry_request_edit', ['id' => $request->getId()], UrlGeneratorInterface::RELATIVE_PATH);
 
@@ -111,10 +111,12 @@ class NotificationGenerationTest extends WebTestCase
                 'object'      => $request->getObject(),
                 'otherObject' => $request->getOtherObject(),
                 'applicant'   => [
-                    'firstName' => 'firstname',
-                    'lastName'  => 'lastname',
-                    'civility'  => RequestCivilityDictionary::CIVILITY_MISS,
-                    'mail'      => 'test1@example.org',
+                    'firstName'       => 'firstname',
+                    'lastName'        => 'lastname',
+                    'civility'        => RequestCivilityDictionary::CIVILITY_MISS,
+                    'mail'            => 'test1@example.org',
+                    'address'         => $request->getApplicant()->getAddress(),
+                    'concernedPeople' => 1,
                 ],
                 'date'            => date('d/m/Y'),
                 'concernedPeople' => [
@@ -123,9 +125,9 @@ class NotificationGenerationTest extends WebTestCase
                     'civility'  => RequestCivilityDictionary::CIVILITY_MISS,
                     'mail'      => 'test@example.org',
                 ],
-                'state'  => RequestStateDictionary::STATE_AWAITING_SERVICE,
-                '_token' => $csrfToken,
-                // 'uploadedFile' => $uploadedFile,
+                'stateRejectionReason' => 'N/A',
+                'state'                => RequestStateDictionary::STATE_AWAITING_SERVICE,
+                '_token'               => $csrfToken,
             ],
         ]);
 

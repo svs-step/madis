@@ -111,9 +111,6 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addSyntheticView(Section $section, array $data): void
     {
         $section->addTitle('Liste des actions de protection', 1);
@@ -142,9 +139,6 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail des actions de protection', 1);

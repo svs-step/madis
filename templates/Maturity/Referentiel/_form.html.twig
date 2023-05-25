@@ -1,0 +1,105 @@
+{% set submitValue = submitValue|default('action.submit'|trans) %}
+{% import _self as formMacros %}
+{% macro printAnswerRow(answer) %}
+    <li class="col-md-12">
+        {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': answer} %}
+    </li>
+{% endmacro %}
+{% macro printQuestionRow(question) %}
+    <li class="col-md-12">
+        {%  include 'Maturity/Referentiel/_form_referentiel_question.html.twig' with {'form': question} %}
+    </li>
+{% endmacro %}
+{% macro printSectionRow(section, index, colors) %}
+    {% set colorSection = 0 %}
+    {% if index matches '/^\\d+$/' %}
+        {% set colorSection = (index - 1) % 4 %}
+    {% endif %}
+    <li class="col-md-12">
+        <div class="row">
+            <div class="box box-solid {{ colors[colorSection] }}">
+                <div class="box-header with-border">
+                    <i class="fas fa-ellipsis-v" style="padding: 0 0.5em 0 0.4em; cursor: grab"></i>
+                    {{ index }}. {{ section.vars['value'] ? section.vars['value'].name : 'Nouvelle section' }}
+                    <a href="#section_{{ index }}" class="box-link btn btn-default " data-toggle="collapse" style="float:right;border:none"><i class="fa fa-plus"></i></a>
+                    <div class="btn-group" style="float:right;padding: 0 1em">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: none">
+                            <i class="fa fa-cog"></i> <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" style="left: -100px;">
+                            <li><a href="#" style="color: #777" class="delete-section"><i class="fa fa-trash"></i> Supprimer</a></li>
+                            <li><a href="#" style="color: #777" class="duplicate-section"><i class="fa fa-clone"></i> Dupliquer</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="collapse section" id="section_{{ index }}">
+                    <div class="box-body">
+                        {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': section} %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+{% endmacro %}
+<div class="row">
+    <div class="col-md-12">
+        {{ form_start(form) }}
+        <div class="col-md-12">
+            <div class="row" style="background: white">
+                <div class="box box-solid" >
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            {{ 'maturity.referentiel.form.informations_generales'|trans }}
+                        </h3>
+                    </div>
+                    <div class="box-body col-md-6">
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.description) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Référentiel</h3>
+                </div>
+            </div>
+
+        {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
+        <div id="prototypes"
+            data-prototype-answer = "{{ formMacros.printAnswerRow(form.domains.vars.prototype.children['questions'].vars.prototype.children['answers'].vars.prototype)|e }}"
+            data-prototype-question = "{{ formMacros.printQuestionRow(form.domains.vars.prototype.children['questions'].vars.prototype)|e }}"
+            data-prototype-section="{{ formMacros.printSectionRow(form.domains.vars.prototype, '__index__', colors)|e('html_attr') }}"
+        ></div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="referentielSections" style="margin: 0;list-style: none; padding:0"
+                        data-index="{{ form.domains|length }}"
+                   >
+                        {% do form.domains.setRendered() %}
+                        {% if form.domains is not empty %}
+                            {% for section in form.domains|sort((a, b) => a.vars['value'].position <=> b.vars['value'].position) %}
+                                {{ formMacros.printSectionRow(section, loop.index, colors) }}
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                    <button type="button" class="add_section btn btn-primary" data-collection-holder-class="referentielSections"><i class="fa fa-plus"></i> Ajouter une section</button>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-solid">
+                    <div class="box-body text-center">
+                        <a href="{{ path('maturity_referentiel_list') }}" class="btn btn-default">
+                            {{ 'maturity.referentiel.action.back_to_list'|trans }}
+                        </a>
+                        <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+</div>

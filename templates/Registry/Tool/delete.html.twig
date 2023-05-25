@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'registry_tool delete' %}
+{% set menuItem = 'registry_tool' %}
+
+{% block title %}{{ 'registry.tool.title.delete'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'registry.tool.title.delete'|trans }}
+        <small>{{ object }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'registry.tool.breadcrumb.list'|trans, 'link': path('registry_tool_list') },
+        { 'name': 'registry.tool.breadcrumb.delete'|trans({'%name%': object}) }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid">
+                <div class="box-header"></div>
+                <div class="box-body">
+                    Souhaitez vous vraiment supprimer le logiciel ou support "{{ object }}" ?
+                </div>
+                <div class="box-footer">
+                    <a href="{{ path('registry_tool_list') }}" class="btn btn-default">
+                        {{ 'registry.tool.action.back_to_list'|trans }}
+                    </a>
+                    <a href="{{ path('registry_tool_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'action.confirm_delete'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

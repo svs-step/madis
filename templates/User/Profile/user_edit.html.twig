@@ -22,7 +22,6 @@
 {% endblock %}
 
 {% block body %}
-
     <div class="row">
         {{ form_start(form) }}
 
@@ -39,6 +38,14 @@
                     {{ form_row(form.firstName) }}
                     {{ form_row(form.lastName) }}
                     {{ form_row(form.email) }}
+                </div>
+            </div>
+
+            {# More Info #}
+            <div class="box box-solid box-primary">
+                <div class="box-header">{{ 'user.profile.form_user.tab.moreInfo'|trans }}</div>
+                <div class="box-body">
+                    {{ moreInfos }}
                 </div>
             </div>
 

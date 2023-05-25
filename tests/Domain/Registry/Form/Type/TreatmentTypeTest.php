@@ -78,7 +78,7 @@ class TreatmentTypeTest extends FormTypeHelper
         $this->assertInstanceOf(AbstractType::class, $this->formType);
     }
 
-    public function testBuildForm()
+    public function testBuildFormWithoutToolsModule()
     {
         $treatment    = new Treatment();
         $collectivity = new Collectivity();
@@ -93,6 +93,71 @@ class TreatmentTypeTest extends FormTypeHelper
             'goal'                              => TextareaType::class,
             'manager'                           => TextType::class,
             'software'                          => TextType::class,
+            'paperProcessing'                   => CheckboxType::class,
+            'legalBasis'                        => DictionaryType::class,
+            'legalBasisJustification'           => TextareaType::class,
+            'observation'                       => TextareaType::class,
+            'concernedPeopleParticular'         => ComplexChoiceType::class,
+            'concernedPeopleUser'               => ComplexChoiceType::class,
+            'concernedPeopleAgent'              => ComplexChoiceType::class,
+            'concernedPeopleElected'            => ComplexChoiceType::class,
+            'concernedPeopleCompany'            => ComplexChoiceType::class,
+            'concernedPeoplePartner'            => ComplexChoiceType::class,
+            'concernedPeopleUsager'             => ComplexChoiceType::class,
+            'concernedPeopleOther'              => ComplexChoiceType::class,
+            'dataCategories'                    => EntityType::class,
+            'dataCategoryOther'                 => TextareaType::class,
+            'dataOrigin'                        => TextType::class,
+            'recipientCategory'                 => TextareaType::class,
+            'contractors'                       => EntityType::class,
+            'delay'                             => DelayType::class,
+            'securityAccessControl'             => ComplexChoiceType::class,
+            'securityTracability'               => ComplexChoiceType::class,
+            'securitySaving'                    => ComplexChoiceType::class,
+            'securityUpdate'                    => ComplexChoiceType::class,
+            'securityOther'                     => ComplexChoiceType::class,
+            'systematicMonitoring'              => CheckboxType::class,
+            'largeScaleCollection'              => CheckboxType::class,
+            'vulnerablePeople'                  => CheckboxType::class,
+            'dataCrossing'                      => CheckboxType::class,
+            'evaluationOrRating'                => CheckboxType::class,
+            'automatedDecisionsWithLegalEffect' => CheckboxType::class,
+            'automaticExclusionService'         => CheckboxType::class,
+            'innovativeUse'                     => CheckboxType::class,
+            'active'                            => ChoiceType::class,
+            'author'                            => DictionaryType::class,
+            'coordonneesResponsableTraitement'  => TextareaType::class,
+            'collectingMethod'                  => DictionaryType::class,
+            'estimatedConcernedPeople'          => IntegerType::class,
+            'securityEntitledPersons'           => CheckboxType::class,
+            'securityOpenAccounts'              => CheckboxType::class,
+            'securitySpecificitiesDelivered'    => CheckboxType::class,
+            'ultimateFate'                      => DictionaryType::class,
+            'otherCollectingMethod'             => TextType::class,
+            'legalMentions'                     => CheckboxType::class,
+            'consentRequest'                    => CheckboxType::class,
+            'consentRequestFormat'              => TextType::class,
+        ];
+
+        $this->formType->buildForm($this->prophesizeBuilder($builder), ['data' => $treatment]);
+    }
+
+    public function testBuildFormWithToolsModule()
+    {
+        $treatment    = new Treatment();
+        $collectivity = new Collectivity();
+        $collectivity->setIsServicesEnabled(true);
+        $collectivity->setHasModuleTools(true);
+        $treatment->setCollectivity($collectivity);
+
+        $builder = [
+            'public'                            => CheckboxType::class,
+            'name'                              => TextType::class,
+            'exempt_AIPD'                       => CheckboxType::class,
+            'service'                           => EntityType::class,
+            'goal'                              => TextareaType::class,
+            'manager'                           => TextType::class,
+            'tools'                             => EntityType::class,
             'paperProcessing'                   => CheckboxType::class,
             'legalBasis'                        => DictionaryType::class,
             'legalBasisJustification'           => TextareaType::class,

@@ -29,7 +29,8 @@ use App\Domain\Maturity\Model\Answer;
 use App\Tests\Utils\FormTypeHelper;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AnswerTypeTest extends FormTypeHelper
@@ -44,7 +45,9 @@ class AnswerTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'response' => ChoiceType::class,
+            'name'           => TextType::class,
+            'recommendation' => TextType::class,
+            'position'       => HiddenType::class,
         ];
 
         (new AnswerType())->buildForm($this->prophesizeBuilder($builder), []);
