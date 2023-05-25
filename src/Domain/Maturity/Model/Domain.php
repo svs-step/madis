@@ -71,7 +71,7 @@ class Domain
      *
      * @Serializer\Exclude
      */
-    private $questions;
+    public $questions;
     /**
      * @var iterable
      *
@@ -96,6 +96,18 @@ class Domain
         $this->id        = Uuid::uuid4();
         $this->questions = [];
         $this->maturity  = [];
+    }
+
+    public function __clone()
+    {
+        $this->id                       = null;
+        $this->authorizedCollectivities = null;
+
+        $questions = [];
+        foreach ($this->questions as $question) {
+            $questions = clone $question;
+        }
+        $this->questions = $questions;
     }
 
     public function getId(): UuidInterface
@@ -139,7 +151,7 @@ class Domain
         $question->setDomain($this);
     }
 
-    public function setQuestions(iterable $questions): void
+    public function setQuestions($questions): void
     {
         $this->questions = $questions;
     }

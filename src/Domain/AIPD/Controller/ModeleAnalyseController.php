@@ -335,7 +335,6 @@ class ModeleAnalyseController extends CRUDController
         /** @var ModeleAnalyse $toExport */
         $toExport = clone $object;
         $toExport->setCriterePrincipeFondamentaux($toExport->getCriterePrincipeFondamentaux()->toArray());
-        dd($toExport);
 
         $serializer = SerializerBuilder::create()->build();
         $xml        = $serializer->serialize($toExport, 'xml');

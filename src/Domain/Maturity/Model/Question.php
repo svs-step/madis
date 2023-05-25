@@ -68,7 +68,7 @@ class Question
     /**
      * @var iterable|null
      */
-    private $answers;
+    public $answers;
 
     /**
      * Question constructor.
@@ -79,6 +79,18 @@ class Question
     {
         $this->id      = Uuid::uuid4();
         $this->answers = new ArrayCollection();
+    }
+
+    public function __clone()
+    {
+        $this->id                       = null;
+        $this->authorizedCollectivities = null;
+
+        $answers = [];
+        foreach ($this->answers as $answer) {
+            $answers = clone $answer;
+        }
+        $this->answers = $answers;
     }
 
     public function getId(): UuidInterface

@@ -49,7 +49,7 @@ class Referentiel
      *
      * @Serializer\Type("array<App\Domain\Maturity\Model\Domain>")
      */
-    private iterable $domains;
+    private $domains;
 
     /**
      * @var iterable
@@ -108,10 +108,9 @@ class Referentiel
 
         $domains = [];
         foreach ($this->domains as $domain) {
-            $domains[] = clone $domain;
+            $domains = clone $domain;
         }
         $this->domains = $domains;
-
     }
 
     public function __toString(): string
@@ -198,10 +197,14 @@ class Referentiel
     }
 
     /**
-     * @param Domain[]|iterable $domains
+     * @param Domain[] $domains
      */
-    public function setDomains(iterable $domains): void
+    public function setDomains($domains): void
     {
+        /** @var domain $domain */
+        foreach($domains as $domain){
+            $domain->setReferentiel($this);
+        }
         $this->domains = $domains;
     }
 
