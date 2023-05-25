@@ -108,8 +108,9 @@ class Referentiel
 
         $domains = [];
         foreach ($this->domains as $domain) {
-            $domains = clone $domain;
+            $domains[] = clone $domain;
         }
+
         $this->domains = $domains;
     }
 
@@ -196,15 +197,8 @@ class Referentiel
         return $this->domains;
     }
 
-    /**
-     * @param Domain[] $domains
-     */
     public function setDomains($domains): void
     {
-        /** @var domain $domain */
-        foreach($domains as $domain){
-            $domain->setReferentiel($this);
-        }
         $this->domains = $domains;
     }
 

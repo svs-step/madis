@@ -88,7 +88,7 @@ class Question
 
         $answers = [];
         foreach ($this->answers as $answer) {
-            $answers = clone $answer;
+            $answers[] = clone $answer;
         }
         $this->answers = $answers;
     }

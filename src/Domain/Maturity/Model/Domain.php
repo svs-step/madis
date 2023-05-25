@@ -105,7 +105,7 @@ class Domain
 
         $questions = [];
         foreach ($this->questions as $question) {
-            $questions = clone $question;
+            $questions[] = clone $question;
         }
         $this->questions = $questions;
     }
