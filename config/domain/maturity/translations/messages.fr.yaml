@@ -39,6 +39,8 @@ maturity:
                 create: Référentiel "%object%" créé avec succès
                 edit: Référentiel "%object%" modifié avec succès
                 delete: Référentiel "%object%" supprimé avec succès
+                duplicate: Référentiel "%object%" dupliqué avec succès
+                rights: Droits sauvegardés avec succès
         list:
             name: Nom
             created_at: Date de création
