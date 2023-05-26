@@ -236,12 +236,8 @@ class ReferentielController extends CRUDController
                 unset($toRemove[$key]);
             }
             /** @var Model\Domain $domain */
-            if (is_null($domain->getPosition())) {
-                $domain->setPosition($k);
-            }
-            if (is_null($domain->getColor())) {
-                $domain->setColor($colors[$k % 4]);
-            }
+            $domain->setPosition($k);
+            $domain->setColor($colors[$k % 4]);
 
             // get all existing questions
             $toRemoveQuestions = $this->entityManager->getRepository(Model\Question::class)->findBy(['domain' => $domain]);
@@ -253,9 +249,8 @@ class ReferentielController extends CRUDController
                 if (false !== $key) {
                     unset($toRemoveQuestions[$key]);
                 }
-                if (is_null($question->getPosition())) {
-                    $question->setPosition($n);
-                }
+
+                $question->setPosition($n);
                 $question->setDomain($domain);
 
                 // get all existing Answers
@@ -267,9 +262,8 @@ class ReferentielController extends CRUDController
                     if (false !== $key) {
                         unset($toRemoveAnswers[$key]);
                     }
-                    if (is_null($answer->getPosition())) {
-                        $answer->setPosition($l);
-                    }
+
+                    $answer->setPosition($l);
                     $answer->setQuestion($question);
                 }
 
