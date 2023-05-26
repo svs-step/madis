@@ -82,12 +82,12 @@ class Answer
         return $this->id;
     }
 
-    public function getResponse(): ?int
+    public function getResponse(): ?string
     {
         return $this->response;
     }
 
-    public function setResponse(?int $response): void
+    public function setResponse(?string $response): void
     {
         $this->response = $response;
     }

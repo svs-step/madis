@@ -191,7 +191,9 @@ class ReferentielController extends CRUDController
                 $newQ->setPosition($q->getPosition());
                 $newQ->setName($q->getName());
                 $newQ->setOption($q->getOption());
-                $newQ->setOptionReason($q->getOptionReason());
+                if($q->getOption()){
+                    $newQ->setOptionReason($q->getOptionReason());
+                }
                 $newQ->setWeight($q->getWeight());
                 $newQ->setDomain($d);
                 $this->entityManager->persist($newQ);
