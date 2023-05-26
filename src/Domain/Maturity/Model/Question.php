@@ -41,30 +41,15 @@ class Question
      */
     private $id;
 
-    /**
-     * @var string|null
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var int|null
-     */
-    private $position;
+    private int $position;
 
-    /**
-     * @var int|null
-     */
-    private $weight;
+    private int $weight;
 
-    /**
-     * @var bool|null
-     */
-    private $option;
+    private bool $option;
 
-    /**
-     * @var string|null
-     */
-    private $optionReason;
+    private string $optionReason;
 
     /**
      * @var Domain|null
@@ -74,7 +59,9 @@ class Question
     private $domain;
 
     /**
-     * @var iterable|null
+     * @var Answer[]|array
+     *
+     * @Serializer\Type("array<App\Domain\Maturity\Model\Answer>")
      */
     public $answers;
 
@@ -108,6 +95,19 @@ class Question
             $answer->deserialize();
             $answer->setQuestion($this);
         }
+    }
+
+    public function __toString(): string
+    {
+        if (\is_null($this->getName())) {
+            return '';
+        }
+
+        if (\mb_strlen($this->getName()) > 85) {
+            return \mb_substr($this->getName(), 0, 85) . '...';
+        }
+
+        return $this->getName();
     }
 
     public function getId(): UuidInterface

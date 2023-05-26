@@ -37,25 +37,13 @@ class Answer
      */
     private $id;
 
-    /**
-     * @var string|null
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var int|null
-     */
-    private $position;
+    private int $position;
 
-    /**
-     * @var string|null
-     */
-    private $recommendation;
+    private string $recommendation;
 
-    /**
-     * @var string|null
-     */
-    private $response;
+    private string $response;
 
     /**
      * @var Question|null
@@ -66,6 +54,8 @@ class Answer
 
     /**
      * @var Survey[]|iterable
+     *
+     * @Serializer\Exclude
      */
     private $surveys;
 
