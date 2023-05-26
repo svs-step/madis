@@ -55,11 +55,15 @@ class Domain
 
     /**
      * @var Question[]|array
+     *
+     * @Serializer\Type("array<App\Domain\Maturity\Model\Question>")
      */
     public $questions;
 
     /**
      * @var iterable
+     *
+     * @Serializer\Exclude
      */
     private $maturity;
 
@@ -98,6 +102,7 @@ class Domain
         foreach ($this->questions as $question) {
             if (isset($question)){
                 $question->deserialize();
+                $question->setDomain($this);
             }
         }
 

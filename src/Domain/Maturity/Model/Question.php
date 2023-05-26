@@ -106,6 +106,7 @@ class Question
         if(isset($this->answers))
         foreach ($this->answers as $answer) {
             $answer->deserialize();
+            $answer->setQuestion($this);
         }
     }
 

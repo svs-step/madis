@@ -40,6 +40,7 @@ maturity:
                 create: Référentiel "%object%" créé avec succès
                 edit: Référentiel "%object%" modifié avec succès
                 delete: Référentiel "%object%" supprimé avec succès
+                import: Référentiel "%object%" importé avec succès
         list:
             name: Nom
             created_at: Date de création
