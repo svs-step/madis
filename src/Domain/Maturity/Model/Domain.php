@@ -53,9 +53,15 @@ class Domain
 
     private int $position;
 
-    public Question $questions;
+    /**
+     * @var Question[]|array
+     */
+    public $questions;
 
-    private Maturity $maturity;
+    /**
+     * @var iterable
+     */
+    private $maturity;
 
     /**
      * @var Referentiel
@@ -73,13 +79,11 @@ class Domain
     {
         $this->id        = Uuid::uuid4();
         $this->questions = [];
-        $this->maturity  = [];
     }
 
     public function __clone()
     {
-        $this->id                       = null;
-
+        $this->id = null;
         $questions = [];
         foreach ($this->questions as $question) {
             $questions[] = clone $question;
@@ -90,6 +94,7 @@ class Domain
     public function deserialize(): void
     {
         $this->id = Uuid::uuid4();
+
         foreach ($this->questions as $question) {
             if (isset($question)){
                 $question->deserialize();
@@ -133,31 +138,31 @@ class Domain
         $this->position = $position;
     }
 
-    public function addQuestion(Question $question): void
+    public function addQuestion(Question $question)
     {
         $this->questions[] = $question;
         $question->setDomain($this);
     }
 
-    public function setQuestions($questions): void
+    public function setQuestions($questions)
     {
         $this->questions = $questions;
     }
 
-    public function removeQuestion(Question $question): void
+    public function removeQuestion(Question $question)
     {
         $this->questions->removeElement($question);
     }
 
-    public function getQuestions(): Question
+    public function getQuestions()
     {
         return $this->questions;
     }
 
-    public function addMaturity(Maturity $maturity): void
+    public function addMaturity(Maturity $maturity)
     {
-        $this->maturity[] = $maturity;
-        $maturity->setDomain($this);
+        $this->maturity = $maturity;
+
     }
 
     public function removeMaturity(Maturity $maturity): void

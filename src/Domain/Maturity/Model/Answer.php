@@ -59,6 +59,8 @@ class Answer
 
     /**
      * @var Question|null
+     *
+     * @Serializer\Exclude
      */
     private $question;
 

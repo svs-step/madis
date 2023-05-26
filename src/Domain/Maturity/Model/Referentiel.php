@@ -52,7 +52,7 @@ class Referentiel
     private $domains;
 
     /**
-     * @var iterable
+     * @var Maturity
      *
      * @Serializer\Exclude
      */
@@ -213,12 +213,12 @@ class Referentiel
         $this->domains = $domains;
     }
 
-    public function getMaturity(): iterable
+    public function getMaturity()
     {
         return $this->maturity;
     }
 
-    public function setMaturity(iterable $maturity): void
+    public function setMaturity(Maturity $maturity): void
     {
         $this->maturity = $maturity;
     }

@@ -68,6 +68,8 @@ class Question
 
     /**
      * @var Domain|null
+     *
+     * @Serializer\Exclude
      */
     private $domain;
 
