@@ -71,7 +71,10 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
-                    <div style="float:left">
+                    <div id="custom-buttons" style="float:left">
+                        <a id="print-all"  href="{{ path('registry_treatment_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            Imprimer
+                        </a>
                         {% if app.request.query.get('active') != 'false' and app.user.roles[0] != 'ROLE_PREVIEW' %}
                         <a id="archive-all"  href="{{ path('registry_treatment_archive_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Désactiver
@@ -82,9 +85,6 @@
                                 Supprimer
                             </a>
                         {% endif %}
-                        <a id="print-all"  href="{{ path('registry_treatment_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Imprimer
-                        </a>
                     </div>
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
@@ -328,6 +328,9 @@
     <script>
         $(document).ready(function () {
             const exportButton = $('.dt-buttons .dt-button.buttons-excel.buttons-html5');
+
+            let columnButton = $("button.dt-button > span:contains('Colonnes')").parent();
+            $( "#custom-buttons" ).prepend( columnButton.css("float", "left").css("margin-right", "0.5em"));
             //
             // exportButton.remove();
             exportButton.html('<i class="fa fa-download"></i> Exporter')
