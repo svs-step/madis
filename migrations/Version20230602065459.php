@@ -24,8 +24,9 @@ final class Version20230602065459 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-        $this->addSql('DELETE from maturity_answer');
+        $this->addSql('UPDATE maturity_question SET weight = 1 WHERE weight = 0');
 
+        $this->addSql('DELETE from maturity_answer');
         $questions = $this->connection->query('SELECT `id` FROM maturity_question')->fetchAll();
         $uniqueQuestions =[];
         foreach ($questions as $question){
