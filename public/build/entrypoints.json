@@ -2,40 +2,40 @@
   "entrypoints": {
     "js/app": {
       "js": [
-        "/build/runtime.js",
-        "/build/js/app.js"
+        "/build/runtime.ad8a04c6.js",
+        "/build/js/app.6506ed81.js"
       ]
     },
     "js/dashboard": {
       "js": [
-        "/build/runtime.js",
-        "/build/js/dashboard.js"
+        "/build/runtime.ad8a04c6.js",
+        "/build/js/dashboard.5bdc09d4.js"
       ]
     },
     "js/dashboard_admin": {
       "js": [
-        "/build/runtime.js",
-        "/build/js/dashboard_admin.js"
+        "/build/runtime.ad8a04c6.js",
+        "/build/js/dashboard_admin.8fac5064.js"
       ]
     },
     "js/collectionManager": {
       "js": [
-        "/build/runtime.js",
-        "/build/js/collectionManager.js"
+        "/build/runtime.ad8a04c6.js",
+        "/build/js/collectionManager.e4a05ad6.js"
       ]
     },
     "js/evaluation": {
       "js": [
-        "/build/runtime.js",
-        "/build/js/evaluation.js"
+        "/build/runtime.ad8a04c6.js",
+        "/build/js/evaluation.2ebf00dd.js"
       ]
     },
     "css/app": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.ad8a04c6.js"
       ],
       "css": [
-        "/build/css/app.css"
+        "/build/css/app.0ecccf60.css"
       ]
     }
   }

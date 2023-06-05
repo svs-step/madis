@@ -99,41 +99,26 @@ class ViolationController extends CRUDController
         $this->router               = $router;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'violation';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Violation::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return ViolationType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function isSoftDelete(): bool
     {
         return true;

@@ -1,0 +1,21 @@
+{% import _self as formMacros %}
+{#  macro printQuestionRow(question) %}
+
+{% endmacro #}
+
+<div class="row">
+    <div class="box-body">
+        <div class="col-md-6">
+            <p>{{ form.vars.value.name }}</p>
+            <p>{{ form.vars.value.description }}</p>
+        </div>
+        <div class="col-md-12">
+            {% for question in section.surveyReferentielQuestions %}
+                {% include 'Maturity/Survey/_form_survey_referentiel_question.html.twig' with {'form': question} %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+

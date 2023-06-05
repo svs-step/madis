@@ -368,6 +368,10 @@ tr.selected td:before {
   color: #CCC;
 }
 
+td.action > a {
+  white-space: nowrap;
+}
+
 .p-0 {
     padding: 0!important;
 }

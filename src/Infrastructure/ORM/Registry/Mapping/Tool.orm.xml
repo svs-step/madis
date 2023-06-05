@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                            https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\Registry\Model\Tool" table="registry_tool">
+
+        <id name="id" column="id" type="uuid"/>
+
+        <field name="name" column="name"/>
+        <field name="type" column="type" nullable="true"/>
+        <field name="editor" column="editor" nullable="true"/>
+        <field name="description" column="description" nullable="true" type="text"/>
+        <field name="prod_date" column="prod_date" nullable="true" type="date"/>
+        <field name="country_name" column="country_name" nullable="true" />
+
+        <field name="country_type" column="country_type" nullable="true" />
+        <field name="country_guarantees" column="country_guarantees" nullable="true" />
+        <field name="other_info" column="other_info" nullable="true" type="text"/>
+        <embedded name="archival" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="archival_"/>
+        <embedded name="encrypted" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="encrypted_"/>
+        <embedded name="access_control" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="access_control_"/>
+        <embedded name="update" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="updating_"/>
+        <embedded name="backup" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="backup_"/>
+        <embedded name="deletion" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="deletion_"/>
+        <embedded name="tracking" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="tracking_"/>
+        <embedded name="has_comment" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="has_comment_"/>
+        <embedded name="other" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="other_"/>
+
+        <many-to-many field="mesurements" mapped-by="tools" target-entity="App\Domain\Registry\Model\Mesurement">
+        </many-to-many>
+
+        <many-to-many field="proofs" mapped-by="tools" target-entity="App\Domain\Registry\Model\Proof">
+        </many-to-many>
+
+        <many-to-many field="treatments" mapped-by="tools" target-entity="App\Domain\Registry\Model\Treatment">
+        </many-to-many>
+
+        <many-to-many field="contractors" inversed-by="tools" target-entity="App\Domain\Registry\Model\Contractor">
+            <join-table name="tool_contractor">
+                <join-columns>
+                    <join-column on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+
+        <!-- Traits -->
+        <many-to-one field="creator" target-entity="App\Domain\User\Model\User">
+            <join-column on-delete="SET NULL" />
+        </many-to-one>
+        <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">
+            <join-column on-delete="CASCADE" />
+        </many-to-one>
+        <field name="createdAt" column="created_at" type="datetime_immutable">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" column="updated_at" type="datetime_immutable">
+            <gedmo:timestampable on="update"/>
+        </field>
+    </entity>
+
+</doctrine-mapping>

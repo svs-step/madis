@@ -96,41 +96,26 @@ class RequestController extends CRUDController
         $this->router               = $router;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'request';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Request::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return RequestType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getListData()
     {
         $request  = $this->requestStack->getMasterRequest();
@@ -146,9 +131,6 @@ class RequestController extends CRUDController
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function isSoftDelete(): bool
     {
         return true;

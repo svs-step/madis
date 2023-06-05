@@ -53,9 +53,6 @@ class Notification extends CRUDRepository implements Repository\Notification
         $this->security = $security;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Notification::class;

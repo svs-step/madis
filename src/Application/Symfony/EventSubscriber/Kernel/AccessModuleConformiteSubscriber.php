@@ -45,9 +45,6 @@ class AccessModuleConformiteSubscriber implements EventSubscriberInterface
         $this->security = $security;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents()
     {
         return [

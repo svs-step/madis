@@ -28,29 +28,21 @@ interface CRUDRepositoryInterface extends RepositoryInterface
 {
     /**
      * Insert an object.
-     *
-     * @param mixed $object
      */
     public function insert($object): void;
 
     /**
      * Update an object.
-     *
-     * @param mixed $object
      */
     public function update($object): void;
 
     /**
      * Create an object.
-     *
-     * @return mixed
      */
     public function create();
 
     /**
      * Remove an object.
-     *
-     * @param mixed $object
      */
     public function remove($object): void;
 
@@ -65,8 +57,6 @@ interface CRUDRepositoryInterface extends RepositoryInterface
      * Get an object by ID.
      *
      * @param string $id The ID to find
-     *
-     * @return mixed
      */
     public function findOneById(string $id);
 
@@ -74,8 +64,6 @@ interface CRUDRepositoryInterface extends RepositoryInterface
      * Get an object by criteria.
      *
      * @param array $criteria list of criteria
-     *
-     * @return mixed
      */
     public function findBy(array $criteria);
 }

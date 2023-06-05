@@ -39,9 +39,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
 {
     use RepositoryUtils;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Treatment::class;
@@ -81,9 +78,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         return $qb;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllActive(bool $active = true, array $order = [])
     {
         $qb = $this->createQueryBuilder();
@@ -97,9 +91,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllByCollectivity(Collectivity $collectivity, array $order = [])
     {
         $qb = $this->createQueryBuilder();
@@ -113,9 +104,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllActiveByCollectivity(Collectivity $collectivity = null, bool $active = true, array $order = [])
     {
         $qb = $this->createQueryBuilder();
@@ -132,9 +120,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function countAllByCollectivity(Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
@@ -145,9 +130,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findOneOrNullLastUpdateByCollectivity(Collectivity $collectivity): ?Model\Treatment
     {
         $qb = $this->createQueryBuilder();
@@ -159,9 +141,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         return $qb->getQuery()->getOneOrNullResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function countAllActiveByCollectivity(Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
@@ -173,9 +152,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllByActiveCollectivity(bool $active = true, User $user = null)
     {
         $qb = $this->createQueryBuilder();

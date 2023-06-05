@@ -92,7 +92,12 @@
                                 {% if data.maturity is empty %}
                                     Aucun indice à afficher
                                 {% else %}
+                                    {% if data.maturity.new is defined and data.maturity.new.data is defined and data.maturity.new.data|length >= 3 %}
+
                                     <canvas id="maturity-radar"></canvas>
+                                        {% else %}
+                                        Le référentiel contient moins de trois sections
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </div>

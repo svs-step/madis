@@ -100,33 +100,21 @@ class CollectivityController extends CRUDController
         $this->authorizationChecker = $authorizationChecker;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'user';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'collectivity';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Collectivity::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return CollectivityType::class;
@@ -226,9 +214,6 @@ class CollectivityController extends CRUDController
         return $criteria;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function showAction(string $id): Response
     {
         /** @var Model\User $user */

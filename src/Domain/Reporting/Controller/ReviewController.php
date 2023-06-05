@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Controller;
 
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Maturity\Model\Survey;
 use App\Domain\Maturity\Repository as MaturityRepository;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
@@ -124,7 +125,9 @@ class ReviewController extends AbstractController
         }
 
         $maturity = [];
-        $objects  = $this->surveyRepository->findAllByCollectivity($collectivity, ['createdAt' => 'DESC'], 2);
+        $objects  = array_filter($this->surveyRepository->findAllByCollectivity($collectivity, ['createdAt' => 'DESC'], 2), function (Survey $survey) {
+            return null !== $survey->getReferentiel();
+        });
 
         if (1 <= \count($objects)) {
             $maturity['new'] = $objects[0];

@@ -63,6 +63,13 @@ class Mesurement implements LoggableSubject, CollectivityRelated
     private $type;
 
     /**
+     * FR: Logiciels et supports.
+     *
+     * @var Tool[]|iterable
+     */
+    private $tools;
+
+    /**
      * FR: Description.
      *
      * @var string|null
@@ -356,5 +363,21 @@ class Mesurement implements LoggableSubject, CollectivityRelated
     public function isInUserServices(User $user): bool
     {
         return true;
+    }
+
+    /**
+     * @return Tool[]|iterable
+     */
+    public function getTools(): ?iterable
+    {
+        return $this->tools;
+    }
+
+    /**
+     * @param Tool[]|iterable|null $tools
+     */
+    public function setTools(?iterable $tools): void
+    {
+        $this->tools = $tools;
     }
 }

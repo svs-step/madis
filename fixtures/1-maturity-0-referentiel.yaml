@@ -1,0 +1,13 @@
+App\Domain\Maturity\Model\Referentiel:
+
+    maturity_referentiel_1:
+        name: Référentiel 1
+        description: desc 1
+
+    maturity_referentiel_2:
+        name: Référentiel 2
+        description: desc 2
+
+    maturity_referentiel_3:
+        name: Référentiel 3
+        description: desc 3

@@ -243,7 +243,7 @@ class AnalyseImpactController extends CRUDController
 
             if ($this->analyseFlow->nextStep()) {
                 $form = $this->analyseFlow->createForm();
-            // TODO Persist and flush here to allow draft ?
+                // TODO Persist and flush here to allow draft ?
             } else {
                 $this->entityManager->persist($object);
                 $this->entityManager->flush();
@@ -321,8 +321,8 @@ class AnalyseImpactController extends CRUDController
             $authorizedCollectivityTypes = $modele->getAuthorizedCollectivityTypes();
 
             if ((!\is_null($authorizedCollectivityTypes)
-                && in_array($collectivityType, $authorizedCollectivityTypes)) ||
-                $authorizedCollectivities->contains($collectivity)
+                && in_array($collectivityType, $authorizedCollectivityTypes))
+                || $authorizedCollectivities->contains($collectivity)
             ) {
                 $reponse['data'][] = [
                     'nom'         => '<input type="radio" value="' . $modele->getId() . '" name="modele_choice" required="true"/> ' . $modele->getNom(),

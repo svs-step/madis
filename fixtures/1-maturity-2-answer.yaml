@@ -8,267 +8,351 @@ App\Domain\Maturity\Model\Answer:
     maturity_survey_awkan_1_answer_1_1:
         question: '@maturity_domain_1_question_1'
         response: 1
+        position: 1
     maturity_survey_awkan_1_answer_1_2:
         question: '@maturity_domain_1_question_2'
         response: 2
+        position: 2
     maturity_survey_awkan_1_answer_1_3:
         question: '@maturity_domain_1_question_3'
         response: 1
+        position: 3
     maturity_survey_awkan_1_answer_1_4:
         question: '@maturity_domain_1_question_4'
         response: 1
+        position: 4
     maturity_survey_awkan_1_answer_1_5:
         question: '@maturity_domain_1_question_5'
         response: 2
+        position: 5
     maturity_survey_awkan_1_answer_1_6:
         question: '@maturity_domain_1_question_6'
         response: 1
+        position: 6
     maturity_survey_awkan_1_answer_1_7:
         question: '@maturity_domain_1_question_7'
         response: 1
+        position: 7
 
     maturity_survey_awkan_1_answer_2_1:
         question: '@maturity_domain_2_question_1'
         response: 1
+        position: 1
     maturity_survey_awkan_1_answer_2_2:
         question: '@maturity_domain_2_question_2'
         response: 2
+        position: 2
     maturity_survey_awkan_1_answer_2_3:
         question: '@maturity_domain_2_question_3'
         response: 1
+        position: 3
     maturity_survey_awkan_1_answer_2_4:
         question: '@maturity_domain_2_question_4'
         response: 1
+        position: 4
     maturity_survey_awkan_1_answer_2_5:
         question: '@maturity_domain_2_question_5'
         response: 2
+        position: 5
     maturity_survey_awkan_1_answer_2_6:
         question: '@maturity_domain_2_question_6'
         response: 1
+        position: 6
     maturity_survey_awkan_1_answer_2_7:
         question: '@maturity_domain_2_question_7'
         response: 1
+        position: 7
 
     maturity_survey_awkan_1_answer_3_1:
         question: '@maturity_domain_3_question_1'
         response: 2
+        position: 1
     maturity_survey_awkan_1_answer_3_2:
         question: '@maturity_domain_3_question_2'
         response: 2
+        position: 2
     maturity_survey_awkan_1_answer_3_3:
         question: '@maturity_domain_3_question_3'
         response: 1
+        position: 3
     maturity_survey_awkan_1_answer_3_4:
         question: '@maturity_domain_3_question_4'
         response: 1
+        position: 4
     maturity_survey_awkan_1_answer_3_5:
         question: '@maturity_domain_3_question_5'
         response: 2
+        position: 5
     maturity_survey_awkan_1_answer_3_6:
         question: '@maturity_domain_3_question_6'
         response: 1
+        position: 6
     maturity_survey_awkan_1_answer_3_7:
         question: '@maturity_domain_3_question_7'
         response: 1
+        position: 7
 
     maturity_survey_awkan_1_answer_4_1:
         question: '@maturity_domain_4_question_1'
         response: 1
+        position: 1
     maturity_survey_awkan_1_answer_4_2:
         question: '@maturity_domain_4_question_2'
         response: 2
+        position: 2
     maturity_survey_awkan_1_answer_4_3:
         question: '@maturity_domain_4_question_3'
         response: 1
+        position: 3
     maturity_survey_awkan_1_answer_4_4:
         question: '@maturity_domain_4_question_4'
         response: 1
+        position: 4
     maturity_survey_awkan_1_answer_4_5:
         question: '@maturity_domain_4_question_5'
         response: 2
+        position: 5
     maturity_survey_awkan_1_answer_4_6:
         question: '@maturity_domain_4_question_6'
         response: 1
+        position: 6
     maturity_survey_awkan_1_answer_4_7:
         question: '@maturity_domain_4_question_7'
         response: 1
+        position: 7
 
     maturity_survey_awkan_1_answer_5_1:
         question: '@maturity_domain_5_question_1'
         response: 1
+        position: 1
     maturity_survey_awkan_1_answer_5_2:
         question: '@maturity_domain_5_question_2'
         response: 2
+        position: 2
     maturity_survey_awkan_1_answer_5_3:
         question: '@maturity_domain_5_question_3'
         response: 1
+        position: 3
     maturity_survey_awkan_1_answer_5_4:
         question: '@maturity_domain_5_question_4'
         response: 1
+        position: 4
     maturity_survey_awkan_1_answer_5_5:
         question: '@maturity_domain_5_question_5'
         response: 2
+        position: 5
     maturity_survey_awkan_1_answer_5_6:
         question: '@maturity_domain_5_question_6'
         response: 1
+        position: 6
     maturity_survey_awkan_1_answer_5_7:
         question: '@maturity_domain_5_question_7'
         response: 1
+        position: 7
 
     maturity_survey_awkan_1_answer_6_1:
         question: '@maturity_domain_6_question_1'
         response: 1
+        position: 1
     maturity_survey_awkan_1_answer_6_2:
         question: '@maturity_domain_6_question_2'
         response: 2
+        position: 2
     maturity_survey_awkan_1_answer_6_3:
         question: '@maturity_domain_6_question_3'
         response: 1
+        position: 3
     maturity_survey_awkan_1_answer_6_4:
         question: '@maturity_domain_6_question_4'
         response: 1
+        position: 4
     maturity_survey_awkan_1_answer_6_5:
         question: '@maturity_domain_6_question_5'
         response: 2
+        position: 5
     maturity_survey_awkan_1_answer_6_6:
         question: '@maturity_domain_6_question_6'
         response: 1
+        position: 6
     maturity_survey_awkan_1_answer_6_7:
         question: '@maturity_domain_6_question_7'
         response: 1
+        position: 7
 
     # Survey 2
     maturity_survey_awkan_2_answer_1_1:
         question: '@maturity_domain_1_question_1'
         response: 1
+        position: 1
     maturity_survey_awkan_2_answer_1_2:
         question: '@maturity_domain_1_question_2'
         response: 2
+        position: 2
     maturity_survey_awkan_2_answer_1_3:
         question: '@maturity_domain_1_question_3'
         response: 1
+        position: 3
     maturity_survey_awkan_2_answer_1_4:
         question: '@maturity_domain_1_question_4'
         response: 1
+        position: 4
     maturity_survey_awkan_2_answer_1_5:
         question: '@maturity_domain_1_question_5'
         response: 2
+        position: 5
     maturity_survey_awkan_2_answer_1_6:
         question: '@maturity_domain_1_question_6'
         response: 1
+        position: 6
     maturity_survey_awkan_2_answer_1_7:
         question: '@maturity_domain_1_question_7'
         response: 1
+        position: 7
 
     maturity_survey_awkan_2_answer_2_1:
         question: '@maturity_domain_2_question_1'
         response: 1
+        position: 1
     maturity_survey_awkan_2_answer_2_2:
         question: '@maturity_domain_2_question_2'
         response: 2
+        position: 2
     maturity_survey_awkan_2_answer_2_3:
         question: '@maturity_domain_2_question_3'
         response: 1
+        position: 3
     maturity_survey_awkan_2_answer_2_4:
         question: '@maturity_domain_2_question_4'
         response: 1
+        position: 4
     maturity_survey_awkan_2_answer_2_5:
         question: '@maturity_domain_2_question_5'
         response: 2
+        position: 5
     maturity_survey_awkan_2_answer_2_6:
         question: '@maturity_domain_2_question_6'
         response: 1
+        position: 6
     maturity_survey_awkan_2_answer_2_7:
         question: '@maturity_domain_2_question_7'
         response: 1
+        position: 7
 
     maturity_survey_awkan_2_answer_3_1:
         question: '@maturity_domain_3_question_1'
         response: 2
+        position: 1
     maturity_survey_awkan_2_answer_3_2:
         question: '@maturity_domain_3_question_2'
         response: 2
+        position: 2
     maturity_survey_awkan_2_answer_3_3:
         question: '@maturity_domain_3_question_3'
         response: 1
+        position: 3
     maturity_survey_awkan_2_answer_3_4:
         question: '@maturity_domain_3_question_4'
         response: 1
+        position: 4
     maturity_survey_awkan_2_answer_3_5:
         question: '@maturity_domain_3_question_5'
         response: 2
+        position: 5
     maturity_survey_awkan_2_answer_3_6:
         question: '@maturity_domain_3_question_6'
         response: 1
+        position: 6
     maturity_survey_awkan_2_answer_3_7:
         question: '@maturity_domain_3_question_7'
         response: 1
+        position: 7
 
     maturity_survey_awkan_2_answer_4_1:
         question: '@maturity_domain_4_question_1'
         response: 1
+        position: 1
     maturity_survey_awkan_2_answer_4_2:
         question: '@maturity_domain_4_question_2'
         response: 2
+        position: 2
     maturity_survey_awkan_2_answer_4_3:
         question: '@maturity_domain_4_question_3'
         response: 1
+        position: 3
     maturity_survey_awkan_2_answer_4_4:
         question: '@maturity_domain_4_question_4'
         response: 1
+        position: 4
     maturity_survey_awkan_2_answer_4_5:
         question: '@maturity_domain_4_question_5'
         response: 2
+        position: 5
     maturity_survey_awkan_2_answer_4_6:
         question: '@maturity_domain_4_question_6'
         response: 1
+        position: 6
     maturity_survey_awkan_2_answer_4_7:
         question: '@maturity_domain_4_question_7'
         response: 1
+        position: 7
 
     maturity_survey_awkan_2_answer_5_1:
         question: '@maturity_domain_5_question_1'
         response: 1
+        position: 1
     maturity_survey_awkan_2_answer_5_2:
         question: '@maturity_domain_5_question_2'
         response: 2
+        position: 2
     maturity_survey_awkan_2_answer_5_3:
         question: '@maturity_domain_5_question_3'
         response: 1
+        position: 3
     maturity_survey_awkan_2_answer_5_4:
         question: '@maturity_domain_5_question_4'
         response: 1
+        position: 4
     maturity_survey_awkan_2_answer_5_5:
         question: '@maturity_domain_5_question_5'
         response: 2
+        position: 5
     maturity_survey_awkan_2_answer_5_6:
         question: '@maturity_domain_5_question_6'
         response: 1
+        position: 6
     maturity_survey_awkan_2_answer_5_7:
         question: '@maturity_domain_5_question_7'
         response: 1
+        position: 7
 
     maturity_survey_awkan_2_answer_6_1:
         question: '@maturity_domain_6_question_1'
         response: 1
+        position: 1
     maturity_survey_awkan_2_answer_6_2:
         question: '@maturity_domain_6_question_2'
         response: 2
+        position: 2
     maturity_survey_awkan_2_answer_6_3:
         question: '@maturity_domain_6_question_3'
         response: 1
+        position: 3
     maturity_survey_awkan_2_answer_6_4:
         question: '@maturity_domain_6_question_4'
         response: 1
+        position: 4
     maturity_survey_awkan_2_answer_6_5:
         question: '@maturity_domain_6_question_5'
         response: 2
+        position: 5
     maturity_survey_awkan_2_answer_6_6:
         question: '@maturity_domain_6_question_6'
         response: 1
+        position: 6
     maturity_survey_awkan_2_answer_6_7:
         question: '@maturity_domain_6_question_7'
         response: 1
+        position: 7
 
     # --------------------
     # COLLECTIVITY_SOLURIS
@@ -278,131 +362,173 @@ App\Domain\Maturity\Model\Answer:
     maturity_survey_soluris_1_answer_1_1:
         question: '@maturity_domain_1_question_1'
         response: 1
+        position: 1
     maturity_survey_soluris_1_answer_1_2:
         question: '@maturity_domain_1_question_2'
         response: 2
+        position: 2
     maturity_survey_soluris_1_answer_1_3:
         question: '@maturity_domain_1_question_3'
         response: 1
+        position: 3
     maturity_survey_soluris_1_answer_1_4:
         question: '@maturity_domain_1_question_4'
         response: 1
+        position: 4
     maturity_survey_soluris_1_answer_1_5:
         question: '@maturity_domain_1_question_5'
         response: 2
+        position: 5
     maturity_survey_soluris_1_answer_1_6:
         question: '@maturity_domain_1_question_6'
         response: 1
+        position: 6
     maturity_survey_soluris_1_answer_1_7:
         question: '@maturity_domain_1_question_7'
         response: 1
+        position: 7
 
     maturity_survey_soluris_1_answer_2_1:
         question: '@maturity_domain_2_question_1'
         response: 1
+        position: 1
     maturity_survey_soluris_1_answer_2_2:
         question: '@maturity_domain_2_question_2'
         response: 2
+        position: 2
     maturity_survey_soluris_1_answer_2_3:
         question: '@maturity_domain_2_question_3'
         response: 1
+        position: 3
     maturity_survey_soluris_1_answer_2_4:
         question: '@maturity_domain_2_question_4'
         response: 1
+        position: 4
     maturity_survey_soluris_1_answer_2_5:
         question: '@maturity_domain_2_question_5'
         response: 2
+        position: 5
     maturity_survey_soluris_1_answer_2_6:
         question: '@maturity_domain_2_question_6'
         response: 1
+        position: 6
     maturity_survey_soluris_1_answer_2_7:
         question: '@maturity_domain_2_question_7'
         response: 1
+        position: 7
 
     maturity_survey_soluris_1_answer_3_1:
         question: '@maturity_domain_3_question_1'
         response: 2
+        position: 1
     maturity_survey_soluris_1_answer_3_2:
         question: '@maturity_domain_3_question_2'
         response: 2
+        position: 2
     maturity_survey_soluris_1_answer_3_3:
         question: '@maturity_domain_3_question_3'
         response: 1
+        position: 3
     maturity_survey_soluris_1_answer_3_4:
         question: '@maturity_domain_3_question_4'
         response: 1
+        position: 4
     maturity_survey_soluris_1_answer_3_5:
         question: '@maturity_domain_3_question_5'
         response: 2
+        position: 5
     maturity_survey_soluris_1_answer_3_6:
         question: '@maturity_domain_3_question_6'
         response: 1
+        position: 6
     maturity_survey_soluris_1_answer_3_7:
         question: '@maturity_domain_3_question_7'
         response: 1
+        position: 7
 
     maturity_survey_soluris_1_answer_4_1:
         question: '@maturity_domain_4_question_1'
         response: 1
+        position: 1
     maturity_survey_soluris_1_answer_4_2:
         question: '@maturity_domain_4_question_2'
         response: 2
+        position: 2
     maturity_survey_soluris_1_answer_4_3:
         question: '@maturity_domain_4_question_3'
         response: 1
+        position: 3
     maturity_survey_soluris_1_answer_4_4:
         question: '@maturity_domain_4_question_4'
         response: 1
+        position: 4
     maturity_survey_soluris_1_answer_4_5:
         question: '@maturity_domain_4_question_5'
         response: 2
+        position: 5
     maturity_survey_soluris_1_answer_4_6:
         question: '@maturity_domain_4_question_6'
         response: 1
+        position: 6
     maturity_survey_soluris_1_answer_4_7:
         question: '@maturity_domain_4_question_7'
         response: 1
+        position: 7
 
     maturity_survey_soluris_1_answer_5_1:
         question: '@maturity_domain_5_question_1'
         response: 1
+        position: 1
     maturity_survey_soluris_1_answer_5_2:
         question: '@maturity_domain_5_question_2'
         response: 2
+        position: 2
     maturity_survey_soluris_1_answer_5_3:
         question: '@maturity_domain_5_question_3'
         response: 1
+        position: 3
     maturity_survey_soluris_1_answer_5_4:
         question: '@maturity_domain_5_question_4'
         response: 1
+        position: 4
     maturity_survey_soluris_1_answer_5_5:
         question: '@maturity_domain_5_question_5'
         response: 2
+        position: 5
     maturity_survey_soluris_1_answer_5_6:
         question: '@maturity_domain_5_question_6'
         response: 1
+        position: 6
     maturity_survey_soluris_1_answer_5_7:
         question: '@maturity_domain_5_question_7'
         response: 1
+        position: 7
 
     maturity_survey_soluris_1_answer_6_1:
         question: '@maturity_domain_6_question_1'
         response: 1
+        position: 1
     maturity_survey_soluris_1_answer_6_2:
         question: '@maturity_domain_6_question_2'
         response: 2
+        position: 2
     maturity_survey_soluris_1_answer_6_3:
         question: '@maturity_domain_6_question_3'
         response: 1
+        position: 3
     maturity_survey_soluris_1_answer_6_4:
         question: '@maturity_domain_6_question_4'
         response: 1
+        position: 4
     maturity_survey_soluris_1_answer_6_5:
         question: '@maturity_domain_6_question_5'
         response: 2
+        position: 5
     maturity_survey_soluris_1_answer_6_6:
         question: '@maturity_domain_6_question_6'
         response: 1
+        position: 6
     maturity_survey_soluris_1_answer_6_7:
         question: '@maturity_domain_6_question_7'
         response: 1
+        position: 7

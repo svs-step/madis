@@ -87,9 +87,6 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addSyntheticView(Section $section, array $data): void
     {
         $section->addTitle('Liste des violations', 1);
@@ -125,9 +122,6 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addPageBreak();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail des violations', 1);

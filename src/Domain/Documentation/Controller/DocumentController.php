@@ -100,41 +100,26 @@ class DocumentController extends CRUDController
         $this->categoryRepository   = $categoryRepository;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'documentation';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'document';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Document::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return DocumentType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getRouteName(string $template = null): string
     {
         if ('list' === $template) {
@@ -144,9 +129,6 @@ class DocumentController extends CRUDController
         return "{$this->getDomain()}_{$this->getModel()}_{$template}";
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getListData()
     {
         $order = [
@@ -261,8 +243,6 @@ class DocumentController extends CRUDController
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @param Model\Document $object
      */
     public function formPrePersistData($object)

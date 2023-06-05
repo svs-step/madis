@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Model;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,17 +33,19 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SurveyType extends AbstractType
 {
-    /**
-     * Build type form.
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var Model\Referentiel $ref */
+        $ref = $options['data']->getReferentiel();
+
         $builder
-            ->add('answers', CollectionType::class, [
-                'label'        => 'Questions',
-                'entry_type'   => AnswerType::class,
-                'allow_add'    => false,
-                'allow_delete' => false,
+            ->add('referentiel', EntityType::class, [
+                'class'      => Model\Referentiel::class,
+                'empty_data' => $ref,
+            ])
+            ->add('questions', CollectionType::class, [
+                'entry_type' => SurveyAnswerType::class,
+                'mapped'     => false,
             ])
         ;
     }

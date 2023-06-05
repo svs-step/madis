@@ -192,8 +192,6 @@ abstract class CRUDController extends AbstractController
     /**
      * Actions to make when a form is submitted and valid.
      * This method is handled just after form validation, before object manipulation.
-     *
-     * @param mixed $object
      */
     public function formPrePersistData($object)
     {

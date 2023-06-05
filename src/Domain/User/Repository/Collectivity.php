@@ -31,8 +31,6 @@ use App\Domain\User\Model;
 interface Collectivity extends CRUDRepositoryInterface, DataTablesRepository
 {
     /**
-     * {@inheritdoc}
-     *
      * @return Model\Collectivity
      */
     public function findOneById(string $id);
@@ -51,7 +49,7 @@ interface Collectivity extends CRUDRepositoryInterface, DataTablesRepository
      *
      * @return Model\Collectivity[]
      */
-    public function findByTypes(array $types, ?Model\Collectivity $excludedCollectivity = null): array;
+    public function findByTypes(array $types, Model\Collectivity $excludedCollectivity = null): array;
 
     /**
      * Find all collectivity.
@@ -65,8 +63,6 @@ interface Collectivity extends CRUDRepositoryInterface, DataTablesRepository
 
     /**
      * Find all collectivity by.
-     *
-     * @return mixed
      */
     public function findByUserReferent(Model\User $userReferent, bool $active = true);
 }

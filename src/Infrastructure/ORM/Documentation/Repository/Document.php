@@ -30,9 +30,6 @@ use App\Domain\Documentation\Repository;
 
 class Document extends CRUDRepository implements Repository\Document
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Document::class;

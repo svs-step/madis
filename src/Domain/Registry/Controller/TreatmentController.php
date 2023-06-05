@@ -103,41 +103,26 @@ class TreatmentController extends CRUDController
         $this->router                 = $router;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'treatment';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Treatment::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return TreatmentType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function listAction(): Response
     {
         $request            = $this->requestStack->getMasterRequest();
@@ -177,9 +162,6 @@ class TreatmentController extends CRUDController
         return $this->wordHandler->generateRegistryTreatmentReport($objects);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configurationAction(): Response
     {
         $request            = $this->requestStack->getMasterRequest();
@@ -322,9 +304,6 @@ class TreatmentController extends CRUDController
         return new JsonResponse($responseData);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function listDataTables(Request $request): JsonResponse
     {
         $request            = $this->requestStack->getMasterRequest();
@@ -375,7 +354,7 @@ class TreatmentController extends CRUDController
                 'nom'                    => $treatmentLink,
                 'collectivite'           => $this->authorizationChecker->isGranted('ROLE_REFERENT') ? $treatment->getCollectivity()->getName() : '',
                 'baseLegal'              => !empty($treatment->getLegalBasis()) && array_key_exists($treatment->getLegalBasis(), TreatmentLegalBasisDictionary::getBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : $treatment->getLegalBasis(),
-                'logiciel'               => $treatment->getSoftware(),
+                'logiciel'               => $treatment->getToolsString(),
                 'enTantQue'              => !empty($treatment->getAuthor()) && array_key_exists($treatment->getAuthor(), TreatmentAuthorDictionary::getAuthors()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : $treatment->getAuthor(),
                 'gestionnaire'           => $treatment->getManager(),
                 'sousTraitant'           => $contractors,
@@ -683,9 +662,6 @@ class TreatmentController extends CRUDController
         return $this->redirectToRoute($this->getRouteName('list'));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getLabelAndKeysArray(): array
     {
         if ($this->authorizationChecker->isGranted('ROLE_REFERENT')) {

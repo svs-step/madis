@@ -38,17 +38,11 @@ class Contractor extends CRUDRepository implements Repository\Contractor
 {
     use RepositoryUtils;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Contractor::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllByCollectivity(Collectivity $collectivity, array $order = [])
     {
         $qb = $this->createQueryBuilder()
@@ -66,9 +60,6 @@ class Contractor extends CRUDRepository implements Repository\Contractor
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function countAllByCollectivity(Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
@@ -192,9 +183,6 @@ class Contractor extends CRUDRepository implements Repository\Contractor
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllByActiveCollectivity(bool $active = true, User $user = null)
     {
         $qb = $this->createQueryBuilder();
@@ -218,9 +206,6 @@ class Contractor extends CRUDRepository implements Repository\Contractor
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findBy(array $criteria = [])
     {
         $qb = $this->createQueryBuilder();

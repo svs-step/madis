@@ -35,7 +35,22 @@ class Answer
     private $id;
 
     /**
+     * @var string|null
+     */
+    private $name;
+
+    /**
      * @var int|null
+     */
+    private $position;
+
+    /**
+     * @var string|null
+     */
+    private $recommendation;
+
+    /**
+     * @var string|null
      */
     private $response;
 
@@ -45,9 +60,9 @@ class Answer
     private $question;
 
     /**
-     * @var Survey|null
+     * @var Survey[]|iterable
      */
-    private $survey;
+    private $surveys;
 
     /**
      * Answer constructor.
@@ -56,7 +71,10 @@ class Answer
      */
     public function __construct()
     {
-        $this->id = Uuid::uuid4();
+        $this->id             = Uuid::uuid4();
+        $this->name           = '';
+        $this->response       = '';
+        $this->recommendation = '';
     }
 
     public function getId(): UuidInterface
@@ -84,13 +102,48 @@ class Answer
         $this->question = $question;
     }
 
-    public function getSurvey(): ?Survey
+    public function getSurveys(): iterable
     {
-        return $this->survey;
+        return $this->surveys;
     }
 
-    public function setSurvey(?Survey $survey): void
+    public function setSurveys(iterable $surveys): void
     {
-        $this->survey = $survey;
+        $this->surveys = $surveys;
+    }
+
+    public function addSurvey(Survey $survey): void
+    {
+        $this->surveys[] = $survey;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getRecommendation(): ?string
+    {
+        return $this->recommendation;
+    }
+
+    public function setRecommendation(?string $recommendation): void
+    {
+        $this->recommendation = $recommendation;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): void
+    {
+        $this->position = $position;
     }
 }

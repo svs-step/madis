@@ -107,8 +107,6 @@ interface Treatment extends CRUDRepositoryInterface, DataTablesRepository
 
     /**
      * Set clonedFrom to null by collectivity.
-     *
-     * @return mixed
      */
     public function resetClonedFromCollectivity(Collectivity $collectivity);
 }

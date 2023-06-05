@@ -81,6 +81,10 @@ class ProofTypeTest extends FormTypeHelper
      */
     public function testBuildForm()
     {
+        $proof        = new Model\Proof();
+        $collectivity = new UserModel\Collectivity();
+
+        $proof->setCollectivity($collectivity);
         $builder = [
             'name'         => TextType::class,
             'type'         => DictionaryType::class,
@@ -95,7 +99,7 @@ class ProofTypeTest extends FormTypeHelper
 
         $this->sut->buildForm(
             $this->prophesizeBuilder($builder),
-            ['data' => new Model\Proof()]
+            ['data' => $proof]
         );
     }
 

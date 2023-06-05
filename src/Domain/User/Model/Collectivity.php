@@ -26,6 +26,7 @@ namespace App\Domain\User\Model;
 
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\AIPD\Model\ModeleAnalyse;
+use App\Domain\Maturity\Model\Referentiel;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Embeddable\Address;
 use App\Domain\User\Model\Embeddable\Contact;
@@ -152,6 +153,11 @@ class Collectivity implements LoggableSubject
     private $modeleAnalyses;
 
     /**
+     * @var Collection|Referentiel[]
+     */
+    private $referentiels;
+
+    /**
      * @var bool
      */
     private $hasModuleConformiteTraitement;
@@ -160,6 +166,10 @@ class Collectivity implements LoggableSubject
      * @var bool
      */
     private $hasModuleConformiteOrganisation;
+    /**
+     * @var bool
+     */
+    private $hasModuleTools;
 
     /**
      * @var iterable
@@ -210,6 +220,7 @@ class Collectivity implements LoggableSubject
         $this->differentItManager              = false;
         $this->hasModuleConformiteTraitement   = false;
         $this->hasModuleConformiteOrganisation = false;
+        $this->hasModuleTools                  = false;
         $this->evaluations                     = [];
         $this->userReferents                   = [];
     }
@@ -544,6 +555,26 @@ class Collectivity implements LoggableSubject
         $this->finessGeo = $finessGeo;
     }
 
+    public function getReferentiels()
+    {
+        return $this->referentiels;
+    }
+
+    public function setReferentiels($referentiels): void
+    {
+        $this->referentiels = $referentiels;
+    }
+
+    public function addReferentiel(Referentiel $referentiel)
+    {
+        if ($this->referentiels->contains($referentiel)) {
+            return;
+        }
+
+        $this->referentiels[] = $referentiel;
+        $referentiel->addAuthorizedCollectivity($this);
+    }
+
     public function getNbrAgents(): ?int
     {
         return $this->nbrAgents;
@@ -572,5 +603,15 @@ class Collectivity implements LoggableSubject
     public function setPopulation(?int $population): void
     {
         $this->population = $population;
+    }
+
+    public function isHasModuleTools(): bool
+    {
+        return $this->hasModuleTools;
+    }
+
+    public function setHasModuleTools(bool $hasModuleTools): void
+    {
+        $this->hasModuleTools = $hasModuleTools;
     }
 }

@@ -134,7 +134,11 @@
                   </div>
                 </div>
                 {{ form_row(form.estimatedConcernedPeople) }}
+                {% if form.tools is defined %}
+                {{ form_row(form.tools) }}
+                {% else %}
                 {{ form_row(form.software) }}
+                {% endif %}
                 {{ form_row(form.paperProcessing) }}
                 <div class="delay-group">
                     <div class="form-group" style="margin-bottom: 0;">

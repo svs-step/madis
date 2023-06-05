@@ -53,9 +53,6 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         $this->security = $security;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Mesurement::class;
@@ -84,9 +81,6 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         return $qb;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllByCollectivity(Collectivity $collectivity, array $order = [])
     {
         $qb = $this->createQueryBuilder();
@@ -100,9 +94,6 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findBy(array $criteria = [])
     {
         $qb = $this->createQueryBuilder();
@@ -117,9 +108,6 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findByPlanified(array $criteria = [])
     {
         $qb = $this->createQueryBuilder();
@@ -137,9 +125,6 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function countPlanifiedByCollectivity(Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
@@ -156,9 +141,6 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function countAppliedByCollectivity(Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
@@ -174,9 +156,6 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function planifiedAverageOnAllCollectivity($collectivities)
     {
         $sql = 'SELECT AVG(a.rcount) FROM (
@@ -347,9 +326,6 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllByActiveCollectivity(bool $active = true, User $user = null)
     {
         $qb = $this->createQueryBuilder();

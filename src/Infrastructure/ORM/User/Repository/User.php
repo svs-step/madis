@@ -46,9 +46,6 @@ class User extends CRUDRepository implements Repository\User
         $this->inactiveUserDelayDays = $inactiveUserDelayDays;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\User::class;
@@ -81,8 +78,6 @@ class User extends CRUDRepository implements Repository\User
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findOneOrNullByEmail(string $email): ?Model\User
@@ -96,8 +91,6 @@ class User extends CRUDRepository implements Repository\User
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findOneOrNullByForgetPasswordToken(string $token): ?Model\User
@@ -110,9 +103,6 @@ class User extends CRUDRepository implements Repository\User
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findOneOrNullLastLoginUserByCollectivity(Model\Collectivity $collectivity): ?Model\User
     {
         $qb = $this->createQueryBuilder();
@@ -317,9 +307,6 @@ class User extends CRUDRepository implements Repository\User
             ->getOneOrNullResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllNoLogin()
     {
         $now       = new \DateTime();
