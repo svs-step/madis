@@ -100,13 +100,6 @@ class CollectivityType extends AbstractType
                     'multiple' => false,
                     'expanded' => true,
                 ])
-                ->add('website', UrlType::class, [
-                    'label'    => 'user.collectivity.form.website',
-                    'required' => false,
-                    'attr'     => [
-                        'placeholder' => 'user.collectivity.form.placeholder.website',
-                    ],
-                ])
                 ->add('address', AddressType::class, [
                     'label'    => 'user.collectivity.form.address',
                     'required' => true,
@@ -197,6 +190,13 @@ class CollectivityType extends AbstractType
                 'allow_add'    => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+            ])
+            ->add('website', UrlType::class, [
+                'label'    => 'user.collectivity.form.website',
+                'required' => false,
+                'attr'     => [
+                    'placeholder' => 'user.collectivity.form.placeholder.website',
+                ],
             ])
         ;
     }
