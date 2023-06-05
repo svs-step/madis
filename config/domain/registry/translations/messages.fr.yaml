@@ -507,7 +507,7 @@ registry:
             coordonnees_responsable_traitement: Coordonnées du responsable de traitement
             data_origin: Origine des données
             delay: Délai de conservation
-            estimated_concerned_people: Nombre de concernées
+            estimated_concerned_people: Nombre de personnes concernées
             evaluation_or_rating: Évaluation ou notation
             exempt_AIPD: Est exempté d'AIPD
             goal: Finalités
@@ -612,7 +612,7 @@ registry:
             delay: Délai de conservation
             deleted_user: Utilisateur supprimé
             dpo_message: Préconisations DPO
-            estimated_concerned_people: Nombre de concernées
+            estimated_concerned_people: Nombre de personnes concernées
             evaluation_or_rating: Évaluation ou notation
             goal: Finalités
             innovative_use: Usage innovant
