@@ -33,6 +33,7 @@ notifications:
         late_action: Retard %date%
     sentence:
         late_request: La demande de %name% n'a pas été traitée depuis au moins %days% jours depuis la date de la dernière modification
+        late_survey: Aucun indice de maturité n'a été réalisé depuis plus de %days% jours
 notification:
     module: Notifications
     state:
