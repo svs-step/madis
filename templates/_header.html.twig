@@ -1,5 +1,5 @@
 {% set notifs = notifications.findAll() %}
-{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENT') %}
+{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REFERENT') or 'MOREINFO_DPD' in app.user.moreInfos %}
     {% set unreadNotifs = notifs|filter(n => n.readAt is not defined or n.readAt is null) %}
 {% else %}
     {% set unreadNotifs = notifs|filter(n => n.userReadAt is not defined or n.userReadAt is null)|map(n => n[0] is defined ? n[0] : n) %}
