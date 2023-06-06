@@ -33,7 +33,7 @@ class ReponseMesureProtectionDictionary extends SimpleDictionary
 
     public static function getPoidsIndexFromReponse(?string $reponse, AnalyseImpact $aipd): float
     {
-        if ($reponse === null) {
+        if (null === $reponse) {
             return 0;
         }
         if (!array_key_exists($reponse, self::getReponses($aipd))) {
