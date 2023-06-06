@@ -35,6 +35,7 @@ final class Version20230602065460 extends AbstractMigration
         $this->addSql('DELETE from maturity_answer where `survey_id` IS NOT NULL');
         $this->addSql('ALTER TABLE maturity_answer DROP FOREIGN KEY FK_95FB1493B3FE509D');
         $this->addSql('DROP INDEX IDX_95FB1493B3FE509D ON maturity_answer');
+        $this->addSql('ALTER TABLE maturity_answer DROP survey_id');
     }
 
     public function down(Schema $schema) : void
