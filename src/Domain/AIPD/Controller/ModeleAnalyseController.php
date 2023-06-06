@@ -275,6 +275,7 @@ class ModeleAnalyseController extends CRUDController
             $reponse['data'][] = [
                 'nom'         => $modele->getNom(),
                 'description' => $modele->getDescription(),
+                'createdAt'   => date_format($modele->getCreatedAt(), 'd-m-Y'),
                 'updatedAt'   => date_format($modele->getUpdatedAt(), 'd-m-Y'),
                 'actions'     => $this->generateActioNCellContent($modele),
             ];
@@ -294,23 +295,23 @@ class ModeleAnalyseController extends CRUDController
         $htmltoReturnIfAdmin = '';
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $htmltoReturnIfAdmin = '<a href="' . $this->router->generate('aipd_modele_analyse_rights', ['id' => $id]) . '">
+            $htmltoReturnIfAdmin = '<a aria-label="' . $this->translator->trans('action.rights') . '" href="' . $this->router->generate('aipd_modele_analyse_rights', ['id' => $id]) . '">
                 <i class="fa fa-user-shield"></i>'
                 . $this->translator->trans('action.rights') .
             '</a>';
         }
 
         return
-            '<a href="' . $this->router->generate('aipd_modele_analyse_edit', ['id' => $id]) . '">
+            '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('aipd_modele_analyse_edit', ['id' => $id]) . '">
                 <i class="fa fa-pencil-alt"></i>'
                 . $this->translator->trans('action.edit') .
             '</a>'
             . $htmltoReturnIfAdmin .
-            '<a href="' . $this->router->generate('aipd_modele_analyse_export', ['id' => $id]) . '">
+            '<a aria-label="' . $this->translator->trans('action.export') . '" href="' . $this->router->generate('aipd_modele_analyse_export', ['id' => $id]) . '">
                 <i class="fa fa-file-code"></i>' .
                 $this->translator->trans('action.export') .
             '</a>' .
-            '<a href="' . $this->router->generate('aipd_modele_analyse_delete', ['id' => $id]) . '">
+            '<a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('aipd_modele_analyse_delete', ['id' => $id]) . '">
                 <i class="fa fa-trash"></i>' .
                 $this->translator->trans('action.delete') .
             '</a>';
@@ -321,8 +322,9 @@ class ModeleAnalyseController extends CRUDController
         return [
             '0' => 'nom',
             '1' => 'description',
-            '2' => 'updatedAt',
-            '3' => 'actions',
+            '2' => 'createdAt',
+            '3' => 'updatedAt',
+            '4' => 'actions',
         ];
     }
 

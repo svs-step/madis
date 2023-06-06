@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Model;
 
+use App\Application\Traits\Model\HistoryTrait;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
@@ -11,6 +12,7 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class ModeleMesureProtection extends AbstractMesureProtection
 {
+    use HistoryTrait;
     /**
      * @var array|ModeleScenarioMenace[]
      *

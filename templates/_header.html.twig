@@ -6,18 +6,18 @@
 {% endif %}
 {% set maxNotifs = app_notification_header_number %}
 
-<header class="main-header">
+<header class="main-header" role="banner">
     <!-- Logo -->
-    <a href="{{ path('reporting_dashboard_index') }}" class="logo">
+    <a aria-label="logo" href="{{ path('reporting_dashboard_index') }}" class="logo">
         <span class="logo-mini"><img src="{{ asset(app_image_sidebar_reduced_path) }}" alt="Madis"/></span>
 
         <span class="logo-lg"><img class="fit-picture" src={{ asset(app_image_logo_blanc) }} width="65%" alt="Logo Madis"></span>
     </a>
 
     <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top" role="navigation">
+    <nav class="navbar navbar-static-top" role="navigation" aria-label="En-tête principal">
         <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <a aria-label="Sidebar" href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
             <i class="fa fa-bars"></i>
         </a>
         <!-- Navbar Right Menu -->
@@ -42,8 +42,8 @@
                 <!-- User Account Menu -->
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button -->
-                    <a {% if not is_granted('ROLE_PREVIOUS_ADMIN') %}href="{{ path('logout') }}"{% endif %} class="dropdown-toggle">
-                        <span class="hidden-xs">{{ app.user }} - {{ app.user.roles[0]|dictionary('user_user_role') }}&nbsp;&nbsp;&nbsp;</span>
+                    <a {% if not is_granted('ROLE_PREVIOUS_ADMIN') %} href="{{ path('logout') }}"{% endif %} class="dropdown-toggle">
+                        <span style="margin-right: 5px;">{{ app.user }} - {{ app.user.roles[0]|dictionary('user_user_role') }}</span>
                         <i class="fa fa-power-off"></i>
                     </a>
                 </li>

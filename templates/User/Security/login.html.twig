@@ -11,7 +11,7 @@
         <form action="{{ path('login') }}" method="POST">
 
             {% if error %}
-                <div class="alert alert-danger">
+                <div role="alert" class="alert alert-danger">
                     <i class="icon fa fa-ban"></i>
                     {{ error.messageKey|trans(error.messageData, 'security') }}
                 </div>
@@ -19,10 +19,10 @@
             {{ include('_flashbag.html.twig') }}
 
             <div class="form-group">
-                <input type="email" id="username" name="_username" class="form-control" placeholder="{{ 'user.security.login.username'|trans }}" value="{{ last_username }}" />
+                <input type="email" autocomplete="username" id="username" name="_username" class="form-control" placeholder="{{ 'user.security.login.username'|trans }}" value="{{ last_username }}" />
             </div>
             <div class="form-group has-feedback">
-                <input type="password" id="password" name="_password" class="form-control" placeholder="{{ 'user.security.login.password'|trans }}" />
+                <input type="password" autocomplete="current-password" id="password" name="_password" class="form-control" placeholder="{{ 'user.security.login.password'|trans }}" />
                 <span class="glyphicon glyphicon-eye-open form-control-feedback"></span>
             </div>
 
@@ -40,7 +40,7 @@
         </form>
 
         <div class="text-center">
-            <a href="{{ path('forget_password') }}">{{ 'user.security.login.forget_password'|trans }}</a><br>
+            <a aria-label="{{ 'user.security.login.forget_password'|trans }}" href="{{ path('forget_password') }}">{{ 'user.security.login.forget_password'|trans }}</a><br>
         </div>
 
         {% if sso_type %}

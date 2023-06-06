@@ -87,12 +87,14 @@ class MesureProtectionController extends CRUDController
         /** @var ModeleMesureProtection $mesure */
         foreach ($mesures as $mesure) {
             $reponse['data'][] = [
-              'nom'                => $mesure[0]->getNom(),
-              'nomCourt'           => $mesure[0]->getNomCourt(),
-              'detail'             => $mesure[0]->getDetail(),
-              'poidsVraisemblance' => $mesure[0]->getPoidsVraisemblance(),
-              'poidsGravite'       => $mesure[0]->getPoidsGravite(),
-              'actions'            => $this->generateActionCellContent($mesure['id']),
+                'nom'                => $mesure[0]->getNom(),
+                'nomCourt'           => $mesure[0]->getNomCourt(),
+                'detail'             => $mesure[0]->getDetail(),
+                'poidsVraisemblance' => $mesure[0]->getPoidsVraisemblance(),
+                'poidsGravite'       => $mesure[0]->getPoidsGravite(),
+                'createdAt'          => $mesure[0]->getCreatedAt() ? date_format($mesure[0]->getCreatedAt(), 'd-m-Y H:i:s') : null,
+                'updatedAt'          => $mesure[0]->getUpdatedAt() ? date_format($mesure[0]->getUpdatedAt(), 'd-m-Y H:i:s') : null,
+                'actions'            => $this->generateActionCellContent($mesure['id']),
             ];
         }
 
@@ -110,7 +112,9 @@ class MesureProtectionController extends CRUDController
             '2' => 'detail',
             '3' => 'poidsVraisemblance',
             '4' => 'poidsGravite',
-            '5' => 'actions',
+            '5' => 'createdAt',
+            '6' => 'updatedAt',
+            '7' => 'actions',
         ];
     }
 
@@ -120,11 +124,11 @@ class MesureProtectionController extends CRUDController
             $editPath   = $this->router->generate('aipd_mesure_protection_edit', ['id' => $id]);
             $deletePath = $this->router->generate('aipd_mesure_protection_delete', ['id' => $id]);
 
-            return '<a href="' . $editPath . '">
+            return '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $editPath . '">
                     <i class="fa fa-pencil-alt"></i>
                         ' . $this->translator->trans('action.edit') . '
                     </a>
-                    <a href="' . $deletePath . '">
+                    <a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $deletePath . '">
                         <i class="fa fa-trash"></i>
                         ' . $this->translator->trans('action.delete') . '
                     </a>'

@@ -1,4 +1,8 @@
-{% set submitValue = submitValue|default('action.submit'|trans) %}
+{% if form.vars.value.createdAt.timestamp is defined %}
+    {% set submitValue = submitValue|default('registry.mesurement.action.edit_submit'|trans) %}
+{% else %}
+    {% set submitValue = submitValue|default('registry.mesurement.action.new_submit'|trans) %}
+{% endif %}
 
 {{ form_start(form) }}
 
@@ -60,7 +64,7 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a href="{{ path('registry_mesurement_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'registry.mesurement.action.back_to_list'|trans }}" href="{{ path('registry_mesurement_list') }}" class="btn btn-default">
                     {{ 'registry.mesurement.action.back_to_list'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">

@@ -16,7 +16,7 @@
             <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.violation.tab.information'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.violation.show.date'|trans }}</strong></td>
@@ -87,7 +87,7 @@
             <div class="box box-solid box-default">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.violation.tab.historic'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.violation.show.creator'|trans }}</strong></td>
@@ -99,7 +99,7 @@
                             <tr>
                                 <td><strong>{{ 'registry.violation.show.collectivity'|trans }}</strong></td>
                                 <td>
-                                    <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                    <a aria-label="{{ object.collectivity }}" href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
                                         {{ object.collectivity }}
                                     </a>
                                 </td>
@@ -112,6 +112,10 @@
                         <tr>
                             <td><strong>{{ 'registry.violation.show.updated_at'|trans }}</strong></td>
                             <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.violation.show.updated_by'|trans }}</strong></td>
+                            <td>{{ object.updatedBy }}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -126,7 +130,7 @@
             <div class="box box-solid box-success">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.violation.tab.consequence'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.violation.show.potential_impacts_nature'|trans }}</strong></td>

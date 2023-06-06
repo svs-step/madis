@@ -60,7 +60,7 @@
                             <div class="icon">
                                 <i class="fa fa-users"></i>
                             </div>
-                            <a href="{{ path('registry_request_list') }}" class="small-box-footer">
+                            <a aria-label="Plus d'informations" href="{{ path('registry_request_list') }}" class="small-box-footer">
                                 Plus d'informations <i class="fa fa-arrow-circle-right"></i>
                             </a>
                         </div>
@@ -151,7 +151,7 @@
                                 <div class="icon">
                                     <i class="fa fa-clipboard-list"></i>
                                 </div>
-                                <a href="{{ path('registry_conformite_traitement_list') }}" class="small-box-footer">
+                                <a aria-label="Plus d'informations" href="{{ path('registry_conformite_traitement_list') }}" class="small-box-footer">
                                     Plus d'informations <i class="fa fa-arrow-circle-right"></i>
                                 </a>
                             </div>
@@ -168,7 +168,7 @@
                             <div class="icon">
                                 <i class="fa fa-bullseye"></i>
                             </div>
-                            <a href="{{ path('registry_mesurement_action_plan') }}" class="small-box-footer">
+                            <a aria-label="Plus d'informations" href="{{ path('registry_mesurement_action_plan') }}" class="small-box-footer">
                                 Plus d'informations <i class="fa fa-arrow-circle-right"></i>
                             </a>
                         </div>
@@ -185,7 +185,7 @@
                             <div class="icon">
                                 <i class="fa fa-exclamation-circle"></i>
                             </div>
-                            <a href="{{ path('registry_violation_list') }}" class="small-box-footer">
+                            <a aria-label="Plus d'informations" href="{{ path('registry_violation_list') }}" class="small-box-footer">
                                 Plus d'informations <i class="fa fa-arrow-circle-right"></i>
                             </a>
                         </div>
@@ -201,7 +201,7 @@
                             <div class="icon">
                                 <i class="fa fa-adjust"></i>
                             </div>
-                            <a href="{{ path('registry_mesurement_list') }}" class="small-box-footer">
+                            <a aria-label="Plus d'informations" href="{{ path('registry_mesurement_list') }}" class="small-box-footer">
                                 Plus d'informations <i class="fa fa-arrow-circle-right"></i>
                             </a>
                         </div>
@@ -214,20 +214,22 @@
 {#                            </div>#}
 {#                        {% endif %}#}
 {#                    </div>#}
+
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="box box-warning">
                             <div class="box-header with-border"><h3 class="box-title">Plan d'actions <small>{{ app_user_dashboard_action_plan_limit }} prochaines</small></h3></div>
                             <div class="box-body">
-                                <table class="table table-striped table-bordered">
+                                <table role="presentation" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
-                                        <th>{{ 'registry.mesurement.list.name'|trans }}</th>
-                                        <th>{{ 'registry.mesurement.list.planification_date'|trans }}</th>
-                                        <th>{{ 'registry.mesurement.list.manager'|trans }}</th>
-                                        <th>{{ 'registry.mesurement.list.priority'|trans }}</th>
-                                        <th>{{ 'label.action_link'|trans }}</th>
+                                        <th scope="col">{{ 'registry.mesurement.list.name'|trans }}</th>
+                                        <th scope="col">{{ 'registry.mesurement.list.planification_date'|trans }}</th>
+                                        <th scope="col">{{ 'registry.mesurement.list.manager'|trans }}</th>
+                                        <th scope="col">{{ 'registry.mesurement.list.priority'|trans }}</th>
+                                        <th scope="col">{{ 'label.action_link'|trans }}</th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -256,7 +258,7 @@
                                                 {% endif %}
                                             </td>
                                             <td>
-                                                <a href="/actions-de-protection/visualiser/{{ action.id }}" ><i class="fas fa-search"></i></a>
+                                                <a aria-label="Chercher" href="/actions-de-protection/visualiser/{{ action.id }}" ><i class="fas fa-search"></i></a>
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -278,12 +280,12 @@
                                     </div>
                                 {% else %}
                                     <div class="box-body no-padding">
-                                        <table class="table table-striped">
+                                        <table role="presentation" class="table table-striped">
                                             <thead>
                                             <tr>
-                                                <th>Processus</th>
-                                                <th>Progression</th>
-                                                <th style="width: 40px">Conformité</th>
+                                                <th scope="col">Processus</th>
+                                                <th scope="col">Progression</th>
+                                                <th style="width: 40px" scope="col">Conformité</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -328,16 +330,16 @@
                         <h3 class="box-title">Journalisation <small>{{ app_user_dashboard_journalisation_limit }} derniers</small></h3>
                     </div>
                     <div class="box-body no-padding">
-                        <table class="table">
+                        <table role="presentation" class="table">
                             <thead>
                             <tr>
-                                <th>Nom utilisateur</th>
-                                <th>Email utilisateur</th>
-                                <th>Date</th>
-                                <th>Sujet</th>
-                                <th>Action</th>
-                                <th>Nom</th>
-                                <th>Lien</th>
+                                <th scope="col">Nom utilisateur</th>
+                                <th scope="col">Email utilisateur</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Sujet</th>
+                                <th scope="col">Action</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Lien</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -354,7 +356,7 @@
                                         {% if logJournal.isDeleted %}
                                             {{ logJournalLink }}
                                         {% elseif logJournalLink is not null %}
-                                            <a href="{{ logJournalLink }}">Lien</a>
+                                            <a aria-label="Lien" href="{{ logJournalLink }}">Lien</a>
                                         {% endif %}
                                     </td>
                                 </tr>

@@ -264,11 +264,28 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
                     $this->addWhereClause($queryBuilder, 'priority', $search);
                     break;
                 case 'date_planification':
-                    $queryBuilder->andWhere('o.planificationDate LIKE :date')
-                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    if (is_string($search)) {
+                        $queryBuilder->andWhere('o.planificationDate BETWEEN :planned_start_date AND :planned_finish_date')
+                            ->setParameter('planned_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                            ->setParameter('planned_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    }
                     break;
                 case 'responsable_action':
                     $this->addWhereClause($queryBuilder, 'manager', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'createdAt':
+                    if (is_string($search)) {
+                        $queryBuilder->andWhere('o.createdAt BETWEEN :created_start_date AND :created_finish_date')
+                            ->setParameter('created_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                            ->setParameter('created_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    }
+                    break;
+                case 'updatedAt':
+                    if (is_string($search)) {
+                        $queryBuilder->andWhere('o.updatedAt BETWEEN :updated_start_date AND :updated_finish_date')
+                            ->setParameter('updated_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                            ->setParameter('updated_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    }
                     break;
             }
         }

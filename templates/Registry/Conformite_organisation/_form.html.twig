@@ -1,4 +1,10 @@
-{% set submitValue = submitValue|default('action.submit'|trans) %}
+{% if form.vars.value.createdAt.timestamp is defined %}
+    {% set submitValue = submitValue|default('registry.conformite_organisation.action.edit_submit'|trans) %}
+{% else %}
+    {% set submitValue = submitValue|default('registry.conformite_organisation.action.new_submit'|trans) %}
+{% endif %}
+
+
 {% set draftValue = draftValue|default('action.draft'|trans) %}
 {% import _self as formMacros %}
 
@@ -6,29 +12,29 @@
     <div class="js-collection-item col-md-6 nopadding">
         <div class="box box-default">
             <div class="box-tools pull-right">
-                <a href="#" class="btn btn-box-tool js-remove-item" data-toggle="tooltip" title="Remove">
+                <a aria-label="Supprimer" href="#" class="btn btn-box-tool js-remove-item" data-toggle="tooltip" title="Remove">
                     <i class="fa fa-times"></i>
                 </a>
             </div>
             <div class="box-body">
                 {{ form_errors(participant) }}
-                <table class="table">
+                <table role="presentation" class="table" role="presentation">
                     <tbody>
                         <tr>
                             <td class="text-bold">{{ 'registry.conformite_organisation.participant.form.civilite'|trans }}</td>
-                            <td>{{ form_widget(participant.civilite) }}</td>
+                            <td>{{ form_widget(participant.civilite, {'attr': {'autocomplete': 'honorific-prefix'}}) }}</td>
                         </tr>
                         <tr>
                             <td class="text-bold">{{ 'registry.conformite_organisation.participant.form.prenom'|trans }}</td>
-                            <td>{{ form_widget(participant.prenom) }}</td>
+                            <td>{{ form_widget(participant.prenom, {'attr': {'autocomplete': 'given-name'}}) }}</td>
                         </tr>
                         <tr>
                             <td class="text-bold">{{ 'registry.conformite_organisation.participant.form.nom_famille'|trans }}</td>
-                            <td>{{ form_widget(participant.nomDeFamille) }}</td>
+                            <td>{{ form_widget(participant.nomDeFamille, {'attr': {'autocomplete': 'family-name'}}) }}</td>
                         </tr>
                         <tr>
                             <td class="text-bold">{{ 'registry.conformite_organisation.participant.form.fonction'|trans }}</td>
-                            <td>{{ form_widget(participant.fonction) }}</td>
+                            <td>{{ form_widget(participant.fonction, {'attr': {'autocomplete': 'organization-title'}}) }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -43,7 +49,7 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a href="{{ path('registry_conformite_organisation_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'registry.conformite_organisation.action.back_to_list'|trans }}" href="{{ path('registry_conformite_organisation_list') }}" class="btn btn-default">
                     {{ 'registry.conformite_organisation.action.back_to_list'|trans }}
                 </a>
                 {# Prevent those fields from being automatically rendered #}
@@ -75,7 +81,7 @@
                     {% for participant in form.participants %}
                         {{ formMacros.printParticipant(participant) }}
                     {% endfor %}
-                    <a href="#" class="js-collection-add btn btn-default">
+                    <a aria-label="{{ 'registry.conformite_organisation.participant.form.add'|trans }}" href="#" class="js-collection-add btn btn-default">
                         <span class="fa fa-pencil-alt"></span>
                         {{ 'registry.conformite_organisation.participant.form.add'|trans }}
                     </a>
