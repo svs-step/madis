@@ -25,16 +25,13 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Form\Type\ReferentielType;
-use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Model\Referentiel;
-use App\Domain\Maturity\Model\Survey;
 use App\Tests\Utils\FormTypeHelper;
-use Doctrine\DBAL\Types\TextType;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ReferentielTypeTest extends FormTypeHelper
@@ -49,12 +46,12 @@ class ReferentielTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'name' => TextType::class,
-            'description'   => TextareaType::class,
-            'domains'   => CollectionType::class,
+            'name'        => TextType::class,
+            'description' => TextareaType::class,
+            'domains'     => CollectionType::class,
         ];
 
-        (new ReferentielType())->buildForm($this->prophesizeBuilder($builder));
+        (new ReferentielType())->buildForm($this->prophesizeBuilder($builder), []);
     }
 
     public function testConfigureOptions(): void

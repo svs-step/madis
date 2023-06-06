@@ -24,11 +24,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Maturity\Model;
 
-use App\Application\Traits\Model\CollectivityTrait;
-use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Maturity\Model\Referentiel;
-use App\Domain\Maturity\Model\Survey;
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;

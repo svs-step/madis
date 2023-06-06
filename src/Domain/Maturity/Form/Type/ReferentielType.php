@@ -61,7 +61,6 @@ class ReferentielType extends AbstractType
                 'by_reference'   => false,
                 'prototype_name' => '__section_name__',
             ])
-
         ;
     }
 
