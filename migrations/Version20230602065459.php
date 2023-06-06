@@ -26,7 +26,7 @@ final class Version20230602065459 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
         $this->addSql('UPDATE maturity_question SET weight = 1 WHERE weight = 0');
 
-        $this->addSql('DELETE from maturity_answer');
+        // ajout des questions avec les 3 choix possibles
         $questions = $this->connection->query('SELECT `id` FROM maturity_question')->fetchAll();
         $uniqueQuestions =[];
         foreach ($questions as $question){
@@ -34,7 +34,6 @@ final class Version20230602065459 extends AbstractMigration
                 $uniqueQuestions[] = $question['id'];
             }
         }
-
         foreach ($uniqueQuestions as $question_id) {
             $this->addSql('INSERT INTO maturity_answer (id, question_id, response, recommendation, name, position) VALUES (?,?,?,?,?,?)',[Uuid::uuid4(), $question_id, 0, '', 'Non / Je ne sais pas', 0]);
             $this->addSql('INSERT INTO maturity_answer (id, question_id, response, recommendation, name, position) VALUES (?,?,?,?,?,?)',[Uuid::uuid4(), $question_id, 1, '', 'En partie', 1]);
