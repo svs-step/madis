@@ -75,6 +75,11 @@ class Violation implements LoggableSubject, CollectivityRelated
     private $cause;
 
     /**
+     * @var string|null
+     */
+    private $updatedBy;
+
+    /**
      * @var iterable
      */
     private $concernedDataNature;
@@ -180,6 +185,16 @@ class Violation implements LoggableSubject, CollectivityRelated
         }
 
         return "Violation du {$this->getDate()->format('d/m/Y')}";
+    }
+
+    public function getUpdatedBy(): ?string
+    {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy(?string $updatedBy): void
+    {
+        $this->updatedBy = $updatedBy;
     }
 
     public function getDate(): ?\DateTime

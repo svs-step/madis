@@ -31,6 +31,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -38,6 +39,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class CollectivityType extends AbstractType
 {
@@ -47,11 +49,17 @@ class CollectivityType extends AbstractType
     private $authorizationChecker;
 
     /**
+     * @var Security
+     */
+    private $security;
+
+    /**
      * CollectivityType constructor.
      */
-    public function __construct(AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(Security $security, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->authorizationChecker = $authorizationChecker;
+        $this->security             = $security;
     }
 
     /**
@@ -141,6 +149,10 @@ class CollectivityType extends AbstractType
                 ->add('isServicesEnabled', CheckboxType::class, [
                     'label'    => 'user.collectivity.form.is_services_enabled',
                     'required' => false,
+                ])
+                ->add('updatedBy', HiddenType::class, [
+                    'required' => false,
+                    'data'     => $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()),
                 ])
             ;
         }

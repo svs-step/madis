@@ -70,6 +70,12 @@ class ModeleMesureProtection extends CRUDRepository implements Repository\Modele
             case 'poidsGravite':
                 $queryBuilder->addOrderBy('o.poidsGravite', $orderDir);
                 break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
         }
     }
 
@@ -91,6 +97,16 @@ class ModeleMesureProtection extends CRUDRepository implements Repository\Modele
                     break;
                 case 'poidsGravite':
                     $this->addWhereClause($queryBuilder, 'poidsGravite', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt BETWEEN :created_start_date AND :created_finish_date')
+                        ->setParameter('created_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('created_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt BETWEEN :updated_start_date AND :updated_finish_date')
+                        ->setParameter('updated_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('updated_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
             }
         }

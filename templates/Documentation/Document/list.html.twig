@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% set bodyClass = 'documentation_document list' %}
-{% set menuItem = 'documentation' %}
+{% set menuItem = 'documentation_document' %}
 
 {% set activeCategories = [] %}
 
@@ -47,14 +47,14 @@
                             {% endif %}
                             <div class="dt-button-background" style=""></div>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
-                                <li><a href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
+                                <li><a aria-label="{{ 'documentation.document.action.file'|trans }}" href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
+                                <li><a aria-label="{{ 'documentation.document.action.url'|trans }}" href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
                             </ul>
                         </div>
                     {% endif %}
                     {# Uniquement pour les DPO #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                        <a aria-label="{{ 'documentation.category.action.list'|trans }}" href="{{ path('documentation_category_list') }}" class="btn btn-default">
                             <i class="fas fa-tag"></i>
                             {{ 'documentation.category.action.list'|trans }}
                         </a>
@@ -69,25 +69,27 @@
                 <div class="box-body">
                     <div style="margin-bottom: 10px">
                         {# SWITCH GRID LIST #}
-                        <a href="{{ path('documentation_document_grid') }}" class="btn btn-default">
-                            <i class="fas fa-th"></i>
-                            {{ 'documentation.document.action.grid'|trans }}
-                        </a>
+                        {% if is_granted('ROLE_USER') %}
+                            <a aria-label="{{ 'documentation.document.action.grid'|trans }}" href="{{ path('documentation_document_grid') }}" class="btn btn-default">
+                                <i class="fas fa-th"></i>
+                                {{ 'documentation.document.action.grid'|trans }}
+                            </a>
+                        {% endif %}
                     </div>
                     {# <div style="float:left">
                         <a id="delete-all"  href="{{ path('documentation_document_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Supprimer
                         </a>
                     </div> #}
-                    <table id="table" class="table table-bordered table-hover">
+                    <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th></th>
-                                <th>
+                                <th scope="col"></th>
+                                <th scope="col">
                                     <input type="checkbox" class="form-check-input" id="search_favorite">
                                     <label class="form-check-label" for="search_favorite">{{ 'documentation.document.list.favorite'|trans }}</label>
                                 </th>
-                                <th>
+                                <th scope="col">
                                     <select class="form-control" id="search_type" style="width: 100%;">
                                         <option value="" selected>{{ 'documentation.document.list.type'|trans }}</option>
                                         {% for key, subject in dictionary('documentation_document_type') %}
@@ -95,15 +97,15 @@
                                         {% endfor %}
                                     </select>
                                 </th>
-                                <th></th>
-                                <th>
+                                <th scope="col"></th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
                                 </th>
-                                <th>
-                                    <select class="form-control selectpicker" id="search_category" style="width: 100%;" 
-                                        multiple 
-                                        title="Catégories" 
-                                        > 
+                                <th scope="col">
+                                    <select class="form-control selectpicker" id="search_category" style="width: 100%;"
+                                        multiple
+                                        title="Catégories"
+                                        >
                                         {% for category in categories %}
                                             {% if category.name in activeCategories %}
                                                 <option
@@ -118,19 +120,25 @@
                                         {% endfor %}
                                     </select>
                                 </th>
-                                <th><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
-                                <th></th>
+                                <th scope="col" style="min-width:130px;position:relative;">
+                                    <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                </th>
+                                <th scope="col" style="min-width:130px;position:relative;">
+                                    <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                </th>
+                                <th scope="col"></th>
                             </tr>
-                            
+
                             <tr>
-                                <th>{{ 'documentation.document.list.pinned'|trans }}</th>
-                                <th>{{ 'documentation.document.list.favorited'|trans }}</th>
-                                <th>{{ 'documentation.document.list.type'|trans }}</th>
-                                <th>{{ 'documentation.document.list.weight'|trans }}</th>
-                                <th>{{ 'documentation.document.list.name'|trans }}</th>
-                                <th>{{ 'documentation.document.list.category'|trans }}</th>
-                                <th>{{ 'documentation.document.list.created_at'|trans }}</th>
-                                <th>{{ 'label.actions'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.pinned'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.favorited'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.type'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.weight'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.name'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.category'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.created_at'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.updated_at'|trans }}</th>
+                                <th scope="col">{{ 'label.actions'|trans }}</th>
                             </tr>
 
                         </thead>
@@ -144,7 +152,7 @@
                                 {% endif %}
                             </td>
                             <td class="text-center favorite">
-                                <a href="{{ path('documentation_document_favorite', { 'id': object.id, 'back': app.request.uri }) }}" style="color:#f39c12;">
+                                <a aria-label="" href="{{ path('documentation_document_favorite', { 'id': object.id, 'back': app.request.uri }) }}" style="color:#f39c12;">
                                     {% if object.favoritedUsers |filter(f => f.id == app.user.id)|length > 0 %}
                                         1
                                     {% else %}
@@ -175,25 +183,27 @@
                             <td>
                                 {{ object.size }}
                             </td>
-                            <td><a href="{{ object.url }}" target="_blank">{{ object.name }}</a></td>
+                            <td><a aria-label="{{ object.name }}" href="{{ object.url }}" target="_blank">{{ object.name }}</a></td>
                             <td>
                                 {{ object.categories|map(c => "#{c.name}") | join(', ') }}
                             </td>
                             <td>{{ object.createdAt|date('d/m/Y') }}</td>
+                            <td>{{ object.updatedAt|date('d/m/Y') }}</td>
+
                             <td>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
+                                    <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
                                         <i class="fa fa-pencil-alt"></i>&nbsp;{{ 'action.edit'|trans }}
                                     </a>
-                                    <a href="{{ path('documentation_document_delete', { 'id': object.id }) }}">
+                                    <a aria-label="{{ 'action.delete'|trans }}" href="{{ path('documentation_document_delete', { 'id': object.id }) }}">
                                         <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
                                     </a>
-                                    <a class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
+                                    <a aria-label="{{ 'action.share'|trans }}" class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
                                         <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
                                     </a>
                                 {% endif %}
                                 {% if is_granted('ROLE_REFERENT') and not is_granted('ROLE_ADMIN') %}
-                                    <a class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
+                                    <a aria-label="{{ 'action.share'|trans }}" class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
                                         <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
                                     </a>
                                 {% endif %}
@@ -246,11 +256,6 @@
 {% block javascripts %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 
-    {% set actionIsVisible = false %}
-    {% if is_granted('ROLE_ADMIN') %}
-        {% set actionIsVisible = true %}
-    {% endif %}
-
     {% set dataTableOptions = {
         columns: [
             {"data": "pinned"},
@@ -259,8 +264,9 @@
             {"data": "weight"},
             {"data": "name"},
             {"data": "category"},
-            {"data": "created_at"},
-            {"data": "actions", "className": "noVis", "orderable": false, "visible": actionIsVisible},
+            {"data": "created_at", "visible" : false},
+            {"data": "updated_at", "visible" : false},
+            {"data": "actions", "orderable": false},
         ],
 
         order: [[0,'desc'],[6,'desc']],
@@ -288,11 +294,10 @@
     {{ include('_Utils/_datatable.html.twig') }}
     <script>
         $(document).ready(function() {
-            const isPreview = {{ is_granted('ROLE_PREVIEW')|json_encode() }};
             const isUser = {{ is_granted('ROLE_USER')|json_encode() }};
             const isReferent = {{ is_granted('ROLE_REFERENT')|json_encode() }};
 
-            if ((isPreview || isUser) && !isReferent){
+            if (isUser && !isReferent){
                 var oTable = $('#table').DataTable();
                 oTable.column('7').visible(false);
             }
@@ -347,7 +352,15 @@
         }
         function setEvents() {
             var oTable = $('#table').DataTable();
-            
+
+            $('#search_created_at').show('slide',function(){
+                $('input#search_created_at').val('');
+            });
+            $('#search_updated_at').show('slide',function(){
+                $('input#search_updated_at').val('');
+            });
+
+
             $('#search_favorite').off('change');
             $('#search_favorite').change(function(){
                 oTable.column('1').search($(this).prop('checked') ? "1" : "").draw();
@@ -374,9 +387,14 @@
                 }
             });
 
-            $('#search_date').off('change');
-            $('#search_date').change(function(){
+            $('#search_created_at').off('change');
+            $('#search_created_at').change(function(){
                 oTable.column('6').search($(this).val()).draw() ;
+            });
+
+            $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
+                oTable.column('7').search($(this).val()).draw() ;
             });
         }
 
@@ -420,7 +438,7 @@
                 obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i>' : '<i data-value="0" class="far fa-star"></i>'
             })
         }
-        
+
 
     </script>
 

@@ -260,7 +260,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                     $this->getDate($request->getCreatedAt()),
                 ],
                 [
-                    'Dernière mise à jour',
+                    'Date de modification',
                     $this->getDate($request->getUpdatedAt()),
                 ],
             ];

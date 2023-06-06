@@ -5,11 +5,6 @@
 
 {% block title %}{{ 'aipd.analyse_impact.title.create'|trans }} - {{ parent() }}{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
-{% endblock %}
-
 {% block body_head %}
     <h1>{{ 'aipd.analyse_impact.title.create'|trans }}
         <small>{{ conformiteTraitement.traitement.name }} : Modèle</small>
@@ -39,15 +34,15 @@
             <div class="col-md-12">
                 <div class="box box-solid">
                     <div class="box-body">
-                        <table id="table" class="table table-bordered table-hover">
+                        <table role="presentation" id="table" class="table table-bordered">
                             <thead>
                             <tr>
-                                <th><input class="form-control" type="text" id="search_nom" style="width: 100%;" placeholder="Nom"></th>
-                                <th><input class="form-control" type="text" id="search_description" style="width: 100%;" placeholder="Description"></th>
+                                <th scope="col"><input class="form-control" type="text" id="search_nom" style="width: 100%;" placeholder="Nom"></th>
+                                <th scope="col"><input class="form-control" type="text" id="search_description" style="width: 100%;" placeholder="Description"></th>
                             </tr>
                             <tr>
-                                <th>Nom du modèle d'analyse d'impact</th>
-                                <th>Description</th>
+                                <th scope="col">Nom du modèle d'analyse d'impact</th>
+                                <th scope="col">Description</th>
                             </tr>
                             </thead>
                         </table>
@@ -60,7 +55,7 @@
             <div class="col-md-12">
                 <div class="box box-solid">
                     <div class="box-body text-center">
-                        <a href="{{ path('registry_conformite_traitement_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
+                        <a aria-label="{{ 'action.back_to_list'|trans }}" href="{{ path('registry_conformite_traitement_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
                         <input id="create-aipd-button" type="submit" class="btn btn-primary" value="{{  'aipd.analyse_impact.action.modele'|trans }}">
                     </div>
                 </div>
@@ -71,7 +66,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('js/collectionManager') }}
+    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
     {{ include('Aipd/Modele_analyse/_form_js.html.twig') }}
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>

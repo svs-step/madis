@@ -71,6 +71,11 @@ class Contractor implements LoggableSubject, CollectivityRelated
     private $otherInformations;
 
     /**
+     * @var string|null
+     */
+    private $updatedBy;
+
+    /**
      * @var Address|null
      */
     private $address;
@@ -176,6 +181,16 @@ class Contractor implements LoggableSubject, CollectivityRelated
     public function setName(?string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getUpdatedBy(): ?string
+    {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy(?string $updatedBy): void
+    {
+        $this->updatedBy = $updatedBy;
     }
 
     public function getReferent(): ?string

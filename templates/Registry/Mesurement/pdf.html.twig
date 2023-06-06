@@ -16,7 +16,7 @@
             <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.general'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.name'|trans }}</strong></td>
@@ -56,7 +56,7 @@
             <div class="box box-solid box-success">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.application'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.status'|trans }}</strong></td>
@@ -67,6 +67,14 @@
                             <td>
                                 {% if object.planificationDate is not null %}
                                     {{ object.planificationDate|date('d/m/Y') }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.comment'|trans }}</strong></td>
+                            <td>
+                                {% if object.comment is not null %}
+                                    {{ object.comment }}
                                 {% endif %}
                             </td>
                         </tr>
@@ -82,7 +90,7 @@
             <div class="box box-solid box-default">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.historic'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.creator'|trans }}</strong></td>
@@ -105,6 +113,10 @@
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.updated_at'|trans }}</strong></td>
                             <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.updated_by'|trans }}</strong></td>
+                            <td>{{ object.updatedBy }}</td>
                         </tr>
                         </tbody>
                     </table>

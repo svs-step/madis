@@ -6,7 +6,7 @@
             <ul>
                 {% for mesurement in mesurements %}
                     <li>
-                        <a href="{{ path('registry_mesurement_show', { id: mesurement.id }) }}">
+                        <a aria-label="Mesure" href="{{ path('registry_mesurement_show', { id: mesurement.id }) }}">
                             {{ mesurement.name }}
                         </a>
                     </li>
