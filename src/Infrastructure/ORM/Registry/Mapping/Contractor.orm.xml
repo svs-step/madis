@@ -36,6 +36,7 @@
         </many-to-one>
 
         <many-to-many field="mesurements" target-entity="App\Domain\Registry\Model\Mesurement" mapped-by="contractors"/>
+        <many-to-many field="tools" target-entity="App\Domain\Registry\Model\Tool" mapped-by="contractors"/>
 
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">

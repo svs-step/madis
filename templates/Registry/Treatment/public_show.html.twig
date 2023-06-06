@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-                <a aria-label="{{ 'registry.treatment.action.back_to_list'|trans }}" href="{{ path('registry_public_treatment_list', {id: object.collectivity.id}) }}" class="btn btn-default">
+                <a href="{{ path('registry_public_treatment_list', {id: object.collectivity.id}) }}" class="btn btn-default">
                     <i class="fa fa-arrow-left"></i>
                     {{ 'registry.treatment.action.back_to_list'|trans }}
                 </a>
@@ -53,7 +53,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table role="presentation" class="table">
+                    <table class="table">
                         <tbody>
                             {% if (object.name and config.name == true) %}
                                 <tr>
@@ -162,7 +162,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table role="presentation" class="table">
+                    <table class="table">
                         <tbody>
                             <tr>
                                 {% if (object.dataCategories and config.dataCategories == true) %}
@@ -209,7 +209,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table role="presentation" class="table">
+                    <table class="table">
                         <tbody>
                             {% if (object.recipientCategory and config.recipientCategory == true) %}
                                 <tr>
@@ -228,7 +228,7 @@
                                         <ul>
                                             {% for contractor in object.contractors %}
                                                 <li>
-                                                    <a aria-label="{{ contractor }}" href="{{ path('registry_contractor_show', {'id': contractor.id}) }}">{{ contractor }}</a>
+                                                    <a href="{{ path('registry_contractor_show', {'id': contractor.id}) }}">{{ contractor }}</a>
                                                 </li>
                                             {% endfor %}
                                         </ul>
@@ -243,7 +243,8 @@
 
         {# SPECIFIC #}
         {% if (
-            (config.systematicMonitoring == true)
+            (config.exempt_AIPD == true)
+            or (config.systematicMonitoring == true)
             or (config.largeScaleCollection == true)
             or (config.vulnerablePeople == true)
             or (config.dataCrossing == true)
@@ -256,8 +257,24 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table role="presentation" class="table">
+                    <table class="table">
                         <tbody>
+                            {% if (config.exempt_AIPD == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.exempt_AIPD'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            {% if object.exemptAIPD %}
+                                                <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            {% else %}
+                                                <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endif %}
                             {% if (config.systematicMonitoring == true) %}
                                 <tr>
                                     <td>
@@ -402,7 +419,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table role="presentation" class="table">
+                    <table class="table">
                         <tbody>
                             {% if (object.creator and config.creator == true) %}
                                 <tr>
@@ -421,7 +438,7 @@
                                     </td>
                                     <td>
                                         {% if app.user %}
-                                        <a aria-label="{{ object.collectivity }}" href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                        <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
                                             {{ object.collectivity }}
                                         </a>
                                         {% else %}
@@ -442,7 +459,6 @@
         class="col-md-6">
         {# DETAILS #}
         {% if (
-
             (object.concernedPeopleParticular and config.concernedPeopleParticular == true)
         or (object.concernedPeopleUser and config.concernedPeopleUser == true)
         or (object.concernedPeopleAgent and config.concernedPeopleAgent == true)
@@ -453,7 +469,7 @@
         or (object.concernedPeopleOther and config.concernedPeopleOther == true)
         or (object.estimatedConcernedPeople and config.estimatedConcernedPeople == true)
         or (object.software and config.software == true)
-            or (object.tools and config.tools == true)
+        or (object.tools and config.tools == true)
         or (object.paperProcessing and config.paperProcessing == true)
         or (object.delay and config.delay == true)
         or (object.ultimateFate and config.ultimateFate == true)
@@ -465,7 +481,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table role="presentation" class="table">
+                    <table class="table">
                         <tbody>
                             <tr>
                                 <td>
@@ -556,6 +572,21 @@
                                         {% if object.concernedPeoplePartner.check %}
                                             <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                             <p>{{ object.concernedPeoplePartner.comment }}</p>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.concernedPeopleUsager and config.concernedPeopleUsager == true) %}
+                                <tr>
+                                    <td class="concerned-people-type">
+                                        <strong>{{ 'registry.treatment.show.concerned_people_usager'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.concernedPeopleUsager.check %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                            <p>{{ object.concernedPeopleUsager.comment }}</p>
                                         {% else %}
                                             <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
                                         {% endif %}
@@ -664,6 +695,42 @@
                                     </td>
                                 </tr>
                             {% endif %}
+                            {% if (config.legalMentions == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.legal_mentions'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.legalMentions == 1 %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (config.consentRequest == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.consent_request'|trans }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if object.consentRequest == 1 %}
+                                            <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if (object.consentRequestFormat and config.consentRequestFormat == true) %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ 'registry.treatment.show.consent_request_format'|trans }}</strong>
+                                    </td>
+                                    <td>{{ object.consentRequestFormat }}</td>
+                                </tr>
+                            {% endif %}
                         </tbody>
                     </table>
                 </div>
@@ -677,7 +744,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
-                    <table role="presentation" class="table">
+                    <table class="table">
                         <tbody>
                             {% if (config.securityAccessControl == true) %}
                                 <tr>
