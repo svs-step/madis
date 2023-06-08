@@ -52,8 +52,8 @@
                 const holder = btn.parent().parent().find('ul.referentielQuestions')
                 const section = holder.data('section');
                 const oldIndex = holder.data('index')
-                html = html.replace(/__section_name__/g, section).replace(/__question_name__/g, oldIndex)
-                holder.append('<li>'+html+'</li>');
+                html = html.replace(/__section_name__/g, section).replace(/__question_name__/g, oldIndex).replace('li class="col-md-12"', 'li class="col-md-12 question-item"')
+                holder.append(html);
                 const newIndex = holder.data('index') + 1
                 holder.data('index', newIndex)
                 $('#referentiel_referentielSections_'+ section + '_referentielQuestions_' + oldIndex + '_orderNumber').val(oldIndex);
@@ -64,8 +64,8 @@
                 const section = holder.data('section');
                 const question = holder.data('question');
                 const oldIndex = holder.data('index')
-                html = html.replace(/__section_name__/g, section).replace(/__question_name__/g, question).replace(/__answer_name__/g, oldIndex)
-                holder.append('<li>'+html+'</li>');
+                html = html.replace(/__section_name__/g, section).replace(/__question_name__/g, question).replace(/__answer_name__/g, oldIndex).replace('li class="col-md-12"', 'li class="col-md-12 answer-item"')
+                holder.append(html);
                 const newIndex = holder.data('index') + 1
                 holder.data('index', newIndex)
                 console.log('object val', $(`#referentiel_referentielSections_${section}_referentielQuestions_${question}_referentielAnswers_${oldIndex}_orderNumber`))
