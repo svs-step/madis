@@ -534,6 +534,7 @@ registry:
             statut: Statut
             systematic_monitoring: Surveillance systématique
             software: Logiciel
+            tools: Logiciels et supports
             ultimate_fate: Sort final
             vulnerable_people: Personnes vulnérables
             dpoMessage: Préconisations DPO

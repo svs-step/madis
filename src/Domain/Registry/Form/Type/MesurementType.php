@@ -255,7 +255,7 @@ class MesurementType extends AbstractType
 
         if ($options['data']->getCollectivity()->isHasModuleTools()) {
             $builder->add('tools', EntityType::class, [
-                'label'         => 'registry.treatment.form.software',
+                'label'         => 'registry.treatment.form.tools',
                 'class'         => Tool::class,
                 'required'      => false,
                 'multiple'      => true,
