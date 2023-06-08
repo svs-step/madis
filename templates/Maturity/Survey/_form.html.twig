@@ -8,10 +8,6 @@
 {{ form_start(form) }}
 {% do form.questions.setRendered() %}
 {% do form.referentiel.setRendered() %}
-
-{% for a in form.vars.data.answers %}
-{#{{ dump(a.id) }}#}
-{% endfor %}
 {{ form_errors(form) }}
 <div class="row">
     {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
@@ -19,7 +15,7 @@
     {% set domains = form.vars.value.referentiel ? form.vars.value.referentiel.domains : [] %}
 
 {% for domain in domains %}
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="box box-solid {{ colors[loop.index % 4] }}">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ domain.name }}</h3>
@@ -61,6 +57,7 @@
 
             </div>
         </div>
+    {% endfor %}
     </div>
 </div>
 {% endfor %}
