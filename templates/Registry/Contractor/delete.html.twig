@@ -29,10 +29,10 @@
                     Souhaitez vous vraiment supprimer le sous-traitant "{{ object }}" ?
                 </div>
                 <div class="box-footer">
-                    <a href="{{ path('registry_contractor_list') }}" class="btn btn-default">
+                    <a aria-label="{{ 'registry.contractor.action.back_to_list'|trans }}" href="{{ path('registry_contractor_list') }}" class="btn btn-default">
                         {{ 'registry.contractor.action.back_to_list'|trans }}
                     </a>
-                    <a href="{{ path('registry_contractor_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                    <a aria-label="{{ 'action.confirm_delete'|trans }}" href="{{ path('registry_contractor_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
                         {{ 'action.confirm_delete'|trans }}
                     </a>
                 </div>

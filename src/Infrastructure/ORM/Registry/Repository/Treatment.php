@@ -26,6 +26,7 @@ namespace App\Infrastructure\ORM\Registry\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Traits\RepositoryUtils;
+use App\Domain\Registry\Dictionary\TreatmentStatutDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
 use App\Domain\User\Model\Collectivity;
@@ -252,6 +253,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             ->addSelect('collectivite')
             ->leftJoin('o.collectivity', 'collectivite')
             ->leftJoin('o.contractors', 'sous_traitants')
+            ->leftJoin('o.dataCategories', 'data_categories')
         ;
 
         if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
@@ -321,8 +323,26 @@ class Treatment extends CRUDRepository implements Repository\Treatment
             case 'responsableTraitement':
                 $queryBuilder->addOrderBy('o.coordonneesResponsableTraitement', $orderDir);
                 break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
             case 'updatedAt':
                 $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
+            case 'statut':
+                $queryBuilder->addSelect('(case
+                WHEN o.statut = \'' . TreatmentStatutDictionary::DRAFT . '\' THEN 1
+                WHEN o.statut = \'' . TreatmentStatutDictionary::CHECKED . '\' THEN 2
+                WHEN o.statut = \'' . TreatmentStatutDictionary::FINISHED . '\' THEN 3
+                ELSE 4 END) AS HIDDEN hidden_statut')
+                    ->addOrderBy('hidden_statut', $orderDir);
+                break;
+            case 'sensitiveData':
+                $queryBuilder->leftJoin('o.dataCategories', 'dco', 'WITH', 'dco.sensible = 1')
+                    ->addSelect('COUNT(dco.code) as sensitiveCount')
+                    ->addOrderBy('sensitiveCount', $orderDir)
+                    ->groupBy('o.id')
+                ;
                 break;
         }
     }
@@ -386,9 +406,19 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     $queryBuilder->andWhere('o.securitySpecificitiesDelivered = :specificitiesDelivered')
                         ->setParameter('specificitiesDelivered', $search);
                     break;
+                case 'createdAt':
+                    if (is_string($search)) {
+                        $queryBuilder->andWhere('o.createdAt BETWEEN :created_start_date AND :created_finish_date')
+                            ->setParameter('created_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                            ->setParameter('created_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    }
+                    break;
                 case 'updatedAt':
-                    $queryBuilder->andWhere('o.updatedAt LIKE :date')
-                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    if (is_string($search)) {
+                        $queryBuilder->andWhere('o.updatedAt BETWEEN :updated_start_date AND :updated_finish_date')
+                            ->setParameter('updated_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                            ->setParameter('updated_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    }
                     break;
                 case 'public':
                     $queryBuilder->andWhere('o.public = :public')
@@ -396,6 +426,31 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     break;
                 case 'responsableTraitement':
                     $this->addWhereClause($queryBuilder, 'coordonneesResponsableTraitement', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'sensitiveData':
+                    if ($search) {
+                        $queryBuilder
+                            ->leftJoin('o.dataCategories', 'dcs', 'WITH', 'dcs.sensible = :sensitiveDatas')
+                            ->addSelect('dcs.sensible AS sensitiveData')
+                            ->andHaving('COUNT(dcs.code) > 0')
+                            ->setParameter('sensitiveDatas', 1)
+                            ->groupBy('o.id')
+                        ;
+                    } else {
+                        $queryBuilder
+                            ->leftJoin('o.dataCategories', 'dcs', 'WITH', 'dcs.sensible = :sensitiveDatas')
+                            ->andHaving('COUNT(dcs.code) = 0')
+                            ->setParameter('sensitiveDatas', 1)
+                            ->groupBy('o.id')
+                        ;
+
+                        // dd($queryBuilder->getQuery()->getSQL());
+                    }
+
+                    break;
+                case 'statut':
+                    $queryBuilder->andWhere('o.statut = :statut')
+                        ->setParameter('statut', $search);
                     break;
             }
         }

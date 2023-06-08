@@ -31,8 +31,11 @@ class ReponseMesureProtectionDictionary extends SimpleDictionary
         ];
     }
 
-    public static function getPoidsIndexFromReponse(string $reponse, AnalyseImpact $aipd): float
+    public static function getPoidsIndexFromReponse(?string $reponse, AnalyseImpact $aipd): float
     {
+        if (null === $reponse) {
+            return 0;
+        }
         if (!array_key_exists($reponse, self::getReponses($aipd))) {
             throw new NotFoundHttpException('Key ' . $reponse . ' not found in ReponseMesureProtectionDictionary');
         }

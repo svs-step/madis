@@ -201,7 +201,7 @@ class ContractorController extends CRUDController
 
         /** @var Model\Contractor $contractor */
         foreach ($contractors as $contractor) {
-            $contractorLink = '<a href="' . $this->router->generate('registry_contractor_show', ['id' => $contractor->getId()->toString()]) . '">
+            $contractorLink = '<a aria-label="' . \htmlspecialchars($contractor->getName()) . '" href="' . $this->router->generate('registry_contractor_show', ['id' => $contractor->getId()->toString()]) . '">
                 ' . \htmlspecialchars($contractor->getName()) . '
             </a>';
 
@@ -215,7 +215,9 @@ class ContractorController extends CRUDController
                 'donnees_hors_eu'        => $contractor->isSendingDataOutsideEu() ?
                     '<span class="label label-danger">' . $this->translator->trans('label.yes') . '</span>' :
                     '<span class="label label-success">' . $this->translator->trans('label.no') . '</span>',
-                'actions' => $this->getActionCellsContent($contractor),
+                'createdAt' => date_format($contractor->getCreatedAt(), 'd-m-Y H:i:s'),
+                'updatedAt' => date_format($contractor->getUpdatedAt(), 'd-m-Y H:i:s'),
+                'actions'   => $this->getActionCellsContent($contractor),
             ];
         }
 
@@ -245,7 +247,9 @@ class ContractorController extends CRUDController
             3 => 'element_securite',
             4 => 'registre_traitements',
             5 => 'donnees_hors_eu',
-            6 => 'actions',
+            6 => 'createdAt',
+            7 => 'updatedAt',
+            8 => 'actions',
         ];
     }
 
@@ -269,13 +273,13 @@ class ContractorController extends CRUDController
     {
         $user = $this->userProvider->getAuthenticatedUser();
         if ($user->getServices()->isEmpty() || $this->isContractorInUserServices($sousTraitant)) {
-            $cellContent = '<a href="' . $this->router->generate('registry_contractor_edit', ['id' => $sousTraitant->getId()]) . '">
+            $cellContent = '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('registry_contractor_edit', ['id' => $sousTraitant->getId()]) . '">
                     <i class="fa fa-pencil-alt"></i>' .
                     $this->translator->trans('action.edit') .
                 '</a>';
 
             $cellContent .=
-                '<a href="' . $this->router->generate('registry_contractor_delete', ['id' => $sousTraitant->getId()]) . '">
+                '<a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('registry_contractor_delete', ['id' => $sousTraitant->getId()]) . '">
                     <i class="fa fa-trash"></i>' .
                     $this->translator->trans('action.delete') .
                 '</a>';

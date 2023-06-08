@@ -49,6 +49,7 @@ class ContactCivilityDictionaryTest extends TestCase
             ContactCivilityDictionary::CIVILITY_NONE   => '',
             ContactCivilityDictionary::CIVILITY_MISS   => 'Madame',
             ContactCivilityDictionary::CIVILITY_MISTER => 'Monsieur',
+            ContactCivilityDictionary::CIVILITY_NONE   => '',
         ];
 
         $this->assertEquals($data, ContactCivilityDictionary::getCivilities());
@@ -60,6 +61,7 @@ class ContactCivilityDictionaryTest extends TestCase
             ContactCivilityDictionary::CIVILITY_NONE,
             ContactCivilityDictionary::CIVILITY_MISS,
             ContactCivilityDictionary::CIVILITY_MISTER,
+            ContactCivilityDictionary::CIVILITY_NONE,
         ];
 
         $this->assertEquals($data, ContactCivilityDictionary::getCivilitiesKeys());

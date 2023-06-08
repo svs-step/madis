@@ -39,39 +39,39 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
-                    <table id="table" class="table table-bordered table-hover">
+                    <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_traitement" placeholder="Traitement" style="width: 100%;">
                             </th>
-                            <th>
-                                <input class="datepicker form-control" type="text" id="search_date_de_creation" placeholder="Date création" style="width: 100%;">
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_date_de_creation" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;font-family: inherit;z-index:10">
                             </th>
-                            <th>
-                                <input class="datepicker form-control" type="text" id="search_date_de_validation" placeholder="Date validation" style="width: 100%;">
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_date_de_validation" placeholder="Date de validation" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;font-family: inherit;z-index:10">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_modele" placeholder="Modèle utilisé" style="width: 100%;">
                             </th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                         <tr>
-                            <th>{{ 'aipd.analyse_impact.list.traitement'|trans }}</th>
-                            <th>{{ 'aipd.analyse_impact.list.date_creation'|trans }}</th>
-                            <th>{{ 'aipd.analyse_impact.list.date_validation'|trans }}</th>
-                            <th style="width: 15%">{{ 'aipd.analyse_impact.list.modele'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.list.traitement'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.list.date_creation'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.list.date_validation'|trans }}</th>
+                            <th scope="col" style="width: 15%">{{ 'aipd.analyse_impact.list.modele'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th>{{ 'aipd.analyse_impact.list.collectivite'|trans }}</th>
                             {% endif %}
-                            <th>{{ 'aipd.analyse_impact.list.avis_referent'|trans }}</th>
-                            <th>{{ 'aipd.analyse_impact.list.avis_dpd'|trans }}</th>
-                            <th>{{ 'aipd.analyse_impact.list.avis_representant'|trans }}</th>
-                            <th>{{ 'aipd.analyse_impact.list.avis_responsable'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_referent'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_dpd'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_representant'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_responsable'|trans }}</th>
+                            <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>
@@ -127,28 +127,39 @@
 
     <script>
         $(document).ready(function () {
-            $('#table_filter').hide();
             var oTable = $('#table').DataTable();
+            function setEvents() {
+                $('#search_date_de_creation').show('slide',function(){
+                    $('input#search_date_de_creation').val('');
+                });
+                $('#search_date_de_validation').show('slide',function(){
+                    $('input#search_date_de_validation').val('');
+                });
 
-            $('#search_traitement').off('keyup');
-            $('#search_traitement').keyup($.debounce(250, function(){
-                oTable.column('0').search($(this).val()).draw() ;
-            }));
+                $('#search_traitement').off('keyup');
+                $('#search_traitement').keyup($.debounce(250, function(){
+                    oTable.column('0').search($(this).val()).draw() ;
+                }));
 
-            $('#search_date_de_creation').off('keyup');
-            $('#search_date_de_creation').keyup($.debounce(250, function(){
-                oTable.column('1').search($(this).val()).draw();
-            }));
+                $('#search_date_de_creation').off('change');
+                $('#search_date_de_creation').change(function(){
+                    oTable.column('1').search($(this).val()).draw() ;
+                });
 
-            $('#search_date_de_validation').off('keyup');
-            $('#search_date_de_validation').keyup($.debounce(250, function(){
-                oTable.column('2').search($(this).val()).draw();
-            }));
+                $('#search_date_de_validation').off('change');
+                $('#search_date_de_validation').change(function(){
+                    oTable.column('2').search($(this).val()).draw() ;
+                });
 
-            $('#search_modele').off('keyup');
-            $('#search_modele').keyup($.debounce(250, function(){
-                oTable.column('3').search($(this).val()).draw() ;
-            }));
+                $('#search_modele').off('keyup');
+                $('#search_modele').keyup($.debounce(250, function(){
+                    oTable.column('3').search($(this).val()).draw() ;
+                }));
+            }
+           setEvents();
+            $('#table').on('column-visibility.dt', function() {
+                setEvents();
+            } );
         })
     </script>
 

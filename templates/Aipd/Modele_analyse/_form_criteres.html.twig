@@ -11,11 +11,11 @@
         {% if form.vars.value and form.vars.value.id and form.vars.value.fichier is defined  and form.vars.value.fichier  %}
             {{ form_widget(form.deleteFile) }}
             <div style="margin-bottom: 1em">
-                <a href="/uploads/aipd/critere_principe_fondamentaux/fichier/{{ form.vars.value.fichier }}">
+                <a aria-label="Fichier existant" href="/uploads/aipd/critere_principe_fondamentaux/fichier/{{ form.vars.value.fichier }}">
                     Fichier existant
                 </a>
 
-                <a class="btn btn-danger delete-file btn-sm" style="margin-left: 1em" title="Supprimer ce fichier">
+                <a aria-label="Supprimer" class="btn btn-danger delete-file btn-sm" style="margin-left: 1em" title="Supprimer ce fichier">
                     <i class="fa fa-trash"></i>
                 </a>
             </div>

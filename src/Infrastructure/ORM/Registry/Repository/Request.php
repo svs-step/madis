@@ -360,7 +360,7 @@ class Request implements Repository\Request
                     CONCAT(o.applicant.firstName, \' \', o.applicant.lastName), 
                     CONCAT(o.concernedPeople.firstName, \' \', o.applicant.lastName))
                     AS HIDDEN person_name')
-                ->addOrderBy('person_name', $orderDir);
+                    ->addOrderBy('person_name', $orderDir);
                 break;
             case 'date_demande':
                 $queryBuilder->addOrderBy('o.date', $orderDir);
@@ -401,6 +401,12 @@ class Request implements Repository\Request
                 ELSE 7 END) AS HIDDEN hidden_state')
                     ->addOrderBy('hidden_state', $orderDir);
                 break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
         }
     }
 
@@ -420,8 +426,9 @@ class Request implements Repository\Request
                         ->setParameter('person_name', '%' . $search . '%');
                     break;
                 case 'date_demande':
-                    $queryBuilder->andWhere('o.date LIKE :date')
-                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    $queryBuilder->andWhere('o.date BETWEEN :request_start_date AND :request_finish_date')
+                        ->setParameter('request_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('request_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
                 case 'objet_demande':
                     $this->addWhereClause($queryBuilder, 'object', $search);
@@ -432,11 +439,26 @@ class Request implements Repository\Request
                 case 'demandeur_legitime':
                     $this->addWhereClause($queryBuilder, 'legitimateApplicant', $search);
                     break;
+                case 'date_traitement':
+                    $queryBuilder->andWhere('o.answer.date BETWEEN :treatment_start_date AND :treatment_finish_date')
+                        ->setParameter('treatment_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('treatment_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    break;
                 case 'demande_legitime':
                     $this->addWhereClause($queryBuilder, 'legitimateRequest', $search);
                     break;
                 case 'etat_demande':
                     $this->addWhereClause($queryBuilder, 'state', $search);
+                    break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt BETWEEN :created_start_date AND :created_finish_date')
+                        ->setParameter('created_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('created_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt BETWEEN :updated_start_date AND :updated_finish_date')
+                        ->setParameter('updated_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('updated_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
             }
         }

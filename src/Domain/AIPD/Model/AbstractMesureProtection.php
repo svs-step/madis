@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Model;
 
+use App\Application\Traits\Model\HistoryTrait;
 use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class AbstractMesureProtection
 {
+    use HistoryTrait;
     /**
      * @Serializer\Accessor(getter="getIdString",setter="setIdFromString")
      *
@@ -23,6 +25,20 @@ class AbstractMesureProtection
     private string $detail;
     private int $poidsVraisemblance;
     private int $poidsGravite;
+
+    /**
+     * @var \DateTimeImmutable|null
+     *
+     * @Serializer\Type("DateTimeImmutable")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTimeImmutable|null
+     *
+     * @Serializer\Type("DateTimeImmutable")
+     */
+    private $updatedAt;
 
     public function __construct()
     {

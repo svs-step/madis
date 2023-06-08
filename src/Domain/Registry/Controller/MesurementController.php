@@ -311,26 +311,34 @@ class MesurementController extends CRUDController
 
         if ($isActionPlan) {
             return [
-                0 => 'nom',
-                1 => 'collectivite',
-                2 => 'date_planification',
-                3 => 'cout',
-                4 => 'charge',
-                5 => 'responsable_action',
-                6 => 'priorite',
-                7 => 'actions',
+                0  => 'nom',
+                1  => 'collectivite',
+                2  => 'date_planification',
+                3  => 'cout',
+                4  => 'charge',
+                5  => 'priorite',
+                6  => 'responsable_action',
+                7  => 'description',
+                8  => 'observation',
+                9  => 'createdAt',
+                10 => 'updatedAt',
+                11 => 'actions',
             ];
         }
 
         return [
-            0 => 'nom',
-            1 => 'collectivite',
-            2 => 'statut',
-            3 => 'cout',
-            4 => 'charge',
-            5 => 'priorite',
-            6 => 'responsable_action',
-            7 => 'actions',
+            0  => 'nom',
+            1  => 'collectivite',
+            2  => 'statut',
+            3  => 'cout',
+            4  => 'charge',
+            5  => 'priorite',
+            6  => 'responsable_action',
+            7  => 'description',
+            8  => 'observation',
+            9  => 'createdAt',
+            10 => 'updatedAt',
+            11 => 'actions',
         ];
     }
 
@@ -355,6 +363,10 @@ class MesurementController extends CRUDController
                 'priorite'           => !\is_null($action->getPriority()) ? MesurementPriorityDictionary::getPriorities()[$action->getPriority()] : null,
                 'date_planification' => !\is_null($action->getPlanificationDate()) ? \date_format($action->getPlanificationDate(), 'd/m/Y') : null,
                 'responsable_action' => $action->getManager(),
+                'description'        => $action->getDescription(),
+                'observation'        => $action->getComment(),
+                'createdAt'          => \date_format($action->getCreatedAt(), 'd/m/Y H:i'),
+                'updatedAt'          => \date_format($action->getUpdatedAt(), 'd/m/Y H:i'),
                 'actions'            => $this->generateActionCell($action, $isActionPlan),
             ];
         }

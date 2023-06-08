@@ -28,25 +28,25 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body">
-                    <table id="table" class="table table-bordered table-hover">
+                    <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_subject_id" placeholder="Id" style="width: 100%;">
                                 </th>
-                                <th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_user_fullname" placeholder="Nom utilisateur" style="width: 100%;">
                                 </th>
-                                <th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_user_email" placeholder="Email utilisateur" style="width: 100%;">
                                 </th>
-                                <th>
-                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
+                                <th scope="col">
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Collectivité" style="width: 100%;">
                                 </th>
-                                <th>
-                                    <input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;">
+                                <th scope="col" style="min-width:130px;position:relative;">
+                                    <input class="daterangepicker form-control" type="text" id="search_date" placeholder="Date" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;font-family: inherit;z-index:10">
                                 </th>
-                                <th>
+                                <th scope="col">
                                     <select class="form-control" id="search_sujet" style="width: 100%;">
                                         <option value="">Sujet</option>
                                         {% for key, subject in dictionary('reporting_log_journal_subject') %}
@@ -54,7 +54,7 @@
                                         {% endfor %}
                                     </select>
                                 </th>
-                                <th>
+                                <th scope="col">
                                     <select class="form-control" id="search_action" style="width: 100%;">
                                         <option value="">Action</option>
                                         {% for key, action in dictionary('reporting_log_journal_action') %}
@@ -62,24 +62,25 @@
                                         {% endfor %}
                                     </select>
                                 </th>
-                                <th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_subject_name" placeholder="Nom" style="width: 100%;">
                                 </th>
-                                <th></th>
+                                <th scope="col"></th>
                             </tr>
                             <tr>
-                                <th>Id</th>
-                                <th>Nom utilisateur</th>
-                                <th>Email utilisateur</th>
-                                <th>Structure</th>
-                                <th>Date</th>
-                                <th>Sujet</th>
-                                <th>Action</th>
-                                <th>Nom</th>
-                                <th>Lien</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nom utilisateur</th>
+                                <th scope="col">Email utilisateur</th>
+                                <th scope="col">Collectivité</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Sujet</th>
+                                <th scope="col">Action</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Lien</th>
                             </tr>
                         </thead>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -111,6 +112,10 @@
     <script>
         function setEvents() {
             var oTable = $('#table').DataTable();
+
+            $('#search_date').show('slide',function(){
+                $('input#search_date').val('');
+            });
 
             $('#search_subject_id').off('keyup');
             $('#search_subject_id').keyup($.debounce(250, function(){

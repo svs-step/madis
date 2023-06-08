@@ -1,12 +1,13 @@
-{% set submitValue = submitValue|default('action.submit'|trans) %}
+{% if form.vars.value.createdAt.timestamp is defined %}
+    {% set submitValue = submitValue|default('maturity.survey.action.edit_submit'|trans) %}
+{% else %}
+    {% set submitValue = submitValue|default('maturity.survey.action.new_submit'|trans) %}
+{% endif %}
+
 
 {{ form_start(form) }}
 {% do form.questions.setRendered() %}
 {% do form.referentiel.setRendered() %}
-
-{% for a in form.vars.data.answers %}
-{#{{ dump(a.id) }}#}
-{% endfor %}
 {{ form_errors(form) }}
 <div class="row">
     {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
@@ -14,7 +15,7 @@
     {% set domains = form.vars.value.referentiel ? form.vars.value.referentiel.domains : [] %}
 
 {% for domain in domains %}
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="box box-solid {{ colors[loop.index % 4] }}">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ domain.name }}</h3>
@@ -57,27 +58,26 @@
             </div>
         </div>
     {% endfor %}
-            </div>
-        </div>
     </div>
-{% endfor %}
 </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-solid">
-                <div class="box-body text-center">
-                    {% if domains|length == 0 %}
-                        <p>Aucun référentiel pour cet indice de maturité.</p>
-                    {% endif %}
-                    <a href="{{ path('maturity_survey_list') }}" class="btn btn-default">
-                        {{ 'maturity.survey.action.back_to_list'|trans }}
-                    </a>
-                    {% if domains|length > 0 %}
-                    <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
-                    {% endif %}
-                </div>
+{% endfor %}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                {% if domains|length == 0 %}
+                    <p>Aucun référentiel pour cet indice de maturité.</p>
+                {% endif %}
+                <a aria-label="{{ 'maturity.survey.action.back_to_list'|trans }}" href="{{ path('maturity_survey_list') }}" class="btn btn-default">
+                    {{ 'maturity.survey.action.back_to_list'|trans }}
+                </a>
+                {% if domains|length > 0 %}
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                {% endif %}
             </div>
         </div>
     </div>
+</div>
 
 {{ form_end(form) }}

@@ -6,21 +6,21 @@
                     <h3 class="box-title">{{ 'registry.conformite_traitement.form.header'|trans }}</h3>
                 </span>
                 <span style="padding-left: 30px;">
-                    <a href="{{ path('registry_conformite_traitement_list') }}" class="btn btn-default">
+                    <a aria-label="{{ 'registry.conformite_traitement.action.back_to_list'|trans }}" href="{{ path('registry_conformite_traitement_list') }}" class="btn btn-default">
                         {{ 'registry.conformite_traitement.action.back_to_list'|trans }}
                     </a>
                     <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
                 </span>
             </div>
             <div class="box-body">
-                <table id="table" class="table">
+                <table role="presentation" id="table" class="table">
                     <thead>
                         <tr>
-                            <th style="width: 3%;"></th>
-                            <th class="col-md-6">{{ 'registry.conformite_traitement.form.question'|trans }}</th>
-                            <th class="col-md-2">{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
-                            <th class="col-md-4">{{ 'registry.conformite_traitement.form.action_protection'|trans }}</th>
-                            <th></th>
+                            <th scope="col" style="width: 3%;"></th>
+                            <th scope="col" class="col-md-6">{{ 'registry.conformite_traitement.form.question'|trans }}</th>
+                            <th scope="col" class="col-md-2">{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
+                            <th scope="col" class="col-md-4">{{ 'registry.conformite_traitement.form.action_protection'|trans }}</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,7 +62,7 @@
                             <td>{{ form_widget(reponse.conforme, { 'attr': {'data-select-id': reponse.actionProtections.vars.id} }) }}</td>
                             <td>{{ form_widget(reponse.actionProtections) }}</td>
                             <td>
-                                <button id="{{ reponse.actionProtections.vars.id }}_add_button" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ reponse.actionProtections.vars.id }}">
+                                <button id="{{ reponse.actionProtections.vars.id }}_add_button" aria-label="Ajouter une action de protection" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ reponse.actionProtections.vars.id }}">
                                     <span class="fa fa-plus-circle"></span>
                                 </button>
                             </td>
