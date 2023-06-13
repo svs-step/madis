@@ -205,8 +205,8 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             if (0 !== $key) {
                 $section->addPageBreak();
             }
-            $treatment->getStatut();
-            $section->addTitle($treatment->getName(), 2);
+
+            $section->addTitle($treatment->getName() . ($treatment->getStatut() === 'draft' ? ' (Brouillon)' : ''), 2);
 
             $generalInformationsData = [
                 [
