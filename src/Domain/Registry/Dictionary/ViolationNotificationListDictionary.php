@@ -60,6 +60,6 @@ class ViolationNotificationListDictionary extends SimpleDictionary
      */
     public static function getNotificationsKeys()
     {
-        return \array_keys(self::getNotifications());
+        return \array_keys(self::getNotificationsList());
     }
 }

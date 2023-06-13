@@ -69,6 +69,8 @@ class TreatmentType extends AbstractType
     {
         /** @var Treatment $treatment */
         $treatment = $options['data'];
+        /** @var User $user */
+        $user = $this->security->getUser();
         $builder
             ->add('public', CheckboxType::class, [
                 'label'    => ' ',
@@ -353,7 +355,7 @@ class TreatmentType extends AbstractType
             ])
             ->add('updatedBy', HiddenType::class, [
                 'required' => false,
-                'data'     => $this->security->getUser() ? $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()) : '',
+                'data'     => $user ? $user->getFirstName() . ' ' . strtoupper($user->getLastName()) : '',
             ])
             ->add('legalMentions', CheckboxType::class, [
                 'label'    => 'registry.treatment.form.legalMentions',

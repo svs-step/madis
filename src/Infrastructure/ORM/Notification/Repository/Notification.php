@@ -217,6 +217,7 @@ class Notification extends CRUDRepository implements Repository\Notification
 
     private function addTableSearches(QueryBuilder $queryBuilder, $searches)
     {
+        /** @var User $user */
         $user = $this->security->getUser();
         foreach ($searches as $columnName => $search) {
             switch ($columnName) {

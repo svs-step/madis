@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Form\Type;
 
 use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
@@ -67,6 +68,8 @@ class CollectivityType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var User $user */
+        $user = $this->security->getUser();
         // Add collectivity general information only for admins
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $builder
@@ -152,7 +155,7 @@ class CollectivityType extends AbstractType
                 ])
                 ->add('updatedBy', HiddenType::class, [
                     'required' => false,
-                    'data'     => $this->security->getUser() ? $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()) : '',
+                    'data'     => $user ? $user->getFirstName() . ' ' . strtoupper($user->getLastName()) : '',
                 ])
             ;
         }

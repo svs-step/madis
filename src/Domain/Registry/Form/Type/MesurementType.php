@@ -62,6 +62,8 @@ class MesurementType extends AbstractType
     {
         /** @var Mesurement $mesurement */
         $mesurement = $options['data'] ?? null;
+        /** @var User $user */
+        $user = $this->security->getUser();
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'registry.mesurement.form.name',
@@ -249,7 +251,7 @@ class MesurementType extends AbstractType
             ])
             ->add('updatedBy', HiddenType::class, [
                 'required' => false,
-                'data'     => $this->security->getUser() ? $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()) : '',
+                'data'     => $user ? $user->getFirstName() . ' ' . strtoupper($user->getLastName()) : '',
             ])
         ;
 

@@ -99,7 +99,7 @@ class Domain
         $this->id = Uuid::uuid4();
 
         foreach ($this->questions as $question) {
-            if (isset($question)) {
+            if ($question) {
                 $question->deserialize();
                 $question->setDomain($this);
             }
@@ -167,7 +167,13 @@ class Domain
 
     public function removeQuestion(Question $question)
     {
-        $this->questions->removeElement($question);
+        $key = \array_search($question, $this->questions, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->questions[$key]);
     }
 
     public function getQuestions()

@@ -107,6 +107,9 @@ class ViolationType extends AbstractType
                 'required' => false,
             ]);
         }
+        /** @var User $user */
+        $user = $this->security->getUser();
+
         $builder
             ->add('inProgress', CheckboxType::class, [
                 'label'    => 'registry.violation.form.in_progress',
@@ -268,7 +271,7 @@ class ViolationType extends AbstractType
             ])
             ->add('updatedBy', HiddenType::class, [
                 'required' => false,
-                'data'     => $this->security->getUser() ? $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()) : '',
+                'data'     => $user ? $user->getFirstName() . ' ' . strtoupper($user->getLastName()) : '',
             ])
         ;
     }

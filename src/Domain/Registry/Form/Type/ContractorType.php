@@ -103,6 +103,8 @@ class ContractorType extends AbstractType
                 ])
             ;
         }
+        /** @var User $user */
+        $user = $this->security->getUser();
         $builder
             ->add('referent', TextType::class, [
                 'label'    => 'registry.contractor.form.referent',
@@ -153,7 +155,7 @@ class ContractorType extends AbstractType
             ])
             ->add('updatedBy', HiddenType::class, [
                 'required' => false,
-                'data'     => $this->security->getUser() ? $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()) : '',
+                'data'     => $user ? $user->getFirstName() . ' ' . strtoupper($user->getLastName()) : '',
             ])
         ;
     }
