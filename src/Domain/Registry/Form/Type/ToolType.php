@@ -27,6 +27,9 @@ namespace App\Domain\Registry\Form\Type;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Tool;
+use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\Service;
+use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -37,11 +40,25 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ToolType extends AbstractType
 {
+    /**
+     * @var Security
+     */
+    private $security;
+    private AuthorizationCheckerInterface $authorizationChecker;
+
+    public function __construct(Security $security, AuthorizationCheckerInterface $authorizationChecker)
+    {
+        $this->security             = $security;
+        $this->authorizationChecker = $authorizationChecker;
+    }
+
     /**
      * Build type form.
      */
@@ -98,9 +115,26 @@ class ToolType extends AbstractType
                 'multiple'      => true,
                 'expanded'      => false,
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c')
-                        ->addOrderBy('c.name', 'asc')
-                    ;
+                    /** @var User $authenticatedUser */
+                    $authenticatedUser = $this->security->getUser();
+                    $collectivity      = $authenticatedUser->getCollectivity();
+                    $qb =  $er->createQueryBuilder('c');
+                    $qb->addOrderBy('c.name', 'asc');
+
+                    if ($collectivity && $collectivity->getIsServicesEnabled()) {
+                        $ors = $qb->expr()->orX();
+                        foreach ($authenticatedUser->getServices() as $service) {
+                            $ors->add($qb->expr()->eq('c.service', $service),);
+                        }
+                        //Services enabled on user collectivity, check if that contractor belongs to this service
+                        $qb->andWhere($qb->expr()->orX($ors));
+                    } else {
+                        $qb->andWhere('c.collectivity = :collectivity')
+                            ->setParameter(':collectivity', $collectivity)
+                        ;
+                    }
+
+                    return $qb;
                 },
                 'attr' => [
                     'class' => 'selectpicker',
