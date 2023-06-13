@@ -120,6 +120,19 @@ class Notification extends CRUDRepository implements Repository\Notification
         return $qb->getQuery()->getResult();
     }
 
+    public function findAllUnread(array $order = ['createdAt' => 'DESC']): array
+    {
+        $qb = $this->getQueryBuilder($order);
+
+        foreach ($order as $field => $direction) {
+            $qb->addOrderBy(new OrderBy('o.' . $field, $direction));
+        }
+
+        $this->addTableSearches($qb, ['state' => 'unread']);
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function persist($object)
     {
         $this->getManager()->persist($object);
@@ -209,7 +222,7 @@ class Notification extends CRUDRepository implements Repository\Notification
             switch ($columnName) {
                 case 'state':
                     if ('read' === $search) {
-                        if ($this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_REFERENT')) {
+                        if ($this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_REFERENT') || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
                             $queryBuilder->andWhere('o.readAt IS NOT NULL');
                         } else {
                             $queryBuilder->leftJoin('o.notificationUsers', 'nu');
@@ -218,7 +231,7 @@ class Notification extends CRUDRepository implements Repository\Notification
                             $queryBuilder->setParameter('user', $user);
                         }
                     } else {
-                        if ($this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_REFERENT')) {
+                        if ($this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_REFERENT') || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
                             $queryBuilder->andWhere('o.readAt IS NULL');
                         } else {
                             $queryBuilder->leftJoin('o.notificationUsers', 'nu');
