@@ -13,6 +13,7 @@
         <field name="name" column="name"/>
         <field name="type" column="type" nullable="true"/>
         <field name="editor" column="editor" nullable="true"/>
+        <field name="manager" column="manager" nullable="true"/>
         <field name="description" column="description" nullable="true" type="text"/>
         <field name="prod_date" column="prod_date" nullable="true" type="date"/>
         <field name="country_name" column="country_name" nullable="true" />

@@ -107,6 +107,13 @@ class ToolType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
+            ->add('manager', TextType::class, [
+                'label'    => 'registry.tool.form.manager',
+                'required' => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
+            ])
 
             ->add('contractors', EntityType::class, [
                 'label'         => 'registry.tool.form.contractors',
