@@ -41,9 +41,9 @@ class Answer
 
     private int $position;
 
-    private string $recommendation;
+    private ?string $recommendation;
 
-    private string $response;
+    private ?string $response;
 
     /**
      * @var Question|null
