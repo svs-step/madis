@@ -208,6 +208,7 @@ class ToolController extends CRUDController
                 'actions',
             ];
         }
+
         return [
             'name',
             'type',

@@ -13,15 +13,15 @@ use Ramsey\Uuid\Uuid;
  */
 final class Version20230602065458 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
         $id = Uuid::uuid4();
         $this->addSql('INSERT INTO maturity_referentiel(id, name, description, created_at, updated_at) VALUES (?, ?, ?, ?, ?)', [$id, 'Indice de maturité', null, date_create()->format('Y-m-d H:i:s'), date_create()->format('Y-m-d H:i:s')]);
         $this->addSql('UPDATE maturity_domain SET referentiel_id=? WHERE referentiel_id IS NULL', [$id]);
@@ -29,9 +29,9 @@ final class Version20230602065458 extends AbstractMigration
         $this->addSql('UPDATE maturity_survey SET referentiel_id=? WHERE referentiel_id IS NULL', [$id]);
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
     }
 }

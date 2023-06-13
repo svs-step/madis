@@ -269,8 +269,8 @@ class RequestController extends CRUDController
     private function getLinkForPersonneConcernee(Model\Request $demande)
     {
         $link = '<a aria-label="Demande" href="' . $this->router->generate('registry_request_show', ['id' => $demande->getId()]) . '">';
-        if ($demande->getApplicant()->isConcernedPeople() ||
-            ' ' === $demande->getConcernedPeople()->getFullName()) {
+        if ($demande->getApplicant()->isConcernedPeople()
+            || ' ' === $demande->getConcernedPeople()->getFullName()) {
             $link .= $demande->getApplicant()->getFullName();
         } else {
             $link .= $demande->getConcernedPeople()->getFullName();

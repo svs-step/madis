@@ -205,6 +205,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             if (0 !== $key) {
                 $section->addPageBreak();
             }
+            $treatment->getStatut();
             $section->addTitle($treatment->getName(), 2);
 
             $generalInformationsData = [
@@ -222,7 +223,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
                 [
                     'En tant que',
-                    !\is_null($treatment->getAuthor()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : '',
+                    !\is_null($treatment->getAuthor()) && array_key_exists($treatment->getAuthor(), TreatmentAuthorDictionary::getAuthors()) ? TreatmentAuthorDictionary::getAuthors()[$treatment->getAuthor()] : $treatment->getAuthor(),
                 ],
                 [
                     'Gestionnaire',

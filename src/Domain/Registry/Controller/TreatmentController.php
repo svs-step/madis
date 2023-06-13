@@ -667,7 +667,7 @@ class TreatmentController extends CRUDController
         if ($this->authorizationChecker->isGranted('ROLE_REFERENT')) {
             return [
                 '1'  => 'name',
-                '2' => 'statut',
+                '2'  => 'statut',
                 '3'  => 'collectivite',
                 '4'  => 'baseLegal',
                 '5'  => 'logiciel',
@@ -675,7 +675,7 @@ class TreatmentController extends CRUDController
                 '7'  => 'gestionnaire',
                 '8'  => 'sousTraitant',
                 '9'  => 'sensitiveData',
-                '10'  => 'controleAcces',
+                '10' => 'controleAcces',
                 '11' => 'tracabilite',
                 '12' => 'saving',
                 '13' => 'other',
@@ -697,7 +697,7 @@ class TreatmentController extends CRUDController
 
         return [
             '1'  => 'name',
-            '2' => 'statut',
+            '2'  => 'statut',
             '3'  => 'baseLegal',
             '4'  => 'logiciel',
             '5'  => 'enTantQue',
@@ -705,7 +705,7 @@ class TreatmentController extends CRUDController
             '7'  => 'sousTraitant',
             '8'  => 'sensitiveData',
             '9'  => 'controleAcces',
-            '10'  => 'tracabilite',
+            '10' => 'tracabilite',
             '11' => 'saving',
             '12' => 'other',
             '13' => 'entitledPersons',

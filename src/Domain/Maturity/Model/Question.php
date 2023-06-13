@@ -78,7 +78,7 @@ class Question
 
     public function __clone()
     {
-        $this->id                       = null;
+        $this->id = null;
 
         $answers = [];
         foreach ($this->answers as $answer) {
@@ -90,10 +90,11 @@ class Question
     public function deserialize(): void
     {
         $this->id = Uuid::uuid4();
-        if(isset($this->answers))
-        foreach ($this->answers as $answer) {
-            $answer->deserialize();
-            $answer->setQuestion($this);
+        if (isset($this->answers)) {
+            foreach ($this->answers as $answer) {
+                $answer->deserialize();
+                $answer->setQuestion($this);
+            }
         }
     }
 

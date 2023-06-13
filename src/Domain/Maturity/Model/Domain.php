@@ -24,10 +24,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Model;
 
-use Doctrine\Common\Collections\Collection;
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @Serializer\ExclusionPolicy("none")
@@ -45,7 +44,6 @@ class Domain
 
     /**
      * @var string|null
-     *
      */
     private $description;
 
@@ -87,7 +85,7 @@ class Domain
 
     public function __clone()
     {
-        $this->id = null;
+        $this->id  = null;
         $questions = [];
         foreach ($this->questions as $question) {
             $questions[] = clone $question;
@@ -100,12 +98,11 @@ class Domain
         $this->id = Uuid::uuid4();
 
         foreach ($this->questions as $question) {
-            if (isset($question)){
+            if (isset($question)) {
                 $question->deserialize();
                 $question->setDomain($this);
             }
         }
-
     }
 
     public function __toString(): string
@@ -180,7 +177,6 @@ class Domain
     public function addMaturity(Maturity $maturity)
     {
         $this->maturity = $maturity;
-
     }
 
     public function removeMaturity(Maturity $maturity): void

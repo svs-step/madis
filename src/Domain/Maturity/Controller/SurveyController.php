@@ -183,7 +183,7 @@ class SurveyController extends CRUDController
                     if (isset($question['option'])) {
                         // Create new OptionalAnswer
                         $opa = new Model\OptionalAnswer();
-                        $q = $this->entityManager->getRepository(Model\Question::class)->find($questionId);
+                        $q   = $this->entityManager->getRepository(Model\Question::class)->find($questionId);
                         $opa->setQuestion($q);
                         $opa->setReason($question['optionReason']);
                         $this->entityManager->persist($opa);
@@ -243,7 +243,7 @@ class SurveyController extends CRUDController
             if (isset($data['survey']['questions'])) {
                 foreach ($data['survey']['questions'] as $questionId => $question) {
                     // Remove optional answer if one exists
-                    $q = $this->entityManager->getRepository(Model\Question::class)->find($questionId);
+                    $q              = $this->entityManager->getRepository(Model\Question::class)->find($questionId);
                     $optionalAnswer = $this->entityManager->getRepository(Model\OptionalAnswer::class)->findOneBy(['question' => $q, 'survey' => $object]);
                     if ($optionalAnswer) {
                         $this->entityManager->remove($optionalAnswer);

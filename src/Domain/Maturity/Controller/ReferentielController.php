@@ -35,7 +35,6 @@ use App\Domain\Maturity\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializerBuilder;
 use Knp\Snappy\Pdf;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -191,7 +190,7 @@ class ReferentielController extends CRUDController
                 $newQ->setPosition($q->getPosition());
                 $newQ->setName($q->getName());
                 $newQ->setOption($q->getOption());
-                if($q->getOption()){
+                if ($q->getOption()) {
                     $newQ->setOptionReason($q->getOptionReason());
                 }
                 $newQ->setWeight($q->getWeight());
@@ -237,7 +236,7 @@ class ReferentielController extends CRUDController
             if (false !== $key) {
                 unset($toRemove[$key]);
             }
-            /** @var Model\Domain $domain */
+            /* @var Model\Domain $domain */
             $domain->setPosition($k);
             $domain->setColor($colors[$k % 4]);
 
@@ -426,8 +425,8 @@ class ReferentielController extends CRUDController
             /** @var Model\Referentiel $object */
             $object = $serializer->deserialize($content, Model\Referentiel::class, 'xml');
             $object->deserialize();
-            //dd($object);
-            //$object->setDomains($domain);
+            // dd($object);
+            // $object->setDomains($domain);
 
             $object->setCreatedAt(new \DateTimeImmutable());
             $object->setName('(import) ' . $object->getName());
@@ -455,5 +454,4 @@ class ReferentielController extends CRUDController
 
         return strtr($string, $unwanted_array);
     }
-
 }

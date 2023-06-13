@@ -138,8 +138,8 @@ class Tool extends CRUDRepository implements Repository\Tool
                         ->setParameter('st_nom', '%' . $search . '%');
                     break;
                 default:
-                    $queryBuilder->andWhere('o.' . $columnName.'.check = :search'.$columnName)
-                    ->setParameter(':search'.$columnName, $search);
+                    $queryBuilder->andWhere('o.' . $columnName . '.check = :search' . $columnName)
+                    ->setParameter(':search' . $columnName, $search);
                     break;
             }
         }
@@ -159,8 +159,8 @@ class Tool extends CRUDRepository implements Repository\Tool
                 $queryBuilder->addOrderBy('o.' . $orderColumn, $orderDir);
                 break;
             default:
-                //$queryBuilder->leftJoin(Model\Embeddable\ComplexChoice::class, 'cc', 'WITH', 'cc')
-                $queryBuilder->addOrderBy('o.' . $orderColumn.'.check', $orderDir);
+                // $queryBuilder->leftJoin(Model\Embeddable\ComplexChoice::class, 'cc', 'WITH', 'cc')
+                $queryBuilder->addOrderBy('o.' . $orderColumn . '.check', $orderDir);
                 break;
         }
     }
