@@ -153,7 +153,7 @@ class ContractorType extends AbstractType
             ])
             ->add('updatedBy', HiddenType::class, [
                 'required' => false,
-                'data'     => $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()),
+                'data'     => $this->security->getUser() ? $this->security->getUser()->getFirstName() . ' ' . strtoupper($this->security->getUser()->getLastName()) : '',
             ])
         ;
     }

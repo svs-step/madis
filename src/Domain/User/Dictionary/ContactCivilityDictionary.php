@@ -48,7 +48,6 @@ class ContactCivilityDictionary extends SimpleDictionary
             self::CIVILITY_NONE   => '',
             self::CIVILITY_MISS   => 'Madame',
             self::CIVILITY_MISTER => 'Monsieur',
-            self::CIVILITY_NONE   => '',
         ];
     }
 

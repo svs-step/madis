@@ -81,6 +81,7 @@ class Domain
     {
         $this->id        = Uuid::uuid4();
         $this->questions = [];
+        $this->maturity  = [];
     }
 
     public function __clone()

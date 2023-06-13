@@ -40,7 +40,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -51,12 +50,10 @@ class ToolType extends AbstractType
      * @var Security
      */
     private $security;
-    private AuthorizationCheckerInterface $authorizationChecker;
 
-    public function __construct(Security $security, AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(Security $security)
     {
-        $this->security             = $security;
-        $this->authorizationChecker = $authorizationChecker;
+        $this->security = $security;
     }
 
     /**
