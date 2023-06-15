@@ -35,6 +35,21 @@ body > div.banner-impersonate {
   max-height: 2em;
 }
 
+/* Skiplinks */
+.skiplinks {
+  position: absolute;
+  transform: translateY(-100%);
+}
+.skiplinks:focus-within {
+  position: relative;
+  transform: translateY(0);
+}
+
+a:focus {
+  outline: 1px dashed red;
+}
+
+
 /* Footer */
 .footer-public > footer{
   margin-left:0;

@@ -3,6 +3,9 @@ maturity:
         action:
             back_to_list: Retour à la liste
             new: Nouvel indice de maturité
+            new_submit: Créer l'indice de maturité
+            edit_submit: Modifier l'indice de maturité
+            referentiel: Choisir ce référentiel
         breadcrumb:
             create: Nouvel indice de maturité
             edit: Modifier un indice de maturité
@@ -17,8 +20,59 @@ maturity:
             collectivity: Structure
             created_at: Date de création
             score: Score
+            updated_at: Date de modification
+            referentiel: Référentiel
         title:
             create: Nouvel indice de maturité
             edit: Modifier un indice de maturité
             list: Liste des indices de maturité
             delete: Supprimer un indice de maturité
+            name: test
+    referentiel:
+        action:
+            back_to_list: Retour à la liste
+            new: Nouveau référentiel
+            import: Importer un référentiel
+        breadcrumb:
+            create: Nouveau référentiel
+            edit: Modifier le référentiel
+            list: Liste des référentiels
+            delete: Supprimer un référentiel
+        flashbag:
+            success:
+                create: Référentiel "%object%" créé avec succès
+                edit: Référentiel "%object%" modifié avec succès
+                delete: Référentiel "%object%" supprimé avec succès
+                import: Référentiel "%object%" importé avec succès
+                duplicate: Référentiel "%object%" dupliqué avec succès
+                rights: Droits sauvegardés avec succès
+        list:
+            name: Nom
+            created_at: Date de création
+            updated_at: Date de modification
+            description: Description
+        title:
+            create: Nouveau référentiel
+            edit: Modifier un référentiel
+            list: Liste des référentiels
+            delete: Supprimer un référentiel
+            rights: Modifier les droits
+            import: Importer un référentiel
+        form:
+            referentiel_name: Nom du référentiel
+            name: Nom de la section
+            description: Description
+            informations_generales: Informations générales
+            referentiel: Référentiel
+            section: Section
+            weight: Pondération
+            answers: Réponses
+            question_name: Nom de la question
+            recommendation: Préconisation
+            answer:
+                name: Réponse
+        table:
+            label: Nom du référentiel
+            description: description
+
+

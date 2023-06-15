@@ -16,6 +16,7 @@ use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\AIPD\Model\AnalyseScenarioMenace;
 use App\Domain\AIPD\Model\CriterePrincipeFondamental;
 use App\Domain\AIPD\Repository;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -91,8 +92,13 @@ class AnalyseImpactController extends CRUDController
 
     public function listAction(): Response
     {
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'AIPD',
+        ]);
+
         return $this->render($this->getTemplatingBasePath('list'), [
             'totalItem' => $this->repository->count(),
+            'category'  => $category,
             'route'     => $this->router->generate('aipd_analyse_impact_datatables'),
         ]);
     }
@@ -113,7 +119,7 @@ class AnalyseImpactController extends CRUDController
         /** @var AnalyseImpact $analyse */
         foreach ($analyses as $analyse) {
             $response['data'][] = [
-                'traitement'       => '<a href="' . $this->router->generate('registry_treatment_show', ['id' => $analyse->getConformiteTraitement()->getTraitement()->getId()]) . '">' . $analyse->getConformiteTraitement()->getTraitement()->getName() . '</a>',
+                'traitement'       => '<a aria-label="' . $analyse->getConformiteTraitement()->getTraitement()->getName() . '" href="' . $this->router->generate('registry_treatment_show', ['id' => $analyse->getConformiteTraitement()->getTraitement()->getId()]) . '">' . $analyse->getConformiteTraitement()->getTraitement()->getName() . '</a>',
                 'dateDeCreation'   => $analyse->getCreatedAt()->format('d/m/Y'),
                 'dateDeValidation' => null === $analyse->getDateValidation() ? '' : $analyse->getDateValidation()->format('d/m/Y'),
                 'modele'           => $analyse->getModeleAnalyse(),
@@ -147,7 +153,7 @@ class AnalyseImpactController extends CRUDController
 
     private function generateActionCell(AnalyseImpact $analyseImpact): string
     {
-        $cell = '<a href="' . $this->router->generate('aipd_analyse_impact_print', ['id' => $analyseImpact->getId()]) . '">
+        $cell = '<a aria-label="' . $this->translator->trans('action.print') . '" href="' . $this->router->generate('aipd_analyse_impact_print', ['id' => $analyseImpact->getId()]) . '">
         <i class="fa fa-print"></i>' .
             $this->translator->trans('action.print') . '
         </a>';
@@ -155,18 +161,18 @@ class AnalyseImpactController extends CRUDController
         $user = $this->userProvider->getAuthenticatedUser();
         if ('ROLE_PREVIEW' !== $user->getRoles()[0]) {
             if (!$analyseImpact->isValidated()) {
-                $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
+                $cell .= '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
                     <i class="fa fa-pencil-alt"></i>' .
                     $this->translator->trans('action.edit') . '
                     </a>';
                 if ($analyseImpact->isReadyForValidation()) {
-                    $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_validation', ['id' => $analyseImpact->getId()]) . '">
+                    $cell .= '<a aria-label="' . $this->translator->trans('action.validate') . '" href="' . $this->router->generate('aipd_analyse_impact_validation', ['id' => $analyseImpact->getId()]) . '">
                     <i class="fa fa-check-square"></i>' .
                         $this->translator->trans('action.validate') . '
                     </a>';
                 }
             }
-            $cell .= '                                    <a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
+            $cell .= ' <a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
             <i class="fa fa-trash"></i> ' .
                 $this->translator->trans('action.delete') . '
             </a>';
@@ -237,7 +243,7 @@ class AnalyseImpactController extends CRUDController
 
             if ($this->analyseFlow->nextStep()) {
                 $form = $this->analyseFlow->createForm();
-            // TODO Persist and flush here to allow draft ?
+                // TODO Persist and flush here to allow draft ?
             } else {
                 $this->entityManager->persist($object);
                 $this->entityManager->flush();
@@ -315,8 +321,8 @@ class AnalyseImpactController extends CRUDController
             $authorizedCollectivityTypes = $modele->getAuthorizedCollectivityTypes();
 
             if ((!\is_null($authorizedCollectivityTypes)
-                && in_array($collectivityType, $authorizedCollectivityTypes)) ||
-                $authorizedCollectivities->contains($collectivity)
+                && in_array($collectivityType, $authorizedCollectivityTypes))
+                || $authorizedCollectivities->contains($collectivity)
             ) {
                 $reponse['data'][] = [
                     'nom'         => '<input type="radio" value="' . $modele->getId() . '" name="modele_choice" required="true"/> ' . $modele->getNom(),

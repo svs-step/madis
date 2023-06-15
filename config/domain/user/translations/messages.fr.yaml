@@ -96,6 +96,8 @@ user:
             nbr_cnil: Numéro de désignation CNIL
             population: Population
             tel_referent_rgpd: Tel Référent RGPD
+            created_at: Date de création
+            updated_at: Date de modification
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cette Structure ?
         show:
@@ -125,11 +127,13 @@ user:
             siren: SIREN
             type: Type
             updated_at: Date de dernière modification
+            updated_by: Modifié par
             website: Site internet
             finess_geo: FINESS Géo
             population: Population
             nbr_agents: Nombre de salariés
             nbr_cnil: Numéro de désignation CNIL
+            registre_public: Registre public
         tab:
           address: Adresse
           comite_il: Composition du comité Informatique et Libertés
@@ -146,12 +150,12 @@ user:
           population: Population
           nbr_agents: Nombre de salariés
         title:
-            create: Créer une Structure
-            delete: Supprimer une Structure
-            edit: Éditer une Structure
+            create: Créer une structure
+            delete: Supprimer une structure
+            edit: Éditer une structure
             label: Structure
             list: Liste des structures
-            show: Visualiser une Structure
+            show: Visualiser une structure
 
     profile:
         breadcrumb:
@@ -271,6 +275,8 @@ user:
             services: Service
             services_list: Liste des services
             service_number_users: Nombre d'utilisateurs dans ce service
+            created_at: Date de création
+            updated_at: Date de modification
         modal:
             confirm_deletion: Voulez-vous vraiment supprimer cet utilisateur ?
         tab:

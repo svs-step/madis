@@ -78,9 +78,6 @@ class AdminMetric implements MetricInterface
         $this->security               = $security;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getData(): array
     {
         if (!$this->security->isGranted(UserRoleDictionary::ROLE_ADMIN)) {
@@ -161,9 +158,6 @@ class AdminMetric implements MetricInterface
         return $data;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplateViewName(): string
     {
         return 'Reporting/Dashboard/index_admin.html.twig';

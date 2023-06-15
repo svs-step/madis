@@ -192,8 +192,6 @@ abstract class CRUDController extends AbstractController
     /**
      * Actions to make when a form is submitted and valid.
      * This method is handled just after form validation, before object manipulation.
-     *
-     * @param mixed $object
      */
     public function formPrePersistData($object)
     {
@@ -247,7 +245,7 @@ abstract class CRUDController extends AbstractController
      */
     public function editAction(Request $request, string $id): Response
     {
-//        /** @var CollectivityRelated $object */
+        //        /** @var CollectivityRelated $object */
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");

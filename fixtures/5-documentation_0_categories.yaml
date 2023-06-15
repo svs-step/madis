@@ -29,3 +29,6 @@ App\Domain\Documentation\Model\Category:
     documentation_category_10:
         name: "Conformité des traitements"
         systeme: true
+    documentation_category_11:
+        name: "Violation"
+        systeme: true

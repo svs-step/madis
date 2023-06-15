@@ -32,9 +32,14 @@ use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Knp\Snappy\Pdf;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -43,11 +48,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class SurveyController extends CRUDController
 {
-    /**
-     * @var Repository\Question
-     */
-    private $questionRepository;
-
     /**
      * @var WordHandler
      */
@@ -68,6 +68,12 @@ class SurveyController extends CRUDController
      */
     protected $maturityHandler;
 
+    protected Repository\Question $questionRepository;
+
+    private Repository\Referentiel  $referentielRepository;
+    private $router;
+    private RequestStack $requestStack;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
@@ -77,51 +83,42 @@ class SurveyController extends CRUDController
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
         MaturityHandler $maturityHandler,
-        Pdf $pdf
+        Pdf $pdf,
+        Repository\Referentiel $referentielRepository,
+        RouterInterface $router,
+        RequestStack $requestStack,
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->questionRepository   = $questionRepository;
-        $this->wordHandler          = $wordHandler;
-        $this->authorizationChecker = $authorizationChecker;
-        $this->userProvider         = $userProvider;
-        $this->maturityHandler      = $maturityHandler;
+        $this->questionRepository    = $questionRepository;
+        $this->wordHandler           = $wordHandler;
+        $this->authorizationChecker  = $authorizationChecker;
+        $this->userProvider          = $userProvider;
+        $this->maturityHandler       = $maturityHandler;
+        $this->referentielRepository = $referentielRepository;
+        $this->router                = $router;
+        $this->requestStack          = $requestStack;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'maturity';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'survey';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Survey::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return SurveyType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getListData()
     {
         $order = [
@@ -154,42 +151,130 @@ class SurveyController extends CRUDController
      */
     public function formPrePersistData($object)
     {
-        $this->maturityHandler->handle($object);
+        // Removed because this is done in App\Domain\Maturity\Symfony\EventSubscriber\Doctrine\GenerateMaturitySubscriber
+        // $this->maturityHandler->handle($object);
     }
 
     /**
      * {@inheritdoc}
      * Override method in order to hydrate survey answers.
      */
-    public function createAction(Request $request): Response
+    public function createMaturitySurveyAction(Request $request): Response
     {
-        /**
-         * @var Model\Survey
-         */
-        $modelClass = $this->getModelClass();
-        $object     = new $modelClass();
+        $object = new Model\Survey();
 
-        // Before create form, hydrate answers array with potential question responses
-        foreach ($this->questionRepository->findAll() as $question) {
-            $answer = new Model\Answer();
-            $answer->setQuestion($question);
-            $object->addAnswer($answer);
-        }
+        /** @var Model\Referentiel $referentiel */
+        $referentiel = $this->entityManager->getRepository(Model\Referentiel::class)->findOneBy([
+            'id' => $request->get('referentiel'),
+        ]);
+
+        $object->setReferentiel($referentiel);
 
         $form = $this->createForm($this->getFormType(), $object);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($object);
-            $em->flush();
+        $form->setData(['referentiel' => $request->get('referentiel')]);
 
-            $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $data = $request->request->all();
+            if (isset($data['survey']['questions'])) {
+                foreach ($data['survey']['questions'] as $questionId => $question) {
+                    if (isset($question['option'])) {
+                        // Create new OptionalAnswer
+                        $opa = new Model\OptionalAnswer();
+                        $q   = $this->entityManager->getRepository(Model\Question::class)->find($questionId);
+                        $opa->setQuestion($q);
+                        $opa->setReason($question['optionReason']);
+                        $this->entityManager->persist($opa);
+                        $object->addOptionalAnswer($opa);
+                    } else {
+                        foreach ($question['answers'] as $answerId) {
+                            $answer = $this->entityManager->getRepository(Model\Answer::class)->find($answerId);
+                            $object->addAnswer($answer);
+                        }
+                    }
+                }
+            }
+
+            $this->formPrePersistData($object);
+            $this->entityManager->persist($object);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object->__toString()));
 
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
         return $this->render($this->getTemplatingBasePath('create'), [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     * Override method in order to hydrate survey answers.
+     */
+    public function editAction(Request $request, string $id): Response
+    {
+        /**
+         * @var Model\Survey $object
+         */
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $form = $this->createForm($this->getFormType(), $object);
+
+        $form->setData(['referentiel' => $request->get('referentiel')]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            // Remove existing answers
+            foreach ($object->getAnswers() as $a) {
+                $object->removeAnswer($a);
+                $a->setSurveys([]);
+            }
+            $object->setAnswers([]);
+
+            $data = $request->request->all();
+            if (isset($data['survey']['questions'])) {
+                foreach ($data['survey']['questions'] as $questionId => $question) {
+                    // Remove optional answer if one exists
+                    $q              = $this->entityManager->getRepository(Model\Question::class)->find($questionId);
+                    $optionalAnswer = $this->entityManager->getRepository(Model\OptionalAnswer::class)->findOneBy(['question' => $q, 'survey' => $object]);
+                    if ($optionalAnswer) {
+                        $this->entityManager->remove($optionalAnswer);
+                    }
+                    if (isset($question['option'])) {
+                        // Create new OptionalAnswer
+                        $opa = new Model\OptionalAnswer();
+
+                        $opa->setQuestion($q);
+                        $opa->setReason($question['optionReason']);
+                        $this->entityManager->persist($opa);
+                        $object->addOptionalAnswer($opa);
+                    } else {
+                        foreach ($question['answers'] as $answerId) {
+                            /** @var Model\Answer $answer */
+                            $answer = $this->entityManager->getRepository(Model\Answer::class)->find($answerId);
+                            $object->addAnswer($answer);
+                        }
+                    }
+                }
+            }
+            $this->formPrePersistData($object);
+            $this->entityManager->persist($object);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object->__toString()));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('edit'), [
             'form' => $form->createView(),
         ]);
     }
@@ -211,5 +296,88 @@ class SurveyController extends CRUDController
         }
 
         return $this->wordHandler->generateMaturitySurveyReport($data);
+    }
+
+    public function startSurveyAction(Request $request)
+    {
+        if ($request->isMethod('GET')) {
+            return $this->render($this->getTemplatingBasePath('start'), [
+                'totalItem' => $this->referentielRepository->count(),
+                'route'     => $this->router->generate('maturity_survey_referentiel_datatables'),
+            ]);
+        }
+
+        if (null === $referentiel = $this->referentielRepository->findOneById($request->request->get('referentiel_choice'))) {
+            throw new NotFoundHttpException('No referentiel with Id ' . $request->request->get('referentiel_choice') . ' exists.');
+        }
+
+        return $this->redirectToRoute('maturity_survey_create', [
+            'referentiel' => $referentiel->getId(),
+        ]);
+    }
+
+    public function referentielsDatatablesAction()
+    {
+        $request      = $this->requestStack->getMasterRequest();
+        $referentiels = $this->getReferentielResults($request);
+
+        $reponse = $this->getBaseDataTablesResponse($request, $referentiels);
+        foreach ($referentiels as $referentiel) {
+            $reponse['data'][] = [
+                'nom'         => '<input type="radio" value="' . $referentiel->getId() . '" name="referentiel_choice" required="true"/> ' . $referentiel->getName(),
+                'description' => $referentiel->getDescription(),
+            ];
+        }
+        $reponse['recordsTotal']    = count($reponse['data']);
+        $reponse['recordsFiltered'] = count($reponse['data']);
+
+        return new JsonResponse($reponse);
+    }
+
+    protected function getBaseDataTablesResponse(Request $request, $results, array $criteria = [])
+    {
+        $draw = $request->request->get('draw');
+
+        $reponse = [
+            'draw'            => $draw,
+            'recordsTotal'    => $this->referentielRepository->count($criteria),
+            'recordsFiltered' => count($results),
+            'data'            => [],
+        ];
+
+        return $reponse;
+    }
+
+    protected function getReferentielResults(Request $request): ?Paginator
+    {
+        $first      = $request->request->get('start');
+        $maxResults = $request->request->get('length');
+        $orders     = $request->request->get('order');
+        $columns    = $request->request->get('columns');
+
+        $orderColumn = $this->getCorrespondingLabelFromkeyForReferentiels($orders[0]['column']);
+        $orderDir    = $orders[0]['dir'];
+
+        $searches = [];
+        foreach ($columns as $column) {
+            if ('' !== $column['search']['value']) {
+                $searches[$column['data']] = $column['search']['value'];
+            }
+        }
+
+        return $this->referentielRepository->findPaginated($first, $maxResults, $orderColumn, $orderDir, $searches);
+    }
+
+    private function getCorrespondingLabelFromkeyForReferentiels(string $key)
+    {
+        return \array_key_exists($key, $this->getLabelAndKeysArrayForReferentiels()) ? $this->getLabelAndKeysArrayForReferentiels()[$key] : null;
+    }
+
+    private function getLabelAndKeysArrayForReferentiels()
+    {
+        return [
+            '0' => 'nom',
+            '1' => 'description',
+        ];
     }
 }

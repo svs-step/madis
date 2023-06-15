@@ -40,9 +40,6 @@ abstract class AbstractCloner implements ClonerInterface
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function clone(Model\Duplication $duplication): void
     {
         foreach ($duplication->getTargetCollectivities() as $targetCollectivity) {
@@ -55,9 +52,6 @@ abstract class AbstractCloner implements ClonerInterface
         $this->entityManager->flush();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function cloneToSpecifiedTarget(Model\Duplication $duplication, UserModel\Collectivity $targetCollectivity): void
     {
         foreach ($duplication->getData() as $data) {

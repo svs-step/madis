@@ -74,9 +74,6 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addSyntheticView(Section $section, array $data): void
     {
         $section->addTitle('Liste des demandes', 1);
@@ -110,9 +107,6 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
         $section->addPageBreak();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail des demandes', 1);
@@ -255,7 +249,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
                     $this->getDate($request->getCreatedAt()),
                 ],
                 [
-                    'Dernière mise à jour',
+                    'Date de modification',
                     $this->getDate($request->getUpdatedAt()),
                 ],
             ];

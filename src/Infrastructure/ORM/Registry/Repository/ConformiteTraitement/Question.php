@@ -30,9 +30,6 @@ use App\Domain\Registry\Repository;
 
 class Question extends CRUDRepository implements Repository\ConformiteTraitement\Question
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\ConformiteTraitement\Question::class;

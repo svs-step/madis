@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr-FR">
 
 <head>
     <meta charset="utf-8">
@@ -37,13 +37,19 @@
 
 {% set bodyClass = bodyClass|default('') %}
 <body class="hold-transition skin-blue sidebar-mini {{ bodyClass }}">
-
+<nav class="skiplinks" role="navigation" aria-label="Accès rapide">
+    <ul>
+      <li><a href="#sidebar">Menu</a></li>
+      <li><a href="#main-content">Contenu</a></li>
+      <li><a href="#main-footer">Pied de page</a></li>
+    </ul>
+</nav>
     {# Impersonate banner #}
     {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
     <div class="banner-impersonate bg-danger text-red">
         <div>
             Vous êtes actuellement connecté en tant que "{{ app.user }}" ({{ app.user.collectivity }} - {{ app.user.roles[0]|dictionary('user_user_role') }})
-            <a href="{{ path('user_user_list', {'_switch_user': '_exit'}) }}" class="text-red">
+            <a aria-label="Déconnexion" href="{{ path('user_user_list', {'_switch_user': '_exit'}) }}" class="text-red">
                 Quitter ce mode
             </a>
         </div>
@@ -58,7 +64,7 @@
             {{ include('_sidebar.html.twig') }}
         </aside>
 
-        <div class="content-wrapper">
+        <main id="main-content" class="content-wrapper" role="main" tabindex="-1">
             <section class="content-header">
                 {% block body_head %}{% endblock %}
                 {% block breadcrumb %}{% endblock %}
@@ -68,7 +74,7 @@
                 {{ include('_flashbag.html.twig') }}
                 {% block body %}{% endblock %}
             </section>
-        </div>
+        </main>
 
         {{ include('_footer.html.twig') }}
     </div>
@@ -79,6 +85,9 @@
 {#    <script src="//cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>#}
     <script src="//cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.17/js/adminlte.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+    <script src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <script>
         $.datepicker.setDefaults({
@@ -96,7 +105,18 @@
             weekHeader: 'Sem.',
         });
 
+        moment.locale('fr');
+
         $('input[type=text].datepicker').datepicker();
+        $('input[type=text].daterangepicker').daterangepicker({
+            locale: {
+                format: 'DD/MM/YY',
+                applyLabel : "Valider",
+                cancelLabel: 'Annuler',
+                daysOfWeek: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            }
+        });
     </script>
     {{ encore_entry_script_tags('js/app') }}
     {% block javascripts %}{% endblock %}

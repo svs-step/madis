@@ -2,3 +2,6 @@ _maturity_survey:
     resource: 'survey.yaml'
     prefix:   '/indice-de-maturite'
 
+_maturity_referentiel:
+  resource: 'referentiel.yaml'
+  prefix:   '/referentiel'

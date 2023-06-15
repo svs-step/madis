@@ -33,7 +33,7 @@ class NotificationActionDictionary extends SimpleDictionary
     public const EDIT                 = 'edit';
     public const DELETE               = 'delete';
     public const LATE                 = 'late';
-    public const LATE_ACTION          = 'late_action';
+    public const AUTOMATIC            = 'automatic';
     public const LATE_SURVEY          = 'late_survey';
     public const NO_LOGIN             = 'no_login';
     public const VALIDATION           = 'validation';
@@ -53,15 +53,14 @@ class NotificationActionDictionary extends SimpleDictionary
     public static function getActions()
     {
         return [
-            self::CREATE               => 'Création',
             self::ADD                  => 'Ajout',
+            self::CREATE               => 'Création',
             self::EDIT                 => 'Modification',
+            self::STATE_CHANGE         => 'Changement d\'étape',
+            self::TREATMENT_NEEDS_AIPD => 'AIPD nécéssaire',
+            self::VALIDATION           => 'Validation nécéssaire',
             self::DELETE               => 'Suppression',
-            self::LATE_ACTION          => 'Action de protection en retard (automatique)',
-            self::LATE_SURVEY          => 'Indice de maturité en retard (automatique)',
-            self::TREATMENT_NEEDS_AIPD => 'Nécéssité de faire une AIPD',
-            self::NO_LOGIN             => 'Utilisateur inactif',
-            self::STATE_CHANGE         => 'Changement d\'état',
+            self::AUTOMATIC            => 'Rappel automatique',
         ];
     }
 

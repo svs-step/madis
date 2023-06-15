@@ -7,7 +7,7 @@
             <ul>
                 {% for treatment in activeTreatments %}
                     <li>
-                        <a href="{{ path('registry_treatment_show', { id: treatment.id }) }}">
+                        <a aria-label="Traitement" href="{{ path('registry_treatment_show', { id: treatment.id }) }}">
                             {{ treatment.name }} ({{ treatment.legalBasis|dictionary('registry_treatment_legal_basis') }})
                         </a>
                     </li>

@@ -267,7 +267,7 @@ class UserMetric implements MetricInterface
         }
 
         // MATURITY
-        if (isset($maturity[0])) {
+        if (isset($maturity[0]) && null !== $maturity[0]->getReferentiel()) {
             $data['maturity']['new']['name'] = $maturity[0]->getCreatedAt()->format('d/m/Y');
             foreach ($maturity[0]->getMaturity() as $item) {
                 $data['maturity']['new']['data'][$item->getDomain()->getPosition()]['name']  = $item->getDomain()->getName();
@@ -275,7 +275,7 @@ class UserMetric implements MetricInterface
             }
             \ksort($data['maturity']['new']['data']);
         }
-        if (isset($maturity[1])) {
+        if (isset($maturity[1]) && null !== $maturity[0]->getReferentiel()) {
             $data['maturity']['old']['name'] = $maturity[1]->getCreatedAt()->format('d/m/Y');
             foreach ($maturity[1]->getMaturity() as $item) {
                 $data['maturity']['old']['data'][$item->getDomain()->getPosition()]['name']  = $item->getDomain()->getName();
@@ -325,7 +325,11 @@ class UserMetric implements MetricInterface
             // Type
             if ($request->getObject()) {
                 $inflector = InflectorFactory::createForLanguage(Language::FRENCH)->build();
-                ++$data['request']['value']['type'][$inflector->camelize($request->getObject())];
+                if (isset($data['request']['value']['type'][$inflector->camelize($request->getObject())])) {
+                    ++$data['request']['value']['type'][$inflector->camelize($request->getObject())];
+                } else {
+                    $data['request']['value']['type'][$inflector->camelize($request->getObject())] = 1;
+                }
             }
 
             // Status
@@ -422,9 +426,6 @@ class UserMetric implements MetricInterface
         return $data;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplateViewName(): string
     {
         return 'Reporting/Dashboard/index.html.twig';

@@ -6,30 +6,51 @@ App\Domain\Maturity\Model\Question:
     maturity_domain_1_question_1:
         name: Des alarmes anti intrusion ont été installées et sont vérifiées périodiquement
         domain: '@maturity_domain_1'
+        position: 1
+        option: false
+        weight: 1
 
     maturity_domain_1_question_2:
         name: Des moyens de chiffrement pour les ordinateurs portables et les unités de stockage amovibles ( clefs USB, CD, DVD,…) ont été prévus
         domain: '@maturity_domain_1'
+        position: 2
+        option: false
+        weight: 1
 
     maturity_domain_1_question_3:
         name: Les accès distants des appareils informatiques nomades sont sécurisés par VPN
         domain: '@maturity_domain_1'
+        position: 3
+        option: false
+        weight: 1
 
     maturity_domain_1_question_4:
         name: Les mises à jours des logiciels sont faites régulièrement (WindowsUpdate, Antivirus, Navigateur, ...)
         domain: '@maturity_domain_1'
+        position: 4
+        option: false
+        weight: 1
 
     maturity_domain_1_question_5:
         name: Les éléments de sécurité ont été installés sur le réseau (Antivirus, parefeu)
         domain: '@maturity_domain_1'
+        position: 5
+        option: false
+        weight: 1
 
     maturity_domain_1_question_6:
         name: Un détecteur de fumée et un système anti-feu ont été mis en place
         domain: '@maturity_domain_1'
+        position: 6
+        option: false
+        weight: 1
 
     maturity_domain_1_question_7:
         name: Une politique de mot de passe administrateur rigoureuse a été adoptée
         domain: '@maturity_domain_1'
+        position: 7
+        option: false
+        weight: 1
 
     # --------
     # DOMAIN 2
@@ -37,30 +58,51 @@ App\Domain\Maturity\Model\Question:
     maturity_domain_2_question_1:
         name: Chaque utilisateur dispose d'un identifiant unique (pas de compte générique)
         domain: '@maturity_domain_2'
+        position: 1
+        option: false
+        weight: 1
 
     maturity_domain_2_question_2:
         name: Les données à l'issu des traitements sont supprimées ou anonymisées
         domain: '@maturity_domain_2'
+        position: 2
+        option: false
+        weight: 1
 
     maturity_domain_2_question_3:
         name: Les permissions d'accès obsolètes ont été supprimées
         domain: '@maturity_domain_2'
+        position: 3
+        option: false
+        weight: 1
 
     maturity_domain_2_question_4:
         name: Les sessions Windows sont protégées par un mot de passe et se vérrouillent automatiquement
         domain: '@maturity_domain_2'
+        position: 3
+        option: false
+        weight: 1
 
     maturity_domain_2_question_5:
         name: Les éléments de sécurité de base ont été installés sur tous les appareils informatiques (Antivirus, parefeu)
         domain: '@maturity_domain_2'
+        position: 4
+        option: false
+        weight: 1
 
     maturity_domain_2_question_6:
         name: Une politique de mot de passe utilisateur rigoureuse a été adoptée (les mots de passe sont strictement confidentiels)
         domain: '@maturity_domain_2'
+        position: 5
+        option: false
+        weight: 1
 
     maturity_domain_2_question_7:
         name: Une politique de protection des données a été mise en place et est connue de tous (interne et externe)
         domain: '@maturity_domain_2'
+        position: 6
+        option: false
+        weight: 1
 
     # --------
     # DOMAIN 3
@@ -68,30 +110,51 @@ App\Domain\Maturity\Model\Question:
     maturity_domain_3_question_1:
         name: Des études d'impact sur la vie privée sont conduites lorsque le traitement le nécessite
         domain: '@maturity_domain_3'
+        position: 1
+        option: false
+        weight: 1
 
     maturity_domain_3_question_2:
         name: L'intégrité des documents est régulièrement vérifiée
         domain: '@maturity_domain_3'
+        position: 2
+        option: false
+        weight: 1
 
     maturity_domain_3_question_3:
         name: Les appareils mobiles sont régulièrement synchronisés
         domain: '@maturity_domain_3'
+        position: 3
+        option: false
+        weight: 1
 
     maturity_domain_3_question_4:
         name: Les jeux de sauvegarde sont régulièrement testés
         domain: '@maturity_domain_3'
+        position: 4
+        option: false
+        weight: 1
 
     maturity_domain_3_question_5:
         name: Les procédures à suivre en cas de violation de données sont définies et connues
         domain: '@maturity_domain_3'
+        position: 5
+        option: false
+        weight: 1
 
     maturity_domain_3_question_6:
         name: Les supports de sauvegarde sont externalisés
         domain: '@maturity_domain_3'
+        position: 6
+        option: false
+        weight: 1
 
     maturity_domain_3_question_7:
         name: Les supports de sauvegarde sont stockés dans un endroit sûr
         domain: '@maturity_domain_3'
+        position: 7
+        option: false
+        weight: 1
 
     # --------
     # DOMAIN 4
@@ -99,30 +162,51 @@ App\Domain\Maturity\Model\Question:
     maturity_domain_4_question_1:
         name: L'identité du destinataire est confirmée (en cas de transmission)
         domain: '@maturity_domain_4'
+        position: 1
+        option: false
+        weight: 1
 
     maturity_domain_4_question_2:
         name: Le processus de demande d’exercices des droits est organisé
         domain: '@maturity_domain_4'
+        position: 2
+        option: false
+        weight: 1
 
     maturity_domain_4_question_3:
         name: Les conditions de restitution et de destruction des données sont prévues
         domain: '@maturity_domain_4'
+        position: 3
+        option: false
+        weight: 1
 
     maturity_domain_4_question_4:
         name: Les coordonnées du DPD et son rôle sont connus des personnes concernées, à l'interne et à l'externe
         domain: '@maturity_domain_4'
+        position: 4
+        option: false
+        weight: 1
 
     maturity_domain_4_question_5:
         name: Les procédures d'exploitation du SI ont été documentées
         domain: '@maturity_domain_4'
+        position: 5
+        option: false
+        weight: 1
 
     maturity_domain_4_question_6:
         name: Un DPD a été désigné dans la structure
         domain: '@maturity_domain_4'
+        position: 6
+        option: false
+        weight: 1
 
     maturity_domain_4_question_7:
         name: Un registre des traitements est tenu dans la structure
         domain: '@maturity_domain_4'
+        position: 7
+        option: false
+        weight: 1
 
     # --------
     # DOMAIN 5
@@ -130,58 +214,99 @@ App\Domain\Maturity\Model\Question:
     maturity_domain_5_question_1:
         name: La conformité de chaque sous-traitant est vérifiée
         domain: '@maturity_domain_5'
+        position: 1
+        option: false
+        weight: 1
 
     maturity_domain_5_question_2:
         name: Le consentement des personnes concernées est organisé (classement, conservation, ...)
         domain: '@maturity_domain_5'
+        position: 2
+        option: false
+        weight: 1
 
     maturity_domain_5_question_3:
         name: Les mentions font apparaître la finalité, les droits des personnes et la durée de conservation et sont présentes sur les formulaires (papier et électronique)
         domain: '@maturity_domain_5'
+        position: 3
+        option: false
+        weight: 1
 
     maturity_domain_5_question_4:
         name: Un comité informatique et liberté a été mis en place et se réunit au moins une fois par an
         domain: '@maturity_domain_5'
+        position: 4
+        option: false
+        weight: 1
 
     maturity_domain_5_question_5:
         name: Une charte informatique a été rédigée et annexée au règlement interieur
         domain: '@maturity_domain_5'
+        position: 5
+        option: false
+        weight: 1
 
     maturity_domain_5_question_6:
         name: Une clause spécifique est prévue dans les contrats de sous traitance et dans les cahiers des charges
         domain: '@maturity_domain_5'
+        position: 6
+        option: false
+        weight: 1
 
     maturity_domain_5_question_7:
         name: Une politique de gestion des données à caractère personnel a été mise en place
         domain: '@maturity_domain_5'
-
+        position: 7
+        option: false
+        weight: 1
     # --------
     # DOMAIN 6
     # --------
     maturity_domain_6_question_1:
         name: Des actions de sensibilisation sont régulièrement menées
         domain: '@maturity_domain_6'
+        position: 1
+        option: false
+        weight: 1
 
     maturity_domain_6_question_2:
         name: Le personnel a été formé à la protection des données à caractère personnel
         domain: '@maturity_domain_6'
+        position: 2
+        option: false
+        weight: 1
 
     maturity_domain_6_question_3:
         name: Le personnel a été sensibilisé à la protection des données à caractère personnel
         domain: '@maturity_domain_6'
+        position: 3
+        option: false
+        weight: 1
 
     maturity_domain_6_question_4:
         name: Le principe d'interdiction de la collecte des données sensibles est connu par les agents et élus de la structure
         domain: '@maturity_domain_6'
+        position: 4
+        option: false
+        weight: 1
 
     maturity_domain_6_question_5:
         name: Les agents connaissent et appliquent le principe de minimisation des données collectées
         domain: '@maturity_domain_6'
+        position: 5
+        option: false
+        weight: 1
 
     maturity_domain_6_question_6:
         name: Les élus connaissent le principe d'interdiction d'utilisation des données à caractère personnel à des fins de communication politique
         domain: '@maturity_domain_6'
+        position: 6
+        option: false
+        weight: 1
 
     maturity_domain_6_question_7:
         name: Les élus ont été sensibilisés à la protection des données à caractère personnel
         domain: '@maturity_domain_6'
+        position: 7
+        option: false
+        weight: 1

@@ -275,6 +275,7 @@ class ModeleAnalyseController extends CRUDController
             $reponse['data'][] = [
                 'nom'         => $modele->getNom(),
                 'description' => $modele->getDescription(),
+                'createdAt'   => date_format($modele->getCreatedAt(), 'd-m-Y'),
                 'updatedAt'   => date_format($modele->getUpdatedAt(), 'd-m-Y'),
                 'actions'     => $this->generateActioNCellContent($modele),
             ];
@@ -294,23 +295,23 @@ class ModeleAnalyseController extends CRUDController
         $htmltoReturnIfAdmin = '';
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $htmltoReturnIfAdmin = '<a href="' . $this->router->generate('aipd_modele_analyse_rights', ['id' => $id]) . '">
+            $htmltoReturnIfAdmin = '<a aria-label="' . $this->translator->trans('action.rights') . '" href="' . $this->router->generate('aipd_modele_analyse_rights', ['id' => $id]) . '">
                 <i class="fa fa-user-shield"></i>'
                 . $this->translator->trans('action.rights') .
             '</a>';
         }
 
         return
-            '<a href="' . $this->router->generate('aipd_modele_analyse_edit', ['id' => $id]) . '">
+            '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('aipd_modele_analyse_edit', ['id' => $id]) . '">
                 <i class="fa fa-pencil-alt"></i>'
                 . $this->translator->trans('action.edit') .
             '</a>'
             . $htmltoReturnIfAdmin .
-            '<a href="' . $this->router->generate('aipd_modele_analyse_export', ['id' => $id]) . '">
+            '<a aria-label="' . $this->translator->trans('action.export') . '" href="' . $this->router->generate('aipd_modele_analyse_export', ['id' => $id]) . '">
                 <i class="fa fa-file-code"></i>' .
                 $this->translator->trans('action.export') .
             '</a>' .
-            '<a href="' . $this->router->generate('aipd_modele_analyse_delete', ['id' => $id]) . '">
+            '<a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('aipd_modele_analyse_delete', ['id' => $id]) . '">
                 <i class="fa fa-trash"></i>' .
                 $this->translator->trans('action.delete') .
             '</a>';
@@ -321,8 +322,9 @@ class ModeleAnalyseController extends CRUDController
         return [
             '0' => 'nom',
             '1' => 'description',
-            '2' => 'updatedAt',
-            '3' => 'actions',
+            '2' => 'createdAt',
+            '3' => 'updatedAt',
+            '4' => 'actions',
         ];
     }
 
@@ -353,20 +355,34 @@ class ModeleAnalyseController extends CRUDController
     public function importAction(Request $request)
     {
         $form = $this->createForm(ImportModeleType::class);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $content    = file_get_contents($form->getData()['file']->getPathname());
             $serializer = SerializerBuilder::create()->build();
-            $object     = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
+            /** @var ModeleAnalyse $object */
+            $object = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
             $object->deserialize();
-
+            $sm = [];
             foreach ($object->getScenarioMenaces() as $scenarioMenace) {
-                foreach ($scenarioMenace->getMesuresProtections() as $mesuresProtection) {
-                    $mesuresProtection->setIdFromString($this->guidv4());
+                /** @var ModeleScenarioMenace $scenarioMenace */
+                $mesures = [];
+                foreach ($scenarioMenace->getMesuresProtections() as $mesureProtection) {
+                    // Check if this mesure already exists
+                    $mm = $this->entityManager->find(\App\Domain\AIPD\Model\ModeleMesureProtection::class, $mesureProtection->getId());
+                    if ($mm) {
+                        $mesures[] = $mm;
+                    } else {
+                        // If not, save it now
+                        $this->entityManager->persist($mesureProtection);
+                        $mesures[] = $mesureProtection;
+                    }
                 }
+                $scenarioMenace->setMesuresProtections($mesures);
+                $sm[] = $scenarioMenace;
             }
 
+            $object->setScenarioMenaces($sm);
+            $object->setCreatedAt(new \DateTimeImmutable());
             $object->setNom('(import) ' . $object->getNom());
             $this->entityManager->persist($object);
             $this->entityManager->flush();
@@ -391,21 +407,6 @@ class ModeleAnalyseController extends CRUDController
         ];
 
         return strtr($string, $unwanted_array);
-    }
-
-    public function guidv4($data = null)
-    {
-        // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
-        $data = $data ?? random_bytes(16);
-        assert(16 == strlen($data));
-
-        // Set version to 0100
-        $data[6] = chr(ord($data[6]) & 0x0F | 0x40);
-        // Set bits 6-7 to 10
-        $data[8] = chr(ord($data[8]) & 0x3F | 0x80);
-
-        // Output the 36 character UUID.
-        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
 
     private function ScenarioMenacesToDelete($object, $modeleAnalyseId)

@@ -19,9 +19,6 @@ class NotificationNormalizer extends ObjectNormalizer
     private $maxDepthHandler;
     private $objectClassResolver;
 
-    /**
-     * {@inheritdoc}
-     */
     public function normalize($object, $format = null, array $context = [])
     {
         if (!isset($context['cache_key'])) {
@@ -88,9 +85,9 @@ class NotificationNormalizer extends ObjectNormalizer
         }
 
         foreach ($stack as $attribute => $attributeValue) {
-//            if (!$this->serializer instanceof NormalizerInterface) {
-//                throw new LogicException(sprintf('Cannot normalize attribute "%s" because the injected serializer is not a normalizer.', $attribute));
-//            }
+            //            if (!$this->serializer instanceof NormalizerInterface) {
+            //                throw new LogicException(sprintf('Cannot normalize attribute "%s" because the injected serializer is not a normalizer.', $attribute));
+            //            }
 
             $data = $this->updateData($data, $attribute, $this->getObjectSimpleValue($attributeValue), $class, $format, $context);
         }
@@ -111,8 +108,6 @@ class NotificationNormalizer extends ObjectNormalizer
 
     /**
      * Sets an attribute and apply the name converter if necessary.
-     *
-     * @param mixed $attributeValue
      */
     private function updateData(array $data, string $attribute, $attributeValue, string $class, ?string $format, array $context): array
     {
@@ -157,13 +152,13 @@ class NotificationNormalizer extends ObjectNormalizer
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return $data instanceof Treatment ||
-            $data instanceof Contractor ||
-            $data instanceof Mesurement ||
-            $data instanceof Proof ||
-            $data instanceof Request ||
-            $data instanceof Document ||
-            $data instanceof Violation
+        return $data instanceof Treatment
+            || $data instanceof Contractor
+            || $data instanceof Mesurement
+            || $data instanceof Proof
+            || $data instanceof Request
+            || $data instanceof Document
+            || $data instanceof Violation
         ;
     }
 

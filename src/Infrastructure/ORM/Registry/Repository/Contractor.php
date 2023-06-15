@@ -38,17 +38,11 @@ class Contractor extends CRUDRepository implements Repository\Contractor
 {
     use RepositoryUtils;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Contractor::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllByCollectivity(Collectivity $collectivity, array $order = [])
     {
         $qb = $this->createQueryBuilder()
@@ -66,9 +60,6 @@ class Contractor extends CRUDRepository implements Repository\Contractor
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function countAllByCollectivity(Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
@@ -146,6 +137,12 @@ class Contractor extends CRUDRepository implements Repository\Contractor
             case 'donnees_hors_eu':
                 $queryBuilder->addOrderBy('o.sendingDataOutsideEu', $orderDir);
                 break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
         }
     }
 
@@ -172,13 +169,20 @@ class Contractor extends CRUDRepository implements Repository\Contractor
                 case 'donnees_hors_eu':
                     $this->addWhereClause($queryBuilder, 'sendingDataOutsideEu', $search);
                     break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt BETWEEN :created_start_date AND :created_finish_date')
+                        ->setParameter('created_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('created_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt BETWEEN :updated_start_date AND :updated_finish_date')
+                        ->setParameter('updated_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('updated_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    break;
             }
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllByActiveCollectivity(bool $active = true, User $user = null)
     {
         $qb = $this->createQueryBuilder();
@@ -202,9 +206,6 @@ class Contractor extends CRUDRepository implements Repository\Contractor
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findBy(array $criteria = [])
     {
         $qb = $this->createQueryBuilder();

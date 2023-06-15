@@ -606,6 +606,11 @@
                 </div>
             </div>
 
+            {% if object.collectivity.isHasModuleTools %}
+                {# Tools#}
+                {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
+            {% endif %}
+
             {% if object.collectivity.hasModuleConformiteTraitement %}
                 <div class="box box-solid box-success">
                     <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.conformite'|trans }}</h3></div>
@@ -730,6 +735,10 @@
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.updated_at'|trans }}</strong></td>
                             <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.updated_by'|trans }}</strong></td>
+                            <td>{{ object.updatedBy }}</td>
                         </tr>
                         </tbody>
                     </table>

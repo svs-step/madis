@@ -7,7 +7,7 @@
             <ul>
                 {% for proof in activeProofs %}
                     <li>
-                        <a href="{{ path('registry_proof_download', { id: proof.id }) }}">
+                        <a aria-label="Preuve" href="{{ path('registry_proof_download', { id: proof.id }) }}">
                             {{ proof.name }} ({{ proof.type|dictionary('registry_proof_type') }})
                         </a>
                         {{ proof.comment }}

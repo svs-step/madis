@@ -22,6 +22,9 @@ action:
     rights: Droits
     save: Enregistrer
     submit: Enregistrer
+    new_submit: Créer
+    edit_submit: Modifier
+    submit_treatment : Créer le traitement
     unarchive: Rétablir
     validate: Valider
 
@@ -41,10 +44,10 @@ label:
     linked_mesurement: Actions de protection associées
     linked_mesurements: Actions de protection associées
     linked_violations: Violations associées
-    linked_tools: Outils associés
     linked_request: Demandes associées
     linked_contractor: Sous-traitants associés
     linked_contractors: Sous-traitants associés
+    linked_tools: Logiciels et supports associés
     no: Non
     yes: Oui
     no_linked_document: Aucun document associé
@@ -53,8 +56,8 @@ label:
     no_linked_mesurement: Aucune action de protection associée
     no_linked_mesurements: Aucune action de protection associée
     no_linked_violations: Aucune violation associée
-    no_linked_tools: Aucun outil associé
     no_linked_requests: Aucune demande associée
+    no_linked_tools: Aucun logiciel ou support associé
     no_linked_contractors: Aucun sous-traitants associé
     not_archived: Non archivés
     category: Catégories documentaires
@@ -72,6 +75,22 @@ label:
 placeholder:
     precision: Précisez
     multiple_select: Sélectionner une ou plusieurs valeurs
+    multiple_select_cat_data: Catégorie de données - Sélectionner une ou plusieurs valeurs
+    multiple_select_moyen_collecte: Moyen de la collecte - Sélectionner une ou plusieurs valeurs
+    multiple_select_category: Catégories - Sélectionner une ou plusieurs valeurs
+    multiple_select_contractors: Sous-traitants - Sélectionner une ou plusieurs valeurs
+    multiple_select_user_collectivity: Collectivités rattachées - Sélectionner une ou plusieurs valeurs
+    multiple_select_action_protection: Action de protection - Sélectionner une ou plusieurs valeurs
+    multiple_select_traitement: Traitements - Sélectionner une ou plusieurs valeurs
+    multiple_select_traitement_associe: Traitements associés - Sélectionner une ou plusieurs valeurs
+    multiple_select_nature_impact: Nature des impacts - Sélectionner une ou plusieurs valeurs
+    multiple_select_categorie_personne: Catégorie des personnes concernées - Sélectionner une ou plusieurs valeurs
+    multiple_select_demande_personne: Demandes de personnes concernées - Sélectionner une ou plusieurs valeurs
+    multiple_select_nature_data: Nature des données concernées - Sélectionner une ou plusieurs valeurs
+    multiple_select_origine_data: Origine de la perte de données - Sélectionner une ou plusieurs valeurs
+    multiple_select_violation: Violations - Sélectionner une ou plusieurs valeurs
+    multiple_select_mesure_protection: Mesures de protection - Sélectionner une ou plusieurs valeurs
+
 
 sidebar_menu:
   admin_duplication: Module de Duplication
@@ -83,6 +102,7 @@ sidebar_menu:
   dashboard: Tableau de bord
   documentation: Espace documentaire
   maturity_survey: Indice de maturité
+  maturity_referentiel: Gérer les référentiels
   registry_action_plan: Plan d'actions
   registry_contractors: Sous-traitants
   registry_mesurements: Actions de protection

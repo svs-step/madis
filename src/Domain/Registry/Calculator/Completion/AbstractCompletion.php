@@ -28,8 +28,6 @@ abstract class AbstractCompletion
 {
     /**
      * Get the completion points computed for provided object.
-     *
-     * @param mixed $object
      */
     abstract protected function getPoints($object): int;
 

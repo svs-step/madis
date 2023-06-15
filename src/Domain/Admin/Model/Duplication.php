@@ -126,17 +126,11 @@ class Duplication implements LoggableSubject
         return $this->data;
     }
 
-    /**
-     * @param mixed $data
-     */
     public function addData($data): void
     {
         $this->data[] = $data;
     }
 
-    /**
-     * @param mixed $data
-     */
     public function removeData($data): void
     {
         $key = \array_search($data, $this->data, true);

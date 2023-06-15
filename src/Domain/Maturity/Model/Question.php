@@ -25,30 +25,45 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @Serializer\ExclusionPolicy("none")
+ */
 class Question
 {
     /**
      * @var UuidInterface
+     *
+     * @Serializer\Exclude
      */
     private $id;
 
-    /**
-     * @var string|null
-     */
-    private $name;
+    private string $name;
+
+    private int $position;
+
+    private int $weight;
+
+    private bool $option;
+
+    private string $optionReason;
 
     /**
      * @var Domain|null
+     *
+     * @Serializer\Exclude
      */
     private $domain;
 
     /**
-     * @var iterable|null
+     * @var Answer[]|array
+     *
+     * @Serializer\Type("array<App\Domain\Maturity\Model\Answer>")
      */
-    private $answers;
+    public $answers;
 
     /**
      * Question constructor.
@@ -59,6 +74,41 @@ class Question
     {
         $this->id      = Uuid::uuid4();
         $this->answers = new ArrayCollection();
+    }
+
+    public function __clone()
+    {
+        $this->id = null;
+
+        $answers = [];
+        foreach ($this->answers as $answer) {
+            $answers[] = clone $answer;
+        }
+        $this->answers = $answers;
+    }
+
+    public function deserialize(): void
+    {
+        $this->id = Uuid::uuid4();
+        if (isset($this->answers)) {
+            foreach ($this->answers as $answer) {
+                $answer->deserialize();
+                $answer->setQuestion($this);
+            }
+        }
+    }
+
+    public function __toString(): string
+    {
+        if (\is_null($this->getName())) {
+            return '';
+        }
+
+        if (\mb_strlen($this->getName()) > 85) {
+            return \mb_substr($this->getName(), 0, 85) . '...';
+        }
+
+        return $this->getName();
     }
 
     public function getId(): UuidInterface
@@ -89,5 +139,59 @@ class Question
     public function getAnswers(): ?iterable
     {
         return $this->answers;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): void
+    {
+        $this->position = $position;
+    }
+
+    public function getWeight(): ?int
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(?int $weight): void
+    {
+        $this->weight = $weight;
+    }
+
+    public function getOption(): ?bool
+    {
+        return $this->option;
+    }
+
+    public function setOption(?bool $option): void
+    {
+        $this->option = $option;
+    }
+
+    public function getOptionReason(): ?string
+    {
+        return $this->optionReason;
+    }
+
+    public function setOptionReason(?string $optionReason): void
+    {
+        $this->optionReason = $optionReason;
+    }
+
+    /**
+     * @param iterable|null $answers
+     */
+    public function setAnswers(iterable|ArrayCollection|null $answers): void
+    {
+        $this->answers = $answers;
+    }
+
+    public function addAnswer(Answer $answer): void
+    {
+        $this->answers[] = $answer;
+        $answer->setQuestion($this);
     }
 }

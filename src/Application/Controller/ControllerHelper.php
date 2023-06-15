@@ -134,7 +134,7 @@ class ControllerHelper
      *
      * @return string The translated key
      */
-    public function trans(string $key, array $parameters = [], ?string $domain = null): string
+    public function trans(string $key, array $parameters = [], string $domain = null): string
     {
         return $this->translator->trans($key, $parameters, $domain);
     }

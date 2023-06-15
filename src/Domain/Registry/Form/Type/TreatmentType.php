@@ -39,6 +39,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -68,13 +69,11 @@ class TreatmentType extends AbstractType
     {
         /** @var Treatment $treatment */
         $treatment = $options['data'];
+        /** @var User $user */
+        $user = $this->security->getUser();
         $builder
             ->add('public', CheckboxType::class, [
                 'label'    => ' ',
-                'required' => false,
-            ])
-            ->add('exempt_AIPD', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.exemptAipd',
                 'required' => false,
             ])
             ->add('name', TextType::class, [
@@ -84,6 +83,11 @@ class TreatmentType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
+            ->add('exempt_AIPD', CheckboxType::class, [
+                'label'    => 'registry.treatment.form.exemptAipd',
+                'required' => false,
+            ])
+
             ->add('goal', TextareaType::class, [
                 'label'    => 'registry.treatment.form.goal',
                 'required' => false,
@@ -173,8 +177,9 @@ class TreatmentType extends AbstractType
                     return [];
                 },
                 'attr' => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_cat_data',
                 ],
             ])
             ->add('dataCategoryOther', TextareaType::class, [
@@ -221,8 +226,9 @@ class TreatmentType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_contractors',
                 ],
             ])
             ->add('delay', DelayType::class, [
@@ -312,7 +318,7 @@ class TreatmentType extends AbstractType
                 'placeholder' => 'placeholder.precision',
                 'attr'        => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'title' => 'placeholder.multiple_select_moyen_collecte',
                 ],
             ])
             ->add('estimatedConcernedPeople', IntegerType::class, [
@@ -347,6 +353,10 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.otherCollectingMethod',
                 'required' => false,
             ])
+            ->add('updatedBy', HiddenType::class, [
+                'required' => false,
+                'data'     => $user ? $user->getFirstName() . ' ' . strtoupper($user->getLastName()) : '',
+            ])
             ->add('legalMentions', CheckboxType::class, [
                 'label'    => 'registry.treatment.form.legalMentions',
                 'required' => false,
@@ -359,18 +369,30 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.consentRequestFormat',
                 'required' => false,
             ])
+
         ;
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')) {
-            $builder->add('dpoMessage', TextareaType::class, [
-                'label'    => 'registry.treatment.form.dpoMessage',
-                'required' => false,
-            ]);
+            $builder
+                ->add('dpoMessage', TextAreaType::class, [
+                    'label'    => 'registry.treatment.form.dpoMessage',
+                    'required' => false,
+                ])
+                ->add('statut', DictionaryType::class, [
+                    'label'    => 'registry.treatment.form.statut',
+                    'name'     => 'treatment_statut',
+                    'required' => true,
+                ]);
+        } else {
+            $builder
+                ->add('statut', HiddenType::class, [
+                    'data' => 'finished',
+                ]);
         }
 
         if ($options['data']->getCollectivity()->isHasModuleTools()) {
             $builder->add('tools', EntityType::class, [
-                'label'         => 'registry.treatment.form.software',
+                'label'         => 'registry.treatment.form.tools',
                 'class'         => Tool::class,
                 'required'      => false,
                 'multiple'      => true,

@@ -17,7 +17,9 @@
         <field name="exempt_AIPD" column="exempt_AIPD" type="boolean">
             <options><option name="default">0</option></options>
         </field>
+        <field name="statut" column="statut"/>
         <field name="goal" column="goal" type="text" nullable="true"/>
+        <field name="updatedBy" column="updated_by" type="text" nullable="true"/>
         <field name="manager" column="manager" nullable="true"/>
         <field name="paperProcessing" column="paper_processing" type="boolean"/>
         <field name="legalBasis" column="legal_basis" type="json_array" nullable="true"/>
@@ -49,9 +51,6 @@
         <field name="ultimateFate" column="ultimate_fate" nullable="true"/>
         <field name="dpoMessage" column="dpo_message" type="text" nullable="true"/>
         <field name="otherCollectingMethod" column="other_collecting_method" type="text" nullable="true"/>
-        <field name="legalMentions" column="legal_mentions" type="boolean"/>
-        <field name="consentRequest" column="consent_request" type="boolean"/>
-        <field name="consentRequestFormat" column="consent_request_format" type="text" nullable="true"/>
 
         <embedded name="delay" class="App\Domain\Registry\Model\Embeddable\Delay" column-prefix="delay_"/>
         <embedded name="securityAccessControl" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_access_control_"/>

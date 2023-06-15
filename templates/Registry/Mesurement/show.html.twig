@@ -26,15 +26,15 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-                <a href="{{ referer }}" class="btn btn-default">
+                <a aria-label="{{ 'registry.mesurement.action.back_to_list'|trans }}" href="{{ referer }}" class="btn btn-default">
                     <i class="fa fa-arrow-left"></i>
                     {{ 'registry.mesurement.action.back_to_list'|trans }}
                 </a>
-                <a href="{{ path('registry_mesurement_edit', {'id': object.id}) }}" class="btn btn-default">
+                <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('registry_mesurement_edit', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-pencil-alt"></i>
                     {{ 'action.edit'|trans }}
                 </a>
-                <a href="{{ path('registry_mesurement_pdf', {'id': object.id}) }}" class="btn btn-default">
+                <a aria-label="{{ 'action.print'|trans }}" href="{{ path('registry_mesurement_pdf', {'id': object.id}) }}" class="btn btn-default">
                     <i class="fa fa-print"></i>
                     {{ 'action.print'|trans }}
                 </a>
@@ -50,7 +50,7 @@
             <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.general'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.name'|trans }}</strong></td>
@@ -93,7 +93,7 @@
             <div class="box box-solid box-default">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.historic'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.creator'|trans }}</strong></td>
@@ -105,7 +105,7 @@
                             <tr>
                                 <td><strong>{{ 'registry.mesurement.show.collectivity'|trans }}</strong></td>
                                 <td>
-                                    <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                    <a aria-label="{{ object.collectivity }}" href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
                                         {{ object.collectivity }}
                                     </a>
                                 </td>
@@ -131,7 +131,7 @@
             <div class="box box-solid box-success">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.application'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.status'|trans }}</strong></td>
@@ -157,14 +157,19 @@
             {# PROOFS #}
             {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
 
+            {% if object.collectivity.isHasModuleTools %}
+                {# Tools#}
+                {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
+            {% endif %}
+
             {# CONTRACTORS #}
             <div class="box box-solid box-warning">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_contractor'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_contractors'|trans }}</h3></div>
                 <div class="box-body">
                     {% if object.contractors and object.contractors |length %}
                         <ul>
                             {% for contractor in object.contractors %}
-                                <li><a href="{{ path('registry_contractor_show', {id: contractor.id}) }}">
+                                <li><a aria-label="{{ contractor|default('registry.mesurement.show.none'|trans) }}" href="{{ path('registry_contractor_show', {id: contractor.id}) }}">
                                         {{ contractor|default('registry.mesurement.show.none'|trans) }}
                                     </a></li>
                             {% endfor %}
@@ -182,7 +187,7 @@
                     {% if object.treatments and object.treatments |length %}
                         <ul>
                             {% for treatment in object.treatments %}
-                                <li><a href="{{ path('registry_treatment_show', {id: treatment.id}) }}">
+                                <li><a aria-label="{{ treatment|default('registry.mesurement.show.none'|trans) }}" href="{{ path('registry_treatment_show', {id: treatment.id}) }}">
                                         {{ treatment|default('registry.mesurement.show.none'|trans) }}
                                     </a></li>
                             {% endfor %}
@@ -200,7 +205,7 @@
                     {% if object.requests and object.requests |length %}
                         <ul>
                             {% for request in object.requests %}
-                                <li><a href="{{ path('registry_request_show', {id: request.id}) }}">
+                                <li><a aria-label="{{ request|default('registry.mesurement.show.none'|trans) }}" href="{{ path('registry_request_show', {id: request.id}) }}">
                                         {{ request|default('registry.mesurement.show.none'|trans) }}
                                     </a></li>
                             {% endfor %}
@@ -219,7 +224,7 @@
                     {% if object.violations and object.violations |length %}
                         <ul>
                             {% for violation in object.violations %}
-                                <li><a href="{{ path('registry_violation_show', {id: violation.id}) }}">
+                                <li><a aria-label="{{ violation|default('registry.mesurement.show.none'|trans) }}" href="{{ path('registry_violation_show', {id: violation.id}) }}">
                                         {{ violation|default('registry.mesurement.show.none'|trans) }}
                                     </a></li>
                             {% endfor %}

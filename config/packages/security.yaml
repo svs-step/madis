@@ -81,6 +81,7 @@ security:
         - { path: ^/espace-documentaire/categorie/creer$, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/categorie/editer/.+$, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/categorie/supprimer/.+$, roles: ROLE_ADMIN }
+        - { path: ^/referentiel/.+$, roles: ROLE_ADMIN }
         # Manager routes
         - { path: ^/.+/creer$, roles: ROLE_USER }
         - { path: ^/.+/creer/.+$, roles: ROLE_USER }

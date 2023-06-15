@@ -46,9 +46,6 @@ class User extends CRUDRepository implements Repository\User
         $this->inactiveUserDelayDays = $inactiveUserDelayDays;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\User::class;
@@ -81,8 +78,6 @@ class User extends CRUDRepository implements Repository\User
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findOneOrNullByEmail(string $email): ?Model\User
@@ -96,8 +91,6 @@ class User extends CRUDRepository implements Repository\User
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findOneOrNullByForgetPasswordToken(string $token): ?Model\User
@@ -110,9 +103,6 @@ class User extends CRUDRepository implements Repository\User
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findOneOrNullLastLoginUserByCollectivity(Model\Collectivity $collectivity): ?Model\User
     {
         $qb = $this->createQueryBuilder();
@@ -224,6 +214,12 @@ class User extends CRUDRepository implements Repository\User
             case 'connexion':
                 $queryBuilder->addOrderBy('o.lastLogin', $orderDir);
                 break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
             case 'moreInfos':
                 $queryBuilder->addSelect('
                 CASE
@@ -270,12 +266,29 @@ class User extends CRUDRepository implements Repository\User
                     $this->addWhereClause($queryBuilder, 'moreInfos', '%' . $search . '%', 'LIKE');
                     break;
                 case 'connexion':
-                    $queryBuilder->andWhere('o.lastLogin LIKE :date')
-                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    if (is_string($search)) {
+                        $queryBuilder->andWhere('o.lastLogin BETWEEN :connexion_start_date AND :connexion_finish_date')
+                            ->setParameter('connexion_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                            ->setParameter('connexion_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    }
                     break;
                 case 'services':
                     $queryBuilder->andWhere('services.name LIKE :service_name')
                         ->setParameter('service_name', '%' . $search . '%');
+                    break;
+                case 'createdAt':
+                    if (is_string($search)) {
+                        $queryBuilder->andWhere('o.createdAt BETWEEN :created_start_date AND :created_finish_date')
+                            ->setParameter('created_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                            ->setParameter('created_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    }
+                    break;
+                case 'updatedAt':
+                    if (is_string($search)) {
+                        $queryBuilder->andWhere('o.updatedAt BETWEEN :updated_start_date AND :updated_finish_date')
+                            ->setParameter('updated_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                            ->setParameter('updated_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    }
                     break;
             }
         }
@@ -294,9 +307,6 @@ class User extends CRUDRepository implements Repository\User
             ->getOneOrNullResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllNoLogin()
     {
         $now       = new \DateTime();
@@ -330,7 +340,7 @@ class User extends CRUDRepository implements Repository\User
         $qb->andWhere('o.roles NOT LIKE :role')
             // TODO add andwhere with "is_dpo"
             ->setParameter('role', sprintf('"%s"', '%ROLE_ADMIN%'))
-        ->andWhere('o.collectivity = :collectivity')
+            ->andWhere('o.collectivity = :collectivity')
             ->setParameter('collectivity', $collectivity)
         ;
 

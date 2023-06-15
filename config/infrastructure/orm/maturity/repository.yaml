@@ -11,3 +11,4 @@ services:
 
     App\Domain\Maturity\Repository\Question: '@App\Infrastructure\ORM\Maturity\Repository\Question'
     App\Domain\Maturity\Repository\Survey: '@App\Infrastructure\ORM\Maturity\Repository\Survey'
+    App\Domain\Maturity\Repository\Referentiel: '@App\Infrastructure\ORM\Maturity\Repository\Referentiel'

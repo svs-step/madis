@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'maturity_referentiel form rights' %}
+{% set menuItem = 'maturity_referentiel' %}
+
+{% block title %}{{ 'maturity.referentiel.title.rights'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'maturity.referentiel.title.rights'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'maturity.referentiel.title.list'|trans, 'link': path('maturity_referentiel_list') },
+        { 'name': 'maturity.referentiel.title.rights'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {{ form_start(form) }}
+
+        <div class="col-md-12">
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border"><h3 class="box-title"> Gestion des droits </h3></div>
+                <div class="box-body">
+                    {{ form_row(form.optionRightSelection) }}
+                    {{ form_row(form.authorizedCollectivityTypes) }}
+                    {{ form_row(form.authorizedCollectivities) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            <a href="{{ path('maturity_referentiel_list') }}" class="btn btn-default">
+                {{ 'maturity.referentiel.action.back_to_list'|trans }}
+            </a>
+             <input type="submit" class="btn btn-primary" value="Enregistrer">
+        </div>
+
+
+        {{ form_end(form) }}
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="{{ asset('build/js/collectionManager.js') }}"></script>
+
+    {{ include('Maturity/Referentiel/_form_js.html.twig') }}
+
+    <script>
+        $(document).ready(function() {
+
+            // Initialize form
+            checkTargetOption();
+            checkTargetCollectivities();
+
+            $('#referentiel_rights_optionRightSelection').on('change', function() {
+                checkTargetOption();
+            });
+
+        });
+
+        function checkTargetOption() {
+            let targetOption = $('#referentiel_rights_optionRightSelection input[type=radio]:checked').val();
+            let targetPerType = $('#referentiel_rights_authorizedCollectivityTypes');
+            let targetPerCollectivity = $('#referentiel_rights_authorizedCollectivities');
+
+            if (targetOption === '{{ constant('App\\Domain\\Admin\\Dictionary\\DuplicationTargetOptionDictionary::KEY_PER_TYPE') }}') {
+                targetPerType.show();
+                targetPerCollectivity.hide();
+            } else if (targetOption === '{{ constant('App\\Domain\\Admin\\Dictionary\\DuplicationTargetOptionDictionary::KEY_PER_COLLECTIVITY') }}') {
+                targetPerType.hide();
+                targetPerCollectivity.show();
+            } else {
+                targetPerType.hide();
+                targetPerCollectivity.hide();
+            }
+        }
+
+        function checkTargetCollectivities() {
+            let sourceCollectivityVal = $('#duplication_sourceCollectivity').val();
+
+            $('#referentiel_rights_authorizedCollectivities option[value!=\'' + sourceCollectivityVal + '\']').prop('disabled', false);
+            $('#referentiel_rights_authorizedCollectivities option[value=\'' + sourceCollectivityVal + '\']').prop('disabled', true);
+        }
+
+        // Clear the radio button
+        $('form').submit(function() {
+            if($('#referentiel_rights_optionRightSelection input[type=radio]:checked').val() == 'per_collectivity') {
+                $('#referentiel_rights_authorizedCollectivityTypes').val(null);
+            }
+
+            if($('#referentiel_rights_optionRightSelection input[type=radio]:checked').val() == 'per_type') {
+                $('#referentiel_rights_authorizedCollectivities').val(null);
+            }
+        });
+    </script>
+{% endblock %}
