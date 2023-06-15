@@ -30,6 +30,7 @@ class AnalyseImpactExtension extends AbstractExtension
             new TwigFunction('getScenarioMenaceImpactResiduelLabel', [$this, 'getScenarioMenaceImpactResiduelLabel']),
             new TwigFunction('getScenarioMenaceImpactResiduel', [$this, 'getScenarioMenaceImpactResiduel']),
             new TwigFunction('getScenarioMenaceIndicateurResiduel', [$this, 'getScenarioMenaceIndicateurResiduel']),
+            new TwigFunction('isScenarioMenaceImpactResiduelImpactNotNegligeable', [$this, 'isScenarioMenaceImpactResiduelImpactNotNegligeable']),
         ];
     }
 
@@ -52,9 +53,8 @@ class AnalyseImpactExtension extends AbstractExtension
     {
         $impact = VraisemblanceGraviteDictionary::getImpact($this->getScenarioMenaceImpactResiduel($scenarioMenace));
 
-        return $impact !== VraisemblanceGraviteDictionary::NEGLIGEABLE ;
+        return VraisemblanceGraviteDictionary::NEGLIGEABLE !== $impact;
     }
-
 
     public function getConformiteLabel(AnalyseQuestionConformite $questionAnalyse): string
     {
