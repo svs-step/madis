@@ -148,9 +148,10 @@ class ProofType extends AbstractType
                 'choice_label'  => function (Model\Treatment $object) {
                     return $this->formatInactiveObjectLabel($object);
                 },
-                'attr'          => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                'attr' => [
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_traitement',
                 ],
                 'required'      => false,
                 'multiple'      => true,
@@ -166,9 +167,10 @@ class ProofType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                'attr' => [
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_contractors',
                 ],
                 'required'      => false,
                 'multiple'      => true,
@@ -184,9 +186,10 @@ class ProofType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                'attr' => [
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_action_protection',
                 ],
                 'required'      => false,
                 'multiple'      => true,
@@ -213,9 +216,10 @@ class ProofType extends AbstractType
                 'choice_label'  => function (Model\Request $object) {
                     return $this->formatArchivedObjectLabel($object);
                 },
-                'attr'          => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                'attr' => [
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_demande_personne',
                 ],
                 'required'      => false,
                 'multiple'      => true,
@@ -241,19 +245,20 @@ class ProofType extends AbstractType
                 'choice_label'  => function (Model\Violation $object) {
                     return $this->formatArchivedObjectLabel($object);
                 },
-                'attr'          => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                'attr' => [
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_violation',
                 ],
                 'required'      => false,
                 'multiple'      => true,
                 'expanded'      => false,
             ])
-
         ;
+
         if ($options['data']->getCollectivity()->isHasModuleTools()) {
             $builder->add('tools', EntityType::class, [
-                'label'         => 'registry.treatment.form.software',
+                'label'         => 'registry.treatment.form.tools',
                 'class'         => Tool::class,
                 'required'      => false,
                 'multiple'      => true,
@@ -284,8 +289,6 @@ class ProofType extends AbstractType
 
     /**
      * Prefix every inactive object with "Inactif".
-     *
-     * @param mixed $object
      */
     protected function formatInactiveObjectLabel($object): string
     {
@@ -302,8 +305,6 @@ class ProofType extends AbstractType
 
     /**
      * Prefix every archived object with "Archivé".
-     *
-     * @param mixed $object
      */
     protected function formatArchivedObjectLabel($object): string
     {

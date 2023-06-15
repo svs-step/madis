@@ -30,4 +30,8 @@ use App\Application\Doctrine\Repository\DataTablesRepository;
 interface Notification extends CRUDRepositoryInterface, DataTablesRepository
 {
     public function findOneBy(array $criteria);
+
+    public function objectExists(\App\Domain\Notification\Model\Notification $notification);
+
+    public function findAllUnread(array $order = ['createdAt' => 'DESC']): array;
 }

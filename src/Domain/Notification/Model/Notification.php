@@ -67,6 +67,7 @@ class Notification
         Conformite::class           => 'organization_conformity',
         AnalyseImpact::class        => 'aipd',
         Document::class             => 'document',
+        User::class                 => 'user',
     ];
 
     /**
@@ -95,6 +96,10 @@ class Notification
      * @var string|null
      */
     private $module;
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $subject;
 
     /**
      * @ORM\Column(type="string")
@@ -136,7 +141,7 @@ class Notification
     private ?User $createdBy;
 
     /**
-     * @ORM\OneToMany(mappedBy="notification", targetEntity="App\Domain\Notification\Model\NotificationUser", cascade={"persist"})
+     * @ORM\OneToMany(mappedBy="notification", targetEntity="App\Domain\Notification\Model\NotificationUser", cascade={"persist", "remove"})
      */
     private Collection|array $notificationUsers = [];
 
@@ -268,5 +273,15 @@ class Notification
     public function setDpo(?bool $dpo): void
     {
         $this->dpo = $dpo;
+    }
+
+    public function getSubject(): ?string
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(?string $subject): void
+    {
+        $this->subject = $subject;
     }
 }

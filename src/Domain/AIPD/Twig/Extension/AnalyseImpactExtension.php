@@ -30,7 +30,7 @@ class AnalyseImpactExtension extends AbstractExtension
             new TwigFunction('getScenarioMenaceImpactResiduelLabel', [$this, 'getScenarioMenaceImpactResiduelLabel']),
             new TwigFunction('getScenarioMenaceImpactResiduel', [$this, 'getScenarioMenaceImpactResiduel']),
             new TwigFunction('getScenarioMenaceIndicateurResiduel', [$this, 'getScenarioMenaceIndicateurResiduel']),
-            new TwigFunction('getMeasureImpactResiduel', [$this, 'getMeasureImpactResiduel']),
+            new TwigFunction('isScenarioMenaceImpactResiduelImpactNotNegligeable', [$this, 'isScenarioMenaceImpactResiduelImpactNotNegligeable']),
         ];
     }
 
@@ -39,7 +39,7 @@ class AnalyseImpactExtension extends AbstractExtension
         $reponseConformite = $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getReponseOfPosition($questionAnalyse->getPosition());
         $formattedString   = '';
         if (!$reponseConformite) {
-            return '<a href="/conformite-traitement/editer/' . $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getId()->toString() . '">Veuillez évaluer à nouveau la conformité du traitement</a>';
+            return '<a aria-label="Vérifier la conformité" href="/conformite-traitement/editer/' . $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getId()->toString() . '">Veuillez évaluer à nouveau la conformité du traitement</a>';
         }
         /** @var Mesurement $actionProtection */
         foreach ($reponseConformite->getActionProtections() as $actionProtection) {
@@ -47,6 +47,13 @@ class AnalyseImpactExtension extends AbstractExtension
         }
 
         return $formattedString;
+    }
+
+    public function isScenarioMenaceImpactResiduelImpactNotNegligeable(AnalyseScenarioMenace $scenarioMenace): bool
+    {
+        $impact = VraisemblanceGraviteDictionary::getImpact($this->getScenarioMenaceImpactResiduel($scenarioMenace));
+
+        return VraisemblanceGraviteDictionary::NEGLIGEABLE !== $impact;
     }
 
     public function getConformiteLabel(AnalyseQuestionConformite $questionAnalyse): string
@@ -161,10 +168,5 @@ class AnalyseImpactExtension extends AbstractExtension
         }
 
         return $lastAnalyse;
-    }
-
-    public static function getMeasureImpactResiduel($gravite, $vraisemblance)
-    {
-        return AnalyseEvaluationCalculator::getImpactFromGraviteAndVraisemblance($gravite, $vraisemblance);
     }
 }

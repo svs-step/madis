@@ -32,29 +32,21 @@ interface Proof extends RepositoryInterface, DataTablesRepository
 {
     /**
      * Insert an object.
-     *
-     * @param mixed $object
      */
     public function insert($object): void;
 
     /**
      * Update an object.
-     *
-     * @param mixed $object
      */
     public function update($object): void;
 
     /**
      * Create an object.
-     *
-     * @return mixed
      */
     public function create();
 
     /**
      * Remove an object.
-     *
-     * @param mixed $object
      */
     public function remove($object): void;
 

@@ -73,6 +73,11 @@ class NotificationUser
     private ?bool $active;
 
     /**
+     * @ORM\Column(type="datetime", name="read_at", nullable="true")
+     */
+    private ?\DateTime $readAt = null;
+
+    /**
      * Has the email been sent for this notification and this user.
      *
      * @ORM\Column(type="boolean")
@@ -154,5 +159,15 @@ class NotificationUser
     public function setSent(?bool $sent): void
     {
         $this->sent = $sent;
+    }
+
+    public function getReadAt(): ?\DateTime
+    {
+        return $this->readAt;
+    }
+
+    public function setReadAt(?\DateTime $readAt): void
+    {
+        $this->readAt = $readAt;
     }
 }

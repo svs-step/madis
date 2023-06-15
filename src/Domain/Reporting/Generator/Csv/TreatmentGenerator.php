@@ -78,9 +78,6 @@ class TreatmentGenerator extends AbstractGenerator
         $this->security               = $security;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function initializeExtract(): array
     {
         $headers = array_merge(

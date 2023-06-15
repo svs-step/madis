@@ -112,33 +112,21 @@ class ProofController extends CRUDController
         $this->router               = $router;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'proof';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Proof::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return ProofType::class;
@@ -358,6 +346,7 @@ class ProofController extends CRUDController
                 'type'         => !\is_null($proof->getType()) ? ProofTypeDictionary::getTypes()[$proof->getType()] : null,
                 'commentaire'  => $proof->getComment(),
                 'date'         => \date_format($proof->getCreatedAt(), 'd/m/Y H:i'),
+                'updatedAt'    => \date_format($proof->getUpdatedAt(), 'd/m/Y H:i'),
                 'actions'      => $this->getActionCellsContent($proof),
             ];
         }
@@ -376,7 +365,8 @@ class ProofController extends CRUDController
             2 => 'type',
             3 => 'commentaire',
             4 => 'date',
-            5 => 'actions',
+            5 => 'updatedAt',
+            6 => 'actions',
         ];
     }
 
@@ -403,7 +393,7 @@ class ProofController extends CRUDController
         $cellContent = '';
         if ($this->userProvider->getAuthenticatedUser()->getCollectivity() === $proof->getCollectivity()
             || $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $cellContent .= '<a href="' . $this->router->generate('registry_proof_download', ['id' => $proof->getId()]) . '">
+            $cellContent .= '<a aria-label="' . $this->translator->trans('action.download') . '" href="' . $this->router->generate('registry_proof_download', ['id' => $proof->getId()]) . '">
                 <i class="fa fa-download"></i> ' .
                 $this->translator->trans('action.download') . '
             </a>';
@@ -411,16 +401,16 @@ class ProofController extends CRUDController
 
         if ($this->authorizationChecker->isGranted('ROLE_USER')) {
             if (\is_null($proof->getDeletedAt())) {
-                $cellContent .= '<a href="' . $this->router->generate('registry_proof_edit', ['id' => $proof->getId()]) . '">
+                $cellContent .= '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('registry_proof_edit', ['id' => $proof->getId()]) . '">
                     <i class="fa fa-pencil-alt"></i> ' .
                         $this->translator->trans('action.edit') . '
                 </a>
-                <a href="' . $this->router->generate('registry_proof_archive', ['id' => $proof->getId()]) . '">
+                <a aria-label="' . $this->translator->trans('action.archive') . '" href="' . $this->router->generate('registry_proof_archive', ['id' => $proof->getId()]) . '">
                     <i class="fa fa-archive"></i> ' .
                     $this->translator->trans('action.archive') . '
                 </a>';
             }
-            $cellContent .= '<a href="' . $this->router->generate('registry_proof_delete', ['id' => $proof->getId()]) . '">
+            $cellContent .= '<a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('registry_proof_delete', ['id' => $proof->getId()]) . '">
                 <i class="fa fa-trash"></i> ' .
                 $this->translator->trans('action.delete') . '
             </a>';

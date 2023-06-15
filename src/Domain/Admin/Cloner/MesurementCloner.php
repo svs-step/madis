@@ -30,8 +30,6 @@ use App\Domain\User\Model as UserModel;
 class MesurementCloner extends AbstractCloner
 {
     /**
-     * {@inheritdoc}
-     *
      * @param RegistryModel\Mesurement $referent
      *
      * @throws \Exception

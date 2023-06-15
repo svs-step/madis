@@ -103,41 +103,26 @@ class ToolController extends CRUDController
         $this->requestStack           = $requestStack;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'tool';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Tool::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return ToolType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getListData()
     {
         $request  = $this->requestStack->getCurrentRequest();
@@ -199,9 +184,33 @@ class ToolController extends CRUDController
 
     protected function getLabelAndKeysArray(): array
     {
+        if ($this->isGranted('ROLE_REFERENT')) {
+            return [
+                'name',
+                'collectivity',
+                'type',
+                'editor',
+                'archival',
+                'encrypted',
+                'access_control',
+                'update',
+                'backup',
+                'deletion',
+                'tracking',
+                'has_comment',
+                'other',
+                'treatments',
+                'contractors',
+                'proofs',
+                'mesurements',
+                'createdAt',
+                'updatedAt',
+                'actions',
+            ];
+        }
+
         return [
             'name',
-            'collectivity',
             'type',
             'editor',
             'archival',

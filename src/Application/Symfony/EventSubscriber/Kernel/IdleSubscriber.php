@@ -50,9 +50,6 @@ class IdleSubscriber implements EventSubscriberInterface
         $this->expirationTime = $expirationTime;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents()
     {
         return [

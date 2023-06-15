@@ -119,25 +119,16 @@ class ConformiteTraitementController extends CRUDController
         $this->router                 = $router;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'conformite_traitement';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\ConformiteTraitement\ConformiteTraitement::class;
@@ -152,17 +143,11 @@ class ConformiteTraitementController extends CRUDController
         return $this->wordHandler->generateRegistryConformiteTraitementReport($objects);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return ConformiteTraitementType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getListData()
     {
         $collectivity = null;
@@ -179,9 +164,6 @@ class ConformiteTraitementController extends CRUDController
         return $this->treatmentRepository->findAllActiveByCollectivityWithHasModuleConformiteTraitement($collectivity);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function listAction(): Response
     {
         $category = $this->entityManager->getRepository(Category::class)->findOneBy([
@@ -325,9 +307,10 @@ class ConformiteTraitementController extends CRUDController
         }
 
         $analyseImpact = ModeleToAnalyseConverter::createFromModeleAnalyse($modele);
+        $analyseImpact->setCreatedAt(new \DateTimeImmutable());
         $analyseImpact->setConformiteTraitement($conformiteTraitement);
+
         $this->setAnalyseReponsesQuestionConformite($analyseImpact, $conformiteTraitement);
-        $this->entityManager->persist($analyseImpact);
 
         foreach ($analyseImpact->getScenarioMenaces() as $scenarioMenace) {
             if (null !== $scenarioMenace->getMesuresProtections()) {
@@ -336,6 +319,8 @@ class ConformiteTraitementController extends CRUDController
                 }
             }
         }
+
+        $this->entityManager->persist($analyseImpact);
         $this->entityManager->flush();
 
         return $this->redirectToRoute('aipd_analyse_impact_create', [
@@ -348,7 +333,10 @@ class ConformiteTraitementController extends CRUDController
         foreach ($conformiteTraitement->getReponses() as $reponse) {
             $pos = $reponse->getQuestion()->getPosition();
             $q   = $analyseImpact->getQuestionConformitesOfPosition($pos);
+            $q->setAnalyseImpact($analyseImpact);
             $q->setReponseConformite($reponse);
+            $reponse->addAnalyseQuestionConformite($q);
+            $this->entityManager->persist($reponse);
         }
     }
 }

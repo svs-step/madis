@@ -42,13 +42,13 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_nom_court" placeholder="Nom court" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_type" style="width: 100%;">
                                     <option value="">Type</option>
                                     {% for key, subject in dictionary('user_collectivity_type') %}
@@ -56,42 +56,49 @@
                                     {% endfor %}
                                 </select>
                             </th>
-                            <th></th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_informations_complementaires" placeholder="Infos complémentaires" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_siren" placeholder="Siren" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_actif" style="width: 100%;">
                                     <option value="">Statut</option>
                                     <option value="1">{{ 'label.active'|trans }}</option>
                                     <option value="0">{{ 'label.inactive'|trans }}</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_nbr_cnil" placeholder="Numéro CNIL" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_nbr_agents" placeholder="Salariés" style="width: 100%;">
                             </th>
                             <th>
                                 <input class="form-control" type="text" id="search_population" placeholder="Population" style="width: 100%;">
                             </th>
+
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                            </th>
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                            </th>
                         </tr>
                         <tr>
-                            <th>{{ 'user.collectivity.list.name'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.short_name'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.type'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.informations_complementaires'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.siren'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.active'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.nbr_cnil'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.nbr_agents'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.population'|trans }}</th>
-                            <th>{{ 'user.collectivity.list.date_maj'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.name'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.short_name'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.type'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.informations_complementaires'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.siren'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.active'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.nbr_cnil'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.nbr_agents'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.population'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.created_at'|trans }}</th>
+                            <th scope="col">{{ 'user.collectivity.list.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>
@@ -119,7 +126,8 @@
             {"data": "nbr_cnil", "visible": false},
             {"data": "nbr_agents", "visible": false},
             {"data": "population", "visible": false},
-            {"data": "date_maj"},
+            {"data": "createdAt", "visible": false},
+            {"data": "updatedAt", "visible": false},
             {"data": "actions", "className": "noVis", "orderable": false, "visible": actionsIsVisible},
         ],
         order:  [
@@ -132,6 +140,13 @@
     <script>
         function setEvents() {
             var oTable = $('#table').DataTable();
+
+            $('#search_created_at').show('slide',function(){
+                $('input#search_created_at').val('');
+            });
+            $('#search_updated_at').show('slide',function(){
+                $('input#search_updated_at').val('');
+            });
 
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
@@ -150,36 +165,45 @@
 
             $('#search_informations_complementaires').off('keyup');
             $('#search_informations_complementaires').keyup($.debounce(250, function(){
-                oTable.column('5').search($(this).val()).draw() ;
+                oTable.column('3').search($(this).val()).draw() ;
             }));
 
             $('#search_siren').off('keyup');
             $('#search_siren').keyup($.debounce(250, function(){
-                oTable.column('5').search($(this).val()).draw() ;
+                oTable.column('4').search($(this).val()).draw() ;
             }));
 
             $('#search_actif').off('change');
             $('#search_actif').change(function(){
-                oTable.column('6').search($(this).val()).draw() ;
+                oTable.column('5').search($(this).val()).draw() ;
             });
 
             $('#search_nbr_cnil').off('keyup');
             $('#search_nbr_cnil').keyup($.debounce(250, function(){
                 console.log('a',oTable.column('7'));
-                oTable.column('7').search($(this).val()).draw() ;
+                oTable.column('6').search($(this).val()).draw() ;
             }));
 
             $('#search_nbr_agents').off('keyup');
             $('#search_nbr_agents').keyup($.debounce(250, function(){
                 console.log('b',oTable.column('8'));
-                oTable.column('8').search($(this).val()).draw() ;
+                oTable.column('7').search($(this).val()).draw() ;
             }));
 
             $('#search_population').off('keyup');
             $('#search_population').keyup($.debounce(250, function(){
                 console.log('c',oTable.column('9'));
-                oTable.column('9').search($(this).val()).draw() ;
+                oTable.column('8').search($(this).val()).draw() ;
             }));
+            $('#search_created_at').off('change');
+            $('#search_created_at').change(function(){
+                oTable.column('9').search($(this).val()).draw() ;
+            });
+
+            $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
+                oTable.column('10').search($(this).val()).draw() ;
+            });
         }
 
         $(document).ready(function() {

@@ -121,6 +121,7 @@ class UserType extends AbstractType
                     'label'    => 'user.user.form.apiAuthorized',
                     'required' => false,
                 ])
+
                 ->add('enabled', CheckboxType::class, [
                     'label'    => 'user.user.form.enabled',
                     'required' => false,
@@ -255,6 +256,12 @@ class UserType extends AbstractType
 
         if ($this->activeNotifications) {
             $builder->add('emailNotificationPreference', EmailNotificationPreferenceType::class);
+            if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+                $builder->add('notGeneratesNotifications', CheckboxType::class, [
+                    'label'    => 'user.user.form.not_generates_notifications',
+                    'required' => false,
+                ]);
+            }
         }
 
         $builder

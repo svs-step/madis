@@ -36,18 +36,25 @@
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class="box-body">
-                    <table class="table table-bordered">
+                    <p style="margin-bottom: 0!important;">Cette étape finale permet de valider l’instruction de l’AIPD. Une fois validée, il ne sera plus possible de la modifier.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class="box-body">
+                    <table role="presentation" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Avis des acteurs</th>
-                                <th>Date</th>
-                                <th>Réponse</th>
-                                <th>Détail</th>
+                                <th scope="col">Avis des acteurs</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Réponse</th>
+                                <th scope="col">Détail</th>
                             </tr>
                         </thead>
                         <tbody>
                             {{ formMacros.printFormAvisLine(form.avisReferent, "Avis du référent RGPD") }}
-                            {{ formMacros.printFormAvisLine(form.avisDpd, "Avis du DPD") }}
+                            {{ formMacros.printFormAvisLine(form.avisDpd, "Avis du délégué à la protection des données") }}
                             {{ formMacros.printFormAvisLine(form.avisRepresentant, "Avis des représentants des personnes concernées") }}
                             {{ formMacros.printFormAvisLine(form.avisResponsable, "Validation formelle du responsable de traitement") }}
                         </tbody>
@@ -61,7 +68,7 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body text-center">
-                    <a href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
+                    <a aria-label="{{ 'action.back_to_list'|trans }}" href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
                     <input type="submit" class="btn btn-primary" value="Valider l'AIPD">
                     {{ form_widget(form.saveDraft) }}
                 </div>

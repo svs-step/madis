@@ -65,41 +65,26 @@ class CategoryController extends CRUDController
         $this->userProvider         = $userProvider;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'documentation';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'category';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Category::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return CategoryType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getListData()
     {
         $order = [

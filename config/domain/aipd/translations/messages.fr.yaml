@@ -18,6 +18,7 @@ aipd:
             description: Description
             name: Nom du modèle d'analyse d'impact
             updated_at: Date de modification
+            created_at: Date de création
         flashbag:
             success:
                 create: Modele d'analyse "%object%" créé avec succès
@@ -54,6 +55,8 @@ aipd:
             poids_vraisemblance: Poids de la vraisemblance
             poids_gravite: Poids de la gravité
             reponse: Réponses
+            updated_at: Date de modification
+            created_at: Date de création
         modal:
             confirm_deletion: Voulez vous vraiment supprimer cette mesure de protection ?
         title:
@@ -83,6 +86,8 @@ aipd:
             validation: Passer en validation
         flashbag:
             success:
+                create: L'analyse d'impact "%object%" créée avec succès
+                edit: L'analyse d'impact "%object%" modifiée avec succès
                 delete: L'analyse d'impact "%object%" a bien été supprimée
             info:
                 cant_edit: "Vous ne pouvez plus modifier cette analyse d'impact : celle-ci a déjà été validée."
@@ -97,7 +102,7 @@ aipd:
             evaluation: Évaluer une AIPD
             validation: Valider une AIPD
         list:
-            avis_dpd: Avis du DPD
+            avis_dpd: Avis du délégué à la protection des données
             avis_referent: Avis du référent RGPD
             avis_representant: Avis des représentants des personnes concernées
             avis_responsable: Validation du responsable de traitement
@@ -110,8 +115,8 @@ aipd:
             en_cours: En cours
             non_realisee: Non réalisée
             defavorable: Défavorable
-            favorable_avec_reserves: Favorable avec réserves
-            favorable_reserve: Favorable avec réserves
+            favorable_avec_reserves: Favorable avec réserve(s)
+            favorable_reserve: Favorable avec réserve(s)
             favorable: Favorable
             non_favorable: Défavorable
             evaluation:

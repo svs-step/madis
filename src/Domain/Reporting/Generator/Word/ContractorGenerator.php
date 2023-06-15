@@ -98,9 +98,6 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
         $this->addTable($section, $overview, true, self::TABLE_ORIENTATION_HORIZONTAL);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addSyntheticView(Section $section, array $data): void
     {
         $section->addTitle('Liste des sous-traitants', 1);
@@ -133,9 +130,6 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
         $section->addPageBreak();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail des sous-traitants', 1);
@@ -243,7 +237,7 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
                     $this->getDate($contractor->getCreatedAt()),
                 ],
                 [
-                    'Dernière mise à jour',
+                    'Date de modification',
                     $this->getDate($contractor->getUpdatedAt()),
                 ],
             ];

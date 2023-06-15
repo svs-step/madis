@@ -24,40 +24,53 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Model;
 
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @Serializer\ExclusionPolicy("none")
+ */
 class Domain
 {
     /**
      * @var UuidInterface
+     *
+     * @Serializer\Exclude
      */
     private $id;
 
-    /**
-     * @var string|null
-     */
-    private $name;
+    private string $name;
 
     /**
      * @var string|null
      */
-    private $color;
+    private $description;
+
+    private string $color;
+
+    private int $position;
 
     /**
-     * @var int|null
+     * @var Question[]|array
+     *
+     * @Serializer\Type("array<App\Domain\Maturity\Model\Question>")
      */
-    private $position;
+    public $questions;
 
     /**
      * @var iterable
-     */
-    private $questions;
-
-    /**
-     * @var iterable
+     *
+     * @Serializer\Exclude
      */
     private $maturity;
+
+    /**
+     * @var Referentiel
+     *
+     * @Serializer\Exclude
+     */
+    private $referentiel;
 
     /**
      * Domain constructor.
@@ -69,6 +82,41 @@ class Domain
         $this->id        = Uuid::uuid4();
         $this->questions = [];
         $this->maturity  = [];
+    }
+
+    public function __clone()
+    {
+        $this->id  = null;
+        $questions = [];
+        foreach ($this->questions as $question) {
+            $questions[] = clone $question;
+        }
+        $this->questions = $questions;
+    }
+
+    public function deserialize(): void
+    {
+        $this->id = Uuid::uuid4();
+
+        foreach ($this->questions as $question) {
+            if ($question) {
+                $question->deserialize();
+                $question->setDomain($this);
+            }
+        }
+    }
+
+    public function __toString(): string
+    {
+        if (\is_null($this->getName())) {
+            return '';
+        }
+
+        if (\mb_strlen($this->getName()) > 85) {
+            return \mb_substr($this->getName(), 0, 85) . '...';
+        }
+
+        return $this->getName();
     }
 
     public function getId(): UuidInterface
@@ -106,13 +154,18 @@ class Domain
         $this->position = $position;
     }
 
-    public function addQuestion(Question $question): void
+    public function addQuestion(Question $question)
     {
         $this->questions[] = $question;
         $question->setDomain($this);
     }
 
-    public function removeQuestion(Question $question): void
+    public function setQuestions($questions)
+    {
+        $this->questions = $questions;
+    }
+
+    public function removeQuestion(Question $question)
     {
         $key = \array_search($question, $this->questions, true);
 
@@ -123,15 +176,14 @@ class Domain
         unset($this->questions[$key]);
     }
 
-    public function getQuestions(): iterable
+    public function getQuestions()
     {
         return $this->questions;
     }
 
-    public function addMaturity(Maturity $maturity): void
+    public function addMaturity(Maturity $maturity)
     {
-        $this->maturity[] = $maturity;
-        $maturity->setDomain($this);
+        $this->maturity = $maturity;
     }
 
     public function removeMaturity(Maturity $maturity): void
@@ -148,5 +200,25 @@ class Domain
     public function getMaturity(): iterable
     {
         return $this->maturity;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function getReferentiel(): Referentiel
+    {
+        return $this->referentiel;
+    }
+
+    public function setReferentiel(Referentiel $referentiel): void
+    {
+        $this->referentiel = $referentiel;
     }
 }

@@ -41,9 +41,6 @@ class NotBlankDependingOnOtherFieldValueValidator extends ConstraintValidator
         $this->accessor = $accessor;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function validate($value, Constraint $constraint)
     {
         if (!$constraint instanceof NotBlankDependingOnOtherFieldValue) {

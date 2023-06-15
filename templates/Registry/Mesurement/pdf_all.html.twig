@@ -67,6 +67,14 @@
                                 {% endif %}
                             </td>
                         </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.comment'|trans }}</strong></td>
+                            <td>
+                                {% if object.comment is not null %}
+                                    {{ object.comment }}
+                                {% endif %}
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -74,6 +82,10 @@
             {# PROOFS #}
             {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
 
+            {% if object.collectivity.isHasModuleTools %}
+                {# Tools#}
+                {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
+            {% endif %}
 
             {# HISTORIC #}
             <div class="box box-solid box-default">
@@ -102,6 +114,10 @@
                         <tr>
                             <td><strong>{{ 'registry.mesurement.show.updated_at'|trans }}</strong></td>
                             <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.mesurement.show.updated_by'|trans }}</strong></td>
+                            <td>{{ object.updatedBy }}</td>
                         </tr>
                         </tbody>
                     </table>

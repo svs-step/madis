@@ -108,13 +108,15 @@ class NotificationGenerationTest extends WebTestCase
         $csrfToken = $client->getContainer()->get('security.csrf.token_manager')->getToken('request');
         $client->request('POST', $url, [
             'request' => [
-                'object'          => $request->getObject(),
-                'otherObject'     => $request->getOtherObject(),
-                'applicant'       => [
-                    'firstName' => 'firstname',
-                    'lastName'  => 'lastname',
-                    'civility'  => RequestCivilityDictionary::CIVILITY_MISS,
-                    'mail'      => 'test1@example.org',
+                'object'      => $request->getObject(),
+                'otherObject' => $request->getOtherObject(),
+                'applicant'   => [
+                    'firstName'       => 'firstname',
+                    'lastName'        => 'lastname',
+                    'civility'        => RequestCivilityDictionary::CIVILITY_MISS,
+                    'mail'            => 'test1@example.org',
+                    'address'         => $request->getApplicant()->getAddress(),
+                    'concernedPeople' => 1,
                 ],
                 'date'            => date('d/m/Y'),
                 'concernedPeople' => [
@@ -123,9 +125,9 @@ class NotificationGenerationTest extends WebTestCase
                     'civility'  => RequestCivilityDictionary::CIVILITY_MISS,
                     'mail'      => 'test@example.org',
                 ],
-                'state'           => RequestStateDictionary::STATE_AWAITING_SERVICE,
-                '_token'          => $csrfToken,
-                // 'uploadedFile' => $uploadedFile,
+                'stateRejectionReason' => 'N/A',
+                'state'                => RequestStateDictionary::STATE_AWAITING_SERVICE,
+                '_token'               => $csrfToken,
             ],
         ]);
 
@@ -145,7 +147,10 @@ class NotificationGenerationTest extends WebTestCase
             'action' => 'notification.actions.state_change',
         ]);
 
-        $this->assertEquals($request->getCollectivity(), $notif->getCollectivity());
+        $this->assertEquals(
+            $request->getCollectivity(),
+            $notif->getCollectivity()
+        );
         $this->assertEquals($request->__toString(), $notif->getName());
 
         $this->assertEquals(0, count($notif->getNotificationUsers()));

@@ -110,10 +110,10 @@ class NotificationsSendCommand extends Command
             }
 
             if (
-                !$prefs ||
-                !$prefs->getEnabled() ||
-                EmailNotificationPreference::FREQUENCY_NONE == $prefs->getFrequency() ||
-                0 === $prefs->getNotificationMask()
+                !$prefs
+                || !$prefs->getEnabled()
+                || EmailNotificationPreference::FREQUENCY_NONE == $prefs->getFrequency()
+                || 0 === $prefs->getNotificationMask()
             ) {
                 // Exit if user has email notifications disabled
                 $output->writeln('User ' . $mail . ' has disabled notifications');
@@ -124,7 +124,7 @@ class NotificationsSendCommand extends Command
             $nextTimeToSend = $this->getNextTimeToSendFromPreferences($prefs);
 
             if ($nextTimeToSend->format('Ymdhi') !== date('Ymdhi')) {
-                $output->writeln('Not the time to send. Programmed time is ' . $nextTimeToSend->format('Ymdhi') . 'a dnc urrent time is ' . date('Ymdhi'));
+                $output->writeln('Not the time to send. Programmed time is ' . $nextTimeToSend->format('YmdHi') . ' and current time is ' . date('YmdHi'));
                 // Now is not the time to send for this user, abort
                 continue;
             }

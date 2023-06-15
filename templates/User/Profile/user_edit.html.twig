@@ -22,7 +22,6 @@
 {% endblock %}
 
 {% block body %}
-
     <div class="row">
         {{ form_start(form) }}
 
@@ -39,6 +38,14 @@
                     {{ form_row(form.firstName) }}
                     {{ form_row(form.lastName) }}
                     {{ form_row(form.email) }}
+                </div>
+            </div>
+
+            {# More Info #}
+            <div class="box box-solid box-primary">
+                <div class="box-header">{{ 'user.profile.form_user.tab.moreInfo'|trans }}</div>
+                <div class="box-body">
+                    {{ moreInfos }}
                 </div>
             </div>
 
@@ -79,12 +86,17 @@
                                 {% endfor %}
                             </ul>
                         {% endif %}
+                        {% if app.user.moreInfos %}
+                            {% for mi in app.user.moreInfos %}
+                                <li>Vous êtes <strong>{{ mi|dictionary('user_user_moreInfo') }}</strong> sur votre structure</li>
+                            {% endfor %}
+                        {% endif %}
                     </ul>
                 </div>
             </div>
 
             {# SSO #}
-            {% if sso_title %}
+            {% if sso_title and sso_type %}
                 <div class="box box-solid box-primary">
                     <div class="box-header">
                         <h3 class="box-title">{{ 'user.profile.form_user.tab.login_delegation'|trans }}</h3>
@@ -123,18 +135,17 @@
                     </div>
                 {% endif %}
             {% endfor %}
-
+            {% if app_activate_notifications == 'true' %}
             {% include('@templates_path/User/Profile/notifications.html.twig') %}
+            {% endif %}
         </div>
     </div>
     {{ form_row(form._token) }}
-    <div class="col-md-12">
-        <div class="box box-solid">
-            <div class="box-body text-center">
-                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
-            </div>
+
+    <div class="box box-solid">
+        <div class="box-body text-center">
+            <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
         </div>
     </div>
 
-    </div>
 {% endblock %}

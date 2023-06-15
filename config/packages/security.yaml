@@ -42,6 +42,7 @@ security:
             logout:
                 path: /deconnexion
                 target: /
+                invalidate_session: false
             remember_me:
                 secret: '%env(APP_SECRET)%'
                 lifetime: 604800 # 1 week in seconds
@@ -76,9 +77,11 @@ security:
         - { path: ^/espace-documentaire/creer$, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/editer/.+$, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/supprimer/.+$, roles: ROLE_ADMIN }
+        - { path: ^/espace-documentaire/categorie, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/categorie/creer$, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/categorie/editer/.+$, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/categorie/supprimer/.+$, roles: ROLE_ADMIN }
+        - { path: ^/referentiel/.+$, roles: ROLE_ADMIN }
         # Manager routes
         - { path: ^/.+/creer$, roles: ROLE_USER }
         - { path: ^/.+/creer/.+$, roles: ROLE_USER }

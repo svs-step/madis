@@ -45,9 +45,7 @@ services:
         arguments:
             $sso_type: '%SSO_TYPE%'
 
-    App\EventSubscriber\LogoutSubscriber:
-        arguments:
-            $logoutUrl: '%SSO_LOGOUT_URL%'
+#    App\EventSubscriber\LogoutSubscriber:
 
     App\Application\Symfony\OpenApi\JwtDecorator:
         decorates: 'api_platform.openapi.factory'
@@ -59,6 +57,9 @@ services:
     aipd.form.flow.analyse_impact:
         class: App\Domain\AIPD\Form\Flow\AnalyseImpactFlow
 
+    maturity.form.flow.survey:
+      class: App\Domain\Maturity\Form\Flow\SurveyFlow
+
     aipd.model.analyse_impact:
         class: App\Domain\AIPD\Model\AnalyseImpact
 
@@ -68,8 +69,28 @@ services:
             $normalizer: '@App\Domain\Notification\Serializer\NotificationNormalizer'
             $userRepository: '@App\Domain\User\Repository\User'
             $security: '@Symfony\Component\Security\Core\Security'
+            $translator: '@Symfony\Contracts\Translation\TranslatorInterface'
+            $requestDays: '%env(APP_REQUEST_NOTIFICATION_DELAY_DAYS)%'
+            $surveyDays: '%env(APP_SURVEY_NOTIFICATION_DELAY_DAYS)%'
         tags: [ { name: doctrine.event_subscriber } ]
 
+    App\Domain\Notification\Subscriber\NotificationEventSubscriber:
+        arguments:
+            $notificationRepository: '@App\Infrastructure\ORM\Notification\Repository\Notification'
+            $notificationUserRepository: '@App\Infrastructure\ORM\Notification\Repository\NotificationUser'
+            $normalizer: '@App\Domain\Notification\Serializer\NotificationNormalizer'
+            $userRepository: '@App\Domain\User\Repository\User'
+            $translator: '@Symfony\Contracts\Translation\TranslatorInterface'
+            $requestDays: '%env(APP_REQUEST_NOTIFICATION_DELAY_DAYS)%'
+            $surveyDays: '%env(APP_SURVEY_NOTIFICATION_DELAY_DAYS)%'
+        tags: [ { name: event_subscriber } ]
+
+    App\Domain\Notification\Twig\Extension\NotificationExtension:
+        arguments:
+            $translator: '@translator'
+            $router: '@router'
+            $requestDays: '%env(APP_REQUEST_NOTIFICATION_DELAY_DAYS)%'
+            $surveyDays: '%env(APP_SURVEY_NOTIFICATION_DELAY_DAYS)%'
 
     App\Domain\AIPD\Model\AnalyseImpact: '@aipd.model.analyse_impact'
 imports:

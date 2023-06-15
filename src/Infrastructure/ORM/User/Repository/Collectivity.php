@@ -36,17 +36,11 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
 {
     use RepositoryUtils;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Collectivity::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findByIds(array $ids): array
     {
         $qb = $this->createQueryBuilder();
@@ -59,10 +53,7 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function findByTypes(array $types, ?Model\Collectivity $excludedCollectivity = null): array
+    public function findByTypes(array $types, Model\Collectivity $excludedCollectivity = null): array
     {
         $qb = $this->createQueryBuilder();
 
@@ -81,9 +72,6 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllActive(bool $active = true, array $order = [])
     {
         $qb = $this->createQueryBuilder();
@@ -184,9 +172,6 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
             case 'statut':
                 $queryBuilder->addOrderBy('o.active', $orderDir);
                 break;
-            case 'date_maj':
-                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
-                break;
             case 'nbr_agents':
                 $queryBuilder->addOrderBy('o.nbrAgents', $orderDir);
                 break;
@@ -195,6 +180,12 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
                 break;
             case 'nbr_cnil':
                 $queryBuilder->addOrderBy('o.nbrCnil', $orderDir);
+                // no break
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
                 break;
         }
     }
@@ -212,6 +203,9 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
                 case 'type':
                     $this->addWhereClause($queryBuilder, 'type', $search);
                     break;
+                case 'informations_complementaires':
+                    $this->addWhereClause($queryBuilder, 'informationsComplementaires', '%' . $search . '%', 'LIKE');
+                    break;
                 case 'siren':
                     $this->addWhereClause($queryBuilder, 'siren', '%' . $search . '%', 'LIKE');
                     break;
@@ -226,6 +220,16 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
                     break;
                 case 'population':
                     $this->addWhereClause($queryBuilder, 'population', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt BETWEEN :created_start_date AND :created_finish_date')
+                        ->setParameter('created_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('created_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt BETWEEN :updated_start_date AND :updated_finish_date')
+                        ->setParameter('updated_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('updated_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
             }
         }

@@ -1,0 +1,18 @@
+<div class="box box-solid box-warning">
+    <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_tools'|trans }}</h3></div>
+    <div class="box-body">
+        {% if tools|length > 0 %}
+            <ul>
+                {% for tool in tools %}
+                    <li>
+                        <a href="{{ path('registry_tool_show', { id: tool.id }) }}">
+                            {{ tool.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <span><i>{{ 'label.no_linked_tools'|trans }}</i></span>
+        {% endif %}
+    </div>
+</div>

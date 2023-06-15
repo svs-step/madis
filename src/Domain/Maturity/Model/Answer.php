@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Model;
 
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -31,23 +32,32 @@ class Answer
 {
     /**
      * @var UuidInterface
+     *
+     * @Serializer\Exclude
      */
     private $id;
 
-    /**
-     * @var int|null
-     */
-    private $response;
+    private string $name;
+
+    private int $position;
+
+    private ?string $recommendation;
+
+    private ?string $response;
 
     /**
      * @var Question|null
+     *
+     * @Serializer\Exclude
      */
     private $question;
 
     /**
-     * @var Survey|null
+     * @var Survey[]|iterable
+     *
+     * @Serializer\Exclude
      */
-    private $survey;
+    private $surveys;
 
     /**
      * Answer constructor.
@@ -55,6 +65,14 @@ class Answer
      * @throws \Exception
      */
     public function __construct()
+    {
+        $this->id             = Uuid::uuid4();
+        $this->name           = '';
+        $this->response       = '';
+        $this->recommendation = '';
+    }
+
+    public function deserialize(): void
     {
         $this->id = Uuid::uuid4();
     }
@@ -64,12 +82,12 @@ class Answer
         return $this->id;
     }
 
-    public function getResponse(): ?int
+    public function getResponse(): ?string
     {
         return $this->response;
     }
 
-    public function setResponse(?int $response): void
+    public function setResponse(?string $response): void
     {
         $this->response = $response;
     }
@@ -84,13 +102,48 @@ class Answer
         $this->question = $question;
     }
 
-    public function getSurvey(): ?Survey
+    public function getSurveys(): iterable
     {
-        return $this->survey;
+        return $this->surveys;
     }
 
-    public function setSurvey(?Survey $survey): void
+    public function setSurveys(iterable $surveys): void
     {
-        $this->survey = $survey;
+        $this->surveys = $surveys;
+    }
+
+    public function addSurvey(Survey $survey): void
+    {
+        $this->surveys[] = $survey;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getRecommendation(): ?string
+    {
+        return $this->recommendation;
+    }
+
+    public function setRecommendation(?string $recommendation): void
+    {
+        $this->recommendation = $recommendation;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): void
+    {
+        $this->position = $position;
     }
 }

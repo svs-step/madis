@@ -36,6 +36,7 @@ use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -61,6 +62,8 @@ class MesurementType extends AbstractType
     {
         /** @var Mesurement $mesurement */
         $mesurement = $options['data'] ?? null;
+        /** @var User $user */
+        $user = $this->security->getUser();
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'registry.mesurement.form.name',
@@ -158,9 +161,10 @@ class MesurementType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                'attr' => [
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_contractors',
                 ],
             ])
             ->add('treatments', EntityType::class, [
@@ -185,9 +189,10 @@ class MesurementType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                'attr' => [
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_traitement',
                 ],
             ])
             ->add('violations', EntityType::class, [
@@ -211,9 +216,10 @@ class MesurementType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                'attr' => [
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_violation',
                 ],
             ])
             ->add('requests', EntityType::class, [
@@ -237,16 +243,21 @@ class MesurementType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                'attr' => [
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_demande_personne',
                 ],
+            ])
+            ->add('updatedBy', HiddenType::class, [
+                'required' => false,
+                'data'     => $user ? $user->getFirstName() . ' ' . strtoupper($user->getLastName()) : '',
             ])
         ;
 
         if ($options['data']->getCollectivity()->isHasModuleTools()) {
             $builder->add('tools', EntityType::class, [
-                'label'         => 'registry.treatment.form.software',
+                'label'         => 'registry.treatment.form.tools',
                 'class'         => Tool::class,
                 'required'      => false,
                 'multiple'      => true,

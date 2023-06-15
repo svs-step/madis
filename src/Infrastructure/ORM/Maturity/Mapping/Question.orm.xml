@@ -10,8 +10,21 @@
         <id name="id" column="id" type="uuid"/>
 
         <field name="name" column="name"/>
+        <field name="position" column="position" type="integer"/>
+        <field name="option" column="option" type="boolean"/>
+        <field name="weight" column="weight" type="integer"/>
+        <field name="optionReason" column="option_reason" nullable="true" type="string"/>
 
-        <many-to-one field="domain" target-entity="App\Domain\Maturity\Model\Domain" inversed-by="questions"/>
+        <one-to-many field="answers" target-entity="App\Domain\Maturity\Model\Answer" mapped-by="question">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one field="domain" target-entity="App\Domain\Maturity\Model\Domain" inversed-by="questions">
+            <join-column on-delete="CASCADE"/>
+        </many-to-one>
 
     </entity>
 

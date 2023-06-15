@@ -87,8 +87,6 @@ class Violation implements Repository\Violation
     /**
      * Insert an object.
      *
-     * @param mixed $object
-     *
      * @throws \Exception
      */
     public function insert($object): void
@@ -100,8 +98,6 @@ class Violation implements Repository\Violation
     /**
      * Update an object.
      *
-     * @param mixed $object
-     *
      * @throws \Exception
      */
     public function update($object): void
@@ -111,8 +107,6 @@ class Violation implements Repository\Violation
 
     /**
      * Create an object.
-     *
-     * @return mixed
      */
     public function create()
     {
@@ -124,8 +118,6 @@ class Violation implements Repository\Violation
     /**
      * Remove an object.
      *
-     * @param mixed $object
-     *
      * @throws \Exception
      */
     public function remove($object): void
@@ -135,8 +127,6 @@ class Violation implements Repository\Violation
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findAll(bool $deleted = false): array
@@ -171,9 +161,6 @@ class Violation implements Repository\Violation
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Violation::class;
@@ -181,8 +168,6 @@ class Violation implements Repository\Violation
 
     /**
      * Add a where clause.
-     *
-     * @param mixed $value
      */
     protected function addWhereClause(QueryBuilder $qb, string $key, $value): QueryBuilder
     {
@@ -230,8 +215,6 @@ class Violation implements Repository\Violation
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findAllByCollectivity(Collectivity $collectivity, bool $deleted = false, array $order = [])
@@ -255,8 +238,6 @@ class Violation implements Repository\Violation
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findBy(array $criteria = [])
@@ -274,8 +255,6 @@ class Violation implements Repository\Violation
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Exception
      */
     public function findAllArchivedByCollectivity(Collectivity $collectivity, bool $archived = false, array $order = [])
@@ -292,9 +271,6 @@ class Violation implements Repository\Violation
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function countAllByCollectivity(Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
@@ -305,9 +281,6 @@ class Violation implements Repository\Violation
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findOneOrNullLastUpdateByCollectivity(Collectivity $collectivity): ?Model\Violation
     {
         $qb = $this->createQueryBuilder();
@@ -392,6 +365,7 @@ class Violation implements Repository\Violation
                 WHEN o.violationNatures LIKE \'%' . ViolationNatureDictionary::NATURE_INTEGRITY . '%\' THEN 1
                 WHEN o.violationNatures LIKE \'%' . ViolationNatureDictionary::NATURE_CONFIDENTIALITY . '%\' THEN 2
                 WHEN o.violationNatures LIKE \'%' . ViolationNatureDictionary::NATURE_AVAILABILITY . '%\' THEN 3
+
                 ELSE 4 END) AS HIDDEN hidden_violation_nature')
                     ->addOrderBy('hidden_violation_nature', $orderDir);
                 break;
@@ -414,6 +388,15 @@ class Violation implements Repository\Violation
                 ELSE 4 END) AS HIDDEN hidden_gravity')
                     ->addOrderBy('hidden_gravity', $orderDir);
                 break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
+            case 'inProgress':
+                $queryBuilder->addOrderBy('o.inProgress', $orderDir);
+                break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
         }
     }
 
@@ -426,18 +409,40 @@ class Violation implements Repository\Violation
                         ->setParameter('nom', '%' . $search . '%');
                     break;
                 case 'date':
-                    $queryBuilder->andWhere('o.date LIKE :date')
-                        ->setParameter('date', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    $queryBuilder->andWhere('o.date BETWEEN :date_start_date AND :date_finish_date')
+                        ->setParameter('date_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('date_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
                 case 'nature':
                     $queryBuilder->andWhere('o.violationNatures LIKE :nature')
                         ->setParameter('nature', '%' . $search . '%');
+                    break;
+                case 'inProgress':
+                    $this->addWhereClause($queryBuilder, 'inProgress', $search);
                     break;
                 case 'cause':
                     $this->addWhereClause($queryBuilder, 'cause', $search);
                     break;
                 case 'gravity':
                     $this->addWhereClause($queryBuilder, 'gravity', $search);
+                    break;
+                case 'notification':
+                    if ('none' == $search) {
+                        $queryBuilder->andWhere('o.notification IS NULL');
+                    } else {
+                        $this->addWhereClause($queryBuilder, 'notification', $search);
+                    }
+
+                    break;
+                case 'createdAt':
+                    $queryBuilder->andWhere('o.createdAt BETWEEN :created_start_date AND :created_finish_date')
+                        ->setParameter('created_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('created_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    break;
+                case 'updatedAt':
+                    $queryBuilder->andWhere('o.updatedAt BETWEEN :updated_start_date AND :updated_finish_date')
+                        ->setParameter('updated_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('updated_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
             }
         }

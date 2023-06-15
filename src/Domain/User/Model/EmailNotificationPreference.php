@@ -67,7 +67,7 @@ class EmailNotificationPreference
     public function __construct()
     {
         $this->id               = Uuid::uuid4();
-        $this->notificationMask = 0;
+        $this->notificationMask = 2047;     // All active by default. https://gitlab.adullact.net/soluris/madis/-/issues/632
         $this->enabled          = 1;
         $this->frequency        = 'none';
         $this->lastSent         = new \DateTime();

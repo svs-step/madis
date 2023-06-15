@@ -21,6 +21,9 @@ class ModeleScenarioMenaceType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 'label' => false,
+                'attr'  => [
+                    'maxlength' => 255,
+                ],
             ])
             ->add('mesuresProtections', EntityType::class, [
                 'required' => false,
@@ -30,7 +33,7 @@ class ModeleScenarioMenaceType extends AbstractType
                 'class'    => ModeleMesureProtection::class,
                 'attr'     => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'title' => 'placeholder.multiple_select_mesure_protection',
                 ],
             ])
             ->add('isVisible', CheckboxType::class, [
@@ -62,6 +65,9 @@ class ModeleScenarioMenaceType extends AbstractType
             ->add('precisions', TextType::class, [
                 'required' => false,
                 'label'    => false,
+                'attr'     => [
+                    'maxlength' => 255,
+                ],
             ])
         ;
     }

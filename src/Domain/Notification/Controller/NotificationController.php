@@ -30,7 +30,9 @@ use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Notification\Model;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Repository;
+use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Knp\Snappy\Pdf;
@@ -80,41 +82,26 @@ class NotificationController extends CRUDController
         $this->userProvider         = $userProvider;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'notification';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'notification';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Notification::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return '';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getListData()
     {
         $order = [
@@ -140,17 +127,14 @@ class NotificationController extends CRUDController
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function listDataTables(Request $request): JsonResponse
     {
         $user = $this->userProvider->getAuthenticatedUser();
 
         $criteria = [];
 
-        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $criteria['collectivity'] = $user->getCollectivity();
+        if (!$this->authorizationChecker->isGranted('ROLE_REFERENT')) {
+            $criteria['collectivity'] = new ArrayCollection([$user->getCollectivity(), null]);
         }
 
         if ($user) {
@@ -171,26 +155,43 @@ class NotificationController extends CRUDController
 
             $link = $this->getObjectLink($notification);
 
-            $objectHtml = '<span>' . $notification->getName() . '</span> ';
+            $nameHtml = '<span>' . $notification->getName() . '</span> ';
 
-            if ($link && 'delete' !== $notification->getAction()) {
-                $objectHtml = '<a href="' . $link . '">' . $notification->getName() . '</a>'
+            if ($link && 'notification.actions.delete' !== $notification->getAction() && $this->repository->objectExists($notification)) {
+                $nameHtml = '<a href="' . $link . '">' . $notification->getName() . '</a>'
                 ;
             }
 
-            $reponse['data'][] = [
-                'state'        => $notification->getReadAt() ? $read : $unread,
-                'module'       => $this->translator->trans($notification->getModule()),
-                'action'       => $this->translator->trans($notification->getAction()),
-                'name'         => $notification->getName(),
-                'object'       => $objectHtml,
-                'collectivity' => $this->authorizationChecker->isGranted('ROLE_REFERENT') ? $notification->getCollectivity()->getName() : '',
-                'date'         => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
-                'user'         => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
-                'read_date'    => $notification->getReadAt() ? $notification->getReadAt()->format('d-m-Y H:i:s') : '',
-                'read_by'      => $notification->getReadBy() ? $notification->getReadBy()->__toString() : '',
-                'actions'      => $this->generateActionCellContent($notification),
-            ];
+            if ($this->authorizationChecker->isGranted('ROLE_REFERENT') || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
+                $reponse['data'][] = [
+                    'state'        => $notification->getReadAt() ? $read : $unread,
+                    'module'       => $this->translator->trans($notification->getModule()),
+                    'action'       => $this->translator->trans($notification->getAction()),
+                    'name'         => $nameHtml,
+                    'object'       => $notification->getSubject(),
+                    'collectivity' => $this->authorizationChecker->isGranted('ROLE_REFERENT') && $notification->getCollectivity() ? $notification->getCollectivity()->getName() : '',
+                    'date'         => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
+                    'user'         => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
+                    'read_date'    => $notification->getReadAt() ? $notification->getReadAt()->format('d-m-Y H:i:s') : '',
+                    'read_by'      => $notification->getReadBy() ? $notification->getReadBy()->__toString() : '',
+                    'actions'      => $this->generateActionCellContent($notification),
+                ];
+            } else {
+                $notificationUser = $notification->getNotificationUsers()->findFirst(function ($i, Model\NotificationUser $nu) use ($user) {
+                    return $nu->getUser() && $nu->getUser()->getId() === $user->getId();
+                });
+
+                $reponse['data'][] = [
+                    'state'   => $notificationUser->getReadAt() ? $read : $unread,
+                    'module'  => $this->translator->trans($notification->getModule()),
+                    'action'  => $this->translator->trans($notification->getAction()),
+                    'name'    => $nameHtml,
+                    'object'  => $notification->getSubject(),
+                    'date'    => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
+                    'user'    => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
+                    'actions' => $this->generateActionCellContent($notification),
+                ];
+            }
         }
 
         return new JsonResponse($reponse);
@@ -203,16 +204,44 @@ class NotificationController extends CRUDController
         $user = $this->userProvider->getAuthenticatedUser();
         $html = '';
 
-        if (null === $notification->getReadAt()) {
-            $html .= '<a href="' . $this->router->generate('notification_notification_mark_as_read', ['id' => $id]) . '">
+        if (
+            in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_REFERENT', $user->getRoles())
+            || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())
+        ) {
+            if (null === $notification->getReadAt()) {
+                $html .= '<a href="' . $this->router->generate('notification_notification_mark_as_read', ['id' => $id]) . '">
 <i class="fas fa-clipboard-check"></i>&nbsp;
                 ' . $this->translator->trans('notification.notification.action.mark_as_read') . '
                 </a>';
+            } else {
+                $html .= ' <a href="' . $this->router->generate('notification_notification_mark_as_unread', ['id' => $id]) . '">
+<i class="fas fa-clipboard"></i>&nbsp;
+                ' . $this->translator->trans('notification.notification.action.mark_as_unread') . '
+                </a>';
+            }
+        } else {
+            $notificationUser = $notification->getNotificationUsers()->findFirst(function ($i, Model\NotificationUser $nu) use ($user) {
+                return $nu->getUser() && $nu->getUser()->getId() === $user->getId();
+            });
+            if ($notificationUser && null === $notificationUser->getReadAt()) {
+                $html .= '<a href="' . $this->router->generate('notification_notification_mark_as_read', ['id' => $id]) . '">
+<i class="fas fa-clipboard-check"></i>&nbsp;
+                ' . $this->translator->trans('notification.notification.action.mark_as_read') . '
+                </a>';
+            } else {
+                $html .= ' <a href="' . $this->router->generate('notification_notification_mark_as_unread', ['id' => $id]) . '">
+<i class="fas fa-clipboard"></i>&nbsp;
+                ' . $this->translator->trans('notification.notification.action.mark_as_unread') . '
+                </a>';
+            }
         }
 
-        return $html;
+        $html .= ' <a href="' . $this->router->generate('notification_notification_delete', ['id' => $id]) . '">
+<i class="fas fa-trash"></i>&nbsp;
+                ' . $this->translator->trans('notification.notification.action.delete') . '
+                </a>';
 
-        return null;
+        return $html;
     }
 
     /**
@@ -230,15 +259,26 @@ class NotificationController extends CRUDController
      */
     public function markAsReadAllAction(Request $request)
     {
-        $notifs = $this->repository->findAll();
-
-        foreach ($notifs as $notif) {
-            $isRead = $notif->getReadAt();
-            if (null == $isRead) {
-                $notif->setReadAt(new \DateTime());
-                $notif->setReadBy($this->getUser());
+        $notifications = $this->repository->findAll();
+        $user          = $this->userProvider->getAuthenticatedUser();
+        foreach ($notifications as $notification) {
+            if (is_array($notification)) {
+                $notification = $notification[0];
+            }
+            if ($notification->getDpo() && (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_REFERENT', $user->getRoles()) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos()))) {
+                $notification->setReadAt(new \DateTime());
+                $notification->setReadBy($this->getUser());
+            } else {
+                $nu = $notification->getNotificationUsers()->findFirst(function ($i, $n) use ($user) {
+                    /* @var Model\NotificationUser $n */
+                    return $n->getUser() && $n->getUser()->getId() === $user->getId();
+                });
+                if ($nu) {
+                    $nu->setReadAt(new \DateTime());
+                }
             }
         }
+
         $this->entityManager->flush();
 
         $this->addFlash('success', $this->getFlashbagMessage('success', 'markall'));
@@ -254,14 +294,28 @@ class NotificationController extends CRUDController
      */
     public function markAsReadAction(Request $request, string $id)
     {
-        $notif = $this->repository->findOneByID($id);
-        if (!$notif) {
+        $notification = $this->repository->findOneByID($id);
+        if (!$notification) {
             throw new NotFoundHttpException('Notification introuvable');
         }
 
-        $notif->setReadAt(new \DateTime());
-        $notif->setReadBy($this->getUser());
-        $this->entityManager->flush();
+        $user = $this->userProvider->getAuthenticatedUser();
+
+        if ($notification->getDpo() && (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_REFERENT', $user->getRoles()) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos()))) {
+            $notification->setReadAt(new \DateTime());
+            $notification->setReadBy($this->getUser());
+            $this->entityManager->flush();
+        } else {
+            $nu = $notification->getNotificationUsers()->findFirst(function ($i, $n) use ($user) {
+                /* @var Model\NotificationUser $n */
+                return $n->getUser() && $n->getUser()->getId() === $user->getId();
+            });
+            if ($nu) {
+                $nu->setReadAt(new \DateTime());
+                $this->entityManager->flush();
+            }
+        }
+
         $referer = $request->headers->get('referer');
 
         return $this->redirect($referer);
@@ -272,14 +326,26 @@ class NotificationController extends CRUDController
      */
     public function markAsUnreadAction(Request $request, string $id)
     {
-        $notif = $this->repository->findOneByID($id);
-        if (!$notif) {
+        $notification = $this->repository->findOneByID($id);
+        if (!$notification) {
             throw new NotFoundHttpException('Notification introuvable');
         }
-
-        $notif->setReadAt(null);
-        $notif->setReadBy(null);
-        $this->entityManager->flush();
+        $user = $this->userProvider->getAuthenticatedUser();
+        if ($notification->getDpo() && (in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_REFERENT', $user->getRoles()) || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos()))) {
+            $notification->setReadAt(null);
+            $notification->setReadBy(null);
+            $this->entityManager->flush();
+        } else {
+            $user = $this->userProvider->getAuthenticatedUser();
+            $nu   = $notification->getNotificationUsers()->findFirst(function ($i, $n) use ($user) {
+                /* @var Model\NotificationUser $n */
+                return $n->getUser() && $n->getUser()->getId() === $user->getId();
+            });
+            if ($nu) {
+                $nu->setReadAt(null);
+                $this->entityManager->flush();
+            }
+        }
         $referer = $request->headers->get('referer');
 
         return $this->redirect($referer);
@@ -287,27 +353,80 @@ class NotificationController extends CRUDController
 
     protected function getLabelAndKeysArray(): array
     {
+        $user = $this->userProvider->getAuthenticatedUser();
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT') || in_array(UserMoreInfoDictionary::MOREINFO_DPD, $user->getMoreInfos())) {
+            return [
+                'state',
+                'module',
+                'action',
+                'name',
+                'object',
+                'collectivity',
+                'date',
+                'user',
+                'read_date',
+                'read_by',
+            ];
+        }
+
         return [
             'state',
             'module',
             'action',
             'name',
             'object',
-            'collectivity',
             'date',
             'user',
-            'read_date',
-            'read_by',
         ];
     }
 
     private function getObjectLink(Notification $notification): string
     {
         try {
+            if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.validation' === $notification->getAction()) {
+                return $this->router->generate('aipd_analyse_impact_validation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
+            if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.state_change' === $notification->getAction()) {
+                return $this->router->generate('aipd_analyse_impact_evaluation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
+            if ('notification.modules.document' === $notification->getModule() && 'notification.actions.delete' !== $notification->getAction()) {
+                return $notification->getObject()->url;
+            }
+            if ('notification.modules.action_plan' === $notification->getModule()) {
+                return $this->router->generate('registry_mesurement_show', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
+
             return $this->router->generate($this->getRouteForModule($notification->getModule()), ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
         } catch (\Exception $e) {
             return '';
         }
+    }
+
+    public function deleteConfirmationAction(string $id): Response
+    {
+        /** @var Notification $notification */
+        $notification = $this->repository->findOneById($id);
+        if (!$notification) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+        if ($notification->getDpo()) {
+            $this->entityManager->remove($notification);
+            $this->entityManager->flush();
+        } else {
+            $user = $this->userProvider->getAuthenticatedUser();
+            $nu   = $notification->getNotificationUsers()->findFirst(function ($i, $n) use ($user) {
+                /* @var Model\NotificationUser $n */
+                return $n->getUser()->getId() === $user->getId();
+            });
+            if ($nu) {
+                $this->entityManager->remove($nu);
+                $this->entityManager->flush();
+            }
+        }
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $notification));
+
+        return $this->redirectToRoute($this->getRouteName('list'));
     }
 
     private function getRouteForModule($module): string
@@ -330,7 +449,7 @@ class NotificationController extends CRUDController
                 return 'user_user_edit';
             case 'notification.modules.documentation':
             case 'notification.modules.document':
-                return 'documentation_document_edit';
+                return 'documentation_document_download';
             case 'notification.modules.maturity':
                 return 'maturity_survey_edit';
         }

@@ -6,7 +6,7 @@ maturity_survey_list:
 maturity_survey_create:
     path: '/creer'
     methods: ['GET', 'POST']
-    controller: 'App\Domain\Maturity\Controller\SurveyController:createAction'
+    controller: 'App\Domain\Maturity\Controller\SurveyController:createMaturitySurveyAction'
 
 maturity_survey_edit:
     path: '/editer/{id}'
@@ -27,3 +27,14 @@ maturity_survey_delete_confirm:
     path: '/supprimer/{id}/confirmation'
     methods: ['GET']
     controller: 'App\Domain\Maturity\Controller\SurveyController:deleteConfirmationAction'
+
+maturity_survey_start:
+    path: '/commencer'
+    methods: [ 'GET', 'POST' ]
+    controller: 'App\Domain\Maturity\Controller\SurveyController:startSurveyAction'
+
+maturity_survey_referentiel_datatables:
+    path: '/referentiel_datatables'
+    methods: [ 'POST' ]
+    controller: 'App\Domain\Maturity\Controller\SurveyController:referentielsDatatablesAction'
+

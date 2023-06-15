@@ -449,9 +449,8 @@
             {% endfor %}
             </tbody>
         </table>
+        <div>Le graphique ci-dessous indique les points d’amélioration nécessaires au respect des principes fondamentaux du règlement.</div>
         <div class="reportGraph"><canvas id="grandsDomaines-chart"></canvas></div>
-        <div>Le graphique indique les points d’amélioration nécessaires au respect des principes fondamentaux du règlement.</div>
-
         <div  style="page-break-before: always;"></div>
         <h2>4. Études des risques liés à la sécurité des données</h2>
         <div>Ce chapitre a pour objectifs d'obtenir une bonne connaissance des mesures contribuant à la sécurité et d'apprécier les risques.</div>
@@ -588,12 +587,20 @@
                         <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
                         <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
                     </tr>
+                    {% set mesureProtectionNotNegligeable = [] %}
                     {% for scenario in object.scenarioMenaces|sort((a, b) => a.nom >= b.nom) %}
-                        <tr>
-                            <td>{{ scenario.nom }}</td>
-                            <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
-                            <td>{{ getScenarioMenaceImpactResiduelLabel(scenario)|raw }}</td>
-                        </tr>
+                        {% if isScenarioMenaceImpactResiduelImpactNotNegligeable(scenario) %}
+                            {% for mesure in scenario.mesuresProtections %}
+                                {% if mesure not in mesureProtectionNotNegligeable %}
+                                    {% set mesureProtectionNotNegligeable = mesureProtectionNotNegligeable|merge([mesure]) %}
+                                {% endif %}
+                            {% endfor %}
+                            <tr>
+                                <td>{{ scenario.nom }}</td>
+                                <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>
+                                <td>{{ getScenarioMenaceImpactResiduelLabel(scenario)|raw }}</td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 </table>
             </div>
@@ -606,16 +613,14 @@
             <div class="box-body">
                 <table class="table table-bordered" style="page-break-inside: avoid">
                     <tr>
-                        <th>Label livrable</th>
+                        <th>Mesure</th>
                         <th>Préconisations</th>
                     </tr>
-                    {% for mesure in object.mesureProtections|sort((a, b) => a.labelLivrable >= b.labelLivrable) %}
-                        {% if (getMeasureImpactResiduel(mesure.poidsGravite,mesure.poidsVraisemblance) is not same as 1) %}
-                            <tr>
-                                <td>{{ mesure.labelLivrable }}</td>
-                                <td>{{ mesure.phrasePreconisation }}</td>
-                            </tr>
-                        {% endif %}
+                    {% for mesure in mesureProtectionNotNegligeable|sort((a, b) => a.labelLivrable >= b.labelLivrable) %}
+                         <tr>
+                            <td>{{ mesure.labelLivrable }}</td>
+                            <td>{{ mesure.phrasePreconisation }}</td>
+                         </tr>
                     {% endfor %}
                 </table>
             </div>
@@ -636,7 +641,7 @@
         </table>
         <table class="table table-bordered">
             <tr>
-                <td class="table-bluecell">Avis du DPD</td>
+                <td class="table-bluecell">Avis du délégué à la protection des données</td>
                 <td>{{ object.avisDpd.reponse|dictionary('reponse_avis') }}</td>
             </tr>
             <tr><td colspan="2">{{ object.avisDpd.date|date('d/m/Y') }}</td></tr>
@@ -654,7 +659,7 @@
         </table>
         <table class="table table-bordered">
             <tr>
-                <td class="table-bluecell">Décision du RT</td>
+                <td class="table-bluecell">Décision du responsable de traitement</td>
                 <td>{{ object.avisResponsable.reponse|dictionary('reponse_avis') }}</td>
             </tr>
             <tr><td colspan="2">{{ object.avisResponsable.date|date('d/m/Y') }}</td></tr>
@@ -1052,7 +1057,13 @@
                             </tr>
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.software'|trans }}</strong></td>
-                                <td>{{ traitement.tools }}</td>
+                                <td>
+                                    {% if traitement.collectivity.hasModuleTools %}
+                                        {{ traitement.tools|map(t => t.name)|join(', ') }}
+                                    {% else %}
+                                        {{ traitement.software }}
+                                    {% endif %}
+                                </td>
                             </tr>
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.paper_processing'|trans }}</strong></td>
@@ -1171,7 +1182,6 @@
                                         <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
-                                </td>
                             </tr>
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.security_open_accounts'|trans }}</strong></td>
@@ -1250,7 +1260,7 @@
                             <ul>
                                 {% for violation in activeViolations %}
                                     <li>
-                                        {{ violation.date|date('d/m/Y') }} | {{ ("label.violation_" ~ violation.violationNature)|trans  }}
+                                        {{ violation.date|date('d/m/Y') }} | {{ violation.violationNatures|map(n => ("label.violation_" ~ n)|trans)|join(', ') }}
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -1521,13 +1531,24 @@
                 datasets: data,
             },
             options: {
+                layout: {
+                    padding: {
+                        left: 50,
+                        right: 50,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
                 scales: {
                     yAxes: [{
+                        gridLines: {
+                            offsetGridLines: true
+                        },
                         ticks : {
                             beginAtZero: true,
                             stepSize: 1,
                             min: 0,
-                            max: 4,
+                            max: 3,
                         },
                         scaleLabel: {
                             display: true,
@@ -1535,16 +1556,19 @@
                         }
                     }],
                     xAxes: [{
+                        gridLines: {
+                            offsetGridLines: true
+                        },
                         ticks : {
                             beginAtZero: true,
                             stepSize: 1,
                             min: 0,
-                            max: 4,
+                            max: 3,
                         },
                         scaleLabel: {
                             display: true,
                             labelString: 'Vraisemblance',
-                        }
+                        },
                     }],
                 },
                 animation: {
@@ -1591,6 +1615,7 @@
     var risquesDataSet1 = [];
     var risquesDataSet2 = [];
     var dicResiduelsData = [];
+    var risquesResiduelsLabels = [];
 
     var dispoGravity = 0;
     var dispoVraisemblance = 0;
@@ -1607,20 +1632,32 @@
         {% if (scenario.isDisponibilite) %}
             dispoGravity = gravite > dispoGravity ? gravite : dispoGravity;
             dispoVraisemblance = vraisemblance > dispoVraisemblance ? vraisemblance : dispoVraisemblance;
+            // P(x,y) => si x>0,6 alors x=x-0,5 si y>0,6 alors y=y-0,5
+            // https://gitlab.adullact.net/soluris/madis/-/issues/635
+            dispoGravity = dispoGravity > 0.6 ? dispoGravity - 0.5 : dispoGravity
+            dispoVraisemblance = dispoVraisemblance > 0.6 ? dispoVraisemblance - 0.5 : dispoVraisemblance
         {% endif %}
         {% if (scenario.isIntegrite) %}
             integrityGravity = gravite > integrityGravity ? gravite : integrityGravity;
             integrityVraisemblance = vraisemblance > integrityVraisemblance ? vraisemblance : integrityVraisemblance;
+            // P(x,y) => si x>0,6 alors x=x-0,5 si y>0,6 alors y=y-0,5
+            // https://gitlab.adullact.net/soluris/madis/-/issues/635
+            integrityGravity = integrityGravity > 0.6 ? integrityGravity - 0.5 : integrityGravity
+            integrityVraisemblance = integrityVraisemblance > 0.6 ? integrityVraisemblance - 0.5 : integrityVraisemblance
         {% endif %}
         {% if (scenario.isConfidentialite) %}
             confidentialityGravity = gravite > confidentialityGravity ? gravite : confidentialityGravity;
             confidentialityVraisemblance = vraisemblance > confidentialityVraisemblance ? vraisemblance : confidentialityVraisemblance;
+
+            confidentialityGravity = confidentialityGravity > 0.6 ? confidentialityGravity - 0.5 : confidentialityGravity
+            confidentialityVraisemblance = confidentialityVraisemblance > 0.6 ? confidentialityVraisemblance - 0.5 : confidentialityVraisemblance
         {% endif %}
 
         {%  set rr = getScenarioMenaceImpactResiduel(scenario) %}
         {%  set rp = getScenarioMenaceImpactPotentiel(scenario) %}
         risquesDataSet1.push({{ rp-rr }})
         risquesDataSet2.push({{ rr }});
+        risquesResiduelsLabels.push("{{ scenario.nom|u.truncate(28, '...') }}");
     {% endfor %}
     dicResiduelsData.push({
         label: "Disponibilité",
@@ -1653,7 +1690,7 @@
     window.onload = function() {
         radarChart("grandsDomaines-chart", domainesLabels, [''], domainesDatas, [colorBlue]);
         radarChart('mesuresSecurite-chart', mesuresLabels, [''], mesuresDatas, [colorPurple]);
-        stackedBarChart("risquesResiduels-chart", risquesLabels, risquesDatas);
+        stackedBarChart("risquesResiduels-chart", risquesResiduelsLabels, risquesDatas);
         bubbleChart('dicResiduels-chart', risquesLabels, dicResiduelsData);
     };
 

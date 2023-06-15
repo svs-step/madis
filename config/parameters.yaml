@@ -48,4 +48,3 @@ parameters:
     SSO_TYPE: '%env(default:DEFAULT_SSO_TYPE:OAUTH_TYPE)%'
     DEFAULT_SSO_KEY_FIELD: 'sub'
     SSO_KEY_FIELD: '%env(default:DEFAULT_SSO_KEY_FIELD:SSO_KEY_FIELD)%'
-    SSO_LOGOUT_URL: '%env(SSO_LOGOUT_URL)%'

@@ -15,5 +15,11 @@
         <field name="detail" column="detail" length="1024"/>
         <field name="poidsVraisemblance" column="poids_vraisemblance" type="integer"/>
         <field name="poidsGravite" column="poids_gravite" type="integer"/>
+        <field name="createdAt" column="created_at" type="datetime_immutable">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" column="updated_at" type="datetime_immutable">
+            <gedmo:timestampable on="update"/>
+        </field>
     </mapped-superclass>
 </doctrine-mapping>

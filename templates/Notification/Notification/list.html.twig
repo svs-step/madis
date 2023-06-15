@@ -22,21 +22,17 @@
 {% endblock %}
 
 {% block body %}
-    <div class="dt-button-background" style=""></div>
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
                     <div style="float:right">
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
-                        {% endif %}
+                        <a style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
                     </div>
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                <th>
+                                <th scope="col">
                                     <select class="form-control" id="search_state" style="width: 100%;">
                                         <option value="" selected>{{ 'notification.notification.list.state'|trans }}</option>
                                         {% for key, subject in dictionary('notifications_notification_state') %}
@@ -44,68 +40,75 @@
                                         {% endfor %}
                                     </select>
                                 </th>
-                                {% endif %}
-                                <th>
+                                <th scope="col">
                                     <select class="form-control" id="search_module" style="width: 100%;">
                                         <option value="" selected>{{ 'notification.notification.list.module'|trans }}</option>
-                                        {% for key, subject in dictionary('notificationModule') %}
-                                            <option value="{{ key }}">{{ subject }}</option>
-                                        {% endfor %}
+                                        {% if is_granted('ROLE_REFERENT') or 'MOREINFO_DPD' in app.user.moreInfos %}
+                                            {% for key, subject in dictionary('notificationModule') %}
+                                                <option value="{{ key }}">{{ subject }}</option>
+                                            {% endfor %}
+                                        {% else %}
+                                            {% for key, subject in dictionary('notificationUserModule') %}
+                                                <option value="{{ key }}">{{ subject }}</option>
+                                            {% endfor %}
+                                        {% endif %}
                                     </select>
                                 </th>
-                                <th>
+                                <th scope="col">
                                     <select class="form-control" id="search_action" style="width: 100%;">
                                         <option value="" selected>{{ 'notification.notification.list.action'|trans }}</option>
-                                        {% for key, subject in dictionary('notificationAction') %}
-                                            <option value="{{ key }}">{{ subject }}</option>
-                                        {% endfor %}
+                                        {% if is_granted('ROLE_REFERENT') or 'MOREINFO_DPD' in app.user.moreInfos %}
+                                            {% for key, subject in dictionary('notificationAction') %}
+                                                <option value="{{ key }}">{{ subject }}</option>
+                                            {% endfor %}
+                                        {% else %}
+                                            {% for key, subject in dictionary('notificationActionUser') %}
+                                                <option value="{{ key }}">{{ subject }}</option>
+                                            {% endfor %}
+                                        {% endif %}
                                     </select>
                                 </th>
-                                <th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
                                 </th>
-                                <th>
-                                    <select class="form-control" id="search_object" style="width: 100%;">
-                                        <option value="" selected>{{ 'notification.notification.list.object'|trans }}</option>
-                                        {# {% for key, subject in dictionary('documentation_document_type') %}
-                                            <option value="{{ key }}">{{ subject }}</option>
-                                        {% endfor %} #}
-                                    </select>
+                                <th scope="col">
+                                    <input class="form-control" type="text" id="search_object" placeholder="Objet" style="width: 100%;">
                                 </th>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
                                 </th>
                                 {% endif %}
-                                <th><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
-                                <th>
+                                <th scope="col"><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_user_name" placeholder="Nom" style="width: 100%;">
                                 </th>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                <th><input class="datepicker form-control" type="text" id="search_read_at" placeholder="Date" style="width: 100%;"></th>
-                                <th>
+                                <th scope="col">
+                                    <input class="datepicker form-control" type="text" id="search_read_at" placeholder="Date" style="width: 100%;">
+                                </th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_read_by" placeholder="Nom" style="width: 100%;">
                                 </th>
                                 {% endif %}
                             </tr>
                             <tr>
+                                <th scope="col">{{ 'notification.notification.list.state'|trans }}</th>
+                                <th scope="col">{{ 'notification.notification.list.module'|trans }}</th>
+                                <th scope="col">{{ 'notification.notification.list.action'|trans }}</th>
+                                <th scope="col">{{ 'notification.notification.list.name'|trans }}</th>
+                                <th scope="col">{{ 'notification.notification.list.object'|trans }}</th>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <th>{{ 'notification.notification.list.state'|trans }}</th>
+                                <th scope="col">{{ 'notification.notification.list.collectivity'|trans }}</th>
                                 {% endif %}
-                                <th>{{ 'notification.notification.list.module'|trans }}</th>
-                                <th>{{ 'notification.notification.list.action'|trans }}</th>
-                                <th>{{ 'notification.notification.list.name'|trans }}</th>
-                                <th>{{ 'notification.notification.list.object'|trans }}</th>
+                                <th scope="col">{{ 'notification.notification.list.date'|trans }}</th>
+
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <th>{{ 'notification.notification.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'notification.notification.list.user'|trans }}</th>
+                                <th scope="col">{{ 'notification.notification.list.read_date'|trans }}</th>
+                                <th scope="col">{{ 'notification.notification.list.read_by'|trans }}</th>
                                 {% endif %}
-                                <th>{{ 'notification.notification.list.date'|trans }}</th>
-                                <th>{{ 'notification.notification.list.user'|trans }}</th>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                <th>{{ 'notification.notification.list.read_date'|trans }}</th>
-                                <th>{{ 'notification.notification.list.read_by'|trans }}</th>
-                                <th>{{ 'label.actions'|trans }}</th>
-                                {% endif %}
+                                <th scope="col">{{ 'label.actions'|trans }}</th>
                             </tr>
                         </thead>
 
@@ -120,8 +123,13 @@
 {% block javascripts %}
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
 
-    {% set dataTableOptions = {
-        columns: [
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set order = [[6, 'desc']] %}
+        {% set coldefs = [{
+            targets: 10,
+            className: 'noVis'
+        }] %}
+        {% set columns = [
             {"data": "state"},
             {"data": "module"},
             {"data": "action"},
@@ -132,8 +140,28 @@
             {"data": "user"},
             {"data": "read_date"},
             {"data": "read_by"},
-            {"data": "actions", "orderable": false, "className": "noVis",},
-        ],
+            {"data": "actions", "orderable": false, "className": "noVis actions",},
+        ] %}
+    {% else %}
+        {% set columns = [
+            {"data": "state"},
+            {"data": "module"},
+            {"data": "action"},
+            {"data": "name"},
+            {"data": "object"},
+            {"data": "date"},
+            {"data": "actions", "orderable": false, "className": "noVis actions",},
+        ] %}
+        {% set order = [[5, 'desc']] %}
+        {% set coldefs = [{
+            targets: 6,
+            className: 'noVis'
+        }] %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: columns,
+        order: order,
 
         language: {
             buttons: {
@@ -141,12 +169,7 @@
             },
         },
         dom: 'Bfrtip',
-        columnDefs: [
-            {
-                targets: 4,
-                className: 'noVis'
-            }
-        ],
+        columnDefs: coldefs,
         buttons: [
             {
                 extend: 'colvis',
@@ -158,9 +181,7 @@
     {{ include('_Utils/_serverside_datatable.html.twig') }}
 <script>
     const isAdmin = {{ is_granted('ROLE_ADMIN')|json_encode() }}
-
-
-
+        
     function resetFilters() {
             $('[id^=search_]').each(function() {
                 $(this).val('');
@@ -171,7 +192,6 @@
         function setEvents() {
             var oTable = $('#table').DataTable();
 
-            // NON LU SEULEMENT
             $('#search_state').off('change');
             $('#search_state').change(function(){
                 oTable.column('0').search($(this).val()).draw();
@@ -179,18 +199,27 @@
 
             $('#search_module').off('change');
             $('#search_module').change(function(){
-                oTable.column(isAdmin ? '1' : '0').search($(this).val()).draw();
+                oTable.column('1').search($(this).val()).draw();
             });
 
             $('#search_action').off('change');
             $('#search_action').change(function(){
-                oTable.column(isAdmin ? '2' : '1').search($(this).val()).draw();
+                oTable.column('2').search($(this).val()).draw();
             });
 
             $('#search_name').off('keyup');
             $('#search_name').keyup($.debounce(250, function(){
-                oTable.column(isAdmin ? '3' : '2').search($(this).val()).draw();
+                oTable.column('3').search($(this).val()).draw();
             }));
+
+            $('#search_object').off('keyup');
+            $('#search_object').keyup($.debounce(250, function(){
+                oTable.column('4').search($(this).val()).draw();
+            }));
+
+            {% if is_granted('ROLE_ADMIN') %}
+            // NON LU SEULEMENT
+
 
             $('#search_collectivity').off('keyup');
             $('#search_collectivity').keyup($.debounce(250, function(){
@@ -199,28 +228,45 @@
 
             $('#search_date').off('change');
             $('#search_date').change(function(){
-                isAdmin ? oTable.column('6').search($(this).val()).draw() : oTable.column('4').search($(this).val()).draw() ;
+                oTable.column('6').search($(this).val()).draw();
             });
 
             $('#search_user_name').off('keyup');
             $('#search_user_name').keyup($.debounce(250, function(){
-                isAdmin && oTable.column('7').search($(this).val()).draw();
+                oTable.column('7').search($(this).val()).draw();
             }));
 
             $('#search_read_at').off('change');
             $('#search_read_at').change(function(){
-                isAdmin && oTable.column('8').search($(this).val()).draw()
+                oTable.column('8').search($(this).val()).draw()
             });
 
             $('#search_read_by').off('keyup');
             $('#search_read_by').keyup($.debounce(250, function(){
-                isAdmin && oTable.column('9').search($(this).val()).draw();
+                oTable.column('9').search($(this).val()).draw();
             }));
 
+            {% else %}
+
+
+
+
+            $('#search_date').off('change');
+            $('#search_date').change(function(){
+                oTable.column('5').search($(this).val()).draw() ;
+            });
+
+            $('#search_user_name').off('keyup');
+            $('#search_user_name').keyup($.debounce(250, function(){
+                oTable.column('6').search($(this).val()).draw();
+            }));
+
+            {% endif %}
 
         }
 
         $(document).ready(function() {
+
             $('#table_filter').hide();
             $('.dt-button-background').hide();
             $('.dt-button-collection').hide();
@@ -250,6 +296,7 @@
 
 
     $('#table').on('column-visibility.dt', function() {
+        console.log('set events')
         setEvents();
     } );
 

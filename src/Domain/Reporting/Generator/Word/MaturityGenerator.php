@@ -24,6 +24,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Generator\Word;
 
+use App\Domain\Maturity\Model\Answer;
+use App\Domain\Maturity\Model\OptionalAnswer;
+use App\Domain\Maturity\Model\Survey;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shared\Converter;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
@@ -142,9 +145,6 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $cell->addText("{$data['new']}", ['align' => 'right', 'color' => '3c8dbc']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addSyntheticView(Section $section, array $data): void
     {
         $maturityList = [];
@@ -179,7 +179,6 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             $tableData[0][] = $this->getDate($data['old']->getCreatedAt(), 'd/m/Y');
         }
         $tableData[0][] = $this->getDate($data['new']->getCreatedAt(), 'd/m/Y');
-
         // Table data + radar data
         foreach ($maturityList as $position => $score) {
             $row   = [];
@@ -188,9 +187,11 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
                 $row[]    = $score['old'] / 10; // Display comma with 1 digit precision
                 $serie2[] = $score['old'] / 10;
             }
-            $row[]       = $score['new'] / 10; // Display comma with 1 digit precision
-            $serie1[]    = $score['new'] / 10;
-            $tableData[] = $row;
+            if (isset($score['new'])) {
+                $row[]       = $score['new'] / 10; // Display comma with 1 digit precision
+                $serie1[]    = $score['new'] / 10;
+                $tableData[] = $row;
+            }
         }
         // Display
         $section->addTitle('Vue d\'ensemble', 1);
@@ -214,9 +215,6 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $section->addPageBreak();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addDetailedView(Section $section, array $data): void
     {
         $section->addTitle('Détail', 1);
@@ -228,9 +226,16 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
         // Order data
         $ordered = [];
+        /**
+         * @var int    $key
+         * @var Survey $survey
+         */
         foreach ($data as $key => $survey) {
             foreach ($survey->getAnswers() as $answer) {
                 $ordered[$answer->getQuestion()->getDomain()->getName()][$answer->getQuestion()->getName()][$key] = $answer;
+            }
+            foreach ($survey->getOptionalAnswers() as $optionalAnswer) {
+                $ordered[$optionalAnswer->getQuestion()->getDomain()->getName()][$optionalAnswer->getQuestion()->getName()][$key] = $optionalAnswer;
             }
         }
 
@@ -255,8 +260,12 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             foreach ($questions as $questionName => $questionItem) {
                 $table   = [];
                 $table[] = $questionName;
+                /**
+                 * @var string                $newOld
+                 * @var Answer|OptionalAnswer $answer
+                 */
                 foreach ($questionItem as $newOld => $answer) {
-                    $table[$index[$newOld]] = \constant(\get_class($this) . "::RESPONSE_{$answer->getResponse()}");
+                    $table[$index[$newOld]] = Answer::class === get_class($answer) ? $answer->getName() : 'Non concerné : ' . $answer->getReason();
                 }
                 \ksort($table);
                 $parsedData[] = $table;

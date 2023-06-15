@@ -47,9 +47,6 @@ class FooCsvGeneratorTest extends TestCase
 
 class FooCsvGenerator extends AbstractGenerator
 {
-    /**
-     * {@inheritdoc}
-     */
     public function initializeExtract(): array
     {
         return [['header1'], ['data1']];

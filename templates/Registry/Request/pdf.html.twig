@@ -20,7 +20,7 @@
             <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.request'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.request.show.object'|trans }}</strong></td>
@@ -77,7 +77,7 @@
             <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.answer'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.request.show.answer_response'|trans }}</strong></td>
@@ -91,10 +91,12 @@
                             <td><strong>{{ 'registry.request.show.answer_type'|trans }}</strong></td>
                             <td>{% if object.answer.type is not null %}{{ object.answer.type|dictionary('registry_request_answer_type') }}{% endif %}</td>
                         </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.request.show.state'|trans }}</strong></td>
-                            <td>{{ object.state|dictionary('registry_request_state') }}</td>
-                        </tr>
+                        {% if object.state is not same as "" %}
+                            <tr>
+                                <td><strong>{{ 'registry.request.show.state'|trans }}</strong></td>
+                                <td>{{ object.state|dictionary('registry_request_state') }}</td>
+                            </tr>
+                        {% endif %}
                         {% if object.state == constant('App\\Domain\\Registry\\Dictionary\\RequestStateDictionary::STATE_DENIED') %}
                             <tr>
                                 <td><strong>{{ 'registry.request.show.state_rejection_reason'|trans }}</strong></td>
@@ -114,7 +116,7 @@
             <div class="box box-solid box-success">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.applicant'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.request.show.applicant_civility'|trans }}</strong></td>
@@ -160,7 +162,7 @@
                 <div class="box box-solid box-warning">
                     <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.concerned_people'|trans }}</h3></div>
                     <div class="box-body no-padding">
-                        <table class="table">
+                        <table role="presentation" class="table">
                             <tbody>
                             <tr>
                                 <td><strong>{{ 'registry.request.show.concerned_people_civility'|trans }}</strong></td>
@@ -208,7 +210,7 @@
             <div class="box box-solid box-default">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.historic'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table class="table">
+                    <table role="presentation" class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.request.show.creator'|trans }}</strong></td>
@@ -231,6 +233,10 @@
                         <tr>
                             <td><strong>{{ 'registry.request.show.updated_at'|trans }}</strong></td>
                             <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.request.show.updated_by'|trans }}</strong></td>
+                            <td>{{ object.updatedBy }}</td>
                         </tr>
                         </tbody>
                     </table>

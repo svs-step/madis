@@ -74,6 +74,11 @@ class Request implements LoggableSubject, CollectivityRelated
     private $reason;
 
     /**
+     * @var string|null
+     */
+    private $updatedBy;
+
+    /**
      * @MaxDepth(1)
      *
      * @var RequestApplicant|null
@@ -175,6 +180,16 @@ class Request implements LoggableSubject, CollectivityRelated
         }
 
         return $this->getApplicant()->getFullName();
+    }
+
+    public function getUpdatedBy(): ?string
+    {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy(?string $updatedBy): void
+    {
+        $this->updatedBy = $updatedBy;
     }
 
     public function getObject(): ?string

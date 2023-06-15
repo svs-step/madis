@@ -49,9 +49,6 @@ class Tool extends CRUDRepository implements Repository\Tool
         $this->security = $security;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Tool::class;
@@ -121,6 +118,7 @@ class Tool extends CRUDRepository implements Repository\Tool
             switch ($columnName) {
                 case 'name':
                 case 'editor':
+                case 'type':
                     $this->addWhereClause($queryBuilder, $columnName, '%' . $search . '%', 'LIKE');
                     break;
                 case 'collectivity':
@@ -140,7 +138,8 @@ class Tool extends CRUDRepository implements Repository\Tool
                         ->setParameter('st_nom', '%' . $search . '%');
                     break;
                 default:
-                    $this->addWhereClause($queryBuilder, $columnName, $search);
+                    $queryBuilder->andWhere('o.' . $columnName . '.check = :search' . $columnName)
+                    ->setParameter(':search' . $columnName, $search);
                     break;
             }
         }
@@ -152,15 +151,20 @@ class Tool extends CRUDRepository implements Repository\Tool
             case 'collectivity':
                 $queryBuilder->addOrderBy('collectivity.name', $orderDir);
                 break;
-            default:
+            case 'type':
+            case 'editor':
+            case 'createdAt':
+            case 'updatedAt':
+            case 'name':
                 $queryBuilder->addOrderBy('o.' . $orderColumn, $orderDir);
+                break;
+            default:
+                // $queryBuilder->leftJoin(Model\Embeddable\ComplexChoice::class, 'cc', 'WITH', 'cc')
+                $queryBuilder->addOrderBy('o.' . $orderColumn . '.check', $orderDir);
                 break;
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAllByCollectivity(Collectivity $collectivity = null, array $order = [])
     {
         $qb = $this->createQueryBuilder();

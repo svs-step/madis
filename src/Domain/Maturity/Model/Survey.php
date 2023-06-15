@@ -42,10 +42,17 @@ class Survey implements LoggableSubject
      */
     private $id;
 
+    private ?Referentiel $referentiel;
+
     /**
      * @var iterable|null
      */
     private $answers;
+
+    /**
+     * @var iterable|null
+     */
+    private $optionalAnswers;
 
     /**
      * @var iterable
@@ -83,12 +90,17 @@ class Survey implements LoggableSubject
     public function addAnswer(Answer $answer): void
     {
         $this->answers[] = $answer;
-        $answer->setSurvey($this);
+        $answer->addSurvey($this);
+    }
+
+    public function setAnswers(iterable $answers): void
+    {
+        $this->answers = $answers;
     }
 
     public function removeAnswer(Answer $answer): void
     {
-        $key = \array_search($answer, $this->answers, true);
+        $key = \array_search($answer, (array) $this->answers, true);
 
         if (false === $key) {
             return;
@@ -102,6 +114,33 @@ class Survey implements LoggableSubject
         return $this->answers;
     }
 
+    public function addOptionalAnswer(OptionalAnswer $answer): void
+    {
+        $this->optionalAnswers[] = $answer;
+        $answer->setSurvey($this);
+    }
+
+    public function setOptionalAnswers(iterable $answers): void
+    {
+        $this->optionalAnswers = $answers;
+    }
+
+    public function removeOptionalAnswer(OptionalAnswer $answer): void
+    {
+        $key = \array_search($answer, (array) $this->optionalAnswers, true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->optionalAnswers[$key]);
+    }
+
+    public function getOptionalAnswers(): ?iterable
+    {
+        return $this->optionalAnswers;
+    }
+
     public function addMaturity(Maturity $maturity): void
     {
         $this->maturity[] = $maturity;
@@ -110,7 +149,7 @@ class Survey implements LoggableSubject
 
     public function removeMaturity(Maturity $maturity): void
     {
-        $key = \array_search($maturity, $this->maturity, true);
+        $key = \array_search($maturity, (array) $this->maturity, true);
 
         if (false === $key) {
             return;
@@ -126,6 +165,7 @@ class Survey implements LoggableSubject
 
     public function setMaturity(array $maturityList): void
     {
+        $this->maturity = [];
         foreach ($maturityList as $maturity) {
             $this->maturity[] = $maturity;
             $maturity->setSurvey($this);
@@ -140,5 +180,15 @@ class Survey implements LoggableSubject
     public function setScore(int $score): void
     {
         $this->score = $score;
+    }
+
+    public function getReferentiel(): ?Referentiel
+    {
+        return $this->referentiel;
+    }
+
+    public function setReferentiel(?Referentiel $referentiel): void
+    {
+        $this->referentiel = $referentiel;
     }
 }

@@ -31,6 +31,7 @@ use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Dictionary\ViolationCauseDictionary;
 use App\Domain\Registry\Dictionary\ViolationGravityDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
+use App\Domain\Registry\Dictionary\ViolationNotificationListDictionary;
 use App\Domain\Registry\Form\Type\ViolationType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Repository;
@@ -98,41 +99,26 @@ class ViolationController extends CRUDController
         $this->router               = $router;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'registry';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'violation';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\Violation::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return ViolationType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function isSoftDelete(): bool
     {
         return true;
@@ -175,9 +161,12 @@ class ViolationController extends CRUDController
         $users    = $this->getResults($request, $criteria);
         $reponse  = $this->getBaseDataTablesResponse($request, $users, $criteria);
 
+        $yes = '<span class="badge bg-orange">' . $this->translator->trans('label.yes') . '</span>';
+        $no  = '<span class="badge bg-green">' . $this->translator->trans('label.no') . '</span>';
+
         /** @var Model\Violation $violation */
         foreach ($users as $violation) {
-            $violationLink = '<a href="' . $this->router->generate('registry_violation_show', ['id' => $violation->getId()->toString()]) . '">
+            $violationLink = '<a aria-label="' . \date_format($violation->getDate(), 'd/m/Y') . '" href="' . $this->router->generate('registry_violation_show', ['id' => $violation->getId()->toString()]) . '">
                 ' . \date_format($violation->getDate(), 'd/m/Y') . '
             </a>';
 
@@ -200,7 +189,11 @@ class ViolationController extends CRUDController
                 'nature'       => $natures,
                 'cause'        => !\is_null($violation->getCause()) ? ViolationCauseDictionary::getNatures()[$violation->getCause()] : null,
                 'gravity'      => !\is_null($violation->getGravity()) ? ViolationGravityDictionary::getGravities()[$violation->getGravity()] : null,
+                'createdAt'    => date_format($violation->getCreatedAt(), 'd-m-Y H:i:s'),
+                'updatedAt'    => date_format($violation->getUpdatedAt(), 'd-m-Y H:i:s'),
+                'inProgress'   => $violation->isInProgress() ? $yes : $no,
                 'actions'      => $this->getActionCellsContent($violation),
+                'notification' => !\is_null($violation->getNotification()) && isset(ViolationNotificationListDictionary::getNotificationsList()[$violation->getNotification()]) ? ViolationNotificationListDictionary::getNotificationsList()[$violation->getNotification()] : null,
             ];
         }
 
@@ -227,9 +220,13 @@ class ViolationController extends CRUDController
             0 => 'collectivite',
             1 => 'date',
             2 => 'nature',
-            3 => 'cause',
-            4 => 'gravity',
-            5 => 'actions',
+            3 => 'inProgress',
+            4 => 'cause',
+            5 => 'gravity',
+            6 => 'notification',
+            7 => 'createdAt',
+            8 => 'updatedAt',
+            9 => 'actions',
         ];
     }
 
@@ -240,11 +237,11 @@ class ViolationController extends CRUDController
         if ($this->authorizationChecker->isGranted('ROLE_USER')
         && \is_null($violation->getDeletedAt())
         && ($user->getServices()->isEmpty() || $this->isRequestInUserServices($violation))) {
-            $cellContent .= '<a href="' . $this->router->generate('registry_violation_edit', ['id' => $violation->getId()]) . '">
+            $cellContent .= '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('registry_violation_edit', ['id' => $violation->getId()]) . '">
                     <i class="fa fa-pencil-alt"></i> ' .
                     $this->translator->trans('action.edit') . '
                 </a>
-                <a href="' . $this->router->generate('registry_violation_delete', ['id' => $violation->getId()]) . '">
+                <a aria-label="' . $this->translator->trans('action.archive') . '" href="' . $this->router->generate('registry_violation_delete', ['id' => $violation->getId()]) . '">
                     <i class="fa fa-archive"></i> ' .
                     $this->translator->trans('action.archive') . '
                 </a>';

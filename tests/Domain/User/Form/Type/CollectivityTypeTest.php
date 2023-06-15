@@ -35,12 +35,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class CollectivityTypeTest extends FormTypeHelper
 {
@@ -48,6 +50,8 @@ class CollectivityTypeTest extends FormTypeHelper
      * @var AuthorizationCheckerInterface
      */
     private $authorizationCheckerProphecy;
+
+    private $security;
 
     /**
      * @var CollectivityType
@@ -57,8 +61,10 @@ class CollectivityTypeTest extends FormTypeHelper
     protected function setUp(): void
     {
         $this->authorizationCheckerProphecy = $this->prophesize(AuthorizationCheckerInterface::class);
+        $this->security                     = $this->prophesize(Security::class);
 
         $this->formType = new CollectivityType(
+            $this->security->reveal(),
             $this->authorizationCheckerProphecy->reveal()
         );
     }
@@ -97,6 +103,7 @@ class CollectivityTypeTest extends FormTypeHelper
             'population'                          => NumberType::class,
             'nbrAgents'                           => NumberType::class,
             'nbrCnil'                             => NumberType::class,
+            'updatedBy'                           => HiddenType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
@@ -118,6 +125,7 @@ class CollectivityTypeTest extends FormTypeHelper
             'reportingBlockManagementCommitment'  => CKEditorType::class,
             'reportingBlockContinuousImprovement' => CKEditorType::class,
             'comiteIlContacts'                    => CollectionType::class,
+            'website'                             => UrlType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(false);

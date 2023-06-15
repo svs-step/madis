@@ -14,27 +14,21 @@
     {% for notif in notifs|slice(0, maxNotifs) %}
         <li class="box-header with-border single-notification" style="padding: 0.8em;">
             <div class="row">
-                {% if is_granted('ROLE_ADMIN') %}
-                    <div class="col-md-8" href="#">
-                {% else %}
-                    <div class="col-md-12" href="#">
-                {% endif %}
-                        {{ notif | sentence | raw }}
+                <div class="col-md-8" href="#">
+                    {{ notif | sentence | raw }}
 
-                        <div class="text-muted">
-                            {{ notif.action | trans }}, <b>{{ notif.createdAt|ago }}</b>
-                            {% if notif.createdBy %}
-                            par <b>{{ notif.createdBy }}</b>
-                            {% endif %}
-                        </div>
-                </div>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <div class="col-md-4 text-center">
-                        <a  href="{{ path('notification_notification_mark_as_read', { 'id': notif.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
-                            <i class="fas fa-clipboard-check"></i> {{ 'notification.notification.action.mark_as_read'|trans }}
-                        </a>
+                    <div class="text-muted">
+                        {{ notif.action | trans }}, <b>{{ notif.createdAt|ago }}</b>
+                        {% if notif.createdBy %}
+                        par <b>{{ notif.createdBy }}</b>
+                        {% endif %}
                     </div>
-                {% endif %}
+                </div>
+                <div class="col-md-4 text-center">
+                    <a  href="{{ path('notification_notification_mark_as_read', { 'id': notif.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
+                        <i class="fas fa-clipboard-check"></i> {{ 'notification.notification.action.mark_as_read'|trans }}
+                    </a>
+                </div>
             </div>
         </li>
     {% endfor %}

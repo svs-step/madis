@@ -86,8 +86,6 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
     /**
      * Insert an object.
      *
-     * @param mixed $object
-     *
      * @throws \Exception
      */
     public function insert($object): void
@@ -99,8 +97,6 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
     /**
      * Update an object.
      *
-     * @param mixed $object
-     *
      * @throws \Exception
      */
     public function update($object): void
@@ -110,8 +106,6 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
 
     /**
      * Create an object.
-     *
-     * @return mixed
      */
     public function create()
     {
@@ -122,8 +116,6 @@ abstract class CRUDRepository implements CRUDRepositoryInterface
 
     /**
      * Remove an object.
-     *
-     * @param mixed $object
      *
      * @throws \Exception
      */

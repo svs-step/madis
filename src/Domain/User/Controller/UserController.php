@@ -101,33 +101,21 @@ class UserController extends CRUDController
         $this->authorizationChecker = $authorizationChecker;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDomain(): string
     {
         return 'user';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModel(): string
     {
         return 'user';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getModelClass(): string
     {
         return Model\User::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getFormType(): string
     {
         return UserType::class;
@@ -240,6 +228,8 @@ class UserController extends CRUDController
                 'actif'        => $actif,
                 'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('Y-m-d H:i:s') : null,
                 'services'     => $services,
+                'createdAt'    => $user->getCreatedAt() ? date_format($user->getCreatedAt(), 'd-m-Y H:i:s') : null,
+                'updatedAt'    => $user->getUpdatedAt() ? date_format($user->getUpdatedAt(), 'd-m-Y H:i:s') : null,
                 'actions'      => $this->getActionCellsContent($user),
             ];
         }
@@ -253,16 +243,18 @@ class UserController extends CRUDController
     protected function getLabelAndKeysArray(): array
     {
         return [
-            0 => 'prenom',
-            1 => 'nom',
-            2 => 'email',
-            3 => 'collectivite',
-            4 => 'roles',
-            5 => 'actif',
-            6 => 'connexion',
-            7 => 'services',
-            8 => 'actions',
-            9 => 'moreInfos',
+            'prenom',
+            'nom',
+            'email',
+            'collectivite',
+            'roles',
+            'moreInfos',
+            'actif',
+            'connexion',
+            'services',
+            'createdAt',
+            'updatedAt',
+            'actions',
         ];
     }
 
@@ -286,41 +278,41 @@ class UserController extends CRUDController
         $cellContent = '';
         if ($this->security->getUser() !== $user && \is_null($user->getDeletedAt()) && !$this->isGranted('ROLE_PREVIOUS_ADMIN')) {
             $cellContent .=
-                '<a href="' . $this->router->generate('reporting_dashboard_index', ['_switch_user' => $user->getUsername()]) . '">
+                '<a aria-label="' . $this->translator->trans('action.impersonate') . '" href="' . $this->router->generate('reporting_dashboard_index', ['_switch_user' => $user->getUsername()]) . '">
                     <i class="fa fa-user-lock"></i> ' .
                 $this->translator->trans('action.impersonate') .
-                '</a>';
+                '</a> ';
         }
 
         if ($this->security->isGranted('ROLE_ADMIN')) {
             if (\is_null($user->getDeletedAt())) {
                 $cellContent .=
-                    '<a href="' . $this->router->generate('user_user_edit', ['id' => $user->getId()]) . '">
+                    '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('user_user_edit', ['id' => $user->getId()]) . '">
                         <i class="fa fa-pencil-alt"></i> ' .
                     $this->translator->trans('action.edit') .
-                    '</a>';
+                    '</a> ';
             }
 
             if ($this->security->getUser() !== $user) {
                 if (\is_null($user->getDeletedAt())) {
                     $cellContent .=
-                        '<a href="' . $this->router->generate('user_user_delete', ['id' => $user->getId()]) . '">
+                        '<a aria-label="' . $this->translator->trans('action.archive') . '" href="' . $this->router->generate('user_user_delete', ['id' => $user->getId()]) . '">
                         <i class="fa fa-archive"></i> ' .
                         $this->translator->trans('action.archive') .
-                        '</a>';
+                        '</a> ';
                 } else {
                     $cellContent .=
-                        '<a href="' . $this->router->generate('user_user_unarchive', ['id' => $user->getId()]) . '">
+                        '<a aria-label="' . $this->translator->trans('action.unarchive') . '" href="' . $this->router->generate('user_user_unarchive', ['id' => $user->getId()]) . '">
                         <i class="fa fa-archive"></i> ' .
                         $this->translator->trans('action.unarchive') .
-                        '</a>';
+                        '</a> ';
                 }
 
                 $cellContent .=
-                '<a href="' . $this->router->generate('user_user_delete', ['id' => $user->getId()]) . '">
+                '<a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('user_user_delete', ['id' => $user->getId()]) . '">
                     <i class="fa fa-trash-alt"></i> ' .
                 $this->translator->trans('action.delete') .
-                '</a>';
+                '</a> ';
             }
         }
 

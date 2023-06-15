@@ -1,36 +1,80 @@
-{% set submitValue = submitValue|default('action.submit'|trans) %}
+{% if form.vars.value.createdAt.timestamp is defined %}
+    {% set submitValue = submitValue|default('maturity.survey.action.edit_submit'|trans) %}
+{% else %}
+    {% set submitValue = submitValue|default('maturity.survey.action.new_submit'|trans) %}
+{% endif %}
+
 
 {{ form_start(form) }}
+{% do form.questions.setRendered() %}
+{% do form.referentiel.setRendered() %}
+{{ form_errors(form) }}
+<div class="row">
+    {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
+    <input type="hidden" name="referentiel" value="{{ form.vars.value.referentiel ? form.vars.value.referentiel.id : '' }}" />
+    {% set domains = form.vars.value.referentiel ? form.vars.value.referentiel.domains : [] %}
 
-{% for domainInfo in orderByDomain(form.answers) %}
-    {% set newRow = loop.index is odd %}
-    {% if newRow %}
+{% for domain in domains %}
+    <div class="col-md-12">
+        <div class="box box-solid {{ colors[loop.index % 4] }}">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ domain.name }}</h3>
+            </div>
+            <div class="box-body">
+
+    {% for question in domain.questions %}
+        {% set optionAnswers = form.vars.data.optionalAnswers ? form.vars.data.optionalAnswers|filter(a => a.question.id == question.id) : [] %}
         <div class="row">
-    {% endif %}
-        <div class="col-md-6">
-            <div class="box box-solid box-{{ domainInfo.color }}">
-                <div class="box-header with-border"><h3 class="box-title">{{ domainInfo.name }}</h3></div>
-                <div class="box-body">
-                    {% for formAnswer in orderAnswersByQuestionNameAsc(domainInfo.answers) %}
-                        <label class="control-label required" style="text-align: left;">{{ formAnswer.vars.value.question.name }}*</label>
-                            {{ form_row(formAnswer) }}
-                    {% endfor %}
-                </div>
+            <div class="col-md-12">
+                <h4>{{ question.name }}</h4>
+                {% if question.option %}
+                    <label>
+                        <input
+                                class="question-option"
+                                id="question-option-{{ question.id }}"
+                                type="checkbox" name="survey[questions][{{ question.id }}][option]"
+                                value="1"
+
+                                {% if optionAnswers|length > 0 and optionAnswers|first.reason %} checked {% endif %}
+
+                        />
+                        Non concerné<span class="question-option-reason" {% if not (optionAnswers|length > 0 and optionAnswers|first.reason) %} style="display:none"{% endif %}>&nbsp;:
+                        <input id="question-option-reason-{{ question.id }}" type="text" name="survey[questions][{{ question.id }}][optionReason]" value="{% if optionAnswers|length > 0 %}{{ optionAnswers|first.reason }}{% endif %}" />
+                        </span>
+                    </label>
+
+                {% endif %}
+                <ul {% if optionAnswers|length > 0 and optionAnswers|first.reason %} style="display:none"{% endif %}>
+                {% for answer in question.answers|sort((a, b) => a.position > b.position) %}
+                    <li>
+                    <label>
+                        <input {% if form.vars.data.answers|filter(a => a.id == answer.id)|length > 0 %} checked {% endif%} id="answer-{{ answer.id }}" type="radio" name="survey[questions][{{ question.id }}][answers][]" value="{{ answer.id }}" {% if not (optionAnswers|length > 0 and optionAnswers|first.reason) %}required{% endif%} />
+                        {{ answer.position }} - {{ answer.name }}
+                    </label>
+                    </li>
+                {% endfor %}
+                </ul>
+
             </div>
         </div>
-    {% if not newRow %}
-        </div>
-    {% endif %}
+    {% endfor %}
+    </div>
+</div>
 {% endfor %}
 
 <div class="row">
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a href="{{ path('maturity_survey_list') }}" class="btn btn-default">
+                {% if domains|length == 0 %}
+                    <p>Aucun référentiel pour cet indice de maturité.</p>
+                {% endif %}
+                <a aria-label="{{ 'maturity.survey.action.back_to_list'|trans }}" href="{{ path('maturity_survey_list') }}" class="btn btn-default">
                     {{ 'maturity.survey.action.back_to_list'|trans }}
                 </a>
+                {% if domains|length > 0 %}
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+                {% endif %}
             </div>
         </div>
     </div>
