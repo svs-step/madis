@@ -48,6 +48,14 @@ class AnalyseImpactExtension extends AbstractExtension
         return $formattedString;
     }
 
+    public function isScenarioMenaceImpactResiduelImpactNotNegligeable(AnalyseScenarioMenace $scenarioMenace): bool
+    {
+        $impact = VraisemblanceGraviteDictionary::getImpact($this->getScenarioMenaceImpactResiduel($scenarioMenace));
+
+        return $impact !== VraisemblanceGraviteDictionary::NEGLIGEABLE ;
+    }
+
+
     public function getConformiteLabel(AnalyseQuestionConformite $questionAnalyse): string
     {
         $reponseConformite = $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getReponseOfPosition($questionAnalyse->getPosition());
