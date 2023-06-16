@@ -197,9 +197,9 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
 
     private function ColorCellPriority($priority){
         $returned_value = match($priority){
-            'Basse' => 'ffff80',
+            'low' => 'ffff80',
             'normal' => 'fac9ad',
-            'Haute' => 'ffa7a7',
+            'high' => 'ffa7a7',
             '' => 'ffffff',
         };
 
