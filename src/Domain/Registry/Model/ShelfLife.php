@@ -15,17 +15,17 @@ class ShelfLife
     /**
      * @var string
      */
-    private $name;
+    public $name;
 
     /**
      * @var string
      */
-    private $duration;
+    public $duration;
 
     /**
      * @var string
      */
-    private $ultimateFate;
+    public $ultimateFate;
 
     /**
      * @var Treatment

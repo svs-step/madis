@@ -28,6 +28,7 @@ use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentCollectingMethodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
+use App\Domain\Registry\Dictionary\TreatmentUltimateFateDictionary;
 use App\Domain\Registry\Model\Treatment;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shared\Converter;
@@ -292,14 +293,13 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             ];
 
             // "Délai de conservation"
-            $delayContent = '';
-            if (null !== $treatment->getDelay()->getComment()) {
-                $delayContent = $treatment->getDelay()->getComment();
-            } elseif (null !== $treatment->getDelay()->getPeriod()) {
-                $period       = DelayPeriodDictionary::getPeriods()[$treatment->getDelay()->getPeriod()];
-                $delayContent = "{$treatment->getDelay()->getNumber()} {$period}";
+            if (count($treatment->getShelfLifes()) > 0){
+                foreach($treatment->getShelfLifes() as $delay){
+                    $detailsData[3][1][] = $delay->name .' - '. $delay->duration .' - '. TreatmentUltimateFateDictionary::getUltimateFates()[$delay->ultimateFate] ;
+                }
+            } else {
+                $detailsData[3][1][] = '';
             }
-            $detailsData[3][] = $delayContent;
 
             $categoryData = [
                 [
