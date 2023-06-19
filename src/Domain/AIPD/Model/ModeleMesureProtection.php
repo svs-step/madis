@@ -12,7 +12,6 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class ModeleMesureProtection extends AbstractMesureProtection
 {
-    use HistoryTrait;
     /**
      * @var array|ModeleScenarioMenace[]
      *

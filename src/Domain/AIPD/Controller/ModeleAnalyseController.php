@@ -275,8 +275,8 @@ class ModeleAnalyseController extends CRUDController
             $reponse['data'][] = [
                 'nom'         => $modele->getNom(),
                 'description' => $modele->getDescription(),
-                'createdAt'   => date_format($modele->getCreatedAt(), 'd-m-Y'),
-                'updatedAt'   => date_format($modele->getUpdatedAt(), 'd-m-Y'),
+                'createdAt'   => date_format($modele->getCreatedAt(), 'd-m-Y H:i:s'),
+                'updatedAt'   => date_format($modele->getUpdatedAt(), 'd-m-Y H:i:s'),
                 'actions'     => $this->generateActioNCellContent($modele),
             ];
         }
