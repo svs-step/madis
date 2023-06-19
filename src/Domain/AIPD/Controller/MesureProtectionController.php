@@ -85,10 +85,9 @@ class MesureProtectionController extends CRUDController
 
         $reponse = $this->getBaseDataTablesResponse($request, $mesures);
         /** @var ModeleMesureProtection $mesure */
-
         foreach ($mesures as $mesure) {
             /** @var ModeleMesureProtection $m */
-            $m = $mesure[0];
+            $m                 = $mesure[0];
             $reponse['data'][] = [
                 'nom'                => $m->getNom(),
                 'nomCourt'           => $m->getNomCourt(),

@@ -11,7 +11,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class AbstractMesureProtection
 {
-//    use HistoryTrait;
+    //    use HistoryTrait;
     /**
      * @Serializer\Accessor(getter="getIdString",setter="setIdFromString")
      *
@@ -30,6 +30,7 @@ class AbstractMesureProtection
      * @var \DateTimeImmutable|null
      *
      * @Serializer\Type("DateTimeImmutable")
+     *
      * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
@@ -38,6 +39,7 @@ class AbstractMesureProtection
      * @var \DateTimeImmutable|null
      *
      * @Serializer\Type("DateTimeImmutable")
+     *
      * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;

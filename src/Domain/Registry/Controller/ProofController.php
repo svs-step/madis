@@ -28,7 +28,6 @@ use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Documentation\Model\Category;
-use App\Domain\Documentation\Model\Document;
 use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Form\Type\ProofType;
 use App\Domain\Registry\Model;

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
-use App\Domain\Maturity\Model\Question;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
