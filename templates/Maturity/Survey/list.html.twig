@@ -104,11 +104,28 @@
 {% endblock %}
 
 {% block javascripts %}
+    {% if is_granted('ROLE_REFERENT') %}
     {% set dataTableOptions = {
-        columnDefs: [
-            { orderable: false, className: "noVis", targets: 3, visible: true },
-        ],
+        columns: [
+            {"data": "collectivity", "classname": "noVis"},
+            {"data": "referentiel"},
+            {"data": "score", "visible": true},
+            {"data": "createdAt", "visible": false},
+            {"data": "updatedAt", "visible": false},
+            {"data": "actions", "className": "noVis", "orderable": false}
+        ]
     } %}
+    {% else %}
+        {% set dataTableOptions = {
+            columns: [
+                {"data": "referentiel"},
+                {"data": "score", "visible": true},
+                {"data": "createdAt", "visible": false},
+                {"data": "updatedAt", "visible": false},
+                {"data": "actions", "className": "noVis", "orderable": false}
+            ]
+        } %}
+    {% endif %}
 
     {{ include('_Utils/_datatable.html.twig') }}
 {% endblock %}
