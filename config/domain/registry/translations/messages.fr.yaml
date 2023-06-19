@@ -531,9 +531,12 @@ registry:
             security_tracability: Traçabilité
             security_update: Mise à jour
             service: Service
+            shelflife_name: Nom
+            shelflife_duration: Durée
+            shelflife_ultimate_fate: Sort final
+            software: Logiciel
             statut: Statut
             systematic_monitoring: Surveillance systématique
-            software: Logiciel
             tools: Logiciels et supports
             ultimate_fate: Sort final
             vulnerable_people: Personnes vulnérables
@@ -637,6 +640,7 @@ registry:
             security_tracability: Traçabilité
             security_update: Mise à jour
             service: Service
+            shelfLife: Délai de conservation
             software: Logiciel
             statut: Statut
             ultimate_fate: Sort final

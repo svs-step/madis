@@ -25,7 +25,6 @@ declare(strict_types=1);
 namespace App\Domain\Registry\Form\Type;
 
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
-use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Tool;
 use App\Domain\Registry\Model\Treatment;
@@ -39,6 +38,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -167,7 +167,7 @@ class TreatmentType extends AbstractType
                     return $er->createQueryBuilder('dc')
                         ->orderBy('dc.position', Criteria::ASC);
                 },
-                'choice_attr' => function (TreatmentDataCategory $model) {
+                'choice_attr'   => function (TreatmentDataCategory $model) {
                     if ($model->isSensible()) {
                         return [
                             'style' => 'font-weight: bold;',
@@ -230,10 +230,6 @@ class TreatmentType extends AbstractType
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_contractors',
                 ],
-            ])
-            ->add('delay', DelayType::class, [
-                'label'    => 'registry.treatment.form.delay',
-                'required' => false,
             ])
             ->add('securityAccessControl', ComplexChoiceType::class, [
                 'label'    => 'registry.treatment.form.security_access_control',
@@ -343,11 +339,11 @@ class TreatmentType extends AbstractType
                 'required'     => false,
                 'block_prefix' => 'custom_checkbox',
             ])
-            ->add('ultimateFate', DictionaryType::class, [
-                'label'       => 'registry.treatment.form.ultimate_fate',
-                'name'        => 'registry_treatment_ultimate_fate',
-                'required'    => false,
-                'placeholder' => 'placeholder.precision',
+            ->add('shelfLifes', CollectionType::class, [
+                'entry_type'   => ShelfLifeType::class,
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'by_reference' => false,
             ])
             ->add('otherCollectingMethod', TextType::class, [
                 'label'    => 'registry.treatment.form.otherCollectingMethod',
@@ -413,7 +409,7 @@ class TreatmentType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr' => [
+                'attr'          => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
@@ -461,7 +457,7 @@ class TreatmentType extends AbstractType
                     return $er->createQueryBuilder('s')
                         ->orderBy('s.name', 'ASC');
                 },
-                'required' => false,
+                'required'      => false,
             ]);
         }
     }

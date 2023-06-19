@@ -181,12 +181,12 @@ class NotificationGenerationTest extends WebTestCase
 
         $client->request('POST', $url, [
             'analyse_avis' => [
-                'avisReferent' => [
+                'avisReferent'     => [
                     'date'    => date('d/m/Y'),
                     'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
                     'detail'  => 'ok',
                 ],
-                'avisDpd' => [
+                'avisDpd'          => [
                     'date'    => date('d/m/Y'),
                     'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
                     'detail'  => 'ok',
@@ -196,12 +196,12 @@ class NotificationGenerationTest extends WebTestCase
                     'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
                     'detail'  => 'ok',
                 ],
-                'avisResponsable' => [
+                'avisResponsable'  => [
                     'date'    => date('d/m/Y'),
                     'reponse' => ReponseAvisDictionary::REPONSE_FAVORABLE,
                     'detail'  => 'ok',
                 ],
-                '_token' => $csrfToken,
+                '_token'           => $csrfToken,
                 // 'uploadedFile' => $uploadedFile,
             ],
         ]);

@@ -139,13 +139,17 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             ]
         );
         if (!empty($serie2)) {
-            $chart->addSeries(\array_keys($maturityList), $serie2, $data['old']->getCreatedAt()->format('d/m/Y'));
+            if (isset($data['old'])) {
+                $chart->addSeries(\array_keys($maturityList), $serie2, $data['old']->getCreatedAt()->format('d/m/Y'));
+            }
         }
         $table = $section->addTable(['unit' => TblWidth::PERCENT, 'width' => 5000]);
         $row   = $table->addRow(null,['cantsplit' => true]);
         if (!empty($serie2)) {
             $cell = $row->addCell(2500);
-            $cell->addText("{$data['old']}", ['color' => 'b30000']);
+            if (isset($data['old'])) {
+                $cell->addText("{$data['old']}", ['color' => 'b30000']);
+            }
         }
         $cell = $row->addCell(2500);
         $cell->addText("{$data['new']}", ['align' => 'right', 'color' => '3c8dbc']);
@@ -156,7 +160,9 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $cell = $row->addCell(2000, ['bgColor' => '3c8dbc', 'valign' => 'center']);
         $cell->addText('Domaines',['bold' => true, 'color' => 'ffffff']);
         $cell = $row->addCell(2000, ['bgColor' => '3c8dbc', 'valign' => 'center', ]);
-        $cell->addText($data['old']->getCreatedAt()->format('d/m/Y'), ['bold' => true, 'color' => 'ffffff']);
+        if (isset($data['old'])) {
+            $cell->addText($data['old']->getCreatedAt()->format('d/m/Y'), ['bold' => true, 'color' => 'ffffff']);
+        }
         $cell = $row->addCell(2000, ['bgColor' => '3c8dbc', 'valign' => 'center', ]);
         $cell->addText($data['new']->getCreatedAt()->format('d/m/Y'), ['bold' => true, 'color' => 'ffffff']);
 
@@ -167,8 +173,11 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             $cell->addText($domain, []);
             $cell = $row->addCell(2000, ['valign' => 'center', ]);
             $cell->addText($serie1[$i], []);
+
             $cell = $row->addCell(2000, ['valign' => 'center', ]);
-            $cell->addText($serie2[$i], []);
+            if (isset($serie2[$i])) {
+                $cell->addText($serie2[$i], []);
+            }
             $i++;
         }
     }

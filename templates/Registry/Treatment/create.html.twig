@@ -17,6 +17,11 @@
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
 
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('js/collectionManager') }}
+{% endblock %}
+
 {% block body %}
     {{ include('Registry/Treatment/_form_render.html.twig') }}
 

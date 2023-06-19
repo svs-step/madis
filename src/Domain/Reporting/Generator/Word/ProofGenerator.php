@@ -93,7 +93,7 @@ class ProofGenerator extends AbstractGenerator implements ImpressionGeneratorInt
             $cell = $proofAnnexListTable->addCell(2500);
             $cell->addText($item->getType());
             $cell = $proofAnnexListTable->addCell(2500);
-            $cell->addText($item->getCreatedAt('d/m/Y'));
+            $cell->addText($item->getCreatedAt()->format('d/m/Y'));
         }
     }
 }

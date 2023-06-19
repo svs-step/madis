@@ -90,7 +90,5 @@ App\Domain\Registry\Model\Treatment:
             groups: [ 'treatment_read' ]
         estimatedConcernedPeople:
             groups: ['treatment_read']
-        ultimateFate:
-            groups: ['treatment_read']
         conformiteTraitement:
             groups: ['treatment_read']

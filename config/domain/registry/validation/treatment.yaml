@@ -36,8 +36,6 @@ App\Domain\Registry\Model\Treatment:
             - NotNull:
                 message: 'registry_treatment.active.not_null'
                 groups: ['default']
-        delay:
-            - Valid: ~
         manager:
             - Length:
                 max: 255
@@ -56,10 +54,6 @@ App\Domain\Registry\Model\Treatment:
             - Valid: ~
         securityOther:
             - Valid: ~
-        ultimateFate:
-            - Knp\DictionaryBundle\Validator\Constraints\Dictionary:
-                  name: 'registry_treatment_ultimate_fate'
-                  groups: ['default']
         dpoMessage:
             - Length:
                   max: 255
