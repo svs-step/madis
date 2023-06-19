@@ -95,8 +95,8 @@ class MesureProtectionController extends CRUDController
                 'detail'             => $m->getDetail(),
                 'poidsVraisemblance' => $m->getPoidsVraisemblance(),
                 'poidsGravite'       => $m->getPoidsGravite(),
-                'createdAt'          => $m->getCreatedAt() && $m->getCreatedAt()->format('Y') > 0 ? $m->getCreatedAt()->format('d-m-Y H:i:s') : '',
-                'updatedAt'          => $m->getUpdatedAt() && $m->getUpdatedAt()->format('Y') > 0 ? $m->getUpdatedAt()->format('d-m-Y H:i:s') : '',
+                'createdAt'          => $m->getCreatedAt() && $m->getCreatedAt()->format('Y') > 0 ? $m->getCreatedAt()->format('d-m-Y H:i') : '',
+                'updatedAt'          => $m->getUpdatedAt() && $m->getUpdatedAt()->format('Y') > 0 ? $m->getUpdatedAt()->format('d-m-Y H:i') : '',
                 'actions'            => $this->generateActionCellContent($mesure['id']),
             ];
         }

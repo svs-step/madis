@@ -312,8 +312,8 @@ class ReferentielController extends CRUDController
             $reponse['data'][] = [
                 'name'        => $referentiel->getName(),
                 'description' => $referentiel->getDescription(),
-                'createdAt'   => date_format($referentiel->getCreatedAt(), 'd-m-Y'),
-                'updatedAt'   => date_format($referentiel->getUpdatedAt(), 'd-m-Y'),
+                'createdAt'   => date_format($referentiel->getCreatedAt(), 'd-m-Y H:i'),
+                'updatedAt'   => date_format($referentiel->getUpdatedAt(), 'd-m-Y H:i'),
                 'actions'     => $this->generateActionCellContent($referentiel),
             ];
         }
