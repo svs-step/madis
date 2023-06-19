@@ -295,7 +295,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             // "Délai de conservation"
             if (count($treatment->getShelfLifes()) > 0){
                 foreach($treatment->getShelfLifes() as $delay){
-                    $detailsData[3][1][] = $delay->name .' - '. $delay->duration .' - '. TreatmentUltimateFateDictionary::getUltimateFates()[$delay->ultimateFate] ;
+                    $detailsData[3][1][] = $delay->name .' - '. $delay->duration .' - '. TreatmentUltimateFateDictionary::getUltimateFates()[$delay->ultimateFate]."\n" ;
                 }
             } else {
                 $detailsData[3][1][] = '';
