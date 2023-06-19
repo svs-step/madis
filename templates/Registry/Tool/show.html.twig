@@ -99,12 +99,6 @@
                 <div class="box-body no-padding">
                     <table class="table">
                         <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.tool.show.creator'|trans }}</strong></td>
-                            <td>
-                                {{ object.creator }}
-                            </td>
-                        </tr>
                         {% if is_granted('ROLE_ADMIN') %}
                             <tr>
                                 <td><strong>{{ 'registry.tool.show.collectivity'|trans }}</strong></td>
@@ -122,6 +116,10 @@
                         <tr>
                             <td><strong>{{ 'registry.tool.show.updated_at'|trans }}</strong></td>
                             <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.contractor.show.updated_by'|trans }}</strong></td>
+                            <td>{{ object.updatedBy }}</td>
                         </tr>
                         </tbody>
                     </table>

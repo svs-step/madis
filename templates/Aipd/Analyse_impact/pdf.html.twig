@@ -1391,12 +1391,6 @@
                     <div class="box-body no-padding">
                         <table class="table">
                             <tbody>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.creator'|trans }}</strong></td>
-                                <td>
-                                    {{ traitement.creator }}
-                                </td>
-                            </tr>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <tr>
                                     <td><strong>{{ 'registry.treatment.show.collectivity'|trans }}</strong></td>
@@ -1412,6 +1406,10 @@
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.updated_at'|trans }}</strong></td>
                                 <td>{{ traitement.updatedAt|date('d/m/Y H:i') }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.updated_by'|trans }}</strong></td>
+                                <td>{{ object.updatedBy }}</td>
                             </tr>
                             </tbody>
                         </table>

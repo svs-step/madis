@@ -65,12 +65,6 @@
                 <div class="box-body no-padding">
                     <table class="table">
                         <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.tool.show.creator'|trans }}</strong></td>
-                            <td>
-                                {{ object.creator }}
-                            </td>
-                        </tr>
                         {% if is_granted('ROLE_ADMIN') %}
                             <tr>
                                 <td><strong>{{ 'registry.tool.show.collectivity'|trans }}</strong></td>

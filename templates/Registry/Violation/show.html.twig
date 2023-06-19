@@ -129,18 +129,6 @@
                 <div class="box-body no-padding">
                     <table class="table">
                         <tbody>
-                        <tr>
-                            <td>
-                                <strong>{{ 'registry.violation.show.creator'|trans }}</strong>
-                            </td>
-                            <td>
-                                {% if object.creator %}
-                                    {{ object.creator }}
-                                {% else %}
-                                    {{ 'registry.violation.show.deleted_user'|trans }}
-                                {% endif %}
-                            </td>
-                        </tr>
                         {% if is_granted('ROLE_ADMIN') %}
                             <tr>
                                 <td><strong>{{ 'registry.violation.show.collectivity'|trans }}</strong></td>

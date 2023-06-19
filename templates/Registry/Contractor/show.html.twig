@@ -167,18 +167,6 @@
                 <div class="box-body no-padding">
                     <table role="presentation" class="table">
                         <tbody>
-                        <tr>
-                            <td>
-                                <strong>{{ 'registry.contractor.show.creator'|trans }}</strong>
-                            </td>
-                            <td>
-                                {% if object.creator %}
-                                    {{ object.creator }}
-                                {% else %}
-                                    {{ 'registry.contractor.show.deleted_user'|trans }}
-                                {% endif %}
-                            </td>
-                        </tr>
                         {% if is_granted('ROLE_ADMIN') %}
                             <tr>
                                 <td><strong>{{ 'registry.contractor.show.collectivity'|trans }}</strong></td>
