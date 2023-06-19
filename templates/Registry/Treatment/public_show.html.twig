@@ -619,7 +619,11 @@
                             {% if ((object.tools or object.software) and config.software == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.software'|trans }}</strong>
+                                        <strong>{% if object.collectivity.hasModuleTools %}
+                                            {{ 'registry.treatment.show.software'|trans }}
+                                            {% else %}
+                                                {{ 'registry.treatment.show.tools'|trans }}
+                                            {% endif %}</strong>
                                     </td>
                                     <td>
                                         {% if object.collectivity.hasModuleTools %}

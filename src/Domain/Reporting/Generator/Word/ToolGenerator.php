@@ -116,7 +116,7 @@ class ToolGenerator extends AbstractGenerator implements ImpressionGeneratorInte
                 ],
                 [
                     'Date de mise en production',
-                    $this->getDate($tool->getProdDate()),
+                    $tool->getProdDate() ? $tool->getProdDate()->format('d/m/Y') : '',
                 ],
                 [
                     'Pays d\'hébergement ou de stockage',

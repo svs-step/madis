@@ -347,10 +347,20 @@
                             <td>{{ object.estimatedConcernedPeople }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.software'|trans }}</strong></td>
+                            <td><strong>
+                                    {% if object.collectivity.hasModuleTools %}
+                                        {{ 'registry.treatment.show.software'|trans }}
+                                    {% else %}
+                                        {{ 'registry.treatment.show.tools'|trans }}
+                                    {% endif %}
+                                </strong></td>
                             <td>
                                 {% if object.collectivity.hasModuleTools %}
-                                    {{ object.tools|map(t => t.name)|join(', ') }}
+                                    <ul>
+                                        {% for tool in object.tools %}
+                                            <li><a href="{{ url('registry_tool_show', {'id': tool.id}) }}">{{ tool.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
                                 {% else %}
                                     {{ object.software }}
                                 {% endif %}
@@ -606,10 +616,6 @@
                 </div>
             </div>
 
-            {% if object.collectivity.isHasModuleTools %}
-                {# Tools#}
-                {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
-            {% endif %}
 
             {% if object.collectivity.hasModuleConformiteTraitement %}
                 <div class="box box-solid box-success">
